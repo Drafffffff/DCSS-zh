@@ -2,17 +2,19 @@
 
 基于 Dungeon Crawl Stone Soup **0.34.1 稳定版**的非官方简体中文原生版本，提供 macOS Apple Silicon 与 Bazzite / Fedora x86_64 图形版和终端版。
 
-[下载最新 Release](https://github.com/Drafffffff/DCSS-zh/releases/latest) · [上游 DCSS](https://github.com/crawl/crawl) · [像素字体来源](https://github.com/TakWolf/fusion-pixel-font)
+[上游 DCSS](https://github.com/crawl/crawl) · [像素字体来源](https://github.com/TakWolf/fusion-pixel-font)
 
-## 下载与运行
+## 构建与运行
 
-| 系统 | 下载文件 | 启动方式 |
+当前仓库提交提供完整源码、字体和构建脚本，尚未发布二进制 Release。按下方说明构建后可运行：
+
+| 系统 | 构建产物 | 启动方式 |
 | --- | --- | --- |
-| macOS 26+，Apple Silicon | `DCSS-zh-0.34.1-zh.1-macos-arm64.zip` | 解压，将 `DCSS 中文版.app` 拖入应用程序后打开；终端版使用同目录的 `.command` |
-| Bazzite / Fedora 43+，x86_64 | `DCSS-zh-0.34.1-zh.1-bazzite-x86_64.tar.gz` | 解压后运行 `./dcss-zh/dcss-zh`；4K 屏使用 `./dcss-zh/dcss-zh-4k`；终端版使用 `dcss-zh-console` |
+| macOS 26+，Apple Silicon | `output/macos/DCSS 中文版.app` | 打开应用；终端版使用同目录的 `.command` |
+| Bazzite / Fedora 43+，x86_64 | `output/linux/dcss-zh/` | 运行 `./dcss-zh`；4K 屏使用 `./dcss-zh-4k`；终端版使用 `./dcss-zh-console` |
 
 macOS 包已包含运行库，无需另装 Homebrew；应用未经过 Apple 公证。首次打开若被系统拦截，可在“系统设置 → 隐私与安全性”中允许打开。
-Linux 包已包含 SDL2 图像与音频扩展库，使用 Bazzite / Fedora 的基础系统库；不需要 Proton。其他 Linux 发行版尚未验证。
+Linux 源码构建使用开发环境安装的 SDL2 与基础系统库；不需要 Proton。已在 Bazzite 验证，其他 Linux 发行版尚未验证。
 
 在 Steam 桌面模式选择“添加非 Steam 游戏”，4K 屏选择 `dcss-zh-4k`，普通屏选择 `dcss-zh`。4K 入口通过启动参数应用配置，不覆盖用户配置。
 
@@ -65,4 +67,4 @@ python3 tools/test_native_catalog.py
 验证包含两端原生构建、C++ 翻译模板回归、独立存档 PTY 测试、Lua 消息兼容性、图形技能菜单截图和 Bazzite Steam 实际点击检查。数据及界面审计记录在 `verification/`。
 
 游戏遵循上游 `LICENSE`（GPL-2.0-or-later），原作者与素材声明保留在 `native/` 中。字体使用 SIL OFL 1.1；衍生字体已更名，完整声明在 `fonts/OFL.txt` 与 `fonts/fusion-pixel-licenses/`。
-macOS 包中的第三方运行库带有各自许可证、版本清单；Release 的 `third-party-sources` 附件提供相关 GPL/LGPL 库的源码、构建配方和补丁。SteamGridDB 封面素材不包含在本运行包中。
+macOS 打包脚本会收集第三方运行库的许可证与版本清单；相关源码地址位于 `verification/macos-library-sources.json`。发布二进制时还需一并提供适用的 GPL/LGPL 源码、构建配方和补丁。SteamGridDB 封面素材不包含在仓库中。
