@@ -1,0 +1,26 @@
+enum: JOB_SHAPESHIFTER
+name: "Shapeshifter"
+category: Adventurer
+category_priority: 90
+str: 6
+int: 2
+dex: 4
+equipment:
+  - "animal skin"
+  - "flux bauble q:3"
+  - "potion of lignification"
+  - "quill talisman"
+  - "protean talisman"
+recommended_species:
+  - naga
+  - merfolk
+  - draconian
+  - demigod
+  - demonspawn
+  - troll
+skills:
+  fighting: 2
+  unarmed combat: 3
+  dodging: 2
+  shapeshifting: 3
+create_enum: false

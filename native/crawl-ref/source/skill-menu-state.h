@@ -1,0 +1,25 @@
+#pragma once
+
+#include "tag-version.h"
+
+enum skill_menu_state
+{
+    SKM_NONE,
+    SKM_DO_FOCUS,
+    SKM_DO_PRACTISE,
+    SKM_LEVEL_ENHANCED,
+    SKM_LEVEL_NORMAL,
+    SKM_MODE_AUTO,
+    SKM_MODE_MANUAL,
+    SKM_SHOW_DEFAULT,
+    SKM_SHOW_ALL,
+    SKM_VIEW_NEW_LEVEL,
+    SKM_VIEW_POINTS,
+    SKM_VIEW_PROGRESS,
+    SKM_VIEW_TARGETS,
+    SKM_VIEW_TRAINING,
+#if TAG_MAJOR_VERSION == 34
+    SKM_VIEW_TRANSFER,
+#endif
+    SKM_VIEW_COST,
+};

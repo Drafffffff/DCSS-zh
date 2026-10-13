@@ -1,0 +1,89 @@
+%%%%
+__CAW seen
+
+SOUND:@The_monster@发出刺耳的鸦叫。
+%%%%
+__CAW unseen
+
+SOUND:你听到一声响亮的鸦叫。
+%%%%
+__LAUGH seen
+
+SOUND:@The_monster@疯狂地大笑。
+%%%%
+__LAUGH unseen
+
+SOUND:你听到疯狂的笑声。
+%%%%
+# 斯芬克斯谜语相关条目
+Player sphinx riddle lines
+
+# 斯芬克斯的谜语。以下条目用于向怪物出谜语的提示语与回应。
+%%%%
+_riddle_adj_
+
+令人费解的
+
+精彩绝伦的
+
+w:20
+巧妙的
+
+令人困惑的
+
+w:20
+狡黠的
+
+压根解不开的
+
+构思精妙的
+
+大师级的
+
+烧脑的
+
+错综复杂的
+
+令人心烦的
+%%%%
+_riddle_fail_acknowledged_
+
+，但@subjective@毫不在意。
+
+，但@subjective@不为所动。
+
+，但@subjective@嗤之以鼻。
+%%%%
+_riddle_fail_general_
+
+，但@subjective@对你置之不理。
+
+，但@subjective@压根听不懂。
+
+，但@subjective@假装没注意到。
+
+，但@subjective@完全无视了你。
+
+w:40
+@_riddle_fail_acknowledged_@
+%%%%
+_riddle_prefix_
+
+你向@the_monster@出了一个@_riddle_adj_@谜语
+
+你向@the_monster@问了一个@_riddle_adj_@谜语
+
+你用一道@_riddle_adj_@谜语挑战@the_monster@
+%%%%
+Sphinx riddle success
+
+@_riddle_prefix_@。
+%%%%
+Sphinx riddle failure
+
+@_riddle_prefix_@@_riddle_fail_general_@
+%%%%
+Sphinx riddle failure acknowledged
+
+@_riddle_prefix_@@_riddle_fail_acknowledged_@
+%%%%

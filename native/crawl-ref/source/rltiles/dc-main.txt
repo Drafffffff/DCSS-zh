@@ -1,0 +1,15 @@
+%back none
+%name main
+%startvalue TILE_FEAT_MAX feat
+
+## Set black rim
+## Items
+%include dc-item.txt
+## Clear black rim
+%rim 0
+
+## Corpse
+%include dc-corpse.txt
+
+#### Effects, etc.
+%include dc-misc.txt

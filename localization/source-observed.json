@@ -1,0 +1,826 @@
+[
+  {
+    "id": "dc407d6eb6e83c07",
+    "en": " of Trog",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "0857d3a146ff486e",
+    "en": "<white>Game seed: %d (custom seed)<lightgrey><lightgrey>; </lightgrey><lightgrey>",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "01a1e74023c33a77",
+    "en": "Gear: %d/%d gear slots    (Left/Right/Tab to switch category)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "28c6e7d73c19133d",
+    "en": "<lightgrey>[<w>Up</w>|<w>Down</w>] select  [<w>PgDn</w>|<w>></w>] page down  [<w>PgUp</w>|<w><<</w>] page up  [<w>Esc</w>] exit</lightgrey>",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "d322e64e3b0d33c0",
+    "en": "(u)nwield, (d)rop, (=)adjust, (s)kill target, or (i)nscribe.",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "f10fe08b4e01b76f",
+    "en": "    -Albius Tibullus, _Elegies_ I, xi. ca. %d B.C.",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "75dc54ddf37bae1e",
+    "en": "     trans. James Grainger, %d.",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "b6d2088d08723cfd",
+    "en": " [<yellow>_</yellow>] <white>enhanced</white>|<darkgrey>base</darkgrey> level  ",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "056f5549975d3052",
+    "en": "The percentage of incoming experience used to train each skill is in <brown>brown</brown>.\nSkills enhanced by cross-training are in <green>green</green>. ",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "584ff4ede4fcb3f0",
+    "en": " [<yellow>_</yellow>] <white>enhanced</white>|<darkgrey>base</darkgrey>\nlevel  ",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "7eabcf47e37d5eae",
+    "en": "level  ",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "21e8e7f06904dd8e",
+    "en": "<lightred>Trog [*.....]</lightred>",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "c84018a40a74406f",
+    "en": "Trog [*.....]",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "9ae90bf0ba39f260",
+    "en": "HPRegen %g/turn",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "7acd8b6eac1a054b",
+    "en": "MPRegen %g/turn",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "328f9556c99c18e3",
+    "en": " a - <lightblue>You have a pair of horns on your head.</lightblue>",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "4b3db3e903926816",
+    "en": " b - <lightblue>You reflexively headbutt those who attack you in melee.</lightblue>",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "f83a02df7c006024",
+    "en": "Trog is aware of your devotion.",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "22ef256a2d59c052",
+    "en": "\n\nGranted powers:                                                           (Cost)\n",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "9cbb1ade89fffdf5",
+    "en": "You can go berserk at will.                                             (Piety-)\n",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "fabe5bffe0e4b017",
+    "en": "You can call upon Trog for regeneration and willpower.                  (Piety-)\n",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "e11d395a1b5a6c7d",
+    "en": "You can call in reinforcements.                                        (Piety--)\n",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "6cfde840c9895e43",
+    "en": "Trog will gift you melee weapons as you gain piety.                             \n",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "d8396000e6ce7dc8",
+    "en": "Trog likes it when you kill living beings, you destroy the undead, you kill demons, you kill holy beings and you destroy nonliving beings. Trog especially likes it when you kill wizards and other users of magic.\n\n",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "d1b5af2e3f6cfc19",
+    "en": "Trog's powers are not affected by the Invocations skill.\n\n",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "2aa2bef5b30c2d90",
+    "en": "Trog strongly dislikes it when you memorise spells, you attempt to cast spells, you train magic skills or you use magical staves or other wizardly items.\n\n",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "c7af08cf613188e7",
+    "en": "Trog does not appreciate abandonment, and will call down fearful punishments on disloyal followers!\n\n",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "86e024f6f680e627",
+    "en": "Trog's wrath lasts for a relatively long duration.\n\n",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "7dbb63c987bce638",
+    "en": "[<w>?</w>] toggle between ability selection and description.",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "cac00f9c3c8594bc",
+    "en": " a - Berserk                         Piety-                          %d%",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "ec74cc263b5664e5",
+    "en": " a - Berserk                         Piety-                          %d% ",
+    "locations": [
+      "runtime audit round3-fighter"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "39af22747ac0e6ae",
+    "en": "<lightgrey>[<w>Up</w>|<w>Down</w>] select  [<w>PgDn</w>|<w>></w>] page down  [<w>PgUp</w>|<w><<</w>] page up  </lightgrey>",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "f6bfb6faf9881514",
+    "en": "[<w>Esc</w>] exit",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "57f8c98b9a8cc649",
+    "en": "<lightgrey>[<w>Up</w>|<w>Down</w>] select  </lightgrey>",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "2d2a176ecc01ec6d",
+    "en": "Recognised items. (Select to toggle autopickup)                    (_ for help)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "70ab73f50d2f4495",
+    "en": "<yellow>Dungeon Crawl Help</yellow>",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "4a33ddda6a95f36f",
+    "en": "<w>.</w> : wait a turn (also <w>s</w>, <w>Del</w>)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "d0b706e58e2cfeaa",
+    "en": "<w>%d</w> : rest and long wait; stops when",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "f82c4f18011d346b",
+    "en": "    when %d turns over (<w>numpad-%d</w>)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "c6e9656d60fc5300",
+    "en": "<w>o</w>      : auto-explore",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "120baed6a36c03ff",
+    "en": "<w>Ctrl-F</w> : Find items",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "0af5da7130faf83a",
+    "en": "<w>Ctrl-W</w> : set Waypoint",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "24eee81c6717688a",
+    "en": "<w>* Dir.</w>, <w>Ctrl-Dir.</w> : attack without move ",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "fb6454d489d84a19",
+    "en": "<brown>(</brown> : missiles (<w>Q</w>uiver, <w>f</w>ire, <w>)</w>/<w>(</w> cycle)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "a2f9d48863f4adff",
+    "en": "<cyan>[</cyan> : armour (<w>W</w>ear and <w>T</w>ake off)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "99131cf5195cb94a",
+    "en": "<blue>=</blue> : rings (<w>P</w>ut on and <w>R</w>emove)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "4d17651bf41e3cfe",
+    "en": "<red>\"</red> : amulets (<w>P</w>ut on and <w>R</w>emove)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "cde16f51ce936a55",
+    "en": "<lightred>%</lightred> : talismans (e<w>P</w>oke)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "da127b1d8266f87d",
+    "en": "<lightgrey>/</lightgrey> : wands (e<w>V</w>oke)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "f93dd0eb3d4a350b",
+    "en": "<lightgreen>}</lightgreen> : miscellaneous items (e<w>V</w>oke)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "8d3e2884dfb6846d",
+    "en": "<yellow>$</yellow> : gold (<w>$</w> counts gold)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "0dced9aed033bfbe",
+    "en": "<w>a</w> : use special Ability (<w>a!</w> for help)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "5d7b4c9cc7e92676",
+    "en": "<w>z</w> : cast spell, abort without targets",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "f0818495255d8944",
+    "en": "<w>Z</w> : cast spell, no matter what",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "c1d6eb7675709767",
+    "en": "<w>t</w> : tell allies (<w>tt</w> to shout)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "cdd3acd09a1adfdf",
+    "en": " : tell allies (",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "1b81d9ccdb8efa0e",
+    "en": " to shout)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "d8c94ebdf5209ccf",
+    "en": "<w>Ins</w>: repeat next command # of times",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "384c129897f4da97",
+    "en": "<w>Ctrl-P</w> : show Previous messages",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "c625d6e7b23acfc8",
+    "en": "<w>Ctrl-R</w> : Redraw screen",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "ba098002efbb4dd0",
+    "en": "<w>Ctrl-C</w> : Clear main and level maps",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "de75f721e90855cf",
+    "en": "<w>Ctrl-E</w> : quick add macro",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "229582b47d0b9338",
+    "en": "<w>Ctrl-D</w> : edit macros",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "75c275392a4a4cad",
+    "en": "<w>:</w> : add note (use <w>?:</w> to read notes)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "4482b7630892f72d",
+    "en": "<w>=</w> : reassign inventory/spell letters",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "8b3cb84901b86832",
+    "en": "<w>_</w> : read messages (online play only)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "03ccd24537e1947d",
+    "en": "<w>Ctrl-S</w> : Save and exit without query",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "b423abb479e1ca4b",
+    "en": "<w>Ctrl-Q</w> : Abandon the current character",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "1736377170e8b9a6",
+    "en": "<w>O</w>/<w>C</w>    : Open/Close door",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "0f33b9077dfad217",
+    "en": "<w>x</w>      : eXamine surroundings/targets",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "bc05c0f9d4ef89a4",
+    "en": "<w>X</w>      : eXamine level map (<w>X?</w> for help)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "da3b7f11a05846f5",
+    "en": "<w>Ctrl-X</w> : list monsters, items, features",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "39e672f9120dc74a",
+    "en": "         in view",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "841ca9431c3b78fb",
+    "en": "<w>Ctrl-O</w> : show dungeon Overview",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "2ed390d139a0f285",
+    "en": "<w>Ctrl-A</w> : toggle auto-pickup",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "6e338bd0d4bfb2ff",
+    "en": "<w>,</w> : pick up items (also <w>g</w>)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "539d7397935ccfe6",
+    "en": "<w>d#</w>: Drop exact number of items",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "af44d379e3c76d91",
+    "en": "<w>D</w> : Drop the last item(s) you picked up",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "60af8f51f09b0d71",
+    "en": "<w>w</w> : Wield an item (<w>-</w> for none)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "1d68c8650994208c",
+    "en": "<w>'</w> : wield item a, or switch to b",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "7b029c7a98ec76a1",
+    "en": "    (use <w>=</w> to assign slots)",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "d26653a9c7b9ffd5",
+    "en": "<w>e</w>/<w>c</w> : Equip or Unequip an item",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "f9d27517da948440",
+    "en": "<w>W</w>/<w>T</w> : Wear or Take off armour",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "1ace4bcd37a11f32",
+    "en": "<w>P</w>/<w>R</w> : Put on or Remove jewellery",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "3e36b1b75bb87390",
+    "en": "Many commands have context sensitive",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "84ea13ecebb75e39",
+    "en": "help, among them <w>X</w>, <w>x</w>, <w>f</w> (or any form of",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "4c8d3008d06bd056",
+    "en": "targeting), <w>Ctrl-F</w>, and <w>G</w>.",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "58377583e5b16b55",
+    "en": "You can read descriptions of your",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "0bd0d9726aab34e0",
+    "en": "current spells (<w>I</w>), skills (<w>m?</w>) and",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "c9765e443404262c",
+    "en": "abilities (<w>a!</w>).",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "50215e0b91489a57",
+    "en": "abilities (",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "a0694a1eabdf97da",
+    "en": " to shout)            ",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "54bebab2b50d72a9",
+    "en": "                        abilities (",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "1249f7ba09e0748a",
+    "en": "                    <white>Dungeon Overview and Level Annotations</white>\n\n<green>Branches:</green>\n<yellow>Dungeon</yellow> <darkgrey>(%d/%d)</darkgrey>             \n\n<green>Altars:</green>",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "a2aa3c44580820d4",
+    "en": "(t)ake off, (d)rop, (=)adjust, or (i)nscribe.",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "a7d245028e8733eb",
+    "en": " Immortal longings in me”",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "b00595b7dc78c30c",
+    "en": "    -William Shakespeare, _Anthony & Cleopatra_, V, ii. ca. %d.",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "5ab5b8a53bfdb8aa",
+    "en": "The percentage of incoming experience used to train each skill is in <brown>brown</brown>.\nThe species aptitude is in <white>white</white>. ",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "57dd35209731f166",
+    "en": " a - <lightblue>You regenerate magic rapidly.</lightblue>",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "63040749db6cbcdb",
+    "en": "Your spells (describe)              Type                      Failure  Level  ",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "4c033e345413092a",
+    "en": "<lightgrey>Select a spell to describe</lightgrey>   [<w>?</w>] help    [<w>!</w>]/[<w>I</w>] toggle spell headers",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "a6308eb04a01040d",
+    "en": "<w>Spells (Memorise)                   Type                      Failure  Level",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  },
+  {
+    "id": "446581bd3efa2c33",
+    "en": "<lightgreen>%d spell levels left</lightgreen>    \n[<w>Tab</w>] <w>Memorise</w>|Describe|Hide|Show   [<w>Ctrl-F</w>] search   [<w>?</w>] help",
+    "locations": [
+      "runtime audit round3-caster"
+    ],
+    "context": "Actual player-visible DCSS UI. Translate all gameplay prose, preserve hotkeys, numbers/printf formats and technical inscription/search keywords."
+  }
+]

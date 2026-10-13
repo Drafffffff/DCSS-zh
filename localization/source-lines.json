@@ -1,0 +1,7612 @@
+[
+  {
+    "id": "511dbd8254157532",
+    "en": "Piety  :",
+    "locations": [
+      "ability.cc:1081"
+    ]
+  },
+  {
+    "id": "4663defa6fcdcf81",
+    "en": "Gold   :",
+    "locations": [
+      "ability.cc:1088"
+    ]
+  },
+  {
+    "id": "1a8986325caa30d6",
+    "en": "One cursed item",
+    "locations": [
+      "ability.cc:1101"
+    ]
+  },
+  {
+    "id": "4785d23374654d34",
+    "en": "Torchlight",
+    "locations": [
+      "ability.cc:1107"
+    ]
+  },
+  {
+    "id": "c6449c15d97a15ce",
+    "en": "You must catch your breath between uses of this ability.",
+    "locations": [
+      "ability.cc:1113"
+    ]
+  },
+  {
+    "id": "50db081e2d7813b0",
+    "en": "This ability takes some time before being effective.",
+    "locations": [
+      "ability.cc:1116"
+    ]
+  },
+  {
+    "id": "654f7c64c094e6f2",
+    "en": "Using this ability will hurt you for a large fraction of your current HP.",
+    "locations": [
+      "ability.cc:1119"
+    ]
+  },
+  {
+    "id": "14010ae58c8d87e5",
+    "en": "Using this ability invokes torment.",
+    "locations": [
+      "ability.cc:1122"
+    ]
+  },
+  {
+    "id": "9d989b5b7626bbac",
+    "en": "This ability causes exhaustion, and cannot be used when exhausted.",
+    "locations": [
+      "ability.cc:1125"
+    ]
+  },
+  {
+    "id": "cd3c82881501696c",
+    "en": "This ability is instantaneous.",
+    "locations": [
+      "ability.cc:1128"
+    ]
+  },
+  {
+    "id": "1d3544af1a75413d",
+    "en": "You can use this ability even if confused.",
+    "locations": [
+      "ability.cc:1131"
+    ]
+  },
+  {
+    "id": "429a53ca07f7d797",
+    "en": "This ability will temporarily drain your maximum health when used",
+    "locations": [
+      "ability.cc:1136"
+    ]
+  },
+  {
+    "id": "c1059a892c77fcb8",
+    "en": "Gaining experience will replenish charges of this ability.",
+    "locations": [
+      "ability.cc:1143"
+    ]
+  },
+  {
+    "id": "4985aa17c4cc348e",
+    "en": "If you bind an item with this curse Ashenzari will enhance the following skills:",
+    "locations": [
+      "ability.cc:1392"
+    ]
+  },
+  {
+    "id": "0bf2e5747fe90ddc",
+    "en": "If you make this sacrifice, your powers granted by Ru will become stronger in proportion to the value of the sacrifice, and you may gain new powers as well.",
+    "locations": [
+      "ability.cc:1406"
+    ]
+  },
+  {
+    "id": "4106d278921231da",
+    "en": "Sacrifices cannot be taken back.",
+    "locations": [
+      "ability.cc:1406"
+    ]
+  },
+  {
+    "id": "5d434210c254fd17",
+    "en": "After this sacrifice, you will find that",
+    "locations": [
+      "ability.cc:1422"
+    ]
+  },
+  {
+    "id": "2da44fd126e08d84",
+    "en": "No description found.",
+    "locations": [
+      "ability.cc:1572",
+      "decks.cc:413"
+    ]
+  },
+  {
+    "id": "ae36f4333bf6b4b2",
+    "en": "Damage: %s",
+    "locations": [
+      "ability.cc:1612"
+    ]
+  },
+  {
+    "id": "100d2e2a3b662124",
+    "en": "Range: %s",
+    "locations": [
+      "ability.cc:1613"
+    ]
+  },
+  {
+    "id": "9a4e63f8d8bd07aa",
+    "en": "(Cancelled after %d trial%s)",
+    "locations": [
+      "arena.cc:1073"
+    ]
+  },
+  {
+    "id": "1a7cd4bbcf70b33c",
+    "en": "---- Contest finished ----",
+    "locations": [
+      "arena.cc:1077"
+    ]
+  },
+  {
+    "id": "5c3d3fc1e0a4bf9d",
+    "en": "Enter your choice of teams:",
+    "locations": [
+      "arena.cc:1471"
+    ]
+  },
+  {
+    "id": "1889f03338b79bba",
+    "en": "Examples:",
+    "locations": [
+      "arena.cc:1480"
+    ]
+  },
+  {
+    "id": "cba3926ad66ddc3a",
+    "en": "Sigmund v Jessica",
+    "locations": [
+      "arena.cc:1481"
+    ]
+  },
+  {
+    "id": "c243fbbc1b6cafa0",
+    "en": "99 orc v Royal Jelly",
+    "locations": [
+      "arena.cc:1482"
+    ]
+  },
+  {
+    "id": "a35f5289c4f74400",
+    "en": "Welcome to Hell!",
+    "locations": [
+      "branch-data.h:173"
+    ]
+  },
+  {
+    "id": "6a64a1e0b2d2feda",
+    "en": "Please enjoy your stay.",
+    "locations": [
+      "branch-data.h:173"
+    ]
+  },
+  {
+    "id": "b68885224a2bf098",
+    "en": "Welcome to the Realm of Zot!",
+    "locations": [
+      "branch-data.h:218"
+    ]
+  },
+  {
+    "id": "8669116092022630",
+    "en": "You feel the power of the Orb interfering with translocations here.",
+    "locations": [
+      "branch-data.h:218"
+    ]
+  },
+  {
+    "id": "fcf36bc5344fc453",
+    "en": "You enter the halls of Pandemonium!",
+    "locations": [
+      "branch-data.h:248"
+    ]
+  },
+  {
+    "id": "1a1cdf225bfe16ec",
+    "en": "character file.",
+    "locations": [
+      "chardump.cc:225"
+    ]
+  },
+  {
+    "id": "837c769cdf8af9b9",
+    "en": "of the dungeon, and %s %d of its levels.",
+    "locations": [
+      "chardump.cc:283"
+    ]
+  },
+  {
+    "id": "cde7b3f71111f313",
+    "en": ", and %s %d of its levels.",
+    "locations": [
+      "chardump.cc:295"
+    ]
+  },
+  {
+    "id": "dd5f2eb644d6d26c",
+    "en": "You %scollected %d gold pieces.",
+    "locations": [
+      "chardump.cc:394"
+    ]
+  },
+  {
+    "id": "ac6b75ee6c6ba1e7",
+    "en": "You %sspent %d gold pieces at shops.",
+    "locations": [
+      "chardump.cc:401"
+    ]
+  },
+  {
+    "id": "c2028cc8190da880",
+    "en": "You %sdonated %d gold pieces to Zin.",
+    "locations": [
+      "chardump.cc:408"
+    ]
+  },
+  {
+    "id": "cfb318bd0e10c76f",
+    "en": "You %spaid %d gold pieces to Gozag.",
+    "locations": [
+      "chardump.cc:415"
+    ]
+  },
+  {
+    "id": "68017c9e38d2e1b6",
+    "en": "You %sused %d gold pieces for miscellaneous purposes.",
+    "locations": [
+      "chardump.cc:422"
+    ]
+  },
+  {
+    "id": "fd8eb563064f34aa",
+    "en": "Table legend: (Time is in decaauts)",
+    "locations": [
+      "chardump.cc:507"
+    ]
+  },
+  {
+    "id": "cfbb70af599a9846",
+    "en": "A = Elapsed time spent in this place.",
+    "locations": [
+      "chardump.cc:507"
+    ]
+  },
+  {
+    "id": "6f95d2cdf7a01dce",
+    "en": "B = Non-inter-level travel time spent in this place.",
+    "locations": [
+      "chardump.cc:507"
+    ]
+  },
+  {
+    "id": "e0cf7e0a0d21ecd1",
+    "en": "C = Inter-level travel time spent in this place.",
+    "locations": [
+      "chardump.cc:507"
+    ]
+  },
+  {
+    "id": "70b8cc6c051c1118",
+    "en": "D = Time resting spent in this place.",
+    "locations": [
+      "chardump.cc:507"
+    ]
+  },
+  {
+    "id": "ff59e6b5f66782b6",
+    "en": "E = Time spent auto-exploring this place.",
+    "locations": [
+      "chardump.cc:507"
+    ]
+  },
+  {
+    "id": "e4e298f81c67af90",
+    "en": "F = Levels seen in this place.",
+    "locations": [
+      "chardump.cc:507"
+    ]
+  },
+  {
+    "id": "c13a6adb7e2666d3",
+    "en": "G = Mean time per level.",
+    "locations": [
+      "chardump.cc:507"
+    ]
+  },
+  {
+    "id": "dcf70ec145eefd8a",
+    "en": "Top non-repeatable levels by time:",
+    "locations": [
+      "chardump.cc:541"
+    ]
+  },
+  {
+    "id": "1449c9d9df1a4dfc",
+    "en": "%8s: %d daAuts",
+    "locations": [
+      "chardump.cc:543"
+    ]
+  },
+  {
+    "id": "5e42e646836922b6",
+    "en": "Note: time per level data comes from an upgraded game and may be incomplete.",
+    "locations": [
+      "chardump.cc:545"
+    ]
+  },
+  {
+    "id": "88a66006d890647a",
+    "en": "Table legend:",
+    "locations": [
+      "chardump.cc:556"
+    ]
+  },
+  {
+    "id": "1c3c80c066ff44a9",
+    "en": "A = Non-vault XP",
+    "locations": [
+      "chardump.cc:556"
+    ]
+  },
+  {
+    "id": "5ac1ca4210653d9f",
+    "en": "B = Vault XP",
+    "locations": [
+      "chardump.cc:556"
+    ]
+  },
+  {
+    "id": "7c3758594a7b2f62",
+    "en": "C = Vault XP percentage of total XP",
+    "locations": [
+      "chardump.cc:556"
+    ]
+  },
+  {
+    "id": "57543bb53b8cfdcc",
+    "en": "D = Non-vault monster count",
+    "locations": [
+      "chardump.cc:556"
+    ]
+  },
+  {
+    "id": "e5c1887439fd31c5",
+    "en": "E = Vault monster count",
+    "locations": [
+      "chardump.cc:556"
+    ]
+  },
+  {
+    "id": "70bcee382f0f6765",
+    "en": "F = Vault count percentage of total count",
+    "locations": [
+      "chardump.cc:556"
+    ]
+  },
+  {
+    "id": "5c572107360afeca",
+    "en": "Conducts for god: %s",
+    "locations": [
+      "chardump.cc:607"
+    ]
+  },
+  {
+    "id": "3ec9e1c1f418579a",
+    "en": "Piety from conduct",
+    "locations": [
+      "chardump.cc:614"
+    ]
+  },
+  {
+    "id": "04d2b4022bd73535",
+    "en": "|| total",
+    "locations": [
+      "chardump.cc:619",
+      "chardump.cc:1630"
+    ]
+  },
+  {
+    "id": "d0d33faeb0b5b38e",
+    "en": "Conduct count",
+    "locations": [
+      "chardump.cc:656"
+    ]
+  },
+  {
+    "id": "8f7f9cd8c6d9b604",
+    "en": "B = Rank",
+    "locations": [
+      "chardump.cc:700"
+    ]
+  },
+  {
+    "id": "2396b999db668cba",
+    "en": "C = Start time",
+    "locations": [
+      "chardump.cc:700"
+    ]
+  },
+  {
+    "id": "4c2910050fdb5546",
+    "en": "D = Start piety",
+    "locations": [
+      "chardump.cc:700"
+    ]
+  },
+  {
+    "id": "ffbdd05dffc56c27",
+    "en": "E = Piety gained",
+    "locations": [
+      "chardump.cc:700"
+    ]
+  },
+  {
+    "id": "96eed27b123e88e2",
+    "en": "F = Piety on gifts",
+    "locations": [
+      "chardump.cc:700"
+    ]
+  },
+  {
+    "id": "0c848efc96c450a5",
+    "en": "G = Piety on penance",
+    "locations": [
+      "chardump.cc:700"
+    ]
+  },
+  {
+    "id": "cd88a23abe5c94db",
+    "en": "H = Piety on stepdowns",
+    "locations": [
+      "chardump.cc:700"
+    ]
+  },
+  {
+    "id": "9cbcbb41a9922833",
+    "en": "I = Piety decays",
+    "locations": [
+      "chardump.cc:700"
+    ]
+  },
+  {
+    "id": "1af2977546d95577",
+    "en": "J = Piety lost (inc. decay)",
+    "locations": [
+      "chardump.cc:700"
+    ]
+  },
+  {
+    "id": "64169537e545be60",
+    "en": "Message History",
+    "locations": [
+      "chardump.cc:778"
+    ]
+  },
+  {
+    "id": "fad6f0107cb65322",
+    "en": "Illustrated notes",
+    "locations": [
+      "chardump.cc:795"
+    ]
+  },
+  {
+    "id": "e048280e9fe71612",
+    "en": "Turn   | Place    | Note",
+    "locations": [
+      "chardump.cc:818",
+      "chardump.cc:1954"
+    ]
+  },
+  {
+    "id": "cff4905b9b513713",
+    "en": "demanding penance.",
+    "locations": [
+      "chardump.cc:882"
+    ]
+  },
+  {
+    "id": "2f631eac5d309a7b",
+    "en": "Inventory:",
+    "locations": [
+      "chardump.cc:961"
+    ]
+  },
+  {
+    "id": "97343dcfbaf8db88",
+    "en": "know any spells.",
+    "locations": [
+      "chardump.cc:1053"
+    ]
+  },
+  {
+    "id": "d166b93e45e25315",
+    "en": "the following spells:",
+    "locations": [
+      "chardump.cc:1059",
+      "chardump.cc:1123"
+    ]
+  },
+  {
+    "id": "5e92195061230f52",
+    "en": "Your Spells              Type           Power      Damage    Failure   Level",
+    "locations": [
+      "chardump.cc:1061"
+    ]
+  },
+  {
+    "id": "6cb0fa28b7ce851c",
+    "en": "Spells                   Type           Power      Damage    Failure   Level",
+    "locations": [
+      "chardump.cc:1124"
+    ]
+  },
+  {
+    "id": "087eecc13151c66c",
+    "en": "A = Kills in this place as a percentage of kills in the entire game.",
+    "locations": [
+      "chardump.cc:1238"
+    ]
+  },
+  {
+    "id": "10f9f09910fecfd1",
+    "en": "B = Kills by you in this place as a percentage of kills by you in",
+    "locations": [
+      "chardump.cc:1238"
+    ]
+  },
+  {
+    "id": "2746821e603e3de9",
+    "en": "the entire game.",
+    "locations": [
+      "chardump.cc:1238"
+    ]
+  },
+  {
+    "id": "c5782775d48241a3",
+    "en": "C = Kills by friends in this place as a percentage of kills by",
+    "locations": [
+      "chardump.cc:1238"
+    ]
+  },
+  {
+    "id": "5b67b1ed8508586e",
+    "en": "friends in the entire game.",
+    "locations": [
+      "chardump.cc:1238"
+    ]
+  },
+  {
+    "id": "bcf23dff296aaa7a",
+    "en": "D = Other kills in this place as a percentage of other kills in the",
+    "locations": [
+      "chardump.cc:1238"
+    ]
+  },
+  {
+    "id": "744219c01b20c4b5",
+    "en": "entire game.",
+    "locations": [
+      "chardump.cc:1238"
+    ]
+  },
+  {
+    "id": "926800ffec114ea9",
+    "en": "E = Experience gained in this place as a percentage of experience",
+    "locations": [
+      "chardump.cc:1238"
+    ]
+  },
+  {
+    "id": "a218bd646df0ce7b",
+    "en": "gained in the entire game.",
+    "locations": [
+      "chardump.cc:1238"
+    ]
+  },
+  {
+    "id": "7c760ad6338fa828",
+    "en": "F = Experience gained in this place divided by the number of levels of",
+    "locations": [
+      "chardump.cc:1238"
+    ]
+  },
+  {
+    "id": "6751d75e76ae5511",
+    "en": "this place that you have seen.",
+    "locations": [
+      "chardump.cc:1238"
+    ]
+  },
+  {
+    "id": "e24051316de03fd6",
+    "en": "Levels and vault maps discovered:",
+    "locations": [
+      "chardump.cc:1306"
+    ]
+  },
+  {
+    "id": "906b3a9b63333a17",
+    "en": "DLua errors:",
+    "locations": [
+      "chardump.cc:1314"
+    ]
+  },
+  {
+    "id": "c06ff5cace7b3782",
+    "en": "Apostles:",
+    "locations": [
+      "chardump.cc:1760"
+    ]
+  },
+  {
+    "id": "484e2c7ee2749a0f",
+    "en": "Vaults used:",
+    "locations": [
+      "chardump.cc:1789"
+    ]
+  },
+  {
+    "id": "beedb92e70ee80e3",
+    "en": "\\e[3%dm%s\\e[0m at (%d,%d) size (%d,%d)",
+    "locations": [
+      "chardump.cc:1793"
+    ]
+  },
+  {
+    "id": "8ab9c817043730ed",
+    "en": "(bright = stacked, \\e[37;1mwhite\\e[0m = not in level_map_ids)",
+    "locations": [
+      "chardump.cc:1797"
+    ]
+  },
+  {
+    "id": "261b9030c4f20146",
+    "en": "-- %s %s persistent clua file",
+    "locations": [
+      "clua.cc:177"
+    ]
+  },
+  {
+    "id": "baf1f3a781d01920",
+    "en": "-- WARNING: This file is entirely auto-generated.",
+    "locations": [
+      "clua.cc:177"
+    ]
+  },
+  {
+    "id": "bba69297c33f41ca",
+    "en": "%s, function %s, line %d",
+    "locations": [
+      "clua.cc:1344"
+    ]
+  },
+  {
+    "id": "3ca2f9fba5c0b3ea",
+    "en": "Version history for your current game:",
+    "locations": [
+      "command.cc:111"
+    ]
+  },
+  {
+    "id": "72add01a7b20d321",
+    "en": "<w>Features</w>",
+    "locations": [
+      "command.cc:118"
+    ]
+  },
+  {
+    "id": "96d692e0634561ca",
+    "en": "<w>Paths</w>",
+    "locations": [
+      "command.cc:130"
+    ]
+  },
+  {
+    "id": "876c90b5535fa2b9",
+    "en": "<w>crawl_dir</w>: '%s'",
+    "locations": [
+      "command.cc:132"
+    ]
+  },
+  {
+    "id": "5ef482048f7c5da3",
+    "en": "<w>save_dir</w>:  '%s'",
+    "locations": [
+      "command.cc:135"
+    ]
+  },
+  {
+    "id": "f8da3a5ba21ec72a",
+    "en": "<w>macro_dir</w>: '%s'",
+    "locations": [
+      "command.cc:138"
+    ]
+  },
+  {
+    "id": "cdd1e789b4a29a23",
+    "en": "<h>Examine surroundings ('<w>x</w><h>' in main):",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "fceb07fa99390f94",
+    "en": "<w>Esc</w> : cancel (also <w>Space</w>, <w>x</w>)",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "b0528dba75bb737d",
+    "en": "<w>Ctrl-X</w> : list all things in view",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "c4981600c2328bbc",
+    "en": "<w>Dir.</w>: move cursor in that direction",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "5d5ac842690b4230",
+    "en": "<w>.</w> : move to cursor (also <w>Enter</w>, <w>Del</w>)",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "2904b15cbc9f1894",
+    "en": "<w>g</w> : pick up item at cursor",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "a37cf21d7a96dbc3",
+    "en": "<w>v</w> : describe monster under cursor",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "f1f278325c87780d",
+    "en": "<w>+</w> : cycle monsters forward (also <w>=</w>)",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "9f96e37d543bb729",
+    "en": "<w>-</w> : cycle monsters backward",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "162d12f201949efb",
+    "en": "<w>^</w> : cycle through traps",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "81b374fb2d991961",
+    "en": "<w>_</w> : cycle through altars",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "124bb9cf24e9187d",
+    "en": "<w><<</w>/<w>></w> : cycle through up/down stairs",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "e2b7cfd6f1907ac9",
+    "en": "<w>Tab</w> : cycle through shops and portals",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "1cd9341c4c4e90d0",
+    "en": "<w>r</w> : move cursor to you",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "bc8f2f508a04fc0f",
+    "en": "<w>e</w> : create/remove travel exclusion",
+    "locations": [
+      "command.cc:374"
+    ]
+  },
+  {
+    "id": "678aa3fa6e52634a",
+    "en": "<h>Wizard targeting commands:</h>",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "e4aed090c15de986",
+    "en": "<w>Ctrl-C</w> : cycle through beam paths",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "5b58f7be82835bff",
+    "en": "<w>D</w>: get debugging information about the monster",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "c4d809e2950b4b69",
+    "en": "<w>o</w>: give item to monster",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "cd4286256f098439",
+    "en": "<w>F</w>: cycle monster friendly/good neutral/neutral/hostile",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "ef32ea13bc0de829",
+    "en": "<w>Ctrl-H</w>: heal the monster fully",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "88e6ca2452f1ea63",
+    "en": "<w>P</w>: apply divine blessing to monster",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "68c4ab6cad1a6e8e",
+    "en": "<w>m</w>: move monster or player",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "9e789092c35de5cc",
+    "en": "<w>M</w>: cause spell miscast for monster or player",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "918a14fff07ff6eb",
+    "en": "<w>s</w>: force monster to shout or speak",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "2888cd0551c50c07",
+    "en": "<w>S</w>: make monster a summoned monster",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "efdf2769268cd55a",
+    "en": "<w>w</w>: calculate shortest path to any point on the map",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "98757e180bc22083",
+    "en": "<w>\"</w>: get debugging information about a portal",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "cc3f0810032cf836",
+    "en": "<w>~</w>: polymorph monster to specific type",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "3fabd3dda98a909e",
+    "en": "<w>,</w>: bring down the monster to 1 hp",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "265e00528ec26fcf",
+    "en": "<w>Ctrl-(</w>: place a mimic",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "a1502e8f93712210",
+    "en": "<w>Ctrl-B</w>: banish monster",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "979582bd4fd211c1",
+    "en": "<w>Ctrl-K</w>: kill monster",
+    "locations": [
+      "command.cc:392"
+    ]
+  },
+  {
+    "id": "09bdd584516ea576",
+    "en": "<h>Targeting (zap wands, cast spells, etc.):",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "48e622c32ce35a1a",
+    "en": "Most keys from examine surroundings work.",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "41bb862c9f2e4136",
+    "en": "Some keys fire at the target. <w>Ctrl-X</w> only",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "1a8e2a3c00bf5df7",
+    "en": "lists eligible targets. By default,",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "97d7bc600aadad99",
+    "en": "range is respected and beams don't stop.",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "ac0ddc6154a3e0f2",
+    "en": "<w>Enter</w> : fire (<w>Space</w>, <w>Del</w>, <w>f</w>)",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "f33d233b1223df20",
+    "en": "<w>.</w> : fire, stop at target",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "c62fd988b942f048",
+    "en": "<w>@</w> : fire, stop at target, ignore range",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "efd75c30d2283d7b",
+    "en": "<w>!</w> : fire, don't stop, ignore range",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "e92f9aaf0dc2f1f5",
+    "en": "<w>p</w> : fire at Previous target (also <w>f</w>)",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "4c34ba65ffdcdef8",
+    "en": "<w>:</w> : show/hide beam path",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "9167aa336fc863da",
+    "en": "<w>Shift-Dir.</w> : fire straight-line beam",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "45376689c50714e7",
+    "en": "(also <w>/ Dir.</w>)",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "9e956db8d5d5349d",
+    "en": "<h>Firing mode ('<w>f</w><h>' in main):",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "91c2dc1982328854",
+    "en": "<w>Q</w> : choose fire action.",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "8a423d614bbe08d3",
+    "en": "<w>(</w> : cycle to previous suitable action",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "59279804d8c06ab1",
+    "en": "<w>)</w> : cycle to next suitable action.",
+    "locations": [
+      "command.cc:414"
+    ]
+  },
+  {
+    "id": "aa6ddce75b9e3c03",
+    "en": "Display type: <w>%s</w>",
+    "locations": [
+      "command.cc:712"
+    ]
+  },
+  {
+    "id": "e96ebaee7b805f78",
+    "en": "Terminal type (`TERM`): <w>%s</w>",
+    "locations": [
+      "command.cc:715"
+    ]
+  },
+  {
+    "id": "b58492083602402d",
+    "en": "Terminal colours: %d foreground, %d background",
+    "locations": [
+      "command.cc:718"
+    ]
+  },
+  {
+    "id": "2519798f0bb0a50c",
+    "en": "The webtiles client will display 16 colors.",
+    "locations": [
+      "command.cc:722"
+    ]
+  },
+  {
+    "id": "67f0699140864761",
+    "en": "Your terminal is in <red>compatibility mode</red> and may not display full colours.",
+    "locations": [
+      "command.cc:729"
+    ]
+  },
+  {
+    "id": "d25479184620a0c3",
+    "en": "For full 16-colour-mode, try setting a better TERM value than `xterm`, e.g. `xterm-256color` (most terminals) or `putty-256color` (for PuTTY).",
+    "locations": [
+      "command.cc:732"
+    ]
+  },
+  {
+    "id": "9d9c8a78a4b25084",
+    "en": "Current terminal options (see the Options Guide for details):",
+    "locations": [
+      "command.cc:738"
+    ]
+  },
+  {
+    "id": "0b7d40fbd2a871d3",
+    "en": "`<w>allow_extended_colours</w>`: %d%s",
+    "locations": [
+      "command.cc:738"
+    ]
+  },
+  {
+    "id": "227cbd835500ac41",
+    "en": "`<w>bold_brightens_foreground</w>`: %d        `<w>blink_brightens_background</w>`: %d",
+    "locations": [
+      "command.cc:738"
+    ]
+  },
+  {
+    "id": "60d6dec54d49acea",
+    "en": "`<w>best_effort_brighten_foreground</w>`: %d  `<w>best_effort_brighten_background</w>`: %d",
+    "locations": [
+      "command.cc:738"
+    ]
+  },
+  {
+    "id": "e0de96135327e068",
+    "en": "These two blocks should have the same background:    <bg:darkgrey><darkgrey>Block 1</darkgrey></bg:darkgrey>    <bg:darkgrey>Block 2</bg:darkgrey>",
+    "locations": [
+      "command.cc:755"
+    ]
+  },
+  {
+    "id": "1aad47a24906f801",
+    "en": "The following two spans should have continuous shading between 1 and 2:",
+    "locations": [
+      "command.cc:755"
+    ]
+  },
+  {
+    "id": "be1687623e016f86",
+    "en": "<bg:darkgrey><darkgrey>1          2</darkgrey></bg:darkgrey>",
+    "locations": [
+      "command.cc:755"
+    ]
+  },
+  {
+    "id": "533824b64f208634",
+    "en": "<bg:darkgrey><darkgrey>1               2</darkgrey></bg:darkgrey>",
+    "locations": [
+      "command.cc:755"
+    ]
+  },
+  {
+    "id": "891db522ff011e2e",
+    "en": "Option `bold_brightens_foreground`: force",
+    "locations": [
+      "command.cc:766"
+    ]
+  },
+  {
+    "id": "cdab9fbfb344a9fb",
+    "en": "Foreground palette:",
+    "locations": [
+      "command.cc:770"
+    ]
+  },
+  {
+    "id": "caaf633fdff111dd",
+    "en": "(Because of compatibility mode, <darkgrey>darkgrey on black renders as blue</darkgrey>.)",
+    "locations": [
+      "command.cc:775"
+    ]
+  },
+  {
+    "id": "b7b506f736856290",
+    "en": "Palette with menu highlight:",
+    "locations": [
+      "command.cc:781"
+    ]
+  },
+  {
+    "id": "9d951255141090ec",
+    "en": "Full palette:",
+    "locations": [
+      "command.cc:786"
+    ]
+  },
+  {
+    "id": "dcf46ba7d900fa52",
+    "en": "<h>Dungeon Crawl Help",
+    "locations": [
+      "command.cc:801"
+    ]
+  },
+  {
+    "id": "daf77b20bdfd2287",
+    "en": "Press one of the following keys to",
+    "locations": [
+      "command.cc:801"
+    ]
+  },
+  {
+    "id": "5e503f647c857aff",
+    "en": "obtain more information on a certain",
+    "locations": [
+      "command.cc:801"
+    ]
+  },
+  {
+    "id": "f736441c21f86420",
+    "en": "aspect of Dungeon Crawl.",
+    "locations": [
+      "command.cc:801"
+    ]
+  },
+  {
+    "id": "da01f1ba4086ada0",
+    "en": "<w>?</w>: List of commands",
+    "locations": [
+      "command.cc:801"
+    ]
+  },
+  {
+    "id": "fb224a1d478feb93",
+    "en": "<w>^</w>: Quickstart Guide",
+    "locations": [
+      "command.cc:801"
+    ]
+  },
+  {
+    "id": "ab229e7bc51d4615",
+    "en": "<darkgrey>:: Browse character notes</darkgrey>",
+    "locations": [
+      "command.cc:812"
+    ]
+  },
+  {
+    "id": "3f83c424601aa51f",
+    "en": "<darkgrey>#: Browse character dump</darkgrey>",
+    "locations": [
+      "command.cc:812"
+    ]
+  },
+  {
+    "id": "90d63265010a164e",
+    "en": "<w>:</w>: Browse character notes",
+    "locations": [
+      "command.cc:818"
+    ]
+  },
+  {
+    "id": "14d74ab975389c67",
+    "en": "<w>#</w>: Browse character dump",
+    "locations": [
+      "command.cc:818"
+    ]
+  },
+  {
+    "id": "07f5131ad88e731b",
+    "en": "<w>~</w>: Macros help",
+    "locations": [
+      "command.cc:822"
+    ]
+  },
+  {
+    "id": "5525998b9ff83c51",
+    "en": "<w>&</w>: Options help",
+    "locations": [
+      "command.cc:822"
+    ]
+  },
+  {
+    "id": "22a1b79006fb3da8",
+    "en": "<w>%</w>: Table of aptitudes",
+    "locations": [
+      "command.cc:822"
+    ]
+  },
+  {
+    "id": "2dd3b81bb1ba58ea",
+    "en": "<w>/</w>: Lookup description",
+    "locations": [
+      "command.cc:822"
+    ]
+  },
+  {
+    "id": "704b70e459ccd576",
+    "en": "<w>Q</w>: FAQ",
+    "locations": [
+      "command.cc:822"
+    ]
+  },
+  {
+    "id": "8266d402df2f41ca",
+    "en": "<w>T</w>: Tiles key help",
+    "locations": [
+      "command.cc:828"
+    ]
+  },
+  {
+    "id": "10b687346d0da438",
+    "en": "<w>V</w>: Version information",
+    "locations": [
+      "command.cc:830"
+    ]
+  },
+  {
+    "id": "5cb7afbe6051f493",
+    "en": "<w>!</w>: Display diagnostics",
+    "locations": [
+      "command.cc:830"
+    ]
+  },
+  {
+    "id": "e46afb78c889ecfc",
+    "en": "<w>Home</w>: This screen",
+    "locations": [
+      "command.cc:830"
+    ]
+  },
+  {
+    "id": "86a0f9a47e3f4e0f",
+    "en": "<h>Android Controls",
+    "locations": [
+      "command.cc:836"
+    ]
+  },
+  {
+    "id": "d398f1643b1dae66",
+    "en": "<w>Back key</w>: Alias for escape",
+    "locations": [
+      "command.cc:836"
+    ]
+  },
+  {
+    "id": "6dcc2c3992dc61bb",
+    "en": "<w>Volume keys</w>: Zoom dungeon & map",
+    "locations": [
+      "command.cc:836"
+    ]
+  },
+  {
+    "id": "2b29ac68bb1c07e0",
+    "en": "Long press for right click.",
+    "locations": [
+      "command.cc:836"
+    ]
+  },
+  {
+    "id": "fcb61389afaf9b58",
+    "en": "Touch with two fingers for scrolling.",
+    "locations": [
+      "command.cc:836"
+    ]
+  },
+  {
+    "id": "aa51b534047e4ea2",
+    "en": "Toggle keyboard icon controls the",
+    "locations": [
+      "command.cc:836"
+    ]
+  },
+  {
+    "id": "7d76099dd587e707",
+    "en": "virtual keyboard visibility.",
+    "locations": [
+      "command.cc:836"
+    ]
+  },
+  {
+    "id": "412ed5afb17ea95a",
+    "en": "<h>Manual Contents",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "ee3ef18bd57594ab",
+    "en": "<w>*</w>       Table of contents",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "52b3c283e6f8e063",
+    "en": "<w>A</w>.      Overview",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "d526e32b6f7f2744",
+    "en": "<w>B</w>.      Starting Screen",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "67c2308d3551023f",
+    "en": "<w>C</w>.      Attributes and Stats",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "09056c2088276d62",
+    "en": "<w>D</w>.      Exploring the Dungeon",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "200cd178b2bd513f",
+    "en": "<w>E</w>.      Experience and Skills",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "e72eb6193fa405f2",
+    "en": "<w>F</w>.      Monsters",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "3373ad0fee20c623",
+    "en": "<w>G</w>.      Items",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "a14f9fc6417011b3",
+    "en": "<w>H</w>.      Spellcasting",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "19dc3e915f2027b5",
+    "en": "<w>I</w>.      Targeting",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "c47d4e0fab5fe718",
+    "en": "<w>J</w>.      Religion",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "1a3ae2d487cb9df9",
+    "en": "<w>K</w>.      Mutations",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "994b76dcb302b857",
+    "en": "<w>L</w>.      Licence, Contact, History",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "cbb5ab8eb6d19314",
+    "en": "<w>M</w>.      Macros, Options, Performance",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "14059c62867233a8",
+    "en": "<w>N</w>.      Philosophy",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "a7478e9b44b2e3ed",
+    "en": "<w>1</w>.      List of Character Species",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "d7ce6639fc64e38a",
+    "en": "<w>2</w>.      List of Character Backgrounds",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "175d105b57d8b030",
+    "en": "<w>3</w>.      List of Skills",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "80cc916337606668",
+    "en": "<w>4</w>.      List of Keys and Commands",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "940c139eb6802ef4",
+    "en": "<w>5</w>.      Inscriptions",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "4dbbe492a1957796",
+    "en": "<w>6</w>.      Dungeon sprint modes",
+    "locations": [
+      "command.cc:851"
+    ]
+  },
+  {
+    "id": "53e00cb274c4ce21",
+    "en": "<h>Movement:",
+    "locations": [
+      "command.cc:879",
+      "command.cc:1156"
+    ]
+  },
+  {
+    "id": "8bb07d1194723397",
+    "en": "To move in a direction or to attack,",
+    "locations": [
+      "command.cc:879",
+      "command.cc:1156"
+    ]
+  },
+  {
+    "id": "23c16abe14382aa1",
+    "en": "use the numpad (try Numlock off and",
+    "locations": [
+      "command.cc:879",
+      "command.cc:1156"
+    ]
+  },
+  {
+    "id": "cc5b89b7d824cc73",
+    "en": "on) or vi keys:",
+    "locations": [
+      "command.cc:879",
+      "command.cc:1156"
+    ]
+  },
+  {
+    "id": "0d2b6905973c18c0",
+    "en": "<h>Rest:",
+    "locations": [
+      "command.cc:897",
+      "command.cc:1182"
+    ]
+  },
+  {
+    "id": "9b1cdcf782baa6ac",
+    "en": "Health or Magic become full or",
+    "locations": [
+      "command.cc:903",
+      "command.cc:1188"
+    ]
+  },
+  {
+    "id": "4a1202cb2f42c8fd",
+    "en": "something is detected. If Health",
+    "locations": [
+      "command.cc:903",
+      "command.cc:1188"
+    ]
+  },
+  {
+    "id": "e3f669805a597562",
+    "en": "and Magic are already full, stops",
+    "locations": [
+      "command.cc:903",
+      "command.cc:1188"
+    ]
+  },
+  {
+    "id": "d417c3c544732cbf",
+    "en": "when 100 turns over (<w>numpad-5</w>)",
+    "locations": [
+      "command.cc:903",
+      "command.cc:1188"
+    ]
+  },
+  {
+    "id": "696bae7b4e763684",
+    "en": "<h>Extended Movement:",
+    "locations": [
+      "command.cc:911"
+    ]
+  },
+  {
+    "id": "cad34dbc99f619d7",
+    "en": "<w>/ Dir.</w>, <w>Shift-Dir.</w>: long walk",
+    "locations": [
+      "command.cc:920"
+    ]
+  },
+  {
+    "id": "41821906d35a9d80",
+    "en": "<w>* Dir.</w>, <w>Ctrl-Dir.</w> : attack without move",
+    "locations": [
+      "command.cc:920"
+    ]
+  },
+  {
+    "id": "878f1dc4ff674ba6",
+    "en": "<h>Autofight:",
+    "locations": [
+      "command.cc:926"
+    ]
+  },
+  {
+    "id": "8325533a1f55d09b",
+    "en": "<w>Tab</w>          : attack nearest monster,",
+    "locations": [
+      "command.cc:926"
+    ]
+  },
+  {
+    "id": "60a95201c08c5980",
+    "en": "moving if necessary",
+    "locations": [
+      "command.cc:926"
+    ]
+  },
+  {
+    "id": "d0f12b0ebb71cae5",
+    "en": "<w>Shift-Tab</w>, <w>p</w> : trigger quivered action;",
+    "locations": [
+      "command.cc:926"
+    ]
+  },
+  {
+    "id": "e589f51634af718f",
+    "en": "if targeted, aims at",
+    "locations": [
+      "command.cc:926"
+    ]
+  },
+  {
+    "id": "fd2faa2fc6400f07",
+    "en": "nearest monster",
+    "locations": [
+      "command.cc:926"
+    ]
+  },
+  {
+    "id": "9907eb1c894956ee",
+    "en": "<h>Item types (and common commands)",
+    "locations": [
+      "command.cc:935"
+    ]
+  },
+  {
+    "id": "57a9f96e581b9a57",
+    "en": "</lightcyan> : books (<w>%</w>emorise, <w>%</w>ap, <w>%</w>ap,",
+    "locations": [
+      "command.cc:961"
+    ]
+  },
+  {
+    "id": "8c6d97dc306f6fa0",
+    "en": "pick up to add to library)",
+    "locations": [
+      "command.cc:961"
+    ]
+  },
+  {
+    "id": "aafc0756ae95a30a",
+    "en": "<lightmagenta>0</lightmagenta> : the Orb of Zot",
+    "locations": [
+      "command.cc:975"
+    ]
+  },
+  {
+    "id": "922c91de623a7305",
+    "en": "Carry it to the surface and win!",
+    "locations": [
+      "command.cc:975"
+    ]
+  },
+  {
+    "id": "0da532e84f85bf7c",
+    "en": "<h>Other Gameplay Actions:",
+    "locations": [
+      "command.cc:981"
+    ]
+  },
+  {
+    "id": "0af6a3b1f262c99b",
+    "en": "<h>Non-Gameplay Commands / Info",
+    "locations": [
+      "command.cc:999"
+    ]
+  },
+  {
+    "id": "5770d816b54fdc2d",
+    "en": "<h>Game Saving and Quitting:",
+    "locations": [
+      "command.cc:1029"
+    ]
+  },
+  {
+    "id": "ed9d5dee7f8389f2",
+    "en": "and quit the game",
+    "locations": [
+      "command.cc:1034"
+    ]
+  },
+  {
+    "id": "2401276c914d9862",
+    "en": "<h>Player Character Information:",
+    "locations": [
+      "command.cc:1039"
+    ]
+  },
+  {
+    "id": "6817e04b70760783",
+    "en": "<h>Dungeon Interaction and Information:",
+    "locations": [
+      "command.cc:1056"
+    ]
+  },
+  {
+    "id": "343af7d56153e340",
+    "en": "pickup part of a single stack",
+    "locations": [
+      "command.cc:1064"
+    ]
+  },
+  {
+    "id": "638db621ea82092d",
+    "en": "<h>Inventory management:",
+    "locations": [
+      "command.cc:1087"
+    ]
+  },
+  {
+    "id": "ebf80ef491ddab25",
+    "en": "(press twice for pick up menu)",
+    "locations": [
+      "command.cc:1093"
+    ]
+  },
+  {
+    "id": "c058b12bea1e58a9",
+    "en": "<h>Item Interaction:",
+    "locations": [
+      "command.cc:1103"
+    ]
+  },
+  {
+    "id": "8b9a1f97865789e9",
+    "en": "<h>Additional help:",
+    "locations": [
+      "command.cc:1130"
+    ]
+  },
+  {
+    "id": "d255f5f3440d48b9",
+    "en": "Many commands have context sensitive help, among them <w>%</w>, <w>%</w>, <w>%</w> (or any form of targeting), <w>%</w>, and <w>%</w>.",
+    "locations": [
+      "command.cc:1133"
+    ]
+  },
+  {
+    "id": "08eb5ee528d7b335",
+    "en": "You can read descriptions of your current spells (<w>%</w>), skills (<w>%?</w>) and abilities (<w>%!</w>).",
+    "locations": [
+      "command.cc:1133"
+    ]
+  },
+  {
+    "id": "6672580ccaeac6ce",
+    "en": "<h>Attacking monsters",
+    "locations": [
+      "command.cc:1196"
+    ]
+  },
+  {
+    "id": "0166daffe8a37d12",
+    "en": "Walking into a monster will attack it",
+    "locations": [
+      "command.cc:1196"
+    ]
+  },
+  {
+    "id": "2ec693a908087933",
+    "en": "with the wielded weapon or barehanded.",
+    "locations": [
+      "command.cc:1196"
+    ]
+  },
+  {
+    "id": "02c85cd210c41214",
+    "en": "<h>Ranged combat and magic",
+    "locations": [
+      "command.cc:1203"
+    ]
+  },
+  {
+    "id": "b1b66868df761081",
+    "en": "Memorise spells and view spell",
+    "locations": [
+      "command.cc:1212"
+    ]
+  },
+  {
+    "id": "f22f2e5299b8b683",
+    "en": "library (get books to add to it)",
+    "locations": [
+      "command.cc:1212"
+    ]
+  },
+  {
+    "id": "e43787faca446f07",
+    "en": "<h>Item types and inventory management",
+    "locations": [
+      "command.cc:1217"
+    ]
+  },
+  {
+    "id": "e561aa7d76ad8376",
+    "en": "</lightcyan> : </console>books (<w>%</w>emorise, <w>%</w>ap, <w>%</w>ap,",
+    "locations": [
+      "command.cc:1262"
+    ]
+  },
+  {
+    "id": "4a328d5c48a01955",
+    "en": "pick up to add to spell library)",
+    "locations": [
+      "command.cc:1262"
+    ]
+  },
+  {
+    "id": "a1fb2f45a2132995",
+    "en": "<h>Additional important commands",
+    "locations": [
+      "command.cc:1286"
+    ]
+  },
+  {
+    "id": "961ad778ee8f191f",
+    "en": "<h>Targeting",
+    "locations": [
+      "command.cc:1298"
+    ]
+  },
+  {
+    "id": "9d98dfdd6bd9ce70",
+    "en": "<w>Enter</w> or <w>.</w> or <w>Del</w> : confirm target",
+    "locations": [
+      "command.cc:1298"
+    ]
+  },
+  {
+    "id": "134598312e55cdf7",
+    "en": "<w>+</w> and <w>-</w> : cycle between targets",
+    "locations": [
+      "command.cc:1298"
+    ]
+  },
+  {
+    "id": "487654c029874d86",
+    "en": "<w>f</w> or <w>p</w> : shoot at previous target",
+    "locations": [
+      "command.cc:1298"
+    ]
+  },
+  {
+    "id": "467adf376bd0f953",
+    "en": "if still alive and in sight",
+    "locations": [
+      "command.cc:1298"
+    ]
+  },
+  {
+    "id": "8f86074838b9cc74",
+    "en": "Recursive crash.",
+    "locations": [
+      "crash.cc:126"
+    ]
+  },
+  {
+    "id": "145279aeded3caca",
+    "en": "Stuck game with 100%% CPU use",
+    "locations": [
+      "crash.cc:195"
+    ]
+  },
+  {
+    "id": "8f63642db0e61659",
+    "en": "Couldn't get a stack trace.",
+    "locations": [
+      "crash.cc:312",
+      "crash.cc:313"
+    ]
+  },
+  {
+    "id": "d441fbef2102e4bc",
+    "en": "Out of memory.",
+    "locations": [
+      "crash.cc:324",
+      "crash.cc:325",
+      "json.cc:36"
+    ]
+  },
+  {
+    "id": "d240fea5e8716aff",
+    "en": "Obtained %d stack frames.",
+    "locations": [
+      "crash.cc:334"
+    ]
+  },
+  {
+    "id": "e434a576d4cbb218",
+    "en": "Unable to get stack trace on this platform.",
+    "locations": [
+      "crash.cc:389"
+    ]
+  },
+  {
+    "id": "ca141848623ebde3",
+    "en": "Trying to run gdb.",
+    "locations": [
+      "crash.cc:401"
+    ]
+  },
+  {
+    "id": "8a5449f7337068a1",
+    "en": "Couldn't fork: %s",
+    "locations": [
+      "crash.cc:413"
+    ]
+  },
+  {
+    "id": "21ba15dda75c2cf2",
+    "en": "Failed to start gdb: %s",
+    "locations": [
+      "crash.cc:432"
+    ]
+  },
+  {
+    "id": "a7934660cd65f22f",
+    "en": "Running test #%d: '%s'.",
+    "locations": [
+      "ctest.cc:137",
+      "ctest.cc:175"
+    ]
+  },
+  {
+    "id": "2103801292af9bc8",
+    "en": "%s error: %s",
+    "locations": [
+      "ctest.cc:252"
+    ]
+  },
+  {
+    "id": "61b1a4003afcc8ea",
+    "en": "Compilation info:",
+    "locations": [
+      "dbg-asrt.cc:90"
+    ]
+  },
+  {
+    "id": "625d47fccddb58e1",
+    "en": "Place info:",
+    "locations": [
+      "dbg-asrt.cc:100"
+    ]
+  },
+  {
+    "id": "948ebe4f9ff4872f",
+    "en": "branch = %d, depth = %d",
+    "locations": [
+      "dbg-asrt.cc:102"
+    ]
+  },
+  {
+    "id": "aaad4944e622208c",
+    "en": "Level id: %s",
+    "locations": [
+      "dbg-asrt.cc:107"
+    ]
+  },
+  {
+    "id": "6db038c9fa5b2980",
+    "en": "Abyssal state:",
+    "locations": [
+      "dbg-asrt.cc:110"
+    ]
+  },
+  {
+    "id": "ed824d33bb53ea7f",
+    "en": "major_coord = (%d,%d)",
+    "locations": [
+      "dbg-asrt.cc:110"
+    ]
+  },
+  {
+    "id": "8120293e2a2d530a",
+    "en": "seed = 0x%",
+    "locations": [
+      "dbg-asrt.cc:110"
+    ]
+  },
+  {
+    "id": "0676fecf21f2bec4",
+    "en": "depth = %",
+    "locations": [
+      "dbg-asrt.cc:112"
+    ]
+  },
+  {
+    "id": "479ae5c282953bfc",
+    "en": "phase = %g",
+    "locations": [
+      "dbg-asrt.cc:113"
+    ]
+  },
+  {
+    "id": "ce6873218575a3c0",
+    "en": "destroy_all_terrain = %d",
+    "locations": [
+      "dbg-asrt.cc:113"
+    ]
+  },
+  {
+    "id": "33fe293df037a1d6",
+    "en": "level = (%d : %d)",
+    "locations": [
+      "dbg-asrt.cc:113"
+    ]
+  },
+  {
+    "id": "01aade4d82bae3ed",
+    "en": "Name:    [%s]",
+    "locations": [
+      "dbg-asrt.cc:148"
+    ]
+  },
+  {
+    "id": "6d4038d9d6810e87",
+    "en": "Species: %s",
+    "locations": [
+      "dbg-asrt.cc:149"
+    ]
+  },
+  {
+    "id": "506d29731c594ba1",
+    "en": "Job:     %s",
+    "locations": [
+      "dbg-asrt.cc:150"
+    ]
+  },
+  {
+    "id": "8ccba1795086bbbf",
+    "en": "HP: %d/%d; mods: %d/%d",
+    "locations": [
+      "dbg-asrt.cc:152"
+    ]
+  },
+  {
+    "id": "b291be3864312933",
+    "en": "MP: %d/%d; mod: %d",
+    "locations": [
+      "dbg-asrt.cc:154"
+    ]
+  },
+  {
+    "id": "98307939d9085407",
+    "en": "Stats: %d %d %d",
+    "locations": [
+      "dbg-asrt.cc:157"
+    ]
+  },
+  {
+    "id": "a22649dc72961cea",
+    "en": "Position: %s, god: %s (%d), turn_is_over: %d, banished: %d",
+    "locations": [
+      "dbg-asrt.cc:161"
+    ]
+  },
+  {
+    "id": "b9b62c1397e38dbf",
+    "en": "Standing on/in/over feature: %s",
+    "locations": [
+      "dbg-asrt.cc:169"
+    ]
+  },
+  {
+    "id": "c0e44b577ddbd0f3",
+    "en": "Runrest:",
+    "locations": [
+      "dbg-asrt.cc:178"
+    ]
+  },
+  {
+    "id": "9cb30d7dd60141a4",
+    "en": "mode: %d",
+    "locations": [
+      "dbg-asrt.cc:179"
+    ]
+  },
+  {
+    "id": "85015dbba904e635",
+    "en": "Delayed (%u):",
+    "locations": [
+      "dbg-asrt.cc:188"
+    ]
+  },
+  {
+    "id": "3bb46b9caaf4c71d",
+    "en": "duration: %d",
+    "locations": [
+      "dbg-asrt.cc:194"
+    ]
+  },
+  {
+    "id": "fb30209c5f133957",
+    "en": "Skills (mode: %s)",
+    "locations": [
+      "dbg-asrt.cc:199"
+    ]
+  },
+  {
+    "id": "aeb85928a5e1858f",
+    "en": "Name            | can_currently_train | train | training | level | points | progress",
+    "locations": [
+      "dbg-asrt.cc:200"
+    ]
+  },
+  {
+    "id": "f56842c641de7aa4",
+    "en": "Spell bugs:",
+    "locations": [
+      "dbg-asrt.cc:226"
+    ]
+  },
+  {
+    "id": "ae6ffd7fe566afdc",
+    "en": "spell slot #%d: invalid spell #%d",
+    "locations": [
+      "dbg-asrt.cc:236"
+    ]
+  },
+  {
+    "id": "153e68c7c1a24bfa",
+    "en": "spell slot #%d: monster only spell %s",
+    "locations": [
+      "dbg-asrt.cc:245"
+    ]
+  },
+  {
+    "id": "7f54cecb1c307c56",
+    "en": "spell slot #%d: testing spell %s",
+    "locations": [
+      "dbg-asrt.cc:249"
+    ]
+  },
+  {
+    "id": "6a99a280bfe0380c",
+    "en": "spell slot #%d: school-less spell %s",
+    "locations": [
+      "dbg-asrt.cc:252"
+    ]
+  },
+  {
+    "id": "5d05e4164376eb7c",
+    "en": "Durations:",
+    "locations": [
+      "dbg-asrt.cc:257"
+    ]
+  },
+  {
+    "id": "4912e52bcb5fe987",
+    "en": "Attributes:",
+    "locations": [
+      "dbg-asrt.cc:264"
+    ]
+  },
+  {
+    "id": "07995b0e1a1e8757",
+    "en": "Mutations:",
+    "locations": [
+      "dbg-asrt.cc:271"
+    ]
+  },
+  {
+    "id": "d040b5048d205cd9",
+    "en": "Inventory bugs:",
+    "locations": [
+      "dbg-asrt.cc:310"
+    ]
+  },
+  {
+    "id": "d5aaa41ca869d647",
+    "en": "slot #%d: unassigned item has quant %d",
+    "locations": [
+      "dbg-asrt.cc:317"
+    ]
+  },
+  {
+    "id": "4b20bc9efc958005",
+    "en": "slot #%d: otherwise valid item '%s' has invalid quantity %d",
+    "locations": [
+      "dbg-asrt.cc:326"
+    ]
+  },
+  {
+    "id": "8bc350043e92525e",
+    "en": "slot #%d: item '%s' has invalid link %d",
+    "locations": [
+      "dbg-asrt.cc:340"
+    ]
+  },
+  {
+    "id": "79ce1608933c6c34",
+    "en": "slot #%d: item '%s' has invalid slot %d",
+    "locations": [
+      "dbg-asrt.cc:346"
+    ]
+  },
+  {
+    "id": "3acb86afcdcba7b1",
+    "en": "slot #%d: item '%s' has invalid pos %s",
+    "locations": [
+      "dbg-asrt.cc:352"
+    ]
+  },
+  {
+    "id": "5fc32346d04c86c0",
+    "en": "Equipment:",
+    "locations": [
+      "dbg-asrt.cc:358"
+    ]
+  },
+  {
+    "id": "4253d86ac6a32c8a",
+    "en": "<invalid>",
+    "locations": [
+      "dbg-asrt.cc:364"
+    ]
+  },
+  {
+    "id": "4a305385a5993a10",
+    "en": "Lua marker %u at (%d, %d):",
+    "locations": [
+      "dbg-asrt.cc:496"
+    ]
+  },
+  {
+    "id": "dbb5884a60e821d1",
+    "en": "Version: %s %s",
+    "locations": [
+      "dbg-asrt.cc:524"
+    ]
+  },
+  {
+    "id": "9a8d31613bec6848",
+    "en": "Platform: Windows",
+    "locations": [
+      "dbg-asrt.cc:532"
+    ]
+  },
+  {
+    "id": "a2bc801cf831aa0e",
+    "en": "Platform: DOS",
+    "locations": [
+      "dbg-asrt.cc:534"
+    ]
+  },
+  {
+    "id": "67d760e1b67dd0fa",
+    "en": "Bits: %d",
+    "locations": [
+      "dbg-asrt.cc:537"
+    ]
+  },
+  {
+    "id": "3c54ba05797ab828",
+    "en": "Game mode: %s",
+    "locations": [
+      "dbg-asrt.cc:538"
+    ]
+  },
+  {
+    "id": "da77ef345def685c",
+    "en": "Tiles: yes",
+    "locations": [
+      "dbg-asrt.cc:542"
+    ]
+  },
+  {
+    "id": "9bb887fc1fa6e194",
+    "en": "Tiles: online",
+    "locations": [
+      "dbg-asrt.cc:544"
+    ]
+  },
+  {
+    "id": "3f6757ffbce90e02",
+    "en": "Tiles: no",
+    "locations": [
+      "dbg-asrt.cc:546"
+    ]
+  },
+  {
+    "id": "025e622dd88e1929",
+    "en": ", deterministic pregen: %d",
+    "locations": [
+      "dbg-asrt.cc:550"
+    ]
+  },
+  {
+    "id": "c9c7e4a99416bd19",
+    "en": "Version history:",
+    "locations": [
+      "dbg-asrt.cc:554"
+    ]
+  },
+  {
+    "id": "d78274ec6eedf680",
+    "en": "RC options:",
+    "locations": [
+      "dbg-asrt.cc:570"
+    ]
+  },
+  {
+    "id": "cbfe78047e987ca2",
+    "en": "restart_after_game = %s",
+    "locations": [
+      "dbg-asrt.cc:571"
+    ]
+  },
+  {
+    "id": "49c398c44ee2754d",
+    "en": "Crashed while calling exit()!!!!",
+    "locations": [
+      "dbg-asrt.cc:590"
+    ]
+  },
+  {
+    "id": "57a59cb925792fe1",
+    "en": "We crashed! This is likely due to a bug in",
+    "locations": [
+      "dbg-asrt.cc:625"
+    ]
+  },
+  {
+    "id": "be1b3cfd882e30c0",
+    "en": "Please submit a bug report to:",
+    "locations": [
+      "dbg-asrt.cc:625"
+    ]
+  },
+  {
+    "id": "46d92a18eb12d2b0",
+    "en": "and include at least:",
+    "locations": [
+      "dbg-asrt.cc:628"
+    ]
+  },
+  {
+    "id": "acca035ac0272394",
+    "en": "- The crash report: %s",
+    "locations": [
+      "dbg-asrt.cc:628"
+    ]
+  },
+  {
+    "id": "d2b49b9130638d52",
+    "en": "- Your save file: %s",
+    "locations": [
+      "dbg-asrt.cc:628"
+    ]
+  },
+  {
+    "id": "d4d4cd50f00375a9",
+    "en": "- Information about your computer and game version: %s %s (%s)",
+    "locations": [
+      "dbg-asrt.cc:628"
+    ]
+  },
+  {
+    "id": "aa168f16af2d1b91",
+    "en": "- A description of what you were doing when this crash occurred.",
+    "locations": [
+      "dbg-asrt.cc:628"
+    ]
+  },
+  {
+    "id": "371dc68c843f9638",
+    "en": "Unable to open file '%s' for writing: %s",
+    "locations": [
+      "dbg-asrt.cc:645"
+    ]
+  },
+  {
+    "id": "bc76f9940be6f14d",
+    "en": "Markers:",
+    "locations": [
+      "dbg-asrt.cc:685"
+    ]
+  },
+  {
+    "id": "66377b92d782c26b",
+    "en": "Messages:",
+    "locations": [
+      "dbg-asrt.cc:694"
+    ]
+  },
+  {
+    "id": "69b7733a8a90368f",
+    "en": "Crashed while loading a save; skipping debug_item_scan.",
+    "locations": [
+      "dbg-asrt.cc:713"
+    ]
+  },
+  {
+    "id": "b1310c0f40724e21",
+    "en": "Crashed while loading a save; skipping debug_mons_scan.",
+    "locations": [
+      "dbg-asrt.cc:719"
+    ]
+  },
+  {
+    "id": "fca7dc5207e518bb",
+    "en": "Screenshot:",
+    "locations": [
+      "dbg-asrt.cc:735"
+    ]
+  },
+  {
+    "id": "ceab8e757df7e699",
+    "en": "dlua errors:",
+    "locations": [
+      "dbg-asrt.cc:739"
+    ]
+  },
+  {
+    "id": "f040a9ba00fdf678",
+    "en": "clua stack:",
+    "locations": [
+      "dbg-asrt.cc:749"
+    ]
+  },
+  {
+    "id": "e07572fa02dcd89b",
+    "en": "dlua stack:",
+    "locations": [
+      "dbg-asrt.cc:752"
+    ]
+  },
+  {
+    "id": "dea4d790fce43dfd",
+    "en": "Lua persistent data:",
+    "locations": [
+      "dbg-asrt.cc:758"
+    ]
+  },
+  {
+    "id": "e4063bd3a28e9c04",
+    "en": "Lua marker contents:",
+    "locations": [
+      "dbg-asrt.cc:762"
+    ]
+  },
+  {
+    "id": "53a1501055f6d104",
+    "en": "Level build failed on %s. Aborting.",
+    "locations": [
+      "dbg-maps.cc:108"
+    ]
+  },
+  {
+    "id": "6fdc8917fde63785",
+    "en": "Bad (disconnected) level (%s) on %s%s.",
+    "locations": [
+      "dbg-maps.cc:166"
+    ]
+  },
+  {
+    "id": "787bd5ae3f4ed35f",
+    "en": "Finished.",
+    "locations": [
+      "dbg-maps.cc:285"
+    ]
+  },
+  {
+    "id": "cfbb4765dc38088b",
+    "en": "Random vaults available by dungeon level:",
+    "locations": [
+      "dbg-maps.cc:320"
+    ]
+  },
+  {
+    "id": "cef11fdf01e30f46",
+    "en": "Map Generation Stats",
+    "locations": [
+      "dbg-maps.cc:348"
+    ]
+  },
+  {
+    "id": "a2f32d9ffb3441ae",
+    "en": "Levels attempted: %d, built: %d, failed: %d",
+    "locations": [
+      "dbg-maps.cc:349"
+    ]
+  },
+  {
+    "id": "746c6b3423f1607e",
+    "en": "Map errors:",
+    "locations": [
+      "dbg-maps.cc:354"
+    ]
+  },
+  {
+    "id": "0ac3b06328a6b425",
+    "en": "Levels with no maps:",
+    "locations": [
+      "dbg-maps.cc:379"
+    ]
+  },
+  {
+    "id": "a6aa815a5826b4aa",
+    "en": "Most vetoed levels:",
+    "locations": [
+      "dbg-maps.cc:399"
+    ]
+  },
+  {
+    "id": "a10097acbf1654a5",
+    "en": "%3d) %s (%d of %d vetoed, %.2f%%)",
+    "locations": [
+      "dbg-maps.cc:414"
+    ]
+  },
+  {
+    "id": "28939e6e73603631",
+    "en": "Veto reasons:",
+    "locations": [
+      "dbg-maps.cc:419"
+    ]
+  },
+  {
+    "id": "b8e42dbda6341b45",
+    "en": "Unused maps:",
+    "locations": [
+      "dbg-maps.cc:430"
+    ]
+  },
+  {
+    "id": "648fdb0bee0c4b80",
+    "en": "Maps by level:",
+    "locations": [
+      "dbg-maps.cc:435"
+    ]
+  },
+  {
+    "id": "b787875a565220d3",
+    "en": "Maps used (successful, placed incl. vetoed, tried):",
+    "locations": [
+      "dbg-maps.cc:460"
+    ]
+  },
+  {
+    "id": "0f0e5a1079da1b45",
+    "en": "Maps and where used:",
+    "locations": [
+      "dbg-maps.cc:474"
+    ]
+  },
+  {
+    "id": "5eae486440be91d3",
+    "en": "Generating map stats for %d iteration(s) of %d level(s) over %d branch(es).",
+    "locations": [
+      "dbg-maps.cc:542"
+    ]
+  },
+  {
+    "id": "6f6d82c64274473d",
+    "en": "Map stats complete.",
+    "locations": [
+      "dbg-maps.cc:550"
+    ]
+  },
+  {
+    "id": "46bf585be1c0ceaf",
+    "en": "Unable to open objstat output file: %s",
+    "locations": [
+      "dbg-objstat.cc:1086"
+    ]
+  },
+  {
+    "id": "3678c5722022ae1c",
+    "en": "Object Generation Stats",
+    "locations": [
+      "dbg-objstat.cc:1109"
+    ]
+  },
+  {
+    "id": "9ee6b7be75c4d136",
+    "en": "Number of iterations: %d",
+    "locations": [
+      "dbg-objstat.cc:1109"
+    ]
+  },
+  {
+    "id": "2b5742bdca43a552",
+    "en": "Number of branches: %d",
+    "locations": [
+      "dbg-objstat.cc:1109"
+    ]
+  },
+  {
+    "id": "ba8a8b3fce3864ac",
+    "en": "%sNumber of levels: %d",
+    "locations": [
+      "dbg-objstat.cc:1109"
+    ]
+  },
+  {
+    "id": "76202a00f9e06967",
+    "en": "Version: %s",
+    "locations": [
+      "dbg-objstat.cc:1109"
+    ]
+  },
+  {
+    "id": "77f759be75e73d53",
+    "en": "Wrote Objstat Info to %s.",
+    "locations": [
+      "dbg-objstat.cc:1118"
+    ]
+  },
+  {
+    "id": "821313850232f778",
+    "en": "Wrote %s item stats to %s.",
+    "locations": [
+      "dbg-objstat.cc:1277"
+    ]
+  },
+  {
+    "id": "2a3643ab21c3d0ac",
+    "en": "Wrote Spell stats to %s.",
+    "locations": [
+      "dbg-objstat.cc:1364"
+    ]
+  },
+  {
+    "id": "16af73425151c1d3",
+    "en": "Wrote Monster stats to %s.",
+    "locations": [
+      "dbg-objstat.cc:1375"
+    ]
+  },
+  {
+    "id": "3ada570bfd404e8d",
+    "en": "Wrote Feature stats to %s.",
+    "locations": [
+      "dbg-objstat.cc:1386"
+    ]
+  },
+  {
+    "id": "31b645939369dd06",
+    "en": "Generating object statistics for %d iteration(s) of %d level(s) over %d branch(es).",
+    "locations": [
+      "dbg-objstat.cc:1444"
+    ]
+  },
+  {
+    "id": "b4e8bea43518e074",
+    "en": "Object statistics complete.",
+    "locations": [
+      "dbg-objstat.cc:1457"
+    ]
+  },
+  {
+    "id": "d49c7408d58365d5",
+    "en": "Constricting %s.",
+    "locations": [
+      "dbg-util.cc:185"
+    ]
+  },
+  {
+    "id": "dfb99b924fe87798",
+    "en": "Constricted by %s.",
+    "locations": [
+      "dbg-util.cc:190"
+    ]
+  },
+  {
+    "id": "26b03f55c22b8bb6",
+    "en": "Name: %s",
+    "locations": [
+      "dbg-util.cc:211"
+    ]
+  },
+  {
+    "id": "4f780bc3d329c6b0",
+    "en": "Base name: %s",
+    "locations": [
+      "dbg-util.cc:212"
+    ]
+  },
+  {
+    "id": "1f080592a632cd5b",
+    "en": "Full name: %s",
+    "locations": [
+      "dbg-util.cc:214"
+    ]
+  },
+  {
+    "id": "6e7ce893c6c1840c",
+    "en": "On/in/over feature: %s",
+    "locations": [
+      "dbg-util.cc:220"
+    ]
+  },
+  {
+    "id": "e2781bf8b17e26de",
+    "en": "Patrolling: %s",
+    "locations": [
+      "dbg-util.cc:280"
+    ]
+  },
+  {
+    "id": "0d843a475c2d0929",
+    "en": "Travelling:",
+    "locations": [
+      "dbg-util.cc:286"
+    ]
+  },
+  {
+    "id": "69262540106eeb20",
+    "en": "travel_target      = %d",
+    "locations": [
+      "dbg-util.cc:287"
+    ]
+  },
+  {
+    "id": "4ca222b62ce441af",
+    "en": "travel_path.size() = %u",
+    "locations": [
+      "dbg-util.cc:288"
+    ]
+  },
+  {
+    "id": "c14da9c85dc2e1e4",
+    "en": "next travel step: %s",
+    "locations": [
+      "dbg-util.cc:293"
+    ]
+  },
+  {
+    "id": "814f5d3c0da35149",
+    "en": "last travel step: %s",
+    "locations": [
+      "dbg-util.cc:295"
+    ]
+  },
+  {
+    "id": "c5773b857c86c7be",
+    "en": "invalid item index %d",
+    "locations": [
+      "dbg-util.cc:313"
+    ]
+  },
+  {
+    "id": "955af3a41f910cf8",
+    "en": "invalid item",
+    "locations": [
+      "dbg-util.cc:320"
+    ]
+  },
+  {
+    "id": "b51963eb00838fe1",
+    "en": "Invalid spell #%d",
+    "locations": [
+      "dbg-util.cc:355"
+    ]
+  },
+  {
+    "id": "5bb4823b15c2c978",
+    "en": "colour: %d, foe_memory: %d, shield_blocks:%d",
+    "locations": [
+      "dbg-util.cc:364"
+    ]
+  },
+  {
+    "id": "6f12489e9273e44b",
+    "en": "Ancestor Upgrades:",
+    "locations": [
+      "describe-god.cc:364"
+    ]
+  },
+  {
+    "id": "d636672219efef54",
+    "en": "<white>XL              Upgrade",
+    "locations": [
+      "describe-god.cc:364"
+    ]
+  },
+  {
+    "id": "225bb0b202b80820",
+    "en": "You can bribe the following branches of the dungeon:",
+    "locations": [
+      "describe-god.cc:418"
+    ]
+  },
+  {
+    "id": "3b88e25db4099a88",
+    "en": "Decks of power:",
+    "locations": [
+      "describe-god.cc:545"
+    ]
+  },
+  {
+    "id": "5be2268f7ef9b1f5",
+    "en": "stacked deck:",
+    "locations": [
+      "describe-god.cc:551"
+    ]
+  },
+  {
+    "id": "4676cc7b230ef243",
+    "en": "%s %sguards your life.",
+    "locations": [
+      "describe-god.cc:753"
+    ]
+  },
+  {
+    "id": "e2c7a7dc80ed2cfc",
+    "en": "Orcs frequently recognise you as Beogh's chosen one.",
+    "locations": [
+      "describe-god.cc:769"
+    ]
+  },
+  {
+    "id": "563f5177a080c88b",
+    "en": "Orcs sometimes recognise you as one of their own.",
+    "locations": [
+      "describe-god.cc:771"
+    ]
+  },
+  {
+    "id": "86dc5ec1e9d58513",
+    "en": "%s %s shields you from chaos.",
+    "locations": [
+      "describe-god.cc:784"
+    ]
+  },
+  {
+    "id": "35453d3f33ff5308",
+    "en": "%s %s shields you from Hell.",
+    "locations": [
+      "describe-god.cc:792"
+    ]
+  },
+  {
+    "id": "4cb6c552e853caa2",
+    "en": "%s prevents you from stabbing unaware foes.",
+    "locations": [
+      "describe-god.cc:800"
+    ]
+  },
+  {
+    "id": "70570aa957746974",
+    "en": "You radiate a%s righteous aura, and foes within it are easier to hit.",
+    "locations": [
+      "describe-god.cc:808"
+    ]
+  },
+  {
+    "id": "94e81db32a09729d",
+    "en": "%s %s shields you from negative energy.",
+    "locations": [
+      "describe-god.cc:822"
+    ]
+  },
+  {
+    "id": "f7184513cf3f5c22",
+    "en": "Jellies are peaceful and will consume items off the floor.",
+    "locations": [
+      "describe-god.cc:829"
+    ]
+  },
+  {
+    "id": "8634e59cafad78b3",
+    "en": "Jiyva prevents you from harming jellies.",
+    "locations": [
+      "describe-god.cc:830"
+    ]
+  },
+  {
+    "id": "73ac207e30a51a0e",
+    "en": "Your health and magic regeneration is %saccelerated.",
+    "locations": [
+      "describe-god.cc:836"
+    ]
+  },
+  {
+    "id": "99f3076883fb4a3c",
+    "en": "%s %sslows your movement.",
+    "locations": [
+      "describe-god.cc:848"
+    ]
+  },
+  {
+    "id": "58f2626c9a23289d",
+    "en": "%s supports your attributes. (+%d)",
+    "locations": [
+      "describe-god.cc:853"
+    ]
+  },
+  {
+    "id": "8c40156eb9181bea",
+    "en": "You can memorise %s.",
+    "locations": [
+      "describe-god.cc:865"
+    ]
+  },
+  {
+    "id": "5a1c8beca6bce3a0",
+    "en": "You can memorise some of Vehumet's spells.",
+    "locations": [
+      "describe-god.cc:870"
+    ]
+  },
+  {
+    "id": "cb2344fb66c50156",
+    "en": "You are surrounded by an umbra.",
+    "locations": [
+      "describe-god.cc:876"
+    ]
+  },
+  {
+    "id": "dd53cf06e0e42754",
+    "en": "Foes that die within your umbra may be raised as undead servants.",
+    "locations": [
+      "describe-god.cc:876"
+    ]
+  },
+  {
+    "id": "d8a5d0cbb7d291d5",
+    "en": "Your life essence is reduced. (-10%% HP)",
+    "locations": [
+      "describe-god.cc:890"
+    ]
+  },
+  {
+    "id": "a703ec1571e96c50",
+    "en": "Your Destruction is augmented by the power of Gehenna.",
+    "locations": [
+      "describe-god.cc:935"
+    ]
+  },
+  {
+    "id": "57f1035eac021180",
+    "en": "Your Destruction is augmented by the power of Cocytus.",
+    "locations": [
+      "describe-god.cc:937"
+    ]
+  },
+  {
+    "id": "e23856d1966a9434",
+    "en": "Your Destruction is augmented by the power of Tartarus.",
+    "locations": [
+      "describe-god.cc:939"
+    ]
+  },
+  {
+    "id": "4acedf7b50b68da3",
+    "en": "Your Destruction is augmented by the power of Dis.",
+    "locations": [
+      "describe-god.cc:941"
+    ]
+  },
+  {
+    "id": "3600c97390b264df",
+    "en": "Your Destruction will be augmented by one of the Four Hells.",
+    "locations": [
+      "describe-god.cc:945"
+    ]
+  },
+  {
+    "id": "4e1f63111fb833e1",
+    "en": "You have been branded with the %s.",
+    "locations": [
+      "describe-god.cc:955"
+    ]
+  },
+  {
+    "id": "8ea07aa4f8f2340e",
+    "en": "Jiyva will unlock the Slime Pits vaults.",
+    "locations": [
+      "describe-god.cc:991"
+    ]
+  },
+  {
+    "id": "9d6cdd180112879c",
+    "en": "Title  -",
+    "locations": [
+      "describe-god.cc:1009"
+    ]
+  },
+  {
+    "id": "e40e57af9823d48d",
+    "en": "Favour -",
+    "locations": [
+      "describe-god.cc:1021"
+    ]
+  },
+  {
+    "id": "5a75b4f46ba25fd9",
+    "en": "Spells                              Type                    Level",
+    "locations": [
+      "describe-spells.cc:630"
+    ]
+  },
+  {
+    "id": "20b7b58f62e98db5",
+    "en": "(%d xp, %d skp)",
+    "locations": [
+      "describe.cc:1374"
+    ]
+  },
+  {
+    "id": "a591b07a9ba95cd7",
+    "en": "Current attack delay: %.1f.",
+    "locations": [
+      "describe.cc:1409"
+    ]
+  },
+  {
+    "id": "8ee50c2f9c2476c5",
+    "en": "Your inability to study %s prevents you from drawing on the full power of this staff in melee.",
+    "locations": [
+      "describe.cc:1561"
+    ]
+  },
+  {
+    "id": "bac06fc49ca6fe3f",
+    "en": "Base attack delay: %.1f",
+    "locations": [
+      "describe.cc:1583"
+    ]
+  },
+  {
+    "id": "a088087a57035715",
+    "en": "This weapon's minimum attack delay (%.1f) is reached at skill level %d.",
+    "locations": [
+      "describe.cc:1583"
+    ]
+  },
+  {
+    "id": "9c6e19cda64b5ab8",
+    "en": "Damage rating:",
+    "locations": [
+      "describe.cc:1625",
+      "describe.cc:2181"
+    ]
+  },
+  {
+    "id": "ef95aa4889f9393d",
+    "en": "Chaotic:",
+    "locations": [
+      "describe.cc:1655"
+    ]
+  },
+  {
+    "id": "ac3d243be01be502",
+    "en": "You are unable to wield it.",
+    "locations": [
+      "describe.cc:1666"
+    ]
+  },
+  {
+    "id": "adb05b74f85c8fc0",
+    "en": "It is too large for you to wield.",
+    "locations": [
+      "describe.cc:1672"
+    ]
+  },
+  {
+    "id": "4c0b268b1cbf985f",
+    "en": "Your AC would",
+    "locations": [
+      "describe.cc:1936"
+    ]
+  },
+  {
+    "id": "8ecfe7009a7b4976",
+    "en": "Your EV would",
+    "locations": [
+      "describe.cc:1945"
+    ]
+  },
+  {
+    "id": "6dc3dced548b0959",
+    "en": "Your SH would",
+    "locations": [
+      "describe.cc:1952"
+    ]
+  },
+  {
+    "id": "493d1e39e476ccbb",
+    "en": "Your spell failure would",
+    "locations": [
+      "describe.cc:1958"
+    ]
+  },
+  {
+    "id": "e605279a7c200580",
+    "en": "If you %s this item, your spell failure would %s:",
+    "locations": [
+      "describe.cc:2023"
+    ]
+  },
+  {
+    "id": "4c04ea7074aaf271",
+    "en": "It can be maximally enchanted to +",
+    "locations": [
+      "describe.cc:2123",
+      "describe.cc:2362"
+    ]
+  },
+  {
+    "id": "10015fc569867798",
+    "en": "It cannot be enchanted further.",
+    "locations": [
+      "describe.cc:2127",
+      "describe.cc:2366"
+    ]
+  },
+  {
+    "id": "dfa62710f05cf78b",
+    "en": "Base damage: %d  Base attack delay: %.1f",
+    "locations": [
+      "describe.cc:2166"
+    ]
+  },
+  {
+    "id": "460cbadc6f2576f6",
+    "en": "This projectile's minimum attack delay (%.1f) is reached at skill level %d.",
+    "locations": [
+      "describe.cc:2166"
+    ]
+  },
+  {
+    "id": "dbbccb3b5af4a2d7",
+    "en": "It is always destroyed on impact.",
+    "locations": [
+      "describe.cc:2186"
+    ]
+  },
+  {
+    "id": "8f7ca364f6a03421",
+    "en": "It has a 1/%d chance to be destroyed on impact.",
+    "locations": [
+      "describe.cc:2190"
+    ]
+  },
+  {
+    "id": "0686c618e17570d2",
+    "en": "With your current SH, it has a",
+    "locations": [
+      "describe.cc:2207"
+    ]
+  },
+  {
+    "id": "8b98a7b2b80e9cf4",
+    "en": "Spell refund chance: %d%% (max %d%%)",
+    "locations": [
+      "describe.cc:2226"
+    ]
+  },
+  {
+    "id": "091a84b61ace3c6d",
+    "en": "Enemy Willpower: -%d (max -%d)",
+    "locations": [
+      "describe.cc:2230"
+    ]
+  },
+  {
+    "id": "5ca746d433244aac",
+    "en": "Vitrify chance: %d%% (max %d%%)",
+    "locations": [
+      "describe.cc:2234"
+    ]
+  },
+  {
+    "id": "c12d43ec5e69a6b6",
+    "en": "Explosion chance: %d%% (max %d%%)",
+    "locations": [
+      "describe.cc:2239"
+    ]
+  },
+  {
+    "id": "099894aa0859b2d4",
+    "en": "Explosion damage: %dd%d (max %dd%d)",
+    "locations": [
+      "describe.cc:2239"
+    ]
+  },
+  {
+    "id": "dc742453b25245ff",
+    "en": "Base shooting star damage: %dd%d (max %dd%d) + 25%% per MP spent",
+    "locations": [
+      "describe.cc:2248"
+    ]
+  },
+  {
+    "id": "78dbf6d73f5a5de0",
+    "en": "Shooting stars conjured: 1 + 1 per visible enemy, up to %d (%d at max skill)",
+    "locations": [
+      "describe.cc:2248"
+    ]
+  },
+  {
+    "id": "3ca9f59742370c05",
+    "en": "Mesmerism radius: %d (max %d)",
+    "locations": [
+      "describe.cc:2256"
+    ]
+  },
+  {
+    "id": "44a9e3fa2b765e5a",
+    "en": "Your current strength and Armour skill slows attacks with missile weapons (like",
+    "locations": [
+      "describe.cc:2397"
+    ]
+  },
+  {
+    "id": "32ded214bb23ccff",
+    "en": "It affects your shielding (%+d).",
+    "locations": [
+      "describe.cc:2459"
+    ]
+  },
+  {
+    "id": "36b1d580226ac598",
+    "en": "It affects your AC (%+d).",
+    "locations": [
+      "describe.cc:2467"
+    ]
+  },
+  {
+    "id": "b0e0bb34853e9b4e",
+    "en": "It affects your evasion (%+d).",
+    "locations": [
+      "describe.cc:2472"
+    ]
+  },
+  {
+    "id": "c161a89ba7af2eb9",
+    "en": "It affects your strength (%+d).",
+    "locations": [
+      "describe.cc:2477"
+    ]
+  },
+  {
+    "id": "7c4a6dafd7a344fa",
+    "en": "It affects your intelligence (%+d).",
+    "locations": [
+      "describe.cc:2482"
+    ]
+  },
+  {
+    "id": "fd9f40ce4ca6d808",
+    "en": "It affects your dexterity (%+d).",
+    "locations": [
+      "describe.cc:2487"
+    ]
+  },
+  {
+    "id": "439bf3e08b200983",
+    "en": "It affects your accuracy and damage with ranged weapons and melee (%+d).",
+    "locations": [
+      "describe.cc:2492"
+    ]
+  },
+  {
+    "id": "f1bc874e1e16faac",
+    "en": "It has a curse placed upon it.",
+    "locations": [
+      "describe.cc:2526",
+      "describe.cc:2531"
+    ]
+  },
+  {
+    "id": "21fde0a77f23459a",
+    "en": "It has a curse which improves the following skills:",
+    "locations": [
+      "describe.cc:2535"
+    ]
+  },
+  {
+    "id": "5ad403049d2109d7",
+    "en": "annotate:",
+    "locations": [
+      "describe.cc:2699"
+    ]
+  },
+  {
+    "id": "746d8c433a3cdae3",
+    "en": "This item has been removed.",
+    "locations": [
+      "describe.cc:2754"
+    ]
+  },
+  {
+    "id": "92207b30a322be71",
+    "en": "']. Perhaps this item has been removed?",
+    "locations": [
+      "describe.cc:2758"
+    ]
+  },
+  {
+    "id": "61423ee6766bb62d",
+    "en": "It falls into the 'Staves' category.",
+    "locations": [
+      "describe.cc:2847"
+    ]
+  },
+  {
+    "id": "cbb5d4e8a390570f",
+    "en": "It is surrounded by a",
+    "locations": [
+      "describe.cc:2856"
+    ]
+  },
+  {
+    "id": "6fade19e604a1281",
+    "en": "Additional devices of the same type",
+    "locations": [
+      "describe.cc:2882"
+    ]
+  },
+  {
+    "id": "7c4305553a6582d9",
+    "en": "Increasing your evocations skill will",
+    "locations": [
+      "describe.cc:2889"
+    ]
+  },
+  {
+    "id": "efc5e43ecbcb3836",
+    "en": "If you drink this now, you will no longer be",
+    "locations": [
+      "describe.cc:2920"
+    ]
+  },
+  {
+    "id": "121cefac98925b7f",
+    "en": "Enchanting this artefact any further is beyond even your skills.",
+    "locations": [
+      "describe.cc:3026"
+    ]
+  },
+  {
+    "id": "2995c4f415e1466a",
+    "en": "This ancient artefact cannot be changed by magic or mundane means.",
+    "locations": [
+      "describe.cc:3032"
+    ]
+  },
+  {
+    "id": "0e54c10557b2fee2",
+    "en": "Menu/colouring prefixes:",
+    "locations": [
+      "describe.cc:3063"
+    ]
+  },
+  {
+    "id": "434fa33c913169df",
+    "en": "While standing here, you can exit the dungeon with the <w>%s</w> key.",
+    "locations": [
+      "describe.cc:3294"
+    ]
+  },
+  {
+    "id": "a62f3bb755ef25e8",
+    "en": "While standing here, you can traverse %s with the <w>%s</w> key.",
+    "locations": [
+      "describe.cc:3301"
+    ]
+  },
+  {
+    "id": "e3b04e27c44e20a9",
+    "en": "(If you entered the Abyss now, you could be pulled as deep as Abyss:%d.)",
+    "locations": [
+      "describe.cc:3327",
+      "lookup-help.cc:1262"
+    ]
+  },
+  {
+    "id": "2198d74ee171a6c9",
+    "en": "While standing here, you can %senter %s with the <w>%s</w> key; it will vanish after you do so.",
+    "locations": [
+      "describe.cc:3335"
+    ]
+  },
+  {
+    "id": "e96ccf8885d97ecd",
+    "en": "While standing here, you can %s %s with the <w>%s</w> key%s.",
+    "locations": [
+      "describe.cc:3348"
+    ]
+  },
+  {
+    "id": "4835aa9200b873ba",
+    "en": "Pray here with <w>%s</w> to learn more.",
+    "locations": [
+      "describe.cc:3360"
+    ]
+  },
+  {
+    "id": "338e6973fd545551",
+    "en": "While standing here, you can enter <w>%s</w> with the <w>%s</w> key.",
+    "locations": [
+      "describe.cc:3366"
+    ]
+  },
+  {
+    "id": "13e7f6f311868a2e",
+    "en": "While standing here, you can enter %s with with the <w>%s</w> key.",
+    "locations": [
+      "describe.cc:3374"
+    ]
+  },
+  {
+    "id": "81a91f8a5bdaa79d",
+    "en": "While adjacent to it, you can %s%s it by pressing the <w>%s</w> key.",
+    "locations": [
+      "describe.cc:3399"
+    ]
+  },
+  {
+    "id": "25195fcc72654540",
+    "en": "It can be dug through.",
+    "locations": [
+      "describe.cc:3412"
+    ]
+  },
+  {
+    "id": "3c5196ec32a041ec",
+    "en": "A suitable weapon or spell can reach past it.",
+    "locations": [
+      "describe.cc:3421"
+    ]
+  },
+  {
+    "id": "97618bd3a75d1ffa",
+    "en": "Some spells can be cast through it.",
+    "locations": [
+      "describe.cc:3423"
+    ]
+  },
+  {
+    "id": "6c03818d158f8e1c",
+    "en": "You are here.",
+    "locations": [
+      "describe.cc:3427"
+    ]
+  },
+  {
+    "id": "9970960b400bafc8",
+    "en": "It can be found on %s.",
+    "locations": [
+      "describe.cc:3986"
+    ]
+  },
+  {
+    "id": "248cb722c5eb1936",
+    "en": "Level: %d",
+    "locations": [
+      "describe.cc:4214"
+    ]
+  },
+  {
+    "id": "5b70ed07da2c87ad",
+    "en": "With your current stats and equipment, %s this skill would increase your AC by %.1f and your EV by %.1f.",
+    "locations": [
+      "describe.cc:4303"
+    ]
+  },
+  {
+    "id": "7b358f81433a1de6",
+    "en": "With your current stats and equipment, %s this skill would increase your EV by %.1f.",
+    "locations": [
+      "describe.cc:4310"
+    ]
+  },
+  {
+    "id": "41256d3f44708bf5",
+    "en": "With your current stats and equipment, %s this skill would increase your SH by %.1f.",
+    "locations": [
+      "describe.cc:4316"
+    ]
+  },
+  {
+    "id": "4a2c39cb3ca5d810",
+    "en": "Your servitor can be imbued with this spell.",
+    "locations": [
+      "describe.cc:4516"
+    ]
+  },
+  {
+    "id": "6edd29f17951ad31",
+    "en": "Your servitor could be imbued with this spell if your spell success rate were higher.",
+    "locations": [
+      "describe.cc:4519"
+    ]
+  },
+  {
+    "id": "fab7c3560c679ec0",
+    "en": "This inflicts up to 40% magical contamination when cast by you.",
+    "locations": [
+      "describe.cc:4525"
+    ]
+  },
+  {
+    "id": "cd75e20b666c2566",
+    "en": "summoned by this spell.",
+    "locations": [
+      "describe.cc:4535"
+    ]
+  },
+  {
+    "id": "de0ef6409965246c",
+    "en": "frowns upon the use of this spell.",
+    "locations": [
+      "describe.cc:4541"
+    ]
+  },
+  {
+    "id": "8cab8afd1b4faa3f",
+    "en": "supports the use of this spell.",
+    "locations": [
+      "describe.cc:4546"
+    ]
+  },
+  {
+    "id": "228008989c4b86c4",
+    "en": "This spell is empowered while you are enkindled.",
+    "locations": [
+      "describe.cc:4550"
+    ]
+  },
+  {
+    "id": "8eeb860a525dd06f",
+    "en": "You cannot",
+    "locations": [
+      "describe.cc:4554"
+    ]
+  },
+  {
+    "id": "06fc101c5275af50",
+    "en": "This spell would have no effect right now because",
+    "locations": [
+      "describe.cc:4570"
+    ]
+  },
+  {
+    "id": "c772fd80ef864853",
+    "en": "You have harvested enough death to cast this spell",
+    "locations": [
+      "describe.cc:4577"
+    ]
+  },
+  {
+    "id": "97a98c9b6751a228",
+    "en": "%s creates living %s spells.",
+    "locations": [
+      "describe.cc:4636"
+    ]
+  },
+  {
+    "id": "6b07ea103bf58531",
+    "en": "If you are struck by this, you will no longer be %s.",
+    "locations": [
+      "describe.cc:4644"
+    ]
+  },
+  {
+    "id": "2ef303d63fb94f8e",
+    "en": "You currently have no enchantments that could be removed by this.",
+    "locations": [
+      "describe.cc:4649"
+    ]
+  },
+  {
+    "id": "ad42d023c4ed71e6",
+    "en": "<magenta>This spell cannot be performed via Aphotic Marionette.</magenta>",
+    "locations": [
+      "describe.cc:4667"
+    ]
+  },
+  {
+    "id": "17d3b8b286fa79d9",
+    "en": "<magenta>When cast via Aphotic Marionette, this spell will affect the player instead.",
+    "locations": [
+      "describe.cc:4672"
+    ]
+  },
+  {
+    "id": "a479d3d25554532a",
+    "en": "%s can sustain at most %s creature%s summoned by this spell.",
+    "locations": [
+      "describe.cc:4683"
+    ]
+  },
+  {
+    "id": "b25b68cd36f93b51",
+    "en": "You cannot be affected by this spell right now. %s",
+    "locations": [
+      "describe.cc:4708"
+    ]
+  },
+  {
+    "id": "17985c4015201d8e",
+    "en": "Chance to defeat your Will: %d%%%s",
+    "locations": [
+      "describe.cc:4711"
+    ]
+  },
+  {
+    "id": "aa90206125cdef05",
+    "en": "are currently affected.",
+    "locations": [
+      "describe.cc:4905"
+    ]
+  },
+  {
+    "id": "8d4077d1b4994226",
+    "en": "This bane usually lasts a %s time.",
+    "locations": [
+      "describe.cc:4919"
+    ]
+  },
+  {
+    "id": "b978249ec94c684b",
+    "en": "<lightmagenta>This bane will be lifted from you when you gain another %.1f XLs worth of experience.</lightmagenta>",
+    "locations": [
+      "describe.cc:4924"
+    ]
+  },
+  {
+    "id": "c3be7d86f6900054",
+    "en": "To read a description, press the key listed above. (AdB) indicates damage (the sum of A B-sided dice), (x%%) indicates the chance to defeat your Will, and (y) indicates the spell range",
+    "locations": [
+      "describe.cc:5710"
+    ]
+  },
+  {
+    "id": "84d950a13885b3f4",
+    "en": "; shown in red if you are in range.",
+    "locations": [
+      "describe.cc:5715"
+    ]
+  },
+  {
+    "id": "ac7ca99f044028fd",
+    "en": "% chance to notice you each turn.",
+    "locations": [
+      "describe.cc:5737"
+    ]
+  },
+  {
+    "id": "dbdaef55264eed50",
+    "en": "% to hit you.",
+    "locations": [
+      "describe.cc:5910"
+    ]
+  },
+  {
+    "id": "51477c167ab9a12e",
+    "en": "%s can %s water.",
+    "locations": [
+      "describe.cc:6021"
+    ]
+  },
+  {
+    "id": "68e6ae6cd325a5d3",
+    "en": "%s can travel through lava.",
+    "locations": [
+      "describe.cc:6026"
+    ]
+  },
+  {
+    "id": "26ca49e6d1ab008b",
+    "en": "currently targeted by:",
+    "locations": [
+      "describe.cc:6079"
+    ]
+  },
+  {
+    "id": "06425bd7350e0329",
+    "en": "vulnerable to silver and hated by Zin.",
+    "locations": [
+      "describe.cc:6450"
+    ]
+  },
+  {
+    "id": "7b08ee636c899605",
+    "en": "cannot move.",
+    "locations": [
+      "describe.cc:6456"
+    ]
+  },
+  {
+    "id": "fa48f1748791b7e5",
+    "en": "cold-blooded and may be slowed by cold attacks.",
+    "locations": [
+      "describe.cc:6464"
+    ]
+  },
+  {
+    "id": "b1259e083e8c0b37",
+    "en": "can see invisible.",
+    "locations": [
+      "describe.cc:6468"
+    ]
+  },
+  {
+    "id": "e94974a577ff9940",
+    "en": "can burrow through diggable terrain.",
+    "locations": [
+      "describe.cc:6471"
+    ]
+  },
+  {
+    "id": "b10b9e66db86befb",
+    "en": "1d5 acid damage when struck in melee.",
+    "locations": [
+      "describe.cc:6477"
+    ]
+  },
+  {
+    "id": "9ac4cafdc28c94d3",
+    "en": "insubstantial and immune to ensnarement.",
+    "locations": [
+      "describe.cc:6485"
+    ]
+  },
+  {
+    "id": "4326d11c14fe6ad6",
+    "en": "amorphous and immune to ensnarement.",
+    "locations": [
+      "describe.cc:6491"
+    ]
+  },
+  {
+    "id": "d3137ee00b7dd1f9",
+    "en": "ground more quickly when invisible.",
+    "locations": [
+      "describe.cc:6504"
+    ]
+  },
+  {
+    "id": "d0680eeff8ffa5b8",
+    "en": "It will release varied jellies when damaged or killed, with the number of jellies proportional to the amount of damage.",
+    "locations": [
+      "describe.cc:6509"
+    ]
+  },
+  {
+    "id": "d5629bb11823e080",
+    "en": "It will release all of its jellies when polymorphed.",
+    "locations": [
+      "describe.cc:6511"
+    ]
+  },
+  {
+    "id": "d4580fb9cfae67ce",
+    "en": "can fly.",
+    "locations": [
+      "describe.cc:6521"
+    ]
+  },
+  {
+    "id": "6413e5a37df42821",
+    "en": "can open doors.",
+    "locations": [
+      "describe.cc:6571",
+      "describe.cc:6575"
+    ]
+  },
+  {
+    "id": "5b1e76042bf3d62c",
+    "en": "can crash through doors.",
+    "locations": [
+      "describe.cc:6579"
+    ]
+  },
+  {
+    "id": "e1b07c906f2a4492",
+    "en": "can eat doors.",
+    "locations": [
+      "describe.cc:6581"
+    ]
+  },
+  {
+    "id": "7f66721501cd7cae",
+    "en": "It looks just like you...spooky!",
+    "locations": [
+      "describe.cc:6702"
+    ]
+  },
+  {
+    "id": "092579fb53961f0a",
+    "en": "It is quickly melting away.",
+    "locations": [
+      "describe.cc:6721"
+    ]
+  },
+  {
+    "id": "3d7caa39055f5e0c",
+    "en": "It is quickly crumbling away.",
+    "locations": [
+      "describe.cc:6728",
+      "describe.cc:6753"
+    ]
+  },
+  {
+    "id": "d8b51629cca88184",
+    "en": "It deals",
+    "locations": [
+      "describe.cc:6732",
+      "describe.cc:6736"
+    ]
+  },
+  {
+    "id": "764934fe444fd926",
+    "en": "fire damage.",
+    "locations": [
+      "describe.cc:6732"
+    ]
+  },
+  {
+    "id": "f693457065001e94",
+    "en": "If this monster is a \"program bug\", then it's recommended that you save your game and reload. Please report monsters who masquerade as program bugs or run around the dungeon without a proper description to the authorities.",
+    "locations": [
+      "describe.cc:6740"
+    ]
+  },
+  {
+    "id": "4dc6be825d1e610d",
+    "en": "It is quickly withering away.",
+    "locations": [
+      "describe.cc:6755"
+    ]
+  },
+  {
+    "id": "f384bf6803ef0089",
+    "en": "If struck, it will crumble away soon after.",
+    "locations": [
+      "describe.cc:6757"
+    ]
+  },
+  {
+    "id": "7137f12c339a137d",
+    "en": "If struck, it will die soon after.",
+    "locations": [
+      "describe.cc:6759"
+    ]
+  },
+  {
+    "id": "a19764d6babcd796",
+    "en": "foe when destroyed.",
+    "locations": [
+      "describe.cc:6782"
+    ]
+  },
+  {
+    "id": "135d610a031c1191",
+    "en": "incapable of using stairs.",
+    "locations": [
+      "describe.cc:6796"
+    ]
+  },
+  {
+    "id": "851964e721a9b4ac",
+    "en": "This monster has been",
+    "locations": [
+      "describe.cc:6806"
+    ]
+  },
+  {
+    "id": "29a8a6f833b6e702",
+    "en": "Killing this monster yields no experience or items.",
+    "locations": [
+      "describe.cc:6835"
+    ]
+  },
+  {
+    "id": "f5ff98c807b7e39c",
+    "en": "hide, which can be used as armour.",
+    "locations": [
+      "describe.cc:6841"
+    ]
+  },
+  {
+    "id": "65dd3eb37bccbf53",
+    "en": "Placed by map: %s",
+    "locations": [
+      "describe.cc:6856"
+    ]
+  },
+  {
+    "id": "2ebdf843dbe56d48",
+    "en": "Monster health:",
+    "locations": [
+      "describe.cc:6860"
+    ]
+  },
+  {
+    "id": "ff13166b65982e8d",
+    "en": "Has holiness:",
+    "locations": [
+      "describe.cc:6891"
+    ]
+  },
+  {
+    "id": "a3b66011eb759d14",
+    "en": "Monster Spells:",
+    "locations": [
+      "describe.cc:6902"
+    ]
+  },
+  {
+    "id": "eef61bc36eadd4e7",
+    "en": "Monster Inventory:",
+    "locations": [
+      "describe.cc:6931"
+    ]
+  },
+  {
+    "id": "785cc5be4ec75ee2",
+    "en": "Monster blame chain:",
+    "locations": [
+      "describe.cc:6940"
+    ]
+  },
+  {
+    "id": "673473f6c63b5823",
+    "en": "BUGGY SPELLSET",
+    "locations": [
+      "describe.cc:7132"
+    ]
+  },
+  {
+    "id": "1b04facee1a375cc",
+    "en": "SPELLSET_PLACEHOLDER",
+    "locations": [
+      "describe.cc:7132"
+    ]
+  },
+  {
+    "id": "887e7ef525cd7790",
+    "en": "Mutations Suppressed:",
+    "locations": [
+      "describe.cc:7675"
+    ]
+  },
+  {
+    "id": "0f98fbbcb196433b",
+    "en": "This cloud is opaque; one tile will not block vision, but multiple will.",
+    "locations": [
+      "describe.cc:7728"
+    ]
+  },
+  {
+    "id": "7d292a457bdda74a",
+    "en": "Clouds of this kind an adventurer makes will vanish %s once outside their sight.",
+    "locations": [
+      "describe.cc:7731"
+    ]
+  },
+  {
+    "id": "a3d992a8f84d7a5e",
+    "en": "<white>Dungeon Overview and Level Annotations</white>",
+    "locations": [
+      "dgn-overview.cc:249"
+    ]
+  },
+  {
+    "id": "1196a0501f26c423",
+    "en": "The Realm of Zot is guarded by %s.",
+    "locations": [
+      "dgn-overview.cc:254"
+    ]
+  },
+  {
+    "id": "685ac19a74856152",
+    "en": "<green>Branches:</green>",
+    "locations": [
+      "dgn-overview.cc:279"
+    ]
+  },
+  {
+    "id": "17e330995e6f7485",
+    "en": "<green>Altars:</green>",
+    "locations": [
+      "dgn-overview.cc:483"
+    ]
+  },
+  {
+    "id": "553e9d3aeb7e6265",
+    "en": "<green>Shops:</green>",
+    "locations": [
+      "dgn-overview.cc:590"
+    ]
+  },
+  {
+    "id": "0a2886ea79ede33b",
+    "en": "<green>Portals:</green>",
+    "locations": [
+      "dgn-overview.cc:648"
+    ]
+  },
+  {
+    "id": "e852c0590e6e5aec",
+    "en": "<green>Annotations:</green> (press <white>!</white> to add a new annotation)",
+    "locations": [
+      "dgn-overview.cc:671"
+    ]
+  },
+  {
+    "id": "a93377b22a031ae3",
+    "en": "<green>Annotations:</green>",
+    "locations": [
+      "dgn-overview.cc:672"
+    ]
+  },
+  {
+    "id": "9798799d7bbff192",
+    "en": "(Right-click to examine)",
+    "locations": [
+      "directn.cc:1972"
+    ]
+  },
+  {
+    "id": "8a98cf883a5b9501",
+    "en": "function %s()",
+    "locations": [
+      "dlua.cc:64"
+    ]
+  },
+  {
+    "id": "1e8eb0d4055b84be",
+    "en": "--- Looking to place uniques on %s",
+    "locations": [
+      "dungeon.cc:4052"
+    ]
+  },
+  {
+    "id": "de7fabf5b8f50438",
+    "en": "Dummy balance or no uniques left.",
+    "locations": [
+      "dungeon.cc:4078"
+    ]
+  },
+  {
+    "id": "09d7343342719b79",
+    "en": "Placed valid unique map: %s.",
+    "locations": [
+      "dungeon.cc:4093"
+    ]
+  },
+  {
+    "id": "b60d26cd47b0e868",
+    "en": "Didn't place valid map: %s",
+    "locations": [
+      "dungeon.cc:4101"
+    ]
+  },
+  {
+    "id": "a7e3410882c049ac",
+    "en": "--- Finished this set, placed %d uniques.",
+    "locations": [
+      "dungeon.cc:4108"
+    ]
+  },
+  {
+    "id": "3b4c4963db09442c",
+    "en": "Best Crawlers - %s",
+    "locations": [
+      "end.cc:371"
+    ]
+  },
+  {
+    "id": "35c721e46cf1d5d0",
+    "en": "You can find your morgue file in the '%s' directory.",
+    "locations": [
+      "end.cc:397"
+    ]
+  },
+  {
+    "id": "306bae3ff182d4bf",
+    "en": "You can find your morgue file in the",
+    "locations": [
+      "end.cc:399"
+    ]
+  },
+  {
+    "id": "07e4482e146a42c0",
+    "en": "directory.",
+    "locations": [
+      "end.cc:399"
+    ]
+  },
+  {
+    "id": "98fad593801bc2c5",
+    "en": "Missing DCSS data directory; tried:",
+    "locations": [
+      "files.cc:549"
+    ]
+  },
+  {
+    "id": "4634be0630ee1054",
+    "en": "Cannot find data file '%s' anywhere, aborting",
+    "locations": [
+      "files.cc:574"
+    ]
+  },
+  {
+    "id": "53212a0f40580e31",
+    "en": "Could not load '%s'",
+    "locations": [
+      "files.cc:963"
+    ]
+  },
+  {
+    "id": "89b9f885917ef070",
+    "en": "Error: you smelly wizard, how dare you enter the same level (%s) twice! It will be trampled upon return.",
+    "locations": [
+      "files.cc:1402"
+    ]
+  },
+  {
+    "id": "35b9ba5fd831eb70",
+    "en": "The stack has: %s.",
+    "locations": [
+      "files.cc:1402"
+    ]
+  },
+  {
+    "id": "004618e637d0a52e",
+    "en": "Generating dungeon...",
+    "locations": [
+      "files.cc:1951"
+    ]
+  },
+  {
+    "id": "5167e9677e1fbc50",
+    "en": "building",
+    "locations": [
+      "files.cc:1956"
+    ]
+  },
+  {
+    "id": "33a7efb2a02d0265",
+    "en": "Builder failure while generating '%s'!",
+    "locations": [
+      "files.cc:2211"
+    ]
+  },
+  {
+    "id": "f28b4971c76abb0f",
+    "en": "Last builder error: '%s'",
+    "locations": [
+      "files.cc:2211"
+    ]
+  },
+  {
+    "id": "57cc324aa556b0df",
+    "en": "Unless you reinstall that version, you can't load it.",
+    "locations": [
+      "files.cc:3215"
+    ]
+  },
+  {
+    "id": "a85d1ff79823579f",
+    "en": "Do you want to DELETE that game and start a new one?",
+    "locations": [
+      "files.cc:3215"
+    ]
+  },
+  {
+    "id": "d6849d9ac56b39cd",
+    "en": "do you want to load that instead?",
+    "locations": [
+      "files.cc:3240"
+    ]
+  },
+  {
+    "id": "c48da365555650d3",
+    "en": "If you load it now, you won't be able to go back. Continue?",
+    "locations": [
+      "files.cc:3260"
+    ]
+  },
+  {
+    "id": "9cbf8281f284af6e",
+    "en": "There exists a save by that name but it appears to be invalid.",
+    "locations": [
+      "files.cc:3356"
+    ]
+  },
+  {
+    "id": "1b42e4d5c3e16315",
+    "en": "Do you want to delete it?",
+    "locations": [
+      "files.cc:3356"
+    ]
+  },
+  {
+    "id": "6471680e3d82d666",
+    "en": "This Lava Orc save game cannot be loaded as-is. If you load it now,",
+    "locations": [
+      "files.cc:3552"
+    ]
+  },
+  {
+    "id": "2afa463e4244fb61",
+    "en": "your character will be converted to a Mountain Dwarf. Continue?",
+    "locations": [
+      "files.cc:3552"
+    ]
+  },
+  {
+    "id": "13e73bd4de038582",
+    "en": "This Vampire save game cannot be loaded as-is. If you load it now,",
+    "locations": [
+      "files.cc:3577"
+    ]
+  },
+  {
+    "id": "b4e1f39fa3e9dbcc",
+    "en": "your character will be converted to a Human. Continue?",
+    "locations": [
+      "files.cc:3577"
+    ]
+  },
+  {
+    "id": "ad653687caccc688",
+    "en": "This save is from an older version.",
+    "locations": [
+      "files.cc:3670"
+    ]
+  },
+  {
+    "id": "fde8c9f28ea8dd5e",
+    "en": "%s is not compatible with save files this old. You can:",
+    "locations": [
+      "files.cc:3672"
+    ]
+  },
+  {
+    "id": "2ef0d9f2dabd7c04",
+    "en": "• continue your game with an older version of",
+    "locations": [
+      "files.cc:3672"
+    ]
+  },
+  {
+    "id": "f8c7d73547fcc686",
+    "en": "• delete it and start a new game",
+    "locations": [
+      "files.cc:3673"
+    ]
+  },
+  {
+    "id": "7c4263eb0ff574a5",
+    "en": "This save's version: (%d.%d) (must be >= %d.%d)",
+    "locations": [
+      "files.cc:3673"
+    ]
+  },
+  {
+    "id": "3023b4b0283e05e1",
+    "en": "This save is from a newer version.",
+    "locations": [
+      "files.cc:3684"
+    ]
+  },
+  {
+    "id": "014421f313139743",
+    "en": "cannot load saves from newer versions. You can:",
+    "locations": [
+      "files.cc:3686"
+    ]
+  },
+  {
+    "id": "e9c5584859e30311",
+    "en": "• continue your game with a newer version of",
+    "locations": [
+      "files.cc:3686"
+    ]
+  },
+  {
+    "id": "15e5fc3788dded4f",
+    "en": "This save's version: (%d.%d) (must be <= %d.%d)",
+    "locations": [
+      "files.cc:3687"
+    ]
+  },
+  {
+    "id": "d469db3fa32d2144",
+    "en": "Failed to initialise freetype library.",
+    "locations": [
+      "fontwrapper-ft.cc:49"
+    ]
+  },
+  {
+    "id": "e3deeb5d482c2c67",
+    "en": "Failed to unload freetype library.",
+    "locations": [
+      "fontwrapper-ft.cc:54"
+    ]
+  },
+  {
+    "id": "ed0af497e0f42ae6",
+    "en": "new font tex %d x %d x 4 = %dpx %d bytes",
+    "locations": [
+      "fontwrapper-ft.cc:139"
+    ]
+  },
+  {
+    "id": "316b8fd89875cddb",
+    "en": "Could not read font '%s'",
+    "locations": [
+      "fontwrapper-ft.cc:198"
+    ]
+  },
+  {
+    "id": "008c6104f2a4551f",
+    "en": "Could not read font '%s': %s",
+    "locations": [
+      "fontwrapper-ft.cc:203"
+    ]
+  },
+  {
+    "id": "715a39bb33745c54",
+    "en": "Unknown font format for file '%s'",
+    "locations": [
+      "fontwrapper-ft.cc:208"
+    ]
+  },
+  {
+    "id": "0c13f23509c6faee",
+    "en": "Invalid font from file '%s' (size %lu): 0x%0x",
+    "locations": [
+      "fontwrapper-ft.cc:211"
+    ]
+  },
+  {
+    "id": "d5c754392f139a07",
+    "en": "Bad %s -- %s",
+    "locations": [
+      "game-options.cc:114"
+    ]
+  },
+  {
+    "id": "c4910747f410bb7a",
+    "en": "OGLStateManager ERROR %x: %s",
+    "locations": [
+      "glwrapper-ogl.cc:509"
+    ]
+  },
+  {
+    "id": "4c7ffc5caa2ef36e",
+    "en": "OGLShapeBuffer ERROR %x: %s",
+    "locations": [
+      "glwrapper-ogl.cc:702"
+    ]
+  },
+  {
+    "id": "b755d18662a86c8f",
+    "en": "HP: %d    AC: %d    Damage:%d (w/weapon)",
+    "locations": [
+      "god-companions.cc:1143"
+    ]
+  },
+  {
+    "id": "18ebd6575664e5c6",
+    "en": "This altar belongs to %s, but you can't tell which.",
+    "locations": [
+      "god-prayer.cc:64"
+    ]
+  },
+  {
+    "id": "c25d741cbf5904bf",
+    "en": "Press the corresponding letter to learn more about a god, or press enter to convert or escape to cancel.",
+    "locations": [
+      "god-prayer.cc:64"
+    ]
+  },
+  {
+    "id": "6e7d3d2f6dec436f",
+    "en": "<white>Welcome!</white>",
+    "locations": [
+      "hints.cc:173"
+    ]
+  },
+  {
+    "id": "95288e220e2ff908",
+    "en": "<cyan>You can be:</cyan>",
+    "locations": [
+      "hints.cc:173"
+    ]
+  },
+  {
+    "id": "9b1cb726bccec90a",
+    "en": "Also, berserking might help you not to lose so much health in the first place. To use your abilities press <w>a</w>.",
+    "locations": [
+      "hints.cc:678"
+    ]
+  },
+  {
+    "id": "906343152fcc5be4",
+    "en": "Your console settings allowing, you'll always see a list of monsters somewhere on the screen.",
+    "locations": [
+      "hints.cc:877"
+    ]
+  },
+  {
+    "id": "ff1a5a2db27835f8",
+    "en": "To attack this monster with your wielded weapon, just move into it.",
+    "locations": [
+      "hints.cc:885"
+    ]
+  },
+  {
+    "id": "3bf4c1352619652b",
+    "en": "First <w>w</w>ield it, then follow the instructions.<tiles>",
+    "locations": [
+      "hints.cc:908"
+    ]
+  },
+  {
+    "id": "4c443df89f423498",
+    "en": "As a short-cut you can also <w>right-click</w> on your shortbow to read its description, and <w>left-click</w> to wield it.</tiles>",
+    "locations": [
+      "hints.cc:908"
+    ]
+  },
+  {
+    "id": "0edb475abc69943d",
+    "en": "Welcome back! If it's been a while, you may want to refresh your memory.",
+    "locations": [
+      "hints.cc:1734"
+    ]
+  },
+  {
+    "id": "8cc3ad91cbe43f26",
+    "en": "Your <w>%</w>nventory,",
+    "locations": [
+      "hints.cc:1734"
+    ]
+  },
+  {
+    "id": "d355ccbad63d75ae",
+    "en": "A spell that isn't <darkgray>grayed out</darkgray> or <lightred>forbidden</lightred> can be memorised right away by selecting it at this menu.",
+    "locations": [
+      "hints.cc:1938"
+    ]
+  },
+  {
+    "id": "aecfc85ad55bab08",
+    "en": "You cannot memorise any",
+    "locations": [
+      "hints.cc:1944"
+    ]
+  },
+  {
+    "id": "4bbce1fb40ae0d26",
+    "en": "To use magic,",
+    "locations": [
+      "hints.cc:1952"
+    ]
+  },
+  {
+    "id": "c2f065c9df100073",
+    "en": "you can <w>left mouse click</w> on the monster you wish to target (or on your player character to cast a spell on yourself) while pressing the <w>Control key</w>, and then select a spell from the menu. Or you can switch to the spellcasting display by <w>clicking on the</w> corresponding <w>tab</w>.",
+    "locations": [
+      "hints.cc:1954"
+    ]
+  },
+  {
+    "id": "8f69db5a41904c44",
+    "en": "Alternatively,",
+    "locations": [
+      "hints.cc:1954"
+    ]
+  },
+  {
+    "id": "8341118ab77dcc92",
+    "en": "This weapon offers its wearer protection from certain damage sources. For an overview of your resistances (among other things) press <w>%</w>",
+    "locations": [
+      "hints.cc:2080"
+    ]
+  },
+  {
+    "id": "998e6f392dd764bb",
+    "en": "However, you've been training in <w>",
+    "locations": [
+      "hints.cc:2120"
+    ]
+  },
+  {
+    "id": "4404e386c6a35b82",
+    "en": "<w>left mouse click</w> on the monster.",
+    "locations": [
+      "hints.cc:2137"
+    ]
+  },
+  {
+    "id": "5bb3045474ae95db",
+    "en": "Note that body armour with a high encumbrance rating may hinder your ability to cast spells. Light armour such as robes and leather armour will be generally safe for any aspiring spellcaster.",
+    "locations": [
+      "hints.cc:2196"
+    ]
+  },
+  {
+    "id": "106854f4358ff726",
+    "en": "Note that shields will hinder your ability to cast spells, until you've gained enough Shields skill to remove the penalty.",
+    "locations": [
+      "hints.cc:2204"
+    ]
+  },
+  {
+    "id": "1510662dce5b176b",
+    "en": "Note that many ranged weapons are two handed and so cannot be used with an offhand item.",
+    "locations": [
+      "hints.cc:2211"
+    ]
+  },
+  {
+    "id": "602071de4f185fd8",
+    "en": "Weapons and armour that have unusual descriptions",
+    "locations": [
+      "hints.cc:2219"
+    ]
+  },
+  {
+    "id": "2fc89f3c9d39f211",
+    "en": "This armour offers its wearer protection from certain sources. For an overview of your resistances (among other things) press <w>%</w>",
+    "locations": [
+      "hints.cc:2227"
+    ]
+  },
+  {
+    "id": "2ea719669ab857c3",
+    "en": "When worn, some types of armour (such as this one) offer certain <w>%</w>bilities you can activate.",
+    "locations": [
+      "hints.cc:2239"
+    ]
+  },
+  {
+    "id": "f0781426b7a4f557",
+    "en": "When worn, some types of jewellery (such as this one) offer certain <w>%</w>bilities you can activate.",
+    "locations": [
+      "hints.cc:2313"
+    ]
+  },
+  {
+    "id": "9329a290c177f4f0",
+    "en": "You can pick up a spellbook to add its spells to your spell library. (View your spell library with <w>%</w>.)",
+    "locations": [
+      "hints.cc:2342"
+    ]
+  },
+  {
+    "id": "e7ec93a231239570",
+    "en": "Seeing how",
+    "locations": [
+      "hints.cc:2376"
+    ]
+  },
+  {
+    "id": "04304792d01e653f",
+    "en": "The dungeon contains a number of natural obstacles such as shafts, which lead one to three levels down. Once you know the shaft is there, you can safely step over it.",
+    "locations": [
+      "hints.cc:2472"
+    ]
+  },
+  {
+    "id": "2b0c16515c4b4087",
+    "en": "If you want to jump down there, use <w>></w> to do so. Be warned that getting back here might be difficult.",
+    "locations": [
+      "hints.cc:2472"
+    ]
+  },
+  {
+    "id": "aa7a4f03f7dd7fab",
+    "en": "You have not yet passed through this particular set of stairs.",
+    "locations": [
+      "hints.cc:2501",
+      "hints.cc:2531"
+    ]
+  },
+  {
+    "id": "163a5cf03e7f48f2",
+    "en": "To avoid accidentally opening a door you'd rather remain closed during travel or autoexplore, you can mark it with an exclusion from the map view (<w>X</w>) with <w>ee</w> while your cursor is on the grid in question. Such an exclusion will prevent autotravel from ever entering that grid until you remove the exclusion with another press of <w>Xe</w>.",
+    "locations": [
+      "hints.cc:2557"
+    ]
+  },
+  {
+    "id": "9ba78c5fe5f83973",
+    "en": "This is your chance to join a religion! In general, the gods will help their followers, bestowing powers of all sorts upon them, but many of them demand a life of dedication, constant tributes or entertainment in return.",
+    "locations": [
+      "hints.cc:2575"
+    ]
+  },
+  {
+    "id": "a627b2c69bc37693",
+    "en": "</w>, press <w>></w> while standing on the altar. Before taking up the responding faith (and abandoning your current one!) you'll be asked for confirmation.",
+    "locations": [
+      "hints.cc:2621"
+    ]
+  },
+  {
+    "id": "600ace92db642218",
+    "en": "To see your current standing with",
+    "locations": [
+      "hints.cc:2621"
+    ]
+  },
+  {
+    "id": "8bbbd45e324bcbe4",
+    "en": "This cloud",
+    "locations": [
+      "hints.cc:2685"
+    ]
+  },
+  {
+    "id": "7b27460c5e34f083",
+    "en": "Did you think you were the only adventurer in the dungeon? Well, you thought wrong! These unique adversaries often possess skills that normal monsters wouldn't, so be careful.",
+    "locations": [
+      "hints.cc:2707"
+    ]
+  },
+  {
+    "id": "3a48fe265523eadc",
+    "en": "The ghost of a deceased adventurer, it would like nothing better than to send you the same way.",
+    "locations": [
+      "hints.cc:2715"
+    ]
+  },
+  {
+    "id": "acd720e17bb44d68",
+    "en": "This monster appears to be really dangerous!",
+    "locations": [
+      "hints.cc:2724"
+    ]
+  },
+  {
+    "id": "b32a3de1c975ba0c",
+    "en": "This monster appears to be quite dangerous.",
+    "locations": [
+      "hints.cc:2729"
+    ]
+  },
+  {
+    "id": "5fc58e7861b58561",
+    "en": "A berserking monster is bloodthirsty and fighting madly. Such a blood rage makes it particularly dangerous!",
+    "locations": [
+      "hints.cc:2736"
+    ]
+  },
+  {
+    "id": "3d0cb708313a0efb",
+    "en": "However, it is only <w>temporarily</w> friendly, and will become dangerous again when this friendliness wears off.",
+    "locations": [
+      "hints.cc:2750"
+    ]
+  },
+  {
+    "id": "7547669c9bc20353",
+    "en": "This monster doesn't appear to have any resistances or susceptibilities. It cannot fly and is of average speed. Examining other, possibly more high-level monsters can give important clues as to how to deal with them.",
+    "locations": [
+      "hints.cc:2793"
+    ]
+  },
+  {
+    "id": "fca7802c0dd51a7d",
+    "en": "... wielded by",
+    "locations": [
+      "hiscores.cc:2646"
+    ]
+  },
+  {
+    "id": "2ef82ece0f79e0ae",
+    "en": "Bad monster_list_colour key: %s",
+    "locations": [
+      "initfile.cc:178"
+    ]
+  },
+  {
+    "id": "a5281e8448c709f9",
+    "en": "Bad custom_text_colours: %s",
+    "locations": [
+      "initfile.cc:201"
+    ]
+  },
+  {
+    "id": "84d9b53aae5118d5",
+    "en": "No translations for language '%s'.",
+    "locations": [
+      "initfile.cc:345"
+    ]
+  },
+  {
+    "id": "96bfbfdd068b6c61",
+    "en": "Languages with at least partial translation: %s",
+    "locations": [
+      "initfile.cc:345"
+    ]
+  },
+  {
+    "id": "c81fbe6e6c1d5e5a",
+    "en": "Unknown species choice: %s",
+    "locations": [
+      "initfile.cc:1307"
+    ]
+  },
+  {
+    "id": "ae59e677f2ace945",
+    "en": "Unknown background choice: %s",
+    "locations": [
+      "initfile.cc:1342"
+    ]
+  },
+  {
+    "id": "1b612ed0e07dc6e6",
+    "en": "Bad enemy_hp_colour: %s",
+    "locations": [
+      "initfile.cc:1380"
+    ]
+  },
+  {
+    "id": "a6903d8ac4e8744d",
+    "en": "Unknown delay: %s",
+    "locations": [
+      "initfile.cc:1430"
+    ]
+  },
+  {
+    "id": "d8e68a4dcf114db5",
+    "en": "Delay interrupt name \"%s\" not recognised.",
+    "locations": [
+      "initfile.cc:1442"
+    ]
+  },
+  {
+    "id": "bc99d6a7a6228a69",
+    "en": "Unknown ability '%s'",
+    "locations": [
+      "initfile.cc:1803",
+      "initfile.cc:1921",
+      "initfile.cc:1935"
+    ]
+  },
+  {
+    "id": "406d08a3598c6925",
+    "en": "Unknown spell '%s'",
+    "locations": [
+      "initfile.cc:1854",
+      "initfile.cc:1895",
+      "initfile.cc:1909"
+    ]
+  },
+  {
+    "id": "76c09878a90f84ea",
+    "en": "Unknown scroll '%s'",
+    "locations": [
+      "initfile.cc:1958",
+      "initfile.cc:1979"
+    ]
+  },
+  {
+    "id": "c4e558c6f22ed6e7",
+    "en": "default_manual_training = %s",
+    "locations": [
+      "initfile.cc:2460"
+    ]
+  },
+  {
+    "id": "f7b7335c4fdfb8b5",
+    "en": "quiver_menu_focus = %s",
+    "locations": [
+      "initfile.cc:2462"
+    ]
+  },
+  {
+    "id": "f86d13b3d69602ea",
+    "en": "action_panel_orientation = %s",
+    "locations": [
+      "initfile.cc:2465"
+    ]
+  },
+  {
+    "id": "0f98d86cf305a1d5",
+    "en": "action_panel_show = %s",
+    "locations": [
+      "initfile.cc:2467"
+    ]
+  },
+  {
+    "id": "806769196fa99574",
+    "en": "action_panel_scale = %d",
+    "locations": [
+      "initfile.cc:2469"
+    ]
+  },
+  {
+    "id": "3a88d71d95b1fc36",
+    "en": "action_panel_font_size = %d",
+    "locations": [
+      "initfile.cc:2470"
+    ]
+  },
+  {
+    "id": "ef7729817c9c885d",
+    "en": "type = %s",
+    "locations": [
+      "initfile.cc:2485"
+    ]
+  },
+  {
+    "id": "00e05bbbe6f753f1",
+    "en": "map = %s",
+    "locations": [
+      "initfile.cc:2488"
+    ]
+  },
+  {
+    "id": "734bfa90d421bf38",
+    "en": "arena_teams = %s",
+    "locations": [
+      "initfile.cc:2490"
+    ]
+  },
+  {
+    "id": "806d6a05c381447c",
+    "en": "name = %s",
+    "locations": [
+      "initfile.cc:2492"
+    ]
+  },
+  {
+    "id": "15e0568837af8277",
+    "en": "species = %s",
+    "locations": [
+      "initfile.cc:2495"
+    ]
+  },
+  {
+    "id": "e5e44eb7173dfdf0",
+    "en": "background = %s",
+    "locations": [
+      "initfile.cc:2497"
+    ]
+  },
+  {
+    "id": "33b2f3c738fb9f20",
+    "en": "weapon = %s",
+    "locations": [
+      "initfile.cc:2499"
+    ]
+  },
+  {
+    "id": "e545f609fc246793",
+    "en": "fully_random = %s",
+    "locations": [
+      "initfile.cc:2502"
+    ]
+  },
+  {
+    "id": "6676225662e10536",
+    "en": "Unknown consumable type: %s",
+    "locations": [
+      "initfile.cc:3149"
+    ]
+  },
+  {
+    "id": "61c51abebe8880f9",
+    "en": "Error parsing slot mapping: '%s'",
+    "locations": [
+      "initfile.cc:3495"
+    ]
+  },
+  {
+    "id": "848db5a5d1f1e591",
+    "en": "Error parsing consumable mapping: '%s'",
+    "locations": [
+      "initfile.cc:3507"
+    ]
+  },
+  {
+    "id": "129d72f3870e9215",
+    "en": "Bad object type '%*s' for autopickup.",
+    "locations": [
+      "initfile.cc:3977"
+    ]
+  },
+  {
+    "id": "31ae032bacd7207f",
+    "en": "Bad colour -- %s=%d or %s=%d",
+    "locations": [
+      "initfile.cc:3990"
+    ]
+  },
+  {
+    "id": "467a3d71a11fa1b7",
+    "en": "Bad fire item start index: %s",
+    "locations": [
+      "initfile.cc:4078"
+    ]
+  },
+  {
+    "id": "9ae7a1bc67cdc1ee",
+    "en": "Autoinscribe string must have exactly one colon: %s",
+    "locations": [
+      "initfile.cc:4188"
+    ]
+  },
+  {
+    "id": "f4fd7becf43cd113",
+    "en": "Autoinscribe pattern is empty: %s",
+    "locations": [
+      "initfile.cc:4195"
+    ]
+  },
+  {
+    "id": "cf5614984bf093cf",
+    "en": "Autoinscribe result is empty: %s",
+    "locations": [
+      "initfile.cc:4202"
+    ]
+  },
+  {
+    "id": "b2c9310c1c35cb72",
+    "en": "Error parsing autoinscribe string: %s",
+    "locations": [
+      "initfile.cc:4211"
+    ]
+  },
+  {
+    "id": "0deedd47ee605c77",
+    "en": "Bad skill level to note -- %s",
+    "locations": [
+      "initfile.cc:4238"
+    ]
+  },
+  {
+    "id": "59387954734e08ce",
+    "en": "Bad item type '%*s' for action_panel.",
+    "locations": [
+      "initfile.cc:4378"
+    ]
+  },
+  {
+    "id": "e119f7185e133890",
+    "en": "Save file version for %s is %d.%d",
+    "locations": [
+      "initfile.cc:4955"
+    ]
+  },
+  {
+    "id": "34b16091289950c2",
+    "en": "Usage: crawl --edit-save <name> <command>, where <command> may be:",
+    "locations": [
+      "initfile.cc:5014"
+    ]
+  },
+  {
+    "id": "5623a00e3e79c60b",
+    "en": "ls                          list the chunks",
+    "locations": [
+      "initfile.cc:5014"
+    ]
+  },
+  {
+    "id": "80ae169054a6af35",
+    "en": "info                        list detailed chunk and frag info",
+    "locations": [
+      "initfile.cc:5014"
+    ]
+  },
+  {
+    "id": "54298d460e869302",
+    "en": "get <chunk> [<chunkfile>]   extract a chunk into <chunkfile>",
+    "locations": [
+      "initfile.cc:5014"
+    ]
+  },
+  {
+    "id": "f2f700993ef076f8",
+    "en": "put <chunk> [<chunkfile>]   import a chunk from <chunkfile>",
+    "locations": [
+      "initfile.cc:5014"
+    ]
+  },
+  {
+    "id": "576b12a2e00f760a",
+    "en": "<chunkfile> defaults to \"chunk\"; use \"-\" for stdout/stdin",
+    "locations": [
+      "initfile.cc:5014"
+    ]
+  },
+  {
+    "id": "d91de1934d2a464e",
+    "en": "rm <chunk>                  delete a chunk",
+    "locations": [
+      "initfile.cc:5014"
+    ]
+  },
+  {
+    "id": "bb13b8fce3f35ae1",
+    "en": "repack                      defrag and reclaim unused space",
+    "locations": [
+      "initfile.cc:5014"
+    ]
+  },
+  {
+    "id": "3516407822b31049",
+    "en": "Too few arguments for %s.",
+    "locations": [
+      "initfile.cc:5035",
+      "initfile.cc:5360"
+    ]
+  },
+  {
+    "id": "5c3909b501c0bc73",
+    "en": "Too many arguments for %s.",
+    "locations": [
+      "initfile.cc:5037",
+      "initfile.cc:5362"
+    ]
+  },
+  {
+    "id": "ce53adba7753c0c8",
+    "en": "Unknown command: %s.",
+    "locations": [
+      "initfile.cc:5043",
+      "initfile.cc:5367"
+    ]
+  },
+  {
+    "id": "508ecfb583049759",
+    "en": "Invalid chunk name \"%s\".",
+    "locations": [
+      "initfile.cc:5064",
+      "initfile.cc:5091",
+      "initfile.cc:5116"
+    ]
+  },
+  {
+    "id": "c8edf666a2215c51",
+    "en": "No such chunk in the save file.",
+    "locations": [
+      "initfile.cc:5066",
+      "initfile.cc:5118"
+    ]
+  },
+  {
+    "id": "73de61acd2fc5d8b",
+    "en": "Chunks: (size compressed/uncompressed, fragments, name)",
+    "locations": [
+      "initfile.cc:5147"
+    ]
+  },
+  {
+    "id": "4cbaec5adfb14d58",
+    "en": "Fragmentation:    %u/%u (%4.2f)",
+    "locations": [
+      "initfile.cc:5162"
+    ]
+  },
+  {
+    "id": "e72b0bfba2ab3923",
+    "en": "Unused space:     %u/%u (%u%%)",
+    "locations": [
+      "initfile.cc:5164"
+    ]
+  },
+  {
+    "id": "b823529d30013b8a",
+    "en": "Empty ghost file.",
+    "locations": [
+      "initfile.cc:5262"
+    ]
+  },
+  {
+    "id": "79dd992536e4bc57",
+    "en": "ghosts total",
+    "locations": [
+      "initfile.cc:5265"
+    ]
+  },
+  {
+    "id": "38740bfa28593210",
+    "en": "Usage: crawl --bones <command> ARGS, where <command> may be:",
+    "locations": [
+      "initfile.cc:5340"
+    ]
+  },
+  {
+    "id": "6767b6492b6daa0d",
+    "en": "ls <file> [<name>] [--long] List the ghosts in <file>",
+    "locations": [
+      "initfile.cc:5340"
+    ]
+  },
+  {
+    "id": "acf1077f3637f2db",
+    "en": "--long shows full monster descriptions",
+    "locations": [
+      "initfile.cc:5340"
+    ]
+  },
+  {
+    "id": "6c9e81d7935b5972",
+    "en": "merge <file1> <file2>       Merge two bones files together, rewriting into",
+    "locations": [
+      "initfile.cc:5340"
+    ]
+  },
+  {
+    "id": "394e841b4b743467",
+    "en": "<file2>. Capped at %d; read in reverse order.",
+    "locations": [
+      "initfile.cc:5340"
+    ]
+  },
+  {
+    "id": "d3d3a527fbe6ac0e",
+    "en": "rm <file> <name>            Rewrite a ghost file without <name>",
+    "locations": [
+      "initfile.cc:5340"
+    ]
+  },
+  {
+    "id": "c884bd8b92c8d81e",
+    "en": "rewrite <file> [--dedup]    Rewrite a ghost file, fixing up version etc.",
+    "locations": [
+      "initfile.cc:5340"
+    ]
+  },
+  {
+    "id": "b07fe59bce952b84",
+    "en": "'%s' doesn't exist!",
+    "locations": [
+      "initfile.cc:5372"
+    ]
+  },
+  {
+    "id": "6ad6b19fdcf43610",
+    "en": "Unknown extra option to ls: '%s'",
+    "locations": [
+      "initfile.cc:5380"
+    ]
+  },
+  {
+    "id": "04839d27e6932280",
+    "en": "Unknown extra argument to rewrite: '%s'",
+    "locations": [
+      "initfile.cc:5390"
+    ]
+  },
+  {
+    "id": "b6515db8af9d57cd",
+    "en": "Bones file '%s' is from the future (%d.%d), this instance of crawl needs %d.%d.",
+    "locations": [
+      "initfile.cc:5410"
+    ]
+  },
+  {
+    "id": "3b3856a9d669a525",
+    "en": "An extra option can't use Lua (%s)",
+    "locations": [
+      "initfile.cc:5631"
+    ]
+  },
+  {
+    "id": "9610a8bb1b83a608",
+    "en": "An extra option can't be a comment (%s)",
+    "locations": [
+      "initfile.cc:5638"
+    ]
+  },
+  {
+    "id": "02376169408d0a6f",
+    "en": "An extra opt must contain a '=' (%s)",
+    "locations": [
+      "initfile.cc:5645"
+    ]
+  },
+  {
+    "id": "cf70a70cd92649b9",
+    "en": "An extra opt must have an option name (%s)",
+    "locations": [
+      "initfile.cc:5653"
+    ]
+  },
+  {
+    "id": "fe6762b1c15d9d9a",
+    "en": "mapstat and objstat are available only in DEBUG_STATISTICS builds.",
+    "locations": [
+      "initfile.cc:5666"
+    ]
+  },
+  {
+    "id": "5946a1564741c71c",
+    "en": "Option '%s' is invalid; options must be prefixed with -",
+    "locations": [
+      "initfile.cc:5727"
+    ]
+  },
+  {
+    "id": "56fa2232241a32c7",
+    "en": "Unknown option: %s",
+    "locations": [
+      "initfile.cc:5757"
+    ]
+  },
+  {
+    "id": "8566b0aae221a559",
+    "en": "Duplicate option: %s",
+    "locations": [
+      "initfile.cc:5764"
+    ]
+  },
+  {
+    "id": "5cff2d4556ea6959",
+    "en": "Error parsing depths: %s",
+    "locations": [
+      "initfile.cc:5836"
+    ]
+  },
+  {
+    "id": "e49022038a30e4f4",
+    "en": "Integer argument required for -%s",
+    "locations": [
+      "initfile.cc:5853"
+    ]
+  },
+  {
+    "id": "bbcb27031dda969e",
+    "en": "Can't run more than one mapstat/objstat iterations with a custom seed",
+    "locations": [
+      "initfile.cc:5864"
+    ]
+  },
+  {
+    "id": "715359e7905fc60f",
+    "en": "String argument required for -%s",
+    "locations": [
+      "initfile.cc:5878"
+    ]
+  },
+  {
+    "id": "319e1375562b917e",
+    "en": "This option is for DGL use only.",
+    "locations": [
+      "initfile.cc:6184"
+    ]
+  },
+  {
+    "id": "46216733c42bf644",
+    "en": "Longest: %s (%d)",
+    "locations": [
+      "item-name.cc:2769",
+      "item-name.cc:2794"
+    ]
+  },
+  {
+    "id": "f3c3838e48fed2c6",
+    "en": "is not present",
+    "locations": [
+      "jobs.cc:156"
+    ]
+  },
+  {
+    "id": "9ecdbdce7e11744e",
+    "en": "Lua error:",
+    "locations": [
+      "kills.cc:208"
+    ]
+  },
+  {
+    "id": "0628f0a511a6b01f",
+    "en": "%d creature%s vanquished.",
+    "locations": [
+      "kills.cc:223"
+    ]
+  },
+  {
+    "id": "cbb9d7b7ed50161b",
+    "en": "Can't find kill string?",
+    "locations": [
+      "kills.cc:867",
+      "kills.cc:897"
+    ]
+  },
+  {
+    "id": "3eebf12b714963a6",
+    "en": "<lightgrey>Letters toggle autopickup",
+    "locations": [
+      "known-items.cc:161"
+    ]
+  },
+  {
+    "id": "e393630d6f7cb85a",
+    "en": "This branch can only be %sed while carrying at least %d rune%s of Zot.",
+    "locations": [
+      "lookup-help.cc:1248"
+    ]
+  },
+  {
+    "id": "5e0aab370fd71989",
+    "en": "This %s is %d levels deep.",
+    "locations": [
+      "lookup-help.cc:1267"
+    ]
+  },
+  {
+    "id": "801eb081ccbe323e",
+    "en": "The entrance to this branch can be found",
+    "locations": [
+      "lookup-help.cc:1286"
+    ]
+  },
+  {
+    "id": "e50493dcc0b0097e",
+    "en": "This branch contains the entrance%s to %s.",
+    "locations": [
+      "lookup-help.cc:1315"
+    ]
+  },
+  {
+    "id": "68fdc59ece4ce167",
+    "en": "Describe %s; partial names and regexps are fine.%s",
+    "locations": [
+      "lookup-help.cc:1475"
+    ]
+  },
+  {
+    "id": "e6f18ecfcbc7a354",
+    "en": "Describe what?",
+    "locations": [
+      "lookup-help.cc:1475"
+    ]
+  },
+  {
+    "id": "31af83e24d13d288",
+    "en": "# %s %s macro file",
+    "locations": [
+      "macro.cc:795"
+    ]
+  },
+  {
+    "id": "3d85d2e4fc225115",
+    "en": "# WARNING: This file is entirely auto-generated.",
+    "locations": [
+      "macro.cc:795"
+    ]
+  },
+  {
+    "id": "d94df3142507b721",
+    "en": "# Key Mappings:",
+    "locations": [
+      "macro.cc:795"
+    ]
+  },
+  {
+    "id": "0526fcff3167a7b2",
+    "en": "# Command Macros:",
+    "locations": [
+      "macro.cc:809"
+    ]
+  },
+  {
+    "id": "7cbe525475974f09",
+    "en": "Arrows/[<w>enter</w>] to select, [<w>bksp</w>] to clear selected, [<w>?</w>] for help",
+    "locations": [
+      "macro.cc:1144"
+    ]
+  },
+  {
+    "id": "da6848f1fecc908b",
+    "en": "Input (raw) new %s for %s:",
+    "locations": [
+      "macro.cc:1344"
+    ]
+  },
+  {
+    "id": "d602773ec1f8427c",
+    "en": "Input new %s for %s:",
+    "locations": [
+      "macro.cc:1367"
+    ]
+  },
+  {
+    "id": "9e2d6d170b7c26d1",
+    "en": "Webtiles require an UTF-8 locale.",
+    "locations": [
+      "main.cc:250"
+    ]
+  },
+  {
+    "id": "50154bae1c888646",
+    "en": "Error: truncation inside the save file.",
+    "locations": [
+      "main.cc:416"
+    ]
+  },
+  {
+    "id": "5d45cf82c5f02fe6",
+    "en": "Tag hits:",
+    "locations": [
+      "mapdef.cc:69"
+    ]
+  },
+  {
+    "id": "a59820a17dc9ed63",
+    "en": "Total: %ld",
+    "locations": [
+      "mapdef.cc:81"
+    ]
+  },
+  {
+    "id": "d4e42d091b740478",
+    "en": "---------------- Mini",
+    "locations": [
+      "maps.cc:1695"
+    ]
+  },
+  {
+    "id": "0352b4ecea2377fc",
+    "en": "------------- Regular",
+    "locations": [
+      "maps.cc:1697"
+    ]
+  },
+  {
+    "id": "c64723a5d718dec1",
+    "en": "Trigger chance:  %d%%",
+    "locations": [
+      "melee-attack.cc:5203"
+    ]
+  },
+  {
+    "id": "bfac945ead7513b8",
+    "en": "Base damage:     %d",
+    "locations": [
+      "melee-attack.cc:5203"
+    ]
+  },
+  {
+    "id": "2b04b04ddef046ee",
+    "en": "<lightgrey>Letters toggle",
+    "locations": [
+      "menu.cc:1416"
+    ]
+  },
+  {
+    "id": "d471b79eb239d6c9",
+    "en": "Waypoints:",
+    "locations": [
+      "mon-pathfind.cc:399"
+    ]
+  },
+  {
+    "id": "d2c5be482a629e65",
+    "en": "%s: no valid skeletons in any parallel branch",
+    "locations": [
+      "mon-pick.cc:292"
+    ]
+  },
+  {
+    "id": "2857410025bc4072",
+    "en": "Monster %d has no name",
+    "locations": [
+      "mon-util.cc:4972"
+    ]
+  },
+  {
+    "id": "fdfd9c6899dbba8d",
+    "en": "%s has WL %d > 200",
+    "locations": [
+      "mon-util.cc:4982"
+    ]
+  },
+  {
+    "id": "cfaf3a8b045db1c4",
+    "en": "%s has rPois++",
+    "locations": [
+      "mon-util.cc:4984"
+    ]
+  },
+  {
+    "id": "0a299dcf6838e0f6",
+    "en": "%s has rElec++",
+    "locations": [
+      "mon-util.cc:4986"
+    ]
+  },
+  {
+    "id": "744d5637e54f8dff",
+    "en": "%s has 0 HD: %d",
+    "locations": [
+      "mon-util.cc:4993"
+    ]
+  },
+  {
+    "id": "6ab7a7a4492e5fee",
+    "en": "%s has an empty glyph",
+    "locations": [
+      "mon-util.cc:4998"
+    ]
+  },
+  {
+    "id": "0cc34f8f7b9d3fa9",
+    "en": "%s has negative AC",
+    "locations": [
+      "mon-util.cc:5001"
+    ]
+  },
+  {
+    "id": "e2184519faec4e98",
+    "en": "%s has negative EV",
+    "locations": [
+      "mon-util.cc:5003"
+    ]
+  },
+  {
+    "id": "3251b47dc263ddb7",
+    "en": "%s has negative xp",
+    "locations": [
+      "mon-util.cc:5005"
+    ]
+  },
+  {
+    "id": "743bda63f414754a",
+    "en": "%s has 0 speed",
+    "locations": [
+      "mon-util.cc:5008",
+      "mon-util.cc:5010"
+    ]
+  },
+  {
+    "id": "203dcd747f8f2b43",
+    "en": "%s has too many genders",
+    "locations": [
+      "mon-util.cc:5016"
+    ]
+  },
+  {
+    "id": "33556b30508e2e40",
+    "en": "%s has no defined shape",
+    "locations": [
+      "mon-util.cc:5019"
+    ]
+  },
+  {
+    "id": "e4387913aab502a5",
+    "en": "%s isn't a species but has a corpse tile",
+    "locations": [
+      "mon-util.cc:5028"
+    ]
+  },
+  {
+    "id": "6bee39e58b8bd274",
+    "en": "%s has a corpse tile & no corpse",
+    "locations": [
+      "mon-util.cc:5036"
+    ]
+  },
+  {
+    "id": "62bc928ca4d81a91",
+    "en": "%s has a corpse but no corpse tile",
+    "locations": [
+      "mon-util.cc:5041"
+    ]
+  },
+  {
+    "id": "72e3c937843d6405",
+    "en": "Book #%d is unused (%s)",
+    "locations": [
+      "mon-util.cc:5085"
+    ]
+  },
+  {
+    "id": "d8da9f41cef24e3a",
+    "en": "Empty book %s",
+    "locations": [
+      "mon-util.cc:5098"
+    ]
+  },
+  {
+    "id": "a15e51aaa1783cd9",
+    "en": "Book %s contains invalid spell %d",
+    "locations": [
+      "mon-util.cc:5105"
+    ]
+  },
+  {
+    "id": "a2af2f3cec2b6463",
+    "en": "Spellbook %s has spell %s at freq %d (greater than max freq %d)",
+    "locations": [
+      "mon-util.cc:5116"
+    ]
+  },
+  {
+    "id": "de00511c4b6f7017",
+    "en": "Spellbook %s has spell %s in multiple categories (%d and %d)",
+    "locations": [
+      "mon-util.cc:5135"
+    ]
+  },
+  {
+    "id": "f9d4189ef8591820",
+    "en": "Spellbook %s has spell %s marked MON_SPELL_NOISY redundantly",
+    "locations": [
+      "mon-util.cc:5146"
+    ]
+  },
+  {
+    "id": "7d32d8784f25630e",
+    "en": "Spellbook %s has spell %s with no category",
+    "locations": [
+      "mon-util.cc:5154"
+    ]
+  },
+  {
+    "id": "3a706b3e026a0f52",
+    "en": "<darkgrey>()</darkgrey>: Suppressed.",
+    "locations": [
+      "mutation.cc:1159"
+    ]
+  },
+  {
+    "id": "f444987d5ecc07c9",
+    "en": "<magenta>[]</magenta>: Transient mutations.",
+    "locations": [
+      "mutation.cc:1161"
+    ]
+  },
+  {
+    "id": "e561d0af9164713e",
+    "en": "<darkgrey>[]</darkgrey>: Gained at a future XL.",
+    "locations": [
+      "mutation.cc:1163"
+    ]
+  },
+  {
+    "id": "f707ecec528ae3da",
+    "en": "Play a game with a custom seed for version %s.",
+    "locations": [
+      "newgame.cc:842"
+    ]
+  },
+  {
+    "id": "e73c59aeaa3435a5",
+    "en": "Choose 0 for a random seed. [Tab]/[Shift-Tab] to cycle input focus.",
+    "locations": [
+      "newgame.cc:846"
+    ]
+  },
+  {
+    "id": "867be711d173167a",
+    "en": "Press [p] or [ctrl-v] to paste a seed from the clipboard",
+    "locations": [
+      "newgame.cc:908"
+    ]
+  },
+  {
+    "id": "ba6d564d28d3113c",
+    "en": "(overwriting the current value).",
+    "locations": [
+      "newgame.cc:908"
+    ]
+  },
+  {
+    "id": "6f40740f76f30929",
+    "en": "The seed will determine the dungeon layout, monsters, and items",
+    "locations": [
+      "newgame.cc:912"
+    ]
+  },
+  {
+    "id": "1f882202bf2865bf",
+    "en": "that you discover, relative to this version of crawl. Upgrading",
+    "locations": [
+      "newgame.cc:912"
+    ]
+  },
+  {
+    "id": "d10bed9c5a896cf4",
+    "en": "mid-game may affect seeding. (See the manual for more details.)",
+    "locations": [
+      "newgame.cc:912"
+    ]
+  },
+  {
+    "id": "6bc82a7e2569fe00",
+    "en": "Warning: your build of crawl does not support stable seeding!",
+    "locations": [
+      "newgame.cc:917"
+    ]
+  },
+  {
+    "id": "2de75540b7a3e75a",
+    "en": "Levels may differ from 'official' seeded games.",
+    "locations": [
+      "newgame.cc:917"
+    ]
+  },
+  {
+    "id": "a22305a2b635fc10",
+    "en": "You have a choice of %s:",
+    "locations": [
+      "newgame.cc:2208"
+    ]
+  },
+  {
+    "id": "cdfafee67623addb",
+    "en": "!</yellow>",
+    "locations": [
+      "ng-input.cc:20"
+    ]
+  },
+  {
+    "id": "917e00b99edc72ea",
+    "en": "%d.%02d/turn",
+    "locations": [
+      "output.cc:2620",
+      "output.cc:2633"
+    ]
+  },
+  {
+    "id": "84152b29d1094d64",
+    "en": "%d.%02d/turn%s",
+    "locations": [
+      "output.cc:2629"
+    ]
+  },
+  {
+    "id": "3aa5166a94b13c3d",
+    "en": "<w>0:</w> Orb of Zot",
+    "locations": [
+      "output.cc:2894"
+    ]
+  },
+  {
+    "id": "45f8749fb4acb5b6",
+    "en": "<w>%s:</w> %d/%d rune%s: %s",
+    "locations": [
+      "output.cc:2903"
+    ]
+  },
+  {
+    "id": "b48fd2e0568dd25a",
+    "en": "package: initializing file=\"%s\" rw=%d",
+    "locations": [
+      "package.cc:90"
+    ]
+  },
+  {
+    "id": "7bfd3184c2126fe5",
+    "en": "package: initializing tmp file",
+    "locations": [
+      "package.cc:140"
+    ]
+  },
+  {
+    "id": "abaf3514263cbb5e",
+    "en": "package: finalizing",
+    "locations": [
+      "package.cc:210"
+    ]
+  },
+  {
+    "id": "3352c27bf6fc6f86",
+    "en": "package: closed",
+    "locations": [
+      "package.cc:231"
+    ]
+  },
+  {
+    "id": "01612a316f056af2",
+    "en": "reusing %u of %u at %u",
+    "locations": [
+      "package.cc:310"
+    ]
+  },
+  {
+    "id": "1c055172e24db27a",
+    "en": "found a block for reuse at %u size %u",
+    "locations": [
+      "package.cc:351"
+    ]
+  },
+  {
+    "id": "57f53b15827a31c2",
+    "en": "freeing chunk(%s)",
+    "locations": [
+      "package.cc:376"
+    ]
+  },
+  {
+    "id": "fe2682cf45fe4216",
+    "en": "writing directory (%u bytes)",
+    "locations": [
+      "package.cc:406"
+    ]
+  },
+  {
+    "id": "9b4f45d3b3c22efa",
+    "en": "deleting an in-use chain at %d",
+    "locations": [
+      "package.cc:432"
+    ]
+  },
+  {
+    "id": "6d82e4b2cee1fbe0",
+    "en": "freeing an unlinked chain at %d",
+    "locations": [
+      "package.cc:437"
+    ]
+  },
+  {
+    "id": "a3aa7dad44daea8d",
+    "en": "+- at %d size=%d+header",
+    "locations": [
+      "package.cc:442"
+    ]
+  },
+  {
+    "id": "ff0c897b156d690c",
+    "en": "Fsck starting.  %u chunks, %u used blocks, %u free ones, file size %u",
+    "locations": [
+      "package.cc:492"
+    ]
+  },
+  {
+    "id": "992d1c98fe6d42de",
+    "en": "<at %u size %u>",
+    "locations": [
+      "package.cc:497"
+    ]
+  },
+  {
+    "id": "d73cca60fd8ba8d1",
+    "en": "[at %u size %u+header]",
+    "locations": [
+      "package.cc:502"
+    ]
+  },
+  {
+    "id": "36e7dad659c65f28",
+    "en": "package: reading directory",
+    "locations": [
+      "package.cc:525"
+    ]
+  },
+  {
+    "id": "7cf9d089536df445",
+    "en": "{at %u size %u+header}",
+    "locations": [
+      "package.cc:596"
+    ]
+  },
+  {
+    "id": "d17d6368b3154b1f",
+    "en": "chunk_writer(%s): starting",
+    "locations": [
+      "package.cc:686"
+    ]
+  },
+  {
+    "id": "4876c47c00df8f86",
+    "en": "chunk_writer(%s): closing",
+    "locations": [
+      "package.cc:706"
+    ]
+  },
+  {
+    "id": "dd13b494c500b917",
+    "en": "chunk_reader[%u]: starting",
+    "locations": [
+      "package.cc:831"
+    ]
+  },
+  {
+    "id": "eea3095b99626547",
+    "en": "chunk_reader(%s): starting",
+    "locations": [
+      "package.cc:841"
+    ]
+  },
+  {
+    "id": "5410631d067b5c21",
+    "en": "chunk_reader: closing",
+    "locations": [
+      "package.cc:848"
+    ]
+  },
+  {
+    "id": "b486d89c1796ed0b",
+    "en": "XP before: %d",
+    "locations": [
+      "player.cc:3303"
+    ]
+  },
+  {
+    "id": "e02c490f818233d6",
+    "en": "XP after: %d",
+    "locations": [
+      "player.cc:3312"
+    ]
+  },
+  {
+    "id": "b46bc1d0d7862dac",
+    "en": "Ashenzari warns you of distant threats and treasures.",
+    "locations": [
+      "religion.cc:309"
+    ]
+  },
+  {
+    "id": "0a6a22d3ade6e232",
+    "en": "Ashenzari shows you where magical portals lie.",
+    "locations": [
+      "religion.cc:309"
+    ]
+  },
+  {
+    "id": "23a2221c61664d85",
+    "en": "[<w>/</w>] sort (%s)%s  %s",
+    "locations": [
+      "shopping.cc:1192"
+    ]
+  },
+  {
+    "id": "7af9d972a8c5618e",
+    "en": "<%s>I'll put %s outside for you.</%s>",
+    "locations": [
+      "shopping.cc:1205"
+    ]
+  },
+  {
+    "id": "433cee8bee8d4ab3",
+    "en": "<%s>You don't have enough money.</%s>",
+    "locations": [
+      "shopping.cc:1268"
+    ]
+  },
+  {
+    "id": "861673b1589987cf",
+    "en": "<%s>Purchase items%s for %d gold? %s (%s/N)</%s>",
+    "locations": [
+      "shopping.cc:1277"
+    ]
+  },
+  {
+    "id": "5eb27952e1c5a8cf",
+    "en": "<yellow>You have %d gold pieces%s</yellow>",
+    "locations": [
+      "shopping.cc:2351"
+    ]
+  },
+  {
+    "id": "b08a55bb28456c2a",
+    "en": "Travel to: %s",
+    "locations": [
+      "shopping.cc:2522"
+    ]
+  },
+  {
+    "id": "f7fdc5d991407941",
+    "en": "You cannot afford this item; travel there anyway? (y/N)",
+    "locations": [
+      "shopping.cc:2522"
+    ]
+  },
+  {
+    "id": "5661ef08c46e8373",
+    "en": ".i%d { background: #%s }",
+    "locations": [
+      "shout.cc:1201"
+    ]
+  },
+  {
+    "id": "1bbfaf8a3697e615",
+    "en": "<style type='text/css'>",
+    "locations": [
+      "shout.cc:1211"
+    ]
+  },
+  {
+    "id": "e608d93faa096144",
+    "en": "body { font-family: monospace; padding: 0; margin: 0; line-height: 100%% }",
+    "locations": [
+      "shout.cc:1211"
+    ]
+  },
+  {
+    "id": "5e4117ea8905b486",
+    "en": "</style>",
+    "locations": [
+      "shout.cc:1211"
+    ]
+  },
+  {
+    "id": "534eea26e25b4b30",
+    "en": "</body></html>",
+    "locations": [
+      "shout.cc:1262"
+    ]
+  },
+  {
+    "id": "73d6875a47f81758",
+    "en": "The percentage of incoming experience used to train each skill is in <brown>brown</brown>.",
+    "locations": [
+      "skill-menu.cc:625"
+    ]
+  },
+  {
+    "id": "b128c684d0d2f646",
+    "en": "The current training targets, if any.",
+    "locations": [
+      "skill-menu.cc:631"
+    ]
+  },
+  {
+    "id": "f39eaf9f01cf90bf",
+    "en": "The percentage of the progress done before reaching next level is in <cyan>cyan</cyan>.",
+    "locations": [
+      "skill-menu.cc:633"
+    ]
+  },
+  {
+    "id": "5902cb75896eab13",
+    "en": "Press the letter of a skill to read its description.",
+    "locations": [
+      "skill-menu.cc:1173"
+    ]
+  },
+  {
+    "id": "0681a6f8da00de15",
+    "en": "Press <w>?</w> for a general explanation of skilling and the various toggles.",
+    "locations": [
+      "skill-menu.cc:1173"
+    ]
+  },
+  {
+    "id": "ea21550659f167a1",
+    "en": "%c Level %.*f%s %s",
+    "locations": [
+      "skills.cc:2624"
+    ]
+  },
+  {
+    "id": "844a6c68e83cddf6",
+    "en": "(unseen)",
+    "locations": [
+      "stash.cc:517"
+    ]
+  },
+  {
+    "id": "4266dd6cf34b428b",
+    "en": "[Shop] %s",
+    "locations": [
+      "stash.cc:665"
+    ]
+  },
+  {
+    "id": "297583b19e61d781",
+    "en": "(Shop contents are unknown)",
+    "locations": [
+      "stash.cc:680"
+    ]
+  },
+  {
+    "id": "06dbb9baa81e7abb",
+    "en": "You have no stashes.",
+    "locations": [
+      "stash.cc:1022"
+    ]
+  },
+  {
+    "id": "779f99cb6b698913",
+    "en": "Game state:",
+    "locations": [
+      "state.cc:471"
+    ]
+  },
+  {
+    "id": "9b278e05c6d7566e",
+    "en": "mouse_enabled: %d, waiting_for_command: %d, terminal_resized: %d",
+    "locations": [
+      "state.cc:473"
+    ]
+  },
+  {
+    "id": "e95995719da563bc",
+    "en": "io_inited: %d, need_save: %d, saving_game: %d, updating_scores: %d:",
+    "locations": [
+      "state.cc:476"
+    ]
+  },
+  {
+    "id": "89811bc3aabe87da",
+    "en": "seen_hups: %d, map_stat_gen: %d, type: %d, arena_suspended: %d",
+    "locations": [
+      "state.cc:479"
+    ]
+  },
+  {
+    "id": "fad36f99db543362",
+    "en": "seconds ago.",
+    "locations": [
+      "state.cc:484"
+    ]
+  },
+  {
+    "id": "f1d2417d052e9227",
+    "en": "prev_cmd = %s",
+    "locations": [
+      "state.cc:495"
+    ]
+  },
+  {
+    "id": "c99bfc95fc11fca6",
+    "en": "repeat_cmd = %s",
+    "locations": [
+      "state.cc:508"
+    ]
+  },
+  {
+    "id": "829d5cca8dc1a094",
+    "en": "God %s currently acting with depth %d",
+    "locations": [
+      "state.cc:514"
+    ]
+  },
+  {
+    "id": "bec6d39569644b59",
+    "en": "Other gods acting:",
+    "locations": [
+      "state.cc:520"
+    ]
+  },
+  {
+    "id": "3e3bb084c043c17b",
+    "en": "God %s with depth %d",
+    "locations": [
+      "state.cc:523"
+    ]
+  },
+  {
+    "id": "17de6715c4fdeb10",
+    "en": "%s currently acting:",
+    "locations": [
+      "state.cc:531"
+    ]
+  },
+  {
+    "id": "96970a83319b6454",
+    "en": "Others monsters acting:",
+    "locations": [
+      "state.cc:538"
+    ]
+  },
+  {
+    "id": "d1007b057636c38a",
+    "en": "NUM=%02d",
+    "locations": [
+      "tiledoll.cc:86"
+    ]
+  },
+  {
+    "id": "270a9a225a79d7d9",
+    "en": "#Legend:",
+    "locations": [
+      "tiledoll.cc:89"
+    ]
+  },
+  {
+    "id": "4b1292495e51b256",
+    "en": "#***:equipment/123:index/000:none",
+    "locations": [
+      "tiledoll.cc:90"
+    ]
+  },
+  {
+    "id": "37cd243498a44722",
+    "en": "#Shadow/Base/Cloak/Boots/Legs/Body/Gloves/Weapon/Shield/Hair/Beard/Helmet/Halo/Enchant/DrcWing",
+    "locations": [
+      "tiledoll.cc:91"
+    ]
+  },
+  {
+    "id": "862d1be93c183e1d",
+    "en": "#Sh:Bse:Clk:Bts:Leg:Bdy:Glv:Wpn:Shd:Hai:Brd:Hlm:Hal:Enc:Drc:Wng",
+    "locations": [
+      "tiledoll.cc:93"
+    ]
+  },
+  {
+    "id": "b85f65ffed99183f",
+    "en": "| 0x%8llu (%s)",
+    "locations": [
+      "tilepick.cc:5056"
+    ]
+  },
+  {
+    "id": "2d40c6be8b981dc9",
+    "en": "%cBG: %4",
+    "locations": [
+      "tilepick.cc:5056"
+    ]
+  },
+  {
+    "id": "8a7ae3d541772b87",
+    "en": "rendering DungeonRegion",
+    "locations": [
+      "tilereg-dgn.cc:237"
+    ]
+  },
+  {
+    "id": "488510dda5b7b9bc",
+    "en": "HEIGHT(%d)",
+    "locations": [
+      "tilereg-dgn.cc:760",
+      "tilereg-dgn.cc:771"
+    ]
+  },
+  {
+    "id": "0da767ff6c391f09",
+    "en": "GC(%d, %d) [out of sight]",
+    "locations": [
+      "tilereg-dgn.cc:769"
+    ]
+  },
+  {
+    "id": "0ed916cc052af3ee",
+    "en": "Vault: %s (%d,%d)-(%d,%d) (%dx%d)",
+    "locations": [
+      "tilereg-dgn.cc:780"
+    ]
+  },
+  {
+    "id": "8b9415871ac477ae",
+    "en": "FLV: floor: %d (%s) (%d)",
+    "locations": [
+      "tilereg-dgn.cc:829"
+    ]
+  },
+  {
+    "id": "c9db1800d74eb102",
+    "en": "wall:  %d (%s) (%d)",
+    "locations": [
+      "tilereg-dgn.cc:829"
+    ]
+  },
+  {
+    "id": "ee7b9c4080b78959",
+    "en": "feat:  %d (%s) (%d)",
+    "locations": [
+      "tilereg-dgn.cc:829"
+    ]
+  },
+  {
+    "id": "95ee85c7b2b2b080",
+    "en": "special:  %d",
+    "locations": [
+      "tilereg-dgn.cc:829"
+    ]
+  },
+  {
+    "id": "dc09a703e88c3fff",
+    "en": "rendering DollEditRegion",
+    "locations": [
+      "tilereg-doll.cc:86"
+    ]
+  },
+  {
+    "id": "7d04b1882d9b2556",
+    "en": "rendering GridRegion",
+    "locations": [
+      "tilereg-grid.cc:148"
+    ]
+  },
+  {
+    "id": "1df7bfabab24e5fd",
+    "en": "[L-Click] Show next page of items",
+    "locations": [
+      "tilereg-inv.cc:248"
+    ]
+  },
+  {
+    "id": "0703a044dfe5d812",
+    "en": "[L-Click] Show previous page of items",
+    "locations": [
+      "tilereg-inv.cc:253"
+    ]
+  },
+  {
+    "id": "5f3ba7c4d0f1304b",
+    "en": "[L-Click] Pick up (%)",
+    "locations": [
+      "tilereg-inv.cc:287"
+    ]
+  },
+  {
+    "id": "87422eefe1ee2e2d",
+    "en": "[Ctrl + L-Click] Partial pick up (%)",
+    "locations": [
+      "tilereg-inv.cc:291"
+    ]
+  },
+  {
+    "id": "208656b5be17434d",
+    "en": "[L-Click]",
+    "locations": [
+      "tilereg-inv.cc:315"
+    ]
+  },
+  {
+    "id": "a036b1716ff598d6",
+    "en": "[Ctrl + L-Click] Offhand",
+    "locations": [
+      "tilereg-inv.cc:343"
+    ]
+  },
+  {
+    "id": "7dad517197e4888d",
+    "en": "[Shift + L-Click] Drop (%)",
+    "locations": [
+      "tilereg-inv.cc:406"
+    ]
+  },
+  {
+    "id": "3f657a3b08e8de08",
+    "en": "[Ctrl-Shift + L-Click] Drop quantity (%#)",
+    "locations": [
+      "tilereg-inv.cc:410"
+    ]
+  },
+  {
+    "id": "dcff67a48f20c692",
+    "en": "rendering MapRegion",
+    "locations": [
+      "tilereg-map.cc:102"
+    ]
+  },
+  {
+    "id": "ac4c3c90fbffc208",
+    "en": "[Shift + L-Click] Autoexplore",
+    "locations": [
+      "tilereg-map.cc:285"
+    ]
+  },
+  {
+    "id": "28d380a6abbced05",
+    "en": "rendering MessageRegion",
+    "locations": [
+      "tilereg-msg.cc:60"
+    ]
+  },
+  {
+    "id": "44693c374fa429b2",
+    "en": "[Ctrl + L-Click] Change skill level (wizmode)",
+    "locations": [
+      "tilereg-skl.cc:137"
+    ]
+  },
+  {
+    "id": "e2c19aff273bba86",
+    "en": "[R-Click] Describe (%)",
+    "locations": [
+      "tilereg-spl.cc:115"
+    ]
+  },
+  {
+    "id": "6ad9df2c783a938e",
+    "en": "rendering TabbedRegion",
+    "locations": [
+      "tilereg-tab.cc:266"
+    ]
+  },
+  {
+    "id": "2b14162e774ff72f",
+    "en": "rendering TextRegion",
+    "locations": [
+      "tilereg-text.cc:223"
+    ]
+  },
+  {
+    "id": "de28f21b0f11cee4",
+    "en": "redrawing tiles",
+    "locations": [
+      "tilesdl.cc:1341"
+    ]
+  },
+  {
+    "id": "cdf14e88c0374082",
+    "en": "websocket: About to send %d bytes.",
+    "locations": [
+      "tileweb.cc:195"
+    ]
+  },
+  {
+    "id": "c19c49deec7b3c6c",
+    "en": "failed (%s), sleeping for %dms.",
+    "locations": [
+      "tileweb.cc:248"
+    ]
+  },
+  {
+    "id": "b70cf3f019e9742b",
+    "en": "failed (%s), breaking.",
+    "locations": [
+      "tileweb.cc:258"
+    ]
+  },
+  {
+    "id": "0b1b1f28d2da0c29",
+    "en": "fragment size %d sent.",
+    "locations": [
+      "tileweb.cc:270"
+    ]
+  },
+  {
+    "id": "dab2c35f0e1a172f",
+    "en": "No open websockets after finish_message!!",
+    "locations": [
+      "tileweb.cc:284"
+    ]
+  },
+  {
+    "id": "ba2b1fe6aa5ae10d",
+    "en": "websocket: Sent %d bytes in %d fragments.",
+    "locations": [
+      "tileweb.cc:286"
+    ]
+  },
+  {
+    "id": "ec40e3489e714047",
+    "en": "websocket: Received control message '%s' in %d byte.",
+    "locations": [
+      "tileweb.cc:446"
+    ]
+  },
+  {
+    "id": "8e761492f6295362",
+    "en": "Webtiles message buffer: %s",
+    "locations": [
+      "tileweb.cc:740"
+    ]
+  },
+  {
+    "id": "56dc70620cac58b1",
+    "en": "Webtiles JSON stack:",
+    "locations": [
+      "tileweb.cc:741"
+    ]
+  },
+  {
+    "id": "21153cc01e78e4cd",
+    "en": "start: %d end: %d type: %c",
+    "locations": [
+      "tileweb.cc:744"
+    ]
+  },
+  {
+    "id": "50e9cdb81e1592fb",
+    "en": "Build platform:",
+    "locations": [
+      "version.cc:46"
+    ]
+  },
+  {
+    "id": "dcff04119612cad2",
+    "en": "Platform:",
+    "locations": [
+      "version.cc:47"
+    ]
+  },
+  {
+    "id": "28240ffce93defa8",
+    "en": "LDFLAGS:",
+    "locations": [
+      "version.cc:49"
+    ]
+  },
+  {
+    "id": "092626e3920301aa",
+    "en": "Select layers to display:",
+    "locations": [
+      "view.cc:1042"
+    ]
+  },
+  {
+    "id": "896568e259acac82",
+    "en": "<%s>(m)onsters</%s>|<%s>(p)layer</%s>|<%s>(i)tems</%s>|<%s>(c)louds</%s>",
+    "locations": [
+      "view.cc:1042"
+    ]
+  },
+  {
+    "id": "8f86364334480710",
+    "en": "Failed to initialise SDL: %s",
+    "locations": [
+      "windowmanager-sdl.cc:457"
+    ]
+  },
+  {
+    "id": "3940ca66bd21d0ad",
+    "en": "Failed to load icon '%s': %s",
+    "locations": [
+      "windowmanager-sdl.cc:663"
+    ]
+  },
+  {
+    "id": "e4bbe3a949cc16e3",
+    "en": "Failed to create cursor: %s",
+    "locations": [
+      "windowmanager-sdl.cc:799"
+    ]
+  },
+  {
+    "id": "137c10607955ccda",
+    "en": "Warning: unsupported format, bpp = %d for '%s'",
+    "locations": [
+      "windowmanager-sdl.cc:1302"
+    ]
+  },
+  {
+    "id": "e9d0566185fade2d",
+    "en": "Building '<w>%s</w>'.",
+    "locations": [
+      "wiz-dgn.cc:312"
+    ]
+  },
+  {
+    "id": "d0ddaf851c304777",
+    "en": "[<w>.</w>] place feature and continue, [<w>ret</w>] place and exit, [<w>esc</w>] exit.",
+    "locations": [
+      "wiz-dgn.cc:312"
+    ]
+  },
+  {
+    "id": "9774b09a54871815",
+    "en": "version %s",
+    "locations": [
+      "wiz-fsim.cc:149"
+    ]
+  },
+  {
+    "id": "00250e868cb34368",
+    "en": "%s: %s %s vs. %s (%d rounds) (%s)",
+    "locations": [
+      "wiz-fsim.cc:154"
+    ]
+  },
+  {
+    "id": "b0614a69189a74c2",
+    "en": "%s %s: XL %d   Str %d   Int %d   Dex %d",
+    "locations": [
+      "wiz-fsim.cc:165"
+    ]
+  },
+  {
+    "id": "33a0a51ae4339b02",
+    "en": "%s, Skill: %s",
+    "locations": [
+      "wiz-fsim.cc:176"
+    ]
+  },
+  {
+    "id": "657da2433ef644b6",
+    "en": "Fighting %s with %s",
+    "locations": [
+      "wiz-fsim.cc:531"
+    ]
+  },
+  {
+    "id": "8ba113d4d832cb34",
+    "en": "Cancelling simulation.",
+    "locations": [
+      "wiz-fsim.cc:652",
+      "wiz-fsim.cc:717"
+    ]
+  },
+  {
+    "id": "b1d92b2d4eef7785",
+    "en": "Simulation cancelled!",
+    "locations": [
+      "wiz-fsim.cc:653"
+    ]
+  },
+  {
+    "id": "158271ad1f11f184",
+    "en": "Acquiring %s for:",
+    "locations": [
+      "wiz-item.cc:889"
+    ]
+  },
+  {
+    "id": "e4ccbc72de3c4497",
+    "en": "%s %s, Level %d %s %s%s",
+    "locations": [
+      "wiz-item.cc:896"
+    ]
+  },
+  {
+    "id": "03c468b554e9b87e",
+    "en": "Not wearing or wielding anything.",
+    "locations": [
+      "wiz-item.cc:918"
+    ]
+  },
+  {
+    "id": "f6c4881facba1bd8",
+    "en": "%-13s:  %2d/%2d spells unseen",
+    "locations": [
+      "wiz-item.cc:965"
+    ]
+  },
+  {
+    "id": "95558275e2857f33",
+    "en": "Acquirement called %d times, total quantity = %d",
+    "locations": [
+      "wiz-item.cc:971"
+    ]
+  },
+  {
+    "id": "80adeef0eb71a98e",
+    "en": "%5.2f%% artefacts.",
+    "locations": [
+      "wiz-item.cc:974"
+    ]
+  },
+  {
+    "id": "40e0ca981e0e48fb",
+    "en": "Maximum combined pluses: %d",
+    "locations": [
+      "wiz-item.cc:979"
+    ]
+  },
+  {
+    "id": "e606b6c3dce04033",
+    "en": "Average combined pluses: %5.2f",
+    "locations": [
+      "wiz-item.cc:980"
+    ]
+  },
+  {
+    "id": "4bb9bc8ef39e384d",
+    "en": "Egos (including artefacts):",
+    "locations": [
+      "wiz-item.cc:983"
+    ]
+  },
+  {
+    "id": "708cc708c8faa0fd",
+    "en": "Maximum plus: %d",
+    "locations": [
+      "wiz-item.cc:998"
+    ]
+  },
+  {
+    "id": "4fdcb3414c61a831",
+    "en": "Average plus: %5.2f",
+    "locations": [
+      "wiz-item.cc:999"
+    ]
+  },
+  {
+    "id": "1e77e5c3fd578e7a",
+    "en": "Egos (excluding artefacts):",
+    "locations": [
+      "wiz-item.cc:1002"
+    ]
+  },
+  {
+    "id": "0805383ebcf01b15",
+    "en": "Primary disciplines/levels of randart books:",
+    "locations": [
+      "wiz-item.cc:1021"
+    ]
+  },
+  {
+    "id": "d8b1241c3519bf00",
+    "en": "Manuals:",
+    "locations": [
+      "wiz-item.cc:1052"
+    ]
+  },
+  {
+    "id": "bdf994059367f423",
+    "en": "Generating randart stats for: %s",
+    "locations": [
+      "wiz-item.cc:1178"
+    ]
+  },
+  {
+    "id": "a742ccfbc6db473e",
+    "en": "Randarts generated: %d valid, %d invalid",
+    "locations": [
+      "wiz-item.cc:1274"
+    ]
+  },
+  {
+    "id": "dbc468b852701c33",
+    "en": "Max # of props = %d, mean = %5.2f, median = %d",
+    "locations": [
+      "wiz-item.cc:1287"
+    ]
+  },
+  {
+    "id": "7215438330ef3b47",
+    "en": "Max # of good props = %d, mean = %5.2f, median = %d",
+    "locations": [
+      "wiz-item.cc:1290"
+    ]
+  },
+  {
+    "id": "a18865ac58200c5a",
+    "en": "Max # of bad props = %d, mean = %5.2f, median = %d",
+    "locations": [
+      "wiz-item.cc:1293"
+    ]
+  },
+  {
+    "id": "530977e9cb86562d",
+    "en": "Max (good - bad) props = %d, avg # = %5.2f",
+    "locations": [
+      "wiz-item.cc:1296"
+    ]
+  },
+  {
+    "id": "b62e5e3e9c717bfb",
+    "en": "All    Good   Bad   Max AvgGood Min AvgBad",
+    "locations": [
+      "wiz-item.cc:1300"
+    ]
+  },
+  {
+    "id": "b683e1611a461186",
+    "en": "<yellow>Player stats</yellow>",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "11d8b7764536f759",
+    "en": "<w>A</w>      set all skills to level",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "9d8630cd5d5aedab",
+    "en": "<w>Ctrl-D</w> change enchantments/durations",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "b97447d61a47e0fb",
+    "en": "<w>g</w>      exercise a skill",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "6b4338e029d79910",
+    "en": "<w>k</w>      change experience level and skills",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "6ecb138baa89ef8d",
+    "en": "<w>l</w>      change experience level",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "ebd7bfc561c1db2f",
+    "en": "<w>Ctrl-P</w> list props",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "55d08a351fd78ac5",
+    "en": "<w>r</w>      change character's species",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "90555679c69f9f5a",
+    "en": "<w>s</w>      set skill to level",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "9c705f5f2d248a60",
+    "en": "<w>x</w>      gain an experience level",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "9d587aa0c0073f8e",
+    "en": "<w>$</w>      set gold to a specified value",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "86906752368a6645",
+    "en": "<w>]</w>      get a mutation",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "b12c9f3d62f6e22e",
+    "en": "<w>}</w>      toggle a bane",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "d9b9f4e9599fec76",
+    "en": "<w>_</w>      gain religion",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "61cee9101abccfdb",
+    "en": "<w>^</w>      set piety to a value",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "103267a2f3bb9dfb",
+    "en": "<w>@</w>      set Str Int Dex",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "7c06bc3f9efa89f7",
+    "en": "<w>#</w>      load character from a dump file",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "5b94f8da8e2844ee",
+    "en": "<w>&</w>      list all divine followers",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "016765032fb946c8",
+    "en": "<w>=</w>      show info about skill points",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "2ebb88d194dca7c8",
+    "en": "<w>n</w>      set Zot clock to a value",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "97c40d9aac4ee87a",
+    "en": "<w>N</w>      get current tension value",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "5d342df267135f43",
+    "en": "<yellow>Dungeon features</yellow>",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "87e2bb3d9bca453a",
+    "en": "<w>T</w>      make a trap",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "698ce7ccb4a9798e",
+    "en": "<w>,</w>/<w>.</w>    create up/down staircase",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "4b0248b14a9adb32",
+    "en": "<w>(</w>      turn cell into feature",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "f53d1a31a196b66a",
+    "en": "<w>\\</w>      make a shop",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "99d1f21fd570917f",
+    "en": "<yellow>Builder debugging</yellow>",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "97d932335fdea641",
+    "en": "<w>L</w>      place a vault by name",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "b868f3bcc0f7e039",
+    "en": "<w>P</w>      create a level based on a vault",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "985ebb459c9919e2",
+    "en": "<w>R</w>      regenerate current level",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "77544d760eaf9b74",
+    "en": "<w>Ctrl-A</w> generate new Abyss area",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "badcda4f209559b4",
+    "en": "<w>K</w>      mark all vaults as unused",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "a340454a5093c2d2",
+    "en": "<w>:</w>      find branches and overflow",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "b47dc370ab55c644",
+    "en": "temples in the dungeon",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "ec0656d8dc60e18f",
+    "en": "<w>;</w>      list known levels and counters",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "8c93c66a60c594f2",
+    "en": "<w>Ctrl-E</w> dump level builder information",
+    "locations": [
+      "wizard.cc:428"
+    ]
+  },
+  {
+    "id": "e2a55a2571517160",
+    "en": "<w>Ctrl-L</w> show builder logs for level",
+    "locations": [
+      "wizard.cc:470"
+    ]
+  },
+  {
+    "id": "d7d6fd4f0dcf7ad3",
+    "en": "<yellow>Other level related commands</yellow>",
+    "locations": [
+      "wizard.cc:472"
+    ]
+  },
+  {
+    "id": "624eadb7b43566a4",
+    "en": "<w>{</w>      magic mapping",
+    "locations": [
+      "wizard.cc:472"
+    ]
+  },
+  {
+    "id": "f536941eeddc58c5",
+    "en": "<w>b</w>      controlled blink",
+    "locations": [
+      "wizard.cc:472"
+    ]
+  },
+  {
+    "id": "7f3b6281c6682fed",
+    "en": "<w>B</w>      controlled teleport",
+    "locations": [
+      "wizard.cc:472"
+    ]
+  },
+  {
+    "id": "c79a94b918f6c3e1",
+    "en": "<w>~</w>      go to a specific level",
+    "locations": [
+      "wizard.cc:472"
+    ]
+  },
+  {
+    "id": "e03e80119d7922c5",
+    "en": "<w>u</w>/<w>d</w>    shift up/down one level",
+    "locations": [
+      "wizard.cc:472"
+    ]
+  },
+  {
+    "id": "ad61af167fb54cf6",
+    "en": "<w>e</w>      trigger explore traps",
+    "locations": [
+      "wizard.cc:472"
+    ]
+  },
+  {
+    "id": "d956a44c7d866c65",
+    "en": "<w>Ctrl-B</w> banish yourself to the Abyss",
+    "locations": [
+      "wizard.cc:472"
+    ]
+  },
+  {
+    "id": "15042c8311571209",
+    "en": "<w>Ctrl-S</w> change Abyss speed",
+    "locations": [
+      "wizard.cc:472"
+    ]
+  },
+  {
+    "id": "0f298916ca022d3d",
+    "en": "<w>Ctrl-W</w> change Shoals' tide speed",
+    "locations": [
+      "wizard.cc:472"
+    ]
+  },
+  {
+    "id": "5f51d065f995ed37",
+    "en": "<yellow>Other player related effects</yellow>",
+    "locations": [
+      "wizard.cc:486"
+    ]
+  },
+  {
+    "id": "a38b6bec01c85f89",
+    "en": "<w>c</w>      card effect",
+    "locations": [
+      "wizard.cc:486"
+    ]
+  },
+  {
+    "id": "9d1efcae0450b95e",
+    "en": "<w>Ctrl-G</w> save/load ghost (bones file)",
+    "locations": [
+      "wizard.cc:489"
+    ]
+  },
+  {
+    "id": "cc5ab56ad0626fc5",
+    "en": "<w>h</w>/<w>H</w>    heal yourself (super-Heal)",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "7e5712cc925082ed",
+    "en": "<w>X</w>      make Xom do something now",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "4e24357b30131670",
+    "en": "<w>z</w>      cast spell by number/name",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "210718c7a880fe89",
+    "en": "<w>!</w>      memorise spell",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "dfe75c4a4246540c",
+    "en": "<w>W</w>      god wrath",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "28a0b857e4bcdcb6",
+    "en": "<w>w</w>      god mollification",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "9522b061f0f91d53",
+    "en": "<w>p</w>      polymorph into a form",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "97b25315e94c002b",
+    "en": "<w>V</w>      toggle xray vision",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "768924182e9ab8f4",
+    "en": "<w>E</w>      (un)freeze time",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "b01b4263acd347dc",
+    "en": "<yellow>Monster related commands</yellow>",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "c66865ffce4fe4d1",
+    "en": "<w>m</w>/<w>M</w>    create specified monster",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "70f0721729a60424",
+    "en": "<w>D</w>      detect all monsters",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "92787c3ca194be52",
+    "en": "<w>G</w>      dismiss all monsters",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "fbe08b2346f9d365",
+    "en": "<w>\"</w>      list monsters",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "8d0f32ad8c7cb55e",
+    "en": "<yellow>Item related commands</yellow>",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "57f865334e965c0e",
+    "en": "<w>a</w>      acquirement",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "bb169dbfbbb5c843",
+    "en": "<w>i</w>/<w>I</w>    identify/unidentify inventory",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "48a40ea51d0119ae",
+    "en": "<w>y</w>/<w>Y</w>    id/unid item types+level items",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "7baa3fef518f2ffc",
+    "en": "<w>o</w>/<w>%</w>    create an object",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "e79a1e8ed651917e",
+    "en": "<w>t</w>      tweak object properties",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "03c0ca26b6a6568f",
+    "en": "<w>v</w>      recharge all XP evokers",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "000f98f35700b9aa",
+    "en": "<w>Ctrl-V</w> show gold value of an item",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "3445b9df0e75a8b6",
+    "en": "<w>-</w>      get a god gift",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "d7941ee4d3e2e89d",
+    "en": "<w>|</w>      create all unrand artefacts",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "b10dbef56f909841",
+    "en": "<w>Ctrl-\\</w> create all unrands / fallbacks",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "1f6102b96ccf01fd",
+    "en": "<w>+</w>      make randart from item",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "4cdd01592e92fa09",
+    "en": "<w>'</w>      list items",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "f68456d1475596b6",
+    "en": "<w>J</w>      Jiyva off-level sacrifice",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "6bfe54464fefd4e6",
+    "en": "<w>Z</w>      Unobtain runes and Orb of Zot",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "383426a901aa646f",
+    "en": "<yellow>Debugging commands</yellow>",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "87454b4e7eb4dd06",
+    "en": "<w>f</w>      quick fight simulation",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "80ff05175cbb94fd",
+    "en": "<w>F</w>      single scale fsim",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "b00066ace2a72e29",
+    "en": "<w>Ctrl-F</w> double scale fsim",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "eb08ea8dbeb38f81",
+    "en": "<w>Ctrl-I</w> item generation stats",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "44fd0bc1b2106f4c",
+    "en": "<w>O</w>      measure exploration time",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "e47d4771a00f5bb9",
+    "en": "<w>Ctrl-T</w> dungeon (D)Lua interpreter",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "ea82ca31b2b7b5dc",
+    "en": "<w>Ctrl-U</w> client (C)Lua interpreter",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "50045019c12c21ec",
+    "en": "<w>Ctrl-X</w> Xom effect stats",
+    "locations": [
+      "wizard.cc:491"
+    ]
+  },
+  {
+    "id": "c430a499922d26a4",
+    "en": "<w>Ctrl-Q</w> make some debug messages quiet",
+    "locations": [
+      "wizard.cc:533"
+    ]
+  },
+  {
+    "id": "0301d920e804d42e",
+    "en": "<w>Ctrl-Y</w> temporarily suppress wizmode",
+    "locations": [
+      "wizard.cc:535"
+    ]
+  },
+  {
+    "id": "a778bdf5c0379093",
+    "en": "<w>Ctrl-C</w> force a crash",
+    "locations": [
+      "wizard.cc:535"
+    ]
+  },
+  {
+    "id": "c73c841ebee816ee",
+    "en": "<w>`</w>      list unassigned command keys",
+    "locations": [
+      "wizard.cc:535"
+    ]
+  },
+  {
+    "id": "f010081a81f68c20",
+    "en": "<yellow>Other wizard commands</yellow>",
+    "locations": [
+      "wizard.cc:535"
+    ]
+  },
+  {
+    "id": "2af94f8493242086",
+    "en": "(not prefixed with <w>&</w>!)",
+    "locations": [
+      "wizard.cc:535"
+    ]
+  },
+  {
+    "id": "1854a29c9a453b46",
+    "en": "<w>x?</w>     list targeted commands",
+    "locations": [
+      "wizard.cc:535"
+    ]
+  },
+  {
+    "id": "ead04ac1b552ec5b",
+    "en": "<w>X?</w>     list map-mode commands",
+    "locations": [
+      "wizard.cc:535"
+    ]
+  },
+  {
+    "id": "65c2c02ce9373659",
+    "en": "Xom event %d has no associated data!",
+    "locations": [
+      "xom.cc:5552"
+    ]
+  },
+  {
+    "id": "ead596c479b514e7",
+    "en": "Duplicate name '%s'!",
+    "locations": [
+      "xom.cc:5557"
+    ]
+  },
+  {
+    "id": "0f64f8ca5ef11acf",
+    "en": "'%s' badness %d outside 10-50 range.",
+    "locations": [
+      "xom.cc:5565"
+    ]
+  },
+  {
+    "id": "b841d93119fcb09c",
+    "en": "'%s' is not bad, but has badness!",
+    "locations": [
+      "xom.cc:5571"
+    ]
+  },
+  {
+    "id": "f02d48e174342d04",
+    "en": "No action for '%s'!",
+    "locations": [
+      "xom.cc:5576"
+    ]
+  },
+  {
+    "id": "c57e9043054df83e",
+    "en": "mapping estimate: %d%%",
+    "locations": [
+      "xom.cc:5604"
+    ]
+  },
+  {
+    "id": "7c5f2ec001623374",
+    "en": "exploration estimate: %d%%",
+    "locations": [
+      "xom.cc:5604"
+    ]
+  },
+  {
+    "id": "8e0c2fcff316fdea",
+    "en": "---- STARTING XOM DEBUG TESTING ----",
+    "locations": [
+      "xom.cc:5635"
+    ]
+  },
+  {
+    "id": "0298a85c692ad06e",
+    "en": "--> Tension: %d",
+    "locations": [
+      "xom.cc:5640"
+    ]
+  },
+  {
+    "id": "b8f0504a238c9259",
+    "en": "You are under Xom's penance!",
+    "locations": [
+      "xom.cc:5643"
+    ]
+  },
+  {
+    "id": "2f533b9583e0b930",
+    "en": "Xom is BORED.",
+    "locations": [
+      "xom.cc:5645"
+    ]
+  },
+  {
+    "id": "e79b98b82acb19dd",
+    "en": "Running %d times through entire mood cycle.",
+    "locations": [
+      "xom.cc:5646"
+    ]
+  },
+  {
+    "id": "c94ac680a4cc984c",
+    "en": "---- OUTPUT EFFECT PERCENTAGES ----",
+    "locations": [
+      "xom.cc:5647"
+    ]
+  },
+  {
+    "id": "64b18a57a05b3171",
+    "en": "Total effects (all piety ranges)",
+    "locations": [
+      "xom.cc:5708"
+    ]
+  },
+  {
+    "id": "0a825b617191ef3c",
+    "en": "Mood: You are %s",
+    "locations": [
+      "xom.cc:5710"
+    ]
+  },
+  {
+    "id": "314bc90ea80bdba9",
+    "en": "GOOD%7.2f%%",
+    "locations": [
+      "xom.cc:5712"
+    ]
+  },
+  {
+    "id": "5754017184fa0472",
+    "en": "BAD %7.2f%%",
+    "locations": [
+      "xom.cc:5714"
+    ]
+  },
+  {
+    "id": "2b0560aa5edbb555",
+    "en": "---- FINISHED XOM DEBUG TESTING ----",
+    "locations": [
+      "xom.cc:5749"
+    ]
+  },
+  {
+    "id": "06f4ffea040a8c3a",
+    "en": "If you linger in this branch for another %d turns, the power of Zot will shatter your %s gem.",
+    "locations": [
+      "zot.cc:408"
+    ]
+  }
+]

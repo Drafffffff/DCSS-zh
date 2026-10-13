@@ -1,0 +1,785 @@
+[
+  {
+    "id": "96ddb894f3a53e0e",
+    "en": "Heroism",
+    "locations": [
+      "ability.cc:482",
+      "skill-menu.cc:579"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "32c1cf49a2feee26",
+    "en": "skills",
+    "locations": [
+      "chardump.cc:137",
+      "initfile.cc:694",
+      "skill-menu.cc:1369",
+      "skill-menu.cc:1910"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "cae662172fd450bb",
+    "en": "base",
+    "locations": [
+      "clua.cc:874",
+      "libutil.cc:86",
+      "skill-menu.cc:670",
+      "tileweb.cc:1661"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "339eb1baf2720fe0",
+    "en": "darkgrey",
+    "locations": [
+      "colour.cc:718",
+      "colour.cc:725",
+      "colour.cc:756",
+      "dgn-overview.cc:338",
+      "dgn-overview.cc:530",
+      "dgn-overview.cc:547",
+      "dgn-overview.cc:551",
+      "items.cc:882",
+      "mutation.cc:2477",
+      "mutation.cc:2695",
+      "mutation.cc:2704",
+      "output.cc:2107",
+      "output.cc:2568",
+      "skill-menu.cc:734",
+      "spl-cast.cc:2212",
+      "view.cc:1053",
+      "view.cc:1054",
+      "view.cc:1055",
+      "view.cc:1056",
+      "view.cc:1057",
+      "view.cc:1058",
+      "view.cc:1059",
+      "view.cc:1060",
+      "view.cc:1063",
+      "view.cc:1064",
+      "view.cc:1065",
+      "view.cc:1066"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "018fa96a44715c90",
+    "en": "white",
+    "locations": [
+      "colour.cc:728",
+      "colour.cc:757",
+      "colour.cc:763",
+      "describe.cc:2061",
+      "dgn-overview.cc:532",
+      "initfile.cc:886",
+      "item-name.cc:1711",
+      "items.cc:881",
+      "mon-util.cc:2936",
+      "mon-util.cc:3003",
+      "skill-menu.cc:734"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "929260ad9b9ea9fe",
+    "en": "auto",
+    "locations": [
+      "dbg-asrt.cc:199",
+      "initfile.cc:138",
+      "initfile.cc:838",
+      "initfile.cc:936",
+      "initfile.cc:938",
+      "initfile.cc:949",
+      "initfile.cc:950",
+      "initfile.cc:950",
+      "skill-menu.cc:659"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "36bde66f289a3568",
+    "en": "manual",
+    "locations": [
+      "dbg-asrt.cc:199",
+      "item-name.cc:1242",
+      "item-name.cc:1831",
+      "mapdef.cc:5754",
+      "skill-menu.cc:660"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "9c53c074d7ac6a27",
+    "en": "skill",
+    "locations": [
+      "dbg-util.cc:536",
+      "lookup-help.cc:1392",
+      "skill-menu.cc:1353"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "34d133c415944b8f",
+    "en": "<white>",
+    "locations": [
+      "dbg-util.cc:560",
+      "describe-god.cc:291",
+      "describe.cc:7579",
+      "main.cc:446",
+      "mutation.cc:971",
+      "skill-menu.cc:314"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "99bfba768415f9ce",
+    "en": "</white>",
+    "locations": [
+      "dbg-util.cc:563",
+      "main.cc:446",
+      "skill-menu.cc:324"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "a62ed7b95a2fe9e8",
+    "en": "useful",
+    "locations": [
+      "defines.h:370",
+      "mapdef.cc:5343",
+      "skill-menu.cc:663"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "0081779c287d567d",
+    "en": "level",
+    "locations": [
+      "describe-spells.cc:798",
+      "macro.cc:1021",
+      "menu.cc:3479",
+      "place.cc:21",
+      "skill-menu.cc:1385",
+      "spl-book.cc:48",
+      "wiz-item.cc:1039"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "b5f90a96e680140d",
+    "en": "progress",
+    "locations": [
+      "god-wrath.cc:96",
+      "skill-menu.cc:673",
+      "tileweb.cc:1213"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "5ef5ef0364b6939c",
+    "en": "all",
+    "locations": [
+      "initfile.cc:138",
+      "initfile.cc:688",
+      "initfile.cc:703",
+      "initfile.cc:1628",
+      "initfile.cc:1629",
+      "initfile.cc:1778",
+      "initfile.cc:1819",
+      "initfile.cc:1886",
+      "initfile.cc:1900",
+      "initfile.cc:1914",
+      "initfile.cc:1928",
+      "initfile.cc:1942",
+      "initfile.cc:1963",
+      "initfile.cc:4353",
+      "skill-menu.cc:664",
+      "wiz-item.cc:194"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "37c58f56028d4e02",
+    "en": "wildshape",
+    "locations": [
+      "item-name.cc:828",
+      "skill-menu.cc:592"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "52360bb5917f1919",
+    "en": "Invalid view state.",
+    "locations": [
+      "skill-menu.cc:197",
+      "skill-menu.cc:443"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "44c58c7ee1d702db",
+    "en": "<lightred>+4</lightred>",
+    "locations": [
+      "skill-menu.cc:331"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "7cc0423da722659d",
+    "en": "     Skill",
+    "locations": [
+      "skill-menu.cc:425"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "1709305c9fa966d1",
+    "en": "Level",
+    "locations": [
+      "skill-menu.cc:426",
+      "wiz-dump.cc:352"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "26acab0f7d98683a",
+    "en": "<blue>Apt </blue>",
+    "locations": [
+      "skill-menu.cc:433"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "e99c90db87c0e400",
+    "en": "Train",
+    "locations": [
+      "skill-menu.cc:437"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "978354db0c00fc78",
+    "en": "Target",
+    "locations": [
+      "skill-menu.cc:438"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "0661b21f339ce042",
+    "en": "Progr",
+    "locations": [
+      "skill-menu.cc:439"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "77deabe238de2f6d",
+    "en": "Points",
+    "locations": [
+      "skill-menu.cc:440"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "204a5eb2cd28bcfd",
+    "en": "Cost",
+    "locations": [
+      "skill-menu.cc:441"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "5957ea7b24717074",
+    "en": "> New",
+    "locations": [
+      "skill-menu.cc:442"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "803959ed4c2385b0",
+    "en": "In automatic mode, skills are trained as you use them.",
+    "locations": [
+      "skill-menu.cc:556"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "4ad9efea0f53ed56",
+    "en": "In manual mode, experience is spread evenly across all activated skills.",
+    "locations": [
+      "skill-menu.cc:558"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "598a12e2bfe4794f",
+    "en": "Press the letter of a skill to choose whether you want to practise it. Skills marked with '<darkgrey>-</darkgrey>' will not be trained.",
+    "locations": [
+      "skill-menu.cc:564"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "13ee19289060e0cf",
+    "en": "Press the letter of a skill to cycle between <darkgrey>disabled</darkgrey> (<darkgrey>-</darkgrey>), enabled (+) and <white>focused</white> (<white>*</white>). Focused skills train twice as fast relative to others.",
+    "locations": [
+      "skill-menu.cc:568"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "db9c598a07233db1",
+    "en": " power",
+    "locations": [
+      "skill-menu.cc:585"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "ead309275b8f3248",
+    "en": "the Hermit's pendant",
+    "locations": [
+      "skill-menu.cc:590",
+      "skill-menu.cc:608"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "4f8dd1a88f39b9cf",
+    "en": "the Charlatan's Orb",
+    "locations": [
+      "skill-menu.cc:594"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "cf663e6d3b09ee07",
+    "en": "scribal knowledge",
+    "locations": [
+      "skill-menu.cc:596"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "1266a37a8c4a4c8b",
+    "en": "Skills enhanced by ",
+    "locations": [
+      "skill-menu.cc:597"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "960562887fdb52d1",
+    "en": " are in <green>green</green>.",
+    "locations": [
+      "skill-menu.cc:599"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "f709b4dd91df48fd",
+    "en": "Ashenzari's anger",
+    "locations": [
+      "skill-menu.cc:606"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "3019a26002a57111",
+    "en": "the Bane of the Dilettante",
+    "locations": [
+      "skill-menu.cc:610"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "ce6743eb6b0d5fa8",
+    "en": "Skills reduced by ",
+    "locations": [
+      "skill-menu.cc:613"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "dd2e29b5708529ec",
+    "en": " are in <magenta>magenta</magenta>.",
+    "locations": [
+      "skill-menu.cc:615"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "1044558d3368a8ff",
+    "en": "The percentage of incoming experience used to train each skill is in <brown>brown</brown>.\n",
+    "locations": [
+      "skill-menu.cc:625"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "cc7ecb50cf6f4ab4",
+    "en": "The current training targets, if any.\n",
+    "locations": [
+      "skill-menu.cc:631"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "91af557278ce2420",
+    "en": "The percentage of the progress done before reaching next level is in <cyan>cyan</cyan>.\n",
+    "locations": [
+      "skill-menu.cc:633"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "0b4b461917dae8a0",
+    "en": "The relative cost of raising each skill is in <cyan>cyan</cyan>",
+    "locations": [
+      "skill-menu.cc:641"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "38a1d4cd20e32af5",
+    "en": " (or <lightred>red</lightred> if enhanced by a manual)",
+    "locations": [
+      "skill-menu.cc:645"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "116f54c41d0405db",
+    "en": "train",
+    "locations": [
+      "skill-menu.cc:661"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "c51faa148557a08c",
+    "en": "focus",
+    "locations": [
+      "skill-menu.cc:662"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "b80012851cf027c6",
+    "en": "modified",
+    "locations": [
+      "skill-menu.cc:667"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "aedbe9f5f1f5eaec",
+    "en": "enhanced",
+    "locations": [
+      "skill-menu.cc:668"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "c454a455918b652d",
+    "en": "reduced",
+    "locations": [
+      "skill-menu.cc:669"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "c2fb788c7deedbea",
+    "en": "training",
+    "locations": [
+      "skill-menu.cc:671"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "26cafb94003a6548",
+    "en": "targets",
+    "locations": [
+      "skill-menu.cc:672"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "c54a061dfcc125cb",
+    "en": "points",
+    "locations": [
+      "skill-menu.cc:674"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "152983b49beba042",
+    "en": "new level",
+    "locations": [
+      "skill-menu.cc:675"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "9f82f7b375f4aa1b",
+    "en": "cost",
+    "locations": [
+      "skill-menu.cc:676"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "89965f25eba0324f",
+    "en": "Invalid switch state.",
+    "locations": [
+      "skill-menu.cc:677"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "5f8a08be85f32502",
+    "en": " [<yellow>%c</yellow>] ",
+    "locations": [
+      "skill-menu.cc:728"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "6db2795f6e5d08c6",
+    "en": "freeform",
+    "locations": [
+      "skill-menu.cc:841"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "cf42b9f7565299fb",
+    "en": "highlighter",
+    "locations": [
+      "skill-menu.cc:883"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "ae5b32f1732573a4",
+    "en": "Enter a skill target for %s: ",
+    "locations": [
+      "skill-menu.cc:937"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "1b6b3c396eb6654b",
+    "en": "<lightred>Your training target must be 27 or below!</lightred>",
+    "locations": [
+      "skill-menu.cc:960"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "4499cfa89fd047eb",
+    "en": "<lightred>You need to enable at least one skill.</lightred>",
+    "locations": [
+      "skill-menu.cc:1043"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "01df821455c3037d",
+    "en": "Press the letter of a skill to read its description.\nPress <w>?</w> for a general explanation of skilling and the various toggles.",
+    "locations": [
+      "skill-menu.cc:1173"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "e642b12901a6ee51",
+    "en": "mode",
+    "locations": [
+      "skill-menu.cc:1342",
+      "tileweb.cc:1021"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "d5073cd867903c9f",
+    "en": "[<yellow>?</yellow>] ",
+    "locations": [
+      "skill-menu.cc:1446"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "33a7bed68180880b",
+    "en": "[<yellow>a</yellow>-<yellow>z</yellow>] ",
+    "locations": [
+      "skill-menu.cc:1447"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "9522c0064bd2a68f",
+    "en": "Skill descriptions",
+    "locations": [
+      "skill-menu.cc:1449"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "b79cac926e0b2e34",
+    "en": "Help",
+    "locations": [
+      "skill-menu.cc:1449"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "b1c450eaa42e65c5",
+    "en": "Return to skill selection",
+    "locations": [
+      "skill-menu.cc:1454"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "bf96db393a402934",
+    "en": "<w>Help</w>",
+    "locations": [
+      "skill-menu.cc:1455"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "4458a59a2883630b",
+    "en": "skill descriptions",
+    "locations": [
+      "skill-menu.cc:1456"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "24f0050d17a999a9",
+    "en": "set skill target",
+    "locations": [
+      "skill-menu.cc:1462"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "d7fb2c43edf18b4c",
+    "en": "[<yellow>-</yellow>] clear selected target",
+    "locations": [
+      "skill-menu.cc:1463"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "fa9b6bcbf5a8fa73",
+    "en": "[<yellow>=</yellow>] set a skill target",
+    "locations": [
+      "skill-menu.cc:1467",
+      "skill-menu.cc:1472"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "ddea4ffb88839951",
+    "en": "[<yellow>-</yellow>] clear all targets",
+    "locations": [
+      "skill-menu.cc:1468"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "c6c7a8c500436bd1",
+    "en": "Select the skills you want to be trained. The chosen skills will be raised to the level shown in <cyan>cyan</cyan>.",
+    "locations": [
+      "skill-menu.cc:1508"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "b9ac748f14a2e4a1",
+    "en": "The species aptitude is in <white>white</white>. ",
+    "locations": [
+      "skill-menu.cc:1522"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "6930f49232c09e78",
+    "en": "Bonus from skill manuals is in <lightred>red</lightred>. ",
+    "locations": [
+      "skill-menu.cc:1525"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "cdd43d3db3df51f6",
+    "en": "Invalid state.",
+    "locations": [
+      "skill-menu.cc:1598"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "134a4fee694ff041",
+    "en": "You have gained great experience. Select the skills to train.",
+    "locations": [
+      "skill-menu.cc:1638"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "029f1275a89abafb",
+    "en": "You feel omnipotent.",
+    "locations": [
+      "skill-menu.cc:1822"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "6b5ef275e09479b2",
+    "en": "Unhandled menu switch %d",
+    "locations": [
+      "skill-menu.cc:1895"
+    ],
+    "context": "Skill menu UI. Use concise Chinese, preserve key labels, colour tags and placeholders. Lowercase switch labels also need Chinese; technical errors can remain unchanged."
+  },
+  {
+    "id": "84b80987ae063714",
+    "en": "Skills enhanced by %s are in <green>green</green>.",
+    "locations": [
+      "skill-menu.cc:composed"
+    ],
+    "context": "Complete skill menu display template. Translate all English prose and colour names in visible text, keep markup and printf unchanged."
+  },
+  {
+    "id": "3f8d01eb241dbba4",
+    "en": "Skills reduced by %s are in <magenta>magenta</magenta>.",
+    "locations": [
+      "skill-menu.cc:composed"
+    ],
+    "context": "Complete skill menu display template. Translate all English prose and colour names in visible text, keep markup and printf unchanged."
+  },
+  {
+    "id": "b9834f1df721e3ae",
+    "en": "The relative cost of raising each skill is in <cyan>cyan</cyan>.\n",
+    "locations": [
+      "skill-menu.cc:composed"
+    ],
+    "context": "Complete skill menu display template. Translate all English prose and colour names in visible text, keep markup and printf unchanged."
+  },
+  {
+    "id": "719f5add02b47b73",
+    "en": "The relative cost of raising each skill is in <cyan>cyan</cyan> (or <lightred>red</lightred> if enhanced by a manual).\n",
+    "locations": [
+      "skill-menu.cc:composed"
+    ],
+    "context": "Complete skill menu display template. Translate all English prose and colour names in visible text, keep markup and printf unchanged."
+  }
+]

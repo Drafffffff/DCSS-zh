@@ -1,0 +1,34 @@
+[
+  {
+    "id": "a5e253254765eb51",
+    "en": "Welcome back, %s the %s.",
+    "locations": [
+      "main.cc:welcome composed"
+    ],
+    "context": "Full dynamically assembled welcome message. First placeholder is player name; second if present is species plus profession. Use natural concise Chinese. Keep placeholders in order."
+  },
+  {
+    "id": "1fff86cf2728b4ec",
+    "en": "Welcome, %s the %s.",
+    "locations": [
+      "main.cc:welcome composed"
+    ],
+    "context": "Full dynamically assembled welcome message. First placeholder is player name; second if present is species plus profession. Use natural concise Chinese. Keep placeholders in order."
+  },
+  {
+    "id": "706e50ba8f594e3c",
+    "en": "Welcome back, %s.",
+    "locations": [
+      "main.cc:welcome composed"
+    ],
+    "context": "Full dynamically assembled welcome message. First placeholder is player name; second if present is species plus profession. Use natural concise Chinese. Keep placeholders in order."
+  },
+  {
+    "id": "6bfb3ff956e15d30",
+    "en": "Welcome, %s.",
+    "locations": [
+      "main.cc:welcome composed"
+    ],
+    "context": "Full dynamically assembled welcome message. First placeholder is player name; second if present is species plus profession. Use natural concise Chinese. Keep placeholders in order."
+  }
+]

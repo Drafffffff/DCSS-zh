@@ -1,0 +1,20 @@
+name: "pandemonium lord"
+glyph: {char: "&", colour: colour_undef}
+flags: [fighter, see_invis, speaks, ghost_demon, tall_tile]
+resists: {poison: 1}
+exp: 80
+exp_is_mult: true
+holiness: [demonic]
+will_per_hd: 5
+attacks:
+ - {type: hit, damage: 5}
+hd: 19
+hp_10x: 1710
+ac: 1
+ev: 2
+spells: ghost
+shout: demon_taunt
+intelligence: human
+uses: open_doors
+size: large
+shape: humanoid

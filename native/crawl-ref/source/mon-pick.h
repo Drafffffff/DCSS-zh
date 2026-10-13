@@ -1,0 +1,88 @@
+/**
+ * @file
+ * @brief Functions used to help determine which monsters should appear.
+**/
+
+#pragma once
+
+#include "level-id.h"
+#include "monster-type.h"
+#include "random-pick.h"
+
+typedef random_pick_entry<monster_type> pop_entry;
+
+typedef bool (*mon_pick_vetoer)(monster_type);
+typedef bool (*mon_pick_pos_vetoer)(monster_type, coord_def);
+
+bool monster_in_population(branch_type branch, monster_type m, bool check_noncore=true);
+int monster_probability(level_id place, monster_type m);
+int monster_pop_depth_avg(branch_type branch, monster_type m);
+int monster_how_ood(branch_type branch, int depth, monster_type m);
+
+monster_type pick_monster(level_id place, mon_pick_vetoer veto = nullptr);
+monster_type pick_monster_from(const vector<pop_entry>& fpop, int depth,
+                               mon_pick_vetoer = nullptr);
+monster_type pick_monster_no_rarity(branch_type branch);
+monster_type pick_monster_by_hash(branch_type branch, uint32_t hash);
+monster_type pick_monster_all_branches(int absdepth0, mon_pick_vetoer veto = nullptr);
+int branch_ood_cap(branch_type branch);
+int branch_zombie_cap(branch_type branch);
+bool branch_has_monsters(branch_type branch);
+const vector<pop_entry>& fish_population(branch_type br, bool lava);
+const vector<pop_entry>& zombie_population(branch_type br);
+
+void debug_monpick();
+
+// Subclass the random_picker template to make a monster_picker class.
+// The main reason for this is that passing delegates into template functions
+// is fraught with peril when the delegate's arguments use T, until 0x at least.
+// There is supposedly a nasty workaround but this wouldn't even compile for me.
+class monster_picker : public random_picker<monster_type, NUM_MONSTERS>
+{
+public:
+    monster_picker() : _veto(nullptr) { };
+
+    monster_type pick_with_veto(const vector<pop_entry>& weights, int level,
+                                monster_type none,
+                                mon_pick_vetoer vetoer = nullptr);
+
+    virtual bool veto(monster_type mon) override;
+
+private:
+    mon_pick_vetoer _veto;
+};
+
+class positioned_monster_picker : public monster_picker
+{
+public:
+    positioned_monster_picker(const coord_def &_pos,
+                              mon_pick_pos_vetoer _posveto = nullptr)
+        : monster_picker(), pos(_pos), posveto(_posveto) { };
+
+    virtual bool veto(monster_type mon) override;
+
+protected:
+    const coord_def &pos;
+
+private:
+    mon_pick_pos_vetoer posveto;
+};
+
+class zombie_picker : public positioned_monster_picker
+{
+public:
+    zombie_picker(const coord_def &_pos, monster_type _ztype)
+        : positioned_monster_picker(_pos),
+          zombie_kind(_ztype)
+          { };
+
+    virtual bool veto(monster_type mon) override;
+
+private:
+    monster_type zombie_kind;
+};
+
+monster_type pick_monster(level_id place, monster_picker &picker,
+                          mon_pick_vetoer veto = nullptr);
+monster_type pick_monster_all_branches(int absdepth0, monster_picker &picker,
+                                       mon_pick_vetoer veto = nullptr);

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "98f126ed235bf383",
+    "en": "    At %d% training you would reach %d.%d in about %d.%d XLs.",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "IMPORTANT: Identical printf tokens cannot be reordered. Parameter order MUST remain: training percentage, target skill integer, target skill decimal, estimated experience levels integer, estimated experience levels decimal. Chinese sentence must mention target skill BEFORE experience required. Example semantics training=100, target=10.0, experience=6.5. Do NOT reverse 10.0 and 6.5. Preserve each %d exactly and in this semantic order."
+  },
+  {
+    "id": "e808be5c26f42da2",
+    "en": "    At current training (%d%) you reach %d.%d in about %d.%d XLs.",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "IMPORTANT: Identical printf tokens cannot be reordered. Parameter order MUST remain: training percentage, target skill integer, target skill decimal, estimated experience levels integer, estimated experience levels decimal. Chinese sentence must mention target skill BEFORE experience required. Example semantics training=100, target=10.0, experience=6.5. Do NOT reverse 10.0 and 6.5. Preserve each %d exactly and in this semantic order."
+  }
+]

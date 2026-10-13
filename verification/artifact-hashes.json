@@ -1,0 +1,34 @@
+{
+  "native/crawl-ref/source/zh-catalog.inc": {
+    "bytes": 3283739,
+    "sha256": "922d91141bd8fcbbc60b82390c8672a6d76752ca16484aab4e8d58c64bc87496"
+  },
+  "output/macos/crawl-tiles": {
+    "bytes": 16626824,
+    "sha256": "1aff6a64ff6f2ec1d834e0eabbf1bc2eb6b814496375ec67a85bc09ce008bb01"
+  },
+  "output/macos/crawl-console": {
+    "bytes": 15825144,
+    "sha256": "7ffb8d561b8917ed0d9c81288417a76d0729c1c5c7f5819bf2c1fc3b69cd527d"
+  },
+  "output/linux/crawl-tiles": {
+    "bytes": 20891664,
+    "sha256": "4031742fb1f4483b98cb292210e55cdb71559455175a003d30050f43d490a1b6"
+  },
+  "output/linux/crawl-console": {
+    "bytes": 20017912,
+    "sha256": "efde4ba87a3d4ce27f1ab2c5b00aa4de9b53e53ed38697832eaf12c3a42d1836"
+  },
+  "patches/dcss-0.34-zh.patch": {
+    "bytes": 4195791,
+    "sha256": "0015352b1babebccd24ba26e514a95e5fd745ba113ccc17ccbf71a7090850791"
+  },
+  "fonts/NotoSansSC-Regular.ttf": {
+    "bytes": 10595948,
+    "sha256": "066d0d803812e1ada968b2d5bb028fbcd4e93a39b026773682e1aa86ba418328"
+  },
+  "fonts/DCSSPixelSC-Regular.ttf": {
+    "bytes": 7047208,
+    "sha256": "1d8d3594b0718d6328ecd92b645fc339aabf6a941befb42f722b6d88a8e284c6"
+  }
+}

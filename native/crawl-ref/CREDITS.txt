@@ -1,0 +1,510 @@
+﻿The Dungeon Crawl Stone Soup team would like to thank:
+
+* Linley Henzell, the author of Dungeon Crawl, for writing this great game.
+
+* Brent Ross, Dungeon Crawl 4.0/4.1 maintainer. Stone Soup owes a lot to his
+  ideas and code in Crawl 4.1.
+
+* Other members of the 4.0 Crawl development team:
+    Michal Valvoda
+    Guus Sliepen
+    Brian Robinson
+    Mark Mackey
+    Gordon Lipford
+    Daniel Ligon
+    Jesse Jones
+    Josh Fishman
+    Don Brodale
+
+* Darshan Shaligram and Erik Piper, for starting the Stone Soup project, and
+  rekindling interest in Crawl development.
+
+* Other retired members of the development team:
+    Paul Du Bois
+    Haran Pilpel
+    Johanna Ploog
+    David Lawrence Ramsey
+    Isaac Sloat
+    J. Van
+    Robert Vollmert
+    Enne Walker
+
+* The administrators of public crawl servers, both present:
+    Jan Anders Bremer (underhound.eu)
+    Rax E. Dillon (crawl.akrasiac.org)
+    dplusplus (lazy-life.ddo.jp)
+    mcursa (crawl.project357.org)
+    Marc H. Thoben (crawl.develz.org)
+    melvinkitnick (crawl.xtahua.com)
+    ZureaL (cbro.berotato.org)
+    ASCIIPhilia (crawl.nemelex.cards)
+    gammafunk (crawl.dcss.io)
+  and past:
+    Jan Anders Bremer (crawl.lantea.net)
+    John Boyle (crawl.berotato.org)
+    joosa (rl.heh.fi)
+    Medar, Zkyp (crawl.xtahua.com)
+    Aleksi Miikkael Luukkonen (crawl.lantea.net)
+    Neil Moore (crawl.s-z.org)
+    phunktion (crawl.somatika.net)
+    sd1989 (kr.dobrazupa.org)
+    ZiBuDo (crawl.jorgrun.rocks)
+    floraline (crawl.kelbi.org)
+    Wongi Hong (webzook.net / kr.dobrazupa.org)
+    Alex Jurkiewicz (crawl.project357.org)
+    Namanix (crawl.xtahua.com)
+
+* The members of various usability testing teams from the department of
+  Information Processing Science in Oulu University:
+    Satu Alanko
+    Sampo Jumisko
+    Topi Leinonen
+    Tiina Kallinen
+    Aslak Karsi
+    Teemu Kaukoranta
+    Miikka Kuutila
+    Sami Mylly
+    Joonas Nissinen
+    Perttu Piirainen
+    Pekka Reijonen
+    Jouni Rissanen
+    Juulia Ruha
+    Tuomas Ristioja
+    Arto Saukko
+    Janne Seppänen
+    Henri Sorsa
+    Sebastian Turpeinen
+  Additional thanks to Mikko Rajanen for providing the opportunity for
+  usability testing during various courses.
+
+* Members of the Dungeon Crawl community who have contributed to Dungeon
+  Crawl Stone Soup:
+    Eugene Abramchuk
+    achuah
+    Santiago Acosta
+    AdamPG
+    Brent Adams
+    Mike Adams
+    Aj Adamson
+    Nikhil Addleman
+    adelrune
+    Ahyangyi
+    Alcon
+    Brandon Allbery
+    Warwick Allison
+    aMcNicky
+    AndSDev
+    Antern
+    antimachina
+    Austin Appleby
+    araganzar
+    argonaut
+    ArmiesAndCastles
+    Juha Arpiainen
+    Arxale
+    John 'Poor Yurik' Attea
+    Roy Axenov
+    Steve 'nfogravity' Balady
+    Max Bane
+    G. Bailey
+    Alexei Barnes
+    Spencer Baugh
+    Beargit
+    Bill Beher
+    Alexander Beisig
+    Alex Beloi
+    benadryl
+    biasface
+    Björn Bähre
+    Stu Black
+    blackcustard
+    Peter 'xFleury' Blain
+    Elliott Bernstein
+    Bloax
+    Terje Bø
+    Erik Inge Bolsø
+    bones
+    Peter Borgmann
+    Matthew Boeh
+    Clare Boothby
+    Mike Boutin
+    John Boyle
+    Josh Braden
+    Daniel Mark Brownrigg
+    Andre Bubel
+    Trent W. Buck
+    Joe Buzzelli
+    Micah C
+    Policarpo Caballero
+    cadi
+    Ian Caltabiano
+    David Candido
+    Edgar Carballo
+    caryoscelus
+    Cedor
+    Cerol
+    Marcelo Cerri
+    Zachary Chandler
+    Rahul Chandra
+    Joe Childers
+    Thom Chiovoloni
+    Anthony Chuah
+    Henry Cipolla
+    CollinJ
+    Nicholas Connelly
+    Tom Conrad
+    Vitor 'Baconkid' Costa
+    RJ Cunningham
+    Cureja
+    Aaron Curtis
+    Simon Curtis
+    cut1less
+    Matthew Daley
+    David Damerell
+    Paul Dejean
+    Denzi
+    DevJac
+    Sean Dewar
+    DewdropsOTG
+    Ed Dewey
+    dicedlemming
+    Lothar Dierkes
+    dilly
+    Doesnty
+    Mark 'Palyth' Donahue
+    Kevin Donnelly
+    drachereborn
+    DreamDust
+    Mike Drinen
+    DrKe
+    Kieron Dunbar
+    Russell Dunk
+    Ebonnov
+    John 'Elwin' Edwards
+    elliott
+    Micha Elsner
+    Carl-Oscar Erneholm
+    Erich Erstu
+    Higor Eurípedes
+    Christopher Evenstar
+    Robert Faulk
+    Floodkiller
+    floraline
+    Flugkiller
+    Brett Foster
+    Kyle Fox
+    Perry Fraser
+    Chris Galardi
+    GenericPseudonym
+    Ge0ff
+    Joshua Gelbard
+    Peter Gerlagh
+    Charlie Gettys
+    Benoît Giannangeli
+    Gittourarmy
+    Ben Goetter
+    Aaron Golden
+    Gompami
+    Ed Gonzalez
+    Gopall
+    Goratrix
+    Rob Grant
+    John Greenberg
+    GreyKnight
+    Joshua Gross
+    Pat '4Hooves2Appendages' H
+    Brian Haase
+    Sophie Hamilton
+    Chris Hamons
+    Tomas Krag Hansen
+    Lexi Hattaway
+    Taylor Hedberg
+    Anders Heggestøyl
+    Alex Henry
+    R. Dan Henry
+    Chris Honey
+    Sylvia 'Onia' Hörnke
+    Benoit Hudson
+    Michael Hunter
+    Hurricos
+    Iainuki
+    ICC
+    Icy Lich
+    Ilyak
+    Matthew Ince
+    Mitsuhiro Itakura
+    Jeekaroose
+    Nick Johnstone
+    Mikko Juola
+    Zhang Kai
+    Kurt Kartaltepe
+    Dominic Kempf
+    Dominic 'dk' Kexel
+    Jarmo Kielosto
+    Brandon Kime
+    King7artist
+    Kornel Kisielewicz
+    Vesa Kivimäki
+    Daniel Klein
+    klorpa
+    Jon Knapp
+    Quinten Konyn
+    Ilkka Koskela
+    infiniplex
+    Vambola Kotkas
+    Roma Kovalev
+    Ryan Kusnery
+    Jukka Kuusisto
+    Lorenzo Lami
+    Christopher Landry
+    Lantier
+    Maciej Lapinski
+    LemurRobot
+    Lamil Lerran
+    Jordan Lewis
+    Lici
+    Sami Liedes
+    Dom 'Bodrick' Light
+    Lightli
+    Lewis R. Liu
+    Lyre
+    Kiëd Llaentenn
+    Mark Lodato
+    Matthew Ludivico
+    Rob Lund
+    Sebastian Łużyński
+    Lynn
+    Michael Lynn
+    Peter McLarnan
+    Lain I. W. Madreisz
+    Johannes Maier
+    Markus Maier
+    Arien Malec
+    Paul Maloney
+    Pablo Mansanet
+    Wille Mäntylä
+    István Markó
+    Gabriel Marks
+    Jean Martel
+    meckryl
+    James 'Eronarn' Meickle
+    Jacob Meigs
+    mgdelmonte
+    Midn8
+    mikee
+    MikeJHeg
+    Jared Miller
+    Nathan Mills
+    Andrew Minton
+    Mintice
+    Byrel Mitchell
+    Yer Mivvaggah
+    Monkooky
+    Shawn M Moore
+    Muffindrake
+    Akinori Musha
+    Mushboom
+    Rosstin Murphy
+    Eva Myers
+    Mystic Sailboat
+    nagdon
+    Naruni
+    neofelis
+    nirrattner
+    Jonathon Nooner
+    NormalPerson7
+    Michael Nowack
+    Erkki Nurmi
+    Mattias Nyberg
+    nyra
+    Odds
+    Weston Odom
+    Dylan O'Donnell
+    Heinrich Ody
+    Chris Oelmueller
+    John Olender
+    Nephila Hirsch Oliveira
+    Aaron Olowin
+    Andrew O'Neill
+    Oneirical
+    Justin Clark Ong
+    Yuuma Oohara
+    orjb1
+    Julian Ospald
+    Malwyn P
+    palyth
+    panicbit
+    Paperbell
+    Anders Papitto
+    William Parker
+    Christopher Partin
+    Pedro
+    Pekkekke
+    person50605
+    Alejandro Ramirez
+    Rytis Petronis
+    Arlen Phillips
+    pikaro
+    Lemuel Pitkin
+    valerie "ploomutoo"
+    Paul Pollack
+    Poroing
+    Iago Porto
+    Alexander Posch
+    Brian Power
+    psywombats
+    pubby
+    pyy156941
+    Ashley Elizabeth Raine
+    randomMesh
+    Edward Randtke
+    Derek Ray
+    RealzHS
+    Robert J. Redelmeier
+    Terence Reeves
+    Tobias Rehbein
+    Remsleep
+    Chris Rendle-Short
+    Reono
+    Ryan Riegel
+    riverfiend
+    RjY
+    rmcneive
+    Andy Roche
+    rockygargoyle
+    Will Rogers
+    RollingRubic
+    Nate Rook
+    David Rose
+    runrin
+    rypofalem
+    Risto Saarelma
+    Sebastian Salman
+    Petri Salminen
+    Sandman25
+    Brett Scarborough
+    Roderick Schertler
+    sdynet
+    SentientSupper
+    Roman Sêk
+    Brennan Shacklett
+    ShadyAmish
+    Umer Shaikh
+    Evan Shaw
+    Aditya Shevade
+    Alexandra Shields
+    Robert Shimmin
+    Shummie
+    Sigurd
+    Edgar Simo
+    Alex Smith
+    Keanan Smith
+    Richard Soderberg
+    Ryan Svoboda
+    Solf
+    Michael Spang
+    David Speare
+    Martin Staffa
+    John Stahara
+    Jan 'heftig' Steffens
+    Stenella
+    Timothy Stiles
+    John Stilley
+    Johan Strandell
+    Ben Striegel
+    Bernardo Sulzbach
+    Cebolla Sunbeam
+    Derrick Sund
+    Pavel 'Curio' Svinarchuk
+    Tanner Swett
+    Matthew Tadd
+    William Tanksley, Jr.
+    Tedronai
+    tekkud
+    Chris Terenzi
+    tianmaster
+    Jared 'Twinge' Tinney
+    Matt Titus
+    Jonathan Klabunde Tomer
+    Tommy
+    Sean VanMeter
+    Vaskritaya
+    Mikko Vepsäläinen
+    vla22
+    WanderingBlade
+    Richard Wardin
+    waylon531
+    Steven Wheeler
+    WhiteShark
+    Thomas Willem
+    Sam Willett
+    Evan Williams
+    Mara Williamson
+    Jeremey Wilson
+    Nicholas Wilson
+    wjchen
+    ximxim
+    Yelve Yakut
+    Edward Z. Yang
+    Yermak
+    YLam
+    Andrew G. York
+    Rob Young
+    Zannick
+    Zooko
+    Zhang Haocheng
+    Brian 'buehler' Faires
+
+The Dungeon Crawl Stone Soup development team is:
+    advil
+    Peter Berger
+    Edgar A. Bering IV
+    Adam Borowski
+    Samuel Bronson
+    Jude Brown
+    CanOfWorms
+    Corin Buchanan-Howland
+    James Bulgin
+    Robert Burnham
+    Kate Campbell
+    Matthew Cline
+    Darby
+    Florian Diebold
+    Rax E. Dillon
+    Nicholas Feinberg
+    Michael Gagno
+    gammafunk
+    Shayne Halvorson
+    hellmonk
+    Brendan Hickey
+    Aidan Holm
+    Pete Hurst
+    Implojin
+    Eino Keskitalo
+    Vsevolod Kozlov
+    Janne Lahdenperä
+    Pekka Lampila
+    Raphaël Langella
+    Nat Lanza
+    Nikolai Lavsky
+    Jesse Luehrs
+    Alan Malloy
+    Shmuale Mark
+    John McCartney
+    Félix Medrano
+    Steve Melenchuk
+    Neil Middleton
+    Seve Monahan
+    Neil Moore
+    nicolae
+    Steven Noonan
+    Stefan O'Rear
+    Charles Otto
+    Aaron Pixton
+    David Ploog
+    Sage
+    Sastreii
+    Marc H. Thoben
+    Chris West
+    Samuel Wilson
+    Wizard Ike

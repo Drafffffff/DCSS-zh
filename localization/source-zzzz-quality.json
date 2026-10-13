@@ -1,0 +1,54 @@
+[
+  {
+    "id": "654703723ec7a161",
+    "en": "“Hoc idem magis ostendit antiquius Iovis nomen: nam olim Diovis et Diespiter\n dictus, id est dies pater; a quo dei dicti qui inde, et dius et divum, unde\n sub divo, Dius Fidius. Itaque inde eius perforatum tectum, ut ea videatur\n divum, id est caelum. Quidam negant sub tecto per hunc deierare oportere.\n Aelius Dium Fidium dicebat Diovis filium, ut Graeci Dioskopon Castorem, et\n putabat hunc esse Sancum ab Sabina lingua et Herculem a Graeca. Idem hic Dis\n pater dicitur infimus, qui est coniunctus terrae, ubi omnia ut oriuntur ita\n aboriuntur; quorum quod finis ortuum, Orcus dictus.”\n    -Marcus Terentius Varro, _De Lingua Latina_, Liber V, circa 40 BC.",
+    "locations": [
+      "dat/descript/quotes.txt#Dispater"
+    ],
+    "data_file": "descript/quotes.txt",
+    "data_key": "Dispater",
+    "context": "Player-facing literary quotation in Latin. Translate the Latin text AND attribution into Simplified Chinese. Do not retain it in Latin. Preserve EXACT newlines."
+  },
+  {
+    "id": "13ff86e92a9c40d3",
+    "en": "<ribbon worm>",
+    "locations": [
+      "dat/descript/quotes.txt#worm"
+    ],
+    "data_file": "descript/quotes.txt",
+    "data_key": "worm",
+    "context": "This entire body is a database reference, not display prose. Return <ribbon worm> EXACTLY unchanged so the quote lookup still works."
+  },
+  {
+    "id": "2eee037c67fbe81b",
+    "en": "Branches",
+    "locations": [
+      "dungeon overview heading"
+    ],
+    "context": "DCSS dungeon branch list heading. Branches means dungeon areas/branches, not tree branches. Translate as the heading for dungeon branches."
+  },
+  {
+    "id": "a37057ffa3de73d7",
+    "en": "Branches:",
+    "locations": [
+      "dungeon overview heading"
+    ],
+    "context": "DCSS dungeon branch list heading. Branches means dungeon areas/branches, not tree branches. Translate as the heading for dungeon branches."
+  },
+  {
+    "id": "685ac19a74856152",
+    "en": "<green>Branches:</green>",
+    "locations": [
+      "dungeon overview heading"
+    ],
+    "context": "DCSS dungeon branch list heading. Branches means dungeon areas/branches, not tree branches. Translate as the heading for dungeon branches."
+  },
+  {
+    "id": "08ba168c3d6c3427",
+    "en": "\n<green>Branches:</green>",
+    "locations": [
+      "dungeon overview heading"
+    ],
+    "context": "DCSS dungeon branch list heading. Branches means dungeon areas/branches, not tree branches. Translate as the heading for dungeon branches."
+  }
+]

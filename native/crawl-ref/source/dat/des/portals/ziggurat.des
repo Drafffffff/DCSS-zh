@@ -1,0 +1,644 @@
+###############################################################################
+# ziggurat.des - Ziggurat entry vaults and ziggurat layouts.
+###############################################################################
+
+# Most ziggurat code is in ziggurat.lua.
+# XXX: Ziggurat code is incomplete.
+
+: crawl_require("dlua/ziggurat.lua")
+: crawl_require('dlua/vault.lua')
+
+{{
+function megazig_zot_traps(e)
+  if crawl.x_chance_in_y(math.min(27, you.zigs_completed() * 3), 27) then
+    e.kfeat("~ = zot trap")
+    e.subst(". = ~")
+  end
+end
+}}
+
+### Entry vaults to ziggurats ##########################################
+#
+# There is one Ziggurat in Depths.
+
+default-depth: Depths
+
+# In case there is an encompass vault on the level.
+NAME:   ziggurat_fallback
+TAGS:   zig_entry
+KFEAT:  O = enter_ziggurat no_mimic
+TAGS:   overwrite_floor_cell no_exits transparent
+WEIGHT: 1
+MAP
+O
+ENDMAP
+
+NAME:   enter_ziggurat_a_and_e
+TAGS:   zig_entry transparent
+WEIGHT: 15
+KFEAT:  O = enter_ziggurat no_mimic
+COLOUR: ; : cyan / lightblue
+COLOUR: ' = blue
+FTILE:  ; = floor_hall
+SUBST:  ' = .
+SUBST:  ; = .
+MAP
+.......
+.;;;;;.
+.;''';.
+.;'O';.
+.;''';.
+.;;;;;.
+.......
+ENDMAP
+
+NAME:    enter_ziggurat_b
+TAGS:    zig_entry transparent no_descent no_pool_fixup
+KFEAT:   O = enter_ziggurat no_mimic
+SHUFFLE: wW' / l;_
+COLOUR:  ; = red
+COLOUR:  _ : blue / lightred
+COLOUR:  ' = cyan
+FTILE:   '_ = floor_hall, ;O = floor_marble
+KMASK:   O = opaque
+MAP
+   ..'..
+  ..'W'..
+ ..'WwW'..
+..'WwwwW'..
+.'WwwOwwW'.
+..'WwwwW'..
+ ..'WwW'..
+  ..'W'..
+   ..'..
+ENDMAP
+
+NAME:    enter_ziggurat_c_and_d
+TAGS:    zig_entry no_trap_gen transparent no_descent
+WEIGHT:  15
+KFEAT:   O = enter_ziggurat no_mimic
+MONS:    lich / ancient lich, dread lich
+MONS:    angel / pearl dragon w:2, daeva / fravashi w:2
+MONS:    eye of devastation / great orb of eyes / shining eye
+MONS:    glass eye / eye of draining w:2
+# Iron grates are guaranteed to get at least one monster that can threaten
+# from behind the grates, while transparent rock is not.
+SHUFFLE: Aa / 'A
+SUBST:   A = m, a = '
+SHUFFLE: 1m / 2n, 135", 246
+NSUBST:  1 = 1:1 / * = 112''''''''', 2 = 1:2 / * = 112'''''''''
+NSUBST:  3 = 1:3 / * = 34'', 4 = 1:4 / * = 34''
+NSUBST:  5 = 1:5 / * = 5556, 6 = 1:6 / * = 5556
+KPROP:   123456O'" = no_tele_into
+KMASK:   123456'"O = opaque
+KMASK:   '"O = no_monster_gen
+KFEAT:   n = iron_grate
+MAP
+    ...
+   ..m..
+  .AmmmA.
+ ..ma1am..
+..mm1O1mm..
+ ..ma1am..
+  .AmmmA.
+   ..m..
+    ...
+ENDMAP
+
+NAME:   enter_ziggurat_f
+TAGS:   zig_entry no_trap_gen transparent no_descent
+MONS:   angel / nothing w:20
+KFEAT:  O = enter_ziggurat no_mimic
+KPROP:  1Om' = no_tele_into
+KFEAT:  ' = floor
+KMASK:  1O; = opaque
+MAP
+    ...
+   ..m..
+  ..mmm..
+ ..mm1mm..
+..mm'O'mm..
+ ..mm1mm..
+  ..mmm..
+   ..m..
+    ...
+ENDMAP
+
+NAME:    index_enter_ziggurat_g
+TAGS:    zig_entry no_trap_gen transparent no_descent no_pool_fixup
+MONS:    ghost crab / fenstrider witch
+MONS:    nagaraja / naga sharpshooter
+MONS:    merfolk aquamancer / merfolk javelineer
+MONS:    emperor scorpion / torpor snail
+KMONS:   O = ancient lich / dread lich / titan /\
+             alderking / wyrmhole / glass eye
+KFEAT:   O = enter_ziggurat no_mimic
+SHUFFLE: 1234
+SUBST:   ' : 'w, W : nw
+KPROP:   w1234'O = no_tele_into
+KMASK:   w1234'O = opaque
+KMASK:   w1234'O = no_monster_gen
+FTILE:   1234'-O = floor_hall
+MAP
+ .  .n.  .
+....---....
+ .nnnxnnn.
+ .nWwwwWn.
+.-nw'1'wn-.
+n-xw2O3wx-n
+.-nw'4'wn-.
+ .nWwwwWn.
+ .nnnxnnn.
+....---....
+ .  .n.  .
+ENDMAP
+
+NAME:    tekkud_enter_ziggurat_h
+TAGS:    zig_entry no_trap_gen transparent no_descent
+KMONS:   1 = fire dragon w:20 / ice dragon w:20 / \
+             storm dragon / shadow dragon / iron dragon
+KMONS:   2 = fire giant / frost giant / stone giant
+KMONS:   3 : torpor snail / glass eye w:5 / rakshasa w:5 / soul eater
+KMONS:   O = titan / juggernaut / quicksilver dragon w:20 / \
+             golden dragon w:30 / wyrmhole
+KFEAT:   O = enter_ziggurat no_mimic
+NSUBST:  _ = 1:1 / 1:2 / * = 12''''''
+NSUBST:  ; = 3:3 / 1:' / * = 3''
+SHUFFLE: vm
+KPROP:   123'O = no_tele_into
+KMASK:   123'O = opaque
+KMASK:   123'O = no_monster_gen
+COLOUR:  v = yellow
+FTILE:   123'Ov = floor_limestone
+FTILE:   m = floor_nerves_yellow
+TILE:    v = dngn_metal_wall_yellow
+TILE:    m = dngn_transparent_wall_yellow
+MAP
+   .....
+ ...vmv...
+ .mvv'vvm.
+..v_;';_v..
+.vv;''';vv.
+.m'''O'''m.
+.vv;''';vv.
+..v_;';_v..
+ .mvv'vvm.
+ ...vmv...
+   .....
+ENDMAP
+
+default-depth: Zig
+
+#######################################################################
+# Pillars for ziggurats.
+# Ziggurat pillars are handled specially in ziggurat.lua. In particular:
+# - ziggurat pillars do not need allow_dup. The pillar map is never
+#   registered as used.
+# - ziggurat pillars cannot use map markers.
+#
+# TODO: figure out why ziggurat pillars screw up descriptions for vault
+#       redefinitions of statues and decorative floor.
+#######################################################################
+NAME: ziggurat_pillar_abc
+TAGS: ziggurat_pillar unrand no_exits
+WEIGHT: 20
+SHUFFLE: dD / eD / eE
+SUBST: ceE : bcmvxG
+CLEAR: dD
+MAP
+dD
+cd
+ENDMAP
+
+NAME: ziggurat_pillar_d
+TAGS: ziggurat_pillar unrand no_exits
+DEPTH: Zig:18-
+SUBST: c : cxvb
+MAP
+ cc
+ccc
+cc
+ENDMAP
+
+NAME:  ziggurat_pillar_e
+TAGS:  ziggurat_pillar unrand no_exits
+DEPTH: Zig:18-
+WEIGHT: 5
+SUBST: c : bcv
+MAP
+ ccc
+ccccc
+ccccc
+ccccc
+ ccc
+ENDMAP
+
+NAME: ziggurat_pillar_centre_a
+TAGS: ziggurat_pillar centered no_dump unrand no_exits
+MAP
+lll
+lGl
+lll
+ENDMAP
+
+NAME: ziggurat_pillar_centre_b
+TAGS: ziggurat_pillar centered no_dump unrand no_exits
+SHUFFLE: wb / lb / nb / cb / bx
+MAP
+ www
+wwwww
+wwbww
+wwwww
+ www
+ENDMAP
+
+NAME:  ziggurat_pillar_centre_c
+TAGS:  ziggurat_pillar centered unrand no_exits
+# This is evil. Monster sets are: summoners (1), smiters (2), support (3),
+# harmless (4). This pillar has tactical implications: you will have to stay
+# away from it, and teleports are more risky.
+KMONS: A : guardian serpent / moth of wrath w:5 / ironbound convoker / \
+           deep elf death mage / deep elf demonologist / curse skull / \
+           curse toe w:5 / mummy priest w:5 / royal mummy w:5 / stoker / \
+           shadow demon / demonspawn corrupter / fravashi
+KMONS:  B : naga ritualist w:5 / salamander tyrant / entropy weaver / \
+            ghost moth / glass eye / eye of draining / deep elf high priest / \
+            titan / flayed ghost w:5 / soul eater w:5 / tormentor w:5 / \
+            demonspawn soul scholar / ophan / daeva
+KMONS:  C : glowing orange brain / torpor snail / tainted leviathan w:5 / \
+            undying armoury w:5 / apis
+KMONS:  P : plant / demonic plant / butterfly
+KFEAT:  m = iron_grate
+: if you.depth() > 20 then
+SUBST:  P : AAABCC
+: elseif you.depth() > 14 or you.depth() > 8 and crawl.coinflip() then
+SUBST:  P : ABC
+: end
+MAP
+mmm
+mPm
+mmm
+ENDMAP
+
+NAME: ziggurat_pillar_centre_statue
+TAGS: ziggurat_pillar centered no_dump unrand no_exits
+MONS: ice statue / orange crystal statue / obsidian statue
+MAP
+1
+ENDMAP
+
+NAME:    ziggurat_pillar_centre_def
+TAGS:    ziggurat_pillar centered no_dump unrand no_exits
+WEIGHT:  20
+SHUFFLE: xy'z / xY'z / "Y"Z
+SUBST:   xYZ : bcmvxG, y" = .
+CLEAR:   'z
+: megazig_zot_traps(_G)
+MAP
+z'z'z
+'x.x'
+z.y.z
+'x.x'
+z'z'z
+ENDMAP
+
+NAME:  ziggurat_pillar_centre_h
+TAGS:  ziggurat_pillar centered no_dump unrand no_exits
+MONS:  laughing skull w:1 / crimson imp w:31 / pandemonium lord w:1
+KFEAT: % : cache_of_meat / cache_of_fruit
+KFEAT: T = fountain_eyes
+MAP
+ccncc
+c%.Tc
+n.1.n
+cT.%c
+ccncc
+ENDMAP
+
+NAME: ziggurat_pillar_centre_i
+TAGS: ziggurat_pillar centered no_dump unrand no_exits
+MAP
+vlv
+lvl
+vlv
+ENDMAP
+
+NAME:  ziggurat_pillar_centre_j
+TAGS:  ziggurat_pillar centered no_dump unrand no_exits
+SUBST: x : bcmvxG
+MAP
+ x
+xxx
+ x
+ENDMAP
+
+NAME:    ziggurat_pillar_centre_l
+TAGS:    ziggurat_pillar centered no_dump unrand no_exits
+KFEAT:   g = metal_statue
+SHUFFLE: X' / X' / X' / 'X
+SUBST:   xX : bcmvxG, ' = .
+# NSUBST:  G = 1:g / *:G
+# : vault_granite_statue_setup(_G, "G", "scintillating statue")
+# : vault_metal_statue_setup(_G, "g", "silver statue")
+: megazig_zot_traps(_G)
+MAP
+  x
+ ...
+xX'Xx
+ ...
+  x
+ENDMAP
+
+NAME:    ziggurat_pillar_centre_m
+TAGS:    ziggurat_pillar centered no_dump unrand no_exits
+DEPTH:   Zig:18-
+WEIGHT:  5
+SHUFFLE: X'" / X'" / 'X" / '"X
+SUBST:   x : bcmvx, X : bcmvxG, '" = .
+# NSUBST:  G = 1:G / *:g
+# : vault_granite_statue_setup(_G, "G", "scintillating statue")
+# : vault_metal_statue_setup(_G, "g", "silver statue")
+: megazig_zot_traps(_G)
+MAP
+  x x
+x."...x
+ .'X'.
+x...".x
+  x.x
+ENDMAP
+
+NAME:    ziggurat_pillar_centre_n
+TAGS:    ziggurat_pillar centered no_dump unrand no_exits no_pool_fixup
+DEPTH:   Zig:18-
+SUBST:   x : w:40 bcmvxG
+NSUBST:  G = 1:g / *:G
+# : vault_granite_statue_setup(_G, "G", "scintillating statue")
+# : vault_metal_statue_setup(_G, "g", "silver statue")
+: megazig_zot_traps(_G)
+MAP
+ ...
+.wxw.
+.....
+.wxw.
+ ...
+ENDMAP
+
+NAME:    ziggurat_pillar_centre_o
+TAGS:    ziggurat_pillar centered no_dump unrand no_exits
+WEIGHT:  5
+SUBST:   x : bcmvx
+: megazig_zot_traps(_G)
+MAP
+ ...
+..x..
+..+..
+..x..
+ ...
+ENDMAP
+
+NAME: ziggurat_pillar_centre_oklobs
+TAGS: ziggurat_pillar centered unrand no_exits
+MONS: plant, oklob plant
+KFEAT: d = cache_of_fruit
+NSUBST: 1 = 2:1 / 2:2 / 6 = 12dd / * = 1...
+: megazig_zot_traps(_G)
+MAP
+ 111
+11111
+11111
+11111
+ 111
+ENDMAP
+
+NAME:   ziggurat_pillar_centre_dead_trees
+TAGS:   ziggurat_pillar centered unrand no_exits
+SUBST:  T = t.
+COLOUR: t = w:5 lightgrey / brown
+TILE:   t = DNGN_TREE_DEAD
+MAP
+ TTT
+TtttT
+TtttT
+TtttT
+ TTT
+ENDMAP
+
+NAME:  ziggurat_pillar_centre_smoke
+TAGS:  ziggurat_pillar centered unrand no_exits
+WEIGHT: 5
+MARKER:  Z = lua:fog_machine { cloud_type = "black smoke", \
+         pow_min = 25, pow_max = 25, \
+         delay = 30, size = 1, walk_dist = 3 }
+MAP
+ v..
+.v.vv
+..Z..
+vv.v.
+ ..v
+ENDMAP
+
+NAME:  ziggurat_pillar_centre_lightning
+TAGS:  ziggurat_pillar centered no_dump unrand no_exits
+MONS:  lightning spire
+: megazig_zot_traps(_G)
+MAP
+v...v
+.....
+..1..
+.....
+v...v
+ENDMAP
+
+NAME:    ziggurat_pillar_centre_more_plants
+TAGS:    ziggurat_pillar centered unrand no_exits
+DEPTH:   Zig:18-
+WEIGHT:  5
+MONS:    demonic plant, plant, bush
+MONS:    patrolling thorn hunter, patrolling shambling mangrove
+MONS:    patrolling alderking
+KMONS:   0 = sacred lotus
+SHUFFLE: 1t / 2t / t2
+NSUBST:  1 = 2 : 001 / 2:1
+SUBST:   2 : 23, x : bcmvxG
+: if (you.zigs_completed() > 1) then
+SUBST:   4 = 6
+: else
+SUBST:   4 : 45...
+: end
+: megazig_zot_traps(_G)
+MAP
+  .t.
+ ..t.1
+..1.4..
+tt.x.tt
+..4.1..
+ 1.t..
+  .t.
+ENDMAP
+
+NAME:    ziggurat_pillar_centre_drop
+TAGS:    ziggurat_pillar centered generate_awake unrand no_exits
+DEPTH:   Zig:10-
+WEIGHT:  5
+MONS:    lost soul, rakshasa
+KFEAT:   ^ = permanent teleport trap
+KFEAT:   a = iron_grate
+SHUFFLE: xbcv
+SUBST:   9 : 00.
+: if you.depth() > 18 then
+SUBST:   0 : 0112
+: end
+MAP
+  xax
+ ax0xa
+xx9.9xx
+a0.^.0a
+xx9.9xx
+ ax0xa
+  xax
+ENDMAP
+
+NAME:   ziggurat_pillar_centre_dispersal
+TAGS:   ziggurat_pillar centered generate_awake unrand no_exits
+KFEAT:  ^ = dispersal trap
+KFEAT:  a = iron_grate
+# : vault_granite_statue_setup(_G, "G", "scintillating statue")
+: megazig_zot_traps(_G)
+MAP
+^a.a^
+aG.Ga
+.....
+aG.Ga
+^a.a^
+ENDMAP
+
+NAME:   ziggurat_pillar_centre_mark
+TAGS:   ziggurat_pillar centered unrand no_exits
+WEIGHT: 5
+KFEAT:  ^ = alarm trap
+# : vault_metal_statue_setup(_G, "G", "silver statue")
+: megazig_zot_traps(_G)
+MAP
+ G.G
+G^.^G
+..G..
+G^.^G
+ G.G
+ENDMAP
+
+NAME:   ziggurat_pillar_centre_what's_kraken
+TAGS:   ziggurat_pillar centered generate_awake unrand no_exits
+TAGS:   no_pool_fixup no_monster_gen
+DEPTH:  Zig:10-
+WEIGHT: 5
+MONS:   kraken / kraken simulacrum / spectral kraken
+MAP
+  WW
+ WwwW
+Ww1wW
+WwwW
+ WW
+ENDMAP
+
+NAME:   ziggurat_pillar_centre_armed
+TAGS:   ziggurat_pillar centered unrand no_exits
+DEPTH:  Zig:10-
+WEIGHT: 5
+MONS:   dancing weapon ; any weapon good_item | \
+        giant spiked club good_item ego:heavy w:5 | \
+        giant club good_item ego:heavy w:5
+MAP
+ 1
+1
+ENDMAP
+
+NAME:    ziggurat_pillar_centre_bezotted
+TAGS:    ziggurat_pillar centered unrand no_exits
+WEIGHT:  1
+KFEAT:   ^ = zot trap
+SHUFFLE: .G
+TILE:    G = dngn_statue_orb_guardian
+: megazig_zot_traps(_G)
+MAP
+G.G
+.^.
+G.G
+ENDMAP
+
+NAME:   ziggurat_pillar_centre_dissolved
+TAGS:   ziggurat_pillar centered unrand no_exits
+WEIGHT: 5
+KFEAT:  ^ = devourer's trap
+MONS:   entropy weaver
+: if (you.zigs_completed() < 1) then
+SUBST:  G = G.
+: else
+SUBST:  G = GG.^
+SUBST:  . = ...1^
+: end
+# : vault_metal_statue_setup(_G, "G", "iron statue")
+: megazig_zot_traps(_G)
+MAP
+^GG^
+G.1G
+G..G
+^GG^
+ENDMAP
+
+NAME:   ziggurat_pillar_centre_exhaustion
+TAGS:   ziggurat_pillar centered unrand no_exits
+WEIGHT: 5
+KFEAT:  ^ = archmage's trap
+: if (you.zigs_completed() < 1) then
+MONS:   draconian annihilator / deep elf annihilator
+: else
+MONS:   ancient lich / dread lich w:5
+SUBST:  . = ..^
+: end
+# : vault_metal_statue_setup(_G, "G", "arcane conduit")
+: megazig_zot_traps(_G)
+MAP
+G1G
+.^.
+G.G
+ENDMAP
+
+NAME:   ziggurat_pillar_centre_mighty_misfortune
+TAGS:   ziggurat_pillar centered unrand no_exits
+WEIGHT: 5
+KFEAT:  ^ : tyrant's trap / harlequin's trap
+KPROP:  ^ = bloody
+# : decorative_floor(_G, 'F', "infernal standard")
+# : vault_metal_statue_setup(_G, "G", "misfortune conduit")
+: megazig_zot_traps(_G)
+MAP
+F.G
+.^.
+G..
+ENDMAP
+
+NAME:   ziggurat_pillar_centre_nasty_nets
+TAGS:   ziggurat_pillar centered unrand no_exits
+DEPTH:  Zig:10-
+WEIGHT: 5
+KFEAT:  ^ = net trap
+KFEAT:  m = iron_grate
+: if you.zigs_completed() > 0 then
+NSUBST: m = 1:. / * = ...^mmmmm
+: else
+NSUBST: m = 1:. / * = ....mmmmm
+: end
+: megazig_zot_traps(_G)
+MAP
+mmm
+m^m
+mmm
+ENDMAP
+
+#######################################################################
+
+NAME: ziggurat1
+PLACE: Zig
+: ziggurat_level(_G)
+MAP
+ENDMAP

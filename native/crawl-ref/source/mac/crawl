@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+# This is utter and complete hackery.  But I'm tired
+# of building the mac distribution by hand.
+
+$script= $0;
+$script =~ /(.*)\/MacOS\/(\w+)/;
+$scriptdir = $1;
+$resdir = $scriptdir . "/Resources/";
+if (! -e $resdir)
+{
+    $resdir = "./"; # for running in place in the repo, not very general
+}
+$executable = $resdir . "crawl";
+if (! -e $executable)
+{
+    die "Couldn't open '$executable'!";
+}
+$app_name = "/Applications/Utilities/Terminal.app";
+if (! -e $app_name)
+{
+    # moved in catalina, and it's connected using a "firmlink" that isn't
+    # visible in the file system.
+    $app_name = "/System/Applications/Utilities/Terminal.app";
+}
+# override $app_name here to to use something else, e.g.:
+# $app_name = "iTerm.app";
+
+system "/usr/bin/open -a '$app_name' '$executable'"

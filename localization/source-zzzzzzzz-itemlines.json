@@ -1,0 +1,138 @@
+[
+  {
+    "id": "c7cb042a85a684ea",
+    "en": "Base accuracy: +%d  Base damage: %d  Base attack delay: %d.%d",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "7b606f012b779b52",
+    "en": "This weapon's minimum attack delay (%d.%d) is reached at skill level %d.",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "685915974a84217d",
+    "en": "    Your skill: %d.%d; use <white>(s)</white> to set %d.%d as a target for Short Blades.",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "98f126ed235bf383",
+    "en": "    At %d% training you would reach %d.%d in about %d.%d XLs.",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "e808be5c26f42da2",
+    "en": "    At current training (%d%) you reach %d.%d in about %d.%d XLs.",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "9a7df03695a4247d",
+    "en": "    Current attack delay: %d.%d.",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "90063e311d4b6f5a",
+    "en": "Damage rating: %d (Base %d x %d% (Dex) x %d% (Skill)).",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "3ce0b98d9bbd8d77",
+    "en": "This weapon falls into the 'Short Blades' category. It is good for stabbing helpless or unaware enemies. It is a one-handed weapon.",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "007ac786df71d316",
+    "en": "It can be maximally enchanted to +%d.",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "843bf527c1c96237",
+    "en": "</darkgrey>",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "d2f41b4682c26a55",
+    "en": "    Health or Magic become full or",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "5827be4686591794",
+    "en": "    something is detected. If Health",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "11785e29df06c3a2",
+    "en": "    and Magic are already full, stops",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "21f1ddecad0029a5",
+    "en": "Base armour rating: %d       Encumbrance rating: %d",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "1b9a50d576c0af3f",
+    "en": "If you take off this armour:",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "fe78511630ff31e3",
+    "en": "Your AC would decrease by %d.%d (%d.%d -> %d.%d).",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  },
+  {
+    "id": "65c8129ca6401d0f",
+    "en": "Your EV would remain unchanged.",
+    "locations": [
+      "final item-description runtime audit"
+    ],
+    "context": "Complete assembled player-visible item description line. Preserve all printf placeholders, colour tags, whitespace and hotkeys; translate all prose."
+  }
+]

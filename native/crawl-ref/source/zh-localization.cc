@@ -1,0 +1,388 @@
+#ifndef ZH_STANDALONE
+#include "AppHdr.h"
+#include "options.h"
+#endif
+#include "zh-localization.h"
+#include <algorithm>
+#include <cstdlib>
+#include <cctype>
+#include <fstream>
+#include <regex>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
+namespace {
+thread_local int pause_depth = 0;
+struct ZhEntry { const char *en; const char *zh; };
+#include "zh-catalog.inc"
+const std::regex printf_token("%([-+#0]*)([0-9]+|\\*)?(\\.([0-9]+|\\*))?(hh|ll|[hljztL])?([diuoxXfFeEgGaAcspn%])");
+struct Pattern {
+    std::string anchor;
+    std::vector<std::string> pieces, source;
+    std::vector<char> types;
+    size_t weight;
+    bool article;
+};
+bool valid_capture(const std::string &s, char kind) {
+    if (kind == 's') return true;
+    if (kind == 'c') return s.size() == 1;
+    if (s.empty()) return false;
+    const char *allowed = " +-0123456789.eEinfnaINFNA";
+    if (std::string("diu").find(kind) != std::string::npos) allowed = " +-0123456789";
+    else if (std::string("oxX").find(kind) != std::string::npos) allowed = " 0123456789abcdefABCDEFxX";
+    return s.find_first_not_of(allowed) == std::string::npos;
+}
+// Bounded matching: even a deliberately ambiguous string cannot monopolise a frame.
+bool match_pattern(const Pattern &p, const std::string &s, size_t index,
+                   size_t at, std::vector<std::string> &captures, int &fuel,
+                   size_t *consumed = nullptr) {
+    if (--fuel < 0 || s.compare(at, p.source[index].size(), p.source[index]) != 0) return false;
+    at += p.source[index].size();
+    if (index == p.types.size()) {
+        if (consumed) { *consumed = at; return true; }
+        return at == s.size();
+    }
+    const auto &next = p.source[index+1];
+    size_t end = next.empty() ? (index+1 == p.types.size() ? s.size() : at) : s.find(next, at);
+    while (end != std::string::npos && end <= s.size() && fuel > 0) {
+        const auto capture = s.substr(at, end-at);
+        if (valid_capture(capture, p.types[index])) {
+            captures.push_back(capture);
+            if (match_pattern(p, s, index+1, end, captures, fuel, consumed)) return true;
+            captures.pop_back();
+        }
+        --fuel;
+        end = next.empty() ? end+1 : s.find(next, end+1);
+    }
+    return false;
+}
+struct Catalog {
+    std::unordered_map<std::string, std::string> exact, tagged;
+    std::vector<Pattern> patterns;
+    std::unordered_map<char, std::vector<const Pattern*>> fragments;
+    std::unordered_map<std::string, std::string> cache;
+    std::unordered_set<std::string> missing;
+    std::unordered_map<char, std::vector<std::pair<std::string, std::string>>> terms;
+    std::vector<std::pair<std::string, std::string>> technical_prefixes;
+    Catalog() {
+        for (const auto &e : zh_terms) terms[e.en[0]].emplace_back(e.en, e.zh);
+        for (const auto &e : zh_entries) {
+            exact.emplace(e.en, e.zh);
+            // Menus concatenate complete descriptions, then wrap them by line.
+            // A line no longer has the catalog entry's terminal newline.
+            std::string line_en(e.en), line_zh(e.zh);
+            while (!line_en.empty() && line_en.back() == '\n') line_en.pop_back();
+            while (!line_zh.empty() && line_zh.back() == '\n') line_zh.pop_back();
+            if (line_en != e.en && !line_en.empty()) exact.emplace(line_en, line_zh);
+            std::string prefix(e.en), target(e.zh);
+            if (!prefix.empty() && prefix[0] == '\n') prefix.erase(0,1);
+            if (!target.empty() && target[0] == '\n') target.erase(0,1);
+            if (prefix == "Stash search prefixes: " || prefix == "Menu/colouring prefixes: ") {
+                technical_prefixes.emplace_back(prefix, target);
+                technical_prefixes.emplace_back(target, target);
+            }
+            static const std::regex markup("</?[a-z][a-z0-9_: -]*>");
+            const std::string untagged = std::regex_replace(std::string(e.en), markup, "");
+            if (untagged != e.en) {
+                tagged.emplace(untagged, e.zh);
+                if (line_en != e.en)
+                    tagged.emplace(std::regex_replace(line_en, markup, ""), line_zh);
+            }
+            const std::string en(e.en), zh(e.zh);
+            std::string anchor, source_piece;
+            std::vector<std::string> source;
+            std::vector<char> types;
+            size_t at = 0, weight = 0, captures = 0;
+            bool safe = true;
+            for (std::sregex_iterator i(en.begin(), en.end(), printf_token), end; i != end; ++i) {
+                const auto &m = *i;
+                const std::string literal = en.substr(at, m.position() - at);
+                source_piece += literal;
+                weight += literal.size();
+                if (literal.size() > anchor.size()) anchor = literal;
+                const char kind = m.str().back();
+                if (m.str().find('*') != std::string::npos || kind == 'n' || kind == 'p') safe = false;
+                if (kind == '%') source_piece += '%';
+                else {
+                    ++captures;
+                    source.push_back(source_piece); source_piece.clear();
+                    types.push_back(kind);
+                }
+                at = m.position() + m.length();
+            }
+            const auto tail = en.substr(at);
+            source_piece += tail;
+            source.push_back(source_piece);
+            weight += tail.size();
+            if (tail.size() > anchor.size()) anchor = tail;
+            // Avoid generic wrappers ("%s %s") and pathological ambiguous matches.
+            const bool article = en == "a %s" || en == "an %s" || en == "the %s"
+                || en == "A %s" || en == "An %s" || en == "The %s";
+            // A generic "%s the %s" also matches spell names such as Fugue of
+            // the Fallen. Titles are localized at their presentation callsite.
+            if (en == "%s the %s") continue;
+            const bool composition = en == " of %s";
+            const bool numeric = std::find(types.begin(), types.end(), 's') == types.end()
+                && weight >= 2 && !anchor.empty();
+            if (!safe || captures == 0 || captures > 6
+                || (!article && !composition && !numeric && (weight < 8 || anchor.size() < 4))) continue;
+            std::vector<std::string> pieces;
+            std::string piece;
+            at = 0;
+            for (std::sregex_iterator i(zh.begin(), zh.end(), printf_token), end; i != end; ++i) {
+                piece += zh.substr(at, i->position() - at);
+                if (i->str().back() == '%') piece += '%';
+                else { pieces.push_back(piece); piece.clear(); }
+                at = i->position() + i->length();
+            }
+            piece += zh.substr(at);
+            pieces.push_back(piece);
+            if (pieces.size() != captures + 1) continue;
+            patterns.push_back({anchor, pieces, source, types, weight, article});
+        }
+        std::stable_sort(patterns.begin(), patterns.end(), [](const Pattern &a, const Pattern &b) { return a.weight > b.weight; });
+        for (const auto &p : patterns) {
+            // A fixed beginning and ending delimit a complete translated
+            // phrase inside an ostream/concatenation-built description.
+            if (p.weight < 8 || p.source.front().size() < 4 || p.source.back().empty()) continue;
+            if (p.types.back() == 's' && p.source.back().find_first_not_of(" \t\n") == std::string::npos) continue;
+            fragments[p.source.front()[0]].push_back(&p);
+        }
+    }
+    std::string translate_terms(const std::string &s) {
+        auto word = [](unsigned char c) { return c < 128 && (std::isalnum(c) || c == '_'); };
+        std::string out;
+        for (size_t at = 0; at < s.size();) {
+            if (s[at] == '<' && at+1 < s.size()
+                && (s[at+1] == '/' || s[at+1] == '<'
+                    || std::isalpha(static_cast<unsigned char>(s[at+1])))) {
+                const size_t end = s.find('>', at+1);
+                if (end != std::string::npos) {
+                    out += s.substr(at, end-at+1); at = end+1; continue;
+                }
+            }
+            // Filenames, URLs and absolute paths are data, even when they
+            // contain words also used by the game (e.g. /source/items.txt).
+            if ((s[at] == '/' && (at == 0 || !word(s[at-1])))
+                || s.compare(at, 7, "http://") == 0 || s.compare(at, 8, "https://") == 0) {
+                size_t end = s.find_first_of("\n<>\"' \t", at);
+                if (end == std::string::npos) end = s.size();
+                const auto candidate = s.substr(at, end-at);
+                if (candidate.find('/', 1) != std::string::npos || candidate.find('.') != std::string::npos) {
+                    out += candidate; at = end; continue;
+                }
+            }
+            bool replaced = false;
+            const auto bucket = terms.find(s[at]);
+            if (bucket != terms.end()) {
+                for (const auto &term : bucket->second) {
+                    const size_t end = at + term.first.size();
+                    if (end <= s.size() && (at == 0 || !word(term.first.front()) || !word(s[at-1]))
+                        && (end == s.size() || !word(term.first.back()) || !word(s[end]))
+                        && s.compare(at, term.first.size(), term.first) == 0) {
+                        out += term.second; at = end; replaced = true; break;
+                    }
+                }
+            }
+            if (!replaced) out += s[at++];
+        }
+        return out;
+    }
+    std::string lookup(const std::string &s, int depth) {
+        if (s.empty() || s.size() > 16000) return s;
+        auto e = exact.find(s);
+        if (e != exact.end()) return e->second;
+        if (s.find('<') == std::string::npos) {
+            const auto visible = tagged.find(s);
+            if (visible != tagged.end()) {
+                static const std::regex tags("</?[a-z][a-z0-9_: -]*>");
+                return std::regex_replace(visible->second, tags, "");
+            }
+        }
+        // Deep captures must still resolve exact names. Cache only root calls:
+        // a recursion-limited partial result must never poison later rendering.
+        if (depth > 12) return translate_terms(s);
+        if (depth == 0) {
+            auto c = cache.find(s);
+            if (c != cache.end()) return c->second;
+        }
+        // These values are literal input-parser tokens, not prose. Preserve
+        // them after the localized heading, including on subsequent renders.
+        for (const auto &prefix : technical_prefixes) {
+            const size_t at = s.find(prefix.first);
+            if (at == std::string::npos) continue;
+            size_t end = s.find('\n', at);
+            if (end == std::string::npos) end = s.size();
+            return lookup(s.substr(0, at), depth+1) + prefix.second
+                + s.substr(at+prefix.first.size(), end-at-prefix.first.size())
+                + lookup(s.substr(end), depth+1);
+        }
+        std::string result = s;
+        if (result == s && s.size() <= 2048) {
+            for (const auto &p : patterns) {
+                if (s.find(p.anchor) == std::string::npos) continue;
+                std::vector<std::string> captures;
+                int fuel = 256;
+                if (!match_pattern(p, s, 0, 0, captures, fuel)) continue;
+                if (p.article) {
+                    // Articles describe names, not whole sentences/paragraphs.
+                    // Otherwise "The %s" steals a composed help paragraph
+                    // before its complete lines can match the catalog.
+                    if (captures[0].find_first_of("\n.!?") != std::string::npos) continue;
+                    const auto start = captures[0].find_first_not_of(" \t");
+                    if (start == std::string::npos || captures[0][start] == '-'
+                        || captures[0][start] == ')' || captures[0][start] == ':') continue;
+                    if (lookup(captures[0], depth+1) == captures[0]) continue;
+                }
+                result = p.pieces[0];
+                for (size_t j = 0; j < captures.size(); ++j) result += lookup(captures[j], depth + 1) + p.pieces[j+1];
+                break;
+            }
+        }
+        // Menu selectors are structural. Translate the complete description
+        // after them before generic fragments can consume "You have ...".
+        if (result == s) {
+            static const std::regex selector("^([ ]*[A-Za-z0-9?] [+-] )(.+)$");
+            std::smatch selected;
+            if (std::regex_match(s, selected, selector))
+                result = selected[1].str() + lookup(selected[2].str(), depth+1);
+        }
+        // Complete item-description lines take precedence over shorter
+        // embedded templates. Keep hotkey tags intact until the full line has
+        // had a chance to match its tagged printf template.
+        if (result == s && s.find('\n') != std::string::npos) {
+            result.clear();
+            size_t at = 0;
+            while (at < s.size()) {
+                const size_t end = s.find('\n', at);
+                if (end == std::string::npos) {
+                    result += lookup(s.substr(at), depth+1); break;
+                }
+                result += lookup(s.substr(at, end-at), depth+1) + "\n";
+                at = end+1;
+            }
+        }
+        // Stored messages canonicalise <w> to <white> and insert base colours.
+        // Match visible text, then restore the source translation's hotkey tags.
+        static const std::regex markup("</?[a-z][a-z0-9_: -]*>");
+        if (result == s && s.find('<') != std::string::npos) {
+            const auto plain = std::regex_replace(s, markup, "");
+            if (plain != s) {
+                auto tagged_entry = tagged.find(plain);
+                const auto localized = tagged_entry != tagged.end()
+                    ? tagged_entry->second : lookup(plain, depth+1);
+                if (localized != plain) {
+                    size_t leading = 0;
+                    while (leading < s.size() && s[leading] == '<') {
+                        const size_t end = s.find('>', leading);
+                        if (end == std::string::npos) break;
+                        leading = end+1;
+                    }
+                    result = s.substr(0, leading) + localized;
+                    if (tagged_entry == tagged.end()) {
+                        // Preserve the final colour and balanced closing tags
+                        // when a dynamic sentence spans multiple colour runs.
+                        for (std::sregex_iterator i(s.begin()+leading, s.end(), markup), end;
+                             i != end; ++i) result += i->str();
+                    }
+                }
+            }
+        }
+        if (result == s && s.size() <= 8192) {
+            std::string pending;
+            bool any_fragment = false;
+            result.clear();
+            for (size_t at = 0; at < s.size();) {
+                bool matched = false;
+                const auto bucket = fragments.find(s[at]);
+                if (bucket != fragments.end()) {
+                    for (const Pattern *p : bucket->second) {
+                        if (at > 0 && std::isalnum(static_cast<unsigned char>(s[at-1]))
+                            && std::isalnum(static_cast<unsigned char>(s[at]))) continue;
+                        if (s.compare(at, p->source.front().size(), p->source.front()) != 0) continue;
+                        std::vector<std::string> captures;
+                        int fuel = 256; size_t end = 0;
+                        if (!match_pattern(*p, s, 0, at, captures, fuel, &end) || end <= at) continue;
+                        result += lookup(pending, depth+1); pending.clear();
+                        result += p->pieces[0];
+                        for (size_t j = 0; j < captures.size(); ++j)
+                            result += lookup(captures[j], depth+1) + p->pieces[j+1];
+                        at = end; matched = true; any_fragment = true; break;
+                    }
+                }
+                if (!matched) pending += s[at++];
+            }
+            if (any_fragment) result += lookup(pending, depth+1);
+            else result = s;
+        }
+        if (result == s) {
+            // Translate inside intact colour tags and on line boundaries.
+            static const std::regex boundary("</?[a-z][a-z0-9_: -]*>|\n");
+            size_t at = 0; result.clear(); bool split = false;
+            for (std::sregex_iterator i(s.begin(), s.end(), boundary), end; i != end; ++i) {
+                split = true;
+                result += lookup(s.substr(at, i->position() - at), depth + 1) + i->str();
+                at = i->position() + i->length();
+            }
+            if (split) result += lookup(s.substr(at), depth + 1);
+            else {
+                result = s;
+                const auto first = s.find_first_not_of(" \t\r");
+                const auto last = s.find_last_not_of(" \t\r");
+                if (first != std::string::npos && (first > 0 || last + 1 < s.size()))
+                    result = s.substr(0, first) + lookup(s.substr(first, last-first+1), depth+1) + s.substr(last+1);
+            }
+        }
+        if (result == s) result = translate_terms(s);
+        if (depth == 0) {
+            if (cache.size() >= 8192) cache.clear();
+            cache.emplace(s, result);
+        }
+        return result;
+    }
+    static std::string json(const std::string &s) {
+        static const char hex[]="0123456789abcdef";
+        std::string out="\"";
+        for (unsigned char c : s) {
+            if (c == '"' || c == '\\') { out += '\\'; out += c; }
+            else if (c < 32) { out += "\\u00"; out += hex[c >> 4]; out += hex[c & 15]; }
+            else out += c;
+        }
+        return out+'"';
+    }
+    void trace(const std::string &s, const std::string &result) {
+        // Include partial translations and cached inputs. Names and key labels
+        // remain in this evidence; the audit must classify them, not hide them.
+        const char *log = std::getenv("DCSS_ZH_TRACE");
+        if (log && *log && missing.insert(s).second) {
+            std::ofstream f(log, std::ios::app);
+            f << "{\"en\":" << json(s) << ",\"rendered\":" << json(result) << "}\n";
+        }
+        const char *old_log = std::getenv("DCSS_ZH_MISSING");
+        if (old_log && *old_log && result == s && s.size() > 8) {
+            std::ofstream f(old_log, std::ios::app); f << s << '\n';
+        }
+    }
+};
+bool enabled() {
+    if (pause_depth) return false;
+    const char *lang = std::getenv("DCSS_LANG");
+    if (lang && *lang) return std::string(lang) == "zh" || std::string(lang) == "zh_CN";
+#ifndef ZH_STANDALONE
+    return Options.lang_name && std::string(Options.lang_name) == "zh";
+#else
+    return true;
+#endif
+}
+}
+std::string zh_translate(const std::string &text) {
+    if (!enabled() || text.empty()) return text;
+    static Catalog catalog;
+    const auto result = catalog.lookup(text, 0);
+    catalog.trace(text, result);
+    return result;
+}
+
+ZhTranslationPause::ZhTranslationPause() { ++pause_depth; }
+ZhTranslationPause::~ZhTranslationPause() { --pause_depth; }

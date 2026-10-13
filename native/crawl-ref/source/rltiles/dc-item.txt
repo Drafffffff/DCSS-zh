@@ -1,0 +1,1607 @@
+# A note on variations. To create additional variations for weapons or armour,
+# use the %enchant_variation command e.g.:
+#
+#    weapon_normal WEP_SOME_WEAPON
+#    %enchant_variation WEP_SOME_WEAPON shiny
+#    weapon_shiny WEP_SOME_WEAPON_SHINY
+#    %enchant_variation WEP_SOME_WEAPON runed
+#    weapon_runed WEP_SOME_WEAPON_RUNED
+#    %enchant_variation WEP_SOME_WEAPON glowing
+#    weapon_glowing WEP_SOME_WEAPON_GLOWING
+#    %enchant_variation WEP_SOME_WEAPON randart
+#    weapon_randart WEP_SOME_WEAPON_RANDART
+#
+# You can also use the same tile for multiple variations e.g.:
+#
+#    %enchant_variation WEP_SOME_WEAPON shiny runed glowing randart
+#    weapon_magic WEP_SOME_WEAPON_MAGIC
+#
+# You can also give a single variation mutliple tiles that are chosen from
+# randomly when the item is created e.g. to have two randart tiles:
+#
+#    %enchant_variation WEP_SOME_WEAPON randart
+#    weapon_randart1 WEP_SOME_WEAPON_RANDART
+#    weapon_randart2
+
+##### Artefacts (fixed and unrandart)
+%include dc-unrand.txt
+
+urand_wyrmbane1 UNRAND_WYRMBANE1
+urand_wyrmbane2 UNRAND_WYRMBANE2
+urand_wyrmbane3 UNRAND_WYRMBANE3
+urand_wyrmbane4 UNRAND_WYRMBANE4
+
+#####NORMAL
+%sdir item/weapon
+%rim 0
+##Maces and Flails
+club WPN_CLUB
+%enchant_variation WPN_CLUB shiny runed glowing randart
+club2 WPN_CLUB_MAGIC
+mace1 WPN_MACE
+%enchant_variation WPN_MACE shiny runed glowing
+mace2 WPN_MACE_MAGIC
+%enchant_variation WPN_MACE randart
+mace3 WPN_MACE_RANDART
+mace_large1 WPN_GREAT_MACE
+%enchant_variation WPN_GREAT_MACE shiny runed glowing
+mace_large2 WPN_GREAT_MACE_MAGIC
+%enchant_variation WPN_GREAT_MACE randart
+mace_large3 WPN_GREAT_MACE_RANDART
+flail1 WPN_FLAIL
+%enchant_variation WPN_FLAIL shiny runed glowing
+flail2 WPN_FLAIL_MAGIC
+%enchant_variation WPN_FLAIL randart
+flail3 WPN_FLAIL_RANDART
+dire_flail1 WPN_DIRE_FLAIL
+%enchant_variation WPN_DIRE_FLAIL shiny runed glowing
+dire_flail2 WPN_DIRE_FLAIL_MAGIC
+%enchant_variation WPN_DIRE_FLAIL randart
+dire_flail3 WPN_DIRE_FLAIL_RANDART
+morningstar1 WPN_MORNINGSTAR
+%enchant_variation WPN_MORNINGSTAR shiny runed glowing
+morningstar2 WPN_MORNINGSTAR_MAGIC
+%enchant_variation WPN_MORNINGSTAR randart
+morningstar3 WPN_MORNINGSTAR_RANDART
+eveningstar1 WPN_EVENINGSTAR
+%enchant_variation WPN_EVENINGSTAR shiny runed glowing
+eveningstar2 WPN_EVENINGSTAR_MAGIC
+%enchant_variation WPN_EVENINGSTAR randart
+eveningstar3 WPN_EVENINGSTAR_RANDART
+hammer1 WPN_HAMMER
+%enchant_variation WPN_HAMMER shiny runed glowing
+hammer2 WPN_HAMMER_MAGIC
+%enchant_variation WPN_HAMMER shiny runed glowing randart
+hammer3 WPN_HAMMER_RANDART
+bullwhip WPN_WHIP
+%enchant_variation WPN_WHIP shiny runed glowing
+bullwhip2 WPN_WHIP_MAGIC
+%enchant_variation WPN_WHIP randart
+bullwhip3 WPN_WHIP_RANDART
+giant_club WPN_GIANT_CLUB
+%enchant_variation WPN_GIANT_CLUB shiny runed glowing
+giant_club2 WPN_GIANT_CLUB_MAGIC
+%enchant_variation WPN_GIANT_CLUB randart
+giant_club3 WPN_GIANT_CLUB_RANDART
+giant_spiked_club WPN_GIANT_SPIKED_CLUB
+%enchant_variation WPN_GIANT_SPIKED_CLUB shiny runed glowing
+giant_spiked_club2 WPN_GIANT_SPIKED_CLUB_MAGIC
+%enchant_variation WPN_GIANT_SPIKED_CLUB randart
+giant_spiked_club3 WPN_GIANT_SPIKED_CLUB_RANDART
+demon_whip WPN_DEMON_WHIP
+%enchant_variation WPN_DEMON_WHIP shiny runed glowing
+demon_whip2 WPN_DEMON_WHIP_MAGIC
+%enchant_variation WPN_DEMON_WHIP randart
+demon_whip3 WPN_DEMON_WHIP_RANDART
+sacred_scourge WPN_SACRED_SCOURGE
+
+##Short Blades
+dagger WPN_DAGGER
+%enchant_variation WPN_DAGGER shiny runed glowing
+dagger2 WPN_DAGGER_MAGIC
+%enchant_variation WPN_DAGGER randart
+dagger3 WPN_DAGGER_RANDART
+short_sword1 WPN_SHORT_SWORD
+%enchant_variation WPN_SHORT_SWORD shiny runed glowing
+short_sword2 WPN_SHORT_SWORD_MAGIC
+%enchant_variation WPN_SHORT_SWORD randart
+short_sword3 WPN_SHORT_SWORD_RANDART
+rapier1 WPN_RAPIER
+%enchant_variation WPN_RAPIER shiny runed glowing
+rapier2 WPN_RAPIER_MAGIC
+%enchant_variation WPN_RAPIER randart
+rapier3 WPN_RAPIER_RANDART
+quickblade1 WPN_QUICK_BLADE
+%enchant_variation WPN_QUICK_BLADE shiny runed glowing
+quickblade2 WPN_QUICK_BLADE_MAGIC
+%enchant_variation WPN_QUICK_BLADE randart
+quickblade3 WPN_QUICK_BLADE_RANDART
+
+##Long Blades
+falchion1 WPN_FALCHION
+%enchant_variation WPN_FALCHION shiny runed glowing
+falchion2 WPN_FALCHION_MAGIC
+%enchant_variation WPN_FALCHION randart
+falchion3 WPN_FALCHION_RANDART
+scimitar1 WPN_SCIMITAR
+%enchant_variation WPN_SCIMITAR shiny runed glowing
+scimitar2 WPN_SCIMITAR_MAGIC
+%enchant_variation WPN_SCIMITAR randart
+scimitar3 WPN_SCIMITAR_RANDART
+long_sword1 WPN_LONG_SWORD
+%enchant_variation WPN_LONG_SWORD shiny runed glowing
+long_sword2 WPN_LONG_SWORD_MAGIC
+%enchant_variation WPN_LONG_SWORD randart
+long_sword3 WPN_LONG_SWORD_RANDART
+greatsword1 WPN_GREAT_SWORD
+%enchant_variation WPN_GREAT_SWORD shiny runed glowing
+greatsword2 WPN_GREAT_SWORD_MAGIC
+%enchant_variation WPN_GREAT_SWORD randart
+greatsword3 WPN_GREAT_SWORD_RANDART
+double_sword WPN_DOUBLE_SWORD
+%enchant_variation WPN_DOUBLE_SWORD shiny runed glowing
+double_sword2 WPN_DOUBLE_SWORD_MAGIC
+%enchant_variation WPN_DOUBLE_SWORD randart
+double_sword3 WPN_DOUBLE_SWORD_RANDART
+triple_sword WPN_TRIPLE_SWORD
+%enchant_variation WPN_TRIPLE_SWORD shiny runed glowing
+triple_sword2 WPN_TRIPLE_SWORD_MAGIC
+%enchant_variation WPN_TRIPLE_SWORD randart
+triple_sword3 WPN_TRIPLE_SWORD_RANDART
+demon_blade WPN_DEMON_BLADE
+%enchant_variation WPN_DEMON_BLADE shiny runed glowing
+demon_blade2 WPN_DEMON_BLADE_MAGIC
+%enchant_variation WPN_DEMON_BLADE randart
+demon_blade3 WPN_DEMON_BLADE_RANDART
+blessed_blade WPN_BLESSED_BLADE
+
+##Axes
+hand_axe1 WPN_HAND_AXE
+%enchant_variation WPN_HAND_AXE shiny runed glowing
+hand_axe2 WPN_HAND_AXE_MAGIC
+%enchant_variation WPN_HAND_AXE randart
+hand_axe3 WPN_HAND_AXE_RANDART
+war_axe1 WPN_WAR_AXE
+%enchant_variation WPN_WAR_AXE shiny runed glowing
+war_axe2 WPN_WAR_AXE_MAGIC
+%enchant_variation WPN_WAR_AXE randart
+war_axe3 WPN_WAR_AXE_RANDART
+broad_axe1 WPN_BROAD_AXE
+%enchant_variation WPN_BROAD_AXE shiny runed glowing
+broad_axe2 WPN_BROAD_AXE_MAGIC
+%enchant_variation WPN_BROAD_AXE randart
+broad_axe3 WPN_BROAD_AXE_RANDART
+battle_axe1 WPN_BATTLEAXE
+%enchant_variation WPN_BATTLEAXE shiny runed glowing
+battle_axe2 WPN_BATTLEAXE_MAGIC
+%enchant_variation WPN_BATTLEAXE randart
+battle_axe3 WPN_BATTLEAXE_RANDART
+executioner_axe1 WPN_EXECUTIONERS_AXE
+%enchant_variation WPN_EXECUTIONERS_AXE shiny runed glowing
+executioner_axe2 WPN_EXECUTIONERS_AXE_MAGIC
+%enchant_variation WPN_EXECUTIONERS_AXE randart
+executioner_axe3 WPN_EXECUTIONERS_AXE_RANDART
+
+##Polearms
+spear1 WPN_SPEAR
+%enchant_variation WPN_SPEAR shiny runed glowing
+spear2 WPN_SPEAR_MAGIC
+%enchant_variation WPN_SPEAR randart
+spear3 WPN_SPEAR_RANDART
+trident1 WPN_TRIDENT
+%enchant_variation WPN_TRIDENT shiny runed glowing
+trident2 WPN_TRIDENT_MAGIC
+%enchant_variation WPN_TRIDENT randart
+trident3 WPN_TRIDENT_RANDART
+halberd1 WPN_HALBERD
+%enchant_variation WPN_HALBERD shiny runed glowing
+halberd2 WPN_HALBERD_MAGIC
+%enchant_variation WPN_HALBERD randart
+halberd3 WPN_HALBERD_RANDART
+scythe1 WPN_SCYTHE
+%enchant_variation WPN_SCYTHE shiny runed glowing
+scythe2 WPN_SCYTHE_MAGIC
+%enchant_variation WPN_SCYTHE randart
+scythe3 WPN_SCYTHE_RANDART
+glaive1 WPN_GLAIVE
+%enchant_variation WPN_GLAIVE shiny runed glowing
+glaive2 WPN_GLAIVE_MAGIC
+%enchant_variation WPN_GLAIVE randart
+glaive3 WPN_GLAIVE_RANDART
+bardiche1 WPN_BARDICHE
+%enchant_variation WPN_BARDICHE shiny runed glowing
+bardiche2 WPN_BARDICHE_MAGIC
+%enchant_variation WPN_BARDICHE randart
+bardiche3 WPN_BARDICHE_RANDART
+partisan1 WPN_PARTISAN
+%enchant_variation WPN_PARTISAN shiny runed glowing
+partisan2 WPN_PARTISAN_MAGIC
+%enchant_variation WPN_PARTISAN randart
+partisan3 WPN_PARTISAN_RANDART
+
+demon_trident WPN_DEMON_TRIDENT
+%enchant_variation WPN_DEMON_TRIDENT shiny runed glowing
+demon_trident2 WPN_DEMON_TRIDENT_MAGIC
+%enchant_variation WPN_DEMON_TRIDENT randart
+demon_trident3 WPN_DEMON_TRIDENT_RANDART
+trishula WPN_TRISHULA
+
+##Staves
+staff WPN_STAFF
+quarterstaff WPN_QUARTERSTAFF
+%enchant_variation WPN_QUARTERSTAFF shiny runed glowing
+quarterstaff2 WPN_QUARTERSTAFF_MAGIC
+%enchant_variation WPN_QUARTERSTAFF randart
+quarterstaff3 WPN_QUARTERSTAFF_RANDART
+lajatang1 WPN_LAJATANG
+%enchant_variation WPN_LAJATANG shiny runed glowing
+lajatang2 WPN_LAJATANG_MAGIC
+%enchant_variation WPN_LAJATANG randart
+lajatang3 WPN_LAJATANG_RANDART
+
+staff_mummy WPN_STAFF_MUMMY
+xmas-scythe WPN_XMAS_SCYTHE
+april_staff1 WPN_APRIL_STAFF1
+april_staff2 WPN_APRIL_STAFF2
+%rim 1
+
+
+##Ranged
+%sdir item/weapon/ranged
+blowgun1 WPN_BLOWGUN
+%enchant_variation WPN_BLOWGUN shiny runed glowing randart
+blowgun2 WPN_BLOWGUN_MAGIC
+
+sling1 WPN_SLING
+%enchant_variation WPN_SLING shiny runed glowing
+sling2 WPN_SLING_MAGIC
+%enchant_variation WPN_SLING randart
+sling3 WPN_SLING_RANDART
+
+%rim 0
+shortbow1 WPN_SHORTBOW
+%enchant_variation WPN_SHORTBOW shiny runed glowing
+shortbow2 WPN_SHORTBOW_MAGIC
+%enchant_variation WPN_SHORTBOW randart
+shortbow3 WPN_SHORTBOW_RANDART
+orcbow1 WPN_ORCBOW
+%enchant_variation WPN_ORCBOW shiny runed glowing
+orcbow2 WPN_ORCBOW_MAGIC
+%enchant_variation WPN_ORCBOW randart
+orcbow3 WPN_ORCBOW_RANDART
+longbow1 WPN_LONGBOW
+%enchant_variation WPN_LONGBOW shiny runed glowing
+longbow2 WPN_LONGBOW_MAGIC
+%enchant_variation WPN_LONGBOW randart
+longbow3 WPN_LONGBOW_RANDART
+
+hand_cannon WPN_HAND_CANNON
+%enchant_variation WPN_HAND_CANNON shiny runed glowing
+hand_cannon2 WPN_HAND_CANNON_MAGIC
+%enchant_variation WPN_HAND_CANNON randart
+hand_cannon3 WPN_HAND_CANNON_RANDART
+arbalest1 WPN_ARBALEST
+%enchant_variation WPN_ARBALEST shiny runed glowing
+arbalest2 WPN_ARBALEST_MAGIC
+%enchant_variation WPN_ARBALEST randart
+arbalest3 WPN_ARBALEST_RANDART
+triple_crossbow WPN_TRIPLE_CROSSBOW
+%enchant_variation WPN_TRIPLE_CROSSBOW shiny runed glowing randart
+triple_crossbow2 WPN_TRIPLE_CROSSBOW_MAGIC
+
+%sdir item/weapon/brands
+%rim 0
+# The order of weapon brands must be identical to the one defined
+# in item-prop-enum.h.
+i-flaming BRAND_FLAMING BRAND_WEP_FIRST
+i-freezing BRAND_FREEZING
+i-holy_wrath BRAND_HOLY_WRATH
+i-electrocution BRAND_ELECTROCUTION
+# start TAG_MAJOR_VERSION == 34
+i-confusion BRAND_ORC_SLAYING
+i-confusion BRAND_DRAGON_SLAYING
+# end TAG_MAJOR_VERSION
+i-venom BRAND_VENOM
+i-protection BRAND_PROTECTION
+i-draining BRAND_DRAINING
+i-speed BRAND_SPEED
+i-heavy BRAND_HEAVY
+# start TAG_MAJOR_VERSION == 34
+i-flaming BRAND_FLAME
+i-freezing BRAND_FROST
+# end TAG_MAJOR_VERSION
+i-vampirism BRAND_VAMPIRISM
+i-pain BRAND_PAIN
+%rim 1
+i-antimagic BRAND_ANTIMAGIC
+%rim 0
+i-distortion BRAND_DISTORTION
+# start TAG_MAJOR_VERSION == 34
+i-confusion BRAND_REACHING
+i-returning BRAND_RETURNING
+# end TAG_MAJOR_VERSION
+i-chaos BRAND_CHAOS
+# start TAG_MAJOR_VERSION == 34
+i-evasion BRAND_EVASION
+i-confusion BRAND_CONFUSION
+# end TAG_MAJOR_VERSION
+i-penetration BRAND_PENETRATION
+i-reaping BRAND_REAPING
+i-spectral BRAND_SPECTRAL
+i-sickness BRAND_REBUKE
+i-valour BRAND_VALOUR
+i-entangling BRAND_ENTANGLING
+i-sundering BRAND_SUNDERING
+i-concussion BRAND_CONCUSSION
+i-devious BRAND_DEVIOUS BRAND_WEP_LAST
+# missile-only brands, order doesn't matter
+i-dispersal BRAND_DISPERSAL
+i-explosion BRAND_EXPLOSION
+i-venom BRAND_POISONED
+i-curare BRAND_CURARE
+i-electrocution BRAND_ELECTRIC
+# start TAG_MAJOR_VERSION == 34
+i-sickness BRAND_SICKNESS
+i-slowing BRAND_SLOWING
+i-paralysis BRAND_PARALYSIS
+# end TAG_MAJOR_VERSION
+i-frenzy BRAND_FRENZY
+# start TAG_MAJOR_VERSION == 34
+i-sleep BRAND_SLEEP
+# end TAG_MAJOR_VERSION
+i-blinding BRAND_BLINDING
+i-acid BRAND_ACID
+i-foul_flame BRAND_FOUL_FLAME
+
+
+i-chaotic MODIFIER_CHAOTIC
+
+%rim 1
+%sdir item/weapon/ranged
+
+######OBJ_MISSILES
+stone MI_STONE
+# flying stone
+effect/stone0 MI_STONE0
+
+sling_bullet1 MI_SLING_BULLET
+%enchant_variation MI_SLING_BULLET shiny runed glowing randart
+sling_bullet2 MI_SLING_BULLET_MAGIC
+steel_sling_bullet1 MI_SLING_BULLET_STEEL
+%enchant_variation MI_SLING_BULLET_STEEL shiny runed glowing randart
+steel_sling_bullet2 MI_SLING_BULLET_STEEL_MAGIC
+silver_sling_bullet1 MI_SLING_BULLET_SILVER
+%enchant_variation MI_SLING_BULLET_SILVER shiny runed glowing randart
+silver_sling_bullet2 MI_SLING_BULLET_SILVER_MAGIC
+# flying bullets
+effect/sling_bullet0 MI_SLING_BULLET0
+%enchant_variation MI_SLING_BULLET0 shiny runed glowing randart
+effect/sling_bullet_runed0 MI_SLING_BULLET0_MAGIC
+effect/steel_sling_bullet0 MI_SLING_BULLET_STEEL0
+%enchant_variation MI_SLING_BULLET_STEEL0 shiny runed glowing randart
+effect/steel_sling_bullet_runed0 MI_SLING_BULLET_STEEL0_MAGIC
+effect/silver_sling_bullet0 MI_SLING_BULLET_SILVER0
+%enchant_variation MI_SLING_BULLET_SILVER0 shiny runed glowing randart
+effect/silver_sling_bullet_runed0 MI_SLING_BULLET_SILVER0_MAGIC
+
+arrow1 MI_ARROW
+%enchant_variation MI_ARROW shiny runed glowing randart
+arrow2 MI_ARROW_MAGIC
+steel_arrow1 MI_ARROW_STEEL
+%enchant_variation MI_ARROW_STEEL shiny runed glowing randart
+steel_arrow2 MI_ARROW_STEEL_MAGIC
+silver_arrow1 MI_ARROW_SILVER
+%enchant_variation MI_ARROW_SILVER shiny runed glowing randart
+silver_arrow2 MI_ARROW_SILVER_MAGIC
+# flying arrows
+effect/arrow0 MI_ARROW0
+effect/arrow1 MI_ARROW1
+effect/arrow2 MI_ARROW2
+effect/arrow3 MI_ARROW3
+effect/arrow4 MI_ARROW4
+effect/arrow5 MI_ARROW5
+effect/arrow6 MI_ARROW6
+effect/arrow7 MI_ARROW7
+
+crossbow_bolt1 MI_BOLT
+%enchant_variation MI_BOLT shiny runed glowing randart
+crossbow_bolt2 MI_BOLT_MAGIC
+steel_crossbow_bolt1 MI_BOLT_STEEL
+%enchant_variation MI_BOLT_STEEL shiny runed glowing randart
+steel_crossbow_bolt2 MI_BOLT_STEEL_MAGIC
+silver_crossbow_bolt1 MI_BOLT_SILVER
+%enchant_variation MI_BOLT_SILVER shiny runed glowing randart
+silver_crossbow_bolt2 MI_BOLT_SILVER_MAGIC
+# flying bolts
+effect/bolt0 MI_BOLT0
+effect/bolt1 MI_BOLT1
+effect/bolt2 MI_BOLT2
+effect/bolt3 MI_BOLT3
+effect/bolt4 MI_BOLT4
+effect/bolt5 MI_BOLT5
+effect/bolt6 MI_BOLT6
+effect/bolt7 MI_BOLT7
+
+%rim 0
+boomerang1 MI_BOOMERANG
+%enchant_variation MI_BOOMERANG shiny runed glowing randart
+boomerang2 MI_BOOMERANG_MAGIC
+silver_boomerang MI_BOOMERANG_SILVER
+# flying boomerangs
+effect/boomerang0 MI_BOOMERANG0
+effect/boomerang1 MI_BOOMERANG1
+effect/boomerang2 MI_BOOMERANG2
+effect/boomerang3 MI_BOOMERANG3
+
+%rim 1
+dart1 MI_DART
+%enchant_variation MI_DART shiny runed glowing randart
+dart2 MI_DART_MAGIC
+dart-a MI_DART_BLINDING
+dart-c MI_DART_CURARE
+dart-d MI_DART_FRENZY
+dart-p MI_DART_POISONED
+dart-t MI_DART_DISJUNCTION
+
+# flying needles
+effect/needle0 MI_DART0
+effect/needle1 MI_DART1
+effect/needle2 MI_DART2
+effect/needle3 MI_DART3
+effect/needle4 MI_DART4
+effect/needle5 MI_DART5
+effect/needle6 MI_DART6
+effect/needle7 MI_DART7
+
+%rim 0
+javelin1 MI_JAVELIN
+%enchant_variation MI_JAVELIN shiny runed glowing randart
+javelin2 MI_JAVELIN_MAGIC
+steel_javelin1 MI_JAVELIN_STEEL
+%enchant_variation MI_JAVELIN_STEEL shiny runed glowing randart
+steel_javelin2 MI_JAVELIN_STEEL_MAGIC
+silver_javelin1 MI_JAVELIN_SILVER
+%enchant_variation MI_JAVELIN_SILVER shiny runed glowing randart
+silver_javelin2 MI_JAVELIN_SILVER_MAGIC
+%rim 1
+# flying javelins
+effect/javelin0 MI_JAVELIN0
+effect/javelin1 MI_JAVELIN1
+effect/javelin2 MI_JAVELIN2
+effect/javelin3 MI_JAVELIN3
+effect/javelin4 MI_JAVELIN4
+effect/javelin5 MI_JAVELIN5
+effect/javelin6 MI_JAVELIN6
+effect/javelin7 MI_JAVELIN7
+
+throwing_net MI_THROWING_NET
+# flying nets
+effect/throwing_net0 MI_THROWING_NET0
+effect/throwing_net1 MI_THROWING_NET1
+effect/throwing_net2 MI_THROWING_NET2
+effect/throwing_net3 MI_THROWING_NET3
+effect/throwing_net4 MI_THROWING_NET4
+effect/throwing_net5 MI_THROWING_NET5
+effect/throwing_net6 MI_THROWING_NET6
+effect/throwing_net7 MI_THROWING_NET7
+
+%rim 0
+rock MI_LARGE_ROCK
+# flying rock
+effect/rock0 MI_LARGE_ROCK0
+
+%rim 0
+# slugs
+effect/slug0 MI_SLUG0
+effect/slug1 MI_SLUG1
+effect/slug2 MI_SLUG2
+effect/slug3 MI_SLUG3
+effect/slug4 MI_SLUG4
+effect/slug5 MI_SLUG5
+effect/slug6 MI_SLUG6
+effect/slug7 MI_SLUG7
+
+######OBJ_ARMOUR
+%sdir item/armour
+robe1 ARM_ROBE
+robe2
+%enchant_variation ARM_ROBE shiny runed glowing
+robe_ego1 ARM_ROBE_MAGIC
+robe_ego2
+%enchant_variation ARM_ROBE randart
+robe_art1 ARM_ROBE_RANDART
+robe_art2
+
+leather_armour1 ARM_LEATHER_ARMOUR
+%enchant_variation ARM_LEATHER_ARMOUR shiny runed glowing
+leather_armour2 ARM_LEATHER_ARMOUR_MAGIC
+%enchant_variation ARM_LEATHER_ARMOUR randart
+leather_armour3 ARM_LEATHER_ARMOUR_RANDART
+
+ring_mail1 ARM_RING_MAIL
+%enchant_variation ARM_RING_MAIL shiny runed glowing
+ring_mail2 ARM_RING_MAIL_MAGIC
+%enchant_variation ARM_RING_MAIL randart
+ring_mail3 ARM_RING_MAIL_RANDART
+
+scale_mail1 ARM_SCALE_MAIL
+%enchant_variation ARM_SCALE_MAIL shiny runed glowing
+scale_mail2 ARM_SCALE_MAIL_MAGIC
+%enchant_variation ARM_SCALE_MAIL randart
+scale_mail3 ARM_SCALE_MAIL_RANDART
+
+chain_mail1 ARM_CHAIN_MAIL
+%enchant_variation ARM_CHAIN_MAIL shiny runed glowing
+chain_mail2 ARM_CHAIN_MAIL_MAGIC
+%enchant_variation ARM_CHAIN_MAIL randart
+chain_mail3 ARM_CHAIN_MAIL_RANDART
+
+plate1 ARM_PLATE_ARMOUR
+%enchant_variation ARM_PLATE_ARMOUR shiny runed glowing
+plate2 ARM_PLATE_ARMOUR_MAGIC
+%enchant_variation ARM_PLATE_ARMOUR randart
+plate3 ARM_PLATE_ARMOUR_RANDART
+
+crystal_plate ARM_CRYSTAL_PLATE_ARMOUR
+%enchant_variation ARM_CRYSTAL_PLATE_ARMOUR shiny runed glowing
+crystal_plate2 ARM_CRYSTAL_PLATE_ARMOUR_MAGIC
+%enchant_variation ARM_CRYSTAL_PLATE_ARMOUR randart
+crystal_plate3 ARM_CRYSTAL_PLATE_ARMOUR_RANDART
+
+animal_skin1 ARM_ANIMAL_SKIN
+%enchant_variation ARM_ANIMAL_SKIN shiny runed glowing
+animal_skin2 ARM_ANIMAL_SKIN_MAGIC
+%enchant_variation ARM_ANIMAL_SKIN randart
+animal_skin3 ARM_ANIMAL_SKIN_RANDART
+
+troll_leather_armour ARM_TROLL_LEATHER_ARMOUR
+%enchant_variation ARM_TROLL_LEATHER_ARMOUR randart
+troll_leather_armour_art ARM_TROLL_LEATHER_ARMOUR_RANDART
+fire_dragon_armour ARM_FIRE_DRAGON_ARMOUR
+%enchant_variation ARM_FIRE_DRAGON_ARMOUR randart
+fire_dragon_armour_art ARM_FIRE_DRAGON_ARMOUR_RANDART
+ice_dragon_armour ARM_ICE_DRAGON_ARMOUR
+%enchant_variation ARM_ICE_DRAGON_ARMOUR randart
+ice_dragon_armour_art ARM_ICE_DRAGON_ARMOUR_RANDART
+steam_dragon_armour ARM_STEAM_DRAGON_ARMOUR
+%enchant_variation ARM_STEAM_DRAGON_ARMOUR randart
+steam_dragon_armour_art ARM_STEAM_DRAGON_ARMOUR_RANDART
+acid_dragon_armour ARM_ACID_DRAGON_ARMOUR
+%enchant_variation ARM_ACID_DRAGON_ARMOUR randart
+acid_dragon_armour_art ARM_ACID_DRAGON_ARMOUR_RANDART
+quicksilver_dragon_armour ARM_QUICKSILVER_DRAGON_ARMOUR
+%enchant_variation ARM_QUICKSILVER_DRAGON_ARMOUR randart
+quicksilver_dragon_armour_art ARM_QUICKSILVER_DRAGON_ARMOUR_RANDART
+storm_dragon_armour ARM_STORM_DRAGON_ARMOUR
+%enchant_variation ARM_STORM_DRAGON_ARMOUR randart
+storm_dragon_armour_art ARM_STORM_DRAGON_ARMOUR_RANDART
+shadow_dragon_armour ARM_SHADOW_DRAGON_ARMOUR
+%enchant_variation ARM_SHADOW_DRAGON_ARMOUR randart
+shadow_dragon_armour_art ARM_SHADOW_DRAGON_ARMOUR_RANDART
+golden_dragon_armour ARM_GOLDEN_DRAGON_ARMOUR
+%enchant_variation ARM_GOLDEN_DRAGON_ARMOUR randart
+golden_dragon_armour_art ARM_GOLDEN_DRAGON_ARMOUR_RANDART
+swamp_dragon_armour ARM_SWAMP_DRAGON_ARMOUR
+%enchant_variation ARM_SWAMP_DRAGON_ARMOUR randart
+swamp_dragon_armour_art ARM_SWAMP_DRAGON_ARMOUR_RANDART
+pearl_dragon_armour ARM_PEARL_DRAGON_ARMOUR
+%enchant_variation ARM_PEARL_DRAGON_ARMOUR randart
+pearl_dragon_armour_art ARM_PEARL_DRAGON_ARMOUR_RANDART
+
+deep_troll_leather DEEP_TROLL_LEATHER
+iron_troll_leather IRON_TROLL_LEATHER
+
+%rim 1
+cloak1_leather ARM_CLOAK
+%enchant_variation ARM_CLOAK shiny runed
+cloak2 ARM_CLOAK_MAGIC
+%enchant_variation ARM_CLOAK glowing
+cloak3 ARM_CLOAK_GLOWING
+%enchant_variation ARM_CLOAK randart
+cloak4 ARM_CLOAK_RANDART
+
+scarf1 ARM_SCARF
+%enchant_variation ARM_SCARF shiny
+scarf2_1 ARM_SCARF_SHINY
+%enchant_variation ARM_SCARF runed
+scarf2_2 ARM_SCARF_RUNED
+%enchant_variation ARM_SCARF glowing
+scarf2_3 ARM_SCARF_GLOWING
+%enchant_variation ARM_SCARF randart
+scarf3 ARM_SCARF_RANDART
+
+barding1 ARM_BARDING
+%enchant_variation ARM_BARDING shiny runed glowing
+barding2 ARM_BARDING_MAGIC
+%enchant_variation ARM_BARDING randart
+barding3 ARM_BARDING_RANDART
+
+%sdir item/armour/shields
+
+%rim 0
+orb ARM_ORB
+%enchant_variation ARM_ORB randart
+orb_randart1 ARM_ORB_RANDART
+orb_randart2
+orb_randart3
+orb_randart4
+
+buckler1 ARM_BUCKLER
+%enchant_variation ARM_BUCKLER shiny runed glowing
+buckler2 ARM_BUCKLER_MAGIC
+%enchant_variation ARM_BUCKLER randart
+buckler3 ARM_BUCKLER_RANDART
+%rim 1
+
+buckler_spriggan ARM_BUCKLER_SPRIGGAN
+
+kite_shield1 ARM_KITE_SHIELD
+%enchant_variation ARM_KITE_SHIELD shiny runed glowing
+kite_shield2 ARM_KITE_SHIELD_MAGIC
+%enchant_variation ARM_KITE_SHIELD randart
+kite_shield3 ARM_KITE_SHIELD_RANDART
+
+tower_shield1 ARM_TOWER_SHIELD
+%enchant_variation ARM_TOWER_SHIELD shiny runed glowing
+tower_shield2 ARM_TOWER_SHIELD_MAGIC
+%enchant_variation ARM_TOWER_SHIELD randart
+tower_shield3 ARM_TOWER_SHIELD_RANDART
+
+kite_shield_dd KITE_SHIELD_DEEP_DWARF
+kite_shield_dd_scion KITE_SHIELD_DEEP_DWARF_SCION
+tower_shield_dd_dk TOWER_SHIELD_DEEP_DWARF_DEATH_KNIGHT
+%rim 0
+kite_shield_donald KITE_SHIELD_DONALD
+tower_shield_louise TOWER_SHIELD_LOUISE
+%rim 1
+
+%sdir item/armour/headgear
+#####ARM_HELMET
+elven_leather_helm THELM_CAP
+cap_jester THELM_CAP_JESTER
+hat_explorer THELM_HAT_EXPLORER
+hat_explorer2 THELM_HAT_EXPLORER2
+hat_wiglaf THELM_HAT_WIGLAF
+santa_hat THELM_HAT_SANTA
+april_hat1 THELM_HAT_APRIL1
+april_hat2 THELM_HAT_APRIL2
+
+%rim 0
+hat1 THELM_HAT
+hat_archer
+%syn THELM_ARCHER
+%enchant_variation THELM_HAT shiny runed glowing
+hat2 THELM_HAT_MAGIC
+hat_archer2
+%syn THELM_ARCHER2
+%enchant_variation THELM_HAT randart
+hat3 THELM_HAT_RANDART
+wizard_hat
+%syn THELM_HAT_WIZARD
+
+helmet1 THELM_HELM
+helmet2
+helmet3
+helmet4
+helmet5
+%enchant_variation THELM_HELM shiny runed glowing
+helmet_ego1 THELM_HELM_MAGIC
+helmet_ego2
+helmet_ego3
+helmet_ego4
+%enchant_variation THELM_HELM randart
+helmet_art1 THELM_HELM_RANDART
+helmet_art2
+helmet_art3
+
+%sdir item/armour
+###### GLOVES
+glove1 ARM_GLOVES
+%enchant_variation ARM_GLOVES shiny
+glove2 ARM_GLOVES_SHINY
+%enchant_variation ARM_GLOVES runed
+glove3 ARM_GLOVES_RUNED
+%enchant_variation ARM_GLOVES glowing
+glove4 ARM_GLOVES_GLOWING
+%enchant_variation ARM_GLOVES randart
+glove5 ARM_GLOVES_RANDART
+
+###### BOOTS
+%rim 1
+boots1 ARM_BOOTS
+boots2
+%enchant_variation ARM_BOOTS shiny runed glowing
+boots_ego1 ARM_BOOTS_MAGIC
+boots_ego2
+%enchant_variation ARM_BOOTS randart
+boots_art1 ARM_BOOTS_RANDART
+boots_art2
+april_boots1 ARM_BOOTS_APRIL1
+april_boots2 ARM_BOOTS_APRIL2
+
+### Armour brands
+# The order of armour brands must be identical to the one defined
+# in item-prop-enum.h.
+%sdir item/armour/brands
+# start TAG_MAJOR_VERSION == 34
+i-running BRAND_ARM_RUNNING BRAND_ARM_FIRST
+i-fire-res BRAND_ARM_FIRE_RESISTANCE
+# end TAG_MAJOR_VERSION
+# start TAG_MAJOR_VERSION == 35
+# i-fire-res BRAND_ARM_FIRE_RESISTANCE BRAND_ARM_FIRST
+# end TAG_MAJOR_VERSION
+i-cold-res BRAND_ARM_COLD_RESISTANCE
+i-poison-res BRAND_ARM_POISON_RESISTANCE
+i-see-invis BRAND_ARM_SEE_INVISIBLE
+i-invisibility BRAND_ARM_INVISIBILITY
+i-strength BRAND_ARM_STRENGTH
+i-dexterity BRAND_ARM_DEXTERITY
+i-intelligence BRAND_ARM_INTELLIGENCE
+i-ponderous BRAND_ARM_PONDEROUSNESS
+i-flying BRAND_ARM_FLYING
+i-magic-res BRAND_ARM_MAGIC_RESISTANCE
+i-protection BRAND_ARM_PROTECTION
+%rim 0
+i-stealth BRAND_ARM_STEALTH
+%rim 1
+i-resistance BRAND_ARM_RESISTANCE
+i-positive-energy BRAND_ARM_POSITIVE_ENERGY
+i-archmagi BRAND_ARM_ARCHMAGI
+i-corrosion-res BRAND_ARM_CORROSION_RESISTANCE
+i-reflection BRAND_ARM_REFLECTION
+i-spirit BRAND_ARM_SPIRIT_SHIELD
+i-hurling BRAND_ARM_HURLING
+# start TAG_MAJOR_VERSION == 34
+i-jumping BRAND_ARM_JUMPING
+# end TAG_MAJOR_VERSION
+i-repulsion BRAND_ARM_REPULSION
+# start TAG_MAJOR_VERSION == 34
+i-cloud-immune BRAND_ARM_CLOUD_IMMUNE
+# end TAG_MAJOR_VERSION
+i-harm BRAND_ARM_HARM
+i-shadows BRAND_ARM_SHADOWS
+%rim 0
+i-lunging BRAND_ARM_LUNGING
+i-infusion BRAND_ARM_INFUSION
+i-light BRAND_ARM_LIGHT
+i-rage BRAND_ARM_RAGE
+i-mayhem BRAND_ARM_MAYHEM
+i-guile BRAND_ARM_GUILE
+i-energy BRAND_ARM_ENERGY
+i-sniping BRAND_ARM_SNIPING
+i-ice BRAND_ARM_ICE
+i-fire BRAND_ARM_FIRE
+i-air BRAND_ARM_AIR
+i-earth BRAND_ARM_EARTH
+i-archery BRAND_ARM_ARCHERY
+i-command BRAND_ARM_COMMAND
+i-death BRAND_ARM_DEATH
+i-resonance BRAND_ARM_RESONANCE
+i-parrying BRAND_ARM_PARRYING
+i-glass BRAND_ARM_GLASS
+i-fire BRAND_ARM_PYROMANIA
+i-stardust BRAND_ARM_STARDUST
+i-mesmerism BRAND_ARM_MESMERISM
+i-attunement BRAND_ARM_ATTUNEMENT BRAND_ARM_LAST
+%rim 1
+
+###########OBJ_WANDS
+%sdir item/wand
+%rim 0
+gem_iron WAND_OFFSET UNSEEN_WAND
+gem_brass
+gem_bone
+gem_wood
+gem_copper
+gem_gold
+gem_silver
+gem_bronze
+gem_ivory
+gem_glass
+gem_lead
+gem_plastic
+%rim 1
+
+%sdir item/wand
+#### These must be in the same order as the enum in item-prop-enum.h!
+i-flame WAND_FLAME WAND_ID_FIRST
+# start TAG_MAJOR_VERSION == 34
+i-flame WAND_REMOVEME
+i-slowing WAND_REMOVEME9
+i-hasting WAND_REMOVEME7
+i-flame WAND_REMOVEME2
+i-heal_wounds WAND_REMOVEME6
+# end TAG_MAJOR_VERSION
+i-paralysis WAND_PARALYSIS
+# start TAG_MAJOR_VERSION == 34
+i-flame WAND_REMOVEME3
+i-flame WAND_REMOVEME4
+i-confusion WAND_REMOVEME10
+i-flame WAND_REMOVEME5
+# end TAG_MAJOR_VERSION
+i-digging WAND_DIGGING
+i-iceblast WAND_ICEBLAST
+# start TAG_MAJOR_VERSION == 34
+i-teleportation WAND_REMOVEME8
+i-lightning WAND_REMOVEME11
+# end TAG_MAJOR_VERSION
+i-polymorph WAND_POLYMORPH
+i-charming WAND_CHARMING
+i-acid WAND_ACID
+# start TAG_MAJOR_VERSION == 34
+i-random_effects WAND_REMOVEME14
+# end TAG_MAJOR_VERSION
+i-mindburst WAND_MINDBURST
+# start TAG_MAJOR_VERSION == 34
+i-clouds WAND_REMOVEME13
+i-scattershot WAND_REMOVEME12
+# end TAG_MAJOR_VERSION
+i-light WAND_LIGHT
+i-quicksilver WAND_QUICKSILVER
+i-roots WAND_ROOTS
+i-disruption WAND_WARPING WAND_ID_LAST
+
+################# Skeletons
+%sdir item/food
+# start TAG_MAJOR_VERSION == 34
+bread_ration FOOD_RATION UNSEEN_FOOD FOOD_RATION_FIRST FOOD_RATION_INVENTORY
+meat_ration
+cheese
+honeycomb FOOD_HONEYCOMB
+sausage
+pizza FOOD_PIZZA
+beef_jerky
+apple FOOD_FRUIT_FIRST FOOD_APPLE
+apricot
+banana
+choko
+grape
+lemon
+orange
+pear
+snozzcumber
+strawberry FOOD_FRUIT_LAST
+fruit FOOD_FRUIT_INVENTORY FOOD_RATION_LAST
+# end TAG_MAJOR_VERSION
+
+%rim 0
+bone_humanoid1 FOOD_BONE_HUMANOID
+bone_humanoid2
+bone_humanoid3
+bone_humanoid4
+bone1 FOOD_BONE
+bone2
+bone3
+bone4
+
+# start TAG_MAJOR_VERSION == 34
+%rim 1
+chunk FOOD_CHUNK
+%back chunk
+chunk_brands/i-decay FOOD_CHUNK_ROTTING
+chunk_brands/i-forbidden FOOD_CHUNK_FORBIDDEN
+chunk_brands/i-inedible FOOD_CHUNK_INEDIBLE
+%back none
+chunk_brands/i-decay FOOD_ROTTING
+chunk_brands/i-forbidden FOOD_FORBIDDEN
+chunk_brands/i-inedible FOOD_INEDIBLE
+# end TAG_MAJOR_VERSION
+
+#################OBJ_UNKNOWN_I
+##################OBJ_SCROLLS
+%sdir item/scroll
+scroll SCROLL UNSEEN_SCROLL
+
+#### These must be in the same order as the enum in item-prop-enum.h!
+%sdir item/scroll
+%back scroll-yellow
+i-identify SCR_IDENTIFY SCR_ID_FIRST
+%back scroll-purple
+i-teleportation SCR_TELEPORTATION
+%back scroll-blue
+i-fear SCR_FEAR
+%back scroll-grey
+i-noise SCR_NOISE
+# start TAG_MAJOR_VERSION == 34
+%back scroll-yellow
+i-remove_curse SCR_REMOVE_CURSE
+# end TAG_MAJOR_VERSION
+# aka scroll of summoning
+%back scroll-brown
+i-unholy_creation SCR_UNHOLY_CREATION
+%back scroll-green
+i-enchant-weapon SCR_ENCHANT_WEAPON
+i-enchant_armour SCR_ENCHANT_ARMOUR
+%back scroll-red
+i-torment SCR_TORMENT
+%back scroll-grey
+# start TAG_MAJOR_VERSION == 34
+i-random_uselessness SCR_RANDOM_USELESSNESS
+%back scroll-grey
+i-curse_weapon SCR_CURSE_WEAPON
+i-curse_armour SCR_CURSE_ARMOUR
+# end TAG_MAJOR_VERSION
+i-immolation SCR_IMMOLATION
+%back scroll-purple
+i-blinking SCR_BLINKING
+%back scroll-yellow
+i-magic_mapping SCR_REVELATION
+%back scroll-blue
+i-fog SCR_FOG
+%back scroll-cyan
+i-acquirement SCR_ACQUIREMENT
+%back scroll-green
+# start TAG_MAJOR_VERSION == 34
+i-enchant-weapon SCR_ENCHANT_WEAPON_II
+# end TAG_MAJOR_VERSION
+i-brand-weapon SCR_BRAND_WEAPON
+# start TAG_MAJOR_VERSION == 34
+i-recharging SCR_RECHARGING
+i-enchant-weapon SCR_ENCHANT_WEAPON_III
+%back scroll-red
+i-holy_word SCR_HOLY_WORD
+# end TAG_MAJOR_VERSION
+%back scroll-red
+i-vulnerability SCR_VULNERABILITY
+%back scroll-red
+i-silence SCR_SILENCE
+%back scroll-yellow
+i-amnesia SCR_AMNESIA
+# start TAG_MAJOR_VERSION == 34
+%back scroll-grey
+i-curse-jewellery SCR_CURSE_JEWELLERY
+# end TAG_MAJOR_VERSION
+%back scroll-brown
+i-poison SCR_POISON
+%back scroll-grey
+i-butterflies SCR_BUTTERFLIES SCR_ID_LAST
+%back none
+
+##################OBJ_JEWELLERY
+############ring
+%sdir item/ring
+%rim 0
+wooden RING_NORMAL_OFFSET UNSEEN_RING
+silver
+gold
+iron
+steel
+tourmaline
+brass
+copper
+granite
+ivory
+ruby
+tiger_eye
+jade
+glass
+agate
+clay
+diamond
+emerald
+gold_green
+gold_red
+opal
+pearl
+coral
+gold_blue
+plain_red
+plain_yellow
+plain_black
+bronze
+moonstone
+
+###########randarts
+%sdir item/ring/randarts
+four-colour RING_RANDART_OFFSET
+green
+ice
+blood
+dark
+red-blue
+double
+anvil
+eye
+flower
+zircon
+fire
+pink
+bronze-flower
+snake
+
+###########icons
+%sdir item/ring
+#### These must be in the same order as the enum in item-prop-enum.h!
+# start TAG_MAJOR_VERSION == 34
+i-protection RING_REGENERATION RING_ID_FIRST
+i-protection RING_PROTECTION
+# end TAG_MAJOR_VERSION
+# start TAG_MAJOR_VERSION == 35
+# i-protection RING_PROTECTION RING_ID_FIRST
+# end TAG_MAJOR_VERSION
+i-r-fire RING_PROTECTION_FROM_FIRE
+i-r-poison RING_POISON_RESISTANCE
+i-r-cold RING_PROTECTION_FROM_COLD
+i-str RING_STRENGTH
+i-slaying RING_SLAYING
+i-see-invis RING_SEE_INVISIBLE
+i-r-corrosion RING_RESIST_CORROSION
+# start TAG_MAJOR_VERSION == 34
+i-attention RING_ATTENTION
+i-teleport RING_TELEPORTATION
+# end TAG_MAJOR_VERSION
+i-evasion RING_EVASION
+# start TAG_MAJOR_VERSION == 34
+i-s-attr RING_SUSTAIN_ATTRIBUTES
+# end TAG_MAJOR_VERSION
+i-stealth RING_STEALTH
+i-dex RING_DEXTERITY
+i-int RING_INTELLIGENCE
+i-wizardry RING_WIZARDRY
+i-magical-power RING_MAGICAL_POWER
+i-flight RING_FLIGHT
+i-positive-energy RING_POSITIVE_ENERGY
+# start TAG_MAJOR_VERSION == 34
+i-willpower RING_WILLPOWER
+i-fire RING_FIRE
+i-ice RING_ICE
+i-c-teleport RING_TELEPORT_CONTROL RING_ID_LAST
+# end TAG_MAJOR_VERSION
+# start TAG_MAJOR_VERSION == 35
+# i-willpower RING_WILLPOWER RING_ID_LAST
+# end TAG_MAJOR_VERSION
+
+############amulets
+%sdir item/amulet
+sapphire AMU_NORMAL_OFFSET UNSEEN_AMULET
+zirconium
+golden
+emerald
+garnet
+bronze
+brass
+copper
+ruby
+citrine
+bone
+platinum
+jade
+fluorescent
+amethyst
+cameo
+pearl
+blue
+peridot
+jasper
+diamond
+malachite
+steel
+cabochon
+silver
+soapstone
+lapis_lazuli
+filigree
+beryl
+
+###########randarts
+%sdir item/amulet/randarts
+azure AMU_RANDART_OFFSET
+cluster
+drop
+knot
+scarab
+skull
+spider
+sun
+
+###########icons
+%sdir item/amulet
+# These must be in the same order as the enum in item-prop-enum.h!
+# start TAG_MAJOR_VERSION == 34
+i-rage AMU_RAGE AMU_ID_FIRST
+i-harm AMU_HARM
+i-acrobat AMU_ACROBAT
+# end TAG_MAJOR_VERSION
+# start TAG_MAJOR_VERSION == 35
+# i-acrobat AMU_ACROBAT AMU_ID_FIRST
+# end TAG_MAJOR_VERSION
+i-m-regeneration AMU_MANA_REGENERATION
+# start TAG_MAJOR_VERSION == 34
+i-gourmand AMU_THE_GOURMAND
+i-rage AMU_REMOVEME1
+i-rage AMU_REMOVEME2
+i-inaccuracy AMU_INACCURACY
+# end TAG_MAJOR_VERSION
+i-rage AMU_NOTHING
+i-spirit AMU_GUARDIAN_SPIRIT
+i-faith AMU_FAITH
+i-reflection AMU_REFLECTION
+i-regeneration AMU_REGENERATION
+i-wildshape AMU_WILDSHAPE
+i-alchemy AMU_ALCHEMY
+i-dissipation AMU_DISSIPATION AMU_ID_LAST
+
+####################OBJ_POTIONS
+%sdir item/potion
+unknown POTION_OFFSET UNSEEN_POTION
+brilliant_blue
+black
+silver
+cyan
+magenta
+orange
+dark
+ruby
+yellow
+emerald
+brown
+pink
+white
+bubbly
+cloudy
+effervescent
+fizzy
+golden
+murky
+puce
+purple_red
+sky_blue
+
+%sdir item/potion
+%back i-label
+# These must be in the same order as the enum in enum.h!
+i-curing POT_CURING POT_ID_FIRST
+i-heal-wounds POT_HEAL_WOUNDS
+i-haste POT_HASTE
+i-might POT_MIGHT
+i-brilliance POT_BRILLIANCE
+i-attraction POT_ATTRACTION
+# start TAG_MAJOR_VERSION == 34
+i-gain-strength POT_REMOVEME2
+i-gain-dexterity POT_REMOVEME3
+i-gain-intelligence POT_REMOVEME4
+# end TAG_MAJOR_VERSION
+i-flight POT_ENLIGHTENMENT
+# start TAG_MAJOR_VERSION == 34
+i-poison POT_POISON
+i-slowing POT_SLOWING
+# end TAG_MAJOR_VERSION
+i-cancel POT_CANCELLATION
+i-ambrosia POT_AMBROSIA
+i-invisibility POT_INVISIBILITY
+# start TAG_MAJOR_VERSION == 34
+i-porridge POT_PORRIDGE
+# end TAG_MAJOR_VERSION
+i-confusion POT_MOONSHINE
+# start TAG_MAJOR_VERSION == 34
+i-decay POT_REMOVEME5
+i-confusion POT_REMOVE_ME
+# end TAG_MAJOR_VERSION
+i-experience POT_EXPERIENCE
+i-magic POT_MAGIC
+# start TAG_MAJOR_VERSION == 34
+i-restore-abilities POT_REMOVEME6
+i-strong-poison POT_REMOVEME7
+# end TAG_MAJOR_VERSION
+i-berserk-rage POT_BERSERK_RAGE
+# start TAG_MAJOR_VERSION == 34
+i-cure-mutation POT_REMOVEME8
+# end TAG_MAJOR_VERSION
+i-mutation POT_MUTATION
+i-resistance POT_RESISTANCE
+# start TAG_MAJOR_VERSION == 34
+i-blood POT_BLOOD
+i-coagulated-blood POT_BLOOD_COAGULATED
+# start TAG_MAJOR_VERSION == 34
+i-lignify POT_LIGNIFY
+i-good-mutation POT_REMOVEME9
+# (corresponds to POT_DUMMY_AGILITY)
+i-attraction POT_REMOVEME10 POT_ID_LAST
+# end TAG_MAJOR_VERSION
+# start TAG_MAJOR_VERSION == 35
+# i-lignify POT_LIGNIFY POT_ID_LAST
+# end TAG_MAJOR_VERSION
+%back none
+%rim 1
+
+%sdir item/gizmo
+gizmo0 GIZMO
+gizmo1
+gizmo2
+gizmo3
+gizmo4
+gizmo5
+gizmo6
+gizmo7
+gizmo8
+gizmo9
+
+####################OBJ_UNKNOWN_II
+#####################OBJ_BOOKS
+%sdir item/book
+light_gray BOOK UNSEEN_BOOK
+dark_blue
+dark_green
+cyan
+red
+purple
+tan
+book_of_the_dead
+dark_gray
+light_blue
+light_green
+turquoise
+pink
+magenta
+yellow
+white
+parchment
+leather
+tan
+plaid
+light_brown
+dark_brown
+bronze
+copper
+silver
+gold
+metal_blue
+metal_cyan
+metal_green
+cloth
+############manuals
+manual1 BOOK_MANUAL
+manual2
+# randarts
+%sdir item/book/artefact
+%enchant_variation BOOK randart
+wrinkled BOOK_RANDART
+vellum
+velvet
+thick
+buckle
+bookmark
+thin
+
+# parchments
+%sdir item/parchment
+%rim 0
+
+parchment_multi_left_conj PARCHMENT_LEFT_CONJURATIONS PARCHMENT_LEFT_FIRST
+parchment_multi_left_hexes PARCHMENT_LEFT_HEXES
+parchment_multi_left_fire PARCHMENT_LEFT_FIRE
+parchment_multi_left_ice PARCHMENT_LEFT_ICE
+parchment_multi_left_necro PARCHMENT_LEFT_NECROMANCY
+parchment_multi_left_summ PARCHMENT_LEFT_SUMMONING
+parchment_multi_left_tloc PARCHMENT_LEFT_TRANSLOCATIONS
+parchment_multi_left_alch PARCHMENT_LEFT_ALCHEMY
+parchment_multi_left_earth PARCHMENT_LEFT_EARTH
+parchment_multi_left_air PARCHMENT_LEFT_AIR
+parchment_multi_left_forge PARCHMENT_LEFT_FORGECRAFT
+
+parchment_multi_left_conj_high PARCHMENT_LEFT_CONJURATIONS_HIGH PARCHMENT_LEFT_HIGH_FIRST
+parchment_multi_left_hexes_high PARCHMENT_LEFT_HEXES_HIGH
+parchment_multi_left_fire_high PARCHMENT_LEFT_FIRE_HIGH
+parchment_multi_left_ice_high PARCHMENT_LEFT_ICE_HIGH
+parchment_multi_left_necro_high PARCHMENT_LEFT_NECROMANCY_HIGH
+parchment_multi_left_summ_high PARCHMENT_LEFT_SUMMONING_HIGH
+parchment_multi_left_tloc_high PARCHMENT_LEFT_TRANSLOCATIONS_HIGH
+parchment_multi_left_alch_high PARCHMENT_LEFT_ALCHEMY_HIGH
+parchment_multi_left_earth_high PARCHMENT_LEFT_EARTH_HIGH
+parchment_multi_left_air_high PARCHMENT_LEFT_AIR_HIGH
+parchment_multi_left_forge_high PARCHMENT_LEFT_FORGECRAFT_HIGH
+
+parchment_multi_right_conj PARCHMENT_RIGHT_CONJURATIONS PARCHMENT_RIGHT_FIRST
+parchment_multi_right_hexes PARCHMENT_RIGHT_HEXES
+parchment_multi_right_fire PARCHMENT_RIGHT_FIRE
+parchment_multi_right_ice PARCHMENT_RIGHT_ICE
+parchment_multi_right_necro PARCHMENT_RIGHT_NECROMANCY
+parchment_multi_right_summ PARCHMENT_RIGHT_SUMMONING
+parchment_multi_right_tloc PARCHMENT_RIGHT_TRANSLOCATIONS
+parchment_multi_right_alch PARCHMENT_RIGHT_ALCHEMY
+parchment_multi_right_earth PARCHMENT_RIGHT_EARTH
+parchment_multi_right_air PARCHMENT_RIGHT_AIR
+parchment_multi_right_forge PARCHMENT_RIGHT_FORGECRAFT
+
+parchment_multi_right_conj_high PARCHMENT_RIGHT_CONJURATIONS_HIGH PARCHMENT_RIGHT_HIGH_FIRST
+parchment_multi_right_hexes_high PARCHMENT_RIGHT_HEXES_HIGH
+parchment_multi_right_fire_high PARCHMENT_RIGHT_FIRE_HIGH
+parchment_multi_right_ice_high PARCHMENT_RIGHT_ICE_HIGH
+parchment_multi_right_necro_high PARCHMENT_RIGHT_NECROMANCY_HIGH
+parchment_multi_right_summ_high PARCHMENT_RIGHT_SUMMONING_HIGH
+parchment_multi_right_tloc_high PARCHMENT_RIGHT_TRANSLOCATIONS_HIGH
+parchment_multi_right_alch_high PARCHMENT_RIGHT_ALCHEMY_HIGH
+parchment_multi_right_earth_high PARCHMENT_RIGHT_EARTH_HIGH
+parchment_multi_right_air_high PARCHMENT_RIGHT_AIR_HIGH
+parchment_multi_right_forge_high PARCHMENT_RIGHT_FORGECRAFT_HIGH
+
+parchment_single_conj PARCHMENT_SINGLE_CONJURATIONS PARCHMENT_SINGLE_FIRST
+parchment_single_hexes PARCHMENT_SINGLE_HEXES
+parchment_single_fire PARCHMENT_SINGLE_FIRE
+parchment_single_ice PARCHMENT_SINGLE_ICE
+parchment_single_necro PARCHMENT_SINGLE_NECROMANCY
+parchment_single_summ PARCHMENT_SINGLE_SUMMONING
+parchment_single_tloc PARCHMENT_SINGLE_TRANSLOCATIONS
+parchment_single_alch PARCHMENT_SINGLE_ALCHEMY
+parchment_single_earth PARCHMENT_SINGLE_EARTH
+parchment_single_air PARCHMENT_SINGLE_AIR
+parchment_single_forge PARCHMENT_SINGLE_FORGECRAFT
+
+parchment_single_conj_high PARCHMENT_SINGLE_CONJURATIONS_HIGH PARCHMENT_SINGLE_FIRST_HIGH
+parchment_single_hexes_high PARCHMENT_SINGLE_HEXES_HIGH
+parchment_single_fire_high PARCHMENT_SINGLE_FIRE_HIGH
+parchment_single_ice_high PARCHMENT_SINGLE_ICE_HIGH
+parchment_single_necro_high PARCHMENT_SINGLE_NECROMANCY_HIGH
+parchment_single_summ_high PARCHMENT_SINGLE_SUMMONING_HIGH
+parchment_single_tloc_high PARCHMENT_SINGLE_TRANSLOCATIONS_HIGH
+parchment_single_alch_high PARCHMENT_SINGLE_ALCHEMY_HIGH
+parchment_single_earth_high PARCHMENT_SINGLE_EARTH_HIGH
+parchment_single_air_high PARCHMENT_SINGLE_AIR_HIGH
+parchment_single_forge_high PARCHMENT_SINGLE_FORGECRAFT_HIGH
+
+base_parchment_low_level PARCHMENT_LOW
+base_parchment_mid_level PARCHMENT_MID
+base_parchment_high_level PARCHMENT_HIGH
+
+#####################OBJ_STAVES
+%rim 1
+%sdir item/staff
+staff00 STAFF_OFFSET UNSEEN_STAFF
+staff01
+staff02
+staff03
+staff04
+staff05
+staff06
+staff07
+staff08
+staff09
+%rim 0
+staff-artefact1 STAFF_RANDART_OFFSET
+staff-artefact2
+staff-artefact3
+staff-artefact4
+staff-artefact5
+staff-artefact6
+staff-artefact7
+%rim 1
+
+# These must be in the same order as the enum in item-prop-enum.h!
+# start TAG_MAJOR_VERSION == 34
+i-staff_wizardry STAFF_WIZARDRY STAFF_ID_FIRST
+i-staff_power STAFF_POWER
+i-staff_fire STAFF_FIRE
+# end TAG_MAJOR_VERSION
+# start TAG_MAJOR_VERSION == 35
+# i-staff_fire STAFF_FIRE STAFF_ID_FIRST
+# end TAG_MAJOR_VERSION
+i-staff_cold STAFF_COLD
+i-staff_poison STAFF_POISON
+# start TAG_MAJOR_VERSION == 34
+i-staff_energy STAFF_ENERGY
+# end TAG_MAJOR_VERSION
+i-staff_necromancy STAFF_NECROMANCY
+i-staff_conjuration STAFF_CONJURATION
+# start TAG_MAJOR_VERSION == 34
+i-staff_enchantment STAFF_ENCHANTMENT
+i-staff_summoning STAFF_SUMMONING
+# end TAG_MAJOR_VERSION
+i-staff_air STAFF_AIR
+# start TAG_MAJOR_VERSION == 34
+i-staff_earth STAFF_EARTH
+%rim 0
+i-staff_channeling STAFF_CHANNELING STAFF_ID_LAST
+# end TAG_MAJOR_VERSION
+# start TAG_MAJOR_VERSION == 35
+# i-staff_earth STAFF_EARTH STAFF_ID_LAST
+# end TAG_MAJOR_VERSION
+
+# start TAG_MAJOR_VERSION == 34
+%sdir item/rod
+rod00 ROD
+rod01
+rod02
+rod03
+rod04
+rod05
+rod06
+rod07
+rod08
+rod09
+
+# These must be in the same order as the enum in item-prop-enum.h!
+%sdir misc
+error ROD_LIGHTNING ROD_ID_FIRST
+error ROD_SUMMONING
+error ROD_IGNITION
+error ROD_CLOUDS
+error ROD_DESTRUCTION
+error ROD_INACCURACY
+error ROD_WARDING
+error ROD_SHADOWS
+error ROD_IRON
+error ROD_VENOM ROD_ID_LAST
+%rim 1
+# end TAG_MAJOR_VERSION
+
+#OBJ_ORBS
+%sdir item/misc
+orb_of_zot1 ORB UNSEEN_ORB
+orb_of_zot2
+orb_of_zot3
+orb_of_zot4
+orb_of_zot5
+uncollected_orb UNCOLLECTED_ORB
+
+#OBJ_MISCELLANY
+# start TAG_MAJOR_VERSION == 34
+misc_bottle MISC_BOTTLED_EFREET
+%rim 0
+misc_crystal MISC_CRYSTAL_BALL_OF_ENERGY UNSEEN_MISC
+misc_fan MISC_FAN_OF_GALES
+misc_fan_inert MISC_FAN_OF_GALES_INERT
+misc_lamp MISC_LAMP_OF_FIRE
+misc_lamp_inert MISC_LAMP_OF_FIRE_INERT
+misc_stone MISC_STONE_OF_TREMORS
+misc_stone_inert MISC_STONE_OF_TREMORS_INERT
+# end TAG_MAJOR_VERSION
+misc_phial MISC_PHIAL_OF_FLOODS
+misc_phial_inert MISC_PHIAL_OF_FLOODS_INERT
+misc_lightning_rod MISC_LIGHTNING_ROD
+misc_lightning_rod_inert MISC_LIGHTNING_ROD_INERT
+misc_tremorstones MISC_TIN_OF_TREMORSTONES
+misc_tremorstones_inert MISC_TIN_OF_TREMORSTONES_INERT
+misc_vane MISC_CONDENSER_VANE
+misc_vane_inert MISC_CONDENSER_VANE_INERT
+%rim 1
+# start TAG_MAJOR_VERSION == 34
+misc_lantern MISC_LANTERN_OF_SHADOWS
+# end TAG_MAJOR_VERSION
+misc_horn MISC_HORN_OF_GERYON
+misc_box_of_beasts MISC_BOX_OF_BEASTS
+misc_box_of_beasts_inert MISC_BOX_OF_BEASTS_INERT
+%rim 0
+misc_sack MISC_SACK_OF_SPIDERS
+misc_sack_inert MISC_SACK_OF_SPIDERS_INERT
+misc_phantom_mirror MISC_PHANTOM_MIRROR
+misc_zigfig MISC_ZIGGURAT
+misc_quad MISC_QUAD_DAMAGE
+misc_tambourine MISC_TAMBOURINE
+misc_tambourine_inert MISC_TAMBOURINE_INERT
+misc_voucher MISC_SHOP_VOUCHER
+%sdir item/misc/runes
+generic MISC_RUNE_OF_ZOT
+rune_tartarus RUNE_TARTARUS
+rune_cocytus RUNE_COCYTUS
+rune_dis RUNE_DIS
+rune_gehenna RUNE_GEHENNA
+rune_cerebov RUNE_CEREBOV
+rune_gloorx_vloq RUNE_GLOORX_VLOQ
+rune_mnoleg RUNE_MNOLEG
+rune_lom_lobon RUNE_LOM_LOBON
+rune_snake RUNE_SNAKE
+rune_swamp RUNE_SWAMP
+rune_shoals RUNE_SHOALS
+rune_spider RUNE_SPIDER
+rune_slime RUNE_SLIME
+rune_vaults RUNE_VAULTS
+rune_tomb RUNE_TOMB
+rune_abyss RUNE_ABYSS
+rune_demonic_1 RUNE_DEMONIC
+rune_demonic_2
+rune_demonic_3
+rune_demonic_4
+rune_demonic_5
+rune_demonic_6
+rune_elven RUNE_ELVEN
+
+#OBJ_GEMS
+%sdir item/gem
+dungeon_found_whole GEM_DUNGEON
+dungeon_found_broken
+orc_found_whole GEM_ORC
+orc_found_broken
+elf_found_whole GEM_ELF
+elf_found_broken
+lair_found_whole GEM_LAIR
+lair_found_broken
+swamp_found_whole GEM_SWAMP
+swamp_found_broken
+shoals_found_whole GEM_SHOALS
+shoals_found_broken
+snake_found_whole GEM_SNAKE
+snake_found_broken
+spider_found_whole GEM_SPIDER
+spider_found_broken
+slime_found_whole GEM_SLIME
+slime_found_broken
+vaults_found_whole GEM_VAULTS
+vaults_found_broken
+crypt_found_whole GEM_CRYPT
+crypt_found_broken
+tomb_found_whole GEM_TOMB
+tomb_found_broken
+depths_found_whole GEM_DEPTHS
+depths_found_broken
+zot_found_whole GEM_ZOT
+zot_found_broken
+
+generic_unfound GEM_GENERIC
+generic_unfound_broken
+
+#OBJ_TALISMANS
+%sdir item/talisman
+%rim 0
+snake TALISMAN_SNAKE
+maw TALISMAN_MAW
+blade TALISMAN_BLADE
+statue TALISMAN_STATUE
+dragon TALISMAN_DRAGON
+storm TALISMAN_STORM
+death TALISMAN_DEATH
+vampire TALISMAN_VAMPIRE
+rimehorn TALISMAN_RIMEHORN
+spider TALISMAN_SPIDER
+quill TALISMAN_QUILL
+hive TALISMAN_HIVE
+water TALISMAN_AQUA
+sphinx TALISMAN_SPHINX
+lupine TALISMAN_WEREWOLF
+inkwell TALISMAN_INKWELL
+fortress TALISMAN_FORTRESS
+scarab TALISMAN_SCARAB
+medusa TALISMAN_MEDUSA
+protean TALISMAN_PROTEAN
+eel TALISMAN_EEL
+spore TALISMAN_SPORE
+
+#OBJ_BAUBLES
+%sdir item/misc
+%rim 0
+bauble_flux BAUBLE_FLUX
+
+%sdir item/misc/uncollected_runes
+generic MISC_UNCOLLECTED_RUNE_OF_ZOT
+rune_tartarus UNCOLLECTED_RUNE_TARTARUS
+rune_cocytus UNCOLLECTED_RUNE_COCYTUS
+rune_dis UNCOLLECTED_RUNE_DIS
+rune_gehenna UNCOLLECTED_RUNE_GEHENNA
+rune_cerebov UNCOLLECTED_RUNE_CEREBOV
+rune_gloorx_vloq UNCOLLECTED_RUNE_GLOORX_VLOQ
+rune_mnoleg UNCOLLECTED_RUNE_MNOLEG
+rune_lom_lobon UNCOLLECTED_RUNE_LOM_LOBON
+rune_snake UNCOLLECTED_RUNE_SNAKE
+rune_swamp UNCOLLECTED_RUNE_SWAMP
+rune_shoals UNCOLLECTED_RUNE_SHOALS
+rune_spider UNCOLLECTED_RUNE_SPIDER
+rune_slime UNCOLLECTED_RUNE_SLIME
+rune_vaults UNCOLLECTED_RUNE_VAULTS
+rune_tomb UNCOLLECTED_RUNE_TOMB
+rune_abyss UNCOLLECTED_RUNE_ABYSS
+rune_demonic UNCOLLECTED_RUNE_DEMONIC
+rune_elven UNCOLLECTED_RUNE_ELVEN
+
+#OBJ_CORPSES
+#handled in dc-corpse.txt
+
+#OBJ_GOLD
+%sdir item/gold
+01 GOLD01
+02 GOLD02
+03 GOLD03
+04 GOLD04
+05 GOLD05
+06 GOLD06
+07 GOLD07
+08 GOLD08
+09 GOLD09
+10 GOLD10
+16 GOLD16
+19 GOLD19
+23 GOLD23
+25 GOLD25
+
+#Local tile GUI
+%sdir gui/commands
+page_next ITEM_PAGE_NEXT
+page_previous ITEM_PAGE_PREVIOUS

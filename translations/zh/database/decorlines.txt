@@ -1,0 +1,781 @@
+%%%%
+default peaceful fountain_blue
+
+{{
+  -- 鬼火能饮用药水，因此这里不需要另外的消息。
+  if you.transform() == "death" or you.race() == "Mummy" then -- 处于死亡形态或木乃伊
+    if crawl.one_chance_in(3) then return "你对着饮水喷泉呆望片刻，叹了口气。"
+    else return "__NONE" end -- 不显示任何消息
+  elseif you.transform() == "storm" then return "喷泉在你身下噼啪作响。"
+  else return "你小饮了一口喷泉的水。清爽。"; end
+}}
+
+{{
+  if you.transform() == "storm" then return "细微的电击在喷泉中涌动。"
+  elseif you.transform() == "wisp" then return "你水中的倒影诡异地明灭不定。"
+  elseif crawl.coinflip() or you.god() == "Okawaru" then return "你停下来洗了洗@your_hands@。"
+  else return "你停下来擦拭@your_weapon@。" end
+}}
+
+w:1
+你看见喷泉上有@any_graffiti@。
+%%%%
+default fountain_blue
+
+喷泉因你的靠近而泛起短暂的涟漪。
+
+w:1
+你看见喷泉上有@any_graffiti@。
+%%%%
+default peaceful fountain_sparkling
+
+{{
+  if you.transform() == "death" or you.race() == "Mummy" then -- 处于死亡形态或木乃伊
+    if crawl.one_chance_in(3) then return "你对着泛光的喷泉呆望片刻，叹了口气。"
+    else return "__NONE" end -- 不显示任何消息
+  elseif you.transform() == "storm" then return "喷泉在你身下诡异地噼啪作响。"
+  elseif crawl.coinflip() or you.god == "Zin" or you.god == "Cheibriados" then return "喷泉脉动着奇异的@any_colour_pattern@，你决定不喝它的水。"
+  else return "你小饮了一口喷泉的水。@sparkling_message@" end
+}}
+
+w:1
+你看见喷泉上有@any_graffiti@。
+%%%%
+sparkling_message
+
+# 为陈年泛光喷泉可能含有的药水效果增添些风味是合理的，
+# 但请保持非常简短，且不易被误认为任何真正有意义的效果。（另外，不要提及血。）
+你感到自己瞬间轻盈了一些。
+
+你感到一阵短暂的勇气冲动。
+
+你感到一阵恶心。
+
+你的情绪不适地扭绞着。
+%%%%
+default fountain_sparkling
+
+泛光的喷泉闪烁着微弱的@any_colour@。
+
+w:1
+你看见喷泉上有@any_graffiti@。
+%%%%
+default fountain_blood
+
+{{
+   if you.can_smell() then return "你闻到喷泉那无尽之血散发的腐臭金属味。"
+   elseif you.god() == "Trog" then return "你留意不让自己再沾上更多血迹。"
+   else return "你留意不让自己沾上血迹。" end
+}}
+
+极小的蚊虫沉醉于鲜血，成群地盘旋在喷泉表面。
+
+w:3
+血之喷泉中，你的倒影以无声的[审判|惊恐]凝视着你。
+
+w:3
+# 融合了波德莱尔诗作《血之泉》的多种译本。
+血之喷泉脉动着，发出低低的呜咽。
+
+w:1
+血泉喷涌着鲜血，血泉往往如此。
+%%%%
+default fountain_eyes
+
+喷泉上的眼睛茫然地穿过你，望向远方。
+
+喷泉上的眼睛散漫地望着四面八方。
+
+喷泉上的眼睛凝视着虚无。
+%%%%
+default peaceful dry_fountain
+
+w:1
+你看见喷泉上有@any_graffiti@。
+%%%%
+default dry_fountain
+
+w:1
+你看见喷泉上有@any_graffiti@。
+%%%%
+Ashenzari peaceful fountain_blue
+
+你试图借喷泉进行占卜，但地牢的魔法拒绝了你。
+%%%%
+Ashenzari fountain_blue
+
+在喷泉的倒影中，你瞥见了地牢往昔的短暂景象。
+%%%%
+Beogh fountain_blue
+
+# XXX: 有机会使用 species::orc_name 吗？为变形状态准备些玩笑话？
+你看着喷泉中自己的倒影，看到的是一个自豪的兽人。
+%%%%
+Beogh fountain_sparkling
+
+你看着喷泉中自己[泛着微光|闪闪发亮]的倒影，看到的是一个自豪的兽人。
+%%%%
+Cheibriados fountain_sparkling
+
+你对这喷泉神秘而毫无节律的水流短暂地表示不赞同。
+%%%%
+Cheibriados peaceful dry_fountain
+
+你对着空喷泉那份安然的静谧短暂地陷入沉思。
+%%%%
+Dithmenos fountain_blood
+
+你对这座喷泉过分夸张的煽情做派嗤之以鼻。
+%%%%
+Elyvilon peaceful fountain_blue
+
+你赞许这处饮水喷泉的纯净与实用。
+
+@default peaceful fountain_blue@
+%%%%
+Fedhas peaceful fountain_blue
+
+你短暂地观察喷泉边缘上的藻类。它们看起来很健康。
+%%%%
+Fedhas peaceful fountain_sparkling
+
+你短暂地观察喷泉边缘上的藻类。它们也闪着微光回应你。
+%%%%
+Fedhas peaceful fountain_blood
+
+你短暂地观察喷泉边缘上的霉菌。它似乎……令人担忧。
+%%%%
+Fedhas peaceful fountain_eyes
+
+你短暂地观察喷泉边缘上的霉菌。它或许也在观察你。
+%%%%
+Gozag peaceful fountain_blue
+
+你在喷泉里寻找硬币，但它们都太不值钱，不值得费心。
+%%%%
+Gozag peaceful fountain_sparkling
+
+@Gozag peaceful fountain_blue@
+%%%%
+Gozag fountain_blood
+
+w:2
+你想到维护这座喷泉所需的巨额开销，不禁一缩。
+
+@default fountain_blood@
+%%%%
+Hepliaklqana fountain_blue
+
+喷泉的涟漪搅动了遥远而短暂的记忆。
+%%%%
+Hepliaklqana dry_fountain
+
+你发誓绝不让自己被遗忘，就如同建造这座喷泉的人已被遗忘。
+%%%%
+Hepliaklqana peaceful fountain_blood
+
+你为血流入这座喷泉的那个存在默哀片刻。
+%%%%
+Ignis fountain_blue
+
+喷泉的水在你面前轻轻滋响。
+
+w:1
+将熄的火焰在喷泉的倒影中恐惧地摇曳。
+%%%%
+Ignis fountain_sparkling
+
+泛光的喷泉之水在你面前轻轻滋响。
+
+w:1
+将熄的火焰在泛光喷泉的倒影中恐惧地摇曳。
+%%%%
+Ignis fountain_blood
+
+喷泉的血在你面前短暂地沸腾起来。
+%%%%
+Jiyva peaceful fountain_blue
+
+你驻足欣赏缓缓爬满喷泉边缘的黏液。
+%%%%
+Jiyva fountain_eyes
+
+你的基因本能地试图与喷泉上的眼睛交流，但失败了。
+
+喷泉上的几只眼睛短暂地变成了困惑的金色色调。
+%%%%
+Kikubaaqudgha peaceful dry_fountain
+
+你沉思着整个世界与这座喷泉同命运的那一天。
+%%%%
+Lugonu peaceful fountain_eyes
+
+你沉思着卢格努的承诺：将整个现实扭曲得如这座喷泉一般彻底。
+%%%%
+Makhleb peaceful fountain_blood
+
+你驻足欣赏流经这座喷泉的血量。
+
+你短暂地沉浸在在这座喷泉中沐浴的念头里。
+
+你用喷泉的血为自己施涂油礼。
+
+你带着仪式般的狂热，短暂地在喷泉中清洗@your_weapon@。
+%%%%
+Nemelex Xobeh peaceful fountain_blue
+
+你往喷泉里投下一枚古老的钱币，以求多一分好运。
+%%%%
+Nemelex Xobeh peaceful fountain_sparkling
+
+你往喷泉里投下一枚古老的钱币，以求多一分华丽的好运。
+%%%%
+Okawaru peaceful fountain_blue
+
+你以练就的严谨短暂地清洗了@your_weapon@。
+%%%%
+Qazlal peaceful fountain_blue
+
+w:5
+你对这种试图约束不可控元素的举动嗤之以鼻。
+
+@Qazlal fountain_blue@
+%%%%
+Qazlal fountain_blue
+
+喷泉在风暴中翻滚涌动。
+%%%%
+Qazlal fountain_sparkling
+
+喷泉在风暴中剧烈地翻滚涌动。
+%%%%
+Qazlal fountain_blood
+
+喷泉的血在风暴中翻滚涌动。
+%%%%
+Ru peaceful fountain_blue
+
+喷泉中的水映照着世界，而世界本身也不过是一种映照。
+%%%%
+Ru peaceful fountain_eyes
+
+w:2
+喷泉上的眼睛和任何其他物质一样，都看不到真相。
+
+@default fountain_eyes@
+%%%%
+Sif Muna peaceful fountain_sparkling
+
+你费力地想分辨出喷泉中那多种被稀释的药水。
+%%%%
+Sif Muna peaceful fountain_blood
+
+你费力地想辨明这座喷泉所用的是何种生物的血。
+%%%%
+Sif Muna peaceful fountain_eyes
+
+你随意地辨认出喷泉中生长着的至少[五种|六种]眼睛。
+%%%%
+Trog peaceful fountain_blue
+
+{{
+if you.transform() == "wisp" then return "你喷泉中的倒影因无声的狂怒而扭动。"
+elseif you.transform() == "fungus" then return "你停下来拧出一些菌丝里的血。"
+else return "你停下来洗掉脸上的血。" end
+}}
+%%%%
+Uskayaw peaceful fountain_blue
+
+# TODO: 与“佐姆即兴之舞”合并？
+你在水中即兴起舞，舞了短短一曲，宛如古代的泉中仙女。
+%%%%
+Uskayaw fountain_blood
+
+血之喷泉脉动着生与死的欢快节律。
+%%%%
+Vehumet fountain_blood
+
+你感知到这座喷泉中蛰伏着强大的毁灭之力。
+%%%%
+Wu Jian peaceful fountain_blue
+
+你短暂地沉思着，人需要像这座喷泉的水一样流动。
+
+w:5
+喷泉很平静。水轻轻地滴流。此处可觅宁静。
+%%%%
+Xom fountain_blue
+
+无害的蝴蝶鱼从喷泉里盯着你。
+
+w:1
+有那么短暂的一瞬，你以为自己看到佐姆在这座喷泉里召唤了一条鳗鱼。
+
+w:1
+有那么可怕的一瞬，你确信佐姆在这座喷泉里召唤了一头海妖。
+%%%%
+Xom fountain_sparkling
+
+闪着微光、无害的蝴蝶鱼从喷泉里怒视着你。
+
+w:1
+有那么短暂的一瞬，你确信佐姆在这里召唤出了一只无形的水母。
+%%%%
+Xom fountain_blood
+
+无害的吸血蝴蝶鱼从喷泉里怒视着你。
+
+w:1
+有那么可怕的一瞬，你确信佐姆在这座喷泉里放进了一头吸血海妖。
+%%%%
+Yredelemnul fountain_blue
+
+喷泉边缘上的一只死去的微小[蚊子|飞蛾]在你的阴翳下短暂地抽动了一下。
+%%%%
+Yredelemnul fountain_sparkling
+
+@Yredelemnul fountain_blue@
+%%%%
+Yredelemnul fountain_blood
+
+你认定这座喷泉里的血对你的收获毫无用处，不予理会。
+%%%%
+Zin fountain_sparkling
+
+你移开视线，不去看喷泉光芒中散碎的魔法。
+%%%%
+Zin fountain_eyes
+
+你移开视线，不去看喷泉里聚集的不洁之眼。
+%%%%
+The Shining One fountain_blood
+
+你默默发誓，要为那些为这座喷泉流尽鲜血的可怜生灵复仇。
+########################## 食物储藏 ######################################
+%%%%
+fruit cache
+
+你伸手拿起@_fruit_and_reaction_@
+%%%%
+meat cache
+
+你伸手拿起@_meat_and_reaction_@
+%%%%
+baked goods cache
+
+你伸手拿起@_baked_good_and_reaction_@
+%%%%
+_fruit_and_reaction_
+
+# 旧世界的果实。
+
+一枚苹果，清脆爽口。
+
+一枚杏，美味。
+
+一根香蕉，美味。
+
+一个佛手瓜，寡淡。
+
+一些葡萄，美味。
+
+一些荔枝，清甜。
+
+一枚橙子，美味。
+
+一些红毛丹，美味。
+
+一些草莓，美味。
+
+一根史努兹黄瓜，腐臭扑鼻！
+
+# 其他果实。
+
+一枚番茄，咸香。
+
+一枚番荔枝，酸甜！
+
+一枚芒果，好吃。
+
+一枚罗望子，多汁！
+%%%%
+_meat_and_reaction_
+
+# 尽量选用地牢里的动物。
+
+一条熏鳗鱼，咸香！
+
+一根牦牛香肠，美味。
+
+一只腌猪肘，咸。
+
+一些蝰蛇肉干，美味。
+
+一片魔法保鲜的辣香肠披萨，美味。
+
+w:6
+一些熏蜗牛，美味。
+
+w:6
+一些死亡牦牛肚包，美味。
+
+w:6
+一些鳄鱼肉干，美味。
+
+w:6
+一些腌制幻梦羊肉，如梦似幻。
+
+w:6
+一片魔法保鲜的魔窟披萨，美味绝伦。
+
+w:2
+一只糖衣蝎子，嘎嘣脆。
+
+w:2
+一根腌海妖触手，令人惊叹！
+
+w:2
+一只腌地狱猪肘，辛辣！
+
+w:2
+一些伯劳鸟油封肉，酸爽！
+
+w:2
+一枚百年九头蛇蛋，得慢慢才能品出滋味。
+%%%%
+_baked_good_and_reaction_
+
+# 总的来说，这些大多是在拼凑旧日的偏好，好让 Crawl 的
+# 世界氛围平均往回推上几百年；但很多食谱书的记载也只能追溯到那么早，
+# 而且这里的大部分也至少有一百年的历史了。
+# 在大多数语境下这样处理应该没问题，不过最好还是尽量保持
+# 原产国方面的前后一致。
+w:24
+树精[面包|果馅饼|岩烤小包|司康饼|饼干|硬饼干]，美味。
+
+# 分布极广的选择，以对应兽人各种不同的出身。
+w:14
+兽人[馅饼|蛋挞|海绵蛋糕]，可口。
+
+w:14
+精灵[奶油酥饼|黑麦面包卷]，精致。
+
+鱼人[果仁蜜饼|节日面包]，奢靡。
+
+一张包馅的纳迦抛饼，惊艳绝伦。
+
+# 最好能找到长条面包更早期的法语名称……
+一根龙人法棍，扎实暖胃。
+
+w:6
+[矮人|狗头人|狗头人]椒盐卷饼，美味极了。
+
+w:6
+一份佛手瓜蛋糕，比预想的要不寡淡！
+
+w:2
+[巨魔式|巨人式|巨人式][维滕贝格酸面包|挪威粗面包]，咸香。
+
+w:2
+一些天狗红豆面包，令人愉悦。
+
+w:2
+一些食尸鬼酸面团面包，味道古怪。
+
+w:2
+一些宝库守卫的备用口粮，很顶饱。
+
+w:2
+一个出奇新鲜的马戏团馅饼，令人欢笑。
+
+w:2
+一些星花酱饼干，味道令人不安。
+########################## 共同饮食 ######################################
+%%%%
+carnivore fruit cache
+
+你看了看那堆水果，耸了耸肩。
+%%%%
+carnivore baked goods cache
+
+# 没错，狗头人当然会做蛋糕三明治。
+你看了看那堆食物，做了个肉三明治，用的是@_baked_good_and_reaction_@
+%%%%
+short fruit cache
+
+你翻找一阵，拿起@_fruit_and_reaction_@
+%%%%
+short meat cache
+
+你翻找一阵，拿起@_meat_and_reaction_@
+%%%%
+short baked goods cache
+
+你翻找一阵，拿起@_baked_good_and_reaction_@
+%%%%
+stone fruit cache
+
+你将其捣碎磨细，咽下@_fruit_and_reaction_@
+%%%%
+stone meat cache
+
+你将其捣碎磨细，咽下@_meat_and_reaction_@
+%%%%
+stone baked goods cache
+
+你将其研磨成粉，吞下@_baked_good_and_reaction_@
+%%%%
+inediate fruit cache
+
+你对着那堆水果呆望片刻，叹了口气。
+%%%%
+inediate meat cache
+
+你对着那堆肉呆望片刻，叹了口气。
+%%%%
+inediate baked goods cache
+
+你对着那堆面点呆望片刻，叹了口气。
+########################## 种族饮食 ######################################
+%%%%
+draconian fruit cache
+
+你伸手拿起@_fruit_and_reaction_@
+
+w:1
+你伸手拿起一枚火龙果。你隐约觉得有些不自在。
+%%%%
+felid fruit cache
+
+# 猫尝不出甜味，能安全吃下的水果也没几种。
+你把一枚苹果切成小块，小口啃食。寡淡。
+
+你把一根香蕉切成小块，小口啃食。寡淡。
+
+你挑出一些浆果，小口啃食。寡淡。
+%%%%
+felid meat cache
+
+你小口啃食@_meat_and_reaction_@
+%%%%
+felid baked goods cache
+
+你小口啃食@_baked_good_and_reaction_@
+%%%%
+gargoyle fruit cache
+
+@stone fruit cache@
+%%%%
+gargoyle meat cache
+
+@stone meat cache@
+%%%%
+gargoyle baked goods cache
+
+@stone baked goods cache@
+%%%%
+kobold fruit cache
+
+@carnivore fruit cache@
+%%%%
+kobold meat cache
+
+@short meat cache@
+%%%%
+kobold baked goods cache
+
+@carnivore baked goods cache@
+%%%%
+mummy fruit cache
+
+@inediate fruit cache@
+%%%%
+mummy meat cache
+
+@inediate meat cache@
+%%%%
+mummy baked goods cache
+
+@inediate baked goods cache@
+%%%%
+oni fruit cache
+
+你伸手抓起@_fruit_and_reaction_@ 你又去拿了一份。
+%%%%
+oni baked goods cache
+
+你伸手抓起@_baked_good_and_reaction_@ 你又去拿了一份。
+%%%%
+poltergeist fruit cache
+
+@inediate fruit cache@
+%%%%
+poltergeist meat cache
+
+@inediate meat cache@
+%%%%
+poltergeist baked goods cache
+
+@inediate baked goods cache@
+%%%%
+revenant fruit cache
+
+@inediate fruit cache@
+%%%%
+revenant meat cache
+
+@inediate meat cache@
+%%%%
+revenant baked goods cache
+
+@inediate baked goods cache@
+%%%%
+spriggan fruit cache
+
+@short fruit cache@
+%%%%
+spriggan meat cache
+
+你翻找一阵，想找披萨，却一无所获。
+
+w:4
+你找到一片魔法保鲜的披萨，把上面的肉挑了下来。真美味！
+%%%%
+spriggan baked goods cache
+
+你翻找一阵，兴致勃勃地享用@_baked_good_and_reaction_@
+%%%%
+tengu baked goods cache
+
+你伸头啄食@_baked_good_and_reaction_@
+%%%%
+troll fruit cache
+
+@oni fruit cache@
+%%%%
+troll baked goods cache
+
+@oni baked goods cache@
+########################## 形态饮食 ######################################
+# TODO: 菌菇、鬼火的消息？
+%%%%
+amphisbaena fruit cache
+
+你张开其中一张嘴，吞下@_fruit_and_reaction_@
+%%%%
+amphisbaena meat cache
+
+你张开其中一张嘴，吞下@_meat_and_reaction_@
+%%%%
+amphisbaena baked goods cache
+
+你张开的其中一张嘴，吞下@_baked_good_and_reaction_@
+%%%%
+bat fruit cache
+
+你吸溜一声吸入@_fruit_and_reaction_@
+%%%%
+bat baked goods cache
+
+你俯冲而下，小口啃食@_baked_good_and_reaction_@
+%%%%
+blade fruit cache
+
+你试着用刀刃去夹水果，但失败了！
+
+w:4
+你用双手当筷子，斯文地品尝@_fruit_and_reaction_@
+%%%%
+blade meat cache
+
+你试着用刀刃去夹肉，但失败了！
+
+你用刀刃串起来品尝@_meat_and_reaction_@
+%%%%
+death fruit cache
+
+@inediate fruit cache@
+%%%%
+death meat cache
+
+@inediate meat cache@
+%%%%
+death baked goods cache
+
+@inediate baked goods cache@
+%%%%
+dragon fruit cache
+
+你狼吞虎咽地吃下@_fruit_and_reaction_@
+
+w:1
+你狼吞虎咽地吃下一枚火龙果。你隐约觉得有些不自在。
+%%%%
+maw fruit cache
+
+# 芝诺的二分法大概没问题，除非我们决定让食物在若干条消息后
+# 就必定消失……
+你吞掉了半堆水果！但这还不够。
+%%%%
+maw meat cache
+
+你吞掉了半堆肉！但这还不够。
+%%%%
+maw baked goods cache
+
+你吞掉了半堆面点！但这还不够。
+%%%%
+pig fruit cache
+
+@short fruit cache@
+%%%%
+pig meat cache
+
+@short meat cache@
+%%%%
+pig baked goods cache
+
+@short baked goods cache@
+%%%%
+statue fruit cache
+
+@stone fruit cache@
+%%%%
+statue meat cache
+
+@stone meat cache@
+%%%%
+statue baked goods cache
+
+@stone baked goods cache@
+%%%%
+storm fruit cache
+
+你伸手电解@_fruit_and_reaction_@
+%%%%
+storm meat cache
+
+你伸手电解@_meat_and_reaction_@
+%%%%
+tree fruit cache
+
+@short fruit cache@
+%%%%
+tree meat cache
+
+@short meat cache@
+%%%%
+tree baked goods cache
+
+@short baked goods cache@
+%%%%
+vampire fruit cache
+
+你翻找一阵，想找血橙，却一无所获。
+
+w:4
+你伸手找到了一枚血橙。美味。
+%%%%
+vampire baked goods cache
+
+你伸手拿起@_baked_good_and_reaction_@ 不过可惜，填不饱肚子。

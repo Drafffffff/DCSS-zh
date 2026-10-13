@@ -1,0 +1,11 @@
+#pragma once
+
+enum constrict_type
+{
+    CONSTRICT_NONE,
+    CONSTRICT_MELEE,
+    CONSTRICT_BVC,
+    CONSTRICT_ROOTS,
+    CONSTRICT_ENTANGLE,
+    NUM_CONSTRICT_TYPES
+};

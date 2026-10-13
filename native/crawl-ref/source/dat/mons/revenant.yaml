@@ -1,0 +1,18 @@
+name: "revenant"
+glyph: {char: "z", colour: magenta}
+flags: [see_invis, speaks]
+resists: {cold: 1}
+exp: 200
+holiness: [undead]
+will: invuln
+attacks:
+ - {type: claw, damage: 14}
+hd: 6
+hp_10x: 360
+ac: 4
+ev: 10
+shout: shout
+intelligence: human
+uses: open_doors
+size: medium
+shape: humanoid

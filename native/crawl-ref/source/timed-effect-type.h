@@ -1,0 +1,33 @@
+#pragma once
+
+#include "tag-version.h"
+
+enum timed_effect_type
+{
+    TIMER_CORPSES,
+#if TAG_MAJOR_VERSION == 34
+    TIMER_HELL_EFFECTS,
+    TIMER_SICKNESS,
+#endif
+    TIMER_CONTAM,
+#if TAG_MAJOR_VERSION == 34
+    TIMER_DETERIORATION,
+#endif
+    TIMER_GOD_EFFECTS,
+#if TAG_MAJOR_VERSION == 34
+    TIMER_SCREAM,
+    TIMER_FOOD_ROT,
+#endif
+    TIMER_PRACTICE,
+#if TAG_MAJOR_VERSION == 34
+    TIMER_LABYRINTH,
+#endif
+    TIMER_ABYSS_SPEED,
+    TIMER_JIYVA,
+    TIMER_EVOLUTION,
+#if TAG_MAJOR_VERSION == 34
+    TIMER_BRIBE_TIMEOUT,
+#endif
+    TIMER_BANE_TRIGGER,
+    NUM_TIMERS,
+};

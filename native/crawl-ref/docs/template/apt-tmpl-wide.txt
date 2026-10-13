@@ -1,0 +1,55 @@
+TABLES OF APTITUDES
+
+The following three tables describe all aptitudes of the various species
+for the various skills. Knowledge, neither explicit nor implicit, of these
+are not necessary for winning in Crawl. The qualitative information behind
+this sheet (i.e., which species are good at which tasks) can be obtained in
+two other ways:
+- Read the species section in the manual about strengths and weaknesses.
+- Look at which combinations of species and background are recommended.
+
+ --  no aptitude (cannot learn this skill at all)
+ -5  abysmal aptitude
+ -4  terrible aptitude (learning half as fast as at 0 aptitude)
+ -3  very poor aptitude
+ -2  poor aptitude
+ -1  slightly disfavoured aptitude
+  0  standard aptitude
+ +1  slightly favoured aptitude
+ +2  strong aptitude
+ +3  very strong aptitude
+ +4  outstanding aptitude (learning twice as fast as at 0 aptitude)
+ +5  exceptional aptitude
+
+There are four special values: HP, MP, Experience and Willpower.
+- The HP value indicates the percentage of hit points gained per experience
+  level, 100% being the Human standard.
+- The MP value indicates a fixed additive modifier to magic points.
+- The Experience value indicates how much experience has to be earned in
+  order to gain a new experience level, +0 being the Human standard. These
+  values use the same scale as the skill aptitudes.
+- The Willpower value indicates resistance to many magical effects per
+  experience level, +3 being the Human standard.
+
+The abbreviations used for the skills are:
+
+General skills, Experience   Melee and Ranged Combat     Spellcasting and Magic
+--------------------------   -----------------------     ----------------------
+Arm - Armour                 Fgt - Fighting              Spc - Spellcasting
+Ddg - Dodging                                            Coj - Conjurations
+Sth - Stealth                M&F - Maces & Flails        Hex - Hexes
+Shd - Shields                Axs - Axes                  Sum - Summonings
+Shp - Shapeshifting          Pla - Polearms              Nec - Necromancy
+                             Stv - Staves                Frg - Forgecraft
+Inv - Invocations            UC  - Unarmed Combat        Trl - Translocations
+Evo - Evocations                                         Fir - Fire Magic
+Thr - Throwing               SBl - Short Blades          Ice - Ice Magic
+                             LBl - Long Blades           Air - Air Magic
+HP  - hit points             Rng - Ranged Weapons        Ear - Earth Magic
+MP  - magic points                                       Alc - Alchemy
+Exp - experience
+WL  - willpower
+
+
+                 Arm Ddg Sth Shd Shp   Inv Evo Thr   HP  MP Exp  WL   Fgt M&F Axs Pla Stv UC SBl LBl Rng   Spc Coj Hex Sum Nec Frg Trl   Fir Ice Air Ear Alc
+------------------------------------------------------------------------------------------------------------------------------------------------------------

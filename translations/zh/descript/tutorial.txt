@@ -1,0 +1,9 @@
+%%%%
+tutorial4 spellquivering
+
+法术和弹药一样，会显示在弹药槽中，所以你可以用
+<input>$cmd[CMD_QUIVER_ITEM]</input>把一道法术预备到弹药槽里。
+使用<input>$cmd[CMD_FIRE]</input>或<input>shift-tab</input>发射当前预备的法术。
+
+一旦魔力用尽，就撤退并休息，用<input>$cmd[CMD_REST]</input><localtiles>
+或<input>点击</input>命令栏中的休息图标</localtiles>来回复它们。

@@ -1,0 +1,90 @@
+[
+  {
+    "id": "b47835779bd93840",
+    "en": "This %s falls into the '%s' category. ",
+    "locations": [
+      "describe.cc assembled prose"
+    ],
+    "context": "Player-visible equipment description. Preserve printf parameters in original semantic order, preserve tags and whitespace. First %s in category sentence is weapon type; second is skill category. Handed sentence %s is one or two."
+  },
+  {
+    "id": "9ac5a73306ffcae1",
+    "en": "It is a %s-handed weapon.",
+    "locations": [
+      "describe.cc assembled prose"
+    ],
+    "context": "Player-visible equipment description. Preserve printf parameters in original semantic order, preserve tags and whitespace. First %s in category sentence is weapon type; second is skill category. Handed sentence %s is one or two."
+  },
+  {
+    "id": "8c22e160dc96fcdf",
+    "en": "If you %s this %s:",
+    "locations": [
+      "describe.cc assembled prose"
+    ],
+    "context": "Player-visible equipment description. Preserve printf parameters in original semantic order, preserve tags and whitespace. First %s in category sentence is weapon type; second is skill category. Handed sentence %s is one or two."
+  },
+  {
+    "id": "fd7d626cf17232fd",
+    "en": "If you switch to %s this %s:",
+    "locations": [
+      "describe.cc assembled prose"
+    ],
+    "context": "Player-visible equipment description. Preserve printf parameters in original semantic order, preserve tags and whitespace. First %s in category sentence is weapon type; second is skill category. Handed sentence %s is one or two."
+  },
+  {
+    "id": "c2dd6cc84c0fdc67",
+    "en": "Your AC would %s.",
+    "locations": [
+      "describe.cc assembled prose"
+    ],
+    "context": "Player-visible equipment description. Preserve printf parameters in original semantic order, preserve tags and whitespace. First %s in category sentence is weapon type; second is skill category. Handed sentence %s is one or two."
+  },
+  {
+    "id": "bb929085f8d8aa24",
+    "en": "Your EV would %s.",
+    "locations": [
+      "describe.cc assembled prose"
+    ],
+    "context": "Player-visible equipment description. Preserve printf parameters in original semantic order, preserve tags and whitespace. First %s in category sentence is weapon type; second is skill category. Handed sentence %s is one or two."
+  },
+  {
+    "id": "1eff337f4bc532f5",
+    "en": "Your SH would %s.",
+    "locations": [
+      "describe.cc assembled prose"
+    ],
+    "context": "Player-visible equipment description. Preserve printf parameters in original semantic order, preserve tags and whitespace. First %s in category sentence is weapon type; second is skill category. Handed sentence %s is one or two."
+  },
+  {
+    "id": "380cd794dfed03d6",
+    "en": "decrease by %d.%d (%d.%d -> %d.%d)",
+    "locations": [
+      "describe.cc assembled prose"
+    ],
+    "context": "Player-visible equipment description. Preserve printf parameters in original semantic order, preserve tags and whitespace. First %s in category sentence is weapon type; second is skill category. Handed sentence %s is one or two."
+  },
+  {
+    "id": "0431b632143ba995",
+    "en": "increase by %d.%d (%d.%d -> %d.%d)",
+    "locations": [
+      "describe.cc assembled prose"
+    ],
+    "context": "Player-visible equipment description. Preserve printf parameters in original semantic order, preserve tags and whitespace. First %s in category sentence is weapon type; second is skill category. Handed sentence %s is one or two."
+  },
+  {
+    "id": "50ea51c4274d9f66",
+    "en": "remain unchanged",
+    "locations": [
+      "describe.cc assembled prose"
+    ],
+    "context": "Player-visible equipment description. Preserve printf parameters in original semantic order, preserve tags and whitespace. First %s in category sentence is weapon type; second is skill category. Handed sentence %s is one or two."
+  },
+  {
+    "id": "d58a86a3b33c9550",
+    "en": "Your skill: %d.%d; use <white>(s)</white> to set %d.%d as a target for %s.",
+    "locations": [
+      "describe.cc assembled prose"
+    ],
+    "context": "Player-visible equipment description. Preserve printf parameters in original semantic order, preserve tags and whitespace. First %s in category sentence is weapon type; second is skill category. Handed sentence %s is one or two."
+  }
+]

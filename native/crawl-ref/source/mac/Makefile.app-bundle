@@ -1,0 +1,111 @@
+# [ds] We all knew make's handling of embedded spaces is demented, but
+# I had no idea just how demented it is.
+
+CRAWL_BASE=$(CURDIR)/../..
+CRAWL_SRC=$(CRAWL_BASE)/source
+
+ZIP_QUALIFIER :=
+ZIP_ARCH :=
+
+ifdef BUILD_OLD_UNIVERSAL
+ZIP_ARCH := -universal
+endif
+
+ifdef BUILD_UNIVERSAL
+CRAWL_BIN=crawl-universal
+ZIP_ARCH := -universal
+else
+CRAWL_BIN=crawl
+endif
+
+# XX why doesn't this check for TILES?
+APP_NAME := Dungeon Crawl Stone Soup
+ifneq (,$(findstring tiles,$(MAKECMDGOALS)))
+BUNDLE_NAME := Dungeon\ Crawl\ Stone\ Soup\ -\ Tiles
+TILE_APP := y
+ZIP_QUALIFIER := -tiles
+else
+BUNDLE_NAME := Dungeon\ Crawl\ Stone\ Soup\ -\ Console
+ZIP_QUALIFIER := -console
+endif
+EXECUTABLE_PATH := $(CRAWL_SRC)/$(CRAWL_BIN)
+
+ZIP_NAME = stone_soup-$(SRC_VERSION)$(ZIP_QUALIFIER)-macosx$(ZIP_ARCH).zip
+
+STAGING_DIR := $(CRAWL_SRC)/build/app-bundle-stage
+ZIPPED_APP_DIR := $(CRAWL_SRC)/mac-app-zips
+BUNDLE_DIRNAME := $(STAGING_DIR)/$(BUNDLE_NAME).app
+RESOURCES := $(BUNDLE_DIRNAME)/Contents/Resources
+
+.PHONY: all clean clean-stage stage-dir copy-executable copy-resources \
+	copy-tiledata assemble-app-bundle create-bundle-directory
+
+all: $(STAGING_DIR) $(ZIPPED_APP_DIR) \
+	clean-stage assemble-app-bundle zip-app-bundle
+
+clean:
+	rm -rf $(CRAWL_SRC)/build
+
+tiles: all
+
+$(STAGING_DIR):
+	mkdir -p $@
+
+$(ZIPPED_APP_DIR):
+	mkdir -p $@
+
+clean-stage:
+	rm -rf $(STAGING_DIR)/*
+
+assemble-app-bundle: create-bundle-directory copy-executable copy-resources \
+		     copy-info-plist
+
+zip-app-bundle:
+	rm -f $(ZIPPED_APP_DIR)/$(ZIP_NAME)
+	cd $(STAGING_DIR) && \
+		zip -9r $(ZIPPED_APP_DIR)/$(ZIP_NAME) $(BUNDLE_NAME).app
+	cd $(STAGING_DIR) && \
+		if which advzip >/dev/null;then advzip -z3 $(ZIPPED_APP_DIR)/$(ZIP_NAME);fi
+	ln -sf $(ZIPPED_APP_DIR)/$(ZIP_NAME) $(ZIPPED_APP_DIR)/latest.zip
+
+create-bundle-directory: $(BUNDLE_DIRNAME)
+
+$(BUNDLE_DIRNAME):
+	mkdir -p "$@"/Contents/{MacOS/contrib,Resources}
+
+# The console Crawl bundle has a shell script launcher that uses the
+# real executable from Contents/Resources, so an extra copy for the wrapper+
+# real thing.
+copy-executable:
+ifdef TILE_APP
+	cp $(EXECUTABLE_PATH) $(BUNDLE_DIRNAME)/Contents/MacOS/$(BUNDLE_NAME)
+else
+	# normalize the binary name for universal vs non-universal builds
+	cp $(EXECUTABLE_PATH) $(RESOURCES)/crawl
+	cp ./crawl $(BUNDLE_DIRNAME)/Contents/MacOS/$(BUNDLE_NAME)
+endif
+
+copy-resources:
+ifdef TILE_APP
+	cp -r $(CRAWL_SRC)/contrib/fonts $(BUNDLE_DIRNAME)/Contents/MacOS/contrib
+endif
+	cp $(CRAWL_SRC)/dat/tiles/stone_soup_icon.icns $(RESOURCES)/Crawl.icns
+	cp -r $(CRAWL_BASE)/settings $(RESOURCES)
+	cp -r $(CRAWL_SRC)/dat $(RESOURCES)
+	cp -r $(CRAWL_BASE)/docs $(RESOURCES)
+	cp $(CRAWL_BASE)/../LICENSE $(RESOURCES)/LICENSE.txt
+	cp $(CRAWL_BASE)/CREDITS.txt $(RESOURCES)
+	rm -rf $(RESOURCES)/docs/obsolete
+	rm -rf $(RESOURCES)/docs/template
+	rm -f $(RESOURCES)/docs/*.html
+	rm -f $(RESOURCES)/docs/*.pdf
+	rm -f $(RESOURCES)/docs/*.rst
+	rm -f $(RESOURCES)/docs/crawl.6
+	rm -f $(RESOURCES)/*.png
+
+copy-info-plist:
+	perl -lpe "s/%VERSION%/$(SRC_VERSION)/g;" \
+	     -e "s/%NAME%/$(APP_NAME)/g;" \
+	     -e "s/%YEAR%/(localtime)[5] + 1900/ge;" \
+	     -e "s/%EXECUTABLE%/$(BUNDLE_NAME)/g;" \
+	     Crawl-Info.plist >$(BUNDLE_DIRNAME)/Contents/Info.plist

@@ -1,0 +1,199 @@
+%prefix TILEI
+%name icons
+%startvalue TILEG_GUI_MAX gui
+
+%back none
+
+%sdir misc
+effect/net_trap TRAP_NET
+mask_deep_water MASK_DEEP_WATER
+mask_shallow_water MASK_SHALLOW_WATER
+mask_deep_water_murky MASK_DEEP_WATER_MURKY
+mask_shallow_water_murky MASK_SHALLOW_WATER_MURKY
+mask_deep_water_shoals MASK_DEEP_WATER_SHOALS
+mask_shallow_water_shoals MASK_SHALLOW_WATER_SHOALS
+mask_lava MASK_LAVA
+cursor CURSOR
+cursor_red CURSOR2
+cursor_green CURSOR3
+tutorial_cursor TUTORIAL_CURSOR
+travel_exclusion DISABLED
+rampage_indicator RAMPAGE
+%sdir dngn/traps
+%alpha 128
+cobweb_none_0 TRAP_WEB
+%resetcol
+%rim 0
+%sdir misc/icons
+friendly FRIENDLY
+good_neutral GOOD_NEUTRAL
+neutral NEUTRAL
+animated_weapon ANIMATED_WEAPON
+summoned SUMMONED
+unrewarding UNREWARDING
+minion MINION
+poison POISON
+poison_more MORE_POISON
+poison_max MAX_POISON
+sticky_flame STICKY_FLAME
+inner_flame INNER_FLAME
+constricted CONSTRICTED
+berserk BERSERK
+frenzied FRENZIED
+slowed SLOWED
+hasted HASTED
+might MIGHT
+petrifying PETRIFYING
+petrified PETRIFIED
+blind BLIND
+fleeing FLEEING
+unaware UNAWARE
+confused CONFUSED
+sleeping STAB_BRAND
+pain_mirror PAIN_MIRROR
+recall RECALL
+drain DRAIN
+idealised IDEALISED
+bound_soul BOUND_SOUL
+infested INFESTED
+corroded CORRODED
+swift SWIFT
+vile_clutch VILE_CLUTCH
+possessable POSSESSABLE
+slowly_dying SLOWLY_DYING
+fire_champ FIRE_CHAMP
+anguish ANGUISH
+antimagic ANTIMAGIC
+concentrated_poison CONC_VENOM
+dazed DAZED
+fire_vulnerable FIRE_VULN
+injury_bond INJURY_BOND
+partially_charged PARTIALLY_CHARGED
+fully_charged FULLY_CHARGED
+deflect_missiles DEFLECT_MISSILES
+ghostly GHOSTLY
+still_winds STILL_WINDS
+waterlogged WATERLOGGED
+weakened WEAKENED
+teleporting TELEPORTING
+brill BRILLIANCE
+resist RESISTANCE
+malmutated MALMUTATED
+glow_light GLOW_LIGHT
+glow_heavy GLOW_HEAVY
+pain_bond PAIN_BOND
+paralysed PARALYSED
+bullseye BULLSEYE
+vitrified VITRIFIED
+curse_of_agony CURSE_OF_AGONY
+regeneration REGENERATION
+retreat RETREAT
+vengeance VENGEANCE_TARGET
+beogh_touch TOUCH_OF_BEOGH
+rimeblight RIMEBLIGHT
+arms UNDYING_ARMS
+shadowless SHADOWLESS
+bind BIND
+weak_willed WEAK_WILLED
+sign_of_ruin SIGN_OF_RUIN
+doubled_vigour DOUBLED_VIGOUR
+kinetic_grapnel KINETIC_GRAPNEL
+tempered TEMPERED
+heart HEART
+unstable UNSTABLE
+laced_with_chaos LACED_WITH_CHAOS
+vexed VEXED
+vampire_thrall VAMPIRE_THRALL
+enkindled_1 ENKINDLED_1
+enkindled_2 ENKINDLED_2
+nobody_memory_1 NOBODY_MEMORY_1
+nobody_memory_2 NOBODY_MEMORY_2
+nobody_memory_3 NOBODY_MEMORY_3
+pyrrhic PYRRHIC
+magnetised MAGNETISED
+figment FIGMENT
+paradox PARADOX
+warding WARDING
+dim DIMMED
+sentinel_mark SENTINEL_MARK
+strong_willed STRONG_WILLED
+tesseract_spawn TESSERACT_SPAWN
+sundering SUNDERING
+
+something_under SOMETHING_UNDER
+new_stair NEW_STAIR
+new_transporter NEW_TRANSPORTER
+
+ellipsis ELLIPSIS
+
+%sdir misc
+out_of_sight MESH
+out_of_range OOR_MESH
+magicmap MAGIC_MAP_MESH
+travel_exclusion TRAVEL_EXCLUSION_FG
+travel_exclusion_centre TRAVEL_EXCLUSION_CENTRE_FG
+
+%sdir misc/numbers
+num0 NUM0
+num1 NUM1
+num2 NUM2
+num3 NUM3
+num4 NUM4
+num5 NUM5
+num6 NUM6
+num7 NUM7
+num8 NUM8
+num9 NUM9
+
+minus5 NUM_MINUS5
+minus4 NUM_MINUS4
+minus3 NUM_MINUS3
+minus2 NUM_MINUS2
+minus1 NUM_MINUS1
+zero NUM_ZERO
+plus1 NUM_PLUS1
+plus2 NUM_PLUS2
+plus3 NUM_PLUS3
+plus4 NUM_PLUS4
+plus5 NUM_PLUS5
+plus6 NUM_PLUS6
+plus7 NUM_PLUS7
+plus8 NUM_PLUS8
+plus9 NUM_PLUS9
+plus10 NUM_PLUS10
+plus11 NUM_PLUS11
+
+%sdir misc/icons
+demon_pentagram1 DEMON_NUM1
+demon_pentagram2 DEMON_NUM2
+demon_pentagram3 DEMON_NUM3
+demon_pentagram4 DEMON_NUM4
+demon_pentagram5 DEMON_NUM5
+%rim 0
+
+%sdir misc
+ray ITEM_SLOT_SELECTED
+
+mdam_lightly_damaged MDAM_LIGHTLY_DAMAGED
+mdam_moderately_damaged MDAM_MODERATELY_DAMAGED
+mdam_heavily_damaged MDAM_HEAVILY_DAMAGED
+mdam_severely_damaged MDAM_SEVERELY_DAMAGED
+mdam_almost_dead MDAM_ALMOST_DEAD
+
+travel_path_from1 TRAVEL_PATH_FROM
+travel_path_from2
+travel_path_from3
+travel_path_from4
+travel_path_from5
+travel_path_from6
+travel_path_from7
+travel_path_from8
+
+travel_path_to1 TRAVEL_PATH_TO
+travel_path_to2
+travel_path_to3
+travel_path_to4
+travel_path_to5
+travel_path_to6
+travel_path_to7
+travel_path_to8

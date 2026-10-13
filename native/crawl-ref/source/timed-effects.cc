@@ -1,0 +1,1091 @@
+/**
+ * @file
+ * @brief Gametime related functions.
+**/
+
+#include "AppHdr.h"
+
+#include "timed-effects.h"
+
+#include "abyss.h"
+#include "act-iter.h"
+#include "areas.h"
+#include "beam.h"
+#include "cloud.h"
+#include "coordit.h"
+#include "corpse.h"
+#include "database.h"
+#include "delay.h"
+#include "dgn-shoals.h"
+#include "dgn-event.h"
+#include "env.h"
+#include "exercise.h"
+#include "externs.h"
+#include "fprop.h"
+#include "god-abil.h"
+#include "god-passive.h"
+#include "items.h"
+#include "libutil.h"
+#include "mapmark.h"
+#include "message.h"
+#include "mgen-data.h"
+#include "monster.h"
+#include "mon-abil.h"
+#include "mon-behv.h"
+#include "mon-clone.h"
+#include "mon-death.h"
+#include "mon-pathfind.h"
+#include "mon-place.h"
+#include "mon-project.h"
+#include "mutation.h"
+#include "notes.h"
+#include "player.h"
+#include "player-notices.h"
+#include "player-stats.h"
+#include "random.h"
+#include "religion.h"
+#include "skills.h"
+#include "shout.h"
+#include "state.h"
+#include "spl-clouds.h"
+#include "spl-miscast.h"
+#include "stringutil.h"
+#include "tag-version.h"
+#include "teleport.h"
+#include "terrain.h"
+#include "tileview.h"
+#ifdef USE_TILE
+    #include "tile-env.h"
+    #include "tilepick.h"
+#endif
+#include "throw.h"
+#include "travel.h"
+#include "view.h"
+#include "viewchar.h"
+#include "unwind.h"
+
+static void _apply_contam_over_time()
+{
+    int added_contamination = 0;
+
+    // No contam decay within 7 turns of last being contaminated
+    if (you.elapsed_time - you.attribute[ATTR_LAST_CONTAM] <= 70)
+        return;
+
+    added_contamination -= 20;
+
+    // Scaling to turn length
+    added_contamination = div_rand_round(added_contamination * you.time_taken,
+                                         BASELINE_DELAY);
+
+    contaminate_player(added_contamination, false);
+}
+
+// Bad effects from magic contamination.
+static void _magic_contamination_effects()
+{
+    mprf(MSGCH_WARN, "Your body shudders with the violent release "
+                     "of wild energies!");
+
+    const bool severe = you.magic_contamination >= 2000;
+
+    // The chance of exploding scales with contamination severity.
+    // Damage scales with player XL. Explosions at 200%+ contam have increased
+    // radius and damage.
+    if (x_chance_in_y(min(2000, you.magic_contamination), 3200))
+    {
+        bolt beam;
+
+        const int pow = severe ? you.experience_level * 3 / 2
+                               : you.experience_level;
+        zappy(ZAP_CONTAM_EXPLOSION, pow, false, beam);
+
+        beam.source       = you.pos();
+        beam.target       = you.pos();
+        beam.source_id    = MID_YOU_FAULTLESS;
+        beam.aux_source   = "a magical explosion";
+        beam.ex_size      = severe ? 2 : 1;
+
+        // Ignores the player's own AC (it's your body exploding!), but not
+        // enemies.
+        beam.ac_rule = ac_type::none;
+        beam.is_explosion = false;
+        beam.fire();
+
+        beam.damage.num = 4;
+        beam.ac_rule = ac_type::normal;
+        beam.is_explosion = true;
+        beam.explode(true, true);
+    }
+
+    flash_tile(you.pos(), LIGHTBLUE);
+    // We want to warp the player, not do good stuff!
+    mutate(one_chance_in(5) ? RANDOM_MUTATION : RANDOM_BAD_MUTATION,
+           "mutagenic glow");
+
+    contaminate_player(-random_range(200, 400) * (severe ? 2 : 1));
+}
+
+// Checks if the player should be hit with backlash from magic contamination,
+// then actually does so if they should be.
+static void _check_contamination_effects(int /*time_delta*/)
+{
+    // 75% chance of a mishap each time this is checked at yellow contam and
+    // a 100% chance above that.
+    if (you.magic_contamination >= 2000
+        || you.magic_contamination >= 1000 && !one_chance_in(4))
+    {
+        if (is_sanctuary(you.pos()))
+        {
+            mprf(MSGCH_GOD, "Your body momentarily shudders from a surge of wild "
+                            "energies until Zin's power calms it.");
+        }
+        else
+            _magic_contamination_effects();
+    }
+}
+
+// Exercise armour *xor* stealth skill: {dlb}
+static void _wait_practice(int /*time_delta*/)
+{
+    practise_waiting();
+}
+
+// Update the abyss speed. This place is unstable and the speed can
+// fluctuate. It's not a constant increase.
+static void _abyss_speed(int /*time_delta*/)
+{
+    if (!player_in_branch(BRANCH_ABYSS))
+        return;
+
+    if (have_passive(passive_t::slow_abyss) && coinflip())
+        ; // Speed change less often for Chei.
+    else if (coinflip() && you.abyss_speed < 100)
+        ++you.abyss_speed;
+    else if (one_chance_in(5) && you.abyss_speed > 0)
+        --you.abyss_speed;
+}
+
+static void _jiyva_effects(int /*time_delta*/)
+{
+    if (have_passive(passive_t::jellies_army) && one_chance_in(10))
+    {
+        int total_jellies = 1 + random2(5);
+        bool success = false;
+        for (int num_jellies = total_jellies; num_jellies > 0; num_jellies--)
+        {
+            // Spread jellies around the level.
+            coord_def newpos;
+            do
+            {
+                newpos = random_in_bounds();
+            }
+            while (env.grid(newpos) != DNGN_FLOOR
+                       && env.grid(newpos) != DNGN_SHALLOW_WATER
+                   || monster_at(newpos)
+                   || cloud_at(newpos)
+                   || testbits(env.pgrid(newpos), FPROP_NO_JIYVA));
+
+            mgen_data mg(MONS_JELLY, BEH_GOOD_NEUTRAL, newpos);
+            mg.god = GOD_JIYVA;
+            mg.non_actor_summoner = "Jiyva";
+
+            if (create_monster(mg))
+                success = true;
+        }
+
+        if (success && !silenced(you.pos()))
+        {
+            switch (random2(3))
+            {
+                case 0:
+                    simple_god_message(" gurgles merrily.");
+                    break;
+                case 1:
+                    mprf(MSGCH_SOUND, "You hear %s splatter%s.",
+                         total_jellies > 1 ? "a series of" : "a",
+                         total_jellies > 1 ? "s" : "");
+                    break;
+                case 2:
+                    simple_god_message(" says: Divide and consume!");
+                    break;
+            }
+        }
+    }
+
+    if (have_passive(passive_t::jelly_eating) && one_chance_in(25))
+        jiyva_eat_offlevel_items();
+}
+
+static void _evolve(int /*time_delta*/)
+{
+    if (!you.can_safely_mutate())
+        return;
+
+    const bool malignant = you.has_mutation(MUT_DEVOLUTION);
+    if (!malignant && !you.has_mutation(MUT_EVOLUTION))
+        return;
+
+    if (you.attribute[ATTR_EVOL_XP] > 0)
+        return;
+    set_evolution_mut_xp(malignant);
+
+    mpr("You feel a genetic drift.");
+    const mutation_type typ = malignant ? RANDOM_BAD_MUTATION : RANDOM_GOOD_MUTATION;
+    const char* const reason = malignant ? "hidden defects" : "hidden potential";
+    if (!mutate(typ, reason, false, false, false, false, MUTCLASS_NORMAL))
+        return;
+
+    int &muts = you.props[EVOLUTION_MUTS_KEY].get_int();
+    ++muts;
+    if (muts >= 2)
+    {
+        muts -= 2;
+        if (malignant)
+            delete_mutation(MUT_DEVOLUTION, "hidden defects expressed", false);
+        else
+            delete_mutation(MUT_EVOLUTION, "hidden potential expressed", false);
+    }
+    more();
+}
+
+static bool _multiplicity_clone(monster* mon)
+{
+    coord_def spot = find_newmons_square(mon->type, mon->pos(), 1, 2);
+    if (!spot.origin())
+    {
+        bool obviousness; // dummy argument
+        monster *clone = clone_mons(mon, true, &obviousness,
+                                    mon->attitude, spot);
+        if (!clone)
+            return false;
+        clone->foe = mon->foe;
+        // No additional gear from these clones, but you can get XP.
+        clone->mark_summoned(MON_SUMM_MULTIPLICITY);
+        clone->flags |= (MF_NO_REWARD | MF_HARD_RESET);
+        clone->add_ench(mon_enchant(ENCH_FIGMENT, nullptr, INFINITE_DURATION));
+    }
+
+    return true;
+}
+
+static void _maybe_mortality_summon()
+{
+    // Ensure no non-trivial monsters are around
+    for (monster_near_iterator mi(you.pos(), LOS_NO_TRANS); mi; ++mi)
+    {
+        if (!mi->wont_attack() && !mi->is_firewood()
+            && mons_threat_level(**mi, true) > MTHRT_TRIVIAL)
+        {
+            return;
+        }
+    }
+
+    // Summon permaslow reapers at low XL, and scale the number with XL also.
+    const bool slow = you.experience_level < 14;
+    int num = 1;
+    if (slow)
+        num += x_chance_in_y(max(0, you.experience_level - 10), 10);
+    else
+    {
+        num += div_rand_round(max(0, you.experience_level - 17), 10);
+        num += div_rand_round(max(0, you.experience_level - 24), 4);
+    }
+
+    bool created = false;
+    mgen_data mg(MONS_REAPER, BEH_HOSTILE, you.pos(), MHITYOU, MG_AUTOFOE);
+    mg.set_summoned(nullptr, MON_SUMM_MORTALITY);
+    mg.extra_flags |= (MF_NO_REWARD | MF_HARD_RESET);
+    mg.non_actor_summoner = "the Bane of Mortality";
+    mg.set_range(5, you.current_vision, 3);
+
+    for (int i = 0; i < num; ++i)
+    {
+        if (monster* mon = create_monster(mg))
+        {
+            created = true;
+            mon->add_ench(mon_enchant(ENCH_WARDING, nullptr, INFINITE_DURATION));
+            if (slow)
+                mon->add_ench(mon_enchant(ENCH_SLOW, nullptr, INFINITE_DURATION));
+        }
+    }
+
+    if (created)
+    {
+        mprf("Death has come for you....");
+        you.props[MORTALITY_TIME_KEY] = you.elapsed_time + random_range(2250, 4500);
+    }
+}
+
+static void _bane_triggers(int /*time_delta*/)
+{
+    if (you.has_bane(BANE_MULTIPLICITY)
+        && you.elapsed_time > you.props[MULTIPLICITY_TIME_KEY].get_int()
+        && one_chance_in(3))
+    {
+        vector<monster*> to_clone;
+        for (monster_near_iterator mi(you.pos(), LOS_NO_TRANS); mi; ++mi)
+        {
+            if (!mons_aligned(&you, *mi) && !mi->is_summoned()
+                && !mi->is_peripheral() && !mons_is_unique(mi->type)
+                && !mi->has_ench(ENCH_FIGMENT)
+                && !mi->has_spell(SPELL_ILL_OMEN)
+                && !mi->has_attack_flavour(AF_DOOM)
+                && !mons_is_immotile(**mi))
+            {
+                to_clone.push_back(*mi);
+            }
+        }
+
+        if (to_clone.empty())
+            return;
+
+        monster* mon = to_clone[random2(to_clone.size())];
+
+        bool did_clone = false;
+        bool seen = false;
+        const int num = 2 + one_chance_in(3);
+        for (int i = 0; i < num; ++i)
+        {
+            if (_multiplicity_clone(mon))
+            {
+                if (you.can_see(*mon))
+                    seen = true;
+                did_clone = true;
+            }
+        }
+
+        // Apply cooldown.
+        if (did_clone)
+            you.props[MULTIPLICITY_TIME_KEY] = you.elapsed_time + random_range(270, 600);
+
+        if (seen)
+        {
+            flash_tile(mon->pos(), LIGHTBLUE, 150);
+            mprf("%s shimmers and splits apart.", mon->name(DESC_THE).c_str());
+        }
+    }
+
+    if (you.has_bane(BANE_MORTALITY)
+        && you.elapsed_time > you.props[MORTALITY_TIME_KEY].get_int()
+        && you.hp * 10 <= you.hp_max * 4)
+    {
+        _maybe_mortality_summon();
+    }
+}
+
+// Get around C++ dividing integers towards 0.
+static int _div(int num, int denom)
+{
+    div_t res = div(num, denom);
+    return res.rem >= 0 ? res.quot : res.quot - 1;
+}
+
+struct timed_effect
+{
+    void              (*trigger)(int);
+    int               min_time;
+    int               max_time;
+    bool              arena;
+};
+
+// If you add an entry to this list, remember to add a matching entry
+// to timed_effect_type in timed-effect-type.h!
+static struct timed_effect timed_effects[] =
+{
+    { rot_corpses,               200,   200, true  },
+#if TAG_MAJOR_VERSION == 34
+    { nullptr,                         0,     0, false },
+    { nullptr,                         0,     0, false },
+#endif
+    { _check_contamination_effects,  110,   250, false },
+#if TAG_MAJOR_VERSION == 34
+    { nullptr,                         0,     0, false },
+#endif
+    { handle_god_time,               100,   300, false },
+#if TAG_MAJOR_VERSION == 34
+    { nullptr,                                0,     0, false },
+    { nullptr,            0,   0, false },
+#endif
+    { _wait_practice,                100,   300, false },
+#if TAG_MAJOR_VERSION == 34
+    { nullptr,                         0,     0, false },
+#endif
+    { _abyss_speed,                  100,   300, false },
+    { _jiyva_effects,                100,   300, false },
+    { _evolve,                       100,   300, false },
+#if TAG_MAJOR_VERSION == 34
+    { nullptr,                         0,     0, false },
+#endif
+    { _bane_triggers,                 50,   120, false },
+};
+
+// Do various time related actions...
+void handle_time()
+{
+    int base_time = you.elapsed_time % 200;
+    int old_time = base_time - you.time_taken;
+
+    // The checks below assume the function is called at least
+    // once every 50 elapsed time units.
+
+    // Every 5 turns, spawn random monsters
+    if (_div(base_time, 50) > _div(old_time, 50))
+    {
+        spawn_random_monsters();
+        if (player_in_branch(BRANCH_ABYSS))
+        {
+            // Ramp up spawn rate dramatically after Abyss:5.
+            const int chances = you.depth < 5 ? you.depth
+                                              : 5 + (you.depth - 5) * 5;
+            for (int i = 1; i < chances; ++i)
+                if (x_chance_in_y(i, 5))
+                    spawn_random_monsters();
+        }
+
+        notice_queued_monsters();
+    }
+
+    // Abyss maprot.
+    if (!crawl_state.game_is_arena() && player_in_branch(BRANCH_ABYSS))
+        forget_map(true);
+
+    // Magic contamination from spells and Orb.
+    if (!crawl_state.game_is_arena())
+        _apply_contam_over_time();
+
+    for (unsigned int i = 0; i < ARRAYSZ(timed_effects); i++)
+    {
+        if (crawl_state.game_is_arena() && !timed_effects[i].arena)
+            continue;
+
+        if (!timed_effects[i].trigger)
+        {
+            if (you.next_timer_effect[i] < INT_MAX)
+                you.next_timer_effect[i] = INT_MAX;
+            continue;
+        }
+
+        while (you.elapsed_time >= you.next_timer_effect[i])
+        {
+            int time_delta = you.elapsed_time - you.last_timer_effect[i];
+            (timed_effects[i].trigger)(time_delta);
+            you.last_timer_effect[i] = you.next_timer_effect[i];
+            you.next_timer_effect[i] =
+                you.last_timer_effect[i]
+                + random_range(timed_effects[i].min_time,
+                               timed_effects[i].max_time);
+        }
+    }
+}
+
+static void _timeout_enchantment(monster& mon, mon_enchant& ench, int time)
+{
+    if (ench.duration <= time)
+        mon.del_ench(ench.ench, true);
+    else
+    {
+        ench.duration -= time;
+        mon.update_ench(ench);
+    }
+}
+
+/**
+ * Update a monster's enchantments as if a large amount of time had passed.
+ *
+ * This directly subtracts a given amount of time from all enchantments
+ * (without processing any per-tick effects) and then either outright deletes
+ * any enchantments that have expired, or performs a single tick of them (to
+ * handle certain types of end effects) if the player is off-level.
+ *
+ * Used both when the player returns to a floor after being away for a while,
+ * or to 'heal' a variety of effects from monsters avoiding death or being
+ * recalled from another floor.
+ *
+ * @param time  How many aut to simulate passing.
+ */
+void monster::timeout_enchantments(int time)
+{
+    if (enchantments.empty())
+        return;
+
+    mon_enchant_list ec = enchantments;
+    for (auto &entry : ec)
+    {
+        if (entry.second.duration >= INFINITE_DURATION)
+            continue;
+
+        switch (entry.first)
+        {
+        case ENCH_POISON: case ENCH_CORONA: case ENCH_CONTAM:
+        case ENCH_STICKY_FLAME: case ENCH_SUMMON_TIMER:
+        case ENCH_HASTE: case ENCH_MIGHT: case ENCH_FEAR:
+        case ENCH_CHARM: case ENCH_SLEEP_WARY: case ENCH_SICK:
+        case ENCH_PARALYSIS:
+        case ENCH_PETRIFIED: case ENCH_SWIFT: case ENCH_SILENCE:
+        case ENCH_LOWERED_WL: case ENCH_SOUL_RIPE: case ENCH_ANTIMAGIC:
+        case ENCH_REGENERATION: case ENCH_STRONG_WILLED:
+        case ENCH_MIRROR_DAMAGE: case ENCH_LIQUEFYING:
+        case ENCH_SILVER_CORONA: case ENCH_DAZED:
+        case ENCH_BREATH_WEAPON: case ENCH_WRETCHED:
+        case ENCH_SCREAMED: case ENCH_BLIND: case ENCH_WORD_OF_RECALL:
+        case ENCH_INJURY_BOND: case ENCH_FLAYED: case ENCH_BARBS:
+        case ENCH_AGILE: case ENCH_FROZEN: case ENCH_VITRIFIED:
+        case ENCH_SIGN_OF_RUIN: case ENCH_SAP_MAGIC:
+        case ENCH_CORROSION:
+        case ENCH_RESISTANCE: case ENCH_HEXED: case ENCH_IDEALISED:
+        case ENCH_BOUND_SOUL: case ENCH_STILL_WINDS: case ENCH_DRAINED:
+        case ENCH_ANGUISH: case ENCH_FIRE_VULN: case ENCH_SPELL_CHARGED:
+        case ENCH_SLOW: case ENCH_WEAK: case ENCH_EMPOWERED_SPELLS:
+        case ENCH_BOUND: case ENCH_CONCENTRATE_VENOM: case ENCH_TOXIC_RADIANCE:
+        case ENCH_PAIN_BOND: case ENCH_PYRRHIC_RECOLLECTION:
+        case ENCH_CLOCKWORK_BEE_CAST:
+        case ENCH_RIMEBLIGHT: case ENCH_MAGNETISED: case ENCH_TEMPERED:
+        case ENCH_CHAOS_LACE: case ENCH_VEXED: case ENCH_DEEP_SLEEP:
+        case ENCH_DROWSY: case ENCH_PARADOX_TOUCHED: case ENCH_DIMINISHED_SPELLS:
+        case ENCH_ORB_COOLDOWN:
+        case ENCH_ARMED: case ENCH_AWAKEN_FOREST: case ENCH_BLINKITIS:
+        case ENCH_CHANGED_APPEARANCE: case ENCH_CHANNEL_SEARING_RAY:
+        case ENCH_CONSTRICTED: case ENCH_CURSE_OF_AGONY:
+        case ENCH_DIMENSION_ANCHOR: case ENCH_DOUBLED_VIGOUR: case ENCH_DUMB:
+        case ENCH_FLIGHT: case ENCH_HATCHING: case ENCH_INSTANT_CLEAVE:
+        case ENCH_KINETIC_GRAPNEL: case ENCH_MAD: case ENCH_MISDIRECTED:
+        case ENCH_MUTE: case ENCH_PHALANX_BARRIER: case ENCH_POISON_VULN:
+        case ENCH_POLAR_VORTEX: case ENCH_POLAR_VORTEX_COOLDOWN:
+        case ENCH_PORTAL_PACIFIED: case ENCH_PORTAL_TIMER: case ENCH_RECITE_TIMER:
+        case ENCH_DEFLECT_MISSILES: case ENCH_WARDING: case ENCH_FLOODED:
+        case ENCH_INNER_FLAME:
+        case ENCH_ROLLING: case ENCH_MERFOLK_AVATAR_SONG: case ENCH_INFESTATION:
+        case ENCH_HELD: case ENCH_BULLSEYE_TARGET: case ENCH_FATIGUE:
+        case ENCH_TIDE: case ENCH_SLOWLY_DYING:
+            _timeout_enchantment(*this, entry.second, time);
+            break;
+
+        case ENCH_FRENZIED: case ENCH_BERSERK:
+            _timeout_enchantment(*this, entry.second, time);
+            if (has_ench(ENCH_FATIGUE))
+            {
+                // Removing fatigue will also remove slow, if enough time has passed.
+                mon_enchant fatigue = get_ench(ENCH_FATIGUE);
+                _timeout_enchantment(*this, fatigue, time - entry.second.duration);
+            }
+            break;
+
+        case ENCH_PETRIFYING:
+            _timeout_enchantment(*this, entry.second, time);
+            if (has_ench(ENCH_PETRIFIED))
+            {
+                mon_enchant petr = get_ench(ENCH_PETRIFIED);
+                _timeout_enchantment(*this, petr, time - entry.second.duration);
+            }
+            break;
+
+        case ENCH_INVIS:
+            if (!mons_class_flag(type, M_INVIS))
+                _timeout_enchantment(*this, entry.second, time);
+            break;
+
+        case ENCH_CONFUSION:
+            if (!mons_class_flag(type, M_CONFUSED))
+                _timeout_enchantment(*this, entry.second, time);
+            break;
+
+        default:
+            break;
+        }
+
+        if (!alive())
+            break;
+    }
+}
+
+/**
+ * Update the level upon the player's return.
+ *
+ * @param elapsedTime how long the player was away.
+ */
+void update_level(int elapsedTime)
+{
+    ASSERT(!crawl_state.game_is_arena());
+
+    // Simulate up to 10 turns on the floor, then merely update durations and
+    // effects for the remaining time.
+    const int sim_turns = min(10, elapsedTime / 10);
+    elapsedTime -= sim_turns * 10;
+    const int quick_turns = (elapsedTime - (sim_turns * 10)) / 10;
+
+    delete_all_clouds();
+
+    // First, simulate up to 10 turns of monster movement and activity.
+    simulate_time_passing(sim_turns);
+
+    // Then simply time out effects for the remaining time.
+    rot_corpses(elapsedTime);
+    shoals_apply_tides(quick_turns, true);
+    timeout_tombs(elapsedTime);
+    timeout_terrain_changes(elapsedTime);
+
+    if (env.sanctuary_time)
+    {
+        // XX this doesn't guarantee that the final FPROP will be removed?
+        if (quick_turns >= env.sanctuary_time)
+            remove_sanctuary();
+        else
+            env.sanctuary_time -= quick_turns;
+    }
+
+    dungeon_events.fire_event(
+        dgn_event(DET_TURN_ELAPSED, coord_def(0, 0), (sim_turns + quick_turns) * 10));
+
+    for (monster_iterator mi; mi; ++mi)
+        if (!update_monster(**mi, elapsedTime))
+            continue;
+}
+
+/**
+ * Update the monster upon the player's return
+ *
+ * @param mon   The monster to update.
+ * @param time  How many auts since the monster left the player
+ * @returns     Returns nullptr if monster was destroyed by the update;
+ *              Returns the updated monster if it still exists.
+ */
+monster* update_monster(monster& mon, int time)
+{
+    // Pacified monsters often leave the level now.
+    if (mon.pacified() && time > random_range(210, 400))
+    {
+        make_mons_leave_level(&mon);
+        return nullptr;
+    }
+
+    mon.heal(div_rand_round(time * mon.off_level_regen_rate(), 1000));
+    mon.timeout_enchantments(time);
+
+    if (mon.type == MONS_SLYMDRA)
+        slymdra_split(mon, min(div_rand_round(time, 10), mon.num_heads - 4), true);
+
+    return &mon;
+}
+
+static void _drop_tomb(const coord_def& pos, bool premature, bool zin)
+{
+    int count = 0;
+    monster* mon = monster_at(pos);
+
+    // Don't wander on duty!
+    if (mon)
+        mon->behaviour = BEH_SEEK;
+
+    bool seen_change = false;
+    for (adjacent_iterator ai(pos); ai; ++ai)
+    {
+        // "Normal" tomb (card or monster spell)
+        if (!zin && revert_terrain_change(*ai, TERRAIN_CHANGE_TOMB))
+        {
+            count++;
+            if (you.see_cell(*ai))
+                seen_change = true;
+        }
+        // Zin's Imprison.
+        else if (zin && revert_terrain_change(*ai, TERRAIN_CHANGE_IMPRISON))
+        {
+            for (map_marker *mark : env.markers.get_markers_at(*ai))
+            {
+                if (mark->property("feature_description")
+                    == "a gleaming silver wall")
+                {
+                    env.markers.remove(mark);
+                }
+            }
+
+            env.grid_colours(*ai) = 0;
+            tile_clear_flavour(*ai);
+            tile_init_flavour(*ai);
+            count++;
+            if (you.see_cell(*ai))
+                seen_change = true;
+        }
+    }
+
+    if (count)
+    {
+        if (seen_change && !zin)
+            mprf("The walls disappear%s!", premature ? " prematurely" : "");
+        else if (seen_change && zin)
+        {
+            mprf("Zin %s %s %s.",
+                 (mon) ? "releases"
+                       : "dismisses",
+                 (mon) ? mon->name(DESC_THE).c_str()
+                       : "the silver walls,",
+                 (mon) ? make_stringf("from %s prison",
+                             mon->pronoun(PRONOUN_POSSESSIVE).c_str()).c_str()
+                       : "but there is nothing inside them");
+        }
+        else
+        {
+            if (!silenced(you.pos()))
+                mprf(MSGCH_SOUND, "You hear a deep rumble.");
+            else
+                mpr("You feel the ground shudder.");
+        }
+    }
+}
+
+static vector<map_malign_gateway_marker*> _get_malign_gateways()
+{
+    vector<map_malign_gateway_marker*> mm_markers;
+
+    for (map_marker *mark : env.markers.get_all(MAT_MALIGN))
+    {
+        if (mark->get_type() != MAT_MALIGN)
+            continue;
+
+        map_malign_gateway_marker *mmark = dynamic_cast<map_malign_gateway_marker*>(mark);
+
+        mm_markers.push_back(mmark);
+    }
+
+    return mm_markers;
+}
+
+int count_malign_gateways()
+{
+    return _get_malign_gateways().size();
+}
+
+void timeout_malign_gateways(int duration)
+{
+    // Passing 0 should allow us to just touch the gateway and see
+    // if it should decay. This, in theory, should resolve the one
+    // turn delay between it timing out and being recastable. -due
+    for (map_malign_gateway_marker *mmark : _get_malign_gateways())
+    {
+        if (duration)
+            mmark->duration -= duration;
+
+        if (mmark->duration > 0)
+        {
+            const int pow = 3 + random2(10);
+            const int size = 2 + random2(5);
+            big_cloud(CLOUD_TLOC_ENERGY, 0, mmark->pos, pow, size);
+        }
+        else
+        {
+            monster* mons = monster_at(mmark->pos);
+            if (mmark->monster_summoned && !mons)
+            {
+                // The marker hangs around until later.
+                if (env.grid(mmark->pos) == DNGN_MALIGN_GATEWAY)
+                    env.grid(mmark->pos) = DNGN_FLOOR;
+
+                env.markers.remove(mmark);
+            }
+            else if (!mmark->monster_summoned && !mons)
+            {
+                bool is_player = mmark->is_player;
+                actor* caster = 0;
+                if (is_player)
+                    caster = &you;
+
+                mgen_data mg = mgen_data(MONS_ELDRITCH_TENTACLE,
+                                         mmark->behaviour,
+                                         mmark->pos,
+                                         MHITNOT,
+                                         MG_FORCE_PLACE,
+                                         mmark->god);
+                mg.set_summoned(caster, SPELL_MALIGN_GATEWAY, 0, false, false);
+                if (!is_player)
+                    mg.non_actor_summoner = mmark->summoner_string;
+
+                if (monster *tentacle = create_monster(mg))
+                {
+                    tentacle->flags |= MF_NO_REWARD;
+                    tentacle->add_ench(ENCH_PORTAL_TIMER);
+                    int dur = random2avg(mmark->power, 6);
+                    dur -= random2(4); // sequence point between random calls
+                    dur *= 10;
+                    mon_enchant kduration = mon_enchant(ENCH_PORTAL_PACIFIED,
+                                                        caster, dur);
+                    tentacle->props[BASE_POSITION_KEY].get_coord()
+                                        = tentacle->pos();
+                    tentacle->add_ench(kduration);
+
+                    mmark->monster_summoned = true;
+                }
+            }
+        }
+    }
+}
+
+void timeout_tombs(int duration)
+{
+    if (!duration)
+        return;
+
+    for (map_marker *mark : env.markers.get_all(MAT_TOMB))
+    {
+        if (mark->get_type() != MAT_TOMB)
+            continue;
+
+        map_tomb_marker *cmark = dynamic_cast<map_tomb_marker*>(mark);
+        cmark->duration -= duration;
+
+        // Empty tombs disappear early.
+        monster* mon_entombed = monster_at(cmark->pos);
+        bool empty_tomb = !(mon_entombed || you.pos() == cmark->pos);
+        bool zin = (cmark->source == -GOD_ZIN);
+
+        if (cmark->duration <= 0 || empty_tomb)
+        {
+            _drop_tomb(cmark->pos, empty_tomb, zin);
+
+            monster* mon_src =
+                !invalid_monster_index(cmark->source) ? &env.mons[cmark->source]
+                                                      : nullptr;
+            // A monster's Tomb of Doroklohe spell.
+            if (mon_src
+                && mon_src == mon_entombed)
+            {
+                mon_src->lose_energy(EUT_SPELL);
+            }
+
+            env.markers.remove(cmark);
+        }
+    }
+}
+
+void timeout_binding_sigils()
+{
+    int num_seen = 0;
+    for (map_marker *mark : env.markers.get_all(MAT_TERRAIN_CHANGE))
+    {
+        map_terrain_change_marker *marker =
+                dynamic_cast<map_terrain_change_marker*>(mark);
+        if (marker->change_type == TERRAIN_CHANGE_BINDING_SIGIL)
+        {
+            if (you.see_cell(marker->pos))
+                num_seen++;
+            revert_terrain_change(marker->pos, TERRAIN_CHANGE_BINDING_SIGIL);
+        }
+    }
+
+    if (num_seen > 1)
+        mprf(MSGCH_DURATION, "Your binding sigils disappear.");
+    else if (num_seen > 0)
+        mprf(MSGCH_DURATION, "Your binding sigil disappears.");
+}
+
+void end_terrain_change(terrain_change_type type)
+{
+    for (map_marker *mark : env.markers.get_all(MAT_TERRAIN_CHANGE))
+    {
+        map_terrain_change_marker *marker =
+            dynamic_cast<map_terrain_change_marker*>(mark);
+
+        if (marker->change_type == type)
+            revert_terrain_change(marker->pos, type);
+    }
+}
+
+void end_enkindled_status()
+{
+    mprf(MSGCH_DURATION, "Your flames quiet as the last of your memories are burnt away.");
+    you.duration[DUR_ENKINDLED] = 0;
+    you.props.erase(ENKINDLE_CHARGES_KEY);
+}
+
+struct terrain_change_reversion
+{
+    coord_def pos;
+    terrain_change_type type;
+    bool was_in_los;
+};
+
+void timeout_terrain_changes(int duration, bool force)
+{
+    if (!duration && !force)
+        return;
+
+    int num_seen[NUM_TERRAIN_CHANGE_TYPES] = {0};
+    vector<terrain_change_reversion> revert;
+
+    for (map_marker *mark : env.markers.get_all(MAT_TERRAIN_CHANGE))
+    {
+        map_terrain_change_marker *marker =
+                dynamic_cast<map_terrain_change_marker*>(mark);
+
+        if (marker->duration != INFINITE_DURATION)
+            marker->duration -= duration;
+
+        if (marker->change_type == TERRAIN_CHANGE_DOOR_SEAL
+            && !feat_is_sealed(env.grid(marker->pos)))
+        {
+            // TODO: could this be done inside `revert_terrain_change`? The
+            // two things to test are corrupting sealed doors, and destroying
+            // sealed doors. See 7aedcd24e1be3ed58fef9542786c1a194e4c07d0 and
+            // 6c286a4f22bcba4cfcb36053eb066367874be752.
+            if (marker->duration <= 0)
+                env.markers.remove(marker); // deletes `marker`
+            continue;
+        }
+
+        if ((marker->change_type == TERRAIN_CHANGE_BOG
+             || marker->change_type == TERRAIN_CHANGE_BINDING_SIGIL)
+            && !you.see_cell(marker->pos))
+        {
+            marker->duration = 0;
+        }
+
+        actor* src = actor_by_mid(marker->mon_num);
+        if (marker->duration <= 0
+            || (marker->mon_num != 0
+                && (!src || !src->alive()
+                    || (src->is_monster() && src->as_monster()->pacified()))))
+        {
+            if (you.see_cell(marker->pos))
+                num_seen[marker->change_type]++;
+            revert.push_back({marker->pos, marker->change_type, you.see_cell(marker->pos)});
+        }
+    }
+    // finally, revert the changes and delete the markers
+
+    // Sort terrain expiration from near to far, from the player's perspective
+    // (which results in more intuitive behavior when pushing the player out of walls).
+    sort(revert.begin(), revert.end(), [](const terrain_change_reversion& a,
+                                          const terrain_change_reversion& b)
+    {
+        return grid_distance(you.pos(), a.pos) < grid_distance(you.pos(), b.pos);
+    });
+
+    for (const auto &m_pos : revert)
+    {
+        revert_terrain_change(m_pos.pos, m_pos.type);
+
+        // When multiple tiles are reverting at once, walls reappearing may
+        // obscure otherwise-unambiguous information about terrain behind them,
+        // so forcibly redraw anything the player could see at the start of them.
+        if (m_pos.was_in_los)
+        {
+            env.map_knowledge(m_pos.pos).set_feature(env.grid(m_pos.pos));
+#ifdef USE_TILE
+            tile_env.bk_bg(m_pos.pos) = tileidx_feature_base(env.grid(m_pos.pos));
+#endif
+        }
+    }
+
+    if (num_seen[TERRAIN_CHANGE_DOOR_SEAL] > 1)
+        mpr("The runic seals fade away.");
+    else if (num_seen[TERRAIN_CHANGE_DOOR_SEAL] > 0)
+        mpr("The runic seal fades away.");
+
+    if (num_seen[TERRAIN_CHANGE_BINDING_SIGIL] > 1)
+        mprf(MSGCH_DURATION, "Your binding sigils disappear.");
+    else if (num_seen[TERRAIN_CHANGE_BINDING_SIGIL] > 0)
+        mprf(MSGCH_DURATION, "Your binding sigil disappears.");
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Living breathing dungeon stuff.
+//
+
+static vector<coord_def> sfx_seeds;
+
+void setup_environment_effects()
+{
+    sfx_seeds.clear();
+
+    for (int x = X_BOUND_1; x <= X_BOUND_2; ++x)
+    {
+        for (int y = Y_BOUND_1; y <= Y_BOUND_2; ++y)
+        {
+            if (!in_bounds(x, y))
+                continue;
+
+            const int grid = env.grid[x][y];
+            if (grid == DNGN_LAVA
+                    || (grid == DNGN_SHALLOW_WATER
+                        && player_in_branch(BRANCH_SWAMP)))
+            {
+                const coord_def c(x, y);
+                sfx_seeds.push_back(c);
+            }
+        }
+    }
+    dprf("%u environment effect seeds", (unsigned int)sfx_seeds.size());
+}
+
+static void apply_environment_effect(const coord_def &c)
+{
+    const dungeon_feature_type grid = env.grid(c);
+    // Don't apply if if the feature doesn't want it.
+    if (testbits(env.pgrid(c), FPROP_NO_CLOUD_GEN))
+        return;
+    if (grid == DNGN_LAVA)
+        place_cloud(CLOUD_BLACK_SMOKE, c, random_range(4, 8), 0);
+    else if (one_chance_in(3) && grid == DNGN_SHALLOW_WATER)
+        place_cloud(CLOUD_MIST,        c, random_range(2, 5), 0);
+}
+
+static const int Base_Sfx_Chance = 5;
+void run_environment_effects()
+{
+    if (!you.time_taken)
+        return;
+
+    dungeon_events.fire_event(DET_TURN_ELAPSED);
+
+    // Each square in sfx_seeds has this chance of doing something special
+    // per turn.
+    const int sfx_chance = Base_Sfx_Chance * you.time_taken / 10;
+    const int nseeds = sfx_seeds.size();
+
+    // If there are a large number of seeds, speed things up by fudging the
+    // numbers.
+    if (nseeds > 50)
+    {
+        int nsels = div_rand_round(sfx_seeds.size() * sfx_chance, 100);
+        if (one_chance_in(5))
+            nsels += random2(nsels * 3);
+
+        for (int i = 0; i < nsels; ++i)
+            apply_environment_effect(sfx_seeds[ random2(nseeds) ]);
+    }
+    else
+    {
+        for (int i = 0; i < nseeds; ++i)
+        {
+            if (random2(100) >= sfx_chance)
+                continue;
+
+            apply_environment_effect(sfx_seeds[i]);
+        }
+    }
+
+    run_corruption_effects(you.time_taken);
+    shoals_apply_tides(div_rand_round(you.time_taken, BASELINE_DELAY),
+                       false);
+    timeout_tombs(you.time_taken);
+    timeout_malign_gateways(you.time_taken);
+    timeout_terrain_changes(you.time_taken);
+    run_cloud_spreaders(you.time_taken);
+}
+
+// Converts a movement speed to a duration. i.e., answers the
+// question: if the monster is so fast, how much time has it spent in
+// its last movement?
+//
+// If speed is 10 (normal),    one movement is a duration of 10.
+// If speed is 1  (very slow), each movement is a duration of 100.
+// If speed is 15 (50% faster than normal), each movement is a duration of
+// 6.6667.
+int speed_to_duration(int speed)
+{
+    if (speed < 1)
+        speed = 10;
+    else if (speed > 100)
+        speed = 100;
+
+    return div_rand_round(100, speed);
+}

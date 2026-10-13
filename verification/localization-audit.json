@@ -1,0 +1,209 @@
+{
+  "data_keys": 5803,
+  "localized_data_keys": 5803,
+  "missing_data_keys": [],
+  "unchanged_prose_bodies": [],
+  "files": {
+    "database/FAQ.txt": {
+      "keys": 39,
+      "localized_keys": 39
+    },
+    "database/colourname.txt": {
+      "keys": 9,
+      "localized_keys": 9
+    },
+    "database/decorlines.txt": {
+      "keys": 132,
+      "localized_keys": 132
+    },
+    "database/gizmo.txt": {
+      "keys": 3,
+      "localized_keys": 3
+    },
+    "database/godname.txt": {
+      "keys": 23,
+      "localized_keys": 23
+    },
+    "database/godspeak.txt": {
+      "keys": 193,
+      "localized_keys": 193
+    },
+    "database/graffiti.txt": {
+      "keys": 58,
+      "localized_keys": 58
+    },
+    "database/help.txt": {
+      "keys": 13,
+      "localized_keys": 13
+    },
+    "database/insult.txt": {
+      "keys": 33,
+      "localized_keys": 33
+    },
+    "database/miscast.txt": {
+      "keys": 33,
+      "localized_keys": 33
+    },
+    "database/miscname.txt": {
+      "keys": 10,
+      "localized_keys": 10
+    },
+    "database/monflee.txt": {
+      "keys": 1,
+      "localized_keys": 1
+    },
+    "database/monname.txt": {
+      "keys": 52,
+      "localized_keys": 52
+    },
+    "database/monspeak.txt": {
+      "keys": 731,
+      "localized_keys": 731
+    },
+    "database/monspell.txt": {
+      "keys": 262,
+      "localized_keys": 262
+    },
+    "database/montitle.txt": {
+      "keys": 86,
+      "localized_keys": 86
+    },
+    "database/rand_all.txt": {
+      "keys": 18,
+      "localized_keys": 18
+    },
+    "database/rand_arm.txt": {
+      "keys": 19,
+      "localized_keys": 19
+    },
+    "database/rand_wpn.txt": {
+      "keys": 45,
+      "localized_keys": 45
+    },
+    "database/randbook.txt": {
+      "keys": 73,
+      "localized_keys": 73
+    },
+    "database/randname.txt": {
+      "keys": 33,
+      "localized_keys": 33
+    },
+    "database/shout.txt": {
+      "keys": 93,
+      "localized_keys": 93
+    },
+    "database/wpnnoise.txt": {
+      "keys": 65,
+      "localized_keys": 65
+    },
+    "descript/ability.txt": {
+      "keys": 154,
+      "localized_keys": 154
+    },
+    "descript/backgrounds.txt": {
+      "keys": 26,
+      "localized_keys": 26
+    },
+    "descript/branches.txt": {
+      "keys": 36,
+      "localized_keys": 36
+    },
+    "descript/cards.txt": {
+      "keys": 24,
+      "localized_keys": 24
+    },
+    "descript/clouds.txt": {
+      "keys": 39,
+      "localized_keys": 39
+    },
+    "descript/commands.txt": {
+      "keys": 95,
+      "localized_keys": 95
+    },
+    "descript/egos.txt": {
+      "keys": 80,
+      "localized_keys": 80
+    },
+    "descript/features.txt": {
+      "keys": 291,
+      "localized_keys": 291
+    },
+    "descript/gods.txt": {
+      "keys": 82,
+      "localized_keys": 82
+    },
+    "descript/hints.txt": {
+      "keys": 116,
+      "localized_keys": 116
+    },
+    "descript/items.txt": {
+      "keys": 307,
+      "localized_keys": 307
+    },
+    "descript/monstatus.txt": {
+      "keys": 139,
+      "localized_keys": 139
+    },
+    "descript/monsters.txt": {
+      "keys": 724,
+      "localized_keys": 724
+    },
+    "descript/mutations.txt": {
+      "keys": 251,
+      "localized_keys": 251
+    },
+    "descript/passives.txt": {
+      "keys": 20,
+      "localized_keys": 20
+    },
+    "descript/quotes.txt": {
+      "keys": 465,
+      "localized_keys": 465
+    },
+    "descript/skills.txt": {
+      "keys": 29,
+      "localized_keys": 29
+    },
+    "descript/species.txt": {
+      "keys": 27,
+      "localized_keys": 27
+    },
+    "descript/spells.txt": {
+      "keys": 402,
+      "localized_keys": 402
+    },
+    "descript/status.txt": {
+      "keys": 237,
+      "localized_keys": 237
+    },
+    "descript/tutorial.txt": {
+      "keys": 88,
+      "localized_keys": 88
+    },
+    "descript/unident.txt": {
+      "keys": 7,
+      "localized_keys": 7
+    },
+    "descript/unrand.txt": {
+      "keys": 140,
+      "localized_keys": 140
+    }
+  },
+  "catalog": {
+    "candidates": 33437,
+    "received": 33437,
+    "translated_valid": 23200,
+    "rejected": 0,
+    "whitespace_restored": 128,
+    "missing": 0,
+    "default_model": "cc-switch-deep-seek/deepseek-flash",
+    "translation_models": {
+      "cc-switch-teamo-router/deepseek-flash": 21541,
+      "cc-switch-deep-seek/deepseek-flash": 11896
+    }
+  },
+  "trace_records": 4312,
+  "unclassified_english_records": 0,
+  "residual_english": [],
+  "scope": "Data-key coverage is exhaustive for dat/database and dat/descript. Traces cover only the exercised UI paths; they are not a percentage of every game state."
+}

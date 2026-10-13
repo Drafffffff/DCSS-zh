@@ -1,0 +1,74 @@
+This document explains how to build DCSS for Android, and some of the
+technical details.
+
+
+Introduction
+------------
+DCSS for Android employs SDL2's native support for Android applications;
+it is currently built against a distribution of  SDL2 v2.0.3 with some
+homegrown patches to allow it to interact with high resolution screens
+correctly. As with most Android applications, the build process is
+somewhat different from the traditional "./configure; make; make install"
+that you might expect.
+
+The Android port is known to build with the SDK for Android 11 (API level 30)
+and NDK version r22b.
+
+
+Build Process
+-------------
+ * Download and install Android Studio:
+   https://developer.android.com/studio/
+ * Install the latest Android SDK and NDK in Android Studio.
+ * Enter the path to your installed SDK in the local.properties file:
+   crawl/crawl-ref/source/android-project/local.properties
+ * Ensure that you have all of the dependent host libraries required to
+   build crawl's host tools. For a recent Ubuntu host these are:
+     - ia32-libs
+     - build-essential
+     - libpng-dev
+ * Run "make ANDROID=1 android" where 1 is the Android version code.
+
+The previous step will generate all the files and folders required for a
+complete Android project. You can use Android Studio to generate APK(s)
+or further development. Just open the project folder located in
+crawl-ref/source/android-project
+
+Command line build process
+--------------------------
+
+Prerequisites: java/jdk, gradle, android sdk and command line tools,
+other standard dcss prerequisites
+* The necessary android packages are available in many package management
+  systems, and via installing Android Studio (probably the most reliable).
+* package names may differ slightly depending on installation method. But for
+  example, `apt install default-jdk gradle android-sdk` on Ubuntu.
+* Ensure that `ANDROID_SDK_ROOT` is set properly (and perhaps `ANDROID_HOME`),
+  and that the jdk version you want to use is in your path.
+* If you install android from a package manager, the installation will be
+  minimal, and you will need to use the android sdk manager tool to install
+  further pieces and accept licenses. `sdkmanager --update` is a start. The
+  initial app configure process below will most likely install a specific
+  version of the NDK, that will need its license accepted, and if you are
+  operating entirely via the command line, `sdkmanager` is the utility for
+  doing this.
+
+Build:
+1. Build the tiles toolchain: make ANDROID=1 android
+2. change directory to `crawl-ref/source/android-project`
+3. Build the app: `gradle :app:assembleBuildTest`
+
+Technical Notes
+---------------
+ * The external libraries that Crawl needs to build against are pulled from
+   the same "contrib" repositories that Win32 and OS X builds of Crawl
+   use.
+ * There are lots of Android specifics in the Makefile, because (a) the
+   custom toolchain needs lots of CFLAGS and LDFLAGS to work properly
+   and (b) the target paths for the data directory are completely
+   different to where the "executable" lives on Android, and also
+   completely different to the host OS.
+ * The majority of the changes to the DCSS code are changing GLES calls
+   so that they work correctly with Android's GLES implementation and
+   integrate properly with the Java-side SDL.
+ * The rltiles/ tools get compiled using native tools, not the NDK ones.

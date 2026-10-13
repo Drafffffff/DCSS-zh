@@ -1,0 +1,62 @@
+Guide to translating and improving Crawl's text
+===============================================
+
+Text Improvement
+================
+
+If you would like to help translate DCSS, first fork the main branch,
+then make edits in there. Once you are done translating, create a pull
+request and it will likely be accepted! Don't worry if you only translate
+one entry, every little bit is appreciated! If you want to submit changes
+to the English text, use the files in crawl-ref/source/dat/descript
+for this, otherwise, change the files inside the corresponding language
+folder in the descript folder (es for Spanish, de for German, etc.).
+{{ and }} can be used to include lua code, for example to change the
+description of the floor depending on which branch the player is in.
+Use "return" to return the description if you use Lua code.
+Quotes use smart quote unicode characters (U+8220 and U+8221).
+
+Formatting
+==========
+
+Use %%%% to seperate each entry, then write the (English) name of
+the thing you want to edit. Add a line of spacing, then write the
+(translated) description of the thing.
+
+Examples:
+
+%%%%
+A rock wall    (English name)
+
+Una pared de rocca sencilla.   (This is the translation)
+%%%%    (Add these between entries)
+The floor
+
+{{ //Lua code goes in here
+local descript = "El piso." //declare a **local** variable to store the description
+    if player_in_branch(BRANCH_DUNGEON) then
+        descript = descript .. " Está hecho de roca lisa." //concatenate extra flavour depending on the branch
+    elseif player_in_branch(BRANCH_TEMPLE) then
+        descript = descript .. " Hay musgo entredadera creciendo en lo."
+    end
+    return descript //don't forget to return!
+}}
+%%%%
+
+See some of the translated files for more examples.
+
+
+
+Quotes
+======
+
+Don't translate quotes; instead, submit quotes in their original language. It's
+allowed to submit translated text, especially for things like biblical
+references, but don't forget to include information about the translator.
+Not all entries have a quote associated with them.
+
+Aliases
+=======
+
+If you want to use the same text for several keys, you can use <key_name> to
+avoid duplicating the string.

@@ -1,0 +1,12 @@
+{
+  "tiles": {
+    "exit_code": 0,
+    "stdout": "Crawl version 0.34.1\nSave file version 34.316\nCompiled with Apple LLVM 21.0.0 (clang-2100.1.1.101)\nBuild platform: arm64-apple-darwin25.6.0\nPlatform: arm64-apple-darwin25.6.0\nCFLAGS: -O2 -pipe -DUSE_TILE -DUSE_TILE_LOCAL -DUSE_SDL -DUSE_GL -DUSE_FT -D_THREAD_SAFE -DUSE_SOUND -Wall -Wformat-security -Wundef -Wextra -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-type-limits -Wno-uninitialized -Wno-array-bounds -Wno-format-zero-length -Wmissing-declarations -Wredundant-decls -Wno-tautological-unsigned-enum-zero-compare -Wno-parentheses -Wwrite-strings -Wshadow -pedantic -Wuninitialized -Iutil -I. -isystem /opt/homebrew/opt/freetype/include/freetype2 -I/opt/homebrew/opt/libpng/include/libpng16 -isystem /opt/homebrew/include -I/opt/homebrew/include/SDL2 -isystem contrib/install/arm64-apple-darwin25.6.0/include -isystem /usr/local/include -DWIZARD -DASSERTS -DPROPORTIONAL_FONT=\"contrib/fonts/DejaVuSans.ttf\" -DMONOSPACED_FONT=\"contrib/fonts/DejaVuSansMono.ttf\" -D_THREAD_SAFE -DCLUA_BINDINGS\nLDFLAGS: -rdynamic -O2",
+    "stderr": ""
+  },
+  "console": {
+    "exit_code": 0,
+    "stdout": "Crawl version 0.34.1\nSave file version 34.316\nCompiled with Apple LLVM 21.0.0 (clang-2100.1.1.101)\nBuild platform: arm64-apple-darwin25.6.0\nPlatform: arm64-apple-darwin25.6.0\nCFLAGS: -O2 -pipe -Wall -Wformat-security -Wundef -Wextra -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-type-limits -Wno-uninitialized -Wno-array-bounds -Wno-format-zero-length -Wmissing-declarations -Wredundant-decls -Wno-tautological-unsigned-enum-zero-compare -Wno-parentheses -Wwrite-strings -Wshadow -pedantic -Wuninitialized -Iutil -I. -isystem contrib/install/arm64-apple-darwin25.6.0/include -isystem /usr/local/include -DWIZARD -DASSERTS -DCLUA_BINDINGS -D_DARWIN_C_SOURCE\nLDFLAGS: -rdynamic -O2",
+    "stderr": ""
+  }
+}

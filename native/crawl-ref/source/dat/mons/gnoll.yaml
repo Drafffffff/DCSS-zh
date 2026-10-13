@@ -1,0 +1,17 @@
+name: "gnoll"
+glyph: {char: "j", colour: yellow}
+flags: [speaks, warm_blood]
+exp: 14
+will: 10
+attacks:
+ - {type: hit, damage: 6}
+hd: 2
+hp_10x: 130
+ac: 2
+ev: 9
+has_corpse: true
+shout: shout
+intelligence: human
+uses: weapons_armour
+size: medium
+shape: humanoid

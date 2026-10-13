@@ -1,0 +1,438 @@
+
+%%%%
+acid (acid) weapon ego
+
+它会使受击者溅上酸液（2d4伤害，腐蚀）。
+%%%%
+%%%%
+antimagic (antimagic) weapon ego
+
+它会削减你的魔力，并干扰它所击中者的法术和魔法能力。
+天生的能力和神赐予的能力不受影响。
+%%%%
+%%%%
+chaos (chaos) weapon ego
+
+它的每一次命中都会产生不同的随机效果。
+%%%%
+%%%%
+concussion (concuss) weapon ego
+
+它会把受击者向后推开，并在此过程中短暂地使其眩晕。
+如果受击者被推撞到坚固的地形上，则会额外受到相当于穿透其护甲伤害的三分之一的伤害。
+%%%%
+%%%%
+distortion (distort) weapon ego
+
+它会扭曲周围的空间，可能使受击者瞬移、被放逐，或使其承受额外伤害。
+卸下它可能会把你传送到敌人身边，或是把你放逐到深渊。
+%%%%
+%%%%
+devious (devious) weapon ego
+
+它对无防备的目标有更高的几率发动刺杀，每次刺杀都会暂时提升持用者的闪避和杀戮加成。
+%%%%
+%%%%
+draining (drain) weapon ego
+
+它有时会吸取活物受击者的生命力（1/2几率）。
+这会额外造成相当于穿透防御者护甲伤害的四分之一的伤害，外加固定的2-4点伤害，
+并会略微削弱它们。
+%%%%
+%%%%
+electrocution (elec) weapon ego
+
+它有时会电击受击者（1/4几率，8-20伤害）。
+%%%%
+%%%%
+entangling (entangle) weapon ego
+
+它有时会用藤蔓缠绕被它攻击的目标（1/2几率，2-4伤害）。
+%%%%
+%%%%
+flaming (flame) weapon ego
+
+它会灼烧受击者，额外造成相当于穿透防御者护甲伤害的四分之一的伤害。
+%%%%
+%%%%
+flaming (flame) weapon ego blade
+
+它会灼烧受击者，额外造成相当于穿透防御者护甲伤害的四分之一的伤害。
+巨大的燃烧刀刃也是猎杀九头蛇者的常用武器。
+%%%%
+%%%%
+freezing (freeze) weapon ego
+
+它会冻结受击者，额外造成相当于穿透防御者护甲伤害的四分之一的伤害。
+它还可能会使冷血生物减速。
+%%%%
+%%%%
+foul flame (foul flame) weapon ego
+
+它被注入了邪恶之焰：只要伤害能够穿透护甲，对神圣生物额外造成四分之三的伤害，
+对亡灵和恶魔额外造成四分之一的伤害，对其他一切目标额外造成一半的伤害。
+神圣生物和善神的信徒无法使用它。
+%%%%
+%%%%
+heavy (heavy) weapon ego
+
+它能造成大幅提高的伤害，但用它攻击的速度要慢得多。
+%%%%
+%%%%
+heavy (heavy) weapon ego ranged
+
+由它发射的任何弹药都能造成大幅提高的伤害，但用它攻击的速度要慢得多。
+%%%%
+%%%%
+holy wrath (holy) weapon ego
+
+它得到了光明神的祝福，额外造成相当于穿透亡灵和恶魔护甲伤害的四分之三的伤害。
+亡灵和恶魔无法使用它。
+%%%%
+%%%%
+pain (pain) weapon ego
+
+它会对活物造成额外伤害，伤害量与你的死灵术技能成正比。{{
+    if you.god() == "Trog" then return " 特洛戈会阻止你释放这一效果。"; end
+}}{{
+    if you.is_useless_skill("necromancy") then return " 你无法研习死灵术，因此无法发挥这件武器的全部力量。"; end
+}}
+%%%%
+%%%%
+penetration (penet) weapon ego
+
+由它发射的任何弹药在击中目标后会继续飞行，可能击中路径上的一切，直到飞出视野。
+%%%%
+%%%%
+protection (protect) weapon ego
+
+它在命中后给予你暂时的保护（+7防护）。
+%%%%
+%%%%
+reaping (reap) weapon ego
+
+任何被它伤害的活物、神圣或恶魔敌人，在死亡时都有可能被暂时复活成一个友好的幽灵，
+造成的伤害越多，几率越高。
+%%%%
+%%%%
+rebuke (rebuke) weapon ego
+
+如果穿戴者上一次行动是近战攻击，它会为其提供格挡（+10格挡），
+并将被格挡的近战攻击转向附近的其他敌人。
+%%%%
+%%%%
+spectralising (spect) weapon ego
+
+当你用它攻击时，这件武器的灵魂会跃出并发动第二次稍弱的攻击。
+灵魂承受的伤害会有一部分由你分担。
+%%%%
+%%%%
+speed (speed) weapon ego
+
+用它攻击的速度显著加快。
+%%%%
+%%%%
+sundering (sunder) weapon ego
+
+在你连续攻击多次之后，它的下一次攻击会造成大幅提高的伤害，并能劈砍到一格之外的另一个目标。
+%%%%
+%%%%
+valour (valour) weapon ego
+
+当持用者的生命值不低于最大生命值的80%时，它每次击中敌人都会发射一道能量光束。
+卸下它会使持用者短暂陷入虚弱状态。
+%%%%
+%%%%
+vampirism (vamp) weapon ego
+
+当它伤害活物时，有时会按照造成伤害的一部分来治疗你。
+%%%%
+%%%%
+venom (venom) weapon ego
+
+它会使受击者中毒。
+%%%%
+%%%%
+air (Air) armour ego
+
+它会增强你的气系魔法。
+%%%%
+%%%%
+archery (Archery) armour ego
+
+就远程战斗而言，它的妨碍程度只有正常的一半。
+%%%%
+%%%%
+attunement (Attunement) armour ego
+
+与魔法法杖一同穿戴时，它会使那根法杖的主要增强效果翻倍，
+并让用它进行的近战攻击回复少量魔力。
+%%%%
+%%%%
+cold resistance (rC+) armour ego
+
+它能帮助你抵抗寒冷。
+%%%%
+%%%%
+command (Command) armour ego
+
+它会根据你的护甲技能，提升你召唤系法术的威力和成功率。
+%%%%
+%%%%
+corrosion resistance (rCorr) armour ego
+
+它能保护你免受酸和腐蚀的影响。
+%%%%
+%%%%
+death (Death) armour ego
+
+它会增强你的死灵术法术并提高其成功率，但施展其他魔法需要付出生命值的代价。
+%%%%
+%%%%
+dexterity (Dex+3) armour ego
+
+它会提升你的敏捷（+3敏捷）。
+%%%%
+%%%%
+earth (Earth) armour ego
+
+它会增强你的土系魔法。
+%%%%
+%%%%
+energy (Energy) armour ego
+
+它可能会返还施展法术所消耗的魔力，但会降低施法成功率。
+施法失误所消耗的魔力则会总是返还。返还魔力的几率随你的激活技能提高而提高。
+%%%%
+%%%%
+fire (Fire) armour ego
+
+它会增强你的火系魔法。
+%%%%
+%%%%
+fire resistance (rF+) armour ego
+
+它能帮助你抵抗火焰。
+%%%%
+%%%%
+flying (Fly) armour ego
+
+它能赋予你飞行的能力。
+%%%%
+%%%%
+glass (Glass) armour ego
+
+当你击伤敌人时，它可能使敌人玻璃化，让他们更容易受到后续伤害。
+你的激活技能会提高玻璃化的几率和持续时间。
+%%%%
+%%%%
+guile (Guile) armour ego
+
+它会削弱你的意志力，也会削弱所有被你施加妖术者的意志力，
+后者的削弱程度随你的激活技能提高而提高。
+%%%%
+%%%%
+harm (Harm) armour ego
+
+它会增加你造成的伤害，也会增加你受到的伤害。
+%%%%
+%%%%
+hurling (Hurl) armour ego
+
+它会提升你使用投掷武器（如石块和标枪）的命中率和伤害（+4杀戮）。
+%%%%
+%%%%
+ice (Ice) armour ego
+
+它会增强你的冰系魔法。
+%%%%
+%%%%
+infusion (Infuse) armour ego
+
+它用你的一小部分魔力强化你的每次近战命中。
+%%%%
+%%%%
+intelligence (Int+3) armour ego
+
+它会提升你的智力（+3智力）。
+%%%%
+%%%%
+invisibility (+Inv) armour ego
+
+激活后，它会赋予你暂时的隐形能力，但也会吸取你的最大生命值。
+%%%%
+%%%%
+light (Light) armour ego
+
+它会在你周围形成一圈发光的光环，使隐形生物显形，
+提升对光环范围内除你以外所有目标的命中率，并降低你的潜行能力。
+%%%%
+%%%%
+mayhem (Mayhem) armour ego
+
+它会使目睹你杀戮的旁观者陷入疯狂，以极大的力量和速度攻击附近的一切。
+%%%%
+%%%%
+mesmerism (Mesmerism) armour ego
+
+当你被近战击中时，它会使附近所有敌人短暂地眩晕，之后必须原地站立一段时间来重新充能。
+其持续时间、作用范围和充能速度随你的激活技能提高而提高。
+%%%%
+%%%%
+parrying (Parrying) armour ego
+
+如果你上一次行动是近战攻击，它会为你提供格挡。
+如果你的副手拿的不是武器，格挡效果会减半。
+%%%%
+%%%%
+poison resistance (rPois) armour ego
+
+它能帮助你抵抗毒。
+%%%%
+%%%%
+ponderousness (Ponderous) armour ego
+
+它非常笨重，会使你的移动速度变慢。
+%%%%
+%%%%
+positive energy (rN+) armour ego
+
+它能帮助你抵抗负能量的影响。
+%%%%
+%%%%
+protection (AC+3) armour ego
+
+它能帮助你抵挡大多数种类的伤害（+3防护）。
+%%%%
+%%%%
+pyromania (Pyromania) armour ego
+
+它会增强你的火系魔法，并在你以攻击以外的方式杀死敌人时，可能在你周围释放一道火焰爆发。
+爆炸的几率和伤害都随激活技能提升，并且每回合最多触发一次。
+%%%%
+%%%%
+rampaging (Rampage) armour ego
+
+它会使人在朝敌人移动时多走一步；如果因此发动攻击，会使被攻击者短暂地眩晕。
+%%%%
+%%%%
+reflection (Reflect) armour ego
+
+它会反射被格挡的远程攻击。
+%%%%
+%%%%
+repulsion (Repulsion) armour ego
+
+它能帮助你闪避魔法和非魔法的投射物（+15闪避）。
+%%%%
+%%%%
+resistance (rC+ rF+) armour ego
+
+它能保护你免受火和寒冷的影响。
+%%%%
+%%%%
+resonance (Resonance) armour ego
+
+它会提高你铸造术法术的成功率，并根据你的铸造术技能增强你的近战攻击。
+%%%%
+%%%%
+see invisible (SInv) armour ego
+
+它能让你看见隐形的东西。
+%%%%
+%%%%
+shadows (Shadows) armour ego
+
+它会缩短你能被看见的距离，也会缩短你能看见的距离。
+%%%%
+%%%%
+sniping (Snipe) armour ego
+
+对失去行动能力的目标使用远程和投掷武器时，你的伤害会额外提高50%。
+失去行动能力的目标包括睡眠、麻痹、石化、混乱或被网缠住的目标。
+%%%%
+%%%%
+spirit shield (Spirit) armour ego
+
+它会使你受到的伤害由生命值和魔力储备分摊承受。
+%%%%
+%%%%
+stardust (Stardust) armour ego
+
+每场战斗中，当你第一次消耗魔力施展法术或使用能力时，它会召来一阵流星雨；
+只有当你魔力恢复、且不再有敌人时才会重新充能。你的激活技能会提高流星的数量和伤害，
+消耗的魔力越多，伤害也越高。
+%%%%
+%%%%
+stealth (Stlth+) armour ego
+
+它会增强你的潜行能力。
+%%%%
+%%%%
+strength (Str+3) armour ego
+
+它会提升你的力量（+3力量）。
+%%%%
+%%%%
+the Archmagi (Archmagi) armour ego
+
+它会增强你法术的威力。
+%%%%
+%%%%
+willpower (Will+) armour ego
+
+它会提升你的意志力，以抵御某些魔法效果。
+%%%%
+%%%%
+wrath (*Rage) armour ego
+
+当你进行近战攻击时，它会使你狂暴（20%几率）。
+%%%%
+%%%%
+atropa-tipped (atropa) missile ego
+
+它的尖端涂有一种会致盲并造成短暂混乱的物质。
+
+成功生效的几率随你的投掷和潜行技能提高而提高。
+%%%%
+%%%%
+chaos (chaos) missile ego
+
+投掷时会产生随机效果。
+%%%%
+%%%%
+curare-tipped (curare) missile ego
+
+它的尖端涂有一种会导致窒息的物质，能造成直接伤害，并使被击中的目标中毒和减速。
+
+它击中目标时被摧毁的几率是其他飞镖的两倍。
+%%%%
+%%%%
+datura-tipped (datura) missile ego
+
+它的尖端涂有一种会使被击中者陷入神志不清的疯狂、不分敌友地发动攻击的物质。
+
+成功生效的几率随你的投掷和潜行技能提高而提高。
+%%%%
+%%%%
+disjunction (disjunct) missile ego
+
+它会使被击中的目标暂时脱离空间的束缚，在数回合内不断从你身边瞬移开，
+每次瞬移都会受到少量伤害。
+%%%%
+%%%%
+dispersal (disperse) missile ego
+
+它会使被击中的目标瞬移，且倾向于向远离你的方向瞬移。
+%%%%
+%%%%
+poisoned (poison) missile ego
+
+它涂有毒素。
+%%%%
+%%%%
+silver (silver) missile ego
+
+与普通飞镖相比，它能造成更高的伤害，对混沌和经过魔法变形的生物伤害则大幅提高。
+它还会对变异的生物造成额外伤害，伤害多少取决于其变异程度。
+%%%%
