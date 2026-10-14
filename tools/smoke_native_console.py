@@ -3,7 +3,7 @@
 import argparse,fcntl,json,os,pty,re,select,signal,struct,tempfile,termios,time
 from pathlib import Path
 p=argparse.ArgumentParser();p.add_argument('binary');p.add_argument('--data',required=True);p.add_argument('--out',required=True)
-p.add_argument('--extended',action='store_true');p.add_argument('--species',default='Mi');p.add_argument('--background',default='Be');a=p.parse_args()
+p.add_argument('--locale',default='en_US.UTF-8');p.add_argument('--extended',action='store_true');p.add_argument('--species',default='Mi');p.add_argument('--background',default='Be');a=p.parse_args()
 out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
 trace=out.resolve()/'trace.jsonl'
 if a.extended: trace.unlink(missing_ok=True)
@@ -36,7 +36,7 @@ end
     pid,fd=pty.fork()
     if pid==0:
         os.chdir(a.data)
-        env=dict(os.environ,TERM='xterm-256color',LANG='en_US.UTF-8',LC_ALL='en_US.UTF-8',DCSS_LANG='zh')
+        env=dict(os.environ,TERM='xterm-256color',LANG=a.locale,LC_ALL=a.locale,DCSS_LANG='zh')
         if a.extended: env['DCSS_ZH_TRACE']=str(trace)
         os.execve(a.binary,[a.binary,'-dir',str(state),'-rc',str(rc),'-name','ZhSmoke','-species',a.species,'-background',a.background,'-seed','1234'],env)
     fcntl.ioctl(fd,termios.TIOCSWINSZ,struct.pack('HHHH',42,120,0,0))

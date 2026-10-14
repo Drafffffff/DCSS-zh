@@ -244,6 +244,19 @@ int main(int argc, char *argv[])
 #else
     setlocale(LC_ALL, "");
 #endif
+#ifdef UNIX
+    // Steam may export LC_ALL=C even on a UTF-8 desktop. wcwidth() then
+    // rejects CJK, so message wrapping counts Chinese text as zero columns.
+    // Only change character handling; keep the user's numeric conventions.
+    if (wcwidth(L'中') != 2)
+    {
+        for (const char *locale : {"C.UTF-8", "en_US.UTF-8", "UTF-8"})
+        {
+            if (setlocale(LC_CTYPE, locale) && wcwidth(L'中') == 2)
+                break;
+        }
+    }
+#endif
 #ifdef USE_TILE_WEB
     if (strcasecmp(nl_langinfo(CODESET), "UTF-8"))
     {

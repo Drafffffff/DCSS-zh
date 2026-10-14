@@ -4,17 +4,17 @@
 
 [上游 DCSS](https://github.com/crawl/crawl) · [像素字体来源](https://github.com/TakWolf/fusion-pixel-font)
 
-## 构建与运行
+## 下载与运行
 
-当前仓库提交提供完整源码、字体和构建脚本，尚未发布二进制 Release。按下方说明构建后可运行：
+从 [GitHub Release](https://github.com/Drafffffff/DCSS-zh/releases/latest) 下载对应运行包，解压后启动。Release 同时提供游戏源码、适用的第三方依赖源码与 SHA256 校验文件。
 
-| 系统 | 构建产物 | 启动方式 |
+| 系统 | 下载文件 | 启动方式 |
 | --- | --- | --- |
-| macOS 26+，Apple Silicon | `output/macos/DCSS 中文版.app` | 打开应用；终端版使用同目录的 `.command` |
-| Bazzite / Fedora 43+，x86_64 | `output/linux/dcss-zh/` | 运行 `./dcss-zh`；4K 屏使用 `./dcss-zh-4k`；终端版使用 `./dcss-zh-console` |
+| macOS 26+，Apple Silicon | `DCSS-zh-0.34.1-zh.1-macos-arm64.zip` | 打开应用；终端版使用同目录的 `.command` |
+| Bazzite / Fedora 43+，x86_64 | `DCSS-zh-0.34.1-zh.1-bazzite-x86_64.tar.gz` | 运行 `./dcss-zh`；4K 屏使用 `./dcss-zh-4k`；终端版使用 `./dcss-zh-console` |
 
 macOS 包已包含运行库，无需另装 Homebrew；应用未经过 Apple 公证。首次打开若被系统拦截，可在“系统设置 → 隐私与安全性”中允许打开。
-Linux 源码构建使用开发环境安装的 SDL2 与基础系统库；不需要 Proton。已在 Bazzite 验证，其他 Linux 发行版尚未验证。
+Linux 包包含 SDL2_image / SDL2_mixer，SDL2 与基础系统库使用 Bazzite / Fedora 43+ 提供的版本；不需要 Proton。已在 Bazzite 验证，其他 Linux 发行版尚未验证。
 
 在 Steam 桌面模式选择“添加非 Steam 游戏”，4K 屏选择 `dcss-zh-4k`，普通屏选择 `dcss-zh`。4K 入口通过启动参数应用配置，不覆盖用户配置。
 
@@ -28,6 +28,7 @@ Linux 源码构建使用开发环境安装的 SDL2 与基础系统库；不需�
 - 使用 **DCSS Pixel SC**：以 Fusion Pixel 12px 简体等宽字体为基础，13 个汉字和“∞”使用 Noto Sans SC Regular 补齐。覆盖当前词库的全部可见字符。
 - 4K 原生全屏：地图 96px（3 倍），侧栏图块 64px（2 倍）；菜单/状态文字 48px，消息/提示 36px。关闭平滑插值。
 - 修复中文字体列宽估算、精确菜单翻译入口、动态说明拆行匹配，以及侧栏分类标签放大后的命中区域偏移。
+- Steam 继承 `LC_ALL=C` 时自动回退到 UTF-8 字符处理，避免中文消息宽度被算成零、越过物品栏。
 - 人偶编辑器根据字体度量布局；状态页先翻译再计算列宽；中文长帮助页的字形缓存扩为 4,096 个槽位，避免花字和串字。
 
 ![Bazzite 4K 实际游戏画面](screenshots/bazzite-4k.png)
@@ -67,4 +68,4 @@ python3 tools/test_native_catalog.py
 验证包含两端原生构建、C++ 翻译模板回归、独立存档 PTY 测试、Lua 消息兼容性、图形技能菜单截图和 Bazzite Steam 实际点击检查。数据及界面审计记录在 `verification/`。
 
 游戏遵循上游 `LICENSE`（GPL-2.0-or-later），原作者与素材声明保留在 `native/` 中。字体使用 SIL OFL 1.1；衍生字体已更名，完整声明在 `fonts/OFL.txt` 与 `fonts/fusion-pixel-licenses/`。
-macOS 打包脚本会收集第三方运行库的许可证与版本清单；相关源码地址位于 `verification/macos-library-sources.json`。发布二进制时还需一并提供适用的 GPL/LGPL 源码、构建配方和补丁。SteamGridDB 封面素材不包含在仓库中。
+macOS 打包脚本会收集第三方运行库的许可证与版本清单；相关源码地址位于 `verification/macos-library-sources.json`。Release 中的 third-party-sources 附件提供适用的 GPL/LGPL 源码、构建配方和补丁。SteamGridDB 封面素材不包含在仓库中。
