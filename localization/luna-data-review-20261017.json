@@ -1,0 +1,648 @@
+{
+  "data_entries": [
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial death",
+      "en": "You die...\n\nIn Crawl, death is a sad but common occurrence. Note that there's usually\nsomething you could have done to survive, for example by using some kind of\nitem, running away, resting between fights, or by avoiding combat entirely.\nKeep trying, eventually you'll prevail!",
+      "zh": "你死了……\n\n在 Crawl 里，死亡虽令人沮丧，却也再平常不过。多数时候，总有办法多争取一些生机：使用物品、拔腿逃跑、战后休整，或者干脆避开战斗。继续尝试，总有一天你会赢。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial intro",
+      "en": "You can reread all messages at any time with\n<input>$cmd[CMD_REPLAY_MESSAGES]</input>. Also, press <input>Space</input>\n<localtiles> or <input>left click</input> with mouse</localtiles> to clear the\n<cyan>--more--</cyan> prompts.",
+      "zh": "随时可以按<input>$cmd[CMD_REPLAY_MESSAGES]</input>重看之前的消息。遇到<cyan>--更多--</cyan>提示时，按<input>空格</input><localtiles>或用鼠标<input>左键</input></localtiles>继续。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 start",
+      "en": "In this lesson you're going to learn how to move around and explore a level.\nYou can move <localtiles>by clicking somewhere with your <input>Mouse</input>,\nor </localtiles>with the <input>arrow keys</input>.",
+      "zh": "本课将介绍如何移动和探索楼层。\n<localtiles>用<input>鼠标</input>点击目的地，</localtiles>或按<input>方向键</input>移动。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 go_on",
+      "en": "You're doing great! Now, explore a bit until you reach the next blue square.",
+      "zh": "很好！继续探索，找到下一个蓝色方块。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 diagonal",
+      "en": ":nowrap\nMove diagonally with the <input>number pad</input> (try Numlock on/off)<localtiles>,</localtiles> <console>or the </console><input>vi keys</input><console>.</console><localtiles>, or <input>mouse</input>.</localtiles>\n\n  Numpad:     <w>7 8 9</w>       vi-keys: <w>   $cmd[CMD_MOVE_UP_LEFT] $cmd[CMD_MOVE_UP] $cmd[CMD_MOVE_UP_RIGHT]</w><localtiles>    Mouse:     <w>click</w> on the floor</localtiles>\n               \\|/                     \\|/\n              <w>4</w>-<w>.</w>-<w>6</w> <w>                  $cmd[CMD_MOVE_LEFT]</w>-<w>.</w>-<w>$cmd[CMD_MOVE_RIGHT]</w>\n               /|\\                     /|\\\n              <w>1 2 3</w> <w>                  $cmd[CMD_MOVE_DOWN_LEFT] $cmd[CMD_MOVE_DOWN] $cmd[CMD_MOVE_DOWN_RIGHT]</w>",
+      "zh": ":nowrap\n按<input>数字键盘</input>斜向移动（可尝试切换 Num Lock）<localtiles>，</localtiles> <console>或按</console><input>vi 键位</input><console>。</console><localtiles>也可以用<input>鼠标</input>点击地面。</localtiles>\n\n  数字键盘：  <w>7 8 9</w>        vi 键位：<w>   $cmd[CMD_MOVE_UP_LEFT] $cmd[CMD_MOVE_UP] $cmd[CMD_MOVE_UP_RIGHT]</w><localtiles>    鼠标：     <w>点击</w>地面</localtiles>\n               \\|/                     \\|/\n              <w>4</w>-<w>.</w>-<w>6</w> <w>                  $cmd[CMD_MOVE_LEFT]</w>-<w>.</w>-<w>$cmd[CMD_MOVE_RIGHT]</w>\n               /|\\                     /|\\\n              <w>1 2 3</w> <w>                  $cmd[CMD_MOVE_DOWN_LEFT] $cmd[CMD_MOVE_DOWN] $cmd[CMD_MOVE_DOWN_RIGHT]</w>"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 shiftmove",
+      "en": "A quicker way to “run” through a corridor is to press <input>Shift</input>\nalong with the <input>number pad</input> (try Numlock on/off) or <input>vi\nkeys</input>.",
+      "zh": "在走廊里赶路时，可按住<input>Shift</input>再按<input>数字键盘</input>或<input>vi 键位</input>方向键，连续向前移动。（可尝试切换 Num Lock。）"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 downstairs",
+      "en": "When standing on a staircase leading downwards, you can enter the next level\nwith <input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles> or with\na <input>left click</input> on your character</localtiles>.",
+      "zh": "站在向下的楼梯上时，按<input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles>或用鼠标<input>左键点击</input>角色</localtiles>，即可进入下一层。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 levelmap",
+      "en": "What's this? To find out where you are, <tiles>have a look at the\n<w>minimap</w> to the right of the screen.</tiles><localtiles> You can have a\ncloser look at a part of the map with a <input>right mouse click</input> and\nalso can travel there with a <input>left click</input>.</localtiles><webtiles>\nYou can </webtiles><nomouse>enter the overmap view with\n<input>$cmd[CMD_DISPLAY_MAP]</input> and then move the cursor around to look\naround the level. You also can travel wherever your cursor is pointing by\npressing <input>.</input> or <input>Enter</input>. Press <input>Escape</input>\nto return to the normal game mode.</nomouse>",
+      "zh": "想确认自己的位置？<tiles>看看屏幕右侧的<w>小地图</w>。</tiles><localtiles>用鼠标<input>右键</input>可以放大查看地图的一处，<input>左键</input>则可前往那里。</localtiles><webtiles>你也可以</webtiles><nomouse>按<input>$cmd[CMD_DISPLAY_MAP]</input>打开楼层地图，再移动光标查看各处。按<input>.</input>或<input>Enter</input>可前往光标所在处；按<input>Escape</input>返回游戏。</nomouse>"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 autoexplore",
+      "en": "Exploring manually can get tedious after a while, so you might want to let that\nhappen automatically. Try it by pressing <input>$cmd[CMD_EXPLORE]</input>\n<localtiles>, or by clicking on 'autoexplore', the first button in the command\nbar below the minimap.</localtiles>.",
+      "zh": "手动逐格探索很快会让人厌烦，不妨试试自动探索：按<input>$cmd[CMD_EXPLORE]</input><localtiles>，或点击小地图下方命令栏里的第一个按钮“自动探索”。</localtiles>"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 exclusion",
+      "en": "Some dangerous ground is marked with <w>exclusions</w>. Autotravel\n<localtiles>(including <input>mouseclick</input>!) </localtiles>will not lead\nyou into exclusions. Instead you will automatically stop.\n\nHowever, autoexplore will move you safely around exclusions: so, you can safely\ncontinue by pressing <input>$cmd[CMD_EXPLORE]</input>.",
+      "zh": "危险区域会标为<w>禁区</w>。自动行进<localtiles>（包括<input>鼠标点击</input>前往）</localtiles>不会带你进入禁区，而会在边缘停下。\n\n自动探索会绕开禁区，因此你可以放心按<input>$cmd[CMD_EXPLORE]</input>继续探索。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 autoexplore_announce",
+      "en": "Autoexplore will stop when you first see items or dungeon features, like these\nstairs. To travel directly to the stairs, you can\n<localtiles><input>click</input> on them; or you can </localtiles>press\n<input>$cmd[CMD_DISPLAY_MAP]</input> to enter the map overview, then\n<input><<</input> to move the cursor to the nearest up-stairs, and\n<input>Enter</input> to go there.",
+      "zh": "自动探索第一次发现物品或地牢设施（例如这些楼梯）时会停下。<localtiles>要直接前往楼梯，可以<input>点击</input>它们；也可以</localtiles>按<input>$cmd[CMD_DISPLAY_MAP]</input>打开地图概览，再按<input><<</input>将光标移到最近的上行楼梯，最后按<input>Enter</input>前往。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 tutorial_end",
+      "en": "Congratulations! You've completed the first lesson!\n\nTo exit the tutorial, simply go up these stairs with\n<input>$cmd[CMD_GO_UPSTAIRS]</input><localtiles> or by\n<input>left clicking</input> on your character</localtiles>. Confirm the\nresulting prompt with an uppercase <input>Y</input>.",
+      "zh": "恭喜！第一课完成！\n\n要退出教程，按<input>$cmd[CMD_GO_UPSTAIRS]</input><localtiles>或用鼠标<input>左键点击</input>角色</localtiles>走上楼梯，再按大写<input>Y</input>确认。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 newlevel",
+      "en": "A new level! To begin with, head over to that door to the right.\n\nAlso, remember: You can reread old messages with\n<input>$cmd[CMD_REPLAY_MESSAGES]</input>.",
+      "zh": "来到新楼层了！先去右边那扇门看看。\n\n别忘了，按<input>$cmd[CMD_REPLAY_MESSAGES]</input>可以重看之前的消息。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 door",
+      "en": "You can open a closed door by walking into it.",
+      "zh": "走向关着的门，就能把它打开。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 close_door",
+      "en": "To close an open door, press <input>$cmd[CMD_CLOSE_DOOR]</input>.",
+      "zh": "要关门，按<input>$cmd[CMD_CLOSE_DOOR]</input>。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 water",
+      "en": "Note how you can move through shallow but not through deep water.",
+      "zh": "浅水可以通过，深水则不行。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 upstairs",
+      "en": "When standing on a staircase leading upwards, you can enter the previous level\nwith <input>$cmd[CMD_GO_UPSTAIRS]</input><localtiles> or by\n<input>left clicking</input> on your character</localtiles>.",
+      "zh": "站在向上的楼梯上时，按<input>$cmd[CMD_GO_UPSTAIRS]</input><localtiles>或用鼠标<input>左键点击</input>角色</localtiles>即可返回上一层。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial1 exit",
+      "en": ":nowrap\n<white>Tutorial 1 summary: Movement</white>\n\n<yellow>Movement commands</yellow>\n   Numpad:       <w>7 8 9</w>           vi-keys:    <w>$cmd[CMD_MOVE_UP_LEFT] $cmd[CMD_MOVE_UP] $cmd[CMD_MOVE_UP_RIGHT]</w>\n                  \\|/                         \\|/\n                 <w>4</w>-<w>.</w>-<w>6</w>                       <w>$cmd[CMD_MOVE_LEFT]</w>-<w>.</w>-<w>$cmd[CMD_MOVE_RIGHT]</w>\n                  /|\\                         /|\\\n                 <w>1 2 3</w>                       <w>$cmd[CMD_MOVE_DOWN_LEFT] $cmd[CMD_MOVE_DOWN] $cmd[CMD_MOVE_DOWN_RIGHT]</w>\n\n  <input>Shift + direction</input> moves you several squares in this direction.<localtiles>\n  You also can move by <input>clicking</input> somewhere in sight or on the <w>minimap</w>.</localtiles>\n\n<yellow>Staircases</yellow>\n  <input>$cmd[CMD_GO_UPSTAIRS]</input>  go back to the previous level\n  <input>$cmd[CMD_GO_DOWNSTAIRS]</input>  enter the next level\n  <input>$cmd[CMD_DISPLAY_MAP]></input>/<input>$cmd[CMD_DISPLAY_MAP]<<</input> travel to the nearest up/downstairs\n\n<yellow>Doors</yellow> can be opened by walking into them\n  <input>$cmd[CMD_CLOSE_DOOR]</input>  close an open door\n\n<yellow>Travel</yellow><localtiles>\n  mouseclick on the <w>minimap</w></localtiles><nomouse>\n  <input>$cmd[CMD_DISPLAY_MAP]</input>  enter the level map, travel with <input>Enter</input></nomouse>\n  <input>$cmd[CMD_EXPLORE]</input>  autoexplore",
+      "zh": ":nowrap\n<white>教程 1 总结：移动</white>\n\n<yellow>移动</yellow>\n   数字键盘：    <w>7 8 9</w>           vi 键位：    <w>$cmd[CMD_MOVE_UP_LEFT] $cmd[CMD_MOVE_UP] $cmd[CMD_MOVE_UP_RIGHT]</w>\n                  \\|/                         \\|/\n                 <w>4</w>-<w>.</w>-<w>6</w>                       <w>$cmd[CMD_MOVE_LEFT]</w>-<w>.</w>-<w>$cmd[CMD_MOVE_RIGHT]</w>\n                  /|\\                         /|\\\n                 <w>1 2 3</w>                       <w>$cmd[CMD_MOVE_DOWN_LEFT] $cmd[CMD_MOVE_DOWN] $cmd[CMD_MOVE_DOWN_RIGHT]</w>\n\n  按<input>Shift + 方向键</input>可沿该方向连续移动数格。<localtiles>\n  也可以<input>点击</input>视野内的地点或<w>小地图</w>移动。</localtiles>\n\n<yellow>楼梯</yellow>\n  <input>$cmd[CMD_GO_UPSTAIRS]</input>  返回上一层\n  <input>$cmd[CMD_GO_DOWNSTAIRS]</input>  进入下一层\n  <input>$cmd[CMD_DISPLAY_MAP]></input>/<input>$cmd[CMD_DISPLAY_MAP]<<</input> 前往最近的上行/下行楼梯\n\n<yellow>门</yellow> 走向关着的门即可打开\n  <input>$cmd[CMD_CLOSE_DOOR]</input>  关闭开着的门\n\n<yellow>行进</yellow><localtiles>\n  点击<w>小地图</w></localtiles><nomouse>\n  <input>$cmd[CMD_DISPLAY_MAP]</input>  打开楼层地图，再按<input>Enter</input>前往光标位置</nomouse>\n  <input>$cmd[CMD_EXPLORE]</input>  自动探索"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 start",
+      "en": "This lesson will teach you about monsters and fighting. First, we need a\nweapon! Go and grab the one lying over there.",
+      "zh": "本课将介绍怪物与战斗。先去把那把武器拿来。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 pickup_weapon",
+      "en": "Pick up this weapon<localtiles> by clicking on it in the inventory panel, and\nthen wield it by clicking on it again. Alternatively, pick it up</localtiles>\nwith <input>$cmd[CMD_PICKUP]</input> or <input>g</input> and then wield it with\n<input>$cmd[CMD_EQUIP]</input>.",
+      "zh": "<localtiles>在物品栏中点击这把武器将它拾起，再点一次即可装备。</localtiles>也可以按<input>$cmd[CMD_PICKUP]</input>或<input>g</input>拾取，再按<input>$cmd[CMD_EQUIP]</input>装备。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 melee",
+      "en": "To attack a monster with your bare hands or wielded weapon, simply walk into\nit.",
+      "zh": "要用空手或手持武器攻击怪物，走到它所在的位置即可。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 resting",
+      "en": "Very good! You can heal by resting with <input>$cmd[CMD_REST]</input>\n<localtiles>, or by clicking the 'rest' button in the command bar below the\nminimap</localtiles>. This will make you rest until your health is full, but\nwill be interrupted by important events.",
+      "zh": "很好！按<input>$cmd[CMD_REST]</input><localtiles>，或点击小地图下方命令栏里的“休息”按钮</localtiles>即可休息恢复生命值。休息会持续到生命值回满，但途中遇到重要事件时会中断。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 wait",
+      "en": "Rather than storm the room and get swarmed by monsters, you can also step back\nand wait (with <input>$cmd[CMD_WAIT]</input><localtiles> or by\n<input>clicking</input> on your character</localtiles>) for them to come to you.",
+      "zh": "与其冲进房间被怪物围攻，不如退开几步，按<input>$cmd[CMD_WAIT]</input><localtiles>或<input>点击</input>自己的角色</localtiles>原地等待，让怪物向你靠近。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 resting_reminder",
+      "en": "Remember, you can rest up with <input>$cmd[CMD_REST]</input>.",
+      "zh": "别忘了按<input>$cmd[CMD_REST]</input>休息恢复体力。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 compare_monster_desc",
+      "en": "Examine these monsters (<localtiles>via <input>mouseover</input></localtiles>\n<nomouse>by pressing <input>$cmd[CMD_LOOK_AROUND]</input> to enter examine mode,\nand then <input>$cmd[CMD_TARGET_CYCLE_FORWARD]</input> to cycle through nearby\nmonsters</nomouse>)\nand compare their descriptions (<localtiles>with <input>rightmouseclick</input></localtiles>\n<nomouse>by pressing <input>$cmd[CMD_TARGET_DESCRIBE]</input> while selecting\nthem in examine mode</nomouse>)\nto find out which of these cages is safer to fight through.",
+      "zh": "查看这些怪物（<localtiles>将<input>鼠标悬停</input>在怪物上</localtiles><nomouse>按<input>$cmd[CMD_LOOK_AROUND]</input>进入查看模式，再按<input>$cmd[CMD_TARGET_CYCLE_FORWARD]</input>切换附近的怪物</nomouse>），并比较它们的描述（<localtiles>用<input>鼠标右键</input></localtiles><nomouse>在查看模式中选中怪物后按<input>$cmd[CMD_TARGET_DESCRIBE]</input></nomouse>），判断穿过哪个笼子更安全。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 downstairs",
+      "en": "Well done! After resting to full health continue to the next level with\n<input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles> or by <input>clicking</input>\non your character</localtiles>.",
+      "zh": "打得不错！休息到生命值回满后，按<input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles>或<input>点击</input>自己的角色</localtiles>进入下一层。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 newlevel",
+      "en": "Remember: You can reread old messages with\n<input>$cmd[CMD_REPLAY_MESSAGES]</input>.",
+      "zh": "记住，按<input>$cmd[CMD_REPLAY_MESSAGES]</input>可以重看之前的消息。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 boomerangs",
+      "en": "Now, for ranged combat! Pick up these boomerangs with\n<input>$cmd[CMD_PICKUP]</input> or <input>g</input><localtiles>, or by\n<input>mouseclick</input>,</localtiles> and continue.",
+      "zh": "现在试试远程攻击！按<input>$cmd[CMD_PICKUP]</input>或<input>g</input><localtiles>，也可以用<input>鼠标点击</input></localtiles>拾起这些回旋镖，然后继续前进。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 throwing",
+      "en": "You can fire your boomerangs at a monster with <input>$cmd[CMD_FIRE]</input>\n<localtiles> or by <input>clicking</input> on them in the inventory\npanel</localtiles>. To confirm the auto-targeted monster, press\n<input>$cmd[CMD_TARGET_SELECT]</input> or <input>Enter</input>. You can skip\nthis and fire at the closest monster with <input>shift-tab</input> or <input>p</input>.",
+      "zh": "按<input>$cmd[CMD_FIRE]</input>可以向怪物投掷回旋镖<localtiles>；也可以在物品栏中<input>点击</input>回旋镖</localtiles>。自动选定目标后，按<input>$cmd[CMD_TARGET_SELECT]</input>或<input>Enter</input>确认。若想跳过确认、直接攻击最近的怪物，按<input>shift-tab</input>或<input>p</input>。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 wield_bow",
+      "en": "Pick up this shortbow and wield it with <input>$cmd[CMD_EQUIP]</input>\n<localtiles> or by <input>mouseclick</input></localtiles>.",
+      "zh": "捡起这把短弓，再按<input>$cmd[CMD_EQUIP]</input>装备它<localtiles>，也可以用<input>鼠标点击</input>操作。</localtiles>"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 firing",
+      "en": "Firing arrows from your wielded shortbow works a bit differently from throwing boomerangs.\nUse <input>$cmd[CMD_PRIMARY_ATTACK]</input><localtiles> or <input>mouseclick</input>\n</localtiles>. You can change the targeted monster by pressing\n<input>$cmd[CMD_TARGET_CYCLE_FORWARD]</input> while in target mode. The worm is\nharmless behind the lava, so concentrate on the dummy which can fire at you.\nAgain, confirm your choice with <input>$cmd[CMD_TARGET_SELECT]</input> or\n<input>Enter</input>.",
+      "zh": "用已装备的短弓射箭，操作与投掷回旋镖稍有不同。按<input>$cmd[CMD_PRIMARY_ATTACK]</input><localtiles>或<input>鼠标点击</input></localtiles>开始瞄准。瞄准时按<input>$cmd[CMD_TARGET_CYCLE_FORWARD]</input>可切换目标。熔岩另一侧的蠕虫伤不到你；先对付能向你射击的训练假人。最后按<input>$cmd[CMD_TARGET_SELECT]</input>或<input>Enter</input>确认目标。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 travel_reminder",
+      "en": "Remember that you can autoexplore using <input>$cmd[CMD_EXPLORE]</input>.",
+      "zh": "按<input>$cmd[CMD_EXPLORE]</input>可以自动探索。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 explore",
+      "en": "Find the exit! Remember that you can autoexplore using\n<input>$cmd[CMD_EXPLORE]</input>.",
+      "zh": "找到出口！别忘了按<input>$cmd[CMD_EXPLORE]</input>自动探索。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 tutorial_end",
+      "en": "Congratulations! You've survived your first batch of monsters! To exit the\ntutorial, simply go down these stairs.",
+      "zh": "恭喜你，已经击退第一批怪物！从这段楼梯走下去即可退出教程。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial2 exit",
+      "en": ":nowrap\n<white>Tutorial 2 summary: Combat</white>\n\n<yellow>Weapons<console> <cyan>)</cyan></console></yellow>\n  <input>$cmd[CMD_PICKUP]</input>  pick up an item\n  <input>$cmd[CMD_EQUIP]</input>  equip an item<localtiles>\n  You can also do this by <input>clicking</input> on the weapon in your inventory.</localtiles>\n  <input>$cmd[CMD_QUIVER_ITEM]</input>  adjust your quiver\n\n<yellow>Monsters</yellow><localtiles>\n  <input>mouseover</input>  examine a monster\n  <input>rightclick</input> read a more detailed description</localtiles><nomouse>\n  <input>$cmd[CMD_LOOK_AROUND]</input>  examine a monster\n  <input>$cmd[CMD_LOOK_AROUND]$cmd[CMD_TARGET_DESCRIBE]</input> read a more detailed description</nomouse>\n  <input>$cmd[CMD_PRIMARY_ATTACK]</input> fire held weapon\n  <input>$cmd[CMD_FIRE]$cmd[CMD_TARGET_SELECT]</input> fire quiver at pre-targeted monster\n  <input>shift-tab</input>, <input>p</input> fire quiver at closest monster\n  <input>$cmd[CMD_FIRE]$cmd[CMD_TARGET_CYCLE_FORWARD]</input> target another monster<localtiles>\n  You can also fire a missile by <input>clicking</input> on it, then confirming the target with <input>Enter</input>.</localtiles>\n\n<yellow>Resting</yellow>\n  <input>$cmd[CMD_WAIT]</input>  wait and rest a single turn\n  <input>$cmd[CMD_REST]</input>  wait and rest up to 100 turns",
+      "zh": ":nowrap\n<white>教程 2 总结：战斗</white>\n\n<yellow>武器<console> <cyan>)</cyan></console></yellow>\n  <input>$cmd[CMD_PICKUP]</input>  拾取物品\n  <input>$cmd[CMD_EQUIP]</input>  装备物品<localtiles>\n  也可以<input>点击</input>物品栏中的武器来装备。</localtiles>\n  <input>$cmd[CMD_QUIVER_ITEM]</input>  设置当前弹药\n\n<yellow>怪物</yellow><localtiles>\n  <input>鼠标悬停</input>  查看怪物\n  <input>鼠标右键</input>  阅读详细描述</localtiles><nomouse>\n  <input>$cmd[CMD_LOOK_AROUND]</input>  查看怪物\n  <input>$cmd[CMD_LOOK_AROUND]$cmd[CMD_TARGET_DESCRIBE]</input>  阅读详细描述</nomouse>\n  <input>$cmd[CMD_PRIMARY_ATTACK]</input>  发射手持武器\n  <input>$cmd[CMD_FIRE]$cmd[CMD_TARGET_SELECT]</input>  向预先选定的怪物发射当前弹药\n  <input>shift-tab</input>、<input>p</input>  向最近的怪物发射当前弹药\n  <input>$cmd[CMD_FIRE]$cmd[CMD_TARGET_CYCLE_FORWARD]</input>  切换目标<localtiles>\n  也可以<input>点击</input>弹药发射，再按<input>Enter</input>确认目标。</localtiles>\n\n<yellow>休息</yellow>\n  <input>$cmd[CMD_WAIT]</input>  等待一回合\n  <input>$cmd[CMD_REST]</input>  最多休息 100 回合"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 start",
+      "en": "In this lesson you're going to learn about items and how to use them.",
+      "zh": "本课将介绍物品，以及如何使用它们。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 armour",
+      "en": "Pick up these boots with <input>$cmd[CMD_PICKUP]</input> and wear them with\n<input>$cmd[CMD_EQUIP]</input>.<localtiles> Or simply <input>mouseclick</input>\non them in the inventory panel.</localtiles>",
+      "zh": "按<input>$cmd[CMD_PICKUP]</input>拾起这双靴子，再按<input>$cmd[CMD_EQUIP]</input>穿上。<localtiles>也可以直接在物品栏中<input>点击</input>靴子。</localtiles>"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 autopickup",
+      "en": "Some types of items<tiles>, marked with a green frame,</tiles> are picked up\nautomatically as you step on them.",
+      "zh": "有些物品<tiles>会标上绿色边框，</tiles>走过时就会自动拾取。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 scroll",
+      "en": "Many items are unidentified when you find them. One way to find out what they\ndo is to use them. Try reading this scroll with <input>$cmd[CMD_READ]</input>\n<localtiles> or with <input>mouseclick</input> in the inventory\npanel</localtiles>.",
+      "zh": "刚发现的物品往往尚未鉴定。使用物品是了解其效果的一种方法。按<input>$cmd[CMD_READ]</input><localtiles>或在物品栏中<input>点击</input></localtiles>阅读这张卷轴。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 scroll_noautopickup",
+      "en": "Autopickup does not work if there's a monster around. You can either pick up\nthis scroll now with <input>$cmd[CMD_PICKUP]</input><localtiles> or\n<input>clicking</input> on your character,</localtiles> or you can fight the\nnearby enemy and pick it up afterwards.",
+      "zh": "附近有怪物时，自动拾取不会生效。你可以按<input>$cmd[CMD_PICKUP]</input><localtiles>或<input>点击</input>自己的角色</localtiles>现在拾起卷轴，也可以先击败附近的敌人再回来拿。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 ego_weapon",
+      "en": "An item described as <lightblue>runed</lightblue> or\n<lightblue>glowing</lightblue> will always be enchanted, or have special\nproperties, or both. Once you step on top of such an item, its properties will\nbe revealed to you.",
+      "zh": "物品描述中带有<lightblue>符文</lightblue>或<lightblue>发光</lightblue>字样，说明它必定经过附魔、带有特殊属性，或两者兼有。走到物品上后，这些属性就会揭晓。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 inventory",
+      "en": "To view the description of your new weapon, find and select it in your\ninventory (<input>$cmd[CMD_DISPLAY_INVENTORY]</input>). <localtiles>You can\nalso <input>mouseover</input> or <input>right click</input> it in the inventory\npanel. </localtiles>Notice that all the item commands also work from the item\ndescription screens.",
+      "zh": "查看新武器的说明：按<input>$cmd[CMD_DISPLAY_INVENTORY]</input>打开物品栏，找到并选中它。<localtiles>也可以在物品栏中将<input>鼠标悬停</input>在物品上，或用<input>右键</input>点击它。</localtiles>物品说明界面也能使用所有物品命令。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 battle",
+      "en": "Once you've successfully managed to poison a monster, it is sometimes best to\nretreat and let the poison do the work. Don't forget to retreat to heal too, if\nnecessary.",
+      "zh": "成功让怪物中毒后，有时撤退并等毒素发作更划算。若有需要，也别忘了撤退休整。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 downstairs",
+      "en": "Well fought! If necessary, rest up with <input>$cmd[CMD_REST]</input>, then\ncontinue downwards with <input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles> or\nwith a <input>click</input> on your character</localtiles>.",
+      "zh": "打得漂亮！必要时按<input>$cmd[CMD_REST]</input>休息，再按<input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles>或<input>点击</input>自己的角色</localtiles>下楼。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 command_help",
+      "en": "If the many commands are too confusing, you can also look them up in the\ncommand help <input>$cmd[CMD_DISPLAY_COMMANDS]</input>. <localtiles>A number of\ncommands are also available in the clickable <w>command panel</w> to the right\nof the screen. </localtiles>Rereading old messages with\n<input>$cmd[CMD_REPLAY_MESSAGES]</input> is available as usual.",
+      "zh": "命令太多记不住？按<input>$cmd[CMD_DISPLAY_COMMANDS]</input>打开命令帮助查询。<localtiles>屏幕右侧的<w>命令栏</w>也提供了一些可点击的命令。</localtiles>照常可以按<input>$cmd[CMD_REPLAY_MESSAGES]</input>重看之前的消息。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 trap",
+      "en": "Traps can have a variety of unpleasant effects, such as alerting monsters or\nteleporting you into danger. Some traps are permanent and will always be\nrevealed as part of the map, but other traps can be triggered by exploring new\ntiles, and won't exist after being triggered. If there's no way around, you'll\nhave to trigger the trap and deal with the consequences.",
+      "zh": "陷阱会造成各种麻烦，例如惊动怪物，或把你传送到危险之处。有些陷阱是永久的，会一直显示在地图上；另一些会在你探索新区域时触发，之后便不复存在。若无路可绕，就只能触发陷阱并应对后果。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 potion",
+      "en": "Potions may provide vital healing or useful enchantments, but some have less\ndesirable effects. You can quaff this potion with\n<input>$cmd[CMD_QUAFF]</input><localtiles> or with\n<input>mouseclick</input></localtiles> to discover what it does.",
+      "zh": "药水可能提供关键治疗或有益的强化，也可能带来不利效果。按<input>$cmd[CMD_QUAFF]</input><localtiles>或<input>鼠标点击</input></localtiles>喝下这瓶药水，看看它有什么作用。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 artefact_armour",
+      "en": "Items with <w>unusual names</w> are artefacts. Artefacts can have a number of\nspecial properties. Some unique artefacts (such as this cloak) are always\nidentified and may have special properties that cannot be found anywhere else!\nOthers are generated with a random selection of properties, and are\nunidentified until you step on top of them. Try equipping this cloak with\n<input>$cmd[CMD_EQUIP]</input><localtiles> or <input>mouseclick</input>\nin the inventory panel</localtiles>.",
+      "zh": "名字<w>与众不同</w>的物品就是神器。神器各有特殊属性。有些独特神器（例如这件披风）总会自动鉴定，还可能拥有别处没有的属性；其他神器则随机生成属性，走到它们上面后才会鉴定出来。按<input>$cmd[CMD_EQUIP]</input><localtiles>或在物品栏中<input>点击</input></localtiles>试着穿上这件披风。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 wand_fire",
+      "en": "You can evoke a wand with <input>$cmd[CMD_EVOKE]</input><localtiles> or with\n<input>mouseclick</input> in the inventory panel</localtiles>.",
+      "zh": "按<input>$cmd[CMD_EVOKE]</input><localtiles>或在物品栏中<input>点击</input></localtiles>即可启动魔杖。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 wand_digging",
+      "en": "A wand of digging can destroy rock walls. Use\n<input>$cmd[CMD_LOOK_AROUND]][$cmd[CMD_TARGET_DESCRIBE]</input> <localtiles>or\n<input>mouseover</input>/<input>right click</input> </localtiles>to check wall\ntypes.",
+      "zh": "挖掘魔杖可以摧毁岩壁。按<input>$cmd[CMD_LOOK_AROUND]][$cmd[CMD_TARGET_DESCRIBE]</input><localtiles>，或将<input>鼠标悬停</input>在墙上／<input>右键</input>点击墙面</localtiles>查看墙壁类型。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 amulet",
+      "en": "Jewellery is put on with <input>$cmd[CMD_EQUIP]</input><localtiles>\nor with <input>mouseclick</input> in the inventory panel</localtiles>.",
+      "zh": "按<input>$cmd[CMD_EQUIP]</input><localtiles>或在物品栏中<input>点击</input></localtiles>即可佩戴首饰。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 drop",
+      "en": "This amulet would be very powerful if your character had a god to worship,\nbut here and now, it's useless. You may want to drop it with\n<input>$cmd[CMD_DROP]</input><localtiles> or by\n<input>Shift-leftclicking</input> it in the inventory panel</localtiles>.",
+      "zh": "若你信奉某位神，这枚护身符会非常强大；但眼下它毫无用处。按<input>$cmd[CMD_DROP]</input><localtiles>或在物品栏中按住 Shift 再<input>左键点击</input></localtiles>即可丢下它。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 gold",
+      "en": "Gold can be spent in shops. It takes no inventory space and cannot be dropped.",
+      "zh": "金币可在商店消费，不占物品栏空间，也不能丢弃。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 shop",
+      "en": "Shops offer a variety of items, but they don't buy items from anyone.",
+      "zh": "商店里有各种商品，但不会向冒险者收购物品。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 enter_shop",
+      "en": "To enter this shop, press <input>$cmd[CMD_GO_UPSTAIRS]</input><localtiles> or\n<input>click</input> on your character</localtiles>. To buy items,\nselect them with their hotkey, hit <input>Enter</input> and confirm with\n<input>y</input>es. You can switch to description mode with <input>!</input>.",
+      "zh": "按<input>$cmd[CMD_GO_UPSTAIRS]</input><localtiles>或<input>点击</input>自己的角色</localtiles>进入商店。购买时，按商品对应的字母键选中，按<input>Enter</input>，再按<input>y</input>确认。按<input>!</input>可切换到说明模式。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 autoexplore_reminder",
+      "en": "Remember, you can explore the level automatically with\n<input>$cmd[CMD_EXPLORE]</input><localtiles> or by <input>clicking</input> the\nautoexplore command button in the <w>command panel</w></localtiles>.",
+      "zh": "按<input>$cmd[CMD_EXPLORE]</input><localtiles>或<input>点击</input><w>命令栏</w>中的自动探索按钮</localtiles>即可自动探索楼层。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 go_shopping",
+      "en": "You now have enough gold to do some serious shopping! The quickest way back to\nthe shop is by searching for it. Type <input>$cmd[CMD_SEARCH_STASHES]</input>,\nand then enter “<w>shop</w>”. Select the result to start travelling.<localtiles>\nYou can also <input>click</input> on the search button in the command panel, or\nuse the minimap to return to the shop.</localtiles>",
+      "zh": "现在手头宽裕，可以好好逛逛商店了！最快的回店方法是搜索：按<input>$cmd[CMD_SEARCH_STASHES]</input>，输入“<w>shop</w>”，再选中搜索结果开始行进。<localtiles>也可以<input>点击</input>命令栏中的搜索按钮，或通过小地图返回商店。</localtiles>"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 optional_battle",
+      "en": "Warning, this way leads to <lightred>a difficult battle</lightred>. You may\nchoose to use what you've learned so far in a fight, or try to reach the other\nexit on the island. Either way, it may be a good idea to do some shopping, if\nyou haven't already.",
+      "zh": "前方是<lightred>一场硬仗</lightred>！你可以用刚学到的本领迎战，也可以设法抵达岛上的另一个出口。无论选哪条路，若还没购物，最好先去商店看看。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 tutorial_end",
+      "en": "Well done! To exit the tutorial, simply go down these stairs.",
+      "zh": "做得好！从楼梯下去即可退出教程。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial3 exit",
+      "en": ":nowrap\n<white>Tutorial 3 summary: Items</white>\n\n<yellow>Item commands</yellow>\n  <input>$cmd[CMD_PICKUP]</input>  pick up an item\n  <input>$cmd[CMD_DROP]</input>  drop an item\n  <input>$cmd[CMD_EQUIP]</input>  equip armour, weapons, and jewellery\n  <input>$cmd[CMD_UNEQUIP]</input>  unequip armour, weapons, and jewellery\n  <input>$cmd[CMD_READ]</input>  read a scroll\n  <input>$cmd[CMD_QUAFF]</input>  quaff a potion\n  <input>$cmd[CMD_EVOKE]</input>  evoke a wand\n\n  Use and (un)equip commands are also available from item descriptions in the inventory menu (<input>$cmd[CMD_DISPLAY_INVENTORY]</input>).<localtiles>\n  And of course, <input>mouseclicks</input> also work.</localtiles>\n\n<yellow>Other</yellow>\n  <input>$cmd[CMD_DISPLAY_COMMANDS]?</input> access the command help\n  <input>$cmd[CMD_EXPLORE]</input>  explore automatically\n  <input>$cmd[CMD_SEARCH_STASHES]</input> search for items/features previously seen<localtiles>\n  Several of these commands can also be executed by clicking in the <w>command panel</w>.</localtiles>",
+      "zh": ":nowrap\n<white>教程 3 总结：物品</white>\n\n<yellow>物品命令</yellow>\n  <input>$cmd[CMD_PICKUP]</input>  拾取物品\n  <input>$cmd[CMD_DROP]</input>  丢弃物品\n  <input>$cmd[CMD_EQUIP]</input>  装备防具、武器和首饰\n  <input>$cmd[CMD_UNEQUIP]</input>  卸下防具、武器和首饰\n  <input>$cmd[CMD_READ]</input>  阅读卷轴\n  <input>$cmd[CMD_QUAFF]</input>  饮用药水\n  <input>$cmd[CMD_EVOKE]</input>  启动魔杖\n\n  在物品栏（<input>$cmd[CMD_DISPLAY_INVENTORY]</input>）中查看物品说明时，也可以使用、装备或卸下物品。<localtiles>\n  当然，也可以用<input>鼠标点击</input>操作。</localtiles>\n\n<yellow>其他</yellow>\n  <input>$cmd[CMD_DISPLAY_COMMANDS]?</input> 查看命令帮助\n  <input>$cmd[CMD_EXPLORE]</input>  自动探索\n  <input>$cmd[CMD_SEARCH_STASHES]</input> 搜索先前发现的物品或地标<localtiles>\n  其中一些命令也可通过点击<w>命令栏</w>执行。</localtiles>"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 start",
+      "en": "In this lesson you're going to learn how to memorise and cast spells.",
+      "zh": "本课将介绍如何记忆和施放法术。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 spellbook",
+      "en": "You can memorise a spell from your spell library with\n<input>$cmd[CMD_MEMORISE_SPELL]</input><localtiles> or by\n<input>clicking</input> on the memorisation tab and selecting the spell\ntile</localtiles>. At experience level 1, only level 1 spells are available to\nyou. This will change as you gain experience. To find new spells, find and pick\nup spellbooks, and the spells will be added to your library.",
+      "zh": "按<input>$cmd[CMD_MEMORISE_SPELL]</input><localtiles>，或<input>点击</input>记忆标签页并选择法术图标</localtiles>，即可从法术库中记忆法术。经验等级为 1 时，你只能记忆 1 级法术；等级提高后，可用法术也会增加。找到并拾取魔法书，就能把书中的法术加入法术库。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 spellcasting",
+      "en": "To cast a spell, first memorise it with <input>$cmd[CMD_MEMORISE_SPELL]</input>.\nYou can then cast it with <input>$cmd[CMD_CAST_SPELL]</input><localtiles> or by\n<input>clicking</input> on the spell tile</localtiles>.\n\nPress <input>$cmd[CMD_CAST_SPELL]</input>, then press <input>?</input> to get a\nlist of your spells.",
+      "zh": "施法前，先按<input>$cmd[CMD_MEMORISE_SPELL]</input>记忆法术。之后按<input>$cmd[CMD_CAST_SPELL]</input><localtiles>或<input>点击</input>法术图标</localtiles>即可施放。\n\n按<input>$cmd[CMD_CAST_SPELL]</input>后，再按<input>?</input>查看法术列表。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 spellquivering",
+      "en": "Spells, like ammo, are shown in the quiver slot, so you can use\n<input>$cmd[CMD_QUIVER_ITEM]</input> to ready a spell in the quiver. Use\n<input>$cmd[CMD_FIRE]</input> or <input>shift-tab</input> to fire the currently\nquivered spell.\n\nOnce you are out of magic points, retreat and rest to regain them with\n<input>$cmd[CMD_REST]</input><localtiles> or by <input>clicking</input> the\nrest icon in the command panel</localtiles>.",
+      "zh": "法术和弹药一样显示在弹药槽中。按<input>$cmd[CMD_QUIVER_ITEM]</input>可将法术设为当前弹药；按<input>$cmd[CMD_FIRE]</input>或<input>shift-tab</input>即可施放当前法术。\n\n魔力耗尽时，先撤退，再按<input>$cmd[CMD_REST]</input><localtiles>或<input>点击</input>命令栏的休息图标</localtiles>恢复魔力。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 ring_power",
+      "en": "Put on this ring with <input>$cmd[CMD_EQUIP]</input><localtiles> or\nby <input>clicking</input> it in the inventory panel</localtiles>, and then\nrest up to your new full potential.",
+      "zh": "按<input>$cmd[CMD_EQUIP]</input><localtiles>或在物品栏中<input>点击</input></localtiles>戴上这枚戒指，再休息片刻，恢复到提升后的状态。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 undead",
+      "en": "Unlike most monsters, zombies and skeletons do not regenerate health.\n<localtiles> You can also attempt to re-cast the last spell you used by\npressing <input>Ctrl+leftclick</input> on the monster.</localtiles>",
+      "zh": "与大多数怪物不同，丧尸和骷髅不会恢复生命值。<localtiles>对怪物按<input>Ctrl+左键</input>，也可以尝试重施上一个法术。</localtiles>"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 spell_success",
+      "en": "To check your spell proficiency, press <input>$cmd[CMD_DISPLAY_SPELLS]</input>\n<localtiles> or <input>mouseover</input> over your memorised\nspells</localtiles>. Compare your spell failure rates before and after wearing\nthis ring.",
+      "zh": "按<input>$cmd[CMD_DISPLAY_SPELLS]</input><localtiles>或将<input>鼠标悬停</input>在已记忆的法术上</localtiles>查看法术熟练度。比较戴上这枚戒指前后的法术失败率。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 mephitic_cloud",
+      "en": "Mephitic Cloud is a level 3 spell, so you can't memorise it yet. To level up\nquickly, here are more training dummies — without stones to throw this time.\n\nAt experience level 3, you'll be able to increase one of your stats — choosing\n<input>I</input>ntelligence will help your spellcasting even further.",
+      "zh": "臭云是 3 级法术，你现在还不能记忆。这里有更多训练假人，击败它们就能快速升级——这次没有石头可扔。\n\n达到经验等级 3 后，你可以提升一项属性。选择<input>I</input>ntelligence（智力）还能进一步提高施法能力。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 meph_reminder",
+      "en": "Don't forget to memorise your newly-available spell, by pressing\n<input>$cmd[CMD_MEMORISE_SPELL]</input><localtiles> or by\n<input>clicking</input> on the memorisation tab and selecting the spell\ntile</localtiles>!",
+      "zh": "别忘了记忆刚解锁的法术：按<input>$cmd[CMD_MEMORISE_SPELL]</input><localtiles>，或<input>点击</input>记忆标签页并选择法术图标</localtiles>。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 aiming_clouds",
+      "en": "Mephitic Cloud covers an area in noxious fumes when cast, and you'll be able to\nsee the area it affects as you target it. Try to catch multiple enemies in a\nsingle cloud in order to be more efficient with your magic.",
+      "zh": "施放臭云时，有毒烟雾会覆盖一片区域；瞄准时可以看到影响范围。尽量让一片云笼罩多个敌人，提高魔力的使用效率。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 forget_spell",
+      "en": "Gaining experience levels and raising your Spellcasting skill gives you spell\nslots to spend on spells. You can also <w>forget a memorised spell</w> to make\nspace for a new one by reading a scroll of amnesia. Read the scroll (with\n<input>$cmd[CMD_READ]</input><localtiles> or by\n<input>clicking</input> on it</localtiles>), and then select the spell you want\nto forget. You can relearn forgotten spells from your spell library later, as\nlong as you have spell slots available.",
+      "zh": "提升经验等级和施法技能都能增加法术槽。阅读失忆卷轴可以<w>忘记已记忆的法术</w>，为新法术腾出空间。按<input>$cmd[CMD_READ]</input><localtiles>或<input>点击</input>卷轴</localtiles>阅读，再选择要忘记的法术。只要有空余法术槽，之后仍可从法术库重新记忆它。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 memorise2",
+      "en": "After forgetting one of your old spells to make space, memorise this new spell\nwith <input>$cmd[CMD_MEMORISE_SPELL]</input><localtiles> or by\n<input>clicking</input> on the memorisation tab and selecting the spell\ntile</localtiles>. Then try your new spell and summon some demonic allies!",
+      "zh": "忘记一个旧法术腾出空间后，按<input>$cmd[CMD_MEMORISE_SPELL]</input><localtiles>，或<input>点击</input>记忆标签页并选择法术图标</localtiles>记忆这个新法术。然后试着施法，召唤恶魔盟友吧！"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 displace_allies",
+      "en": "Did you notice you can swap positions with your allies by moving into them?\nAmong other things, displacing a friendly creature can be a good way to escape\na fight.",
+      "zh": "发现了吗？向盟友所在的位置移动，就能与它交换位置。与友方生物换位也能帮你脱离战斗。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 order_allies",
+      "en": "Try to let your allies do the killing! If necessary, you can order them about\nwith <input>$cmd[CMD_SHOUT]</input>. Before opening this gate, you may want to\nwait with <input>$cmd[CMD_WAIT]</input> until your allies have caught\nup with you. Your summons will only stick around for a short time, so don't\nwait too long, or summon some new ones before starting a fight.",
+      "zh": "尽量让盟友替你杀敌！必要时按<input>$cmd[CMD_SHOUT]</input>向它们下令。开门前，可以按<input>$cmd[CMD_WAIT]</input>等盟友跟上。召唤物只能存在一小段时间，别等太久；也可以在开战前重新召唤。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 heavy_armour",
+      "en": "Heavy armour really hampers spellcasting. Try putting on that mail and shield\n(with <input>$cmd[CMD_EQUIP]</input><localtiles> or by\n<input>clicking</input> on them</localtiles>), and compare your spellcasting\nfailure rates with <input>$cmd[CMD_DISPLAY_SPELLS]</input><localtiles> or by\n<input>mouseovering</input> your memorised spells</localtiles>. You can take\narmour off again with <input>$cmd[CMD_UNEQUIP]</input><localtiles> or,\nagain, via <input>mouseclick</input></localtiles>.",
+      "zh": "重甲会严重妨碍施法。试着按<input>$cmd[CMD_EQUIP]</input><localtiles>或<input>点击</input></localtiles>穿上那件锁子甲和盾牌，再按<input>$cmd[CMD_DISPLAY_SPELLS]</input><localtiles>或将<input>鼠标悬停</input>在已记忆的法术上</localtiles>比较施法失败率。按<input>$cmd[CMD_UNEQUIP]</input><localtiles>或用<input>鼠标点击</input></localtiles>即可脱下防具。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 resting_reminder",
+      "en": "Make sure you are at full health and magic points before entering a new area.\nIf necessary, rest up with <input>$cmd[CMD_REST]</input><localtiles> or by\n<input>mouseclick</input> in the command panel</localtiles>.\n\nYou can only summon a limited number of allies at once from any given spell,\nso try to take advantage of a wide range of spells. For example, your summoned\nimps are resistant to poison, so you can cast Mephitic Cloud to fight alongside\nthem without harming your allies.",
+      "zh": "进入新区域前，先确保生命值和魔力值都已回满。必要时按<input>$cmd[CMD_REST]</input><localtiles>或<input>点击</input>命令栏中的休息按钮</localtiles>休息。\n\n每种法术能同时召唤的盟友数量有限，尽量善用不同法术。例如，你召唤的小鬼抗毒，可以与它们并肩作战时施放臭云，不会伤到盟友。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 tutorial_end",
+      "en": "Congratulations, you're a real wizard now! To exit the tutorial, simply go down\nthese stairs.",
+      "zh": "恭喜，你已经是名副其实的巫师了！从楼梯下去即可退出教程。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial4 exit",
+      "en": ":nowrap\n<white>Tutorial 4 summary: Magic</white>\n\n<yellow>Spellcasting commands</yellow>\n  <input>$cmd[CMD_MEMORISE_SPELL]</input>  learn a new spell\n  <input>$cmd[CMD_DISPLAY_SPELLS]</input>  check spell proficiency\n  <input>$cmd[CMD_CAST_SPELL]</input>  cast a spell<localtiles>\n  You can also learn new spells via the <w>memorisation tab</w>.\n  You can cast memorised spells via <input>leftclick</input>, and read their descriptions and check your spell proficiency by <input>mouseover</input> or <input>rightclick</input></localtiles>\n  <input>$cmd[CMD_QUIVER_ITEM]</input>  adjust your quiver\n\n  <input>$cmd[CMD_REST]</input>  rest up to 100 turns to regain magic points and health\n  <input>$cmd[CMD_SHOUT]</input>  order allies\n  <input>$cmd[CMD_UNEQUIP]</input>  take off equipment",
+      "zh": ":nowrap\n<white>教程 4 总结：魔法</white>\n\n<yellow>施法命令</yellow>\n  <input>$cmd[CMD_MEMORISE_SPELL]</input>  记忆新法术\n  <input>$cmd[CMD_DISPLAY_SPELLS]</input>  查看法术熟练度\n  <input>$cmd[CMD_CAST_SPELL]</input>  施放法术<localtiles>\n  也可以通过<w>记忆标签页</w>学习新法术。\n  用<input>左键点击</input>法术图标可施法；将<input>鼠标悬停</input>在法术上或用<input>右键</input>点击，可查看说明和熟练度。</localtiles>\n  <input>$cmd[CMD_QUIVER_ITEM]</input>  调整弹药槽\n\n  <input>$cmd[CMD_REST]</input>  最多休息 100 回合，恢复生命值和魔力值\n  <input>$cmd[CMD_SHOUT]</input>  命令盟友\n  <input>$cmd[CMD_UNEQUIP]</input>  卸下装备"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial5 start",
+      "en": "In this lesson you're going to learn about gods and how to use their powers.",
+      "zh": "本课将介绍诸神，以及如何使用神祇赐予的力量。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial5 dungeon_overview",
+      "en": "Up ahead is an altar to Trog the Wrathful! Trog is just one of many gods. In a\nreal game, you can check <input>$cmd[CMD_DISPLAY_OVERMAP]</input><localtiles>\nor <input>click the dungeon overmap button</input> in the command\npanel</localtiles> for a list of all altars and other interesting features\nfound so far.",
+      "zh": "前方是暴怒之神特洛戈的祭坛！特洛戈只是众神之一。在正式游戏中，按<input>$cmd[CMD_DISPLAY_OVERMAP]</input><localtiles>或<input>点击命令栏中的地牢概览按钮</input></localtiles>，即可查看已发现的祭坛和其他重要地点。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial5 altar",
+      "en": "You can pray on an altar with <input>$cmd[CMD_GO_DOWNSTAIRS]</input>\n<localtiles> (or by <input>left clicking</input> on your character)</localtiles>\nto get an idea what a god offers you, and to join the faith. If\nyou press <input>!</input><localtiles> or\n<input>rightclick</input></localtiles> on the religion screen, you can see a\nmore detailed description.\n\nConfirm your choice with <input>J</input> or <input>Enter</input>.",
+      "zh": "站在祭坛上按<input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles>（或用鼠标<input>左键点击</input>角色）</localtiles>进行祈祷，可以了解神祇的恩赐并选择皈依。在信仰界面按<input>!</input><localtiles>或<input>右键点击</input></localtiles>可阅读更详细的介绍。\n\n按<input>J</input>或<input>Enter</input>确认选择。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial5 religion",
+      "en": "Have a look at your current religious standing with\n<input>$cmd[CMD_DISPLAY_RELIGION]</input><localtiles> (or via the <w>religion\nbutton</w> in the command panel, or by <input>Shift-rightclicking</input> on\nthe player tile)</localtiles>. Again, pressing <input>!</input><localtiles> or\n<input>rightclicking</input></localtiles> will bring up a more detailed\ndescription of your god.",
+      "zh": "按<input>$cmd[CMD_DISPLAY_RELIGION]</input><localtiles>，或点击<w>命令栏</w>中的信仰按钮，也可以对角色图块按住 Shift 再<input>右键点击</input></localtiles>，查看当前信仰状态。和之前一样，按<input>!</input><localtiles>或<input>右键点击</input></localtiles>可阅读神祇的详细介绍。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial5 piety_on_kill",
+      "en": "Some gods really like it if you kill monsters in their name. Let the slaughter\nbegin!",
+      "zh": "有些神祇乐于见到你以其名义杀敌。开始大开杀戒吧！"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial5 berserk",
+      "en": "Against particularly tough foes, you may want to use Trog's Berserk power with\n<input>$cmd[CMD_USE_ABILITY]</input><localtiles> or via the <w>command\npanel</w></localtiles>.",
+      "zh": "遇到格外强大的敌人时，可以按<input>$cmd[CMD_USE_ABILITY]</input><localtiles>或点击<w>命令栏</w></localtiles>使用特洛戈赐予的狂暴能力。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial5 exhaustion",
+      "en": "A berserker rage is truly exhausting. After it ends, you cannot berserk again\nfor a short while and are slowed. It's best to rest with\n<input>$cmd[CMD_REST]</input><localtiles> (or via the\n<w>command panel</w>)</localtiles> until you feel fit again.",
+      "zh": "狂暴极其耗神。狂暴结束后，你会减速，短时间内也无法再次狂暴。最好按<input>$cmd[CMD_REST]</input><localtiles>或通过<w>命令栏</w></localtiles>休息，直到恢复状态。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial5 berserk2",
+      "en": "Berserk is also really useful against multiple enemies — as long as you don't\nrun out of steam in-between.",
+      "zh": "狂暴对付成群敌人也很有效——前提是战斗结束前你还没精疲力竭。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial5 tutorial_end",
+      "en": "Congratulations! You've finished the last tutorial lesson and are now ready for\nthe real game. Good luck!\n\nTo exit the tutorial, just go down these stairs.",
+      "zh": "恭喜！最后一课也完成了，现在可以开始正式冒险。祝你好运！\n\n从楼梯下去即可退出教程。"
+    },
+    {
+      "kind": "descript",
+      "file": "tutorial.txt",
+      "key": "tutorial5 exit",
+      "en": ":nowrap\n<white>Tutorial 5 summary: Religion</white>\n\n<yellow>Religious commands</yellow>\n  <input>$cmd[CMD_GO_DOWNSTAIRS]</input>  pray at an altar to join a god\n  <input>$cmd[CMD_USE_ABILITY]</input>  use a divine ability\n  <input>$cmd[CMD_DISPLAY_RELIGION]</input>  check your religious standing<localtiles>\n  A <input>rightclick</input> on the player tile will also bring up the religion screen.</localtiles>\n\n<yellow>Resting</yellow>\n  <input>$cmd[CMD_WAIT]</input>  wait and rest a single turn\n  <input>$cmd[CMD_REST]</input>  wait and rest up to 100 turns\n\n<yellow>Other commands</yellow>\n  <input>$cmd[CMD_DISPLAY_OVERMAP]</input> display an overview of the dungeon\n  <input>$cmd[CMD_DISPLAY_COMMANDS]/</input>  search the description database",
+      "zh": ":nowrap\n<white>教程 5 总结：信仰</white>\n\n<yellow>信仰命令</yellow>\n  <input>$cmd[CMD_GO_DOWNSTAIRS]</input>  在祭坛祈祷并皈依神祇\n  <input>$cmd[CMD_USE_ABILITY]</input>  使用神祇能力\n  <input>$cmd[CMD_DISPLAY_RELIGION]</input>  查看信仰状态<localtiles>\n  对角色图块<input>右键点击</input>也能打开信仰界面。</localtiles>\n\n<yellow>休息</yellow>\n  <input>$cmd[CMD_WAIT]</input>  等待一回合\n  <input>$cmd[CMD_REST]</input>  最多休息 100 回合\n\n<yellow>其他命令</yellow>\n  <input>$cmd[CMD_DISPLAY_OVERMAP]</input> 查看地牢概览\n  <input>$cmd[CMD_DISPLAY_COMMANDS]/</input>  搜索描述数据库"
+    },
+    {
+      "kind": "descript",
+      "file": "items.txt",
+      "key": "boomerang",
+      "en": "A curved, flat, throwing baton designed to return to its user.",
+      "zh": "一种弯曲扁平的投掷短棒，投出后会飞回使用者手中。"
+    },
+    {
+      "kind": "descript",
+      "file": "items.txt",
+      "key": "shortbow",
+      "en": "A curved piece of wood and string, for shooting arrows.",
+      "zh": "用弯木和弓弦制成的弓，可用来射箭。"
+    },
+    {
+      "kind": "descript",
+      "file": "monsters.txt",
+      "key": "worm",
+      "en": "A giant annelid, glistening with slime, with unusually large teeth.",
+      "zh": "一条巨大的环节动物，浑身覆着黏液，长着异常巨大的牙齿。"
+    },
+    {
+      "kind": "descript",
+      "file": "monsters.txt",
+      "key": "wyvern",
+      "en": "A dragon-like creature with a long, sharply pointed tail. Although smaller and\nless formidable than true dragons, it is nonetheless a foe to be reckoned with.",
+      "zh": "一种类龙生物，长着细长尖锐的尾巴。它虽比真正的龙小、威势也稍逊，却仍是不可轻视的敌手。"
+    }
+  ]
+}

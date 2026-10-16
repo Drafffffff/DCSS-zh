@@ -397,14 +397,15 @@ void FTFontWrapper::render_textblock(unsigned int x_pos, unsigned int y_pos,
     {
         for (unsigned int x = 0; x < width; x++)
         {
-            GlyphInfo &glyph = get_glyph_info(chars[i]);
+            // TextRegion reserves one cell per terminal column. CJK glyphs
+            // occupy two cells; their zero continuation is never rendered.
             uint8_t col_bg = colours[i] >> 4;
             uint8_t col_fg = colours[i] & 0xF;
 
             if (col_bg != 0)
             {
                 GLWPrim rect(adv.x, adv.y,
-                             adv.x + m_max_advance.x, adv.y + m_max_advance.y);
+                             adv.x + m_layout_advance, adv.y + m_max_advance.y);
                 // Leave tex coords at their default 0.0f
                 VColour col(term_colours[col_bg].r,
                             term_colours[col_bg].g,
@@ -412,6 +413,14 @@ void FTFontWrapper::render_textblock(unsigned int x_pos, unsigned int y_pos,
                 rect.set_col(col);
                 m_buf->add(rect);
             }
+
+            if (!chars[i])
+            {
+                ++i;
+                adv.x += m_layout_advance;
+                continue;
+            }
+            GlyphInfo &glyph = get_glyph_info(chars[i]);
 
             adv.x += glyph.offset;
 
@@ -438,7 +447,7 @@ void FTFontWrapper::render_textblock(unsigned int x_pos, unsigned int y_pos,
             }
 
             i++;
-            adv.x += glyph.advance - glyph.offset;
+            adv.x += m_layout_advance - glyph.offset;
 
             // See if we need to flush prematurely.
             if (n_subst == MAX_GLYPHS - 1)

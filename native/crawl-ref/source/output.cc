@@ -915,6 +915,7 @@ static void _print_stats_mp(int x, int y)
 
     textcolour(HUD_CAPTION_COLOUR);
     CPRINTF(player_drained() ? "MP: " : "Magic:  ");
+    CGOTOXY(x + 7, y, GOTO_STAT);
     textcolour(mp_colour);
     CPRINTF("%d", you.magic_points);
     if (!boosted)
@@ -981,6 +982,7 @@ static void _print_stats_hp(int x, int y)
     CGOTOXY(x, y, GOTO_STAT);
     textcolour(HUD_CAPTION_COLOUR);
     CPRINTF(player_drained() ? "HP: " : "Health: ");
+    CGOTOXY(x + 7, y, GOTO_STAT);
     textcolour(hp_colour);
     CPRINTF("%d", you.hp);
     if (!boosted)
@@ -1029,7 +1031,7 @@ static short _get_stat_colour(stat_type stat)
 
 static void _print_stat(stat_type stat, int x, int y)
 {
-    CGOTOXY(x+5, y, GOTO_STAT);
+    CGOTOXY(x+7, y, GOTO_STAT);
 
     textcolour(_get_stat_colour(stat));
     CPRINTF("%d", you.stat(stat, false));
@@ -1112,23 +1114,23 @@ static void _print_stats_ac(int x, int y)
         ac += make_stringf("(%d%%) ", you.gdr_perc(false));
 #endif
     textcolour(text_col);
-    CGOTOXY(x+4, y, GOTO_STAT);
-    CPRINTF("%-12s", ac.c_str());
+    CGOTOXY(x+7, y, GOTO_STAT);
+    CPRINTF("%-10s", ac.c_str());
 
     // SH: (two lines lower)
     text_col = _colour_from_stat_mod(you.temp_sh_mod());
 
     string sh = make_stringf("%2d ", player_displayed_shield_class());
     textcolour(text_col);
-    CGOTOXY(x+4, y+2, GOTO_STAT);
-    CPRINTF("%-12s", sh.c_str());
+    CGOTOXY(x+7, y+2, GOTO_STAT);
+    CPRINTF("%-10s", sh.c_str());
 
     you.redraw_armour_class = false;
 }
 
 static void _print_stats_ev(int x, int y)
 {
-    CGOTOXY(x+4, y, GOTO_STAT);
+    CGOTOXY(x+7, y, GOTO_STAT);
 
     // Color EV based on whether temporary effects are raising or lowering it
     const int bonus = you.evasion_scaled(100) - you.evasion_scaled(100, true);
@@ -1188,7 +1190,7 @@ static void _print_weapon_name(const item_def &weapon, int width)
     CPRINTF("%s", slot_name.c_str());
     textcolour(_wpn_name_colour(weapon));
     const int max_name_width = width - slot_name.size();
-    const string name = _wpn_name_corroded(weapon);
+    const string name = zh_translate(_wpn_name_corroded(weapon));
     CPRINTF("%s", chop_string(name, max_name_width).c_str());
     textcolour(LIGHTGREY);
 }

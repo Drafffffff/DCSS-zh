@@ -1,0 +1,1348 @@
+{
+  "entries": [
+    {
+      "en": "It has a %d%% chance to notice you each turn.\n",
+      "zh": "它每回合有%d%%的几率察觉到你。\n",
+      "context": "describe.cc:_monster_notice_chance assembles pronoun + have + a + perception% + this literal suffix.",
+      "reason": "Complete assembled sentence corrects fragment-by-fragment English leakage."
+    },
+    {
+      "en": "They have a %d%% chance to notice you each turn.\n",
+      "zh": "它们每回合有%d%%的几率察觉到你。\n",
+      "context": "Plural-pronoun form of describe.cc::_monster_notice_chance.",
+      "reason": "Plural dynamic form."
+    },
+    {
+      "en": "You have about %d%% to hit with your %s.\n",
+      "zh": "命中率约为%d%%（使用%s）。\n",
+      "context": "describe.cc::describe_to_hit + describe_hit_chance, followed by the pane newline.",
+      "reason": "Exact assembled description uses no comma and keeps chance before weapon."
+    },
+    {
+      "en": "You have %d%% to hit at this distance.",
+      "zh": "你在当前距离的命中率为%d%%。",
+      "context": "describe.cc::describe_hit_chance concise form when verbose=false.",
+      "reason": "Keeps distance modifier meaning clear."
+    },
+    {
+      "en": "They have about %d%% to hit you.\n",
+      "zh": "它们命中你的几率约为%d%%。\n",
+      "context": "describe.cc::_describe_mons_to_hit, plural monster pronoun form.",
+      "reason": "Accurate incoming hit estimate."
+    },
+    {
+      "en": "It has about %d%% to hit you.\n",
+      "zh": "它命中你的几率约为%d%%。\n",
+      "context": "describe.cc::_describe_mons_to_hit, singular monster pronoun form.",
+      "reason": "Accurate incoming hit estimate."
+    },
+    {
+      "en": "You are %d%% of the way to level %d.",
+      "zh": "经验进度已达%d%%，目标等级为%d级。",
+      "context": "main.cc:1762; first integer is completed XP percentage, second is target character level.",
+      "reason": "Preserves meaning and placeholder order. This is not remaining XP and not a floor."
+    },
+    {
+      "en": "You are now level %d!",
+      "zh": "你升到了%d级！",
+      "context": "ouch.cc:461; character XL advancement.",
+      "reason": "Character experience level uses 级."
+    },
+    {
+      "en": "You have reached level %d!",
+      "zh": "你升到了%d级！",
+      "context": "player.cc:3030; character XL advancement.",
+      "reason": "Character level uses 级."
+    },
+    {
+      "en": "You have reached level %d, the highest you will ever reach!",
+      "zh": "你升到了%d级，这已是你能达到的最高等级！",
+      "context": "player.cc:3026; character level cap.",
+      "reason": "Character level uses 级."
+    },
+    {
+      "en": "You have reached level 27, the final one!",
+      "zh": "你升到了27级，已是最后一级！",
+      "context": "player.cc:3024; character level cap.",
+      "reason": "Character level uses 级."
+    },
+    {
+      "en": "Welcome back to level %d!",
+      "zh": "你的经验等级恢复至%d级！",
+      "context": "player.cc:3011; triggered when character XP reaches a prior threshold after skill training.",
+      "reason": "This reports restored character experience level, not a dungeon floor."
+    },
+    {
+      "en": "Your %s%s skill %s to level %d!",
+      "zh": "你的%s%s技能%s至%d级！",
+      "context": "skills.cc:_change_skill_level; prefix is optional “base ”, verb is increases/decreases.",
+      "reason": "Skill ranks use 级. Placeholder order retained."
+    },
+    {
+      "en": "Your %s%s skill %s %d levels and is now at level %d!",
+      "zh": "你的%s%s技能%s%d级，现在为%d级！",
+      "context": "skills.cc:_change_skill_level; placeholders are optional base prefix, skill name, gained/lost, amount, new skill level.",
+      "reason": "Skill ranks use 级. Placeholder order retained."
+    },
+    {
+      "en": "you %sreach %d.%d in %s %d.%d XLs.",
+      "zh": "你%s达到%d.%d级（经验：%s%d.%d级角色经验）。",
+      "context": "Exact make_stringf format in describe.cc::_skill_target_desc; %s values are “would ” and “about/the equivalent of”.",
+      "reason": "Keep the estimate qualifier in the source %s placeholder; do not duplicate “约”."
+    },
+    {
+      "en": "This weapon's minimum attack delay (%.1f) is reached at skill level %d.",
+      "zh": "这件武器的最低攻击延迟为%.1f，在技能%d级时达到。",
+      "context": "describe.cc:1583 item-description template.",
+      "reason": "Skill rank is 级."
+    },
+    {
+      "en": "This projectile's minimum attack delay (%.1f) is reached at skill level %d.",
+      "zh": "这种投掷物的最低攻击延迟为%.1f，在投掷技能%d级时达到。",
+      "context": "describe.cc:2166 item-description template.",
+      "reason": "Names the Throwing skill and uses 级."
+    },
+    {
+      "en": "Current attack delay: %.1f.",
+      "zh": "当前攻击延迟：%.1f。",
+      "context": "describe.cc:1409; complete line is prefixed by newline and indentation at caller.",
+      "reason": "Accurate item stat label."
+    },
+    {
+      "en": "Damage rating: ",
+      "zh": "伤害评级： ",
+      "context": "describe.cc:1625/2181; label followed by a generated damage rating.",
+      "reason": "Mechanics label, exact trailing space."
+    },
+    {
+      "en": "Noise: ",
+      "zh": "噪声： ",
+      "context": "describe.cc:2899/2942 and output.cc:777.",
+      "reason": "Consistent exact label; trailing space preserved."
+    },
+    {
+      "en": "HP: ",
+      "zh": "生命： ",
+      "context": "output.cc:983; status bar short label.",
+      "reason": "Concise status label."
+    },
+    {
+      "en": "MP: ",
+      "zh": "魔力： ",
+      "context": "output.cc:917; status bar short label.",
+      "reason": "Concise status label."
+    },
+    {
+      "en": "Health: ",
+      "zh": "生命： ",
+      "context": "output.cc:983; status-bar alternate label.",
+      "reason": "Concise status label."
+    },
+    {
+      "en": "Magic: ",
+      "zh": "魔力： ",
+      "context": "output.cc:917, notes.cc:223; status-bar/notes label.",
+      "reason": "Concise status label."
+    },
+    {
+      "en": "AC: ",
+      "zh": "护甲： ",
+      "context": "HUD and monster/item detail stat label.",
+      "reason": "Standard status vocabulary."
+    },
+    {
+      "en": "EV: ",
+      "zh": "闪避： ",
+      "context": "HUD and monster/item detail stat label.",
+      "reason": "Standard status vocabulary."
+    },
+    {
+      "en": "SH: ",
+      "zh": "格挡： ",
+      "context": "HUD and monster/item detail stat label.",
+      "reason": "Standard status vocabulary."
+    },
+    {
+      "en": "XL: ",
+      "zh": "等级： ",
+      "context": "output.cc status field; character experience level.",
+      "reason": "Character rank, not floor."
+    },
+    {
+      "en": "Place: ",
+      "zh": "地点： ",
+      "context": "HUD status field.",
+      "reason": "Concise location label."
+    },
+    {
+      "en": "Turn: ",
+      "zh": "回合： ",
+      "context": "HUD status field.",
+      "reason": "Concise turn counter label."
+    },
+    {
+      "en": "Fire: ",
+      "zh": "射击： ",
+      "context": "quiver.cc ranged action heading; contextual action verb, not fire damage.",
+      "reason": "Distinguish ranged attack from flame."
+    },
+    {
+      "en": "At current training (%d%%) ",
+      "zh": "按当前%d%%训练比例，",
+      "context": "describe.cc::_skill_target_desc exact format prefix.",
+      "reason": "Skill-training rate, not skill rank."
+    },
+    {
+      "en": "At a training level of %d%% ",
+      "zh": "按%d%%训练比例，",
+      "context": "describe.cc::_skill_target_desc exact format prefix.",
+      "reason": "Skill-training rate, not dungeon level."
+    },
+    {
+      "en": "At 100% training ",
+      "zh": "按100%训练比例，",
+      "context": "describe.cc::_skill_target_desc exact literal prefix.",
+      "reason": "Keep source literal percent sign as one percent sign."
+    },
+    {
+      "en": "about",
+      "zh": "约",
+      "context": "describe.cc::_skill_target_desc qualifier.",
+      "reason": "Estimate qualifier."
+    },
+    {
+      "en": "the equivalent of",
+      "zh": "相当于",
+      "context": "describe.cc::_skill_target_desc qualifier when XP is beyond normal XL cap.",
+      "reason": "Preserve special high-level estimate meaning."
+    },
+    {
+      "en": "At 100% training you %sreach %d.%d in %s %d.%d XLs.",
+      "zh": "训练比例为100%时，你%s达到%d.%d级（经验：%s%d.%d级角色经验）。",
+      "context": "describe.cc:_skill_target_desc; complete composed form. %s captures are \"would \" or empty, then \"about \" or \"the equivalent of \".",
+      "reason": "Keep the estimate qualifier in the source %s placeholder; do not duplicate “约”."
+    },
+    {
+      "en": "At current training (%d%%) you %sreach %d.%d in %s %d.%d XLs.",
+      "zh": "按当前%d%%训练比例，你%s达到%d.%d级（经验：%s%d.%d级角色经验）。",
+      "context": "describe.cc:_skill_target_desc; complete composed form at current training.",
+      "reason": "Keep the estimate qualifier in the source %s placeholder; do not duplicate “约”."
+    },
+    {
+      "en": "At a training level of %d%% you %sreach %d.%d in %s %d.%d XLs.",
+      "zh": "按%d%%训练比例，你%s达到%d.%d级（经验：%s%d.%d级角色经验）。",
+      "context": "describe.cc:_skill_target_desc; complete composed form for hypothetical training.",
+      "reason": "Keep the estimate qualifier in the source %s placeholder; do not duplicate “约”."
+    },
+    {
+      "en": "You have about %d%% to hit with your %s (while incapacitated).\n",
+      "zh": "目标失能时，命中率约为%d%%（使用%s）。\n",
+      "context": "describe.cc::describe_to_hit appends this exact suffix when the monster is incapacitated.",
+      "reason": "Complete assembled estimate with incapacitation context."
+    },
+    {
+      "en": "You have about %d%% to hit with your %s (at present).\n",
+      "zh": "当前命中率约为%d%%（使用%s）。\n",
+      "context": "describe.cc::describe_to_hit appends this exact suffix when monster EV differs from base EV.",
+      "reason": "Complete assembled estimate with the current-state qualifier."
+    },
+    {
+      "en": "You have about %d%% to hit with your %s (while you are blinded and from distance %d).\n",
+      "zh": "命中率约为%d%%，失明时使用%s（距离%d格）。\n",
+      "context": "describe.cc::describe_hit_chance; distance is in tiles.",
+      "reason": "Complete dynamic examine sentence with original placeholder sequence."
+    },
+    {
+      "en": "You have about %d%% to hit with your %s and %d%% to hit with your %s.\n",
+      "zh": "命中率约为%d%%（使用%s），辅助攻击命中率约为%d%%（%s）。\n",
+      "context": "describe.cc::describe_to_hit appends one auxiliary attack chance; placeholders shown as a complete two-attack runtime form.",
+      "reason": "Complete dynamic examine sentence with original placeholder sequence."
+    },
+    {
+      "en": "You %s %s%s.",
+      "zh": "你%s%s%s。",
+      "context": "throw.cc:746; %s values are throw/shoot, article_a(projectile_name), and optional “ into the darkness”.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "The %s %s %s%s but does no damage.",
+      "zh": "%s%s%s%s，却未造成伤害。",
+      "context": "ranged-attack.cc:302; projectile, attack verb, target and optional shattering clause.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "The %s %s %s%s%s%s",
+      "zh": "%s%s%s%s%s%s",
+      "context": "ranged-attack.cc:802; projectile attack message; all source fragments remain in order.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "You %s %s!",
+      "zh": "你%s%s！",
+      "context": "mon-death.cc: standard kill message; action is kill/destroy/blow up and second argument is monster name.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "Fire: %c) ",
+      "zh": "射击：%c) ",
+      "context": "quiver.cc: ranged_action::quiver_description; %c is the action hotkey.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "Throw: %c) ",
+      "zh": "投掷：%c) ",
+      "context": "quiver heading when throwing action is shown; %c is the action hotkey.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "Speed: %d%%",
+      "zh": "速度：%d%%",
+      "context": "mon-info.cc::speed_description base speed percent.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "Speed: %d%% (normally travels slower than you)",
+      "zh": "速度：%d%%（通常移动得比你慢）",
+      "context": "mon-info.cc::speed_description slow travel comparison.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "Speed: %d%% (normally travels faster than you)",
+      "zh": "速度：%d%%（通常移动得比你快）",
+      "context": "mon-info.cc::speed_description fast travel comparison.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "Threat",
+      "zh": "威胁",
+      "context": "describe.cc monster detail panel column heading.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "Class",
+      "zh": "类别",
+      "context": "describe.cc monster detail panel column heading.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "Size",
+      "zh": "体型",
+      "context": "describe.cc monster detail panel column heading.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "Int",
+      "zh": "智力",
+      "context": "describe.cc monster detail panel abbreviated intelligence column heading.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "Regen",
+      "zh": "再生",
+      "context": "describe.cc monster detail panel regeneration heading.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "Speed: ",
+      "zh": "速度： ",
+      "context": "mon-info.cc::speed_description label.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "attack: %d%%",
+      "zh": "攻击：%d%%",
+      "context": "mon-info.cc::_add_energy_desc; energy name and percentage.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "shoot: %d%%",
+      "zh": "射击：%d%%",
+      "context": "mon-info.cc::_add_energy_desc; ranged attack energy.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "travel: %d%%",
+      "zh": "移动：%d%%",
+      "context": "mon-info.cc::_add_energy_desc; movement energy.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "swim: %d%%",
+      "zh": "游泳：%d%%",
+      "context": "mon-info.cc::_add_energy_desc; swimming energy.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "pray: %d%%",
+      "zh": "祈祷：%d%%",
+      "context": "mon-info.cc::_add_energy_desc; priest action energy.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "magic: %d%%",
+      "zh": "施法：%d%%",
+      "context": "mon-info.cc::_add_energy_desc; non-priest spell energy.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "but often pauses",
+      "zh": "但时常停顿",
+      "context": "mon-info.cc::speed_description special-case suffix.",
+      "reason": "Translation is bound to the cited C++ runtime output."
+    },
+    {
+      "en": "normally travels slower than you",
+      "zh": "通常移动得比你慢",
+      "context": "mon-info.cc::speed_description suffix.",
+      "reason": "Source-specific rendering term; translate in its native context."
+    },
+    {
+      "en": "normally travels faster than you",
+      "zh": "通常移动得比你快",
+      "context": "mon-info.cc::speed_description suffix.",
+      "reason": "Source-specific rendering term; translate in its native context."
+    },
+    {
+      "en": "He has a %d%% chance to notice you each turn.\n",
+      "zh": "它每回合有%d%%的几率察觉到你。\n",
+      "context": "describe.cc::_monster_notice_chance using a singular monster pronoun.",
+      "reason": "Monster pronouns are neutralized naturally in Chinese."
+    },
+    {
+      "en": "She has a %d%% chance to notice you each turn.\n",
+      "zh": "它每回合有%d%%的几率察觉到你。\n",
+      "context": "describe.cc::_monster_notice_chance using a singular monster pronoun.",
+      "reason": "Monster pronouns are neutralized naturally in Chinese."
+    },
+    {
+      "en": "He has about %d%% to hit you.\n",
+      "zh": "它命中你的几率约为%d%%。\n",
+      "context": "describe.cc::_describe_mons_to_hit using a singular monster pronoun.",
+      "reason": "Monster pronouns are neutralized naturally in Chinese."
+    },
+    {
+      "en": "She has about %d%% to hit you.\n",
+      "zh": "它命中你的几率约为%d%%。\n",
+      "context": "describe.cc::_describe_mons_to_hit using a singular monster pronoun.",
+      "reason": "Monster pronouns are neutralized naturally in Chinese."
+    },
+    {
+      "en": "You shoot an arrow.",
+      "zh": "你射出一支箭。",
+      "context": "Observed output of throw.cc player message template.",
+      "reason": "Complete sentence prevents the article and item noun from falling back to English."
+    },
+    {
+      "en": "The arrow hits the worm but does no damage.",
+      "zh": "箭击中了蠕虫，但没有造成伤害。",
+      "context": "Observed output of ranged-attack.cc:302 with projectile arrow, attack verb hits, defender worm and empty shatter suffix.",
+      "reason": "Accurately reports a hit that deals no damage."
+    },
+    {
+      "en": "You kill the rat!",
+      "zh": "你杀死了老鼠！",
+      "context": "Observed mon-death.cc output of the standard You %s %s! template.",
+      "reason": "Whole combat line is localized naturally."
+    },
+    {
+      "en": "There is an open door here.",
+      "zh": "这里有一扇敞开的门。",
+      "context": "Observed map/tutorial prompt; open-door name is sourced from feature-data.h.",
+      "reason": "Complete sentence avoids mixed article/adjective fragments."
+    },
+    {
+      "en": "You see here %s.",
+      "zh": "这里有%s。",
+      "context": "items.cc:926/2657; %s is menu_colour_item_name(item, DESC_A).",
+      "reason": "Complete ground-item log template."
+    },
+    {
+      "en": "You see here a rat corpse.",
+      "zh": "这里有一具老鼠尸体。",
+      "context": "Observed item-check output using items.cc::item_check.",
+      "reason": "Full line plus precise corpse classifier."
+    },
+    {
+      "en": "You see here a +0 spear.",
+      "zh": "你看到这里有一把+0长矛。",
+      "context": "Observed item-check output using items.cc::item_check.",
+      "reason": "Full line avoids article leakage."
+    },
+    {
+      "en": "You have a +0 spear (weapon).",
+      "zh": "你有一把+0长矛（武器）。",
+      "context": "Observed equipment/item text; weapon suffix is added by item-name.cc for DESC_INVENTORY_EQUIP.",
+      "reason": "Naturalized article and equipment classification."
+    },
+    {
+      "en": "You found it on level %d of the Dungeon.",
+      "zh": "你在地牢第%d层找到了它。",
+      "context": "items.cc::origin_desc combines “You found ” + “it ” + prep_branch_level_name; place.cc formats “on level N of the Dungeon”.",
+      "reason": "The numeric value is a dungeon floor, so use 层."
+    },
+    {
+      "en": "Your skill: %d.%d; use <white>(s)</white> to set %d.%d as a target for %s.",
+      "zh": "你的技能：%d.%d；按<white>(s)</white>将训练目标设为%d.%d（%s）。",
+      "context": "describe.cc::_your_skill_desc; screenshot item is shortbow, skill argument is Ranged Weapons.",
+      "reason": "Complete describe.cc template; %s is the translated skill name, such as Maces & Flails."
+    },
+    {
+      "en": "Aim: %s (%s, %s)",
+      "zh": "瞄准：%s（%s，%s）",
+      "context": "directn.cc print_target_monster_description wraps cell_monster_description; throw.cc fire_target_behaviour supplies hit chance.",
+      "reason": "Preserves monster name, cloud effect, and hit-chance suffix in source order."
+    },
+    {
+      "en": "Aim: a rat (poison gas, %d%% to hit)",
+      "zh": "瞄准：一只老鼠（毒气，命中率%d%%）",
+      "context": "Observed directn/throw targeting description with monster name, cloud, and hit estimate.",
+      "reason": "Whole target prompt is natural and concise."
+    },
+    {
+      "en": "While standing here, you can traverse %s with the <w>%s</w> key. You can view the location it leads to by examining it with <w>%s</w> and pressing <w>%s</w>.",
+      "zh": "站在这里时，沿%s通行（按<w>%s</w>键）。按<w>%s</w>检视楼梯，再按<w>%s</w>查看目的地。",
+      "context": "describe.cc stair-description assembly; args are desc_the, stair command, examine command, destination command.",
+      "reason": "Complete dynamic stair instruction; preserves all hotkey tags."
+    },
+    {
+      "en": "While standing here, you can traverse the stone staircase with the <w><<</w> key. You can view the location it leads to by examining it with <w>X</w> and pressing <w>[</w>.",
+      "zh": "站在这里时，按<w><<</w>键可沿石阶通行。按<w>X</w>检视楼梯，再按<w>[</w>查看目的地。",
+      "context": "Observed compiled form of describe.cc stair-description assembly.",
+      "reason": "Keeps key tokens intact and distinguishes dungeon floor from character level."
+    },
+    {
+      "en": "(<)go up, or ([)view destination.",
+      "zh": "(<)上楼，或 ([)查看目的地。",
+      "context": "describe.cc::_feat_action_desc output for up-stairs plus map destination actions.",
+      "reason": "Preserve structural hotkeys in parentheses."
+    },
+    {
+      "en": "Worm",
+      "zh": "蠕虫",
+      "context": "Monster name as shown in examine pane.",
+      "reason": "Add an exact entry so displayed names do not depend on glossary integration."
+    },
+    {
+      "en": "worm",
+      "zh": "蠕虫",
+      "context": "Monster name in logs and examine panes.",
+      "reason": "Add an exact entry so displayed names do not depend on glossary integration."
+    },
+    {
+      "en": "boomerang",
+      "zh": "回旋镖",
+      "context": "Missile name.",
+      "reason": "Add an exact entry so displayed names do not depend on glossary integration."
+    },
+    {
+      "en": "boomerangs",
+      "zh": "回旋镖",
+      "context": "Plural missile name; Chinese does not mark number.",
+      "reason": "Add an exact entry so displayed names do not depend on glossary integration."
+    },
+    {
+      "en": "arrow",
+      "zh": "箭",
+      "context": "Missile name.",
+      "reason": "Add an exact entry so displayed names do not depend on glossary integration."
+    },
+    {
+      "en": "arrows",
+      "zh": "箭",
+      "context": "Plural missile name.",
+      "reason": "Add an exact entry so displayed names do not depend on glossary integration."
+    },
+    {
+      "en": "shortbow",
+      "zh": "短弓",
+      "context": "Weapon name.",
+      "reason": "Add an exact entry so displayed names do not depend on glossary integration."
+    },
+    {
+      "en": "rat corpse",
+      "zh": "老鼠尸体",
+      "context": "Floor item name.",
+      "reason": "Add an exact entry so displayed names do not depend on glossary integration."
+    },
+    {
+      "en": "poison gas",
+      "zh": "毒气",
+      "context": "Cloud effect in targeting suffix.",
+      "reason": "Add an exact entry so displayed names do not depend on glossary integration."
+    },
+    {
+      "en": "(<)go up",
+      "zh": "(<)上楼",
+      "context": "describe.cc::_feat_action_desc action text.",
+      "reason": "Keep parser/action key token unchanged."
+    },
+    {
+      "en": "([)view destination",
+      "zh": "([)查看目的地",
+      "context": "describe.cc::_feat_action_desc action text.",
+      "reason": "Keep parser/action key token unchanged."
+    },
+    {
+      "en": "(])view destination",
+      "zh": "(])查看目的地",
+      "context": "describe.cc::_feat_action_desc action text.",
+      "reason": "Keep parser/action key token unchanged."
+    },
+    {
+      "en": "Aim: <lightgrey>%s</lightgrey>",
+      "zh": "瞄准：<lightgrey>%s</lightgrey>",
+      "context": "directn.cc::print_target_monster_description wraps target_prefix and target_description in a lightgrey tag.",
+      "reason": "Preserve the exact display tag and translate the assembled target description recursively."
+    },
+    {
+      "en": "a rat (%s, %d%% to hit)",
+      "zh": "一只老鼠（%s，命中率%d%%）",
+      "context": "directn.cc::cell_monster_description plus throw.cc::fire_target_behaviour hit descriptor.",
+      "reason": "Full target details, with cloud phrase and percentage in source order."
+    },
+    {
+      "en": "a rat (%s, %d%% to hit at this distance)",
+      "zh": "一只老鼠（%s，当前距离命中率%d%%）",
+      "context": "Blind-target variant from describe.cc::describe_hit_chance.",
+      "reason": "Retains the distance qualifier."
+    },
+    {
+      "en": "Ranged Weapons",
+      "zh": "远程武器",
+      "context": "skill_name(SK_RANGED_WEAPONS) in shortbow description.",
+      "reason": "Exact dynamic skill name entry; glossary alone would not apply."
+    },
+    {
+      "en": "Short Blades",
+      "zh": "短刃",
+      "context": "skill_name(SK_SHORT_BLADES) in weapon descriptions.",
+      "reason": "Exact dynamic skill name entry."
+    },
+    {
+      "en": "fire",
+      "zh": "火焰",
+      "context": "describe.cc::_get_resist_name fire resistance; ranged action is represented by Fire/shoot, not this noun.",
+      "reason": "Translate the resistance noun as an element, avoiding confusion with the Fire action."
+    },
+    {
+      "en": "Fire",
+      "zh": "火焰",
+      "context": "Standalone spell/element label. Quiver uses the complete Fire: template.",
+      "reason": "Avoid rendering the elemental/spell noun as the quiver action."
+    },
+    {
+      "en": "the stone staircase",
+      "zh": "石阶",
+      "context": "describe.cc stair passage feature name.",
+      "reason": "Exact feature phrase entry."
+    },
+    {
+      "en": "stone staircase",
+      "zh": "石阶",
+      "context": "describe.cc stair passage feature name.",
+      "reason": "Exact feature name entry."
+    },
+    {
+      "en": "AC:",
+      "zh": "护甲：",
+      "context": "output.cc HUD status field label; exact punctuation/spacing variant.",
+      "reason": "output.cc HUD label is emitted without a following space."
+    },
+    {
+      "en": "EV:",
+      "zh": "闪避：",
+      "context": "output.cc HUD status field label; exact punctuation/spacing variant.",
+      "reason": "output.cc HUD label is emitted without a following space."
+    },
+    {
+      "en": "SH:",
+      "zh": "格挡：",
+      "context": "output.cc HUD status field label; exact punctuation/spacing variant.",
+      "reason": "output.cc HUD label is emitted without a following space."
+    },
+    {
+      "en": "Str:",
+      "zh": "力量：",
+      "context": "output.cc HUD status field label; exact punctuation/spacing variant.",
+      "reason": "output.cc HUD label is emitted without a following space."
+    },
+    {
+      "en": "Int:",
+      "zh": "智力：",
+      "context": "output.cc HUD status field label; exact punctuation/spacing variant.",
+      "reason": "output.cc HUD label is emitted without a following space."
+    },
+    {
+      "en": "Dex:",
+      "zh": "敏捷：",
+      "context": "output.cc HUD status field label; exact punctuation/spacing variant.",
+      "reason": "output.cc HUD label is emitted without a following space."
+    },
+    {
+      "en": "Noise:",
+      "zh": "噪声：",
+      "context": "output.cc HUD status field label; exact punctuation/spacing variant.",
+      "reason": "output.cc HUD label exact no-space variant."
+    },
+    {
+      "en": "hit",
+      "zh": "击中",
+      "context": "melee-attack.cc::set_attack_verb; player melee attack verb.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "hits",
+      "zh": "击中",
+      "context": "ranged-attack.cc::set_attack_verb; projectile impact verb.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "bludgeon",
+      "zh": "痛击",
+      "context": "melee-attack.cc::set_attack_verb; heavy blunt hit verb.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "bludgeons",
+      "zh": "痛击",
+      "context": "melee-attack.cc; third-person monster attack form.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "misses",
+      "zh": "未命中",
+      "context": "melee-attack.cc / ranged-attack.cc miss messages.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "pierces through",
+      "zh": "贯穿",
+      "context": "ranged-attack.cc::set_attack_verb; penetrating projectile.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "but do no damage",
+      "zh": "但没有造成伤害",
+      "context": "melee-attack.cc; player attack with no damage.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "but does no damage",
+      "zh": "但没有造成伤害",
+      "context": "melee-attack.cc / ranged-attack.cc; monster/projectile attack with no damage.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "kill",
+      "zh": "杀死",
+      "context": "mon-death.cc player kill message fragment.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "killed",
+      "zh": "杀死",
+      "context": "mon-death.cc death message fragment.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "destroy",
+      "zh": "摧毁",
+      "context": "mon-death.cc player death message fragment.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "destroyed",
+      "zh": "被摧毁",
+      "context": "mon-death.cc death message fragment.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "blow up",
+      "zh": "炸死",
+      "context": "mon-death.cc player death message fragment.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "blown up",
+      "zh": "被炸死",
+      "context": "mon-death.cc death message fragment.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "dodge",
+      "zh": "躲开",
+      "context": "attack.cc combat action term.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "shoot",
+      "zh": "射出",
+      "context": "throw.cc player ranged action verb.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "throw",
+      "zh": "投出",
+      "context": "throw.cc player ranged action verb.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "throws",
+      "zh": "投掷",
+      "context": "throw.cc monster ranged action verb.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "shoots",
+      "zh": "射击",
+      "context": "throw.cc monster ranged action verb.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "The %s%s misses %s.",
+      "zh": "%s%s未命中%s。",
+      "context": "melee-attack.cc / ranged-attack.cc dynamic miss log.",
+      "reason": "Grounded in the cited combat message or source verb; preserves the combat meaning."
+    },
+    {
+      "en": "You %s %s%s%s%s%s%s",
+      "zh": "你%s%s%s%s%s%s%s",
+      "context": "melee-attack.cc::player_announce_hit assembled message; attack verb, defender, optional verb detail/weapon/charge/damage/punctuation.",
+      "reason": "Complete source format; preserves segments while Chinese word order remains natural."
+    },
+    {
+      "en": "You took %s off %s %s.",
+      "zh": "你取下了%s（来自%s；地点：%s）。",
+      "context": "items.cc::origin_desc assembled with article, monster name, and place; exact pattern for “You took it off a training dummy on level 1 of the Dungeon.”",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "You took it off a training dummy on level %d of the Dungeon.",
+      "zh": "你从训练假人身上取下了它，地点：地牢第%d层。",
+      "context": "Observed complete origin_desc output; composed in items.cc and place.cc.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "It is immune to %s; and resistant to %s.",
+      "zh": "它免疫%s，也抗%s。",
+      "context": "describe.cc combines resistance clauses using “; and ”; %s values are comma-separated resistance names.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "immune to ",
+      "zh": "免疫：",
+      "context": "describe.cc resistance description fragment.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "very resistant to ",
+      "zh": "抗性极强：",
+      "context": "describe.cc high resistance description fragment.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "resistant to ",
+      "zh": "抗性：",
+      "context": "describe.cc resistance description fragment.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "quivering %s",
+      "zh": "待投掷的%s",
+      "context": "directn.cc monster item summary; indicates readied/quivered missiles.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "Here: <lightgrey>%s<lightgrey>",
+      "zh": "此处：<lightgrey>%s<lightgrey>",
+      "context": "directn.cc item summary; %s can include a monster and readied missiles.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "AC",
+      "zh": "护甲",
+      "context": "describe.cc monster stats table bare column label.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "EV",
+      "zh": "闪避",
+      "context": "describe.cc monster stats table bare column label.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "SH",
+      "zh": "格挡",
+      "context": "describe.cc monster stats table bare column label.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "Max HP",
+      "zh": "生命上限",
+      "context": "describe.cc monster detail table heading.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "Will",
+      "zh": "意志",
+      "context": "describe.cc monster detail table heading.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "rF",
+      "zh": "rF",
+      "context": "describe.cc resistance abbreviation; retain game-standard abbreviation.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "rC",
+      "zh": "rC",
+      "context": "describe.cc resistance abbreviation; retain game-standard abbreviation.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "It cannot move.",
+      "zh": "它无法移动。",
+      "context": "describe.cc monster detail stationary monster line.",
+      "reason": "Translation preserves source meaning and dynamic values."
+    },
+    {
+      "en": "electricity",
+      "zh": "电击",
+      "context": "describe.cc::_get_resist_name special resistance list.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "poison",
+      "zh": "毒",
+      "context": "describe.cc::_get_resist_name special resistance list.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "steam",
+      "zh": "蒸汽",
+      "context": "describe.cc::_get_resist_name special resistance list.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "cold",
+      "zh": "寒冷",
+      "context": "describe.cc::_get_resist_name special resistance list.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "acid and corrosion",
+      "zh": "酸液与腐蚀",
+      "context": "describe.cc::_get_resist_name special resistance list.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "miasma",
+      "zh": "瘴气",
+      "context": "describe.cc::_get_resist_name special resistance list.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "negative energy",
+      "zh": "负能量",
+      "context": "describe.cc::_get_resist_name special resistance list.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "damnation",
+      "zh": "诅咒之力",
+      "context": "describe.cc::_get_resist_name special resistance list.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "torment",
+      "zh": "苦痛",
+      "context": "describe.cc::_get_resist_name special resistance list.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "blinding",
+      "zh": "致盲",
+      "context": "describe.cc::_monster_stat_description MB_UNBLINDABLE.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "drowning",
+      "zh": "溺水",
+      "context": "describe.cc::_monster_stat_description MB_RES_DROWN.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "clouds of all kinds",
+      "zh": "所有种类的云",
+      "context": "describe.cc::_monster_stat_description cloud immunity.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "ensnarement",
+      "zh": "缠缚",
+      "context": "describe.cc special monster description immunity term.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "Your %sskill: %s%d.%d%s",
+      "zh": "你的%s技能：%s%d.%d%s",
+      "context": "describe.cc::_your_skill_desc; generic complete template with dynamic skill label and target clause.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "Your skill: %d.%d; use <w>(s)</w> to set %d.%d as a target for %s.",
+      "zh": "你的技能：%d.%d；按<w>(s)</w>将训练目标设为%d.%d（%s）。",
+      "context": "Alternate markup form requested for catalog compatibility; generic target skill.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "Your %sskill: %s%d.%d; use <w>(s)</w> to set %d.%d as a target for %s.",
+      "zh": "你的%s技能：%s%d.%d；按<w>(s)</w>将训练目标设为%d.%d（%s）。",
+      "context": "Alternate markup form of describe.cc::_your_skill_desc; preserves base-skill modifier and padding.",
+      "reason": "Exact source term or template; keeps resistance category distinct."
+    },
+    {
+      "en": "It is %s.\n",
+      "zh": "它%s。\n",
+      "context": "describe.cc::_monster_stat_description; singular monster resistance description assembled from immune/resistant clauses.",
+      "reason": "Translate the complete assembled resistance sentence while keeping the dynamic clauses together."
+    },
+    {
+      "en": "They are %s.\n",
+      "zh": "它们%s。\n",
+      "context": "describe.cc::_monster_stat_description; plural monster resistance description assembled from immune/resistant clauses.",
+      "reason": "Translate the complete assembled resistance sentence while keeping the dynamic clauses together."
+    },
+    {
+      "en": "He is %s.\n",
+      "zh": "它%s。\n",
+      "context": "describe.cc::_monster_stat_description; singular masculine pronoun variant of resistance line.",
+      "reason": "Translate the complete assembled resistance sentence while keeping the dynamic clauses together."
+    },
+    {
+      "en": "She is %s.\n",
+      "zh": "它%s。\n",
+      "context": "describe.cc::_monster_stat_description; singular feminine pronoun variant of resistance line.",
+      "reason": "Translate the complete assembled resistance sentence while keeping the dynamic clauses together."
+    },
+    {
+      "en": "It is a one-handed weapon.",
+      "zh": "这是一把单手武器。",
+      "context": "describe.cc::_handedness_string actual rendered line.",
+      "reason": "Verified against the complete weapon-description source output."
+    },
+    {
+      "en": "It is a two-handed weapon.",
+      "zh": "这是一把双手武器。",
+      "context": "describe.cc::_handedness_string actual rendered line.",
+      "reason": "Verified against the complete weapon-description source output."
+    },
+    {
+      "en": "This weapon falls into the '%s' category. It is a %s weapon.",
+      "zh": "此武器属于“%s”类，是%s武器。",
+      "context": "describe.cc::_category_string and _handedness_string combined complete weapon detail.",
+      "reason": "Verified against the complete weapon-description source output."
+    },
+    {
+      "en": "one-handed",
+      "zh": "单手",
+      "context": "describe.cc::_handedness_string output.",
+      "reason": "Verified against the complete weapon-description source output."
+    },
+    {
+      "en": "two-handed",
+      "zh": "双手",
+      "context": "describe.cc::_handedness_string output.",
+      "reason": "Verified against the complete weapon-description source output."
+    },
+    {
+      "en": "Your %s slightly slows your attacks with this weapon.",
+      "zh": "你的%s会略微拖慢你使用这件武器的攻击速度。",
+      "context": "describe.cc weapon armour penalty detail; %s is body armour name.",
+      "reason": "Verified against the complete weapon-description source output."
+    },
+    {
+      "en": "Your %s slows your attacks with this weapon by %.1f.",
+      "zh": "你的%s会使你使用这件武器的攻击速度降低%.1f。",
+      "context": "describe.cc weapon armour penalty detail; %s is body armour name.",
+      "reason": "Verified against the complete weapon-description source output."
+    },
+    {
+      "en": "Wearing heavy armour would reduce your attack speed with this weapon.",
+      "zh": "穿着重甲会降低你使用这件武器的攻击速度。",
+      "context": "describe.cc weapon detail when no current body armour penalty can be shown.",
+      "reason": "Verified against the complete weapon-description source output."
+    },
+    {
+      "en": "Damage rating: %d (Base %s x %d%% (%s) x %d%% (%s)%s)%s.",
+      "zh": "伤害评级：%d（基础%s × %d%%（%s）× %d%%（%s）%s）%s。",
+      "context": "describe.cc damage_rating exact dynamic output; preserves all numeric, stat and skill placeholders.",
+      "reason": "Verified against the complete weapon-description source output."
+    },
+    {
+      "en": "Dex",
+      "zh": "敏捷",
+      "context": "describe.cc damage_rating stat multiplier source.",
+      "reason": "Verified against the complete weapon-description source output."
+    },
+    {
+      "en": "Str",
+      "zh": "力量",
+      "context": "describe.cc damage_rating stat multiplier source.",
+      "reason": "Verified against the complete weapon-description source output."
+    },
+    {
+      "en": "Fight",
+      "zh": "战斗",
+      "context": "describe.cc damage_rating skill multiplier for non-weapon attack.",
+      "reason": "Verified against the complete weapon-description source output."
+    },
+    {
+      "en": "torment and blinding",
+      "zh": "苦痛与致盲",
+      "context": "describe.cc resistance-name list; immune to these effects.",
+      "reason": "Translate the exact comma-separated resistance combination without English conjunction spacing."
+    },
+    {
+      "en": "miasma and drowning",
+      "zh": "瘴气与溺水",
+      "context": "describe.cc resistance-name list; resistant to these effects.",
+      "reason": "Translate the exact comma-separated resistance combination without English conjunction spacing."
+    },
+    {
+      "en": "the floor.",
+      "zh": "地面。",
+      "context": "directn.cc terrain description via cell_floor_description/feature_description_at; means the floor tile, not a dungeon floor/level.",
+      "reason": "Translate the actual terrain phrase as 地面."
+    },
+    {
+      "en": "The floor.",
+      "zh": "地面。",
+      "context": "directn.cc terrain description via cell_floor_description/feature_description_at; means the floor tile, not a dungeon floor/level.",
+      "reason": "Translate the actual terrain phrase as 地面."
+    }
+  ],
+  "glossary": [
+    {
+      "en": "fire (ranged action)",
+      "zh": "射击"
+    },
+    {
+      "en": "fire (flame)",
+      "zh": "火焰"
+    },
+    {
+      "en": "shortbow",
+      "zh": "短弓"
+    },
+    {
+      "en": "boomerang",
+      "zh": "回旋镖"
+    },
+    {
+      "en": "spear",
+      "zh": "长矛"
+    },
+    {
+      "en": "HP",
+      "zh": "生命值"
+    },
+    {
+      "en": "MP",
+      "zh": "魔力"
+    },
+    {
+      "en": "Health",
+      "zh": "生命值"
+    },
+    {
+      "en": "Magic",
+      "zh": "魔力"
+    },
+    {
+      "en": "Noise",
+      "zh": "噪声"
+    },
+    {
+      "en": "AC",
+      "zh": "护甲"
+    },
+    {
+      "en": "EV",
+      "zh": "闪避"
+    },
+    {
+      "en": "SH",
+      "zh": "格挡"
+    },
+    {
+      "en": "XL / character level",
+      "zh": "角色等级"
+    },
+    {
+      "en": "skill level",
+      "zh": "技能等级"
+    },
+    {
+      "en": "spell level",
+      "zh": "法术等级"
+    },
+    {
+      "en": "dungeon level / floor",
+      "zh": "地牢层数 / 层"
+    },
+    {
+      "en": "training percentage",
+      "zh": "训练比例"
+    },
+    {
+      "en": "level (generic)",
+      "zh": "按语境译作“级”或“层”；禁止通用替换"
+    },
+    {
+      "en": "would ",
+      "zh": "将"
+    },
+    {
+      "en": "reach ",
+      "zh": "达到"
+    },
+    {
+      "en": "about ",
+      "zh": "约"
+    },
+    {
+      "en": "the equivalent of ",
+      "zh": "相当于"
+    },
+    {
+      "en": "kill",
+      "zh": "杀死"
+    },
+    {
+      "en": "destroy",
+      "zh": "摧毁"
+    },
+    {
+      "en": "blow up",
+      "zh": "炸毁"
+    },
+    {
+      "en": "throws",
+      "zh": "投掷"
+    },
+    {
+      "en": "shoots",
+      "zh": "射击"
+    },
+    {
+      "en": "magically",
+      "zh": "以魔法"
+    },
+    {
+      "en": "into the darkness",
+      "zh": "射向黑暗"
+    },
+    {
+      "en": "slower",
+      "zh": "慢"
+    },
+    {
+      "en": "faster",
+      "zh": "快"
+    },
+    {
+      "en": "Speed",
+      "zh": "速度"
+    },
+    {
+      "en": "Threat",
+      "zh": "威胁"
+    },
+    {
+      "en": "Class",
+      "zh": "类别"
+    },
+    {
+      "en": "Size",
+      "zh": "体型"
+    },
+    {
+      "en": "Int",
+      "zh": "智力"
+    },
+    {
+      "en": "Regen",
+      "zh": "再生"
+    },
+    {
+      "en": "attack",
+      "zh": "攻击"
+    },
+    {
+      "en": "travel",
+      "zh": "移动"
+    },
+    {
+      "en": "swim",
+      "zh": "游泳"
+    },
+    {
+      "en": "pray",
+      "zh": "祈祷"
+    },
+    {
+      "en": "magic",
+      "zh": "施法"
+    },
+    {
+      "en": "throw",
+      "zh": "投出"
+    },
+    {
+      "en": "hits",
+      "zh": "击中"
+    },
+    {
+      "en": "pierces through",
+      "zh": "贯穿"
+    },
+    {
+      "en": "and shatters for extra damage",
+      "zh": "并碎裂，造成额外伤害"
+    },
+    {
+      "en": "increases",
+      "zh": "升至"
+    },
+    {
+      "en": "decreases",
+      "zh": "降至"
+    },
+    {
+      "en": "gained",
+      "zh": "提升"
+    },
+    {
+      "en": "lost",
+      "zh": "降低"
+    },
+    {
+      "en": "shoot",
+      "zh": "射击"
+    },
+    {
+      "en": "shoot (before a projectile)",
+      "zh": "射出"
+    },
+    {
+      "en": "throw",
+      "zh": "投掷"
+    },
+    {
+      "en": "throw (before a projectile)",
+      "zh": "投出"
+    }
+  ]
+}

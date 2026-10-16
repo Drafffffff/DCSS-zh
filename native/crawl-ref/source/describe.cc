@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-localization.h"
 
 #include "describe.h"
 
@@ -258,6 +259,8 @@ string process_description(const describe_info &inf, bool include_title)
 //      seems acceptable.
 static string _format_prop_desc(string prop_name, string prop_desc)
 {
+    prop_name = zh_translate(prop_name);
+    prop_desc = zh_translate(prop_desc);
     // XXX: It is possible some Android layouts are too small to wrap properly
     //      to 80 characters (and I am currently not certain how to check on my
     //      own), so let's just not do any justification.
@@ -5580,6 +5583,22 @@ static void _attacks_table_row_throwing(const monster_info &mi,
 static void _build_table_of_attacks(mon_attack_desc_info &di,
                                     ostringstream &result)
 {
+    const string attack_header = zh_translate(di.plural ? "Attacks" : "Attack");
+    const string damage_header = zh_translate("Max Damage");
+    const string bonus_header = zh_translate(di.flavour_without_dam ? "Bonus"
+                                                                  : "After Damaging Hits");
+    auto localize_column = [](vector<string> &cells, const string &header) {
+        size_t width = strwidth(header);
+        for (auto &cell : cells) {
+            cell = zh_translate(cell);
+            width = max(width, (size_t)strwidth(cell));
+        }
+        return width;
+    };
+    di.attk_desc_width = localize_column(di.attack_descriptions, attack_header);
+    di.damage_width = localize_column(di.damage_descriptions, damage_header);
+    di.bonus_width = localize_column(di.bonus_descriptions,
+                                    di.has_any_flavour ? bonus_header : "");
     // Hopefully enough width for every possibility
     di.damage_width    = min(di.damage_width, (size_t) 31);
     di.bonus_width     = min(di.bonus_width, 69 - di.damage_width);
@@ -5594,14 +5613,12 @@ static void _build_table_of_attacks(mon_attack_desc_info &di,
     // Note: columns are separated by (a minimum of) 2 spaces
 
     // First, the table header
-    result << padded_str(di.plural ? "Attacks" : "Attack",
+    result << padded_str(attack_header,
                          di.attk_desc_width + 2)
-           << padded_str("Max Damage", di.damage_width + 2);
+           << padded_str(damage_header, di.damage_width + 2);
     if (di.has_any_flavour)
     {
-        result << padded_str(di.flavour_without_dam ? "Bonus"
-                                                    : "After Damaging Hits",
-                             di.bonus_width);
+        result << padded_str(bonus_header, di.bonus_width);
     }
     result << "\n";
 
@@ -6127,7 +6144,7 @@ public:
     {
         if (fixed_column_num > 0 && (int)rows[rows.size() - 1].size() >= fixed_column_num)
             AddRow();
-        rows[rows.size() - 1].push_back({label, value, colour});
+        rows[rows.size() - 1].push_back({zh_translate(label), zh_translate(value), colour});
     }
 
     int NumCells() const
@@ -6146,7 +6163,7 @@ public:
         {
             for (size_t col = 0; col < rows[row].size(); ++col)
             {
-                const int label_len = codepoints(rows[row][col].label);
+                const int label_len = strwidth(rows[row][col].label);
                 if (col == labels_lengths_by_col.size())
                     labels_lengths_by_col.push_back(label_len);
                 else

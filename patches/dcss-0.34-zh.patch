@@ -30463,9 +30463,27 @@ index 8959cf9..b66436a 100644
 +你发现了新东西（但我不知道是什么）！
 +%%%%
 diff --git a/crawl-ref/source/dat/descript/zh/items.txt b/crawl-ref/source/dat/descript/zh/items.txt
-index 1136a79..ec32dd1 100644
+index 1136a79..784078a 100644
 --- a/crawl-ref/source/dat/descript/zh/items.txt
 +++ b/crawl-ref/source/dat/descript/zh/items.txt
+@@ -355,7 +355,7 @@ book of winter
+ %%%%
+ boomerang
+ 
+-一个弯曲的、扁平的投掷短棒，其设计使它能回到使用者手上。
++一种弯曲扁平的投掷短棒，投出后会飞回使用者手中。
+ %%%%
+ box of beasts
+ 
+@@ -1180,7 +1180,7 @@ shimmering gem
+ %%%%
+ shortbow
+ 
+-一段弯曲的木头和绳子，用于射箭。
++用弯木和弓弦制成的弓，可用来射箭。
+ %%%%
+ short sword
+ 
 @@ -1414,3 +1414,293 @@ young poisoner's handbook
  
  一本介绍毒系魔法的书。建议读者戴上非常厚实、没有吸收性的手套。
@@ -31511,10 +31529,29 @@ index 0000000..b2a75c4
 +<blue>你对该生物进行的近战攻击将造成大幅增加的伤害，尤其是使用短刃时。</blue>
 +%%%%
 diff --git a/crawl-ref/source/dat/descript/zh/monsters.txt b/crawl-ref/source/dat/descript/zh/monsters.txt
-index c9a1fbd..2c31339 100644
+index c9a1fbd..4b18716 100644
 --- a/crawl-ref/source/dat/descript/zh/monsters.txt
 +++ b/crawl-ref/source/dat/descript/zh/monsters.txt
-@@ -3093,3 +3093,655 @@ The Unspeakable
+@@ -2630,8 +2630,7 @@ wretched star
+ %%%%
+ wyvern
+ 
+-这条类龙生物长有一条长长的尖尾巴。虽然双足飞龙体形比真龙小，
+-而且也没有真龙那么可怕，但它仍然是一个不容小觑的敌人。
++一种类龙生物，长着细长尖锐的尾巴。它虽比真正的龙小、威势也稍逊，却仍是不可轻视的敌手。
+ %%%%
+ yak
+ 
+@@ -2945,7 +2944,7 @@ else return "年"; end}}了。
+ %%%%
+ worm
+ 
+-一条巨大的环节动物，身上的黏液闪烁着，牙齿大得出奇。
++一条巨大的环节动物，浑身覆着黏液，长着异常巨大的牙齿。
+ %%%%
+ zin angel
+ 
+@@ -3093,3 +3092,655 @@ The Unspeakable
  当你接近时，你会听到恒星那震耳欲聋的轰鸣声和随后的行星的回音。
  它是深渊的入口。它带来了从内向外蔓延的混乱。这将是你看到的最后的景象。
  %%%%
@@ -38931,24 +38968,821 @@ index a87977a..db6fa92 100644
 +你的一只手臂是一团五颜六色的真菌。
 +%%%%
 diff --git a/crawl-ref/source/dat/descript/zh/tutorial.txt b/crawl-ref/source/dat/descript/zh/tutorial.txt
-index 96ea359..b09880c 100644
+index 96ea359..436b6f5 100644
 --- a/crawl-ref/source/dat/descript/zh/tutorial.txt
 +++ b/crawl-ref/source/dat/descript/zh/tutorial.txt
-@@ -653,3 +653,14 @@ tutorial5 exit
-   <input>$cmd[CMD_DISPLAY_OVERMAP]</input> 显示地牢概览
-   <input>$cmd[CMD_DISPLAY_COMMANDS]/</input>  搜索描述文字数据库
+@@ -1,39 +1,32 @@
  %%%%
+ tutorial intro
+ 
+-你可以按下<input>$cmd[CMD_REPLAY_MESSAGES]</input>随时查看所有消息。另外，
+-按下<input>空格</input><localtiles>或鼠标<input>左击</input></localtiles>
+-可以清除<cyan>--更多--</cyan> 信息。
++随时可以按<input>$cmd[CMD_REPLAY_MESSAGES]</input>重看之前的消息。遇到<cyan>--更多--</cyan>提示时，按<input>空格</input><localtiles>或用鼠标<input>左键</input></localtiles>继续。
+ %%%%
+ tutorial death
+ 
+ 你死了……
+ 
+-在Crawl中，死亡是一个令人悲伤却又常见的事情。
+-注意，通常情况下你可以做一些事情来活下去，
+-比如使用某些物品、逃跑、在战斗之间休息，或是干脆回避战斗。
+-继续努力，最终你会成功的！
+-
++在 Crawl 里，死亡虽令人沮丧，却也再平常不过。多数时候，总有办法多争取一些生机：使用物品、拔腿逃跑、战后休整，或者干脆避开战斗。继续尝试，总有一天你会赢。
+ %%%%
+ ##############################################
+ # 教程地图1：移动和探索                      #
+ ##############################################
+ tutorial1 start
+ 
+-这一课中你将学习如何移动以及如何探索楼层。
+-你可以用<localtiles>你的<input>鼠标</input>点击某个地方，
+-或</localtiles>用<input>方向键</input>进行移动。
++本课将介绍如何移动和探索楼层。
++<localtiles>用<input>鼠标</input>点击目的地，</localtiles>或按<input>方向键</input>移动。
+ %%%%
+ tutorial1 go_on
+ 
+-干得好！继续探索，直到你到达下一个蓝色方块标记。
++很好！继续探索，找到下一个蓝色方块。
+ %%%%
+ tutorial1 diagonal
+ 
+ :nowrap
+-斜向移动的话，可以通过<input>数字键盘</input>（试着打开/关闭Numlock）<localtiles>，</localtiles> <console>或</console><input>vi键位</input><console>.</console><localtiles>，或是<input>鼠标</input>。</localtiles>
++按<input>数字键盘</input>斜向移动（可尝试切换 Num Lock）<localtiles>，</localtiles> <console>或按</console><input>vi 键位</input><console>。</console><localtiles>也可以用<input>鼠标</input>点击地面。</localtiles>
+ 
+-  数字键盘：  <w>7 8 9</w>        vi键位：<w>   $cmd[CMD_MOVE_UP_LEFT] $cmd[CMD_MOVE_UP] $cmd[CMD_MOVE_UP_RIGHT]</w><localtiles>    鼠标：     <w>点击</w>地面</localtiles>
++  数字键盘：  <w>7 8 9</w>        vi 键位：<w>   $cmd[CMD_MOVE_UP_LEFT] $cmd[CMD_MOVE_UP] $cmd[CMD_MOVE_UP_RIGHT]</w><localtiles>    鼠标：     <w>点击</w>地面</localtiles>
+                \|/                     \|/
+               <w>4</w>-<w>.</w>-<w>6</w> <w>                  $cmd[CMD_MOVE_LEFT]</w>-<w>.</w>-<w>$cmd[CMD_MOVE_RIGHT]</w>
+                /|\                     /|\
+@@ -41,615 +34,458 @@ tutorial1 diagonal
+ %%%%
+ tutorial1 shiftmove
+ 
+-想要快速穿过通道，可以按下<input>Shift</input>
+-+<input>数字键盘</input>（试着打开/关闭Numlock）或<input>vi键位</input>。
++在走廊里赶路时，可按住<input>Shift</input>再按<input>数字键盘</input>或<input>vi 键位</input>方向键，连续向前移动。（可尝试切换 Num Lock。）
+ %%%%
+ tutorial1 downstairs
+ 
+-当你站在向下的楼梯口时，
+-你可以按下<input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles>
+-或<input>左击</input>你的角色</localtiles>。
++站在向下的楼梯上时，按<input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles>或用鼠标<input>左键点击</input>角色</localtiles>，即可进入下一层。
+ %%%%
+ tutorial1 levelmap
+ 
+-什么情况？要搞清楚你在哪里，<tiles>请查看位于屏幕右侧的<w>小地图</w>。
+-</tiles><localtiles>你可以<input>鼠标右击</input> 仔细查看地图的一部分，
+-也可以<input>左击</input>移至那里。
+-</localtiles><webtiles>你可以</webtiles><nomouse>按下
+-<input>$cmd[CMD_DISPLAY_MAP]</input>查看整个地图，移动光标浏览整个楼层。
+-你也可以按下<input>.</input>或<input>Enter</input>前往光标位置。
+-按下<input>Escape</input>返回正常游戏。</nomouse>
++想确认自己的位置？<tiles>看看屏幕右侧的<w>小地图</w>。</tiles><localtiles>用鼠标<input>右键</input>可以放大查看地图的一处，<input>左键</input>则可前往那里。</localtiles><webtiles>你也可以</webtiles><nomouse>按<input>$cmd[CMD_DISPLAY_MAP]</input>打开楼层地图，再移动光标查看各处。按<input>.</input>或<input>Enter</input>可前往光标所在处；按<input>Escape</input>返回游戏。</nomouse>
+ %%%%
+ tutorial1 autoexplore
+ 
+-长时间手动探索地图会比较乏味，你可能会希望将其自动进行。
+-试着按下<input>$cmd[CMD_EXPLORE]</input><localtiles>，
+-或点击“自动探索”，小地图下方的命令栏中的第一个按钮</localtiles>。
++手动逐格探索很快会让人厌烦，不妨试试自动探索：按<input>$cmd[CMD_EXPLORE]</input><localtiles>，或点击小地图下方命令栏里的第一个按钮“自动探索”。</localtiles>
+ %%%%
+ tutorial1 exclusion
+ 
+-有些危险的地方会被标记为<w>禁区</w>。
+-自动行进<localtiles>（包含 <input>鼠标击键</input>！） </localtiles>
+-不会将你带往禁区。而是会自动停下来。
++危险区域会标为<w>禁区</w>。自动行进<localtiles>（包括<input>鼠标点击</input>前往）</localtiles>不会带你进入禁区，而会在边缘停下。
+ 
+-自动探索能让你安全地绕过禁区：
+-所以，你大可以继续按<input>$cmd[CMD_EXPLORE]</input>。
++自动探索会绕开禁区，因此你可以放心按<input>$cmd[CMD_EXPLORE]</input>继续探索。
+ %%%%
+ tutorial1 autoexplore_announce
+ 
+-在第一次碰到物品或地牢地标时，比如这些楼梯，自动探索会停下来。
+-如果要直接前往楼梯，可以<localtiles><input>点击</input> 它们；
+-或是</localtiles>点击<input>$cmd[CMD_DISPLAY_MAP]</input>以查看地图概览，
+-然后<input><<</input>将光标移动到最近楼梯，
+-键入<input>Enter</input>开始前往。
++自动探索第一次发现物品或地牢设施（例如这些楼梯）时会停下。<localtiles>要直接前往楼梯，可以<input>点击</input>它们；也可以</localtiles>按<input>$cmd[CMD_DISPLAY_MAP]</input>打开地图概览，再按<input><<</input>将光标移到最近的上行楼梯，最后按<input>Enter</input>前往。
+ %%%%
+ tutorial1 tutorial_end
+ 
+-恭喜你！你已经成功完成了第一课教程！
++恭喜！第一课完成！
+ 
+-要结束此教程，只需按下<input>$cmd[CMD_GO_UPSTAIRS]</input><localtiles>
+-或<input>左击</input>你的角色</localtiles>，从这些楼梯上去。
+-按大写<input>Y</input>确定。
++要退出教程，按<input>$cmd[CMD_GO_UPSTAIRS]</input><localtiles>或用鼠标<input>左键点击</input>角色</localtiles>走上楼梯，再按大写<input>Y</input>确认。
+ %%%%
+ tutorial1 newlevel
+ 
+-欢迎来到新的一层！首先，移动到右边的那扇门前。
++来到新楼层了！先去右边那扇门看看。
+ 
+-记住：你可以按<input>$cmd[CMD_REPLAY_MESSAGES]</input>来查看之前的提示信息。
++别忘了，按<input>$cmd[CMD_REPLAY_MESSAGES]</input>可以重看之前的消息。
+ %%%%
+ tutorial1 door
+ 
+-只要向门移动就可以打开这扇门。
++走向关着的门，就能把它打开。
+ %%%%
+ tutorial1 close_door
+ 
+-关闭一扇门，请按<input>$cmd[CMD_CLOSE_DOOR]</input>。
++要关门，按<input>$cmd[CMD_CLOSE_DOOR]</input>。
+ %%%%
+ tutorial1 water
+ 
+-注意，你可以穿过浅水，但是不能穿过深水。
++浅水可以通过，深水则不行。
+ %%%%
+ tutorial1 upstairs
+ 
+-当你站在一个向上的楼梯上时，
+-你可以按<input>$cmd[CMD_GO_UPSTAIRS]</input><localtiles>
+-或<input>左击</input>你的角色</localtiles>进入上一层。
++站在向上的楼梯上时，按<input>$cmd[CMD_GO_UPSTAIRS]</input><localtiles>或用鼠标<input>左键点击</input>角色</localtiles>即可返回上一层。
+ %%%%
+ tutorial1 exit
+ 
+ :nowrap
+-<white>教程1总结：移动</white>
++<white>教程 1 总结：移动</white>
+ 
+-<yellow>移动命令</yellow>
+-   数字键盘：    <w>7 8 9</w>           vi键位：    <w>$cmd[CMD_MOVE_UP_LEFT] $cmd[CMD_MOVE_UP] $cmd[CMD_MOVE_UP_RIGHT]</w>
++<yellow>移动</yellow>
++   数字键盘：    <w>7 8 9</w>           vi 键位：    <w>$cmd[CMD_MOVE_UP_LEFT] $cmd[CMD_MOVE_UP] $cmd[CMD_MOVE_UP_RIGHT]</w>
+                   \|/                         \|/
+                  <w>4</w>-<w>.</w>-<w>6</w>                       <w>$cmd[CMD_MOVE_LEFT]</w>-<w>.</w>-<w>$cmd[CMD_MOVE_RIGHT]</w>
+                   /|\                         /|\
+                  <w>1 2 3</w>                       <w>$cmd[CMD_MOVE_DOWN_LEFT] $cmd[CMD_MOVE_DOWN] $cmd[CMD_MOVE_DOWN_RIGHT]</w>
+ 
+-  <input>Shift + 方向</input>让你在该方向上移动数个格子。<localtiles>
+-  你也可以通过<input>点击</input><w>小地图</w>的某个地方进行移动。</localtiles>
++  按<input>Shift + 方向键</input>可沿该方向连续移动数格。<localtiles>
++  也可以<input>点击</input>视野内的地点或<w>小地图</w>移动。</localtiles>
+ 
+ <yellow>楼梯</yellow>
+-  <input>$cmd[CMD_GO_UPSTAIRS]</input> 回到上一层
+-  <input>$cmd[CMD_GO_DOWNSTAIRS]</input> 进入下一层
+-  <input>$cmd[CMD_DISPLAY_MAP]></input>/<input>$cmd[CMD_DISPLAY_MAP]<<</input> 前往最近的楼梯
++  <input>$cmd[CMD_GO_UPSTAIRS]</input>  返回上一层
++  <input>$cmd[CMD_GO_DOWNSTAIRS]</input>  进入下一层
++  <input>$cmd[CMD_DISPLAY_MAP]></input>/<input>$cmd[CMD_DISPLAY_MAP]<<</input> 前往最近的上行/下行楼梯
+ 
+-<yellow>门</yellow> 向门移动即可打开门
+-  <input>$cmd[CMD_CLOSE_DOOR]</input>  关闭一扇门
++<yellow>门</yellow> 走向关着的门即可打开
++  <input>$cmd[CMD_CLOSE_DOOR]</input>  关闭开着的门
+ 
+-<yellow>移动</yellow><localtiles>
+-  鼠标点击<w>小地图</w></localtiles><nomouse>
+-  <input>$cmd[CMD_DISPLAY_MAP]</input>进入本楼层地图，按<input>Enter</input></nomouse>进行移动
+-  <input>$cmd[CMD_EXPLORE]</input> 自动探索
++<yellow>行进</yellow><localtiles>
++  点击<w>小地图</w></localtiles><nomouse>
++  <input>$cmd[CMD_DISPLAY_MAP]</input>  打开楼层地图，再按<input>Enter</input>前往光标位置</nomouse>
++  <input>$cmd[CMD_EXPLORE]</input>  自动探索
+ %%%%
+ ##############################################
+ # 教程地图2：怪物和战斗                      #
+ ##############################################
+ tutorial2 start
+ 
+-这一课将会教你有关怪物和格斗的内容。
+-首先，我们需要一把武器！过去捡起地上那把。
++本课将介绍怪物与战斗。先去把那把武器拿来。
+ %%%%
+ tutorial2 pickup_weapon
+ 
+-要捡起这把武器的话，<localtiles>可以在物品栏中点击它，然后再次点击它进行装备。
+-捡起它也可以</localtiles>用<input>$cmd[CMD_PICKUP]</input>
+-或<input>g</input>，装备它则用<input>$cmd[CMD_EQUIP]</input>。
++<localtiles>在物品栏中点击这把武器将它拾起，再点一次即可装备。</localtiles>也可以按<input>$cmd[CMD_PICKUP]</input>或<input>g</input>拾取，再按<input>$cmd[CMD_EQUIP]</input>装备。
+ %%%%
+ tutorial2 melee
+ 
+-要用空手或者已经装备的武器攻击敌人，只要向它移动就行了。
++要用空手或手持武器攻击怪物，走到它所在的位置即可。
+ %%%%
+ tutorial2 resting
+ 
+-非常好！你可以通过按<input>$cmd[CMD_REST]</input>
+-<localtiles>，或点击小地图下方的命令栏中的“休息”按钮来休息以恢复损失的生命值</localtiles>。
+-在身体痊愈前会一直休息，但如果发生重要事件，会被打断。
++很好！按<input>$cmd[CMD_REST]</input><localtiles>，或点击小地图下方命令栏里的“休息”按钮</localtiles>即可休息恢复生命值。休息会持续到生命值回满，但途中遇到重要事件时会中断。
+ %%%%
+ tutorial2 wait
+ 
+-与其冲进房间然后被一群怪物围攻，不如退后几步，等待它们自己走过来。
+-（按<input>$cmd[CMD_WAIT]</input><localtiles>
+-或<input>点击</input>你的角色</localtiles>），他们就会走向你。
++与其冲进房间被怪物围攻，不如退开几步，按<input>$cmd[CMD_WAIT]</input><localtiles>或<input>点击</input>自己的角色</localtiles>原地等待，让怪物向你靠近。
+ %%%%
+ tutorial2 resting_reminder
+ 
+-记住，你可以按<input>$cmd[CMD_REST]</input>进行休息。
++别忘了按<input>$cmd[CMD_REST]</input>休息恢复体力。
+ %%%%
+ tutorial2 compare_monster_desc
+ 
+-# 为清晰起见，在localtile中跳过键盘命令。
+-查看这些怪物（<localtiles>通过 <input>鼠标悬停</input></localtiles>
+-<nomouse>按下<input>$cmd[CMD_LOOK_AROUND]</input>进入查看模式，
+-并用<input>$cmd[CMD_TARGET_CYCLE_FORWARD]</input>循环切换周围怪物</nomouse>）
+-接着比较他们的描述（<localtiles>用 <input>鼠标右击</input></localtiles>
+-<nomouse>按下<input>$cmd[CMD_TARGET_DESCRIBE]</input>
+-在查看模式中选择他们</nomouse>）看看从哪个笼子通过才是最安全的。
++查看这些怪物（<localtiles>将<input>鼠标悬停</input>在怪物上</localtiles><nomouse>按<input>$cmd[CMD_LOOK_AROUND]</input>进入查看模式，再按<input>$cmd[CMD_TARGET_CYCLE_FORWARD]</input>切换附近的怪物</nomouse>），并比较它们的描述（<localtiles>用<input>鼠标右键</input></localtiles><nomouse>在查看模式中选中怪物后按<input>$cmd[CMD_TARGET_DESCRIBE]</input></nomouse>），判断穿过哪个笼子更安全。
+ %%%%
+ tutorial2 downstairs
+ 
+-干得好！休息恢复满生命值之后按
+-<input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles>
+-或<input>点击</input>你的角色</localtiles>进入下一层。
++打得不错！休息到生命值回满后，按<input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles>或<input>点击</input>自己的角色</localtiles>进入下一层。
+ %%%%
+ tutorial2 newlevel
+ 
+-记住：你可以按<input>$cmd[CMD_REPLAY_MESSAGES]</input>来查看之前的提示信息。
++记住，按<input>$cmd[CMD_REPLAY_MESSAGES]</input>可以重看之前的消息。
+ %%%%
+ tutorial2 boomerangs
+ 
+-现在来试试远程攻击！通过按
+-<input>$cmd[CMD_PICKUP]</input>或<input>g</input><localtiles>
+-或<input>鼠标点击</input>，</localtiles>捡起这些回旋镖并继续。
++现在试试远程攻击！按<input>$cmd[CMD_PICKUP]</input>或<input>g</input><localtiles>，也可以用<input>鼠标点击</input></localtiles>拾起这些回旋镖，然后继续前进。
+ %%%%
+ tutorial2 throwing
+ 
+-要朝一个怪物投掷回旋镖，可以通过<input>$cmd[CMD_FIRE]</input><localtiles>
+-或在物品栏中<input>点击</input>它们panel</localtiles>。
+-要射向被自动瞄准的怪物，按<input>$cmd[CMD_TARGET_SELECT]</input>
+-或<input>Enter</input>。你也可以跳过这个，
+-按<input>shift-tab</input>或<input>p</input>，向最近的怪物射击。
++按<input>$cmd[CMD_FIRE]</input>可以向怪物投掷回旋镖<localtiles>；也可以在物品栏中<input>点击</input>回旋镖</localtiles>。自动选定目标后，按<input>$cmd[CMD_TARGET_SELECT]</input>或<input>Enter</input>确认。若想跳过确认、直接攻击最近的怪物，按<input>shift-tab</input>或<input>p</input>。
+ %%%%
+ tutorial2 wield_bow
+ 
+-通过按<input>$cmd[CMD_EQUIP]</input><localtiles>
+-或<input>鼠标点击</input></localtiles>捡起这把短弓。
++捡起这把短弓，再按<input>$cmd[CMD_EQUIP]</input>装备它<localtiles>，也可以用<input>鼠标点击</input>操作。</localtiles>
+ %%%%
+ tutorial2 firing
+ 
+-# 修复：比较冗长，因为有选择目标的提示。
+-用装备的短弓射箭的操作与投掷回旋镖的操作稍有不同。
+-通过按<input>$cmd[CMD_PRIMARY_ATTACK]</input><localtiles>或<input>鼠标点击</input>
+-</localtiles>。在瞄准时，你可以按<input>$cmd[CMD_TARGET_CYCLE_FORWARD]</input>选择其他目标。
+-这只蠕虫在熔岩后面无法对你造成任何威胁，但是那个假人可以射击你，因此先搞定它。
+-同样，按<input>$cmd[CMD_TARGET_SELECT]</input>或<input>Enter</input>确定你选择的目标。
++用已装备的短弓射箭，操作与投掷回旋镖稍有不同。按<input>$cmd[CMD_PRIMARY_ATTACK]</input><localtiles>或<input>鼠标点击</input></localtiles>开始瞄准。瞄准时按<input>$cmd[CMD_TARGET_CYCLE_FORWARD]</input>可切换目标。熔岩另一侧的蠕虫伤不到你；先对付能向你射击的训练假人。最后按<input>$cmd[CMD_TARGET_SELECT]</input>或<input>Enter</input>确认目标。
+ %%%%
+ tutorial2 travel_reminder
+ 
+-记住，你可以用<input>$cmd[CMD_EXPLORE]</input>自动探索。
++按<input>$cmd[CMD_EXPLORE]</input>可以自动探索。
+ %%%%
+ tutorial2 explore
+ 
+-去找出口吧！记住，你可以用<input>$cmd[CMD_EXPLORE]</input>自动探索。
++找到出口！别忘了按<input>$cmd[CMD_EXPLORE]</input>自动探索。
+ %%%%
+ tutorial2 tutorial_end
+ 
+-恭喜你！你已经成功地从你的第一批怪物手中活下来了！
+-只要从楼梯走下去就可以退出此教程。
++恭喜你，已经击退第一批怪物！从这段楼梯走下去即可退出教程。
+ %%%%
+ tutorial2 exit
+ 
+ :nowrap
+-<white>教程2总结：战斗</white>
++<white>教程 2 总结：战斗</white>
+ 
+ <yellow>武器<console> <cyan>)</cyan></console></yellow>
+-  <input>$cmd[CMD_PICKUP]</input> 捡起物品
+-  <input>$cmd[CMD_EQUIP]</input>装备物品<localtiles>
+-  你也可以在你的物品栏中<input>点击</input>武器进行装备。</localtiles>
+-  <input>$cmd[CMD_QUIVER_ITEM]</input> 调整你的弹药
++  <input>$cmd[CMD_PICKUP]</input>  拾取物品
++  <input>$cmd[CMD_EQUIP]</input>  装备物品<localtiles>
++  也可以<input>点击</input>物品栏中的武器来装备。</localtiles>
++  <input>$cmd[CMD_QUIVER_ITEM]</input>  设置当前弹药
+ 
+ <yellow>怪物</yellow><localtiles>
+-  <input>鼠标悬停</input> 查看怪物
+-  <input>右键</input>查看详细描述</localtiles><nomouse>
+-  <input>$cmd[CMD_LOOK_AROUND]</input> 查看怪物
+-  <input>$cmd[CMD_LOOK_AROUND]$cmd[CMD_TARGET_DESCRIBE]</input> 查看详细描述</nomouse>
+-  <input>$cmd[CMD_PRIMARY_ATTACK]</input> 用所持武器射击
+-  <input>$cmd[CMD_FIRE]$cmd[CMD_TARGET_SELECT]</input> 向一个被瞄准的怪物射出弹药
+-  <input>shift-tab</input>, <input>p</input> 向一个最近的怪物发射弹药
+-  <input>$cmd[CMD_FIRE]$cmd[CMD_TARGET_CYCLE_FORWARD]</input> 瞄准另一个怪物<localtiles>
+-  你还可以通过<input>点击</input>它来发射飞弹，然后用<input>Enter</input>确认目标。</localtiles>
++  <input>鼠标悬停</input>  查看怪物
++  <input>鼠标右键</input>  阅读详细描述</localtiles><nomouse>
++  <input>$cmd[CMD_LOOK_AROUND]</input>  查看怪物
++  <input>$cmd[CMD_LOOK_AROUND]$cmd[CMD_TARGET_DESCRIBE]</input>  阅读详细描述</nomouse>
++  <input>$cmd[CMD_PRIMARY_ATTACK]</input>  发射手持武器
++  <input>$cmd[CMD_FIRE]$cmd[CMD_TARGET_SELECT]</input>  向预先选定的怪物发射当前弹药
++  <input>shift-tab</input>、<input>p</input>  向最近的怪物发射当前弹药
++  <input>$cmd[CMD_FIRE]$cmd[CMD_TARGET_CYCLE_FORWARD]</input>  切换目标<localtiles>
++  也可以<input>点击</input>弹药发射，再按<input>Enter</input>确认目标。</localtiles>
+ 
+ <yellow>休息</yellow>
+-  <input>$cmd[CMD_WAIT]</input>  等待并休息一回合
+-  <input>$cmd[CMD_REST]</input>  等待并休息100回合
++  <input>$cmd[CMD_WAIT]</input>  等待一回合
++  <input>$cmd[CMD_REST]</input>  最多休息 100 回合
+ %%%%
+ #######################################
+ # 教程地图3：物品                     #
+ #######################################
+ tutorial3 start
+ 
+-这一课中你将学到关于物品的事项，包括如何使用物品。
++本课将介绍物品，以及如何使用它们。
+ %%%%
+ tutorial3 armour
+ 
+-按<input>$cmd[CMD_PICKUP]</input>捡起这双靴子，
+-并按<input>$cmd[CMD_EQUIP]</input>穿上它。
+-<localtiles>或者直接在物品栏上<input>鼠标点击</input>它。</localtiles>
++按<input>$cmd[CMD_PICKUP]</input>拾起这双靴子，再按<input>$cmd[CMD_EQUIP]</input>穿上。<localtiles>也可以直接在物品栏中<input>点击</input>靴子。</localtiles>
+ %%%%
+ tutorial3 autopickup
+ 
+-某些种类的物品<tiles>，周围有一个绿框，</tiles>你在踩上时它能被自动拾取。
++有些物品<tiles>会标上绿色边框，</tiles>走过时就会自动拾取。
+ %%%%
+ tutorial3 scroll
+ 
+-许多物品在你刚发现它们的时候都是未鉴定的。鉴定它们的方法之一就是使用它们。
+-试试按<input>$cmd[CMD_READ]</input>
+-<localtiles>或在物品栏中<input>鼠标点击</input>它</localtiles>来阅读这张卷轴。
++刚发现的物品往往尚未鉴定。使用物品是了解其效果的一种方法。按<input>$cmd[CMD_READ]</input><localtiles>或在物品栏中<input>点击</input></localtiles>阅读这张卷轴。
+ %%%%
+ tutorial3 scroll_noautopickup
+ 
+-在周围有怪物的时候，自动拾取不会生效。
+-你现在可以按<input>$cmd[CMD_PICKUP]</input><localtiles>
+-或<input>点击</input>你的角色来拾取它，
+-</localtiles>或者你也可以先干掉附近的敌人然后再拾取它。
++附近有怪物时，自动拾取不会生效。你可以按<input>$cmd[CMD_PICKUP]</input><localtiles>或<input>点击</input>自己的角色</localtiles>现在拾起卷轴，也可以先击败附近的敌人再回来拿。
+ %%%%
+ tutorial3 ego_weapon
+ 
+-如果一个物品的描述中含有<lightblue>符文</lightblue>或<lightblue>发光</lightblue>，
+-那么它要么附有魔力，要么有特殊属性，也可能两个都有。
+-一旦你走到这种物品上面，其属性就会向你揭示。
++物品描述中带有<lightblue>符文</lightblue>或<lightblue>发光</lightblue>字样，说明它必定经过附魔、带有特殊属性，或两者兼有。走到物品上后，这些属性就会揭晓。
+ %%%%
+ tutorial3 inventory
+ 
+-# 待办事项：应在携带物品的清单中加入教程消息以便查找武器。
+-#       也许还应该有一个单独的教程来强调项目描述界面中的命令。
+-如果你想查阅新武器的描述，只要在物品栏中找到并选中它（<input>$cmd[CMD_DISPLAY_INVENTORY]</input>）即可。
+-<localtiles>你也可以在物品栏中<input>鼠标悬停</input>或<input>右击</input>它，实现同样效果。</localtiles>
+-另外要注意的是，所有与物品有关的命令在物品描述界面同样有效。
++查看新武器的说明：按<input>$cmd[CMD_DISPLAY_INVENTORY]</input>打开物品栏，找到并选中它。<localtiles>也可以在物品栏中将<input>鼠标悬停</input>在物品上，或用<input>右键</input>点击它。</localtiles>物品说明界面也能使用所有物品命令。
+ %%%%
+ tutorial3 battle
+ 
+-如果你成功使敌人中毒，有时最好后撤并让毒来完成剩下的工作。
+-撤退时也别忘了治疗。
++成功让怪物中毒后，有时撤退并等毒素发作更划算。若有需要，也别忘了撤退休整。
+ %%%%
+ tutorial3 downstairs
+ 
+-战得漂亮！如有必要，你可以按<input>$cmd[CMD_REST]</input>来休息一下，
+-然后按<input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles>
+-或<input>点击</input>你的角色</localtiles>走下楼梯。
++打得漂亮！必要时按<input>$cmd[CMD_REST]</input>休息，再按<input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles>或<input>点击</input>自己的角色</localtiles>下楼。
+ %%%%
+ tutorial3 command_help
+ 
+-如果这么多命令让你感觉有点头晕，
+-你也可以在命令帮助<input>$cmd[CMD_DISPLAY_COMMANDS]</input>中查找各个命令。
+-<localtiles>部分命令也可以通过点击屏幕右边的<w>命令栏</w>来实现。</localtiles>
+-和以前一样，你可以按<input>$cmd[CMD_REPLAY_MESSAGES]</input>来查阅过去信息。
++命令太多记不住？按<input>$cmd[CMD_DISPLAY_COMMANDS]</input>打开命令帮助查询。<localtiles>屏幕右侧的<w>命令栏</w>也提供了一些可点击的命令。</localtiles>照常可以按<input>$cmd[CMD_REPLAY_MESSAGES]</input>重看之前的消息。
+ %%%%
+ tutorial3 trap
+ 
+-陷阱有很多恼人的效果，比如惊醒怪物或将你传送到险境之中。
+-一些陷阱是永久的，显示为地图的一部分，
+-但另一些陷阱会在探索新图块时被触发并在触发后消失。
+-如果周围没有别的路，有时你不得不触发陷阱并处理后果。
++陷阱会造成各种麻烦，例如惊动怪物，或把你传送到危险之处。有些陷阱是永久的，会一直显示在地图上；另一些会在你探索新区域时触发，之后便不复存在。若无路可绕，就只能触发陷阱并应对后果。
+ %%%%
+ tutorial3 potion
+ 
+-药水可以用来治疗或附加魔力，但有的效果则令人不快。
+-你可以按<input>$cmd[CMD_QUAFF]</input><localtiles>
+-或<input>鼠标点击</input>来饮用药水，</localtiles>以发现它的作用。
++药水可能提供关键治疗或有益的强化，也可能带来不利效果。按<input>$cmd[CMD_QUAFF]</input><localtiles>或<input>鼠标点击</input></localtiles>喝下这瓶药水，看看它有什么作用。
+ %%%%
+ tutorial3 artefact_armour
+ 
+-# TODO：用真正的神器替换非随机神器。需要有一些防范措施，
+-#       以规避能让教程偏离正轨的东西（脆弱、污染……）
+-有<w>不寻常名字</w>的物品就是神器了。神器可能有各种特殊的属性。
+-一些独特的神器（如这件披风）总是能被鉴别出来，
+-并且可能有着其他地方见不到的特殊属性！
+-其他一些神器则是随机组合一些属性生成的，并且只有在走上去后才能被鉴别出来。
+-试着按<input>$cmd[CMD_EQUIP]<input><localtiles>
+-或在物品栏中<input>鼠标点击</input>它来装备这件披风</localtiles>。
++名字<w>与众不同</w>的物品就是神器。神器各有特殊属性。有些独特神器（例如这件披风）总会自动鉴定，还可能拥有别处没有的属性；其他神器则随机生成属性，走到它们上面后才会鉴定出来。按<input>$cmd[CMD_EQUIP]</input><localtiles>或在物品栏中<input>点击</input></localtiles>试着穿上这件披风。
+ %%%%
+ tutorial3 wand_fire
+ 
+-# 待办事项：魔杖的瞄准界面，可能需要一些相关帮助文本。
+-你可以按<input>$cmd[CMD_EVOKE]</input><localtiles>
+-或在物品栏中<input>鼠标点击</input>它来使用魔杖</localtiles>。
++按<input>$cmd[CMD_EVOKE]</input><localtiles>或在物品栏中<input>点击</input></localtiles>即可启动魔杖。
+ %%%%
+ tutorial3 wand_digging
+ 
+-挖掘魔杖可以摧毁岩墙。
+-通过<input>$cmd[CMD_LOOK_AROUND]][$cmd[CMD_TARGET_DESCRIBE]</input> <localtiles>
+-或<input>鼠标悬停</input>/<input>右键</input> </localtiles>来查看墙壁类型。
++挖掘魔杖可以摧毁岩壁。按<input>$cmd[CMD_LOOK_AROUND]][$cmd[CMD_TARGET_DESCRIBE]</input><localtiles>，或将<input>鼠标悬停</input>在墙上／<input>右键</input>点击墙面</localtiles>查看墙壁类型。
+ %%%%
+ tutorial3 amulet
+ 
+-通过按<input>$cmd[CMD_EQUIP]</input><localtiles>
+-或在物品栏中<input>鼠标点击</input>首饰来佩戴它</localtiles>。
++按<input>$cmd[CMD_EQUIP]</input><localtiles>或在物品栏中<input>点击</input></localtiles>即可佩戴首饰。
+ %%%%
+ tutorial3 drop
+ 
+-如果你追随了一个神，这个护身符会非常强大，但现在，它是没用的。
+-你要是想扔下它的话，可以用<input>$cmd[CMD_DROP]</input><localtiles>
+-或在物品栏中<input>Shift-左键点击</input>它</localtiles>。
++若你信奉某位神，这枚护身符会非常强大；但眼下它毫无用处。按<input>$cmd[CMD_DROP]</input><localtiles>或在物品栏中按住 Shift 再<input>左键点击</input></localtiles>即可丢下它。
+ %%%%
+ tutorial3 gold
+ 
+-金币可以用于在商店中购买物品。它不占用库存空间，且无法丢弃。
++金币可在商店消费，不占物品栏空间，也不能丢弃。
+ %%%%
+ tutorial3 shop
+ 
+-商店中有各种各样的物品，但你无法向他们出售任何东西。
++商店里有各种商品，但不会向冒险者收购物品。
+ %%%%
+ tutorial3 enter_shop
+ 
+-# 待办事项： 除了如何进入商店外，其他一切都应该在购物界面上告知。
+-要进入这家商店，请按<input>$cmd[CMD_GO_UPSTAIRS]</input><localtiles>
+-或<input>点击</input>你的角色</localtiles>。
+-要购买物品，请按它们对应的字母键选中它，
+-按<input>Enter</input>并按<input>y</input>es确定。
+-你可以按<input>!</input>切换到描述模式。
++按<input>$cmd[CMD_GO_UPSTAIRS]</input><localtiles>或<input>点击</input>自己的角色</localtiles>进入商店。购买时，按商品对应的字母键选中，按<input>Enter</input>，再按<input>y</input>确认。按<input>!</input>可切换到说明模式。
+ %%%%
+ tutorial3 autoexplore_reminder
+ 
+-记住，你可以按<input>$cmd[CMD_EXPLORE]</input><localtiles>
+-或<input>点击</input><w>命令栏</w>上的自动探索图标来自动探索本楼层</localtiles>。
++按<input>$cmd[CMD_EXPLORE]</input><localtiles>或<input>点击</input><w>命令栏</w>中的自动探索按钮</localtiles>即可自动探索楼层。
+ %%%%
+ tutorial3 go_shopping
+ 
+-# 待办事项：应仅指示在此处开始搜索，并将其余指示放入搜索界面。
+-#           此外，在查看此消息时，最好在命令栏中突出显示搜索按钮。
+-你现在有钱去商店买东西啦！要想回到商店，最快捷的方法就是搜索它。
+-按下<input>$cmd[CMD_SEARCH_STASHES]</input>，然后输入“<w>shop</w>”。
+-选择一个结果前往它。<localtiles>
+-你也可以<input>点击</input>命令栏上的搜索按钮，或者通过小地图来回到商店。</localtiles>
++现在手头宽裕，可以好好逛逛商店了！最快的回店方法是搜索：按<input>$cmd[CMD_SEARCH_STASHES]</input>，输入“<w>shop</w>”，再选中搜索结果开始行进。<localtiles>也可以<input>点击</input>命令栏中的搜索按钮，或通过小地图返回商店。</localtiles>
+ %%%%
+ tutorial3 optional_battle
+ 
+-小心，前面有<lightred>一场恶斗</lightred>。
+-你可以试试在战斗中使用你学到的知识，也可以尝试直奔那座岛上的出口。
+-不管怎么说，如果你还没买过东西，最好先去一下。
++前方是<lightred>一场硬仗</lightred>！你可以用刚学到的本领迎战，也可以设法抵达岛上的另一个出口。无论选哪条路，若还没购物，最好先去商店看看。
+ %%%%
+ tutorial3 tutorial_end
+ 
+-干得好！只要从楼梯走下去就可以退出此教程。
++做得好！从楼梯下去即可退出教程。
+ %%%%
+ tutorial3 exit
+ 
+-# 一个囊括所有命令的界面。
+ :nowrap
+-<white>教程3总结：物品</white>
++<white>教程 3 总结：物品</white>
+ 
+ <yellow>物品命令</yellow>
+-  <input>$cmd[CMD_PICKUP]</input>  捡起物品
++  <input>$cmd[CMD_PICKUP]</input>  拾取物品
+   <input>$cmd[CMD_DROP]</input>  丢弃物品
+   <input>$cmd[CMD_EQUIP]</input>  装备防具、武器和首饰
+   <input>$cmd[CMD_UNEQUIP]</input>  卸下防具、武器和首饰
+   <input>$cmd[CMD_READ]</input>  阅读卷轴
+   <input>$cmd[CMD_QUAFF]</input>  饮用药水
+-  <input>$cmd[CMD_EVOKE]</input> 使用魔杖
++  <input>$cmd[CMD_EVOKE]</input>  启动魔杖
+ 
+-  也可以在在物品栏菜单(<input>$cmd[CMD_DISPLAY_INVENTORY]<input>)中的物品描述界面中使用装备或卸下命令。<localtiles>
+-  当然，你也可以用<input>鼠标点击</input>。</localtiles>
++  在物品栏（<input>$cmd[CMD_DISPLAY_INVENTORY]</input>）中查看物品说明时，也可以使用、装备或卸下物品。<localtiles>
++  当然，也可以用<input>鼠标点击</input>操作。</localtiles>
+ 
+ <yellow>其他</yellow>
+   <input>$cmd[CMD_DISPLAY_COMMANDS]?</input> 查看命令帮助
+   <input>$cmd[CMD_EXPLORE]</input>  自动探索
+-  <input>$cmd[CMD_SEARCH_STASHES]</input> 搜索之前看到过的物品/地标<localtiles>
+-  上述命令中有很多都可以通过点击<w>命令栏</w>来下达。</localtiles>
++  <input>$cmd[CMD_SEARCH_STASHES]</input> 搜索先前发现的物品或地标<localtiles>
++  其中一些命令也可通过点击<w>命令栏</w>执行。</localtiles>
+ %%%%
+ ##############################################
+ # 教程地图4：魔法和施法                      #
+ ##############################################
+ tutorial4 start
+ 
+-这一课中你将学习如何记忆以及释放法术。
++本课将介绍如何记忆和施放法术。
+ %%%%
+ tutorial4 spellbook
+ 
+-从法术库中记忆法术通过<input>$cmd[CMD_MEMORISE_SPELL]</input><localtiles>
+-或在记忆标签页中<input>点击</input>所选的法术贴图</localtiles>。
+-当经验等级为1时，只有1级法术可供你使用。这会随你提升经验而改变。
+-要获得新法术，需要捡到魔法书，法术才会被添入库中。
++按<input>$cmd[CMD_MEMORISE_SPELL]</input><localtiles>，或<input>点击</input>记忆标签页并选择法术图标</localtiles>，即可从法术库中记忆法术。经验等级为 1 时，你只能记忆 1 级法术；等级提高后，可用法术也会增加。找到并拾取魔法书，就能把书中的法术加入法术库。
+ %%%%
+ tutorial4 spellcasting
+ 
+-## 待办事项：一次显示的有点多了。
+-##           不同的想法：通过不给他们弹药，让假人不会反击，
+-##           把休息的消息放在更靠后的地方。
+-##           贴图记忆：点击库存中的魔法书的操作可能更容易被掌握；
+-##           可以留出记忆标签页，由玩家自己发现。
+-你可以用<input>$cmd[CMD_CAST_SPELL]</input><localtiles>
+-或<input>点击</input>法术贴图进行施法</localtiles>。
+-按<input>$cmd[CMD_CAST_SPELL]?</input>获得你的法术列表。
+-魔法如同弹药，会显示在弹药槽，
+-你可以用<input>$cmd[CMD_QUIVER_ITEM]</input>查看预备的法术。
+-使用<input>$cmd[CMD_FIRE]</input>或<input>shift-tab</input>投射当前预备的法术。
+-
+-一旦你的魔力用尽了，撤退后可以通过<input>$cmd[CMD_REST]</input><localtiles>
+-或<input>点击</input>命令栏中的休息图标进行休息和回复</localtiles>。
++施法前，先按<input>$cmd[CMD_MEMORISE_SPELL]</input>记忆法术。之后按<input>$cmd[CMD_CAST_SPELL]</input><localtiles>或<input>点击</input>法术图标</localtiles>即可施放。
++
++按<input>$cmd[CMD_CAST_SPELL]</input>后，再按<input>?</input>查看法术列表。
+ %%%%
+ tutorial4 ring_power
+ 
+-通过按<input>$cmd[CMD_EQUIP]</input><localtiles>
+-或在物品栏中<input>点击</input>它，就能戴上这枚戒指</localtiles>，
+-在休整后你将拥有全新的潜能。
++按<input>$cmd[CMD_EQUIP]</input><localtiles>或在物品栏中<input>点击</input></localtiles>戴上这枚戒指，再休息片刻，恢复到提升后的状态。
+ %%%%
+ tutorial4 undead
+ 
+-# 待办事项： 这更像是提示模式的东西。
+-#            虽然不确定是否有任何坏处，但鼠标界面提示很好。
+-与绝大多数怪物不同，丧尸和骷髅无法恢复健康。
+-<localtiles>你可以尝试重施最后用的那个法术，
+-通过对着那个怪物按<input>Ctrl+左键</input>。</localtiles>
++与大多数怪物不同，丧尸和骷髅不会恢复生命值。<localtiles>对怪物按<input>Ctrl+左键</input>，也可以尝试重施上一个法术。</localtiles>
+ %%%%
+ tutorial4 spell_success
+ 
+-要查看你的法术熟练度，按<input>$cmd[CMD_DISPLAY_SPELLS]</input>
+-<localtiles>或<input>鼠标悬停</input>在你记住法术上面</localtiles>。
+-比较佩戴此戒指前后的法术失败率。
++按<input>$cmd[CMD_DISPLAY_SPELLS]</input><localtiles>或将<input>鼠标悬停</input>在已记忆的法术上</localtiles>查看法术熟练度。比较戴上这枚戒指前后的法术失败率。
+ %%%%
+ tutorial4 mephitic_cloud
+ 
+-臭云是个3级法术，因此你暂时无法记忆它。
+-为了快速升级，这里有更多的训练假人，这次没有石头可扔。
++臭云是 3 级法术，你现在还不能记忆。这里有更多训练假人，击败它们就能快速升级——这次没有石头可扔。
+ 
+-当经验等级到3时，你可以选择增强一个属性——通过<input>I</input>选择智力，
+-这会对施法有帮助。
++达到经验等级 3 后，你可以提升一项属性。选择<input>I</input>ntelligence（智力）还能进一步提高施法能力。
+ %%%%
+ tutorial4 meph_reminder
+ 
+-不要忘记你的新的可用法术，
+-通过按<input>$cmd[CMD_MEMORISE_SPELL]</input><localtiles>
+-或在记忆标签页中<input>点击</input>所选的法术贴图进行记忆</localtiles>！
++别忘了记忆刚解锁的法术：按<input>$cmd[CMD_MEMORISE_SPELL]</input><localtiles>，或<input>点击</input>记忆标签页并选择法术图标</localtiles>。
+ %%%%
+ tutorial4 aiming_clouds
+ 
+-当释放臭云时，有毒气体会覆盖一片区域，当你瞄准时，你会看到受影响的区域。
+-设法将多个敌人捕在一片云中，以更有效地利用你的魔法。
++施放臭云时，有毒烟雾会覆盖一片区域；瞄准时可以看到影响范围。尽量让一片云笼罩多个敌人，提高魔力的使用效率。
+ %%%%
+ tutorial4 forget_spell
+ 
+-获得经验并提高你的施法技能可以获得法术槽位。
+-你也可以通过阅读失忆卷轴<w>忘记一个记过的法术</w>来给新的腾出位置。
+-阅读那张卷轴（通过<input>$cmd[CMD_READ]</input><localtiles>或<input>点击</input>它</localtiles>），
+-然后选择要遗忘的法术。只要你有可用的法术槽，
+-你稍后可以从你的法术库中重新学习被遗忘的法术。
++提升经验等级和施法技能都能增加法术槽。阅读失忆卷轴可以<w>忘记已记忆的法术</w>，为新法术腾出空间。按<input>$cmd[CMD_READ]</input><localtiles>或<input>点击</input>卷轴</localtiles>阅读，再选择要忘记的法术。只要有空余法术槽，之后仍可从法术库重新记忆它。
+ %%%%
+ tutorial4 memorise2
+ 
+-遗忘旧法术腾出空间后，
+-通过<input>$cmd[CMD_MEMORISE_SPELL]</input><localtiles>
+-或在记忆标签页中<input>点击</input>所选的法术贴图</localtiles>记忆这个新法术。
+-然后试着用你的新法术召唤恶魔盟友！
++忘记一个旧法术腾出空间后，按<input>$cmd[CMD_MEMORISE_SPELL]</input><localtiles>，或<input>点击</input>记忆标签页并选择法术图标</localtiles>记忆这个新法术。然后试着施法，召唤恶魔盟友吧！
+ %%%%
+ tutorial4 displace_allies
+ 
+-你是否注意到，当你移向友方的位置时，会与其换位？
+-此外，与友好生物换位也是个逃离战斗的好办法。
++发现了吗？向盟友所在的位置移动，就能与它交换位置。与友方生物换位也能帮你脱离战斗。
+ %%%%
+ tutorial4 order_allies
+ 
+-设法让你的友方进行击杀！如有必要，
+-可以通过<input>$cmd[CMD_SHOUT]</input>命令他们。在进入大门前，
+-你可能需要通过<input>$cmd[CMD_WAIT]</input>来等待他们，直到你的友方赶上你。
+-你的召唤物只会停留一段时间，所以不要等待太久，或是在开始战斗前才进行召唤。
++尽量让盟友替你杀敌！必要时按<input>$cmd[CMD_SHOUT]</input>向它们下令。开门前，可以按<input>$cmd[CMD_WAIT]</input>等盟友跟上。召唤物只能存在一小段时间，别等太久；也可以在开战前重新召唤。
+ %%%%
+ tutorial4 heavy_armour
+ 
+-# 待办事项：将脱下拆分为单独的项目。
+-重甲确实会妨碍施法。试着装备护甲、盾牌
+-（通过<input>$cmd[CMD_EQUIP]</input><localtiles>或<input>点击</input>它们</localtiles>），
+-并通过<input>$cmd[CMD_DISPLAY_SPELLS]</input><localtiles>或<input>鼠标悬停</input>
+-在你记住的法术</localtiles>上，来比较你的施法失败率。
+-你可以通过<input>$cmd[CMD_UNEQUIP]</input><localtiles>
+-或<input>鼠标点击</input></localtiles>脱下防具。
++重甲会严重妨碍施法。试着按<input>$cmd[CMD_EQUIP]</input><localtiles>或<input>点击</input></localtiles>穿上那件锁子甲和盾牌，再按<input>$cmd[CMD_DISPLAY_SPELLS]</input><localtiles>或将<input>鼠标悬停</input>在已记忆的法术上</localtiles>比较施法失败率。按<input>$cmd[CMD_UNEQUIP]</input><localtiles>或用<input>鼠标点击</input></localtiles>即可脱下防具。
+ %%%%
+ tutorial4 resting_reminder
+ 
+-确保你在进入新区域前健康和魔力值是满的。
+-如有必要，通过<input>$cmd[CMD_REST]</input><localtiles>或在命令栏中<input>鼠标点击</input>它</localtiles>。
++进入新区域前，先确保生命值和魔力值都已回满。必要时按<input>$cmd[CMD_REST]</input><localtiles>或<input>点击</input>命令栏中的休息按钮</localtiles>休息。
+ 
+-你一次只能用给定任何的法术召唤数量有限的盟友，所以尽量利用范围广的法术。
+-例如，你召唤的小鬼是抗毒的，所以你与他们并肩作战时可以施放臭云，
+-而不会伤害你的盟友。
++每种法术能同时召唤的盟友数量有限，尽量善用不同法术。例如，你召唤的小鬼抗毒，可以与它们并肩作战时施放臭云，不会伤到盟友。
+ %%%%
+ tutorial4 tutorial_end
+ 
+-恭喜，你已经是真正的巫师了！只要从楼梯走下去就可以退出此教程。
++恭喜，你已经是名副其实的巫师了！从楼梯下去即可退出教程。
+ %%%%
+ tutorial4 exit
+ 
+-# 一个囊括所有命令的界面。
+ :nowrap
+-<white>教程4总结：魔法</white>
++<white>教程 4 总结：魔法</white>
+ 
+ <yellow>施法命令</yellow>
+-  <input>$cmd[CMD_MEMORISE_SPELL]</input>  学习新法术
++  <input>$cmd[CMD_MEMORISE_SPELL]</input>  记忆新法术
+   <input>$cmd[CMD_DISPLAY_SPELLS]</input>  查看法术熟练度
+-  <input>$cmd[CMD_CAST_SPELL]</input>  施法<localtiles>
+-  你也可以通过<w>记忆标签页</w>学习新的法术。
+-  你可以通过<input>左键</input>记忆法术，通过<input>鼠标悬停</input>或<input>右键</input></localtiles>阅读描述和查看法术熟练度。
+-  <input>$cmd[CMD_QUIVER_ITEM]</input> 调整你的弹药
++  <input>$cmd[CMD_CAST_SPELL]</input>  施放法术<localtiles>
++  也可以通过<w>记忆标签页</w>学习新法术。
++  用<input>左键点击</input>法术图标可施法；将<input>鼠标悬停</input>在法术上或用<input>右键</input>点击，可查看说明和熟练度。</localtiles>
++  <input>$cmd[CMD_QUIVER_ITEM]</input>  调整弹药槽
+ 
+-  <input>$cmd[CMD_REST]</input>  休息一百回合以回复健康和魔力
+-  <input>$cmd[CMD_SHOUT]</input>  命令友军
+-  <input>$cmd[CMD_UNEQUIP]</input>  脱下装备
++  <input>$cmd[CMD_REST]</input>  最多休息 100 回合，恢复生命值和魔力值
++  <input>$cmd[CMD_SHOUT]</input>  命令盟友
++  <input>$cmd[CMD_UNEQUIP]</input>  卸下装备
+ %%%%
+ ##############################################
+ # 教程5：神和神的能力                        #
+ ##############################################
+ tutorial5 start
+ 
+-这一课中你将会学到有关神祗的知识，包括如何使用他们的力量。
++本课将介绍诸神，以及如何使用神祇赐予的力量。
+ %%%%
+ tutorial5 dungeon_overview
+ 
+-前面是狂怒者特洛戈的祭坛！特洛戈只是众神之一。在实际游戏中，
+-你可以通过<input>$cmd[CMD_DISPLAY_OVERMAP]</input><localtiles>
+-或在命令栏中<input>点击地牢概览按钮</input></localtiles>
+-来查看所有已经发现的祭坛和其他有趣的地标。
++前方是暴怒之神特洛戈的祭坛！特洛戈只是众神之一。在正式游戏中，按<input>$cmd[CMD_DISPLAY_OVERMAP]</input><localtiles>或<input>点击命令栏中的地牢概览按钮</input></localtiles>，即可查看已发现的祭坛和其他重要地点。
+ %%%%
+ tutorial5 altar
+ 
+-你可以在祭坛上用<input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles>
+-（或<input>左击</input>你的角色）</localtiles>来祈祷，
+-这样你就可以知道这个神能给你什么好处，然后可以选择皈依它。
+-如果你在信仰界面按<input>!</input><localtiles>
+-或<input>右键</input></localtiles>你还可以看到更详细的描述。
++站在祭坛上按<input>$cmd[CMD_GO_DOWNSTAIRS]</input><localtiles>（或用鼠标<input>左键点击</input>角色）</localtiles>进行祈祷，可以了解神祇的恩赐并选择皈依。在信仰界面按<input>!</input><localtiles>或<input>右键点击</input></localtiles>可阅读更详细的介绍。
+ 
+-输入大写的<input>J</input>或<input>Enter</input>确认你的选择。
++按<input>J</input>或<input>Enter</input>确认选择。
+ %%%%
+ tutorial5 religion
+ 
+-通过<input>$cmd[CMD_DISPLAY_RELIGION]</input><localtiles>
+-（或通过在命令栏中<w>信仰按钮</w>，或通过<input>Shift-右击</input>玩家贴图）
+-</localtiles>来查看你的信仰状态。和以前一样，按<input>!</input><localtiles>
+-或<input>右击</input></localtiles>可以调出你的神的更详细的描述。
++按<input>$cmd[CMD_DISPLAY_RELIGION]</input><localtiles>，或点击<w>命令栏</w>中的信仰按钮，也可以对角色图块按住 Shift 再<input>右键点击</input></localtiles>，查看当前信仰状态。和之前一样，按<input>!</input><localtiles>或<input>右键点击</input></localtiles>可阅读神祇的详细介绍。
+ %%%%
+ tutorial5 piety_on_kill
+ 
+-有些神特别喜欢你以祂的名义杀死怪物。让屠杀开始吧！
++有些神祇乐于见到你以其名义杀敌。开始大开杀戒吧！
+ %%%%
+ tutorial5 berserk
+ 
+-面对特别强大的敌人时，
+-你可能需要通过<input>$cmd[CMD_USE_ABILITY]</input><localtiles>
+-或通过<w>命令栏</w>来使用特洛戈赐予你的狂暴能力</w></localtiles>。
++遇到格外强大的敌人时，可以按<input>$cmd[CMD_USE_ABILITY]</input><localtiles>或点击<w>命令栏</w></localtiles>使用特洛戈赐予的狂暴能力。
+ %%%%
+ tutorial5 exhaustion
+ 
+-狂暴会令人筋疲力尽。狂暴后，短时间内你无法再次狂暴，而且行动速度也会减慢。
+-最好是通过<input>$cmd[CMD_REST]</input><localtiles>
+-（或通过<w>命令栏</w>）</localtiles>来休息一会，等到精力恢复了再出发。
++狂暴极其耗神。狂暴结束后，你会减速，短时间内也无法再次狂暴。最好按<input>$cmd[CMD_REST]</input><localtiles>或通过<w>命令栏</w></localtiles>休息，直到恢复状态。
+ %%%%
+ tutorial5 berserk2
+ 
+-狂暴在面对多个敌人的时候也非常有用——但要是打到一半的时候狂暴结束就麻烦了。
++狂暴对付成群敌人也很有效——前提是战斗结束前你还没精疲力竭。
+ %%%%
+ tutorial5 tutorial_end
+ 
+-恭喜你！你已经通过了最后一个教学关，现在你可以开始玩真正的游戏了。祝你好运！
++恭喜！最后一课也完成了，现在可以开始正式冒险。祝你好运！
+ 
+-从楼梯走下去就可以退出此教程。
++从楼梯下去即可退出教程。
+ %%%%
+ tutorial5 exit
+ 
+-# 一个囊括所有命令的界面。
+ :nowrap
+-<white>教程5：信仰</white>
++<white>教程 5 总结：信仰</white>
+ 
+ <yellow>信仰命令</yellow>
+-  <input>$cmd[CMD_GO_DOWNSTAIRS]</input>  在祭坛上祈祷，以皈依一位神
+-  <input>$cmd[CMD_USE_ABILITY]</input>  使用神的能力
+-  <input>$cmd[CMD_DISPLAY_RELIGION]</input>  查看你的信仰状况<localtiles>
+-  <input>右击</input>玩家贴图，也能调出信仰界面。</localtiles>
++  <input>$cmd[CMD_GO_DOWNSTAIRS]</input>  在祭坛祈祷并皈依神祇
++  <input>$cmd[CMD_USE_ABILITY]</input>  使用神祇能力
++  <input>$cmd[CMD_DISPLAY_RELIGION]</input>  查看信仰状态<localtiles>
++  对角色图块<input>右键点击</input>也能打开信仰界面。</localtiles>
+ 
+ <yellow>休息</yellow>
+-  <input>$cmd[CMD_WAIT]</input>  等待并休息一回合
+-  <input>$cmd[CMD_REST]</input>  等待并休息100回合
++  <input>$cmd[CMD_WAIT]</input>  等待一回合
++  <input>$cmd[CMD_REST]</input>  最多休息 100 回合
+ 
+ <yellow>其他命令</yellow>
+-  <input>$cmd[CMD_DISPLAY_OVERMAP]</input> 显示地牢概览
+-  <input>$cmd[CMD_DISPLAY_COMMANDS]/</input>  搜索描述文字数据库
++  <input>$cmd[CMD_DISPLAY_OVERMAP]</input> 查看地牢概览
++  <input>$cmd[CMD_DISPLAY_COMMANDS]/</input>  搜索描述数据库
++%%%%
 +
 +%%%%
 +tutorial4 spellquivering
 +
-+法术和弹药一样，会显示在弹药槽中，所以你可以用
-+<input>$cmd[CMD_QUIVER_ITEM]</input>把一道法术预备到弹药槽里。
-+使用<input>$cmd[CMD_FIRE]</input>或<input>shift-tab</input>发射当前预备的法术。
++法术和弹药一样显示在弹药槽中。按<input>$cmd[CMD_QUIVER_ITEM]</input>可将法术设为当前弹药；按<input>$cmd[CMD_FIRE]</input>或<input>shift-tab</input>即可施放当前法术。
 +
-+一旦魔力用尽，就撤退并休息，用<input>$cmd[CMD_REST]</input><localtiles>
-+或<input>点击</input>命令栏中的休息图标</localtiles>来回复它们。
-+%%%%
++魔力耗尽时，先撤退，再按<input>$cmd[CMD_REST]</input><localtiles>或<input>点击</input>命令栏的休息图标</localtiles>恢复魔力。
+ %%%%
 diff --git a/crawl-ref/source/dat/descript/zh/unrand.txt b/crawl-ref/source/dat/descript/zh/unrand.txt
 index a5b2cbe..becbf27 100644
 --- a/crawl-ref/source/dat/descript/zh/unrand.txt
@@ -39008,8 +39842,112 @@ index a5b2cbe..becbf27 100644
 +一顶奢华的黄金细丝王冠，镶满璀璨的宝石，连国王戴上也会觉得太过招摇。
 +它赋予穿戴者不逊于天界任何存在的君王气度，以及大量名不副实的自信。
 +%%%%
+diff --git a/crawl-ref/source/describe.cc b/crawl-ref/source/describe.cc
+index 0a381e1..5e6b0f5 100644
+--- a/crawl-ref/source/describe.cc
++++ b/crawl-ref/source/describe.cc
+@@ -4,6 +4,7 @@
+ **/
+ 
+ #include "AppHdr.h"
++#include "zh-localization.h"
+ 
+ #include "describe.h"
+ 
+@@ -258,6 +259,8 @@ string process_description(const describe_info &inf, bool include_title)
+ //      seems acceptable.
+ static string _format_prop_desc(string prop_name, string prop_desc)
+ {
++    prop_name = zh_translate(prop_name);
++    prop_desc = zh_translate(prop_desc);
+     // XXX: It is possible some Android layouts are too small to wrap properly
+     //      to 80 characters (and I am currently not certain how to check on my
+     //      own), so let's just not do any justification.
+@@ -5580,6 +5583,22 @@ static void _attacks_table_row_throwing(const monster_info &mi,
+ static void _build_table_of_attacks(mon_attack_desc_info &di,
+                                     ostringstream &result)
+ {
++    const string attack_header = zh_translate(di.plural ? "Attacks" : "Attack");
++    const string damage_header = zh_translate("Max Damage");
++    const string bonus_header = zh_translate(di.flavour_without_dam ? "Bonus"
++                                                                  : "After Damaging Hits");
++    auto localize_column = [](vector<string> &cells, const string &header) {
++        size_t width = strwidth(header);
++        for (auto &cell : cells) {
++            cell = zh_translate(cell);
++            width = max(width, (size_t)strwidth(cell));
++        }
++        return width;
++    };
++    di.attk_desc_width = localize_column(di.attack_descriptions, attack_header);
++    di.damage_width = localize_column(di.damage_descriptions, damage_header);
++    di.bonus_width = localize_column(di.bonus_descriptions,
++                                    di.has_any_flavour ? bonus_header : "");
+     // Hopefully enough width for every possibility
+     di.damage_width    = min(di.damage_width, (size_t) 31);
+     di.bonus_width     = min(di.bonus_width, 69 - di.damage_width);
+@@ -5594,14 +5613,12 @@ static void _build_table_of_attacks(mon_attack_desc_info &di,
+     // Note: columns are separated by (a minimum of) 2 spaces
+ 
+     // First, the table header
+-    result << padded_str(di.plural ? "Attacks" : "Attack",
++    result << padded_str(attack_header,
+                          di.attk_desc_width + 2)
+-           << padded_str("Max Damage", di.damage_width + 2);
++           << padded_str(damage_header, di.damage_width + 2);
+     if (di.has_any_flavour)
+     {
+-        result << padded_str(di.flavour_without_dam ? "Bonus"
+-                                                    : "After Damaging Hits",
+-                             di.bonus_width);
++        result << padded_str(bonus_header, di.bonus_width);
+     }
+     result << "\n";
+ 
+@@ -6127,7 +6144,7 @@ public:
+     {
+         if (fixed_column_num > 0 && (int)rows[rows.size() - 1].size() >= fixed_column_num)
+             AddRow();
+-        rows[rows.size() - 1].push_back({label, value, colour});
++        rows[rows.size() - 1].push_back({zh_translate(label), zh_translate(value), colour});
+     }
+ 
+     int NumCells() const
+@@ -6146,7 +6163,7 @@ public:
+         {
+             for (size_t col = 0; col < rows[row].size(); ++col)
+             {
+-                const int label_len = codepoints(rows[row][col].label);
++                const int label_len = strwidth(rows[row][col].label);
+                 if (col == labels_lengths_by_col.size())
+                     labels_lengths_by_col.push_back(label_len);
+                 else
+diff --git a/crawl-ref/source/directn.cc b/crawl-ref/source/directn.cc
+index 05963d8..8fe2b85 100644
+--- a/crawl-ref/source/directn.cc
++++ b/crawl-ref/source/directn.cc
+@@ -6,6 +6,7 @@
+ #include "AppHdr.h"
+ 
+ #include "directn.h"
++#include "zh-localization.h"
+ 
+ #include <algorithm>
+ #include <cstdarg>
+@@ -3581,6 +3582,11 @@ string get_monster_equipment_desc(const monster_info& mi,
+         item_descriptions.push_back(carried_desc);
+     }
+ 
++    // Translate complete equipment clauses before comma-joining them with
++    // the monster name; their printf boundaries are otherwise unrecoverable.
++    desc = zh_translate(desc);
++    for (auto &item_desc : item_descriptions)
++        item_desc = zh_translate(item_desc);
+     const string item_description = comma_separated_line(
+                                                 item_descriptions.begin(),
+                                                 item_descriptions.end());
 diff --git a/crawl-ref/source/fontwrapper-ft.cc b/crawl-ref/source/fontwrapper-ft.cc
-index 0daea2c..14dba4b 100644
+index 0daea2c..bcdb359 100644
 --- a/crawl-ref/source/fontwrapper-ft.cc
 +++ b/crawl-ref/source/fontwrapper-ft.cc
 @@ -22,10 +22,12 @@
@@ -39089,7 +40027,49 @@ index 0daea2c..14dba4b 100644
      if (it != m_atlas_lru.end())
          m_atlas_lru.erase(it);
      m_atlas_lru.push_back(c);
-@@ -661,27 +685,20 @@ void FTFontWrapper::render_tooltip(unsigned int px, unsigned int py,
+@@ -373,14 +397,15 @@ void FTFontWrapper::render_textblock(unsigned int x_pos, unsigned int y_pos,
+     {
+         for (unsigned int x = 0; x < width; x++)
+         {
+-            GlyphInfo &glyph = get_glyph_info(chars[i]);
++            // TextRegion reserves one cell per terminal column. CJK glyphs
++            // occupy two cells; their zero continuation is never rendered.
+             uint8_t col_bg = colours[i] >> 4;
+             uint8_t col_fg = colours[i] & 0xF;
+ 
+             if (col_bg != 0)
+             {
+                 GLWPrim rect(adv.x, adv.y,
+-                             adv.x + m_max_advance.x, adv.y + m_max_advance.y);
++                             adv.x + m_layout_advance, adv.y + m_max_advance.y);
+                 // Leave tex coords at their default 0.0f
+                 VColour col(term_colours[col_bg].r,
+                             term_colours[col_bg].g,
+@@ -389,6 +414,14 @@ void FTFontWrapper::render_textblock(unsigned int x_pos, unsigned int y_pos,
+                 m_buf->add(rect);
+             }
+ 
++            if (!chars[i])
++            {
++                ++i;
++                adv.x += m_layout_advance;
++                continue;
++            }
++            GlyphInfo &glyph = get_glyph_info(chars[i]);
++
+             adv.x += glyph.offset;
+ 
+             if (glyph.renderable)
+@@ -414,7 +447,7 @@ void FTFontWrapper::render_textblock(unsigned int x_pos, unsigned int y_pos,
+             }
+ 
+             i++;
+-            adv.x += glyph.advance - glyph.offset;
++            adv.x += m_layout_advance - glyph.offset;
+ 
+             // See if we need to flush prematurely.
+             if (n_subst == MAX_GLYPHS - 1)
+@@ -661,27 +694,20 @@ void FTFontWrapper::render_tooltip(unsigned int px, unsigned int py,
                                    const coord_def &max_pos)
  {
      int outline = 7;
@@ -39127,7 +40107,7 @@ index 0daea2c..14dba4b 100644
  
      const VColour border_colour(125, 98, 60);
      const VColour bg_colour(4, 2, 4);
-@@ -689,7 +706,7 @@ void FTFontWrapper::render_tooltip(unsigned int px, unsigned int py,
+@@ -689,7 +715,7 @@ void FTFontWrapper::render_tooltip(unsigned int px, unsigned int py,
      outline -= 2;
      _draw_box(tx-outline, ty-outline, wx+2*outline, wy+2*outline, bg_colour);
  
@@ -39136,7 +40116,7 @@ index 0daea2c..14dba4b 100644
  }
  
  /**
-@@ -720,12 +737,14 @@ void FTFontWrapper::render_string(unsigned int px, unsigned int py,
+@@ -720,12 +746,14 @@ void FTFontWrapper::render_string(unsigned int px, unsigned int py,
  void FTFontWrapper::render_hover_string(unsigned int px, unsigned int py,
                                    const formatted_string &text)
  {
@@ -39156,7 +40136,7 @@ index 0daea2c..14dba4b 100644
  }
  
  /**
-@@ -952,7 +971,7 @@ unsigned int FTFontWrapper::char_height(bool logical) const
+@@ -952,7 +980,7 @@ unsigned int FTFontWrapper::char_height(bool logical) const
   */
  unsigned int FTFontWrapper::max_width(int length, bool logical) const
  {
@@ -39198,7 +40178,7 @@ index 2e7f3eb..4097bd1 100644
      int m_min_offset;
  
 diff --git a/crawl-ref/source/format.cc b/crawl-ref/source/format.cc
-index 5af0f59..b90d24f 100644
+index 5af0f59..07d6f8a 100644
 --- a/crawl-ref/source/format.cc
 +++ b/crawl-ref/source/format.cc
 @@ -1,6 +1,7 @@
@@ -39235,6 +40215,15 @@ index 5af0f59..b90d24f 100644
      // FIXME: This is a lame mess, just good enough for the task on hand
      // (keyboard help).
      string::size_type tag    = string::npos;
+@@ -296,7 +298,7 @@ formatted_string::operator += (const formatted_string &other)
+ const formatted_string &
+ formatted_string::operator += (const string& other)
+ {
+-    ops.emplace_back(other);
++    ops.emplace_back(zh_translate(other));
+     return *this;
+ }
+ 
 @@ -407,6 +409,9 @@ string formatted_string::to_colour_string(int default_colour) const
  
  void formatted_string::display(int s, int e) const
@@ -39400,7 +40389,7 @@ index fbd2ff1..e064285 100644
      message_line msg = message_line(text, channel, param, join);
      buffer.add(msg);
 diff --git a/crawl-ref/source/output.cc b/crawl-ref/source/output.cc
-index 58c1101..6571861 100644
+index 58c1101..0edcaec 100644
 --- a/crawl-ref/source/output.cc
 +++ b/crawl-ref/source/output.cc
 @@ -4,6 +4,7 @@
@@ -39420,7 +40409,70 @@ index 58c1101..6571861 100644
  }
  
  #ifdef USE_TILE_LOCAL
-@@ -1429,7 +1430,7 @@ static void _draw_wizmode_flag(const char *word)
+@@ -914,6 +915,7 @@ static void _print_stats_mp(int x, int y)
+ 
+     textcolour(HUD_CAPTION_COLOUR);
+     CPRINTF(player_drained() ? "MP: " : "Magic:  ");
++    CGOTOXY(x + 7, y, GOTO_STAT);
+     textcolour(mp_colour);
+     CPRINTF("%d", you.magic_points);
+     if (!boosted)
+@@ -980,6 +982,7 @@ static void _print_stats_hp(int x, int y)
+     CGOTOXY(x, y, GOTO_STAT);
+     textcolour(HUD_CAPTION_COLOUR);
+     CPRINTF(player_drained() ? "HP: " : "Health: ");
++    CGOTOXY(x + 7, y, GOTO_STAT);
+     textcolour(hp_colour);
+     CPRINTF("%d", you.hp);
+     if (!boosted)
+@@ -1028,7 +1031,7 @@ static short _get_stat_colour(stat_type stat)
+ 
+ static void _print_stat(stat_type stat, int x, int y)
+ {
+-    CGOTOXY(x+5, y, GOTO_STAT);
++    CGOTOXY(x+7, y, GOTO_STAT);
+ 
+     textcolour(_get_stat_colour(stat));
+     CPRINTF("%d", you.stat(stat, false));
+@@ -1111,23 +1114,23 @@ static void _print_stats_ac(int x, int y)
+         ac += make_stringf("(%d%%) ", you.gdr_perc(false));
+ #endif
+     textcolour(text_col);
+-    CGOTOXY(x+4, y, GOTO_STAT);
+-    CPRINTF("%-12s", ac.c_str());
++    CGOTOXY(x+7, y, GOTO_STAT);
++    CPRINTF("%-10s", ac.c_str());
+ 
+     // SH: (two lines lower)
+     text_col = _colour_from_stat_mod(you.temp_sh_mod());
+ 
+     string sh = make_stringf("%2d ", player_displayed_shield_class());
+     textcolour(text_col);
+-    CGOTOXY(x+4, y+2, GOTO_STAT);
+-    CPRINTF("%-12s", sh.c_str());
++    CGOTOXY(x+7, y+2, GOTO_STAT);
++    CPRINTF("%-10s", sh.c_str());
+ 
+     you.redraw_armour_class = false;
+ }
+ 
+ static void _print_stats_ev(int x, int y)
+ {
+-    CGOTOXY(x+4, y, GOTO_STAT);
++    CGOTOXY(x+7, y, GOTO_STAT);
+ 
+     // Color EV based on whether temporary effects are raising or lowering it
+     const int bonus = you.evasion_scaled(100) - you.evasion_scaled(100, true);
+@@ -1187,7 +1190,7 @@ static void _print_weapon_name(const item_def &weapon, int width)
+     CPRINTF("%s", slot_name.c_str());
+     textcolour(_wpn_name_colour(weapon));
+     const int max_name_width = width - slot_name.size();
+-    const string name = _wpn_name_corroded(weapon);
++    const string name = zh_translate(_wpn_name_corroded(weapon));
+     CPRINTF("%s", chop_string(name, max_name_width).c_str());
+     textcolour(LIGHTGREY);
+ }
+@@ -1429,7 +1432,7 @@ static void _draw_wizmode_flag(const char *word)
  static void _redraw_title()
  {
      const unsigned int WIDTH = crawl_view.hudsz.x;
@@ -39429,7 +40481,7 @@ index 58c1101..6571861 100644
      title = you.your_name + (title[0] == ',' ? "" : " ") + title;
      const bool small_layout = _is_using_small_layout();
  
-@@ -1451,7 +1452,7 @@ static void _redraw_title()
+@@ -1451,7 +1454,7 @@ static void _redraw_title()
                                             name_len - (in_len - WIDTH) - 1);
              }
  
@@ -39438,7 +40490,7 @@ index 58c1101..6571861 100644
          }
      }
  
-@@ -1473,7 +1474,7 @@ static void _redraw_title()
+@@ -1473,7 +1476,7 @@ static void _redraw_title()
      // Minotaur [of God] [Piety]
      textcolour(YELLOW);
      CGOTOXY(1, 2, GOTO_STAT);
@@ -39447,7 +40499,7 @@ index 58c1101..6571861 100644
      NOWRAP_EOL_CPRINTF("%s", species.c_str());
      if (you_worship(GOD_NO_GOD))
      {
-@@ -1507,6 +1508,7 @@ static void _redraw_title()
+@@ -1507,6 +1510,7 @@ static void _redraw_title()
              god = " of ";
          god += you_worship(GOD_JIYVA) ? god_name_jiyva(true)
                                        : god_name(you.religion);
@@ -39455,7 +40507,7 @@ index 58c1101..6571861 100644
          NOWRAP_EOL_CPRINTF("%s", god.c_str());
          formatted_string piety = formatted_string::parse_string(_god_asterisks(true));
          textcolour(_god_status_colour(YELLOW));
-@@ -2075,7 +2077,7 @@ static string _stealth_bar(int label_length, int sw)
+@@ -2075,7 +2079,7 @@ static string _stealth_bar(int label_length, int sw)
      string bar;
      //no colouring
      bar += _determine_colour_string(0, 5);
@@ -39464,7 +40516,7 @@ index 58c1101..6571861 100644
  
      const int unadjusted_pips = stealth_pips();
      const int bar_len = 10;
-@@ -2180,15 +2182,15 @@ static void _print_overview_screen_equip(column_composer& cols,
+@@ -2180,15 +2184,15 @@ static void _print_overview_screen_equip(column_composer& cols,
  
  static string _overview_screen_title(int sw)
  {
@@ -39484,7 +40536,7 @@ index 58c1101..6571861 100644
                        + make_time_string(you.real_time(), true);
  
      const int char_width = strwidth(species_job);
-@@ -2523,7 +2525,7 @@ static string _resist_composer(const char * name, int spacing, int value,
+@@ -2523,7 +2527,7 @@ static string _resist_composer(const char * name, int spacing, int value,
                           || type == MR_NO_FLAGS && value == WILL_INVULN);
  
      string colour = _determine_colour_string(value, max, immune);
@@ -39493,7 +40545,7 @@ index 58c1101..6571861 100644
      out += desc_resist(value, max, immune);
  
      if ((!Options.show_resist_percent) || type == MR_NO_FLAGS)
-@@ -2583,10 +2585,11 @@ static vector<formatted_string> _get_overview_resistances(
+@@ -2583,10 +2587,11 @@ static vector<formatted_string> _get_overview_resistances(
      vector<char> &equip_chars, int sw)
  {
      // Two columns.
@@ -39507,7 +40559,7 @@ index 58c1101..6571861 100644
      string out;
  
      const int rfire = player_res_fire(false);
-@@ -2616,12 +2619,12 @@ static vector<formatted_string> _get_overview_resistances(
+@@ -2616,12 +2621,12 @@ static vector<formatted_string> _get_overview_resistances(
      out += _stealth_bar(cwidth, 20) + "\n";
  
      const int regen = player_regen(); // round up
@@ -39565,6 +40617,36 @@ index 457fe13..cef63e9 100644
                         m_min_coord.x + 2 + tile_offset,
                         m_min_coord.y + 2 + get_vertical_offset());
  
+diff --git a/crawl-ref/source/quiver.cc b/crawl-ref/source/quiver.cc
+index a03a16a..2815ed2 100644
+--- a/crawl-ref/source/quiver.cc
++++ b/crawl-ref/source/quiver.cc
+@@ -4,6 +4,7 @@
+ **/
+ 
+ #include "AppHdr.h"
++#include "zh-localization.h"
+ 
+ #include "quiver.h"
+ 
+@@ -396,7 +397,7 @@ namespace quiver
+             {
+                 string verb = you.confused() ? "confused " : "";
+                 verb += quiver_verb();
+-                qdesc.cprintf("%s: %c) ", uppercase_first(verb).c_str(),
++                qdesc.cprintf("%s%c) ", zh_translate(uppercase_first(verb) + ": ").c_str(),
+                                 weapon.slot);
+             }
+ 
+@@ -500,7 +501,7 @@ namespace quiver
+                 string verb = you.confused() ? "confused " : "";
+ 
+                 verb += quiver_verb();
+-                qdesc.cprintf("%s: %c) ", uppercase_first(verb).c_str(),
++                qdesc.cprintf("%s%c) ", zh_translate(uppercase_first(verb) + ": ").c_str(),
+                                 weapon ? weapon->slot : '-');
+             }
+ 
 diff --git a/crawl-ref/source/skill-menu.cc b/crawl-ref/source/skill-menu.cc
 index 2d2afd8..cd5b0a8 100644
 --- a/crawl-ref/source/skill-menu.cc
@@ -39613,6 +40695,19 @@ index 2d2afd8..cd5b0a8 100644
          return result;
      }
      default: return "";
+diff --git a/crawl-ref/source/stringutil.cc b/crawl-ref/source/stringutil.cc
+index 137085a..6154a1d 100644
+--- a/crawl-ref/source/stringutil.cc
++++ b/crawl-ref/source/stringutil.cc
+@@ -121,7 +121,7 @@ int codepoints(string str)
+ 
+ string padded_str(const string &s, int pad_to, bool prepend)
+ {
+-    const int padding = pad_to - codepoints(s);
++    const int padding = pad_to - strwidth(s);
+     if (padding <= 0)
+         return s;
+     string str = s;
 diff --git a/crawl-ref/source/tilereg-doll.cc b/crawl-ref/source/tilereg-doll.cc
 index 3b412f1..dd09eb1 100644
 --- a/crawl-ref/source/tilereg-doll.cc
@@ -39990,6 +41085,66 @@ index 96d7171..1855cc6 100644
      else
        ox = 0;
  }
+diff --git a/crawl-ref/source/tilereg-text.cc b/crawl-ref/source/tilereg-text.cc
+index 099ad44..bc3ed9e 100644
+--- a/crawl-ref/source/tilereg-text.cc
++++ b/crawl-ref/source/tilereg-text.cc
+@@ -82,10 +82,6 @@ void TextRegion::addstr(const char *buffer)
+             c = 0;
+             newline = true;
+         }
+-        // TODO: use wcwidth() to handle widths!=1:
+-        // *  2 for CJK chars -- add a zero-width blank?
+-        // *  0 for combining characters -- would need extra support
+-        // * -1 for non-printable stuff -- assert or ignore
+         buf2[j] = c;
+         j++;
+ 
+@@ -116,12 +112,31 @@ void TextRegion::addstr_aux(const char32_t *buffer, int len)
+ 
+     ASSERT(y < my);
+ 
+-    for (int i = 0; i < len && x + i < mx; i++)
++    // Cursor positions and clipping are terminal columns, not codepoints.
++    // Store a zero continuation cell for double-width glyphs so later cursor
++    // writes (status bars, coloured values, padding) keep their intended x.
++    for (int i = 0; i < len; i++)
+     {
+-        cbuf[adrs+x+i] = buffer[i];
+-        abuf[adrs+x+i] = text_col;
++        const int columns = max(0, wcwidth(buffer[i]));
++        if (!columns)
++            continue;
++        if (x >= 0 && x + columns <= mx)
++        {
++            if (x > 0 && cbuf[adrs+x] == 0)
++                cbuf[adrs+x-1] = ' ';
++            if (x + 1 < mx && wcwidth(cbuf[adrs+x]) == 2)
++                cbuf[adrs+x+1] = ' ';
++            cbuf[adrs+x] = buffer[i];
++            abuf[adrs+x] = text_col;
++            for (int extra = 1; extra < columns; ++extra)
++            {
++                cbuf[adrs+x+extra] = 0;
++                abuf[adrs+x+extra] = text_col;
++            }
++        }
++        x += columns;
++        print_x += columns;
+     }
+-    print_x += len;
+ }
+ 
+ void TextRegion::clear_to_end_of_line()
+@@ -132,6 +147,8 @@ void TextRegion::clear_to_end_of_line()
+     int adrs = cy * mx;
+ 
+     ASSERT(adrs + mx - 1 < mx * my);
++    if (cx > 0 && cx < mx && cbuf[adrs+cx] == 0)
++        cbuf[adrs+cx-1] = ' ';
+     for (int i = cx; i < mx; i++)
+     {
+         cbuf[adrs+i] = ' ';
 diff --git a/crawl-ref/source/tilesdl.h b/crawl-ref/source/tilesdl.h
 index f2bead5..ae5de7d 100644
 --- a/crawl-ref/source/tilesdl.h
@@ -40011,11 +41166,11 @@ index 0000000..cd46610
 +0.34.1
 diff --git a/crawl-ref/source/zh-catalog.inc b/crawl-ref/source/zh-catalog.inc
 new file mode 100644
-index 0000000..1b9f5eb
+index 0000000..efe8b7c
 --- /dev/null
 +++ b/crawl-ref/source/zh-catalog.inc
-@@ -0,0 +1,51691 @@
-+// Generated by native_catalog.py; translations by Pi / DeepSeek Flash.
+@@ -0,0 +1,52004 @@
++// Generated by native_catalog.py; translations by Pi / DeepSeek Flash and Luna review.
 +static const ZhEntry zh_entries[] = {
 +    {" (less than 1% of your maximum possible piety)", " （连你最大可能虔诚的 1% 都不到）"},
 +    {" (about %d%% of your maximum possible piety)", " （约为你最大可能虔诚的%d%%）"},
@@ -40577,7 +41732,7 @@ index 0000000..1b9f5eb
 +    {"slaughter", "屠杀"},
 +    {" joyfully", " ，欢快地"},
 +    {"damnation bolt", "天谴之矢"},
-+    {"damnation", "天谴"},
++    {"damnation", "诅咒之力"},
 +    {"burn", "焚烧"},
 +    {"freeze", "冰封"},
 +    {"electrocute", "电击"},
@@ -40638,9 +41793,9 @@ index 0000000..1b9f5eb
 +    {"Your thoughts feel a little more lonely.", "你的思绪感到更加孤独了一些。"},
 +    {"You feel supremely confident.", "你感到无比自信。"},
 +    {"Brand", "词缀"},
-+    {"Str", "力"},
-+    {"Int", "智"},
-+    {"Dex", "敏"},
++    {"Str", "力量"},
++    {"Int", "智力"},
++    {"Dex", "敏捷"},
 +    {"Will", "意志"},
 +    {"+Inv", "+隐身"},
 +    {"Fly", "飞行"},
@@ -40731,7 +41886,7 @@ index 0000000..1b9f5eb
 +    {"strike", "击打"},
 +    {"You pounce on the unaware %s!", "你扑向毫无防备的%s！"},
 +    {"%s fails to defend %s.", "%s未能保护%s。"},
-+    {"hit", "命中"},
++    {"hit", "击中"},
 +    {"miss", "未命中"},
 +    {"melt", "融化"},
 +    {"You are electrocuted%s", "你被电击%s"},
@@ -40891,9 +42046,10 @@ index 0000000..1b9f5eb
 +    {"peanut brittle", "花生脆糖"},
 +    {"glitter", "闪光"},
 +    {"engulfs", "吞噬"},
-+    {"hits", "命中"},
++    {"hits", "击中"},
 +    {"you", "你"},
 +    {"your lifeless body", "你毫无生气的躯体"},
++    {"The %s %s %s%s%s%s", "%s%s%s%s%s%s"},
 +    {" with %s", " 用%s"},
 +    {" but does no damage", " 但未造成伤害"},
 +    {"You are skewered in place!", "你被就地刺穿了！"},
@@ -41003,7 +42159,7 @@ index 0000000..1b9f5eb
 +    {"magic", "魔法"},
 +    {"electricity", "电击"},
 +    {"noxious fumes", "有毒烟雾"},
-+    {"poison", "毒素"},
++    {"poison", "毒"},
 +    {"negative energy", "负能量"},
 +    {"acid", "酸液"},
 +    {"light", "光"},
@@ -41995,6 +43151,7 @@ index 0000000..1b9f5eb
 +    {"You are engulfed in negative energy!", "你被负能量吞没了！"},
 +    {"@The_monster@ is engulfed in negative energy!", "@The_monster@被负能量吞没了！"},
 +    {"Something is engulfed in negative energy!", "什么东西被负能量吞没了！"},
++    {"torment", "苦痛"},
 +    {" averts the curse.", " 避开了诅咒。"},
 +    {" partially averts the curse.", " 部分避开了诅咒。"},
 +    {"escape", "逃脱"},
@@ -42763,13 +43920,13 @@ index 0000000..1b9f5eb
 +    {"; use <white>(s)</white> to set %d.%d as a target for %s.", "; 使用 <white>(s)</white> 将 %d.%d 设为 %s 的目标。"},
 +    {"Your %sskill: %s%d.%d%s", "你的%s技能：%s%d.%d%s"},
 +    {"(base) ", "（基础） "},
-+    {"At 100% training ", "在100%训练时 "},
-+    {"At current training (%d%%) ", "在当前训练(%d%%)时 "},
-+    {"At a training level of %d%% ", "在训练等级为%d%%时 "},
-+    {"you %sreach %d.%d in %s %d.%d XLs.", "你%s在%d.%d级时达到%s %d.%d级。"},
++    {"At 100% training ", "按100%训练比例， "},
++    {"At current training (%d%%) ", "按当前%d%%训练比例， "},
++    {"At a training level of %d%% ", "按%d%%训练比例， "},
++    {"you %sreach %d.%d in %s %d.%d XLs.", "你%s达到%d.%d级（经验：%s%d.%d级角色经验）。"},
 +    {"would ", "将 "},
 +    {"the equivalent of", "相当于"},
-+    {"about", "大约"},
++    {"about", "约"},
 +    {"\n    (%d xp, %d skp)", "\n    （%d 经验，%d 技能点）"},
 +    {"\n    Current attack delay: %.1f.", "\n    当前攻击延迟：%.1f。"},
 +    {"your enemies will bleed and die for Makhleb.", "你的敌人将为马克莱布流血而死。"},
@@ -42778,7 +43935,7 @@ index 0000000..1b9f5eb
 +    {"Ench + Slay", "附魔 + 屠戮"},
 +    {"%d (Base %s x %d%% (%s) x %d%% (%s)%s)%s.", "%d（基础 %s x %d%%（%s）x %d%%（%s）%s）%s。"},
 +    {"Skill", "技能"},
-+    {"Fight", "格斗"},
++    {"Fight", "战斗"},
 +    {") weapon ego", ") 武器特效"},
 +    {"Your inability to study %s prevents you from drawing on the full power of this staff in melee.\n\n", "你无法研究%s，因此无法在近战中完全发挥这根法杖的力量。\n\n"},
 +    {"Base accuracy: %s  Base damage: %s  ", "基础命中：%s  基础伤害：%s  "},
@@ -43086,7 +44243,7 @@ index 0000000..1b9f5eb
 +    {"Frost pours from its nostrils.", "寒霜从其鼻孔中喷涌而出。"},
 +    {"Its scales and tail are adapted to the water.", "其鳞片和尾部适应了水中生活。"},
 +    {"It is cloaked in a pall of superheated steam.", "它被一层过热蒸汽所笼罩。"},
-+    {"acid and corrosion", "酸蚀与腐蚀"},
++    {"acid and corrosion", "酸液与腐蚀"},
 +    {"buggy resistance", "有问题的抗性"},
 +    {"Minor", "轻微"},
 +    {"Low", "低"},
@@ -43197,7 +44354,7 @@ index 0000000..1b9f5eb
 +    {" currently targeted by:\n", " 当前被瞄准者：\n"},
 +    {" currently targeting ", " 当前瞄准： "},
 +    {"Explosion damage: ", "爆炸伤害： "},
-+    {"Max HP", "最大生命值"},
++    {"Max HP", "生命上限"},
 +    {"V. Small", "极小"},
 +    {"Threat", "威胁"},
 +    {"Class", "类别"},
@@ -43206,10 +44363,10 @@ index 0000000..1b9f5eb
 +    {" (while incapacitated)", " (失去行动能力时)"},
 +    {" (at present)", " (目前)"},
 +    {"drowning", "溺水"},
-+    {"clouds of all kinds", "各种云雾"},
-+    {"immune to ", "免疫 "},
-+    {"very resistant to ", "极高抗性 "},
-+    {"resistant to ", "抗性 "},
++    {"clouds of all kinds", "所有种类的云"},
++    {"immune to ", "免疫： "},
++    {"very resistant to ", "抗性极强： "},
++    {"resistant to ", "抗性： "},
 +    {" an unusual item: ", " 一件不寻常的物品： "},
 +    {" an unusual item", " 一件不寻常的物品"},
 +    {"; and ", "；以及 "},
@@ -43500,7 +44657,7 @@ index 0000000..1b9f5eb
 +    {"pandemonium lord", "混沌领主"},
 +    {"ghost", "鬼魂"},
 +    {"wearing %s", "穿着 %s"},
-+    {"quivering %s", "颤动着 %s"},
++    {"quivering %s", "待投掷的%s"},
 +    {"carrying ", "携带 "},
 +    {"lies inside a sanctuary", "位于圣域之中"},
 +    {"is shrouded in silence", "被寂静笼罩"},
@@ -46944,7 +48101,7 @@ index 0000000..1b9f5eb
 +    {"%s (improved by +1).", "%s（提升了 +1）。"},
 +    {"%s (gained %d charge%s)", "%s (获得 %d 充能%s)"},
 +    {"Unable to find any slot for %s", "找不到适合 %s 的槽位"},
-+    {"You see here %s.", "你在此看到 %s。"},
++    {"You see here %s.", "这里有%s。"},
 +    {"Are you sure you want to drop ", "确定要丢弃 "},
 +    {" into ", " 到 "},
 +    {"You won't be able to retrieve ", "你将无法取回 "},
@@ -47242,7 +48399,7 @@ index 0000000..1b9f5eb
 +    {"The transporter is blocked by a creature on the other side!", "传送装置的另一侧被一个生物堵住了！"},
 +    {"You enter the transporter and appear at another place.", "你进入传送装置，出现在另一个地方。"},
 +    {"You are a level %d %s %s.", "你是一个 %d 级 %s %s。"},
-+    {"You are %d%% of the way to level %d.", "你已达到 %d%%，即将升到 %d 级。"},
++    {"You are %d%% of the way to level %d.", "经验进度已达%d%%，目标等级为%d级。"},
 +    {"I'm sorry, level %d is as high as you can go.", "抱歉，%d 级就是你能达到的最高等级了。"},
 +    {"With the way you've been playing, I'm surprised you got this far.", "就你这玩法，能走到这一步真让我吃惊。"},
 +    {"You'll get an extra life in %d.%02d levels' worth of XP.", "再获得 %d.%02d 级份量的经验，你就会多一条命。"},
@@ -47445,7 +48602,7 @@ index 0000000..1b9f5eb
 +    {"off-hand ", "副手 "},
 +    {"bite", "撕咬"},
 +    {"pseudopods", "伪足"},
-+    {"bludgeon", "重击"},
++    {"bludgeon", "痛击"},
 +    {"squeeze", "挤压"},
 +    {"chomp", "咀嚼"},
 +    {"whirl of blades", "刀锋回旋"},
@@ -48001,7 +49158,7 @@ index 0000000..1b9f5eb
 +    {"banished", "被放逐"},
 +    {"bound", "被束缚"},
 +    {"slimified", "被黏液化"},
-+    {"killed", "被杀"},
++    {"killed", "杀死"},
 +    {" the ghost of ", " 的鬼魂 "},
 +    {" protects ", " 保护 "},
 +    {" from harm!", " 免受伤害！"},
@@ -48075,10 +49232,10 @@ index 0000000..1b9f5eb
 +    {" falls from the air.", " 从空中落下。"},
 +    {"The tentacle is hauled back through the portal!", "触手被拖回了传送门！"},
 +    {"With a roar, the tentacle is hauled back through the portal!", "伴随着一声咆哮，触手被拖回了传送门！"},
-+    {"blown up", "炸毁"},
-+    {"destroyed", "摧毁"},
++    {"blown up", "被炸死"},
++    {"destroyed", "被摧毁"},
 +    {"You %s %s!", "你%s%s！"},
-+    {"blow up", "炸毁"},
++    {"blow up", "炸死"},
 +    {"destroy", "摧毁"},
 +    {"kill", "杀死"},
 +    {"That felt strangely unrewarding.", "那感觉奇怪地毫无回报。"},
@@ -48519,8 +49676,8 @@ index 0000000..1b9f5eb
 +    {" (fellow slime)", " (同类史莱姆)"},
 +    {"%d %s left", "%d %s 剩余"},
 +    {"memories", "记忆"},
-+    {"Speed: ", "速度: "},
-+    {"shoot", "射击"},
++    {"Speed: ", "速度： "},
++    {"shoot", "射出"},
 +    {"swim", "游泳"},
 +    {" (but often pauses)", " (但经常停顿)"},
 +    {"slower", "较慢"},
@@ -50242,7 +51399,7 @@ index 0000000..1b9f5eb
 +    {"Builder failure while trying to generate temple!", "尝试生成神殿时构建器失败！"},
 +    {"Buggy note passed: unknown note type", "传入了有问题的笔记：未知的笔记类型"},
 +    {"Xom revived you", "Xom 复活了你"},
-+    {"Magic: ", "魔法： "},
++    {"Magic: ", "魔力： "},
 +    {"Reached ", "达到 "},
 +    {" max health", " 最大生命值"},
 +    {" max magic points", " 最大魔法值"},
@@ -50331,7 +51488,7 @@ index 0000000..1b9f5eb
 +    {"The electricity makes your body seize.", "电流使你的身体抽搐。"},
 +    {"The flames go out!", "火焰熄灭了！"},
 +    {"Your body starts to freeze solid!", "你的身体开始冻结成冰！"},
-+    {"You are now level %d!", "你现在是 %d 级了！"},
++    {"You are now level %d!", "你升到了%d级！"},
 +    {"Drained by %d max hp (%d total)", "因最大生命值流失 %d（共 %d）"},
 +    {"extremely ", "极度 "},
 +    {"very heavily ", "非常严重地 "},
@@ -50374,7 +51531,7 @@ index 0000000..1b9f5eb
 +    {"Place", "放置"},
 +    {"(Hit _)", "（按 _）"},
 +    {"Equip: ", "装备： "},
-+    {"Noise: ", "噪音： "},
++    {"Noise: ", "噪声： "},
 +    {"Silenced  ", "沉默  "},
 +    {"Magic:  ", "魔法：  "},
 +    {"Health: ", "生命： "},
@@ -50384,7 +51541,7 @@ index 0000000..1b9f5eb
 +    {"Cont ", "污染 "},
 +    {"misaligned HUD (is %d, should be %d)", "HUD 未对齐（为 %d，应为 %d）"},
 +    {"Next: ", "升级: "},
-+    {"Place: ", "地点: "},
++    {"Place: ", "地点： "},
 +    {"Your terminal window is too small; please resize to at least %d,%d", "你的终端窗口太小；请调整大小至少为 %d,%d"},
 +    {"There ", "视野内 "},
 +    {"were", "曾"},
@@ -50785,10 +51942,10 @@ index 0000000..1b9f5eb
 +    {"You remember only oblivion.", "你只记得一片湮灭。"},
 +    {"You remember %s.", "你记起了%s。"},
 +    {"(You can now cast %s.)", "（你现在可以施放%s。）"},
-+    {"Welcome back to level %d!", "欢迎回到%d层！"},
-+    {"You have reached level 27, the final one!", "你达到了27层，最终层！"},
-+    {"You have reached level %d, the highest you will ever reach!", "你达到了%d层，你所能到达的最高层！"},
-+    {"You have reached level %d!", "你到达了%d层！"},
++    {"Welcome back to level %d!", "你的经验等级恢复至%d级！"},
++    {"You have reached level 27, the final one!", "你升到了27级，已是最后一级！"},
++    {"You have reached level %d, the highest you will ever reach!", "你升到了%d级，这已是你能达到的最高等级！"},
++    {"You have reached level %d!", "你升到了%d级！"},
 +    {"Your skin feels tougher.", "你的皮肤感觉更坚韧了。"},
 +    {"Your scales start taking on %s colour.", "你的鳞片开始呈现%s色。"},
 +    {"You learn %s %s%s.", "你学会了%s %s%s。"},
@@ -51084,7 +52241,7 @@ index 0000000..1b9f5eb
 +    {"You swing at nothing.", "你挥了个空。"},
 +    {"You attack empty space.", "你攻击了空气。"},
 +    {"Activate", "激活"},
-+    {"throw", "投掷"},
++    {"throw", "投出"},
 +    {"toss (no damage)", "抛出（无伤害）"},
 +    {"Continue: ", "继续： "},
 +    {"Cast: ", "施放： "},
@@ -51139,7 +52296,7 @@ index 0000000..1b9f5eb
 +    {"%s %s the %s%s", "%s %s了%s%s"},
 +    {"The %s%s misses %s.", "%s%s未命中%s。"},
 +    {"Your attached jelly eats the %s!", "你附着的凝胶吃掉了%s！"},
-+    {"The %s %s %s%s but does no damage.", "%s %s %s%s，但没有造成伤害。"},
++    {"The %s %s %s%s but does no damage.", "%s%s%s%s，却未造成伤害。"},
 +    {" and shatters,", " 并碎裂，"},
 +    {"the %s", "%s"},
 +    {"CHAOS missile: ", "混沌飞弹： "},
@@ -51148,7 +52305,7 @@ index 0000000..1b9f5eb
 +    {"(other)", "（其他）"},
 +    {"You become untethered in space!", "你在空间中失去束缚！"},
 +    {" becomes untethered in space!", " 在空间中失去束缚！"},
-+    {"pierces through", "刺穿"},
++    {"pierces through", "贯穿"},
 +    {" and shatters for extra damage", " 并碎裂造成额外伤害"},
 +    {"recite Zin's Axioms of Law", "诵读Zin的律法公理"},
 +    {"call upon Zin for vitalisation", "向Zin祈求活力"},
@@ -51913,8 +53070,8 @@ index 0000000..1b9f5eb
 +    {"Eviscerator", "开膛者"},
 +    {"Sabretooth", "剑齿"},
 +    {"You have mastered %s!", "你已经精通了%s！"},
-+    {"Your %s%s skill %s to level %d!", "你的%s%s技能%s到%d级！"},
-+    {"Your %s%s skill %s %d levels and is now at level %d!", "你的%s%s技能%s了%d级，现在达到%d级！"},
++    {"Your %s%s skill %s to level %d!", "你的%s%s技能%s至%d级！"},
++    {"Your %s%s skill %s %d levels and is now at level %d!", "你的%s%s技能%s%d级，现在为%d级！"},
 +    {"gained", "提升"},
 +    {"lost", "下降"},
 +    {"You cannot train any new skills!", "你无法训练任何新技能！"},
@@ -58944,10 +60101,13 @@ index 0000000..1b9f5eb
 +    {"Majesty:   You are bathed in light that prevents you from turning invisible. Whenever you enter a new floor, you announce yourself to nearby enemies and refuse to leave the floor again for some time.\nRing++:   You can equip two additional rings.", "威严：   你沐浴在光芒中，无法隐身。每当你进入新楼层，你会向附近敌人宣告自己的存在，并在一段时间内拒绝再次离开该楼层。\n戒指++：   你可以额外装备两枚戒指。"},
 +    {"scarf of invisibility", "隐形围巾"},
 +    {"of ", "之 "},
++    {"AC", "护甲"},
++    {"EV", "闪避"},
 +    {"rElec", "电抗"},
 +    {"rPois", "毒抗"},
 +    {"SInv", "侦隐"},
 +    {"rCorr", "腐蚀抗性"},
++    {"SH", "格挡"},
 +    {"non-descript", "无特色"},
 +    {" of ", " 之 "},
 +    {"Snow-blindness", "雪盲"},
@@ -58973,7 +60133,7 @@ index 0000000..1b9f5eb
 +    {"glow.", "光晕。"},
 +    {"\n\nIt is ", "\n\n它 "},
 +    {"Awoken.", "已觉醒。"},
-+    {"(<)go up", "(<)上行"},
++    {"(<)go up", "(<)上楼"},
 +    {", or ", "，或 "},
 +    {" to a ", " 到 "},
 +    {"(p)ut on", "(p)穿上"},
@@ -59517,7 +60677,7 @@ index 0000000..1b9f5eb
 +    {"No such bane: '%s'.", "没有这样的祸根：'%s'。"},
 +    {"Can't change to invalid xl %d", "无法更改为无效的xl %d"},
 +    {"No ", "无 "},
-+    {"HP: ", "血: "},
++    {"HP: ", "生命： "},
 +    {" MP: ", " 魔法值: "},
 +    {"tail-slap", "尾击"},
 +    {"eel-slap", "鳗尾击"},
@@ -59664,19 +60824,22 @@ index 0000000..1b9f5eb
 +    {"Eq: ", "装备: "},
 +    {"Gold:", "金币:"},
 +    {"Gd ", "金币 "},
-+    {"MP: ", "魔: "},
++    {"MP: ", "魔力： "},
 +    {"WIZARD", "巫师"},
 +    {"EX-WIZARD", "前巫师"},
 +    {"EXPLORE", "探索"},
-+    {"XL: ", "级: "},
-+    {"AC:", "防:"},
-+    {"EV:", "闪:"},
-+    {"SH:", "盾:"},
++    {"XL: ", "等级： "},
++    {"AC:", "护甲："},
++    {"EV:", "闪避："},
++    {"SH:", "格挡："},
++    {"Str:", "力量："},
++    {"Int:", "智力："},
++    {"Dex:", "敏捷："},
 +    {"Time:", "时间："},
 +    {"Turn:", "回合："},
-+    {"AC: ", "防: "},
-+    {"EV: ", "闪: "},
-+    {"SH: ", "盾: "},
++    {"AC: ", "护甲： "},
++    {"EV: ", "闪避： "},
++    {"SH: ", "格挡： "},
 +    {"rFire", "火抗"},
 +    {"rCold", "冰抗"},
 +    {"HPRegen", "生命恢复"},
@@ -62512,7 +63675,7 @@ index 0000000..1b9f5eb
 +    {"Current attack delay: %.1f.", "当前攻击延迟：%.1f。"},
 +    {"Your inability to study %s prevents you from drawing on the full power of this staff in melee.", "你无法研究 %s，这使你无法在近战中发挥这根法杖的全部力量。"},
 +    {"Base attack delay: %.1f", "基础攻击延迟：%.1f"},
-+    {"This weapon's minimum attack delay (%.1f) is reached at skill level %d.", "该武器的最低攻击延迟 (%.1f) 在技能等级 %d 时达到。"},
++    {"This weapon's minimum attack delay (%.1f) is reached at skill level %d.", "这件武器的最低攻击延迟为%.1f，在技能%d级时达到。"},
 +    {"Damage rating:", "伤害评级："},
 +    {"Chaotic:", "混沌："},
 +    {"You are unable to wield it.", "你无法持握它。"},
@@ -62525,7 +63688,7 @@ index 0000000..1b9f5eb
 +    {"It can be maximally enchanted to +", "它最高可被附魔至 +"},
 +    {"It cannot be enchanted further.", "它无法再被进一步附魔。"},
 +    {"Base damage: %d  Base attack delay: %.1f", "基础伤害：%d  基础攻击延迟：%.1f"},
-+    {"This projectile's minimum attack delay (%.1f) is reached at skill level %d.", "该投掷物的最低攻击延迟 (%.1f) 在技能等级 %d 时达到。"},
++    {"This projectile's minimum attack delay (%.1f) is reached at skill level %d.", "这种投掷物的最低攻击延迟为%.1f，在投掷技能%d级时达到。"},
 +    {"It is always destroyed on impact.", "它击中目标时总会损毁。"},
 +    {"It has a 1/%d chance to be destroyed on impact.", "它击中目标时有 1/%d 的几率损毁。"},
 +    {"With your current SH, it has a", "以你当前的 SH，它有"},
@@ -63224,7 +64387,7 @@ index 0000000..1b9f5eb
 +    {"Your SH would %s.", "你的SH会%s。"},
 +    {"decrease by %d.%d (%d.%d -> %d.%d)", "减少 %d.%d (%d.%d -> %d.%d)"},
 +    {"increase by %d.%d (%d.%d -> %d.%d)", "增加 %d.%d (%d.%d -> %d.%d)"},
-+    {"Your skill: %d.%d; use <white>(s)</white> to set %d.%d as a target for %s.", "你的技能：%d.%d；使用 <white>(s)</white> 将 %d.%d 设为%s的目标。"},
++    {"Your skill: %d.%d; use <white>(s)</white> to set %d.%d as a target for %s.", "你的技能：%d.%d；按<white>(s)</white>将训练目标设为%d.%d（%s）。"},
 +    {"Skills enhanced by %s are in <green>green</green>.", "被%s增强的技能显示为<green>绿色</green>。"},
 +    {"Skills reduced by %s are in <magenta>magenta</magenta>.", "被%s削弱的技能显示为<magenta>品红色</magenta>。"},
 +    {"The relative cost of raising each skill is in <cyan>cyan</cyan>.\n", "提升各技能的相对消耗显示为<cyan>青色</cyan>。\n"},
@@ -63243,6 +64406,280 @@ index 0000000..1b9f5eb
 +    {"Save menu", "保存菜单"},
 +    {"Toggle equipment", "切换装备"},
 +    {"Quit menu", "退出菜单"},
++    {"It has a %d%% chance to notice you each turn.\n", "它每回合有%d%%的几率察觉到你。\n"},
++    {"They have a %d%% chance to notice you each turn.\n", "它们每回合有%d%%的几率察觉到你。\n"},
++    {"You have about %d%% to hit with your %s.\n", "命中率约为%d%%（使用%s）。\n"},
++    {"You have %d%% to hit at this distance.", "你在当前距离的命中率为%d%%。"},
++    {"They have about %d%% to hit you.\n", "它们命中你的几率约为%d%%。\n"},
++    {"It has about %d%% to hit you.\n", "它命中你的几率约为%d%%。\n"},
++    {"Damage rating: ", "伤害评级： "},
++    {"Turn: ", "回合： "},
++    {"Fire: ", "射击： "},
++    {"At 100% training you %sreach %d.%d in %s %d.%d XLs.", "训练比例为100%时，你%s达到%d.%d级（经验：%s%d.%d级角色经验）。"},
++    {"At current training (%d%%) you %sreach %d.%d in %s %d.%d XLs.", "按当前%d%%训练比例，你%s达到%d.%d级（经验：%s%d.%d级角色经验）。"},
++    {"At a training level of %d%% you %sreach %d.%d in %s %d.%d XLs.", "按%d%%训练比例，你%s达到%d.%d级（经验：%s%d.%d级角色经验）。"},
++    {"You have about %d%% to hit with your %s (while incapacitated).\n", "目标失能时，命中率约为%d%%（使用%s）。\n"},
++    {"You have about %d%% to hit with your %s (at present).\n", "当前命中率约为%d%%（使用%s）。\n"},
++    {"You have about %d%% to hit with your %s (while you are blinded and from distance %d).\n", "命中率约为%d%%，失明时使用%s（距离%d格）。\n"},
++    {"You have about %d%% to hit with your %s and %d%% to hit with your %s.\n", "命中率约为%d%%（使用%s），辅助攻击命中率约为%d%%（%s）。\n"},
++    {"Fire: %c) ", "射击：%c) "},
++    {"Throw: %c) ", "投掷：%c) "},
++    {"Speed: %d%%", "速度：%d%%"},
++    {"Speed: %d%% (normally travels slower than you)", "速度：%d%%（通常移动得比你慢）"},
++    {"Speed: %d%% (normally travels faster than you)", "速度：%d%%（通常移动得比你快）"},
++    {"attack: %d%%", "攻击：%d%%"},
++    {"shoot: %d%%", "射击：%d%%"},
++    {"travel: %d%%", "移动：%d%%"},
++    {"swim: %d%%", "游泳：%d%%"},
++    {"pray: %d%%", "祈祷：%d%%"},
++    {"magic: %d%%", "施法：%d%%"},
++    {"but often pauses", "但时常停顿"},
++    {"normally travels slower than you", "通常移动得比你慢"},
++    {"normally travels faster than you", "通常移动得比你快"},
++    {"He has a %d%% chance to notice you each turn.\n", "它每回合有%d%%的几率察觉到你。\n"},
++    {"She has a %d%% chance to notice you each turn.\n", "它每回合有%d%%的几率察觉到你。\n"},
++    {"He has about %d%% to hit you.\n", "它命中你的几率约为%d%%。\n"},
++    {"She has about %d%% to hit you.\n", "它命中你的几率约为%d%%。\n"},
++    {"You shoot an arrow.", "你射出一支箭。"},
++    {"The arrow hits the worm but does no damage.", "箭击中了蠕虫，但没有造成伤害。"},
++    {"You kill the rat!", "你杀死了老鼠！"},
++    {"There is an open door here.", "这里有一扇敞开的门。"},
++    {"You see here a rat corpse.", "这里有一具老鼠尸体。"},
++    {"You see here a +0 spear.", "你看到这里有一把+0长矛。"},
++    {"You have a +0 spear (weapon).", "你有一把+0长矛（武器）。"},
++    {"You found it on level %d of the Dungeon.", "你在地牢第%d层找到了它。"},
++    {"Aim: %s (%s, %s)", "瞄准：%s（%s，%s）"},
++    {"Aim: a rat (poison gas, %d%% to hit)", "瞄准：一只老鼠（毒气，命中率%d%%）"},
++    {"While standing here, you can traverse %s with the <w>%s</w> key. You can view the location it leads to by examining it with <w>%s</w> and pressing <w>%s</w>.", "站在这里时，沿%s通行（按<w>%s</w>键）。按<w>%s</w>检视楼梯，再按<w>%s</w>查看目的地。"},
++    {"While standing here, you can traverse the stone staircase with the <w><<</w> key. You can view the location it leads to by examining it with <w>X</w> and pressing <w>[</w>.", "站在这里时，按<w><<</w>键可沿石阶通行。按<w>X</w>检视楼梯，再按<w>[</w>查看目的地。"},
++    {"(<)go up, or ([)view destination.", "(<)上楼，或 ([)查看目的地。"},
++    {"Worm", "蠕虫"},
++    {"worm", "蠕虫"},
++    {"arrows", "箭"},
++    {"rat corpse", "老鼠尸体"},
++    {"Aim: <lightgrey>%s</lightgrey>", "瞄准：<lightgrey>%s</lightgrey>"},
++    {"a rat (%s, %d%% to hit)", "一只老鼠（%s，命中率%d%%）"},
++    {"a rat (%s, %d%% to hit at this distance)", "一只老鼠（%s，当前距离命中率%d%%）"},
++    {"the stone staircase", "石阶"},
++    {"stone staircase", "石阶"},
++    {"Noise:", "噪声："},
++    {"bludgeons", "痛击"},
++    {"misses", "未命中"},
++    {"but do no damage", "但没有造成伤害"},
++    {"but does no damage", "但没有造成伤害"},
++    {"dodge", "躲开"},
++    {"You took %s off %s %s.", "你取下了%s（来自%s；地点：%s）。"},
++    {"You took it off a training dummy on level %d of the Dungeon.", "你从训练假人身上取下了它，地点：地牢第%d层。"},
++    {"It is immune to %s; and resistant to %s.", "它免疫%s，也抗%s。"},
++    {"Here: <lightgrey>%s<lightgrey>", "此处：<lightgrey>%s<lightgrey>"},
++    {"It cannot move.", "它无法移动。"},
++    {"ensnarement", "缠缚"},
++    {"Your skill: %d.%d; use <w>(s)</w> to set %d.%d as a target for %s.", "你的技能：%d.%d；按<w>(s)</w>将训练目标设为%d.%d（%s）。"},
++    {"Your %sskill: %s%d.%d; use <w>(s)</w> to set %d.%d as a target for %s.", "你的%s技能：%s%d.%d；按<w>(s)</w>将训练目标设为%d.%d（%s）。"},
++    {"It is %s.\n", "它%s。\n"},
++    {"They are %s.\n", "它们%s。\n"},
++    {"He is %s.\n", "它%s。\n"},
++    {"She is %s.\n", "它%s。\n"},
++    {"It is a one-handed weapon.", "这是一把单手武器。"},
++    {"It is a two-handed weapon.", "这是一把双手武器。"},
++    {"This weapon falls into the '%s' category. It is a %s weapon.", "此武器属于“%s”类，是%s武器。"},
++    {"Your %s slightly slows your attacks with this weapon.", "你的%s会略微拖慢你使用这件武器的攻击速度。"},
++    {"Your %s slows your attacks with this weapon by %.1f.", "你的%s会使你使用这件武器的攻击速度降低%.1f。"},
++    {"Wearing heavy armour would reduce your attack speed with this weapon.", "穿着重甲会降低你使用这件武器的攻击速度。"},
++    {"Damage rating: %d (Base %s x %d%% (%s) x %d%% (%s)%s)%s.", "伤害评级：%d（基础%s × %d%%（%s）× %d%%（%s）%s）%s。"},
++    {"torment and blinding", "苦痛与致盲"},
++    {"miasma and drowning", "瘴气与溺水"},
++    {"the floor.", "地面。"},
++    {"The floor.", "地面。"},
++};
++static const char *zh_reviewed[] = {
++    "It has a %d%% chance to notice you each turn.\n",
++    "They have a %d%% chance to notice you each turn.\n",
++    "You have about %d%% to hit with your %s.\n",
++    "You have %d%% to hit at this distance.",
++    "They have about %d%% to hit you.\n",
++    "It has about %d%% to hit you.\n",
++    "You are %d%% of the way to level %d.",
++    "You are now level %d!",
++    "You have reached level %d!",
++    "You have reached level %d, the highest you will ever reach!",
++    "You have reached level 27, the final one!",
++    "Welcome back to level %d!",
++    "Your %s%s skill %s to level %d!",
++    "Your %s%s skill %s %d levels and is now at level %d!",
++    "you %sreach %d.%d in %s %d.%d XLs.",
++    "This weapon's minimum attack delay (%.1f) is reached at skill level %d.",
++    "This projectile's minimum attack delay (%.1f) is reached at skill level %d.",
++    "Current attack delay: %.1f.",
++    "Damage rating: ",
++    "Noise: ",
++    "HP: ",
++    "MP: ",
++    "Health: ",
++    "Magic: ",
++    "AC: ",
++    "EV: ",
++    "SH: ",
++    "XL: ",
++    "Place: ",
++    "Turn: ",
++    "Fire: ",
++    "At current training (%d%%) ",
++    "At a training level of %d%% ",
++    "At 100% training ",
++    "about",
++    "the equivalent of",
++    "At 100% training you %sreach %d.%d in %s %d.%d XLs.",
++    "At current training (%d%%) you %sreach %d.%d in %s %d.%d XLs.",
++    "At a training level of %d%% you %sreach %d.%d in %s %d.%d XLs.",
++    "You have about %d%% to hit with your %s (while incapacitated).\n",
++    "You have about %d%% to hit with your %s (at present).\n",
++    "You have about %d%% to hit with your %s (while you are blinded and from distance %d).\n",
++    "You have about %d%% to hit with your %s and %d%% to hit with your %s.\n",
++    "You %s %s%s.",
++    "The %s %s %s%s but does no damage.",
++    "The %s %s %s%s%s%s",
++    "You %s %s!",
++    "Fire: %c) ",
++    "Throw: %c) ",
++    "Speed: %d%%",
++    "Speed: %d%% (normally travels slower than you)",
++    "Speed: %d%% (normally travels faster than you)",
++    "Threat",
++    "Class",
++    "Size",
++    "Int",
++    "Regen",
++    "Speed: ",
++    "attack: %d%%",
++    "shoot: %d%%",
++    "travel: %d%%",
++    "swim: %d%%",
++    "pray: %d%%",
++    "magic: %d%%",
++    "but often pauses",
++    "normally travels slower than you",
++    "normally travels faster than you",
++    "He has a %d%% chance to notice you each turn.\n",
++    "She has a %d%% chance to notice you each turn.\n",
++    "He has about %d%% to hit you.\n",
++    "She has about %d%% to hit you.\n",
++    "You shoot an arrow.",
++    "The arrow hits the worm but does no damage.",
++    "You kill the rat!",
++    "There is an open door here.",
++    "You see here %s.",
++    "You see here a rat corpse.",
++    "You see here a +0 spear.",
++    "You have a +0 spear (weapon).",
++    "You found it on level %d of the Dungeon.",
++    "Your skill: %d.%d; use <white>(s)</white> to set %d.%d as a target for %s.",
++    "Aim: %s (%s, %s)",
++    "Aim: a rat (poison gas, %d%% to hit)",
++    "While standing here, you can traverse %s with the <w>%s</w> key. You can view the location it leads to by examining it with <w>%s</w> and pressing <w>%s</w>.",
++    "While standing here, you can traverse the stone staircase with the <w><<</w> key. You can view the location it leads to by examining it with <w>X</w> and pressing <w>[</w>.",
++    "(<)go up, or ([)view destination.",
++    "Worm",
++    "worm",
++    "boomerang",
++    "boomerangs",
++    "arrow",
++    "arrows",
++    "shortbow",
++    "rat corpse",
++    "poison gas",
++    "(<)go up",
++    "([)view destination",
++    "(])view destination",
++    "Aim: <lightgrey>%s</lightgrey>",
++    "a rat (%s, %d%% to hit)",
++    "a rat (%s, %d%% to hit at this distance)",
++    "Ranged Weapons",
++    "Short Blades",
++    "fire",
++    "Fire",
++    "the stone staircase",
++    "stone staircase",
++    "AC:",
++    "EV:",
++    "SH:",
++    "Str:",
++    "Int:",
++    "Dex:",
++    "Noise:",
++    "hit",
++    "hits",
++    "bludgeon",
++    "bludgeons",
++    "misses",
++    "pierces through",
++    "but do no damage",
++    "but does no damage",
++    "kill",
++    "killed",
++    "destroy",
++    "destroyed",
++    "blow up",
++    "blown up",
++    "dodge",
++    "shoot",
++    "throw",
++    "throws",
++    "shoots",
++    "The %s%s misses %s.",
++    "You %s %s%s%s%s%s%s",
++    "You took %s off %s %s.",
++    "You took it off a training dummy on level %d of the Dungeon.",
++    "It is immune to %s; and resistant to %s.",
++    "immune to ",
++    "very resistant to ",
++    "resistant to ",
++    "quivering %s",
++    "Here: <lightgrey>%s<lightgrey>",
++    "AC",
++    "EV",
++    "SH",
++    "Max HP",
++    "Will",
++    "rF",
++    "rC",
++    "It cannot move.",
++    "electricity",
++    "poison",
++    "steam",
++    "cold",
++    "acid and corrosion",
++    "miasma",
++    "negative energy",
++    "damnation",
++    "torment",
++    "blinding",
++    "drowning",
++    "clouds of all kinds",
++    "ensnarement",
++    "Your %sskill: %s%d.%d%s",
++    "Your skill: %d.%d; use <w>(s)</w> to set %d.%d as a target for %s.",
++    "Your %sskill: %s%d.%d; use <w>(s)</w> to set %d.%d as a target for %s.",
++    "It is %s.\n",
++    "They are %s.\n",
++    "He is %s.\n",
++    "She is %s.\n",
++    "It is a one-handed weapon.",
++    "It is a two-handed weapon.",
++    "This weapon falls into the '%s' category. It is a %s weapon.",
++    "one-handed",
++    "two-handed",
++    "Your %s slightly slows your attacks with this weapon.",
++    "Your %s slows your attacks with this weapon by %.1f.",
++    "Wearing heavy armour would reduce your attack speed with this weapon.",
++    "Damage rating: %d (Base %s x %d%% (%s) x %d%% (%s)%s)%s.",
++    "Dex",
++    "Str",
++    "Fight",
++    "torment and blinding",
++    "miasma and drowning",
++    "the floor.",
++    "The floor.",
 +};
 +static const ZhEntry zh_terms[] = {
 +    {"; :   any weapon ego:draining w:15 | any weapon ego:pain | :   any weapon ego:vampirism | any weapon ego:chaos w:1 | demon blade w:5 | :   demon trident w:5 | demon whip w:5 | scale mail ego:death good_item w:5 | :   chain mail ego:death good_item w:4 | :   plate armour ego:death good_item w:5 | scroll of torment | :   staff of necromancy | book of necromancy | book of death | :   book of unlife | book of decay | book of the grave | :   randbook disc:necromancy w:5 | necronomicon w:1 | grand grimoire w:1 | :   sceptre_of_torment w:1 | scythe_of_curses w:1 | majin-bo w:1 | :   black_knights_barding w:1 | obsidian_axe w:1 | damnation w:1 | :   skull_of_zonguldrok w:1", "; :   任意武器 ego:draining w:15 | 任意武器 ego:pain | :   任意武器 ego:vampirism | 任意武器 ego:chaos w:1 | 恶魔之刃 w:5 | :   恶魔三叉戟 w:5 | 恶魔鞭 w:5 | 鳞甲 ego:death good_item w:5 | :   锁子甲 ego:death good_item w:4 | :   板甲 ego:death good_item w:5 | 折磨卷轴 | :   死灵法术法杖 | 死灵法术之书 | 死亡之书 | :   亡灵之书 | 腐朽之书 | 坟墓之书 | :   randbook disc:necromancy w:5 | 死灵之书 w:1 | 大魔典 w:1 | :   sceptre_of_torment w:1 | scythe_of_curses w:1 | majin-bo w:1 | :   black_knights_barding w:1 | obsidian_axe w:1 | damnation w:1 | :   skull_of_zonguldrok w:1"},
@@ -63333,6 +64770,7 @@ index 0000000..1b9f5eb
 +    {"= merfolk javelineer / merfolk aquamancer /                       alligator snapping turtle / sphinx marauder /                       formless jellyfish", "= 人鱼标枪手 / 人鱼水法师 /                       拟鳄龟 / 狮身人面掠夺者 /                       无形水母"},
 +    {"orb of winter / shard shrike / blizzard demon /                    white draconian / white draconian knight /                    walking frostbound tome", "寒冬之球 / 碎片伯劳 / 暴风雪恶魔 /                    白龙人 / 白龙人骑士 /                    行走的霜缚之书"},
 +    {"w:5 fire dragon / w:5 ice dragon / w:7 storm dragon / shadow dragon /                    golden dragon / quicksilver dragon / iron dragon / wyrmhole w:3", "w:5 火龙 / w:5 冰龙 / w:7 风暴龙 / 暗影龙 /                    金龙 / 水银龙 / 铁龙 / 龙洞 w:3"},
++    {"While standing here, you can traverse the stone staircase with the << key. You can view the location it leads to by examining it with X and pressing [.", "站在这里时，按<<键可沿石阶通行。按X检视楼梯，再按[查看目的地。"},
 +    {"Note that as long as there's a non-friendly monster in view you won't be able to automatically move to distant squares, to avoid death by misclicking.", "请注意，只要视野中有非友好怪物，你就无法自动移动到远处方格，以避免误点致死。"},
 +    {"Press the letter of a skill to set a training target. When the target is reached a message will appear and the training of the skill will be disabled.", "按某技能的字母键可设定训练目标。达到目标时会显示消息，并自动禁用该技能的训练。"},
 +    {"Penet:     Any ammunition fired by it passes through the targets it hits, potentially hitting all targets in its path until it reaches maximum range.", "穿透:     它射出的任何弹药都会穿过命中的目标，可能在达到最大射程前击中路径上的所有目标。"},
@@ -63750,6 +65188,7 @@ index 0000000..1b9f5eb
 +    {"The exit has been sealed! It will re-open when you get the next rune.", "出口已被封印！当你获得下一枚符文时，它会重新开启。"},
 +    {"Can't run more than one mapstat/objstat iterations with a custom seed", "使用自定义种子时不能运行多个 mapstat/objstat 迭代"},
 +    {"Select a spell to describe   [?] help    [!]/[I] toggle spell headers", "选择要描述的法术   [?] 帮助    [!]/[I] 切换法术标题"},
++    {"Wearing heavy armour would reduce your attack speed with this weapon.", "穿着重甲会降低你使用这件武器的攻击速度。"},
 +    {"You already have the maximum number of followers. Dismiss one first.", "你的随从数量已达上限。请先解散一个。"},
 +    {"Wearing heavy armour would reduce your attack speed with this weapon", "穿戴重甲会降低你这把武器的攻击速度"},
 +    {"acknowledges your contrition and permits you to depart the Crucible.", "认可你的悔悟，并允许你离开熔炉。"},
@@ -65836,6 +67275,7 @@ index 0000000..1b9f5eb
 +    {"If struck, it will crumble away soon after.", "若被击中，它很快会崩解。"},
 +    {"This monster appears to be quite dangerous.", "此怪物看起来相当危险。"},
 +    {"ls                          list the chunks", "ls                          列出区块"},
++    {"The arrow hits the worm but does no damage.", "箭击中了蠕虫，但没有造成伤害。"},
 +    {"call a swarms of foxfires against your foes", "召唤一群狐火攻击你的敌人"},
 +    {"t tell which items are good and which arens", "分不清哪些物品好，哪些不好"},
 +    {"will bloody one of your weapons with pain.", "将以痛苦为你的一件武器染血。"},
@@ -66083,7 +67523,7 @@ index 0000000..1b9f5eb
 +    {"...and don't expect to remain undetected.", "……而且别指望能一直不被发现。"},
 +    {"You feel ready to make another cacophony.", "你感到已准备好再次发出刺耳喧嚣。"},
 +    {"the impact of arcane energy battering you", "拍击着你的奥术能量冲击"},
-+    {"You have reached level 27, the final one!", "你达到了27层，最终层！"},
++    {"You have reached level 27, the final one!", "你升到了27级，已是最后一级！"},
 +    {"Barbed spikes become lodged in your body.", "带刺的尖刺扎入了你的身体。"},
 +    {"too brightly for you to become invisible.", "太过明亮，使你无法隐形。"},
 +    {"You can't shaft yourself on this terrain.", "你无法在这种地形上让自己坠入竖井。"},
@@ -67691,6 +69131,7 @@ index 0000000..1b9f5eb
 +    {"Ctrl-T dungeon (D)Lua interpreter", "Ctrl-T 地牢 (D)Lua 解释器"},
 +    {"You can read descriptions of your", "你可以阅读你的"},
 +    {"a - You regenerate magic rapidly.", "a - 你的魔法恢复迅速。"},
++    {"(<)go up, or ([)view destination.", "(<)上楼，或 ([)查看目的地。"},
 +    {"Handbooks of Applied Construction", "应用建筑手册"},
 +    {"Channel blasts of cleansing flame", "引导净化火焰的冲击"},
 +    {"Heal and attempt to pacify others", "治疗并尝试安抚他人"},
@@ -67921,6 +69362,8 @@ index 0000000..1b9f5eb
 +    {"Total effects (all piety ranges)", "总效果(所有虔诚值范围)"},
 +    {"' : wield item a, or switch to b", "' : 持握物品 a，或切换到 b"},
 +    {"P/R : Put on or Remove jewellery", "P/R : 佩戴或取下首饰"},
++    {"normally travels slower than you", "通常移动得比你慢"},
++    {"normally travels faster than you", "通常移动得比你快"},
 +    {"Bksp - Return to character menus", "退格 - 返回角色菜单"},
 +    {"gain magical powers from killing", "通过杀戮获得魔法之力"},
 +    {"Stack five cards from your decks", "从牌组中堆叠五张牌"},
@@ -68659,6 +70102,7 @@ index 0000000..1b9f5eb
 +    {"= : rings (Put on and Remove)", "= : 戒指 (P 戴上，R 摘下)"},
 +    {"t : tell allies (tt to shout)", "t : 命令盟友 (tt 呼喊)"},
 +    {"W/T : Wear or Take off armour", "W/T : 穿戴或脱下护甲"},
++    {"You have a +0 spear (weapon).", "你有一把+0长矛（武器）。"},
 +    {"My Sojourn through Swamplands", "我的沼泽纪行"},
 +    {"Choose one out of three cards", "从三张牌中选择一张"},
 +    {"step outs of the flow of time", "脱离时间之流"},
@@ -69215,6 +70659,7 @@ index 0000000..1b9f5eb
 +    {"^      set piety to a value", "^      将虔诚设为指定值"},
 +    {"G      dismiss all monsters", "G      驱散所有怪物"},
 +    {"Ctrl-A : toggle auto-pickup", "Ctrl-A : 切换自动拾取"},
++    {"There is an open door here.", "这里有一扇敞开的门。"},
 +    {"removed lanterns of shadows", "已移除的暗影提灯"},
 +    {"recall your undead harvests", "召回你收获的亡灵"},
 +    {"Corrupt the fabric of space", "腐蚀空间的结构"},
@@ -69521,6 +70966,9 @@ index 0000000..1b9f5eb
 +    {"D      detect all monsters", "D      探测所有怪物"},
 +    {", : pick up items (also g)", ", : 拾取物品 (也可用 g)"},
 +    {"targeting), Ctrl-F, and G.", "选定目标）、Ctrl-F 和 G。"},
++    {"You see here a rat corpse.", "这里有一具老鼠尸体。"},
++    {"It is a one-handed weapon.", "这是一把单手武器。"},
++    {"It is a two-handed weapon.", "这是一把双手武器。"},
 +    {"Removed lantern of shadows", "已移除的暗影提灯"},
 +    {"Young Poisoner's Handbooks", "年轻投毒者手册"},
 +    {"inability to train armours", "无法训练护甲"},
@@ -70302,6 +71750,7 @@ index 0000000..1b9f5eb
 +    {"Ctrl-E : quick add macro", "Ctrl-E : 快速添加宏"},
 +    {"O/C    : Open/Close door", "O/C    : 开/关门"},
 +    {"Immortal longings in me”", "我心中不死的渴望”"},
++    {"You see here a +0 spear.", "你看到这里有一把+0长矛。"},
 +    {"The Tomb of the Ancients", "远古者之墓"},
 +    {"translocational energies", "传送能量"},
 +    {"Lehudib's Crystal Spears", "雷胡迪布的水晶矛"},
@@ -72569,6 +74018,7 @@ index 0000000..1b9f5eb
 +    {"\"      list monsters", "\"      列出怪物"},
 +    {"Ctrl-C force a crash", "Ctrl-C 强制崩溃"},
 +    {"Ctrl-D : edit macros", "Ctrl-D : 编辑宏"},
++    {"torment and blinding", "苦痛与致盲"},
 +    {"Unleash Destructions", "释放毁灭"},
 +    {"The Iron City of Dis", "钢铁之城迪斯"},
 +    {"The Enchanted Forest", "魔法森林"},
@@ -72952,7 +74402,7 @@ index 0000000..1b9f5eb
 +    {"Instead, go fix it.", "不如去把它修好。"},
 +    {"After Damaging Hits", "造成伤害的命中后"},
 +    {"currently targeting", "当前瞄准："},
-+    {"clouds of all kinds", "各种云雾"},
++    {"clouds of all kinds", "所有种类的云"},
 +    {"; frenzied and wild", "；狂暴而狂野"},
 +    {"Blorkula the orcula", "布洛库拉·奥库拉"},
 +    {"Cleared annotation.", "已清除标注。"},
@@ -73394,6 +74844,9 @@ index 0000000..1b9f5eb
 +    {"Map stats complete.", "地图统计完成。"},
 +    {"foe when destroyed.", "被摧毁时会成为敌人。"},
 +    {"Ctrl-F : Find items", "Ctrl-F : 查找物品"},
++    {"You shoot an arrow.", "你射出一支箭。"},
++    {"the stone staircase", "石阶"},
++    {"miasma and drowning", "瘴气与溺水"},
 +    {"the Lairs of Beasts", "野兽巢穴"},
 +    {"the Halls of Blades", "刀剑之厅"},
 +    {"magic regenerations", "魔法回复"},
@@ -73757,7 +75210,7 @@ index 0000000..1b9f5eb
 +    {"looks even sicker.", "看起来病得更重了。"},
 +    {"You hear a splash.", "你听到溅水声。"},
 +    {"your lifeless body", "你毫无生气的躯体"},
-+    {"but does no damage", "但未造成伤害"},
++    {"but does no damage", "但没有造成伤害"},
 +    {"seems to speed up.", "似乎加速了。"},
 +    {"breath of the dead", "亡者之息"},
 +    {"spatial disruption", "空间扰乱"},
@@ -73798,7 +75251,7 @@ index 0000000..1b9f5eb
 +    {"Select a spell, or", "选择一个法术，或"},
 +    {"this spell because", "此法术，因为"},
 +    {"moderate length of", "中等长度的"},
-+    {"acid and corrosion", "酸蚀与腐蚀"},
++    {"acid and corrosion", "酸液与腐蚀"},
 +    {"vent poison clouds", "喷出毒云"},
 +    {"Poison and slowing", "中毒与减速"},
 +    {"Projectile damage:", "投射物伤害："},
@@ -74719,7 +76172,7 @@ index 0000000..1b9f5eb
 +    {"Your battlesphere", "你的战斗法球"},
 +    {"(if damage dealt)", "(若造成伤害)"},
 +    {"Explosion damage:", "爆炸伤害："},
-+    {"very resistant to", "极高抗性"},
++    {"very resistant to", "抗性极强："},
 +    {"The apparition of", "……的幻影"},
 +    {"Spell Skill Boost", "法术技能提升"},
 +    {"Dir - move target", "方向 - 移动目标"},
@@ -75221,6 +76674,7 @@ index 0000000..1b9f5eb
 +    {"'      list items", "'      列出物品"},
 +    {"/ : wands (eVoke)", "/ : 魔杖 (激V发)"},
 +    {"Paste copied doll", "粘贴已复制的人偶"},
++    {"You kill the rat!", "你杀死了老鼠！"},
 +    {"Infernal Servants", "地狱仆从"},
 +    {"Executioner's axe", "行刑者之斧"},
 +    {"Giant spiked club", "巨型尖刺棒"},
@@ -75752,7 +77206,7 @@ index 0000000..1b9f5eb
 +    {"Chain mail (+AC)", "锁子甲 (+AC)"},
 +    {"Martial attacks:", "武术攻击："},
 +    {"a gigantic mouth", "一张巨口"},
-+    {"At 100% training", "在100%训练时"},
++    {"At 100% training", "按100%训练比例，"},
 +    {"remain unchanged", "保持不变"},
 +    {"If you switch to", "如果你改用"},
 +    {"Max blocks/turn:", "每回合最大格挡数："},
@@ -76371,6 +77825,7 @@ index 0000000..1b9f5eb
 +    {"[Up|Down] select", "[Up|Down] 选择"},
 +    {"Change doll mode", "切换人偶模式"},
 +    {"Toggle equipment", "切换装备"},
++    {"but often pauses", "但时常停顿"},
 +    {"Galvanic Breaths", "电击吐息"},
 +    {"Cleansing Flames", "净化之焰"},
 +    {"Hurl Torchlights", "投掷火炬之光"},
@@ -77067,7 +78522,7 @@ index 0000000..1b9f5eb
 +    {"Nothing wielded", "未手持任何物品"},
 +    {"You feel tipsy.", "你感到微醉。"},
 +    {"is enlightened!", "获得了启迪！"},
-+    {"pierces through", "刺穿"},
++    {"pierces through", "贯穿"},
 +    {"purify yourself", "净化自身"},
 +    {"smite your foes", "惩戒你的敌人"},
 +    {"the Shining One", "闪耀者"},
@@ -77507,6 +78962,8 @@ index 0000000..1b9f5eb
 +    {": tell allies (", ": 命令盟友 ("},
 +    {"abilities (a!).", "能力（a!）。"},
 +    {"Change category", "切换类别"},
++    {"stone staircase", "石阶"},
++    {"It cannot move.", "它无法移动。"},
 +    {"Glacial Breaths", "冰川吐息"},
 +    {"Noxious Breaths", "剧毒吐息"},
 +    {"Caustic Breaths", "腐蚀吐息"},
@@ -80806,7 +82263,7 @@ index 0000000..1b9f5eb
 +    {"induce sleep", "诱发睡眠"},
 +    {"inflict doom", "施加厄运"},
 +    {"(at present)", "(目前)"},
-+    {"resistant to", "抗性"},
++    {"resistant to", "抗性："},
 +    {"Monster foe:", "怪物敌人："},
 +    {"Devour Regen", "吞噬回复"},
 +    {"Takedown Dmg", "撂倒伤害"},
@@ -82846,6 +84303,7 @@ index 0000000..1b9f5eb
 +    {"Game state:", "游戏状态："},
 +    {"abilities (", "能力（"},
 +    {"Change doll", "更换人偶"},
++    {"ensnarement", "缠缚"},
 +    {"Mud Breaths", "泥浆吐息"},
 +    {"Heal Others", "治疗他人"},
 +    {"Acquirement", "获取"},
@@ -84330,6 +85788,9 @@ index 0000000..1b9f5eb
 +    {"Waypoints:", "路径点："},
 +    {"[Esc] exit", "[Esc] 退出"},
 +    {"gear slots", "装备槽位"},
++    {"rat corpse", "老鼠尸体"},
++    {"the floor.", "地面。"},
++    {"The floor.", "地面。"},
 +    {"Blinkbolts", "闪烁电击"},
 +    {"Ashenzaris", "阿申扎里"},
 +    {"vampirisms", "吸血"},
@@ -85007,7 +86468,7 @@ index 0000000..1b9f5eb
 +    {"pulverise", "粉碎"},
 +    {"violently", "，猛烈地"},
 +    {"slaughter", "屠杀"},
-+    {"damnation", "天谴"},
++    {"damnation", "诅咒之力"},
 +    {"En garde!", "准备接招！"},
 +    {"jewellery", "首饰"},
 +    {"Ashenzari", "阿申扎里"},
@@ -85115,7 +86576,7 @@ index 0000000..1b9f5eb
 +    {"; cleaves", "；劈砍"},
 +    {"; reaches", "；触及"},
 +    {"from afar", "从远处"},
-+    {"immune to", "免疫"},
++    {"immune to", "免疫："},
 +    {"|Statuses", "|状态"},
 +    {"legendary", "传奇"},
 +    {"Blade Dmg", "刀刃伤害"},
@@ -85861,6 +87322,7 @@ index 0000000..1b9f5eb
 +    {"Copy doll", "复制人偶"},
 +    {"Save menu", "保存菜单"},
 +    {"Quit menu", "退出菜单"},
++    {"bludgeons", "痛击"},
 +    {"Upheavals", "剧变"},
 +    {"Archmagis", "大法师"},
 +    {"freezings", "冰冻"},
@@ -86754,7 +88216,7 @@ index 0000000..1b9f5eb
 +    {"archmagi", "大法师"},
 +    {"reaching", "延伸"},
 +    {"off-hand", "副手"},
-+    {"bludgeon", "重击"},
++    {"bludgeon", "痛击"},
 +    {"puncture", "刺穿"},
 +    {"fracture", "折断"},
 +    {"splatter", "溅开"},
@@ -86777,7 +88239,7 @@ index 0000000..1b9f5eb
 +    {"woven by", "由"},
 +    {"banished", "被放逐"},
 +    {"protects", "保护"},
-+    {"blown up", "炸毁"},
++    {"blown up", "被炸死"},
 +    {"original", "原本的"},
 +    {"courage.", "勇气。"},
 +    {"writhes!", "扭动着！"},
@@ -87159,7 +88621,7 @@ index 0000000..1b9f5eb
 +    {"anguish,", "苦痛，"},
 +    {"*Victory", "*胜利"},
 +    {"bug-like", "虫形"},
-+    {"(<)go up", "(<)上行"},
++    {"(<)go up", "(<)上楼"},
 +    {"(p)ut on", "(p)穿上"},
 +    {"-Berserk", "-狂暴"},
 +    {"glowing.", "发光。"},
@@ -87296,6 +88758,7 @@ index 0000000..1b9f5eb
 +    {"Religion", "宗教"},
 +    {"Blinking", "闪烁"},
 +    {"Darkgrey", "深灰"},
++    {"torments", "苦痛"},
 +    {"Firebugs", "火虫"},
 +    {"Confuses", "混乱"},
 +    {"naturals", "自然"},
@@ -87864,6 +89327,7 @@ index 0000000..1b9f5eb
 +    {"Manuals", "手册"},
 +    {"Monster", "怪物"},
 +    {"Feature", "地形"},
++    {"torment", "苦痛"},
 +    {"Vitriol", "硫酸"},
 +    {"Torment", "折磨"},
 +    {"the Orb", "宝珠"},
@@ -88140,7 +89604,7 @@ index 0000000..1b9f5eb
 +    {"gesture", "手势"},
 +    {"Success", "成功"},
 +    {"timeout", "超时"},
-+    {"blow up", "炸毁"},
++    {"blow up", "炸死"},
 +    {"destroy", "摧毁"},
 +    {"drowns.", "淹死了。"},
 +    {"harmful", "有害"},
@@ -88556,7 +90020,7 @@ index 0000000..1b9f5eb
 +    {"amulets", "护身符"},
 +    {"Flaming", "烈焰"},
 +    {"players", "玩家"},
-+    {"poisons", "毒素"},
++    {"poisons", "毒"},
 +    {"Thunder", "雷霆"},
 +    {"randoms", "随机"},
 +    {"Digging", "挖掘"},
@@ -88997,14 +90461,13 @@ index 0000000..1b9f5eb
 +    {"player", "玩家"},
 +    {"melts!", "融化了！"},
 +    {"cherry", "樱桃"},
-+    {"misses", "没击中"},
-+    {"poison", "毒素"},
++    {"misses", "未命中"},
++    {"poison", "毒"},
 +    {"miasma", "瘴气"},
 +    {"spores", "孢子"},
 +    {"energy", "能量"},
 +    {"random", "随机"},
 +    {"vexing", "烦扰"},
-+    {"levels", "层数"},
 +    {"Temple", "神殿"},
 +    {"Shoals", "浅滩"},
 +    {"Spider", "蜘蛛"},
@@ -89098,7 +90561,7 @@ index 0000000..1b9f5eb
 +    {"Throw:", "投掷："},
 +    {"(base:", "(基础："},
 +    {"medium", "中"},
-+    {"Max HP", "最大生命值"},
++    {"Max HP", "生命上限"},
 +    {"Threat", "威胁"},
 +    {"yields", "可获得"},
 +    {"(none)", "(无)"},
@@ -89330,7 +90793,7 @@ index 0000000..1b9f5eb
 +    {"warded", "有防护"},
 +    {"echoed", "回声的"},
 +    {"sensed", "被感知的"},
-+    {"Speed:", "速度:"},
++    {"Speed:", "速度："},
 +    {"slower", "较慢"},
 +    {"faster", "较快"},
 +    {"led by", "率领者："},
@@ -89385,8 +90848,8 @@ index 0000000..1b9f5eb
 +    {"to Zin", "给 Zin"},
 +    {"crowns", "加冕"},
 +    {"Equip:", "装备："},
-+    {"Noise:", "噪音："},
-+    {"Place:", "地点:"},
++    {"Noise:", "噪声："},
++    {"Place:", "地点："},
 +    {"Lives:", "生命："},
 +    {"fleshy", "多肉的"},
 +    {"tingle", "麻刺"},
@@ -89659,6 +91122,7 @@ index 0000000..1b9f5eb
 +    {"Q: FAQ", "Q：常见问题"},
 +    {"Shops:", "商店："},
 +    {"Piety-", "虔诚-"},
++    {"arrows", "箭"},
 +    {"your s", "你的 "},
 +    {"deaths", "死亡"},
 +    {"theirs", "它们的"},
@@ -89815,7 +91279,6 @@ index 0000000..1b9f5eb
 +    {"slings", "投石索"},
 +    {"Orcbow", "兽人弓"},
 +    {"Needle", "针"},
-+    {"arrows", "箭"},
 +    {"Earthy", "土质的"},
 +    {"azures", "蔚蓝的"},
 +    {"Starry", "繁星的"},
@@ -90087,7 +91550,6 @@ index 0000000..1b9f5eb
 +    {"large", "大的"},
 +    {"small", "小的"},
 +    {"Known", "已知"},
-+    {"level", "等级"},
 +    {"spear", "矛"},
 +    {"alarm", "警报"},
 +    {"shaft", "坑道"},
@@ -90095,7 +91557,7 @@ index 0000000..1b9f5eb
 +    {"would", "将"},
 +    {"about", "约"},
 +    {"Skill", "技能"},
-+    {"Fight", "格斗"},
++    {"Fight", "战斗"},
 +    {"blade", "刀刃"},
 +    {"cloud", "云"},
 +    {"enter", "进入"},
@@ -90190,7 +91652,7 @@ index 0000000..1b9f5eb
 +    {"Gnome", "侏儒"},
 +    {"Slain", "杀死"},
 +    {"burnt", "烧死"},
-+    {"throw", "投掷"},
++    {"throw", "投出"},
 +    {"named", "有名"},
 +    {"enemy", "敌人"},
 +    {"tough", "棘手"},
@@ -90336,7 +91798,7 @@ index 0000000..1b9f5eb
 +    {"gusty", "狂风"},
 +    {"scary", "吓人"},
 +    {"beast", "野兽"},
-+    {"shoot", "射击"},
++    {"shoot", "射出"},
 +    {"wands", "魔杖"},
 +    {"Beogh", "贝奥格"},
 +    {"empty", "空荡荡的"},
@@ -90368,7 +91830,6 @@ index 0000000..1b9f5eb
 +    {"Seed:", "种子："},
 +    {"Found", "发现了"},
 +    {"lives", "条命"},
-+    {"Level", "等级"},
 +    {"Place", "放置"},
 +    {"Doom:", "末日："},
 +    {"Next:", "下一级："},
@@ -90630,10 +92091,12 @@ index 0000000..1b9f5eb
 +    {"Paths", "路径"},
 +    {"Rest:", "休息："},
 +    {"Piety", "虔诚"},
++    {"Fire:", "射击："},
++    {"dodge", "躲开"},
 +    {"Your ", "你的 "},
 +    {"the s", "该 "},
 +    {"Their", "它们的"},
-+    {"Dices", "敏"},
++    {"Dices", "敏捷"},
 +    {"Wills", "意志"},
 +    {"Flies", "飞行"},
 +    {"Slays", "杀戮"},
@@ -90898,7 +92361,7 @@ index 0000000..1b9f5eb
 +    {"draw", "汲取"},
 +    {"more", "更"},
 +    {"plum", "李子"},
-+    {"hits", "命中"},
++    {"hits", "击中"},
 +    {"none", "无"},
 +    {"fire", "火焰"},
 +    {"cold", "寒冷"},
@@ -91338,14 +92801,16 @@ index 0000000..1b9f5eb
 +    {"give", "给予"},
 +    {"Maze", "迷宫"},
 +    {"Type", "类型"},
++    {"Worm", "蠕虫"},
++    {"worm", "蠕虫"},
 +    {"Digs", "挖掘"},
 +    {"Hops", "跳跃"},
 +    {"The ", "该 "},
 +    {"Xoms", "佐姆"},
 +    {"Yous", "你"},
 +    {"ares", "被"},
-+    {"Strs", "力"},
-+    {"Ints", "智"},
++    {"Strs", "力量"},
++    {"Ints", "智力"},
 +    {"Accs", "命中"},
 +    {"Ices", "冰霜"},
 +    {"Airs", "空气"},
@@ -91484,16 +92949,16 @@ index 0000000..1b9f5eb
 +    {"are", "是"},
 +    {"Tie", "平局"},
 +    {"hew", "砍"},
-+    {"Str", "力"},
-+    {"Int", "智"},
-+    {"Dex", "敏"},
++    {"Str", "力量"},
++    {"Int", "智力"},
++    {"Dex", "敏捷"},
 +    {"Fly", "飞行"},
 +    {"Acc", "命中"},
 +    {"Ice", "冰霜"},
 +    {"Air", "空气"},
 +    {"Wiz", "法师"},
 +    {"bug", "虫子"},
-+    {"hit", "命中"},
++    {"hit", "击中"},
 +    {"The", "该"},
 +    {"you", "你"},
 +    {"ice", "冰"},
@@ -91651,9 +93116,9 @@ index 0000000..1b9f5eb
 +    {"up!", "上！"},
 +    {"Eq:", "装备:"},
 +    {"XL:", "等级:"},
-+    {"AC:", "防:"},
-+    {"EV:", "闪:"},
-+    {"SH:", "盾:"},
++    {"AC:", "护甲："},
++    {"EV:", "闪避："},
++    {"SH:", "格挡："},
 +    {"Fry", "鱼苗"},
 +    {"Pup", "幼崽"},
 +    {"low", "低"},
@@ -91688,6 +93153,9 @@ index 0000000..1b9f5eb
 +    {"vs", "对阵"},
 +    {"bo", "棒"},
 +    {"of", "之"},
++    {"AC", "护甲"},
++    {"EV", "闪避"},
++    {"SH", "格挡"},
 +    {"is", "是"},
 +    {"at", "在"},
 +    {"in", "在"},
@@ -91708,10 +93176,10 @@ index 0000000..1b9f5eb
 +};
 diff --git a/crawl-ref/source/zh-localization.cc b/crawl-ref/source/zh-localization.cc
 new file mode 100644
-index 0000000..c7007be
+index 0000000..0d0ae73
 --- /dev/null
 +++ b/crawl-ref/source/zh-localization.cc
-@@ -0,0 +1,388 @@
+@@ -0,0 +1,458 @@
 +#ifndef ZH_STANDALONE
 +#include "AppHdr.h"
 +#include "options.h"
@@ -91736,7 +93204,7 @@ index 0000000..c7007be
 +    std::vector<std::string> pieces, source;
 +    std::vector<char> types;
 +    size_t weight;
-+    bool article;
++    bool article, reviewed;
 +};
 +bool valid_capture(const std::string &s, char kind) {
 +    if (kind == 's') return true;
@@ -91759,6 +93227,16 @@ index 0000000..c7007be
 +    }
 +    const auto &next = p.source[index+1];
 +    size_t end = next.empty() ? (index+1 == p.types.size() ? s.size() : at) : s.find(next, at);
++    // Consecutive string captures have no recoverable boundary after printf.
++    // Consume them as one phrase, translating its names/suffixes together,
++    // instead of exhausting the match budget over every possible partition.
++    if (next.empty() && p.types[index] == 's') {
++        size_t following = index + 1;
++        while (following < p.types.size() && p.source[following].empty()
++               && p.types[following] == 's') ++following;
++        if (following == p.types.size() || !p.source[following].empty())
++            end = p.source[following].empty() ? s.size() : s.find(p.source[following], at);
++    }
 +    while (end != std::string::npos && end <= s.size() && fuel > 0) {
 +        const auto capture = s.substr(at, end-at);
 +        if (valid_capture(capture, p.types[index])) {
@@ -91803,59 +93281,82 @@ index 0000000..c7007be
 +                if (line_en != e.en)
 +                    tagged.emplace(std::regex_replace(line_en, markup, ""), line_zh);
 +            }
-+            const std::string en(e.en), zh(e.zh);
-+            std::string anchor, source_piece;
-+            std::vector<std::string> source;
-+            std::vector<char> types;
-+            size_t at = 0, weight = 0, captures = 0;
-+            bool safe = true;
-+            for (std::sregex_iterator i(en.begin(), en.end(), printf_token), end; i != end; ++i) {
-+                const auto &m = *i;
-+                const std::string literal = en.substr(at, m.position() - at);
-+                source_piece += literal;
-+                weight += literal.size();
-+                if (literal.size() > anchor.size()) anchor = literal;
-+                const char kind = m.str().back();
-+                if (m.str().find('*') != std::string::npos || kind == 'n' || kind == 'p') safe = false;
-+                if (kind == '%') source_piece += '%';
-+                else {
-+                    ++captures;
-+                    source.push_back(source_piece); source_piece.clear();
-+                    types.push_back(kind);
++            std::vector<std::string> variants = {std::string(e.en)};
++            if (line_en != e.en) variants.push_back(line_en);
++            const size_t tagged_variants = variants.size();
++            for (size_t i = 0; i < tagged_variants; ++i) {
++                const auto plain = std::regex_replace(variants[i], markup, "");
++                if (plain != variants[i]) variants.push_back(plain);
++            }
++            for (const auto &en : variants) {
++                std::string zh(e.zh);
++                if (!en.empty() && en.back() != '\n')
++                    while (!zh.empty() && zh.back() == '\n') zh.pop_back();
++                std::string anchor, source_piece;
++                std::vector<std::string> source;
++                std::vector<char> types;
++                size_t at = 0, weight = 0, captures = 0;
++                bool safe = true;
++                for (std::sregex_iterator i(en.begin(), en.end(), printf_token), end; i != end; ++i) {
++                    const auto &m = *i;
++                    const std::string literal = en.substr(at, m.position() - at);
++                    source_piece += literal;
++                    weight += literal.size();
++                    if (literal.size() > anchor.size()) anchor = literal;
++                    const char kind = m.str().back();
++                    if (m.str().find('*') != std::string::npos || kind == 'n' || kind == 'p') safe = false;
++                    if (kind == '%') source_piece += '%';
++                    else {
++                        ++captures;
++                        source.push_back(source_piece); source_piece.clear();
++                        types.push_back(kind);
++                    }
++                    at = m.position() + m.length();
 +                }
-+                at = m.position() + m.length();
++                const auto tail = en.substr(at);
++                source_piece += tail;
++                source.push_back(source_piece);
++                weight += tail.size();
++                if (tail.size() > anchor.size()) anchor = tail;
++                // Avoid generic wrappers ("%s %s") and pathological ambiguous matches.
++                const bool article = en == "a %s" || en == "an %s" || en == "the %s"
++                    || en == "A %s" || en == "An %s" || en == "The %s";
++                // A generic "%s the %s" also matches spell names such as Fugue of
++                // the Fallen. Titles are localized at their presentation callsite.
++                if (en == "%s the %s") continue;
++                const bool composition = en == " of %s";
++                const bool reviewed = std::find(std::begin(zh_reviewed), std::end(zh_reviewed), std::string(e.en)) != std::end(zh_reviewed);
++                const bool combat = reviewed && (en == "You %s %s%s." || en == "You %s %s!"
++                    || en == "The %s %s %s%s%s%s" || en == "You %s %s%s%s%s%s%s");
++                const bool property_sentence = reviewed && (en == "It is %s.\n"
++                    || en == "It is %s." || en == "He is %s.\n" || en == "He is %s."
++                    || en == "She is %s.\n" || en == "She is %s."
++                    || en == "They are %s.\n" || en == "They are %s.");
++                const bool numeric = std::find(types.begin(), types.end(), 's') == types.end()
++                    && weight >= 2 && !anchor.empty();
++                if (!safe || captures == 0 || captures > 12
++                    || (!article && !composition && !numeric && !combat && !property_sentence
++                        && (weight < 8 || anchor.size() < 4))) continue;
++                std::vector<std::string> pieces;
++                std::string piece;
++                at = 0;
++                for (std::sregex_iterator i(zh.begin(), zh.end(), printf_token), end; i != end; ++i) {
++                    piece += zh.substr(at, i->position() - at);
++                    if (i->str().back() == '%') piece += '%';
++                    else { pieces.push_back(piece); piece.clear(); }
++                    at = i->position() + i->length();
++                }
++                piece += zh.substr(at);
++                pieces.push_back(piece);
++                if (pieces.size() != captures + 1) continue;
++                patterns.push_back({anchor, pieces, source, types, weight, article, reviewed});
 +            }
-+            const auto tail = en.substr(at);
-+            source_piece += tail;
-+            source.push_back(source_piece);
-+            weight += tail.size();
-+            if (tail.size() > anchor.size()) anchor = tail;
-+            // Avoid generic wrappers ("%s %s") and pathological ambiguous matches.
-+            const bool article = en == "a %s" || en == "an %s" || en == "the %s"
-+                || en == "A %s" || en == "An %s" || en == "The %s";
-+            // A generic "%s the %s" also matches spell names such as Fugue of
-+            // the Fallen. Titles are localized at their presentation callsite.
-+            if (en == "%s the %s") continue;
-+            const bool composition = en == " of %s";
-+            const bool numeric = std::find(types.begin(), types.end(), 's') == types.end()
-+                && weight >= 2 && !anchor.empty();
-+            if (!safe || captures == 0 || captures > 6
-+                || (!article && !composition && !numeric && (weight < 8 || anchor.size() < 4))) continue;
-+            std::vector<std::string> pieces;
-+            std::string piece;
-+            at = 0;
-+            for (std::sregex_iterator i(zh.begin(), zh.end(), printf_token), end; i != end; ++i) {
-+                piece += zh.substr(at, i->position() - at);
-+                if (i->str().back() == '%') piece += '%';
-+                else { pieces.push_back(piece); piece.clear(); }
-+                at = i->position() + i->length();
-+            }
-+            piece += zh.substr(at);
-+            pieces.push_back(piece);
-+            if (pieces.size() != captures + 1) continue;
-+            patterns.push_back({anchor, pieces, source, types, weight, article});
 +        }
-+        std::stable_sort(patterns.begin(), patterns.end(), [](const Pattern &a, const Pattern &b) { return a.weight > b.weight; });
++        std::stable_sort(patterns.begin(), patterns.end(), [](const Pattern &a, const Pattern &b) {
++            const bool ar = a.reviewed && a.weight >= 8;
++            const bool br = b.reviewed && b.weight >= 8;
++            if (ar != br) return ar > br;
++            return a.weight != b.weight ? a.weight > b.weight : a.reviewed > b.reviewed; });
 +        for (const auto &p : patterns) {
 +            // A fixed beginning and ending delimit a complete translated
 +            // phrase inside an ostream/concatenation-built description.
@@ -91903,6 +93404,15 @@ index 0000000..c7007be
 +        }
 +        return out;
 +    }
++    std::string lookup_capture(const std::string &s, char kind, int depth) {
++        auto localized = lookup(s, depth);
++        if (kind == 's' && localized != s && localized.find('\n') == std::string::npos) {
++            const auto first = localized.find_first_not_of(" \t");
++            const auto last = localized.find_last_not_of(" \t");
++            if (first != std::string::npos) localized = localized.substr(first, last-first+1);
++        }
++        return localized;
++    }
 +    std::string lookup(const std::string &s, int depth) {
 +        if (s.empty() || s.size() > 16000) return s;
 +        auto e = exact.find(s);
@@ -91921,6 +93431,26 @@ index 0000000..c7007be
 +            auto c = cache.find(s);
 +            if (c != cache.end()) return c->second;
 +        }
++        // Layout indentation is not part of a sentence's semantics. Match the
++        // reviewed full sentence before an older, indented partial template.
++        const size_t indent_at = s.find_first_not_of(" \t");
++        if (indent_at != std::string::npos && indent_at >= 2
++            && s[indent_at] >= 'A' && s[indent_at] <= 'Z') {
++            const auto body = s.substr(indent_at);
++            const auto localized = lookup(body, depth + 1);
++            if (localized != body)
++                return s.substr(0, indent_at) + localized;
++        }
++        // message_line::full_text joins separate stored messages with these
++        // markers. Keep their sentence boundaries before matching printf
++        // captures, which otherwise swallow several combat messages at once.
++        for (const std::string separator : {"<lightgrey> </lightgrey>",
++                                            "<lightgrey>; </lightgrey>"}) {
++            const auto at = s.find(separator);
++            if (at != std::string::npos)
++                return lookup(s.substr(0, at), depth+1) + separator
++                    + lookup(s.substr(at+separator.size()), depth+1);
++        }
 +        // These values are literal input-parser tokens, not prose. Preserve
 +        // them after the localized heading, including on subsequent renders.
 +        for (const auto &prefix : technical_prefixes) {
@@ -91936,6 +93466,13 @@ index 0000000..c7007be
 +        if (result == s && s.size() <= 2048) {
 +            for (const auto &p : patterns) {
 +                if (s.find(p.anchor) == std::string::npos) continue;
++                if (p.weight < 8 && !p.article) {
++                    if ((p.source.front() == "The " || p.source.front() == "You ")
++                        && s.find('\n') != std::string::npos) continue;
++                    if (p.source.front() == "The "
++                        && s.find(" hits ") == std::string::npos
++                        && s.find(" pierces through ") == std::string::npos) continue;
++                }
 +                std::vector<std::string> captures;
 +                int fuel = 256;
 +                if (!match_pattern(p, s, 0, 0, captures, fuel)) continue;
@@ -91950,7 +93487,8 @@ index 0000000..c7007be
 +                    if (lookup(captures[0], depth+1) == captures[0]) continue;
 +                }
 +                result = p.pieces[0];
-+                for (size_t j = 0; j < captures.size(); ++j) result += lookup(captures[j], depth + 1) + p.pieces[j+1];
++                for (size_t j = 0; j < captures.size(); ++j)
++                    result += lookup_capture(captures[j], p.types[j], depth + 1) + p.pieces[j+1];
 +                break;
 +            }
 +        }
@@ -92021,7 +93559,7 @@ index 0000000..c7007be
 +                        result += lookup(pending, depth+1); pending.clear();
 +                        result += p->pieces[0];
 +                        for (size_t j = 0; j < captures.size(); ++j)
-+                            result += lookup(captures[j], depth+1) + p->pieces[j+1];
++                            result += lookup_capture(captures[j], p->types[j], depth+1) + p->pieces[j+1];
 +                        at = end; matched = true; any_fragment = true; break;
 +                    }
 +                }

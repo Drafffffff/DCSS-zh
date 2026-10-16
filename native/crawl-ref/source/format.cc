@@ -298,7 +298,7 @@ formatted_string::operator += (const formatted_string &other)
 const formatted_string &
 formatted_string::operator += (const string& other)
 {
-    ops.emplace_back(other);
+    ops.emplace_back(zh_translate(other));
     return *this;
 }
 

@@ -121,7 +121,7 @@ int codepoints(string str)
 
 string padded_str(const string &s, int pad_to, bool prepend)
 {
-    const int padding = pad_to - codepoints(s);
+    const int padding = pad_to - strwidth(s);
     if (padding <= 0)
         return s;
     string str = s;

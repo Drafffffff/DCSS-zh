@@ -6,6 +6,7 @@
 #include "AppHdr.h"
 
 #include "directn.h"
+#include "zh-localization.h"
 
 #include <algorithm>
 #include <cstdarg>
@@ -3581,6 +3582,11 @@ string get_monster_equipment_desc(const monster_info& mi,
         item_descriptions.push_back(carried_desc);
     }
 
+    // Translate complete equipment clauses before comma-joining them with
+    // the monster name; their printf boundaries are otherwise unrecoverable.
+    desc = zh_translate(desc);
+    for (auto &item_desc : item_descriptions)
+        item_desc = zh_translate(item_desc);
     const string item_description = comma_separated_line(
                                                 item_descriptions.begin(),
                                                 item_descriptions.end());

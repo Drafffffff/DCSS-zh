@@ -1,0 +1,24 @@
+{
+  "resolution": [
+    3840,
+    2160
+  ],
+  "locale": "C",
+  "native_commit": "62fb39e2dab4a96048450c204896a1d677986485",
+  "catalog_cases": 340,
+  "composed_template_cases": 30,
+  "text_grid": "passed",
+  "screenshots": [
+    "map",
+    "monster",
+    "weapon",
+    "stairs",
+    "messages",
+    "shortbow",
+    "combat-log"
+  ],
+  "original_saves_unchanged": true,
+  "macos_console": "passed",
+  "bazzite_console": "passed",
+  "replay_note": "combat-log injects original English messages into an isolated save copy; shortbow uses a separate new character."
+}

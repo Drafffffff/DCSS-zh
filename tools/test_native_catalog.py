@@ -28,25 +28,47 @@ for s,t in pairs:
 item_cases=0
 for entry in json.loads((LOC/'source-zzzzzzzz-itemlines.json').read_text()):
     en=entry['en']; zh=raw[entry['id']]
+    if en.startswith(("This weapon's minimum attack delay", '    At ', 'Damage rating:')): continue # reviewed templates below
     if '<' in en or not formats(en) or any(t!='%d' for t in formats(en)): continue
     def expanded(text):
         values=iter(str(n) for n in range(1,30))
         return re.sub(r'%d',lambda m:next(values),text)
     tests.append((expanded(en),expanded(zh)));item_cases+=1
 
-# The item window joins translated prose, numeric templates, and hotkey tags.
-for entry in json.loads((LOC/'source-zzzzzzzz-itemlines.json').read_text()):
-    en=entry['en']; zh=raw[entry['id']]
-    if 'Your skill:' not in en: continue
-    def numbers(text):
-        values=iter(str(n) for n in range(1,20))
-        return re.sub(r'%d',lambda m:next(values),text)
-    tests.append(('測試\n'+numbers(en)+'\n測試', '測試\n'+numbers(zh)+'\n測試'))
+# Screenshot regressions: reviewed full sentences, including level/floor context.
+review = json.loads((LOC/'luna-review-20261017.json').read_text())
+review_entries = review['entries']
+review_targets = {entry['en']: entry['zh'] for entry in review_entries}
+for entry in review_entries:
+    en, zh = entry['en'], entry['zh']
+    zh = re.match(r'^\s*',en)[0]+zh.strip()+re.search(r'\s*$',en)[0]
+    def expand(text):
+        index = [0]
+        def value(match):
+            index[0] += 1
+            token = match.group()
+            if token == '%%':
+                index[0] -= 1
+                return '%'
+            if token.endswith('s'):
+                if en == 'The %s %s %s%s%s%s' and index[0] == 2: return 'hits'
+                return 'ZYBQ'+str(index[0])
+            if token.endswith('c'): return 'Q'
+            if token.endswith(('f','g')): return str(index[0])+'.5'
+            return str(index[0]+4)
+        return PRINTF.sub(value, text)
+    src = expand(en)
+    dst = expand(zh).replace('hits', review_targets.get('hits', dict(pairs).get('hits', 'hits')))
+    tests.append((src, dst))
+    if src.endswith('\n'):
+        tests.append((src.rstrip('\n'), dst.rstrip('\n')))
+    if '<white>' in src:
+        tests.append((re.sub(r'</?white>', '', src), dst))
 
 assert len(tests)>=100
 enc=lambda s:json.dumps(s,ensure_ascii=False)
 code='#include "zh-localization.h"\n#include <cassert>\n#include <cstdlib>\n#include <iostream>\nint main() { setenv("DCSS_LANG","zh",1);\n'
-for s,t in tests: code+='assert(zh_translate('+enc(s)+') == '+enc(t)+');\n'
+for s,t in tests: code+='if (zh_translate('+enc(s)+') != '+enc(t)+') { std::cerr << '+enc(s+' => ')+ ' << zh_translate('+enc(s)+') << std::endl; return 1; }\n'
 # Native mutation menu entries contain a selector before the colour run.
 for en in ("You have very sharp teeth.", "You have an uncanny knack for detecting items."):
     zh=next(t for candidate,t in pairs if candidate==en)
@@ -71,6 +93,12 @@ for en,zh in pairs:
         code+='assert(zh_translate('+enc(src)+') == '+enc(dst)+');\n'
         fragment_cases+=1
     if fragment_cases==30:break
+# Real message_line joins must retain independently translated sentence boundaries.
+for separator in ('<lightgrey> </lightgrey>', '<lightgrey>; </lightgrey>'):
+    first = '<lightgrey>You hit the rat.'
+    second = '<lightgrey>You shoot an arrow.'
+    code += 'assert(zh_translate('+enc(first+separator+second)+') == zh_translate('+enc(first)+') + '+enc(separator)+' + zh_translate('+enc(second)+'));\n'
+
 for colour in ('white','black','yellow','lightgrey'):
     tag='<'+colour+'>'
     code+='assert(zh_translate('+enc(tag)+') == '+enc(tag)+');\n'

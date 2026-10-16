@@ -82,10 +82,6 @@ void TextRegion::addstr(const char *buffer)
             c = 0;
             newline = true;
         }
-        // TODO: use wcwidth() to handle widths!=1:
-        // *  2 for CJK chars -- add a zero-width blank?
-        // *  0 for combining characters -- would need extra support
-        // * -1 for non-printable stuff -- assert or ignore
         buf2[j] = c;
         j++;
 
@@ -116,12 +112,31 @@ void TextRegion::addstr_aux(const char32_t *buffer, int len)
 
     ASSERT(y < my);
 
-    for (int i = 0; i < len && x + i < mx; i++)
+    // Cursor positions and clipping are terminal columns, not codepoints.
+    // Store a zero continuation cell for double-width glyphs so later cursor
+    // writes (status bars, coloured values, padding) keep their intended x.
+    for (int i = 0; i < len; i++)
     {
-        cbuf[adrs+x+i] = buffer[i];
-        abuf[adrs+x+i] = text_col;
+        const int columns = max(0, wcwidth(buffer[i]));
+        if (!columns)
+            continue;
+        if (x >= 0 && x + columns <= mx)
+        {
+            if (x > 0 && cbuf[adrs+x] == 0)
+                cbuf[adrs+x-1] = ' ';
+            if (x + 1 < mx && wcwidth(cbuf[adrs+x]) == 2)
+                cbuf[adrs+x+1] = ' ';
+            cbuf[adrs+x] = buffer[i];
+            abuf[adrs+x] = text_col;
+            for (int extra = 1; extra < columns; ++extra)
+            {
+                cbuf[adrs+x+extra] = 0;
+                abuf[adrs+x+extra] = text_col;
+            }
+        }
+        x += columns;
+        print_x += columns;
     }
-    print_x += len;
 }
 
 void TextRegion::clear_to_end_of_line()
@@ -132,6 +147,8 @@ void TextRegion::clear_to_end_of_line()
     int adrs = cy * mx;
 
     ASSERT(adrs + mx - 1 < mx * my);
+    if (cx > 0 && cx < mx && cbuf[adrs+cx] == 0)
+        cbuf[adrs+cx-1] = ' ';
     for (int i = cx; i < mx; i++)
     {
         cbuf[adrs+i] = ' ';

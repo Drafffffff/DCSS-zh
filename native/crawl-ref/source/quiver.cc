@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-localization.h"
 
 #include "quiver.h"
 
@@ -396,7 +397,7 @@ namespace quiver
             {
                 string verb = you.confused() ? "confused " : "";
                 verb += quiver_verb();
-                qdesc.cprintf("%s: %c) ", uppercase_first(verb).c_str(),
+                qdesc.cprintf("%s%c) ", zh_translate(uppercase_first(verb) + ": ").c_str(),
                                 weapon.slot);
             }
 
@@ -500,7 +501,7 @@ namespace quiver
                 string verb = you.confused() ? "confused " : "";
 
                 verb += quiver_verb();
-                qdesc.cprintf("%s: %c) ", uppercase_first(verb).c_str(),
+                qdesc.cprintf("%s%c) ", zh_translate(uppercase_first(verb) + ": ").c_str(),
                                 weapon ? weapon->slot : '-');
             }
 

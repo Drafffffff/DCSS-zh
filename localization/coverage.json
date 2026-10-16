@@ -1,13 +1,14 @@
 {
-  "candidates": 33466,
-  "received": 33466,
-  "translated_valid": 23226,
+  "candidates": 33551,
+  "received": 33551,
+  "translated_valid": 23319,
   "rejected": 0,
-  "whitespace_restored": 128,
+  "whitespace_restored": 134,
   "missing": 0,
   "default_model": "cc-switch-deep-seek/deepseek-flash",
   "translation_models": {
-    "cc-switch-teamo-router/deepseek-flash": 21435,
-    "cc-switch-deep-seek/deepseek-flash": 12031
+    "cc-switch-teamo-router/deepseek-flash": 21356,
+    "cc-switch-deep-seek/deepseek-flash": 12008,
+    "gpt-6-luna": 187
   }
 }

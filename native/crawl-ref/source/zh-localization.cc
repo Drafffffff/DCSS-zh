@@ -22,7 +22,7 @@ struct Pattern {
     std::vector<std::string> pieces, source;
     std::vector<char> types;
     size_t weight;
-    bool article;
+    bool article, reviewed;
 };
 bool valid_capture(const std::string &s, char kind) {
     if (kind == 's') return true;
@@ -45,6 +45,16 @@ bool match_pattern(const Pattern &p, const std::string &s, size_t index,
     }
     const auto &next = p.source[index+1];
     size_t end = next.empty() ? (index+1 == p.types.size() ? s.size() : at) : s.find(next, at);
+    // Consecutive string captures have no recoverable boundary after printf.
+    // Consume them as one phrase, translating its names/suffixes together,
+    // instead of exhausting the match budget over every possible partition.
+    if (next.empty() && p.types[index] == 's') {
+        size_t following = index + 1;
+        while (following < p.types.size() && p.source[following].empty()
+               && p.types[following] == 's') ++following;
+        if (following == p.types.size() || !p.source[following].empty())
+            end = p.source[following].empty() ? s.size() : s.find(p.source[following], at);
+    }
     while (end != std::string::npos && end <= s.size() && fuel > 0) {
         const auto capture = s.substr(at, end-at);
         if (valid_capture(capture, p.types[index])) {
@@ -89,59 +99,82 @@ struct Catalog {
                 if (line_en != e.en)
                     tagged.emplace(std::regex_replace(line_en, markup, ""), line_zh);
             }
-            const std::string en(e.en), zh(e.zh);
-            std::string anchor, source_piece;
-            std::vector<std::string> source;
-            std::vector<char> types;
-            size_t at = 0, weight = 0, captures = 0;
-            bool safe = true;
-            for (std::sregex_iterator i(en.begin(), en.end(), printf_token), end; i != end; ++i) {
-                const auto &m = *i;
-                const std::string literal = en.substr(at, m.position() - at);
-                source_piece += literal;
-                weight += literal.size();
-                if (literal.size() > anchor.size()) anchor = literal;
-                const char kind = m.str().back();
-                if (m.str().find('*') != std::string::npos || kind == 'n' || kind == 'p') safe = false;
-                if (kind == '%') source_piece += '%';
-                else {
-                    ++captures;
-                    source.push_back(source_piece); source_piece.clear();
-                    types.push_back(kind);
+            std::vector<std::string> variants = {std::string(e.en)};
+            if (line_en != e.en) variants.push_back(line_en);
+            const size_t tagged_variants = variants.size();
+            for (size_t i = 0; i < tagged_variants; ++i) {
+                const auto plain = std::regex_replace(variants[i], markup, "");
+                if (plain != variants[i]) variants.push_back(plain);
+            }
+            for (const auto &en : variants) {
+                std::string zh(e.zh);
+                if (!en.empty() && en.back() != '\n')
+                    while (!zh.empty() && zh.back() == '\n') zh.pop_back();
+                std::string anchor, source_piece;
+                std::vector<std::string> source;
+                std::vector<char> types;
+                size_t at = 0, weight = 0, captures = 0;
+                bool safe = true;
+                for (std::sregex_iterator i(en.begin(), en.end(), printf_token), end; i != end; ++i) {
+                    const auto &m = *i;
+                    const std::string literal = en.substr(at, m.position() - at);
+                    source_piece += literal;
+                    weight += literal.size();
+                    if (literal.size() > anchor.size()) anchor = literal;
+                    const char kind = m.str().back();
+                    if (m.str().find('*') != std::string::npos || kind == 'n' || kind == 'p') safe = false;
+                    if (kind == '%') source_piece += '%';
+                    else {
+                        ++captures;
+                        source.push_back(source_piece); source_piece.clear();
+                        types.push_back(kind);
+                    }
+                    at = m.position() + m.length();
                 }
-                at = m.position() + m.length();
+                const auto tail = en.substr(at);
+                source_piece += tail;
+                source.push_back(source_piece);
+                weight += tail.size();
+                if (tail.size() > anchor.size()) anchor = tail;
+                // Avoid generic wrappers ("%s %s") and pathological ambiguous matches.
+                const bool article = en == "a %s" || en == "an %s" || en == "the %s"
+                    || en == "A %s" || en == "An %s" || en == "The %s";
+                // A generic "%s the %s" also matches spell names such as Fugue of
+                // the Fallen. Titles are localized at their presentation callsite.
+                if (en == "%s the %s") continue;
+                const bool composition = en == " of %s";
+                const bool reviewed = std::find(std::begin(zh_reviewed), std::end(zh_reviewed), std::string(e.en)) != std::end(zh_reviewed);
+                const bool combat = reviewed && (en == "You %s %s%s." || en == "You %s %s!"
+                    || en == "The %s %s %s%s%s%s" || en == "You %s %s%s%s%s%s%s");
+                const bool property_sentence = reviewed && (en == "It is %s.\n"
+                    || en == "It is %s." || en == "He is %s.\n" || en == "He is %s."
+                    || en == "She is %s.\n" || en == "She is %s."
+                    || en == "They are %s.\n" || en == "They are %s.");
+                const bool numeric = std::find(types.begin(), types.end(), 's') == types.end()
+                    && weight >= 2 && !anchor.empty();
+                if (!safe || captures == 0 || captures > 12
+                    || (!article && !composition && !numeric && !combat && !property_sentence
+                        && (weight < 8 || anchor.size() < 4))) continue;
+                std::vector<std::string> pieces;
+                std::string piece;
+                at = 0;
+                for (std::sregex_iterator i(zh.begin(), zh.end(), printf_token), end; i != end; ++i) {
+                    piece += zh.substr(at, i->position() - at);
+                    if (i->str().back() == '%') piece += '%';
+                    else { pieces.push_back(piece); piece.clear(); }
+                    at = i->position() + i->length();
+                }
+                piece += zh.substr(at);
+                pieces.push_back(piece);
+                if (pieces.size() != captures + 1) continue;
+                patterns.push_back({anchor, pieces, source, types, weight, article, reviewed});
             }
-            const auto tail = en.substr(at);
-            source_piece += tail;
-            source.push_back(source_piece);
-            weight += tail.size();
-            if (tail.size() > anchor.size()) anchor = tail;
-            // Avoid generic wrappers ("%s %s") and pathological ambiguous matches.
-            const bool article = en == "a %s" || en == "an %s" || en == "the %s"
-                || en == "A %s" || en == "An %s" || en == "The %s";
-            // A generic "%s the %s" also matches spell names such as Fugue of
-            // the Fallen. Titles are localized at their presentation callsite.
-            if (en == "%s the %s") continue;
-            const bool composition = en == " of %s";
-            const bool numeric = std::find(types.begin(), types.end(), 's') == types.end()
-                && weight >= 2 && !anchor.empty();
-            if (!safe || captures == 0 || captures > 6
-                || (!article && !composition && !numeric && (weight < 8 || anchor.size() < 4))) continue;
-            std::vector<std::string> pieces;
-            std::string piece;
-            at = 0;
-            for (std::sregex_iterator i(zh.begin(), zh.end(), printf_token), end; i != end; ++i) {
-                piece += zh.substr(at, i->position() - at);
-                if (i->str().back() == '%') piece += '%';
-                else { pieces.push_back(piece); piece.clear(); }
-                at = i->position() + i->length();
-            }
-            piece += zh.substr(at);
-            pieces.push_back(piece);
-            if (pieces.size() != captures + 1) continue;
-            patterns.push_back({anchor, pieces, source, types, weight, article});
         }
-        std::stable_sort(patterns.begin(), patterns.end(), [](const Pattern &a, const Pattern &b) { return a.weight > b.weight; });
+        std::stable_sort(patterns.begin(), patterns.end(), [](const Pattern &a, const Pattern &b) {
+            const bool ar = a.reviewed && a.weight >= 8;
+            const bool br = b.reviewed && b.weight >= 8;
+            if (ar != br) return ar > br;
+            return a.weight != b.weight ? a.weight > b.weight : a.reviewed > b.reviewed; });
         for (const auto &p : patterns) {
             // A fixed beginning and ending delimit a complete translated
             // phrase inside an ostream/concatenation-built description.
@@ -189,6 +222,15 @@ struct Catalog {
         }
         return out;
     }
+    std::string lookup_capture(const std::string &s, char kind, int depth) {
+        auto localized = lookup(s, depth);
+        if (kind == 's' && localized != s && localized.find('\n') == std::string::npos) {
+            const auto first = localized.find_first_not_of(" \t");
+            const auto last = localized.find_last_not_of(" \t");
+            if (first != std::string::npos) localized = localized.substr(first, last-first+1);
+        }
+        return localized;
+    }
     std::string lookup(const std::string &s, int depth) {
         if (s.empty() || s.size() > 16000) return s;
         auto e = exact.find(s);
@@ -207,6 +249,26 @@ struct Catalog {
             auto c = cache.find(s);
             if (c != cache.end()) return c->second;
         }
+        // Layout indentation is not part of a sentence's semantics. Match the
+        // reviewed full sentence before an older, indented partial template.
+        const size_t indent_at = s.find_first_not_of(" \t");
+        if (indent_at != std::string::npos && indent_at >= 2
+            && s[indent_at] >= 'A' && s[indent_at] <= 'Z') {
+            const auto body = s.substr(indent_at);
+            const auto localized = lookup(body, depth + 1);
+            if (localized != body)
+                return s.substr(0, indent_at) + localized;
+        }
+        // message_line::full_text joins separate stored messages with these
+        // markers. Keep their sentence boundaries before matching printf
+        // captures, which otherwise swallow several combat messages at once.
+        for (const std::string separator : {"<lightgrey> </lightgrey>",
+                                            "<lightgrey>; </lightgrey>"}) {
+            const auto at = s.find(separator);
+            if (at != std::string::npos)
+                return lookup(s.substr(0, at), depth+1) + separator
+                    + lookup(s.substr(at+separator.size()), depth+1);
+        }
         // These values are literal input-parser tokens, not prose. Preserve
         // them after the localized heading, including on subsequent renders.
         for (const auto &prefix : technical_prefixes) {
@@ -222,6 +284,13 @@ struct Catalog {
         if (result == s && s.size() <= 2048) {
             for (const auto &p : patterns) {
                 if (s.find(p.anchor) == std::string::npos) continue;
+                if (p.weight < 8 && !p.article) {
+                    if ((p.source.front() == "The " || p.source.front() == "You ")
+                        && s.find('\n') != std::string::npos) continue;
+                    if (p.source.front() == "The "
+                        && s.find(" hits ") == std::string::npos
+                        && s.find(" pierces through ") == std::string::npos) continue;
+                }
                 std::vector<std::string> captures;
                 int fuel = 256;
                 if (!match_pattern(p, s, 0, 0, captures, fuel)) continue;
@@ -236,7 +305,8 @@ struct Catalog {
                     if (lookup(captures[0], depth+1) == captures[0]) continue;
                 }
                 result = p.pieces[0];
-                for (size_t j = 0; j < captures.size(); ++j) result += lookup(captures[j], depth + 1) + p.pieces[j+1];
+                for (size_t j = 0; j < captures.size(); ++j)
+                    result += lookup_capture(captures[j], p.types[j], depth + 1) + p.pieces[j+1];
                 break;
             }
         }
@@ -307,7 +377,7 @@ struct Catalog {
                         result += lookup(pending, depth+1); pending.clear();
                         result += p->pieces[0];
                         for (size_t j = 0; j < captures.size(); ++j)
-                            result += lookup(captures[j], depth+1) + p->pieces[j+1];
+                            result += lookup_capture(captures[j], p->types[j], depth+1) + p->pieces[j+1];
                         at = end; matched = true; any_fragment = true; break;
                     }
                 }

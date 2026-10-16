@@ -22,9 +22,11 @@ Linux 包包含 SDL2_image / SDL2_mixer，SDL2 与基础系统库使用 Bazzite 
 
 ## 汉化与画面
 
-- 中文词库包含 23,226 条有效条目；数据文件 5,803 个条目全部具备中文正文。
+- 中文词库包含 23,319 条有效条目；数据文件 5,803 个条目全部具备中文正文。
 - 图形技能菜单、技能说明、装备详情、帮助和消息均接入中文显示；保留用于存档、Lua 和输入解析的英文内部标识。
-- 游戏文案由本机 Pi Agent 的 DeepSeek Flash 翻译，当前模型为 `cc-switch-deep-seek/deepseek-flash`。已保存的翻译记录可用于重建，无需模型服务。
+- 初始游戏文案由本机 Pi Agent 的 DeepSeek Flash 翻译，当前模型为 `cc-switch-deep-seek/deepseek-flash`。已保存的翻译记录可用于重建，无需模型服务。
+- 2026-10-17 文案审校由 `gpt-6-luna` 子 agent 完成：187 条消息与动态模板、88 条教程和四条物品/怪物描述。升级和技能等级使用“级”，地牢位置使用“层”。
+- 中文文本缓冲区、背景条与光标统一按终端列绘制；属性表和攻击表先翻译再计算宽度；合并战斗消息按原消息边界逐条翻译。
 - 使用 **DCSS Pixel SC**：以 Fusion Pixel 12px 简体等宽字体为基础，13 个汉字和“∞”使用 Noto Sans SC Regular 补齐。覆盖当前词库的全部可见字符。
 - 4K 原生全屏：地图 96px（3 倍），侧栏图块 64px（2 倍）；菜单/状态文字 48px，消息/提示 36px。关闭平滑插值。
 - 修复中文字体列宽估算、精确菜单翻译入口、动态说明拆行匹配，以及侧栏分类标签放大后的命中区域偏移。
@@ -36,6 +38,8 @@ Linux 包包含 SDL2_image / SDL2_mixer，SDL2 与基础系统库使用 Bazzite 
 ![技能菜单验证画面（独立存档副本）](screenshots/skills-4k.png)
 
 覆盖率是数据条目与已测试界面的统计，不代表所有随机事件都已穷尽。运行跟踪包含物品、技能、法术、帮助等已执行路径，排除玩家姓名、路径与按键标识后未发现未分类英文。发现遗漏可提交截图与触发步骤。
+
+本轮[截图问题分析、修复计划与验收记录](verification/review-20261017/fix-plan.md)，以及[战斗日志](verification/review-20261017/combat-log-4k.png)、[怪物详情](verification/review-20261017/monster-4k.png)、[短弓说明](verification/review-20261017/shortbow-4k.png)的修复后 4K 截图。
 
 ## 从源码构建
 
@@ -61,6 +65,7 @@ sh scripts/build-linux.sh
 ```sh
 python3 tools/native_catalog.py compile
 python3 tools/test_native_catalog.py
+python3 tools/test_native_text_grid.py
 ```
 
 ## 验证与许可
