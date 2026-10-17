@@ -713,7 +713,9 @@ void Text::wrap_text_to_size(int width, int height)
     m_wrapped_size.width = m_font->string_width(m_text_wrapped);
 #else
     m_wrapped_lines.clear();
-    formatted_string::parse_string_to_multiple(m_text.to_colour_string(), m_wrapped_lines, width);
+    // m_text is already formatted display text. Wrapping must preserve it,
+    // including whole-English fallback from typed translation parameters.
+    formatted_string::parse_string_to_multiple_raw(m_text.to_colour_string(), m_wrapped_lines, width);
     // add ellipsis to last line of text if necessary
     if (height < (int)m_wrapped_lines.size())
     {

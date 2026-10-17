@@ -34,7 +34,9 @@
 #endif
 #include "ui.h"
 #include "unwind.h"
+#include "unicode.h"
 #include "zh-message.h"
+#include "zh-localization.h"
 
 using namespace ui;
 
@@ -42,6 +44,139 @@ menu_letter2 SkillMenuEntry::m_letter;
 SkillMenu skm;
 
 static string _format_skill_target(int target);
+
+// The generic menu wrapper uses locale wcwidth(), which can report zero for
+// CJK text in the C locale. Count wide Unicode glyphs as two cells and keep
+// markup tags intact so the help panel fits the actual terminal grid.
+static int _skill_cells(char32_t c)
+{
+    // Common non-spacing mark blocks. These ranges are locale independent;
+    // in particular, symbols such as → (U+2192) and … (U+2026) stay one cell.
+    if ((c >= 0x0300 && c <= 0x036f)
+        || (c >= 0x1ab0 && c <= 0x1aff)
+        || (c >= 0x1dc0 && c <= 0x1dff)
+        || (c >= 0x20d0 && c <= 0x20ff)
+        || (c >= 0xfe00 && c <= 0xfe0f)
+        || (c >= 0xfe20 && c <= 0xfe2f)
+        || (c >= 0xe0100 && c <= 0xe01ef))
+        return 0;
+    if ((c >= 0x1100 && c <= 0x115f) || c == 0x2329 || c == 0x232a
+        || (c >= 0x2e80 && c <= 0xa4cf && c != 0x303f)
+        || (c >= 0xac00 && c <= 0xd7a3)
+        || (c >= 0xf900 && c <= 0xfaff)
+        || (c >= 0xfe10 && c <= 0xfe19)
+        || (c >= 0xfe30 && c <= 0xfe6f)
+        || (c >= 0xff00 && c <= 0xff60)
+        || (c >= 0xffe0 && c <= 0xffe6)
+        || (c >= 0x20000 && c <= 0x2fffd)
+        || (c >= 0x30000 && c <= 0x3fffd))
+        return 2;
+    return 1;
+}
+
+static string _skill_wrap(const string &text, int width)
+{
+    string out;
+    int col = 0;
+    for (size_t i = 0; i < text.size();)
+    {
+        // The formatted-string grammar uses << for a literal less-than sign.
+        // Consume it before looking for a color tag's closing '>'.
+        if (text.compare(i, 2, "<<") == 0)
+        {
+            out += "<<";
+            ++col;
+            i += 2;
+            continue;
+        }
+        if (text[i] == '<')
+        {
+            const size_t end = text.find('>', i);
+            if (end != string::npos)
+            {
+                out.append(text, i, end - i + 1);
+                i = end + 1;
+                continue;
+            }
+        }
+        if (text[i] == '\n')
+        {
+            out += '\n';
+            col = 0;
+            ++i;
+            continue;
+        }
+        char32_t c = 0;
+        const int bytes = utf8towc(&c, text.c_str() + i);
+        const size_t n = bytes > 0 ? size_t(bytes) : 1;
+        const int cells = bytes > 0 ? _skill_cells(c) : 1;
+        if (col && col + cells > width)
+        {
+            out += '\n';
+            col = 0;
+        }
+        out.append(text, i, n);
+        col += cells;
+        i += n;
+    }
+    return out;
+}
+
+static int _skill_line_count(const string &text)
+{
+    return 1 + std::count(text.begin(), text.end(), '\n');
+}
+
+static int _skill_help_rows(int current_rows, int text_rows, int max_rows)
+{
+    return min(max(current_rows, text_rows), max(1, max_rows));
+}
+
+static int _skill_help_rows_available(int screen_bottom, int current_rows,
+                                      int footer_bottom, int unit)
+{
+    unit = max(1, unit);
+    // Footer items move by the same delta as the help box. Reserve their full
+    // vertical span, including switch rows wrapped by add_item(), rather than
+    // just the height of the tallest individual button.
+    return max(1, (screen_bottom - footer_bottom + current_rows * unit) / unit);
+}
+
+static int _skill_text_width(const string &text)
+{
+    int width = 0;
+    for (size_t i = 0; i < text.size();)
+    {
+        if (text.compare(i, 2, "<<") == 0)
+        {
+            width += _skill_cells('<');
+            i += 2;
+            continue;
+        }
+        if (text[i] == '<')
+        {
+            const size_t end = text.find('>', i);
+            if (end != string::npos)
+            {
+                i = end + 1;
+                continue;
+            }
+        }
+        char32_t c = 0;
+        const int bytes = utf8towc(&c, text.c_str() + i);
+        if (bytes <= 0)
+        {
+            ++i;
+            ++width;
+        }
+        else
+        {
+            i += size_t(bytes);
+            width += _skill_cells(c);
+        }
+    }
+    return width;
+}
 
 static ZhArg _skill_cause_arg(const vector<string> &causes)
 {
@@ -239,8 +374,11 @@ void SkillMenuEntry::set_name(bool keep_hotkey)
         m_name->allow_highlight(false);
     }
 
-    m_name->set_text(make_stringf("%s %-15s", get_prefix().c_str(),
-                                skill_name(m_sk)));
+    const string skill = skill_name(m_sk);
+    ZhArg skill_arg = zh_glossary_name("skill", "skill.name", skill);
+    string row = zh_message("skill.menu.entry_name", {
+        zh_key("prefix", get_prefix()), skill_arg}).display();
+    m_name->set_text_pretranslated(row);
     m_name->set_fg_colour(get_colour());
 #ifdef USE_TILE_LOCAL
     if (is_set(SKMF_SKILL_ICONS))
@@ -268,10 +406,10 @@ void SkillMenuEntry::_clear()
 {
     m_sk = SK_NONE;
 
-    m_name->set_text("");
-    m_level->set_text("");
-    m_progress->set_text("");
-    m_aptitude->set_text("");
+    m_name->set_text_pretranslated("");
+    m_level->set_text_pretranslated("");
+    m_progress->set_text_pretranslated("");
+    m_aptitude->set_text_pretranslated("");
 
     m_name->set_id(-1);
     m_name->clear_hotkeys();
@@ -348,7 +486,7 @@ void SkillMenuEntry::set_aptitude()
         text += "<lightred>+4</lightred>";
     }
 
-    m_aptitude->set_text(text);
+    m_aptitude->set_text_pretranslated(text);
 }
 
 void SkillMenuEntry::set_level()
@@ -362,9 +500,9 @@ void SkillMenuEntry::set_level()
         level = you.skill(m_sk, 10, real);
 
     if (mastered())
-        m_level->set_text(to_string(level / 10));
+        m_level->set_text_pretranslated(to_string(level / 10));
     else
-        m_level->set_text(make_stringf("%4.1f", level / 10.0));
+        m_level->set_text_pretranslated(make_stringf("%4.1f", level / 10.0));
     m_level->set_fg_colour(get_colour());
 }
 
@@ -379,22 +517,22 @@ void SkillMenuEntry::set_new_level()
         new_level = you.skill(m_sk, 10, real);
         m_progress->set_fg_colour(CYAN);
         if (you.training[m_sk])
-            m_progress->set_text(make_stringf("> %4.1f", new_level / 10.0));
+            m_progress->set_text_pretranslated(make_stringf("> %4.1f", new_level / 10.0));
         else
-            m_progress->set_text(string(PROGRESS_SIZE, ' '));
+            m_progress->set_text_pretranslated(string(PROGRESS_SIZE, ' '));
         return;
     }
 
     if (is_selectable())
-        m_progress->set_text(make_stringf("> %4.1f", new_level / 10.0));
+        m_progress->set_text_pretranslated(make_stringf("> %4.1f", new_level / 10.0));
     else
-        m_progress->set_text("");
+        m_progress->set_text_pretranslated("");
 
 }
 
 void SkillMenuEntry::set_points()
 {
-    m_progress->set_text(make_stringf("%5d", you.skill_points[m_sk]));
+    m_progress->set_text_pretranslated(make_stringf("%5d", you.skill_points[m_sk]));
     m_progress->set_fg_colour(LIGHTGREY);
     m_progress->set_editable(false);
 }
@@ -402,10 +540,10 @@ void SkillMenuEntry::set_points()
 void SkillMenuEntry::set_progress()
 {
     if (mastered())
-        m_progress->set_text("");
+        m_progress->set_text_pretranslated("");
     else
     {
-        m_progress->set_text(make_stringf(" %2d%%",
+        m_progress->set_text_pretranslated(make_stringf(" %2d%%",
                                           get_skill_percentage(m_sk)));
     }
     m_progress->set_fg_colour(CYAN);
@@ -422,12 +560,12 @@ void SkillMenuEntry::set_targets()
     int target = you.get_training_target(m_sk);
     if (target == 0)
     {
-        m_progress->set_text("--");
+        m_progress->set_text_pretranslated("--");
         m_progress->set_fg_colour(DARKGREY);
     }
     else
     {
-        m_progress->set_text(_format_skill_target(target));
+        m_progress->set_text_pretranslated(_format_skill_target(target));
         if (target_met(m_sk))
             m_progress->set_fg_colour(DARKGREY); // mainly comes up in wizmode
         else
@@ -439,24 +577,24 @@ void SkillMenuEntry::set_targets()
 void SkillMenuEntry::set_title()
 {
     m_name->allow_highlight(false);
-    m_name->set_text("     Skill");
-    m_level->set_text("Level");
+    m_name->set_text_pretranslated(zh_message("skill.menu.title.skill").display());
+    m_level->set_text_pretranslated(zh_message("skill.menu.title.level").display());
 
     m_name->set_fg_colour(BLUE);
     m_level->set_fg_colour(BLUE);
     m_progress->set_fg_colour(BLUE);
 
     if (is_set(SKMF_APTITUDE))
-        m_aptitude->set_text("<blue>Apt </blue>");
+        m_aptitude->set_text_pretranslated("<blue>适性</blue>");
 
     switch (skm.get_state(SKM_VIEW))
     {
-    case SKM_VIEW_TRAINING:  m_progress->set_text("Train"); break;
-    case SKM_VIEW_TARGETS:   m_progress->set_text("Target"); break;
-    case SKM_VIEW_PROGRESS:  m_progress->set_text("Progr"); break;
-    case SKM_VIEW_POINTS:    m_progress->set_text("Points");break;
-    case SKM_VIEW_COST:      m_progress->set_text("Cost");  break;
-    case SKM_VIEW_NEW_LEVEL: m_progress->set_text("> New"); break;
+    case SKM_VIEW_TRAINING:  m_progress->set_text_pretranslated(zh_message("skill.menu.title.train").display()); break;
+    case SKM_VIEW_TARGETS:   m_progress->set_text_pretranslated(zh_message("skill.menu.title.target").display()); break;
+    case SKM_VIEW_PROGRESS:  m_progress->set_text_pretranslated(zh_message("skill.menu.title.progress").display()); break;
+    case SKM_VIEW_POINTS:    m_progress->set_text_pretranslated(zh_message("skill.menu.title.points").display());break;
+    case SKM_VIEW_COST:      m_progress->set_text_pretranslated(zh_message("skill.menu.title.cost").display());  break;
+    case SKM_VIEW_NEW_LEVEL: m_progress->set_text_pretranslated(zh_message("skill.menu.title.new_level").display()); break;
     default: die("Invalid view state.");
     }
 }
@@ -466,9 +604,9 @@ void SkillMenuEntry::set_training()
     m_progress->set_editable(false);
 
     if (!you.training[m_sk])
-        m_progress->set_text("");
+        m_progress->set_text_pretranslated("");
     else
-        m_progress->set_text(make_stringf("%2d%%", you.training[m_sk]));
+        m_progress->set_text_pretranslated(make_stringf("%2d%%", you.training[m_sk]));
     m_progress->set_fg_colour(BROWN);
 }
 
@@ -486,7 +624,7 @@ void SkillMenuEntry::set_cost()
     auto ratio = scaled_skill_cost(m_sk);
     // Don't let the displayed number go greater than 4 characters
     if (ratio > 0)
-        m_progress->set_text(make_stringf("%4.*f", ratio < 100 ? 1 : 0, ratio));
+        m_progress->set_text_pretranslated(make_stringf("%4.*f", ratio < 100 ? 1 : 0, ratio));
 }
 
 SkillMenuSwitch::SkillMenuSwitch(string name, int hotkey) : m_name(name)
@@ -570,22 +708,16 @@ string SkillMenuSwitch::get_help()
     switch (m_state)
     {
     case SKM_MODE_AUTO:
-        return "In automatic mode, skills are trained as you use them.";
+        return zh_message("skill.menu.switch_help.auto").display();
     case SKM_MODE_MANUAL:
-        return "In manual mode, experience is spread evenly across all "
-                "activated skills.";
+        return zh_message("skill.menu.switch_help.manual").display();
     case SKM_DO_PRACTISE:
         if (skm.is_set(SKMF_SIMPLE))
-            return hints_skills_info();
+            return zh_message("skill.menu.help.overview").display();
         else
-            return "Press the letter of a skill to choose whether you want to "
-                   "practise it. Skills marked with '<darkgrey>-</darkgrey>' "
-                   "will not be trained.";
+            return zh_message("skill.menu.switch_help.practice").display();
     case SKM_DO_FOCUS:
-        return "Press the letter of a skill to cycle between "
-               "<darkgrey>disabled</darkgrey> (<darkgrey>-</darkgrey>), "
-               "enabled (+) and <white>focused</white> (<white>*</white>). "
-               "Focused skills train twice as fast relative to others.";
+        return zh_message("skill.menu.switch_help.focus").display();
     case SKM_LEVEL_ENHANCED:
     {
         string result;
@@ -635,28 +767,24 @@ string SkillMenuSwitch::get_help()
     }
     case SKM_VIEW_TRAINING:
         if (skm.is_set(SKMF_SIMPLE))
-            return hints_skill_training_info();
+            return zh_message("skill.menu.help.simple_training").display();
         else
-            return "The percentage of incoming experience used"
-                   " to train each skill is in <brown>brown</brown>.\n";
+            return zh_message("skill.menu.switch_help.training").display();
     case SKM_VIEW_TARGETS:
         if (skm.is_set(SKMF_SIMPLE))
-            return hints_skill_targets_info();
+            return zh_message("skill.menu.help.simple_targets").display();
         else
-            return "The current training targets, if any.\n";
+            return zh_message("skill.menu.switch_help.targets").display();
     case SKM_VIEW_PROGRESS:
-        return "The percentage of the progress done before reaching next "
-               "level is in <cyan>cyan</cyan>.\n";
+        return zh_message("skill.menu.switch_help.progress").display();
     case SKM_VIEW_COST:
     {
         if (skm.is_set(SKMF_SIMPLE))
-            return hints_skill_costs_info();
+            return zh_message("skill.menu.help.simple_cost").display();
 
-        const string result = skm.is_set(SKMF_MANUAL)
-            ? "The relative cost of raising each skill is in <cyan>cyan</cyan> "
-              "(or <lightred>red</lightred> if enhanced by a manual).\n"
-            : "The relative cost of raising each skill is in <cyan>cyan</cyan>.\n";
-        return result;
+        return zh_message(skm.is_set(SKMF_MANUAL)
+            ? "skill.menu.switch_help.cost_manual"
+            : "skill.menu.switch_help.cost").display();
     }
     default: return "";
     }
@@ -706,7 +834,7 @@ int SkillMenuSwitch::size() const
     if (m_states.size() <= 1)
         return 0;
     else
-        return formatted_string::parse_string(m_text).width();
+        return _skill_text_width(m_text);
 }
 
 bool SkillMenuSwitch::toggle()
@@ -729,27 +857,40 @@ void SkillMenuSwitch::update()
 {
     if (m_states.size() <= 1)
     {
-        set_text("");
+        set_text_pretranslated("");
         return;
     }
 
     const vector<int> hotkeys = get_hotkeys();
     ASSERT(hotkeys.size());
-    string text = make_stringf(" [<yellow>%c</yellow>] ", hotkeys[0]);
+    string options;
+    bool options_supported = true;
     for (auto it = m_states.begin(); it != m_states.end(); ++it)
     {
         if (it != m_states.begin())
-            text += '|';
+            options += '|';
 
         const string col = (*it == m_state) ? "white" : "darkgrey";
-        text += make_stringf("<%s>%s</%s>", col.c_str(), get_name(*it).c_str(),
-                             col.c_str());
+        const string state = get_name(*it);
+        ZhArg state_arg = zh_word_arg("state", "skill.menu.state.", state);
+        options_supported = options_supported && state_arg.supported;
+        options += make_stringf("<%s>%s</%s>", col.c_str(),
+                                state_arg.localized.c_str(), col.c_str());
     }
+    string label;
     if (m_name.empty())
-        text += "  ";
+        label = "  ";
     else
-        text += make_stringf(" %s  ", m_name.c_str());
-    set_text(text);
+    {
+        const string label_id = "skill.menu.switch_label." + m_name;
+        label = " " + zh_message(label_id).display() + "  ";
+    }
+    const string text = zh_message("skill.menu.switch", {
+        zh_key("hotkey", string(1, hotkeys[0])),
+        ZhArg{"options", ZhArgType::Text, options, options,
+              options_supported},
+        zh_text("label", label, label)}).display();
+    set_text_pretranslated(text);
 }
 
 #define TILES_COL 6
@@ -813,6 +954,7 @@ void SkillMenu::finish_experience(bool experience_change)
 
 void SkillMenu::init(int flag, int region_height)
 {
+    ZhLegacyGuard legacy_guard("skill.menu");
     m_flags = flag;
     init_flags();
 
@@ -945,10 +1087,11 @@ int SkillMenu::read_skill_target(skill_type sk)
 
     // for webtiles dialog input
     const string skill = skill_name(sk);
-    const string localized_skill = zh_lookup_exact(skill);
+    const ZhArg localized_arg = zh_glossary_name("skill", "skill.name", skill);
+    const string localized_skill = localized_arg.localized;
     progress->set_prompt(zh_message("skill.menu.target_prompt", {
         ZhArg{"skill", ZhArgType::Name, skill, localized_skill,
-              localized_skill != skill}}).display());
+              localized_arg.supported}}).display());
     progress->set_tag("skill_target");
 
     edit_result r = progress->edit(&prefill, _keyfun_target_input);
@@ -970,7 +1113,7 @@ int SkillMenu::read_skill_target(skill_type sk)
         if (input > 270)
         {
             // 27.0 is the maximum target
-            set_help("<lightred>Your training target must be 27 or below!</lightred>");
+            set_help(zh_message("skill.menu.error.target_limit").display());
             return -1;
         }
         else
@@ -1053,7 +1196,7 @@ bool SkillMenu::do_skill_enabled_check()
         // Shouldn't happen, but crash rather than locking the player in the
         // menu. Training will be fixed up on load.
         ASSERT(!you.has_mutation(MUT_DISTRIBUTED_TRAINING));
-        set_help("<lightred>You need to enable at least one skill.</lightred>");
+        set_help(zh_message("skill.menu.error.no_training").display());
         // It can be confusing if the only trainable skills are hidden. Turn on
         // SKM_SHOW_ALL if so.
         if (get_state(SKM_SHOW) == SKM_SHOW_DEFAULT)
@@ -1181,11 +1324,9 @@ void SkillMenu::help()
     {
         string text;
         if (is_set(SKMF_SIMPLE))
-            text = hints_skills_description_info();
+            text = zh_message("skill.menu.help.simple_descriptions").display();
         else
-            text = "Press the letter of a skill to read its description.\n"
-                   "Press <w>?</w> for a general explanation"
-                   " of skilling and the various toggles.";
+            text = zh_message("skill.menu.help.general").display();
         set_help(text);
     }
     else
@@ -1456,37 +1597,36 @@ void SkillMenu::refresh_button_row()
 {
     if (is_set(SKMF_SPECIAL))
         return;
-    const string helpstring = "[<yellow>?</yellow>] ";
-    const string azstring = "[<yellow>a</yellow>-<yellow>z</yellow>] ";
-
-    string legend = is_set(SKMF_SIMPLE) ? "Skill descriptions" : "Help";
+    const char *help_id = is_set(SKMF_SIMPLE)
+        ? "skill.menu.button.help_simple" : "skill.menu.button.help";
     string midlegend = "";
     string clearlegend = "";
     if (is_set(SKMF_HELP))
     {
-        legend = is_set(SKMF_SIMPLE) ? "Return to skill selection"
-                 : "<w>Help</w>";
-        midlegend = azstring + "skill descriptions";
+        help_id = is_set(SKMF_SIMPLE) ? "skill.menu.button.back"
+                                      : "skill.menu.button.help_highlighted";
+        midlegend = zh_message("skill.menu.button.az").display();
     }
     else if (!is_set(SKMF_SIMPLE) && get_state(SKM_VIEW) == SKM_VIEW_TARGETS)
     {
         if (is_set(SKMF_SET_TARGET))
         {
-            midlegend = azstring + "set skill target";
-            clearlegend = "[<yellow>-</yellow>] clear selected target";
+            midlegend = zh_message("skill.menu.button.set_target_az").display();
+            clearlegend = zh_message("skill.menu.button.clear_selected").display();
         }
         else
         {
-            midlegend = "[<yellow>=</yellow>] set a skill target";
-            clearlegend = "[<yellow>-</yellow>] clear all targets";
+            midlegend = zh_message("skill.menu.button.set_target").display();
+            clearlegend = zh_message("skill.menu.button.clear_all").display();
         }
     }
     else if (!you.has_mutation(MUT_DISTRIBUTED_TRAINING)) // SKM_VIEW_TARGETS unavailable for Gn
-        midlegend = "[<yellow>=</yellow>] set a skill target";
+        midlegend = zh_message("skill.menu.button.set_target").display();
 
-    m_help_button->set_text(helpstring + legend);
-    m_middle_button->set_text(midlegend);
-    m_clear_targets_button->set_text(clearlegend + "\n");
+    m_help_button->set_text_pretranslated(zh_message(help_id).display());
+    m_middle_button->set_text_pretranslated(midlegend);
+    m_clear_targets_button->set_text_pretranslated(clearlegend.empty()
+        ? "" : clearlegend + "\n");
 }
 
 void SkillMenu::refresh_names()
@@ -1518,12 +1658,10 @@ void SkillMenu::set_default_help()
     string text;
     if (is_set(SKMF_EXPERIENCE))
     {
-        text = "Select the skills you want to be trained. "
-               "The chosen skills will be raised to the level shown in "
-               "<cyan>cyan</cyan>.";
+        text = zh_message("skill.menu.default.experience").display();
     }
     else if (is_set(SKMF_SIMPLE))
-        text = hints_skills_info();
+        text = zh_message("skill.menu.help.overview").display();
     else
     {
         if (!is_set(SKMF_MANUAL))
@@ -1532,21 +1670,70 @@ void SkillMenu::set_default_help()
         if (get_state(SKM_LEVEL) == SKM_LEVEL_ENHANCED)
             text += m_switches[SKM_LEVEL]->get_help() + " ";
         else
-            text += "The species aptitude is in <white>white</white>. ";
+            text += zh_message("skill.menu.default.aptitude").display();
 
         if (is_set(SKMF_MANUAL))
-            text += "Bonus from skill manuals is in <lightred>red</lightred>. ";
+            text += zh_message("skill.menu.default.manual").display();
     }
 
-    m_help->set_text(text);
+    if (text.empty())
+        m_help->set_text_pretranslated("");
+    else
+        set_help(text);
 }
 
 void SkillMenu::set_help(string msg)
 {
     if (msg.empty())
+    {
         set_default_help();
-    else
-        m_help->set_text(msg);
+        return;
+    }
+
+    const int width = max(20, m_max_coord.x - m_min_coord.x - 1);
+    msg = _skill_wrap(msg, width);
+
+    int unit = 1;
+#ifdef USE_TILE_LOCAL
+    unit = max<int>(1, tiles.get_crt_font()->char_height());
+#endif
+    const coord_def top = m_help->get_min_coord();
+    const int old_height = m_help->get_max_coord().y - top.y;
+    const int current_rows = max(1, old_height / unit);
+    int footer_bottom = top.y + old_height;
+    auto include_footer = [&](const MenuItem *item) {
+        if (item)
+            footer_bottom = max(footer_bottom, item->get_max_coord().y);
+    };
+    include_footer(m_help_button);
+    include_footer(m_middle_button);
+    include_footer(m_clear_targets_button);
+    for (const auto &entry : m_switches)
+        include_footer(entry.second);
+
+    int screen_bottom = m_max_coord.y;
+#ifdef USE_TILE_LOCAL
+    screen_bottom *= unit;
+#endif
+    const int max_rows = _skill_help_rows_available(
+        screen_bottom, current_rows, footer_bottom, unit);
+    const int rows = _skill_help_rows(current_rows, _skill_line_count(msg),
+                                      max_rows);
+    const int delta = (rows - current_rows) * unit;
+    if (delta != 0)
+    {
+        for (auto &entry : m_switches)
+            entry.second->move(coord_def(0, delta));
+        if (m_help_button)
+        {
+            m_help_button->move(coord_def(0, delta));
+            m_middle_button->move(coord_def(0, delta));
+            m_clear_targets_button->move(coord_def(0, delta));
+        }
+    }
+    m_help->set_bounds_no_multiply(top,
+        coord_def(m_help->get_max_coord().x, top.y + rows * unit));
+    m_help->set_text_pretranslated(msg);
 }
 
 void SkillMenu::set_skills()
@@ -1648,11 +1835,10 @@ void SkillMenu::set_title()
     string t;
     if (is_set(SKMF_EXPERIENCE))
     {
-        t = "You have gained great experience. "
-            "Select the skills to train.";
+        t = zh_message("skill.menu.help.experience").display();
     }
 
-    m_title->set_text(t);
+    m_title->set_text_pretranslated(t);
 }
 
 void SkillMenu::shift_bottom_down()
@@ -1783,6 +1969,7 @@ void UISkillMenu::_allocate_region()
 
 void UISkillMenu::_render()
 {
+    ZhLegacyGuard legacy_guard("skill.menu");
 #ifdef USE_TILE_LOCAL
     GLW_3VF t = {(float)m_region.x, (float)m_region.y, 0}, s = {1, 1, 1};
     glmanager->set_transform(t, s);
@@ -1796,6 +1983,7 @@ void UISkillMenu::_render()
 #ifdef USE_TILE_LOCAL
 bool UISkillMenu::on_event(const Event& ev)
 {
+    ZhLegacyGuard legacy_guard("skill.menu");
     if (ev.type() != Event::Type::MouseMove
      && ev.type() != Event::Type::MouseDown
      && ev.type() != Event::Type::MouseWheel)
@@ -1848,6 +2036,7 @@ void skill_menu(int flag, int exp)
     auto popup = make_shared<ui::Popup>(skill_menu_ui);
 
     skill_menu_ui->on_keydown_event([&done, &skill_menu_ui](const KeyEvent& ev) {
+        ZhLegacyGuard legacy_guard("skill.menu.input");
         const auto keyn = numpad_to_regular(ev.key(), true);
 
         skill_menu_ui->_expose();

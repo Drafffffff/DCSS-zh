@@ -172,6 +172,10 @@ public:
     }
 
     virtual string get_text() const;
+    // Explicit presentation provenance, separate from filter/control text.
+    bool pretranslated = false;
+    virtual bool is_pretranslated() const { return pretranslated; }
+    formatted_string get_formatted_text(int main_colour = LIGHTGREY) const;
     void wrap_text(int width=MIN_COLS);
 
     virtual int highlight_colour(bool /*unused in superclass*/ = false) const
@@ -323,15 +327,19 @@ public:
     // Sets a replacement for the default -more- string.
     void set_more(const formatted_string &more);
     void set_more(const string s);
+    void set_more_pretranslated(const string &s);
     // Shows a stock message about scrolling the menu instead of -more-
     void set_more();
     const formatted_string &get_more() const { return more; }
     virtual string get_keyhelp(bool scrollable) const;
+    virtual bool get_keyhelp_pretranslated() const { return false; }
     void set_min_col_width(int w);
 
     void set_highlighter(MenuHighlighter *h);
     void set_title(MenuEntry *e, bool first = true, bool indent = false);
     void set_title(const string &t, bool first = true, bool indent = false);
+    void set_title_pretranslated(const string &t, bool first = true,
+                                bool indent = false);
     void add_entry(MenuEntry *entry);
     void add_entry(unique_ptr<MenuEntry> entry)
     {
@@ -550,6 +558,8 @@ string get_linebreak_string(const string& s, int maxcol);
 formatted_string pad_more_with(formatted_string s,
                                     const formatted_string &pad, int min_width=MIN_COLS);
 string pad_more_with(const string &s, const string &pad, int min_width=MIN_COLS);
+string pad_more_with_pretranslated(const string &s, const string &pad,
+                                  int min_width=MIN_COLS);
 string pad_more_with_esc(const string &s);
 string menu_keyhelp_cmd(command_type cmd);
 string menu_keyhelp_select_keys();

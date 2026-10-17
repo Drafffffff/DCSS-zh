@@ -23,6 +23,8 @@ public:
     virtual bool inside(int px, int py);
     virtual bool update_tip_text(string &) { return false; }
     virtual bool update_alt_text(string &) { return false; }
+    virtual bool tip_text_pretranslated() const { return false; }
+    virtual bool alt_text_pretranslated() const { return false; }
     virtual int handle_mouse(wm_mouse_event &event) = 0;
 
     virtual void render() = 0;

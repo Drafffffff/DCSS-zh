@@ -25,7 +25,8 @@ std::map<std::string, ZhArgType> schema(const std::string &spec) {
     static const std::map<std::string, ZhArgType> types = {
         {"text",ZhArgType::Text},{"name",ZhArgType::Name},
         {"integer",ZhArgType::Integer},{"number",ZhArgType::Number},
-        {"key",ZhArgType::Key},{"colour",ZhArgType::Colour}};
+        {"key",ZhArgType::Key},{"colour",ZhArgType::Colour},
+        {"key_markup",ZhArgType::KeyMarkup}};
     std::map<std::string, ZhArgType> result;
     std::istringstream stream(spec); std::string item;
     while (std::getline(stream,item,';')) {
@@ -36,6 +37,10 @@ std::map<std::string, ZhArgType> schema(const std::string &spec) {
 std::string fill(const std::string &text, const std::map<std::string, ZhArg> &args, bool chinese) {
     std::string result;
     for (size_t at=0;at<text.size();) {
+        if (at + 1 < text.size() && (text[at] == '{' || text[at] == '}')
+            && text[at + 1] == text[at]) {
+            result += text[at]; at += 2; continue;
+        }
         if (text[at]!='{') {result+=text[at++];continue;}
         auto end=text.find('}',at); if (end==std::string::npos) throw std::invalid_argument("Unclosed localization parameter");
         const auto &arg=args.at(text.substr(at+1,end-at-1));
@@ -60,6 +65,27 @@ ZhArg zh_key(const std::string &key,const std::string &value) {
     if (value.find_first_of("<>\n\r")!=std::string::npos) throw std::invalid_argument("Invalid localization key token");
     return {key,ZhArgType::Key,value,value};
 }
+ZhArg zh_key_markup(const std::string &key,const std::string &value) {
+    bool highlighted = false;
+    for (size_t at = 0; at < value.size();) {
+        const unsigned char c = value[at];
+        if (c < 32 || c == 127)
+            throw std::invalid_argument("Invalid localization key markup");
+        if (value.compare(at, 2, "<<") == 0) { at += 2; continue; }
+        if (value.compare(at, 3, "<w>") == 0 && !highlighted) {
+            highlighted = true; at += 3; continue;
+        }
+        if (value.compare(at, 4, "</w>") == 0 && highlighted) {
+            highlighted = false; at += 4; continue;
+        }
+        if (c == '<')
+            throw std::invalid_argument("Invalid localization key markup");
+        ++at;
+    }
+    if (highlighted)
+        throw std::invalid_argument("Unclosed localization key markup");
+    return {key,ZhArgType::KeyMarkup,value,value};
+}
 ZhArg zh_colour(const std::string &key,const std::string &value) {
     static const std::set<std::string> colours={"black","blue","green","cyan","red","magenta","brown","lightgrey","darkgrey","lightblue","lightgreen","lightcyan","lightred","lightmagenta","yellow","white"};
     if (!colours.count(value)) throw std::invalid_argument("Invalid localization colour token");
@@ -74,6 +100,11 @@ ZhMessage zh_message(const std::string &id,std::initializer_list<ZhArg> values,c
             zh_key(value.key, value.canonical);
             if (value.localized != value.canonical)
                 throw std::invalid_argument("Translated localization key token: " + id);
+        }
+        if (value.type == ZhArgType::KeyMarkup) {
+            zh_key_markup(value.key, value.canonical);
+            if (value.localized != value.canonical)
+                throw std::invalid_argument("Translated localization key markup: " + id);
         }
         if (value.type == ZhArgType::Colour) {
             zh_colour(value.key, value.canonical);
@@ -105,7 +136,25 @@ ZhMessage zh_message(const std::string &id,std::initializer_list<ZhArg> values,c
     if (const char *trace=std::getenv("DCSS_ZH_ID_TRACE")) {
         if (*trace) {std::ofstream out(trace,std::ios::app);out<<id<<"\t"<<(complete?"localized":"canonical-fallback")<<"\n";}
     }
-    return {id,english,complete?fill(entry.zh,args,true):english};
+    const std::string localized = complete ? fill(entry.zh,args,true) : english;
+    if (const char *trace=std::getenv("DCSS_ZH_MESSAGE_VALUES")) {
+        if (*trace) {
+            const auto escaped = [](const std::string &value) {
+                std::string result;
+                for (char ch : value) {
+                    if (ch == '\\') result += "\\\\";
+                    else if (ch == '\n') result += "\\n";
+                    else if (ch == '\r') result += "\\r";
+                    else if (ch == '\t') result += "\\t";
+                    else result += ch;
+                }
+                return result;
+            };
+            std::ofstream out(trace,std::ios::app);
+            out << id << '\t' << escaped(english) << '\t' << escaped(localized) << '\n';
+        }
+    }
+    return {id,english,localized};
 }
 
 ZhArg zh_word_arg(const std::string &key,const std::string &domain,const std::string &english,ZhArgType kind) {
@@ -136,4 +185,33 @@ ZhArg zh_glossary_name(const std::string &key,const std::string &domain,const st
         if (path && *path) {std::ofstream out(path,std::ios::app);out<<domain<<"\t"<<english<<"\n";}
     }
     return {key,ZhArgType::Name,english,localized,supported};
+}
+
+std::string zh_source(const char *context, const char *source_literal)
+{
+    if (!context || !source_literal)
+        throw std::invalid_argument("Null localization source literal");
+    // Optional database rows (quotes, symbol prefixes) may be absent. There
+    // is no player-facing text to translate or report in that case.
+    if (!*source_literal)
+        return "";
+    // Canonical/Lua readers must not depend on coverage of the display table.
+    if (!zh_language_enabled())
+        return source_literal;
+    for (const auto &entry : zh_source_definitions)
+        if (entry.context && std::string(context) == entry.context
+            && std::string(source_literal) == entry.source)
+            return zh_message(entry.id).display();
+    if (const char *path = std::getenv("DCSS_ZH_ID_MISSING"))
+        if (*path)
+        {
+            std::ofstream out(path, std::ios::app);
+            out << context << "\tmissing source literal\t";
+            for (const char *p = source_literal; *p; ++p)
+                out << (*p == '\n' || *p == '\r' || *p == '\t' ? ' ' : *p);
+            out << '\n';
+        }
+    if (std::getenv("DCSS_ZH_STRICT_SOURCE"))
+        throw std::invalid_argument(std::string("Missing localization source: ") + context);
+    return source_literal;
 }

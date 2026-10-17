@@ -13,6 +13,8 @@ public:
     virtual bool update_tip_text(string &tip) override;
     virtual bool update_tab_tip_text(string &tip, bool active) override;
     virtual bool update_alt_text(string &alt) override;
+    bool tip_text_pretranslated() const override { return true; }
+    bool alt_text_pretranslated() const override { return true; }
 
     virtual const string name() const override { return "Skills"; }
 

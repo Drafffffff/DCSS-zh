@@ -701,6 +701,8 @@ int TilesFramework::getch_ck()
 
                     // update_alt_text() handlers may depend on data set in handle_mouse() handler
                     m_region_msg->alt_text().clear();
+                    m_region_msg->set_alt_text_pretranslated(m_cur_loc.reg
+                        && m_cur_loc.reg->alt_text_pretranslated());
                     if (m_cur_loc.reg)
                         m_cur_loc.reg->update_alt_text(m_region_msg->alt_text());
                     if (prev_msg_alt_text != m_region_msg->alt_text())
@@ -763,6 +765,7 @@ int TilesFramework::getch_ck()
                             continue;
                         if (reg->update_tip_text(m_tooltip))
                         {
+                            m_tooltip_pretranslated = reg->tip_text_pretranslated();
                             set_need_redraw();
                             break;
                         }
@@ -1356,7 +1359,9 @@ void TilesFramework::redraw()
         const coord_def min_pos = coord_def() + buffer;
         const coord_def max_pos = m_windowsz - buffer;
         m_tip_font->render_tooltip(m_mouse.x, m_mouse.y,
-                formatted_string(m_tooltip), min_pos, max_pos);
+                m_tooltip_pretranslated
+                    ? formatted_string::parse_string_raw(m_tooltip)
+                    : formatted_string(m_tooltip), min_pos, max_pos);
     }
     wm->swap_buffers();
 

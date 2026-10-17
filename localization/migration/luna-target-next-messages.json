@@ -1,0 +1,317 @@
+{
+  "model": "Luna",
+  "purpose": "Targeting validation prompts and quiver user-visible text migration audit; proposals only, source code unchanged.",
+  "messages": [
+    {
+      "id": "target.fail.blocked",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "There's something in the way.",
+      "zh": "有东西挡住了去路。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "targeter_beam::valid_aim; repeated by beam/smite/cloud/thunderbolt/cone/overgrow"
+      }
+    },
+    {
+      "id": "target.fail.cannot_see_place",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "You cannot see that place.",
+      "zh": "你看不见那个位置。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "targeter_beam::valid_aim; repeated by beam/smite/passwall/cloud/thunderbolt/cone/overgrow"
+      }
+    },
+    {
+      "id": "target.fail.out_of_range",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "Out of range.",
+      "zh": "超出射程。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "valid_aim implementations across beam, smite, dig, cloud, radius and others"
+      }
+    },
+    {
+      "id": "target.fail.no_effect",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "The effect is blocked.",
+      "zh": "效果被阻挡了。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "targeter_radius::valid_aim"
+      }
+    },
+    {
+      "id": "target.fail.no_affect",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "You cannot affect that.",
+      "zh": "你无法影响那个目标。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "targeter_fragment::valid_aim"
+      }
+    },
+    {
+      "id": "target.fail.no_way_through",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "You can't get through.",
+      "zh": "你无法穿过去。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "targeter_reach::valid_aim"
+      }
+    },
+    {
+      "id": "target.fail.weapon_reach",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "Your weapon can't reach that far!",
+      "zh": "你的武器够不到那么远！",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "targeter_reach::valid_aim and targeter_cleave::valid_aim"
+      }
+    },
+    {
+      "id": "target.fail.cloud_already_there",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "There's already a cloud there.",
+      "zh": "那里已经有一团云雾了。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "targeter_cloud::valid_aim"
+      }
+    },
+    {
+      "id": "target.fail.grow_nothing",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "You cannot grow anything here.",
+      "zh": "你无法在这里催生任何东西。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "targeter_overgrow::valid_aim"
+      }
+    },
+    {
+      "id": "target.fail.no_valid_target",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "You don't see a valid target there.",
+      "zh": "你在那里看不到有效目标。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "targeter_gravity? inspect source anchor later; target validity failure"
+      }
+    },
+    {
+      "id": "target.fail.nothing_to_temper",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "There's nothing to be tempered there.",
+      "zh": "那里没有可强化的东西。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "targeter_temper? forgecraft target validation"
+      }
+    },
+    {
+      "id": "target.fail.already_augmented",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "You cannot target a construct which is already augmented.",
+      "zh": "你不能以已经强化的构装体为目标。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "Forgecraft targeter valid_aim"
+      }
+    },
+    {
+      "id": "target.fail.own_constructs",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "You can only target your own Forgecraft constructs.",
+      "zh": "你只能以自己的锻造术构装体为目标。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "Forgecraft targeter valid_aim"
+      }
+    },
+    {
+      "id": "target.fail.cannot_teleport",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "That cannot be teleported.",
+      "zh": "那个目标无法被传送。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "teleport targeter valid_aim"
+      }
+    },
+    {
+      "id": "target.fail.no_safe_landing",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "You can see nowhere safe to land near that.",
+      "zh": "你看不出附近哪里能安全着陆。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "blink/landing targeter valid_aim"
+      }
+    },
+    {
+      "id": "target.fail.enemy_afraid",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "You must target an enemy who is afraid.",
+      "zh": "你必须指定一个处于恐惧状态的敌人。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "fear-targeting targeter"
+      }
+    },
+    {
+      "id": "target.fail.no_magic_to_unravel",
+      "context": "施法/瞄准失败提示；完整稳定模板",
+      "en": "{target} has no magical effects to unravel.",
+      "zh": "{target}没有可供解离的魔法效果。",
+      "params": {
+        "target": "name"
+      },
+      "source": {
+        "file": "target.cc",
+        "anchor": "targeter_unravelling::valid_aim"
+      }
+    },
+    {
+      "id": "quiver.log.depleted_resource",
+      "context": "箭袋/快捷攻击失败日志",
+      "en": "You are too depleted to draw on your {resource} recklessly!",
+      "zh": "你的{resource}所剩无几，无法肆意消耗！",
+      "params": {
+        "resource": "name"
+      },
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "action::fire_key_hints / af_hp_check; resource is exactly “health” or “magic”"
+      }
+    },
+    {
+      "id": "quiver.log.cannot_attack_held",
+      "context": "受困时的箭袋近战触发日志",
+      "en": "You cannot attack while {status}.",
+      "zh": "你{status}，无法攻击。",
+      "params": {
+        "status": "text"
+      },
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "melee_action::trigger; caught() branch; held_status() returns status phrase"
+      }
+    },
+    {
+      "id": "quiver.log.deconstruct",
+      "context": "箭袋触发的拆解日志",
+      "en": "You deconstruct {target}.",
+      "zh": "你拆解了{target}。",
+      "params": {
+        "target": "name"
+      },
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "deconstruct action::trigger; visible monster->name(DESC_THE)"
+      }
+    },
+    {
+      "id": "quiver.log.attack_feature",
+      "context": "混乱时攻击地形日志",
+      "en": "You attack {target}.",
+      "zh": "你攻击了{target}。",
+      "params": {
+        "target": "name"
+      },
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "melee_action::trigger; confused player attacks solid feature; feature_description_at(..., DESC_THE)"
+      }
+    },
+    {
+      "id": "quiver.log.fail_reach_past",
+      "context": "伸展攻击被友方阻拦",
+      "en": "You fail to reach past {target}.",
+      "zh": "你没能越过{target}攻击。",
+      "params": {
+        "target": "name"
+      },
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "melee_action::trigger; friendly midmons->name(DESC_THE)"
+      }
+    },
+    {
+      "id": "quiver.log.in_the_way",
+      "context": "伸展攻击被阻拦；不可见目标必须用独立语义参数",
+      "en": "{target} is in the way.",
+      "zh": "{target}挡住了去路。",
+      "params": {
+        "target": "name"
+      },
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "melee_action::trigger; visible monster name or fixed unseen phrase"
+      }
+    },
+    {
+      "id": "quiver.prompt.confirm_quiver",
+      "context": "设置箭袋动作的确认框",
+      "en": "Really quiver {action}?",
+      "zh": "确定将{action}设为箭袋动作吗？",
+      "params": {
+        "action": "name"
+      },
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "set_to_quiver; make_stringf around quiver description"
+      }
+    },
+    {
+      "id": "quiver.ui.empty_short",
+      "context": "箭袋空态短标签",
+      "en": "Empty",
+      "zh": "空",
+      "params": {},
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "action::quiver_description(short_desc=true); darkgrey style is presentation metadata"
+      }
+    },
+    {
+      "id": "quiver.ui.empty_long",
+      "context": "箭袋空态描述",
+      "en": "Nothing quivered",
+      "zh": "没有设定箭袋动作",
+      "params": {},
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "action::quiver_description(short_desc=false); darkgrey style is presentation metadata"
+      }
+    }
+  ],
+  "non_translation_scope": [
+    "target.cc 的 targeter/aim/command 枚举、游戏状态字段、Lua callback 与保存数据键属于控制/内部标识，不翻译。",
+    "quiver.cc 保存用 type/param、命令键、spell/ability/item enum、 inscription、macro 与 Lua targeting 参数不翻译。",
+    "quiver_description() 中 spell/ability/item 名称需由各自显示名接口提供；不得把最终拼接英文整句反向查表。",
+    "带动态怪物/地点/状态的 notify_fail 应拆成结构参数；若名字未支持，整句回退英文，不允许中英混排。"
+  ],
+  "notes": [
+    "该 JSON 是迁移候选目录；需由执行阶段按源码路径接入稳定 ID。已有 log.quiver.fixed.* 不重复收录。"
+  ]
+}

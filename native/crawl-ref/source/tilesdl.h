@@ -318,6 +318,7 @@ protected:
     unsigned int m_last_tick_redraw;
 
     string m_tooltip;
+    bool m_tooltip_pretranslated = false;
     bool m_show_tooltip = false;
     unsigned int m_tooltip_timer_id = 0;
 

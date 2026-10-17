@@ -88,7 +88,9 @@ int formatted_scroller::show()
     m_scroller->expand_v = true;
 #endif
     auto text = make_shared<Text>();
-    formatted_string c = formatted_string::parse_string(contents.to_colour_string(LIGHTGRAY));
+    // Contents were parsed when added. Preserve their selected display text
+    // while normalising colours; do not match the rendered prose again.
+    formatted_string c = formatted_string::parse_string_raw(contents.to_colour_string(LIGHTGRAY));
     text->set_text(c);
     text->set_highlight_pattern(highlight, true);
     text->set_wrap_text(!(m_flags & FS_PREWRAPPED_TEXT));

@@ -56,6 +56,8 @@
 #include "viewchar.h"
 #include "view.h"
 #include "xom.h"
+#include "zh-display-name.h"
+#include "zh-message.h"
 
 
 static bool _is_using_small_layout()
@@ -66,22 +68,50 @@ static bool _is_using_small_layout()
     return false;
 }
 
+static string _hud_place_line(const string &canonical_branch,
+                              const string &localized_branch, int depth,
+                              bool show_depth)
+{
+    if (show_depth)
+        return zh_message("hud.place.depth",
+                          {zh_text("branch", canonical_branch, localized_branch),
+                           zh_integer("depth", depth)},
+                          make_stringf("%s:%d", canonical_branch.c_str(), depth)).display();
+    return zh_message("hud.place.branch",
+                      {zh_text("branch", canonical_branch, localized_branch)},
+                      canonical_branch).display();
+}
+
 static string _level_description_string_hud()
 {
     const PlaceInfo& place = you.get_place_info();
     string short_name = branches[place.branch].shortname;
+    string localized = zh_word_arg("branch", "hud.branch.", short_name).localized;
 
-    if (brdepth[place.branch] > 1)
-        short_name += make_stringf(":%d", you.depth);
-    // Indefinite articles
-    else if (place.branch != BRANCH_PANDEMONIUM
-             && place.branch != BRANCH_DESOLATION
-             && place.branch != BRANCH_ARENA
-             && !is_connected_branch(place.branch))
-    {
-        short_name = article_a(short_name);
-    }
-    return zh_translate(short_name);
+    return _hud_place_line(short_name, localized, you.depth,
+                           brdepth[place.branch] > 1);
+}
+
+static string _hud_experience_line(int level, int progress, bool max_level,
+                                   bool small_layout)
+{
+    const string canonical = max_level
+        ? make_stringf("XL: %d", level)
+        : make_stringf("XL: %d Next: %d%%", level, progress);
+    const ZhMessage message = max_level
+        ? zh_message("hud.experience.max", {zh_integer("level", level)}, canonical)
+        : zh_message("hud.experience.progress",
+                     {zh_integer("level", level), zh_integer("progress", progress)},
+                     canonical);
+    string result = message.display();
+    // Column 18 stays empty; column 19 starts the right-hand Place field.
+    const int width = strwidth(result);
+    if (width > 17)
+        result = chop_string(result, 17);
+    else if (width < 17)
+        result.append(17 - width, ' ');
+    (void)small_layout;
+    return result;
 }
 
 #ifdef USE_TILE_LOCAL
@@ -349,20 +379,22 @@ static void _cprintf_touchui(const char *format, ...)
             cprintf("%2s", buf.c_str());
             break;
         case TOUCH_T_XL:
-            cprintf("XL Next");
+            { ZhLegacyPause pause; cprintf("等级 进度"); }
             break;
         case TOUCH_T_PLACE:
-            cprintf("Place");
+            { ZhLegacyPause pause; cprintf("地点"); }
             break;
         case TOUCH_V_PLACE:
-            parts = split_string(":", _level_description_string_hud());
-            if (parts.size() == 1)
-                cprintf("%-9s", parts[0].substr(0,9).c_str());
-            else
-                cprintf("%s:%s", parts[0].substr(0,8-parts[1].size()).c_str(), parts[1].c_str());
+        {
+            ZhLegacyPause pause;
+            const string place = chop_string(_level_description_string_hud(), 9);
+            cprintf("%s", place.c_str());
+            for (int i = strwidth(place); i < 9; ++i)
+                cprintf(" ");
             break;
+        }
         case TOUCH_T_NOISE:
-            cprintf("Noise");
+            cprintf("噪声");
             break;
         case TOUCH_T_TIME:
             buf = buf.substr(0, buf.size()-1);
@@ -765,6 +797,7 @@ static void _print_stats_equip(int x, int y)
  */
 static void _print_stats_noise(int x, int y)
 {
+    ZhLegacyGuard guard("hud.noise");
     CGOTOXY(x, y, GOTO_STAT);
     if (mouse_control::current_mode() == MOUSE_MODE_NORMAL
         && (you.running > 0 || you.running < 0 && Options.travel_delay == -1))
@@ -774,8 +807,13 @@ static void _print_stats_noise(int x, int y)
 
     bool silence = silenced(you.pos());
     int level = silence ? 0 : you.get_noise_perception(true);
+    const string noise_label = zh_message("hud.label.noise").display();
+    const string silenced_label = zh_message("hud.noise.silenced").display();
     textcolour(HUD_CAPTION_COLOUR);
-    CPRINTF("Noise: ");
+    {
+        ZhLegacyPause pause;
+        CPRINTF("%s", noise_label.c_str());
+    }
     colour_t noisecolour;
 
     // This is calibrated roughly so that in an open-ish area:
@@ -808,7 +846,7 @@ static void _print_stats_noise(int x, int y)
         // propagation (see shout.cc:noisy). The exact value is too hard to
         // interpret to show outside of wizmode, because noise propagation is
         // very complicated.
-        CGOTOXY(x + bar_position - 3, y, GOTO_STAT);
+        CGOTOXY(x + 7, y, GOTO_STAT);
         textcolour(noisecolour);
         CPRINTF("%2d ", you.get_noise_perception(false));
     }
@@ -828,7 +866,10 @@ static void _print_stats_noise(int x, int y)
 
         // This needs to be one extra wide in case silence happens
         // immediately after super-loud (magenta) noise
-        CPRINTF("Silenced  ");
+        {
+            ZhLegacyPause pause;
+            CPRINTF("%s      ", silenced_label.c_str());
+        }
         Noise_Bar.reset(); // so it doesn't display a change bar after silence ends
     }
     else
@@ -1160,16 +1201,6 @@ static int _wpn_name_colour(const item_def &wpn)
     return LIGHTGREY;
 }
 
-static string _wpn_name_corroded(const item_def &weapon)
-{
-    if (!you.corrosion_amount() || weapon.base_type != OBJ_WEAPONS)
-        return weapon.name(DESC_PLAIN, true);
-
-    item_def wpn_copy = weapon;
-    wpn_copy.plus -= you.corrosion_amount();
-    return wpn_copy.name(DESC_PLAIN, true);
-}
-
 static void _print_unarmed_name()
 {
     textcolour(HUD_CAPTION_COLOUR);
@@ -1184,14 +1215,23 @@ static void _print_unarmed_name()
 
 static void _print_weapon_name(const item_def &weapon, int width)
 {
+    ZhLegacyGuard guard("hud.weapon");
     textcolour(HUD_CAPTION_COLOUR);
     const char slot_letter = weapon.slot;
     const string slot_name = make_stringf("%c) ", slot_letter);
     CPRINTF("%s", slot_name.c_str());
     textcolour(_wpn_name_colour(weapon));
     const int max_name_width = width - slot_name.size();
-    const string name = zh_translate(_wpn_name_corroded(weapon));
-    CPRINTF("%s", chop_string(name, max_name_width).c_str());
+    item_def display_weapon = weapon;
+    if (you.corrosion_amount() && weapon.base_type == OBJ_WEAPONS)
+        display_weapon.plus -= you.corrosion_amount();
+    const ZhArg display_name = zh_item_arg("name", display_weapon, DESC_PLAIN);
+    const string name = zh_language_enabled()
+        ? display_name.localized : display_name.canonical;
+    {
+        ZhLegacyPause pause;
+        CPRINTF("%s", chop_string(name, max_name_width).c_str());
+    }
     textcolour(LIGHTGREY);
 }
 
@@ -1222,6 +1262,8 @@ static void _print_stats_wp(int y)
         _print_weapon_name(weapon ? *weapon : *offhand, crawl_view.hudsz.x);
     else
         _print_unarmed_name();
+
+    clear_to_end_of_line();
 
     you.wield_change  = false;
 }
@@ -1534,6 +1576,7 @@ static void _redraw_title()
 
 void print_stats()
 {
+    ZhLegacyBackground background_hud;
 #ifndef USE_TILE_LOCAL
     if (crawl_state.smallterm)
         return;
@@ -1600,24 +1643,15 @@ void print_stats()
 
     if (you.redraw_experience)
     {
-        CGOTOXY(1, 8 - rows_hidden, GOTO_STAT);
-        textcolour(Options.status_caption_colour);
-        CPRINTF("XL: ");
-        if (_is_using_small_layout())
-            CGOTOXY(5, 8, GOTO_STAT);
-        textcolour(HUD_VALUE_COLOUR);
-        CPRINTF("%2d ", you.experience_level);
-        if (you.experience_level >= you.get_max_xl())
-            CPRINTF("%10s", "");
-        else
         {
-            textcolour(Options.status_caption_colour);
-            if (!_is_using_small_layout())
-                CPRINTF("Next: ");
-            else
-                CGOTOXY(14, 8, GOTO_STAT);
+            ZhLegacyGuard guard("hud.experience");
+            const bool max_level = you.experience_level >= you.get_max_xl();
+            const string line = _hud_experience_line(you.experience_level,
+                get_exp_progress(), max_level, _is_using_small_layout());
+            ZhLegacyPause pause;
+            CGOTOXY(1, 8 - rows_hidden, GOTO_STAT);
             textcolour(HUD_VALUE_COLOUR);
-            CPRINTF("%2d%% ", get_exp_progress());
+            CPRINTF("%s", line.c_str());
         }
         you.redraw_experience = false;
     }
@@ -1647,27 +1681,38 @@ void print_stats()
 
 void print_stats_level()
 {
+    ZhLegacyGuard guard("hud.place");
     int ypos = 8;
     // TODO: unify this with the calculation in print_stats
     if (you.has_mutation(MUT_HP_CASTING) && !_is_using_small_layout())
         ypos--;
 
+    const string place_label = zh_message("hud.label.place").display();
+    const int place_x = 19 + strwidth(place_label) + 1;
+    const string place = chop_string(_level_description_string_hud(),
+                                     std::max(0, crawl_view.hudsz.x - place_x + 1));
+
     CGOTOXY(19, ypos, GOTO_STAT);
     textcolour(HUD_CAPTION_COLOUR);
-    CPRINTF("Place: ");
-
-    if (_is_using_small_layout())
-        CGOTOXY(26, ypos, GOTO_STAT);
+    {
+        ZhLegacyPause pause;
+        CPRINTF("%s", place_label.c_str());
+    }
+    CGOTOXY(place_x, ypos, GOTO_STAT);
     textcolour(HUD_VALUE_COLOUR);
 #ifdef DEBUG_DIAGNOSTICS
     CPRINTF("(%d) ", env.absdepth0 + 1);
 #endif
-    CPRINTF("%s", _level_description_string_hud().c_str());
+    {
+        ZhLegacyPause pause;
+        CPRINTF("%s", place.c_str());
+    }
     clear_to_end_of_line();
 }
 
 void draw_border()
 {
+    ZhLegacyBackground background_hud;
     textcolour(HUD_CAPTION_COLOUR);
 
     CGOTOXY(1,1, GOTO_CRT);
@@ -1715,6 +1760,7 @@ void smallterm_warning()
 
 void redraw_screen(bool show_updates)
 {
+    ZhLegacyBackground background_hud;
     if (!crawl_state.need_save)
     {
         // If the game hasn't started, don't do much.

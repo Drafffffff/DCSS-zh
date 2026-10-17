@@ -1,0 +1,1894 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "artifact.property.numeric",
+      "context": "神器属性：数值变化",
+      "en": "It affects your {stat} ({sign}{value}).",
+      "zh": "它会影响你的{stat}（{sign}{value}）。",
+      "params": {
+        "stat": "text",
+        "sign": "text",
+        "value": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "desc_randart_props numeric property branch; argument order stat text, sign text, absolute stval integer; stat maps AC/evasion/strength/intelligence/dexterity/slaying/health/magic capacity/SH; canonical override preserves each source phrase"
+      }
+    },
+    {
+      "id": "artifact.property.willpower",
+      "context": "神器属性：意志",
+      "en": "It {degree}{verb} your willpower.",
+      "zh": "它{degree}{verb}你的意志。",
+      "params": {
+        "degree": "text",
+        "verb": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "desc_randart_props ARTP_WILLPOWER; args are degree (empty/greatly), verb (increases/decreases), in that order; source value sign selects each"
+      }
+    },
+    {
+      "id": "artifact.property.stealth",
+      "context": "神器属性：潜行",
+      "en": "It makes you {effect} stealthy.",
+      "zh": "它会{effect}你的潜行能力。",
+      "params": {
+        "effect": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "desc_randart_props ARTP_STEALTH; effect is less/more or much less/much more, selected by magnitude and sign"
+      }
+    },
+    {
+      "id": "artifact.property.angry",
+      "context": "神器属性：狂暴概率",
+      "en": "It berserks you when you make melee attacks ({chance}% chance).",
+      "zh": "你进行近战攻击时有{chance}%的几率陷入狂暴。",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "desc_randart_props ARTP_ANGRY; chance is integer stval in percent"
+      }
+    },
+    {
+      "id": "artifact.property.resistance",
+      "context": "神器属性：抗性",
+      "en": "{effect}{resistance}.",
+      "zh": "{effect}{resistance}。",
+      "params": {
+        "effect": "text",
+        "resistance": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "desc_randart_props symbolic resistance branch; argument order effect text from clamped stval+3 prefix index, resistance text from ARTP_FIRE/ARTP_COLD/ARTP_NEGATIVE_ENERGY"
+      }
+    },
+    {
+      "id": "artifact.property.electricity",
+      "context": "神器属性描述",
+      "en": "It insulates you from electricity.",
+      "zh": "它能使你免受电击。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.poison",
+      "context": "神器属性描述",
+      "en": "It protects you from poison.",
+      "zh": "它能保护你免受毒素侵害。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.negative",
+      "context": "神器属性描述",
+      "en": "negative energy",
+      "zh": "负能量",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.see_invisible",
+      "context": "神器属性描述",
+      "en": "It lets you see invisible.",
+      "zh": "它能让你看见隐形生物。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.invisible",
+      "context": "神器属性描述",
+      "en": "It lets you turn invisible.",
+      "zh": "它能让你隐形。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.fly",
+      "context": "神器属性描述",
+      "en": "It grants you flight.",
+      "zh": "它赋予你飞行能力。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.blink",
+      "context": "神器属性描述",
+      "en": "It lets you blink.",
+      "zh": "它能让你瞬间闪移。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.noise",
+      "context": "神器属性描述",
+      "en": "It may make a loud noise when swung.",
+      "zh": "挥动时可能会发出巨响。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.prevent_spellcasting",
+      "context": "神器属性描述",
+      "en": "It prevents spellcasting.",
+      "zh": "它会阻止施法。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.prevent_teleportation",
+      "context": "神器属性描述",
+      "en": "It prevents most forms of teleportation.",
+      "zh": "它会阻止大多数形式的传送。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.clarity",
+      "context": "神器属性描述",
+      "en": "It protects you from confusion, rage, mesmerisation and fear.",
+      "zh": "它能保护你免受困惑、狂暴、魅惑和恐惧影响。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.contam",
+      "context": "神器属性描述",
+      "en": "It causes magical contamination when unequipped.",
+      "zh": "卸下它时会造成魔法污染。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.rmsl",
+      "context": "神器属性描述",
+      "en": "It protects you from missiles.",
+      "zh": "它能保护你免受远程攻击。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.regeneration",
+      "context": "神器属性描述",
+      "en": "It increases your rate of health regeneration.",
+      "zh": "它能加快你的生命恢复速度。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.rcorr",
+      "context": "神器属性描述",
+      "en": "It protects you from acid and corrosion.",
+      "zh": "它能保护你免受酸液和腐蚀影响。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.rmut",
+      "context": "神器属性描述",
+      "en": "It protects you from mutation.",
+      "zh": "它能保护你免受变异影响。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.corrode",
+      "context": "神器属性描述",
+      "en": "It may corrode you when you take damage.",
+      "zh": "你受到伤害时，它可能会使你被腐蚀。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.drain",
+      "context": "神器属性描述",
+      "en": "It drains your maximum health when unequipped.",
+      "zh": "卸下它时会削减你的生命上限。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.slow",
+      "context": "神器属性描述",
+      "en": "It may slow you when you take damage.",
+      "zh": "你受到伤害时，它可能会使你减速。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.fragile",
+      "context": "神器属性描述",
+      "en": "It will be destroyed if unequipped.",
+      "zh": "卸下它时会被摧毁。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.harm",
+      "context": "神器属性描述",
+      "en": "It increases damage dealt and taken.",
+      "zh": "它会同时提高你造成和承受的伤害。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.rampaging",
+      "context": "神器属性描述",
+      "en": "It causes one to take an extra step when moving towards enemies, briefly stunning them if this results in an attack.",
+      "zh": "朝敌人移动时，它会让你多迈一步；若因此发动攻击，还会短暂震慑敌人。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.archmagi",
+      "context": "神器属性描述",
+      "en": "It increases the power of your magical spells.",
+      "zh": "它能提高你的法术威力。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.enhance_conj",
+      "context": "神器属性描述",
+      "en": "It increases the power of your Conjurations spells.",
+      "zh": "它能提高你的塑能法术威力。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.enhance_hexes",
+      "context": "神器属性描述",
+      "en": "It increases the power of your Hexes spells.",
+      "zh": "它能提高你的咒法术威力。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.enhance_summ",
+      "context": "神器属性描述",
+      "en": "It increases the power of your Summonings spells.",
+      "zh": "它能提高你的召唤法术威力。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.enhance_necro",
+      "context": "神器属性描述",
+      "en": "It increases the power of your Necromancy spells.",
+      "zh": "它能提高你的死灵法术威力。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.enhance_tloc",
+      "context": "神器属性描述",
+      "en": "It increases the power of your Translocations spells.",
+      "zh": "它能提高你的空间转移法术威力。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.enhance_fire",
+      "context": "神器属性描述",
+      "en": "It increases the power of your Fire spells.",
+      "zh": "它能提高你的火焰法术威力。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.enhance_ice",
+      "context": "神器属性描述",
+      "en": "It increases the power of your Ice spells.",
+      "zh": "它能提高你的冰系法术威力。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.enhance_air",
+      "context": "神器属性描述",
+      "en": "It increases the power of your Air spells.",
+      "zh": "它能提高你的空气法术威力。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.enhance_earth",
+      "context": "神器属性描述",
+      "en": "It increases the power of your Earth spells.",
+      "zh": "它能提高你的土系法术威力。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.enhance_alchemy",
+      "context": "神器属性描述",
+      "en": "It increases the power of your Alchemy spells.",
+      "zh": "它能提高你的炼金术法术威力。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.enhance_forgecraft",
+      "context": "神器属性描述",
+      "en": "It increases the power of your Forgecraft spells.",
+      "zh": "它能提高你的锻造术法术威力。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.acrobat",
+      "context": "神器属性描述",
+      "en": "It increases your evasion after moving or waiting.",
+      "zh": "移动或等待后，它会提高你的闪避。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.mana_regeneration",
+      "context": "神器属性描述",
+      "en": "It increases your rate of magic regeneration.",
+      "zh": "它能加快你的魔力恢复速度。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.wizardry",
+      "context": "神器属性描述",
+      "en": "It increases the success rate of your magical spells.",
+      "zh": "它能提高法术成功率。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.silence",
+      "context": "神器属性描述",
+      "en": "It may silence you when you take damage.",
+      "zh": "你受到伤害时，它可能会使你陷入沉默。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.property.bane",
+      "context": "神器属性描述",
+      "en": "It inflicts you with a random bane when you equip it.",
+      "zh": "装备它时会随机给你施加一种灾祸。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_all_artp_desc_data exact static descriptor"
+      },
+      "source_context": "detail.artifact.property"
+    },
+    {
+      "id": "artifact.jewel.01",
+      "context": "神器饰品基础能力描述",
+      "en": "It sustains your strength, intelligence and dexterity.",
+      "zh": "它能维持你的力量、智力和敏捷。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.jewel.02",
+      "context": "神器饰品基础能力描述",
+      "en": "It may teleport you next to monsters.",
+      "zh": "它可能将你传送到怪物身旁。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.jewel.03",
+      "context": "神器饰品基础能力描述",
+      "en": "It can be evoked for teleport control.",
+      "zh": "它可以主动发动以控制传送。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.jewel.04",
+      "context": "神器饰品基础能力描述",
+      "en": "It allows you to eat raw meat even when not hungry.",
+      "zh": "即使不饿，它也允许你食用生肉。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.jewel.05",
+      "context": "神器饰品基础能力描述",
+      "en": "It increases damage dealt and taken.",
+      "zh": "它会同时提高你造成和承受的伤害。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.jewel.06",
+      "context": "神器饰品基础能力描述",
+      "en": "It protects your inventory from destruction.",
+      "zh": "它能保护你的物品栏免遭摧毁。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.jewel.07",
+      "context": "神器饰品基础能力描述",
+      "en": "It allows you to control your flight when levitating.",
+      "zh": "它能让你在悬浮时控制飞行。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.jewel.08",
+      "context": "神器饰品基础能力描述",
+      "en": "It reduces the accuracy of all your attacks.",
+      "zh": "它会降低你所有攻击的命中率。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.jewel.09",
+      "context": "神器饰品基础能力描述",
+      "en": "It causes incoming damage to be divided between your reserves of health and magic.",
+      "zh": "受到伤害时，它会将伤害分摊到你的生命和魔力储备。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.jewel.10",
+      "context": "神器饰品基础能力描述",
+      "en": "It allows you to gain divine favour quickly.",
+      "zh": "它能让你迅速获得神恩。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.jewel.11",
+      "context": "神器饰品基础能力描述",
+      "en": "It reflects blocked missile attacks.",
+      "zh": "它会反弹被格挡的远程攻击。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.jewel.12",
+      "context": "神器饰品基础能力描述",
+      "en": "It improves your skill with shapeshifting (+5).",
+      "zh": "它会使你的变形术技能提高（+5）。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.jewel.13",
+      "context": "神器饰品基础能力描述",
+      "en": "It restores some MP whenever you drink a potion and also enhances your alchemy spells.",
+      "zh": "每当你喝下药水，它都会恢复一些魔力，并强化你的炼金术法术。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.jewel.14",
+      "context": "神器饰品基础能力描述",
+      "en": "It reduces the duration of hostile enchantments and decays magical contamination more quickly.",
+      "zh": "它会缩短敌对附魔的持续时间，并加快魔法污染消退。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_jewellery_base_ability_description exact static literal"
+      },
+      "source_context": "detail.artifact.jewel"
+    },
+    {
+      "id": "artifact.unrand.source.001",
+      "context": "神器固定特效说明",
+      "en": "*Dazzle:   It may blind adjacent enemies who miss an attack against the wearer in melee combat.",
+      "zh": "*炫目:   它可能使在近战中攻击穿戴者失手的相邻敌人致盲。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.002",
+      "context": "神器固定特效说明",
+      "en": "*Dream:    It absorbs a single lethal wound into itself, holding its wearer just short of death and releasing dream-creatures to guard them.",
+      "zh": "*梦境：    它自身吸收一次致命伤，使穿戴者勉强存活，并释放梦境生物来保护他们。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.003",
+      "context": "神器固定特效说明",
+      "en": "*Englaciate: It radiates cold, occasionally slowing all nearby creatures who are not resistant to cold.",
+      "zh": "*冰封: 它散发寒气，偶尔减慢附近所有不抗寒的生物。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.004",
+      "context": "神器固定特效说明",
+      "en": "*Rats:     When the wearer is hurt, rats may emerge from it to assist them.",
+      "zh": "*鼠群:     当穿戴者受伤时，老鼠可能会从中出现来协助其战斗。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.005",
+      "context": "神器固定特效说明",
+      "en": "*Thunder:  It occasionally creates storm clouds above nearby enemies.\nrCloud:    It grants its wearer immunity to clouds.",
+      "zh": "*雷霆：  它偶尔会在附近敌人上方制造风暴云。\n免疫云雾：    它使穿戴者免疫云雾。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.006",
+      "context": "神器固定特效说明",
+      "en": "*Victory:  When the wearer kills a threatening monster, it has a chance to gain +1 AC, +1 Slay, and +1 Int, capping at +7. When the wearer uses a scroll or a potion with a hostile monster in sight, its bonuses reset to +0. Unequipping it also resets its bonuses to +0.",
+      "zh": "*胜利：  当穿戴者杀死有威胁的怪物时，它有机会获得 +1 AC、+1 斩杀和 +1 智力，上限为 +7。当穿戴者在有敌意怪物在视野内时使用卷轴或药水，其加值重置为 +0。卸下它也会将其加值重置为 +0。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.007",
+      "context": "神器固定特效说明",
+      "en": "+Damnation: It grants the ability to hurl damnation at the cost of health and magic, with strength depending on Evocations skill.",
+      "zh": "+天谴：以生命和魔力为代价获得投掷天谴的能力，威力取决于唤灵术技能。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.008",
+      "context": "神器固定特效说明",
+      "en": "Acc+∞:     It never misses its target.",
+      "zh": "命中+∞:    它绝不会未命中目标。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.009",
+      "context": "神器固定特效说明",
+      "en": "Anguish:   It makes its victims' attacks reflect back on them.",
+      "zh": "苦痛：   它使其受害者的攻击反弹回自身。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.010",
+      "context": "神器固定特效说明",
+      "en": "Avatar's Aegis: It grants the wearer a chance to resist fire, cold, poison, electricity, acid, and negative energy.",
+      "zh": "化身神盾： 它使穿戴者有机会抵抗火、冰、毒、电、酸和负能量。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.011",
+      "context": "神器固定特效说明",
+      "en": "Backblast: When fired, it often launches its wielder backwards.",
+      "zh": "反冲：开火时常常将持用者向后弹飞。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.012",
+      "context": "神器固定特效说明",
+      "en": "Battle: It summons a battlesphere in combat, with strength depending on Conjurations skill.\nDestructive: It enhances your destructive magic, and weakens non-destructive magic.",
+      "zh": "战斗： 它在战斗中召唤一个战斗之球，强度取决于咒法技能。\n毁灭： 它增强你的毁灭系魔法，削弱非毁灭系魔法。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.013",
+      "context": "神器固定特效说明",
+      "en": "Bear:      Going berserk makes the wearer exceptionally tough, and they are slowed for a shorter time afterward.",
+      "zh": "熊:      进入狂暴状态会使穿戴者变得格外坚韧，且之后被减速的时间更短。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.014",
+      "context": "神器固定特效说明",
+      "en": "Brill:     It increases the power of your magical spells and halves their MP cost (rounding up).\nWill-∞:    It reduces your willpower to zero.",
+      "zh": "辉耀:     它提升你法术的威力，并使其魔力消耗减半（向上取整）。\n意志-∞:    它使你的意志力降为零。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.015",
+      "context": "神器固定特效说明",
+      "en": "Chaos Arc: It occasionally unleashes arcs of chaos on nearby creatures upon striking a foe.",
+      "zh": "混沌弧光：击中敌人时偶尔向附近生物释放混沌弧光。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.016",
+      "context": "神器固定特效说明",
+      "en": "Corpsefed: It gathers nearby corpses to temporarily increase the armour it provides.\nrMiasma:   It protects you from foul pestilence.",
+      "zh": "食尸： 它收集附近的尸体，暂时提高它提供的护甲值。\n免疫瘴气：   它保护你免受污秽瘟疫的侵害。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.017",
+      "context": "神器固定特效说明",
+      "en": "Coup de Grace: It may instantly kill foes which have little health.",
+      "zh": "致命一击： 它可能立即杀死生命值低的敌人。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.018",
+      "context": "神器固定特效说明",
+      "en": "Curare:    It occasionally inflicts asphyxiating poison on those it strikes, dealing poison damage and causing slowness.",
+      "zh": "箭毒:    它偶尔会使击中的目标中窒息性毒素，造成毒素伤害并使其减速。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.019",
+      "context": "神器固定特效说明",
+      "en": "Curses:    It inflicts powerful necromantic curses on any living foe it strikes.",
+      "zh": "诅咒：击中任何活物时施加强大的死灵诅咒。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.020",
+      "context": "神器固定特效说明",
+      "en": "Damnation: Any ammunition fired from it explodes in a burst of damnation on striking a foe, dealing damage which bypasses armour.",
+      "zh": "天罚: 它射出的任何弹药在击中敌人时都会爆发出天罚之爆，造成无视护甲的伤害。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.021",
+      "context": "神器固定特效说明",
+      "en": "Dark:      It shrouds the wearer in darkness, reducing the range at which they can see and be seen by others.",
+      "zh": "黑暗:      它将穿戴者笼罩于黑暗之中，缩短其视野及被他人看见的距离。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.022",
+      "context": "神器固定特效说明",
+      "en": "Deathbane: It inflicts significantly more damage against the undead.",
+      "zh": "诛亡: 它对亡灵造成显著更高的伤害。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.023",
+      "context": "神器固定特效说明",
+      "en": "Decimate: It inflicts additional damage proportional to its victim's maximum health.",
+      "zh": "屠戮: 它造成的额外伤害与受害者的最大生命值成正比。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.024",
+      "context": "神器固定特效说明",
+      "en": "Demonic:   It occasionally summons demons to assist the wielder when it strikes in combat.",
+      "zh": "恶魔：   它在战斗中命中敌人时偶尔会召唤恶魔协助持用者。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.025",
+      "context": "神器固定特效说明",
+      "en": "Detect:    It allows the wearer to sense nearby creatures.\nStab+:     It allows the wearer to make particularly effective stabbing attacks against helpless or unaware enemies with any melee weapon.",
+      "zh": "侦测:    它使穿戴者能感知附近的生物。\n刺击+:     它使穿戴者能用任何近战武器对无力反抗或未察觉的敌人进行特别有效的刺击。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.026",
+      "context": "神器固定特效说明",
+      "en": "Disarm:    It may disarm weapon-wielding foes when striking them, dealing extra damage in the process.",
+      "zh": "缴械:    它在击中持有武器的敌人时可能将其缴械，并在此过程中造成额外伤害。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.027",
+      "context": "神器固定特效说明",
+      "en": "Discharge: It occasionally unleashes powerful arcs of lightning upon striking a foe. These may arc to other adjacent creatures (including the wielder, but dealing reduced damage to them) before grounding out.",
+      "zh": "放电： 它在命中敌人时偶尔释放强力的闪电弧。这些闪电弧可能跳到其他相邻生物身上（包括持用者，但对其伤害降低），然后接地消散。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.028",
+      "context": "神器固定特效说明",
+      "en": "Disrupt:   It unleashes wild and unpredictable magical effects upon striking a wizard or a creature with magical abilities.",
+      "zh": "干扰：   它在命中法师或具有魔法能力的生物时释放狂野而不可预测的魔法效果。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.029",
+      "context": "神器固定特效说明",
+      "en": "Dragonpray: It occasionally summons a dragon when using Invocations with hostile monsters in sight. Chance is 10% + twice the piety cost of the ability used.",
+      "zh": "祈龙: 当你在敌对怪物视野内使用祈祷时，偶尔会召唤一条龙。几率为10% + 所用能力虔诚消耗的两倍。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.030",
+      "context": "神器固定特效说明",
+      "en": "Ele:       It enhances your fire, ice, earth and air magic. If skilled in Evocations, you can discharge powerful blasts of elemental energy when striking with it.",
+      "zh": "元素:      它增强你的火焰、冰霜、大地和空气魔法。若你擅长唤起术，用其攻击时可以释放强大的元素能量冲击。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.031",
+      "context": "神器固定特效说明",
+      "en": "Envenom: If the wielder is skilled in Evocations, they can envenom those struck by it, dealing poison damage which bypasses armour.",
+      "zh": "淬毒：若持有者精通唤灵术，便能使被击中者中毒，造成无视护甲的毒素伤害。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.032",
+      "context": "神器固定特效说明",
+      "en": "Evervamp:  It heals its wielder for a portion of the damage dealt every time it strikes a living foe.",
+      "zh": "永久吸血：每次击中活物时，按造成伤害的一部分治疗持有者。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.033",
+      "context": "神器固定特效说明",
+      "en": "Execute:   It may instantly slay those it strikes, especially weaker foes.",
+      "zh": "处决：可能瞬间杀死被击中者，尤其是较弱的敌人。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.034",
+      "context": "神器固定特效说明",
+      "en": "Flames:    It surrounds you with flame clouds.\nrFlCloud:  It grants immunity to flame clouds.",
+      "zh": "烈焰:    它用火焰云环绕你。\n火云抗性:  它使你免疫火焰云。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.035",
+      "context": "神器固定特效说明",
+      "en": "Freeze:    It freezes victims, dealing an additional one-quarter of any damage that pierces defenders' armour. It may also slow down cold-blooded creatures.\nRev:       It becomes more effective when it hits something. This effect fades over time.",
+      "zh": "冰冻：    它冻结受害者，对任何穿透防御者护甲的伤害额外造成四分之一伤害。它还可能减慢冷血生物的速度。\n渐强：       它在命中某物时变得更有效。此效果会随时间消退。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.036",
+      "context": "神器固定特效说明",
+      "en": "Freezing Cloud: It occasionally leaves clouds of freezing vapour upon striking a foe, and grants immunity to clouds of freezing vapour.",
+      "zh": "冰冻云雾： 它在命中敌人时偶尔留下冰冻蒸汽云，并使穿戴者免疫冰冻蒸汽云。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.037",
+      "context": "神器固定特效说明",
+      "en": "Fury:      It extends the wearer's berserk rage when killing foes.",
+      "zh": "狂怒:      它会在击杀敌人时延长穿戴者的狂暴状态。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.038",
+      "context": "神器固定特效说明",
+      "en": "Gadgeteer:   Your evocable items recharge 30% faster and wands have a 30% chance to not spend a charge.\nWandboost:   Your wands are more powerful.",
+      "zh": "发明家：   你的可激发物品充能速度加快 30%，魔杖有 30% 几率不消耗充能。\n魔杖强化：   你的魔杖更强。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.039",
+      "context": "神器固定特效说明",
+      "en": "Halo:      It grants its wielder a halo, revealing invisible creatures and increasing accuracy against all within it other than the wielder.",
+      "zh": "光环:      它赋予持用者一道光环，能揭示隐形生物，并提升对光环范围内除持用者外所有目标的命中率。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.040",
+      "context": "神器固定特效说明",
+      "en": "Hellfire Court: It may summon demons of flame and damnation when striking foes.",
+      "zh": "地狱火廷：击中敌人时可能召唤火焰与天谴的恶魔。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.041",
+      "context": "神器固定特效说明",
+      "en": "Hellfire:  It temporarily reduces the fire resistance of those it strikes.",
+      "zh": "地狱火：暂时降低被击中者的火焰抗性。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.042",
+      "context": "神器固定特效说明",
+      "en": "ID++:      It heals its wearer when they drink unknown potions, and restores their MP when they read unknown scrolls.",
+      "zh": "鉴定++：      当穿戴者饮用未知药水时治疗他们，并在阅读未知卷轴时恢复其魔力。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.043",
+      "context": "神器固定特效说明",
+      "en": "Immolate:  It fills those it strikes with an explosive inner flame.",
+      "zh": "内燃：  它使被击中者充满爆炸性的内燃火焰。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.044",
+      "context": "神器固定特效说明",
+      "en": "Inacc:     It reduces the accuracy of your attacks and spells.",
+      "zh": "失准:     它降低你攻击和法术的命中率。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.045",
+      "context": "神器固定特效说明",
+      "en": "Infuse+∞:  It empowers its wearer's blows with all of their magic.\nVampMP:    Blows struck in melee replenish the wearer's magic.",
+      "zh": "注魔+∞：  它用持用者的全部魔力强化其打击。\n吸魔：    近战命中会补充持用者的魔力。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.046",
+      "context": "神器固定特效说明",
+      "en": "Inspire:   When you summon or create an ally, it gains Regeneration.\nAmulet+:   You can equip an additional amulet.",
+      "zh": "鼓舞：   当你召唤或创造盟友时，它获得再生。\n护符+：   你可以额外装备一个护符。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.047",
+      "context": "神器固定特效说明",
+      "en": "Invo=14:   It sets your Invocations skill to 14.\nEvo=0:    It sets your Evocations skill to 0.",
+      "zh": "Invo=14：   将你的祈祷技能设为 14。\nEvo=0：    将你的唤能技能设为 0。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.048",
+      "context": "神器固定特效说明",
+      "en": "It causes slowness and exhaustion when equipped.\nIt extends the wielder's berserk rage when killing foes.",
+      "zh": "装备时会引发迟缓与疲惫。\n击杀敌人时会延长持有者的狂暴状态。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.049",
+      "context": "神器固定特效说明",
+      "en": "It massively reduces your stealth.\nIt interferes with translocations, delaying teleports.\nCharlatan: It boosts your other skills by 20% of your base Evocations skill.",
+      "zh": "它大幅降低你的隐匿。\n它干扰传送，延缓传送效果。\n骗子：它按你基础唤能技能的 20% 提升你的其他技能。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.050",
+      "context": "神器固定特效说明",
+      "en": "Knockback: It sometimes drives back enemies it hits.",
+      "zh": "击退：有时会击退命中的敌人。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.051",
+      "context": "神器固定特效说明",
+      "en": "Loud:      It is deafeningly noisy when blocking attacks.",
+      "zh": "喧闹:      它在格挡攻击时发出震耳欲聋的噪音。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.052",
+      "context": "神器固定特效说明",
+      "en": "Majesty:   You are bathed in light that prevents you from turning invisible. Whenever you enter a new floor, you announce yourself to nearby enemies and refuse to leave the floor again for some time.\nRing++:   You can equip two additional rings.",
+      "zh": "威严：   你沐浴在光芒中，无法隐身。每当你进入新楼层，你会向附近敌人宣告自己的存在，并在一段时间内拒绝再次离开该楼层。\n戒指++：   你可以额外装备两枚戒指。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.053",
+      "context": "神器固定特效说明",
+      "en": "Manifold Assault: It sometimes launches melee attacks against multiple visible enemies.",
+      "zh": "多重攻击： 它有时会对多个可见敌人发动近战攻击。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.054",
+      "context": "神器固定特效说明",
+      "en": "Meekguard: It provides extra protection to wielders with little health.",
+      "zh": "怯守：为生命值较低的持用者提供额外防护。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.055",
+      "context": "神器固定特效说明",
+      "en": "Megavamp:  It occasionally heals its wielder for the full amount of damage dealt when it wounds a living foe.",
+      "zh": "超吸血：刺伤活物时，偶尔会按造成伤害的全额治疗持有者。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.056",
+      "context": "神器固定特效说明",
+      "en": "Mesm:      Its wielder is mesmerised by any visible foes, and it cannot be unequipped while any foes are visible.",
+      "zh": "迷惑：      其持用者会被任何可见敌人迷住，且在有任何敌人可见时无法卸下。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.057",
+      "context": "神器固定特效说明",
+      "en": "Mindtap:  Whenever a successful spell causes magic to be channelled from it, it may also drain additional magic from other enemies in sight, with a chance increasing with spell level.",
+      "zh": "心念汲取：每当成功施法引导其中的魔力时，也可能从视野内其他敌人身上吸取额外魔力，几率随法术等级提高。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.058",
+      "context": "神器固定特效说明",
+      "en": "Mutate:    It occasionally inflicts wild transmutation effects on those it strikes, inflicting malmutation or extra damage, or polymorphing them into a new form.",
+      "zh": "变异:    它偶尔会对被击中的目标施加剧烈的变形效果，造成恶变异或额外伤害，或将其变形为新的形态。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.059",
+      "context": "神器固定特效说明",
+      "en": "NoPotionHeal: Its wearer cannot be healed by potions.",
+      "zh": "禁药水治疗： 其穿戴者无法被药水治疗。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.060",
+      "context": "神器固定特效说明",
+      "en": "Omnireflect: It can block and reflect piercing ranged attacks and magical attacks against the wielder's willpower.",
+      "zh": "全能反射： 它能格挡并反射穿刺远程攻击和针对持用者意志力的魔法攻击。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.061",
+      "context": "神器固定特效说明",
+      "en": "Penet:     Any ammunition fired by it passes through the targets it hits, potentially hitting all targets in its path until it reaches maximum range.",
+      "zh": "穿透:     它射出的任何弹药都会穿过命中的目标，可能在达到最大射程前击中路径上的所有目标。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.062",
+      "context": "神器固定特效说明",
+      "en": "Poleaxe:   It uses either Axes or Polearms skill, whichever is higher.",
+      "zh": "长柄斧：   使用斧类或长柄武器技能中较高者。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.063",
+      "context": "神器固定特效说明",
+      "en": "PotionHeal*2: Potions heal its wearer twice as much.",
+      "zh": "药水治疗*2： 药水对其穿戴者的治疗效果翻倍。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.064",
+      "context": "神器固定特效说明",
+      "en": "Prune:     It halves damage taken while paralysed, petrified or unconscious.",
+      "zh": "修剪：麻痹、石化或昏迷时受到的伤害减半。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.065",
+      "context": "神器固定特效说明",
+      "en": "Quiet:      All noise in your surroundings is dampened.",
+      "zh": "寂静:      你周围的一切噪音都会被抑制。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.066",
+      "context": "神器固定特效说明",
+      "en": "Radiate: It can be activated via the 'a'bility menu to radiate toxic energy, with effectiveness depending on Evocations skill.\nAlch: It enhances your alchemy magic.\nrPois∞: It grants immunity to poison.",
+      "zh": "辐射：可通过 'a' 能力菜单激活，放射毒素能量，其效果取决于唤灵术技能。\n炼金：增强你的炼金魔法。\nrPois∞：使你免疫毒素。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.067",
+      "context": "神器固定特效说明",
+      "en": "Rampage+∞: When moving toward enemies, its wearer moves as far as possible, alerting their target en route.",
+      "zh": "横冲+∞： 当朝敌人移动时，其穿戴者会尽可能远地移动，并在途中惊动目标。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.068",
+      "context": "神器固定特效说明",
+      "en": "Reach+:    It can reach especially far, and its reaching attacks ignore other creatures in the way.",
+      "zh": "触及+：    它能触及特别远的目标，且其触及攻击无视途中的其他生物。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.069",
+      "context": "神器固定特效说明",
+      "en": "Reach-Cleave: It can be evoked to extend its reach, and strikes at all foes within reach, dealing less damage to those not targeted.",
+      "zh": "延展劈砍：可激发以延长攻击距离，并攻击范围内所有敌人，对非目标敌人造成较少伤害。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.070",
+      "context": "神器固定特效说明",
+      "en": "Reaping:   When you kill an enemy with your weapon, its spirit may be forced to fight for you.\nHat+:   You can equip an additional hat (on the skull).",
+      "zh": "收割：   当你用武器杀死敌人时，其灵魂可能被迫为你而战。\n头盔+：   你可以（在头骨上）额外装备一个头盔。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.071",
+      "context": "神器固定特效说明",
+      "en": "Ring+:   It enables you to equip an extra ring.",
+      "zh": "戒指+：   它使你能额外佩戴一枚戒指。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.072",
+      "context": "神器固定特效说明",
+      "en": "Riposte:   It allows the wearer to riposte with melee weapons, swiftly retaliating against missed or blocked melee attacks.",
+      "zh": "还击:   它使穿戴者能用近战武器进行还击，迅速反击落空或被格挡的近战攻击。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.073",
+      "context": "神器固定特效说明",
+      "en": "Shatter:   It releases a powerful concussive burst when it strikes, dealing extra damage to the target and all other creatures adjacent to them.",
+      "zh": "粉碎：   它在命中时释放强力的冲击波，对目标及其相邻的所有其他生物造成额外伤害。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.074",
+      "context": "神器固定特效说明",
+      "en": "Shock:     When it blocks an attack, it may electrocute the attacker. This works even against foes who are a short distance away.",
+      "zh": "电击：     当它格挡攻击时，可能电击攻击者。即使对距离稍远的敌人也有效。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.075",
+      "context": "神器固定特效说明",
+      "en": "Shroompunch:   The cloak sometimes lashes out at its wearer's enemies, inflicting confusion with its spores.\nGloves+:   Your cloak can equip an additional pair of gloves.",
+      "zh": "蘑菇拳：   斗篷有时会攻击穿戴者的敌人，用孢子使其陷入混乱。\n手套+：   你的斗篷可以额外装备一副手套。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.076",
+      "context": "神器固定特效说明",
+      "en": "Silver:    It inflicts extra damage upon those it strikes, and deals substantially increased damage to chaotic, mutated and magically transformed beings.",
+      "zh": "银：    它对被击中者造成额外伤害，并对混乱、变异和魔法转化的生物造成大幅提高的伤害。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.077",
+      "context": "神器固定特效说明",
+      "en": "Slay Drac: It inflicts extra damage against dragons and draconians.",
+      "zh": "屠龙: 它对龙和龙人造成额外伤害。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.078",
+      "context": "神器固定特效说明",
+      "en": "Slick:     Its wearer cannot be constricted, netted, webbed, or stopped by binding sigils.\nSlippery:  Its wearer slips away from damaging melee attacks, pulling the attacker onward.",
+      "zh": "滑溜：     穿戴者不会被缠绕、网缚、蛛网束缚或被束缚符文阻止。\n湿滑：  穿戴者可从伤害性近战攻击中滑开，并将攻击者向前拉。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.079",
+      "context": "神器固定特效说明",
+      "en": "Sonic Wave: It radiates damaging sonic waves as it strikes, especially in combat involving dangerous or numerous foes.",
+      "zh": "音波：攻击时会放射出伤害性的音波，尤其在面对危险或众多敌人的战斗中更是如此。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.080",
+      "context": "神器固定特效说明",
+      "en": "Spectral:  When it strikes, its spirit leaps out and fights alongside the wielder.",
+      "zh": "幽灵：命中时，其灵魂跃出并与持有者并肩作战。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.081",
+      "context": "神器固定特效说明",
+      "en": "Spellvamp: It heals its wielder for a portion of the damage dealt when they wound a living foe with it or with a spell, but its wielder's spells cost health as well as magical power.",
+      "zh": "法术吸血： 当持用者用它或用法术伤害活着的敌人时，它会按造成伤害的一部分治疗持用者，但持用者的法术消耗生命值和魔力。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.082",
+      "context": "神器固定特效说明",
+      "en": "Stab:      It is more effective when stabbing unaware enemies, sometimes treating them as though they were completely helpless.",
+      "zh": "刺击:      在刺击未察觉的敌人时更为有效，有时会将其视为完全无力反抗。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.083",
+      "context": "神器固定特效说明",
+      "en": "Steadfast: It prevents involuntary movement, except for blinking, teleportation, or banishment.",
+      "zh": "坚定：它阻止非自愿的移动，但闪烁、传送或放逐除外。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.084",
+      "context": "神器固定特效说明",
+      "en": "Swift:     It allows the wearer to cover ground more swiftly.",
+      "zh": "迅捷：     它使穿戴者能更迅速地移动。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.085",
+      "context": "神器固定特效说明",
+      "en": "Torment:   It occasionally torments all nearby living foes when it strikes in combat.",
+      "zh": "折磨：战斗中命中时偶尔折磨附近所有活物。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.086",
+      "context": "神器固定特效说明",
+      "en": "Umbra:     It surrounds you with an aura of shadow, increasing your stealth and reducing the accuracy of all others within it.",
+      "zh": "暗影：以阴影光环环绕你，提高你的潜行并降低光环内所有其他生物的命中。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.087",
+      "context": "神器固定特效说明",
+      "en": "Valiant:   It becomes more powerful as more dangerous foes come into view.",
+      "zh": "英勇：   视野内越危险的敌人越多，它就越强大。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.088",
+      "context": "神器固定特效说明",
+      "en": "Zealotry:  Whenever the wielder enters a berserk rage, their allies are berserked alongside them.",
+      "zh": "狂热：每当持有者进入狂暴状态，其盟友也随之狂暴。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    },
+    {
+      "id": "artifact.unrand.source.089",
+      "context": "神器固定特效说明",
+      "en": "rFlCloud:  It grants immunity to clouds of flame.",
+      "zh": "免疫火焰云雾：  它使穿戴者免疫火焰云雾。",
+      "params": {},
+      "source": {
+        "file": "art-data.txt",
+        "anchor": "DBRAND/DESCRIP complete fixed literal"
+      },
+      "source_context": "detail.artifact.unrand"
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "artifact.property.numeric",
+      "args": {
+        "stat": {
+          "type": "text",
+          "canonical": "AC",
+          "localized": "护甲"
+        },
+        "sign": {
+          "type": "text",
+          "canonical": "+",
+          "localized": "+"
+        },
+        "value": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "It affects your AC (+3).",
+      "zh": "它会影响你的护甲（+3）。"
+    },
+    {
+      "id": "artifact.property.numeric",
+      "args": {
+        "stat": {
+          "type": "text",
+          "canonical": "health",
+          "localized": "生命值"
+        },
+        "sign": {
+          "type": "text",
+          "canonical": "-",
+          "localized": "-"
+        },
+        "value": {
+          "type": "integer",
+          "canonical": "2",
+          "localized": "2"
+        }
+      },
+      "canonical": "It affects your health (-2).",
+      "zh": "它会影响你的生命值（-2）。"
+    },
+    {
+      "id": "artifact.property.resistance",
+      "args": {
+        "effect": {
+          "type": "text",
+          "canonical": "It greatly protects you from ",
+          "localized": "大幅保护你免受"
+        },
+        "resistance": {
+          "type": "text",
+          "canonical": "cold",
+          "localized": "寒冷伤害"
+        }
+      },
+      "canonical": "It greatly protects you from cold.",
+      "zh": "大幅保护你免受寒冷伤害。"
+    },
+    {
+      "id": "artifact.property.willpower",
+      "args": {
+        "degree": {
+          "type": "text",
+          "canonical": "greatly ",
+          "localized": "大幅"
+        },
+        "verb": {
+          "type": "text",
+          "canonical": "increases",
+          "localized": "提升"
+        }
+      },
+      "canonical": "It greatly increases your willpower.",
+      "zh": "它大幅提升你的意志。"
+    },
+    {
+      "id": "artifact.property.stealth",
+      "args": {
+        "effect": {
+          "type": "text",
+          "canonical": "much less",
+          "localized": "大幅降低"
+        }
+      },
+      "canonical": "It makes you much less stealthy.",
+      "zh": "它会大幅降低你的潜行能力。"
+    },
+    {
+      "id": "artifact.property.angry",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "50",
+          "localized": "50"
+        }
+      },
+      "canonical": "It berserks you when you make melee attacks (50% chance).",
+      "zh": "你进行近战攻击时有50%的几率陷入狂暴。"
+    },
+    {
+      "id": "artifact.property.electricity",
+      "args": {},
+      "canonical": "It insulates you from electricity.",
+      "zh": "它能使你免受电击。"
+    },
+    {
+      "id": "artifact.unrand.source.049",
+      "args": {},
+      "canonical": "It massively reduces your stealth.\nIt interferes with translocations, delaying teleports.\nCharlatan: It boosts your other skills by 20% of your base Evocations skill.",
+      "zh": "它大幅降低你的隐匿。\n它干扰传送，延缓传送效果。\n骗子：它按你基础唤能技能的 20% 提升你的其他技能。"
+    }
+  ]
+}

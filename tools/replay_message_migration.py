@@ -4,11 +4,14 @@ No crawl.mpr injection. The source saves are hashed before/after, never opened.
 """
 import hashlib,json,os,pathlib,shutil,subprocess,time
 home=pathlib.Path.home(); source=home/'.local/share/dcss-zh/0.34'
-base=pathlib.Path('/tmp/dcss-message-migration-4k');base.mkdir(exist_ok=True)
+save_source=pathlib.Path(os.environ.get('DCSS_QA_SAVES',str(source/'saves')))
+base=pathlib.Path(os.environ.get('DCSS_QA_OUT','/tmp/dcss-message-migration-4k'));base.mkdir(exist_ok=True)
+character=os.environ.get('DCSS_QA_NAME','Awigithro')
+binary=pathlib.Path(os.environ.get('DCSS_QA_BINARY',str(home/'Games/dcss-zh/crawl-tiles')))
 def hashes():
- return {str(p.relative_to(source/'saves')):hashlib.sha256(p.read_bytes()).hexdigest() for p in (source/'saves').rglob('*') if p.is_file()}
+ return {str(p.relative_to(save_source)):hashlib.sha256(p.read_bytes()).hexdigest() for p in save_source.rglob('*') if p.is_file()}
 before=hashes();results=[]
-cases=[('shop-selected','l&wiz\r$1000\r&\\a>a'),('level-five','l&wiz\rl5\r'),('combat','l&wiz\rmrat\r'+ '\t'*12),('equipment','l&wiz\riTaWa.....'),('weapon-detail','ib'),('skills','m'),('monster-detail','llgllllllx+v'),('manual-long','?k')]
+cases=[('hud','l'),('hud-wizard','l&wiz\r '),('spell-detail','l&wiz\r!Magic Dart\ryIa'),('armour-detail','ia'),('shop-examine','l&wiz\r$1000\r&\\a>!a'),('shop-selected','l&wiz\r$1000\r&\\a>a'),('level-five','l&wiz\rl5\r'),('combat','l&wiz\rmrat\r'+ '\t'*12),('equipment','l&wiz\riTaWa.....'),('weapon-detail','ib'),('skills','m'),('skills-help','m?'),('skills-description','m?a'),('skills-enhanced','m_'),('skills-general-help','m??'),('shop-confirm','l&wiz\r$1000\r&\\a>a\r'),('shop-purchased','l&wiz\r$1000\r&\\a>a\ry'),('shop-list','l&wiz\r$1000\r&\\a>a$\x1b$'),('monster-detail','llgllllllx+v'),('manual-long','?k')]
 if os.environ.get('DCSS_QA_SCENES'):
  cases=[c for c in cases if c[0] in os.environ['DCSS_QA_SCENES'].split(',')]
 x=subprocess.Popen(['Xvfb',':96','-screen','0','3840x2160x24','-nolisten','tcp'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
@@ -19,14 +22,31 @@ try:
   if tmp.exists():shutil.rmtree(tmp)
   tmp.mkdir()
   for folder in ('dat','docs'):(tmp/folder).symlink_to(home/'Games/dcss-zh/game'/folder,target_is_directory=True)
-  shutil.copytree(source/'saves',tmp/'saves')
+  shutil.copytree(save_source,tmp/'saves')
   rc=(source/'init.txt').read_text().replace(str(source/'saves'),str(tmp/'saves')).replace(str(source/'morgue'),str(tmp/'morgue'))
-  rc+='\nshow_more=false\n{\nlocal checked=false\nfunction ready()\nif not checked then checked=true; crawl.sendkeys('+json.dumps(keys)+'); end\nend\n}\n'
+  rc+='\nshow_more=false\n{\nlocal checked=false\nfunction ready()\nif not checked then checked=true; crawl.sendkeys('+json.dumps(keys).replace('\\u001b','\\027')+'); end\nend\n}\n'
   (tmp/'init.txt').write_text(rc)
-  env={**os.environ,'DISPLAY':':96','LC_ALL':'C','DCSS_LANG':'zh','DCSS_ZH_ID_TRACE':str(tmp/'ids.tsv'),'DCSS_ZH_ID_MISSING':str(tmp/'missing.tsv'),'DCSS_ZH_NAME_MISSING':str(tmp/'names.tsv'),'LD_LIBRARY_PATH':str(home/'Games/dcss-zh/game/lib')}
+  env={**os.environ,'DISPLAY':':96','LC_ALL':'C','DCSS_LANG':'zh','DCSS_ZH_FORBID_LEGACY':'1','DCSS_ZH_STRICT_SOURCE':'1','DCSS_ZH_TRACE':str(tmp/'legacy.jsonl'),'DCSS_ZH_BOUNDARY_TRACE':str(tmp/'boundaries.tsv'),'DCSS_ZH_MESSAGE_VALUES':str(tmp/'values.tsv'),'DCSS_ZH_ID_TRACE':str(tmp/'ids.tsv'),'DCSS_ZH_ID_MISSING':str(tmp/'missing.tsv'),'DCSS_ZH_NAME_MISSING':str(tmp/'names.tsv'),'LD_LIBRARY_PATH':str(home/'Games/dcss-zh/game/lib')}
   with (tmp/'run.log').open('w') as log:
-   p=subprocess.Popen([str(home/'Games/dcss-zh/crawl-tiles'),'-dir',str(tmp),'-rc',str(tmp/'init.txt'),'-name','Awigithro','-extra-opt-last','tile_skip_title=true'],cwd=home/'Games/dcss-zh/game',env=env,stdout=log,stderr=log)
-   time.sleep(9)
+   p=subprocess.Popen([str(binary),'-dir',str(tmp),'-rc',str(tmp/'init.txt'),'-name',character,'-extra-opt-last','tile_skip_title=true'],cwd=home/'Games/dcss-zh/game',env=env,stdout=log,stderr=log)
+   # Software rendering may take tens of seconds to finish loading at 4K.
+   # Wait for a real producer trace, then let its frame settle; a live splash
+   # screen is not evidence that the requested scenario was reached.
+   deadline=time.monotonic()+90
+   reached=False
+   while p.poll() is None and time.monotonic()<deadline:
+    wanted = ('hud.' if name.startswith('hud') else
+              'skill.menu' if name.startswith('skills') else
+              'detail.spell' if name=='spell-detail' else
+              'detail.item' if name in ('weapon-detail','armour-detail','shop-examine') else
+              'detail.monster' if name=='monster-detail' else
+              'shop.' if name.startswith('shop-') else '')
+    trace=(tmp/'boundaries.tsv').read_text() if (tmp/'boundaries.tsv').exists() else ''
+    if wanted and wanted in trace or not wanted and (tmp/'ids.tsv').exists():
+     reached=True
+     time.sleep(3)
+     break
+    time.sleep(.5)
    if name == 'level-five':
     for key in ('space', 's', 'space', 'space'):
      subprocess.run(['xdotool','key',key],env=env,check=True)
@@ -38,7 +58,7 @@ try:
     time.sleep(.5)
     subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-f','x11grab','-draw_mouse','0','-i',':96','-frames:v','1',str(base/'level-history.png')],env=env,check=True)
    read=lambda f:(tmp/f).read_text() if (tmp/f).exists() else ''
-   results.append({'scene':name,'keys':keys,'running_at_capture':running,'id_trace':read('ids.tsv').splitlines(),'missing':read('missing.tsv').splitlines(),'names':read('names.tsv').splitlines(),'lua_error':'Lua error' in read('run.log')})
+   results.append({'scene':name,'keys':keys,'running_at_capture':running,'scene_reached':reached,'id_trace':read('ids.tsv').splitlines(),'boundaries':read('boundaries.tsv').splitlines(),'missing':read('missing.tsv').splitlines(),'values':read('values.tsv').splitlines(),'names':read('names.tsv').splitlines(),'legacy':read('legacy.jsonl').splitlines(),'lua_error':any(e in read('run.log') for e in ('Lua error','Legacy translation reached migrated boundary','Missing localization source:','terminate called', 'terminating due to', 'Invalid localization parameter', 'Invalid localization key', 'Lua 错误'))})
    if running:
     p.terminate()
     try:p.wait(timeout=5)
@@ -49,17 +69,29 @@ finally:
  (base/'results.json').write_text(json.dumps({'original_saves_unchanged':unchanged,'scenes':results},ensure_ascii=False,indent=2)+'\n')
  assert unchanged,'Original saves changed externally during test'
 expected={
+ 'hud':{'hud.experience.progress','hud.place.depth'},
+ 'hud-wizard':{'hud.experience.progress','hud.place.depth'},
+ 'skills':{'skill.menu.entry_name'},
+ 'skills-help':{'skill.menu.entry_name'},
+ 'skills-enhanced':{'skill.menu.default.aptitude'},
+ 'shop-confirm':{'shop.purchase.confirm'},
+ 'shop-list':{'shopping_list.title'},
+ 'shop-purchased':{'shop.purchase.confirm','shop.balance'},
  'shop-selected':{'shop.balance','shop_gold_after_purchase','shop.help.sort'},
  'level-five':{'level_reached'},
  'combat':{'log.combat.player_hit','log.combat.monster_hit','log.combat.player_miss'},
  'equipment':{'equip_start','equip_continue','equip_finish'},
+ 'spell-detail':{'spell.level'},
  'weapon-detail':{'item.weapon.base_stats','item.weapon.attack_delay_and_minimum'},
  'monster-detail':{'monster.hit_chance','target.hit_chance.verbose'},
 }
 for result in results:
- assert result['running_at_capture'] and not result['lua_error'],result['scene']
+ assert result['scene_reached'] and result['running_at_capture'] and not result['lua_error'],result['scene']
  ids={line.split('\t')[0] for line in result['id_trace']}
  assert expected.get(result['scene'],set()) <= ids,(result['scene'],ids)
- if result['scene'] in ('combat','equipment','weapon-detail'):
+ if result['scene'].startswith('skills') or result['scene'] in ('combat','equipment','weapon-detail'):
   assert not result['missing'],(result['scene'],result['missing'])
+for result in results:
+ if result['scene']=='shop-purchased':
+  assert any(line.startswith('shop.balance\t') and '838' in line for line in result['values']), 'Balance after purchase must be 838'
 print(json.dumps({'original_saves_unchanged':unchanged,'scenes':len(results),'ids':len(set(line.split('\t')[0] for r in results for line in r['id_trace']))}))

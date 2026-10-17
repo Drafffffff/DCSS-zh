@@ -68,7 +68,9 @@ void MessageRegion::render()
         coord_def min_pos(sx, sy);
         coord_def max_pos(ex, ey);
         // these hover strings never use the last line
-        formatted_string text = m_font->split(formatted_string::parse_string(m_alt_text),
+        formatted_string text = m_font->split(m_alt_text_pretranslated
+                ? formatted_string::parse_string_raw(m_alt_text)
+                : formatted_string::parse_string(m_alt_text),
                 ex-sx-2*ox, ey-sy-2*oy-m_font->char_height());
         if (ends_with(text, ".."))
             text = text.substr_bytes(0, text.tostring().find_last_of('\n')) + "\n...";

@@ -1,0 +1,842 @@
+{
+  "model": "Luna",
+  "purpose": "DCSS skill menu complete source-level message catalogue. All Chinese UI templates are selected before rendering; skill names and enum labels are exact semantic atoms.",
+  "messages": [
+    {
+      "id": "skill.menu.button.az",
+      "context": "显示技能说明的按钮。",
+      "source": "SkillMenu::refresh_button_row",
+      "params": {},
+      "en": "[<yellow>a</yellow>-<yellow>z</yellow>] skill descriptions",
+      "zh": "[<yellow>a</yellow>-<yellow>z</yellow>] 技能说明"
+    },
+    {
+      "id": "skill.menu.button.back",
+      "context": "技能面板帮助按钮状态；颜色标记保留结构，正文完整本地化。",
+      "source": "SkillMenu::refresh_button_row",
+      "params": {},
+      "en": "[<yellow>?</yellow>] Back to skill selection",
+      "zh": "[<yellow>?</yellow>] 返回技能选择"
+    },
+    {
+      "id": "skill.menu.button.clear_all",
+      "context": "清除所有目标按钮。",
+      "source": "SkillMenu::refresh_button_row",
+      "params": {},
+      "en": "[<yellow>-</yellow>] clear all targets",
+      "zh": "[<yellow>-</yellow>] 清除所有目标"
+    },
+    {
+      "id": "skill.menu.button.clear_selected",
+      "context": "清除单项目标按钮。",
+      "source": "SkillMenu::refresh_button_row",
+      "params": {},
+      "en": "[<yellow>-</yellow>] clear selected target",
+      "zh": "[<yellow>-</yellow>] 清除所选目标"
+    },
+    {
+      "id": "skill.menu.button.help",
+      "context": "技能面板帮助按钮状态；颜色标记保留结构，正文完整本地化。",
+      "source": "SkillMenu::refresh_button_row",
+      "params": {},
+      "en": "[<yellow>?</yellow>] Help",
+      "zh": "[<yellow>?</yellow>] 帮助"
+    },
+    {
+      "id": "skill.menu.button.help_highlighted",
+      "context": "技能面板帮助按钮状态；颜色标记保留结构，正文完整本地化。",
+      "source": "SkillMenu::refresh_button_row",
+      "params": {},
+      "en": "[<yellow>?</yellow>] <w>Help</w>",
+      "zh": "[<yellow>?</yellow>] <w>帮助</w>"
+    },
+    {
+      "id": "skill.menu.button.help_simple",
+      "context": "技能面板帮助按钮状态；颜色标记保留结构，正文完整本地化。",
+      "source": "SkillMenu::refresh_button_row",
+      "params": {},
+      "en": "[<yellow>?</yellow>] Skill descriptions",
+      "zh": "[<yellow>?</yellow>] 技能说明"
+    },
+    {
+      "id": "skill.menu.button.set_target",
+      "context": "设定单项目标按钮。",
+      "source": "SkillMenu::refresh_button_row",
+      "params": {},
+      "en": "[<yellow>=</yellow>] set a skill target",
+      "zh": "[<yellow>=</yellow>] 设定技能目标"
+    },
+    {
+      "id": "skill.menu.button.set_target_az",
+      "context": "为选中技能设定目标。",
+      "source": "SkillMenu::refresh_button_row",
+      "params": {},
+      "en": "[<yellow>a</yellow>-<yellow>z</yellow>] set skill target",
+      "zh": "[<yellow>a</yellow>-<yellow>z</yellow>] 设定技能目标"
+    },
+    {
+      "id": "skill.menu.default.aptitude",
+      "context": "种族适性说明。",
+      "source": "SkillMenu::set_default_help",
+      "params": {},
+      "en": "The species aptitude is in <white>white</white>. ",
+      "zh": "种族适性以<white>白色</white>显示。"
+    },
+    {
+      "id": "skill.menu.default.experience",
+      "context": "使用经验药剂后的技能分配帮助。",
+      "source": "SkillMenu::set_default_help",
+      "params": {},
+      "en": "Select the skills you want to be trained. The chosen skills will be raised to the level shown in <cyan>cyan</cyan>.",
+      "zh": "选择要训练的技能。所选技能将提升至<cyan>青色</cyan>显示的等级。"
+    },
+    {
+      "id": "skill.menu.default.manual",
+      "context": "技能手册加成说明。",
+      "source": "SkillMenu::set_default_help",
+      "params": {},
+      "en": "Bonus from skill manuals is in <lightred>red</lightred>. ",
+      "zh": "技能手册带来的加成以<lightred>红色</lightred>显示。"
+    },
+    {
+      "id": "skill.menu.default.normal",
+      "context": "技能面板的常规帮助组合。",
+      "source": "SkillMenu::set_default_help",
+      "params": {
+        "view_hint": "text",
+        "level_hint": "text",
+        "manual_hint": "text"
+      },
+      "en": "{view_hint}{level_hint}{manual_hint}",
+      "zh": "{view_hint}{level_hint}{manual_hint}"
+    },
+    {
+      "id": "skill.menu.entry_name",
+      "context": "技能列表行名称，前缀保留训练标记和热键。 preserve source English for structural placeholders and key markup",
+      "source": "SkillMenuEntry::set_name",
+      "params": {
+        "prefix": "key",
+        "skill": "name"
+      },
+      "en": "{prefix} {skill}",
+      "zh": "{prefix} {skill}"
+    },
+    {
+      "id": "skill.menu.error.no_training",
+      "context": "未启用任何训练技能时的提示。",
+      "source": "SkillMenu::do_skill_enabled_check",
+      "params": {},
+      "en": "<lightred>You need to enable at least one skill.</lightred>",
+      "zh": "<lightred>你至少需要启用一项技能。</lightred>"
+    },
+    {
+      "id": "skill.menu.error.target_limit",
+      "context": "训练目标超过上限时的提示。",
+      "source": "SkillMenu::read_skill_target",
+      "params": {},
+      "en": "<lightred>Your training target must be 27 or below!</lightred>",
+      "zh": "<lightred>训练目标必须不高于27！</lightred>"
+    },
+    {
+      "id": "skill.menu.help.experience",
+      "context": "经验分配界面标题。",
+      "source": "SkillMenu::set_title",
+      "params": {},
+      "en": "You have gained great experience. Select the skills to train.",
+      "zh": "你获得了大量经验。请选择要训练的技能。"
+    },
+    {
+      "id": "skill.menu.help.general",
+      "context": "技能说明模式下的总体帮助。",
+      "source": "SkillMenu::help",
+      "params": {},
+      "en": "Press the letter of a skill to read its description.\nPress <w>? for a general explanation of skilling and the various toggles.",
+      "zh": "按下技能对应的字母可阅读其说明。\\n按<w>?查看技能训练及各项切换选项的总体说明。"
+    },
+    {
+      "id": "skill.menu.help.overview",
+      "context": "简单模式技能面板帮助。",
+      "source": "hints_skills_info wording in SkillMenu::set_default_help",
+      "params": {},
+      "en": "This screen shows the skill set of your character. The number next to the skill is your current level, the higher the better. <w>Training</w> displays training percentages. <w>Costs</w> displays relative training costs. <w>Targets</w> displays skill training targets. You can toggle which skills to train by pressing their slot letters. A <darkgrey>grey</darkgrey> skill will not be trained and ease the training of others.",
+      "zh": "此界面显示角色的技能。技能旁的数字是当前等级，数值越高越好。<w>训练比例</w>显示训练百分比，<w>消耗</w>显示相对训练消耗，<w>目标</w>显示技能训练目标。按下技能对应的栏位字母即可切换是否训练。<darkgrey>灰色</darkgrey>技能不会受训，并会让其他技能更容易提升。"
+    },
+    {
+      "id": "skill.menu.help.simple_cost",
+      "context": "简单模式训练消耗帮助。",
+      "source": "hints_skill_costs_info wording in SkillMenuSwitch::get_help",
+      "params": {},
+      "en": "The training cost (in <cyan>cyan</cyan>) shows the experience cost to raise the given skill one level, relative to the cost of raising an aptitude zero skill from level zero to level one.",
+      "zh": "训练消耗（以<cyan>青色</cyan>显示）表示该技能提升一级所需的经验，相对于将适性为零的技能从0级提升到1级的消耗。"
+    },
+    {
+      "id": "skill.menu.help.simple_descriptions",
+      "context": "简单模式技能描述帮助。",
+      "source": "hints_skills_description_info wording in SkillMenu::help",
+      "params": {},
+      "en": "This screen shows the skill set of your character. Press the letter of a skill to read its description, or press <w>?</w> again to return to the skill selection.",
+      "zh": "此界面显示角色的技能。按下技能对应的字母可阅读其说明；再次按<w>?</w>返回技能选择。"
+    },
+    {
+      "id": "skill.menu.help.simple_targets",
+      "context": "简单模式训练目标帮助。",
+      "source": "hints_skill_targets_info wording in SkillMenuSwitch::get_help",
+      "params": {},
+      "en": "Press the letter of a skill to set a training target. When the target is reached a message will appear and the training of the skill will be disabled.",
+      "zh": "按下技能对应的字母可设定训练目标。达到目标时会出现提示，并停用该技能的训练。"
+    },
+    {
+      "id": "skill.menu.help.simple_training",
+      "context": "简单模式训练比例帮助。",
+      "source": "hints_skill_training_info wording in SkillMenuSwitch::get_help",
+      "params": {},
+      "en": "The training percentage (in <brown>brown</brown>) shows the relative amount of the experience gained which will be used to train each skill. It is automatically set depending on which skills you have used recently. Disabling a skill sets the training rate to 0.",
+      "zh": "训练百分比（以<brown>棕色</brown>显示）表示获得的经验中用于训练各技能的相对比例。系统会根据你最近使用的技能自动分配比例。停用某项技能会将其训练比例设为0。"
+    },
+    {
+      "id": "skill.menu.state.all",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "all",
+      "zh": "全部"
+    },
+    {
+      "id": "skill.menu.state.auto",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "auto",
+      "zh": "自动"
+    },
+    {
+      "id": "skill.menu.state.base",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "base",
+      "zh": "基础"
+    },
+    {
+      "id": "skill.menu.state.cost",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "cost",
+      "zh": "消耗"
+    },
+    {
+      "id": "skill.menu.state.enhanced",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "enhanced",
+      "zh": "增强"
+    },
+    {
+      "id": "skill.menu.state.focus",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "focus",
+      "zh": "专注"
+    },
+    {
+      "id": "skill.menu.state.manual",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "manual",
+      "zh": "手动"
+    },
+    {
+      "id": "skill.menu.state.modified",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "modified",
+      "zh": "已调整"
+    },
+    {
+      "id": "skill.menu.state.new_level",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "new level",
+      "zh": "新等级"
+    },
+    {
+      "id": "skill.menu.state.points",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "points",
+      "zh": "经验点"
+    },
+    {
+      "id": "skill.menu.state.progress",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "progress",
+      "zh": "进度"
+    },
+    {
+      "id": "skill.menu.state.reduced",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "reduced",
+      "zh": "削弱"
+    },
+    {
+      "id": "skill.menu.state.targets",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "targets",
+      "zh": "训练目标"
+    },
+    {
+      "id": "skill.menu.state.train",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "train",
+      "zh": "训练"
+    },
+    {
+      "id": "skill.menu.state.training",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "training",
+      "zh": "训练比例"
+    },
+    {
+      "id": "skill.menu.state.useful",
+      "context": "技能切换控件中的状态标签。",
+      "source": "SkillMenuSwitch::get_name",
+      "params": {},
+      "en": "useful",
+      "zh": "有用"
+    },
+    {
+      "id": "skill.menu.switch",
+      "context": "技能界面状态切换控件的热键、选项和标签。",
+      "source": "SkillMenuSwitch::update",
+      "params": {
+        "hotkey": "key",
+        "options": "text",
+        "label": "text"
+      },
+      "en": " [<yellow>{hotkey}</yellow>] {options}{label}",
+      "zh": " [<yellow>{hotkey}</yellow>] {options}{label} "
+    },
+    {
+      "id": "skill.menu.switch_help.auto",
+      "context": "自动技能训练模式说明。",
+      "source": "SkillMenuSwitch::get_help",
+      "params": {},
+      "en": "In automatic mode, skills are trained as you use them.",
+      "zh": "自动模式下，你使用技能时会自动训练它们。"
+    },
+    {
+      "id": "skill.menu.switch_help.cost",
+      "context": "技能消耗视图说明（无手册加成）。",
+      "source": "SkillMenuSwitch::get_help",
+      "params": {},
+      "en": "The relative cost of raising each skill is in <cyan>cyan</cyan>.",
+      "zh": "提升各技能所需的相对经验消耗以<cyan>青色</cyan>显示。"
+    },
+    {
+      "id": "skill.menu.switch_help.cost_manual",
+      "context": "技能消耗视图说明（手册加成）。",
+      "source": "SkillMenuSwitch::get_help",
+      "params": {},
+      "en": "The relative cost of raising each skill is in <cyan>cyan</cyan> (or <lightred>red</lightred> if enhanced by a manual).",
+      "zh": "提升各技能所需的相对经验消耗以<cyan>青色</cyan>显示；受技能手册加成时以<lightred>红色</lightred>显示。"
+    },
+    {
+      "id": "skill.menu.switch_help.focus",
+      "context": "专注训练模式操作说明。",
+      "source": "SkillMenuSwitch::get_help",
+      "params": {},
+      "en": "Press the letter of a skill to cycle between <darkgrey>disabled</darkgrey> (<darkgrey>-</darkgrey>), enabled (+) and <white>focused</white> (<white>*</white>). Focused skills train twice as fast relative to others.",
+      "zh": "按下技能对应的字母，可在<darkgrey>停用</darkgrey>（<darkgrey>-</darkgrey>）、启用（+）和<white>专注</white>（<white>*</white>）之间切换。专注技能相较其他技能以双倍速度训练。"
+    },
+    {
+      "id": "skill.menu.switch_help.manual",
+      "context": "手动技能训练模式说明。",
+      "source": "SkillMenuSwitch::get_help",
+      "params": {},
+      "en": "In manual mode, experience is spread evenly across all activated skills.",
+      "zh": "手动模式下，经验会平均分配给所有已启用的技能。"
+    },
+    {
+      "id": "skill.menu.switch_help.practice",
+      "context": "简单训练模式操作说明。",
+      "source": "SkillMenuSwitch::get_help",
+      "params": {},
+      "en": "Press the letter of a skill to choose whether you want to <w>practise</w> it. Skills marked with '<darkgrey>-</darkgrey>' will not be trained.",
+      "zh": "按下技能对应的字母，选择是否<w>训练</w>该技能。标有'<darkgrey>-</darkgrey>'的技能不会获得训练。"
+    },
+    {
+      "id": "skill.menu.switch_help.progress",
+      "context": "技能进度视图说明。",
+      "source": "SkillMenuSwitch::get_help",
+      "params": {},
+      "en": "The percentage of the progress done before reaching next level is in <cyan>cyan</cyan>.",
+      "zh": "距离下一级的进度百分比以<cyan>青色</cyan>显示。"
+    },
+    {
+      "id": "skill.menu.switch_help.targets",
+      "context": "技能目标视图说明。",
+      "source": "SkillMenuSwitch::get_help",
+      "params": {},
+      "en": "The current training targets, if any.",
+      "zh": "显示当前设定的训练目标（如有）。"
+    },
+    {
+      "id": "skill.menu.switch_help.training",
+      "context": "技能训练视图说明。",
+      "source": "SkillMenuSwitch::get_help",
+      "params": {},
+      "en": "The percentage of incoming experience used to train each skill is in <brown>brown</brown>.",
+      "zh": "用于训练各技能的经验比例以<brown>棕色</brown>显示。"
+    },
+    {
+      "id": "skill.menu.switch_label.level",
+      "context": "技能切换控件固定标签。",
+      "source": "SkillMenuSwitch::update",
+      "params": {},
+      "en": "level",
+      "zh": "等级"
+    },
+    {
+      "id": "skill.menu.switch_label.mode",
+      "context": "技能切换控件的固定标签。",
+      "source": "SkillMenuSwitch::update",
+      "params": {},
+      "en": "mode",
+      "zh": "模式"
+    },
+    {
+      "id": "skill.menu.switch_label.skill",
+      "context": "技能切换控件的固定标签。",
+      "source": "SkillMenuSwitch::update",
+      "params": {},
+      "en": "skill",
+      "zh": "技能"
+    },
+    {
+      "id": "skill.menu.switch_label.skills",
+      "context": "技能切换控件的固定标签。",
+      "source": "SkillMenuSwitch::update",
+      "params": {},
+      "en": "skills",
+      "zh": "技能"
+    },
+    {
+      "id": "skill.menu.title.cost",
+      "context": "花费视图列标题。",
+      "source": "SkillMenuEntry::set_title",
+      "params": {},
+      "en": "Cost",
+      "zh": "消耗"
+    },
+    {
+      "id": "skill.menu.title.level",
+      "context": "等级列标题。",
+      "source": "SkillMenuEntry::set_title",
+      "params": {},
+      "en": "Level",
+      "zh": "等级"
+    },
+    {
+      "id": "skill.menu.title.new_level",
+      "context": "新等级视图列标题。",
+      "source": "SkillMenuEntry::set_title",
+      "params": {},
+      "en": "> New",
+      "zh": "> 新等级"
+    },
+    {
+      "id": "skill.menu.title.points",
+      "context": "经验点视图列标题。",
+      "source": "SkillMenuEntry::set_title",
+      "params": {},
+      "en": "Points",
+      "zh": "点数"
+    },
+    {
+      "id": "skill.menu.title.progress",
+      "context": "进度视图列标题。",
+      "source": "SkillMenuEntry::set_title",
+      "params": {},
+      "en": "Progr",
+      "zh": "进度"
+    },
+    {
+      "id": "skill.menu.title.skill",
+      "context": "技能列表列标题。",
+      "source": "SkillMenuEntry::set_title",
+      "params": {},
+      "en": "     Skill",
+      "zh": "     技能"
+    },
+    {
+      "id": "skill.menu.title.target",
+      "context": "目标视图列标题。",
+      "source": "SkillMenuEntry::set_title",
+      "params": {},
+      "en": "Target",
+      "zh": "目标"
+    },
+    {
+      "id": "skill.menu.title.train",
+      "context": "训练视图列标题。",
+      "source": "SkillMenuEntry::set_title",
+      "params": {},
+      "en": "Train",
+      "zh": "训练"
+    },
+    {
+      "id": "skill.name.air_magic",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Air Magic",
+      "zh": "空气魔法"
+    },
+    {
+      "id": "skill.name.alchemy",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Alchemy",
+      "zh": "炼金术"
+    },
+    {
+      "id": "skill.name.armour",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Armour",
+      "zh": "护甲"
+    },
+    {
+      "id": "skill.name.axes",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Axes",
+      "zh": "斧术"
+    },
+    {
+      "id": "skill.name.charms",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Charms",
+      "zh": "魅惑"
+    },
+    {
+      "id": "skill.name.conjurations",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Conjurations",
+      "zh": "咒法"
+    },
+    {
+      "id": "skill.name.crossbows",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Crossbows",
+      "zh": "弩"
+    },
+    {
+      "id": "skill.name.dodging",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Dodging",
+      "zh": "闪避"
+    },
+    {
+      "id": "skill.name.earth_magic",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Earth Magic",
+      "zh": "大地魔法"
+    },
+    {
+      "id": "skill.name.evocations",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Evocations",
+      "zh": "唤魔"
+    },
+    {
+      "id": "skill.name.fighting",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Fighting",
+      "zh": "战斗"
+    },
+    {
+      "id": "skill.name.fire_magic",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Fire Magic",
+      "zh": "火焰魔法"
+    },
+    {
+      "id": "skill.name.forgecraft",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Forgecraft",
+      "zh": "锻造法术"
+    },
+    {
+      "id": "skill.name.hexes",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Hexes",
+      "zh": "咒术"
+    },
+    {
+      "id": "skill.name.ice_magic",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Ice Magic",
+      "zh": "冰霜魔法"
+    },
+    {
+      "id": "skill.name.invocations",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Invocations",
+      "zh": "祈祷"
+    },
+    {
+      "id": "skill.name.long_blades",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Long Blades",
+      "zh": "长刃"
+    },
+    {
+      "id": "skill.name.maces_flails",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Maces & Flails",
+      "zh": "钉头锤与连枷"
+    },
+    {
+      "id": "skill.name.necromancy",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Necromancy",
+      "zh": "死灵术"
+    },
+    {
+      "id": "skill.name.polearms",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Polearms",
+      "zh": "长柄武器"
+    },
+    {
+      "id": "skill.name.ranged_weapons",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Ranged Weapons",
+      "zh": "远程武器"
+    },
+    {
+      "id": "skill.name.shapeshifting",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Shapeshifting",
+      "zh": "变形术"
+    },
+    {
+      "id": "skill.name.shields",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Shields",
+      "zh": "盾牌"
+    },
+    {
+      "id": "skill.name.short_blades",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Short Blades",
+      "zh": "短刃"
+    },
+    {
+      "id": "skill.name.slings",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Slings",
+      "zh": "投石索"
+    },
+    {
+      "id": "skill.name.spellcasting",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Spellcasting",
+      "zh": "施法"
+    },
+    {
+      "id": "skill.name.stabbing",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Stabbing",
+      "zh": "刺杀"
+    },
+    {
+      "id": "skill.name.staves",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Staves",
+      "zh": "棍棒"
+    },
+    {
+      "id": "skill.name.stealth",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Stealth",
+      "zh": "潜行"
+    },
+    {
+      "id": "skill.name.summonings",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Summonings",
+      "zh": "召唤"
+    },
+    {
+      "id": "skill.name.throwing",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Throwing",
+      "zh": "投掷"
+    },
+    {
+      "id": "skill.name.translocations",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Translocations",
+      "zh": "空间转移"
+    },
+    {
+      "id": "skill.name.traps",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Traps",
+      "zh": "陷阱"
+    },
+    {
+      "id": "skill.name.unarmed_combat",
+      "context": "技能面板中的完整技能名称。",
+      "source": "skills.cc::skill_titles[skill][0]",
+      "params": {},
+      "en": "Unarmed Combat",
+      "zh": "徒手格斗"
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "skill.menu.entry_name",
+      "args": {
+        "prefix": {
+          "type": "key",
+          "canonical": " a +",
+          "localized": " a +"
+        },
+        "skill": {
+          "type": "name",
+          "canonical": "Short Blades",
+          "localized": "短刃"
+        }
+      },
+      "canonical": " a + Short Blades",
+      "zh": " a + 短刃"
+    },
+    {
+      "id": "skill.menu.default.experience",
+      "args": {},
+      "canonical": "Select the skills you want to be trained. The chosen skills will be raised to the level shown in <cyan>cyan</cyan>.",
+      "zh": "选择要训练的技能。所选技能将提升至<cyan>青色</cyan>显示的等级。"
+    },
+    {
+      "id": "skill.menu.error.no_training",
+      "args": {},
+      "canonical": "<lightred>You need to enable at least one skill.</lightred>",
+      "zh": "<lightred>你至少需要启用一项技能。</lightred>"
+    },
+    {
+      "id": "skill.menu.switch",
+      "args": {
+        "hotkey": {
+          "type": "key",
+          "canonical": "/",
+          "localized": "/"
+        },
+        "options": {
+          "type": "text",
+          "canonical": "<white>manual</white>|<darkgrey>auto</darkgrey>",
+          "localized": "<white>手动</white>|<darkgrey>自动</darkgrey>"
+        },
+        "label": {
+          "type": "text",
+          "canonical": " mode  ",
+          "localized": " 模式  "
+        }
+      },
+      "canonical": " [<yellow>/</yellow>] <white>manual</white>|<darkgrey>auto</darkgrey> mode  ",
+      "zh": " [<yellow>/</yellow>] <white>手动</white>|<darkgrey>自动</darkgrey> 模式   "
+    },
+    {
+      "id": "skill.menu.switch_help.focus",
+      "args": {},
+      "canonical": "Press the letter of a skill to cycle between <darkgrey>disabled</darkgrey> (<darkgrey>-</darkgrey>), enabled (+) and <white>focused</white> (<white>*</white>). Focused skills train twice as fast relative to others.",
+      "zh": "按下技能对应的字母，可在<darkgrey>停用</darkgrey>（<darkgrey>-</darkgrey>）、启用（+）和<white>专注</white>（<white>*</white>）之间切换。专注技能相较其他技能以双倍速度训练。"
+    },
+    {
+      "id": "skill.menu.help.overview",
+      "args": {},
+      "canonical": "This screen shows the skill set of your character. The number next to the skill is your current level, the higher the better. <w>Training</w> displays training percentages. <w>Costs</w> displays relative training costs. <w>Targets</w> displays skill training targets. You can toggle which skills to train by pressing their slot letters. A <darkgrey>grey</darkgrey> skill will not be trained and ease the training of others.",
+      "zh": "此界面显示角色的技能。技能旁的数字是当前等级，数值越高越好。<w>训练比例</w>显示训练百分比，<w>消耗</w>显示相对训练消耗，<w>目标</w>显示技能训练目标。按下技能对应的栏位字母即可切换是否训练。<darkgrey>灰色</darkgrey>技能不会受训，并会让其他技能更容易提升。"
+    }
+  ]
+}

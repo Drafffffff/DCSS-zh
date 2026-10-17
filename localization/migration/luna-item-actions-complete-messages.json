@@ -1,0 +1,270 @@
+{
+  "model": "gpt-6-luna",
+  "purpose": "Complete reviewed item detail action prompts and off-level item-location messages.",
+  "messages": [
+    {
+      "id": "item.action.wield",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (w)ield",
+      "params": {},
+      "en": "(w)ield",
+      "zh": "(w)装备"
+    },
+    {
+      "id": "item.action.unwield",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (u)nwield",
+      "params": {},
+      "en": "(u)nwield",
+      "zh": "(u)卸下"
+    },
+    {
+      "id": "item.action.quiver",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (q)uiver",
+      "params": {},
+      "en": "(q)uiver",
+      "zh": "(q)装入箭袋"
+    },
+    {
+      "id": "item.action.quiver_after_quaff",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command qui(v)er",
+      "params": {},
+      "en": "qui(v)er",
+      "zh": "(v)装入箭袋"
+    },
+    {
+      "id": "item.action.wear_armour",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (w)ear",
+      "params": {},
+      "en": "(w)ear",
+      "zh": "(w)穿戴"
+    },
+    {
+      "id": "item.action.remove_armour",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (t)ake off",
+      "params": {},
+      "en": "(t)ake off",
+      "zh": "(t)脱下"
+    },
+    {
+      "id": "item.action.evoke",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command e(v)oke",
+      "params": {},
+      "en": "e(v)oke",
+      "zh": "(v)激活"
+    },
+    {
+      "id": "item.action.read",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (r)ead",
+      "params": {},
+      "en": "(r)ead",
+      "zh": "(r)阅读"
+    },
+    {
+      "id": "item.action.wear_jewellery",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (p)ut on",
+      "params": {},
+      "en": "(p)ut on",
+      "zh": "(p)戴上"
+    },
+    {
+      "id": "item.action.remove_jewellery",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (r)emove",
+      "params": {},
+      "en": "(r)emove",
+      "zh": "(r)取下"
+    },
+    {
+      "id": "item.action.quaff",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (q)uaff",
+      "params": {},
+      "en": "(q)uaff",
+      "zh": "(q)喝下"
+    },
+    {
+      "id": "item.action.pickup",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (g)et",
+      "params": {},
+      "en": "(g)et",
+      "zh": "(g)拾取"
+    },
+    {
+      "id": "item.action.drop",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (d)rop",
+      "params": {},
+      "en": "(d)rop",
+      "zh": "(d)丢弃"
+    },
+    {
+      "id": "item.action.inscribe",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (i)nscribe",
+      "params": {},
+      "en": "(i)nscribe",
+      "zh": "(i)刻写"
+    },
+    {
+      "id": "item.action.adjust",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (=)adjust",
+      "params": {},
+      "en": "(=)adjust",
+      "zh": "(=)调整"
+    },
+    {
+      "id": "item.action.skill_target",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (s)kill target",
+      "params": {},
+      "en": "(s)kill target",
+      "zh": "(s)技能目标"
+    },
+    {
+      "id": "item.action.map_goto",
+      "context": "物品详情页脚中对应命令的完整动作短语，括号内字母或符号是快捷键。",
+      "source": "describe.cc::_actions_desc command (g)o to location",
+      "params": {},
+      "en": "(g)o to location",
+      "zh": "(g)前往地点"
+    },
+    {
+      "id": "item.actions.list.one",
+      "context": "物品详情页脚中唯一可用动作的完整句子。",
+      "source": "describe.cc::_actions_desc one action",
+      "params": {
+        "action": "text"
+      },
+      "en": "{action}.",
+      "zh": "{action}。"
+    },
+    {
+      "id": "item.actions.list.two",
+      "context": "物品详情页脚中两个可用动作的连接和句号。",
+      "source": "describe.cc::_actions_desc two actions",
+      "params": {
+        "first": "text",
+        "last": "text"
+      },
+      "en": "{first}, or {last}.",
+      "zh": "{first}，或{last}。"
+    },
+    {
+      "id": "item.actions.list.many",
+      "context": "物品详情页脚中三个或更多可用动作的连接和句号；middle是已连接的中间动作。",
+      "source": "describe.cc::_actions_desc three or more actions",
+      "params": {
+        "first": "text",
+        "middle": "text",
+        "last": "text"
+      },
+      "en": "{first}, {middle}, or {last}.",
+      "zh": "{first}、{middle}，或{last}。"
+    },
+    {
+      "id": "item.actions.select_spell",
+      "context": "物品具有可施放法术时，动作列表前的选择提示。保留原尾随空格以连接动作。",
+      "source": "describe.cc::describe_item_popup footer_text",
+      "params": {},
+      "en": "Select a spell, or ",
+      "zh": "选择法术，或 "
+    },
+    {
+      "id": "item.location.offlevel",
+      "context": "物品位于当前层以外时显示的位置提示；level是由level_id::describe(false,true)产生的内部分支缩写与层数键，不解析或翻译。",
+      "source": "describe.cc::describe_item_popup off-level stash search",
+      "params": {
+        "level": "key"
+      },
+      "en": "It can be found on {level}.",
+      "zh": "可在{level}找到。"
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "item.action.wield",
+      "args": {},
+      "canonical": "(w)ield",
+      "zh": "(w)装备"
+    },
+    {
+      "id": "item.actions.list.one",
+      "args": {
+        "action": {
+          "type": "text",
+          "canonical": "(r)ead",
+          "localized": "(r)阅读"
+        }
+      },
+      "canonical": "(r)ead.",
+      "zh": "(r)阅读。"
+    },
+    {
+      "id": "item.actions.list.two",
+      "args": {
+        "first": {
+          "type": "text",
+          "canonical": "(q)uaff",
+          "localized": "(q)喝下"
+        },
+        "last": {
+          "type": "text",
+          "canonical": "qui(v)er",
+          "localized": "(v)装入箭袋"
+        }
+      },
+      "canonical": "(q)uaff, or qui(v)er.",
+      "zh": "(q)喝下，或(v)装入箭袋。"
+    },
+    {
+      "id": "item.actions.list.many",
+      "args": {
+        "first": {
+          "type": "text",
+          "canonical": "(w)ield",
+          "localized": "(w)装备"
+        },
+        "middle": {
+          "type": "text",
+          "canonical": "(r)ead, (d)rop",
+          "localized": "(r)阅读、(d)丢弃"
+        },
+        "last": {
+          "type": "text",
+          "canonical": "(i)nscribe",
+          "localized": "(i)刻写"
+        }
+      },
+      "canonical": "(w)ield, (r)ead, (d)rop, or (i)nscribe.",
+      "zh": "(w)装备、(r)阅读、(d)丢弃，或(i)刻写。"
+    },
+    {
+      "id": "item.actions.select_spell",
+      "args": {},
+      "canonical": "Select a spell, or ",
+      "zh": "选择法术，或 "
+    },
+    {
+      "id": "item.location.offlevel",
+      "args": {
+        "level": {
+          "type": "key",
+          "canonical": "D:4",
+          "localized": "D:4"
+        }
+      },
+      "canonical": "It can be found on D:4.",
+      "zh": "可在D:4找到。"
+    }
+  ]
+}

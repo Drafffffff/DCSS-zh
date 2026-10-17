@@ -128,11 +128,13 @@ public:
     virtual void render() override;
 
     void set_text(const string& text);
+    void set_text_pretranslated(const string& text);
     const string& get_text() const;
 
 protected:
     void _wrap_text();
 
+    bool m_pretranslated = false;
     string m_text;
     string m_render_text;
 

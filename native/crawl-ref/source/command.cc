@@ -530,7 +530,7 @@ void show_specific_helps(const vector<string> keys)
         string help = getHelpString(key);
         trim_string_right(help);
         for (const string &line : split_string("\n", help, false, true))
-            formatted_lines.push_back(formatted_string::parse_string(line));
+            formatted_lines.push_back(formatted_string::parse_string_raw(line));
 
         i++;
         if (i < keys.size())

@@ -1,0 +1,59 @@
+{
+  "model": "gpt-6-luna",
+  "purpose": "本批只收录技能 ?/K 选择菜单中可由源码确定的固定/动态文案；技能数据库正文与其他模块未审校生成点列在 analysis/message-migration/luna-priority-copy-review.md，不在此臆造翻译。",
+  "messages": [
+    {
+      "id": "skill.lookup.prompt",
+      "context": "?/K 技能查阅列表的完整标题；选择技能查看其说明。",
+      "source": {
+        "file": "native/crawl-ref/source/lookup-help.cc",
+        "anchor": "DescMenu::set_prompt; fixed default prompt"
+      },
+      "params": {},
+      "en": "Describe which? ",
+      "zh": "要查阅哪项？ "
+    },
+    {
+      "id": "skill.lookup.keyhelp",
+      "context": "?/K 技能选择列表可滚动时的整行导航帮助；选择键与按键样式作为结构字段，页面导航及退出提示完整翻译。",
+      "source": {
+        "file": "native/crawl-ref/source/menu.cc",
+        "anchor": "Menu::get_keyhelp; MF_ARROWS_SELECT and scrollable single-select navigation branch, invoked by lookup-help.cc::DescMenu"
+      },
+      "params": {
+        "select_keys": "key_markup",
+        "page_down": "key_markup",
+        "page_up": "key_markup",
+        "exit_key": "key_markup"
+      },
+      "en": "<lightgrey>{select_keys} select  {page_down} page down  {page_up} page up  {exit_key} exit</lightgrey>",
+      "zh": "<lightgrey>{select_keys} 选择  {page_down} 下一页  {page_up} 上一页  {exit_key} 退出</lightgrey>"
+    },
+    {
+      "id": "skill.lookup.keyhelp.position",
+      "context": "?/K 技能选择列表帮助行的动态位置标记；位置由滚动控件替换，保留<w>样式并由布局层补齐空格。",
+      "source": {
+        "file": "native/crawl-ref/source/menu.cc",
+        "anchor": "Menu::get_keyhelp; pad_more_with navigation and <lightgrey>[<w>XXX</w>]</lightgrey> position marker"
+      },
+      "params": {
+        "position": "text"
+      },
+      "en": "<lightgrey>[<w>{position}</w>]</lightgrey>",
+      "zh": "<lightgrey>[<w>{position}</w>]</lightgrey>"
+    },
+    {
+      "id": "skill.lookup.no_matches",
+      "context": "?/K 列表没有任何具备说明记录的技能时的完整错误句；query 保留代码传入的搜索文本（当前技能选择器通常为空）。",
+      "source": {
+        "file": "native/crawl-ref/source/lookup-help.cc",
+        "anchor": "_keylist_invalid_reason; no matching skills result branch"
+      },
+      "params": {
+        "query": "text"
+      },
+      "en": "No matching skills for search string '{query}'.",
+      "zh": "没有与搜索词“{query}”匹配的技能。"
+    }
+  ]
+}

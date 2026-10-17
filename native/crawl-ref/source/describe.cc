@@ -126,7 +126,8 @@ int show_description(const string &body, const tile_def *tile)
     return show_description(inf, tile);
 }
 
-int show_description(const describe_info &inf, const tile_def *tile)
+int show_description(const describe_info &inf, const tile_def *tile,
+                     bool pretranslated)
 {
     auto vbox = make_shared<Box>(Widget::VERT);
 
@@ -146,7 +147,9 @@ int show_description(const describe_info &inf, const tile_def *tile)
         UNUSED(tile);
 #endif
 
-        auto title = make_shared<Text>(inf.title);
+        auto title = make_shared<Text>(pretranslated
+            ? formatted_string::parse_string_raw(inf.title)
+            : formatted_string::parse_string(inf.title));
         title_hbox->add_child(std::move(title));
 
         title_hbox->set_cross_alignment(Widget::CENTER);
@@ -160,8 +163,19 @@ int show_description(const describe_info &inf, const tile_def *tile)
     desc_sw->current() = 0;
     more_sw->current() = 0;
 
+    string body;
+    if (pretranslated)
+    {
+        // All fields have already selected their display language at source.
+        // Joining paragraphs is layout only, with no English reverse matching.
+        for (const string &field : {inf.prefix, inf.body.str(), inf.suffix, inf.footer})
+            if (!field.empty())
+                body += "\n\n" + trimmed_string(field);
+    }
+    else
+        body = process_description(inf, false);
     const string descs[2] =  {
-        trimmed_string(process_description(inf, false)),
+        trimmed_string(body),
         trimmed_string(inf.quote),
     };
 
@@ -175,13 +189,17 @@ int show_description(const describe_info &inf, const tile_def *tile)
     {
         const auto &desc = descs[static_cast<int>(i)];
         auto scroller = make_shared<Scroller>();
-        auto fs = formatted_string::parse_string(trimmed_string(desc));
+        auto fs = pretranslated
+            ? formatted_string::parse_string_raw(trimmed_string(desc))
+            : formatted_string::parse_string(trimmed_string(desc));
         auto text = make_shared<Text>(fs);
         text->set_wrap_text(true);
         scroller->set_child(text);
         desc_sw->add_child(std::move(scroller));
-        more_sw->add_child(make_shared<Text>(
-                formatted_string::parse_string(mores[i])));
+        more_sw->add_child(make_shared<Text>(pretranslated
+            ? formatted_string::parse_string_raw(zh_message(i == 0
+                ? "detail.tabs.description" : "detail.tabs.quote").display())
+            : formatted_string::parse_string(mores[i])));
     }
 
     more_sw->set_margin_for_sdl(20, 0, 0, 0);
@@ -261,8 +279,8 @@ string process_description(const describe_info &inf, bool include_title)
 //      seems acceptable.
 static string _format_prop_desc(string prop_name, string prop_desc)
 {
-    prop_name = zh_translate(prop_name);
-    prop_desc = zh_translate(prop_desc);
+    // Inputs are already localized at their source. This is layout only: a
+    // generated property sentence must never be reverse-matched as a whole.
     // XXX: It is possible some Android layouts are too small to wrap properly
     //      to 80 characters (and I am currently not certain how to check on my
     //      own), so let's just not do any justification.
@@ -773,18 +791,42 @@ void desc_randart_props(const item_def &item, vector<string> &lines)
         // these two have some custom string replacement
         if (prop == ARTP_WILLPOWER)
         {
-            lines.push_back(make_stringf("%sIt %s%s your willpower.",
-                     _padded_artp_name(ARTP_WILLPOWER, stval).c_str(),
-                     (stval < -1 || stval > 1) ? "greatly " : "",
-                     (stval < 0) ? "decreases" : "increases"));
+            const bool strong = stval < -1 || stval > 1;
+            const string verb = stval < 0 ? "decreases" : "increases";
+            const auto message = zh_message("artifact.property.willpower",
+                {zh_text("degree", strong ? "greatly " : "",
+                                  strong ? "大幅" : ""),
+                 zh_text("verb", verb, stval < 0 ? "降低" : "提升")},
+                make_stringf("It %s%s your willpower.",
+                    strong ? "greatly " : "", verb.c_str()));
+            lines.push_back(_format_prop_desc(
+                _padded_artp_name(ARTP_WILLPOWER, stval), message.display()));
             continue;
         }
         else if (prop == ARTP_STEALTH)
         {
-            lines.push_back(make_stringf("%sIt makes you %s%s stealthy.",
-                     _padded_artp_name(ARTP_STEALTH, stval).c_str(),
-                     (stval < -1 || stval > 1) ? "much " : "",
-                     (stval < 0) ? "less" : "more"));
+            const bool strong = stval < -1 || stval > 1;
+            const string degree = strong ? "much " : "";
+            const string direction = stval < 0 ? "less" : "more";
+            const string effect = degree + direction;
+            const auto message = zh_message("artifact.property.stealth",
+                {zh_text("effect", effect,
+                         stval < 0 ? (strong ? "大幅降低" : "降低")
+                                   : (strong ? "大幅提升" : "提升"))},
+                make_stringf("It makes you %s%s stealthy.", degree.c_str(),
+                             direction.c_str()));
+            lines.push_back(_format_prop_desc(
+                _padded_artp_name(ARTP_STEALTH, stval), message.display()));
+            continue;
+        }
+        else if (prop == ARTP_ANGRY)
+        {
+            const auto message = zh_message("artifact.property.angry",
+                {zh_integer("chance", stval)},
+                make_stringf("It berserks you when you make melee attacks (%d%% chance).",
+                             stval));
+            lines.push_back(_format_prop_desc(
+                _padded_artp_name(ARTP_ANGRY, stval), message.display()));
             continue;
         }
 
@@ -793,7 +835,31 @@ void desc_randart_props(const item_def &item, vector<string> &lines)
         string sdesc = desc.desc;
 
         if (sdesc.find("%d") != string::npos)
-            sdesc = replace_all(sdesc, "%d", make_stringf("%+d", stval));
+        {
+            const string sign = stval < 0 ? "-" : "+";
+            const string value = make_stringf("%d", abs(stval));
+            const char *stat = prop == ARTP_AC ? "AC" :
+                prop == ARTP_EVASION ? "evasion" :
+                prop == ARTP_STRENGTH ? "strength" :
+                prop == ARTP_INTELLIGENCE ? "intelligence" :
+                prop == ARTP_DEXTERITY ? "dexterity" :
+                prop == ARTP_SLAYING ? "accuracy & damage with ranged weapons and melee" :
+                prop == ARTP_HP ? "health" :
+                prop == ARTP_MAGICAL_POWER ? "magic capacity" : "SH";
+            const string canonical = replace_all(sdesc, "%d", sign + value);
+            sdesc = zh_message("artifact.property.numeric",
+                {zh_text("stat", stat,
+                    prop == ARTP_AC ? "护甲" :
+                    prop == ARTP_EVASION ? "闪避" :
+                    prop == ARTP_STRENGTH ? "力量" :
+                    prop == ARTP_INTELLIGENCE ? "智力" :
+                    prop == ARTP_DEXTERITY ? "敏捷" :
+                    prop == ARTP_SLAYING ? "远程武器与近战武器的命中和伤害" :
+                    prop == ARTP_HP ? "生命值" :
+                    prop == ARTP_MAGICAL_POWER ? "魔法容量" : "格挡"),
+                 zh_text("sign", sign, sign),
+                 zh_integer("value", abs(stval))}, canonical).display();
+        }
 
         if (desc.display_type == prop_note::symbolic
             && desc.property != ARTP_REGENERATION // symbolic, but no text modification
@@ -813,8 +879,23 @@ void desc_randart_props(const item_def &item, vector<string> &lines)
                 "It greatly protects you from ",
                 "It renders you almost immune to "
             };
-            sdesc = prefixes[idx] + sdesc + '.';
+            const string resistance = sdesc;
+            const string localized_resistance = prop == ARTP_FIRE ? "火焰伤害" :
+                prop == ARTP_COLD ? "寒冷伤害" : "负能量伤害";
+            const string canonical = string(prefixes[idx]) + resistance + '.';
+            const string localized_effect = idx == 0 ? "使你极易受到" :
+                idx == 1 ? "使你很容易受到" : idx == 2 ? "使你容易受到" :
+                idx == 3 ? "会影响你对" : idx == 4 ? "保护你免受" :
+                idx == 5 ? "大幅保护你免受" : "使你几乎免疫";
+            sdesc = zh_message("artifact.property.resistance",
+                {zh_text("effect", prefixes[idx], localized_effect),
+                 zh_text("resistance", resistance, localized_resistance)},
+                canonical).display();
         }
+        else if (desc.display_type == prop_note::plain
+                 || desc.property == ARTP_REGENERATION
+                 || desc.property == ARTP_MANA_REGENERATION)
+            sdesc = zh_source("detail.artifact.property", desc.desc);
 
         lines.push_back(_format_prop_desc(_padded_artp_name(desc.property, stval), sdesc.c_str()));
     }
@@ -827,14 +908,15 @@ static string _desc_randart_jewel(const item_def &item)
     const char* desc = _jewellery_base_ability_description(item.sub_type);
     if (!*desc)
         return "";
+    const string localized_desc = zh_source("detail.artifact.jewel", desc);
     if (!*type)
     {
         // if this case happens, the formatting can get mixed with
         // DBRANDS in weird ways
-        return string(desc);
+        return localized_desc;
     }
     return _format_prop_desc(make_stringf("%-*s", MAX_ARTP_NAME_LEN + 1,
-                              (string(type) + ":").c_str()), desc);
+                              (string(type) + ":").c_str()), localized_desc);
 }
 
 static string _randart_descrip(const item_def &item)
@@ -858,6 +940,7 @@ static string _format_dbrand(string dbrand)
 {
     vector<string> out;
 
+    dbrand = zh_source("detail.artifact.unrand", dbrand.c_str());
     vector<string> lines = split_string("\n", dbrand);
     for (const auto &l : lines)
     {
@@ -1174,7 +1257,7 @@ static string _describe_mutant_beast_tier(int tier)
     COMPILE_CHECK(ARRAYSZ(tier_descs) == NUM_BEAST_TIERS);
 
     ASSERT_RANGE(tier, 0, NUM_BEAST_TIERS);
-    return tier_descs[tier];
+    return zh_message(make_stringf("monster.mutant.tier.%d", tier)).display();
 }
 
 
@@ -1201,6 +1284,35 @@ static string _describe_mutant_beast_facets(const CrawlVector &facets)
 
     if (facets.size() == 0)
         return "";
+
+    if (zh_language_enabled())
+    {
+        static const char* facet_localization[] = {
+            " seems unusually buggy.",
+            " sports a set of venomous tails",
+            " flies swiftly and unpredictably",
+            "s breath smoulders ominously",
+            " is covered with eyes and tentacles",
+            " flickers and crackles with electricity",
+            " is covered in dense fur and muscle",
+        };
+        vector<string> localized;
+        for (const auto &sv : facets)
+        {
+            const int facet = sv.get_int();
+            ASSERT_RANGE(facet, 0, NUM_BEAST_FACETS);
+            localized.emplace_back(zh_word("monster.mutant.facet.",
+                                           facet_localization[facet]));
+        }
+        string result = "它";
+        for (size_t i = 0; i < localized.size(); ++i)
+        {
+            if (i)
+                result += "，";
+            result += localized[i];
+        }
+        return result + "。";
+    }
 
     return "It" + comma_separated_fn(begin(facets), end(facets),
                       [] (const CrawlStoreValue &sv) -> string {
@@ -1253,6 +1365,30 @@ static int _item_training_target(const item_def &item)
     if (item.base_type == OBJ_BAUBLES)
         return get_form(transformation::flux)->min_skill * 10;
     return 0;
+}
+
+// Description and quote databases have their own source-keyed translation
+// tables. Read the canonical source under ZhTranslationPause, then use the
+// selected database text directly. An untranslated row is an explicit whole
+// English fallback so it never re-enters the legacy sentence matcher.
+static string _detail_english_fallback(const string &text)
+{
+    return zh_message("detail.english_fallback", {
+        ZhArg{"text", ZhArgType::Text, text, text, false}}).display();
+}
+
+static string _detail_database_text(const string &key, bool quote = false)
+{
+    string canonical;
+    {
+        ZhTranslationPause pause;
+        canonical = quote ? getQuoteString(key) : getLongDescription(key);
+    }
+    const string selected = quote ? getQuoteString(key) : getLongDescription(key);
+    if (canonical.empty() || !zh_language_enabled() || selected != canonical)
+        return selected;
+
+    return _detail_english_fallback(canonical);
 }
 
 /**
@@ -1315,23 +1451,25 @@ static string _your_skill_desc(skill_type skill, bool show_target_button,
 {
     if (!crawl_state.need_save || skill == SK_NONE)
         return "";
-    string target_button_desc = "";
-    int min_scaled_target = min(scaled_target, 270);
-    if (show_target_button &&
-            you.get_training_target(skill) < min_scaled_target)
+    const int you_skill_temp = you.skill(skill, 10);
+    const int you_skill = you.skill(skill, 10, false, false);
+    const string skill_prefix = you_skill_temp != you_skill ? "(base) " : "";
+    const string localized_prefix = you_skill_temp != you_skill ? "（基础）" : "";
+    const auto level = zh_number("skill_level", you_skill / 10.0, 1);
+    const auto prefix = zh_text("skill_prefix", skill_prefix, localized_prefix);
+    const auto pad = zh_text("padding", padding, padding);
+    if (show_target_button
+        && you.get_training_target(skill) < min(scaled_target, 270))
     {
-        target_button_desc = make_stringf(
-            "; use <white>(s)</white> to set %d.%d as a target for %s.",
-                                min_scaled_target / 10, min_scaled_target % 10,
-                                skill_name(skill));
+        const string skill_name_en = skill_name(skill);
+        const string skill_name_zh = zh_lookup_exact(skill_name_en);
+        return zh_message("item.skill.current_with_target", {
+            prefix, pad, level,
+            zh_number("target_level", min(scaled_target, 270) / 10.0, 1),
+            ZhArg{"skill", ZhArgType::Name, skill_name_en, skill_name_zh,
+                  skill_name_zh != skill_name_en}}).display();
     }
-    int you_skill_temp = you.skill(skill, 10);
-    int you_skill = you.skill(skill, 10, false, false);
-
-    return make_stringf("Your %sskill: %s%d.%d%s",
-                            (you_skill_temp != you_skill ? "(base) " : ""),
-                            padding.c_str(), you_skill / 10, you_skill % 10,
-                            target_button_desc.c_str());
+    return zh_message("item.skill.current", {prefix, pad, level}).display();
 }
 
 /**
@@ -1424,7 +1562,8 @@ static string _desc_attack_delay(const item_def &item)
 
     const int cur_delay = you.attack_delay_with(&dummy).expected();
 
-    return make_stringf("\n    Current attack delay: %.1f.", (float)cur_delay / 10);
+    return zh_message("item.weapon.current_attack_delay", {
+        zh_number("delay", (float)cur_delay / 10, 1)}).display();
 }
 
 static string _describe_missile_dmg_brand(const item_def &item)
@@ -1454,12 +1593,13 @@ string damage_rating(const item_def *item, int *rating_value)
         if (rating_value)
             *rating_value = 666;
 
-        return "your enemies will bleed and die for Makhleb.";
+        return zh_source("detail.item.fixed",
+                         "your enemies will bleed and die for Makhleb.");
     }
 
     const bool thrown = item && item->base_type == OBJ_MISSILES;
     if (item && !thrown && !is_weapon(*item))
-        return "0.";
+        return zh_source("detail.item.fixed", "0.");
 
     brand_type brand = SPWPN_NORMAL;
     if (!item)
@@ -1508,30 +1648,67 @@ string damage_rating(const item_def *item, int *rating_value)
                    brand == SPWPN_HEAVY ? make_stringf("[%d + %d (Hvy)]",
                                                        base_dam, extra_base_dam) :
                                           make_stringf("%d", base_dam);
+    const string localized_base_dam_desc = thrown
+        ? make_stringf("[%d + %d（投掷）]", base_dam, extra_base_dam)
+        : !item ? make_stringf("[%d + %d（徒手）]", base_dam, extra_base_dam)
+        : brand == SPWPN_HEAVY
+            ? make_stringf("[%d + %d（重型）]", base_dam, extra_base_dam)
+            : to_string(base_dam);
 
     string plusses_desc;
+    string localized_plusses_desc;
     if (plusses)
     {
+        const string sign = plusses < 0 ? "-" : "+";
+        const string plusses_kind = slaying && ench ? "Ench + Slay" :
+                                    ench ? "Ench" : "Slay";
+        const string localized_kind = slaying && ench ? "附魔 + 杀戮" :
+                                      ench ? "附魔" : "杀戮";
         plusses_desc = make_stringf(" %s %d (%s)",
-                                    plusses < 0 ? "-" : "+",
-                                    abs(plusses),
-                                    slaying && ench ? "Ench + Slay" :
-                                               ench ? "Ench"
-                                                    : "Slay");
+                                    sign.c_str(), abs(plusses), plusses_kind.c_str());
+        localized_plusses_desc = make_stringf(" %s %d（%s）",
+                                    sign.c_str(), abs(plusses), localized_kind.c_str());
     }
 
     const string dmg_brand_desc = thrown ? _describe_missile_dmg_brand(*item) : "";
+    string localized_brand_desc;
+    if (thrown && !dmg_brand_desc.empty())
+    {
+        const string brand_name = missile_brand_name(*item, MBN_BRAND);
+        string localized_brand;
+        switch (item->brand)
+        {
+        case SPMSL_POISONED: localized_brand = "毒性"; break;
+        case SPMSL_CURARE: localized_brand = "克制毒药"; break;
+        case SPMSL_SILVER: localized_brand = "银质"; break;
+        case SPMSL_CHAOS: localized_brand = "混沌"; break;
+        default: localized_brand = brand_name; break;
+        }
+        localized_brand_desc = " + " + uppercase_first(localized_brand);
+    }
+    return zh_message("item.weapon.damage_rating", {
+        zh_integer("rating", rating),
+        zh_text("base", base_dam_desc, localized_base_dam_desc),
+        zh_integer("stat_mult", stat_mult),
+        zh_text("stat", use_str ? "Str" : "Dex", use_str ? "力量" : "敏捷"),
+        zh_integer("skill_mult", skill_mult),
+        zh_text("skill", use_weapon_skill ? "Skill" : "Fight",
+                use_weapon_skill ? "武器技能" : "战斗技能"),
+        zh_text("plusses", plusses_desc, localized_plusses_desc),
+        zh_text("brand", dmg_brand_desc, localized_brand_desc)}).display();
+}
 
-    return make_stringf(
-        "%d (Base %s x %d%% (%s) x %d%% (%s)%s)%s.",
-        rating,
-        base_dam_desc.c_str(),
-        stat_mult,
-        use_str ? "Str" : "Dex",
-        skill_mult,
-        use_weapon_skill ? "Skill" : "Fight",
-        plusses_desc.c_str(),
-        dmg_brand_desc.c_str());
+static string _damage_rating_description(const item_def &item)
+{
+    string canonical;
+    {
+        ZhTranslationPause pause;
+        canonical = damage_rating(&item);
+    }
+    const string localized = damage_rating(&item);
+    return zh_message("item.weapon.dmg_rating", {
+        ZhArg{"rating", ZhArgType::Text, canonical, localized,
+              canonical != localized}}).display();
 }
 
 static string _weapon_ego_key(brand_type ego)
@@ -1575,10 +1752,12 @@ static void _append_weapon_stats(string &description, const item_def &item)
         && staff_skill(static_cast<stave_type>(item.sub_type)) != SK_NONE
         && is_useless_skill(staff_skill(static_cast<stave_type>(item.sub_type))))
     {
-        description += make_stringf(
-            "Your inability to study %s prevents you from drawing on the"
-            " full power of this staff in melee.\n\n",
-            skill_name(staff_skill(static_cast<stave_type>(item.sub_type))));
+        const string skill = skill_name(staff_skill(
+            static_cast<stave_type>(item.sub_type)));
+        const string localized_skill = zh_lookup_exact(skill);
+        description += zh_message("item.weapon.study_staff", {
+            ZhArg{"skill", ZhArgType::Name, skill, localized_skill,
+                  localized_skill != skill}}).display();
     }
 
     const string hit_bonus = is_unrandom_artefact(item, UNRAND_WOE)
@@ -1606,40 +1785,55 @@ static void _append_weapon_stats(string &description, const item_def &item)
         if (armour_penalty)
         {
             const item_def *body_armour = you.body_armour();
-            description += (body_armour ? uppercase_first(
-                                              body_armour->name(DESC_YOUR))
-                                        : "Your heavy armour");
-
             const bool significant = armour_penalty >= penalty_scale;
             if (significant)
             {
-                description +=
-                    make_stringf(" slows your attacks with this weapon by %.1f",
-                                 armour_penalty / (10.0f * penalty_scale));
+                const string actor_en = body_armour
+                    ? uppercase_first(body_armour->name(DESC_YOUR))
+                    : "Your heavy armour";
+                ZhArg actor_arg = body_armour
+                    ? zh_item_arg("actor", *body_armour, DESC_YOUR)
+                    : ZhArg{"actor", ZhArgType::Name, actor_en, "你的重型护甲"};
+                actor_arg.canonical = actor_en;
+                description += zh_message("item.weapon.armour_slow.full", {
+                    actor_arg,
+                    zh_number("delay", armour_penalty /
+                              (10.0f * penalty_scale), 1)}).display();
             }
             else
-                description += " slightly slows your attacks with this weapon";
+            {
+                const string actor_en = body_armour
+                    ? uppercase_first(body_armour->name(DESC_YOUR))
+                    : "Your heavy armour";
+                ZhArg actor_arg = body_armour
+                    ? zh_item_arg("actor", *body_armour, DESC_YOUR)
+                    : ZhArg{"actor", ZhArgType::Name, actor_en, "你的重型护甲"};
+                actor_arg.canonical = actor_en;
+                description += zh_message("item.weapon.armour_slow_slightly", {
+                    actor_arg}).display();
+            }
         }
         else
         {
-            description += "Wearing heavy armour would reduce your attack "
-                           "speed with this weapon";
+            description += zh_source("detail.item.fixed",
+                "Wearing heavy armour would reduce your attack speed with this weapon.");
         }
-        description += ".";
     }
 
     const bool want_player_stats = !is_useless_item(item) && crawl_state.need_save;
     if (want_player_stats)
     {
         description += _desc_attack_delay(item);
-        description += "\nDamage rating: " + damage_rating(&item);
+        description += _damage_rating_description(item);
     }
 
     const string brand_desc = _describe_weapon_brand(item);
     if (!brand_desc.empty())
     {
         const brand_type brand = get_weapon_brand(item);
-        string brand_name = uppercase_first(brand_type_name(brand, true));
+        const string brand_name_en = brand_type_name(brand, true);
+        string brand_name = uppercase_first(
+            zh_word("item.weapon.brand.", brand_name_en));
         // Hack to match artefact prop formatting.
 
         string fmt_name = make_stringf("\n\n%-*s",
@@ -1662,7 +1856,8 @@ static void _append_weapon_stats(string &description, const item_def &item)
         {
             string ego_key = _weapon_ego_key(SPWPN_CHAOS);
             string ego_desc = getEgoString(ego_key);
-            description += _format_prop_desc("\nChaotic:   ", ego_desc);
+            description += _format_prop_desc(zh_source("detail.item.fixed",
+                "\nChaotic:   "), ego_desc);
         }
 
         // XX spacing following brand and dbrand for randarts/unrands is a bit
@@ -1673,13 +1868,13 @@ static void _append_weapon_stats(string &description, const item_def &item)
 static string _handedness_string(const item_def &item)
 {
     if (you.has_mutation(MUT_NO_GRASPING))
-        return "\nYou are unable to wield it.";
+        return zh_message("item.weapon.hands_missing").display();
 
     if (crawl_state.need_save
         && is_weapon_too_large(item, you.body_size(PSIZE_TORSO))
         && !you.has_mutation(MUT_QUADRUMANOUS))
     {
-        return "\nIt is too large for you to wield.";
+        return zh_message("item.weapon.too_large").display();
     }
 
     const bool quad = you.has_mutation(MUT_QUADRUMANOUS);
@@ -1700,14 +1895,16 @@ static string _handedness_string(const item_def &item)
         break;
     }
 
+    const string hand_zh = zh_lookup_exact(handname);
+    const ZhArg hand_arg{"handname", ZhArgType::Name, handname, hand_zh,
+                         hand_zh != handname};
     if (quad)
-        return make_stringf("It is a weapon for %s %s.", n.c_str(), handname.c_str());
-    else
-    {
-        return make_stringf("It is a %s-%s%s weapon.", n.c_str(),
-            handname.c_str(),
-            ends_with(handname, "e") ? "d" : "ed");
-    }
+        return zh_message("item.weapon.quadrumanous_hand_use", {
+            zh_text("hands", n, n == "one" ? "一对" : "两对"), hand_arg}).display();
+    const string suffix = ends_with(handname, "e") ? "d" : "ed";
+    return zh_message("item.weapon.hand_use", {
+        zh_text("hands", n, n == "one" ? "单" : "双"), hand_arg,
+        zh_text("suffix", suffix, "")}).display();
 
 }
 
@@ -1717,39 +1914,49 @@ static string _category_string(const item_def &item, bool monster)
         return ""; // handled in art-data DBRAND
 
     string description = "";
-    description += "This ";
-    if (is_unrandom_artefact(item))
-        description += get_artefact_base_name(item);
-    else
-        description += "weapon";
-    description += " falls into the";
+    const string weapon = is_unrandom_artefact(item)
+        ? get_artefact_base_name(item) : "weapon";
+    const string skill = item_attack_skill(item) == SK_FIGHTING
+        ? "buggy" : skill_name(item_attack_skill(item));
+    const string localized_weapon = zh_lookup_exact(weapon);
+    const string localized_skill = zh_lookup_exact(skill);
+    description += zh_message("item.weapon.category", {
+        ZhArg{"weapon", ZhArgType::Name, weapon, localized_weapon,
+              localized_weapon != weapon},
+        ZhArg{"skill", ZhArgType::Name, skill, localized_skill,
+              localized_skill != skill}}).display();
 
-    const skill_type skill = item_attack_skill(item);
+    const skill_type skill_type_value = item_attack_skill(item);
 
-    description +=
-        make_stringf(" '%s' category. ",
-                     skill == SK_FIGHTING ? "buggy" : skill_name(skill));
-
-    switch (item_attack_skill(item))
+    switch (skill_type_value)
     {
     case SK_POLEARMS:
         // TODO(PF): maybe remove this whole section for util/monster summaries..?
-        description += "It has an extended reach";
-        if (!monster)
-            description += " (target with [<white>v</white>])";
-        description += ". ";
+        {
+            const string hint = monster ? "" : " (target with [<white>v</white>])";
+            const string localized_hint = monster ? "" : "（按[<white>v</white>]瞄准）";
+            description += zh_message("item.weapon.reach", {
+                zh_text("target_hint", hint, localized_hint)}).display();
+        }
         break;
     case SK_AXES:
-        description += "It hits all enemies adjacent to the wielder";
-        if (!is_unrandom_artefact(item, UNRAND_WOE))
-            description += ", dealing less damage to those not targeted";
-        description += ". ";
+        {
+            const string qualifier = is_unrandom_artefact(item, UNRAND_WOE)
+                ? "" : ", dealing less damage to those not targeted";
+            const string localized_qualifier = is_unrandom_artefact(item, UNRAND_WOE)
+                ? "" : "（未指定目标的敌人受到的伤害较低）";
+            description += zh_message("item.weapon.axes", {
+                zh_text("damage_qualifier", qualifier, localized_qualifier)}).display();
+        }
         break;
     case SK_SHORT_BLADES:
         {
-            description += make_stringf(
-                "It is%s good for stabbing helpless or unaware enemies. ",
-                (item.sub_type == WPN_DAGGER) ? " extremely" : "");
+            const string intensifier = (item.sub_type == WPN_DAGGER)
+                ? " extremely" : "";
+            const string localized_intensifier = (item.sub_type == WPN_DAGGER)
+                ? "特别" : "";
+            description += zh_message("item.weapon.stabbing", {
+                zh_text("intensifier", intensifier, localized_intensifier)}).display();
 
         }
         break;
@@ -1797,30 +2004,19 @@ static string _describe_weapon_brand(const item_def &item)
     if (ego == SPWPN_VALOUR)
     {
         dice_def dmg = zap_damage(ZAP_VALOUR_BEAM, property(item, PWPN_DAMAGE), false, false);
-        ego_desc += make_stringf("The beam does %dd%d damage.", dmg.num, dmg.size);
+        ego_desc += zh_message("item.weapon.valour_beam", {
+            zh_integer("dice_count", dmg.num),
+            zh_integer("dice_size", dmg.size)}).display();
     }
 
     return ego_desc;
 }
 
-static string _describe_point_change(float points)
+static ZhArg _describe_point_diff_arg(const string &key, int original,
+                                     int changed, int scale = 100)
 {
-    string point_diff_description;
-
-    point_diff_description += make_stringf("%s by %.1f",
-                                           points > 0 ? "increase" : "decrease",
-                                           abs(points));
-
-    return point_diff_description;
-}
-
-static string _describe_point_diff(int original,
-                                   int changed, int scale = 100)
-{
-    string description;
-
     if (original == changed)
-        return "remain unchanged";
+        return zh_word_arg(key, "item.stat.", "remain unchanged");
 
     // Truncate to 1 decimal place, rather than round (so that it matches what
     // will be displayed as the player's AC/EV if they actually put this on.)
@@ -1829,14 +2025,14 @@ static string _describe_point_diff(int original,
 
     float difference = ((float)(changed - original)) / scale;
 
-    description += _describe_point_change(difference);
-    description += " (";
-    description += make_stringf("%.1f", ((float)(original)) / scale);
-    description += " -> ";
-    description += make_stringf("%.1f", ((float)(changed)) / scale);
-    description += ")";
-
-    return description;
+    const string direction = difference > 0 ? "increase" : "decrease";
+    const string localized_direction = difference > 0 ? "增加" : "降低";
+    const ZhMessage change = zh_message("item.stat.change", {
+        zh_text("direction", direction, localized_direction),
+        zh_number("amount", abs(difference), 1),
+        zh_number("before", (float)original / scale, 1),
+        zh_number("after", (float)changed / scale, 1)});
+    return {key, ZhArgType::Text, change.canonical, change.localized};
 }
 
 static string _equip_type_name(const item_def &item)
@@ -1922,29 +2118,54 @@ static string _equipment_property_change_description(const item_def &item,
     description.reserve(100);
     description = "\n\n";
 
+    auto equipment_type = [&]() {
+        const string type = _equip_type_name(item);
+        string localized;
+        if (type == "amulet") localized = "这枚护身符";
+        else if (type == "ring") localized = "这枚戒指";
+        else if (type == "armour") localized = "这件护甲";
+        else if (type == "weapon") localized = "这件武器";
+        else if (type == "staff") localized = "这根法杖";
+        else if (type == "talisman") localized = "这枚护符";
+        else localized = zh_lookup_exact(type);
+        return ZhArg{"type", ZhArgType::Name, type, localized,
+                      type.empty() || type != localized};
+    };
+
     if (remove)
     {
-        description += "If you " + item_unequip_verb(item) + " this "
-                        + _equip_type_name(item) + ":";
+        const string verb = item_unequip_verb(item);
+        const string localized_verb = verb == "unwield" ? "收起" :
+                                      verb == "take off" ? "脱下" :
+                                      verb == "remove" ? "取下" : "卸下";
+        description += zh_message("item.equipment.preview.remove", {
+            zh_text("verb", verb, localized_verb),
+            equipment_type()}).display();
     }
     else if (item.base_type == OBJ_TALISMANS)
-        description += "If you transformed using this talisman:";
+        description += zh_source("detail.item.fixed",
+            "If you transformed using this talisman:");
     else if (item.base_type == OBJ_JEWELLERY && !jewellery_is_amulet(item))
-        description += "If you were wearing this ring:";
+        description += zh_source("detail.item.fixed",
+            "If you were wearing this ring:");
     else if (item.base_type == OBJ_WEAPONS && you.has_mutation(MUT_WIELD_OFFHAND))
-        description += "If you switch to wielding this weapon in your main hand:";
+        description += zh_source("detail.item.fixed",
+            "If you switch to wielding this weapon in your main hand:");
     else
     {
-        description += "If you switch to " + _equipment_switchto_string(item)
-                         + " this " + _equip_type_name(item) + ":";
+        const string verb = _equipment_switchto_string(item);
+        description += zh_message("item.equipment.preview.switch", {
+            zh_text("verb", verb, verb == "wielding" ? "挥舞" : "穿戴"),
+            equipment_type()}).display();
     }
 
     // Always display AC line on proper armour, even if there is no change
     if (item.base_type == OBJ_ARMOUR && get_armour_slot(item) != SLOT_OFFHAND
         || cur_ac != new_ac)
     {
-        description += "\nYour AC would "
-                       + _describe_point_diff(cur_ac, new_ac) + ".";
+        description += zh_message("item.equipment.preview_stat", {
+            zh_text("stat", "AC", "护甲"),
+            _describe_point_diff_arg("change", cur_ac, new_ac)}).display();
     }
 
     // Always display EV line on non-orb armour, even if there is no change
@@ -1952,27 +2173,31 @@ static string _equipment_property_change_description(const item_def &item,
     if (item.base_type == OBJ_ARMOUR && item.sub_type != ARM_ORB
         || cur_ev != new_ev)
     {
-        description += "\nYour EV would "
-                       + _describe_point_diff(cur_ev, new_ev) + ".";
+        description += zh_message("item.equipment.preview_stat", {
+            zh_text("stat", "EV", "闪避"),
+            _describe_point_diff_arg("change", cur_ev, new_ev)}).display();
     }
 
     // Always display SH line on shields, even if there is no change
     if (is_shield(item) || cur_sh != new_sh)
     {
-        description += "\nYour SH would "
-                       + _describe_point_diff(cur_sh, new_sh) + ".";
+        description += zh_message("item.equipment.preview_stat", {
+            zh_text("stat", "SH", "格挡"),
+            _describe_point_diff_arg("change", cur_sh, new_sh)}).display();
     }
 
     if (fail_change != 0)
     {
-        description += "\nYour spell failure would ";
-        description += (fail_change > 0) ? "worsen" : "improve";
+        const string direction = fail_change > 0 ? "worsen" : "improve";
+        const string localized_direction = fail_change > 0 ? "恶化" : "改善";
         if (visible_fail_change == 0)
-            description += " trivially.";
+            description += zh_message("item.equipment.spell_fail_trivial", {
+                zh_text("direction", direction, localized_direction)}).display();
         else
         {
-            description += make_stringf(" by up to %d%% (press '!' for details).",
-                                    abs(visible_fail_change)).c_str();
+            description += zh_message("item.equipment.spell_fail_change", {
+                zh_text("direction", direction, localized_direction),
+                zh_integer("amount", abs(visible_fail_change))}).display();
         }
     }
 
@@ -2130,11 +2355,12 @@ static string _describe_weapon(const item_def &item, bool verbose, bool monster)
     {
         if (is_enchantable_weapon(item))
         {
-            description += "\n\nIt can be maximally enchanted to +"
-                           + to_string(MAX_WPN_ENCHANT) + ".";
+            description += zh_message("item.weapon.max_enchantment", {
+                zh_integer("maximum", MAX_WPN_ENCHANT)}).display();
         }
         else
-            description += "\n\nIt cannot be enchanted further.";
+            description += zh_source("detail.item.fixed",
+                                     "\n\nIt cannot be enchanted further.");
     }
 
     return description;
@@ -2185,12 +2411,13 @@ static string _describe_ammo(const item_def &item)
             description += _desc_attack_delay(item);
 
             if (property(item, PWPN_DAMAGE))
-                description += "\nDamage rating: " + damage_rating(&item);
+                description += _damage_rating_description(item);
         }
     }
 
     if (ammo_always_destroyed(item))
-        description += "\n\nIt is always destroyed on impact.";
+        description += zh_source("detail.item.fixed",
+                                 "\n\nIt is always destroyed on impact.");
     else if (!ammo_never_destroyed(item))
     {
         description += zh_message("item.projectile.destroy_chance", {
@@ -2209,9 +2436,8 @@ static string _warlock_mirror_reflect_desc()
     const int reflect_chance_numer = (100 - (scaled_SH % 100)) * SH * omnireflect_chance_denom(SH+1) + (scaled_SH % 100) * (SH+1) * omnireflect_chance_denom(SH);
     const int reflect_chance_denom = omnireflect_chance_denom(SH) * omnireflect_chance_denom(SH+1);
     const int reflect_chance = reflect_chance_numer / reflect_chance_denom;
-    return "\n\nWith your current SH, it has a " + to_string(reflect_chance) +
-           "% chance to reflect attacks against your willpower and other "
-           "normally unblockable effects.";
+    return zh_message("item.armour.warlock_mirror_reflect", {
+        zh_integer("chance", reflect_chance)}).display();
 }
 
 static string _armour_ego_key(special_armour_type ego)
@@ -2275,45 +2501,44 @@ static string _describe_armour(const item_def &item, bool verbose, bool monster)
         if (!monster && is_shield(item))
         {
             const int evp = -property(item, PARM_EVASION);
-            const char* cumber_desc = evp < 100 ? "slightly " :
-                                      evp > 100 ? "greatly " : "";
-            description += make_stringf(
-                "It is cumbersome to wear, and %simpedes the evasion, "
-                "spellcasting ability, and attack speed of the wearer. "
-                "These penalties are reduced by the wearer's Shields skill "
-                "and Strength; mastering Shields eliminates penalties.",
-                cumber_desc);
+            const string cumber_desc = evp < 100 ? "slightly " :
+                                       evp > 100 ? "greatly " : "";
+            const string localized_degree = evp < 100 ? "轻微地"
+                                            : evp > 100 ? "大幅" : "";
+            description += zh_message("item.armour.shield_cumbersome", {
+                zh_text("degree", cumber_desc, localized_degree)}).display();
         }
         if (!monster)
             description += "\n\n";
         if (is_shield(item))
         {
-            description += "Base shield rating: "
-                        + to_string(property(item, PARM_AC));
-            description += "     Encumbrance rating: "
-                        + to_string(-property(item, PARM_EVASION) / 10);
-            description += "     Max blocks/turn: "
-                        + to_string(shield_block_limit(item));
+            description += zh_message("item.armour.shield_ratings", {
+                zh_integer("base", property(item, PARM_AC)),
+                zh_integer("encumbrance", -property(item, PARM_EVASION) / 10),
+                zh_integer("blocks", shield_block_limit(item))}).display();
             if (is_unrandom_artefact(item, UNRAND_WARLOCK_MIRROR))
                 description += _warlock_mirror_reflect_desc();
         }
         else
         {
             const int evp = property(item, PARM_EVASION);
-            description += "Base armour rating: "
-                        + to_string(property(item, PARM_AC));
+            string suffix;
+            string localized_suffix;
             if (get_armour_slot(item) == SLOT_BODY_ARMOUR)
             {
-                description += "       Encumbrance rating: "
-                            + to_string(-evp / 10);
+                suffix = "       Encumbrance rating: " + to_string(-evp / 10);
+                localized_suffix = "       负重等级：" + to_string(-evp / 10);
             }
             // Bardings reduce evasion by a fixed amount, and don't have any of
             // the other effects of encumbrance.
             else if (evp)
             {
-                description += "       Evasion: "
-                            + to_string(evp / 30);
+                suffix = "       Evasion: " + to_string(evp / 30);
+                localized_suffix = "       闪避惩罚：" + to_string(evp / 30);
             }
+            description += zh_message("item.armour.base_rating", {
+                zh_integer("base", property(item, PARM_AC)),
+                zh_text("suffix", suffix, localized_suffix)}).display();
         }
     }
 
@@ -2331,16 +2556,20 @@ static string _describe_armour(const item_def &item, bool verbose, bool monster)
         description += "\n\n";
 
         string ego_prefix;
+        const string ego_name_en = armour_ego_name(item, !is_artefact(item));
+        const string ego_name_zh = zh_word("item.armour.ego.", ego_name_en);
         if (is_artefact(item))
         {
             // Make this match the formatting in _randart_descrip,
             // since instead of the item being named something like
             // 'cloak of invisiblity', it's 'the cloak of the Snail (+Inv, ...)'
-            string name = string(armour_ego_name(item, true)) + ": ";
+            string name = ego_name_zh + ": ";
             ego_prefix = make_stringf("%-*s", MAX_ARTP_NAME_LEN + 1, name.c_str());
         }
+        else if (zh_language_enabled())
+            ego_prefix = "“" + ego_name_zh + "”效果：";
         else
-            ego_prefix = "'Of " + string(armour_ego_name(item, false)) + "': ";
+            ego_prefix = "'Of " + ego_name_en + "': ";
 
         string ego_key = _armour_ego_key(ego);
         string ego_desc = getEgoString(ego_key);
@@ -2364,11 +2593,12 @@ static string _describe_armour(const item_def &item, bool verbose, bool monster)
     {
         if (is_enchantable_armour(item))
         {
-            description += "\n\nIt can be maximally enchanted to +"
-                           + to_string(armour_max_enchant(item)) + ".";
+            description += zh_message("item.armour.max_enchantment", {
+                zh_integer("maximum", armour_max_enchant(item))}).display();
         }
         else if (armour_is_enchantable(item))
-            description += "\n\nIt cannot be enchanted further.";
+            description += zh_source("detail.item.fixed",
+                "\n\nIt cannot be enchanted further.");
     }
 
     if (verbose
@@ -2399,13 +2629,18 @@ static string _describe_armour(const item_def &item, bool verbose, bool monster)
     {
         // TODO: why doesn't this show shield effect? Reconcile with
         // _display_attack_delay
-        description += "\n\nYour current strength and Armour skill "
-                       "slows attacks with missile weapons (like "
-                        + you.weapon()->name(DESC_YOUR) + ") ";
-        if (aevp >= DELAY_SCALE)
-            description += make_stringf("by %.1f.", aevp / (10.0f * DELAY_SCALE));
-        else
-            description += "only slightly.";
+        const string weapon = you.weapon()->name(DESC_YOUR);
+        const string weapon_zh = zh_item_arg("weapon", *you.weapon(), DESC_YOUR).localized;
+        const string delay_text = aevp >= DELAY_SCALE
+            ? make_stringf("by %.1f.", aevp / (10.0f * DELAY_SCALE))
+            : "only slightly.";
+        const string localized_delay = aevp >= DELAY_SCALE
+            ? "减慢" + make_stringf("%.1f", aevp / (10.0f * DELAY_SCALE))
+            : "略微减慢。";
+        description += zh_message("item.armour.current_missile_slow", {
+            ZhArg{"weapon", ZhArgType::Name, weapon, weapon_zh,
+                  weapon_zh != weapon},
+            zh_text("delay_text", delay_text, localized_delay)}).display();
     }
 
     return description;
@@ -2424,8 +2659,8 @@ static string _describe_lignify_ac()
     you.equipment.unmeld_all_equipment(true);
     you.equipment.meld_equipment(tree_form->blocked_slots, true);
 
-    return make_stringf("If you quaff this potion your AC would be %d.",
-                        you.armour_class_scaled(1));
+    return zh_message("item.potion.lignify_ac", {
+        zh_integer("ac", you.armour_class_scaled(1))}).display();
 }
 
 string describe_item_rarity(const item_def &item)
@@ -2461,42 +2696,43 @@ static string _describe_jewellery(const item_def &item, bool verbose)
         // Explicit description of ring or amulet power.
         if (item.sub_type == AMU_REFLECTION)
         {
-            description += make_stringf("\n\nIt affects your shielding (%+d).",
-                                        AMU_REFLECT_SH / 2);
+            const string amount = make_stringf("%+d", AMU_REFLECT_SH / 2);
+            description += zh_message("item.jewellery.reflection_effect", {
+                zh_text("amount", amount, amount)}).display();
         }
         else if (item.plus != 0)
         {
+            const string amount = make_stringf("%+d", item.plus);
+            auto stat_effect = [&](const string &stat, const string &localized) {
+                description += zh_message("item.jewellery.stat_effect", {
+                    zh_text("stat", stat, localized),
+                    zh_text("amount", amount, amount)}).display();
+            };
             switch (item.sub_type)
             {
             case RING_PROTECTION:
-                description += make_stringf("\n\nIt affects your AC (%+d).",
-                                            item.plus);
+                stat_effect("AC", "护甲");
                 break;
 
             case RING_EVASION:
-                description += make_stringf("\n\nIt affects your evasion (%+d).",
-                                            item.plus);
+                stat_effect("evasion", "闪避");
                 break;
 
             case RING_STRENGTH:
-                description += make_stringf("\n\nIt affects your strength (%+d).",
-                                            item.plus);
+                stat_effect("strength", "力量");
                 break;
 
             case RING_INTELLIGENCE:
-                description += make_stringf("\n\nIt affects your intelligence (%+d).",
-                                            item.plus);
+                stat_effect("intelligence", "智力");
                 break;
 
             case RING_DEXTERITY:
-                description += make_stringf("\n\nIt affects your dexterity (%+d).",
-                                            item.plus);
+                stat_effect("dexterity", "敏捷");
                 break;
 
             case RING_SLAYING:
-                description += make_stringf("\n\nIt affects your accuracy and"
-                      " damage with ranged weapons and melee (%+d).",
-                      item.plus);
+                description += zh_message("item.jewellery.slaying_effect", {
+                    zh_text("amount", amount, amount)}).display();
                 break;
 
             default:
@@ -2528,20 +2764,20 @@ static string _describe_jewellery(const item_def &item, bool verbose)
 static string _describe_item_curse(const item_def &item)
 {
     if (!item.props.exists(CURSE_KNOWLEDGE_KEY))
-        return "\nIt has a curse placed upon it.";
+        return "\n" + zh_source("detail.item.fixed", "It has a curse placed upon it.");
 
     const CrawlVector& curses = item.props[CURSE_KNOWLEDGE_KEY].get_vector();
 
     if (curses.empty())
-        return "\nIt has a curse placed upon it.";
+        return "\n" + zh_source("detail.item.fixed", "It has a curse placed upon it.");
 
-    ostringstream desc;
-
-    desc << "\nIt has a curse which improves the following skills:\n";
-    desc << comma_separated_fn(curses.begin(), curses.end(), desc_curse_skills,
-                               ".\n", ".\n") << ".";
-
-    return desc.str();
+    const string skills = comma_separated_fn(curses.begin(), curses.end(),
+        desc_curse_skills, ".\n", ".\n");
+    const string description = string("\nIt has a curse which improves the following skills:\n")
+        + skills + ".";
+    return zh_message("item.curse.skills_english_fallback", {
+        ZhArg{"description", ZhArgType::Text, description, description,
+              false}}).display();
 }
 
 static string _describe_gizmo(const item_def &item)
@@ -2550,30 +2786,30 @@ static string _describe_gizmo(const item_def &item)
 
     if (item.brand)
     {
-        const string name = string(gizmo_effect_name(item.brand)) + ":";
+        const string name = zh_word("item.gizmo.name.",
+            gizmo_effect_name(item.brand)) + ":";
         const string fname = make_stringf("%-*s", MAX_ARTP_NAME_LEN + 1, name.c_str());
         string desc;
         switch (item.brand)
         {
             case SPGIZMO_SPELLMOTOR:
-                desc = "Your spells cost less MP as you Rev up. Whenever you "
-                       "cast a spell, you make a melee attack against a random "
-                       "enemy in range.";
+                desc = zh_source("detail.item.gizmo.fixed",
+                    "Your spells cost less MP as you Rev up. Whenever you cast a spell, you make a melee attack against a random enemy in range.");
                 break;
 
             case SPGIZMO_GADGETEER:
-                desc = "Your evocable items recharge 30% faster and wands have "
-                       "a 30% chance to not spend a charge.";
+                desc = zh_source("detail.item.gizmo.fixed",
+                    "Your evocable items recharge 30% faster and wands have a 30% chance to not spend a charge.");
                 break;
 
             case SPGIZMO_REVGUARD:
-                desc = "Your AC increases as you Rev (up to +5) and while "
-                       "fully Revved, your attacks may disarm enemies.";
+                desc = zh_source("detail.item.gizmo.fixed",
+                    "Your AC increases as you Rev (up to +5) and while fully Revved, your attacks may disarm enemies.");
                 break;
 
             case SPGIZMO_AUTODAZZLE:
-                desc  = "It sometimes fires a blinding ray at enemies whose attacks "
-                       "you dodge.";
+                desc = zh_source("detail.item.gizmo.fixed",
+                    "It sometimes fires a blinding ray at enemies whose attacks you dodge.");
                 break;
 
             default:
@@ -2622,12 +2858,13 @@ static void _uselessness_desc(ostringstream &description, const item_def &item)
         return;
     if (is_useless_item(item, true))
     {
-        description << "\n\n"; // always needed for inv descriptions
         string r;
+        string id;
+        string item_type;
         if (is_useless_item(item, false))
         {
-            description << "This " << base_type_string(item.base_type)
-                        << " is completely useless to you";
+            id = "item.useless.permanent";
+            item_type = base_type_string(item.base_type);
             r = _cannot_use_reason(item, false);
         }
         else
@@ -2635,36 +2872,38 @@ static void _uselessness_desc(ostringstream &description, const item_def &item)
             switch (item.base_type)
             {
             case OBJ_SCROLLS:
-                description << "Reading this right now";
                 // this is somewhat heuristic:
-                if (cannot_read_item_reason().size())
-                    description << " isn't possible";
-                else
-                    description << " will have no effect";
+                id = cannot_read_item_reason().size()
+                    ? "item.useless.reading_impossible"
+                    : "item.useless.reading_no_effect";
                 break;
             case OBJ_POTIONS:
                 // XX code dup
-                description << "Drinking this right now";
-                if (cannot_drink_item_reason().size())
-                    description << " isn't possible";
-                else
-                    description << " will have no effect";
+                id = cannot_drink_item_reason().size()
+                    ? "item.useless.drinking_impossible"
+                    : "item.useless.drinking_no_effect";
                 break;
             case OBJ_MISCELLANY:
             case OBJ_WANDS:
-                description << "You can't evoke this right now";
+                id = "item.useless.evoke";
                 break;
             default:
-                description << "This " << base_type_string(item.base_type)
-                            << " is useless to you right now";
+                id = "item.useless.current_default";
+                item_type = base_type_string(item.base_type);
                 break;
             }
             r = _cannot_use_reason(item, true);
         }
-        if (!r.empty())
-            description << ": " << _trogsafe_lowercase(r);
+        string reason = r.empty() ? "." : string(": ") + _trogsafe_lowercase(r);
+        string localized_reason = r.empty() ? "。" : reason;
+        ZhArg reason_arg{"reason", ZhArgType::Text, reason, localized_reason,
+                         r.empty()};
+        if (item_type.empty())
+            description << "\n\n" << zh_message(id, {reason_arg}).display();
         else
-            description << "."; // reasons always come with punctuation
+            description << "\n\n" << zh_message(id, {
+                ZhArg{"item_type", ZhArgType::Name, item_type, "物品", true},
+                reason_arg}).display();
     }
 }
 
@@ -2724,7 +2963,7 @@ string get_item_description(const item_def &item,
         }
         else if (is_unrandom_artefact(item) && item.is_identified())
         {
-            const string desc = getLongDescription(get_artefact_name(item));
+            const string desc = _detail_database_text(get_artefact_name(item));
             if (!desc.empty())
             {
                 description << desc;
@@ -2738,25 +2977,25 @@ string get_item_description(const item_def &item,
         else if (is_artefact(item) && item.is_identified()
                  && item.base_type == OBJ_JEWELLERY)
         {
-            description << "It is an ancient artefact.";
+            description << zh_source("detail.item.fixed", "It is an ancient artefact.");
             need_base_desc = false;
         }
         else if (item.base_type == OBJ_GIZMOS)
         {
-            description << "It is a fabulous contraption, custom-made by your "
-                           "own hands.";
+            description << zh_source("detail.item.fixed",
+                "It is a fabulous contraption, custom-made by your own hands.");
             need_base_desc = false;
         }
 
         if (need_base_desc)
         {
             string db_name = item.name(DESC_DBNAME, true, false, false);
-            string db_desc = getLongDescription(db_name);
+            string db_desc = _detail_database_text(db_name);
 
             if (db_desc.empty())
             {
                 if (item_type_removed(item.base_type, item.sub_type))
-                    description << "This item has been removed.\n";
+                    description << zh_source("detail.item.fixed", "This item has been removed.") << "\n";
                 else if (item.is_identified())
                 {
                     description << "[ERROR: no desc for item name '" << db_name
@@ -2764,8 +3003,7 @@ string get_item_description(const item_def &item,
                 }
                 else
                 {
-                    description << uppercase_first(item.name(DESC_A, true,
-                                                             false, false));
+                    description << uppercase_first(zh_item_display(item, DESC_A));
                     description << ".\n";
                 }
             }
@@ -2849,7 +3087,8 @@ string get_item_description(const item_def &item,
         }
         if (verbose)
         {
-            description << "\n\nIt falls into the 'Staves' category. ";
+            description << "\n\n" << zh_source("detail.item.fixed",
+                                            "It falls into the 'Staves' category. ");
             description << _handedness_string(item);
         }
         break;
@@ -2858,12 +3097,14 @@ string get_item_description(const item_def &item,
         if (item.sub_type == MISC_ZIGGURAT && you.zigs_completed)
         {
             const int zigs = you.zigs_completed;
-            description << "\n\nIt is surrounded by a "
-                        << (zigs >= 27 ? "blinding " : // just plain silly
-                            zigs >=  9 ? "dazzling " :
-                            zigs >=  3 ? "bright " :
-                                         "gentle ")
-                        << "glow.";
+            const string glow = zigs >= 27 ? "blinding" : // just plain silly
+                                zigs >=  9 ? "dazzling" :
+                                zigs >=  3 ? "bright" : "gentle";
+            const string localized_glow = zigs >= 27 ? "刺眼" :
+                                          zigs >=  9 ? "耀眼" :
+                                          zigs >=  3 ? "明亮" : "柔和";
+            description << zh_message("item.ziggurat.glow", {
+                zh_text("glow", glow, localized_glow)}).display();
         }
 
         if (verbose)
@@ -2876,32 +3117,34 @@ string get_item_description(const item_def &item,
                 // slightly redundant with uselessness desc..
                 const int charges = evoker_charges(item.sub_type);
                 if (charges > 1)
-                    description << "Charges: " << charges << ". Once all charges have been used";
+                    description << zh_message("item.evoker.charges", {
+                        zh_integer("charges", charges)}).display();
                 else
-                    description << "Once activated";
-                description << ", this device is rendered temporarily inert. "
-                            << "However, it recharges as you gain experience.";
+                    description << zh_source("detail.item.fixed", "Once activated");
+                description << zh_source("detail.item.fixed",
+                    ", this device is rendered temporarily inert. However, it recharges as you gain experience.");
 
                 if (evoker_plus(item.sub_type) < MAX_EVOKER_ENCHANT)
                 {
-                    description << "\n\nAdditional devices of the same type "
-                            << "can be combined with it to improve the rate at "
-                            << "which it recharges.";
+                    description << zh_source("detail.item.fixed",
+                        "\n\nAdditional devices of the same type can be combined with it to improve the rate at which it recharges.");
                 }
                 if (!is_useless_skill(SK_EVOCATIONS)
                        && you.skill(SK_EVOCATIONS) < MAX_SKILL_LEVEL)
                 {
-                    description << "\n\nIncreasing your evocations skill will "
-                                << "improve the rate at which it recharges.";
+                    description << zh_source("detail.item.fixed",
+                        "\n\nIncreasing your evocations skill will improve the rate at which it recharges.");
                 }
 
                 const string damage_str = evoke_damage_string(item);
                 if (damage_str != "")
-                    description << "\nDamage: " << damage_str;
+                    description << zh_message("item.evoker.damage", {
+                        zh_text("damage", damage_str, damage_str)}).display();
 
                 const string noise_str = evoke_noise_string(item);
                 if (noise_str != "")
-                    description << "\nNoise: " << noise_str;
+                    description << zh_message("item.evoker.noise", {
+                        zh_text("noise", noise_str, noise_str)}).display();
             }
         }
 
@@ -2922,13 +3165,21 @@ string get_item_description(const item_def &item,
                     description << "\n\n" + _describe_lignify_ac();
                 else if (item.sub_type == POT_CANCELLATION)
                 {
-                    description << "\n\nIf you drink this now, you will no longer be " <<
-                        describe_player_cancellation() << ".";
+                    const string state = describe_player_cancellation();
+                    description << zh_message("item.potion.cancellation", {
+                        ZhArg{"state", ZhArgType::Text, state, state, false}}).display();
                 }
             }
-            description << "\n\nIt is "
-                        << article_a(describe_item_rarity(item))
-                        << " potion.";
+            const string rarity = describe_item_rarity(item);
+            const string article = article_a(rarity);
+            const string localized_rarity = zh_lookup_exact(rarity);
+            const string localized_article = zh_lookup_exact(article);
+            description << zh_message("item.consumable.rarity", {
+                ZhArg{"article", ZhArgType::Text, article, localized_article,
+                      localized_article != article},
+                ZhArg{"rarity", ZhArgType::Name, rarity, localized_rarity,
+                      localized_rarity != rarity},
+                zh_text("kind", "potion", "药水")}).display();
             need_extra_line = false;
         }
         break;
@@ -2940,11 +3191,13 @@ string get_item_description(const item_def &item,
 
             const string damage_str = evoke_damage_string(item);
             if (damage_str != "")
-                description << "\nDamage: " << damage_str;
+                description << zh_message("item.wand.damage", {
+                    zh_text("damage", damage_str, damage_str)}).display();
 
             const string noise_str = evoke_noise_string(item);
             if (noise_str != "")
-                description << "\nNoise: " << noise_str;
+                description << zh_message("item.wand.noise", {
+                    zh_text("noise", noise_str, noise_str)}).display();
 
             if (verbose)
                 _uselessness_desc(description, item);
@@ -2957,9 +3210,16 @@ string get_item_description(const item_def &item,
             if (verbose)
                 _uselessness_desc(description, item);
 
-            description << "\n\nIt is "
-                        << article_a(describe_item_rarity(item))
-                        << " scroll.";
+            const string rarity = describe_item_rarity(item);
+            const string article = article_a(rarity);
+            const string localized_rarity = zh_lookup_exact(rarity);
+            const string localized_article = zh_lookup_exact(article);
+            description << zh_message("item.consumable.rarity", {
+                ZhArg{"article", ZhArgType::Text, article, localized_article,
+                      localized_article != article},
+                ZhArg{"rarity", ZhArgType::Name, rarity, localized_rarity,
+                      localized_rarity != rarity},
+                zh_text("kind", "scroll", "卷轴")}).display();
             need_extra_line = false;
         }
         break;
@@ -3021,21 +3281,21 @@ string get_item_description(const item_def &item,
                 if (you.has_mutation(MUT_ARTEFACT_ENCHANTING))
                 {
                     if (!item.is_identified())
-                        description << "\nIt is an ancient artefact.";
+                        description << "\n" << zh_source("detail.item.fixed", "It is an ancient artefact.");
                     else if (is_unrandom_artefact(item)
                              || (item.base_type == OBJ_ARMOUR
                                  && item.plus >= armour_max_enchant(item))
                              || (item.base_type == OBJ_WEAPONS
                                  && item.plus >= MAX_WPN_ENCHANT))
                     {
-                        description << "\nEnchanting this artefact any further "
-                            "is beyond even your skills.";
+                        description << "\n" << zh_source("detail.item.fixed",
+                            "Enchanting this artefact any further is beyond even your skills.");
                     }
                 }
                 else
                 {
-                    description << "\nThis ancient artefact cannot be changed "
-                        "by magic or mundane means.";
+                    description << "\n" << zh_source("detail.item.fixed",
+                        "This ancient artefact cannot be changed by magic or mundane means.");
                 }
             }
             // Randart jewellery has already displayed this line.
@@ -3043,19 +3303,32 @@ string get_item_description(const item_def &item,
             else if (item.base_type != OBJ_JEWELLERY && item.base_type != OBJ_GIZMOS
                      || (item.is_identified() && is_unrandom_artefact(item)))
             {
-                description << "\nIt is an ancient artefact.";
+                description << "\n" << zh_source("detail.item.fixed", "It is an ancient artefact.");
             }
         }
     }
 
     if (god_hates_item(item))
     {
-        description << "\n\n" << uppercase_first(god_name(you.religion))
-                    << " disapproves of the use of such an item.";
+        const string god = uppercase_first(god_name(you.religion));
+        const string localized_god = zh_lookup_exact(god);
+        description << zh_message("item.god.disapproval", {
+            ZhArg{"god", ZhArgType::Name, god, localized_god,
+                  localized_god != god}}).display();
     }
 
     if (verbose && origin_describable(item))
-        description << "\n" << origin_desc(item) << ".";
+    {
+        if (!item.orig_monnum && item.orig_place.branch == BRANCH_DUNGEON)
+            description << zh_message("item.origin.found_dungeon", {
+                zh_integer("depth", item.orig_place.depth)}).display();
+        else
+        {
+            const string origin = origin_desc(item) + ".";
+            description << zh_message("item.origin.english_fallback", {
+                ZhArg{"origin", ZhArgType::Text, origin, origin, false}}).display();
+        }
+    }
 
     // This information is obscure and differs per-item, so looking it up in
     // a docs file you don't know to exist is tedious.
@@ -3423,7 +3696,8 @@ void get_feature_desc(const coord_def &pos, describe_info &inf, bool include_ext
         && !feat_is_closed_door(feat) && !feat_is_endless(feat))
     {
         if (feat_is_reachable_past(feat))
-            long_desc += "\nA suitable weapon or spell can reach past it.";
+            long_desc += "\n" + zh_source("detail.feature.fixed",
+                                             "A suitable weapon or spell can reach past it.");
         else
             long_desc += "\nSome spells can be cast through it.";
     }
@@ -3440,7 +3714,8 @@ void get_feature_desc(const coord_def &pos, describe_info &inf, bool include_ext
             inf.body << (d.title == extra_descs.back().title ? "" : "\n") << d.description;
     }
 
-    inf.quote = getQuoteString(db_name);
+    inf.quote = zh_source("detail.monster.quote",
+                          getQuoteString(db_name).c_str());
 }
 
 static bool _do_feat_action(const coord_def &pos, const command_type action)
@@ -3658,7 +3933,7 @@ void get_item_desc(const item_def &item, describe_info &inf)
     // so we can actually output these spells if space is scarce.
     const item_description_mode mode = item.has_spells() ? IDM_PLAIN
                                                          : IDM_DEFAULT;
-    string name = item.name(DESC_INVENTORY_EQUIP) + ".";
+    string name = zh_item_display(item, DESC_INVENTORY_EQUIP) + ".";
     if (!in_inventory(item))
         name = uppercase_first(name);
     inf.body << name << get_item_description(item, mode);
@@ -3758,39 +4033,64 @@ static vector<command_type> _allowed_actions(const item_def& item)
     return actions;
 }
 
-static string _actions_desc(const vector<command_type>& actions)
+static ZhMessage _actions_desc(const vector<command_type>& actions)
 {
-    // XX code duplication
-    static const map<command_type, string> act_str =
+    static const map<command_type, string> action_ids =
     {
-        { CMD_WIELD_WEAPON, "(w)ield" },
-        { CMD_UNWIELD_WEAPON, "(u)nwield" },
-        { CMD_QUIVER_ITEM, "(q)uiver" }, // except for potions, see below
-        { CMD_WEAR_ARMOUR, "(w)ear" },
-        { CMD_REMOVE_ARMOUR, "(t)ake off" },
-        { CMD_EVOKE, "e(v)oke" },
-        { CMD_READ, "(r)ead" },
-        { CMD_WEAR_JEWELLERY, "(p)ut on" },
-        { CMD_REMOVE_JEWELLERY, "(r)emove" },
-        { CMD_QUAFF, "(q)uaff" },
-        { CMD_PICKUP, "(g)et" },
-        { CMD_DROP, "(d)rop" },
-        { CMD_INSCRIBE_ITEM, "(i)nscribe" },
-        { CMD_ADJUST_INVENTORY, "(=)adjust" },
-        { CMD_SET_SKILL_TARGET, "(s)kill target" },
-        { CMD_MAP_GOTO_TARGET, "(g)o to location" },
+        { CMD_WIELD_WEAPON, "item.action.wield" },
+        { CMD_UNWIELD_WEAPON, "item.action.unwield" },
+        { CMD_QUIVER_ITEM, "item.action.quiver" },
+        { CMD_WEAR_ARMOUR, "item.action.wear_armour" },
+        { CMD_REMOVE_ARMOUR, "item.action.remove_armour" },
+        { CMD_EVOKE, "item.action.evoke" },
+        { CMD_READ, "item.action.read" },
+        { CMD_WEAR_JEWELLERY, "item.action.wear_jewellery" },
+        { CMD_REMOVE_JEWELLERY, "item.action.remove_jewellery" },
+        { CMD_QUAFF, "item.action.quaff" },
+        { CMD_PICKUP, "item.action.pickup" },
+        { CMD_DROP, "item.action.drop" },
+        { CMD_INSCRIBE_ITEM, "item.action.inscribe" },
+        { CMD_ADJUST_INVENTORY, "item.action.adjust" },
+        { CMD_SET_SKILL_TARGET, "item.action.skill_target" },
+        { CMD_MAP_GOTO_TARGET, "item.action.map_goto" },
     };
     bool push_quiver = false;
-    return comma_separated_fn(begin(actions), end(actions),
-                                [&push_quiver] (command_type cmd)
-                                {
-                                    if (cmd == CMD_QUAFF) // assumes quaff appears first
-                                        push_quiver = true;
-                                    else if (push_quiver && cmd == CMD_QUIVER_ITEM)
-                                        return string("qui(v)er");
-                                    return act_str.at(cmd);
-                                },
-                                ", or ") + ".";
+    vector<ZhMessage> phrases;
+    for (command_type cmd : actions)
+    {
+        if (cmd == CMD_QUAFF) // assumes quaff appears before the potion quiver action
+            push_quiver = true;
+        if (push_quiver && cmd == CMD_QUIVER_ITEM)
+            phrases.push_back(zh_message("item.action.quiver_after_quaff"));
+        else
+            phrases.push_back(zh_message(action_ids.at(cmd)));
+    }
+
+    if (phrases.size() == 1)
+        return zh_message("item.actions.list.one",
+            {zh_text("action", phrases[0].canonical, phrases[0].localized)});
+
+    string canonical_middle, localized_middle;
+    for (size_t i = 1; i + 1 < phrases.size(); ++i)
+    {
+        if (!canonical_middle.empty())
+        {
+            canonical_middle += ", ";
+            localized_middle += "、";
+        }
+        canonical_middle += phrases[i].canonical;
+        localized_middle += phrases[i].localized;
+    }
+
+    if (phrases.size() == 2)
+        return zh_message("item.actions.list.two",
+            {zh_text("first", phrases[0].canonical, phrases[0].localized),
+             zh_text("last", phrases[1].canonical, phrases[1].localized)});
+
+    return zh_message("item.actions.list.many",
+        {zh_text("first", phrases[0].canonical, phrases[0].localized),
+         zh_text("middle", canonical_middle, localized_middle),
+         zh_text("last", phrases.back().canonical, phrases.back().localized)});
 }
 
 // Take a key and a list of commands and return the command from the list
@@ -3976,10 +4276,12 @@ command_type describe_item_popup(const item_def &item,
     if (!item.defined())
         return CMD_NO_CMD;
 
+    ZhLegacyGuard item_detail_guard("detail.item");
+
     // Dead players use no items.
     do_actions = do_actions && !(you.pending_revival || crawl_state.updating_scores);
 
-    string name = item.name(DESC_INVENTORY_EQUIP) + ".";
+    string name = zh_item_display(item, DESC_INVENTORY_EQUIP) + ".";
     if (!in_inventory(item))
         name = uppercase_first(name);
 
@@ -3988,17 +4290,18 @@ command_type describe_item_popup(const item_def &item,
     if (loc.is_valid() && loc != level_id::current())
     {
         // should be off-level stash search only
-        desc += make_stringf("It can be found on %s.\n\n",
-            loc.describe(true, true).c_str());
+        desc += zh_message("item.location.offlevel", {
+            zh_key("level", loc.describe(false, true))}).display();
+        desc += "\n\n";
     }
 
     desc += get_item_description(item);
 
     string quote;
     if (is_unrandom_artefact(item) && item.is_identified())
-        quote = getQuoteString(get_artefact_name(item));
+        quote = _detail_database_text(get_artefact_name(item), true);
     else
-        quote = getQuoteString(item.name(DESC_DBNAME, true, false, false));
+        quote = _detail_database_text(item.name(DESC_DBNAME, true, false, false), true);
 
     if (!(crawl_state.game_is_hints_tutorial()
           || quote.empty()))
@@ -4007,12 +4310,16 @@ command_type describe_item_popup(const item_def &item,
     }
 
     if (crawl_state.game_is_hints())
-        desc += "\n\n" + hints_describe_item(item);
+    {
+        const string hints = hints_describe_item(item);
+        desc += "\n\n" + zh_message("item.hints.english_fallback", {
+            ZhArg{"text", ZhArgType::Text, hints, hints, false}}).display();
+    }
 
     if (fixup_desc)
         fixup_desc(desc);
 
-    formatted_string fs_desc = formatted_string::parse_string(desc);
+    formatted_string fs_desc = formatted_string::parse_string_raw(desc);
 
     spellset spells = item_spellset(item);
     formatted_string spells_desc;
@@ -4045,7 +4352,7 @@ command_type describe_item_popup(const item_def &item,
     }
 #endif
 
-    auto title = make_shared<Text>(name);
+    auto title = make_shared<Text>(formatted_string::parse_string_raw(name));
     title->set_margin_for_sdl(0, 0, 0, 10);
     title_hbox->add_child(std::move(title));
 
@@ -4064,8 +4371,10 @@ command_type describe_item_popup(const item_def &item,
     if (!actions.empty())
     {
         if (!spells.empty())
-            footer_text.cprintf("Select a spell, or ");
-        footer_text += formatted_string(_actions_desc(actions));
+            footer_text += formatted_string::parse_string_raw(
+                zh_message("item.actions.select_spell").display(), CYAN);
+        footer_text += formatted_string::parse_string_raw(
+            _actions_desc(actions).display(), CYAN);
         auto footer = make_shared<Text>();
         footer->set_text(footer_text);
         footer->set_margin_for_crt(1, 0, 0, 0);
@@ -4106,7 +4415,7 @@ command_type describe_item_popup(const item_def &item,
 
             show_spell_success = !show_spell_success;
             if (show_spell_success)
-                text->set_text(formatted_string::parse_string(spell_success));
+                text->set_text(formatted_string::parse_string_raw(spell_success));
             else
                 text->set_text(fs_desc.trim());
 #ifdef USE_TILE_WEB
@@ -4219,11 +4528,30 @@ static string _player_spell_stats(const spell_type spell)
     description += zh_message("spell.level", {
         zh_integer("spell_level", spell_difficulty(spell))}).display();
 
-    const string schools = spell_schools_string(spell);
-    description +=
-        make_stringf("        School%s: %s",
-                     schools.find("/") != string::npos ? "s" : "",
-                     schools.c_str());
+    const string schools_en = spell_schools_string(spell);
+    string schools_zh;
+    bool schools_supported = true;
+    size_t start = 0;
+    while (start <= schools_en.size())
+    {
+        const size_t end = schools_en.find('/', start);
+        const string school = schools_en.substr(start,
+            end == string::npos ? string::npos : end - start);
+        if (!schools_zh.empty())
+            schools_zh += "/";
+        const ZhArg school_arg = zh_word_arg("school", "spell.school.",
+                                               school, ZhArgType::Name);
+        schools_zh += school_arg.localized;
+        schools_supported = schools_supported && school_arg.supported;
+        if (end == string::npos)
+            break;
+        start = end + 1;
+    }
+    const string school_plural = schools_en.find('/') != string::npos ? "s" : "";
+    description += zh_message("spell.stats.school", {
+        zh_text("s", school_plural, ""),
+        ZhArg{"schools", ZhArgType::Text, schools_en, schools_zh,
+              schools_supported}}).display();
 
     if (!crawl_state.need_save
         || (get_spell_flags(spell) & spflag::monster))
@@ -4245,37 +4573,75 @@ static string _player_spell_stats(const spell_type spell)
     }
     else
         failure = failure_rate_to_string(raw_spell_fail(spell));
-    description += make_stringf("        Fail: %s", failure.c_str());
+    description += zh_message("spell.stats.fail", {
+        zh_text("failure", failure, failure)}).display();
 
     const string damage_string = spell_damage_string(spell);
     const string max_dam_string = spell_max_damage_string(spell);
     const int acc = spell_acc(spell);
     // TODO: generalize this pattern? It's very common in descriptions
     const int padding = (acc != -1) ? 8 : damage_string.size() ? 6 : 5;
-    description += make_stringf("\n\n%*s: ", padding, "Power");
-    description += spell_power_string(spell);
+    const string power = spell_power_string(spell);
+    description += zh_message("spell.stats.power", {
+        zh_text("indent", string(max(0, padding - 5), ' '),
+                string(max(0, padding - 5), ' ')),
+        zh_text("power", power, power)}).display();
 
     if (damage_string != "")
     {
-        description += make_stringf("\n%*s: ", padding, "Damage");
-        description += damage_string;
-
         const string max_dam = spell_max_damage_string(spell);
-        if (!max_dam.empty())
-            description += " (max " + max_dam + ")";
+        const string maximum = max_dam.empty() ? "" : " (max " + max_dam + ")";
+        const string localized_maximum = max_dam.empty() ? ""
+            : "（最高" + max_dam + "）";
+        description += zh_message("spell.stats.damage", {
+            zh_text("indent", string(max(0, padding - 6), ' '),
+                    string(max(0, padding - 6), ' ')),
+            // Dice notation is language-independent; the max label is part
+            // of the template and has its own Chinese rendering.
+            ZhArg{"damage", ZhArgType::Text, damage_string, damage_string, true},
+            ZhArg{"maximum", ZhArgType::Text, maximum, localized_maximum, true}
+        }).display();
     }
     if (acc != -1)
     {
         ostringstream acc_str;
         _print_bar(acc, 3, "", acc_str);
-        description += make_stringf("\n%*s: %s", padding, "Accuracy",
-                                                    acc_str.str().c_str());
+        const string accuracy = acc_str.str();
+        description += zh_message("spell.stats.accuracy", {
+            zh_text("indent", string(max(0, padding - 8), ' '),
+                    string(max(0, padding - 8), ' ')),
+            zh_text("accuracy", accuracy, accuracy)}).display();
     }
 
-    description += make_stringf("\n%*s: ", padding, "Range");
-    description += spell_range_string(spell);
-    description += make_stringf("\n%*s: ", padding, "Noise");
-    description += spell_noise_string(spell);
+    const string range = spell_range_string(spell);
+    description += zh_message("spell.stats.range", {
+        zh_text("indent", string(max(0, padding - 5), ' '),
+                string(max(0, padding - 5), ' ')),
+        zh_text("range", range, range)}).display();
+    const string noise = spell_noise_string(spell);
+    string noise_rating = noise;
+    string noise_suffix;
+    const size_t noise_detail = noise.find(" (");
+    if (noise_detail != string::npos)
+    {
+        noise_rating = noise.substr(0, noise_detail);
+        noise_suffix = noise.substr(noise_detail);
+    }
+    const ZhArg localized_noise = zh_word_arg("noise", "spell.noise.",
+                                               noise_rating, ZhArgType::Name);
+    string localized_noise_suffix = noise_suffix;
+    if (!noise_suffix.empty() && noise_suffix.size() >= 4
+        && noise_suffix.compare(0, 2, " (") == 0
+        && noise_suffix.back() == ')')
+        localized_noise_suffix = "（" + noise_suffix.substr(2,
+            noise_suffix.size() - 3) + "）";
+    const ZhArg noise_arg{"noise", ZhArgType::Name, noise,
+                          localized_noise.localized + localized_noise_suffix,
+                          localized_noise.supported};
+    description += zh_message("spell.stats.noise", {
+        zh_text("indent", string(max(0, padding - 5), ' '),
+                string(max(0, padding - 5), ' ')),
+        noise_arg}).display();
     description += "\n";
     return description;
 }
@@ -4302,26 +4668,32 @@ static string _get_skill_defense_change(skill_type skill)
     const float ev_diff = (float)(new_ev - cur_ev) / 100.0;
     const float sh_diff = (float)(new_sh - cur_sh) / 100.0;
 
-    const char* msg = (cur_skill >= 26) ? "mastering" : "training 1 level of";
+    const bool mastering = cur_skill >= 26;
+    const string msg = mastering ? "mastering" : "training 1 level of";
 
     if (skill == SK_ARMOUR)
     {
-        return make_stringf("\nWith your current stats and equipment, %s "
-                            "this skill would increase your AC by %.1f and "
-                            "your EV by %.1f.",
-                            msg, ac_diff, ev_diff).c_str();
+        return "\n" + zh_message("detail.skill.defence.armour", {
+            zh_text("action", msg, mastering ? "精通" : "训练1级"),
+            zh_number("ac", ac_diff), zh_number("ev", ev_diff)},
+            make_stringf("With your current stats and equipment, %s this skill would increase your AC by %.1f and your EV by %.1f.",
+                         msg.c_str(), ac_diff, ev_diff)).display();
     }
     else if (skill == SK_DODGING)
     {
-        return make_stringf("\nWith your current stats and equipment, %s "
-                            "this skill would increase your EV by %.1f.",
-                            msg, ev_diff).c_str();
+        return "\n" + zh_message("detail.skill.defence.dodging", {
+            zh_text("action", msg, mastering ? "精通" : "训练1级"),
+            zh_number("ev", ev_diff)},
+            make_stringf("With your current stats and equipment, %s this skill would increase your EV by %.1f.",
+                         msg.c_str(), ev_diff)).display();
     }
     else if (skill == SK_SHIELDS)
     {
-        return make_stringf("\nWith your current stats and equipment, %s "
-                            "this skill would increase your SH by %.1f.",
-                            msg, sh_diff).c_str();
+        return "\n" + zh_message("detail.skill.defence.shields", {
+            zh_text("action", msg, mastering ? "精通" : "训练1级"),
+            zh_number("sh", sh_diff)},
+            make_stringf("With your current stats and equipment, %s this skill would increase your SH by %.1f.",
+                         msg.c_str(), sh_diff)).display();
     }
 
     return "";
@@ -4329,16 +4701,17 @@ static string _get_skill_defense_change(skill_type skill)
 
 string get_skill_description(skill_type skill, bool need_title)
 {
+    ZhLegacyGuard skill_detail_guard("detail.skill.producer");
     string lookup = skill_name(skill);
     string result = "";
 
     if (need_title)
     {
-        result = lookup;
+        result = zh_word("skill.name.", lookup);
         result += "\n\n";
     }
 
-    result += getLongDescription(lookup);
+    result += _detail_database_text(lookup);
 
     if ((skill == SK_ARMOUR || skill == SK_DODGING || skill == SK_SHIELDS)
         && you.skills[skill] < MAX_SKILL_LEVEL && !is_useless_skill(skill))
@@ -4349,29 +4722,36 @@ string get_skill_description(skill_type skill, bool need_title)
     {
         if (you.has_mutation(MUT_FORLORN))
         {
-            result += "\n";
-            result += "How on earth did you manage to pick this up?";
+            result += "\n" + zh_message("detail.skill.invocations.forlorn").display();
         }
         else if (invo_skill(you.religion) != SK_INVOCATIONS)
         {
-            result += "\n";
-            result += uppercase_first(apostrophise(god_name(you.religion)))
-                      + " powers are not affected by the Invocations skill.";
+            const string god = uppercase_first(apostrophise(god_name(you.religion)));
+            const auto god_name_arg = zh_glossary_name("god", "god.name", god_name(you.religion));
+            result += "\n" + zh_message("detail.skill.invocations.unaffected", {
+                ZhArg("god", ZhArgType::Name, god, god_name_arg.localized,
+                      god_name_arg.supported)}).display();
         }
     }
     else if (skill == invo_skill(you.religion))
     {
-        result += "\n";
-        result += uppercase_first(apostrophise(god_name(you.religion)))
-                  + " powers are based on " + skill_name(skill) + " instead"
-                    " of Invocations skill.";
+        const string god = uppercase_first(apostrophise(god_name(you.religion)));
+        const auto god_name_arg = zh_glossary_name("god", "god.name", god_name(you.religion));
+        const string skill_en = skill_name(skill);
+        const auto skill_arg = zh_glossary_name("skill", "skill.name", skill_en);
+        result += "\n" + zh_message("detail.skill.invocations.based_on", {
+            ZhArg("god", ZhArgType::Name, god, god_name_arg.localized,
+                 god_name_arg.supported),
+            skill_arg}).display();
     }
 
     if (is_harmful_skill(skill))
     {
-        result += "\n";
-        result += uppercase_first(god_name(you.religion))
-                  + " strongly dislikes when you train this skill.";
+        const string god = uppercase_first(god_name(you.religion));
+        const auto god_name_arg = zh_glossary_name("god", "god.name", god_name(you.religion));
+        result += "\n" + zh_message("detail.skill.god.dislikes_training", {
+            ZhArg("god", ZhArgType::Name, god, god_name_arg.localized,
+                 god_name_arg.supported)}).display();
     }
 
     return result;
@@ -4474,116 +4854,139 @@ static string _player_spell_desc(spell_type spell)
 
     ostringstream description;
 
-    description << "Miscasting this spell causes magic contamination"
-                << (fail_severity(spell) ?
-                    " and also " + _miscast_damage_string(spell) : "")
-                << ".\n";
+    const bool has_miscast_effect = fail_severity(spell) != 0;
+    const string additional = has_miscast_effect
+        ? " and also " + _miscast_damage_string(spell) : "";
+    description << zh_message("spell.miscast_contamination", {
+        ZhArg{"additional", ZhArgType::Text, additional, additional,
+              !has_miscast_effect}}).display();
 
     if (spell == SPELL_BATTLESPHERE)
     {
         vector<spell_type> battlesphere_spells = player_battlesphere_spells();
-        description << "Your battlesphere";
         if (battlesphere_spells.empty())
-            description << " is not activated by any of your spells";
+            description << zh_message("spell.player.battlesphere_inactive").display();
         else
         {
-            description << " fires when you cast "
-                        << comma_separated_fn(battlesphere_spells.begin(),
-                                              battlesphere_spells.end(),
-                                              spell_title,
-                                              " or ");
+            vector<string> spell_names_en, spell_names_zh;
+            for (spell_type known_spell : battlesphere_spells)
+            {
+                const string name = spell_title(known_spell);
+                spell_names_en.push_back(name);
+                spell_names_zh.push_back(zh_lookup_exact(name));
+            }
+            description << zh_message("spell.player.battlesphere_fires", {
+                ZhArg{"spells", ZhArgType::Text,
+                    comma_separated_line(spell_names_en.begin(),
+                                         spell_names_en.end(), " or "),
+                    join_strings(spell_names_zh.begin(),
+                                 spell_names_zh.end(), "、"), true}}).display();
         }
-        description << ".\n";
     }
 
     if (spell == SPELL_SPELLSPARK_SERVITOR)
     {
         spell_type servitor_spell = player_servitor_spell();
-        description << "Your servitor";
         if (servitor_spell == SPELL_NO_SPELL)
-            description << " is unable to mimic any of your spells";
+            description << zh_message("spell.player.servitor_inactive").display();
         else
-            description << " casts " << spell_title(player_servitor_spell());
-        description << ".\n";
+        {
+            const string name = spell_title(player_servitor_spell());
+            description << zh_message("spell.player.servitor_casts", {
+                ZhArg{"spell", ZhArgType::Name, name, zh_lookup_exact(name),
+                      zh_lookup_exact(name) != name}}).display();
+        }
     }
     else if (spell == SPELL_PLATINUM_PARAGON)
     {
         if (you.props.exists(PARAGON_WEAPON_KEY))
         {
-            description << "Your paragon wields "
-                        << you.props[PARAGON_WEAPON_KEY].get_item()
-                           .name(DESC_A, true).c_str()
-                        << ".\n";
+            const item_def &weapon = you.props[PARAGON_WEAPON_KEY].get_item();
+            description << zh_message("spell.player.paragon_weapon", {
+                zh_item_arg("weapon", weapon, DESC_A)}).display();
         }
     }
     else if (you.has_spell(SPELL_SPELLSPARK_SERVITOR) && spell_servitorable(spell))
     {
         if (failure_rate_to_int(raw_spell_fail(spell)) <= 20)
-            description << "Your servitor can be imbued with this spell.\n";
+            description << zh_message("spell.player.servitor_imbued.fixed").display();
         else
-        {
-            description << "Your servitor could be imbued with this spell if "
-                           "your spell success rate were higher.\n";
-        }
+            description << zh_message("spell.player.servitor_imbued_if").display();
     }
 
     if (spell == SPELL_IRRADIATE)
-        description << "This inflicts up to 40% magical contamination when cast by you.\n";
+        description << zh_message("spell.player.irradiate.fixed").display();
 
     // Report summon cap
     const int limit = summons_limit(spell, true);
     if (limit)
     {
-        description << "You can sustain at most " + number_in_words(limit)
-                    // Attempt to clarify that flayed ghosts are NOT included in the cap
-                    << (spell == SPELL_MARTYRS_KNELL ? " martyred shade" : " creature")
-                    << (limit > 1 ? "s" : "")
-                    << " summoned by this spell.\n";
+        // Attempt to clarify that flayed ghosts are NOT included in the cap.
+        const string creature = spell == SPELL_MARTYRS_KNELL
+            ? "martyred shade" : "creature";
+        description << zh_message("spell.player.summon_cap", {
+            ZhArg{"count", ZhArgType::Text, number_in_words(limit),
+                  to_string(limit), true},
+            ZhArg{"creature", ZhArgType::Text, creature,
+                  spell == SPELL_MARTYRS_KNELL ? "殉道者影灵" : "生物", true},
+            ZhArg{"plural", ZhArgType::Text, limit > 1 ? "s" : "", "",
+                  limit > 1}}).display();
     }
 
     if (god_hates_spell(spell, you.religion))
     {
-        description << uppercase_first(god_name(you.religion))
-                    << " frowns upon the use of this spell.\n";
+        const string god = uppercase_first(god_name(you.religion));
+        description << zh_message("spell.player.god_opinion", {
+            ZhArg{"god", ZhArgType::Name, god, zh_lookup_exact(god),
+                  zh_lookup_exact(god) != god},
+            zh_text("opinion", "frowns upon", "不悦于")}).display();
     }
     else if (god_likes_spell(spell, you.religion))
     {
-        description << uppercase_first(god_name(you.religion))
-                    << " supports the use of this spell.\n";
+        const string god = uppercase_first(god_name(you.religion));
+        description << zh_message("spell.player.god_opinion", {
+            ZhArg{"god", ZhArgType::Name, god, zh_lookup_exact(god),
+                  zh_lookup_exact(god) != god},
+            zh_text("opinion", "supports", "支持")}).display();
     }
 
     if (you.has_mutation(MUT_MNEMOPHAGE) && spell_can_be_enkindled(spell))
-        description << "This spell is empowered while you are enkindled.\n";
+        description << zh_message("spell.player.enkindled.fixed").display();
 
     if (!you_can_memorise(spell))
     {
-        description << "\nYou cannot "
-                    << (you.has_spell(spell) ? "cast" : "memorise")
-                    << " this spell because "
-                    << desc_cannot_memorise_reason(spell)
-                    << "\n";
+        const string action = you.has_spell(spell) ? "cast" : "memorise";
+        const string localized_action = you.has_spell(spell) ? "施放" : "记忆";
+        const string reason = desc_cannot_memorise_reason(spell);
+        description << zh_message("spell.player.cannot_memorise", {
+            zh_text("action", action, localized_action),
+            ZhArg{"reason", ZhArgType::Text, reason, reason, false}}).display();
     }
     else if (casting_is_useless(spell, true))
     {
         // this preempts the more general uselessness call below, for the sake
         // of applying slightly different formatting.
-        description << "\n<red>"
-                    << uppercase_first(casting_uselessness_reason(spell, true))
-                    << "</red>\n";
+        const string reason = uppercase_first(casting_uselessness_reason(spell, true));
+        description << zh_message("spell.player.casting_useless", {
+            ZhArg{"reason", ZhArgType::Text, reason, reason, false}}).display();
     }
     else if (spell_is_useless(spell, true, false))
     {
-        description << "\nThis spell would have no effect right now because "
-                    << spell_uselessness_reason(spell, true, false)
-                    << "\n";
+        const string reason = spell_uselessness_reason(spell, true, false);
+        if (reason == "you can't see any hostile targets that would be affected.")
+            description << zh_message("spell.player.no_visible_hostiles").display();
+        else
+            description << zh_message("spell.player.useless_reason", {
+                ZhArg{"reason", ZhArgType::Text, reason, reason, false}}).display();
     }
 
     if (spell == SPELL_GRAVE_CLAW && you.has_spell(SPELL_GRAVE_CLAW))
     {
-        description << "\nYou have harvested enough death to cast this spell "
-                    << you.props[GRAVE_CLAW_CHARGES_KEY].get_int() << " time"
-                    << (you.props[GRAVE_CLAW_CHARGES_KEY].get_int() == 1 ? "" : "s")
-                    << ". (Maximum of " << GRAVE_CLAW_MAX_CHARGES << ".)";
+        const int charges = you.props[GRAVE_CLAW_CHARGES_KEY].get_int();
+        description << zh_message("spell.player.grave_claw", {
+            zh_integer("charges", charges),
+            zh_text("plural", charges == 1 ? "" : "s", ""),
+            zh_integer("maximum", GRAVE_CLAW_MAX_CHARGES)}).display();
     }
 
     return description.str();
@@ -4618,19 +5021,19 @@ static void _get_spell_description(const spell_type spell,
 {
     description.reserve(500);
 
-    const string long_descrip = getLongDescription(string(spell_title(spell))
-                                                   + " spell");
+    const string long_descrip = _detail_database_text(string(spell_title(spell))
+                                                       + " spell");
 
     if (!long_descrip.empty())
         description += long_descrip;
     else
     {
-        description += "This spell has no description. "
-                       "Casting it may therefore be unwise. "
+        description += zh_source("detail.spell.fixed",
+            "This spell has no description. Casting it may therefore be unwise. "
 #ifdef DEBUG
-                       "Instead, go fix it. ";
+            "Instead, go fix it.");
 #else
-                       "Please file a bug report.";
+            "Please file a bug report.");
 #endif
     }
 
@@ -4639,21 +5042,25 @@ static void _get_spell_description(const spell_type spell,
         if (spell == SPELL_CONJURE_LIVING_SPELLS)
         {
             const spell_type living_spell = living_spell_type_for(mon_owner->type);
-            description += make_stringf("\n%s creates living %s spells.\n",
-                                        uppercase_first(mon_owner->full_name(DESC_A)).c_str(),
-                                        spell_title(living_spell));
+            const string spell_name = spell_title(living_spell);
+            const string localized_spell = zh_lookup_exact(spell_name);
+            description += zh_message("spell.monster.living_spell", {
+                zh_monster_info_arg("actor", *mon_owner, DESC_A),
+                ZhArg{"spell", ZhArgType::Name, spell_name,
+                      localized_spell, localized_spell != spell_name}}).display();
         }
         else if (spell == SPELL_QUICKSILVER_BOLT)
         {
             if (player_is_debuffable())
             {
-                description += make_stringf("\nIf you are struck by this,"
-                                            " you will no longer be %s.\n",
-                                            describe_player_cancellation(true).c_str());
+                const string state = describe_player_cancellation(true);
+                description += zh_message("spell.monster.cancellation", {
+                    ZhArg{"state", ZhArgType::Text, state, zh_lookup_exact(state),
+                          zh_lookup_exact(state) != state}}).display();
             }
             else
-                description += "\nYou currently have no enchantments that could be"
-                               " removed by this.\n";
+                description += zh_source("detail.spell.fixed",
+                    "\nYou currently have no enchantments that could be removed by this.\n");
 
         }
 
@@ -4663,20 +5070,21 @@ static void _get_spell_description(const spell_type spell,
                                 || spell == SPELL_FLASHING_BALESTRA
                                 || spell == SPELL_BECKONING_GALE ? 3 : 0);
 
-        description += "\nRange : ";
-        description += range_string(range, -1, minrange);
+        description += zh_message("spell.monster.range", {
+            zh_text("range", range_string(range, -1, minrange),
+                    range_string(range, -1, minrange))}).display();
 
         if (crawl_state.need_save && you_worship(GOD_DITHMENOS))
         {
             if (!valid_marionette_spell(spell))
             {
-                description += "\n\n<magenta>This spell cannot be performed via "
-                               "Aphotic Marionette.</magenta>\n";
+                description += zh_source("detail.spell.fixed",
+                    "\n\n<magenta>This spell cannot be performed via Aphotic Marionette.</magenta>\n");
             }
             else if (spell_has_marionette_override(spell))
             {
-                description += "\n\n<magenta>When cast via Aphotic Marionette, "
-                               "this spell will affect the player instead.";
+                description += zh_source("detail.spell.fixed",
+                    "\n\n<magenta>When cast via Aphotic Marionette, this spell will affect the player instead.");
             }
         }
 
@@ -4686,11 +5094,18 @@ static void _get_spell_description(const spell_type spell,
         const int limit = summons_limit(spell, false);
         if (limit)
         {
-            description += make_stringf("%s can sustain at most %s creature%s "
-                               "summoned by this spell.\n",
-                               uppercase_first(mon_owner->full_name(DESC_THE)).c_str(),
-                               number_in_words(limit).c_str(),
-                               limit > 1 ? "s" : "");
+            const string count = number_in_words(limit);
+            const string creature = spell == SPELL_MARTYRS_KNELL
+                ? "martyred shade" : "creature";
+            const string localized_creature = spell == SPELL_MARTYRS_KNELL
+                ? "殉道者影灵" : "生物";
+            description += zh_message("spell.monster.summon_cap", {
+                zh_monster_info_arg("actor", *mon_owner, DESC_THE),
+                ZhArg{"count", ZhArgType::Text, count, to_string(limit), true},
+                ZhArg{"creature", ZhArgType::Text, creature,
+                      localized_creature, true},
+                ZhArg{"plural", ZhArgType::Text, limit > 1 ? "s" : "",
+                      "", limit > 1}}).display();
         }
 
         // only display this if the player exists (not in the main menu)
@@ -4710,20 +5125,21 @@ static void _get_spell_description(const spell_type spell,
             if (you.wizard)
                 wiz_info += make_stringf(" (pow %d)", _mon_hex_pow(spell, mon_owner, is_wand));
 #endif
-            description += you.immune_to_hex(spell)
-                ? make_stringf("You cannot be affected by this "
-                               "spell right now. %s\n",
-                               wiz_info.c_str())
-                : make_stringf("Chance to defeat your Will: %d%%%s\n",
-                               hex_chance(spell, mon_owner, is_wand),
-                               wiz_info.c_str());
+            if (you.immune_to_hex(spell))
+                description += zh_message("spell.monster.immune.fixed", {
+                    zh_text("suffix", wiz_info, wiz_info)}).display();
+            else
+                description += zh_message("spell.monster.will_chance", {
+                    zh_integer("chance", hex_chance(spell, mon_owner, is_wand)),
+                    zh_text("suffix", wiz_info, wiz_info)}).display();
         }
 
     }
     else
         description += player_spell_desc(spell);
 
-    const string quote = getQuoteString(string(spell_title(spell)) + " spell");
+    const string quote = _detail_database_text(
+        string(spell_title(spell)) + " spell", true);
     if (!quote.empty())
         description += "_________________\n\n<darkgrey>" + quote + "</darkgrey>";
 }
@@ -4756,6 +5172,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
                     const item_def* item)
 {
     UNUSED(item);
+    ZhLegacyGuard spell_detail_guard("detail.spell");
 
     string desc;
     _get_spell_description(spell, mon_owner, desc);
@@ -4772,11 +5189,11 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
     title_hbox->add_child(std::move(spell_icon));
 #endif
 
-    string spl_title = spell_title(spell);
+    string spl_title = zh_word("spell.name.", spell_title(spell));
     trim_string(desc);
 
     auto title = make_shared<Text>();
-    title->set_text(spl_title);
+    title->set_text(formatted_string::parse_string_raw(spl_title));
     title->set_margin_for_sdl(0, 0, 0, 10);
     title_hbox->add_child(std::move(title));
 
@@ -4787,7 +5204,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
 
     auto scroller = make_shared<Scroller>();
     auto text = make_shared<Text>();
-    text->set_text(formatted_string::parse_string(desc));
+    text->set_text(formatted_string::parse_string_raw(desc));
     text->set_wrap_text(true);
     scroller->set_child(std::move(text));
     vbox->add_child(scroller);
@@ -4954,50 +5371,46 @@ static string _describe_draconian(const monster_info& mi)
 
     if (subsp != mi.type)
     {
-        description += "It has ";
-
         switch (subsp)
         {
-        case MONS_BLACK_DRACONIAN:      description += "black ";   break;
-        case MONS_YELLOW_DRACONIAN:     description += "yellow ";  break;
-        case MONS_GREEN_DRACONIAN:      description += "green ";   break;
-        case MONS_PURPLE_DRACONIAN:     description += "purple ";  break;
-        case MONS_RED_DRACONIAN:        description += "red ";     break;
-        case MONS_WHITE_DRACONIAN:      description += "white ";   break;
-        case MONS_GREY_DRACONIAN:       description += "grey ";    break;
-        case MONS_PALE_DRACONIAN:       description += "pale ";    break;
+        case MONS_BLACK_DRACONIAN:      description += zh_message("monster.draconian.scales.black").display() + " ";   break;
+        case MONS_YELLOW_DRACONIAN:     description += zh_message("monster.draconian.scales.yellow").display() + " ";  break;
+        case MONS_GREEN_DRACONIAN:      description += zh_message("monster.draconian.scales.green").display() + " ";   break;
+        case MONS_PURPLE_DRACONIAN:     description += zh_message("monster.draconian.scales.purple").display() + " ";  break;
+        case MONS_RED_DRACONIAN:        description += zh_message("monster.draconian.scales.red").display() + " ";     break;
+        case MONS_WHITE_DRACONIAN:      description += zh_message("monster.draconian.scales.white").display() + " ";   break;
+        case MONS_GREY_DRACONIAN:       description += zh_message("monster.draconian.scales.grey").display() + " ";    break;
+        case MONS_PALE_DRACONIAN:       description += zh_message("monster.draconian.scales.pale").display() + " ";    break;
         default:
             break;
         }
-
-        description += "scales. ";
     }
 
     switch (subsp)
     {
     case MONS_BLACK_DRACONIAN:
-        description += "Sparks flare out of its mouth and nostrils.";
+        description += zh_message("monster.draconian.desc.black").display();
         break;
     case MONS_YELLOW_DRACONIAN:
-        description += "Acidic fumes swirl around it.";
+        description += zh_message("monster.draconian.desc.yellow").display();
         break;
     case MONS_GREEN_DRACONIAN:
-        description += "Venom drips from its jaws and stinger tail.";
+        description += zh_message("monster.draconian.desc.green").display();
         break;
     case MONS_PURPLE_DRACONIAN:
-        description += "Its outline shimmers with magical energy.";
+        description += zh_message("monster.draconian.desc.purple").display();
         break;
     case MONS_RED_DRACONIAN:
-        description += "Smoke pours from its nostrils.";
+        description += zh_message("monster.draconian.desc.red").display();
         break;
     case MONS_WHITE_DRACONIAN:
-        description += "Frost pours from its nostrils.";
+        description += zh_message("monster.draconian.desc.white").display();
         break;
     case MONS_GREY_DRACONIAN:
-        description += "Its scales and tail are adapted to the water.";
+        description += zh_message("monster.draconian.desc.grey").display();
         break;
     case MONS_PALE_DRACONIAN:
-        description += "It is cloaked in a pall of superheated steam.";
+        description += zh_message("monster.draconian.desc.pale").display();
         break;
     default:
         break;
@@ -5035,16 +5448,16 @@ static const char* _get_resist_name(mon_resist_flags res_type)
     }
 }
 
-static const char* _get_threat_desc(mon_threat_level_type threat)
+static string _get_threat_desc(mon_threat_level_type threat)
 {
     switch (threat)
     {
     case MTHRT_UNDEF: // ?
-    case MTHRT_TRIVIAL: return "Minor";
-    case MTHRT_EASY:    return "Low";
-    case MTHRT_TOUGH:   return "High";
-    case MTHRT_NASTY:   return "Lethal";
-    default:            return "Eggstreme";
+    case MTHRT_TRIVIAL: return zh_source("detail.monster.table_value", "Minor");
+    case MTHRT_EASY:    return zh_source("detail.monster.table_value", "Low");
+    case MTHRT_TOUGH:   return zh_source("detail.monster.table_value", "High");
+    case MTHRT_NASTY:   return zh_source("detail.monster.table_value", "Lethal");
+    default:            return zh_source("detail.monster.table_value", "Eggstreme");
     }
 }
 
@@ -5111,7 +5524,15 @@ static string _flavour_base_desc(attack_flavour flavour)
 
     const string* desc = map_find(base_descs, flavour);
     ASSERT(desc);
-    return *desc;
+    if (desc->empty())
+        return "";
+    return zh_word("monster.attack.atom.", *desc);
+}
+
+static ZhArg _monster_attack_atom_arg(const string &text,
+                                      const string &key = "value")
+{
+    return zh_word_arg(key, "monster.attack.atom.", text);
 }
 
 struct mon_attack_info
@@ -5167,7 +5588,8 @@ static mon_attack_info _atk_info(const monster_info& mi, int i)
 static string _brand_damage_string(const monster_info &mi, brand_type brand,
                                    int dam, int wpn_base_dmg = 0)
 {
-    const char * name = brand_type_name(brand, true);
+    const string name = brand_type_name(brand, true);
+    const ZhArg brand_arg = _monster_attack_atom_arg(name, "brand");
     int brand_dam;
     // Only include damaging brands
     // Heavy is included in base damage calculations instead
@@ -5205,16 +5627,18 @@ static string _brand_damage_string(const monster_info &mi, brand_type brand,
             brand_dam = 4;
             break;
         case SPWPN_SUNDERING:
-            return make_stringf(" + %d per 4 attacks", dam * 3 / 2);
+            return zh_message("monster.attack.brand_sundering", {
+                zh_integer("damage", dam * 3 / 2)}).display();
         case SPWPN_VENOM:
         case SPWPN_ANTIMAGIC:
         case SPWPN_CHAOS:
-            return make_stringf(" + %s", name);
+            return zh_message("monster.attack.brand_only", {brand_arg}).display();
         default:
             return "";
     }
 
-    return make_stringf(" + %d (%s)", brand_dam, name);
+    return zh_message("monster.attack.brand_damage", {
+        zh_integer("damage", brand_dam), brand_arg}).display();
 }
 
 // Max damage from a magical staff with a given amount of staff & evo skill
@@ -5246,9 +5670,9 @@ static string _monster_staff_damage_string(const monster_info &mi,
                            : staff == STAFF_ALCHEMY       ? "poison"
                            /*staff == STAFF_CONJURATION*/ : "conj";
 
-    return make_stringf(" + %d (%s)",
-                        _staff_max_damage(staff, staff_skill, evo_skill),
-                        dam_type_string.c_str());
+    return zh_message("monster.attack.brand_damage", {
+        zh_integer("damage", _staff_max_damage(staff, staff_skill, evo_skill)),
+        _monster_attack_atom_arg(dam_type_string, "brand")}).display();
 }
 
 struct mon_attack_desc_info
@@ -5329,21 +5753,24 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
                                      int attk_mult)
 {
     if (!desc.empty())
-        desc += " + ";
+        desc += zh_message("monster.attack.separator").display();
 
     desc += uppercase_first(_flavour_base_desc(flavour));
     if (flav_dam && attack.flavour != AF_PURE_FIRE)
     {
-        desc += make_stringf(" (max %d%s)",
-                                flav_dam,
-                                attk_mult > 1 ? " each" : "");
+        desc += zh_message("monster.attack.flavour_max", {
+            zh_integer("damage", flav_dam),
+            zh_text("each", attk_mult > 1 ? " each" : "",
+                    attk_mult > 1 ? "每次" : "")}).display();
     }
     else if (flavour == AF_DRAIN)
-        desc += make_stringf(" (max %d damage)", real_dam / 2);
+        desc += zh_message("monster.attack.drain_max", {
+            zh_integer("damage", real_dam / 2)}).display();
     else if (flavour == AF_CRUSH)
     {
-        desc += make_stringf(" (%d-%d dam)", attack.damage,
-                                attack.damage*2);
+        desc += zh_message("monster.attack.damage_range", {
+            zh_integer("minimum", attack.damage),
+            zh_integer("maximum", attack.damage * 2)}).display();
     }
 
     if (di.flavour_without_dam
@@ -5352,16 +5779,17 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
         && !flavour_has_mobility(attack.flavour)
         && !(attack.flavour == AF_REACH_CLEAVE_UGLY))
     {
-        desc += " (if damage dealt)";
+        desc += zh_message("monster.attack.if_damage_dealt").display();
     }
 
     if (flavour_has_reach(attack.flavour))
     {
-        desc += (desc.empty() ? "Reaches"
-                        : (flavour == AF_REACH_CLEAVE_UGLY) ? "; cleaves"
-                        : "; reaches");
-        desc += (flavour == AF_RIFT ? " very far"
-                                    : " from afar");
+        const char *reach_id = desc.empty() ? "monster.attack.reaches"
+            : flavour == AF_REACH_CLEAVE_UGLY ? "monster.attack.cleaves"
+                                               : "monster.attack.reaches_semicolon";
+        desc += zh_message(reach_id).display();
+        desc += zh_message(flavour == AF_RIFT ? "monster.attack.very_far"
+                                              : "monster.attack.from_afar").display();
     }
 }
 
@@ -5380,23 +5808,42 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
 
     if (weapon_multihits(wpn))
         attk_mult *= weapon_hits_per_swing(*wpn);
-    string attk_name = uppercase_first(mon_attack_name_short(attack.type));
+    string attk_name = mon_attack_name_short(attack.type);
+    ZhArg attk_arg = _monster_attack_atom_arg(attk_name, "attack");
+    attk_arg.canonical = uppercase_first(attk_name);
     if (ranged)
+    {
         attk_name = "Shoot";
+        attk_arg = _monster_attack_atom_arg(attk_name, "attack");
+    }
     string weapon_descriptor = "";
     if (wpn)
         weapon_descriptor = ": " + wpn->name(DESC_PLAIN, true, true, false);
     else if (di.special_flavour != SPWPN_NORMAL)
         weapon_descriptor = ": " + ghost_brand_name(di.special_flavour, mi.type);
-    string attk_desc = make_stringf("%s%s", attk_name.c_str(),
-                                    weapon_descriptor.c_str());
-    if (attk_mult > 1)
+    ZhArg weapon_arg = zh_text("weapon", weapon_descriptor, weapon_descriptor);
+    if (wpn)
     {
-        attk_desc = make_stringf("%dx %s%s", attk_mult, attk_name.c_str(),
-                                    weapon_descriptor.c_str());
+        const ZhArg item_arg = zh_item_arg("weapon", *wpn, DESC_PLAIN);
+        weapon_arg.localized = ": " + zh_item_display(*wpn, DESC_PLAIN);
+        weapon_arg.supported = item_arg.supported;
     }
+    else if (!weapon_descriptor.empty())
+    {
+        const string brand = weapon_descriptor.substr(2);
+        const ZhArg brand_arg = _monster_attack_atom_arg(brand, "value");
+        weapon_arg.localized = ": " + brand_arg.localized;
+        weapon_arg.supported = brand_arg.supported;
+    }
+    string attk_desc;
+    if (attk_mult > 1)
+        attk_desc = zh_message("monster.attack.counted_label", {
+            zh_integer("count", attk_mult), attk_arg, weapon_arg}).display();
+    else
+        attk_desc = zh_message("monster.attack.label",
+            {attk_arg, weapon_arg}).display();
     di.attack_descriptions.emplace_back(attk_desc);
-    di.attk_desc_width = max(di.attk_desc_width, attk_desc.length());
+    di.attk_desc_width = max(di.attk_desc_width, (size_t)strwidth(attk_desc));
 
     // Part 2: The "Max Damage" column
     // Display the max damage from the attack (including any weapon)
@@ -5446,12 +5893,13 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
 
     string dam_str;
     if (dam != real_dam)
-        dam_str = make_stringf("%d (base %d)", real_dam, dam);
+        dam_str = zh_message("monster.attack.modified_damage", {
+            zh_integer("damage", real_dam), zh_integer("base", dam)}).display();
     else
         dam_str = make_stringf("%d", dam);
 
     if (attack.flavour == AF_PURE_FIRE)
-        dam_str += " fire";
+        dam_str += " " + zh_word("monster.attack.atom.", "fire");
 
     string brand_str;
     if (wpn)
@@ -5470,11 +5918,11 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
     else if (di.special_flavour != SPWPN_NORMAL)
         brand_str = _brand_damage_string(mi, di.special_flavour, real_dam);
 
-    string final_dam_str = make_stringf("%s%s%s", dam_str.c_str(),
-                                        brand_str.c_str(),
-                                        attk_mult > 1 ? " each" : "");
+    string final_dam_str = dam_str + brand_str;
+    if (attk_mult > 1)
+        final_dam_str += zh_message("monster.attack.each").display();
     di.damage_descriptions.emplace_back(final_dam_str);
-    di.damage_width = max(di.damage_width, final_dam_str.size());
+    di.damage_width = max(di.damage_width, (size_t)strwidth(final_dam_str));
 
     // Part 3: The "Bonus" column
     // Describe any additional effects from a monster's attack flavour
@@ -5501,10 +5949,10 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
     }
     // ...except Nessos' ranged attacks apply venom as a special effect
     else if (mi.type == MONS_NESSOS)
-        bonus_desc += make_stringf("Poison");
+        bonus_desc += _monster_attack_atom_arg("poison").localized;
 
     di.bonus_descriptions.emplace_back(bonus_desc);
-    di.bonus_width = max(di.bonus_width, bonus_desc.size());
+    di.bonus_width = max(di.bonus_width, (size_t)strwidth(bonus_desc));
 }
 
 // Get all the info required to form an attacks table row for the monster's
@@ -5516,41 +5964,47 @@ static void _attacks_table_row_throwing(const monster_info &mi,
     if (!quiv || quiv->base_type != OBJ_MISSILES)
         return;
 
-    string throw_str = "Throw: ";
-    if (quiv->is_type(OBJ_MISSILES, MI_THROWING_NET))
-        throw_str += quiv->name(DESC_A, false, false, true, false);
-    else
-        throw_str += pluralise(quiv->name(DESC_PLAIN, false, false,
-                                          true, false));
+    const bool is_net = quiv->is_type(OBJ_MISSILES, MI_THROWING_NET);
+    const string thrown_en = is_net
+        ? quiv->name(DESC_A, false, false, true, false)
+        : pluralise(quiv->name(DESC_PLAIN, false, false, true, false));
+    const ZhArg thrown_localized = zh_item_arg("item", *quiv,
+                                               is_net ? DESC_A : DESC_PLAIN);
+    const ZhArg thrown_arg{"item", ZhArgType::Name, thrown_en,
+        zh_item_display(*quiv, is_net ? DESC_A : DESC_PLAIN),
+        thrown_localized.supported};
+    const string throw_str = zh_message("monster.attack.throw_label",
+                                        {thrown_arg}).display();
     di.attack_descriptions.emplace_back(throw_str);
-    di.attk_desc_width = max(di.attk_desc_width, throw_str.size());
+    di.attk_desc_width = max(di.attk_desc_width, (size_t)strwidth(throw_str));
 
     string dam_desc = "0";
     string bonus_desc = "";
     if (quiv->sub_type == MI_THROWING_NET)
-        bonus_desc = "Ensnare in a net";
+        bonus_desc = _monster_attack_atom_arg("Ensnare in a net").localized;
     else if (quiv->sub_type == MI_DART)
     {
         switch (quiv->brand)
         {
         case SPMSL_CURARE:
-            dam_desc = "12 (curare)"; // direct curare damage is 2d6
-            bonus_desc = "Poison and slowing";
+            dam_desc = zh_message("monster.attack.curare_damage", {
+                zh_integer("damage", 12)}).display();
+            bonus_desc = _monster_attack_atom_arg("Poison and slowing").localized;
             break;
         case SPMSL_POISONED:
-            bonus_desc = "Poison";
+            bonus_desc = _monster_attack_atom_arg("poison").localized;
             break;
         case SPMSL_BLINDING:
-            bonus_desc = "Blinding and confusion";
+            bonus_desc = _monster_attack_atom_arg("Blinding and confusion").localized;
             break;
         case SPMSL_FRENZY:
-            bonus_desc = "Drive defenders into a frenzy";
+            bonus_desc = _monster_attack_atom_arg("Drive defenders into a frenzy").localized;
             break;
         case SPMSL_DISPERSAL:
-            bonus_desc = "Blink the defender away";
+            bonus_desc = _monster_attack_atom_arg("Blink the defender away").localized;
             break;
         case SPMSL_DISJUNCTION:
-            bonus_desc = "Blink the defender repeatedly";
+            bonus_desc = _monster_attack_atom_arg("Blink the defender repeatedly").localized;
         default:
             break;
         }
@@ -5571,36 +6025,38 @@ static void _attacks_table_row_throwing(const monster_info &mi,
             string dmg_msg;
             int silver_dam = max(dam / 3,
                                  silver_damages_victim(&you, dam, dmg_msg));
-            silver_str = make_stringf(" + %d (silver)", silver_dam);
+            silver_str = zh_message("monster.attack.silver_damage", {
+                zh_integer("damage", silver_dam)}).display();
         }
         dam_desc = make_stringf("%d%s", dam, silver_str.c_str());
     }
 
     di.damage_descriptions.emplace_back(dam_desc);
     di.bonus_descriptions.emplace_back(bonus_desc);
-    di.damage_width = max(di.damage_width, dam_desc.size());
-    di.bonus_width = max(di.bonus_width, bonus_desc.size());
+    di.damage_width = max(di.damage_width, (size_t)strwidth(dam_desc));
+    di.bonus_width = max(di.bonus_width, (size_t)strwidth(bonus_desc));
 }
 
 // Build the table of attacks, for real
 static void _build_table_of_attacks(mon_attack_desc_info &di,
                                     ostringstream &result)
 {
-    const string attack_header = zh_translate(di.plural ? "Attacks" : "Attack");
-    const string damage_header = zh_translate("Max Damage");
-    const string bonus_header = zh_translate(di.flavour_without_dam ? "Bonus"
-                                                                  : "After Damaging Hits");
-    auto localize_column = [](vector<string> &cells, const string &header) {
+    const string attack_header = zh_source("detail.monster.attack_table",
+                                           di.plural ? "Attacks" : "Attack");
+    const string damage_header = zh_source("detail.monster.attack_table",
+                                           "Max Damage");
+    const string bonus_header = zh_source("detail.monster.attack_table",
+        di.flavour_without_dam ? "Bonus" : "After Damaging Hits");
+    auto measure_column = [](vector<string> &cells, const string &header) {
         size_t width = strwidth(header);
         for (auto &cell : cells) {
-            cell = zh_translate(cell);
             width = max(width, (size_t)strwidth(cell));
         }
         return width;
     };
-    di.attk_desc_width = localize_column(di.attack_descriptions, attack_header);
-    di.damage_width = localize_column(di.damage_descriptions, damage_header);
-    di.bonus_width = localize_column(di.bonus_descriptions,
+    di.attk_desc_width = measure_column(di.attack_descriptions, attack_header);
+    di.damage_width = measure_column(di.damage_descriptions, damage_header);
+    di.bonus_width = measure_column(di.bonus_descriptions,
                                     di.has_any_flavour ? bonus_header : "");
     // Hopefully enough width for every possibility
     di.damage_width    = min(di.damage_width, (size_t) 31);
@@ -5727,13 +6183,11 @@ static string _monster_spells_description(const monster_info& mi, bool mark_spel
     if (mark_spells)
         description += SPELL_LIST_END;
 
-    description.cprintf("\nTo read a description, press the key listed above. "
-        "(AdB) indicates damage (the sum of A B-sided dice), "
-        "(x%%) indicates the chance to defeat your Will, "
-        "and (y) indicates the spell range");
-    description.cprintf(crawl_state.need_save
-        ? "; shown in red if you are in range.\n"
-        : ".\n");
+    description += formatted_string::parse_string_raw(
+        "\n" + zh_message("monster.spell.help").display());
+    description += formatted_string::parse_string_raw(zh_message(
+        crawl_state.need_save ? "monster.spell.range_warning"
+                              : "monster.spell.range_period").display() + "\n");
 
     return description.to_colour_string();
 }
@@ -6095,6 +6549,10 @@ static string _monster_current_target_description(const monster_info &mi)
 
     const char* pronoun = mi.pronoun(PRONOUN_SUBJECTIVE);
     const bool plural = mi.pronoun_plurality();
+    const string subject_canonical = uppercase_first(pronoun);
+    const ZhArg subject("subject", ZhArgType::Name, subject_canonical, "它");
+    const ZhArg verb("verb", ZhArgType::Text,
+                     conjugate_verb("are", plural), "", true);
 
     ostringstream result;
     if (mi.is(MB_ALLY_TARGET))
@@ -6102,28 +6560,41 @@ static string _monster_current_target_description(const monster_info &mi)
         auto allies = find_allies_targeting(*m);
         if (allies.size() == 1)
         {
-            result << uppercase_first(pronoun) << " "
-                   << conjugate_verb("are", plural)
-                   << " currently targeted by "
-                   << allies[0]->name(DESC_YOUR) << ".\n";
+            const string canonical = subject_canonical + " "
+                + conjugate_verb("are", plural) + " currently targeted by "
+                + allies[0]->name(DESC_YOUR) + ".";
+            result << zh_message("monster.targeted_by_one", {
+                subject, verb, zh_actor_arg("ally", allies[0], DESC_YOUR)
+            }, canonical).display() << "\n";
         }
         else
         {
-            result << uppercase_first(pronoun) << " "
-                   << conjugate_verb("are", plural)
-                   << " currently targeted by:\n";
+            string canonical = subject_canonical + " "
+                + conjugate_verb("are", plural) + " currently targeted by:\n";
+            string localized;
             for (auto *a : allies)
-                result << "  " << a->name(DESC_YOUR) << "\n";
+            {
+                const ZhArg ally = zh_actor_arg("ally", a, DESC_YOUR);
+                canonical += "  " + ally.canonical + "\n";
+                localized += "　" + ally.localized + "\n";
+            }
+            result << zh_message("monster.targeted_by_many", {
+                subject, verb, ZhArg("items", ZhArgType::Text,
+                                     canonical.substr(canonical.find(":\n") + 2),
+                                     localized, true)
+            }, canonical).display();
         }
     }
 
     // TODO: this might be ambiguous, give a relative position?
     if (mi.attitude == ATT_FRIENDLY && m->get_foe())
     {
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("are", plural)
-               << " currently targeting "
-               << m->get_foe()->name(DESC_THE) << ".\n";
+        const string canonical = subject_canonical + " "
+            + conjugate_verb("are", plural) + " currently targeting "
+            + m->get_foe()->name(DESC_THE) + ".";
+        result << zh_message("monster.targeting_foe", {
+            subject, verb, zh_actor_arg("foe", m->get_foe(), DESC_THE)
+        }, canonical).display() << "\n";
     }
 
     return result.str();
@@ -6135,6 +6606,38 @@ struct TableCell
     string   value;
     colour_t colour;
 };
+
+static string _detail_table_label(const string &label)
+{
+    static const map<string, pair<const char *, const char *>> reviewed = {
+        {"Max HP", {"detail.monster.table_label", "Max HP"}},
+        {"Will", {"detail.monster.table_label", "Will"}},
+        {"AC", {"detail.monster.table_label", "AC"}},
+        {"EV", {"detail.monster.table_label", "EV"}},
+        {"SH", {"detail.monster.table_label", "SH"}},
+        {"Threat", {"detail.monster.table_label", "Threat"}},
+        {"Class", {"detail.monster.table_label", "Class"}},
+        {"Size", {"detail.monster.table_label", "Size"}},
+        {"Int", {"detail.monster.table_label", "Int"}},
+        {"Regen", {"detail.monster.table_label", "Regen"}},
+        {"Melee dmg", {"detail.form.table_label", "Melee dmg"}},
+        {"Bite speed", {"detail.form.table_label", "Bite speed"}},
+        {"Elec chance", {"detail.form.table_label", "Elec chance"}},
+        {"Aux chance", {"detail.form.table_label", "Aux chance"}},
+        {"Stealth", {"detail.form.table_label", "Stealth"}},
+        {"Reach", {"detail.form.table_label", "Reach"}},
+        {"Barding", {"detail.form.table_label", "Barding"}},
+        {"Claws", {"detail.form.table_label", "Claws"}},
+        {"Melee damage", {"detail.form.table_label", "Melee damage"}},
+        {"SInv", {"detail.form.table_label", "SInv"}},
+        {"Str", {"detail.form.table_label", "Str"}},
+        {"Dex", {"detail.form.table_label", "Dex"}},
+    };
+    const auto it = reviewed.find(label);
+    if (it == reviewed.end())
+        return label; // compact resistance labels (rF, rC, ...) are symbols
+    return zh_source(it->second.first, it->second.second);
+}
 
 // TODO: This is similar to column_composer. Deduplicate?
 class TablePrinter
@@ -6162,7 +6665,7 @@ public:
     {
         if (fixed_column_num > 0 && (int)rows[rows.size() - 1].size() >= fixed_column_num)
             AddRow();
-        rows[rows.size() - 1].push_back({zh_translate(label), zh_translate(value), colour});
+        rows[rows.size() - 1].push_back({_detail_table_label(label), value, colour});
     }
 
     int NumCells() const
@@ -6343,10 +6846,12 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
 
     // Less important common properties. Arguably should be lower down.
     const size_type sz = mi.body_size();
-    const string size_desc = sz == SIZE_LITTLE ? "V. Small" : uppercase_first(get_size_adj(sz));
+    const string size_desc = zh_lookup_exact(sz == SIZE_LITTLE ? "V. Small"
+                                                  : uppercase_first(get_size_adj(sz)));
     const auto holiness = mons_class_holiness(mi.type);
-    const string holi = holiness == MH_NONLIVING ? "Nonliv."
-                                                 : single_holiness_description(holiness);
+    const string holiness_name = holiness == MH_NONLIVING ? "Nonliv."
+                                             : uppercase_first(single_holiness_description(holiness));
+    const string holi = zh_source("detail.monster.table_value", holiness_name.c_str());
     pr.AddRow();
     if (mi.threat != MTHRT_UNDEF && !mons_class_is_peripheral(mi.type))
         pr.AddCell("Threat", _get_threat_desc(mi.threat));
@@ -6354,9 +6859,10 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
         pr.AddCell(); // ensure alignment
     pr.AddCell("Class", uppercase_first(holi).c_str());
     pr.AddCell("Size", size_desc.c_str());
-    pr.AddCell("Int", intelligence_description(mi.intel()));
+    pr.AddCell("Int", zh_source("detail.monster.table_value",
+                                     intelligence_description(mi.intel())));
     if (mi.is(MB_SICK) || mi.is(MB_NO_REGEN))
-        pr.AddCell("Regen", "None");
+        pr.AddCell("Regen", zh_source("detail.monster.table_value", "None"));
     else if (mons_class_fast_regen(mi.type) || mi.is(MB_REGENERATION))
         pr.AddCell("Regen", make_stringf("%d/turn", mi.regen_rate(1)));
                                         // (Wait, what's a 'turn'?)
@@ -6670,6 +7176,29 @@ static string _desc_shooting_star_dam(const monster_info &mi)
     return make_stringf("%dd%d", beam.damage.num, beam.damage.size);
 }
 
+// getLongDescription/getQuoteString can return the active translation. Read
+// canonical source literals first, then use only the reviewed exact-entry map.
+static string _monster_db_source(const char *context, const string &key)
+{
+    string source;
+    {
+        ZhTranslationPause pause;
+        // Trim paragraph edges only; preserve internal layout and source keys.
+        source = trimmed_string(getLongDescription(key));
+    }
+    return zh_source(context, source.c_str());
+}
+
+static string _monster_quote_source(const string &key)
+{
+    string source;
+    {
+        ZhTranslationPause pause;
+        source = trimmed_string(getQuoteString(key));
+    }
+    return zh_source("detail.monster.quote", source.c_str());
+}
+
 // Fetches the monster's database description and reads it into inf.
 void get_monster_db_desc(const monster_info& mi, describe_info &inf,
                          bool &has_stat_desc, bool mark_spells)
@@ -6695,10 +7224,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
 
     // Don't get description for player ghosts.
     if (mi.type != MONS_PLAYER_GHOST && mi.type != MONS_PLAYER_ILLUSION)
-        inf.body << getLongDescription(db_name);
+    {
+        // This is one fixed database entry, not an assembled sentence.
+        inf.body << _monster_db_source("detail.monster.lore", db_name);
+    }
 
     // And quotes {due}
-    inf.quote = getQuoteString(db_name);
+    inf.quote = _monster_quote_source(db_name);
 
     string symbol;
     symbol += get_monster_data(mi.type)->basechar;
@@ -6709,10 +7241,10 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
     if (!mons_is_unique(mi.type))
     {
         string symbol_prefix = "__" + symbol + "_prefix";
-        inf.prefix = getLongDescription(symbol_prefix);
+        inf.prefix = _monster_db_source("detail.monster.lore", symbol_prefix);
 
         string symbol_suffix = "__" + symbol + "_suffix";
-        quote2 = getQuoteString(symbol_suffix);
+        quote2 = _monster_quote_source(symbol_suffix);
     }
 
     if (!inf.quote.empty() && !quote2.empty())
@@ -6746,18 +7278,31 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
     }
 
     case MONS_PLAYER_GHOST:
-        inf.body << "The apparition of " << get_ghost_description(mi) << ".\n";
+    {
+        const string ghost = get_ghost_description(mi);
+        inf.body << zh_message("monster.detail.ghost", {
+            ZhArg("ghost", ZhArgType::Name, ghost, ghost, false)}).display() << "\n";
         if (mi.props.exists(MIRRORED_GHOST_KEY))
-            inf.body << "It looks just like you...spooky!\n";
+            inf.body << zh_message("monster.detail.spooky").display() << "\n";
         break;
+    }
 
     case MONS_PLAYER_ILLUSION:
-        inf.body << "An illusion of " << get_ghost_description(mi) << ".\n";
+    {
+        const string ghost = get_ghost_description(mi);
+        inf.body << zh_message("monster.detail.illusion", {
+            ZhArg("ghost", ZhArgType::Name, ghost, ghost, false)}).display() << "\n";
         break;
+    }
 
     case MONS_PANDEMONIUM_LORD:
-        inf.body << _describe_demon(mi.mname, mi.airborne(), mi.ghost_colour) << "\n";
+    {
+        const string description = _describe_demon(mi.mname, mi.airborne(), mi.ghost_colour);
+        inf.body << zh_message("monster.detail.pan_lord", {
+            ZhArg("description", ZhArgType::Text, description, description, false)},
+            description).display() << "\n";
         break;
+    }
 
     case MONS_MUTANT_BEAST:
         // vault renames get their own descriptions
@@ -6767,30 +7312,45 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
 
     case MONS_BLOCK_OF_ICE:
         if (mi.is(MB_SLOWLY_DYING))
-            inf.body << "\nIt is quickly melting away.\n";
+            inf.body << "\n" << zh_message("monster.detail.melting").display() << "\n";
         break;
 
     case MONS_BRIAR_PATCH: // death msg uses "crumbling"
     case MONS_PILLAR_OF_SALT:
         // XX why are these "quick" here but "slow" elsewhere??
         if (mi.is(MB_SLOWLY_DYING))
-            inf.body << "\nIt is quickly crumbling away.\n";
+            inf.body << "\n" << zh_message("monster.detail.crumbling").display() << "\n";
         break;
 
     case MONS_FOXFIRE:
-        inf.body << "\nIt deals " << _desc_foxfire_dam(mi) << " fire damage.\n";
+    {
+        const string damage = _desc_foxfire_dam(mi);
+        const string canonical = "It deals " + damage + " fire damage.";
+        inf.body << "\n" << zh_message("monster.detail.foxfire_damage", {
+            ZhArg("damage", ZhArgType::Text, damage, damage, true)}, canonical).display() << "\n";
         break;
+    }
 
     case MONS_SHOOTING_STAR:
-        inf.body << "\nIt deals " << _desc_shooting_star_dam(mi) << " damage.\n";
+    {
+        const string damage = _desc_shooting_star_dam(mi);
+        const string canonical = "It deals " + damage + " damage.";
+        inf.body << "\n" << zh_message("monster.detail.shooting_star_damage", {
+            ZhArg("damage", ZhArgType::Text, damage, damage, true)}, canonical).display() << "\n";
         break;
+    }
 
     case MONS_PROGRAM_BUG:
-        inf.body << "If this monster is a \"program bug\", then it's "
+    {
+        const string description = "If this monster is a \"program bug\", then it's "
                 "recommended that you save your game and reload. Please report "
                 "monsters who masquerade as program bugs or run around the "
-                "dungeon without a proper description to the authorities.\n";
+                "dungeon without a proper description to the authorities.";
+        inf.body << zh_message("monster.detail.program_bug", {
+            ZhArg("description", ZhArgType::Text, description, description, false)},
+            description).display() << "\n";
         break;
+    }
 
     default:
         break;
@@ -6799,13 +7359,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
     if (mons_class_is_fragile(mi.type))
     {
         if (mi.is(MB_CRUMBLING))
-            inf.body << "\nIt is quickly crumbling away.\n";
+            inf.body << "\n" << zh_message("monster.detail.crumbling").display() << "\n";
         else if (mi.is(MB_WITHERING))
-            inf.body << "\nIt is quickly withering away.\n";
+            inf.body << "\n" << zh_message("monster.detail.withering").display() << "\n";
         else if (mi.holi & (MH_NONLIVING))
-            inf.body << "\nIf struck, it will crumble away soon after.\n";
+            inf.body << "\n" << zh_message("monster.detail.struck_crumble").display() << "\n";
         else
-            inf.body << "\nIf struck, it will die soon after.\n";
+            inf.body << "\n" << zh_message("monster.detail.struck_die").display() << "\n";
     }
 
     if (!mons_is_unique(mi.type))
@@ -6814,21 +7374,26 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
         symbol_suffix += symbol;
         symbol_suffix += "_suffix";
 
-        string suffix = getLongDescription(symbol_suffix)
-                      + getLongDescription(symbol_suffix + "_examine");
+        const string suffix = _monster_db_source("detail.monster.lore", symbol_suffix);
+        const string suffix_examine = _monster_db_source(
+            "detail.monster.lore", symbol_suffix + "_examine");
 
         if (!suffix.empty())
             inf.body << "\n" << suffix;
+        if (!suffix_examine.empty())
+            inf.body << suffix_examine;
     }
 
     const int curse_power = mummy_curse_power(mi.type);
     if (curse_power && !mi.is(MB_SUMMONED))
     {
-        inf.body << "\n" << It << " will inflict a ";
-        if (curse_power > 10)
-            inf.body << "powerful ";
-        inf.body << "necromantic curse on "
-                 << mi.pronoun(PRONOUN_POSSESSIVE) << " foe when destroyed.\n";
+        const string canonical = It + " will inflict a "
+            + (curse_power > 10 ? "powerful " : "")
+            + "necromantic curse on " + mi.pronoun(PRONOUN_POSSESSIVE)
+            + " foe when destroyed.";
+        inf.body << "\n" << zh_message(curse_power > 10
+            ? "monster.detail.powerful_curse" : "monster.detail.curse",
+            {}, canonical).display() << "\n";
     }
 
     // Get information on resistances, speed, etc.
@@ -6842,7 +7407,8 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
     bool did_stair_use = false;
     if (!mons_class_can_use_stairs(mi.type))
     {
-        inf.body << It << " " << is << " incapable of using stairs.\n";
+        const string canonical = It + " " + is + " incapable of using stairs.";
+        inf.body << zh_message("monster.detail.stairs", {}, canonical).display() << "\n";
         did_stair_use = true;
     }
 
@@ -6852,42 +7418,70 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
 
     if (mi.is(MB_SUMMONED))
     {
-        inf.body << "\nThis monster has been ";
+        string canonical = "This monster has been ";
+        string intro_zh;
 
         // XXX: Expand this for better descriptions of some other types of
         //      non-abjurable summons?
         if (mi.is(MB_ABJURABLE))
-            inf.body << "temporarily summoned to this location. ";
+        {
+            canonical += "temporarily summoned to this location. ";
+            intro_zh = "该怪物被暂时召唤至此。 ";
+        }
         else if (mi.is(MB_MINION))
-            inf.body << "created by magic and is temporary. ";
+        {
+            canonical += "created by magic and is temporary. ";
+            intro_zh = "该怪物由魔法创造，只会暂时存在。 ";
+        }
 
         // TODO: hacks; convert angered_by_attacks to a monster_info check
         // (but on the other hand, it is really limiting to not have access
         // to the monster...)
-        if (!mi.pos.origin() && monster_at(mi.pos)
-                                && monster_at(mi.pos)->angered_by_attacks()
-                                && mi.attitude == ATT_FRIENDLY)
+        const bool angered = !mi.pos.origin() && monster_at(mi.pos)
+            && monster_at(mi.pos)->angered_by_attacks()
+            && mi.attitude == ATT_FRIENDLY;
+        string outcome_zh;
+        if (angered)
         {
-            inf.body << "If angered " << it
-                                      << " will immediately vanish, yielding ";
+            canonical += "If angered " + it
+                + " will immediately vanish, yielding no experience or items";
+            outcome_zh = "若激怒该怪物，它会立即消失，不提供经验或物品";
         }
         else
-            inf.body << "Killing " << it_o << " yields ";
-        inf.body << "no experience or items";
+        {
+            canonical += "Killing " + it_o + " yields no experience or items";
+            outcome_zh = "杀死该怪物不会获得经验或物品";
+        }
 
+        string stairs_zh;
         if (!did_stair_use)
-            inf.body << "; " << it << " " << is << " incapable of using stairs";
+        {
+            canonical += "; " + it + " " + is + " incapable of using stairs";
+            stairs_zh = "；该怪物无法使用楼梯";
+        }
 
-        inf.body << ".\n";
+        canonical += ".";
+        inf.body << "\n" << zh_message("monster.detail.summoned_status", {
+            zh_text("intro", string("This monster has been ")
+                + (mi.is(MB_ABJURABLE) ? "temporarily summoned to this location. "
+                    : mi.is(MB_MINION) ? "created by magic and is temporary. " : ""),
+                intro_zh),
+            zh_text("outcome", angered
+                ? "If angered " + it + " will immediately vanish, yielding no experience or items"
+                : "Killing " + it_o + " yields no experience or items", outcome_zh),
+            zh_text("stairs", did_stair_use ? ""
+                : "; " + it + " " + is + " incapable of using stairs", stairs_zh)
+        }, canonical).display() << "\n";
     }
     else if (mi.is(MB_NO_REWARD))
-        inf.body << "\nKilling this monster yields no experience or items.";
+        inf.body << "\n" << zh_message("monster.detail.no_reward").display();
     else if (mons_class_leaves_hide(mi.type))
     {
-        inf.body << "\nIf " << it << " " << is <<
-                    " slain, it may be possible to recover "
-                 << mi.pronoun(PRONOUN_POSSESSIVE)
-                 << " hide, which can be used as armour.\n";
+        const string canonical = "If " + it + " " + is
+            + " slain, it may be possible to recover "
+            + mi.pronoun(PRONOUN_POSSESSIVE)
+            + " hide, which can be used as armour.";
+        inf.body << "\n" << zh_message("monster.detail.hide", {}, canonical).display() << "\n";
     }
 
     if (!inf.quote.empty())
@@ -7007,11 +7601,19 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
     for (string& tag : descriptors)
     {
         const string key = make_stringf("%s monstatus", tag.c_str());
-        string lookup = getLongDescription(key);
+        string lookup = _monster_db_source("detail.monster.status_text", key);
         if (lookup.empty())
             continue;
 
-        out << "<w>" << uppercase_first(tag) << ":</w>\n";
+        // Some status entries are database references rather than prose.
+        // Never expose the internal [[...]] key as player-facing text.
+        if (lookup.find("[[") != string::npos)
+        {
+            zh_source("detail.monster.status_reference", lookup.c_str());
+            continue;
+        }
+
+        out << "<w>状态：</w>\n";
 
         // Wordwrap and indent slightly.
         linebreak_string(lookup, 77);
@@ -7020,11 +7622,12 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
         out << "   " << lookup << "\n\n";
     }
 
-    return formatted_string::parse_string(out.str());
+    return formatted_string::parse_string_raw(out.str());
 }
 
 int describe_monster(const monster_info &mi, const string& /*footer*/)
 {
+    ZhLegacyGuard legacy_guard("detail.monster");
     bool has_stat_desc = false;
     describe_info inf;
     formatted_string desc;
@@ -7049,7 +7652,7 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
 #endif
 
     auto title = make_shared<Text>();
-    title->set_text(inf.title);
+    title->set_text(formatted_string::parse_string_raw(inf.title));
     title->set_margin_for_sdl(0, 0, 0, 10);
     title_hbox->add_child(std::move(title));
 
@@ -7058,24 +7661,34 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
     title_hbox->set_margin_for_sdl(0, 0, 20, 0);
     vbox->add_child(std::move(title_hbox));
 
-    desc += inf.body.str();
+    // The database body has already been selected/localized at its source.
+    // Do not route it through formatted_string(string)'s legacy matcher.
+    desc += formatted_string::parse_string_raw(inf.body.str());
     if (crawl_state.game_is_hints())
-        desc += formatted_string(hints_describe_monster(mi, has_stat_desc));
-    desc += inf.footer;
+    {
+        const string hint = hints_describe_monster(mi, has_stat_desc);
+        if (!hint.empty())
+            desc += formatted_string::parse_string_raw(zh_message(
+                "monster.detail.hints_fallback", {
+                    ZhArg("body", ZhArgType::Text, hint, hint, false)}, hint).display());
+    }
+    // Footer text is likewise already localized or explicitly source-keyed.
+    desc += formatted_string::parse_string_raw(inf.footer);
     string raw_desc = trimmed_string(desc); // forces us back to a colour string
 
 #ifdef USE_TILE_WEB
     // the spell list is delimited so that we can later replace this substring
     // with a placeholder marker; remove the delimiters for console display
-    desc = formatted_string::parse_string(
+    desc = formatted_string::parse_string_raw(
         replace_all(
             replace_all(raw_desc, SPELL_LIST_BEGIN, ""),
             SPELL_LIST_END, ""));
 #else
-    desc = formatted_string::parse_string(raw_desc);
+    desc = formatted_string::parse_string_raw(raw_desc);
 #endif
 
-    const formatted_string quote = formatted_string(trimmed_string(inf.quote));
+    const formatted_string quote = formatted_string::parse_string_raw(
+        trimmed_string(inf.quote));
     const formatted_string status_desc = _get_monster_status_descriptions(mi);
 
 
@@ -7086,9 +7699,9 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
 
     const string mores[3] =
     {
-        "[<w>!</w>]: <w>Description</w>",
-        "[<w>!</w>]: Description",
-        "[<w>!</w>]: Description",
+        "[<w>!</w>]: <w>说明</w>",
+        "[<w>!</w>]: 说明",
+        "[<w>!</w>]: 说明",
     };
 
     const formatted_string *content[3] = { &desc, &status_desc, &quote };
@@ -7110,14 +7723,14 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
 
         string more = make_stringf("%s%s%s", mores[i].c_str(),
             !status_desc.empty()
-                ? i == 1 ? "|<w>Statuses</w>" : "|Statuses"
+                ? i == 1 ? "|<w>状态</w>" : "|状态"
                 : "",
             !inf.quote.empty()
-                ? i == 2 ? "|<w>Quote</w>" : "|Quote"
+                ? i == 2 ? "|<w>引言</w>" : "|引言"
                 : "");
 
         more_sw->add_child(make_shared<Text>(
-                formatted_string::parse_string(more)));
+                formatted_string::parse_string_raw(more)));
     }
 
     more_sw->set_margin_for_sdl(20, 0, 0, 0);
@@ -7328,11 +7941,14 @@ string get_ghost_description(const monster_info &mi, bool concise)
 
 void describe_skill(skill_type skill)
 {
+    ZhLegacyGuard skill_detail_guard("detail.skill");
     describe_info inf;
-    inf.title = skill_name(skill);
+    const string skill_en = skill_name(skill);
+    const auto skill_arg = zh_glossary_name("skill", "skill.name", skill_en);
+    inf.title = zh_language_enabled() ? skill_arg.localized : skill_arg.canonical;
     inf.body << get_skill_description(skill, false);
     tile_def tile = tile_def(tileidx_skill(skill, TRAINING_ENABLED));
-    show_description(inf, &tile);
+    show_description(inf, &tile, true);
 }
 
 #ifdef USE_TILE_LOCAL // only used in tiles
@@ -7597,7 +8213,7 @@ static string _describe_talisman_form(transformation form_type)
         int max_size = -1;
         for (int j = 0; j < 4; ++j)
         {
-            const int len = formatted_string::parse_string(items[i][j]).width();
+            const int len = formatted_string::parse_string_raw(items[i][j]).width();
             if (len > max_size)
                 max_size = len;
         }
@@ -7677,7 +8293,7 @@ static string _describe_talisman_form(transformation form_type)
     else if (form_type == transformation::sphinx)
     {
         if (!you.has_mutation(MUT_NO_ARMOUR))
-            pr.AddCell("Barding", "Yes");
+            pr.AddCell("Barding", zh_source("detail.form.table_value", "Yes"));
         pr.AddCell("Will", "+");
     }
     else if (form_type == transformation::werewolf)
@@ -7728,7 +8344,10 @@ static string _describe_talisman_form(transformation form_type)
 
     description << string(60, '_') << "\n";
 
-    return description.str();
+    const string form_description = description.str();
+    return zh_message("item.talisman.form_english_fallback", {
+        ZhArg{"description", ZhArgType::Text, form_description,
+              form_description, false}}).display();
 }
 
 static string _describe_talisman(const item_def &item, bool verbose)

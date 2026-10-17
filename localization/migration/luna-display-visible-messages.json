@@ -1,0 +1,146 @@
+{
+  "model": "Luna",
+  "purpose": "Reviewed semantic display templates and production-path fixtures for visible weapon and armour names; exact atoms live in luna-display-grammar.json approved_bases.",
+  "messages": [
+    {
+      "id": "display.item.slot_label",
+      "context": "物品栏中的槽位前缀；键位字符保持原样。",
+      "source": "item-name.cc::item_def::name DESC_INVENTORY(_EQUIP)",
+      "params": {
+        "slot": "key",
+        "item": "name"
+      },
+      "en": "{slot} - {item}",
+      "zh": "{slot} - {item}"
+    },
+    {
+      "id": "display.item.equipped_label",
+      "context": "装备栏物品状态后缀，展示标签，不改变装备状态。",
+      "source": "item-name.cc::item_def::name DESC_INVENTORY_EQUIP",
+      "params": {
+        "item": "name",
+        "state": "text"
+      },
+      "en": "{item} ({state})",
+      "zh": "{item}（{state}）"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "item.unidentified.weapon.cosmetic",
+      "source": "item-name.cc::_name_weapon: _cosmetic_text + item_base_name; no plus or brand while unidentified",
+      "en": "a glowing short sword",
+      "zh": "发光的短剑",
+      "fields": {
+        "cosmetic": "glowing",
+        "base": "short sword"
+      }
+    },
+    {
+      "id": "item.unidentified.armour.cosmetic",
+      "source": "item-name.cc::item_def::name_aux: show_cosmetic and get_equip_desc",
+      "en": "a runed leather armour",
+      "zh": "刻有符文的皮甲",
+      "fields": {
+        "cosmetic": "runed",
+        "base": "leather armour"
+      }
+    },
+    {
+      "id": "item.unidentified.armour.dyed",
+      "source": "item-name.cc::item_def::name_aux: ISFLAG_EMBROIDERED_SHINY for leather/animal skin",
+      "en": "dyed leather armour",
+      "zh": "染色的皮甲",
+      "fields": {
+        "cosmetic": "dyed",
+        "base": "leather armour"
+      }
+    },
+    {
+      "id": "item.identified.weapon.plus",
+      "source": "item-name.cc::_name_weapon: identified plus prefix",
+      "en": "+0 spear",
+      "zh": "+0长矛",
+      "fields": {
+        "plus": 0,
+        "base": "spear"
+      }
+    },
+    {
+      "id": "item.identified.weapon.brand",
+      "source": "item-name.cc::weapon_brand_desc; Chinese display orders base then reviewed brand atom",
+      "en": "+3 flaming long sword",
+      "zh": "+3长剑（火焰）",
+      "fields": {
+        "plus": 3,
+        "base": "long sword",
+        "brand": "flaming"
+      }
+    },
+    {
+      "id": "item.identified.armour.ego",
+      "source": "item-name.cc::item_def::name_aux: identified armour ego",
+      "en": "+2 plate armour of fire resistance",
+      "zh": "+2板甲（火焰抗性）",
+      "fields": {
+        "plus": 2,
+        "base": "plate armour",
+        "brand": "fire resistance"
+      }
+    },
+    {
+      "id": "item.inventory.slot_and_state",
+      "source": "item-name.cc::item_def::name DESC_INVENTORY_EQUIP",
+      "en": "c - a +0 spear (weapon)",
+      "zh": "c - +0长矛（武器）",
+      "fields": {
+        "slot": "c",
+        "plus": 0,
+        "base": "spear",
+        "state": "weapon"
+      }
+    },
+    {
+      "id": "item.unidentified.hidden_potion",
+      "source": "Unknown potion subtype must remain whole canonical English",
+      "en": "a puce potion",
+      "zh": "a puce potion",
+      "fields": {
+        "supported": false
+      }
+    }
+  ],
+  "safety": [
+    "未知药水、卷轴、戒指等未鉴定类型返回整名英文并标记 unsupported；不从隐藏 subtype 生成中文。",
+    "普通未鉴定武器/护甲只显示基础类别名及 item-name.cc 明确公开的外观标记；不显示 plus、brand 或 ego。",
+    "已识别武器/护甲的 plus 与 brand/ego 仅在 item-name.cc 原本输出该字段时进入结构化显示。",
+    "神器、自定义 ITEM_NAME_KEY、诅咒/刻字等尚无完整受审语义的组合保持整名 canonical 回退。"
+  ],
+  "runtime_scenarios": [
+    {
+      "id": "shop-unidentified-weapon",
+      "production_path": "真实武器商店菜单中的普通非神器武器 item_def，is_identified()==false；分别覆盖无外观、ISFLAG_GLOWING、ISFLAG_RUNED。",
+      "expected": "显示已知武器基础名和对应外观词；名称中不得出现 +N、brand 或 ego。"
+    },
+    {
+      "id": "shop-unidentified-armour",
+      "production_path": "真实护甲商店菜单中的普通非神器护甲 item_def，is_identified()==false；覆盖皮甲染色、衣袍刺绣光亮、板甲符文/发光。",
+      "expected": "按 item-name.cc 的 subtype/ISFLAG_COSMETIC_MASK 显示基础名与外观词，不泄露 plus 或 armour ego。"
+    },
+    {
+      "id": "identified-weapon-inventory",
+      "production_path": "真实背包内已鉴定长剑/长矛，经 describe_item title 和 inventory/equipment listing 调用 zh_item_arg。",
+      "expected": "只在 item.name(desc) 本来显示时显示 plus/brand；inventory slot 与 weapon/offhand 状态结构化显示。"
+    },
+    {
+      "id": "unidentified-potion-fallback",
+      "production_path": "真实未鉴定药水对象经 zh_item_arg(DESC_INVENTORY)。",
+      "expected": "整个参数保持 canonical 英文且 supported=false；不泄露 potion subtype。"
+    },
+    {
+      "id": "training-dummy-quote",
+      "production_path": "打开训练假人 monster detail，触发 _monster_quote_source。",
+      "expected": "规范化仅移除段落首尾排版空白，完整引用精确命中固定中译；无缺失审计记录。"
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "prompt.choice.yes",
+      "context": "yesno popup yes choice",
+      "en": "Yes",
+      "zh": "是",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/prompt.cc",
+        "anchor": "yesno popup yes choice"
+      }
+    },
+    {
+      "id": "prompt.choice.no",
+      "context": "yesno popup no choice",
+      "en": "No",
+      "zh": "否",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/prompt.cc",
+        "anchor": "yesno popup no choice"
+      }
+    },
+    {
+      "id": "prompt.choice.always",
+      "context": "yesno popup always choice",
+      "en": "Always",
+      "zh": "总是",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/prompt.cc",
+        "anchor": "yesno popup always choice"
+      }
+    },
+    {
+      "id": "prompt.choice.bugs",
+      "context": "yesno popup default choice when no ordinary answer is selected",
+      "en": "bugs",
+      "zh": "错误报告",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/prompt.cc",
+        "anchor": "yesno popup default choice when no ordinary answer is selected"
+      }
+    },
+    {
+      "id": "prompt.error.title",
+      "context": "typed error popup title",
+      "en": "Error!",
+      "zh": "错误！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/prompt.cc",
+        "anchor": "typed error popup title"
+      }
+    },
+    {
+      "id": "prompt.continue",
+      "context": "typed error popup continuation prompt",
+      "en": "<cyan>Hit any key to continue...</cyan>",
+      "zh": "<cyan>按任意键继续……</cyan>",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/prompt.cc",
+        "anchor": "typed error popup continuation prompt"
+      }
+    },
+    {
+      "id": "prompt.okay",
+      "context": "canned_msg MSG_OK after declining a shopping-list removal",
+      "en": "Okay, then.",
+      "zh": "好吧。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/message.cc",
+        "anchor": "canned_msg MSG_OK after declining a shopping-list removal"
+      }
+    },
+    {
+      "id": "prompt.enter_default",
+      "context": "_yesno enter-default hint; choice is exact Yes/No/Always/bugs label",
+      "en": "<white>[enter]</white>: {choice}",
+      "zh": "<white>[enter]</white>：{choice}",
+      "params": {
+        "choice": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/prompt.cc",
+        "anchor": "_yesno enter-default hint; choice is exact Yes/No/Always/bugs label"
+      }
+    },
+    {
+      "id": "prompt.answer.yn",
+      "context": "yesno invalid answer response with lowercase accepted",
+      "en": "<lightred>[Y]es or [N]o only, please.</lightred>",
+      "zh": "<lightred>请只输入[Y]是或[N]否。</lightred>",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/prompt.cc",
+        "anchor": "yesno invalid answer response with lowercase accepted"
+      }
+    },
+    {
+      "id": "prompt.answer.yn_upper",
+      "context": "yesno invalid answer response requiring uppercase",
+      "en": "<lightred>Uppercase [Y]es or [N]o only, please.</lightred>",
+      "zh": "<lightred>请只使用大写字母：[Y]是或[N]否。</lightred>",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/prompt.cc",
+        "anchor": "yesno invalid answer response requiring uppercase"
+      }
+    },
+    {
+      "id": "prompt.answer.yna",
+      "context": "yesno invalid answer response allowing Always",
+      "en": "<lightred>[Y]es, [N]o, or [A]lways only, please.</lightred>",
+      "zh": "<lightred>请只输入[Y]是、[N]否或[A]总是。</lightred>",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/prompt.cc",
+        "anchor": "yesno invalid answer response allowing Always"
+      }
+    },
+    {
+      "id": "prompt.answer.yna_upper",
+      "context": "yesno invalid answer response allowing Always and requiring uppercase",
+      "en": "<lightred>Uppercase [Y]es, [N]o, or [A]lways only, please.</lightred>",
+      "zh": "<lightred>请只使用大写字母：[Y]是、[N]否或[A]总是。</lightred>",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/prompt.cc",
+        "anchor": "yesno invalid answer response allowing Always and requiring uppercase"
+      }
+    }
+  ],
+  "test_cases": []
+}

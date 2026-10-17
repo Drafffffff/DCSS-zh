@@ -349,14 +349,13 @@ void UIMenu::update_item(int index)
     ASSERT(index < static_cast<int>(m_menu->items.size()));
     const MenuEntry *me = m_menu->items[index];
     int colour = m_menu->item_colour(me);
-    string text = me->get_text();
 
     item_info.resize(m_menu->items.size());
 
     auto& entry = item_info[index];
     entry.text.clear();
     entry.text.textcolour(colour);
-    entry.text += formatted_string::parse_string(text);
+    entry.text += me->get_formatted_text();
     entry.heading = me->level == MEL_TITLE || me->level == MEL_SUBTITLE;
 #ifdef USE_TILE_LOCAL
     entry.tiles.clear();
@@ -600,8 +599,7 @@ void UIMenu::_render()
         // TODO: multiline entries
         if (m_menu->get_flags() & MF_ALLOW_FORMATTING)
         {
-            formatted_string s = formatted_string::parse_string(
-                me->get_text(), col);
+            formatted_string s = me->get_formatted_text(col);
             // headings always occupy full width
             if (item_info[i].heading)
                 s.chop(m_region.width).display();
@@ -616,7 +614,13 @@ void UIMenu::_render()
                 text = chop_string(text, m_region.width);
             else
                 text = chop_string(text, m_nat_column_width);
-            cprintf("%s", text.c_str());
+            if (me->is_pretranslated())
+            {
+                ZhLegacyPause rendered_text;
+                cprintf("%s", text.c_str());
+            }
+            else
+                cprintf("%s", text.c_str());
         }
         textbackground(BLACK);
     }
@@ -679,15 +683,18 @@ public:
         wrap_text_to_size(m_region.width, m_region.height);
     }
 
-    void set_more_template(const string &scroll, const string &noscroll)
+    void set_more_template(const string &scroll, const string &noscroll,
+                           bool pretranslated = false)
     {
         // a string that can have `XXX` in it somewhere, to be replaced by a
         // scroll position
         // TODO: might be simpler just to call get_keyhelp directly?
         const bool diff = !using_template || text_for_scrollable != scroll
-                                          || text_for_unscrollable != noscroll;
+                                          || text_for_unscrollable != noscroll
+                                          || template_pretranslated != pretranslated;
         if (diff)
         {
+            template_pretranslated = pretranslated;
             text_for_scrollable = scroll;
             text_for_unscrollable = noscroll;
             _invalidate_sizereq();
@@ -713,7 +720,9 @@ public:
                             : make_stringf("%2d%%", scroll_percent);
 
         more_template = replace_all(more_template, "XXX", perc);
-        set_text_immediately(formatted_string::parse_string(more_template));
+        set_text_immediately(template_pretranslated
+            ? formatted_string::parse_string_raw(more_template)
+            : formatted_string::parse_string(more_template));
     }
 
 #ifdef USE_TILE_WEB
@@ -737,6 +746,7 @@ public:
     bool using_template;
 
 private:
+    bool template_pretranslated = false;
     string text_for_scrollable;
     string text_for_unscrollable;
 };
@@ -1290,6 +1300,11 @@ void Menu::set_more(const formatted_string &fs)
     update_more();
 }
 
+void Menu::set_more_pretranslated(const string &s)
+{
+    set_more(formatted_string::parse_string_raw(s));
+}
+
 void Menu::set_more(const string s)
 {
     set_more(formatted_string::parse_string(s));
@@ -1303,8 +1318,8 @@ formatted_string pad_more_with(formatted_string s,
     // Needs to be done as a parsed formatted_string so that columns are
     // counted correctly.
     const auto lines = split_string("\n", s.tostring(), false, true);
-    const int last_len = static_cast<int>(lines.back().size());
-    const int pad_size = static_cast<int>(pad.tostring().size());
+    const int last_len = strwidth(lines.back());
+    const int pad_size = strwidth(pad.tostring());
     if (last_len < (min_width - pad_size))
     {
         s += string(min_width - (last_len + pad_size), ' ');
@@ -1339,6 +1354,14 @@ string pad_more_with(const string &s, const string &pad, int min_width)
         formatted_string::parse_string(s),
         formatted_string::parse_string(pad),
         min_width).to_colour_string(LIGHTGRAY);
+}
+
+string pad_more_with_pretranslated(const string &s, const string &pad,
+                                  int min_width)
+{
+    return pad_more_with(formatted_string::parse_string_raw(s),
+                         formatted_string::parse_string_raw(pad), min_width)
+        .to_colour_string(LIGHTGRAY);
 }
 
 static string _keyhelp_format_key(const string &s)
@@ -1484,6 +1507,13 @@ void Menu::set_title(MenuEntry *e, bool first, bool indent)
 void Menu::set_title(const string &t, bool first, bool indent)
 {
     set_title(new MenuEntry(t, MEL_TITLE), first, indent);
+}
+
+void Menu::set_title_pretranslated(const string &t, bool first, bool indent)
+{
+    auto *entry = new MenuEntry(t, MEL_TITLE);
+    entry->pretranslated = true;
+    set_title(entry, first, indent);
 }
 
 void Menu::add_entry(MenuEntry *entry)
@@ -2358,6 +2388,13 @@ string MenuEntry::_get_text_preface() const
         return "";
 }
 
+formatted_string MenuEntry::get_formatted_text(int main_colour) const
+{
+    return is_pretranslated()
+        ? formatted_string::parse_string_raw(get_text(), main_colour)
+        : formatted_string::parse_string(get_text(), main_colour);
+}
+
 string MenuEntry::get_text() const
 {
     return _get_text_preface() + text;
@@ -2789,9 +2826,16 @@ void Menu::update_more()
     if (m_keyhelp_more)
     {
         // this case does not use `this->more` at all
-        m_ui.more->set_more_template(
-            pad_more_with(get_keyhelp(true), "", width),
-            pad_more_with(get_keyhelp(false), "", width));
+        const bool raw = get_keyhelp_pretranslated();
+        const auto help = [&](bool scrollable) {
+            const string text = get_keyhelp(scrollable);
+            if (!raw)
+                return pad_more_with(text, "", width);
+            return pad_more_with(formatted_string::parse_string_raw(text),
+                                 formatted_string(""), width)
+                .to_colour_string(LIGHTGRAY);
+        };
+        m_ui.more->set_more_template(help(true), help(false), raw);
         m_ui.more->_expose();
 
         // visibility is handled in lower-level UI code, but for some reason
@@ -2868,7 +2912,9 @@ void Menu::update_title()
         fs.textcolour(col);
 
         if (flags & MF_ALLOW_FORMATTING)
-            fs += formatted_string::parse_string(text);
+            fs += t->get_formatted_text(col);
+        else if (t->is_pretranslated())
+            fs.ops.emplace_back(text);
         else
             fs.cprintf("%s", text.c_str());
     }

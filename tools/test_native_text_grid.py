@@ -14,7 +14,11 @@ code=r'''
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include <map>
+#include <utility>
 using std::vector;
+using std::map;
+using std::pair;
 using std::ostringstream;
 using std::min;
 using colour_t=int;
@@ -52,6 +56,7 @@ struct TextRegion {
 };
 '''+s[start:end]+pad[pstart:pend]+r'''
 string zh_translate(const string &s) {return s;}
+string zh_source(const char *,const char *s) {return s;}
 string colourize_str(const string &s,colour_t) {return s;}
 string _get_indent(const string&) {return "";}
 string wordwrap_line(string&,int,bool,bool,int=0);

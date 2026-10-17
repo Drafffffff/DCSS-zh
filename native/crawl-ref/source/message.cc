@@ -638,7 +638,7 @@ public:
 
         vector<formatted_string> newlines;
         if (!presentation) text = zh_translate(text);
-        ZhTranslationPause already_rendered;
+        ZhLegacyPause already_rendered;
         linebreak_string(text, out_width());
         formatted_string::parse_string_to_multiple(text, newlines);
 
@@ -2286,7 +2286,7 @@ static void _replay_messages_core(formatted_scroller &hist)
         if (channel_message_history(msgs[i].channel))
         {
             string text = msgs[i].full_text(true);
-            ZhTranslationPause already_rendered;
+            ZhLegacyPause already_rendered;
             if (!text.size())
                 continue;
             linebreak_string(text, cgetsize(GOTO_CRT).x - 1);

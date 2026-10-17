@@ -15,8 +15,10 @@ public:
     virtual bool update_tip_text(string &tip) override;
 
     string &alt_text() { return m_alt_text; }
+    void set_alt_text_pretranslated(bool selected) { m_alt_text_pretranslated = selected; }
 protected:
     string m_alt_text;
+    bool m_alt_text_pretranslated = false;
     bool m_overlay;
     VColour m_overlay_col;
 };

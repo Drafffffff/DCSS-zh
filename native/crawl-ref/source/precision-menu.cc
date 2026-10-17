@@ -615,6 +615,9 @@ void TextItem::render()
     if (!m_visible)
         return;
 
+    // _wrap_text selected the display text before measuring it. Console cio
+    // must not translate it again after the bounds have been calculated.
+    ZhLegacyPause rendered_text;
 #ifdef USE_TILE_LOCAL
     if (m_dirty)
     {
@@ -659,6 +662,15 @@ void TextItem::render()
 
 void TextItem::set_text(const string& text)
 {
+    m_pretranslated = false;
+    m_text = text;
+    _wrap_text();
+    m_dirty = true;
+}
+
+void TextItem::set_text_pretranslated(const string& text)
+{
+    m_pretranslated = true;
     m_text = text;
     _wrap_text();
     m_dirty = true;
@@ -678,7 +690,7 @@ const string& TextItem::get_text() const
  */
 void TextItem::_wrap_text()
 {
-    m_render_text = zh_translate(m_text); // keep canonical m_text for editing
+    m_render_text = m_pretranslated ? m_text : zh_translate(m_text); // editing stays canonical
     int max_cols;
     int max_lines;
     max_cols = (m_max_coord.x - m_min_coord.x);
@@ -688,7 +700,7 @@ void TextItem::_wrap_text()
     max_cols = max_cols / m_unit_width_pixels;
     max_lines = max_lines / m_unit_height_pixels;
 #endif
-    if (max_cols == 0 || max_lines == 0)
+    if (max_cols <= 0 || max_lines <= 0)
     {
         // escape and set render text to nothing
         m_render_text = "";
@@ -696,7 +708,7 @@ void TextItem::_wrap_text()
     }
 
     int num_linebreaks = linebreak_string(m_render_text, max_cols);
-    if (num_linebreaks > max_lines)
+    if (num_linebreaks >= max_lines)
     {
         size_t pos = 0;
         // find the max_line'th occurrence of '\n'
@@ -880,8 +892,9 @@ void FormattedTextItem::render()
     {
         m_font_buf.clear();
         // FIXME: m_fg_colour doesn't work here while it works in console.
-        m_font_buf.add(formatted_string::parse_string(m_render_text,
-                                                      m_fg_colour),
+        m_font_buf.add(m_pretranslated
+                           ? formatted_string::parse_string_raw(m_render_text, m_fg_colour)
+                           : formatted_string::parse_string(m_render_text, m_fg_colour),
                        m_min_coord.x, m_min_coord.y + get_vertical_offset());
         m_dirty = false;
     }
@@ -900,7 +913,13 @@ void FormattedTextItem::render()
 
     cgotoxy(m_min_coord.x, m_min_coord.y);
     textcolour(m_fg_colour);
-    display_tagged_block(m_render_text);
+    if (m_pretranslated)
+    {
+        // Wrapping was already performed on the selected display template.
+        display_tagged_block_raw(m_render_text);
+    }
+    else
+        display_tagged_block(m_render_text);
 #endif
 }
 
@@ -955,7 +974,8 @@ void TextTileItem::render()
         // center the text
         // TODO wrap / chop the text
         const int tile_offset = m_tiles.empty() ? 0 : (m_unit_height_pixels + 6);
-        m_font_buf.add(zh_translate(m_text), term_colours[m_fg_colour],
+        m_font_buf.add(m_pretranslated ? m_text : zh_translate(m_text),
+                       term_colours[m_fg_colour],
                        m_min_coord.x + 2 + tile_offset,
                        m_min_coord.y + 2 + get_vertical_offset());
 

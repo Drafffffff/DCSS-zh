@@ -1,0 +1,4758 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "item.weapon.current_attack_delay",
+      "context": "物品详情：当前攻击延迟",
+      "en": "\n    Current attack delay: {delay}.",
+      "zh": "\n    当前攻击延迟：{delay}。",
+      "params": {
+        "delay": "number"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_desc_attack_delay; make_stringf exact format \"\\n    Current attack delay: %.1f.\"; argument cur_delay / 10"
+      }
+    },
+    {
+      "id": "item.weapon.study_staff",
+      "context": "物品详情：无法学习法杖技能",
+      "en": "Your inability to study {skill} prevents you from drawing on the full power of this staff in melee.\n\n",
+      "zh": "你无法学习{skill}，因此无法在近战中发挥这根法杖的全部威力。\n\n",
+      "params": {
+        "skill": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_append_weapon_stats; exact adjacent literals formatted with skill_name(staff_skill(...))"
+      }
+    },
+    {
+      "id": "item.weapon.category",
+      "context": "物品详情：武器类别",
+      "en": "This {weapon} falls into the '{skill}' category. ",
+      "zh": "这件{weapon}属于“{skill}”类别。",
+      "params": {
+        "weapon": "name",
+        "skill": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_category_string; complete composition uses base name or weapon and skill_name"
+      }
+    },
+    {
+      "id": "item.weapon.reach",
+      "context": "物品详情：长兵器攻击范围",
+      "en": "It has an extended reach{target_hint}. ",
+      "zh": "它的攻击范围更远{target_hint}。",
+      "params": {
+        "target_hint": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_category_string SK_POLEARMS; hint is empty for monster mode or \" (target with [<white>v</white>])\" for player"
+      }
+    },
+    {
+      "id": "item.weapon.axes",
+      "context": "物品详情：斧类攻击范围",
+      "en": "It hits all enemies adjacent to the wielder{damage_qualifier}. ",
+      "zh": "它会攻击周围所有敌人{damage_qualifier}。",
+      "params": {
+        "damage_qualifier": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_category_string SK_AXES; qualifier omitted for Woe, otherwise \", dealing less damage to those not targeted\""
+      }
+    },
+    {
+      "id": "item.weapon.stabbing",
+      "context": "物品详情：短刃背刺用途",
+      "en": "It is{intensifier} good for stabbing helpless or unaware enemies. ",
+      "zh": "它{intensifier}适合背刺无助或未察觉的敌人。",
+      "params": {
+        "intensifier": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_category_string SK_SHORT_BLADES; intensifier is \" extremely\" for daggers or empty"
+      }
+    },
+    {
+      "id": "item.armour.shield_ratings",
+      "context": "物品详情：盾牌属性",
+      "en": "Base shield rating: {base}     Encumbrance rating: {encumbrance}     Max blocks/turn: {blocks}",
+      "zh": "基础盾牌评分：{base}     负重评分：{encumbrance}     每回合最大格挡次数：{blocks}",
+      "params": {
+        "base": "integer",
+        "encumbrance": "integer",
+        "blocks": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_armour shield stats; exact labels and spacing, arguments PARM_AC, -PARM_EVASION/10, shield_block_limit"
+      }
+    },
+    {
+      "id": "item.armour.base_rating",
+      "context": "物品详情：护甲基础评分",
+      "en": "Base armour rating: {base}{suffix}",
+      "zh": "基础护甲评分：{base}{suffix}",
+      "params": {
+        "base": "integer",
+        "suffix": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_armour non-shield; suffix is body encumbrance label or barding evasion label with source spacing"
+      }
+    },
+    {
+      "id": "item.armour.max_enchantment",
+      "context": "物品详情：护甲最大附魔",
+      "en": "\n\nIt can be maximally enchanted to +{maximum}.",
+      "zh": "\n\n它最多可附魔至+{maximum}。",
+      "params": {
+        "maximum": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_armour exact concatenation and armour_max_enchant"
+      }
+    },
+    {
+      "id": "item.armour.cannot_enchant.fixed",
+      "context": "detail.item.fixed",
+      "en": "\n\nIt cannot be enchanted further.",
+      "zh": "\n\n它无法继续附魔。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_armour ARMOUR_IS_ENCHANTABLE branch"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.stat.change",
+      "context": "物品详情：属性变化",
+      "en": "{direction} by {amount} ({before} -> {after})",
+      "zh": "{direction}{amount}（{before} → {after}）",
+      "params": {
+        "direction": "text",
+        "amount": "number",
+        "before": "number",
+        "after": "number"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_point_diff; exact numeric display has one decimal"
+      }
+    },
+    {
+      "id": "item.stat.unchanged.fixed",
+      "context": "detail.item.fixed",
+      "en": "remain unchanged",
+      "zh": "保持不变",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_point_diff original == changed"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.spell.failure_change",
+      "context": "物品详情：装备对法术失败率的影响",
+      "en": "If you {action} this item, your spell failure would {direction}:\n",
+      "zh": "如果你{action}此物品，法术失败率将{direction}：\n",
+      "params": {
+        "action": "text",
+        "direction": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_spell_fail_change_description; make_stringf exact format"
+      }
+    },
+    {
+      "id": "item.weapon.dmg_rating",
+      "context": "物品详情：伤害评级标题",
+      "en": "\nDamage rating: {rating}",
+      "zh": "\n伤害评级：{rating}",
+      "params": {
+        "rating": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_append_weapon_stats exact label prefix plus damage_rating result"
+      }
+    },
+    {
+      "id": "item.artefact.ancient.fixed",
+      "context": "detail.item.fixed",
+      "en": "It is an ancient artefact.",
+      "zh": "这是一件远古神器。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description recurring artefact description literal"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.gizmo.description.fixed",
+      "context": "detail.item.fixed",
+      "en": "It is a fabulous contraption, custom-made by your own hands.",
+      "zh": "这是一件由你亲手定制的精巧装置。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description OBJ_GIZMOS base description"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.removed.fixed",
+      "context": "detail.item.fixed",
+      "en": "This item has been removed.",
+      "zh": "此物品已被移除。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description removed item branch"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.consumable.rarity",
+      "context": "物品详情：消耗品稀有度",
+      "en": "\n\nIt is {article} {rarity} {kind}.",
+      "zh": "\n\n这是一件{article}{rarity}{kind}。",
+      "params": {
+        "article": "text",
+        "rarity": "text",
+        "kind": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description potion/scroll branches; article_a(describe_item_rarity(item)) supplies article, then kind literal"
+      }
+    },
+    {
+      "id": "item.weapon.staves_category.fixed",
+      "context": "详情固定文案：归入“法杖”类别。 ",
+      "en": "It falls into the 'Staves' category. ",
+      "zh": "归入“法杖”类别。 ",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Full literal selected at its detail text producer"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.artefact.enchant_limit.fixed",
+      "context": "详情固定文案：即使是你，也无法再进一步附魔这件神器。",
+      "en": "Enchanting this artefact any further is beyond even your skills.",
+      "zh": "即使是你，也无法再进一步附魔这件神器。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Full literal selected at its detail text producer"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.artefact.magic_immutable.fixed",
+      "context": "详情固定文案：这件远古神器无法通过魔法或凡俗手段改变。",
+      "en": "This ancient artefact cannot be changed by magic or mundane means.",
+      "zh": "这件远古神器无法通过魔法或凡俗手段改变。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Full literal selected at its detail text producer"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.curse.applied.fixed",
+      "context": "详情固定文案：它受到了诅咒。",
+      "en": "It has a curse placed upon it.",
+      "zh": "它受到了诅咒。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Full literal selected at its detail text producer"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.curse.skills.fixed",
+      "context": "详情固定文案：它受到的诅咒会增强以下技能：",
+      "en": "It has a curse which improves the following skills:",
+      "zh": "它受到的诅咒会增强以下技能：",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Full literal selected at its detail text producer"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "feature.reach_past.fixed",
+      "context": "详情固定文案：合适的武器或法术可以越过它攻击。",
+      "en": "A suitable weapon or spell can reach past it.",
+      "zh": "合适的武器或法术可以越过它攻击。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Full literal selected at its detail text producer"
+      },
+      "source_context": "detail.feature.fixed"
+    },
+    {
+      "id": "item.armour.shield_cumbersome",
+      "context": "物品详情：盾牌负重影响",
+      "en": "It is cumbersome to wear, and {degree}impedes the evasion, spellcasting ability, and attack speed of the wearer. These penalties are reduced by the wearer's Shields skill and Strength; mastering Shields eliminates penalties.",
+      "zh": "穿戴它会{degree}影响穿戴者的闪避、施法能力和攻击速度。这些惩罚会随着盾牌技能和力量提升而减轻；精通盾牌技能后便不再受罚。",
+      "params": {
+        "degree": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_armour shield cumbersome exact make_stringf template; degree is \"slightly \", \"greatly \", or empty"
+      }
+    },
+    {
+      "id": "item.skill.current",
+      "context": "物品详情：当前技能等级",
+      "en": "Your {skill_prefix}skill: {padding}{skill_level}",
+      "zh": "你的{skill_prefix}技能：{padding}{skill_level}",
+      "params": {
+        "skill_prefix": "text",
+        "padding": "text",
+        "skill_level": "number"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_your_skill_desc; complete no-target template after skill/temp/base calculation"
+      }
+    },
+    {
+      "id": "item.skill.current_with_target",
+      "context": "物品详情：当前技能等级与目标快捷键",
+      "en": "Your {skill_prefix}skill: {padding}{skill_level}; use <white>(s)</white> to set {target_level} as a target for {skill}.",
+      "zh": "你的{skill_prefix}技能：{padding}{skill_level}；按<white>(s)</white>将{target_level}设为{skill}目标。",
+      "params": {
+        "skill_prefix": "text",
+        "padding": "text",
+        "skill_level": "number",
+        "target_level": "number",
+        "skill": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_your_skill_desc; complete make_stringf plus exact target-button suffix"
+      }
+    },
+    {
+      "id": "item.weapon.hands_missing",
+      "context": "物品详情：无法持握",
+      "en": "\nYou are unable to wield it.",
+      "zh": "\n你无法持握它。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_handedness_string MUT_NO_GRASPING"
+      }
+    },
+    {
+      "id": "item.weapon.too_large",
+      "context": "物品详情：武器过大",
+      "en": "\nIt is too large for you to wield.",
+      "zh": "\n这把武器对你来说太大，无法持握。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_handedness_string too-large check"
+      }
+    },
+    {
+      "id": "item.weapon.hand_use",
+      "context": "物品详情：武器所需手数",
+      "en": "It is a {hands}-{handname}{suffix} weapon.",
+      "zh": "这是一把适合{handname}持用的{hands}手{suffix}武器。",
+      "params": {
+        "hands": "text",
+        "handname": "name",
+        "suffix": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_handedness_string normal species branch; source hands one/two, species hand_name, suffix d/ed"
+      }
+    },
+    {
+      "id": "item.weapon.quadrumanous_hand_use",
+      "context": "物品详情：四臂种族武器手数",
+      "en": "It is a weapon for {hands} {handname}.",
+      "zh": "这是一把适合{hands}{handname}持用的武器。",
+      "params": {
+        "hands": "text",
+        "handname": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_handedness_string quadrumanous branch"
+      }
+    },
+    {
+      "id": "item.weapon.max_enchantment",
+      "context": "物品详情：武器最大附魔",
+      "en": "\n\nIt can be maximally enchanted to +{maximum}.",
+      "zh": "\n\n它最多可附魔至+{maximum}。",
+      "params": {
+        "maximum": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_weapon exact maximum enchantment literal and MAX_WPN_ENCHANT"
+      }
+    },
+    {
+      "id": "item.armour.current_missile_slow",
+      "context": "物品详情：当前护甲对远程攻击的减速",
+      "en": "\n\nYour current strength and Armour skill slows attacks with missile weapons (like {weapon}) {delay_text}",
+      "zh": "\n\n你当前的力量和护甲技能会使投射物攻击（如{weapon}）{delay_text}",
+      "params": {
+        "weapon": "name",
+        "delay_text": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_armour current equipped weapon penalty; weapon name and delay threshold complete composition"
+      }
+    },
+    {
+      "id": "item.curse.skills_list",
+      "context": "物品详情：诅咒增强技能列表",
+      "en": "{skills}.",
+      "zh": "{skills}。",
+      "params": {
+        "skills": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_item_curse; comma_separated_fn of curse skill names ending each with period"
+      }
+    },
+    {
+      "id": "spell.miscast_contamination",
+      "context": "法术详情：施法失败后果",
+      "en": "Miscasting this spell causes magic contamination{additional}.\n",
+      "zh": "施法失败会造成魔法污染{additional}。\n",
+      "params": {
+        "additional": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_player_spell_desc first full sentence; additional is empty or begins \" and also \" with miscast effect list"
+      }
+    },
+    {
+      "id": "spell.summon_cap",
+      "context": "法术详情：召唤数量上限",
+      "en": "You can sustain at most {count} {creature}{plural} summoned by this spell.\n",
+      "zh": "此法术最多可维持{count}个{creature}召唤物{plural}。",
+      "params": {
+        "count": "text",
+        "creature": "text",
+        "plural": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_player_spell_desc summon cap complete composition"
+      }
+    },
+    {
+      "id": "spell.god_opinion",
+      "context": "法术详情：神祇对法术的态度",
+      "en": "{god} {opinion} the use of this spell.\n",
+      "zh": "{god}{opinion}此法术。\n",
+      "params": {
+        "god": "name",
+        "opinion": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_player_spell_desc god_hates_spell/god_likes_spell"
+      }
+    },
+    {
+      "id": "monster.table.max_hp",
+      "context": "详情表格标签或固定值：生命值上限",
+      "en": "Max HP",
+      "zh": "生命值上限",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_label"
+    },
+    {
+      "id": "monster.table.will",
+      "context": "详情表格标签或固定值：意志",
+      "en": "Will",
+      "zh": "意志",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_label"
+    },
+    {
+      "id": "monster.table.ac",
+      "context": "详情表格标签或固定值：护甲",
+      "en": "AC",
+      "zh": "护甲",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_label"
+    },
+    {
+      "id": "monster.table.ev",
+      "context": "详情表格标签或固定值：闪避",
+      "en": "EV",
+      "zh": "闪避",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_label"
+    },
+    {
+      "id": "monster.table.sh",
+      "context": "详情表格标签或固定值：格挡",
+      "en": "SH",
+      "zh": "格挡",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_label"
+    },
+    {
+      "id": "monster.table.threat",
+      "context": "详情表格标签或固定值：威胁等级",
+      "en": "Threat",
+      "zh": "威胁等级",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_label"
+    },
+    {
+      "id": "monster.table.class",
+      "context": "详情表格标签或固定值：类别",
+      "en": "Class",
+      "zh": "类别",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_label"
+    },
+    {
+      "id": "monster.table.size",
+      "context": "详情表格标签或固定值：体型",
+      "en": "Size",
+      "zh": "体型",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_label"
+    },
+    {
+      "id": "monster.table.int",
+      "context": "详情表格标签或固定值：智力",
+      "en": "Int",
+      "zh": "智力",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_label"
+    },
+    {
+      "id": "monster.table.regen",
+      "context": "详情表格标签或固定值：再生",
+      "en": "Regen",
+      "zh": "再生",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_label"
+    },
+    {
+      "id": "form.table.melee_dmg",
+      "context": "详情表格标签或固定值：近战伤害",
+      "en": "Melee dmg",
+      "zh": "近战伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.bite_speed",
+      "context": "详情表格标签或固定值：撕咬速度",
+      "en": "Bite speed",
+      "zh": "撕咬速度",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.elec_chance",
+      "context": "详情表格标签或固定值：触发电击几率",
+      "en": "Elec chance",
+      "zh": "触发电击几率",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.aux_chance",
+      "context": "详情表格标签或固定值：辅助攻击几率",
+      "en": "Aux chance",
+      "zh": "辅助攻击几率",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.stealth",
+      "context": "详情表格标签或固定值：潜行",
+      "en": "Stealth",
+      "zh": "潜行",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.reach",
+      "context": "详情表格标签或固定值：攻击距离",
+      "en": "Reach",
+      "zh": "攻击距离",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.barding",
+      "context": "详情表格标签或固定值：马铠",
+      "en": "Barding",
+      "zh": "马铠",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.claws",
+      "context": "详情表格标签或固定值：爪击",
+      "en": "Claws",
+      "zh": "爪击",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.melee_damage",
+      "context": "详情表格标签或固定值：近战伤害",
+      "en": "Melee damage",
+      "zh": "近战伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.sinv",
+      "context": "详情表格标签或固定值：看隐形",
+      "en": "SInv",
+      "zh": "看隐形",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.str",
+      "context": "详情表格标签或固定值：力量",
+      "en": "Str",
+      "zh": "力量",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.dex",
+      "context": "详情表格标签或固定值：敏捷",
+      "en": "Dex",
+      "zh": "敏捷",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "monster.table.minor",
+      "context": "详情表格标签或固定值：较低",
+      "en": "Minor",
+      "zh": "较低",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.low",
+      "context": "详情表格标签或固定值：低",
+      "en": "Low",
+      "zh": "低",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.high",
+      "context": "详情表格标签或固定值：高",
+      "en": "High",
+      "zh": "高",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.lethal",
+      "context": "详情表格标签或固定值：致命",
+      "en": "Lethal",
+      "zh": "致命",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.eggstreme",
+      "context": "详情表格标签或固定值：极度危险",
+      "en": "Eggstreme",
+      "zh": "极度危险",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.mindless",
+      "context": "详情表格标签或固定值：无心智",
+      "en": "Mindless",
+      "zh": "无心智",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.animal",
+      "context": "详情表格标签或固定值：动物",
+      "en": "Animal",
+      "zh": "动物",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.human",
+      "context": "详情表格标签或固定值：人类",
+      "en": "Human",
+      "zh": "人类",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.eggplantelligent",
+      "context": "详情表格标签或固定值：茄智",
+      "en": "Eggplantelligent",
+      "zh": "茄智",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.none",
+      "context": "详情表格标签或固定值：无",
+      "en": "None",
+      "zh": "无",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact value emitted by monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "form.value.yes",
+      "context": "详情固定语义值：是",
+      "en": "Yes",
+      "zh": "是",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact semantic enum output in monster/form detail table"
+      },
+      "source_context": "detail.form.table_value"
+    },
+    {
+      "id": "monster.table.natural",
+      "context": "详情固定语义值：自然",
+      "en": "Natural",
+      "zh": "自然",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact semantic enum output in monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.holy",
+      "context": "详情固定语义值：神圣",
+      "en": "Holy",
+      "zh": "神圣",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact semantic enum output in monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.undead",
+      "context": "详情固定语义值：亡灵",
+      "en": "Undead",
+      "zh": "亡灵",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact semantic enum output in monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.demonic",
+      "context": "详情固定语义值：恶魔",
+      "en": "Demonic",
+      "zh": "恶魔",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact semantic enum output in monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.nonliving",
+      "context": "详情固定语义值：非生命",
+      "en": "Nonliving",
+      "zh": "非生命",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact semantic enum output in monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.plant",
+      "context": "详情固定语义值：植物",
+      "en": "Plant",
+      "zh": "植物",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact semantic enum output in monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.bug",
+      "context": "详情固定语义值：错误",
+      "en": "Bug",
+      "zh": "错误",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact semantic enum output in monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "monster.table.nonliv_abbr",
+      "context": "详情固定语义值：非生物",
+      "en": "Nonliv.",
+      "zh": "非生物",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "Exact semantic enum output in monster/form detail table"
+      },
+      "source_context": "detail.monster.table_value"
+    },
+    {
+      "id": "form.class",
+      "context": "形态详情：类别标签",
+      "en": "Class: {holiness}",
+      "zh": "类别：{holiness}",
+      "params": {
+        "holiness": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman form->holiness heading and holiness_description"
+      }
+    },
+    {
+      "id": "monster.attack_table.attack",
+      "context": "怪物详情：攻击表列标题",
+      "en": "Attack",
+      "zh": "攻击",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_build_table_of_attacks; fixed column header literal"
+      },
+      "source_context": "detail.monster.attack_table"
+    },
+    {
+      "id": "monster.attack_table.attacks",
+      "context": "怪物详情：攻击表列标题",
+      "en": "Attacks",
+      "zh": "攻击",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_build_table_of_attacks; fixed column header literal"
+      },
+      "source_context": "detail.monster.attack_table"
+    },
+    {
+      "id": "monster.attack_table.max_damage",
+      "context": "怪物详情：攻击表列标题",
+      "en": "Max Damage",
+      "zh": "最大伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_build_table_of_attacks; fixed column header literal"
+      },
+      "source_context": "detail.monster.attack_table"
+    },
+    {
+      "id": "monster.attack_table.bonus",
+      "context": "怪物详情：攻击表列标题",
+      "en": "Bonus",
+      "zh": "额外效果",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_build_table_of_attacks; fixed column header literal"
+      },
+      "source_context": "detail.monster.attack_table"
+    },
+    {
+      "id": "monster.attack_table.after_damaging_hits",
+      "context": "怪物详情：攻击表列标题",
+      "en": "After Damaging Hits",
+      "zh": "命中造成伤害后",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_build_table_of_attacks; fixed column header literal"
+      },
+      "source_context": "detail.monster.attack_table"
+    },
+    {
+      "id": "item.projectile.always_destroyed.fixed",
+      "context": "物品详情：投掷物必定损毁",
+      "en": "\n\nIt is always destroyed on impact.",
+      "zh": "\n\n命中后必定损毁。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_ammo; exact fixed literal"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.weapon.armour_slow.full",
+      "context": "物品详情：护甲减慢攻击",
+      "en": "{actor} slows your attacks with this weapon by {delay}.",
+      "zh": "{actor}会使你使用这件武器的攻击速度减慢{delay}。",
+      "params": {
+        "actor": "name",
+        "delay": "number"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_append_weapon_stats; body armour description plus adjusted penalty formatted to one decimal"
+      }
+    },
+    {
+      "id": "item.weapon.armour_slow_slightly",
+      "context": "物品详情：护甲轻微减慢攻击",
+      "en": "{actor} slightly slows your attacks with this weapon.",
+      "zh": "{actor}会轻微减慢你使用这件武器的攻击速度。",
+      "params": {
+        "actor": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_append_weapon_stats; body armour description and sub-threshold penalty"
+      }
+    },
+    {
+      "id": "item.weapon.armour_slow_heavy.fixed",
+      "context": "物品详情：重型护甲减慢攻击",
+      "en": "Wearing heavy armour would reduce your attack speed with this weapon.",
+      "zh": "穿戴重型护甲会降低你使用这件武器的攻击速度。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_append_weapon_stats; exact fixed literal"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.jewellery.stat_effect",
+      "context": "物品详情：戒指属性效果",
+      "en": "\n\nIt affects your {stat} ({amount}).",
+      "zh": "\n\n它会影响你的{stat}（{amount}）。",
+      "params": {
+        "stat": "text",
+        "amount": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_jewellery; complete ring effect sentences share stat and signed amount"
+      }
+    },
+    {
+      "id": "item.jewellery.slaying_effect",
+      "context": "物品详情：杀戮戒指效果",
+      "en": "\n\nIt affects your accuracy and damage with ranged weapons and melee ({amount}).",
+      "zh": "\n\n它会影响你使用远程武器和近战武器时的命中与伤害（{amount}）。",
+      "params": {
+        "amount": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_jewellery; exact complete ranged and melee slaying sentence"
+      }
+    },
+    {
+      "id": "item.jewellery.reflection_effect",
+      "context": "物品详情：反射护符效果",
+      "en": "\n\nIt affects your shielding ({amount}).",
+      "zh": "\n\n它会影响你的格挡能力（{amount}）。",
+      "params": {
+        "amount": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_jewellery; reflection amulet signed shield bonus"
+      }
+    },
+    {
+      "id": "item.weapon.damage_rating",
+      "context": "物品详情：伤害评分",
+      "en": "{rating} (Base {base} x {stat_mult}% ({stat}) x {skill_mult}% ({skill}){plusses}){brand}.",
+      "zh": "{rating}（基础{base} × {stat_mult}%（{stat}）× {skill_mult}%（{skill}）{plusses}）{brand}。",
+      "params": {
+        "rating": "integer",
+        "base": "text",
+        "stat_mult": "integer",
+        "stat": "text",
+        "skill_mult": "integer",
+        "skill": "text",
+        "plusses": "text",
+        "brand": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "damage_rating; complete make_stringf format with named typed semantic fields"
+      }
+    },
+    {
+      "id": "item.weapon.damage_rating.woe.fixed",
+      "context": "物品详情：哀恸伤害评分",
+      "en": "your enemies will bleed and die for Makhleb.",
+      "zh": "你的敌人将为玛克雷布流血而亡。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "damage_rating; fixed Woe artefact string"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.weapon.damage_rating.zero.fixed",
+      "context": "物品详情：零伤害评分",
+      "en": "0.",
+      "zh": "0。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "damage_rating; fixed non-weapon score"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.armour.warlock_mirror_reflect",
+      "context": "物品详情：术士镜反射",
+      "en": "\n\nWith your current SH, it has a {chance}% chance to reflect attacks against your willpower and other normally unblockable effects.",
+      "zh": "\n\n以你当前的盾牌格挡值，它有{chance}%的几率反射针对你意志力及其他通常无法格挡效果的攻击。",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_warlock_mirror_reflect_desc; exact complete sentence after reflect chance calculation"
+      }
+    },
+    {
+      "id": "item.ziggurat.glow",
+      "context": "物品详情：地城入口光芒",
+      "en": "\n\nIt is surrounded by a {glow} glow.",
+      "zh": "\n\n它周围笼罩着{glow}光芒。",
+      "params": {
+        "glow": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description ziggurat branch; complete sentence with four glow levels"
+      }
+    },
+    {
+      "id": "item.evoker.charges",
+      "context": "物品详情：经验充能装置次数",
+      "en": "Charges: {charges}. Once all charges have been used",
+      "zh": "充能次数：{charges}。全部充能耗尽后",
+      "params": {
+        "charges": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description evoker branch; first conditional sentence portion"
+      }
+    },
+    {
+      "id": "item.evoker.damage",
+      "context": "物品详情：经验充能装置伤害",
+      "en": "\nDamage: {damage}",
+      "zh": "\n伤害：{damage}",
+      "params": {
+        "damage": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description evoker branch; damage label and generated value"
+      }
+    },
+    {
+      "id": "item.evoker.noise",
+      "context": "物品详情：经验充能装置噪声",
+      "en": "\nNoise: {noise}",
+      "zh": "\n噪声：{noise}",
+      "params": {
+        "noise": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description evoker branch; noise label and generated value"
+      }
+    },
+    {
+      "id": "item.evoker.activated.fixed",
+      "context": "物品详情：经验充能装置",
+      "en": "Once activated",
+      "zh": "激活后",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description evoker branch; exact fixed fragment"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.evoker.inert.fixed",
+      "context": "物品详情：经验充能装置",
+      "en": ", this device is rendered temporarily inert. However, it recharges as you gain experience.",
+      "zh": "，该装置会暂时失效。不过，你获得经验时它会重新充能。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description evoker branch; exact shared sentence suffix"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.evoker.combine.fixed",
+      "context": "物品详情：经验充能装置",
+      "en": "\n\nAdditional devices of the same type can be combined with it to improve the rate at which it recharges.",
+      "zh": "\n\n可以将同类型的其他装置与它组合，以提高它的充能速度。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description evoker branch; exact fixed recharge improvement sentence"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.evoker.skill.fixed",
+      "context": "物品详情：经验充能装置",
+      "en": "\n\nIncreasing your evocations skill will improve the rate at which it recharges.",
+      "zh": "\n\n提高你的唤魔技能可以加快它的充能速度。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description evoker branch; exact fixed skill sentence"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.wand.damage",
+      "context": "物品详情：魔杖伤害",
+      "en": "\nDamage: {damage}",
+      "zh": "\n伤害：{damage}",
+      "params": {
+        "damage": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description wand branch; damage label and generated value"
+      }
+    },
+    {
+      "id": "item.wand.noise",
+      "context": "物品详情：魔杖噪声",
+      "en": "\nNoise: {noise}",
+      "zh": "\n噪声：{noise}",
+      "params": {
+        "noise": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description wand branch; noise label and generated value"
+      }
+    },
+    {
+      "id": "item.equipment.preview_stat",
+      "context": "物品详情：装备属性预览",
+      "en": "\nYour {stat} would {change}.",
+      "zh": "\n你的{stat}{change}。",
+      "params": {
+        "stat": "text",
+        "change": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_equipment_property_change_description; AC/EV/SH rows share complete line template"
+      }
+    },
+    {
+      "id": "item.equipment.spell_fail_trivial",
+      "context": "物品详情：装备预览法术失败率轻微变化",
+      "en": "\nYour spell failure would {direction} trivially.",
+      "zh": "\n你的法术失败率将{direction}（变化很小）。",
+      "params": {
+        "direction": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_equipment_property_change_description; exact zero-visible-change sentence"
+      }
+    },
+    {
+      "id": "item.equipment.spell_fail_change",
+      "context": "物品详情：装备预览法术失败率变化",
+      "en": "\nYour spell failure would {direction} by up to {amount}% (press '!' for details).",
+      "zh": "\n你的法术失败率将{direction}，幅度最高为{amount}%（按“!”查看详情）。",
+      "params": {
+        "direction": "text",
+        "amount": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_equipment_property_change_description; exact nonzero sentence with shortcut key"
+      }
+    },
+    {
+      "id": "item.equipment.preview.remove",
+      "context": "物品详情：卸下装备预览",
+      "en": "\n\nIf you {verb} this {type}:",
+      "zh": "\n\n如果你{verb}{type}：",
+      "params": {
+        "verb": "text",
+        "type": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_equipment_property_change_description remove branch; unequip verb and equip type"
+      }
+    },
+    {
+      "id": "item.equipment.preview.switch",
+      "context": "物品详情：切换装备预览",
+      "en": "\n\nIf you switch to {verb} this {type}:",
+      "zh": "\n\n如果你改为{verb}{type}：",
+      "params": {
+        "verb": "text",
+        "type": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_equipment_property_change_description default branch; switch verb and equip type"
+      }
+    },
+    {
+      "id": "item.equipment.preview.transform.fixed",
+      "context": "物品详情：装备预览",
+      "en": "If you transformed using this talisman:",
+      "zh": "如果你使用这枚护符变形：",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_equipment_property_change_description; exact fixed intro"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.equipment.preview.ring.fixed",
+      "context": "物品详情：装备预览",
+      "en": "If you were wearing this ring:",
+      "zh": "如果你佩戴这枚戒指：",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_equipment_property_change_description; exact fixed intro"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.equipment.preview.offhand.fixed",
+      "context": "物品详情：装备预览",
+      "en": "If you switch to wielding this weapon in your main hand:",
+      "zh": "如果你改为在主手挥舞这件武器：",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_equipment_property_change_description; exact fixed intro"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.weapon.brand.flaming",
+      "context": "详情语义词项：flaming",
+      "en": "flaming",
+      "zh": "火焰",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.freezing",
+      "context": "详情语义词项：freezing",
+      "en": "freezing",
+      "zh": "冰冻",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.holy_wrath",
+      "context": "详情语义词项：holy wrath",
+      "en": "holy wrath",
+      "zh": "神圣愤怒",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.electrocution",
+      "context": "详情语义词项：electrocution",
+      "en": "electrocution",
+      "zh": "电击",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.venom",
+      "context": "详情语义词项：venom",
+      "en": "venom",
+      "zh": "毒液",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.protection",
+      "context": "详情语义词项：protection",
+      "en": "protection",
+      "zh": "防护",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.draining",
+      "context": "详情语义词项：draining",
+      "en": "draining",
+      "zh": "汲取",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.speed",
+      "context": "详情语义词项：speed",
+      "en": "speed",
+      "zh": "迅捷",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.heavy",
+      "context": "详情语义词项：heavy",
+      "en": "heavy",
+      "zh": "重型",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.vampirism",
+      "context": "详情语义词项：vampirism",
+      "en": "vampirism",
+      "zh": "吸血",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.pain",
+      "context": "详情语义词项：pain",
+      "en": "pain",
+      "zh": "痛苦",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.antimagic",
+      "context": "详情语义词项：antimagic",
+      "en": "antimagic",
+      "zh": "反魔",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.distortion",
+      "context": "详情语义词项：distortion",
+      "en": "distortion",
+      "zh": "扭曲",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.chaos",
+      "context": "详情语义词项：chaos",
+      "en": "chaos",
+      "zh": "混沌",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.penetration",
+      "context": "详情语义词项：penetration",
+      "en": "penetration",
+      "zh": "穿透",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.reaping",
+      "context": "详情语义词项：reaping",
+      "en": "reaping",
+      "zh": "收割",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.spectralising",
+      "context": "详情语义词项：spectralising",
+      "en": "spectralising",
+      "zh": "幽灵化",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.rebuke",
+      "context": "详情语义词项：rebuke",
+      "en": "rebuke",
+      "zh": "斥责",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.valour",
+      "context": "详情语义词项：valour",
+      "en": "valour",
+      "zh": "勇气",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.entangling",
+      "context": "详情语义词项：entangling",
+      "en": "entangling",
+      "zh": "缠绕",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.sundering",
+      "context": "详情语义词项：sundering",
+      "en": "sundering",
+      "zh": "破甲",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.concussion",
+      "context": "详情语义词项：concussion",
+      "en": "concussion",
+      "zh": "震荡",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.devious",
+      "context": "详情语义词项：devious",
+      "en": "devious",
+      "zh": "诡计",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.acid",
+      "context": "详情语义词项：acid",
+      "en": "acid",
+      "zh": "酸蚀",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.confusion",
+      "context": "详情语义词项：confusion",
+      "en": "confusion",
+      "zh": "混乱",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.weakness",
+      "context": "详情语义词项：weakness",
+      "en": "weakness",
+      "zh": "虚弱",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.vulnerability",
+      "context": "详情语义词项：vulnerability",
+      "en": "vulnerability",
+      "zh": "易伤",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.weapon.brand.foul_flame",
+      "context": "详情语义词项：foul flame",
+      "en": "foul flame",
+      "zh": "邪焰",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "brand_type_name; exact verbose/terse brand enum name"
+      }
+    },
+    {
+      "id": "item.armour.ego.fire_resistance",
+      "context": "详情语义词项：fire resistance",
+      "en": "fire resistance",
+      "zh": "火焰抗性",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.cold_resistance",
+      "context": "详情语义词项：cold resistance",
+      "en": "cold resistance",
+      "zh": "寒冷抗性",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.poison_resistance",
+      "context": "详情语义词项：poison resistance",
+      "en": "poison resistance",
+      "zh": "毒素抗性",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.see_invisible",
+      "context": "详情语义词项：see invisible",
+      "en": "see invisible",
+      "zh": "侦测隐形",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.invisibility",
+      "context": "详情语义词项：invisibility",
+      "en": "invisibility",
+      "zh": "隐形",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.strength",
+      "context": "详情语义词项：strength",
+      "en": "strength",
+      "zh": "力量",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.dexterity",
+      "context": "详情语义词项：dexterity",
+      "en": "dexterity",
+      "zh": "敏捷",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.intelligence",
+      "context": "详情语义词项：intelligence",
+      "en": "intelligence",
+      "zh": "智力",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.ponderousness",
+      "context": "详情语义词项：ponderousness",
+      "en": "ponderousness",
+      "zh": "笨重",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.flying",
+      "context": "详情语义词项：flying",
+      "en": "flying",
+      "zh": "飞行",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.willpower",
+      "context": "详情语义词项：willpower",
+      "en": "willpower",
+      "zh": "意志力",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.protection",
+      "context": "详情语义词项：protection",
+      "en": "protection",
+      "zh": "防护",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.stealth",
+      "context": "详情语义词项：stealth",
+      "en": "stealth",
+      "zh": "潜行",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.resistance",
+      "context": "详情语义词项：resistance",
+      "en": "resistance",
+      "zh": "抗性",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.positive_energy",
+      "context": "详情语义词项：positive energy",
+      "en": "positive energy",
+      "zh": "正能量",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.the_archmagi",
+      "context": "详情语义词项：the Archmagi",
+      "en": "the Archmagi",
+      "zh": "大法师",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.corrosion_resistance",
+      "context": "详情语义词项：corrosion resistance",
+      "en": "corrosion resistance",
+      "zh": "抗腐蚀",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.reflection",
+      "context": "详情语义词项：reflection",
+      "en": "reflection",
+      "zh": "反射",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.spirit_shield",
+      "context": "详情语义词项：spirit shield",
+      "en": "spirit shield",
+      "zh": "灵魂护盾",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.hurling",
+      "context": "详情语义词项：hurling",
+      "en": "hurling",
+      "zh": "投掷",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.repulsion",
+      "context": "详情语义词项：repulsion",
+      "en": "repulsion",
+      "zh": "排斥",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.harm",
+      "context": "详情语义词项：harm",
+      "en": "harm",
+      "zh": "伤害",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.shadows",
+      "context": "详情语义词项：shadows",
+      "en": "shadows",
+      "zh": "暗影",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.rampaging",
+      "context": "详情语义词项：rampaging",
+      "en": "rampaging",
+      "zh": "狂暴冲锋",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.infusion",
+      "context": "详情语义词项：infusion",
+      "en": "infusion",
+      "zh": "注能",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.light",
+      "context": "详情语义词项：light",
+      "en": "light",
+      "zh": "光明",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.wrath",
+      "context": "详情语义词项：wrath",
+      "en": "wrath",
+      "zh": "愤怒",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.mayhem",
+      "context": "详情语义词项：mayhem",
+      "en": "mayhem",
+      "zh": "混乱",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.guile",
+      "context": "详情语义词项：guile",
+      "en": "guile",
+      "zh": "诡计",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.energy",
+      "context": "详情语义词项：energy",
+      "en": "energy",
+      "zh": "能量",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.sniping",
+      "context": "详情语义词项：sniping",
+      "en": "sniping",
+      "zh": "狙击",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.ice",
+      "context": "详情语义词项：ice",
+      "en": "ice",
+      "zh": "冰霜",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.fire",
+      "context": "详情语义词项：fire",
+      "en": "fire",
+      "zh": "火焰",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.air",
+      "context": "详情语义词项：air",
+      "en": "air",
+      "zh": "空气",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.earth",
+      "context": "详情语义词项：earth",
+      "en": "earth",
+      "zh": "大地",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.archery",
+      "context": "详情语义词项：archery",
+      "en": "archery",
+      "zh": "箭术",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.command",
+      "context": "详情语义词项：command",
+      "en": "command",
+      "zh": "统御",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.death",
+      "context": "详情语义词项：death",
+      "en": "death",
+      "zh": "死亡",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.resonance",
+      "context": "详情语义词项：resonance",
+      "en": "resonance",
+      "zh": "共鸣",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.parrying",
+      "context": "详情语义词项：parrying",
+      "en": "parrying",
+      "zh": "招架",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.glass",
+      "context": "详情语义词项：glass",
+      "en": "glass",
+      "zh": "玻璃",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.pyromania",
+      "context": "详情语义词项：pyromania",
+      "en": "pyromania",
+      "zh": "纵火狂",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.stardust",
+      "context": "详情语义词项：stardust",
+      "en": "stardust",
+      "zh": "星尘",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.mesmerism",
+      "context": "详情语义词项：mesmerism",
+      "en": "mesmerism",
+      "zh": "迷惑",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.armour.ego.attunement",
+      "context": "详情语义词项：attunement",
+      "en": "attunement",
+      "zh": "调谐",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name; exact verbose armour ego name"
+      }
+    },
+    {
+      "id": "item.gizmo.name.spellmotor",
+      "context": "详情语义词项：SpellMotor",
+      "en": "SpellMotor",
+      "zh": "法术马达",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "gizmo_effect_name; exact gizmo enum name"
+      }
+    },
+    {
+      "id": "item.gizmo.name.gadgeteer",
+      "context": "详情语义词项：Gadgeteer",
+      "en": "Gadgeteer",
+      "zh": "装置专家",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "gizmo_effect_name; exact gizmo enum name"
+      }
+    },
+    {
+      "id": "item.gizmo.name.revguard",
+      "context": "详情语义词项：RevGuard",
+      "en": "RevGuard",
+      "zh": "增压护卫",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "gizmo_effect_name; exact gizmo enum name"
+      }
+    },
+    {
+      "id": "item.gizmo.name.autodazzle",
+      "context": "详情语义词项：AutoDazzle",
+      "en": "AutoDazzle",
+      "zh": "自动炫目",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "gizmo_effect_name; exact gizmo enum name"
+      }
+    },
+    {
+      "id": "item.weapon.valour_beam",
+      "context": "物品详情：武器品牌",
+      "en": "The beam does {dice_count}d{dice_size} damage.",
+      "zh": "光束造成{dice_count}d{dice_size}点伤害。",
+      "params": {
+        "dice_count": "integer",
+        "dice_size": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_weapon_brand; exact appended Valour beam sentence"
+      }
+    },
+    {
+      "id": "item.weapon.chaotic_label.fixed",
+      "context": "物品详情：武器品牌",
+      "en": "\nChaotic:   ",
+      "zh": "\n混沌：   ",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe weapon; exact Chaotic brand label"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.gizmo.spellmotor.fixed",
+      "context": "物品详情：装置描述",
+      "en": "Your spells cost less MP as you Rev up. Whenever you cast a spell, you make a melee attack against a random enemy in range.",
+      "zh": "随着你提高转速，施法消耗的魔力会减少。每次施法时，你还会对射程内的一名随机敌人发动近战攻击。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_gizmo/get_item_description; exact fixed literal"
+      },
+      "source_context": "detail.item.gizmo.fixed"
+    },
+    {
+      "id": "item.gizmo.gadgeteer.fixed",
+      "context": "物品详情：装置描述",
+      "en": "Your evocable items recharge 30% faster and wands have a 30% chance to not spend a charge.",
+      "zh": "你的可激发物品充能速度提高30%，魔杖有30%的几率不消耗充能。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_gizmo/get_item_description; exact fixed literal"
+      },
+      "source_context": "detail.item.gizmo.fixed"
+    },
+    {
+      "id": "item.gizmo.revguard.fixed",
+      "context": "物品详情：装置描述",
+      "en": "Your AC increases as you Rev (up to +5) and while fully Revved, your attacks may disarm enemies.",
+      "zh": "随着转速提高，你的护甲等级最多增加+5；转速达到最高时，攻击还可能缴械敌人。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_gizmo/get_item_description; exact fixed literal"
+      },
+      "source_context": "detail.item.gizmo.fixed"
+    },
+    {
+      "id": "item.gizmo.autodazzle.fixed",
+      "context": "物品详情：装置描述",
+      "en": "It sometimes fires a blinding ray at enemies whose attacks you dodge.",
+      "zh": "你躲开敌人的攻击时，它有时会向该敌人发射致盲射线。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_gizmo/get_item_description; exact fixed literal"
+      },
+      "source_context": "detail.item.gizmo.fixed"
+    },
+    {
+      "id": "item.weapon.brand.flame",
+      "context": "详情语义词项：flame",
+      "en": "flame",
+      "zh": "火焰",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.freeze",
+      "context": "详情语义词项：freeze",
+      "en": "freeze",
+      "zh": "冰冻",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.holy",
+      "context": "详情语义词项：holy",
+      "en": "holy",
+      "zh": "神圣",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.elec",
+      "context": "详情语义词项：elec",
+      "en": "elec",
+      "zh": "电击",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.protect",
+      "context": "详情语义词项：protect",
+      "en": "protect",
+      "zh": "防护",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.drain",
+      "context": "详情语义词项：drain",
+      "en": "drain",
+      "zh": "汲取",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.vamp",
+      "context": "详情语义词项：vamp",
+      "en": "vamp",
+      "zh": "吸血",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.distort",
+      "context": "详情语义词项：distort",
+      "en": "distort",
+      "zh": "扭曲",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.penet",
+      "context": "详情语义词项：penet",
+      "en": "penet",
+      "zh": "穿透",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.reap",
+      "context": "详情语义词项：reap",
+      "en": "reap",
+      "zh": "收割",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.spect",
+      "context": "详情语义词项：spect",
+      "en": "spect",
+      "zh": "幽灵",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.entangle",
+      "context": "详情语义词项：entangle",
+      "en": "entangle",
+      "zh": "缠绕",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.sunder",
+      "context": "详情语义词项：sunder",
+      "en": "sunder",
+      "zh": "破甲",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.concuss",
+      "context": "详情语义词项：concuss",
+      "en": "concuss",
+      "zh": "震荡",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.confuse",
+      "context": "详情语义词项：confuse",
+      "en": "confuse",
+      "zh": "混乱",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.weak",
+      "context": "详情语义词项：weak",
+      "en": "weak",
+      "zh": "虚弱",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.weapon.brand.vuln",
+      "context": "详情语义词项：vuln",
+      "en": "vuln",
+      "zh": "易伤",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "weapon_brands_terse; exact enum brand label"
+      }
+    },
+    {
+      "id": "item.armour.ego.rf",
+      "context": "详情语义词项：rF+",
+      "en": "rF+",
+      "zh": "火抗+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.rc",
+      "context": "详情语义词项：rC+",
+      "en": "rC+",
+      "zh": "冰抗+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.rpois",
+      "context": "详情语义词项：rPois",
+      "en": "rPois",
+      "zh": "毒抗",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.sinv",
+      "context": "详情语义词项：SInv",
+      "en": "SInv",
+      "zh": "侦测隐形",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.inv",
+      "context": "详情语义词项：+Inv",
+      "en": "+Inv",
+      "zh": "隐形+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.str_3",
+      "context": "详情语义词项：Str+3",
+      "en": "Str+3",
+      "zh": "力量+3",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.dex_3",
+      "context": "详情语义词项：Dex+3",
+      "en": "Dex+3",
+      "zh": "敏捷+3",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.int_3",
+      "context": "详情语义词项：Int+3",
+      "en": "Int+3",
+      "zh": "智力+3",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.ponderous",
+      "context": "详情语义词项：Ponderous",
+      "en": "Ponderous",
+      "zh": "笨重",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.fly",
+      "context": "详情语义词项：Fly",
+      "en": "Fly",
+      "zh": "飞行",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.will",
+      "context": "详情语义词项：Will+",
+      "en": "Will+",
+      "zh": "意志+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.ac_3",
+      "context": "详情语义词项：AC+3",
+      "en": "AC+3",
+      "zh": "护甲+3",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.stlth",
+      "context": "详情语义词项：Stlth+",
+      "en": "Stlth+",
+      "zh": "潜行+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.rc_rf",
+      "context": "详情语义词项：rC+ rF+",
+      "en": "rC+ rF+",
+      "zh": "双抗+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.rn",
+      "context": "详情语义词项：rN+",
+      "en": "rN+",
+      "zh": "正能量抗性+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.archmagi",
+      "context": "详情语义词项：Archmagi",
+      "en": "Archmagi",
+      "zh": "大法师",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.rcorr",
+      "context": "详情语义词项：rCorr",
+      "en": "rCorr",
+      "zh": "抗腐蚀",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.reflect",
+      "context": "详情语义词项：Reflect",
+      "en": "Reflect",
+      "zh": "反射",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.spirit",
+      "context": "详情语义词项：Spirit",
+      "en": "Spirit",
+      "zh": "灵魂护盾",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.hurl",
+      "context": "详情语义词项：Hurl",
+      "en": "Hurl",
+      "zh": "投掷",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.rampage",
+      "context": "详情语义词项：Rampage",
+      "en": "Rampage",
+      "zh": "狂暴冲锋",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.infuse",
+      "context": "详情语义词项：Infuse",
+      "en": "Infuse",
+      "zh": "注能",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.rage",
+      "context": "详情语义词项：*Rage",
+      "en": "*Rage",
+      "zh": "*狂暴",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.snipe",
+      "context": "详情语义词项：Snipe",
+      "en": "Snipe",
+      "zh": "狙击",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_rf",
+      "context": "详情语义词项（简写）：rF+",
+      "en": "rF+",
+      "zh": "火抗+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_rc",
+      "context": "详情语义词项（简写）：rC+",
+      "en": "rC+",
+      "zh": "冰抗+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_rpois",
+      "context": "详情语义词项（简写）：rPois",
+      "en": "rPois",
+      "zh": "毒抗",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_sinv",
+      "context": "详情语义词项（简写）：SInv",
+      "en": "SInv",
+      "zh": "侦测隐形",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_inv",
+      "context": "详情语义词项（简写）：+Inv",
+      "en": "+Inv",
+      "zh": "隐形+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_str_3",
+      "context": "详情语义词项（简写）：Str+3",
+      "en": "Str+3",
+      "zh": "力量+3",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_dex_3",
+      "context": "详情语义词项（简写）：Dex+3",
+      "en": "Dex+3",
+      "zh": "敏捷+3",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_int_3",
+      "context": "详情语义词项（简写）：Int+3",
+      "en": "Int+3",
+      "zh": "智力+3",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_ponderous",
+      "context": "详情语义词项（简写）：Ponderous",
+      "en": "Ponderous",
+      "zh": "笨重",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_fly",
+      "context": "详情语义词项（简写）：Fly",
+      "en": "Fly",
+      "zh": "飞行",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_will",
+      "context": "详情语义词项（简写）：Will+",
+      "en": "Will+",
+      "zh": "意志+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_ac_3",
+      "context": "详情语义词项（简写）：AC+3",
+      "en": "AC+3",
+      "zh": "护甲+3",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_stlth",
+      "context": "详情语义词项（简写）：Stlth+",
+      "en": "Stlth+",
+      "zh": "潜行+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_rc_rf",
+      "context": "详情语义词项（简写）：rC+ rF+",
+      "en": "rC+ rF+",
+      "zh": "双抗+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_rn",
+      "context": "详情语义词项（简写）：rN+",
+      "en": "rN+",
+      "zh": "正能量抗性+",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_archmagi",
+      "context": "详情语义词项（简写）：Archmagi",
+      "en": "Archmagi",
+      "zh": "大法师",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_rcorr",
+      "context": "详情语义词项（简写）：rCorr",
+      "en": "rCorr",
+      "zh": "抗腐蚀",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_reflect",
+      "context": "详情语义词项（简写）：Reflect",
+      "en": "Reflect",
+      "zh": "反射",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_spirit",
+      "context": "详情语义词项（简写）：Spirit",
+      "en": "Spirit",
+      "zh": "灵魂护盾",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_hurl",
+      "context": "详情语义词项（简写）：Hurl",
+      "en": "Hurl",
+      "zh": "投掷",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_repulsion",
+      "context": "详情语义词项（简写）：Repulsion",
+      "en": "Repulsion",
+      "zh": "排斥",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_harm",
+      "context": "详情语义词项（简写）：Harm",
+      "en": "Harm",
+      "zh": "伤害",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_shadows",
+      "context": "详情语义词项（简写）：Shadows",
+      "en": "Shadows",
+      "zh": "暗影",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_rampage",
+      "context": "详情语义词项（简写）：Rampage",
+      "en": "Rampage",
+      "zh": "狂暴冲锋",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_infuse",
+      "context": "详情语义词项（简写）：Infuse",
+      "en": "Infuse",
+      "zh": "注能",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_light",
+      "context": "详情语义词项（简写）：Light",
+      "en": "Light",
+      "zh": "光明",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_rage",
+      "context": "详情语义词项（简写）：*Rage",
+      "en": "*Rage",
+      "zh": "*狂暴",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_mayhem",
+      "context": "详情语义词项（简写）：Mayhem",
+      "en": "Mayhem",
+      "zh": "混乱",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_guile",
+      "context": "详情语义词项（简写）：Guile",
+      "en": "Guile",
+      "zh": "诡计",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_energy",
+      "context": "详情语义词项（简写）：Energy",
+      "en": "Energy",
+      "zh": "能量",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_snipe",
+      "context": "详情语义词项（简写）：Snipe",
+      "en": "Snipe",
+      "zh": "狙击",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_ice",
+      "context": "详情语义词项（简写）：Ice",
+      "en": "Ice",
+      "zh": "冰霜",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_fire",
+      "context": "详情语义词项（简写）：Fire",
+      "en": "Fire",
+      "zh": "火焰",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_air",
+      "context": "详情语义词项（简写）：Air",
+      "en": "Air",
+      "zh": "空气",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_earth",
+      "context": "详情语义词项（简写）：Earth",
+      "en": "Earth",
+      "zh": "大地",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_archery",
+      "context": "详情语义词项（简写）：Archery",
+      "en": "Archery",
+      "zh": "箭术",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_command",
+      "context": "详情语义词项（简写）：Command",
+      "en": "Command",
+      "zh": "统御",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_death",
+      "context": "详情语义词项（简写）：Death",
+      "en": "Death",
+      "zh": "死亡",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_resonance",
+      "context": "详情语义词项（简写）：Resonance",
+      "en": "Resonance",
+      "zh": "共鸣",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_parrying",
+      "context": "详情语义词项（简写）：Parrying",
+      "en": "Parrying",
+      "zh": "招架",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_glass",
+      "context": "详情语义词项（简写）：Glass",
+      "en": "Glass",
+      "zh": "玻璃",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_pyromania",
+      "context": "详情语义词项（简写）：Pyromania",
+      "en": "Pyromania",
+      "zh": "纵火狂",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_stardust",
+      "context": "详情语义词项（简写）：Stardust",
+      "en": "Stardust",
+      "zh": "星尘",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_mesmerism",
+      "context": "详情语义词项（简写）：Mesmerism",
+      "en": "Mesmerism",
+      "zh": "迷惑",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "item.armour.ego.terse_attunement",
+      "context": "详情语义词项（简写）：Attunement",
+      "en": "Attunement",
+      "zh": "调谐",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "special_armour_type_name(..., true); exact terse artefact label"
+      }
+    },
+    {
+      "id": "spell.stats.school",
+      "context": "法术详情：玩家施法属性",
+      "en": "        School{s}: {schools}",
+      "zh": "        学派{s}：{schools}",
+      "params": {
+        "s": "text",
+        "schools": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_stats School row; spell_schools_string slash-delimited enum long names"
+      }
+    },
+    {
+      "id": "spell.stats.fail",
+      "context": "法术详情：玩家施法属性",
+      "en": "        Fail: {failure}",
+      "zh": "        失败率：{failure}",
+      "params": {
+        "failure": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_stats; exact padded Fail label and failure_rate_to_string or nested percentage format"
+      }
+    },
+    {
+      "id": "spell.stats.power",
+      "context": "法术详情：玩家施法属性",
+      "en": "\n\n{indent}Power: {power}",
+      "zh": "\n\n{indent}威力：{power}",
+      "params": {
+        "indent": "text",
+        "power": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_stats; Power label and spell_power_string"
+      }
+    },
+    {
+      "id": "spell.stats.damage",
+      "context": "法术详情：玩家施法属性",
+      "en": "\n{indent}Damage: {damage}{maximum}",
+      "zh": "\n{indent}伤害：{damage}{maximum}",
+      "params": {
+        "indent": "text",
+        "damage": "text",
+        "maximum": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_stats; Damage label and damage/max text"
+      }
+    },
+    {
+      "id": "spell.stats.accuracy",
+      "context": "法术详情：玩家施法属性",
+      "en": "\n{indent}Accuracy: {accuracy}",
+      "zh": "\n{indent}命中：{accuracy}",
+      "params": {
+        "indent": "text",
+        "accuracy": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_stats; Accuracy label and _print_bar output"
+      }
+    },
+    {
+      "id": "spell.stats.range",
+      "context": "法术详情：玩家施法属性",
+      "en": "\n{indent}Range: {range}",
+      "zh": "\n{indent}射程：{range}",
+      "params": {
+        "indent": "text",
+        "range": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_stats; Range label and spell_range_string"
+      }
+    },
+    {
+      "id": "spell.stats.noise",
+      "context": "法术详情：玩家施法属性",
+      "en": "\n{indent}Noise: {noise}",
+      "zh": "\n{indent}噪声：{noise}",
+      "params": {
+        "indent": "text",
+        "noise": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_stats; Noise label and spell_noise_string"
+      }
+    },
+    {
+      "id": "spell.school.hexes",
+      "context": "法术详情：法术学派名称",
+      "en": "Hexes",
+      "zh": "咒法",
+      "params": {},
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "spelltype_long_name; enum-derived exact spell school long name"
+      }
+    },
+    {
+      "id": "spell.school.forgecraft",
+      "context": "法术详情：法术学派名称",
+      "en": "Forgecraft",
+      "zh": "锻造",
+      "params": {},
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "spelltype_long_name; enum-derived exact spell school long name"
+      }
+    },
+    {
+      "id": "spell.school.alchemy",
+      "context": "法术详情：法术学派名称",
+      "en": "Alchemy",
+      "zh": "炼金",
+      "params": {},
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "spelltype_long_name; enum-derived exact spell school long name"
+      }
+    },
+    {
+      "id": "spell.school.necromancy",
+      "context": "法术详情：法术学派名称",
+      "en": "Necromancy",
+      "zh": "死灵",
+      "params": {},
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "spelltype_long_name; enum-derived exact spell school long name"
+      }
+    },
+    {
+      "id": "spell.school.conjuration",
+      "context": "法术详情：法术学派名称",
+      "en": "Conjuration",
+      "zh": "塑能",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spelltype_long_name exact enum-derived school label"
+      }
+    },
+    {
+      "id": "spell.school.fire",
+      "context": "法术详情：法术学派名称",
+      "en": "Fire",
+      "zh": "火焰",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spelltype_long_name exact enum-derived school label"
+      }
+    },
+    {
+      "id": "spell.school.ice",
+      "context": "法术详情：法术学派名称",
+      "en": "Ice",
+      "zh": "冰霜",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spelltype_long_name exact enum-derived school label"
+      }
+    },
+    {
+      "id": "spell.school.summoning",
+      "context": "法术详情：法术学派名称",
+      "en": "Summoning",
+      "zh": "召唤",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spelltype_long_name exact enum-derived school label"
+      }
+    },
+    {
+      "id": "spell.school.translocation",
+      "context": "法术详情：法术学派名称",
+      "en": "Translocation",
+      "zh": "位移",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spelltype_long_name exact enum-derived school label"
+      }
+    },
+    {
+      "id": "spell.school.earth",
+      "context": "法术详情：法术学派名称",
+      "en": "Earth",
+      "zh": "大地",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spelltype_long_name exact enum-derived school label"
+      }
+    },
+    {
+      "id": "spell.school.air",
+      "context": "法术详情：法术学派名称",
+      "en": "Air",
+      "zh": "气系",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spelltype_long_name exact enum-derived school label"
+      }
+    },
+    {
+      "id": "spell.school.random",
+      "context": "法术详情：法术学派名称",
+      "en": "Random",
+      "zh": "随机",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spelltype_long_name exact enum-derived school label"
+      }
+    },
+    {
+      "id": "spell.school.bug",
+      "context": "法术详情：法术学派名称",
+      "en": "Bug",
+      "zh": "未知",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spelltype_long_name exact enum-derived school label"
+      }
+    },
+    {
+      "id": "spell.no_description.fixed",
+      "context": "detail.spell.fixed",
+      "en": "This spell has no description. Casting it may therefore be unwise. Please file a bug report.",
+      "zh": "此法术没有说明文字。施放它可能并不明智。请提交错误报告。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_get_spell_description no DB description release fallback"
+      },
+      "source_context": "detail.spell.fixed"
+    },
+    {
+      "id": "spell.monster.living_spell",
+      "context": "法术详情：怪物施法附加信息",
+      "en": "\n{actor} creates living {spell} spells.\n",
+      "zh": "\n{actor}会制造活化的{spell}法术。\n",
+      "params": {
+        "actor": "name",
+        "spell": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_get_spell_description SPELL_CONJURE_LIVING_SPELLS; monster name and spell_title"
+      }
+    },
+    {
+      "id": "spell.monster.cancellation",
+      "context": "法术详情：怪物施法附加信息",
+      "en": "\nIf you are struck by this, you will no longer be {state}.\n",
+      "zh": "\n如果你被此法术击中，将不再处于{state}状态。\n",
+      "params": {
+        "state": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_get_spell_description SPELL_QUICKSILVER_BOLT debuffable branch"
+      }
+    },
+    {
+      "id": "spell.monster.range",
+      "context": "法术详情：怪物施法附加信息",
+      "en": "\nRange : {range}\n",
+      "zh": "\n射程：{range}\n",
+      "params": {
+        "range": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_get_spell_description monster-owner range row; range_string output"
+      }
+    },
+    {
+      "id": "spell.monster.summon_cap",
+      "context": "法术详情：怪物施法附加信息",
+      "en": "{actor} can sustain at most {count} {creature}{plural} summoned by this spell.\n",
+      "zh": "{actor}使用此法术最多可维持{count}个{creature}召唤物{plural}。\n",
+      "params": {
+        "actor": "name",
+        "count": "text",
+        "creature": "text",
+        "plural": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_get_spell_description monster-owner summon limit branch"
+      }
+    },
+    {
+      "id": "spell.monster.immune.fixed",
+      "context": "法术详情：怪物施法附加信息",
+      "en": "You cannot be affected by this spell right now. {suffix}\n",
+      "zh": "你目前不会受到此法术影响。{suffix}\n",
+      "params": {
+        "suffix": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_get_spell_description will-check immunity branch"
+      }
+    },
+    {
+      "id": "spell.monster.will_chance",
+      "context": "法术详情：怪物施法附加信息",
+      "en": "Chance to defeat your Will: {chance}%{suffix}\n",
+      "zh": "击败你意志力的几率：{chance}%{suffix}\n",
+      "params": {
+        "chance": "integer",
+        "suffix": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_get_spell_description will-check chance branch"
+      }
+    },
+    {
+      "id": "spell.no_description.debug.fixed",
+      "context": "detail.spell.fixed",
+      "en": "This spell has no description. Casting it may therefore be unwise. Instead, go fix it.",
+      "zh": "此法术没有说明文字。施放它可能并不明智。请立即修复。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_spell_description exact fixed literal"
+      },
+      "source_context": "detail.spell.fixed"
+    },
+    {
+      "id": "spell.monster.no_enchantments.fixed",
+      "context": "detail.spell.fixed",
+      "en": "\nYou currently have no enchantments that could be removed by this.\n",
+      "zh": "\n你目前没有可被此法术移除的附魔效果。\n",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_spell_description exact fixed literal"
+      },
+      "source_context": "detail.spell.fixed"
+    },
+    {
+      "id": "spell.monster.marionette_unavailable.fixed",
+      "context": "detail.spell.fixed",
+      "en": "\n\n<magenta>This spell cannot be performed via Aphotic Marionette.</magenta>\n",
+      "zh": "\n\n<magenta>暗影提线木偶无法施放此法术。</magenta>\n",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_spell_description exact fixed literal"
+      },
+      "source_context": "detail.spell.fixed"
+    },
+    {
+      "id": "spell.monster.marionette_override.fixed",
+      "context": "detail.spell.fixed",
+      "en": "\n\n<magenta>When cast via Aphotic Marionette, this spell will affect the player instead.",
+      "zh": "\n\n<magenta>通过暗影提线木偶施放时，此法术会改为影响玩家。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_get_spell_description exact fixed literal"
+      },
+      "source_context": "detail.spell.fixed"
+    },
+    {
+      "id": "spell.player.battlesphere_inactive",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "Your battlesphere is not activated by any of your spells.\n",
+      "zh": "你的战斗法球不会被你当前的任何法术触发。\n",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc empty player_battlesphere_spells"
+      }
+    },
+    {
+      "id": "spell.player.battlesphere_fires",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "Your battlesphere fires when you cast {spells}.\n",
+      "zh": "施放{spells}时，你的战斗法球会发动攻击。\n",
+      "params": {
+        "spells": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc battlesphere spell list; joined titles"
+      }
+    },
+    {
+      "id": "spell.player.servitor_inactive",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "Your servitor is unable to mimic any of your spells.\n",
+      "zh": "你的仆役无法模仿你的任何法术。\n",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc no servitor spell"
+      }
+    },
+    {
+      "id": "spell.player.servitor_casts",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "Your servitor casts {spell}.\n",
+      "zh": "你的仆役会施放{spell}。\n",
+      "params": {
+        "spell": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc active servitor spell"
+      }
+    },
+    {
+      "id": "spell.player.paragon_weapon",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "Your paragon wields {weapon}.\n",
+      "zh": "你的白金英杰挥舞着{weapon}。\n",
+      "params": {
+        "weapon": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc Platinum Paragon weapon"
+      }
+    },
+    {
+      "id": "spell.player.servitor_imbued.fixed",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "Your servitor can be imbued with this spell.\n",
+      "zh": "你的仆役可以注入此法术。\n",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc success-rate <= 20 branch"
+      }
+    },
+    {
+      "id": "spell.player.servitor_imbued_if",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "Your servitor could be imbued with this spell if your spell success rate were higher.\n",
+      "zh": "如果你的法术成功率更高，就能将此法术注入仆役。\n",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc low-success branch"
+      }
+    },
+    {
+      "id": "spell.player.irradiate.fixed",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "This inflicts up to 40% magical contamination when cast by you.\n",
+      "zh": "由你施放时，此法术最多造成40%的魔法污染。\n",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc SPELL_IRRADIATE"
+      }
+    },
+    {
+      "id": "spell.player.summon_cap",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "You can sustain at most {count} {creature}{plural} summoned by this spell.\n",
+      "zh": "此法术最多可维持{count}个{creature}召唤物{plural}。\n",
+      "params": {
+        "count": "text",
+        "creature": "text",
+        "plural": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc player summon limit"
+      }
+    },
+    {
+      "id": "spell.player.enkindled.fixed",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "This spell is empowered while you are enkindled.\n",
+      "zh": "你处于燃魂状态时，此法术会得到强化。\n",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc MNEMOPHAGE enkindled branch"
+      }
+    },
+    {
+      "id": "spell.player.god_opinion",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "{god} {opinion} the use of this spell.\n",
+      "zh": "{god}{opinion}此法术。\n",
+      "params": {
+        "god": "name",
+        "opinion": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc deity attitude"
+      }
+    },
+    {
+      "id": "spell.player.cannot_memorise",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "\nYou cannot {action} this spell because {reason}\n",
+      "zh": "\n你无法{action}此法术，因为{reason}\n",
+      "params": {
+        "action": "text",
+        "reason": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc; action and desc_cannot_memorise_reason"
+      }
+    },
+    {
+      "id": "spell.player.useless_reason",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "\nThis spell would have no effect right now because {reason}\n",
+      "zh": "\n此法术目前不会产生效果，因为{reason}\n",
+      "params": {
+        "reason": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc; spell_uselessness_reason"
+      }
+    },
+    {
+      "id": "spell.player.grave_claw",
+      "context": "法术详情：玩家施法附加信息",
+      "en": "\nYou have harvested enough death to cast this spell {charges} time{plural}. (Maximum of {maximum}.)",
+      "zh": "\n你收集的死亡之力足以施放此法术{charges}次{plural}。（最多{maximum}次。）",
+      "params": {
+        "charges": "integer",
+        "plural": "text",
+        "maximum": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_player_spell_desc SPELL_GRAVE_CLAW charges/max"
+      }
+    },
+    {
+      "id": "spell.player.casting_useless",
+      "context": "法术详情：当前施法无效原因",
+      "en": "\n<red>{reason}</red>\n",
+      "zh": "\n<red>{reason}</red>\n",
+      "params": {
+        "reason": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_player_spell_desc casting_uselessness_reason exact red-wrapped full message"
+      }
+    },
+    {
+      "id": "detail.database.english_fallback",
+      "context": "描述数据库：未审校时完整英文回退",
+      "en": "{text}",
+      "zh": "{text}",
+      "params": {
+        "text": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc item/spell popup DB source text; when selected translation equals untranslated canonical source, whole value stays English and unsupported parameter is audited"
+      }
+    },
+    {
+      "id": "item.hints.english_fallback",
+      "context": "物品提示：未审校时完整英文回退",
+      "en": "{text}",
+      "zh": "{text}",
+      "params": {
+        "text": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_popup hints_describe_item output is retained as one English fallback until the hints producer is migrated"
+      }
+    },
+    {
+      "id": "detail.english_fallback",
+      "context": "详情：未审校段落整体英文回退",
+      "en": "{text}",
+      "zh": "{text}",
+      "params": {
+        "text": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "whole unsupported producer output; intentionally remains entirely canonical English and emits unsupported-parameter audit"
+      }
+    },
+    {
+      "id": "item.potion.lignify_ac",
+      "context": "物品详情：饮用变树药水后的护甲",
+      "en": "If you quaff this potion your AC would be {ac}.",
+      "zh": "如果你喝下这瓶药水，护甲将变为{ac}。",
+      "params": {
+        "ac": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_lignify_ac exact make_stringf and armour_class_scaled(1)"
+      }
+    },
+    {
+      "id": "item.potion.cancellation",
+      "context": "物品详情：取消药水效果",
+      "en": "\n\nIf you drink this now, you will no longer be {state}.",
+      "zh": "\n\n如果你现在喝下它，将不再处于{state}状态。",
+      "params": {
+        "state": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description POT_CANCELLATION; complete sentence with describe_player_cancellation"
+      }
+    },
+    {
+      "id": "item.useless.permanent",
+      "context": "物品详情：未审校动态内容整段英文回退",
+      "en": "This {item_type} is completely useless to you{reason}",
+      "zh": "此{item_type}对你完全无用{reason}",
+      "params": {
+        "item_type": "name",
+        "reason": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_uselessness_desc permanent useless-item branch"
+      }
+    },
+    {
+      "id": "item.useless.reading_impossible",
+      "context": "物品详情：未审校动态内容整段英文回退",
+      "en": "Reading this right now isn't possible{reason}",
+      "zh": "现在无法阅读此卷轴{reason}",
+      "params": {
+        "reason": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_uselessness_desc temporary scroll branch cannot_read_item_reason"
+      }
+    },
+    {
+      "id": "item.useless.reading_no_effect",
+      "context": "物品详情：未审校动态内容整段英文回退",
+      "en": "Reading this right now will have no effect{reason}",
+      "zh": "现在阅读此卷轴不会产生效果{reason}",
+      "params": {
+        "reason": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_uselessness_desc temporary scroll branch no effect"
+      }
+    },
+    {
+      "id": "item.useless.drinking_impossible",
+      "context": "物品详情：未审校动态内容整段英文回退",
+      "en": "Drinking this right now isn't possible{reason}",
+      "zh": "现在无法喝下此药水{reason}",
+      "params": {
+        "reason": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_uselessness_desc temporary potion branch cannot_drink_item_reason"
+      }
+    },
+    {
+      "id": "item.useless.drinking_no_effect",
+      "context": "物品详情：未审校动态内容整段英文回退",
+      "en": "Drinking this right now will have no effect{reason}",
+      "zh": "现在喝下此药水不会产生效果{reason}",
+      "params": {
+        "reason": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_uselessness_desc temporary potion branch no effect"
+      }
+    },
+    {
+      "id": "item.useless.evoke",
+      "context": "物品详情：未审校动态内容整段英文回退",
+      "en": "You can't evoke this right now{reason}",
+      "zh": "你现在无法启动此物品{reason}",
+      "params": {
+        "reason": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_uselessness_desc temporary wand/miscellany branch"
+      }
+    },
+    {
+      "id": "item.useless.current_default",
+      "context": "物品详情：未审校动态内容整段英文回退",
+      "en": "This {item_type} is useless to you right now{reason}",
+      "zh": "此{item_type}目前对你无用{reason}",
+      "params": {
+        "item_type": "name",
+        "reason": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_uselessness_desc default temporary branch"
+      }
+    },
+    {
+      "id": "item.curse.skills_english_fallback",
+      "context": "物品详情：未审校动态内容整段英文回退",
+      "en": "{description}",
+      "zh": "{description}",
+      "params": {
+        "description": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_describe_item_curse curse skills are built by external desc_curse_skills and remain one explicit English fallback"
+      }
+    },
+    {
+      "id": "item.talisman.form_english_fallback",
+      "context": "物品详情：未审校动态内容整段英文回退",
+      "en": "{description}",
+      "zh": "{description}",
+      "params": {
+        "description": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::_describe_talisman_form scaling table remains one explicit English fallback until its rows are structured"
+      }
+    },
+    {
+      "id": "spell.noise.silent",
+      "context": "法术详情：噪声等级",
+      "en": "Silent",
+      "zh": "寂静",
+      "params": {},
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "spell_noise_string; static noise_descriptions semantic enum"
+      }
+    },
+    {
+      "id": "spell.noise.almost_silent",
+      "context": "法术详情：噪声等级",
+      "en": "Almost silent",
+      "zh": "几乎无声",
+      "params": {},
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "spell_noise_string; static noise_descriptions semantic enum"
+      }
+    },
+    {
+      "id": "spell.noise.quiet",
+      "context": "法术详情：噪声等级",
+      "en": "Quiet",
+      "zh": "安静",
+      "params": {},
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "spell_noise_string; static noise_descriptions semantic enum"
+      }
+    },
+    {
+      "id": "spell.noise.a_bit_loud",
+      "context": "法术详情：噪声等级",
+      "en": "A bit loud",
+      "zh": "略响",
+      "params": {},
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "spell_noise_string; static noise_descriptions semantic enum"
+      }
+    },
+    {
+      "id": "spell.noise.loud",
+      "context": "法术详情：噪声等级",
+      "en": "Loud",
+      "zh": "响亮",
+      "params": {},
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "spell_noise_string; static noise_descriptions semantic enum"
+      }
+    },
+    {
+      "id": "spell.noise.very_loud",
+      "context": "法术详情：噪声等级",
+      "en": "Very loud",
+      "zh": "非常响亮",
+      "params": {},
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "spell_noise_string; static noise_descriptions semantic enum"
+      }
+    },
+    {
+      "id": "spell.noise.extremely_loud",
+      "context": "法术详情：噪声等级",
+      "en": "Extremely loud",
+      "zh": "极其响亮",
+      "params": {},
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "spell_noise_string; static noise_descriptions semantic enum"
+      }
+    },
+    {
+      "id": "spell.noise.deafening",
+      "context": "法术详情：噪声等级",
+      "en": "Deafening",
+      "zh": "震耳欲聋",
+      "params": {},
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "spell_noise_string; static noise_descriptions semantic enum"
+      }
+    },
+    {
+      "id": "spell.player.no_visible_hostiles",
+      "context": "法术详情：暂时没有可影响的敌对目标",
+      "en": "\nThis spell would have no effect right now because you can't see any hostile targets that would be affected.\n",
+      "zh": "\n此法术目前不会产生效果，因为你看不到任何可受其影响的敌对目标。\n",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; spell_no_hostile_in_range branch"
+      }
+    },
+    {
+      "id": "item.origin.found_dungeon",
+      "context": "物品详情：在地下城发现的来源及地牢层数",
+      "en": "\nYou found it on level {depth} of the Dungeon.",
+      "zh": "\n你在地下城第{depth}层发现了它。",
+      "params": {
+        "depth": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description; verbose item origin, ordinary Dungeon find"
+      }
+    },
+    {
+      "id": "item.origin.english_fallback",
+      "context": "物品详情：未覆盖的物品来源句整句保留源文",
+      "en": "\n{origin}",
+      "zh": "\n{origin}",
+      "params": {
+        "origin": "text"
+      },
+      "source": {
+        "file": "items.cc",
+        "anchor": "origin_desc; complete generated origin sentence fallback"
+      }
+    },
+    {
+      "id": "item.god.disapproval",
+      "context": "物品详情：神祇反对使用该物品",
+      "en": "\n\n{god} disapproves of the use of such an item.",
+      "zh": "\n\n{god}不赞成使用此物品。",
+      "params": {
+        "god": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description; god_hates_item block"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "item.weapon.current_attack_delay",
+      "args": {
+        "delay": {
+          "type": "number",
+          "canonical": "6.0",
+          "localized": "6.0"
+        }
+      },
+      "canonical": "\n    Current attack delay: 6.0.",
+      "zh": "\n    当前攻击延迟：6.0。"
+    },
+    {
+      "id": "item.armour.base_rating",
+      "args": {
+        "base": {
+          "type": "integer",
+          "canonical": "12",
+          "localized": "12"
+        },
+        "suffix": {
+          "type": "text",
+          "canonical": "       Encumbrance rating: 12",
+          "localized": "       负重等级：12"
+        }
+      },
+      "canonical": "Base armour rating: 12       Encumbrance rating: 12",
+      "zh": "基础护甲评分：12       负重等级：12"
+    },
+    {
+      "id": "item.armour.base_rating",
+      "args": {
+        "base": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        },
+        "suffix": {
+          "type": "text",
+          "canonical": "       Evasion: 2",
+          "localized": "       闪避惩罚：2"
+        }
+      },
+      "canonical": "Base armour rating: 3       Evasion: 2",
+      "zh": "基础护甲评分：3       闪避惩罚：2"
+    },
+    {
+      "id": "item.armour.shield_ratings",
+      "args": {
+        "base": {
+          "type": "integer",
+          "canonical": "8",
+          "localized": "8"
+        },
+        "encumbrance": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        },
+        "blocks": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "Base shield rating: 8     Encumbrance rating: 5     Max blocks/turn: 3",
+      "zh": "基础盾牌评分：8     负重评分：5     每回合最大格挡次数：3"
+    },
+    {
+      "id": "item.weapon.armour_slow.full",
+      "args": {
+        "actor": {
+          "type": "name",
+          "canonical": "Your plate armour",
+          "localized": "你的板甲"
+        },
+        "delay": {
+          "type": "number",
+          "canonical": "1.2",
+          "localized": "1.2"
+        }
+      },
+      "canonical": "Your plate armour slows your attacks with this weapon by 1.2.",
+      "zh": "你的板甲会使你使用这件武器的攻击速度减慢1.2。"
+    },
+    {
+      "id": "item.weapon.armour_slow.full",
+      "args": {
+        "actor": {
+          "type": "name",
+          "canonical": "Your crystal plate armour",
+          "localized": "你的水晶板甲"
+        },
+        "delay": {
+          "type": "number",
+          "canonical": "0.8",
+          "localized": "0.8"
+        }
+      },
+      "canonical": "Your crystal plate armour slows your attacks with this weapon by 0.8.",
+      "zh": "你的水晶板甲会使你使用这件武器的攻击速度减慢0.8。"
+    },
+    {
+      "id": "item.weapon.armour_slow_slightly",
+      "args": {
+        "actor": {
+          "type": "name",
+          "canonical": "Your leather armour",
+          "localized": "你的皮甲"
+        }
+      },
+      "canonical": "Your leather armour slightly slows your attacks with this weapon.",
+      "zh": "你的皮甲会轻微减慢你使用这件武器的攻击速度。"
+    },
+    {
+      "id": "item.weapon.study_staff",
+      "args": {
+        "skill": {
+          "type": "name",
+          "canonical": "Necromancy",
+          "localized": "死灵术"
+        }
+      },
+      "canonical": "Your inability to study Necromancy prevents you from drawing on the full power of this staff in melee.\n\n",
+      "zh": "你无法学习死灵术，因此无法在近战中发挥这根法杖的全部威力。\n\n"
+    },
+    {
+      "id": "item.jewellery.stat_effect",
+      "args": {
+        "stat": {
+          "type": "text",
+          "canonical": "AC",
+          "localized": "护甲"
+        },
+        "amount": {
+          "type": "text",
+          "canonical": "+4",
+          "localized": "+4"
+        }
+      },
+      "canonical": "\n\nIt affects your AC (+4).",
+      "zh": "\n\n它会影响你的护甲（+4）。"
+    },
+    {
+      "id": "item.jewellery.stat_effect",
+      "args": {
+        "stat": {
+          "type": "text",
+          "canonical": "evasion",
+          "localized": "闪避"
+        },
+        "amount": {
+          "type": "text",
+          "canonical": "-2",
+          "localized": "-2"
+        }
+      },
+      "canonical": "\n\nIt affects your evasion (-2).",
+      "zh": "\n\n它会影响你的闪避（-2）。"
+    },
+    {
+      "id": "item.jewellery.slaying_effect",
+      "args": {
+        "amount": {
+          "type": "text",
+          "canonical": "+5",
+          "localized": "+5"
+        }
+      },
+      "canonical": "\n\nIt affects your accuracy and damage with ranged weapons and melee (+5).",
+      "zh": "\n\n它会影响你使用远程武器和近战武器时的命中与伤害（+5）。"
+    },
+    {
+      "id": "item.jewellery.reflection_effect",
+      "args": {
+        "amount": {
+          "type": "text",
+          "canonical": "+3",
+          "localized": "+3"
+        }
+      },
+      "canonical": "\n\nIt affects your shielding (+3).",
+      "zh": "\n\n它会影响你的格挡能力（+3）。"
+    },
+    {
+      "id": "item.weapon.damage_rating",
+      "args": {
+        "rating": {
+          "type": "integer",
+          "canonical": "12",
+          "localized": "12"
+        },
+        "base": {
+          "type": "text",
+          "canonical": "8",
+          "localized": "8"
+        },
+        "stat_mult": {
+          "type": "integer",
+          "canonical": "120",
+          "localized": "120"
+        },
+        "stat": {
+          "type": "text",
+          "canonical": "Str",
+          "localized": "力量"
+        },
+        "skill_mult": {
+          "type": "integer",
+          "canonical": "115",
+          "localized": "115"
+        },
+        "skill": {
+          "type": "text",
+          "canonical": "Skill",
+          "localized": "武器技能"
+        },
+        "plusses": {
+          "type": "text",
+          "canonical": " + 2 (Ench + Slay)",
+          "localized": " + 2（附魔 + 杀戮）"
+        },
+        "brand": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        }
+      },
+      "canonical": "12 (Base 8 x 120% (Str) x 115% (Skill) + 2 (Ench + Slay)).",
+      "zh": "12（基础8 × 120%（力量）× 115%（武器技能） + 2（附魔 + 杀戮））。"
+    },
+    {
+      "id": "item.weapon.damage_rating",
+      "args": {
+        "rating": {
+          "type": "integer",
+          "canonical": "4",
+          "localized": "4"
+        },
+        "base": {
+          "type": "text",
+          "canonical": "[3 + 1 (Thrw)]",
+          "localized": "[3 + 1（投掷）]"
+        },
+        "stat_mult": {
+          "type": "integer",
+          "canonical": "100",
+          "localized": "100"
+        },
+        "stat": {
+          "type": "text",
+          "canonical": "Dex",
+          "localized": "敏捷"
+        },
+        "skill_mult": {
+          "type": "integer",
+          "canonical": "110",
+          "localized": "110"
+        },
+        "skill": {
+          "type": "text",
+          "canonical": "Fight",
+          "localized": "战斗技能"
+        },
+        "plusses": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "brand": {
+          "type": "text",
+          "canonical": " + Poison",
+          "localized": " + 毒性"
+        }
+      },
+      "canonical": "4 (Base [3 + 1 (Thrw)] x 100% (Dex) x 110% (Fight)) + Poison.",
+      "zh": "4（基础[3 + 1（投掷）] × 100%（敏捷）× 110%（战斗技能）） + 毒性。"
+    },
+    {
+      "id": "item.armour.warlock_mirror_reflect",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "58",
+          "localized": "58"
+        }
+      },
+      "canonical": "\n\nWith your current SH, it has a 58% chance to reflect attacks against your willpower and other normally unblockable effects.",
+      "zh": "\n\n以你当前的盾牌格挡值，它有58%的几率反射针对你意志力及其他通常无法格挡效果的攻击。"
+    },
+    {
+      "id": "item.ziggurat.glow",
+      "args": {
+        "glow": {
+          "type": "text",
+          "canonical": "dazzling",
+          "localized": "耀眼"
+        }
+      },
+      "canonical": "\n\nIt is surrounded by a dazzling glow.",
+      "zh": "\n\n它周围笼罩着耀眼光芒。"
+    },
+    {
+      "id": "item.evoker.charges",
+      "args": {
+        "charges": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "Charges: 3. Once all charges have been used",
+      "zh": "充能次数：3。全部充能耗尽后"
+    },
+    {
+      "id": "item.evoker.damage",
+      "args": {
+        "damage": {
+          "type": "text",
+          "canonical": "12-18",
+          "localized": "12-18"
+        }
+      },
+      "canonical": "\nDamage: 12-18",
+      "zh": "\n伤害：12-18"
+    },
+    {
+      "id": "item.wand.damage",
+      "args": {
+        "damage": {
+          "type": "text",
+          "canonical": "3d6",
+          "localized": "3d6"
+        }
+      },
+      "canonical": "\nDamage: 3d6",
+      "zh": "\n伤害：3d6"
+    },
+    {
+      "id": "item.wand.noise",
+      "args": {
+        "noise": {
+          "type": "text",
+          "canonical": "4",
+          "localized": "4"
+        }
+      },
+      "canonical": "\nNoise: 4",
+      "zh": "\n噪声：4"
+    },
+    {
+      "id": "item.equipment.preview_stat",
+      "args": {
+        "stat": {
+          "type": "text",
+          "canonical": "AC",
+          "localized": "护甲"
+        },
+        "change": {
+          "type": "text",
+          "canonical": "increase by 1.2 (10.0 -> 11.2)",
+          "localized": "增加1.2（10.0 -> 11.2）"
+        }
+      },
+      "canonical": "\nYour AC would increase by 1.2 (10.0 -> 11.2).",
+      "zh": "\n你的护甲增加1.2（10.0 -> 11.2）。"
+    },
+    {
+      "id": "item.equipment.preview_stat",
+      "args": {
+        "stat": {
+          "type": "text",
+          "canonical": "EV",
+          "localized": "闪避"
+        },
+        "change": {
+          "type": "text",
+          "canonical": "remain unchanged",
+          "localized": "保持不变"
+        }
+      },
+      "canonical": "\nYour EV would remain unchanged.",
+      "zh": "\n你的闪避保持不变。"
+    },
+    {
+      "id": "item.equipment.spell_fail_trivial",
+      "args": {
+        "direction": {
+          "type": "text",
+          "canonical": "improve",
+          "localized": "改善"
+        }
+      },
+      "canonical": "\nYour spell failure would improve trivially.",
+      "zh": "\n你的法术失败率将改善（变化很小）。"
+    },
+    {
+      "id": "item.equipment.spell_fail_change",
+      "args": {
+        "direction": {
+          "type": "text",
+          "canonical": "worsen",
+          "localized": "恶化"
+        },
+        "amount": {
+          "type": "integer",
+          "canonical": "12",
+          "localized": "12"
+        }
+      },
+      "canonical": "\nYour spell failure would worsen by up to 12% (press '!' for details).",
+      "zh": "\n你的法术失败率将恶化，幅度最高为12%（按“!”查看详情）。"
+    },
+    {
+      "id": "item.equipment.preview.remove",
+      "args": {
+        "verb": {
+          "type": "text",
+          "canonical": "remove",
+          "localized": "取下"
+        },
+        "type": {
+          "type": "name",
+          "canonical": "ring",
+          "localized": "这枚戒指"
+        }
+      },
+      "canonical": "\n\nIf you remove this ring:",
+      "zh": "\n\n如果你取下这枚戒指："
+    },
+    {
+      "id": "item.equipment.preview.switch",
+      "args": {
+        "verb": {
+          "type": "text",
+          "canonical": "wielding",
+          "localized": "挥舞"
+        },
+        "type": {
+          "type": "name",
+          "canonical": "weapon",
+          "localized": "这件武器"
+        }
+      },
+      "canonical": "\n\nIf you switch to wielding this weapon:",
+      "zh": "\n\n如果你改为挥舞这件武器："
+    },
+    {
+      "id": "spell.level",
+      "args": {
+        "spell_level": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "\nLevel: 5",
+      "zh": "\n法术等级：5"
+    },
+    {
+      "id": "spell.stats.school",
+      "args": {
+        "s": {
+          "type": "text",
+          "canonical": "s",
+          "localized": ""
+        },
+        "schools": {
+          "type": "text",
+          "canonical": "Conjuration/Fire",
+          "localized": "塑能/火焰"
+        }
+      },
+      "canonical": "        Schools: Conjuration/Fire",
+      "zh": "        学派：塑能/火焰"
+    },
+    {
+      "id": "spell.stats.fail",
+      "args": {
+        "failure": {
+          "type": "text",
+          "canonical": "15%",
+          "localized": "15%"
+        }
+      },
+      "canonical": "        Fail: 15%",
+      "zh": "        失败率：15%"
+    },
+    {
+      "id": "spell.monster.range",
+      "args": {
+        "range": {
+          "type": "text",
+          "canonical": "3-5",
+          "localized": "3-5"
+        }
+      },
+      "canonical": "\nRange : 3-5\n",
+      "zh": "\n射程：3-5\n"
+    },
+    {
+      "id": "spell.monster.will_chance",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "58",
+          "localized": "58"
+        },
+        "suffix": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        }
+      },
+      "canonical": "Chance to defeat your Will: 58%\n",
+      "zh": "击败你意志力的几率：58%\n"
+    },
+    {
+      "id": "spell.stats.damage",
+      "args": {
+        "indent": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "damage": {
+          "type": "text",
+          "canonical": "1d3",
+          "localized": "1d3"
+        },
+        "maximum": {
+          "type": "text",
+          "canonical": " (max 1d8)",
+          "localized": "（最高1d8）"
+        }
+      },
+      "canonical": "\nDamage: 1d3 (max 1d8)",
+      "zh": "\n伤害：1d3（最高1d8）"
+    },
+    {
+      "id": "spell.stats.noise",
+      "args": {
+        "indent": {
+          "type": "text",
+          "canonical": " ",
+          "localized": " "
+        },
+        "noise": {
+          "type": "name",
+          "canonical": "Almost silent (1)",
+          "localized": "几乎无声（1）"
+        }
+      },
+      "canonical": "\n Noise: Almost silent (1)",
+      "zh": "\n 噪声：几乎无声（1）"
+    }
+  ]
+}

@@ -60,9 +60,17 @@ public:
             const string &s,
             int main_colour = LIGHTGREY);
 
+    // Text already selected by a source-generation translation interface.
+    // Parse structural tags only; never run the legacy sentence matcher.
+    static formatted_string parse_string_raw(const string &s,
+                                             int main_colour = LIGHTGREY);
+
     static void parse_string_to_multiple(const string &s,
                                          vector<formatted_string> &out,
                                          int wrap_col = 0);
+    static void parse_string_to_multiple_raw(const string &s,
+                                             vector<formatted_string> &out,
+                                             int wrap_col = 0);
 
 
 private:
@@ -133,3 +141,4 @@ inline formatted_string&& operator+(formatted_string&& lhs, const char* rhs)
 int count_linebreaks(const formatted_string& fs);
 
 void display_tagged_block(const string& s);
+void display_tagged_block_raw(const string& s);

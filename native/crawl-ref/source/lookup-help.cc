@@ -54,6 +54,8 @@
 #include "ui.h"
 #include "viewchar.h"
 #include "view.h"
+#include "zh-localization.h"
+#include "zh-message.h"
 
 
 typedef vector<string> (*keys_by_glyph)(char32_t showchar);
@@ -244,8 +246,9 @@ namespace
     class DescMenu : public Menu
     {
     public:
-        DescMenu(int _flags, bool _toggleable_sort) : Menu(_flags, ""),
-            sort_alpha(true), toggleable_sort(_toggleable_sort)
+        DescMenu(int _flags, bool _toggleable_sort, bool _skill_lookup = false)
+            : Menu(_flags, ""), sort_alpha(true),
+              toggleable_sort(_toggleable_sort), skill_lookup(_skill_lookup)
         {
             set_highlighter(nullptr);
 
@@ -257,9 +260,33 @@ namespace
 
         bool sort_alpha;
         bool toggleable_sort;
+        bool skill_lookup;
+
+        bool get_keyhelp_pretranslated() const override { return skill_lookup; }
+
+        string get_keyhelp(bool scrollable) const override
+        {
+            if (!skill_lookup)
+                return Menu::get_keyhelp(scrollable);
+            if (!scrollable)
+                return "";
+            const string help = zh_message("skill.lookup.keyhelp", {
+                zh_key_markup("select_keys", menu_keyhelp_select_keys()),
+                zh_key_markup("page_down", menu_keyhelp_cmd(CMD_MENU_PAGE_DOWN)),
+                zh_key_markup("page_up", menu_keyhelp_cmd(CMD_MENU_PAGE_UP)),
+                zh_key_markup("exit_key", menu_keyhelp_cmd(CMD_MENU_EXIT))}).display();
+            const string position = zh_message("skill.lookup.keyhelp.position", {
+                ZhArg{"position", ZhArgType::Text, "XXX", "XXX", true}}).display();
+            return pad_more_with_pretranslated(help, position);
+        }
 
         void set_prompt()
         {
+            if (skill_lookup)
+            {
+                set_title_pretranslated(zh_message("skill.lookup.prompt").display());
+                return;
+            }
             string prompt = "Describe which? ";
 
             if (toggleable_sort)
@@ -453,6 +480,7 @@ static vector<string> _get_cloud_keys()
  */
 static vector<string> _get_skill_keys()
 {
+    ZhTranslationPause canonical_keys;
     vector<string> names;
     for (skill_type sk = SK_FIRST_SKILL; sk < NUM_SKILLS; ++sk)
     {
@@ -779,9 +807,15 @@ static MenuEntry* _spell_menu_gen(char letter, const string &str, string &key)
  */
 static MenuEntry* _skill_menu_gen(char letter, const string &str, string &key)
 {
-    MenuEntry* me = _simple_menu_gen(letter, str, key);
-
     const skill_type skill = str_to_skill_safe(str);
+    const string canonical_name = skill_name(skill);
+    const ZhArg name = zh_glossary_name("skill", "skill.name", canonical_name);
+    const string display_name = zh_language_enabled() && name.supported
+        ? name.localized : str;
+    // The database key remains lowercase English in `data`; only this menu
+    // label has localized provenance and must bypass the legacy matcher.
+    MenuEntry* me = _simple_menu_gen(letter, display_name, key);
+    me->pretranslated = true;
     me->add_tile(tile_def(tileidx_skill(skill, TRAINING_ENABLED)));
 
     return me;
@@ -912,9 +946,12 @@ static string _mons_desc_key(monster_type type)
  */
 void LookupType::display_keys(vector<string> &key_list) const
 {
+    unique_ptr<ZhLegacyGuard> guard;
+    if (type == "skill")
+        guard.reset(new ZhLegacyGuard("skill.lookup"));
     DescMenu desc_menu(MF_SINGLESELECT | MF_ANYPRINTABLE | MF_ALLOW_FORMATTING
                 | MF_USE_TWO_COLUMNS | MF_ARROWS_SELECT | MF_INIT_HOVER,
-            toggleable_sort());
+            toggleable_sort(), type == "skill");
     desc_menu.set_tag("description");
 
     // XXX: ugh
@@ -1532,12 +1569,15 @@ static string _keylist_invalid_reason(const vector<string> &key_list,
     return "";
 }
 
-static void _show_type_response(string response)
+static void _show_type_response(string response, bool pretranslated = false)
 {
     // possibly overkill, but this renders very reliably
     formatted_scroller fs(FS_EASY_EXIT);
     fs.set_more();
-    fs.add_text(response);
+    if (pretranslated)
+        fs.add_formatted_string(formatted_string::parse_string_raw(response));
+    else
+        fs.add_text(response);
     fs.show();
 }
 
@@ -1547,7 +1587,7 @@ bool find_description_of_type(lookup_help_type lht)
     string response;
     bool done = lookup_types[lht].find_description(response);
     if (!response.empty() && response != "Okay, then.") // TODO: ...
-        _show_type_response(response);
+        _show_type_response(response, lookup_types[lht].type == "skill");
     return done;
 }
 
@@ -1581,8 +1621,12 @@ bool LookupType::find_description(string &response) const
     vector<string> key_list = matching_keys(regex);
 
     const bool by_symbol = supports_glyph_lookup() && regex.size() == 1;
-    response = _keylist_invalid_reason(key_list, lowercase_string(type),
-                                       regex, by_symbol);
+    if (type == "skill" && key_list.empty())
+        response = zh_message("skill.lookup.no_matches", {
+            ZhArg{"query", ZhArgType::Text, regex, regex, true}}).display();
+    else
+        response = _keylist_invalid_reason(key_list, lowercase_string(type),
+                                           regex, by_symbol);
     if (!response.empty())
         return true;
 

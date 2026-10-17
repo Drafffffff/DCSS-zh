@@ -1,0 +1,5860 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "spellset.ability.vulnerability",
+      "context": "怪物法术列表：法术能力易受影响说明",
+      "en": ", which are affected by {effects}",
+      "zh": "（会受到{effects}影响）",
+      "params": {
+        "effects": "text"
+      },
+      "source": {
+        "file": "describe-spells.cc",
+        "anchor": "_ability_type_vulnerabilities; effects is silence, silence and antimagic, or antimagic (but not silence)"
+      }
+    },
+    {
+      "id": "spellset.header.wand",
+      "context": "怪物法术列表：魔杖法术标题",
+      "en": "{verb} the following wand spells:",
+      "zh": "{verb}以下魔杖法术：",
+      "params": {
+        "verb": "text"
+      },
+      "source": {
+        "file": "describe-spells.cc",
+        "anchor": "_booktype_header MON_SPELL_EVOKE; verb is conjugate_verb(possess, pronoun_plural)"
+      }
+    },
+    {
+      "id": "spellset.header.wizard",
+      "context": "怪物法术列表：法师法术标题",
+      "en": "{verb} mastered the following spells{vulnerability}:",
+      "zh": "{verb}以下法术{vulnerability}：",
+      "params": {
+        "verb": "text",
+        "vulnerability": "text"
+      },
+      "source": {
+        "file": "describe-spells.cc",
+        "anchor": "_booktype_header MON_SPELL_WIZARD; verb is conjugate_verb(have, pronoun_plural), vulnerability from ability type"
+      }
+    },
+    {
+      "id": "spellset.header.ability",
+      "context": "怪物法术列表：能力标题",
+      "en": "{verb} the following {descriptor} abilities{vulnerability}:",
+      "zh": "{verb}以下{descriptor}能力{vulnerability}：",
+      "params": {
+        "verb": "text",
+        "descriptor": "text",
+        "vulnerability": "text"
+      },
+      "source": {
+        "file": "describe-spells.cc",
+        "anchor": "_booktype_header other monster types; args verb, ability descriptor, vulnerability in that order"
+      }
+    },
+    {
+      "id": "spellset.book.label",
+      "context": "怪物法术列表：怪物能力标题",
+      "en": "{actor} {header}",
+      "zh": "{actor}{header}",
+      "params": {
+        "actor": "text",
+        "header": "text"
+      },
+      "source": {
+        "file": "describe-spells.cc",
+        "anchor": "_monster_spellbooks/_monster_wand_spellbook; actor is uppercase source pronoun, header is generated book-type header"
+      }
+    },
+    {
+      "id": "spellset.table.header",
+      "context": "法术书列表：列标题",
+      "en": "\n Spells                              Type                    Level{known}",
+      "zh": "\n 法术                                类型                    等级{known}",
+      "params": {
+        "known": "text"
+      },
+      "source": {
+        "file": "describe-spells.cc",
+        "anchor": "_describe_book source-item table header; known is empty or seven spaces plus Known"
+      }
+    },
+    {
+      "id": "spellset.spell.row",
+      "context": "法术书列表：法术行",
+      "en": "{letter} - {marker}{name}{effect}{spacing}{range}",
+      "zh": "{letter} - {marker}{name}{effect}{spacing}{range}",
+      "params": {
+        "letter": "key",
+        "marker": "text",
+        "name": "name",
+        "effect": "text",
+        "spacing": "text",
+        "range": "text"
+      },
+      "source": {
+        "file": "describe-spells.cc",
+        "anchor": "_describe_book spell row; argument order key, Dith marker, selected spell title, effect markup/text, conditional spacing, range markup"
+      }
+    },
+    {
+      "id": "spellset.table.row",
+      "context": "法术书列表：学派、等级和已知状态",
+      "en": "{schools}{level}{known}\n",
+      "zh": "{schools}{level}{known}\n",
+      "params": {
+        "schools": "text",
+        "level": "integer",
+        "known": "text"
+      },
+      "source": {
+        "file": "describe-spells.cc",
+        "anchor": "_describe_book item-book table row; schools is joined/chopped school names, level is spell_difficulty, known is empty or aligned yes/no"
+      }
+    },
+    {
+      "id": "spell.name.cause_fear",
+      "context": "法术名称（法术列表）",
+      "en": "Cause Fear",
+      "zh": "引发恐惧",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CAUSE_FEAR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.magic_dart",
+      "context": "法术名称（法术列表）",
+      "en": "Magic Dart",
+      "zh": "魔法飞镖",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MAGIC_DART; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fireball",
+      "context": "法术名称（法术列表）",
+      "en": "Fireball",
+      "zh": "火球",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FIREBALL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.apportation",
+      "context": "法术名称（法术列表）",
+      "en": "Apportation",
+      "zh": "隔空取物",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_APPORTATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.blastmote",
+      "context": "法术名称（法术列表）",
+      "en": "Volatile Blastmotes",
+      "zh": "不稳定爆裂微粒",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BLASTMOTE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.dig",
+      "context": "法术名称（法术列表）",
+      "en": "Dig",
+      "zh": "挖掘",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DIG; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.bolt_of_fire",
+      "context": "法术名称（法术列表）",
+      "en": "Bolt of Fire",
+      "zh": "火焰束",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BOLT_OF_FIRE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.bolt_of_cold",
+      "context": "法术名称（法术列表）",
+      "en": "Bolt of Cold",
+      "zh": "寒冷束",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BOLT_OF_COLD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.lightning_bolt",
+      "context": "法术名称（法术列表）",
+      "en": "Lightning Bolt",
+      "zh": "闪电束",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_LIGHTNING_BOLT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.arcjolt",
+      "context": "法术名称（法术列表）",
+      "en": "Arcjolt",
+      "zh": "电弧震击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ARCJOLT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.plasma_beam",
+      "context": "法术名称（法术列表）",
+      "en": "Plasma Beam",
+      "zh": "等离子束",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PLASMA_BEAM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.permafrost_eruption",
+      "context": "法术名称（法术列表）",
+      "en": "Permafrost Eruption",
+      "zh": "永冻喷发",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PERMAFROST_ERUPTION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.blinkbolt",
+      "context": "法术名称（法术列表）",
+      "en": "Blinkbolt",
+      "zh": "闪烁电击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BLINKBOLT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.electric_charge",
+      "context": "法术名称（法术列表）",
+      "en": "Vhi's Electric Charge",
+      "zh": "维的电流充能",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ELECTRIC_CHARGE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.electrolunge",
+      "context": "法术名称（法术列表）",
+      "en": "Vhi's Electrolunge",
+      "zh": "维的电击突进",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ELECTROLUNGE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.bolt_of_magma",
+      "context": "法术名称（法术列表）",
+      "en": "Bolt of Magma",
+      "zh": "岩浆弹",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BOLT_OF_MAGMA; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.polymorph",
+      "context": "法术名称（法术列表）",
+      "en": "Polymorph",
+      "zh": "变形术",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_POLYMORPH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.slow",
+      "context": "法术名称（法术列表）",
+      "en": "Slow",
+      "zh": "缓慢",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SLOW; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.haste",
+      "context": "法术名称（法术列表）",
+      "en": "Haste",
+      "zh": "加速",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HASTE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.petrify",
+      "context": "法术名称（法术列表）",
+      "en": "Petrify",
+      "zh": "石化",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PETRIFY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.confuse",
+      "context": "法术名称（法术列表）",
+      "en": "Confuse",
+      "zh": "混乱",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CONFUSE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.invisibility",
+      "context": "法术名称（法术列表）",
+      "en": "Invisibility",
+      "zh": "隐形",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_INVISIBILITY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.throw_flame",
+      "context": "法术名称（法术列表）",
+      "en": "Throw Flame",
+      "zh": "投掷火焰",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_THROW_FLAME; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.throw_frost",
+      "context": "法术名称（法术列表）",
+      "en": "Throw Frost",
+      "zh": "投掷霜冻",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_THROW_FROST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.disjunction",
+      "context": "法术名称（法术列表）",
+      "en": "Disjunction",
+      "zh": "解离",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DISJUNCTION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.freezing_cloud",
+      "context": "法术名称（法术列表）",
+      "en": "Freezing Cloud",
+      "zh": "冰冻云",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FREEZING_CLOUD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.freezing_gust",
+      "context": "法术名称（法术列表）",
+      "en": "Freezing Gust",
+      "zh": "冰冻阵风",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FREEZING_GUST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.mephitic_cloud",
+      "context": "法术名称（法术列表）",
+      "en": "Mephitic Cloud",
+      "zh": "毒云",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MEPHITIC_CLOUD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.venom_bolt",
+      "context": "法术名称（法术列表）",
+      "en": "Venom Bolt",
+      "zh": "毒液束",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_VENOM_BOLT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.olgrebs_toxic_radiance",
+      "context": "法术名称（法术列表）",
+      "en": "Olgreb's Toxic Radiance",
+      "zh": "奥尔格勒布的剧毒辐射",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_OLGREBS_TOXIC_RADIANCE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.teleport_other",
+      "context": "法术名称（法术列表）",
+      "en": "Teleport Other",
+      "zh": "传送他人",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_TELEPORT_OTHER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.deaths_door",
+      "context": "法术名称（法术列表）",
+      "en": "Death's Door",
+      "zh": "死亡之门",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DEATHS_DOOR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.mass_confusion",
+      "context": "法术名称（法术列表）",
+      "en": "Mass Confusion",
+      "zh": "群体混乱",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MASS_CONFUSION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.smiting",
+      "context": "法术名称（法术列表）",
+      "en": "Smiting",
+      "zh": "神罚",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SMITING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_small_mammal",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Small Mammal",
+      "zh": "召唤小型哺乳动物",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_SMALL_MAMMAL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.abjuration",
+      "context": "法术名称（法术列表）",
+      "en": "Abjuration",
+      "zh": "驱魔",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ABJURATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.bolt_of_draining",
+      "context": "法术名称（法术列表）",
+      "en": "Bolt of Draining",
+      "zh": "汲能箭",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BOLT_OF_DRAINING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.lehudibs_crystal_spear",
+      "context": "法术名称（法术列表）",
+      "en": "Lehudib's Crystal Spear",
+      "zh": "雷胡迪布的水晶矛",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_LEHUDIBS_CRYSTAL_SPEAR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.polar_vortex",
+      "context": "法术名称（法术列表）",
+      "en": "Polar Vortex",
+      "zh": "极地漩涡",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_POLAR_VORTEX; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.poisonous_cloud",
+      "context": "法术名称（法术列表）",
+      "en": "Poisonous Cloud",
+      "zh": "毒云",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_POISONOUS_CLOUD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fire_storm",
+      "context": "法术名称（法术列表）",
+      "en": "Fire Storm",
+      "zh": "火焰风暴",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FIRE_STORM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.call_down_damnation",
+      "context": "法术名称（法术列表）",
+      "en": "Call Down Damnation",
+      "zh": "降下天谴",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CALL_DOWN_DAMNATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.call_down_lightning",
+      "context": "法术名称（法术列表）",
+      "en": "Call Down Lightning",
+      "zh": "引落闪电",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CALL_DOWN_LIGHTNING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.blink",
+      "context": "法术名称（法术列表）",
+      "en": "Blink",
+      "zh": "闪现",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BLINK; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.blink_range",
+      "context": "法术名称（法术列表）",
+      "en": "Blink Range",
+      "zh": "闪现距离",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BLINK_RANGE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.blink_away",
+      "context": "法术名称（法术列表）",
+      "en": "Blink Away",
+      "zh": "闪现远离",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BLINK_AWAY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.blink_close",
+      "context": "法术名称（法术列表）",
+      "en": "Blink Close",
+      "zh": "闪现接近",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BLINK_CLOSE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.iskenderuns_mystic_blast",
+      "context": "法术名称（法术列表）",
+      "en": "Iskenderun's Mystic Blast",
+      "zh": "伊斯坎德伦的秘法爆裂",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ISKENDERUNS_MYSTIC_BLAST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_horrible_things",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Horrible Things",
+      "zh": "召唤恐怖之物",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_HORRIBLE_THINGS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.malign_gateway",
+      "context": "法术名称（法术列表）",
+      "en": "Malign Gateway",
+      "zh": "邪恶之门",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MALIGN_GATEWAY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.charming",
+      "context": "法术名称（法术列表）",
+      "en": "Charm",
+      "zh": "魅惑",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CHARMING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.animate_dead",
+      "context": "法术名称（法术列表）",
+      "en": "Animate Dead",
+      "zh": "活化死尸",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ANIMATE_DEAD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.pain",
+      "context": "法术名称（法术列表）",
+      "en": "Pain",
+      "zh": "痛苦",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PAIN; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.soul_splinter",
+      "context": "法术名称（法术列表）",
+      "en": "Soul Splinter",
+      "zh": "灵魂碎片",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SOUL_SPLINTER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.vampiric_draining",
+      "context": "法术名称（法术列表）",
+      "en": "Vampiric Draining",
+      "zh": "吸血汲取",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_VAMPIRIC_DRAINING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.haunt",
+      "context": "法术名称（法术列表）",
+      "en": "Haunt",
+      "zh": "缠祟",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HAUNT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.martyrs_knell",
+      "context": "法术名称（法术列表）",
+      "en": "Martyr's Knell",
+      "zh": "殉道者丧钟",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MARTYRS_KNELL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.borgnjors_revivification",
+      "context": "法术名称（法术列表）",
+      "en": "Borgnjor's Revivification",
+      "zh": "博格尼约尔的复活",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BORGNJORS_REVIVIFICATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.freeze",
+      "context": "法术名称（法术列表）",
+      "en": "Freeze",
+      "zh": "冰冻",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FREEZE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ozocubus_refrigeration",
+      "context": "法术名称（法术列表）",
+      "en": "Ozocubu's Refrigeration",
+      "zh": "奥佐库布的制冷",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_OZOCUBUS_REFRIGERATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sticky_flame",
+      "context": "法术名称（法术列表）",
+      "en": "Sticky Flame",
+      "zh": "黏性火焰",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STICKY_FLAME; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_ice_beast",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Ice Beast",
+      "zh": "召唤冰兽",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_ICE_BEAST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ozocubus_armour",
+      "context": "法术名称（法术列表）",
+      "en": "Ozocubu's Armour",
+      "zh": "奥佐库布的护甲",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_OZOCUBUS_ARMOUR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.call_imp",
+      "context": "法术名称（法术列表）",
+      "en": "Call Imp",
+      "zh": "召唤小恶魔",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CALL_IMP; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.deflect_missiles",
+      "context": "法术名称（法术列表）",
+      "en": "Deflect Missiles",
+      "zh": "偏斜投射物",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DEFLECT_MISSILES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.berserker_rage",
+      "context": "法术名称（法术列表）",
+      "en": "Berserker Rage",
+      "zh": "狂战士之怒",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BERSERKER_RAGE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.dispel_undead",
+      "context": "法术名称（法术列表）",
+      "en": "Dispel Undead",
+      "zh": "驱散亡灵",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DISPEL_UNDEAD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.poison_arrow",
+      "context": "法术名称（法术列表）",
+      "en": "Poison Arrow",
+      "zh": "毒箭",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_POISON_ARROW; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.banishment",
+      "context": "法术名称（法术列表）",
+      "en": "Banishment",
+      "zh": "放逐",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BANISHMENT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sting",
+      "context": "法术名称（法术列表）",
+      "en": "Sting",
+      "zh": "刺蛰",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sublimation_of_blood",
+      "context": "法术名称（法术列表）",
+      "en": "Sublimation of Blood",
+      "zh": "血液升华",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUBLIMATION_OF_BLOOD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.tukimas_dance",
+      "context": "法术名称（法术列表）",
+      "en": "Tukima's Dance",
+      "zh": "图基玛之舞",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_TUKIMAS_DANCE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_demon",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Demon",
+      "zh": "召唤恶魔",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_DEMON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_greater_demon",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Greater Demon",
+      "zh": "召唤高等恶魔",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_GREATER_DEMON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.putrefaction",
+      "context": "法术名称（法术列表）",
+      "en": "Cigotuvi's Putrefaction",
+      "zh": "西戈图维的腐化",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PUTREFACTION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.iron_shot",
+      "context": "法术名称（法术列表）",
+      "en": "Iron Shot",
+      "zh": "铁弹",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_IRON_SHOT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.bombard",
+      "context": "法术名称（法术列表）",
+      "en": "Bombard",
+      "zh": "轰击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BOMBARD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.stone_arrow",
+      "context": "法术名称（法术列表）",
+      "en": "Stone Arrow",
+      "zh": "石箭",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STONE_ARROW; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shock",
+      "context": "法术名称（法术列表）",
+      "en": "Shock",
+      "zh": "电击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHOCK; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.swiftness",
+      "context": "法术名称（法术列表）",
+      "en": "Swiftness",
+      "zh": "迅捷",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SWIFTNESS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.debugging_ray",
+      "context": "法术名称（法术列表）",
+      "en": "Debugging Ray",
+      "zh": "调试射线",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DEBUGGING_RAY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.agonising_touch",
+      "context": "法术名称（法术列表）",
+      "en": "Agonising Touch",
+      "zh": "苦痛之触",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_AGONISING_TOUCH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.curse_of_agony",
+      "context": "法术名称（法术列表）",
+      "en": "Curse of Agony",
+      "zh": "苦痛诅咒",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CURSE_OF_AGONY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.mindburst",
+      "context": "法术名称（法术列表）",
+      "en": "Mindburst",
+      "zh": "心灵爆裂",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MINDBURST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.death_channel",
+      "context": "法术名称（法术列表）",
+      "en": "Death Channel",
+      "zh": "死亡通道",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DEATH_CHANNEL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.symbol_of_torment",
+      "context": "法术名称（法术列表）",
+      "en": "Symbol of Torment",
+      "zh": "折磨之符",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SYMBOL_OF_TORMENT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.siphon_essence",
+      "context": "法术名称（法术列表）",
+      "en": "Siphon Essence",
+      "zh": "虹吸精华",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SIPHON_ESSENCE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.throw_icicle",
+      "context": "法术名称（法术列表）",
+      "en": "Throw Icicle",
+      "zh": "掷冰锥",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_THROW_ICICLE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.airstrike",
+      "context": "法术名称（法术列表）",
+      "en": "Airstrike",
+      "zh": "气流打击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_AIRSTRIKE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.momentum_strike",
+      "context": "法术名称（法术列表）",
+      "en": "Momentum Strike",
+      "zh": "动能打击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MOMENTUM_STRIKE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shadow_creatures",
+      "context": "法术名称（法术列表）",
+      "en": "Shadow Creatures",
+      "zh": "暗影生物",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHADOW_CREATURES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.confusing_touch",
+      "context": "法术名称（法术列表）",
+      "en": "Confusing Touch",
+      "zh": "混乱之触",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CONFUSING_TOUCH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.passwall",
+      "context": "法术名称（法术列表）",
+      "en": "Passwall",
+      "zh": "穿墙",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PASSWALL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ignite_poison",
+      "context": "法术名称（法术列表）",
+      "en": "Ignite Poison",
+      "zh": "点燃毒素",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_IGNITE_POISON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.call_canine_familiar",
+      "context": "法术名称（法术列表）",
+      "en": "Call Canine Familiar",
+      "zh": "召唤犬类魔宠",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CALL_CANINE_FAMILIAR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_dragon",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Dragon",
+      "zh": "召唤龙",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_DRAGON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.hibernation",
+      "context": "法术名称（法术列表）",
+      "en": "Ensorcelled Hibernation",
+      "zh": "魔法冬眠",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HIBERNATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.englaciation",
+      "context": "法术名称（法术列表）",
+      "en": "Metabolic Englaciation",
+      "zh": "代谢冰封",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ENGLACIATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.silence",
+      "context": "法术名称（法术列表）",
+      "en": "Silence",
+      "zh": "沉默",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SILENCE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shatter",
+      "context": "法术名称（法术列表）",
+      "en": "Shatter",
+      "zh": "碎裂",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHATTER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.dispersal",
+      "context": "法术名称（法术列表）",
+      "en": "Dispersal",
+      "zh": "分散",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DISPERSAL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.discharge",
+      "context": "法术名称（法术列表）",
+      "en": "Static Discharge",
+      "zh": "静电放电",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DISCHARGE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.corona",
+      "context": "法术名称（法术列表）",
+      "en": "Corona",
+      "zh": "光晕",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CORONA; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.intoxicate",
+      "context": "法术名称（法术列表）",
+      "en": "Alistair's Intoxication",
+      "zh": "阿利斯泰尔的沉醉",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_INTOXICATE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.lrd",
+      "context": "法术名称（法术列表）",
+      "en": "Lee's Rapid Deconstruction",
+      "zh": "李的快速解构",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_LRD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sandblast",
+      "context": "法术名称（法术列表）",
+      "en": "Sandblast",
+      "zh": "喷沙术",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SANDBLAST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.simulacrum",
+      "context": "法术名称（法术列表）",
+      "en": "Sculpt Simulacrum",
+      "zh": "雕琢拟像",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SIMULACRUM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.conjure_ball_lightning",
+      "context": "法术名称（法术列表）",
+      "en": "Conjure Ball Lightning",
+      "zh": "凝成球状闪电",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CONJURE_BALL_LIGHTNING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.chain_lightning",
+      "context": "法术名称（法术列表）",
+      "en": "Chain Lightning",
+      "zh": "连锁闪电",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CHAIN_LIGHTNING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.portal_projectile",
+      "context": "法术名称（法术列表）",
+      "en": "Portal Projectile",
+      "zh": "传送投射物",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PORTAL_PROJECTILE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.monstrous_menagerie",
+      "context": "法术名称（法术列表）",
+      "en": "Monstrous Menagerie",
+      "zh": "怪物动物园",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MONSTROUS_MENAGERIE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.golubrias_passage",
+      "context": "法术名称（法术列表）",
+      "en": "Passage of Golubria",
+      "zh": "戈卢布里亚之径",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GOLUBRIAS_PASSAGE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fulminant_prism",
+      "context": "法术名称（法术列表）",
+      "en": "Fulminant Prism",
+      "zh": "雷霆棱镜",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FULMINANT_PRISM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.paralyse",
+      "context": "法术名称（法术列表）",
+      "en": "Paralyse",
+      "zh": "麻痹",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PARALYSE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.minor_healing",
+      "context": "法术名称（法术列表）",
+      "en": "Minor Healing",
+      "zh": "初级治疗",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MINOR_HEALING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.major_healing",
+      "context": "法术名称（法术列表）",
+      "en": "Major Healing",
+      "zh": "高级治疗",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MAJOR_HEALING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.woodweal",
+      "context": "法术名称（法术列表）",
+      "en": "Woodweal",
+      "zh": "林木治愈",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_WOODWEAL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.hurl_damnation",
+      "context": "法术名称（法术列表）",
+      "en": "Hurl Damnation",
+      "zh": "投掷天谴",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HURL_DAMNATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.brain_bite",
+      "context": "法术名称（法术列表）",
+      "en": "Brain Bite",
+      "zh": "噬脑",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BRAIN_BITE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.noxious_cloud",
+      "context": "法术名称（法术列表）",
+      "en": "Noxious Cloud",
+      "zh": "恶臭之云",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_NOXIOUS_CLOUD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.steam_ball",
+      "context": "法术名称（法术列表）",
+      "en": "Steam Ball",
+      "zh": "蒸汽球",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STEAM_BALL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_ufetubus",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Ufetubus",
+      "zh": "召唤乌费图布斯",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_UFETUBUS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_sin_beast",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Sin Beast",
+      "zh": "召唤罪兽",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_SIN_BEAST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.bolt_of_devastation",
+      "context": "法术名称（法术列表）",
+      "en": "Bolt of Devastation",
+      "zh": "毁灭之矢",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BOLT_OF_DEVASTATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.spit_poison",
+      "context": "法术名称（法术列表）",
+      "en": "Spit Poison",
+      "zh": "吐毒",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SPIT_POISON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_undead",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Undead",
+      "zh": "召唤亡灵",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_UNDEAD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.cantrip",
+      "context": "法术名称（法术列表）",
+      "en": "Cantrip",
+      "zh": "小把戏",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CANTRIP; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.quicksilver_bolt",
+      "context": "法术名称（法术列表）",
+      "en": "Quicksilver Bolt",
+      "zh": "水银之矢",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_QUICKSILVER_BOLT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.metal_splinters",
+      "context": "法术名称（法术列表）",
+      "en": "Metal Splinters",
+      "zh": "金属碎片",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_METAL_SPLINTERS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.splinterspray",
+      "context": "法术名称（法术列表）",
+      "en": "Splinterspray",
+      "zh": "木刺飞溅",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SPLINTERSPRAY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.miasma_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Miasma Breath",
+      "zh": "瘴气吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MIASMA_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_drakes",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Drakes",
+      "zh": "召唤龙兽",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_DRAKES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.blink_other",
+      "context": "法术名称（法术列表）",
+      "en": "Blink Other",
+      "zh": "使他人闪现",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BLINK_OTHER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.blink_other_close",
+      "context": "法术名称（法术列表）",
+      "en": "Blink Other Close",
+      "zh": "使他人闪现接近",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BLINK_OTHER_CLOSE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_mushrooms",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Mushrooms",
+      "zh": "召唤蘑菇",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_MUSHROOMS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.spit_acid",
+      "context": "法术名称（法术列表）",
+      "en": "Spit Acid",
+      "zh": "喷吐酸液",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SPIT_ACID; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.caustic_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Caustic Breath",
+      "zh": "腐蚀吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CAUSTIC_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.pyre_arrow",
+      "context": "法术名称（法术列表）",
+      "en": "Pyre Arrow",
+      "zh": "火葬之箭",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PYRE_ARROW; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fire_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Fire Breath",
+      "zh": "火焰吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FIRE_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.searing_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Searing Breath",
+      "zh": "灼热吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SEARING_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.chaos_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Chaos Breath",
+      "zh": "混乱吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CHAOS_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.cold_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Cold Breath",
+      "zh": "寒冰吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_COLD_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.glacial_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Glacial Breath",
+      "zh": "冰川吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GLACIAL_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.water_elementals",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Water Elementals",
+      "zh": "召唤水元素",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_WATER_ELEMENTALS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.porkalator",
+      "context": "法术名称（法术列表）",
+      "en": "Porkalator",
+      "zh": "变猪术",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PORKALATOR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.create_tentacles",
+      "context": "法术名称（法术列表）",
+      "en": "Spawn Tentacles",
+      "zh": "滋生触手",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CREATE_TENTACLES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_eyeballs",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Eyeballs",
+      "zh": "召唤眼球",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_EYEBALLS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.haste_other",
+      "context": "法术名称（法术列表）",
+      "en": "Haste Other",
+      "zh": "使他人加速",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HASTE_OTHER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.earth_elementals",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Earth Elementals",
+      "zh": "召唤土元素",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_EARTH_ELEMENTALS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.air_elementals",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Air Elementals",
+      "zh": "召唤风元素",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_AIR_ELEMENTALS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fire_elementals",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Fire Elementals",
+      "zh": "召唤火元素",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FIRE_ELEMENTALS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sleep",
+      "context": "法术名称（法术列表）",
+      "en": "Sleep",
+      "zh": "睡眠",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SLEEP; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fake_mara_summon",
+      "context": "法术名称（法术列表）",
+      "en": "Mara Summon",
+      "zh": "玛拉召唤",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FAKE_MARA_SUMMON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_illusion",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Illusion",
+      "zh": "召唤幻象",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_ILLUSION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.primal_wave",
+      "context": "法术名称（法术列表）",
+      "en": "Primal Wave",
+      "zh": "原初浪潮",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PRIMAL_WAVE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.call_tide",
+      "context": "法术名称（法术列表）",
+      "en": "Call Tide",
+      "zh": "引动潮汐",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CALL_TIDE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.iood",
+      "context": "法术名称（法术列表）",
+      "en": "Orb of Destruction",
+      "zh": "毁灭之球",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_IOOD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ink_cloud",
+      "context": "法术名称（法术列表）",
+      "en": "Ink Cloud",
+      "zh": "墨云",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_INK_CLOUD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.might",
+      "context": "法术名称（法术列表）",
+      "en": "Might",
+      "zh": "力",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MIGHT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.might_other",
+      "context": "法术名称（法术列表）",
+      "en": "Might Other",
+      "zh": "使他人获得力量",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MIGHT_OTHER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.awaken_forest",
+      "context": "法术名称（法术列表）",
+      "en": "Awaken Forest",
+      "zh": "唤醒森林",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_AWAKEN_FOREST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.druids_call",
+      "context": "法术名称（法术列表）",
+      "en": "Druid's Call",
+      "zh": "德鲁伊的呼唤",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DRUIDS_CALL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.brothers_in_arms",
+      "context": "法术名称（法术列表）",
+      "en": "Brothers in Arms",
+      "zh": "战友",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BROTHERS_IN_ARMS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.trogs_hand",
+      "context": "法术名称（法术列表）",
+      "en": "Trog's Hand",
+      "zh": "特洛格之手",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_TROGS_HAND; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_mortal_champion",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Mortal Champion",
+      "zh": "召唤凡世勇士",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_MORTAL_CHAMPION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.vanquished_vanguard",
+      "context": "法术名称（法术列表）",
+      "en": "Vanquished Vanguard",
+      "zh": "败亡先锋",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_VANQUISHED_VANGUARD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_holies",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Holies",
+      "zh": "召唤圣灵",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_HOLIES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.heal_other",
+      "context": "法术名称（法术列表）",
+      "en": "Heal Other",
+      "zh": "治疗他人",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HEAL_OTHER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.holy_flames",
+      "context": "法术名称（法术列表）",
+      "en": "Holy Flames",
+      "zh": "神圣火焰",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HOLY_FLAMES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.holy_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Holy Breath",
+      "zh": "神圣吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HOLY_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.injury_mirror",
+      "context": "法术名称（法术列表）",
+      "en": "Injury Mirror",
+      "zh": "伤害镜像",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_INJURY_MIRROR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.drain_life",
+      "context": "法术名称（法术列表）",
+      "en": "Drain Life",
+      "zh": "吸取生命",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DRAIN_LIFE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ledas_liquefaction",
+      "context": "法术名称（法术列表）",
+      "en": "Leda's Liquefaction",
+      "zh": "丽达的液化",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_LEDAS_LIQUEFACTION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_hydra",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Hydra",
+      "zh": "召唤九头蛇",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_HYDRA; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.mesmerise",
+      "context": "法术名称（法术列表）",
+      "en": "Mesmerise",
+      "zh": "催眠",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MESMERISE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.hellfire_court",
+      "context": "法术名称（法术列表）",
+      "en": "Hellfire Court",
+      "zh": "地狱火廷",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HELLFIRE_COURT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.petrifying_cloud",
+      "context": "法术名称（法术列表）",
+      "en": "Petrifying Cloud",
+      "zh": "石化之云",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PETRIFYING_CLOUD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.inner_flame",
+      "context": "法术名称（法术列表）",
+      "en": "Inner Flame",
+      "zh": "内燃之焰",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_INNER_FLAME; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ensnare",
+      "context": "法术名称（法术列表）",
+      "en": "Ensnare",
+      "zh": "缠绕",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ENSNARE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.greater_ensnare",
+      "context": "法术名称（法术列表）",
+      "en": "Greater Ensnare",
+      "zh": "高等缠绕",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GREATER_ENSNARE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.thunderbolt",
+      "context": "法术名称（法术列表）",
+      "en": "Thunderbolt",
+      "zh": "雷霆",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_THUNDERBOLT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.battlesphere",
+      "context": "法术名称（法术列表）",
+      "en": "Iskenderun's Battlesphere",
+      "zh": "伊斯坎德伦的战球",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BATTLESPHERE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_minor_demon",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Minor Demon",
+      "zh": "召唤次级恶魔",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_MINOR_DEMON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sticks_to_snakes",
+      "context": "法术名称（法术列表）",
+      "en": "Sticks to Snakes",
+      "zh": "化木为蛇",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STICKS_TO_SNAKES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.malmutate",
+      "context": "法术名称（法术列表）",
+      "en": "Malmutate",
+      "zh": "恶变",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MALMUTATE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.gloom",
+      "context": "法术名称（法术列表）",
+      "en": "Gloom",
+      "zh": "阴郁",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GLOOM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.beckoning_gale",
+      "context": "法术名称（法术列表）",
+      "en": "Beckoning Gale",
+      "zh": "召唤狂风",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BECKONING_GALE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.force_lance",
+      "context": "法术名称（法术列表）",
+      "en": "Force Lance",
+      "zh": "力场长矛",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FORCE_LANCE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sentinel_mark",
+      "context": "法术名称（法术列表）",
+      "en": "Sentinel's Mark",
+      "zh": "哨兵印记",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SENTINEL_MARK; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.word_of_recall",
+      "context": "法术名称（法术列表）",
+      "en": "Word of Recall",
+      "zh": "召回之言",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_WORD_OF_RECALL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.injury_bond",
+      "context": "法术名称（法术列表）",
+      "en": "Injury Bond",
+      "zh": "伤害联结",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_INJURY_BOND; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.spectral_cloud",
+      "context": "法术名称（法术列表）",
+      "en": "Spectral Cloud",
+      "zh": "幽灵之云",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SPECTRAL_CLOUD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ghostly_fireball",
+      "context": "法术名称（法术列表）",
+      "en": "Ghostly Fireball",
+      "zh": "鬼火球",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GHOSTLY_FIREBALL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.call_lost_souls",
+      "context": "法术名称（法术列表）",
+      "en": "Call Lost Souls",
+      "zh": "召唤迷失之魂",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CALL_LOST_SOULS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.dimension_anchor",
+      "context": "法术名称（法术列表）",
+      "en": "Dimension Anchor",
+      "zh": "次元锚",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DIMENSION_ANCHOR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.blink_allies_encircle",
+      "context": "法术名称（法术列表）",
+      "en": "Blink Allies Encircling",
+      "zh": "使盟友闪现包围",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BLINK_ALLIES_ENCIRCLE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.awaken_vines",
+      "context": "法术名称（法术列表）",
+      "en": "Awaken Vines",
+      "zh": "唤醒藤蔓",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_AWAKEN_VINES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.thorn_volley",
+      "context": "法术名称（法术列表）",
+      "en": "Volley of Thorns",
+      "zh": "荆棘齐射",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_THORN_VOLLEY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.wall_of_brambles",
+      "context": "法术名称（法术列表）",
+      "en": "Wall of Brambles",
+      "zh": "荆棘之墙",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_WALL_OF_BRAMBLES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.waterstrike",
+      "context": "法术名称（法术列表）",
+      "en": "Waterstrike",
+      "zh": "水击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_WATERSTRIKE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.wind_blast",
+      "context": "法术名称（法术列表）",
+      "en": "Wind Blast",
+      "zh": "风爆",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_WIND_BLAST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.strip_willpower",
+      "context": "法术名称（法术列表）",
+      "en": "Strip Willpower",
+      "zh": "剥离意志",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STRIP_WILLPOWER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fugue_of_the_fallen",
+      "context": "法术名称（法术列表）",
+      "en": "Fugue of the Fallen",
+      "zh": "亡者赋格",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FUGUE_OF_THE_FALLEN; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_vermin",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Vermin",
+      "zh": "召唤害虫",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_VERMIN; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.malign_offering",
+      "context": "法术名称（法术列表）",
+      "en": "Malign Offering",
+      "zh": "邪恶祭品",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MALIGN_OFFERING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.searing_ray",
+      "context": "法术名称（法术列表）",
+      "en": "Searing Ray",
+      "zh": "灼热射线",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SEARING_RAY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.discord",
+      "context": "法术名称（法术列表）",
+      "en": "Discord",
+      "zh": "纷争",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DISCORD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.invisibility_other",
+      "context": "法术名称（法术列表）",
+      "en": "Invisibility Other",
+      "zh": "使他人隐形",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_INVISIBILITY_OTHER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.virulence",
+      "context": "法术名称（法术列表）",
+      "en": "Virulence",
+      "zh": "剧毒",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_VIRULENCE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.orb_of_electricity",
+      "context": "法术名称（法术列表）",
+      "en": "Orb of Electricity",
+      "zh": "闪电之球",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ORB_OF_ELECTRICITY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.flash_freeze",
+      "context": "法术名称（法术列表）",
+      "en": "Flash Freeze",
+      "zh": "瞬间冰冻",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FLASH_FREEZE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.creeping_frost",
+      "context": "法术名称（法术列表）",
+      "en": "Creeping Frost",
+      "zh": "蔓延寒霜",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CREEPING_FROST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.legendary_destruction",
+      "context": "法术名称（法术列表）",
+      "en": "Legendary Destruction",
+      "zh": "传说级毁灭",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_LEGENDARY_DESTRUCTION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.forceful_invitation",
+      "context": "法术名称（法术列表）",
+      "en": "Forceful Invitation",
+      "zh": "强力邀请",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FORCEFUL_INVITATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.planerend",
+      "context": "法术名称（法术列表）",
+      "en": "Plane Rend",
+      "zh": "撕裂位面",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PLANEREND; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.chain_of_chaos",
+      "context": "法术名称（法术列表）",
+      "en": "Chain of Chaos",
+      "zh": "混乱之链",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CHAIN_OF_CHAOS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.call_of_chaos",
+      "context": "法术名称（法术列表）",
+      "en": "Call of Chaos",
+      "zh": "混乱之召",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CALL_OF_CHAOS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sign_of_ruin",
+      "context": "法术名称（法术列表）",
+      "en": "Sign of Ruin",
+      "zh": "毁灭之兆",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SIGN_OF_RUIN; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sap_magic",
+      "context": "法术名称（法术列表）",
+      "en": "Sap Magic",
+      "zh": "汲取魔力",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SAP_MAGIC; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.major_destruction",
+      "context": "法术名称（法术列表）",
+      "en": "Major Destruction",
+      "zh": "高级毁灭",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MAJOR_DESTRUCTION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.blink_allies_away",
+      "context": "法术名称（法术列表）",
+      "en": "Blink Allies Away",
+      "zh": "使盟友闪现远离",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BLINK_ALLIES_AWAY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_forest",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Forest",
+      "zh": "召唤森林",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_FOREST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.forge_lightning_spire",
+      "context": "法术名称（法术列表）",
+      "en": "Forge Lightning Spire",
+      "zh": "铸造闪电尖塔",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FORGE_LIGHTNING_SPIRE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.forge_blazeheart_golem",
+      "context": "法术名称（法术列表）",
+      "en": "Forge Blazeheart Golem",
+      "zh": "铸造烈心魔像",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FORGE_BLAZEHEART_GOLEM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.rebounding_blaze",
+      "context": "法术名称（法术列表）",
+      "en": "Rebounding Blaze",
+      "zh": "回弹烈焰",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_REBOUNDING_BLAZE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.rebounding_chill",
+      "context": "法术名称（法术列表）",
+      "en": "Rebounding Chill",
+      "zh": "回弹寒气",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_REBOUNDING_CHILL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.glaciate",
+      "context": "法术名称（法术列表）",
+      "en": "Glaciate",
+      "zh": "冰封",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GLACIATE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.dragon_call",
+      "context": "法术名称（法术列表）",
+      "en": "Dragon's Call",
+      "zh": "巨龙之召",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DRAGON_CALL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.spellspark_servitor",
+      "context": "法术名称（法术列表）",
+      "en": "Spellspark Servitor",
+      "zh": "法术火花仆从",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SPELLSPARK_SERVITOR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_mana_viper",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Mana Viper",
+      "zh": "召唤魔力毒蛇",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_MANA_VIPER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.phantom_mirror",
+      "context": "法术名称（法术列表）",
+      "en": "Phantom Mirror",
+      "zh": "幻影镜像",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PHANTOM_MIRROR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.diminish_spells",
+      "context": "法术名称（法术列表）",
+      "en": "Diminish Spells",
+      "zh": "削弱法术",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DIMINISH_SPELLS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.corrosive_bolt",
+      "context": "法术名称（法术列表）",
+      "en": "Corrosive Bolt",
+      "zh": "腐蚀之矢",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CORROSIVE_BOLT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.bolt_of_light",
+      "context": "法术名称（法术列表）",
+      "en": "Bolt of Light",
+      "zh": "光之矢",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BOLT_OF_LIGHT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.bolt_of_flesh",
+      "context": "法术名称（法术列表）",
+      "en": "Bolt of Flesh",
+      "zh": "血肉之矢",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BOLT_OF_FLESH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.awaken_flesh",
+      "context": "法术名称（法术列表）",
+      "en": "Awaken Flesh",
+      "zh": "唤醒血肉",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_AWAKEN_FLESH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.serpent_of_hell_geh_breath",
+      "context": "法术名称（法术列表）",
+      "en": "gehenna serpent of hell breath",
+      "zh": "革赫纳地狱吐息蛇",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SERPENT_OF_HELL_GEH_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.serpent_of_hell_coc_breath",
+      "context": "法术名称（法术列表）",
+      "en": "cocytus serpent of hell breath",
+      "zh": "科库托斯地狱吐息蛇",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SERPENT_OF_HELL_COC_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.serpent_of_hell_dis_breath",
+      "context": "法术名称（法术列表）",
+      "en": "dis serpent of hell breath",
+      "zh": "迪斯地狱吐息蛇",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SERPENT_OF_HELL_DIS_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.serpent_of_hell_tar_breath",
+      "context": "法术名称（法术列表）",
+      "en": "tartarus serpent of hell breath",
+      "zh": "塔尔塔罗斯地狱吐息蛇",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SERPENT_OF_HELL_TAR_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_emperor_scorpions",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Emperor Scorpions",
+      "zh": "召唤帝王蝎",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_EMPEROR_SCORPIONS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.irradiate",
+      "context": "法术名称（法术列表）",
+      "en": "Irradiate",
+      "zh": "辐射",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_IRRADIATE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.spit_lava",
+      "context": "法术名称（法术列表）",
+      "en": "Spit Lava",
+      "zh": "喷吐岩浆",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SPIT_LAVA; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.electrical_bolt",
+      "context": "法术名称（法术列表）",
+      "en": "Electrical Bolt",
+      "zh": "电击之矢",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ELECTRICAL_BOLT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.flaming_cloud",
+      "context": "法术名称（法术列表）",
+      "en": "Flaming Cloud",
+      "zh": "燃烧之云",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FLAMING_CLOUD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.throw_barbs",
+      "context": "法术名称（法术列表）",
+      "en": "Throw Barbs",
+      "zh": "投掷倒钩",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_THROW_BARBS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.battlecry",
+      "context": "法术名称（法术列表）",
+      "en": "Battlecry",
+      "zh": "战吼",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BATTLECRY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.warning_cry",
+      "context": "法术名称（法术列表）",
+      "en": "Warning Cry",
+      "zh": "警戒嘶吼",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_WARNING_CRY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.hunting_call",
+      "context": "法术名称（法术列表）",
+      "en": "Hunting Call",
+      "zh": "狩猎呼唤",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HUNTING_CALL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.funeral_dirge",
+      "context": "法术名称（法术列表）",
+      "en": "Funeral Dirge",
+      "zh": "葬礼挽歌",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FUNERAL_DIRGE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.seal_doors",
+      "context": "法术名称（法术列表）",
+      "en": "Seal Doors",
+      "zh": "封门",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SEAL_DOORS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.flay",
+      "context": "法术名称（法术列表）",
+      "en": "Flay",
+      "zh": "剥皮",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FLAY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.berserk_other",
+      "context": "法术名称（法术列表）",
+      "en": "Berserk Other",
+      "zh": "使他人狂暴",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BERSERK_OTHER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.corrupting_pulse",
+      "context": "法术名称（法术列表）",
+      "en": "Corrupting Pulse",
+      "zh": "腐化脉冲",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CORRUPTING_PULSE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.siren_song",
+      "context": "法术名称（法术列表）",
+      "en": "Siren Song",
+      "zh": "塞壬之歌",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SIREN_SONG; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.avatar_song",
+      "context": "法术名称（法术列表）",
+      "en": "Avatar Song",
+      "zh": "化身之歌",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_AVATAR_SONG; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.paralysis_gaze",
+      "context": "法术名称（法术列表）",
+      "en": "Paralysis Gaze",
+      "zh": "麻痹凝视",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PARALYSIS_GAZE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.confusion_gaze",
+      "context": "法术名称（法术列表）",
+      "en": "Confusion Gaze",
+      "zh": "混乱凝视",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CONFUSION_GAZE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.antimagic_gaze",
+      "context": "法术名称（法术列表）",
+      "en": "Antimagic Gaze",
+      "zh": "反魔凝视",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ANTIMAGIC_GAZE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.draining_gaze",
+      "context": "法术名称（法术列表）",
+      "en": "Draining Gaze",
+      "zh": "汲取凝视",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DRAINING_GAZE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.weakening_gaze",
+      "context": "法术名称（法术列表）",
+      "en": "Weakening Gaze",
+      "zh": "削弱凝视",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_WEAKENING_GAZE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.mourning_wail",
+      "context": "法术名称（法术列表）",
+      "en": "Mourning Wail",
+      "zh": "哀悼悲鸣",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MOURNING_WAIL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.death_rattle",
+      "context": "法术名称（法术列表）",
+      "en": "Death Rattle",
+      "zh": "死亡嘶鸣",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DEATH_RATTLE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.march_of_sorrows",
+      "context": "法术名称（法术列表）",
+      "en": "March of Sorrows",
+      "zh": "悲恸行军",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MARCH_OF_SORROWS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_scarabs",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Scarabs",
+      "zh": "召唤圣甲虫",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_SCARABS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.throw_ally",
+      "context": "法术名称（法术列表）",
+      "en": "Throw Ally",
+      "zh": "投掷盟友",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_THROW_ALLY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.cleansing_flame",
+      "context": "法术名称（法术列表）",
+      "en": "Cleansing Flame",
+      "zh": "净化之焰",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CLEANSING_FLAME; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.gravitas",
+      "context": "法术名称（法术列表）",
+      "en": "Gell's Gravitas",
+      "zh": "格尔的引力",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GRAVITAS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.violent_unravelling",
+      "context": "法术名称（法术列表）",
+      "en": "Yara's Violent Unravelling",
+      "zh": "亚拉的狂暴解离",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_VIOLENT_UNRAVELLING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.entropic_weave",
+      "context": "法术名称（法术列表）",
+      "en": "Entropic Weave",
+      "zh": "熵之编织",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ENTROPIC_WEAVE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_executioners",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Executioners",
+      "zh": "召唤刽子手",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_EXECUTIONERS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.oblivion_howl",
+      "context": "法术名称（法术列表）",
+      "en": "Oblivion Howl",
+      "zh": "湮灭嚎叫",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_OBLIVION_HOWL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.prayer_of_brilliance",
+      "context": "法术名称（法术列表）",
+      "en": "Prayer of Brilliance",
+      "zh": "辉煌祈祷",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PRAYER_OF_BRILLIANCE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.iceblast",
+      "context": "法术名称（法术列表）",
+      "en": "Iceblast",
+      "zh": "冰爆",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ICEBLAST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.slug_dart",
+      "context": "法术名称（法术列表）",
+      "en": "Slug Dart",
+      "zh": "蛞蝓飞镖",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SLUG_DART; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fleetfoot",
+      "context": "法术名称（法术列表）",
+      "en": "Fleetfoot",
+      "zh": "疾足",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FLEETFOOT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.greater_servant_makhleb",
+      "context": "法术名称（法术列表）",
+      "en": "Infernal Servant",
+      "zh": "地狱仆从",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GREATER_SERVANT_MAKHLEB; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.bind_souls",
+      "context": "法术名称（法术列表）",
+      "en": "Bind Souls",
+      "zh": "束缚灵魂",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BIND_SOULS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.infestation",
+      "context": "法术名称（法术列表）",
+      "en": "Infestation",
+      "zh": "侵染",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_INFESTATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.still_winds",
+      "context": "法术名称（法术列表）",
+      "en": "Still Winds",
+      "zh": "静止之风",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STILL_WINDS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.resonance_strike",
+      "context": "法术名称（法术列表）",
+      "en": "Resonance Strike",
+      "zh": "共振打击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_RESONANCE_STRIKE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ghostly_sacrifice",
+      "context": "法术名称（法术列表）",
+      "en": "Ghostly Sacrifice",
+      "zh": "幽灵献祭",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GHOSTLY_SACRIFICE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.dream_dust",
+      "context": "法术名称（法术列表）",
+      "en": "Dream Dust",
+      "zh": "梦尘",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DREAM_DUST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.beckoning",
+      "context": "法术名称（法术列表）",
+      "en": "Lesser Beckoning",
+      "zh": "次级召唤",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BECKONING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.upheaval",
+      "context": "法术名称（法术列表）",
+      "en": "Upheaval",
+      "zh": "剧变",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_UPHEAVAL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.mercury_arrow",
+      "context": "法术名称（法术列表）",
+      "en": "Mercury Arrow",
+      "zh": "水银之箭",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MERCURY_ARROW; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.poisonous_vapours",
+      "context": "法术名称（法术列表）",
+      "en": "Poisonous Vapours",
+      "zh": "毒雾",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_POISONOUS_VAPOURS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ignition",
+      "context": "法术名称（法术列表）",
+      "en": "Ignition",
+      "zh": "燃爆",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_IGNITION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.borgnjors_vile_clutch",
+      "context": "法术名称（法术列表）",
+      "en": "Borgnjor's Vile Clutch",
+      "zh": "博格尼约尔的邪恶攫握",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BORGNJORS_VILE_CLUTCH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fastroot",
+      "context": "法术名称（法术列表）",
+      "en": "Fastroot",
+      "zh": "速根",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FASTROOT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.warp_space",
+      "context": "法术名称（法术列表）",
+      "en": "Warp Space",
+      "zh": "扭曲空间",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_WARP_SPACE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sojourning_bolt",
+      "context": "法术名称（法术列表）",
+      "en": "Sojourning Bolt",
+      "zh": "旅居之矢",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SOJOURNING_BOLT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.harpoon_shot",
+      "context": "法术名称（法术列表）",
+      "en": "Harpoon Shot",
+      "zh": "鱼叉射击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HARPOON_SHOT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.grasping_roots",
+      "context": "法术名称（法术列表）",
+      "en": "Grasping Roots",
+      "zh": "攫握之根",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GRASPING_ROOTS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.throw_bolas",
+      "context": "法术名称（法术列表）",
+      "en": "Throw Bolas",
+      "zh": "投掷流星锤",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_THROW_BOLAS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.throw_pie",
+      "context": "法术名称（法术列表）",
+      "en": "Throw Klown Pie",
+      "zh": "投掷小丑派",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_THROW_PIE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sporulate",
+      "context": "法术名称（法术列表）",
+      "en": "Sporulate",
+      "zh": "孢子生殖",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SPORULATE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.launch_sporangium",
+      "context": "法术名称（法术列表）",
+      "en": "Launch Sporangium",
+      "zh": "发射孢子囊",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_LAUNCH_SPORANGIUM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.starburst",
+      "context": "法术名称（法术列表）",
+      "en": "Starburst",
+      "zh": "星爆",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STARBURST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.foxfire",
+      "context": "法术名称（法术列表）",
+      "en": "Foxfire",
+      "zh": "狐火",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FOXFIRE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.marshlight",
+      "context": "法术名称（法术列表）",
+      "en": "Marshlight",
+      "zh": "沼泽之光",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MARSHLIGHT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.hailstorm",
+      "context": "法术名称（法术列表）",
+      "en": "Hailstorm",
+      "zh": "冰雹风暴",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HAILSTORM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.noxious_bog",
+      "context": "法术名称（法术列表）",
+      "en": "Eringya's Noxious Bog",
+      "zh": "埃林吉亚的恶臭沼泽",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_NOXIOUS_BOG; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.agony",
+      "context": "法术名称（法术列表）",
+      "en": "Agony",
+      "zh": "苦痛",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_AGONY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.dispel_undead_range",
+      "context": "法术名称（法术列表）",
+      "en": "Dispel Undead Range",
+      "zh": "驱散亡灵距离",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DISPEL_UNDEAD_RANGE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.frozen_ramparts",
+      "context": "法术名称（法术列表）",
+      "en": "Frozen Ramparts",
+      "zh": "冰封壁垒",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FROZEN_RAMPARTS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.maxwells_coupling",
+      "context": "法术名称（法术列表）",
+      "en": "Maxwell's Capacitive Coupling",
+      "zh": "麦克斯韦的电容耦合",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MAXWELLS_COUPLING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sonic_wave",
+      "context": "法术名称（法术列表）",
+      "en": "Sonic wave",
+      "zh": "声波",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SONIC_WAVE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.roll",
+      "context": "法术名称（法术列表）",
+      "en": "Roll",
+      "zh": "滚动",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ROLL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.hurl_sludge",
+      "context": "法术名称（法术列表）",
+      "en": "Hurl Sludge",
+      "zh": "投掷污泥",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HURL_SLUDGE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_tzitzimitl",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Tzitzimitl",
+      "zh": "召唤茨齐米特尔",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_TZITZIMITL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_hell_sentinel",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Hell Sentinel",
+      "zh": "召唤地狱哨兵",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_HELL_SENTINEL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.awaken_armour",
+      "context": "法术名称（法术列表）",
+      "en": "Awaken Armour",
+      "zh": "唤醒护甲",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_AWAKEN_ARMOUR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.manifold_assault",
+      "context": "法术名称（法术列表）",
+      "en": "Manifold Assault",
+      "zh": "多重突袭",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MANIFOLD_ASSAULT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.concentrate_venom",
+      "context": "法术名称（法术列表）",
+      "en": "Concentrate Venom",
+      "zh": "浓缩毒液",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CONCENTRATE_VENOM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.eruption",
+      "context": "法术名称（法术列表）",
+      "en": "Eruption",
+      "zh": "喷发",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ERUPTION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.pyroclastic_surge",
+      "context": "法术名称（法术列表）",
+      "en": "Pyroclastic Surge",
+      "zh": "火山碎屑涌动",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PYROCLASTIC_SURGE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.stunning_burst",
+      "context": "法术名称（法术列表）",
+      "en": "Stunning Burst",
+      "zh": "震慑爆发",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STUNNING_BURST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.corrupt_locale",
+      "context": "法术名称（法术列表）",
+      "en": "Corrupt",
+      "zh": "腐化",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CORRUPT_LOCALE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.conjure_living_spells",
+      "context": "法术名称（法术列表）",
+      "en": "Conjure Living Spells",
+      "zh": "召唤活化法术",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CONJURE_LIVING_SPELLS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_cactus",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Cactus Giant",
+      "zh": "召唤仙人掌巨人",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_CACTUS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.stoke_flames",
+      "context": "法术名称（法术列表）",
+      "en": "Stoke Flames",
+      "zh": "鼓动火焰",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STOKE_FLAMES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.seracfall",
+      "context": "法术名称（法术列表）",
+      "en": "Seracfall",
+      "zh": "冰塔崩落",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SERACFALL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.scorch",
+      "context": "法术名称（法术列表）",
+      "en": "Scorch",
+      "zh": "灼烧",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SCORCH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.flame_wave",
+      "context": "法术名称（法术列表）",
+      "en": "Flame Wave",
+      "zh": "烈焰波",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FLAME_WAVE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.enfeeble",
+      "context": "法术名称（法术列表）",
+      "en": "Enfeeble",
+      "zh": "衰弱",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ENFEEBLE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_spiders",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Spiders",
+      "zh": "召唤蜘蛛",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_SPIDERS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.anguish",
+      "context": "法术名称（法术列表）",
+      "en": "Anguish",
+      "zh": "痛苦",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ANGUISH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_scorpions",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Scorpions",
+      "zh": "召唤蝎子",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_SCORPIONS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shezas_dance",
+      "context": "法术名称（法术列表）",
+      "en": "Sheza's Dance",
+      "zh": "谢扎之舞",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHEZAS_DANCE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.divine_armament",
+      "context": "法术名称（法术列表）",
+      "en": "Divine Armament",
+      "zh": "神圣武装",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DIVINE_ARMAMENT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.kiss_of_death",
+      "context": "法术名称（法术列表）",
+      "en": "Kiss of Death",
+      "zh": "死亡之吻",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_KISS_OF_DEATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.jinxbite",
+      "context": "法术名称（法术列表）",
+      "en": "Jinxbite",
+      "zh": "咒咬",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_JINXBITE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sigil_of_binding",
+      "context": "法术名称（法术列表）",
+      "en": "Sigil of Binding",
+      "zh": "束缚印记",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SIGIL_OF_BINDING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.dimensional_bullseye",
+      "context": "法术名称（法术列表）",
+      "en": "Dimensional Bullseye",
+      "zh": "次元靶心",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DIMENSIONAL_BULLSEYE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.boulder",
+      "context": "法术名称（法术列表）",
+      "en": "Brom's Barrelling Boulder",
+      "zh": "布罗姆的滚石",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BOULDER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.vitrify",
+      "context": "法术名称（法术列表）",
+      "en": "Vitrify",
+      "zh": "玻璃化",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_VITRIFY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.vitrifying_gaze",
+      "context": "法术名称（法术列表）",
+      "en": "Vitrifying Gaze",
+      "zh": "玻璃化凝视",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_VITRIFYING_GAZE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.crystallising_shot",
+      "context": "法术名称（法术列表）",
+      "en": "Crystallising Shot",
+      "zh": "结晶射击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CRYSTALLISING_SHOT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.tremorstone",
+      "context": "法术名称（法术列表）",
+      "en": "Tremorstone",
+      "zh": "震地石",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_TREMORSTONE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.regenerate_other",
+      "context": "法术名称（法术列表）",
+      "en": "Regenerate Other",
+      "zh": "治疗他人",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_REGENERATE_OTHER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.mass_regeneration",
+      "context": "法术名称（法术列表）",
+      "en": "Mass Regeneration",
+      "zh": "群体再生",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MASS_REGENERATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.noxious_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Noxious Breath",
+      "zh": "剧毒吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_NOXIOUS_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.unleash_destruction",
+      "context": "法术名称（法术列表）",
+      "en": "Unleash Destruction",
+      "zh": "释放毁灭",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_UNLEASH_DESTRUCTION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.hurl_torchlight",
+      "context": "法术名称（法术列表）",
+      "en": "Hurl Torchlight",
+      "zh": "投掷火炬之光",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HURL_TORCHLIGHT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.combustion_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Combustion Breath",
+      "zh": "燃烧吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_COMBUSTION_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.nullifying_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Nullifying Breath",
+      "zh": "湮灭吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_NULLIFYING_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.steam_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Steam Breath",
+      "zh": "蒸汽吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STEAM_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.mud_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Mud Breath",
+      "zh": "泥浆吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MUD_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.galvanic_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Galvanic Breath",
+      "zh": "电击吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GALVANIC_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.piledriver",
+      "context": "法术名称（法术列表）",
+      "en": "Maxwell's Portable Piledriver",
+      "zh": "麦克斯韦的便携打桩机",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PILEDRIVER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.gells_gavotte",
+      "context": "法术名称（法术列表）",
+      "en": "Gell's Gavotte",
+      "zh": "盖尔的加沃特舞",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GELLS_GAVOTTE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.magnavolt",
+      "context": "法术名称（法术列表）",
+      "en": "Magnavolt",
+      "zh": "磁爆电击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MAGNAVOLT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fulsome_fusillade",
+      "context": "法术名称（法术列表）",
+      "en": "Fulsome Fusillade",
+      "zh": "秽物齐射",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FULSOME_FUSILLADE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.rimeblight",
+      "context": "法术名称（法术列表）",
+      "en": "Rimeblight",
+      "zh": "霜疫",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_RIMEBLIGHT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.hoarfrost_cannonade",
+      "context": "法术名称（法术列表）",
+      "en": "Hoarfrost Cannonade",
+      "zh": "白霜炮击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HOARFROST_CANNONADE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.seismic_stomp",
+      "context": "法术名称（法术列表）",
+      "en": "Seismic Stomp",
+      "zh": "地震践踏",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SEISMIC_STOMP; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.hoarfrost_bullet",
+      "context": "法术名称（法术列表）",
+      "en": "Hoarfrost Bullet",
+      "zh": "白霜弹",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HOARFROST_BULLET; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.flashing_balestra",
+      "context": "法术名称（法术列表）",
+      "en": "Flashing Balestra",
+      "zh": "闪光突刺",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FLASHING_BALESTRA; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.phantom_blitz",
+      "context": "法术名称（法术列表）",
+      "en": "Phantom Blitz",
+      "zh": "幻影闪击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PHANTOM_BLITZ; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.bestow_arms",
+      "context": "法术名称（法术列表）",
+      "en": "Bestow Arms",
+      "zh": "赋予武器",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BESTOW_ARMS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.hellfire_mortar",
+      "context": "法术名称（法术列表）",
+      "en": "Hellfire Mortar",
+      "zh": "地狱火迫击炮",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HELLFIRE_MORTAR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shadow_shard",
+      "context": "法术名称（法术列表）",
+      "en": "Shadow Shard",
+      "zh": "暗影碎片",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHADOW_SHARD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shadow_beam",
+      "context": "法术名称（法术列表）",
+      "en": "Shadow Beam",
+      "zh": "暗影光束",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHADOW_BEAM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shadow_ball",
+      "context": "法术名称（法术列表）",
+      "en": "Shadowball",
+      "zh": "暗影球",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHADOW_BALL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.creeping_shadow",
+      "context": "法术名称（法术列表）",
+      "en": "Creeping Shadow",
+      "zh": "蔓延暗影",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CREEPING_SHADOW; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shadow_tempest",
+      "context": "法术名称（法术列表）",
+      "en": "Shadow Tempest",
+      "zh": "暗影风暴",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHADOW_TEMPEST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shadow_prism",
+      "context": "法术名称（法术列表）",
+      "en": "Shadow Prism",
+      "zh": "暗影棱镜",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHADOW_PRISM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shadow_puppet",
+      "context": "法术名称（法术列表）",
+      "en": "Shadow Puppet",
+      "zh": "暗影傀儡",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHADOW_PUPPET; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shadow_turret",
+      "context": "法术名称（法术列表）",
+      "en": "Shadow Turret",
+      "zh": "暗影炮塔",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHADOW_TURRET; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shadow_shot",
+      "context": "法术名称（法术列表）",
+      "en": "Shadow Shot",
+      "zh": "暗影射击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHADOW_SHOT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shadow_bind",
+      "context": "法术名称（法术列表）",
+      "en": "Shadow Bind",
+      "zh": "暗影束缚",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHADOW_BIND; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shadow_torpor",
+      "context": "法术名称（法术列表）",
+      "en": "Shadow Torpor",
+      "zh": "暗影麻痹",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHADOW_TORPOR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shadow_draining",
+      "context": "法术名称（法术列表）",
+      "en": "Shadow Draining",
+      "zh": "暗影汲取",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHADOW_DRAINING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.grave_claw",
+      "context": "法术名称（法术列表）",
+      "en": "Grave Claw",
+      "zh": "墓穴之爪",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GRAVE_CLAW; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.clockwork_bee",
+      "context": "法术名称（法术列表）",
+      "en": "Launch Clockwork Bee",
+      "zh": "发射发条蜂",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CLOCKWORK_BEE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.spike_launcher",
+      "context": "法术名称（法术列表）",
+      "en": "Construct Spike Launcher",
+      "zh": "构筑尖刺发射器",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SPIKE_LAUNCHER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.kinetic_grapnel",
+      "context": "法术名称（法术列表）",
+      "en": "Kinetic Grapnel",
+      "zh": "动能抓钩",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_KINETIC_GRAPNEL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.diamond_sawblades",
+      "context": "法术名称（法术列表）",
+      "en": "Diamond Sawblades",
+      "zh": "金刚锯刃",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DIAMOND_SAWBLADES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shred",
+      "context": "法术名称（法术列表）",
+      "en": "Shred",
+      "zh": "撕碎",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHRED; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.surprising_crocodile",
+      "context": "法术名称（法术列表）",
+      "en": "Eringya's Surprising Crocodile",
+      "zh": "埃林吉娅的意外鳄鱼",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SURPRISING_CROCODILE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.platinum_paragon",
+      "context": "法术名称（法术列表）",
+      "en": "Platinum Paragon",
+      "zh": "铂金典范",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PLATINUM_PARAGON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.walking_alembic",
+      "context": "法术名称（法术列表）",
+      "en": "Alistair's Walking Alembic",
+      "zh": "阿利斯泰尔的行走蒸馏器",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_WALKING_ALEMBIC; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.monarch_bomb",
+      "context": "法术名称（法术列表）",
+      "en": "Forge Monarch Bomb",
+      "zh": "锻造君王炸弹",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MONARCH_BOMB; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.deploy_bomblet",
+      "context": "法术名称（法术列表）",
+      "en": "Launch Bomblet",
+      "zh": "发射小型炸弹",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DEPLOY_BOMBLET; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.splinterfrost_shell",
+      "context": "法术名称（法术列表）",
+      "en": "Splinterfrost Shell",
+      "zh": "裂霜护壳",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SPLINTERFROST_SHELL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.percussive_tempering",
+      "context": "法术名称（法术列表）",
+      "en": "Nazja's Percussive Tempering",
+      "zh": "娜兹娅的震荡回火",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PERCUSSIVE_TEMPERING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.all_purpose_tempering",
+      "context": "法术名称（法术列表）",
+      "en": "Nazja's All-Purpose Tempering",
+      "zh": "娜兹娅的万能回火",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ALL_PURPOSE_TEMPERING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fortress_blast",
+      "context": "法术名称（法术列表）",
+      "en": "Fortress Blast",
+      "zh": "堡垒爆破",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FORTRESS_BLAST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_seismosaurus_egg",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Seismosaurus Egg",
+      "zh": "召唤地震龙蛋",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_SEISMOSAURUS_EGG; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.phalanx_beetle",
+      "context": "法术名称（法术列表）",
+      "en": "Forge Phalanx Beetle",
+      "zh": "铸造方阵甲虫",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PHALANX_BEETLE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.rending_blade",
+      "context": "法术名称（法术列表）",
+      "en": "Rending Blade",
+      "zh": "撕裂之刃",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_RENDING_BLADE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.magma_barrage",
+      "context": "法术名称（法术列表）",
+      "en": "Magma Barrage",
+      "zh": "岩浆弹幕",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MAGMA_BARRAGE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.vex",
+      "context": "法术名称（法术列表）",
+      "en": "Vex",
+      "zh": "烦扰",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_VEX; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ravenous_swarm",
+      "context": "法术名称（法术列表）",
+      "en": "Ravenous Swarm",
+      "zh": "贪婪虫群",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_RAVENOUS_SWARM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.dominate_undead",
+      "context": "法术名称（法术列表）",
+      "en": "Dominate Undead",
+      "zh": "支配亡灵",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DOMINATE_UNDEAD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.detonation_catalyst",
+      "context": "法术名称（法术列表）",
+      "en": "Detonation Catalyst",
+      "zh": "引爆催化剂",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DETONATION_CATALYST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.rust_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Rust Breath",
+      "zh": "锈蚀吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_RUST_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.golden_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Golden Breath",
+      "zh": "金色吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GOLDEN_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sphinx_sisters",
+      "context": "法术名称（法术列表）",
+      "en": "Sphinx Sisters",
+      "zh": "斯芬克斯姐妹",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SPHINX_SISTERS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ill_omen",
+      "context": "法术名称（法术列表）",
+      "en": "Ill Omen",
+      "zh": "凶兆",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ILL_OMEN; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.doom_bolt",
+      "context": "法术名称（法术列表）",
+      "en": "Doom Bolt",
+      "zh": "末日之矢",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DOOM_BOLT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.warp_body",
+      "context": "法术名称（法术列表）",
+      "en": "Warp Body",
+      "zh": "扭曲躯体",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_WARP_BODY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ostracise",
+      "context": "法术名称（法术列表）",
+      "en": "Ostracise",
+      "zh": "放逐",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_OSTRACISE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.mutagenic_gaze",
+      "context": "法术名称（法术列表）",
+      "en": "Mutagenic Gaze",
+      "zh": "诱变凝视",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MUTAGENIC_GAZE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.acid_ball",
+      "context": "法术名称（法术列表）",
+      "en": "Acid Ball",
+      "zh": "酸液球",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ACID_BALL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.no_spell",
+      "context": "法术名称（法术列表）",
+      "en": "nonexistent spell",
+      "zh": "不存在的法术",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_NO_SPELL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.pyrrhic_recollection",
+      "context": "法术名称（法术列表）",
+      "en": "Pyrrhic Recollection",
+      "zh": "惨胜回忆",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PYRRHIC_RECOLLECTION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.planar_overlay",
+      "context": "法术名称（法术列表）",
+      "en": "Planar Overlay",
+      "zh": "位面重叠",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PLANAR_OVERLAY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.doomsaying",
+      "context": "法术名称（法术列表）",
+      "en": "Doomsaying",
+      "zh": "末日预言",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DOOMSAYING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sleetstrike",
+      "context": "法术名称（法术列表）",
+      "en": "Sleetstrike",
+      "zh": "冰雨打击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SLEETSTRIKE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.landbreaker",
+      "context": "法术名称（法术列表）",
+      "en": "Landbreaker",
+      "zh": "裂地者",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_LANDBREAKER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.aura_of_abjuration",
+      "context": "法术名称（法术列表）",
+      "en": "Aura of Abjuration",
+      "zh": "驱散光环",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_AURA_OF_ABJURATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.bolt_of_inaccuracy",
+      "context": "法术名称（法术列表）",
+      "en": "Bolt of Inaccuracy",
+      "zh": "失准之矢",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BOLT_OF_INACCURACY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.chant_fire_storm",
+      "context": "法术名称（法术列表）",
+      "en": "Chant Fire Storm",
+      "zh": "咏唱火焰风暴",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CHANT_FIRE_STORM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.cigotuvis_degeneration",
+      "context": "法术名称（法术列表）",
+      "en": "Cigotuvi's Degeneration",
+      "zh": "西戈图维的退化",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CIGOTUVIS_DEGENERATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.cigotuvis_embrace",
+      "context": "法术名称（法术列表）",
+      "en": "Cigotuvi's Embrace",
+      "zh": "西戈图维的拥抱",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CIGOTUVIS_EMBRACE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.condensation_shield",
+      "context": "法术名称（法术列表）",
+      "en": "Condensation Shield",
+      "zh": "凝缩护盾",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CONDENSATION_SHIELD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.controlled_blink",
+      "context": "法术名称（法术列表）",
+      "en": "Controlled Blink",
+      "zh": "受控闪现",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CONTROLLED_BLINK; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.control_teleport",
+      "context": "法术名称（法术列表）",
+      "en": "Control Teleport",
+      "zh": "控制传送",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CONTROL_TELEPORT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.control_undead",
+      "context": "法术名称（法术列表）",
+      "en": "Control Undead",
+      "zh": "控制亡灵",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CONTROL_UNDEAD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.control_winds",
+      "context": "法术名称（法术列表）",
+      "en": "Control Winds",
+      "zh": "控制风向",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CONTROL_WINDS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.corrupt_body",
+      "context": "法术名称（法术列表）",
+      "en": "Corrupt Body",
+      "zh": "腐化躯体",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CORRUPT_BODY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.cure_poison",
+      "context": "法术名称（法术列表）",
+      "en": "Cure Poison",
+      "zh": "解毒",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CURE_POISON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.darkness",
+      "context": "法术名称（法术列表）",
+      "en": "Darkness",
+      "zh": "黑暗",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DARKNESS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.old_deflect_missiles",
+      "context": "法术名称（法术列表）",
+      "en": "Old Deflect Missiles",
+      "zh": "旧版偏转飞弹",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_OLD_DEFLECT_MISSILES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.delayed_fireball",
+      "context": "法术名称（法术列表）",
+      "en": "Delayed Fireball",
+      "zh": "延时火球",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DELAYED_FIREBALL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.demonic_horde",
+      "context": "法术名称（法术列表）",
+      "en": "Demonic Horde",
+      "zh": "恶魔群",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DEMONIC_HORDE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.draconian_breath",
+      "context": "法术名称（法术列表）",
+      "en": "Draconian Breath",
+      "zh": "龙人吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DRACONIAN_BREATH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ephemeral_infusion",
+      "context": "法术名称（法术列表）",
+      "en": "Ephemeral Infusion",
+      "zh": "短暂注能",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_EPHEMERAL_INFUSION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.evaporate",
+      "context": "法术名称（法术列表）",
+      "en": "Evaporate",
+      "zh": "蒸发",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_EVAPORATE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.explosive_bolt",
+      "context": "法术名称（法术列表）",
+      "en": "Explosive Bolt",
+      "zh": "爆炸弩矢",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_EXPLOSIVE_BOLT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fake_rakshasa_summon",
+      "context": "法术名称（法术列表）",
+      "en": "Rakshasa Summon",
+      "zh": "罗刹召唤",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FAKE_RAKSHASA_SUMMON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fire_brand",
+      "context": "法术名称（法术列表）",
+      "en": "Fire Brand",
+      "zh": "火焰烙印",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FIRE_BRAND; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fly",
+      "context": "法术名称（法术列表）",
+      "en": "Flight",
+      "zh": "飞行",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FLY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.forceful_dismissal",
+      "context": "法术名称（法术列表）",
+      "en": "Forceful Dismissal",
+      "zh": "强力遣散",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FORCEFUL_DISMISSAL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.freezing_aura",
+      "context": "法术名称（法术列表）",
+      "en": "Freezing Aura",
+      "zh": "冰冻光环",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FREEZING_AURA; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.frenzy",
+      "context": "法术名称（法术列表）",
+      "en": "Frenzy",
+      "zh": "狂乱",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FRENZY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fulsome_distillation",
+      "context": "法术名称（法术列表）",
+      "en": "Fulsome Distillation",
+      "zh": "秽物蒸馏",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FULSOME_DISTILLATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.grand_avatar",
+      "context": "法术名称（法术列表）",
+      "en": "Grand Avatar",
+      "zh": "宏伟化身",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GRAND_AVATAR; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.haste_plants",
+      "context": "法术名称（法术列表）",
+      "en": "Haste Plants",
+      "zh": "加速植物",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HASTE_PLANTS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.holy_light",
+      "context": "法术名称（法术列表）",
+      "en": "Holy Light",
+      "zh": "圣光",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HOLY_LIGHT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.hunting_cry",
+      "context": "法术名称（法术列表）",
+      "en": "Hunting Cry",
+      "zh": "狩猎呼号",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HUNTING_CRY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ignite_poison_single",
+      "context": "法术名称（法术列表）",
+      "en": "Localized Ignite Poison",
+      "zh": "局部点燃毒素",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_IGNITE_POISON_SINGLE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.insulation",
+      "context": "法术名称（法术列表）",
+      "en": "Insulation",
+      "zh": "绝缘",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_INSULATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.infusion",
+      "context": "法术名称（法术列表）",
+      "en": "Infusion",
+      "zh": "注能",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_INFUSION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.iron_elementals",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Iron Elementals",
+      "zh": "召唤铁元素",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_IRON_ELEMENTALS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.lethal_infusion",
+      "context": "法术名称（法术列表）",
+      "en": "Lethal Infusion",
+      "zh": "致命注能",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_LETHAL_INFUSION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.melee",
+      "context": "法术名称（法术列表）",
+      "en": "Melee",
+      "zh": "近战",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MELEE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.mislead",
+      "context": "法术名称（法术列表）",
+      "en": "Mislead",
+      "zh": "误导",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MISLEAD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.phase_shift",
+      "context": "法术名称（法术列表）",
+      "en": "Phase Shift",
+      "zh": "相位偏移",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_PHASE_SHIFT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.poison_weapon",
+      "context": "法术名称（法术列表）",
+      "en": "Poison Weapon",
+      "zh": "淬毒武器",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_POISON_WEAPON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.random_bolt",
+      "context": "法术名称（法术列表）",
+      "en": "Random Bolt",
+      "zh": "随机弩矢",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_RANDOM_BOLT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.rearrange_pieces",
+      "context": "法术名称（法术列表）",
+      "en": "Rearrange the Pieces",
+      "zh": "重排棋子",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_REARRANGE_PIECES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.recall",
+      "context": "法术名称（法术列表）",
+      "en": "Recall",
+      "zh": "召回",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_RECALL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.regeneration",
+      "context": "法术名称（法术列表）",
+      "en": "Regeneration",
+      "zh": "再生",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_REGENERATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ring_of_flames",
+      "context": "法术名称（法术列表）",
+      "en": "Ring of Flames",
+      "zh": "烈焰之环",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_RING_OF_FLAMES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.see_invisible",
+      "context": "法术名称（法术列表）",
+      "en": "See Invisible",
+      "zh": "识破隐形",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SEE_INVISIBLE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shaft_self",
+      "context": "法术名称（法术列表）",
+      "en": "Shaft Self",
+      "zh": "自我沉降",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHAFT_SELF; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.shroud_of_golubria",
+      "context": "法术名称（法术列表）",
+      "en": "Shroud of Golubria",
+      "zh": "戈卢布里亚之幕",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SHROUD_OF_GOLUBRIA; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.silver_blast",
+      "context": "法术名称（法术列表）",
+      "en": "Silver Blast",
+      "zh": "银色爆裂",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SILVER_BLAST; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.singularity",
+      "context": "法术名称（法术列表）",
+      "en": "Singularity",
+      "zh": "奇点",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SINGULARITY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.song_of_shielding",
+      "context": "法术名称（法术列表）",
+      "en": "Song of Shielding",
+      "zh": "护盾之歌",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SONG_OF_SHIELDING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.spectral_weapon",
+      "context": "法术名称（法术列表）",
+      "en": "Spectral Weapon",
+      "zh": "幽魂武器",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SPECTRAL_WEAPON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.stoneskin",
+      "context": "法术名称（法术列表）",
+      "en": "Stoneskin",
+      "zh": "石肤",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STONESKIN; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_butterflies",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Butterflies",
+      "zh": "召唤蝴蝶",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_BUTTERFLIES; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_elemental",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Elemental",
+      "zh": "召唤元素",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_ELEMENTAL; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_rakshasa",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Rakshasa",
+      "zh": "召唤罗刹",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_RAKSHASA; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_twister",
+      "context": "法术名称（法术列表）",
+      "en": "Summon Twister",
+      "zh": "召唤龙卷风",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_TWISTER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sunray",
+      "context": "法术名称（法术列表）",
+      "en": "Sunray",
+      "zh": "阳光射线",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUNRAY; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sure_blade",
+      "context": "法术名称（法术列表）",
+      "en": "Sure Blade",
+      "zh": "必中刀刃",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SURE_BLADE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.throw",
+      "context": "法术名称（法术列表）",
+      "en": "Throw",
+      "zh": "投掷",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_THROW; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.vampire_summon",
+      "context": "法术名称（法术列表）",
+      "en": "Vampire Summon",
+      "zh": "吸血鬼召唤",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_VAMPIRE_SUMMON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.warp_brand",
+      "context": "法术名称（法术列表）",
+      "en": "Warp Weapon",
+      "zh": "扭曲武器",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_WARP_BRAND; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.weave_shadows",
+      "context": "法术名称（法术列表）",
+      "en": "Weave Shadows",
+      "zh": "编织暗影",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_WEAVE_SHADOWS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.striking",
+      "context": "法术名称（法术列表）",
+      "en": "Striking",
+      "zh": "打击",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STRIKING; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.resurrect",
+      "context": "法术名称（法术列表）",
+      "en": "Resurrect",
+      "zh": "复活",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_RESURRECT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.holy_word",
+      "context": "法术名称（法术列表）",
+      "en": "Holy word",
+      "zh": "圣言",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HOLY_WORD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.sacrifice",
+      "context": "法术名称（法术列表）",
+      "en": "Sacrifice",
+      "zh": "献祭",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SACRIFICE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.miasma_cloud",
+      "context": "法术名称（法术列表）",
+      "en": "Miasma cloud",
+      "zh": "瘴气云",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_MIASMA_CLOUD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.poison_cloud",
+      "context": "法术名称（法术列表）",
+      "en": "Poison cloud",
+      "zh": "毒云",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_POISON_CLOUD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.fire_cloud",
+      "context": "法术名称（法术列表）",
+      "en": "Fire cloud",
+      "zh": "火云",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FIRE_CLOUD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.steam_cloud",
+      "context": "法术名称（法术列表）",
+      "en": "Steam cloud",
+      "zh": "蒸汽云",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STEAM_CLOUD; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.homunculus",
+      "context": "法术名称（法术列表）",
+      "en": "Homunculus",
+      "zh": "人造人",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HOMUNCULUS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.serpent_of_hell_breath_removed",
+      "context": "法术名称（法术列表）",
+      "en": "Old serpent of hell breath",
+      "zh": "旧版地狱蛇吐息",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SERPENT_OF_HELL_BREATH_REMOVED; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.scattershot",
+      "context": "法术名称（法术列表）",
+      "en": "Scattershot",
+      "zh": "散射",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SCATTERSHOT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.summon_swarm",
+      "context": "法术名称（法术列表）",
+      "en": "Summon swarm",
+      "zh": "召唤虫群",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SUMMON_SWARM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.cloud_cone",
+      "context": "法术名称（法术列表）",
+      "en": "Cloud Cone",
+      "zh": "锥形云雾",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CLOUD_CONE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ring_of_thunder",
+      "context": "法术名称（法术列表）",
+      "en": "Ring of Thunder",
+      "zh": "雷霆之环",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_RING_OF_THUNDER; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.twisted_resurrection",
+      "context": "法术名称（法术列表）",
+      "en": "Twisted Resurrection",
+      "zh": "扭曲复活",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_TWISTED_RESURRECTION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.random_effects",
+      "context": "法术名称（法术列表）",
+      "en": "Random Effects",
+      "zh": "随机效果",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_RANDOM_EFFECTS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.hydra_form",
+      "context": "法术名称（法术列表）",
+      "en": "Hydra Form",
+      "zh": "九头蛇形态",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_HYDRA_FORM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.vortex",
+      "context": "法术名称（法术列表）",
+      "en": "Vortex",
+      "zh": "漩涡",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_VORTEX; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.goad_beasts",
+      "context": "法术名称（法术列表）",
+      "en": "Goad Beasts",
+      "zh": "激怒野兽",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_GOAD_BEASTS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.teleport_self",
+      "context": "法术名称（法术列表）",
+      "en": "Teleport Self",
+      "zh": "自我传送",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_TELEPORT_SELF; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.tomb_of_doroklohe",
+      "context": "法术名称（法术列表）",
+      "en": "Tomb of Doroklohe",
+      "zh": "多罗克洛赫之墓",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_TOMB_OF_DOROKLOHE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.excruciating_wounds",
+      "context": "法术名称（法术列表）",
+      "en": "Excruciating Wounds",
+      "zh": "剧痛创伤",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_EXCRUCIATING_WOUNDS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.conjure_flame",
+      "context": "法术名称（法术列表）",
+      "en": "Conjure Flame",
+      "zh": "召唤火焰",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CONJURE_FLAME; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.corpse_rot",
+      "context": "法术名称（法术列表）",
+      "en": "Corpse Rot",
+      "zh": "尸体腐烂",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_CORPSE_ROT; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.flame_tongue",
+      "context": "法术名称（法术列表）",
+      "en": "Flame Tongue",
+      "zh": "火焰舌",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_FLAME_TONGUE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.beastly_appendage",
+      "context": "法术名称（法术列表）",
+      "en": "Beastly Appendage",
+      "zh": "野兽附肢",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BEASTLY_APPENDAGE; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.spider_form",
+      "context": "法术名称（法术列表）",
+      "en": "Spider Form",
+      "zh": "蜘蛛形态",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_SPIDER_FORM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.ice_form",
+      "context": "法术名称（法术列表）",
+      "en": "Ice Form",
+      "zh": "冰霜形态",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ICE_FORM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.blade_hands",
+      "context": "法术名称（法术列表）",
+      "en": "Blade Hands",
+      "zh": "刀刃之手",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_BLADE_HANDS; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.statue_form",
+      "context": "法术名称（法术列表）",
+      "en": "Statue Form",
+      "zh": "石像形态",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STATUE_FORM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.storm_form",
+      "context": "法术名称（法术列表）",
+      "en": "Storm Form",
+      "zh": "风暴形态",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_STORM_FORM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.dragon_form",
+      "context": "法术名称（法术列表）",
+      "en": "Dragon Form",
+      "zh": "巨龙形态",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DRAGON_FORM; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.necromutation",
+      "context": "法术名称（法术列表）",
+      "en": "Necromutation",
+      "zh": "死灵转化",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_NECROMUTATION; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.awaken_earth",
+      "context": "法术名称（法术列表）",
+      "en": "Awaken Earth",
+      "zh": "唤醒大地",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_AWAKEN_EARTH; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.animate_skeleton",
+      "context": "法术名称（法术列表）",
+      "en": "Animate Skeleton",
+      "zh": "活化骷髅",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_ANIMATE_SKELETON; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.name.drain_magic",
+      "context": "法术名称（法术列表）",
+      "en": "Drain Magic",
+      "zh": "汲取魔力",
+      "params": {},
+      "source": {
+        "file": "spl-data.h",
+        "anchor": "SPELL_DRAIN_MAGIC; exact spelldata title atom"
+      }
+    },
+    {
+      "id": "spell.school.evocations",
+      "context": "法术学派名称",
+      "en": "Evocations",
+      "zh": "唤灵术",
+      "params": {},
+      "source": {
+        "file": "describe-spells.cc",
+        "anchor": "_describe_book TAG_MAJOR_VERSION==34 rods school label"
+      }
+    },
+    {
+      "id": "spellset.effect.immune",
+      "context": "法术列表：免疫效果值",
+      "en": "(immune)",
+      "zh": "（免疫）",
+      "params": {},
+      "source": {
+        "file": "describe-spells.cc",
+        "anchor": "_effect_string WL_check branch when player is immune; exact effect token"
+      }
+    },
+    {
+      "id": "spellset.effect.mp",
+      "context": "法术列表：魔力数值效果",
+      "en": "{amount} MP",
+      "zh": "{amount} 魔力",
+      "params": {
+        "amount": "text"
+      },
+      "source": {
+        "file": "describe-spells.cc",
+        "anchor": "_effect_string ANTIMAGIC_GAZE; amount is pow/8 formatted as a decimal integer"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "spellset.spell.row",
+      "args": {
+        "letter": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        },
+        "marker": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "name": {
+          "type": "name",
+          "canonical": "Fireball",
+          "localized": "火球"
+        },
+        "effect": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "spacing": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "range": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        }
+      },
+      "canonical": "a - Fireball",
+      "zh": "a - 火球"
+    },
+    {
+      "id": "spellset.table.row",
+      "args": {
+        "schools": {
+          "type": "text",
+          "canonical": "Conjurations/Fire",
+          "localized": "塑能/火焰"
+        },
+        "level": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        },
+        "known": {
+          "type": "text",
+          "canonical": "         yes",
+          "localized": "         是"
+        }
+      },
+      "canonical": "Conjurations/Fire5         yes\n",
+      "zh": "塑能/火焰5         是\n"
+    },
+    {
+      "id": "spellset.header.wizard",
+      "args": {
+        "verb": {
+          "type": "text",
+          "canonical": "have",
+          "localized": "掌握"
+        },
+        "vulnerability": {
+          "type": "text",
+          "canonical": ", which are affected by silence and antimagic",
+          "localized": "（会受到沉默和反魔法影响）"
+        }
+      },
+      "canonical": "have mastered the following spells, which are affected by silence and antimagic:",
+      "zh": "掌握以下法术（会受到沉默和反魔法影响）："
+    },
+    {
+      "id": "spell.name.fireball",
+      "args": {},
+      "canonical": "Fireball",
+      "zh": "火球"
+    }
+  ]
+}

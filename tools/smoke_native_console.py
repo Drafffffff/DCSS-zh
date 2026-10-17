@@ -3,7 +3,8 @@
 import argparse,fcntl,json,os,pty,re,select,signal,struct,tempfile,termios,time
 from pathlib import Path
 p=argparse.ArgumentParser();p.add_argument('binary');p.add_argument('--data',required=True);p.add_argument('--out',required=True)
-p.add_argument('--locale',default='en_US.UTF-8');p.add_argument('--extended',action='store_true');p.add_argument('--species',default='Mi');p.add_argument('--background',default='Be');a=p.parse_args()
+p.add_argument('--fixture-out',type=Path);p.add_argument('--locale',default='en_US.UTF-8');p.add_argument('--extended',action='store_true');p.add_argument('--species',default='Mi');p.add_argument('--background',default='Be');a=p.parse_args()
+a.binary=str(Path(a.binary).resolve())
 out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
 trace=out.resolve()/'trace.jsonl'
 if a.extended: trace.unlink(missing_ok=True)
@@ -76,6 +77,11 @@ end
     if not result[0]:
         os.kill(pid,signal.SIGTERM);os.waitpid(pid,0)
     os.close(fd)
+    if a.fixture_out and saved:
+        import shutil
+        a.fixture_out.mkdir(parents=True,exist_ok=True)
+        for fixture in (state/'saves').glob('*.cs'):
+            shutil.copy2(fixture,a.fixture_out/fixture.name)
     text=buf.decode('utf-8','replace');(out/'console-raw.txt').write_text(text)
     (out/'frames.json').write_text(json.dumps(frames,indent=2)+'\n')
     clean=re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]|\x1b[()][A-Z0-9]|\x1b[=>]|\r','',text)

@@ -7,10 +7,13 @@
 #include "cio.h"
 #include "describe.h"
 #include "libutil.h"
+#include "message.h"
 #include "options.h"
 #include "output.h"
 #include "skills.h"
 #include "stringutil.h"
+#include "zh-localization.h"
+#include "zh-message.h"
 #include "tile-inventory-flags.h"
 #include "rltiles/tiledef-icons.h"
 #include "tilepick.h"
@@ -42,15 +45,18 @@ void SkillRegion::draw_tag()
     const skill_type skill = (skill_type) idx;
     const int apt          = species_apt(skill, you.species);
 
-    string progress = "";
+    const string skill_en = skill_name(skill);
+    const auto skill_arg = zh_glossary_name("skill", "skill.name", skill_en);
+    const double level = you.skill(skill, 10) / 10.0;
+    const string canonical = make_stringf("%-14s Skill %4.1f Aptitude %c%d",
+                                          skill_en.c_str(), level,
+                                          apt > 0 ? '+' : ' ', apt);
+    const string desc = zh_message("skill.tile.tag", {
+        skill_arg, zh_number("level", level),
+        zh_text("apt_sign", apt > 0 ? "+" : " ", apt > 0 ? "+" : " "),
+        zh_integer("apt", apt)}, canonical).display();
 
-    string desc = make_stringf("%-14s Skill %4.1f Aptitude %c%d",
-                               skill_name(skill),
-                               you.skill(skill, 10) / 10.0,
-                               apt > 0 ? '+' : ' ',
-                               apt);
-
-    draw_desc(desc.c_str());
+    draw_desc(desc.c_str(), true);
 }
 
 int SkillRegion::handle_mouse(wm_mouse_event &event)
@@ -72,11 +78,11 @@ int SkillRegion::handle_mouse(wm_mouse_event &event)
 #endif
         m_last_clicked_item = item_idx;
         if (!you.can_currently_train[skill])
-            mpr("You cannot train this skill.");
+            mpr(zh_message("skill.tile.error.cannot_train"), MSGCH_PLAIN, 0);
         else if (you.has_mutation(MUT_DISTRIBUTED_TRAINING))
-            mpr("You can't change your training allocations!");
+            mpr(zh_message("skill.tile.error.distributed"), MSGCH_PLAIN, 0);
         else if (you.skills[skill] >= 27)
-            mpr("There's no point to toggling this skill anymore.");
+            mpr(zh_message("skill.tile.error.maxed"), MSGCH_PLAIN, 0);
         else
         {
             tiles.set_need_redraw();
@@ -103,9 +109,10 @@ int SkillRegion::handle_mouse(wm_mouse_event &event)
 
 bool SkillRegion::update_tab_tip_text(string &tip, bool active)
 {
-    const char *prefix = active ? "" : "[L-Click] ";
-
-    tip = make_stringf("%s%s", prefix, "Manage skills");
+    const string hint = active ? "" : "[L-Click] ";
+    const string hint_zh = active ? "" : "[左键] ";
+    tip = zh_message("skill.tile.tab.manage", {
+        zh_text("hint", hint, hint_zh)}).display();
 
     return true;
 }
@@ -121,23 +128,24 @@ bool SkillRegion::update_tip_text(string& tip)
 
     const int flag = m_items[item_idx].flag;
     if (flag & TILEI_FLAG_INVALID)
-        tip = "You cannot train this skill now.";
+        tip = zh_message("skill.tile.error.cannot_train").display();
     else if (!you.has_mutation(MUT_DISTRIBUTED_TRAINING))
     {
         const skill_type skill = (skill_type) m_items[item_idx].idx;
 
-        tip = "[L-Click] ";
+        tip = zh_language_enabled() ? "[左键] " : "[L-Click] ";
         if (you.train[skill])
-            tip += "Disable training";
+            tip += zh_message("skill.tile.action.disable").display();
         else
-            tip += "Enable training";
+            tip += zh_message("skill.tile.action.enable").display();
     }
 #ifdef WIZARD
     if (you.wizard)
-        tip += "\n[Ctrl + L-Click] Change skill level (wizmode)";
+        tip += "\n" + zh_message("skill.tile.action.wizard").display();
 #endif
 
-    tip += "\n[R-Click] Describe";
+    tip += zh_language_enabled() ? "\n[右键] " : "\n[R-Click] ";
+    tip += zh_message("skill.tile.action.describe").display();
 
     return true;
 }
@@ -165,7 +173,9 @@ bool SkillRegion::update_alt_text(string &alt)
     // TODO: Nicer display for level, aptitude and crosstraining.
     inf.body << get_skill_description(skill, true);
 
-    alt = process_description(inf);
+    // get_skill_description has already selected the skill database language
+    // and its generated suffixes are named messages; keep this tooltip raw.
+    alt = trimmed_string(inf.body.str());
     return true;
 }
 

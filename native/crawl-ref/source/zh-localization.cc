@@ -9,12 +9,16 @@
 #include <cctype>
 #include <fstream>
 #include <regex>
+#include <stdexcept>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
 namespace {
 thread_local int pause_depth = 0;
+thread_local int legacy_pause_depth = 0;
+thread_local std::vector<std::string> legacy_guards;
+thread_local unsigned background_depth = 0;
 struct ZhEntry { const char *en; const char *zh; };
 #include "zh-catalog.inc"
 const std::regex printf_token("%([-+#0]*)([0-9]+|\\*)?(\\.([0-9]+|\\*))?(hh|ll|[hljztL])?([diuoxXfFeEgGaAcspn%])");
@@ -472,7 +476,22 @@ std::string zh_lookup_exact(const std::string &text) {
 bool zh_language_enabled() { return enabled(); }
 bool zh_translation_paused() { return pause_depth != 0; }
 std::string zh_translate(const std::string &text) {
-    if (!enabled() || text.empty()) return text;
+    if (!enabled() || legacy_pause_depth
+        || text.find_first_not_of(" \t\n\r") == std::string::npos) return text;
+    if (!background_depth && !legacy_guards.empty() && std::getenv("DCSS_ZH_FORBID_LEGACY"))
+    {
+        if (const char *path = std::getenv("DCSS_ZH_ID_MISSING"))
+            if (*path)
+            {
+                std::ofstream out(path, std::ios::app);
+                out << legacy_guards.back() << "\tlegacy renderer reached\t";
+                for (char c : text)
+                    out << (c == '\n' || c == '\r' || c == '\t' ? ' ' : c);
+                out << '\n';
+            }
+        throw std::logic_error("Legacy translation reached migrated boundary: "
+                               + legacy_guards.back() + ": " + text);
+    }
     static Catalog catalog;
     const auto result = catalog.lookup(text, 0);
     catalog.trace(text, result);
@@ -481,3 +500,22 @@ std::string zh_translate(const std::string &text) {
 
 ZhTranslationPause::ZhTranslationPause() { ++pause_depth; }
 ZhTranslationPause::~ZhTranslationPause() { --pause_depth; }
+ZhLegacyPause::ZhLegacyPause() { ++legacy_pause_depth; }
+ZhLegacyPause::~ZhLegacyPause() { --legacy_pause_depth; }
+
+ZhLegacyGuard::ZhLegacyGuard(const char *context)
+{
+    legacy_guards.emplace_back(context ? context : "unspecified");
+    if (const char *path = std::getenv("DCSS_ZH_BOUNDARY_TRACE"))
+        if (*path)
+        {
+            std::ofstream out(path, std::ios::app);
+            out << legacy_guards.back() << "\tenter\n";
+        }
+}
+ZhLegacyGuard::~ZhLegacyGuard()
+{
+    legacy_guards.pop_back();
+}
+ZhLegacyBackground::ZhLegacyBackground() { ++background_depth; }
+ZhLegacyBackground::~ZhLegacyBackground() { --background_depth; }

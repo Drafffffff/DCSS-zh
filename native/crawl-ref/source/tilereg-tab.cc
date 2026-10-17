@@ -407,6 +407,20 @@ bool TabbedRegion::update_alt_text(string &alt)
     return get_tab_region(active_tab())->update_alt_text(alt);
 }
 
+bool TabbedRegion::tip_text_pretranslated() const
+{
+    if (!active_is_valid())
+        return false;
+    const int index = m_mouse_tab != -1 ? m_mouse_tab : active_tab();
+    return m_tabs[index].reg->tip_text_pretranslated();
+}
+
+bool TabbedRegion::alt_text_pretranslated() const
+{
+    return active_is_valid()
+        && m_tabs[active_tab()].reg->alt_text_pretranslated();
+}
+
 int TabbedRegion::find_tab(string tab_name) const
 {
     lowercase(tab_name);

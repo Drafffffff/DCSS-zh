@@ -32,6 +32,7 @@
 #include "tag-version.h"
 #include "tileweb.h"
 #include "unicode.h"
+#include "zh-message.h"
 #ifdef USE_TILE
  #include "tilepick.h"
 #endif
@@ -97,18 +98,22 @@ static const char* _abil_type_vuln_core(bool silencable, bool antimagicable)
  * @param type              The type of spell-ability; e.g. MON_SPELL_MAGICAL.
  * @return                  A description of the spell's vulnerabilities.
  */
-static string _ability_type_vulnerabilities(mon_spell_slot_flag type)
+static ZhMessage _ability_type_vulnerabilities(mon_spell_slot_flag type)
 {
     if (type == MON_SPELL_NATURAL)
-        return "";
+        return {"spellset.ability.vulnerability", "", ""};
     const bool silencable = type == MON_SPELL_WIZARD
                             || type == MON_SPELL_PRIEST
                             || type == MON_SPELL_VOCAL;
     const bool antimagicable = type == MON_SPELL_WIZARD
                                || type == MON_SPELL_MAGICAL;
     ASSERT(silencable || antimagicable);
-    return make_stringf(", which are affected by %s",
-                        _abil_type_vuln_core(silencable, antimagicable));
+    const string effects = _abil_type_vuln_core(silencable, antimagicable);
+    const string localized = !silencable ? "反魔法（不包括沉默）" :
+        !antimagicable ? "沉默" : "沉默和反魔法";
+    return zh_message("spellset.ability.vulnerability",
+        {zh_text("effects", effects, localized)},
+        make_stringf(", which are affected by %s", effects.c_str()));
 }
 
 /**
@@ -120,30 +125,37 @@ static string _ability_type_vulnerabilities(mon_spell_slot_flag type)
  *                          "has mastered one of the following spellbooks:"
  *                          "possesses the following natural abilities:"
  */
-static string _booktype_header(mon_spell_slot_flag type, bool pronoun_plural)
+static ZhMessage _booktype_header(mon_spell_slot_flag type, bool pronoun_plural)
 {
     if (type == MON_SPELL_EVOKE)
     {
-        return make_stringf("%s the following wand spells:",
-                            conjugate_verb("possess", pronoun_plural).c_str());
+        const string verb = conjugate_verb("possess", pronoun_plural);
+        return zh_message("spellset.header.wand",
+            {zh_text("verb", verb, "可施放")},
+            verb + " the following wand spells:");
     }
-
-    const string vulnerabilities = _ability_type_vulnerabilities(type);
+    const ZhMessage vulnerability = _ability_type_vulnerabilities(type);
 
     if (type == MON_SPELL_WIZARD)
     {
-        return make_stringf("%s mastered %s%s:",
-                            conjugate_verb("have", pronoun_plural).c_str(),
-                            "the following spells",
-                            vulnerabilities.c_str());
+        const string verb = conjugate_verb("have", pronoun_plural);
+        return zh_message("spellset.header.wizard",
+            {zh_text("verb", verb, "掌握"),
+             zh_text("vulnerability", vulnerability.canonical,
+                     vulnerability.localized)},
+            verb + " mastered the following spells" + vulnerability.canonical + ":");
     }
 
     const string descriptor = _ability_type_descriptor(type);
-
-    return make_stringf("%s the following %s abilities%s:",
-                        conjugate_verb("possess", pronoun_plural).c_str(),
-                        descriptor.c_str(),
-                        vulnerabilities.c_str());
+    const string localized_descriptor = type == MON_SPELL_NATURAL ? "自然" :
+        type == MON_SPELL_PRIEST ? "神圣" : type == MON_SPELL_MAGICAL ? "魔法" : "异常";
+    const string verb = conjugate_verb("possess", pronoun_plural);
+    return zh_message("spellset.header.ability",
+        {zh_text("verb", verb, "拥有"),
+         zh_text("descriptor", descriptor, localized_descriptor),
+         zh_text("vulnerability", vulnerability.canonical,
+                 vulnerability.localized)},
+        verb + " the following " + descriptor + " abilities" + vulnerability.canonical + ":");
 }
 
 /**
@@ -166,9 +178,12 @@ static void _monster_spellbooks(const monster_info &mi,
 
     spellbook_contents output_book;
 
-    output_book.label += make_stringf("\n%s %s",
-        uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE)).c_str(),
-        _booktype_header(type, mi.pronoun_plurality()).c_str());
+    const string actor = uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE));
+    const ZhMessage header = _booktype_header(type, mi.pronoun_plurality());
+    output_book.label += zh_message("spellset.book.label",
+        {zh_text("actor", actor, mi.pronoun_plurality() ? "它们" : "它"),
+         zh_text("header", header.canonical, header.localized)},
+        "\n" + actor + " " + header.canonical).display();
 
     // Does the monster have a spell that allows them to cast Abjuration?
     bool mons_abjure = false;
@@ -205,9 +220,13 @@ static void _monster_wand_spellbook(const monster_info &mi,
 
     spellbook_contents book;
 
-    book.label += make_stringf("\n%s %s",
-        uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE)).c_str(),
-        _booktype_header(MON_SPELL_EVOKE, mi.pronoun_plurality()).c_str());
+    const string actor = uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE));
+    const ZhMessage header = _booktype_header(MON_SPELL_EVOKE,
+                                              mi.pronoun_plurality());
+    book.label += zh_message("spellset.book.label",
+        {zh_text("actor", actor, mi.pronoun_plurality() ? "它们" : "它"),
+         zh_text("header", header.canonical, header.localized)},
+        "\n" + actor + " " + header.canonical).display();
 
     book.is_wand = true;
     book.spells.emplace_back(wand_spell);
@@ -335,6 +354,29 @@ static string _spell_schools(spell_type spell)
     }
 
     return schools;
+}
+
+static ZhArg _spell_schools_arg(spell_type spell)
+{
+    string canonical;
+    string localized;
+    bool supported = true;
+    for (const auto school_flag : spschools_type::range())
+    {
+        if (!spell_typematch(spell, school_flag))
+            continue;
+        const string name = spelltype_long_name(school_flag);
+        const ZhArg atom = zh_glossary_name("school", "spell.school", name);
+        if (!canonical.empty())
+        {
+            canonical += "/";
+            localized += "/";
+        }
+        canonical += atom.canonical;
+        localized += atom.localized;
+        supported = supported && atom.supported;
+    }
+    return {"schools", ZhArgType::Text, canonical, localized, supported};
 }
 
 /**
@@ -621,17 +663,19 @@ static void _describe_book(const spellbook_contents &book,
 {
     description.textcolour(LIGHTGREY);
 
-    description.cprintf("%s", book.label.c_str());
+    description += formatted_string::parse_string_raw(book.label);
 
     // only display header for book spells
     if (source_item)
     {
-        description.cprintf(
-            "\n Spells                              Type                    Level");
-        if (crawl_state.need_save)
-            description.cprintf("       Known");
+        const string known = crawl_state.need_save ? "       Known" : "";
+        const string localized_known = crawl_state.need_save ? "        已知" : "";
+        description += formatted_string::parse_string_raw(zh_message(
+            "spellset.table.header",
+            {zh_text("known", known, localized_known)},
+            "\n Spells                              Type                    Level" + known).display());
     }
-    description.cprintf("\n");
+    description += formatted_string::parse_string_raw("\n");
 
     // list spells in two columns, instead of one? (monster books)
     const bool doublecolumn = source_item == nullptr;
@@ -640,7 +684,7 @@ static void _describe_book(const spellbook_contents &book,
     const int hd = mon_owner ? mon_owner->spell_hd() : 0;
     for (auto spell : book.spells)
     {
-        description.cprintf(" ");
+        description += formatted_string::parse_string_raw(" ");
 
         if (!mon_owner)
             description.textcolour(_spell_colour(spell, source_item));
@@ -656,6 +700,15 @@ static void _describe_book(const spellbook_contents &book,
 
         const string range_str = _range_string(spell, mon_owner, hd);
         string effect_str = _effect_string(spell, mon_owner, book.is_wand);
+        string localized_effect_str = effect_str;
+        if (effect_str == "(immune)")
+            localized_effect_str = zh_message("spellset.effect.immune", {}, effect_str).display();
+        else if (ends_with(effect_str, " MP"))
+        {
+            const string amount = effect_str.substr(0, effect_str.size() - 3);
+            localized_effect_str = zh_message("spellset.effect.mp",
+                {zh_text("amount", amount, amount)}, effect_str).display();
+        }
 
         const string dith_marker = mon_owner
                                    && crawl_state.need_save
@@ -673,31 +726,52 @@ static void _describe_book(const spellbook_contents &book,
                                 - (dith_marker.length() > 0 ? 1 : 0);
 
         if (effect_len && !testbits(get_spell_flags(spell), spflag::WL_check))
+        {
             effect_str = colourize_str(effect_str, _spell_colour(spell));
+            localized_effect_str = colourize_str(localized_effect_str,
+                                                  _spell_colour(spell));
+        }
 
-        string spell_name = spell_title(spell);
+        ZhArg name = zh_glossary_name("name", "spell.name", spell_title(spell));
+        string canonical_name = name.canonical;
+        string localized_name = name.localized;
         if (spell == SPELL_LEHUDIBS_CRYSTAL_SPEAR
-            && chop_len < (int)spell_name.length())
+            && chop_len < strwidth(localized_name))
         {
             // looks nicer than Lehudib's Crystal S
-            spell_name = "Crystal Spear";
+            const ZhArg short_name = zh_glossary_name("name", "spell.name",
+                                                       "Crystal Spear");
+            canonical_name = short_name.canonical;
+            localized_name = short_name.localized;
+            name.supported = name.supported && short_name.supported;
         }
-        description += formatted_string::parse_string(
-                make_stringf("%c - %s%s%s%s%s", spell_letter,
-                             dith_marker.c_str(),
-                             chop_string(spell_name, chop_len).c_str(),
-                             effect_str.c_str(),
-                             effect_range_space ? " " : "",
-                             range_str.c_str()));
+        canonical_name = chop_string(canonical_name, chop_len);
+        localized_name = chop_string(localized_name, chop_len);
+        name.canonical = canonical_name;
+        name.localized = localized_name;
+        const string marker = dith_marker;
+        const string spacing = effect_range_space ? " " : "";
+        const string canonical_row = make_stringf("%c - %s%s%s%s%s", spell_letter,
+            marker.c_str(), canonical_name.c_str(), effect_str.c_str(),
+            spacing.c_str(), range_str.c_str());
+        description += formatted_string::parse_string_raw(zh_message(
+            "spellset.spell.row",
+            {zh_key("letter", string(1, spell_letter)),
+             ZhArg("marker", ZhArgType::Text, marker, marker), name,
+             ZhArg("effect", ZhArgType::Text, effect_str,
+                   localized_effect_str),
+             ZhArg("spacing", ZhArgType::Text, spacing, spacing),
+             ZhArg("range", ZhArgType::Text, range_str, range_str)},
+            canonical_row).display());
 
         // only display type & level for book spells
         if (doublecolumn)
         {
             // print monster spells in two columns
             if (first_line_element)
-                description.cprintf("    ");
+                description += formatted_string::parse_string_raw("    ");
             else
-                description.cprintf("\n");
+                description += formatted_string::parse_string_raw("\n");
             first_line_element = !first_line_element;
             continue;
         }
@@ -713,15 +787,29 @@ static void _describe_book(const spellbook_contents &book,
         if (!mon_owner && crawl_state.need_save)
             known = you.spell_library[spell] ? "         yes" : "          no";
 
-        description.cprintf("%s%d%s\n",
-                            chop_string(schools, 28).c_str(),
-                            spell_difficulty(spell),
-                            known.c_str());
+        const string chopped_schools = chop_string(schools, 28);
+        ZhArg school_arg = _spell_schools_arg(spell);
+#if TAG_MAJOR_VERSION == 34
+        if (source_item->base_type == OBJ_RODS)
+            school_arg = zh_glossary_name("school", "spell.school", "Evocations");
+#endif
+        const string localized_schools = chop_string(school_arg.localized, 28);
+        const string canonical_known = known;
+        const string localized_known = !mon_owner && crawl_state.need_save
+            ? (you.spell_library[spell] ? "          是" : "          否") : "";
+        description += formatted_string::parse_string_raw(zh_message(
+            "spellset.table.row",
+            {ZhArg("schools", ZhArgType::Text, chopped_schools,
+                   localized_schools, school_arg.supported),
+             zh_integer("level", spell_difficulty(spell)),
+             zh_text("known", canonical_known, localized_known)},
+            chopped_schools + make_stringf("%d", spell_difficulty(spell))
+                + canonical_known + "\n").display());
     }
 
     // are we halfway through a column?
     if (doublecolumn && book.spells.size() % 2)
-        description.cprintf("\n");
+        description += formatted_string::parse_string_raw("\n");
 }
 
 

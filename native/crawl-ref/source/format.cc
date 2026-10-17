@@ -69,6 +69,23 @@ void display_tagged_block(const string &s)
     }
 }
 
+void display_tagged_block_raw(const string &s)
+{
+    vector<formatted_string> lines;
+    formatted_string::parse_string_to_multiple_raw(s, lines);
+
+    int x = wherex();
+    int y = wherey();
+    const unsigned int max_y = cgetsize(GOTO_CRT).y;
+    const int size = min<unsigned int>(lines.size(), max_y - y + 1);
+    for (int i = 0; i < size; ++i)
+    {
+        cgotoxy(x, y);
+        lines[i].display();
+        y++;
+    }
+}
+
 /**
  * Take a string and turn it into a formatted_string.
  *
@@ -79,6 +96,12 @@ void display_tagged_block(const string &s)
 formatted_string formatted_string::parse_string(const string &s,
                                                 int main_colour)
 {
+    return parse_string_raw(zh_translate(s), main_colour);
+}
+
+formatted_string formatted_string::parse_string_raw(const string &s,
+                                                    int main_colour)
+{
     // main_colour will usually be LIGHTGREY (default).
     vector<int> colour_stack(1, main_colour);
     // background will not change anything by default
@@ -86,7 +109,7 @@ formatted_string formatted_string::parse_string(const string &s,
 
     formatted_string fs;
 
-    parse_string1(zh_translate(s), fs, colour_stack, bg_stack);
+    parse_string1(s, fs, colour_stack, bg_stack);
     if (colour_stack.back() != colour_stack.front())
         fs.textcolour(colour_stack.front()); // XXX: this does nothing
     // if the bg colours are unbalanced, reset to black
@@ -101,10 +124,17 @@ void formatted_string::parse_string_to_multiple(const string &s,
                                                 vector<formatted_string> &out,
                                                 int wrap_col)
 {
+    parse_string_to_multiple_raw(zh_translate(s), out, wrap_col);
+}
+
+void formatted_string::parse_string_to_multiple_raw(const string &s,
+                                                    vector<formatted_string> &out,
+                                                    int wrap_col)
+{
     vector<int> colour_stack(1, LIGHTGREY);
     vector<int> bg_stack(1, BLACK);
 
-    vector<string> lines = split_string("\n", zh_translate(s), false, true);
+    vector<string> lines = split_string("\n", s, false, true);
     if (wrap_col > 0)
     {
         vector<string> pre_split = std::move(lines);
@@ -144,7 +174,7 @@ void formatted_string::parse_string1(const string &s, formatted_string &fs,
                                      vector<int> &colour_stack,
                                      vector<int> &bg_stack)
 {
-    ZhTranslationPause localized_text;
+    ZhLegacyPause localized_text;
     // FIXME: This is a lame mess, just good enough for the task on hand
     // (keyboard help).
     string::size_type tag    = string::npos;
@@ -411,7 +441,7 @@ void formatted_string::display(int s, int e) const
 {
     // Text was localized before parsing and measuring. Rendering a second
     // time could translate search keys or split an already translated phrase.
-    ZhTranslationPause localized_text;
+    ZhLegacyPause localized_text;
     int size = ops.size();
     if (!size)
         return;

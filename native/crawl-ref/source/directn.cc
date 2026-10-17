@@ -2452,6 +2452,10 @@ public:
 
     void _render() override
     {
+        // A detail popup can repaint its parent targeting view. Its older
+        // hints are background UI, not text produced by the detail popup.
+        // This only isolates the development boundary assertion.
+        ZhLegacyBackground targeting_background;
         if (crawl_state.invisible_targeting)
             return;
 

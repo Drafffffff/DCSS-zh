@@ -1,0 +1,304 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "shopping_list.title",
+      "context": "购物清单菜单标题完整句",
+      "en": "Shopping list: {count} {item}{plural}, total cost {cost} gold pieces",
+      "zh": "购物清单：{count}{item}{plural}，总价{cost}枚金币",
+      "params": {
+        "count": "integer",
+        "item": "text",
+        "plural": "text",
+        "cost": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShoppingListMenu::calc_title; title quantity/text and SHOPPING_LIST_COST_KEY"
+      }
+    },
+    {
+      "id": "shopping_list.entry",
+      "context": "购物清单条目；place 包含位置对齐空格，item 未鉴定时保留遮蔽",
+      "en": "{place}{cost} gold  {item}",
+      "zh": "{place}{cost}枚金币  {item}",
+      "params": {
+        "place": "key",
+        "cost": "integer",
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShoppingList::fill_out_menu; describe_thing_pos, thing_cost, name_thing"
+      }
+    },
+    {
+      "id": "shop.purchase.insufficient",
+      "context": "购买余额不足提示",
+      "en": "You don't have enough money.",
+      "zh": "你的钱不够。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::purchase_selected; cost exceeds gold and voucher cannot cover"
+      }
+    },
+    {
+      "id": "shop.purchase.confirm",
+      "context": "购买确认完整句；confirm 是根据 easy_confirm 生成的 Y/y",
+      "en": "Purchase items{list_suffix} for {cost} gold? {voucher_notice} ({confirm}/N)",
+      "zh": "要花{cost}枚金币购买{list_suffix}吗？{voucher_notice}（{confirm}/N）",
+      "params": {
+        "list_suffix": "text",
+        "cost": "integer",
+        "voucher_notice": "text",
+        "confirm": "key"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::purchase_selected; buying_from_list, cost, too_expensive, easy_confirm key"
+      }
+    },
+    {
+      "id": "shopping_list.error.already",
+      "context": "重复加入购物清单提示",
+      "en": "{item} is already on the shopping list.",
+      "zh": "{item}已在购物清单中。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShoppingList::add_thing; item.name(DESC_THE)"
+      }
+    },
+    {
+      "id": "shopping_list.error.missing",
+      "context": "删除不存在条目提示",
+      "en": "{item} isn't on shopping list, can't delete it.",
+      "zh": "购物清单中没有{item}，无法删除。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShoppingList::del_thing(item/string); item.name(DESC_THE) or desc"
+      }
+    },
+    {
+      "id": "shopping_list.replace.prompt",
+      "context": "替换更便宜条目的确认提示",
+      "en": "Shopping list: replace {cost}gp {item} with cheaper one? (Y/n)",
+      "zh": "购物清单：要用更便宜的条目替换{cost}金币的{item}吗？(Y/n)",
+      "params": {
+        "cost": "integer",
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShoppingList::cull_identical_items; list_cost and describe_thing"
+      }
+    },
+    {
+      "id": "shopping_list.remove.prompt",
+      "context": "移除条目确认提示",
+      "en": "Shopping list: remove {item}? (Y/n)",
+      "zh": "购物清单：移除{item}吗？(Y/n)",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShoppingList::cull_identical_items; describe_thing(DESC_A)"
+      }
+    },
+    {
+      "id": "shopping_list.remove.log",
+      "context": "正在移除条目的消息",
+      "en": "Shopping list: removing {item}",
+      "zh": "购物清单：正在移除{item}",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShoppingList::cull_identical_items / spells_added_to_library; describe_thing(DESC_A)"
+      }
+    },
+    {
+      "id": "shopping_list.enough_gold",
+      "context": "购物清单因金币增加而出现可购买条目时的完整消息；为避免泄露未鉴定物品及未本地化地点，items 仅在整体可安全翻译时启用，否则整句回退英文。",
+      "en": "You now have enough gold to {items}.",
+      "zh": "你现在有足够的金币，可以购买{items}。",
+      "params": {
+        "items": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShoppingList::gold_changed; mpr_comma_separated_list prefix/list/andc"
+      }
+    },
+    {
+      "id": "shopping_list.title.item",
+      "context": "标题中 item 的中文计数名",
+      "en": "item",
+      "zh": "项物品",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShoppingList::display; title text"
+      }
+    },
+    {
+      "id": "shop.complete.travel_prompt",
+      "context": "无力购买时前往地点的确认提示",
+      "en": "Travel to: {thing}\nYou cannot afford this item; travel there anyway? (y/N)",
+      "zh": "前往：{thing}\n你买不起此物品；仍要前往那里吗？(y/N)",
+      "params": {
+        "thing": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShoppingList::display selection callback; describe_thing(DESC_A)"
+      }
+    },
+    {
+      "id": "shop.complete.portal_fee",
+      "context": "传送门条目的查看说明",
+      "en": "{thing} with an entry fee of {cost} gold pieces.",
+      "zh": "{thing}，入场费为{cost}枚金币。",
+      "params": {
+        "thing": "text",
+        "cost": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShoppingListMenu::examine_index portal-vault branch"
+      }
+    },
+    {
+      "id": "shop.complete.delete_error",
+      "context": "删除购物清单条目错误",
+      "en": "ERROR: Unable to delete thing from shopping list!",
+      "zh": "错误：无法从购物清单中删除该条目！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShoppingList::display selection callback; invalid entry index"
+      }
+    },
+    {
+      "id": "shop.complete.purchase_voucher",
+      "context": "使用商店券说明",
+      "en": "This will use your shop voucher.",
+      "zh": "这次购买将使用商店券。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::purchase_selected; too_expensive branch"
+      }
+    },
+    {
+      "id": "shopping_list.item.general",
+      "context": "购物界面固定词项",
+      "en": "item",
+      "zh": "物品",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu/ShoppingListMenu UI fixed label"
+      }
+    },
+    {
+      "id": "shopping_list.help.choose",
+      "context": "购物界面固定词项",
+      "en": "choose item",
+      "zh": "选择条目",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu/ShoppingListMenu UI fixed label"
+      }
+    },
+    {
+      "id": "shopping_list.help.exit",
+      "context": "购物清单菜单的退出帮助；key 是 menu_keyhelp_cmd(CMD_MENU_EXIT) 完整快捷键片段。",
+      "en": "{key} exit",
+      "zh": "{key}退出",
+      "params": {
+        "key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShoppingListMenu::get_keyhelp; CMD_MENU_EXIT"
+      }
+    },
+    {
+      "id": "shopping_list.help.items",
+      "context": "购物界面固定词项",
+      "en": "items",
+      "zh": "条目",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu/ShoppingListMenu UI fixed label"
+      }
+    },
+    {
+      "id": "shopping_list.help.examine",
+      "context": "购物界面固定词项",
+      "en": "Choose to examine item",
+      "zh": "选择查看条目",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu/ShoppingListMenu UI fixed label"
+      }
+    },
+    {
+      "id": "shopping_list.mode.travel",
+      "context": "购物界面固定词项",
+      "en": "<w>travel</w>|examine|delete",
+      "zh": "<w>前往</w>|查看|删除",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu/ShoppingListMenu UI fixed label"
+      }
+    },
+    {
+      "id": "shopping_list.mode.examine",
+      "context": "购物界面固定词项",
+      "en": "travel|<w>examine</w>|delete",
+      "zh": "前往|<w>查看</w>|删除",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu/ShoppingListMenu UI fixed label"
+      }
+    },
+    {
+      "id": "shopping_list.mode.delete",
+      "context": "购物界面固定词项",
+      "en": "travel|examine|<w>delete</w>",
+      "zh": "前往|查看|<w>删除</w>",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu/ShoppingListMenu UI fixed label"
+      }
+    },
+    {
+      "id": "shop.entry.gold",
+      "context": "购物界面固定词项",
+      "en": "gold",
+      "zh": "金币",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu/ShoppingListMenu UI fixed label"
+      }
+    }
+  ],
+  "test_cases": []
+}

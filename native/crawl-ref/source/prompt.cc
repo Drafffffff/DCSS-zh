@@ -24,6 +24,8 @@
 #endif
 #include "viewchar.h"
 #include "ui.h"
+#include "zh-localization.h"
+#include "zh-message.h"
 
 namespace ui
 {
@@ -34,16 +36,19 @@ namespace ui
             : formatted_scroller(FS_EASY_EXIT)
         { }
 
-        message_scroller(string text, string title="", string prompt="")
+        message_scroller(string text, string title="", string prompt="",
+                         bool pretranslated=false)
             : message_scroller()
         {
+            const auto parse = [pretranslated](const string &s) {
+                return pretranslated ? formatted_string::parse_string_raw(s)
+                                     : formatted_string::parse_string(s);
+            };
             if (title.size())
-                set_title(formatted_string::parse_string(title));
-
+                set_title(parse(title));
             if (prompt.size())
-                set_more(formatted_string::parse_string(prompt));
-
-            add_formatted_string(formatted_string::parse_string(text));
+                set_more(parse(prompt));
+            add_formatted_string(parse(text));
         }
 
     protected:
@@ -75,6 +80,20 @@ namespace ui
             title, prompt);
         ms.show();
         return ms.get_lastch();
+    }
+
+    int error(const ZhMessage &err, bool force_popup)
+    {
+        mpr(err, MSGCH_ERROR);
+        if (force_popup || has_layout())
+        {
+            message_scroller ms(err.display(),
+                "<lightred>" + zh_message("prompt.error.title").display() + "</lightred>",
+                zh_message("prompt.continue").display(), true);
+            ms.show();
+            return ms.get_lastch();
+        }
+        return 0;
     }
 
     // slightly smarter error msging than just `mprf(MSGCH_ERROR, ...)`: if
@@ -127,9 +146,10 @@ bool confirm_prompt(const char* require, const char* fmt, ...)
 
 // jmf: general helper (should be used all over in code)
 //      -- idea borrowed from Nethack
-int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_after,
-           bool interrupt_delays, bool noprompt,
-           const explicit_keymap *map, bool allow_popup, bool ask_always)
+static int _yesno(const char *str, bool allow_lowercase, int default_answer,
+                  bool clear_after, bool interrupt_delays, bool noprompt,
+                  const explicit_keymap *map, bool allow_popup, bool ask_always,
+                  const ZhMessage *translated)
 {
     if (interrupt_delays && !crawl_state.is_repeating_cmd())
         interrupt_activity(activity_interrupt::force);
@@ -140,7 +160,8 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
     if (res.is_bool())
         return bool(res);
 
-    string prompt = make_stringf("%s ", str ? str : "Buggy prompt?");
+    string prompt = translated ? translated->display() + " "
+        : make_stringf("%s ", str ? str : "Buggy prompt?");
 
     bool use_popup = !crawl_state.need_save // not in game, no message pane
         || ui::has_layout() // already in a popup; no choice but to use another one
@@ -153,6 +174,8 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
     if (use_popup)
         flags |= MF_ARROWS_SELECT;
     Menu pop(flags, "prompt", KMC_CONFIRM);
+    if (translated)
+        pop.set_more_pretranslated("");
 
     bool enter_defaults = false;
 
@@ -182,16 +205,22 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
 
     if (use_popup)
     {
-        MenuEntry * const y_me = new MenuEntry("Yes", MEL_ITEM, 1, 'Y');
+        MenuEntry * const y_me = new MenuEntry(translated ? zh_message("prompt.choice.yes").display()
+                                                   : "Yes", MEL_ITEM, 1, 'Y');
         y_me->add_hotkey('y');
-        MenuEntry * const n_me = new MenuEntry("No", MEL_ITEM, 1, 'N');
+        MenuEntry * const n_me = new MenuEntry(translated ? zh_message("prompt.choice.no").display()
+                                                   : "No", MEL_ITEM, 1, 'N');
         n_me->add_hotkey('n');
-        MenuEntry * const a_me = new MenuEntry("Always", MEL_ITEM, 1, 'A');
+        MenuEntry * const a_me = new MenuEntry(translated ? zh_message("prompt.choice.always").display()
+                                                   : "Always", MEL_ITEM, 1, 'A');
         a_me->add_hotkey('a');
+        y_me->pretranslated = n_me->pretranslated = a_me->pretranslated
+            = translated != nullptr;
         y_me->add_tile(tile_def(TILEG_PROMPT_YES));
         n_me->add_tile(tile_def(TILEG_PROMPT_NO));
 
         MenuEntry *question = new MenuEntry(prompt, MEL_TITLE);
+        question->pretranslated = translated != nullptr;
         question->wrap_text();
         pop.set_title(question);
         pop.add_entry(y_me);
@@ -209,11 +238,20 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
 
         if (enter_defaults)
         {
-            pop.set_more(make_stringf("<white>[enter]</white>: %s",
-                default_answer == 'Y' ? "Yes"
+            const char *choice = default_answer == 'Y' ? "Yes"
                 : default_answer == 'N' ? "No"
-                : (ask_always && default_answer == 'A') ? "Always"
-                : "bugs"));
+                : (ask_always && default_answer == 'A') ? "Always" : "bugs";
+            if (translated)
+            {
+                const char *id = default_answer == 'Y' ? "prompt.choice.yes"
+                    : default_answer == 'N' ? "prompt.choice.no"
+                    : (ask_always && default_answer == 'A') ? "prompt.choice.always"
+                    : "prompt.choice.bugs";
+                pop.set_more_pretranslated(zh_message("prompt.enter_default",
+                    {zh_text("choice", choice, zh_message(id).localized)}).display());
+            }
+            else
+                pop.set_more(make_stringf("<white>[enter]</white>: %s", choice));
         }
     }
     mouse_control mc(MOUSE_MODE_YESNO);
@@ -245,7 +283,12 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
             else
             {
                 if (!noprompt)
-                    mprf(MSGCH_PROMPT, "%s", prompt.c_str());
+                {
+                    if (translated)
+                        mpr(*translated, MSGCH_PROMPT);
+                    else
+                        mprf(MSGCH_PROMPT, "%s", prompt.c_str());
+                }
 
                 tmp = ui::getch(KMC_CONFIRM);
                 if (pop.f_keyfilter)
@@ -294,12 +337,40 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
                                            ask_always ?
                                                "[Y]es, [N]o, or [A]lways" :
                                                "[Y]es or [N]o");
-            if (use_popup)
+            if (translated)
+            {
+                const char *id = ask_always
+                    ? (upper ? "prompt.answer.yna_upper" : "prompt.answer.yna")
+                    : (upper ? "prompt.answer.yn_upper" : "prompt.answer.yn");
+                const auto answer_prompt = zh_message(id);
+                if (use_popup)
+                    pop.set_more_pretranslated(answer_prompt.display());
+                else
+                    mpr(answer_prompt, MSGCH_PROMPT);
+            }
+            else if (use_popup)
                 pop.set_more(pr); // replaces keyhint if it's there
             else
                 mprf(MSGCH_PROMPT, "%s", pr.c_str());
         }
     }
+}
+
+int yesno(const char *str, bool allow_lowercase, int default_answer,
+          bool clear_after, bool interrupt_delays, bool noprompt,
+          const explicit_keymap *map, bool allow_popup, bool ask_always)
+{
+    return _yesno(str, allow_lowercase, default_answer, clear_after,
+                  interrupt_delays, noprompt, map, allow_popup, ask_always, nullptr);
+}
+
+int yesno(const ZhMessage &message, bool allow_lowercase, int default_answer,
+          bool clear_after, bool interrupt_delays, bool noprompt,
+          const explicit_keymap *map, bool allow_popup, bool ask_always)
+{
+    return _yesno(message.canonical.c_str(), allow_lowercase, default_answer,
+                  clear_after, interrupt_delays, noprompt, map, allow_popup,
+                  ask_always, &message);
 }
 
 /**
