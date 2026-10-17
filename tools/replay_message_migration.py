@@ -27,6 +27,10 @@ if os.environ.get('DCSS_QA_SCENES'):
  cases=[c for c in cases if c[0] in os.environ['DCSS_QA_SCENES'].split(',')]
 x=subprocess.Popen(['Xvfb',':96','-screen','0','3840x2160x24','-nolisten','tcp'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 time.sleep(2)
+# Keep the disposable X display's pointer outside the map: mouse aim must not
+# replace the keyboard fixture's target with an unseen cell at screen centre.
+subprocess.run(['xdotool','mousemove','3839','2159'],
+               env={**os.environ,'DISPLAY':':96'},check=True)
 try:
  for name,keys in cases:
   tmp=base/name
@@ -60,6 +64,13 @@ try:
            bool(wanted and wanted in trace or not wanted and ids))
     if ready:
      reached=True
+     # SDL may centre the pointer after window creation. Reapply keyboard aim
+     # after loading; otherwise the mouse can choose an unseen cell instead.
+     if name in ('external-passwall','external-inner-flame','external-simulacrum','external-crocodile'):
+      subprocess.run(['xdotool','mousemove','3839','2159'],env=env,check=True)
+      time.sleep(.5)
+      keys=['r','period'] if name=='external-passwall' else ['r','h','period']
+      subprocess.run(['xdotool','key']+keys,env=env,check=True)
      time.sleep(3)
      break
     time.sleep(.5)

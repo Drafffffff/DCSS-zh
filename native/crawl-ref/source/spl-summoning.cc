@@ -4,6 +4,8 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
+#include "zh-display-name.h"
 
 #include "spl-summoning.h"
 
@@ -3194,18 +3196,23 @@ spret cast_broms_barrelling_boulder(actor& agent, coord_def targ, int pow, bool 
     return spret::success;
 }
 
-string mons_simulacrum_immune_reason(const monster *mons)
+ZhArg mons_simulacrum_immune_reason_display(const monster *mons)
 {
     if (!mons || !you.can_see(*mons))
-        return "You can't see anything there.";
+        return zh_message_arg("reason", "target.external.simulacrum.unseen");
 
     if (!mons_can_be_spectralised(*mons))
-        return "You can't make a simulacrum of that!";
+        return zh_message_arg("reason", "target.external.simulacrum.immune");
 
     if (mons->friendly() || mons->neutral())
-        return "That would be terribly rude!";
+        return zh_message_arg("reason", "target.external.simulacrum.rude");
 
-    return "";
+    return zh_text("reason", "", "");
+}
+
+string mons_simulacrum_immune_reason(const monster *mons)
+{
+    return mons_simulacrum_immune_reason_display(mons).canonical;
 }
 
 spret cast_simulacrum(coord_def target, int pow, bool fail)
@@ -3228,14 +3235,15 @@ spret cast_simulacrum(coord_def target, int pow, bool fail)
 
     if (!mons_can_be_spectralised(*mons))
     {
-        mpr("You can't make simulacra of that!");
+        mpr(zh_message("target.external.simulacrum.cast_immune"));
         return spret::abort;
     }
 
     fail_check();
 
-    mprf("You sublimate a sliver of %s essence and reconstitute it in ice.",
-         apostrophise(mons->name(DESC_THE)).c_str());
+    ZhArg essence_monster = zh_monster_arg("monster_possessive", *mons);
+    essence_monster.canonical = apostrophise(mons->name(DESC_THE));
+    mpr(zh_message("target.external.simulacrum.essence", {essence_monster}));
 
     int num_simulacra = 2;
     if (x_chance_in_y(pow, 200))
@@ -3678,7 +3686,7 @@ spret cast_clockwork_bee(coord_def target, bool fail)
     you.props[CLOCKWORK_BEE_TARGET].get_int() = targ->mid;
 
     mprf("You lock target on %s and prepare to deploy your bee.", targ->name(DESC_THE).c_str());
-    start_channelling_spell(SPELL_CLOCKWORK_BEE, "continue winding your bee", false);
+    start_channelling_spell(SPELL_CLOCKWORK_BEE, false);
 
     // Remove any existing bee
     for (monster_iterator mi; mi; ++mi)
@@ -3883,33 +3891,38 @@ spret cast_diamond_sawblades(int power, bool fail)
     return spret::success;
 }
 
-string surprising_crocodile_unusable_reason(const actor& agent, const coord_def& target,
+ZhArg surprising_crocodile_unusable_reason_display(const actor& agent, const coord_def& target,
                                             bool actual)
 {
     if (!monster_habitable_grid(MONS_CROCODILE, agent.pos()))
-        return "A crocodile could not survive beneath you.";
+        return zh_message_arg("reason", "target.external.crocodile.terrain");
 
     actor* targ = actor_at(target);
     if (!targ || !agent.can_see(*targ) || mons_aligned(&agent, targ))
-        return "You can't see a valid target there.";
+        return zh_message_arg("reason", "target.external.crocodile.no_target");
 
     const coord_def drag_shift = -(target - agent.pos()).sgn();
     const coord_def move_pos = agent.pos() + drag_shift;
     if (cell_is_solid(move_pos)
         || actor_at(move_pos) && (actual || agent.can_see(*actor_at(move_pos))))
     {
-        return "There's not enough room behind you.";
+        return zh_message_arg("reason", "target.external.crocodile.no_room");
     }
 
     if (!agent.is_habitable(move_pos)
          || agent.is_player() && need_expiration_warning(move_pos))
     {
-        return "It isn't safe to move backwards.";
+        return zh_message_arg("reason", "target.external.crocodile.unsafe");
     }
 
     // Nothing is preventing this spell from being cast (even if the crocodile
     // will not be able to drag the monster anywhere).
-    return "";
+    return zh_text("reason", "", "");
+}
+
+string surprising_crocodile_unusable_reason(const actor& agent, const coord_def& target, bool actual)
+{
+    return surprising_crocodile_unusable_reason_display(agent, target, actual).canonical;
 }
 
 // Assuming the spell is castable at all (see surprising_crocodile_unusable_reason()
@@ -3956,10 +3969,10 @@ spret cast_surprising_crocodile(actor& agent, const coord_def& targ, int pow, bo
     // The targeter will prevent casting this at times where the player *knows*
     // it won't work, but it's possible there's still an invisible creature in
     // the way that will cause this to fail.
-    string msg = surprising_crocodile_unusable_reason(agent, targ, true);
-    if (!msg.empty())
+    const ZhArg msg = surprising_crocodile_unusable_reason_display(agent, targ, true);
+    if (!msg.canonical.empty())
     {
-        mpr("Something unseen prevents your spell from working!");
+        mpr(zh_message("target.external.crocodile.hidden_blocker"));
         return spret::success;
     }
 

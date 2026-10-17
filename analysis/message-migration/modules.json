@@ -34,7 +34,7 @@
     },
     {
       "name": "战斗日志",
-      "state": "本批迁移变形进出、装备脱落、特殊形态战斗提示及共用目标通知；斯芬克斯随机谜语speech、其他法术/战斗及外部传入传送原因仍待迁移",
+      "state": "战斗命中/失手及共用限制、反噬组合、变形进出已分批接入；本批施法增强/魔杖增强/误施法、四类引导提醒与终止及魔力不足日志接入；剩余战斗/法术/怪物日志待逐包验收",
       "acceptance": "玩家/怪物/武器/状态/数值组合，全部成功失败分支保留英文控制数据"
     },
     {
@@ -44,7 +44,7 @@
     },
     {
       "name": "瞄准、法术、能力、箭袋",
-      "state": "法术共用父理由与反噬组成已接入；targeter固定/怪物/墙体/冲锋理由到directn通知维护canonical和typed；壁跳/穿墙/内焰/拟像/鳄鱼外部理由明确缺失报告，其他法术菜单与箭袋待迁移",
+      "state": "法术共用父理由与反噬组成、targeter固定/实体理由和五类外部理由生成到通知/实际施法均已接入；string notify_fail已移除；施法选择、风险、瞄准帮助与箭袋仍待迁移",
       "acceptance": "坐标/距离/法术等级分离；目标名称和无效目标；父视图/箭袋提示也需迁移"
     },
     {
@@ -66,6 +66,137 @@
       "name": "旧历史兼容",
       "state": "旧存档英文历史无ID，保留明确兼容边界",
       "acceptance": "与新实时消息隔离；不改原存档；不计入新架构迁移完成"
+    }
+  ],
+  "workflow": {
+    "unit": "按模块选择工作包；每包沿生产函数、业务消费者、显示出口完整迁移",
+    "completion": "通过参数/规范英文/完整回退测试、Mac存档副本调试与两端构建后，才标为已验收；文件里存在新接口不代表文件完成",
+    "order": [
+      "共用目标理由闭环",
+      "施法动态日志与持续施法",
+      "法术/箭袋/瞄准菜单及风险标签",
+      "通用移动确认与危险地形",
+      "物品操作日志",
+      "战斗实体与状态日志",
+      "神祇与角色",
+      "世界交互/剩余教程/文档入口"
+    ],
+    "evidence": "源码调用清单用于查漏；未逐项验收的调用不计完成，不以词库条数或中文字占比计覆盖率"
+  },
+  "work_packages": [
+    {
+      "id": "target-external-reasons",
+      "module": "瞄准、法术、能力、箭袋",
+      "state": "verified",
+      "sources": [
+        "god-abil.cc",
+        "god-abil.h",
+        "spl-other.cc",
+        "spl-other.h",
+        "spl-damage.cc",
+        "spl-damage.h",
+        "spl-summoning.cc",
+        "spl-summoning.h",
+        "target.cc",
+        "target.h"
+      ],
+      "producers": [
+        "wu_jian_can_wall_jump",
+        "passwall_path::is_valid",
+        "mons_inner_flame_immune_reason",
+        "mons_simulacrum_immune_reason",
+        "surprising_crocodile_unusable_reason"
+      ],
+      "consumers": [
+        "targeter_walljump::valid_aim",
+        "targeter_passwall::valid_aim",
+        "targeter_inner_flame::valid_aim",
+        "targeter_simulacrum::valid_aim",
+        "targeter_surprising_crocodile::valid_aim",
+        "cast_passwall",
+        "cast_inner_flame",
+        "cast_simulacrum",
+        "cast_surprising_crocodile"
+      ],
+      "canonical_compatibility": "旧理由接口仅返回canonical；分支与隐藏信息规则不变；string notify_fail入口应移除",
+      "tests": [
+        "tools/test_external_target_reasons.py",
+        "tools/test_target_notifications.py"
+      ],
+      "remaining": [
+        "通用危险地形移动确认属于player.cc，单列后续工作包"
+      ],
+      "report": "verification/native/external-target/REPORT.md"
+    },
+    {
+      "id": "casting-channel-logs",
+      "module": "战斗日志",
+      "state": "verified",
+      "sources": [
+        "spl-cast.cc",
+        "spl-cast.h"
+      ],
+      "producers": [
+        "surge_power",
+        "surge_power_wand",
+        "_casting_spell_log",
+        "start_channelling_spell",
+        "handle_channelled_spell",
+        "stop_channelling_spells"
+      ],
+      "consumers": [
+        "surge_power",
+        "surge_power_wand",
+        "start_channelling_spell",
+        "handle_channelled_spell",
+        "stop_channelling_spells"
+      ],
+      "canonical_compatibility": "力量档位、单次状态副作用、按键替换与规范英文逐项对照旧源码",
+      "tests": [
+        "tools/test_casting_logs.py"
+      ],
+      "remaining": [
+        "施法选择/风险确认/箭袋描述与名称列表未包含在本包"
+      ],
+      "report": "verification/native/external-target/REPORT.md"
+    },
+    {
+      "id": "target-quiver-prompts",
+      "module": "瞄准、法术、能力、箭袋",
+      "state": "queued",
+      "sources": [
+        "directn.cc",
+        "quiver.cc",
+        "spl-cast.cc"
+      ],
+      "producers": [
+        "direction_chooser::print_key_hints",
+        "_spell_failure_rate_description"
+      ],
+      "consumers": [],
+      "tests": [],
+      "remaining": [
+        "Press帮助行、风险评语、施法选择、箭袋动作全文模板"
+      ]
+    },
+    {
+      "id": "terrain-move-confirmation",
+      "module": "世界与通用界面",
+      "state": "queued",
+      "sources": [
+        "player.cc",
+        "spl-other.cc"
+      ],
+      "producers": [
+        "check_moveto_terrain"
+      ],
+      "consumers": [
+        "passwall_path::check_moveto"
+      ],
+      "tests": [],
+      "remaining": [
+        "移动动词、危险地形、飞行到期与穿墙提示父句整体迁移"
+      ]
     }
   ]
 }

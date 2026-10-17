@@ -1,0 +1,1100 @@
+{
+  "model": "gpt-6-luna",
+  "purpose": "Complete external target-reason messages, wall-jump terrain names, and companion spell-casting/channel logs.",
+  "messages": [
+    {
+      "id": "target.external.wall_jump.adjacent",
+      "context": "目标失败提示：蹬墙跳",
+      "en": "Please select an adjacent position to wall jump against.",
+      "zh": "请选择一个相邻位置，以便蹬墙跳借力。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "wu_jian_can_wall_jump; adjacent target distance check"
+      }
+    },
+    {
+      "id": "target.external.wall_jump.terrain",
+      "context": "目标失败提示：蹬墙跳",
+      "en": "You cannot wall jump against {terrain}.",
+      "zh": "你无法借助{terrain}蹬墙跳。",
+      "params": {
+        "terrain": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "wu_jian_can_wall_jump; feature_description_at(target, false, DESC_THE)"
+      }
+    },
+    {
+      "id": "target.external.wall_jump.beholder",
+      "context": "目标失败提示：蹬墙跳",
+      "en": "You cannot wall jump away from {monster}!",
+      "zh": "你无法通过蹬墙跳远离{monster}！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "wu_jian_can_wall_jump; beholder at landing spot"
+      }
+    },
+    {
+      "id": "target.external.wall_jump.fearmonger",
+      "context": "目标失败提示：蹬墙跳",
+      "en": "You cannot wall jump closer to {monster}!",
+      "zh": "你无法通过蹬墙跳靠近{monster}！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "wu_jian_can_wall_jump; fearmonger at landing spot"
+      }
+    },
+    {
+      "id": "target.external.wall_jump.blocked",
+      "context": "目标失败提示：蹬墙跳",
+      "en": "You have no room to wall jump there; {blocker} is in the way.",
+      "zh": "你没有空间在那里蹬墙跳；{blocker}挡住了去路。",
+      "params": {
+        "blocker": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "wu_jian_can_wall_jump; occupied landing spot"
+      }
+    },
+    {
+      "id": "target.external.wall_jump.unseen_blocker",
+      "context": "目标失败提示：蹬墙跳；不可见阻挡物名称",
+      "en": "something you can't see",
+      "zh": "某个你看不见的东西",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "wu_jian_can_wall_jump; hidden landing actor name fragment"
+      }
+    },
+    {
+      "id": "target.external.wall_jump.no_room",
+      "context": "目标失败提示：蹬墙跳",
+      "en": "You have no room to wall jump there.",
+      "zh": "你没有空间在那里蹬墙跳。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "wu_jian_can_wall_jump; blocked or uninhabitable landing spot"
+      }
+    },
+    {
+      "id": "target.external.passwall.select_wall",
+      "context": "目标失败提示：穿墙",
+      "en": "Please select a wall.",
+      "zh": "请选择一面墙。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-other.cc",
+        "anchor": "passwall_path::is_valid; zero direction"
+      }
+    },
+    {
+      "id": "target.external.passwall.no_wall",
+      "context": "目标失败提示：穿墙",
+      "en": "There is no adjacent passable wall in that direction.",
+      "zh": "那个方向没有相邻的可穿越墙壁。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-other.cc",
+        "anchor": "passwall_path::is_valid; no actual wall in selected direction"
+      }
+    },
+    {
+      "id": "target.external.passwall.too_deep",
+      "context": "目标失败提示：穿墙",
+      "en": "This rock feels extremely deep.",
+      "zh": "这块岩石深得不可思议。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-other.cc",
+        "anchor": "passwall_path::is_valid; destination not found within spell range"
+      }
+    },
+    {
+      "id": "target.external.passwall.out_of_bounds",
+      "context": "目标失败提示：穿墙",
+      "en": "You sense an overwhelming volume of rock.",
+      "zh": "你感知到那里的岩石多得惊人。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-other.cc",
+        "anchor": "passwall_path::is_valid; destination beyond bounds"
+      }
+    },
+    {
+      "id": "target.external.passwall.blocked",
+      "context": "目标失败提示：穿墙",
+      "en": "Something is blocking your path through the rock.",
+      "zh": "有什么东西挡住了你穿过岩石的去路。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-other.cc",
+        "anchor": "passwall_path::is_valid; solid destination or stationary monster"
+      }
+    },
+    {
+      "id": "target.external.inner_flame.unseen",
+      "context": "目标失败提示：内焰",
+      "en": "You can't see anything there.",
+      "zh": "那里什么也看不见。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-damage.cc",
+        "anchor": "mons_inner_flame_immune_reason; target absent or unseen"
+      }
+    },
+    {
+      "id": "target.external.inner_flame.already_burning",
+      "context": "目标失败提示：内焰",
+      "en": "{monster} is already burning with an inner flame!",
+      "zh": "{monster}身上已经燃起内焰！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-damage.cc",
+        "anchor": "mons_inner_flame_immune_reason; ENCH_INNER_FLAME"
+      }
+    },
+    {
+      "id": "target.external.inner_flame.infinite_will",
+      "context": "目标失败提示：内焰",
+      "en": "{monster} has infinite will and cannot be affected.",
+      "zh": "{monster}意志力无穷，无法受到影响。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-damage.cc",
+        "anchor": "mons_inner_flame_immune_reason; WILL_INVULN"
+      }
+    },
+    {
+      "id": "target.external.simulacrum.unseen",
+      "context": "目标失败提示：雕琢拟像",
+      "en": "You can't see anything there.",
+      "zh": "那里什么也看不见。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-summoning.cc",
+        "anchor": "mons_simulacrum_immune_reason; target absent or unseen"
+      }
+    },
+    {
+      "id": "target.external.simulacrum.immune",
+      "context": "目标失败提示：雕琢拟像",
+      "en": "You can't make a simulacrum of that!",
+      "zh": "你无法将那个目标制成拟像！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-summoning.cc",
+        "anchor": "mons_simulacrum_immune_reason; not spectralisable"
+      }
+    },
+    {
+      "id": "target.external.simulacrum.rude",
+      "context": "目标失败提示：雕琢拟像",
+      "en": "That would be terribly rude!",
+      "zh": "那样做也太无礼了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-summoning.cc",
+        "anchor": "mons_simulacrum_immune_reason; friendly or neutral target"
+      }
+    },
+    {
+      "id": "target.external.simulacrum.cast_immune",
+      "context": "施法失败提示：雕琢拟像",
+      "en": "You can't make simulacra of that!",
+      "zh": "你无法将那个目标制成拟像！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-summoning.cc",
+        "anchor": "cast_simulacrum; target not spectralisable"
+      }
+    },
+    {
+      "id": "target.external.simulacrum.essence",
+      "context": "施法成功提示：雕琢拟像",
+      "en": "You sublimate a sliver of {monster_possessive} essence and reconstitute it in ice.",
+      "zh": "你提炼出{monster_possessive}的一丝精华，再以冰重新塑造出它。",
+      "params": {
+        "monster_possessive": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-summoning.cc",
+        "anchor": "cast_simulacrum; apostrophise(mons->name(DESC_THE))"
+      }
+    },
+    {
+      "id": "target.external.crocodile.terrain",
+      "context": "目标失败提示：埃林吉娅的意外鳄鱼",
+      "en": "A crocodile could not survive beneath you.",
+      "zh": "鳄鱼无法在你身下存活。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-summoning.cc",
+        "anchor": "surprising_crocodile_unusable_reason; crocodile cannot inhabit caster grid"
+      }
+    },
+    {
+      "id": "target.external.crocodile.no_target",
+      "context": "目标失败提示：埃林吉娅的意外鳄鱼",
+      "en": "You can't see a valid target there.",
+      "zh": "你在那里看不到有效目标。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-summoning.cc",
+        "anchor": "surprising_crocodile_unusable_reason; missing, unseen, or aligned target"
+      }
+    },
+    {
+      "id": "target.external.crocodile.no_room",
+      "context": "目标失败提示：埃林吉娅的意外鳄鱼",
+      "en": "There's not enough room behind you.",
+      "zh": "你身后没有足够的空间。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-summoning.cc",
+        "anchor": "surprising_crocodile_unusable_reason; backward movement spot occupied"
+      }
+    },
+    {
+      "id": "target.external.crocodile.unsafe",
+      "context": "目标失败提示：埃林吉娅的意外鳄鱼",
+      "en": "It isn't safe to move backwards.",
+      "zh": "向后移动并不安全。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-summoning.cc",
+        "anchor": "surprising_crocodile_unusable_reason; backward destination uninhabitable or warning zone"
+      }
+    },
+    {
+      "id": "target.external.crocodile.hidden_blocker",
+      "context": "施法失败提示：埃林吉娅的意外鳄鱼",
+      "en": "Something unseen prevents your spell from working!",
+      "zh": "有看不见的东西阻止你的法术生效！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-summoning.cc",
+        "anchor": "cast_surprising_crocodile; hidden blocker discovered after targeter validation"
+      }
+    },
+    {
+      "id": "spell.cast.surge.numb.extraordinary",
+      "context": "施法反馈：力量涌动",
+      "en": "You feel an extraordinarily numb sensation.",
+      "zh": "你感到一阵异乎寻常的麻木感。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "surge_power; enhanced < -2"
+      }
+    },
+    {
+      "id": "spell.cast.surge.numb.extreme",
+      "context": "施法反馈：力量涌动",
+      "en": "You feel an extremely numb sensation.",
+      "zh": "你感到一阵极度麻木。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "surge_power; enhanced == -2"
+      }
+    },
+    {
+      "id": "spell.cast.surge.numb.normal",
+      "context": "施法反馈：力量涌动",
+      "en": "You feel a numb sensation.",
+      "zh": "你感到一阵麻木。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "surge_power; ordinary failure surge"
+      }
+    },
+    {
+      "id": "spell.cast.surge.power.strong",
+      "context": "施法反馈：力量涌动",
+      "en": "You feel a strong surge of power!",
+      "zh": "你感到一股强烈的力量涌动！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "surge_power; enhanced == 2"
+      }
+    },
+    {
+      "id": "spell.cast.surge.power.huge",
+      "context": "施法反馈：力量涌动",
+      "en": "You feel a huge surge of power!",
+      "zh": "你感到一股巨大的力量涌动！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "surge_power; enhanced > 2"
+      }
+    },
+    {
+      "id": "spell.cast.surge.power.normal",
+      "context": "施法反馈：力量涌动",
+      "en": "You feel a surge of power!",
+      "zh": "你感到一股力量涌动！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "surge_power; ordinary positive surge"
+      }
+    },
+    {
+      "id": "spell.cast.wand.slight",
+      "context": "施法反馈：力量涌动",
+      "en": "You feel a slight surge of power.",
+      "zh": "你感到一股微弱的力量涌动。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "surge_power_wand; mp_cost < 3"
+      }
+    },
+    {
+      "id": "spell.cast.wand.power",
+      "context": "施法反馈：力量涌动",
+      "en": "You feel a surge of power!",
+      "zh": "你感到一股力量涌动！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "surge_power_wand; mp_cost >= 3"
+      }
+    },
+    {
+      "id": "spell.cast.miscast",
+      "context": "施法失败提示：法术反噬",
+      "en": "You miscast {spell}.",
+      "zh": "你施放{spell}时出了差错。",
+      "params": {
+        "spell": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "miscast_spell; spell_title(spell)"
+      }
+    },
+    {
+      "id": "spell.channel.insufficient_magic",
+      "context": "法术引导中断提示：魔力不足",
+      "en": "Without enough magic to sustain it, your {spell} dissipates.",
+      "zh": "维持{spell}所需的魔力不足，它消散了。",
+      "params": {
+        "spell": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "handle_channelled_spell; insufficient magic"
+      }
+    },
+    {
+      "id": "spell.channel.stop.flame_wave",
+      "context": "法术引导中断提示",
+      "en": "You stop channelling waves of flame.",
+      "zh": "你停止引导烈焰波。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "channelled_spell_active; SPELL_FLAME_WAVE stop"
+      }
+    },
+    {
+      "id": "spell.channel.stop.searing_ray",
+      "context": "法术引导中断提示",
+      "en": "You stop channelling your searing ray.",
+      "zh": "你停止引导灼热射线。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "channelled_spell_active; SPELL_SEARING_RAY stop"
+      }
+    },
+    {
+      "id": "spell.channel.stop.maxwell",
+      "context": "法术引导中断提示",
+      "en": "The insufficient charge dissipates harmlessly.",
+      "zh": "蓄积的能量不足，它无害地消散了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "channelled_spell_active; SPELL_MAXWELLS_CAPACITIVE_COUPLING stop"
+      }
+    },
+    {
+      "id": "spell.channel.stop.clockwork_bee",
+      "context": "法术引导中断提示",
+      "en": "You stop assembling your clockwork bee.",
+      "zh": "你停止组装发条蜂。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "channelled_spell_active; SPELL_CLOCKWORK_BEE stop"
+      }
+    },
+    {
+      "id": "spell.channel.reminder.flame_wave",
+      "context": "法术引导按键提示",
+      "en": "(Press <w>%</w> to intensify the flame waves.)",
+      "zh": "（按<w>%</w>强化烈焰波。）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "start_channelling_spell; Flame Wave reminder; insert_commands(CMD_WAIT)"
+      }
+    },
+    {
+      "id": "spell.channel.reminder.searing_ray",
+      "context": "法术引导按键提示",
+      "en": "(Press <w>%</w> to maintain the ray.)",
+      "zh": "（按<w>%</w>维持射线。）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "start_channelling_spell; Searing Ray reminder; insert_commands(CMD_WAIT)"
+      }
+    },
+    {
+      "id": "spell.channel.reminder.maxwell",
+      "context": "法术引导按键提示",
+      "en": "(Press <w>%</w> to continue charging.)",
+      "zh": "（按<w>%</w>继续蓄能。）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "start_channelling_spell; Maxwell reminder; insert_commands(CMD_WAIT)"
+      }
+    },
+    {
+      "id": "spell.channel.reminder.clockwork_bee",
+      "context": "法术引导按键提示",
+      "en": "(Press <w>%</w> to continue winding your bee.)",
+      "zh": "（按<w>%</w>继续给发条蜂上弦。）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "start_channelling_spell; Clockwork Bee reminder; insert_commands(CMD_WAIT)"
+      }
+    },
+    {
+      "id": "terrain.door",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "door",
+      "zh": "门",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; feat_is_door"
+      }
+    },
+    {
+      "id": "terrain.wall",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "wall",
+      "zh": "墙壁",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; feat_is_wall"
+      }
+    },
+    {
+      "id": "terrain.grate",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "grate",
+      "zh": "格栅",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; DNGN_GRATE"
+      }
+    },
+    {
+      "id": "terrain.tree",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "tree",
+      "zh": "树",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; feat_is_tree"
+      }
+    },
+    {
+      "id": "terrain.statue",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "statue",
+      "zh": "雕像",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; feat_is_statuelike"
+      }
+    },
+    {
+      "id": "terrain.water",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "water",
+      "zh": "水",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; feat_is_water"
+      }
+    },
+    {
+      "id": "terrain.lava",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "lava",
+      "zh": "岩浆",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; feat_is_lava"
+      }
+    },
+    {
+      "id": "terrain.altar",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "altar",
+      "zh": "祭坛",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; feat_is_altar"
+      }
+    },
+    {
+      "id": "terrain.trap",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "trap",
+      "zh": "陷阱",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; feat_is_trap"
+      }
+    },
+    {
+      "id": "terrain.escape_hatch",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "escape hatch",
+      "zh": "逃生舱口",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; feat_is_escape_hatch"
+      }
+    },
+    {
+      "id": "terrain.portal",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "portal",
+      "zh": "传送门",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; feat_is_portal or feat_is_gate"
+      }
+    },
+    {
+      "id": "terrain.staircase",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "staircase",
+      "zh": "楼梯",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; feat_is_travelable_stair"
+      }
+    },
+    {
+      "id": "terrain.shop",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "shop",
+      "zh": "商店",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; DNGN_ENTER_SHOP or DNGN_ABANDONED_SHOP"
+      }
+    },
+    {
+      "id": "terrain.fountain",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "fountain",
+      "zh": "喷泉",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; feat_is_fountain"
+      }
+    },
+    {
+      "id": "terrain.dais",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "dais",
+      "zh": "台座",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; DNGN_ORB_DAIS"
+      }
+    },
+    {
+      "id": "terrain.unknown_terrain",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "unknown terrain",
+      "zh": "未知地形",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; DNGN_UNSEEN"
+      }
+    },
+    {
+      "id": "terrain.floor",
+      "context": "蹬墙跳失败提示：地形名称",
+      "en": "floor",
+      "zh": "地面",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/terrain.cc",
+        "anchor": "feat_type_name; feat_type_name fallback"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "target.external.wall_jump.adjacent",
+      "args": {},
+      "canonical": "Please select an adjacent position to wall jump against.",
+      "zh": "请选择一个相邻位置，以便蹬墙跳借力。"
+    },
+    {
+      "id": "target.external.wall_jump.terrain",
+      "args": {
+        "terrain": {
+          "type": "name",
+          "canonical": "the wall",
+          "localized": "墙壁"
+        }
+      },
+      "canonical": "You cannot wall jump against the wall.",
+      "zh": "你无法借助墙壁蹬墙跳。"
+    },
+    {
+      "id": "target.external.wall_jump.beholder",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You cannot wall jump away from the orc!",
+      "zh": "你无法通过蹬墙跳远离兽人！"
+    },
+    {
+      "id": "target.external.wall_jump.fearmonger",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You cannot wall jump closer to the orc!",
+      "zh": "你无法通过蹬墙跳靠近兽人！"
+    },
+    {
+      "id": "target.external.wall_jump.blocked",
+      "args": {
+        "blocker": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You have no room to wall jump there; an orc is in the way.",
+      "zh": "你没有空间在那里蹬墙跳；兽人挡住了去路。"
+    },
+    {
+      "id": "target.external.wall_jump.unseen_blocker",
+      "args": {},
+      "canonical": "something you can't see",
+      "zh": "某个你看不见的东西"
+    },
+    {
+      "id": "target.external.wall_jump.no_room",
+      "args": {},
+      "canonical": "You have no room to wall jump there.",
+      "zh": "你没有空间在那里蹬墙跳。"
+    },
+    {
+      "id": "target.external.passwall.select_wall",
+      "args": {},
+      "canonical": "Please select a wall.",
+      "zh": "请选择一面墙。"
+    },
+    {
+      "id": "target.external.passwall.no_wall",
+      "args": {},
+      "canonical": "There is no adjacent passable wall in that direction.",
+      "zh": "那个方向没有相邻的可穿越墙壁。"
+    },
+    {
+      "id": "target.external.passwall.too_deep",
+      "args": {},
+      "canonical": "This rock feels extremely deep.",
+      "zh": "这块岩石深得不可思议。"
+    },
+    {
+      "id": "target.external.passwall.out_of_bounds",
+      "args": {},
+      "canonical": "You sense an overwhelming volume of rock.",
+      "zh": "你感知到那里的岩石多得惊人。"
+    },
+    {
+      "id": "target.external.passwall.blocked",
+      "args": {},
+      "canonical": "Something is blocking your path through the rock.",
+      "zh": "有什么东西挡住了你穿过岩石的去路。"
+    },
+    {
+      "id": "target.external.inner_flame.unseen",
+      "args": {},
+      "canonical": "You can't see anything there.",
+      "zh": "那里什么也看不见。"
+    },
+    {
+      "id": "target.external.inner_flame.already_burning",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc is already burning with an inner flame!",
+      "zh": "兽人身上已经燃起内焰！"
+    },
+    {
+      "id": "target.external.inner_flame.infinite_will",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc has infinite will and cannot be affected.",
+      "zh": "兽人意志力无穷，无法受到影响。"
+    },
+    {
+      "id": "target.external.simulacrum.unseen",
+      "args": {},
+      "canonical": "You can't see anything there.",
+      "zh": "那里什么也看不见。"
+    },
+    {
+      "id": "target.external.simulacrum.immune",
+      "args": {},
+      "canonical": "You can't make a simulacrum of that!",
+      "zh": "你无法将那个目标制成拟像！"
+    },
+    {
+      "id": "target.external.simulacrum.rude",
+      "args": {},
+      "canonical": "That would be terribly rude!",
+      "zh": "那样做也太无礼了！"
+    },
+    {
+      "id": "target.external.simulacrum.cast_immune",
+      "args": {},
+      "canonical": "You can't make simulacra of that!",
+      "zh": "你无法将那个目标制成拟像！"
+    },
+    {
+      "id": "target.external.simulacrum.essence",
+      "args": {
+        "monster_possessive": {
+          "type": "name",
+          "canonical": "an orc's",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You sublimate a sliver of an orc's essence and reconstitute it in ice.",
+      "zh": "你提炼出兽人的一丝精华，再以冰重新塑造出它。"
+    },
+    {
+      "id": "target.external.crocodile.terrain",
+      "args": {},
+      "canonical": "A crocodile could not survive beneath you.",
+      "zh": "鳄鱼无法在你身下存活。"
+    },
+    {
+      "id": "target.external.crocodile.no_target",
+      "args": {},
+      "canonical": "You can't see a valid target there.",
+      "zh": "你在那里看不到有效目标。"
+    },
+    {
+      "id": "target.external.crocodile.no_room",
+      "args": {},
+      "canonical": "There's not enough room behind you.",
+      "zh": "你身后没有足够的空间。"
+    },
+    {
+      "id": "target.external.crocodile.unsafe",
+      "args": {},
+      "canonical": "It isn't safe to move backwards.",
+      "zh": "向后移动并不安全。"
+    },
+    {
+      "id": "target.external.crocodile.hidden_blocker",
+      "args": {},
+      "canonical": "Something unseen prevents your spell from working!",
+      "zh": "有看不见的东西阻止你的法术生效！"
+    },
+    {
+      "id": "spell.cast.surge.numb.extraordinary",
+      "args": {},
+      "canonical": "You feel an extraordinarily numb sensation.",
+      "zh": "你感到一阵异乎寻常的麻木感。"
+    },
+    {
+      "id": "spell.cast.surge.numb.extreme",
+      "args": {},
+      "canonical": "You feel an extremely numb sensation.",
+      "zh": "你感到一阵极度麻木。"
+    },
+    {
+      "id": "spell.cast.surge.numb.normal",
+      "args": {},
+      "canonical": "You feel a numb sensation.",
+      "zh": "你感到一阵麻木。"
+    },
+    {
+      "id": "spell.cast.surge.power.strong",
+      "args": {},
+      "canonical": "You feel a strong surge of power!",
+      "zh": "你感到一股强烈的力量涌动！"
+    },
+    {
+      "id": "spell.cast.surge.power.huge",
+      "args": {},
+      "canonical": "You feel a huge surge of power!",
+      "zh": "你感到一股巨大的力量涌动！"
+    },
+    {
+      "id": "spell.cast.surge.power.normal",
+      "args": {},
+      "canonical": "You feel a surge of power!",
+      "zh": "你感到一股力量涌动！"
+    },
+    {
+      "id": "spell.cast.wand.slight",
+      "args": {},
+      "canonical": "You feel a slight surge of power.",
+      "zh": "你感到一股微弱的力量涌动。"
+    },
+    {
+      "id": "spell.cast.wand.power",
+      "args": {},
+      "canonical": "You feel a surge of power!",
+      "zh": "你感到一股力量涌动！"
+    },
+    {
+      "id": "spell.cast.miscast",
+      "args": {
+        "spell": {
+          "type": "name",
+          "canonical": "Inner Flame",
+          "localized": "内燃之焰"
+        }
+      },
+      "canonical": "You miscast Inner Flame.",
+      "zh": "你施放内燃之焰时出了差错。"
+    },
+    {
+      "id": "spell.channel.insufficient_magic",
+      "args": {
+        "spell": {
+          "type": "name",
+          "canonical": "Flame Wave",
+          "localized": "烈焰波"
+        }
+      },
+      "canonical": "Without enough magic to sustain it, your Flame Wave dissipates.",
+      "zh": "维持烈焰波所需的魔力不足，它消散了。"
+    },
+    {
+      "id": "spell.channel.stop.flame_wave",
+      "args": {},
+      "canonical": "You stop channelling waves of flame.",
+      "zh": "你停止引导烈焰波。"
+    },
+    {
+      "id": "spell.channel.stop.searing_ray",
+      "args": {},
+      "canonical": "You stop channelling your searing ray.",
+      "zh": "你停止引导灼热射线。"
+    },
+    {
+      "id": "spell.channel.stop.maxwell",
+      "args": {},
+      "canonical": "The insufficient charge dissipates harmlessly.",
+      "zh": "蓄积的能量不足，它无害地消散了。"
+    },
+    {
+      "id": "spell.channel.stop.clockwork_bee",
+      "args": {},
+      "canonical": "You stop assembling your clockwork bee.",
+      "zh": "你停止组装发条蜂。"
+    },
+    {
+      "id": "spell.channel.reminder.flame_wave",
+      "args": {},
+      "canonical": "(Press <w>%</w> to intensify the flame waves.)",
+      "zh": "（按<w>%</w>强化烈焰波。）"
+    },
+    {
+      "id": "spell.channel.reminder.searing_ray",
+      "args": {},
+      "canonical": "(Press <w>%</w> to maintain the ray.)",
+      "zh": "（按<w>%</w>维持射线。）"
+    },
+    {
+      "id": "spell.channel.reminder.maxwell",
+      "args": {},
+      "canonical": "(Press <w>%</w> to continue charging.)",
+      "zh": "（按<w>%</w>继续蓄能。）"
+    },
+    {
+      "id": "spell.channel.reminder.clockwork_bee",
+      "args": {},
+      "canonical": "(Press <w>%</w> to continue winding your bee.)",
+      "zh": "（按<w>%</w>继续给发条蜂上弦。）"
+    },
+    {
+      "id": "terrain.door",
+      "args": {},
+      "canonical": "door",
+      "zh": "门"
+    },
+    {
+      "id": "terrain.wall",
+      "args": {},
+      "canonical": "wall",
+      "zh": "墙壁"
+    },
+    {
+      "id": "terrain.grate",
+      "args": {},
+      "canonical": "grate",
+      "zh": "格栅"
+    },
+    {
+      "id": "terrain.tree",
+      "args": {},
+      "canonical": "tree",
+      "zh": "树"
+    },
+    {
+      "id": "terrain.statue",
+      "args": {},
+      "canonical": "statue",
+      "zh": "雕像"
+    },
+    {
+      "id": "terrain.water",
+      "args": {},
+      "canonical": "water",
+      "zh": "水"
+    },
+    {
+      "id": "terrain.lava",
+      "args": {},
+      "canonical": "lava",
+      "zh": "岩浆"
+    },
+    {
+      "id": "terrain.altar",
+      "args": {},
+      "canonical": "altar",
+      "zh": "祭坛"
+    },
+    {
+      "id": "terrain.trap",
+      "args": {},
+      "canonical": "trap",
+      "zh": "陷阱"
+    },
+    {
+      "id": "terrain.escape_hatch",
+      "args": {},
+      "canonical": "escape hatch",
+      "zh": "逃生舱口"
+    },
+    {
+      "id": "terrain.portal",
+      "args": {},
+      "canonical": "portal",
+      "zh": "传送门"
+    },
+    {
+      "id": "terrain.staircase",
+      "args": {},
+      "canonical": "staircase",
+      "zh": "楼梯"
+    },
+    {
+      "id": "terrain.shop",
+      "args": {},
+      "canonical": "shop",
+      "zh": "商店"
+    },
+    {
+      "id": "terrain.fountain",
+      "args": {},
+      "canonical": "fountain",
+      "zh": "喷泉"
+    },
+    {
+      "id": "terrain.dais",
+      "args": {},
+      "canonical": "dais",
+      "zh": "台座"
+    },
+    {
+      "id": "terrain.unknown_terrain",
+      "args": {},
+      "canonical": "unknown terrain",
+      "zh": "未知地形"
+    },
+    {
+      "id": "terrain.floor",
+      "args": {},
+      "canonical": "floor",
+      "zh": "地面"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "zh-message.h"
+
 #include <vector>
 
 #include "enum.h"
@@ -63,6 +65,7 @@ spret cast_ignite_poison(actor *agent, int pow, bool fail,
                               bool tracer = false);
 spret cast_unravelling(coord_def target, int pow, bool fail);
 string mons_inner_flame_immune_reason(const monster *mons);
+ZhArg mons_inner_flame_immune_reason_display(const monster *mons);
 spret cast_inner_flame(coord_def target, int pow, bool fail);
 int get_mercury_weaken_chance(int victim_hd);
 dice_def poisonous_vapours_damage(int pow, bool random);

@@ -5,6 +5,8 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
+#include "zh-display-name.h"
 
 
 #include "spl-damage.h"
@@ -3698,24 +3700,29 @@ spret cast_unravelling(coord_def target, int pow, bool fail)
 }
 
 // XXX: this should take a monster_info.
-string mons_inner_flame_immune_reason(const monster *mons)
+ZhArg mons_inner_flame_immune_reason_display(const monster *mons)
 {
     if (!mons || !you.can_see(*mons))
-        return "You can't see anything there.";
+        return zh_message_arg("reason", "target.external.inner_flame.unseen");
 
     if (mons->has_ench(ENCH_INNER_FLAME))
     {
-        return make_stringf("%s is already burning with an inner flame!",
-                            mons->name(DESC_THE).c_str());
+        return zh_message_arg("reason", "target.external.inner_flame.already_burning",
+                              {zh_monster_arg("monster", *mons)});
     }
 
     if (mons->willpower() == WILL_INVULN)
     {
-        return make_stringf("%s has infinite will and cannot be affected.",
-                            mons->name(DESC_THE).c_str());
+        return zh_message_arg("reason", "target.external.inner_flame.infinite_will",
+                              {zh_monster_arg("monster", *mons)});
     }
 
-    return "";
+    return zh_text("reason", "", "");
+}
+
+string mons_inner_flame_immune_reason(const monster *mons)
+{
+    return mons_inner_flame_immune_reason_display(mons).canonical;
 }
 
 spret cast_inner_flame(coord_def target, int pow, bool fail)
@@ -3727,10 +3734,10 @@ spret cast_inner_flame(coord_def target, int pow, bool fail)
     }
 
     const monster* mons = monster_at(target);
-    const string immune_reason = mons_inner_flame_immune_reason(mons);
-    if (!immune_reason.empty())
+    const ZhArg immune_reason = mons_inner_flame_immune_reason_display(mons);
+    if (!immune_reason.canonical.empty())
     {
-        mpr(immune_reason);
+        mpr(ZhMessage{immune_reason.message_id, immune_reason.canonical, immune_reason.localized});
         return spret::abort;
     }
 
@@ -3821,7 +3828,7 @@ spret cast_flame_wave(int pow, bool fail)
     fail_check();
 
     you.props[FLAME_WAVE_POWER_KEY].get_int() = pow;
-    start_channelling_spell(SPELL_FLAME_WAVE, "intensify the flame waves");
+    start_channelling_spell(SPELL_FLAME_WAVE);
 
     return spret::success;
 }
@@ -3885,7 +3892,7 @@ spret cast_searing_ray(actor& agent, int pow, bolt &beam, bool fail)
         mprf("You focus your ray upon %s.", targ->name(DESC_THE).c_str());
 
     if (agent.is_player())
-        start_channelling_spell(SPELL_SEARING_RAY, "maintain the ray");
+        start_channelling_spell(SPELL_SEARING_RAY);
     else
     {
         int dur = min(3 + pow / 60, 5);
@@ -4630,7 +4637,7 @@ spret cast_maxwells_coupling(int pow, bool fail, bool tracer)
     you.props[COUPLING_TIME_KEY] =
        you.elapsed_time + (30 + div_rand_round(random2((200 - pow) * 40), 200));
 
-    start_channelling_spell(SPELL_MAXWELLS_COUPLING, "continue charging", false);
+    start_channelling_spell(SPELL_MAXWELLS_COUPLING, false);
 
     return spret::success;
 }

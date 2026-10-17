@@ -3,8 +3,6 @@
 #include "target.h"
 
 #include <cmath>
-#include <cstdlib>
-#include <fstream>
 #include <utility> // swap
 
 #include "cloud.h"
@@ -41,27 +39,8 @@ bool targeter::notify_fail(const ZhArg &reason)
     return false;
 }
 
-bool targeter::notify_fail(const string &canonical)
-{
-    // Unmigrated external producers remain complete English sentences.
-    return notify_fail(ZhArg{"reason", ZhArgType::Text, canonical, canonical, false});
-}
-
 ZhMessage targeter::failure_message() const
 {
-    // External producers have no message ID yet. Report only when their reason
-    // is actually displayed, rather than during speculative target probing.
-    if (!display_failure.supported && display_failure.message_id.empty()
-        && !why_not.empty())
-    {
-        const char *path = std::getenv("DCSS_ZH_ID_MISSING");
-        if (path && *path)
-        {
-            std::ofstream out(path, std::ios::app);
-            out << "target.reason.external_unmigrated\tunsupported external producer\t"
-                << why_not << "\n";
-        }
-    }
     return {display_failure.message_id, why_not,
             display_failure.supported ? display_failure.localized : why_not};
 }
@@ -557,8 +536,8 @@ targeter_walljump::targeter_walljump() :
 
 bool targeter_walljump::valid_aim(coord_def a)
 {
-    string reason;
-    const bool valid = wu_jian_can_wall_jump(a, reason);
+    ZhArg reason;
+    const bool valid = wu_jian_can_wall_jump_display(a, reason);
     notify_fail(reason); // The original producer also clears why_not on success.
     return valid;
 }
@@ -592,8 +571,8 @@ bool targeter_passwall::valid_aim(coord_def a)
     if (!you.see_cell(a))
         return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_see_that_place"));
     passwall_path tmp_path(you, a - you.pos(), range);
-    string failmsg;
-    tmp_path.is_valid(&failmsg);
+    ZhArg failmsg;
+    tmp_path.is_valid_display(&failmsg);
     if (!tmp_path.spell_succeeds())
         return notify_fail(failmsg);
     return true;
@@ -787,8 +766,9 @@ bool targeter_inner_flame::valid_aim(coord_def a)
     if (!targeter_smite::valid_aim(a))
         return false;
 
-    if (!mons_inner_flame_immune_reason(monster_at(a)).empty())
-        return notify_fail(mons_inner_flame_immune_reason(monster_at(a)));
+    const ZhArg reason = mons_inner_flame_immune_reason_display(monster_at(a));
+    if (!reason.canonical.empty())
+        return notify_fail(reason);
 
     return true;
 }
@@ -803,8 +783,9 @@ bool targeter_simulacrum::valid_aim(coord_def a)
     if (!targeter_smite::valid_aim(a))
         return false;
 
-    if (!mons_simulacrum_immune_reason(monster_at(a)).empty())
-        return notify_fail(mons_simulacrum_immune_reason(monster_at(a)));
+    const ZhArg reason = mons_simulacrum_immune_reason_display(monster_at(a));
+    if (!reason.canonical.empty())
+        return notify_fail(reason);
 
     return true;
 }
@@ -2528,7 +2509,7 @@ bool targeter_marionette::valid_aim(coord_def a)
 
     monster* mons = monster_at(a);
     if (!mons || !you.can_see(*mons) || mons->is_firewood() || mons->friendly())
-        return notify_fail("");
+        return notify_fail(zh_text("reason", "", ""));
 
     if (mons->has_ench(ENCH_SHADOWLESS))
         return notify_fail(zh_message_arg("reason", "target.reason.their_shadow_is_too_faded_to_take_hold"));
@@ -2610,8 +2591,8 @@ bool targeter_surprising_crocodile::valid_aim(coord_def a)
     if (!targeter_smite::valid_aim(a))
         return false;
 
-    string msg = surprising_crocodile_unusable_reason(*agent, a, false);
-    if (!msg.empty())
+    const ZhArg msg = surprising_crocodile_unusable_reason_display(*agent, a, false);
+    if (!msg.canonical.empty())
         return notify_fail(msg);
 
     return true;

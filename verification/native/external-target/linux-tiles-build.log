@@ -1,0 +1,19 @@
+which: no advpng in (/usr/local/bin:/usr/bin)
+which: no pngcrush in (/usr/local/bin:/usr/bin)
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+/bin/sh: fork: retry: Resource temporarily unavailable
+/bin/sh: fork: retry: Resource temporarily unavailable
+/bin/sh: fork: retry: Resource temporarily unavailable
+/bin/sh: fork: retry: Resource temporarily unavailable
+/bin/sh: fork: retry: Resource temporarily unavailable
+/bin/sh: fork: retry: Resource temporarily unavailable
+/bin/sh: fork: retry: Resource temporarily unavailable
+make -C rltiles all ARCH=x86_64-redhat-linux NO_PKGCONFIG= TILES=y
+make[1]: Entering directory '/work/source/source/rltiles'
+make[1]: Leaving directory '/work/source/source/rltiles'
+    PYTHON rltilesstatus-icon-sizes.h
+    CXX zh-localization.o
+    CXX zh-message.o
+    CXX tiledgnbuf.o
+    LINK crawl

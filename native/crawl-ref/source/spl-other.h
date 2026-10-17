@@ -1,5 +1,7 @@
 #pragma once
 
+#include "zh-message.h"
+
 #include <vector>
 
 #include "externs.h"
@@ -44,6 +46,7 @@ struct passwall_path
     int max_walls() const;
     int actual_walls() const;
     bool is_valid(string *fail_msg) const;
+    bool is_valid_display(ZhArg *reason) const;
     bool check_moveto() const;
     vector <coord_def> possible_dests() const;
 };

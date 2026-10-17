@@ -76,6 +76,29 @@ def main():
  '| 模块 | 当前边界 | 下一步 / 验收 |','|---|---|---|']
  for entry in manifest['modules']:
   lines.append('| '+entry['name']+' | '+entry['state']+' | '+entry['acceptance']+' |')
+ if manifest.get('workflow'):
+  flow=manifest['workflow']
+  lines+=['','## 按项目结构推进的路线','',flow['unit']+'。',flow['completion']+'。',flow['evidence']+'。','']
+  for n,item in enumerate(flow['order'],1):lines.append(f'{n}. {item}')
+ if manifest.get('work_packages'):
+  lines+=['','## 可验收工作包','']
+  for package in manifest['work_packages']:
+   assert package['state'] in ('queued','in-progress','verified'),package['id']
+   for name in package['sources']:assert (SRC/name).is_file(),(package['id'],name)
+   if package['state']=='verified':
+    assert package.get('report') and (ROOT/package['report']).is_file(),package['id']
+    for test in package['tests']:assert (ROOT/test).is_file(),(package['id'],test)
+    text='\n'.join((SRC/name).read_text() for name in package['sources'])
+    for producer in package['producers']:assert producer in text,(package['id'],producer)
+   lines += [f"### {package['id']} — {package['state']}",'',
+    '所属模块：'+package['module']+'。',
+    '文件：'+ '、'.join('`'+name+'`' for name in package['sources'])+'。',
+    '生产函数：'+'、'.join('`'+name+'`' for name in package['producers'])+'。',
+    '显示/业务消费者：'+'、'.join('`'+name+'`' for name in package['consumers'])+'。',
+    '验证：'+'、'.join('`'+name+'`' for name in package['tests'])+'。']
+   if package.get('canonical_compatibility'):lines.append('兼容规则：'+package['canonical_compatibility']+'。')
+   if package.get('report'):lines.append('验收记录：['+package['report']+'](../../'+package['report']+')。')
+   lines+=['剩余：'+'；'.join(package['remaining'])+'。','']
  lines+=['','## 公共旧入口','']
  for row in rows:
   if row['classification']=='legacy-hook':lines.append(f"- `{row['file']}:{row['line']}` — `{row['anchor']}`")

@@ -20,7 +20,8 @@ def main():
     consumer=block(directn,'void direction_chooser::print_target_description(')
     assert 'mpr(hitfunc->failure_message(), MSGCH_EXAMINE_FILTER)' in consumer
     assert 'why_not.c_str()' not in consumer
-    assert not re.search(r'notify_fail\(\s*"[^"\n]+"',source), 'fixed reasons still reach legacy string path'
+    assert 'notify_fail(const string' not in source
+    assert not re.search(r'notify_fail\(\s*"[^"\n]*"',source), 'fixed reasons still reach legacy string path'
     fixture=json.loads((Path(__file__).parent/'fixtures/target-notifications-english.json').read_text())
     # Inspect the generated IDs actually bound by the real notify_fail calls.
     fixed=[]
@@ -60,7 +61,7 @@ string article_a(const char*s){return string("a ")+s;}
 struct world {int grid(coord_def)const{return terrain;}knowledge map_knowledge(coord_def)const{return {};}}env;
 struct targeter {
  string why_not;ZhArg display_failure;const actor*agent=nullptr;
- bool notify_fail(const ZhArg&);bool notify_fail(const string&);ZhMessage failure_message()const;
+ bool notify_fail(const ZhArg&);ZhMessage failure_message()const;
 };
 struct targeter_smite:targeter {bool base_valid=true;bool valid_aim(coord_def){return base_valid;}};
 struct targeter_charge:targeter {bool valid_aim(coord_def);};
@@ -74,7 +75,7 @@ coord_def get_electric_charge_landing_spot(const actor&,coord_def,string*canonic
  *canonical=charge_reason.canonical;*reason=charge_reason;coord_def c;c.n=land;return c;
 }
 '''
-    for name in ['bool targeter::notify_fail(const ZhArg','bool targeter::notify_fail(const string','ZhMessage targeter::failure_message(','bool targeter_charge::valid_aim(','bool targeter_unravelling::valid_aim(','bool targeter_poisonous_vapours::valid_aim(','bool targeter_transference::valid_aim(','static ZhArg _wallmsg(']:
+    for name in ['bool targeter::notify_fail(const ZhArg','ZhMessage targeter::failure_message(','bool targeter_charge::valid_aim(','bool targeter_unravelling::valid_aim(','bool targeter_poisonous_vapours::valid_aim(','bool targeter_transference::valid_aim(','static ZhArg _wallmsg(']:
         code+=block(source,name)+'\n'
     code+='const char *fixed_ids[] = {'+','.join(json.dumps(x) for x in sorted(set(fixed)))+'};\n'
     code+='const char *fixed_english[] = {'+','.join(json.dumps(x) for x in fixture['fixed'])+'};\n'
@@ -116,16 +117,9 @@ int main(int argc,char **argv){
  }
  // An unsupported external child must replace prior localized state completely.
  t.notify_fail(zh_message_arg("reason","target.reason.out_of_range"));check(t,"Out of range.",true);
- assert(argc==2);setenv("DCSS_ZH_ID_MISSING",argv[1],1);
- t.notify_fail(string("A future external reason."));
- // Merely probing a candidate must not create a missing-translation report.
- assert(!ifstream(argv[1]).good());
- check(t,"A future external reason.",false);
- auto report=[&](){ifstream in(argv[1]);return string(istreambuf_iterator<char>(in),istreambuf_iterator<char>());};
- string expected_report="target.reason.external_unmigrated\tunsupported external producer\tA future external reason.\n";
- assert(report()==expected_report);++cases;
- t.notify_fail(string());assert(t.failure_message().canonical.empty()&&t.failure_message().localized.empty());++cases;
- assert(report()==expected_report);++cases;
+ t.notify_fail(ZhArg{"reason",ZhArgType::Text,"An unsupported complete reason.","An unsupported complete reason.",false});
+ check(t,"An unsupported complete reason.",false);
+ t.notify_fail(zh_text("reason", "", ""));assert(t.failure_message().canonical.empty()&&t.failure_message().localized.empty());++cases;
  cout<<"PASS: "<<cases<<" real target notification producer cases, canonical names, branches and whole-message fallback\n";
 }
 '''

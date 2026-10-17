@@ -7,6 +7,7 @@
 
 #include "god-abil.h"
 #include "zh-message.h"
+#include "zh-display-name.h"
 
 #include <cmath>
 #include <numeric>
@@ -6323,11 +6324,11 @@ bool wu_jian_can_wall_jump_in_principle(const coord_def& target)
     return true;
 }
 
-bool wu_jian_can_wall_jump(const coord_def& target, string &error_ret)
+bool wu_jian_can_wall_jump_display(const coord_def& target, ZhArg &reason)
 {
     if (target.distance_from(you.pos()) != 1)
     {
-        error_ret = "Please select an adjacent position to wall jump against.";
+        reason = zh_message_arg("reason", "target.external.wall_jump.adjacent");
         return false;
     }
 
@@ -6335,11 +6336,12 @@ bool wu_jian_can_wall_jump(const coord_def& target, string &error_ret)
     {
         if (!feat_can_wall_jump_against(env.grid(target)))
         {
-            error_ret = string("You cannot wall jump against ") +
-                feature_description_at(target, false, DESC_THE) + ".";
+            ZhArg terrain = zh_glossary_name("terrain", "terrain", feat_type_name(env.grid(target)));
+            terrain.canonical = feature_description_at(target, false, DESC_THE);
+            reason = zh_message_arg("reason", "target.external.wall_jump.terrain", {terrain});
         }
         else
-            error_ret = "";
+            reason = zh_text("reason", "", "");
         return false;
     }
 
@@ -6350,16 +6352,18 @@ bool wu_jian_can_wall_jump(const coord_def& target, string &error_ret)
     monster* beholder = you.get_beholder(wall_jump_landing_spot);
     if (beholder)
     {
-        error_ret = make_stringf("You cannot wall jump away from %s!",
-             beholder->name(DESC_THE, true).c_str());
+        ZhArg monster = zh_monster_arg("monster", *beholder);
+        monster.canonical = beholder->name(DESC_THE, true);
+        reason = zh_message_arg("reason", "target.external.wall_jump.beholder", {monster});
         return false;
     }
 
     monster* fearmonger = you.get_fearmonger(wall_jump_landing_spot);
     if (fearmonger)
     {
-        error_ret = make_stringf("You cannot wall jump closer to %s!",
-             fearmonger->name(DESC_THE, true).c_str());
+        ZhArg monster = zh_monster_arg("monster", *fearmonger);
+        monster.canonical = fearmonger->name(DESC_THE, true);
+        reason = zh_message_arg("reason", "target.external.wall_jump.fearmonger", {monster});
         return false;
     }
 
@@ -6371,18 +6375,26 @@ bool wu_jian_can_wall_jump(const coord_def& target, string &error_ret)
     {
         if (landing_actor)
         {
-            error_ret = make_stringf(
-                "You have no room to wall jump there; %s is in the way.",
-                landing_actor->observable()
-                            ? landing_actor->name(DESC_THE).c_str()
-                            : "something you can't see");
+            ZhArg blocker = landing_actor->observable()
+                ? zh_actor_arg("blocker", landing_actor)
+                : zh_message_arg("blocker", "target.external.wall_jump.unseen_blocker");
+            blocker.type = ZhArgType::Name;
+            reason = zh_message_arg("reason", "target.external.wall_jump.blocked", {blocker});
         }
         else
-            error_ret = "You have no room to wall jump there.";
+            reason = zh_message_arg("reason", "target.external.wall_jump.no_room");
         return false;
     }
-    error_ret = "";
+    reason = zh_text("reason", "", "");
     return true;
+}
+
+bool wu_jian_can_wall_jump(const coord_def& target, string &error_ret)
+{
+    ZhArg reason;
+    const bool valid = wu_jian_can_wall_jump_display(target, reason);
+    error_ret = reason.canonical;
+    return valid;
 }
 
 /**
@@ -6442,11 +6454,11 @@ spret wu_jian_wall_jump_ability()
         return spret::abort;
     }
 
-    string wj_error;
+    ZhArg wj_error;
     bool has_targets = false;
 
     for (adjacent_iterator ai(you.pos()); ai; ++ai)
-        if (wu_jian_can_wall_jump(*ai, wj_error))
+        if (wu_jian_can_wall_jump_display(*ai, wj_error))
         {
             has_targets = true;
             break;
@@ -6505,7 +6517,7 @@ spret wu_jian_wall_jump_ability()
             return spret::abort; // early return
         }
 
-        if (wu_jian_can_wall_jump(beam.target, wj_error))
+        if (wu_jian_can_wall_jump_display(beam.target, wj_error))
             break;
     }
 

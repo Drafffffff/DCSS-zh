@@ -10,13 +10,71 @@
 | 技能 | 主面板/查阅菜单/详情/帮助/tile提示已接入；增强/削弱特殊状态仍待真实分支补验 | 主面板、?/k、条目、详情、帮助、训练/增强/削弱、tile提示全部走新链路 |
 | 商店 | 菜单/确认/余额/购物清单主路径已接入，Mac严格回放通过；罕见命名回退仍登记 | 不同余额/数量/排序/颜色/键位/购买/空清单及名称回退 |
 | HUD | 等级/地点/噪声/武器部分接入；其他字段未迁移 | 统一按字段语义接入；列宽/刷新/长短名/最大值；不能整体跳过旧层审计 |
-| 战斗日志 | 本批迁移变形进出、装备脱落、特殊形态战斗提示及共用目标通知；斯芬克斯随机谜语speech、其他法术/战斗及外部传入传送原因仍待迁移 | 玩家/怪物/武器/状态/数值组合，全部成功失败分支保留英文控制数据 |
+| 战斗日志 | 战斗命中/失手及共用限制、反噬组合、变形进出已分批接入；本批施法增强/魔杖增强/误施法、四类引导提醒与终止及魔力不足日志接入；剩余战斗/法术/怪物日志待逐包验收 | 玩家/怪物/武器/状态/数值组合，全部成功失败分支保留英文控制数据 |
 | 装备与物品操作 | 护符穿戴理由/万变护符/确认/延迟已接入；本批变形进出与装备模拟/脱落日志已接入，退休形态整句回退报告；其他物品穿脱/拾取仍待迁移 | 穿脱/挥舞/使用/失败/进度/中断完整消息；量词/所有格 |
-| 瞄准、法术、能力、箭袋 | 法术共用父理由与反噬组成已接入；targeter固定/怪物/墙体/冲锋理由到directn通知维护canonical和typed；壁跳/穿墙/内焰/拟像/鳄鱼外部理由明确缺失报告，其他法术菜单与箭袋待迁移 | 坐标/距离/法术等级分离；目标名称和无效目标；父视图/箭袋提示也需迁移 |
+| 瞄准、法术、能力、箭袋 | 法术共用父理由与反噬组成、targeter固定/实体理由和五类外部理由生成到通知/实际施法均已接入；string notify_fail已移除；施法选择、风险、瞄准帮助与箭袋仍待迁移 | 坐标/距离/法术等级分离；目标名称和无效目标；父视图/箭袋提示也需迁移 |
 | 神祇与角色 | 等级/技能成长部分接入；神祇/变异/状态/能力大量入口待迁移 | 每个实体、状态与等级语义分开；全流程日志/详情/菜单 |
 | 世界与通用界面 | 本批拾取初见教程完整模板及控制标记处理已接入，修复旧中文数据库错误闭合标签；其余教程、地形、旅行、交互与通用菜单仍待迁移 | 静态/动态生产点完整接入；输入/程序标识不翻译 |
 | 帮助与文档 | 已审校中文手册可复用；入口及标题仍需归一 | 选择正文语言；长文分页/标记/快捷键；无最终英文句匹配 |
 | 旧历史兼容 | 旧存档英文历史无ID，保留明确兼容边界 | 与新实时消息隔离；不改原存档；不计入新架构迁移完成 |
+
+## 按项目结构推进的路线
+
+按模块选择工作包；每包沿生产函数、业务消费者、显示出口完整迁移。
+通过参数/规范英文/完整回退测试、Mac存档副本调试与两端构建后，才标为已验收；文件里存在新接口不代表文件完成。
+源码调用清单用于查漏；未逐项验收的调用不计完成，不以词库条数或中文字占比计覆盖率。
+
+1. 共用目标理由闭环
+2. 施法动态日志与持续施法
+3. 法术/箭袋/瞄准菜单及风险标签
+4. 通用移动确认与危险地形
+5. 物品操作日志
+6. 战斗实体与状态日志
+7. 神祇与角色
+8. 世界交互/剩余教程/文档入口
+
+## 可验收工作包
+
+### target-external-reasons — verified
+
+所属模块：瞄准、法术、能力、箭袋。
+文件：`god-abil.cc`、`god-abil.h`、`spl-other.cc`、`spl-other.h`、`spl-damage.cc`、`spl-damage.h`、`spl-summoning.cc`、`spl-summoning.h`、`target.cc`、`target.h`。
+生产函数：`wu_jian_can_wall_jump`、`passwall_path::is_valid`、`mons_inner_flame_immune_reason`、`mons_simulacrum_immune_reason`、`surprising_crocodile_unusable_reason`。
+显示/业务消费者：`targeter_walljump::valid_aim`、`targeter_passwall::valid_aim`、`targeter_inner_flame::valid_aim`、`targeter_simulacrum::valid_aim`、`targeter_surprising_crocodile::valid_aim`、`cast_passwall`、`cast_inner_flame`、`cast_simulacrum`、`cast_surprising_crocodile`。
+验证：`tools/test_external_target_reasons.py`、`tools/test_target_notifications.py`。
+兼容规则：旧理由接口仅返回canonical；分支与隐藏信息规则不变；string notify_fail入口应移除。
+验收记录：[verification/native/external-target/REPORT.md](../../verification/native/external-target/REPORT.md)。
+剩余：通用危险地形移动确认属于player.cc，单列后续工作包。
+
+### casting-channel-logs — verified
+
+所属模块：战斗日志。
+文件：`spl-cast.cc`、`spl-cast.h`。
+生产函数：`surge_power`、`surge_power_wand`、`_casting_spell_log`、`start_channelling_spell`、`handle_channelled_spell`、`stop_channelling_spells`。
+显示/业务消费者：`surge_power`、`surge_power_wand`、`start_channelling_spell`、`handle_channelled_spell`、`stop_channelling_spells`。
+验证：`tools/test_casting_logs.py`。
+兼容规则：力量档位、单次状态副作用、按键替换与规范英文逐项对照旧源码。
+验收记录：[verification/native/external-target/REPORT.md](../../verification/native/external-target/REPORT.md)。
+剩余：施法选择/风险确认/箭袋描述与名称列表未包含在本包。
+
+### target-quiver-prompts — queued
+
+所属模块：瞄准、法术、能力、箭袋。
+文件：`directn.cc`、`quiver.cc`、`spl-cast.cc`。
+生产函数：`direction_chooser::print_key_hints`、`_spell_failure_rate_description`。
+显示/业务消费者：。
+验证：。
+剩余：Press帮助行、风险评语、施法选择、箭袋动作全文模板。
+
+### terrain-move-confirmation — queued
+
+所属模块：世界与通用界面。
+文件：`player.cc`、`spl-other.cc`。
+生产函数：`check_moveto_terrain`。
+显示/业务消费者：`passwall_path::check_moveto`。
+验证：。
+剩余：移动动词、危险地形、飞行到期与穿墙提示父句整体迁移。
+
 
 ## 公共旧入口
 

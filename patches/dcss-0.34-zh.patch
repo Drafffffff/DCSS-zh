@@ -51788,18 +51788,19 @@ index 9e07e4a..dbc3d84 100644
  void display_tagged_block(const string& s);
 +void display_tagged_block_raw(const string& s);
 diff --git a/crawl-ref/source/god-abil.cc b/crawl-ref/source/god-abil.cc
-index b7cdb40..3ffa02c 100644
+index b7cdb40..be739fe 100644
 --- a/crawl-ref/source/god-abil.cc
 +++ b/crawl-ref/source/god-abil.cc
-@@ -6,6 +6,7 @@
+@@ -6,6 +6,8 @@
  #include "AppHdr.h"
  
  #include "god-abil.h"
 +#include "zh-message.h"
++#include "zh-display-name.h"
  
  #include <cmath>
  #include <numeric>
-@@ -2241,6 +2242,35 @@ string desc_curse_skills(const CrawlStoreValue& curse)
+@@ -2241,6 +2243,35 @@ string desc_curse_skills(const CrawlStoreValue& curse)
             + comma_separated_fn(trainable.begin(), trainable.end(), skill_name);
  }
  
@@ -51835,11 +51836,132 @@ index b7cdb40..3ffa02c 100644
  /**
   * Choose skills to boost accompanying the current curse.
   */
+@@ -6293,11 +6324,11 @@ bool wu_jian_can_wall_jump_in_principle(const coord_def& target)
+     return true;
+ }
+ 
+-bool wu_jian_can_wall_jump(const coord_def& target, string &error_ret)
++bool wu_jian_can_wall_jump_display(const coord_def& target, ZhArg &reason)
+ {
+     if (target.distance_from(you.pos()) != 1)
+     {
+-        error_ret = "Please select an adjacent position to wall jump against.";
++        reason = zh_message_arg("reason", "target.external.wall_jump.adjacent");
+         return false;
+     }
+ 
+@@ -6305,11 +6336,12 @@ bool wu_jian_can_wall_jump(const coord_def& target, string &error_ret)
+     {
+         if (!feat_can_wall_jump_against(env.grid(target)))
+         {
+-            error_ret = string("You cannot wall jump against ") +
+-                feature_description_at(target, false, DESC_THE) + ".";
++            ZhArg terrain = zh_glossary_name("terrain", "terrain", feat_type_name(env.grid(target)));
++            terrain.canonical = feature_description_at(target, false, DESC_THE);
++            reason = zh_message_arg("reason", "target.external.wall_jump.terrain", {terrain});
+         }
+         else
+-            error_ret = "";
++            reason = zh_text("reason", "", "");
+         return false;
+     }
+ 
+@@ -6320,16 +6352,18 @@ bool wu_jian_can_wall_jump(const coord_def& target, string &error_ret)
+     monster* beholder = you.get_beholder(wall_jump_landing_spot);
+     if (beholder)
+     {
+-        error_ret = make_stringf("You cannot wall jump away from %s!",
+-             beholder->name(DESC_THE, true).c_str());
++        ZhArg monster = zh_monster_arg("monster", *beholder);
++        monster.canonical = beholder->name(DESC_THE, true);
++        reason = zh_message_arg("reason", "target.external.wall_jump.beholder", {monster});
+         return false;
+     }
+ 
+     monster* fearmonger = you.get_fearmonger(wall_jump_landing_spot);
+     if (fearmonger)
+     {
+-        error_ret = make_stringf("You cannot wall jump closer to %s!",
+-             fearmonger->name(DESC_THE, true).c_str());
++        ZhArg monster = zh_monster_arg("monster", *fearmonger);
++        monster.canonical = fearmonger->name(DESC_THE, true);
++        reason = zh_message_arg("reason", "target.external.wall_jump.fearmonger", {monster});
+         return false;
+     }
+ 
+@@ -6341,20 +6375,28 @@ bool wu_jian_can_wall_jump(const coord_def& target, string &error_ret)
+     {
+         if (landing_actor)
+         {
+-            error_ret = make_stringf(
+-                "You have no room to wall jump there; %s is in the way.",
+-                landing_actor->observable()
+-                            ? landing_actor->name(DESC_THE).c_str()
+-                            : "something you can't see");
++            ZhArg blocker = landing_actor->observable()
++                ? zh_actor_arg("blocker", landing_actor)
++                : zh_message_arg("blocker", "target.external.wall_jump.unseen_blocker");
++            blocker.type = ZhArgType::Name;
++            reason = zh_message_arg("reason", "target.external.wall_jump.blocked", {blocker});
+         }
+         else
+-            error_ret = "You have no room to wall jump there.";
++            reason = zh_message_arg("reason", "target.external.wall_jump.no_room");
+         return false;
+     }
+-    error_ret = "";
++    reason = zh_text("reason", "", "");
+     return true;
+ }
+ 
++bool wu_jian_can_wall_jump(const coord_def& target, string &error_ret)
++{
++    ZhArg reason;
++    const bool valid = wu_jian_can_wall_jump_display(target, reason);
++    error_ret = reason.canonical;
++    return valid;
++}
++
+ /**
+  * Do a walljump.
+  *
+@@ -6412,11 +6454,11 @@ spret wu_jian_wall_jump_ability()
+         return spret::abort;
+     }
+ 
+-    string wj_error;
++    ZhArg wj_error;
+     bool has_targets = false;
+ 
+     for (adjacent_iterator ai(you.pos()); ai; ++ai)
+-        if (wu_jian_can_wall_jump(*ai, wj_error))
++        if (wu_jian_can_wall_jump_display(*ai, wj_error))
+         {
+             has_targets = true;
+             break;
+@@ -6475,7 +6517,7 @@ spret wu_jian_wall_jump_ability()
+             return spret::abort; // early return
+         }
+ 
+-        if (wu_jian_can_wall_jump(beam.target, wj_error))
++        if (wu_jian_can_wall_jump_display(beam.target, wj_error))
+             break;
+     }
+ 
 diff --git a/crawl-ref/source/god-abil.h b/crawl-ref/source/god-abil.h
-index c9704ed..d41e3b0 100644
+index c9704ed..f438214 100644
 --- a/crawl-ref/source/god-abil.h
 +++ b/crawl-ref/source/god-abil.h
-@@ -18,6 +18,7 @@
+@@ -5,6 +5,8 @@
+ 
+ #pragma once
+ 
++#include "zh-message.h"
++
+ #include "ability-type.h"
+ #include "beh-type.h"
+ #include "enum.h"
+@@ -18,6 +20,7 @@
  #include "spl-cast.h"
  
  class dist;
@@ -51847,7 +51969,7 @@ index c9704ed..d41e3b0 100644
  
  #define AVAILABLE_SAC_KEY "available_sacrifices"
  #define HEALTH_SAC_KEY "current_health_sacrifice"
-@@ -161,6 +162,7 @@ void ashenzari_offer_new_curse();
+@@ -161,6 +164,7 @@ void ashenzari_offer_new_curse();
  bool ashenzari_curse_item();
  bool ashenzari_uncurse_item();
  string desc_curse_skills(const CrawlStoreValue& curse);
@@ -51855,6 +51977,14 @@ index c9704ed..d41e3b0 100644
  string curse_abbr(const CrawlStoreValue& curse);
  string curse_name(const CrawlStoreValue& curse);
  const vector<skill_type>& curse_skills(const CrawlStoreValue& curse);
+@@ -236,6 +240,7 @@ void hepliaklqana_choose_identity();
+ 
+ bool wu_jian_can_wall_jump_in_principle(const coord_def& target);
+ bool wu_jian_can_wall_jump(const coord_def& target, string &error_ret);
++bool wu_jian_can_wall_jump_display(const coord_def& target, ZhArg &reason);
+ bool wu_jian_do_wall_jump(coord_def targ);
+ spret wu_jian_wall_jump_ability();
+ void wu_jian_heavenly_storm();
 diff --git a/crawl-ref/source/hints.cc b/crawl-ref/source/hints.cc
 index 9f18733..1490166 100644
 --- a/crawl-ref/source/hints.cc
@@ -58583,7 +58713,7 @@ index 2ab4ec2..5a3a2e3 100644
  
  spell_type spell_in_wand(wand_type wand);
 diff --git a/crawl-ref/source/spl-cast.cc b/crawl-ref/source/spl-cast.cc
-index e840154..00c081c 100644
+index e840154..8097372 100644
 --- a/crawl-ref/source/spl-cast.cc
 +++ b/crawl-ref/source/spl-cast.cc
 @@ -6,6 +6,7 @@
@@ -58594,7 +58724,61 @@ index e840154..00c081c 100644
  
  #include <iomanip>
  #include <sstream>
-@@ -1002,10 +1003,10 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
+@@ -89,32 +90,34 @@ static int _apply_enhancement(const int initial_power,
+                               const int enhancer_levels);
+ static string _spell_failure_rate_description(spell_type spell);
+ 
++static ZhMessage _surge_power_message(int enhanced)
++{
++    const char *id = enhanced < -2 ? "spell.cast.surge.numb.extraordinary"
++        : enhanced == -2 ? "spell.cast.surge.numb.extreme"
++        : enhanced < 0 ? "spell.cast.surge.numb.normal"
++        : enhanced == 2 ? "spell.cast.surge.power.strong"
++        : enhanced > 2 ? "spell.cast.surge.power.huge"
++        : "spell.cast.surge.power.normal";
++    return zh_message(id);
++}
++
+ void surge_power(const int enhanced)
+ {
+-    if (enhanced)               // one way or the other {dlb}
+-    {
+-        const string modifier = (enhanced  < -2) ? "extraordinarily" :
+-                                (enhanced == -2) ? "extremely" :
+-                                (enhanced ==  2) ? "strong" :
+-                                (enhanced  >  2) ? "huge"
+-                                                 : "";
+-        mprf("You feel %s %s",
+-             !modifier.length() ? "a"
+-                                : article_a(modifier).c_str(),
+-             (enhanced < 0) ? "numb sensation."
+-                            : "surge of power!");
+-    }
++    if (enhanced)
++        mpr(_surge_power_message(enhanced));
+ }
+ 
+ void surge_power_wand(const int mp_cost)
+ {
+     if (mp_cost)
+-    {
+-        const bool slight = mp_cost < 3;
+-        mprf("You feel a %ssurge of power%s",
+-             slight ? "slight " : "",
+-             slight ? "."      : "!");
+-    }
++        mpr(zh_message(mp_cost < 3 ? "spell.cast.wand.slight"
++                                  : "spell.cast.wand.power"));
++}
++
++static ZhMessage _casting_spell_log(const char *id, spell_type spell)
++{
++    return zh_message(id, {
++        zh_word_arg("spell", "spell.name.", spell_title(spell), ZhArgType::Name)});
+ }
+ 
+ static string _spell_base_description(spell_type spell, bool transient)
+@@ -1002,10 +1005,10 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
      }
  
      // MP, confusion, Ru sacs
@@ -58608,7 +58792,7 @@ index e840154..00c081c 100644
          crawl_state.zero_turns_taken();
          return spret::abort;
      }
-@@ -1215,14 +1216,12 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
+@@ -1215,14 +1218,12 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
   */
  static bool _spellcasting_aborted(spell_type spell, bool fake_spell)
  {
@@ -58627,7 +58811,7 @@ index e840154..00c081c 100644
          return true;
      }
  
-@@ -1975,7 +1974,7 @@ class spell_targeting_behaviour : public targeting_behaviour
+@@ -1975,7 +1976,7 @@ class spell_targeting_behaviour : public targeting_behaviour
  public:
      spell_targeting_behaviour(spell_type _spell)
          : targeting_behaviour(false), spell(_spell),
@@ -58636,7 +58820,7 @@ index e840154..00c081c 100644
      {
      }
  
-@@ -1986,14 +1985,20 @@ public:
+@@ -1986,14 +1987,20 @@ public:
  
      string get_error() override
      {
@@ -58659,7 +58843,16 @@ index e840154..00c081c 100644
  };
  
  // TODO: is there a way for this to be part of targeter objects, or
-@@ -3045,7 +3050,7 @@ static string _spell_failure_rate_description(spell_type spell)
+@@ -2402,7 +2409,7 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
+     {
+         if (actual_spell)
+         {
+-            mprf("You miscast %s.", spell_title(spell));
++            mpr(_casting_spell_log("spell.cast.miscast", spell));
+             flush_input_buffer(FLUSH_ON_FAILURE);
+             learned_something_new(HINT_SPELL_MISCAST);
+             miscast_effect(spell, fail);
+@@ -3045,7 +3052,7 @@ static string _spell_failure_rate_description(spell_type spell)
              col, severity_adj, col, col, failure.c_str(), col);
  }
  
@@ -58668,7 +58861,7 @@ index e840154..00c081c 100644
  {
      const int casting_noise = spell_noise(spell);
      int effect_noise = spell_effect_noise(spell);
-@@ -3054,8 +3059,11 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+@@ -3054,8 +3061,11 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
      if (spell == SPELL_POLAR_VORTEX)
          effect_noise = 15;
  
@@ -58681,7 +58874,7 @@ index e840154..00c081c 100644
      const char* noise_descriptions[] =
      {
          "Silent", "Almost silent", "Quiet", "A bit loud", "Loud", "Very loud",
-@@ -3065,8 +3073,14 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+@@ -3065,8 +3075,14 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
      const int breakpoints[] = { 1, 2, 4, 8, 15, 20, 30 };
      COMPILE_CHECK(ARRAYSZ(noise_descriptions) == 1 + ARRAYSZ(breakpoints));
  
@@ -58697,7 +58890,7 @@ index e840154..00c081c 100644
  
  #ifdef WIZARD
      if (you.wizard)
-@@ -3086,6 +3100,23 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+@@ -3086,6 +3102,23 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
          return desc;
  }
  
@@ -58721,8 +58914,85 @@ index e840154..00c081c 100644
  int power_to_barcount(int power)
  {
      if (power == -1)
+@@ -3415,7 +3448,25 @@ bool channelled_spell_active(spell_type spell)
+     return you.attribute[ATTR_CHANNELLED_SPELL] == spell;
+ }
+ 
+-void start_channelling_spell(spell_type spell, string reminder_msg, bool do_effect)
++static ZhMessage _channel_reminder_message(spell_type spell)
++{
++    const char *id = nullptr;
++    switch (spell)
++    {
++    case SPELL_FLAME_WAVE: id = "spell.channel.reminder.flame_wave"; break;
++    case SPELL_SEARING_RAY: id = "spell.channel.reminder.searing_ray"; break;
++    case SPELL_MAXWELLS_COUPLING: id = "spell.channel.reminder.maxwell"; break;
++    case SPELL_CLOCKWORK_BEE: id = "spell.channel.reminder.clockwork_bee"; break;
++    default: return {"", "", ""};
++    }
++    ZhMessage message = zh_message(id);
++    // Command substitution is structural; choose the complete sentence first.
++    insert_commands(message.canonical, { CMD_WAIT });
++    insert_commands(message.localized, { CMD_WAIT });
++    return message;
++}
++
++void start_channelling_spell(spell_type spell, bool do_effect)
+ {
+     you.attribute[ATTR_CHANNELLED_SPELL] = spell;
+     you.attribute[ATTR_CHANNEL_DURATION] = -1;
+@@ -3425,12 +3476,9 @@ void start_channelling_spell(spell_type spell, string reminder_msg, bool do_effe
+     else
+         you.attribute[ATTR_CHANNEL_DURATION] = 0;
+ 
+-    if (!reminder_msg.empty())
+-    {
+-        string msg = "(Press <w>%</w> to " + reminder_msg + ".)";
+-        insert_commands(msg, { CMD_WAIT });
+-        mpr(msg);
+-    }
++    const ZhMessage reminder = _channel_reminder_message(spell);
++    if (!reminder.canonical.empty())
++        mpr(reminder);
+ }
+ 
+ void handle_channelled_spell()
+@@ -3461,8 +3509,7 @@ void handle_channelled_spell()
+     if ((spell == SPELL_FLAME_WAVE || spell == SPELL_SEARING_RAY)
+         && turn > 1 && !enough_mp(1, true))
+     {
+-        mprf("Without enough magic to sustain it, your %s dissipates.",
+-             spell_title(spell));
++        mpr(_casting_spell_log("spell.channel.insufficient_magic", spell));
+         stop_channelling_spells(true);
+         return;
+     }
+@@ -3503,19 +3550,19 @@ void stop_channelling_spells(bool quiet)
+     switch (spell)
+     {
+         case SPELL_FLAME_WAVE:
+-            mpr("You stop channelling waves of flame.");
++            mpr(zh_message("spell.channel.stop.flame_wave"));
+             break;
+ 
+         case SPELL_SEARING_RAY:
+-            mpr("You stop channelling your searing ray.");
++            mpr(zh_message("spell.channel.stop.searing_ray"));
+             break;
+ 
+         case SPELL_MAXWELLS_COUPLING:
+-            mpr("The insufficient charge dissipates harmlessly.");
++            mpr(zh_message("spell.channel.stop.maxwell"));
+             break;
+ 
+         case SPELL_CLOCKWORK_BEE:
+-            mpr("You stop assembling your clockwork bee.");
++            mpr(zh_message("spell.channel.stop.clockwork_bee"));
+             break;
+ 
+         default:
 diff --git a/crawl-ref/source/spl-cast.h b/crawl-ref/source/spl-cast.h
-index 3b1756b..9048e53 100644
+index 3b1756b..6f88104 100644
 --- a/crawl-ref/source/spl-cast.h
 +++ b/crawl-ref/source/spl-cast.h
 @@ -16,6 +16,7 @@
@@ -58733,7 +59003,7 @@ index 3b1756b..9048e53 100644
  struct monster_info;
  class dist;
  
-@@ -145,6 +146,7 @@ string spell_range_string(spell_type spell);
+@@ -145,13 +146,14 @@ string spell_range_string(spell_type spell);
  string range_string(int range, int maxrange = -1, int minrange = 0);
  string spell_schools_string(spell_type spell);
  string spell_failure_rate_string(spell_type spell, bool terse);
@@ -58741,6 +59011,409 @@ index 3b1756b..9048e53 100644
  string spell_noise_string(spell_type spell, int chop_wiz_display_width = 0);
  
  void spell_skills(spell_type spell, set<skill_type> &skills);
+ void do_demonic_magic(int pow, int rank);
+ 
+ bool channelled_spell_active(spell_type spell);
+-void start_channelling_spell(spell_type spell, string reminder_msg = "", bool do_effect = true);
++void start_channelling_spell(spell_type spell, bool do_effect = true);
+ void stop_channelling_spells(bool quiet = false);
+ void handle_channelled_spell();
+ 
+diff --git a/crawl-ref/source/spl-damage.cc b/crawl-ref/source/spl-damage.cc
+index e9c90cd..700094b 100644
+--- a/crawl-ref/source/spl-damage.cc
++++ b/crawl-ref/source/spl-damage.cc
+@@ -5,6 +5,8 @@
+ **/
+ 
+ #include "AppHdr.h"
++#include "zh-message.h"
++#include "zh-display-name.h"
+ 
+ 
+ #include "spl-damage.h"
+@@ -3698,24 +3700,29 @@ spret cast_unravelling(coord_def target, int pow, bool fail)
+ }
+ 
+ // XXX: this should take a monster_info.
+-string mons_inner_flame_immune_reason(const monster *mons)
++ZhArg mons_inner_flame_immune_reason_display(const monster *mons)
+ {
+     if (!mons || !you.can_see(*mons))
+-        return "You can't see anything there.";
++        return zh_message_arg("reason", "target.external.inner_flame.unseen");
+ 
+     if (mons->has_ench(ENCH_INNER_FLAME))
+     {
+-        return make_stringf("%s is already burning with an inner flame!",
+-                            mons->name(DESC_THE).c_str());
++        return zh_message_arg("reason", "target.external.inner_flame.already_burning",
++                              {zh_monster_arg("monster", *mons)});
+     }
+ 
+     if (mons->willpower() == WILL_INVULN)
+     {
+-        return make_stringf("%s has infinite will and cannot be affected.",
+-                            mons->name(DESC_THE).c_str());
++        return zh_message_arg("reason", "target.external.inner_flame.infinite_will",
++                              {zh_monster_arg("monster", *mons)});
+     }
+ 
+-    return "";
++    return zh_text("reason", "", "");
++}
++
++string mons_inner_flame_immune_reason(const monster *mons)
++{
++    return mons_inner_flame_immune_reason_display(mons).canonical;
+ }
+ 
+ spret cast_inner_flame(coord_def target, int pow, bool fail)
+@@ -3727,10 +3734,10 @@ spret cast_inner_flame(coord_def target, int pow, bool fail)
+     }
+ 
+     const monster* mons = monster_at(target);
+-    const string immune_reason = mons_inner_flame_immune_reason(mons);
+-    if (!immune_reason.empty())
++    const ZhArg immune_reason = mons_inner_flame_immune_reason_display(mons);
++    if (!immune_reason.canonical.empty())
+     {
+-        mpr(immune_reason);
++        mpr(ZhMessage{immune_reason.message_id, immune_reason.canonical, immune_reason.localized});
+         return spret::abort;
+     }
+ 
+@@ -3821,7 +3828,7 @@ spret cast_flame_wave(int pow, bool fail)
+     fail_check();
+ 
+     you.props[FLAME_WAVE_POWER_KEY].get_int() = pow;
+-    start_channelling_spell(SPELL_FLAME_WAVE, "intensify the flame waves");
++    start_channelling_spell(SPELL_FLAME_WAVE);
+ 
+     return spret::success;
+ }
+@@ -3885,7 +3892,7 @@ spret cast_searing_ray(actor& agent, int pow, bolt &beam, bool fail)
+         mprf("You focus your ray upon %s.", targ->name(DESC_THE).c_str());
+ 
+     if (agent.is_player())
+-        start_channelling_spell(SPELL_SEARING_RAY, "maintain the ray");
++        start_channelling_spell(SPELL_SEARING_RAY);
+     else
+     {
+         int dur = min(3 + pow / 60, 5);
+@@ -4630,7 +4637,7 @@ spret cast_maxwells_coupling(int pow, bool fail, bool tracer)
+     you.props[COUPLING_TIME_KEY] =
+        you.elapsed_time + (30 + div_rand_round(random2((200 - pow) * 40), 200));
+ 
+-    start_channelling_spell(SPELL_MAXWELLS_COUPLING, "continue charging", false);
++    start_channelling_spell(SPELL_MAXWELLS_COUPLING, false);
+ 
+     return spret::success;
+ }
+diff --git a/crawl-ref/source/spl-damage.h b/crawl-ref/source/spl-damage.h
+index 2802dc3..2b41b0e 100644
+--- a/crawl-ref/source/spl-damage.h
++++ b/crawl-ref/source/spl-damage.h
+@@ -1,5 +1,7 @@
+ #pragma once
+ 
++#include "zh-message.h"
++
+ #include <vector>
+ 
+ #include "enum.h"
+@@ -63,6 +65,7 @@ spret cast_ignite_poison(actor *agent, int pow, bool fail,
+                               bool tracer = false);
+ spret cast_unravelling(coord_def target, int pow, bool fail);
+ string mons_inner_flame_immune_reason(const monster *mons);
++ZhArg mons_inner_flame_immune_reason_display(const monster *mons);
+ spret cast_inner_flame(coord_def target, int pow, bool fail);
+ int get_mercury_weaken_chance(int victim_hd);
+ dice_def poisonous_vapours_damage(int pow, bool random);
+diff --git a/crawl-ref/source/spl-other.cc b/crawl-ref/source/spl-other.cc
+index bb1020e..30344f9 100644
+--- a/crawl-ref/source/spl-other.cc
++++ b/crawl-ref/source/spl-other.cc
+@@ -5,6 +5,7 @@
+ **/
+ 
+ #include "AppHdr.h"
++#include "zh-message.h"
+ 
+ #include "spl-other.h"
+ 
+@@ -298,43 +299,54 @@ bool passwall_path::spell_succeeds() const
+     return actual_walls() > 0;
+ }
+ 
+-bool passwall_path::is_valid(string *fail_msg) const
++bool passwall_path::is_valid_display(ZhArg *reason) const
+ {
+     // does not check moveto cases, incl lava/deep water, since these prompt.
+     if (delta.zero())
+     {
+-        if (fail_msg)
+-            *fail_msg = "Please select a wall.";
++        if (reason)
++            *reason = zh_message_arg("reason", "target.external.passwall.select_wall");
+         return false;
+     }
+     if (actual_walls() == 0)
+     {
+-        if (fail_msg)
+-            *fail_msg = "There is no adjacent passable wall in that direction.";
++        if (reason)
++            *reason = zh_message_arg("reason", "target.external.passwall.no_wall");
+         return false;
+     }
+     if (!dest_found)
+     {
+-        if (fail_msg)
+-            *fail_msg = "This rock feels extremely deep.";
++        if (reason)
++            *reason = zh_message_arg("reason", "target.external.passwall.too_deep");
+         return false;
+     }
+     if (!in_bounds(actual_dest))
+     {
+-        if (fail_msg)
+-            *fail_msg = "You sense an overwhelming volume of rock.";
++        if (reason)
++            *reason = zh_message_arg("reason", "target.external.passwall.out_of_bounds");
+         return false;
+     }
+     const monster *mon = monster_at(actual_dest);
+     if (cell_is_solid(actual_dest) || (mon && mon->is_stationary()))
+     {
+-        if (fail_msg)
+-            *fail_msg = "Something is blocking your path through the rock.";
++        if (reason)
++            *reason = zh_message_arg("reason", "target.external.passwall.blocked");
+         return false;
+     }
++    if (reason)
++        *reason = zh_text("reason", "", "");
+     return true;
+ }
+ 
++bool passwall_path::is_valid(string *fail_msg) const
++{
++    ZhArg reason;
++    const bool valid = is_valid_display(&reason);
++    if (!valid && fail_msg)
++        *fail_msg = reason.canonical;
++    return valid;
++}
++
+ /// find possible destinations, given the player's map knowledge
+ vector <coord_def> passwall_path::possible_dests() const
+ {
+@@ -384,12 +396,12 @@ spret cast_passwall(const coord_def& c, int pow, bool fail)
+ 
+     coord_def delta = c - you.pos();
+     passwall_path p(you, delta, spell_range(SPELL_PASSWALL, &you));
+-    string fail_msg;
+-    bool valid = p.is_valid(&fail_msg);
++    ZhArg fail_msg;
++    bool valid = p.is_valid_display(&fail_msg);
+     if (!p.spell_succeeds())
+     {
+-        if (fail_msg.size())
+-            mpr(fail_msg);
++        if (!fail_msg.canonical.empty())
++            mpr(ZhMessage{fail_msg.message_id, fail_msg.canonical, fail_msg.localized});
+         return spret::abort;
+     }
+ 
+@@ -397,8 +409,8 @@ spret cast_passwall(const coord_def& c, int pow, bool fail)
+ 
+     if (!valid)
+     {
+-        if (fail_msg.size())
+-            mpr(fail_msg);
++        if (!fail_msg.canonical.empty())
++            mpr(ZhMessage{fail_msg.message_id, fail_msg.canonical, fail_msg.localized});
+     }
+     else if (p.check_moveto())
+     {
+diff --git a/crawl-ref/source/spl-other.h b/crawl-ref/source/spl-other.h
+index ca45b1e..64a8a75 100644
+--- a/crawl-ref/source/spl-other.h
++++ b/crawl-ref/source/spl-other.h
+@@ -1,5 +1,7 @@
+ #pragma once
+ 
++#include "zh-message.h"
++
+ #include <vector>
+ 
+ #include "externs.h"
+@@ -44,6 +46,7 @@ struct passwall_path
+     int max_walls() const;
+     int actual_walls() const;
+     bool is_valid(string *fail_msg) const;
++    bool is_valid_display(ZhArg *reason) const;
+     bool check_moveto() const;
+     vector <coord_def> possible_dests() const;
+ };
+diff --git a/crawl-ref/source/spl-summoning.cc b/crawl-ref/source/spl-summoning.cc
+index c3b1d71..cd72be0 100644
+--- a/crawl-ref/source/spl-summoning.cc
++++ b/crawl-ref/source/spl-summoning.cc
+@@ -4,6 +4,8 @@
+ **/
+ 
+ #include "AppHdr.h"
++#include "zh-message.h"
++#include "zh-display-name.h"
+ 
+ #include "spl-summoning.h"
+ 
+@@ -3194,18 +3196,23 @@ spret cast_broms_barrelling_boulder(actor& agent, coord_def targ, int pow, bool
+     return spret::success;
+ }
+ 
+-string mons_simulacrum_immune_reason(const monster *mons)
++ZhArg mons_simulacrum_immune_reason_display(const monster *mons)
+ {
+     if (!mons || !you.can_see(*mons))
+-        return "You can't see anything there.";
++        return zh_message_arg("reason", "target.external.simulacrum.unseen");
+ 
+     if (!mons_can_be_spectralised(*mons))
+-        return "You can't make a simulacrum of that!";
++        return zh_message_arg("reason", "target.external.simulacrum.immune");
+ 
+     if (mons->friendly() || mons->neutral())
+-        return "That would be terribly rude!";
++        return zh_message_arg("reason", "target.external.simulacrum.rude");
++
++    return zh_text("reason", "", "");
++}
+ 
+-    return "";
++string mons_simulacrum_immune_reason(const monster *mons)
++{
++    return mons_simulacrum_immune_reason_display(mons).canonical;
+ }
+ 
+ spret cast_simulacrum(coord_def target, int pow, bool fail)
+@@ -3228,14 +3235,15 @@ spret cast_simulacrum(coord_def target, int pow, bool fail)
+ 
+     if (!mons_can_be_spectralised(*mons))
+     {
+-        mpr("You can't make simulacra of that!");
++        mpr(zh_message("target.external.simulacrum.cast_immune"));
+         return spret::abort;
+     }
+ 
+     fail_check();
+ 
+-    mprf("You sublimate a sliver of %s essence and reconstitute it in ice.",
+-         apostrophise(mons->name(DESC_THE)).c_str());
++    ZhArg essence_monster = zh_monster_arg("monster_possessive", *mons);
++    essence_monster.canonical = apostrophise(mons->name(DESC_THE));
++    mpr(zh_message("target.external.simulacrum.essence", {essence_monster}));
+ 
+     int num_simulacra = 2;
+     if (x_chance_in_y(pow, 200))
+@@ -3678,7 +3686,7 @@ spret cast_clockwork_bee(coord_def target, bool fail)
+     you.props[CLOCKWORK_BEE_TARGET].get_int() = targ->mid;
+ 
+     mprf("You lock target on %s and prepare to deploy your bee.", targ->name(DESC_THE).c_str());
+-    start_channelling_spell(SPELL_CLOCKWORK_BEE, "continue winding your bee", false);
++    start_channelling_spell(SPELL_CLOCKWORK_BEE, false);
+ 
+     // Remove any existing bee
+     for (monster_iterator mi; mi; ++mi)
+@@ -3883,33 +3891,38 @@ spret cast_diamond_sawblades(int power, bool fail)
+     return spret::success;
+ }
+ 
+-string surprising_crocodile_unusable_reason(const actor& agent, const coord_def& target,
++ZhArg surprising_crocodile_unusable_reason_display(const actor& agent, const coord_def& target,
+                                             bool actual)
+ {
+     if (!monster_habitable_grid(MONS_CROCODILE, agent.pos()))
+-        return "A crocodile could not survive beneath you.";
++        return zh_message_arg("reason", "target.external.crocodile.terrain");
+ 
+     actor* targ = actor_at(target);
+     if (!targ || !agent.can_see(*targ) || mons_aligned(&agent, targ))
+-        return "You can't see a valid target there.";
++        return zh_message_arg("reason", "target.external.crocodile.no_target");
+ 
+     const coord_def drag_shift = -(target - agent.pos()).sgn();
+     const coord_def move_pos = agent.pos() + drag_shift;
+     if (cell_is_solid(move_pos)
+         || actor_at(move_pos) && (actual || agent.can_see(*actor_at(move_pos))))
+     {
+-        return "There's not enough room behind you.";
++        return zh_message_arg("reason", "target.external.crocodile.no_room");
+     }
+ 
+     if (!agent.is_habitable(move_pos)
+          || agent.is_player() && need_expiration_warning(move_pos))
+     {
+-        return "It isn't safe to move backwards.";
++        return zh_message_arg("reason", "target.external.crocodile.unsafe");
+     }
+ 
+     // Nothing is preventing this spell from being cast (even if the crocodile
+     // will not be able to drag the monster anywhere).
+-    return "";
++    return zh_text("reason", "", "");
++}
++
++string surprising_crocodile_unusable_reason(const actor& agent, const coord_def& target, bool actual)
++{
++    return surprising_crocodile_unusable_reason_display(agent, target, actual).canonical;
+ }
+ 
+ // Assuming the spell is castable at all (see surprising_crocodile_unusable_reason()
+@@ -3956,10 +3969,10 @@ spret cast_surprising_crocodile(actor& agent, const coord_def& targ, int pow, bo
+     // The targeter will prevent casting this at times where the player *knows*
+     // it won't work, but it's possible there's still an invisible creature in
+     // the way that will cause this to fail.
+-    string msg = surprising_crocodile_unusable_reason(agent, targ, true);
+-    if (!msg.empty())
++    const ZhArg msg = surprising_crocodile_unusable_reason_display(agent, targ, true);
++    if (!msg.canonical.empty())
+     {
+-        mpr("Something unseen prevents your spell from working!");
++        mpr(zh_message("target.external.crocodile.hidden_blocker"));
+         return spret::success;
+     }
+ 
+diff --git a/crawl-ref/source/spl-summoning.h b/crawl-ref/source/spl-summoning.h
+index b24b71f..bf28adf 100644
+--- a/crawl-ref/source/spl-summoning.h
++++ b/crawl-ref/source/spl-summoning.h
+@@ -1,5 +1,7 @@
+ #pragma once
+ 
++#include "zh-message.h"
++
+ #include "beam.h"
+ #include "beh-type.h"
+ #include "enum.h"
+@@ -152,6 +154,7 @@ int barrelling_boulder_hp(int pow);
+ spret cast_broms_barrelling_boulder(actor& agent, coord_def pos, int pow, bool fail);
+ 
+ string mons_simulacrum_immune_reason(const monster *mons);
++ZhArg mons_simulacrum_immune_reason_display(const monster *mons);
+ spret cast_simulacrum(coord_def target, int pow, bool fail);
+ 
+ dice_def hoarfrost_cannonade_damage(int pow, bool finale);
+@@ -175,6 +178,8 @@ spret cast_diamond_sawblades(int power, bool fail);
+ 
+ string surprising_crocodile_unusable_reason(const actor& agent,
+                                             const coord_def& target, bool actual);
++ZhArg surprising_crocodile_unusable_reason_display(const actor& agent,
++                                            const coord_def& target, bool actual);
+ bool surprising_crocodile_can_drag(const actor& agent, const coord_def& target,
+                                    bool actual);
+ spret cast_surprising_crocodile(actor& agent, const coord_def& targ,
 diff --git a/crawl-ref/source/spl-transloc.cc b/crawl-ref/source/spl-transloc.cc
 index b3694e5..1358414 100644
 --- a/crawl-ref/source/spl-transloc.cc
@@ -60214,19 +60887,10 @@ index 137085a..6154a1d 100644
          return s;
      string str = s;
 diff --git a/crawl-ref/source/target.cc b/crawl-ref/source/target.cc
-index 3fe1f8e..132841b 100644
+index 3fe1f8e..fc8fffe 100644
 --- a/crawl-ref/source/target.cc
 +++ b/crawl-ref/source/target.cc
-@@ -3,6 +3,8 @@
- #include "target.h"
- 
- #include <cmath>
-+#include <cstdlib>
-+#include <fstream>
- #include <utility> // swap
- 
- #include "cloud.h"
-@@ -30,14 +32,47 @@
+@@ -30,14 +30,28 @@
  #include "spl-transloc.h"
  #include "stringutil.h"
  #include "terrain.h"
@@ -60239,33 +60903,14 @@ index 3fe1f8e..132841b 100644
 +    display_failure = reason;
 +    return false;
 +}
-+
-+bool targeter::notify_fail(const string &canonical)
-+{
-+    // Unmigrated external producers remain complete English sentences.
-+    return notify_fail(ZhArg{"reason", ZhArgType::Text, canonical, canonical, false});
-+}
-+
+ 
+-static string _wallmsg(coord_def c)
 +ZhMessage targeter::failure_message() const
 +{
-+    // External producers have no message ID yet. Report only when their reason
-+    // is actually displayed, rather than during speculative target probing.
-+    if (!display_failure.supported && display_failure.message_id.empty()
-+        && !why_not.empty())
-+    {
-+        const char *path = std::getenv("DCSS_ZH_ID_MISSING");
-+        if (path && *path)
-+        {
-+            std::ofstream out(path, std::ios::app);
-+            out << "target.reason.external_unmigrated\tunsupported external producer\t"
-+                << why_not << "\n";
-+        }
-+    }
 +    return {display_failure.message_id, why_not,
 +            display_failure.supported ? display_failure.localized : why_not};
 +}
- 
--static string _wallmsg(coord_def c)
++
 +static ZhArg _wallmsg(coord_def c)
  {
      ASSERT(map_bounds(c)); // there'd be an information leak
@@ -60277,7 +60922,7 @@ index 3fe1f8e..132841b 100644
  }
  
  bool targeter::set_aim(coord_def a)
-@@ -145,9 +180,10 @@ bool targeter_charge::valid_aim(coord_def a)
+@@ -145,9 +159,10 @@ bool targeter_charge::valid_aim(coord_def a)
  {
      string msg;
  
@@ -60290,7 +60935,7 @@ index 3fe1f8e..132841b 100644
  
      return true;
  }
-@@ -272,11 +308,11 @@ bool targeter_beam::valid_aim(coord_def a)
+@@ -272,11 +287,11 @@ bool targeter_beam::valid_aim(coord_def a)
              !cell_see_cell(origin, a, LOS_NO_TRANS))
      {
          if (agent->see_cell(a))
@@ -60305,7 +60950,7 @@ index 3fe1f8e..132841b 100644
      return true;
  }
  
-@@ -428,22 +464,22 @@ bool targeter_smite::valid_aim(coord_def a)
+@@ -428,22 +443,22 @@ bool targeter_smite::valid_aim(coord_def a)
      {
          // Scrying/glass/tree/grate.
          if (agent && agent->see_cell(a))
@@ -60333,28 +60978,33 @@ index 3fe1f8e..132841b 100644
      }
      return true;
  }
-@@ -521,7 +557,10 @@ targeter_walljump::targeter_walljump() :
+@@ -521,7 +536,10 @@ targeter_walljump::targeter_walljump() :
  
  bool targeter_walljump::valid_aim(coord_def a)
  {
 -    return wu_jian_can_wall_jump(a, why_not);
-+    string reason;
-+    const bool valid = wu_jian_can_wall_jump(a, reason);
++    ZhArg reason;
++    const bool valid = wu_jian_can_wall_jump_display(a, reason);
 +    notify_fail(reason); // The original producer also clears why_not on success.
 +    return valid;
  }
  
  aff_type targeter_walljump::is_affected(coord_def loc)
-@@ -551,7 +590,7 @@ bool targeter_passwall::valid_aim(coord_def a)
+@@ -551,10 +569,10 @@ bool targeter_passwall::valid_aim(coord_def a)
  {
      // Don't allow casting with 0 LOS
      if (!you.see_cell(a))
 -        return notify_fail("You cannot see that place.");
 +        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_see_that_place"));
      passwall_path tmp_path(you, a - you.pos(), range);
-     string failmsg;
-     tmp_path.is_valid(&failmsg);
-@@ -602,9 +641,9 @@ targeter_dig::targeter_dig(int max_range) :
+-    string failmsg;
+-    tmp_path.is_valid(&failmsg);
++    ZhArg failmsg;
++    tmp_path.is_valid_display(&failmsg);
+     if (!tmp_path.spell_succeeds())
+         return notify_fail(failmsg);
+     return true;
+@@ -602,9 +620,9 @@ targeter_dig::targeter_dig(int max_range) :
  bool targeter_dig::valid_aim(coord_def a)
  {
      if (a == origin)
@@ -60366,7 +61016,7 @@ index 3fe1f8e..132841b 100644
      int possible_squares_affected;
      if (aim_test_cache.count(a))
          possible_squares_affected = aim_test_cache[a];
-@@ -624,7 +663,7 @@ bool targeter_dig::valid_aim(coord_def a)
+@@ -624,7 +642,7 @@ bool targeter_dig::valid_aim(coord_def a)
          aim_test_cache[a] = possible_squares_affected;
      }
      if (possible_squares_affected == 0)
@@ -60375,7 +61025,7 @@ index 3fe1f8e..132841b 100644
      else if (possible_squares_affected < 0)
          return false;
      else
-@@ -693,13 +732,14 @@ bool targeter_transference::valid_aim(coord_def a)
+@@ -693,13 +711,14 @@ bool targeter_transference::valid_aim(coord_def a)
      {
          if (mons_is_hepliaklqana_ancestor(victim->type))
          {
@@ -60393,7 +61043,31 @@ index 3fe1f8e..132841b 100644
          }
      }
      return true;
-@@ -798,14 +838,15 @@ bool targeter_unravelling::valid_aim(coord_def a)
+@@ -747,8 +766,9 @@ bool targeter_inner_flame::valid_aim(coord_def a)
+     if (!targeter_smite::valid_aim(a))
+         return false;
+ 
+-    if (!mons_inner_flame_immune_reason(monster_at(a)).empty())
+-        return notify_fail(mons_inner_flame_immune_reason(monster_at(a)));
++    const ZhArg reason = mons_inner_flame_immune_reason_display(monster_at(a));
++    if (!reason.canonical.empty())
++        return notify_fail(reason);
+ 
+     return true;
+ }
+@@ -763,8 +783,9 @@ bool targeter_simulacrum::valid_aim(coord_def a)
+     if (!targeter_smite::valid_aim(a))
+         return false;
+ 
+-    if (!mons_simulacrum_immune_reason(monster_at(a)).empty())
+-        return notify_fail(mons_simulacrum_immune_reason(monster_at(a)));
++    const ZhArg reason = mons_simulacrum_immune_reason_display(monster_at(a));
++    if (!reason.canonical.empty())
++        return notify_fail(reason);
+ 
+     return true;
+ }
+@@ -798,14 +819,15 @@ bool targeter_unravelling::valid_aim(coord_def a)
      const monster* mons = monster_at(a);
      if (mons && you.can_see(*mons) && !_unravelling_explodes_at(a))
      {
@@ -60412,7 +61086,7 @@ index 3fe1f8e..132841b 100644
      }
  
      return true;
-@@ -878,8 +919,8 @@ bool targeter_airstrike::valid_aim(coord_def a)
+@@ -878,8 +900,8 @@ bool targeter_airstrike::valid_aim(coord_def a)
      if (a != origin && !cell_see_cell(origin, a, LOS_NO_TRANS))
      {
          if (you.see_cell(a))
@@ -60423,7 +61097,7 @@ index 3fe1f8e..132841b 100644
      }
      return true;
  }
-@@ -922,7 +963,7 @@ bool targeter_fragment::valid_aim(coord_def a)
+@@ -922,7 +944,7 @@ bool targeter_fragment::valid_aim(coord_def a)
      bolt tempbeam;
      bool temp;
      if (!setup_fragmentation_beam(tempbeam, pow, agent, a, true, nullptr, temp))
@@ -60432,7 +61106,7 @@ index 3fe1f8e..132841b 100644
      return true;
  }
  
-@@ -967,14 +1008,14 @@ targeter_reach::targeter_reach(const actor* act, int ran) :
+@@ -967,14 +989,14 @@ targeter_reach::targeter_reach(const actor* act, int ran) :
  bool targeter_reach::valid_aim(coord_def a)
  {
      if (!cell_see_cell(origin, a, LOS_DEFAULT))
@@ -60450,7 +61124,7 @@ index 3fe1f8e..132841b 100644
  
      return true;
  }
-@@ -1011,7 +1052,7 @@ bool targeter_cleave::valid_aim(coord_def a)
+@@ -1011,7 +1033,7 @@ bool targeter_cleave::valid_aim(coord_def a)
  {
      const coord_def delta = a - origin;
      if (delta.rdist() > range)
@@ -60459,7 +61133,7 @@ index 3fe1f8e..132841b 100644
      if (range == 2)
      {
          const coord_def first_middle(origin + delta / 2);
-@@ -1019,7 +1060,7 @@ bool targeter_cleave::valid_aim(coord_def a)
+@@ -1019,7 +1041,7 @@ bool targeter_cleave::valid_aim(coord_def a)
          if (!feat_is_reachable_past(env.grid(first_middle))
               && !feat_is_reachable_past(env.grid(second_middle)))
          {
@@ -60468,7 +61142,7 @@ index 3fe1f8e..132841b 100644
          }
      }
      return true;
-@@ -1072,7 +1113,7 @@ static bool _cloudable(coord_def loc, cloud_type ctype, const actor *agent)
+@@ -1072,7 +1094,7 @@ static bool _cloudable(coord_def loc, cloud_type ctype, const actor *agent)
  bool targeter_cloud::valid_aim(coord_def a)
  {
      if (agent && (origin - a).rdist() > range)
@@ -60477,7 +61151,7 @@ index 3fe1f8e..132841b 100644
      if (!map_bounds(a)
          || agent
             && origin != a
-@@ -1080,8 +1121,8 @@ bool targeter_cloud::valid_aim(coord_def a)
+@@ -1080,8 +1102,8 @@ bool targeter_cloud::valid_aim(coord_def a)
      {
          // Scrying/glass/tree/grate.
          if (agent && agent->see_cell(a))
@@ -60488,7 +61162,7 @@ index 3fe1f8e..132841b 100644
      }
      if (cell_is_solid(a))
          return notify_fail(_wallmsg(a));
-@@ -1089,11 +1130,10 @@ bool targeter_cloud::valid_aim(coord_def a)
+@@ -1089,11 +1111,10 @@ bool targeter_cloud::valid_aim(coord_def a)
      {
          const cloud_struct *cloud = cloud_at(a);
          if (cloud && !cloud_is_stronger(ctype, *cloud))
@@ -60502,7 +61176,7 @@ index 3fe1f8e..132841b 100644
          }
          ASSERT(_cloudable(a, ctype, agent));
      }
-@@ -1222,12 +1262,12 @@ targeter_radius::targeter_radius(const actor *act, los_type _los,
+@@ -1222,12 +1243,12 @@ targeter_radius::targeter_radius(const actor *act, los_type _los,
  bool targeter_radius::valid_aim(coord_def a)
  {
      if ((a - origin).rdist() > range_max || (a - origin).rdist() < range_min)
@@ -60517,7 +61191,7 @@ index 3fe1f8e..132841b 100644
      return true;
  }
  
-@@ -1326,11 +1366,11 @@ bool targeter_thunderbolt::valid_aim(coord_def a)
+@@ -1326,11 +1347,11 @@ bool targeter_thunderbolt::valid_aim(coord_def a)
      {
          // Scrying/glass/tree/grate.
          if (agent->see_cell(a))
@@ -60532,7 +61206,7 @@ index 3fe1f8e..132841b 100644
      return true;
  }
  
-@@ -1458,11 +1498,11 @@ bool targeter_cone::valid_aim(coord_def a)
+@@ -1458,11 +1479,11 @@ bool targeter_cone::valid_aim(coord_def a)
      {
          // Scrying/glass/tree/grate.
          if (agent->see_cell(a))
@@ -60547,7 +61221,7 @@ index 3fe1f8e..132841b 100644
      return true;
  }
  
-@@ -1666,12 +1706,12 @@ bool targeter_overgrow::valid_aim(coord_def a)
+@@ -1666,12 +1687,12 @@ bool targeter_overgrow::valid_aim(coord_def a)
      if (a != origin && !cell_see_cell(origin, a, LOS_NO_TRANS))
      {
          if (agent && agent->see_cell(a))
@@ -60563,7 +61237,7 @@ index 3fe1f8e..132841b 100644
  
      return true;
  }
-@@ -1750,7 +1790,7 @@ targeter_scorch::targeter_scorch(const actor &a, int _range, bool affect_invis)
+@@ -1750,7 +1771,7 @@ targeter_scorch::targeter_scorch(const actor &a, int _range, bool affect_invis)
  bool targeter_scorch::valid_aim(coord_def a)
  {
      if ((a - origin).rdist() > range)
@@ -60572,7 +61246,7 @@ index 3fe1f8e..132841b 100644
      return true;
  }
  
-@@ -1988,8 +2028,8 @@ bool targeter_poisonous_vapours::valid_aim(coord_def a)
+@@ -1988,8 +2009,8 @@ bool targeter_poisonous_vapours::valid_aim(coord_def a)
      const monster_info *mon = env.map_knowledge(a).monsterinfo();
      if (mon && !affects_monster(*mon))
      {
@@ -60583,7 +61257,7 @@ index 3fe1f8e..132841b 100644
      }
  
      return true;
-@@ -2061,24 +2101,24 @@ bool targeter_boulder::valid_aim(coord_def a)
+@@ -2061,24 +2082,24 @@ bool targeter_boulder::valid_aim(coord_def a)
          return false;
  
      if (a == agent->pos())
@@ -60614,7 +61288,7 @@ index 3fe1f8e..132841b 100644
  
      return true;
  }
-@@ -2152,22 +2192,22 @@ bool targeter_bind_soul::valid_aim(coord_def a)
+@@ -2152,22 +2173,22 @@ bool targeter_bind_soul::valid_aim(coord_def a)
  
      monster* targ = monster_at(a);
      if (!targ || !agent->can_see(*targ))
@@ -60643,7 +61317,7 @@ index 3fe1f8e..132841b 100644
  
      return true;
  }
-@@ -2318,12 +2358,12 @@ bool targeter_gavotte::valid_aim(coord_def a)
+@@ -2318,12 +2339,12 @@ bool targeter_gavotte::valid_aim(coord_def a)
          return false;
  
      if (a == agent->pos())
@@ -60658,7 +61332,7 @@ index 3fe1f8e..132841b 100644
  
      return true;
  }
-@@ -2352,7 +2392,7 @@ bool targeter_magnavolt::valid_aim(coord_def a)
+@@ -2352,7 +2373,7 @@ bool targeter_magnavolt::valid_aim(coord_def a)
          return false;
  
      if (!monster_at(a) || !you.can_see(*monster_at(a)))
@@ -60667,7 +61341,7 @@ index 3fe1f8e..132841b 100644
  
      return true;
  }
-@@ -2418,7 +2458,7 @@ bool targeter_mortar::can_affect_walls()
+@@ -2418,7 +2439,7 @@ bool targeter_mortar::can_affect_walls()
  bool targeter_mortar::valid_aim(coord_def a)
  {
      if (!in_bounds(a))
@@ -60676,8 +61350,12 @@ index 3fe1f8e..132841b 100644
      else
          return targeter_beam::valid_aim(a);
  }
-@@ -2491,13 +2531,13 @@ bool targeter_marionette::valid_aim(coord_def a)
-         return notify_fail("");
+@@ -2488,16 +2509,16 @@ bool targeter_marionette::valid_aim(coord_def a)
+ 
+     monster* mons = monster_at(a);
+     if (!mons || !you.can_see(*mons) || mons->is_firewood() || mons->friendly())
+-        return notify_fail("");
++        return notify_fail(zh_text("reason", "", ""));
  
      if (mons->has_ench(ENCH_SHADOWLESS))
 -        return notify_fail("Their shadow is too faded to take hold of.");
@@ -60693,7 +61371,7 @@ index 3fe1f8e..132841b 100644
  
      return true;
  }
-@@ -2517,13 +2557,13 @@ bool targeter_putrefaction::valid_aim(coord_def a)
+@@ -2517,13 +2538,13 @@ bool targeter_putrefaction::valid_aim(coord_def a)
          return false;
  
      if (mons_aligned(&you, mon))
@@ -60710,7 +61388,18 @@ index 3fe1f8e..132841b 100644
  
      return true;
  }
-@@ -2638,13 +2678,13 @@ bool targeter_tempering::valid_aim(coord_def a)
+@@ -2570,8 +2591,8 @@ bool targeter_surprising_crocodile::valid_aim(coord_def a)
+     if (!targeter_smite::valid_aim(a))
+         return false;
+ 
+-    string msg = surprising_crocodile_unusable_reason(*agent, a, false);
+-    if (!msg.empty())
++    const ZhArg msg = surprising_crocodile_unusable_reason_display(*agent, a, false);
++    if (!msg.canonical.empty())
+         return notify_fail(msg);
+ 
+     return true;
+@@ -2638,13 +2659,13 @@ bool targeter_tempering::valid_aim(coord_def a)
  
      monster* mons = monster_at(a);
      if (!mons || !you.can_see(*mons) || !mons->friendly())
@@ -60727,7 +61416,7 @@ index 3fe1f8e..132841b 100644
  
      return true;
  }
-@@ -2691,7 +2731,7 @@ bool targeter_piledriver::valid_aim(coord_def a)
+@@ -2691,7 +2712,7 @@ bool targeter_piledriver::valid_aim(coord_def a)
              if (piledriver_lengths[i] > 0)
                  return true;
              else
@@ -60736,7 +61425,7 @@ index 3fe1f8e..132841b 100644
          }
      }
  
-@@ -2740,7 +2780,7 @@ bool targeter_teleport_other::valid_aim(coord_def a)
+@@ -2740,7 +2761,7 @@ bool targeter_teleport_other::valid_aim(coord_def a)
          return false;
  
      if (mi->is(MB_NO_TELE))
@@ -60745,7 +61434,7 @@ index 3fe1f8e..132841b 100644
  
      if (mi->willpower() == WILL_INVULN)
          return false;
-@@ -2803,13 +2843,13 @@ bool targeter_bestial_takedown::valid_aim(coord_def a)
+@@ -2803,13 +2824,13 @@ bool targeter_bestial_takedown::valid_aim(coord_def a)
          if (!mon->friendly() && mon->has_ench(ENCH_FEAR) && you.can_see(*mon))
          {
              if (get_bestial_landing_spots(a).empty())
@@ -60761,7 +61450,7 @@ index 3fe1f8e..132841b 100644
  }
  
  bool targeter_bestial_takedown::set_aim(coord_def a)
-@@ -2845,7 +2885,7 @@ bool targeter_paragon_deploy::valid_aim(coord_def a)
+@@ -2845,7 +2866,7 @@ bool targeter_paragon_deploy::valid_aim(coord_def a)
          return false;
  
      if (!monster_habitable_grid(MONS_PLATINUM_PARAGON, a))
@@ -60771,7 +61460,7 @@ index 3fe1f8e..132841b 100644
      return true;
  }
 diff --git a/crawl-ref/source/target.h b/crawl-ref/source/target.h
-index e0ee711..cc893c9 100644
+index e0ee711..78e5c09 100644
 --- a/crawl-ref/source/target.h
 +++ b/crawl-ref/source/target.h
 @@ -5,6 +5,7 @@
@@ -60791,12 +61480,11 @@ index e0ee711..cc893c9 100644
      bool obeys_mesmerise; // whether the rendering of ranges should take into account mesmerise effects
  
      virtual bool set_aim(coord_def a);
-@@ -63,6 +66,9 @@ public:
+@@ -63,6 +66,8 @@ public:
  
      targeting_iterator affected_iterator(aff_type threshold = AFF_YES);
  protected:
 +    bool notify_fail(const ZhArg &reason);
-+    bool notify_fail(const string &canonical);
 +    ZhArg display_failure;
      bool anyone_there(coord_def loc);
  };
@@ -117472,10 +118160,10 @@ index 0000000..fca52fb
 +};
 diff --git a/crawl-ref/source/zh-message-catalog.inc b/crawl-ref/source/zh-message-catalog.inc
 new file mode 100644
-index 0000000..7f0818a
+index 0000000..dc0161b
 --- /dev/null
 +++ b/crawl-ref/source/zh-message-catalog.inc
-@@ -0,0 +1,3474 @@
+@@ -0,0 +1,3534 @@
 +// Generated from Luna-reviewed message IDs. Do not edit.
 +static const ZhDefinition zh_definitions[] = {
 +    {"artifact.jewel.01", "It sustains your strength, intelligence and dexterity.", "它能维持你的力量、智力和敏捷。", ""},
@@ -119263,6 +119951,24 @@ index 0000000..7f0818a
 +    {"skill_multi_loss", "Your {base}{skill} skill lost {count} levels and is now at level {level}!", "你的{base}{skill}技能降低了{count}级，现在为{level}级。", "base:text;skill:name;count:integer;level:integer"},
 +    {"spell.book.terse.list", "Spells: {spells}", "法术：{spells}", "spells:text"},
 +    {"spell.book.terse.row", "{spell} (L{spell_level} {schools})", "{spell}（法术等级{spell_level}，{schools}）", "spell:name;spell_level:integer;schools:text"},
++    {"spell.cast.miscast", "You miscast {spell}.", "你施放{spell}时出了差错。", "spell:name"},
++    {"spell.cast.surge.numb.extraordinary", "You feel an extraordinarily numb sensation.", "你感到一阵异乎寻常的麻木感。", ""},
++    {"spell.cast.surge.numb.extreme", "You feel an extremely numb sensation.", "你感到一阵极度麻木。", ""},
++    {"spell.cast.surge.numb.normal", "You feel a numb sensation.", "你感到一阵麻木。", ""},
++    {"spell.cast.surge.power.huge", "You feel a huge surge of power!", "你感到一股巨大的力量涌动！", ""},
++    {"spell.cast.surge.power.normal", "You feel a surge of power!", "你感到一股力量涌动！", ""},
++    {"spell.cast.surge.power.strong", "You feel a strong surge of power!", "你感到一股强烈的力量涌动！", ""},
++    {"spell.cast.wand.power", "You feel a surge of power!", "你感到一股力量涌动！", ""},
++    {"spell.cast.wand.slight", "You feel a slight surge of power.", "你感到一股微弱的力量涌动。", ""},
++    {"spell.channel.insufficient_magic", "Without enough magic to sustain it, your {spell} dissipates.", "维持{spell}所需的魔力不足，它消散了。", "spell:name"},
++    {"spell.channel.reminder.clockwork_bee", "(Press <w>%</w> to continue winding your bee.)", "（按<w>%</w>继续给发条蜂上弦。）", ""},
++    {"spell.channel.reminder.flame_wave", "(Press <w>%</w> to intensify the flame waves.)", "（按<w>%</w>强化烈焰波。）", ""},
++    {"spell.channel.reminder.maxwell", "(Press <w>%</w> to continue charging.)", "（按<w>%</w>继续蓄能。）", ""},
++    {"spell.channel.reminder.searing_ray", "(Press <w>%</w> to maintain the ray.)", "（按<w>%</w>维持射线。）", ""},
++    {"spell.channel.stop.clockwork_bee", "You stop assembling your clockwork bee.", "你停止组装发条蜂。", ""},
++    {"spell.channel.stop.flame_wave", "You stop channelling waves of flame.", "你停止引导烈焰波。", ""},
++    {"spell.channel.stop.maxwell", "The insufficient charge dissipates harmlessly.", "蓄积的能量不足，它无害地消散了。", ""},
++    {"spell.channel.stop.searing_ray", "You stop channelling your searing ray.", "你停止引导灼热射线。", ""},
 +    {"spell.fail_rate", "        Fail: {fail_percent}% <darkgrey>({reference_percent}%)</darkgrey>", "        失败率：{fail_percent}% <darkgrey>（{reference_percent}%）</darkgrey>", "fail_percent:integer;reference_percent:integer"},
 +    {"spell.god_opinion", "{god} {opinion} the use of this spell.\n", "{god}{opinion}此法术。\n", "god:name;opinion:text"},
 +    {"spell.level", "\nLevel: {spell_level}", "\n法术等级：{spell_level}", "spell_level:integer"},
@@ -119950,6 +120656,31 @@ index 0000000..7f0818a
 +    {"talisman.unsafe.untransform.shatter", "Untransforming right now would shatter {item}!", "现在解除变形会震碎{item}！", "item:name"},
 +    {"target.action_key_prompt", "Press: \? - help, <w>{action_key}</w> - select action", "按键：\? - 帮助，<w>{action_key}</w> - 选择动作", "action_key:key"},
 +    {"target.cycle_key_prompt", "Press: \? - help, <w>{action_key}</w> - select action, <w>{previous_key}</w> or <w>{next_key}</w> - cycle", "按键：\? - 帮助，<w>{action_key}</w> - 选择动作，<w>{previous_key}</w>或<w>{next_key}</w> - 切换", "action_key:key;previous_key:key;next_key:key"},
++    {"target.external.crocodile.hidden_blocker", "Something unseen prevents your spell from working!", "有看不见的东西阻止你的法术生效！", ""},
++    {"target.external.crocodile.no_room", "There's not enough room behind you.", "你身后没有足够的空间。", ""},
++    {"target.external.crocodile.no_target", "You can't see a valid target there.", "你在那里看不到有效目标。", ""},
++    {"target.external.crocodile.terrain", "A crocodile could not survive beneath you.", "鳄鱼无法在你身下存活。", ""},
++    {"target.external.crocodile.unsafe", "It isn't safe to move backwards.", "向后移动并不安全。", ""},
++    {"target.external.inner_flame.already_burning", "{monster} is already burning with an inner flame!", "{monster}身上已经燃起内焰！", "monster:name"},
++    {"target.external.inner_flame.infinite_will", "{monster} has infinite will and cannot be affected.", "{monster}意志力无穷，无法受到影响。", "monster:name"},
++    {"target.external.inner_flame.unseen", "You can't see anything there.", "那里什么也看不见。", ""},
++    {"target.external.passwall.blocked", "Something is blocking your path through the rock.", "有什么东西挡住了你穿过岩石的去路。", ""},
++    {"target.external.passwall.no_wall", "There is no adjacent passable wall in that direction.", "那个方向没有相邻的可穿越墙壁。", ""},
++    {"target.external.passwall.out_of_bounds", "You sense an overwhelming volume of rock.", "你感知到那里的岩石多得惊人。", ""},
++    {"target.external.passwall.select_wall", "Please select a wall.", "请选择一面墙。", ""},
++    {"target.external.passwall.too_deep", "This rock feels extremely deep.", "这块岩石深得不可思议。", ""},
++    {"target.external.simulacrum.cast_immune", "You can't make simulacra of that!", "你无法将那个目标制成拟像！", ""},
++    {"target.external.simulacrum.essence", "You sublimate a sliver of {monster_possessive} essence and reconstitute it in ice.", "你提炼出{monster_possessive}的一丝精华，再以冰重新塑造出它。", "monster_possessive:name"},
++    {"target.external.simulacrum.immune", "You can't make a simulacrum of that!", "你无法将那个目标制成拟像！", ""},
++    {"target.external.simulacrum.rude", "That would be terribly rude!", "那样做也太无礼了！", ""},
++    {"target.external.simulacrum.unseen", "You can't see anything there.", "那里什么也看不见。", ""},
++    {"target.external.wall_jump.adjacent", "Please select an adjacent position to wall jump against.", "请选择一个相邻位置，以便蹬墙跳借力。", ""},
++    {"target.external.wall_jump.beholder", "You cannot wall jump away from {monster}!", "你无法通过蹬墙跳远离{monster}！", "monster:name"},
++    {"target.external.wall_jump.blocked", "You have no room to wall jump there; {blocker} is in the way.", "你没有空间在那里蹬墙跳；{blocker}挡住了去路。", "blocker:name"},
++    {"target.external.wall_jump.fearmonger", "You cannot wall jump closer to {monster}!", "你无法通过蹬墙跳靠近{monster}！", "monster:name"},
++    {"target.external.wall_jump.no_room", "You have no room to wall jump there.", "你没有空间在那里蹬墙跳。", ""},
++    {"target.external.wall_jump.terrain", "You cannot wall jump against {terrain}.", "你无法借助{terrain}蹬墙跳。", "terrain:name"},
++    {"target.external.wall_jump.unseen_blocker", "something you can't see", "某个你看不见的东西", ""},
 +    {"target.fail.already_augmented", "You cannot target a construct which is already augmented.", "你不能以已经强化的构装体为目标。", ""},
 +    {"target.fail.blocked", "There's something in the way.", "有东西挡住了去路。", ""},
 +    {"target.fail.cannot_see_place", "You cannot see that place.", "你看不见那个位置。", ""},
@@ -120028,6 +120759,23 @@ index 0000000..7f0818a
 +    {"target_object_description", "Aim: {target}", "瞄准：{target}", "target:text"},
 +    {"target_straight_line", "Shift-Dir - straight line", "Shift+方向键 - 沿直线瞄准", ""},
 +    {"target_wielding_hit_chance", "{target}, wielding {weapon} ({chance}% to hit)", "{target}，手持{weapon}（命中率{chance}%）", "target:name;weapon:text;chance:integer"},
++    {"terrain.altar", "altar", "祭坛", ""},
++    {"terrain.dais", "dais", "台座", ""},
++    {"terrain.door", "door", "门", ""},
++    {"terrain.escape_hatch", "escape hatch", "逃生舱口", ""},
++    {"terrain.floor", "floor", "地面", ""},
++    {"terrain.fountain", "fountain", "喷泉", ""},
++    {"terrain.grate", "grate", "格栅", ""},
++    {"terrain.lava", "lava", "岩浆", ""},
++    {"terrain.portal", "portal", "传送门", ""},
++    {"terrain.shop", "shop", "商店", ""},
++    {"terrain.staircase", "staircase", "楼梯", ""},
++    {"terrain.statue", "statue", "雕像", ""},
++    {"terrain.trap", "trap", "陷阱", ""},
++    {"terrain.tree", "tree", "树", ""},
++    {"terrain.unknown_terrain", "unknown terrain", "未知地形", ""},
++    {"terrain.wall", "wall", "墙壁", ""},
++    {"terrain.water", "water", "水", ""},
 +    {"training_target_reached", "Training target {level}.{fraction} for {skill} reached!", "{skill}的训练目标{level}.{fraction}级已达成！", "level:integer;fraction:integer;skill:name"},
 +    {"transform.bodypart.a_claw", "a claw", "一只利爪", ""},
 +    {"transform.bodypart.a_fist", "a fist", "一只拳头", ""},

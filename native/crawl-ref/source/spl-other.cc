@@ -5,6 +5,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "spl-other.h"
 
@@ -298,41 +299,52 @@ bool passwall_path::spell_succeeds() const
     return actual_walls() > 0;
 }
 
-bool passwall_path::is_valid(string *fail_msg) const
+bool passwall_path::is_valid_display(ZhArg *reason) const
 {
     // does not check moveto cases, incl lava/deep water, since these prompt.
     if (delta.zero())
     {
-        if (fail_msg)
-            *fail_msg = "Please select a wall.";
+        if (reason)
+            *reason = zh_message_arg("reason", "target.external.passwall.select_wall");
         return false;
     }
     if (actual_walls() == 0)
     {
-        if (fail_msg)
-            *fail_msg = "There is no adjacent passable wall in that direction.";
+        if (reason)
+            *reason = zh_message_arg("reason", "target.external.passwall.no_wall");
         return false;
     }
     if (!dest_found)
     {
-        if (fail_msg)
-            *fail_msg = "This rock feels extremely deep.";
+        if (reason)
+            *reason = zh_message_arg("reason", "target.external.passwall.too_deep");
         return false;
     }
     if (!in_bounds(actual_dest))
     {
-        if (fail_msg)
-            *fail_msg = "You sense an overwhelming volume of rock.";
+        if (reason)
+            *reason = zh_message_arg("reason", "target.external.passwall.out_of_bounds");
         return false;
     }
     const monster *mon = monster_at(actual_dest);
     if (cell_is_solid(actual_dest) || (mon && mon->is_stationary()))
     {
-        if (fail_msg)
-            *fail_msg = "Something is blocking your path through the rock.";
+        if (reason)
+            *reason = zh_message_arg("reason", "target.external.passwall.blocked");
         return false;
     }
+    if (reason)
+        *reason = zh_text("reason", "", "");
     return true;
+}
+
+bool passwall_path::is_valid(string *fail_msg) const
+{
+    ZhArg reason;
+    const bool valid = is_valid_display(&reason);
+    if (!valid && fail_msg)
+        *fail_msg = reason.canonical;
+    return valid;
 }
 
 /// find possible destinations, given the player's map knowledge
@@ -384,12 +396,12 @@ spret cast_passwall(const coord_def& c, int pow, bool fail)
 
     coord_def delta = c - you.pos();
     passwall_path p(you, delta, spell_range(SPELL_PASSWALL, &you));
-    string fail_msg;
-    bool valid = p.is_valid(&fail_msg);
+    ZhArg fail_msg;
+    bool valid = p.is_valid_display(&fail_msg);
     if (!p.spell_succeeds())
     {
-        if (fail_msg.size())
-            mpr(fail_msg);
+        if (!fail_msg.canonical.empty())
+            mpr(ZhMessage{fail_msg.message_id, fail_msg.canonical, fail_msg.localized});
         return spret::abort;
     }
 
@@ -397,8 +409,8 @@ spret cast_passwall(const coord_def& c, int pow, bool fail)
 
     if (!valid)
     {
-        if (fail_msg.size())
-            mpr(fail_msg);
+        if (!fail_msg.canonical.empty())
+            mpr(ZhMessage{fail_msg.message_id, fail_msg.canonical, fail_msg.localized});
     }
     else if (p.check_moveto())
     {

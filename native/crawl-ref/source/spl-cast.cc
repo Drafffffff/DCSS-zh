@@ -90,32 +90,34 @@ static int _apply_enhancement(const int initial_power,
                               const int enhancer_levels);
 static string _spell_failure_rate_description(spell_type spell);
 
+static ZhMessage _surge_power_message(int enhanced)
+{
+    const char *id = enhanced < -2 ? "spell.cast.surge.numb.extraordinary"
+        : enhanced == -2 ? "spell.cast.surge.numb.extreme"
+        : enhanced < 0 ? "spell.cast.surge.numb.normal"
+        : enhanced == 2 ? "spell.cast.surge.power.strong"
+        : enhanced > 2 ? "spell.cast.surge.power.huge"
+        : "spell.cast.surge.power.normal";
+    return zh_message(id);
+}
+
 void surge_power(const int enhanced)
 {
-    if (enhanced)               // one way or the other {dlb}
-    {
-        const string modifier = (enhanced  < -2) ? "extraordinarily" :
-                                (enhanced == -2) ? "extremely" :
-                                (enhanced ==  2) ? "strong" :
-                                (enhanced  >  2) ? "huge"
-                                                 : "";
-        mprf("You feel %s %s",
-             !modifier.length() ? "a"
-                                : article_a(modifier).c_str(),
-             (enhanced < 0) ? "numb sensation."
-                            : "surge of power!");
-    }
+    if (enhanced)
+        mpr(_surge_power_message(enhanced));
 }
 
 void surge_power_wand(const int mp_cost)
 {
     if (mp_cost)
-    {
-        const bool slight = mp_cost < 3;
-        mprf("You feel a %ssurge of power%s",
-             slight ? "slight " : "",
-             slight ? "."      : "!");
-    }
+        mpr(zh_message(mp_cost < 3 ? "spell.cast.wand.slight"
+                                  : "spell.cast.wand.power"));
+}
+
+static ZhMessage _casting_spell_log(const char *id, spell_type spell)
+{
+    return zh_message(id, {
+        zh_word_arg("spell", "spell.name.", spell_title(spell), ZhArgType::Name)});
 }
 
 static string _spell_base_description(spell_type spell, bool transient)
@@ -2407,7 +2409,7 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
     {
         if (actual_spell)
         {
-            mprf("You miscast %s.", spell_title(spell));
+            mpr(_casting_spell_log("spell.cast.miscast", spell));
             flush_input_buffer(FLUSH_ON_FAILURE);
             learned_something_new(HINT_SPELL_MISCAST);
             miscast_effect(spell, fail);
@@ -3446,7 +3448,25 @@ bool channelled_spell_active(spell_type spell)
     return you.attribute[ATTR_CHANNELLED_SPELL] == spell;
 }
 
-void start_channelling_spell(spell_type spell, string reminder_msg, bool do_effect)
+static ZhMessage _channel_reminder_message(spell_type spell)
+{
+    const char *id = nullptr;
+    switch (spell)
+    {
+    case SPELL_FLAME_WAVE: id = "spell.channel.reminder.flame_wave"; break;
+    case SPELL_SEARING_RAY: id = "spell.channel.reminder.searing_ray"; break;
+    case SPELL_MAXWELLS_COUPLING: id = "spell.channel.reminder.maxwell"; break;
+    case SPELL_CLOCKWORK_BEE: id = "spell.channel.reminder.clockwork_bee"; break;
+    default: return {"", "", ""};
+    }
+    ZhMessage message = zh_message(id);
+    // Command substitution is structural; choose the complete sentence first.
+    insert_commands(message.canonical, { CMD_WAIT });
+    insert_commands(message.localized, { CMD_WAIT });
+    return message;
+}
+
+void start_channelling_spell(spell_type spell, bool do_effect)
 {
     you.attribute[ATTR_CHANNELLED_SPELL] = spell;
     you.attribute[ATTR_CHANNEL_DURATION] = -1;
@@ -3456,12 +3476,9 @@ void start_channelling_spell(spell_type spell, string reminder_msg, bool do_effe
     else
         you.attribute[ATTR_CHANNEL_DURATION] = 0;
 
-    if (!reminder_msg.empty())
-    {
-        string msg = "(Press <w>%</w> to " + reminder_msg + ".)";
-        insert_commands(msg, { CMD_WAIT });
-        mpr(msg);
-    }
+    const ZhMessage reminder = _channel_reminder_message(spell);
+    if (!reminder.canonical.empty())
+        mpr(reminder);
 }
 
 void handle_channelled_spell()
@@ -3492,8 +3509,7 @@ void handle_channelled_spell()
     if ((spell == SPELL_FLAME_WAVE || spell == SPELL_SEARING_RAY)
         && turn > 1 && !enough_mp(1, true))
     {
-        mprf("Without enough magic to sustain it, your %s dissipates.",
-             spell_title(spell));
+        mpr(_casting_spell_log("spell.channel.insufficient_magic", spell));
         stop_channelling_spells(true);
         return;
     }
@@ -3534,19 +3550,19 @@ void stop_channelling_spells(bool quiet)
     switch (spell)
     {
         case SPELL_FLAME_WAVE:
-            mpr("You stop channelling waves of flame.");
+            mpr(zh_message("spell.channel.stop.flame_wave"));
             break;
 
         case SPELL_SEARING_RAY:
-            mpr("You stop channelling your searing ray.");
+            mpr(zh_message("spell.channel.stop.searing_ray"));
             break;
 
         case SPELL_MAXWELLS_COUPLING:
-            mpr("The insufficient charge dissipates harmlessly.");
+            mpr(zh_message("spell.channel.stop.maxwell"));
             break;
 
         case SPELL_CLOCKWORK_BEE:
-            mpr("You stop assembling your clockwork bee.");
+            mpr(zh_message("spell.channel.stop.clockwork_bee"));
             break;
 
         default:

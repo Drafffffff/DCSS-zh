@@ -1,5 +1,12 @@
 """Real wizard setup and UI input, only for replay scripts' copied saves."""
 RESTRICTION_SCENES = {
+ 'external-passwall': 'l&wiz\rzPasswall\r.',
+ 'external-inner-flame': 'l&wiz\rzInner Flame\rh.',
+ 'external-simulacrum': 'l&wiz\rzSimulacrum\rh.',
+ 'external-crocodile': 'l&wiz\rzSurprising Crocodile\rh.',
+ 'external-wall-jump': 'l&wiz\r_Wu Jian\r',
+ 'channel-flame-wave': 'l&wiz\rzFlame Wave\rfhh',
+ 'channel-bee': 'l&wiz\rmorc\r&zLaunch Clockwork Bee\rfhh',
  'transform-cycle': 'l&wiz\r%level:1 pre_id quill talisman\rgPc.....Pc.....',
 
  'miscast-single': 'l&wiz\r!Fire Storm\ryIa',
@@ -19,6 +26,13 @@ RESTRICTION_SCENES = {
  'log-berserk': 'l&wiz\r%pre_id potion of berserk rage\rg qB',
 }
 RESTRICTION_EXPECTED = {
+ 'external-passwall': {'target.external.passwall.select_wall'},
+ 'external-inner-flame': {'target.external.inner_flame.unseen'},
+ 'external-simulacrum': {'target.external.simulacrum.unseen'},
+ 'external-crocodile': {'target.external.crocodile.no_target'},
+ 'external-wall-jump': {'target.external.wall_jump.adjacent'},
+ 'channel-flame-wave': {'spell.channel.reminder.flame_wave','spell.channel.stop.flame_wave'},
+ 'channel-bee': {'spell.channel.reminder.clockwork_bee','spell.channel.stop.clockwork_bee'},
  'transform-cycle': {'transform.log.sharp_quills_grow_all_over_your_body','transform.log.your_quills_recede_back_into_your_body'},
 
  'miscast-single': {'spell.miscast.parent.single'},
@@ -36,4 +50,14 @@ RESTRICTION_EXPECTED = {
  'restriction-berserk': {'item.reason.drink.berserk_recovering'},
  'restriction-transform-roots': {'player.no_tele.roots', 'player.no_tele.teleport'},
  'log-berserk': {'shared.log.berserk.red_vision', 'shared.log.berserk.mighty'},
+}
+
+# Religion conversion forces more prompts and discards queued ready() input.
+# After accepting those prompts, wait for the completed hints line and settle
+# for 0.5 seconds before sending these keys to this copied-save child only.
+RESTRICTION_FOLLOWUPS = {
+ 'external-wall-jump': {
+  'trigger': '也可以查看你在神祗眼里的地位和神祗赐给你的神力',
+  'keys': '&^60\raahh.',
+ },
 }

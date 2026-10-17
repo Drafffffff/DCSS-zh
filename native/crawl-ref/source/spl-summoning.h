@@ -1,5 +1,7 @@
 #pragma once
 
+#include "zh-message.h"
+
 #include "beam.h"
 #include "beh-type.h"
 #include "enum.h"
@@ -152,6 +154,7 @@ int barrelling_boulder_hp(int pow);
 spret cast_broms_barrelling_boulder(actor& agent, coord_def pos, int pow, bool fail);
 
 string mons_simulacrum_immune_reason(const monster *mons);
+ZhArg mons_simulacrum_immune_reason_display(const monster *mons);
 spret cast_simulacrum(coord_def target, int pow, bool fail);
 
 dice_def hoarfrost_cannonade_damage(int pow, bool finale);
@@ -174,6 +177,8 @@ vector<coord_def> diamond_sawblade_spots(bool actual);
 spret cast_diamond_sawblades(int power, bool fail);
 
 string surprising_crocodile_unusable_reason(const actor& agent,
+                                            const coord_def& target, bool actual);
+ZhArg surprising_crocodile_unusable_reason_display(const actor& agent,
                                             const coord_def& target, bool actual);
 bool surprising_crocodile_can_drag(const actor& agent, const coord_def& target,
                                    bool actual);

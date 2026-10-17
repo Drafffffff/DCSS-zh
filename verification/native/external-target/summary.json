@@ -1,0 +1,43 @@
+{
+  "native_commit": "1f1534607672da27c968bab89fbb870f04b60f6b",
+  "catalog_ids": 2818,
+  "new_reviewed_messages": 60,
+  "external_target_messages": 25,
+  "casting_channel_messages": 18,
+  "tests": {
+    "external_target_producer_comparisons": 49296,
+    "target_notification_cases": 100,
+    "casting_channel_producer_cases": 67,
+    "named_message_oracles_and_validation": 1415,
+    "spell_talisman_regression_cases": 42493,
+    "miscast_compositions": 30720
+  },
+  "macos": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "binaries": {
+    "macos-tiles": "aae549bd2cc1f8c8ef79b707e658cef2538ae32ad7c3cc5d279025a977291da8",
+    "macos-console": "43b1037e1ee52443f8db330b7fc9ca225e278b367fa74c9fa71fbcb3b6398cd9",
+    "linux-tiles": "4bb2975ad748efa005762af08d2d9039cce5438acea2f2f3ffcefed1b261a035",
+    "linux-console": "40a2fc01184f9c8f47c2a7b2909a392016120923d9a1da1691a968fc6ecfdc29"
+  },
+  "module_ledger": {
+    "review_candidates": 6181,
+    "legacy_hooks": 53,
+    "groups": 13,
+    "counts_are_coverage": false
+  },
+  "semantic_terrain_names": 17,
+  "disposable_scenes": {
+    "macos-console": {
+      "scenes": 7,
+      "source_unchanged": true
+    },
+    "linux-console": {
+      "scenes": 7,
+      "source_unchanged": true
+    },
+    "linux-4k": {
+      "scenes": 5,
+      "source_unchanged": true
+    }
+  }
+}

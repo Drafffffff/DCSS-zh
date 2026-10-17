@@ -67,7 +67,6 @@ public:
     targeting_iterator affected_iterator(aff_type threshold = AFF_YES);
 protected:
     bool notify_fail(const ZhArg &reason);
-    bool notify_fail(const string &canonical);
     ZhArg display_failure;
     bool anyone_there(coord_def loc);
 };

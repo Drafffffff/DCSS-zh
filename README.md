@@ -79,6 +79,8 @@ macOS 打包脚本会收集第三方运行库的许可证与版本清单；相�
 
 ## 消息模板迁移（进行中）
 
-最新一批已迁移法术反噬组合、目标失败通知、变形日志和首次拾取教程标记。Luna 审校文案；Mac/Bazzite 四种构建、两端各六个存档副本场景、Bazzite 原生4K及Mac图形截图验证通过。五类外部目标理由、斯芬克斯对白、其他教程及复杂名称仍待迁移。范围及限制见[本批验证报告](verification/native/miscast-target-transform/REPORT.md)。
+最新一批已完成蹬墙跳、穿墙、内焰、拟像、鳄鱼五类外部目标理由的生成→消费者→通知/实际施法迁移，并移除 `notify_fail(string)`；同时迁移施法增强、误施法与四类引导提醒/停止日志。Luna 审校 60 条完整消息与地形名称。Mac/Bazzite 四种构建、两端各七个存档副本终端场景、Bazzite 五个原生 4K 场景与 Mac 图形副本检查通过。仍有未迁移入口，不代表全面汉化。范围及限制见[本批验收报告](verification/native/external-target/REPORT.md)。
+
+迁移按[项目模块账本](analysis/message-migration/LEDGER.md)逐包推进：每包记录文件、生产函数、消费者、测试和剩余入口；候选调用点及消息 ID 数量不作为翻译覆盖率。下一包是法术/瞄准/箭袋提示，随后处理危险地形确认与剩余动态日志。
 
 第一批已建立生成处完整模板、命名类型参数和独立显示名接口，移除通用逐词兜底；Mac 与 Bazzite 构建及存档副本场景已验证。仍有旧渲染入口与未迁移文案，详情见[迁移范围、验证和限制](verification/native/message-migration/REPORT.md)及[架构记录](analysis/message-migration/architecture.md)。

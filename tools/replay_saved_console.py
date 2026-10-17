@@ -67,7 +67,7 @@ item_source=(Path(__file__).resolve().parents[1]/'native/crawl-ref/source/item-p
 talisman_names=dict(re.findall(r'case TALISMAN_([A-Z_]+):\s*return "([^"]+)";',item_source))
 for kind,name in talisman_names.items():
     cases['talisman-'+kind.lower()]='l&wiz\r%level:1 pre_id '+name+'\rgid'
-from qa_restriction_scenes import RESTRICTION_SCENES, RESTRICTION_EXPECTED
+from qa_restriction_scenes import RESTRICTION_SCENES, RESTRICTION_EXPECTED, RESTRICTION_FOLLOWUPS
 cases.update(RESTRICTION_SCENES)
 results=[]
 for scene in a.scenes.split(','):
@@ -103,6 +103,7 @@ for scene in a.scenes.split(','):
                  'DCSS_ZH_TRACE':str((dst/'legacy.jsonl').resolve())}
             os.execve(str(a.binary),[str(a.binary),'-dir',str(state),'-rc',str(rc),'-name',a.name],env)
         fcntl.ioctl(fd,termios.TIOCSWINSZ,struct.pack('HHHH',52,140,0,0))
+        reached_at=None; wall_followup_sent=False; wall_followup_due=None
         transcript=bytearray();end=time.monotonic()+(a.startup_timeout if scene.startswith('hints-') or scene in RESTRICTION_EXPECTED else 5)
         while time.monotonic()<end:
             if select.select([fd],[],[],.1)[0]:
@@ -110,11 +111,20 @@ for scene in a.scenes.split(','):
                 except OSError:break
                 if not chunk:break
                 transcript.extend(chunk)
+                # Forced tutorial/religion more prompts require real child-PTY input.
+                if b"--more--" in chunk: os.write(fd,b" ")
+                if (scene=='external-wall-jump' and not wall_followup_sent
+                        and RESTRICTION_FOLLOWUPS[scene]['trigger'].encode() in transcript):
+                    wall_followup_sent=True
+                    wall_followup_due=time.monotonic()+.5
+            if wall_followup_due is not None and time.monotonic()>=wall_followup_due:
+                os.write(fd,RESTRICTION_FOLLOWUPS[scene]['keys'].encode())
+                wall_followup_due=None
             if scene in RESTRICTION_EXPECTED:
                 trace=dst/'ids.tsv'
                 if trace.exists() and all(identity+'\t' in trace.read_text() for identity in RESTRICTION_EXPECTED[scene]):
-                    time.sleep(.3)
-                    break
+                    if reached_at is None: reached_at=time.monotonic()
+                    if time.monotonic()-reached_at>=2: break
             if scene.startswith('hints-'):
                 trace=dst/'boundaries.tsv'
                 ids=dst/'ids.tsv'
@@ -181,6 +191,22 @@ expected={
 
 expected.update(RESTRICTION_EXPECTED)
 for result in results:
+    if result['scene'].startswith(('external-','channel-')):
+        # ID tracing also observes speculative target probes. Require each
+        # intended complete reviewed sentence in the actual child terminal.
+        catalogue=json.loads((Path(__file__).resolve().parents[1]/'localization/migration/luna-external-target-reasons-messages.json').read_text())
+        reviewed={m['id']:m for m in catalogue['messages']}
+        terminal=(a.out/result['scene']/'transcript.txt').read_text()
+        terminal=re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]','',terminal)
+        terminal=re.sub(r'\x1b[()][A-Za-z0-9]','',terminal)
+        visible=[]
+        for ident in sorted(RESTRICTION_EXPECTED[result['scene']]):
+            message=reviewed[ident]
+            assert not message['params'],(result['scene'], 'visible oracle needs parameter binding',ident)
+            sentence=re.sub(r'<[^>]+>','',message['zh']).replace('%','.')
+            assert sentence in terminal,(result['scene'],'intended complete message not visible',ident,sentence)
+            visible.append(ident)
+        result['visible_message_ids']=visible
     if result['scene'].startswith('hints-'):
         assert 'detail.item.hints\tenter' in result['boundaries'], (result['scene'], 'hint producer not reached')
     if result['scene'].startswith('talisman-') and result['scene']!='talisman-protean':
@@ -197,4 +223,5 @@ for result in results:
         assert any(line.startswith('shop.balance\t') and '838' in line
                    for line in result['values']), 'Purchase did not update the balance to 838'
 
+(a.out/'results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print(json.dumps({'source_fixture_unchanged':unchanged,'scenes':len(results)}))
