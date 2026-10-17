@@ -103,6 +103,12 @@ void describe_skill(skill_type skill);
 
 int hex_chance(const spell_type spell, const monster_info* mon_owner,
                bool is_wand = false);
+struct ZhArg;
+ZhArg describe_to_hit_message(const monster_info& mi,
+                     const item_def* weapon = nullptr, bool verbose = false,
+                     attack *source = nullptr, int distance = 0);
+ZhArg describe_hit_chance_message(int hit_chance, const item_def* weapon,
+                     bool verbose = false, int distance_from = 0);
 void describe_to_hit(const monster_info& mi, ostringstream &result,
                      const item_def* weapon = nullptr, bool verbose = false,
                      attack *source = nullptr, int distance = 0);

@@ -5,6 +5,9 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
+#include "zh-display-name.h"
+#include "zh-localization.h"
 
 #include "act-iter.h"
 #include "areas.h"
@@ -214,55 +217,72 @@ static bool _does_core_name_include_inventory(const monster *mon)
 }
 
 /// Output an equipment warning for newly-seen monsters to 'out'.
-static void _monster_headsup(const vector<monster*> &monsters,
+static ZhArg _monster_headsup_message(const vector<monster*> &monsters,
                                const unordered_set<const monster*> &single,
-                               ostringstream& out)
+                               ZhArg result)
 {
     int listed = 0;
     for (const monster* mon : monsters)
     {
-        monster_info mi(mon);
-        if (!_is_mon_equipment_worth_listing(mi, monsters.size() == 1))
+        const monster_info mi(mon);
+        if (!_is_mon_equipment_worth_listing(mi, monsters.size() == 1)
+            || (_does_core_name_include_inventory(mon) && single.count(mon)))
             continue;
-
-        // Don't repeat inventory. Non-single monsters may be merged, in which
-        // case the name is just the name of the monster type.
-        if (_does_core_name_include_inventory(mon) && single.count(mon))
-            continue;
-
-        // Put equipment messages on a new line if there's more than one monster.
-        // (But skip the leading space if nothing else is in this message.)
-        if (listed == 0)
-            out << (monsters.size() > 1 ? "\n" : out.tellp() > 0 ? " " : "");
-        else
-            out << " ";
-
-        ++listed;
-
-        string monname;
+        ZhArg subject;
         if (monsters.size() == 1)
-            monname = mon->pronoun(PRONOUN_SUBJECTIVE);
+        {
+            subject = zh_word_arg("monster", "target.monster.pronoun.",
+                                 mon->pronoun(PRONOUN_SUBJECTIVE), ZhArgType::Name);
+        }
         else if (mon->type == MONS_DANCING_WEAPON)
-            monname = "There";
-        else if (single.count(mon))
-            monname = mon->full_name(DESC_THE);
+            subject = zh_message_arg("monster", "target.monster.log.subject.there");
         else
-            monname = mon->full_name(DESC_A);
-        out << uppercase_first(monname) << " ";
-
-        if (monsters.size() == 1)
-            out << conjugate_verb("are", mon->pronoun_plurality());
+        {
+            const auto desc = single.count(mon) ? DESC_THE : DESC_A;
+            subject = zh_monster_arg("monster", *mon, desc);
+            subject.canonical = mon->full_name(desc);
+            if (!subject.supported)
+                subject.localized = subject.canonical;
+        }
+        subject.type = ZhArgType::Name;
+        subject.canonical = uppercase_first(subject.canonical);
+        const auto level = mon->type == MONS_DANCING_WEAPON ? DESC_WEAPON
+            : monsters.size() > 1 ? DESC_NOTEWORTHY : DESC_NOTEWORTHY_AND_WEAPON;
+        auto equipment = get_monster_equipment_desc_message(mi, level, DESC_NONE);
+        equipment.key = "equipment";
+        const bool plural = monsters.size() == 1 && mon->pronoun_plurality();
+        ZhArg sentence;
+        if (mon->type == MONS_DANCING_WEAPON)
+        {
+            sentence = zh_message_arg("right", "target.monster.log.equipment.dancing",
+                                     {subject, equipment});
+            // A dancing weapon can still carry a plural subjective pronoun.
+            sentence.canonical = subject.canonical + (plural ? " are" : " is")
+                                 + equipment.canonical + ".";
+            if (!sentence.supported)
+                sentence.localized = sentence.canonical;
+        }
         else
-            out << "is";
-
-        if (mon->type != MONS_DANCING_WEAPON)
-            out << " ";
-
-        mons_equip_desc_level_type level = mon->type == MONS_DANCING_WEAPON ? DESC_WEAPON
-                                                : monsters.size() > 1 ? DESC_NOTEWORTHY
-                                                                      : DESC_NOTEWORTHY_AND_WEAPON;
-        out << get_monster_equipment_desc(mi, level, DESC_NONE) << ".";
+        {
+            auto verb = zh_message_arg("verb", plural
+                ? "target.monster.log.verb.are" : "target.monster.log.verb.is");
+            sentence = zh_message_arg("right", "target.monster.log.equipment",
+                                     {subject, verb, equipment});
+        }
+        // Canonical spacing retains the old parent, including the first line
+        // break when a group encounter has equipment worth reporting.
+        if (result.canonical.empty() && !(listed == 0 && monsters.size() > 1))
+            result = sentence;
+        else
+        {
+            result.key = "left";
+            result = zh_message_arg("encounter", listed == 0 && monsters.size() > 1
+                ? "target.monster.log.join.newline" : "target.monster.log.join.space",
+                {result, sentence});
+        }
+        ++listed;
     }
+    return result;
 }
 
 /**
@@ -345,6 +365,47 @@ static string _describe_monsters_from_species(const vector<details> &species)
         });
 }
 
+static ZhArg _monster_species_message(const details& det)
+{
+    const monster_type base_type = mons_is_zombified(*det.mon)
+        ? det.mon->base_monster : det.mon->type;
+    auto name = zh_monster_arg("monster", *det.mon, DESC_A);
+    if ((det.mon->is_named() || mons_is_unique(base_type)) && det.count == 1)
+    {
+        const string title = getMiscString(det.mon->name(DESC_DBNAME) + " title");
+        if (!title.empty())
+            return zh_glossary_name("monster", "monster encounter title", title);
+        name.canonical = monster_info(det.mon).full_name(DESC_A);
+        if (!name.supported)
+            name.localized = name.canonical;
+        return name;
+    }
+    if (det.count > 1)
+    {
+        name = det.genus ? zh_monster_type_arg("monster", mons_genus(det.mon->type))
+                        : zh_monster_arg("monster", *det.mon, DESC_PLAIN);
+        // Original grouping grammar is retained only on the canonical side.
+        name.canonical = det.genus
+            ? pluralise(mons_type_name(mons_genus(det.mon->type), DESC_PLAIN))
+            : pluralise(det.name);
+        name.type = ZhArgType::Name;
+        return zh_message_arg("monster", "target.monster.log.species.count",
+                              {zh_integer("count", det.count), name});
+    }
+    name.canonical = apply_description(DESC_A, det.name, det.count);
+    return name;
+}
+
+static ZhArg _describe_monsters_message(const vector<details>& species)
+{
+    vector<ZhArg> names;
+    for (const auto &det : species)
+        names.push_back(_monster_species_message(det));
+    auto result = zh_message_list("monsters", names);
+    result.type = ZhArgType::Name;
+    return result;
+}
+
 /**
  * Return a string listing monsters in a human readable form.
  * E.g. "a hydra and 2 liches".
@@ -360,38 +421,30 @@ string describe_monsters_condensed(const vector<monster*>& monsters)
     return _describe_monsters_from_species(species);
 }
 
-static string _abyss_monster_creation_message(const monster* mon)
+static ZhArg _abyss_monster_creation_message(const monster* mon)
 {
+    const char *id;
     if (mon->type == MONS_DEATH_COB)
+        id = coinflip() ? "microwaves" : "nullspace";
+    else
     {
-        return coinflip() ? " appears in a burst of microwaves!"
-                          : " pops from nullspace!";
+        // Preserve weights, order and one random selection per species.
+        const vector<pair<const char*, int>> messages = {
+            {"energy", 17}, {"sparks", 34}, {"materialises", 45},
+            {"chaos", 13}, {"beyond", 26}, {"assembles", 33},
+            {"erupts", 9}, {"bursts", 18}, {"space", 7}, {"reality", 14},
+            {"pure", 5}, {"seething", 10}, {"time", 2}, {"universe", 7},
+            {silenced(you.pos()) ? "manifests" : "bang", 3}
+        };
+        id = *random_choose_weighted(messages);
     }
-
-    // You may ask: "Why these weights?" So would I!
-    const vector<pair<string, int>> messages = {
-        { " appears in a shower of translocational energy.", 17 },
-        { " appears in a shower of sparks.", 34 },
-        { " materialises.", 45 },
-        { " emerges from chaos.", 13 },
-        { " emerges from the beyond.", 26 },
-        { make_stringf(" assembles %s!",
-                       mon->pronoun(PRONOUN_REFLEXIVE).c_str()), 33 },
-        { " erupts from nowhere.", 9 },
-        { " bursts from nowhere.", 18 },
-        { " is cast out of space.", 7 },
-        { " is cast out of reality.", 14 },
-        { " coalesces out of pure chaos.", 5 },
-        { " coalesces out of seething chaos.", 10 },
-        { " punctures the fabric of time!", 2 },
-        { " punctures the fabric of the universe.", 7 },
-        { make_stringf(" manifests%s!",
-                       silenced(you.pos()) ? "" : " with a bang"), 3 },
-
-
-    };
-
-    return *random_choose_weighted(messages);
+    auto name = zh_monster_arg("monster", *mon, DESC_A);
+    const string message_id = string("target.monster.log.abyss.") + id;
+    if (string(id) == "assembles")
+        return zh_message_arg("encounter", message_id, {name,
+            zh_word_arg("reflexive", "target.monster.pronoun.",
+                        mon->pronoun(PRONOUN_REFLEXIVE))});
+    return zh_message_arg("encounter", message_id, {name});
 }
 
 /**
@@ -414,39 +467,32 @@ static void _handle_encounter_messages(const vector<monster*> monsters,
 
     _count_monster_types(monsters, single, species);
 
-    ostringstream out;
-
-    // Abyss spawn messages should be printed one at a time, regardless of how
-    // many things are seen at once.
+    ZhLegacyGuard guard("log.monster.encounter");
+    ZhArg encounter{"encounter", ZhArgType::Text, "", ""};
     if (sc == SC_ABYSS)
     {
-        // But make all monsters of the same species use the same flavor message,
-        // to condense message spam a little.
-        for (details& sp : species)
+        for (const auto &sp : species)
         {
-            string msg = _abyss_monster_creation_message(sp.mon);
+            // Selection stays outside the repetition loop to share one flavor
+            // within a species, exactly as in the original message path.
+            const auto message = _abyss_monster_creation_message(sp.mon);
             for (int i = 0; i < sp.count; ++i)
-            {
-                mprf(MSGCH_MONSTER_WARNING, "%s%s", sp.mon->name(DESC_A).c_str(),
-                                                    msg.c_str());
-            }
+                mpr(ZhMessage{message.message_id, message.canonical, message.localized},
+                    MSGCH_MONSTER_WARNING);
         }
     }
-    else if (sc == SC_ORBRUN)
-    {
-        out << _describe_monsters_from_species(species).c_str() << " appear";
-        if (monsters.size() == 1)
-            out << "s";
-        out << " in pursuit of the Orb! ";
-    }
     else
-        out << "You encounter " << _describe_monsters_from_species(species) << ".";
-
-    _monster_headsup(monsters, single, out);
-
-    string msg = out.str();
-    if (!msg.empty())
-        mprf(MSGCH_MONSTER_WARNING, "%s", out.str().c_str());
+    {
+        const auto names = _describe_monsters_message(species);
+        encounter = zh_message_arg("encounter", sc == SC_ORBRUN
+            ? monsters.size() == 1 ? "target.monster.log.pursuit.one"
+                                   : "target.monster.log.pursuit.many"
+            : "target.monster.log.encounter", {names});
+    }
+    encounter = _monster_headsup_message(monsters, single, encounter);
+    if (!encounter.canonical.empty())
+        mpr(ZhMessage{encounter.message_id, encounter.canonical, encounter.localized},
+            MSGCH_MONSTER_WARNING);
 }
 
 static bool _monster_needs_warning(const monster& mon)

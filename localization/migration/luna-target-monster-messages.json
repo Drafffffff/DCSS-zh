@@ -1,0 +1,5443 @@
+{
+  "model": "Luna",
+  "purpose": "Target monster complete templates, status atoms, equipment, wounds and target details; proposals only. Complete typed row wrapper included. Final subjective pronoun and auxiliary attack atoms included. Complete target effect callback descriptors included.",
+  "messages": [
+    {
+      "id": "target.monster.flag.charmed",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "charmed",
+      "zh": "受魅惑",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CHARMED"
+      }
+    },
+    {
+      "id": "target.monster.flag.hexed",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "control wrested from you",
+      "zh": "被你夺取了控制权",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_HEXED"
+      }
+    },
+    {
+      "id": "target.monster.flag.abjurable",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "summoned",
+      "zh": "被召唤",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_ABJURABLE"
+      }
+    },
+    {
+      "id": "target.monster.flag.minion",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "minion",
+      "zh": "仆从",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_MINION"
+      }
+    },
+    {
+      "id": "target.monster.flag.unrewarding",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "unrewarding",
+      "zh": "击杀无奖励",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_UNREWARDING"
+      }
+    },
+    {
+      "id": "target.monster.flag.wandering",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "wandering",
+      "zh": "正在游荡",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_WANDERING"
+      }
+    },
+    {
+      "id": "target.monster.flag.mesmerizing",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "mesmerising",
+      "zh": "正在迷惑你",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_MESMERIZING"
+      }
+    },
+    {
+      "id": "target.monster.flag.berserk",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "berserk",
+      "zh": "陷入狂暴",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_BERSERK"
+      }
+    },
+    {
+      "id": "target.monster.flag.hasted",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "fast",
+      "zh": "速度很快",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_HASTED"
+      }
+    },
+    {
+      "id": "target.monster.flag.rolling",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "rolling",
+      "zh": "正在滚动",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_ROLLING"
+      }
+    },
+    {
+      "id": "target.monster.flag.inner_flame",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "inner flame",
+      "zh": "内焰缠身",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_INNER_FLAME"
+      }
+    },
+    {
+      "id": "target.monster.flag.mirror_damage",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "reflecting injuries",
+      "zh": "反弹伤害",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_MIRROR_DAMAGE"
+      }
+    },
+    {
+      "id": "target.monster.flag.bound_soul",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "soul bound",
+      "zh": "灵魂被束缚",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_BOUND_SOUL"
+      }
+    },
+    {
+      "id": "target.monster.flag.strong",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "strong",
+      "zh": "强壮",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_STRONG"
+      }
+    },
+    {
+      "id": "target.monster.flag.empowered_spells",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "spells empowered",
+      "zh": "法术得到强化",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_EMPOWERED_SPELLS"
+      }
+    },
+    {
+      "id": "target.monster.flag.fully_charged",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "fully charged",
+      "zh": "已充满能量",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_FULLY_CHARGED"
+      }
+    },
+    {
+      "id": "target.monster.flag.partially_charged",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "partially charged",
+      "zh": "正在蓄能",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_PARTIALLY_CHARGED"
+      }
+    },
+    {
+      "id": "target.monster.flag.agile",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "unusually agile",
+      "zh": "异常敏捷",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_AGILE"
+      }
+    },
+    {
+      "id": "target.monster.flag.swift",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "covering ground quickly",
+      "zh": "迅速移动",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_SWIFT"
+      }
+    },
+    {
+      "id": "target.monster.flag.pursuing",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "pursuing quickly",
+      "zh": "正在快速追击",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_PURSUING"
+      }
+    },
+    {
+      "id": "target.monster.flag.still_winds",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "stilling the winds",
+      "zh": "正在止息风暴",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_STILL_WINDS"
+      }
+    },
+    {
+      "id": "target.monster.flag.silencing",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "radiating silence",
+      "zh": "散发着寂静",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_SILENCING"
+      }
+    },
+    {
+      "id": "target.monster.flag.ready_to_howl",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "ready to howl",
+      "zh": "正要嚎叫",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_READY_TO_HOWL"
+      }
+    },
+    {
+      "id": "target.monster.flag.vortex",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "surrounded by a freezing vortex",
+      "zh": "被冰冷漩涡环绕",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_VORTEX"
+      }
+    },
+    {
+      "id": "target.monster.flag.vortex_cooldown",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "surrounded by restless winds",
+      "zh": "被躁动的风环绕",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_VORTEX_COOLDOWN"
+      }
+    },
+    {
+      "id": "target.monster.flag.frenzied",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "frenzied and wild",
+      "zh": "狂乱而狂野",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_FRENZIED"
+      }
+    },
+    {
+      "id": "target.monster.flag.fear_inspiring",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "inspiring fear",
+      "zh": "令人畏惧",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_FEAR_INSPIRING"
+      }
+    },
+    {
+      "id": "target.monster.flag.word_of_recall",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "chanting recall",
+      "zh": "正在吟唱召回咒",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_WORD_OF_RECALL"
+      }
+    },
+    {
+      "id": "target.monster.flag.deflect_msl",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "deflecting missiles",
+      "zh": "正在偏转飞弹",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_DEFLECT_MSL"
+      }
+    },
+    {
+      "id": "target.monster.flag.toxic_radiance",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "radiating toxic energy",
+      "zh": "散发着毒性能量",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_TOXIC_RADIANCE"
+      }
+    },
+    {
+      "id": "target.monster.flag.concentrate_venom",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "concentrated venom",
+      "zh": "浓缩毒液",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CONCENTRATE_VENOM"
+      }
+    },
+    {
+      "id": "target.monster.flag.sign_of_ruin",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "marked with the sign of ruin",
+      "zh": "被毁灭之印标记",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_SIGN_OF_RUIN"
+      }
+    },
+    {
+      "id": "target.monster.flag.resistance",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "unusually resistant",
+      "zh": "抗性异常强大",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_RESISTANCE"
+      }
+    },
+    {
+      "id": "target.monster.flag.invisible",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "slightly transparent",
+      "zh": "略微透明",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_INVISIBLE"
+      }
+    },
+    {
+      "id": "target.monster.flag.regeneration",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "regenerating",
+      "zh": "正在再生",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_REGENERATION"
+      }
+    },
+    {
+      "id": "target.monster.flag.strong_willed",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "strong-willed",
+      "zh": "意志坚定",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_STRONG_WILLED"
+      }
+    },
+    {
+      "id": "target.monster.flag.injury_bond",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "sheltered from injuries",
+      "zh": "受到伤害庇护",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_INJURY_BOND"
+      }
+    },
+    {
+      "id": "target.monster.flag.gozag_incited",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "incited by Gozag",
+      "zh": "受到戈扎格煽动",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_GOZAG_INCITED"
+      }
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_thunder",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "surrounded by thunder",
+      "zh": "被雷霆环绕",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CLOUD_RING_THUNDER"
+      }
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_flames",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "surrounded by flames",
+      "zh": "被烈焰环绕",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CLOUD_RING_FLAMES"
+      }
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_chaos",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "surrounded by chaotic energy",
+      "zh": "被混沌能量环绕",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CLOUD_RING_CHAOS"
+      }
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_mutation",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "surrounded by mutagenic energy",
+      "zh": "被诱变能量环绕",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CLOUD_RING_MUTATION"
+      }
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_fog",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "surrounded by fog",
+      "zh": "被雾气环绕",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CLOUD_RING_FOG"
+      }
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_ice",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "surrounded by freezing clouds",
+      "zh": "被冰冷云雾环绕",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CLOUD_RING_ICE"
+      }
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_misery",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "surrounded by negative energy",
+      "zh": "被负能量环绕",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CLOUD_RING_MISERY"
+      }
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_acid",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "surrounded by acidic fog",
+      "zh": "被酸雾环绕",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CLOUD_RING_ACID"
+      }
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_miasma",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "surrounded by foul miasma",
+      "zh": "被恶臭瘴气环绕",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CLOUD_RING_MIASMA"
+      }
+    },
+    {
+      "id": "target.monster.flag.fire_champion",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "flame-wreathed",
+      "zh": "烈焰缠身",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_FIRE_CHAMPION"
+      }
+    },
+    {
+      "id": "target.monster.flag.silence_immune",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "unaffected by silence",
+      "zh": "不受沉默影响",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_SILENCE_IMMUNE"
+      }
+    },
+    {
+      "id": "target.monster.flag.doubled_vigour",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "doubled in vigour",
+      "zh": "活力倍增",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_DOUBLED_VIGOUR"
+      }
+    },
+    {
+      "id": "target.monster.flag.possessable",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "soul-gripped",
+      "zh": "灵魂被攫住",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_POSSESSABLE"
+      }
+    },
+    {
+      "id": "target.monster.flag.caught",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "entangled in a net",
+      "zh": "被网缠住",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CAUGHT"
+      }
+    },
+    {
+      "id": "target.monster.flag.webbed",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "entangled in a web",
+      "zh": "被蛛网缠住",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_WEBBED"
+      }
+    },
+    {
+      "id": "target.monster.flag.paralysed",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "paralysed",
+      "zh": "陷入麻痹",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_PARALYSED"
+      }
+    },
+    {
+      "id": "target.monster.flag.petrified",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "petrified",
+      "zh": "已石化",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_PETRIFIED"
+      }
+    },
+    {
+      "id": "target.monster.flag.confused",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "confused",
+      "zh": "陷入混乱",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CONFUSED"
+      }
+    },
+    {
+      "id": "target.monster.flag.dormant",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "dormant",
+      "zh": "处于休眠",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_DORMANT"
+      }
+    },
+    {
+      "id": "target.monster.flag.sleeping",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "asleep",
+      "zh": "正在沉睡",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_SLEEPING"
+      }
+    },
+    {
+      "id": "target.monster.flag.unaware",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "unaware",
+      "zh": "毫无察觉",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_UNAWARE"
+      }
+    },
+    {
+      "id": "target.monster.flag.blind",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "blind",
+      "zh": "失明",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_BLIND"
+      }
+    },
+    {
+      "id": "target.monster.flag.distracted",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "not watching you",
+      "zh": "没有留意你",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_DISTRACTED"
+      }
+    },
+    {
+      "id": "target.monster.flag.cant_see_you",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "unable to see you",
+      "zh": "看不见你",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CANT_SEE_YOU"
+      }
+    },
+    {
+      "id": "target.monster.flag.infestation",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "infested",
+      "zh": "遭到寄生",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_INFESTATION"
+      }
+    },
+    {
+      "id": "target.monster.flag.dumb",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "stupefied",
+      "zh": "变得痴愚",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_DUMB"
+      }
+    },
+    {
+      "id": "target.monster.flag.pinned",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "pinned",
+      "zh": "被钉住",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_PINNED"
+      }
+    },
+    {
+      "id": "target.monster.flag.withering",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "withering away",
+      "zh": "正在枯萎",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_WITHERING"
+      }
+    },
+    {
+      "id": "target.monster.flag.crumbling",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "crumbling away",
+      "zh": "正在崩解",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CRUMBLING"
+      }
+    },
+    {
+      "id": "target.monster.flag.petrifying",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "petrifying slowly",
+      "zh": "正在缓慢石化",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_PETRIFYING"
+      }
+    },
+    {
+      "id": "target.monster.flag.mad",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "lost in madness",
+      "zh": "陷入疯狂",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_MAD"
+      }
+    },
+    {
+      "id": "target.monster.flag.fleeing",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "fleeing",
+      "zh": "正在逃跑",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_FLEEING"
+      }
+    },
+    {
+      "id": "target.monster.flag.dazed",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "dazed",
+      "zh": "头昏目眩",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_DAZED"
+      }
+    },
+    {
+      "id": "target.monster.flag.mute",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "mute",
+      "zh": "无法言语",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_MUTE"
+      }
+    },
+    {
+      "id": "target.monster.flag.frozen",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "encased in ice",
+      "zh": "被冰封住",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_FROZEN"
+      }
+    },
+    {
+      "id": "target.monster.flag.burning",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "covered in liquid flames",
+      "zh": "被液态火焰覆盖",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_BURNING"
+      }
+    },
+    {
+      "id": "target.monster.flag.poisoned",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "poisoned",
+      "zh": "中毒",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_POISONED"
+      }
+    },
+    {
+      "id": "target.monster.flag.more_poisoned",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "very poisoned",
+      "zh": "严重中毒",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_MORE_POISONED"
+      }
+    },
+    {
+      "id": "target.monster.flag.max_poisoned",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "extremely poisoned",
+      "zh": "剧毒缠身",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_MAX_POISONED"
+      }
+    },
+    {
+      "id": "target.monster.flag.contam_light",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "contaminated",
+      "zh": "受到污染",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CONTAM_LIGHT"
+      }
+    },
+    {
+      "id": "target.monster.flag.contam_heavy",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "heavily contaminated",
+      "zh": "受到严重污染",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CONTAM_HEAVY"
+      }
+    },
+    {
+      "id": "target.monster.flag.slowed",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "slow",
+      "zh": "行动迟缓",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_SLOWED"
+      }
+    },
+    {
+      "id": "target.monster.flag.breath_weapon",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "catching {possessive} breath",
+      "zh": "正在喘{possessive}的气",
+      "params": {
+        "possessive": "text"
+      },
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_BREATH_WEAPON"
+      }
+    },
+    {
+      "id": "target.monster.flag.lowered_wl",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "weak-willed",
+      "zh": "意志薄弱",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_LOWERED_WL"
+      }
+    },
+    {
+      "id": "target.monster.flag.fire_vuln",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "more vulnerable to fire",
+      "zh": "更易受到火焰伤害",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_FIRE_VULN"
+      }
+    },
+    {
+      "id": "target.monster.flag.poison_vuln",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "more vulnerable to poison",
+      "zh": "更易中毒",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_POISON_VULN"
+      }
+    },
+    {
+      "id": "target.monster.flag.wretched",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "misshapen and mutated",
+      "zh": "畸形且变异",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_WRETCHED"
+      }
+    },
+    {
+      "id": "target.monster.flag.corrosion",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "corroded",
+      "zh": "遭到腐蚀",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CORROSION"
+      }
+    },
+    {
+      "id": "target.monster.flag.flayed",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "covered in terrible wounds",
+      "zh": "遍体鳞伤",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_FLAYED"
+      }
+    },
+    {
+      "id": "target.monster.flag.grasping_roots",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "constricted by roots",
+      "zh": "被根须缠住",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_GRASPING_ROOTS"
+      }
+    },
+    {
+      "id": "target.monster.flag.vile_clutch",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "constricted by zombie hands",
+      "zh": "被僵尸之手缠住",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_VILE_CLUTCH"
+      }
+    },
+    {
+      "id": "target.monster.flag.barbs",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "skewered by barbs",
+      "zh": "被倒刺刺穿",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_BARBS"
+      }
+    },
+    {
+      "id": "target.monster.flag.sick",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "sick",
+      "zh": "患病",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_SICK"
+      }
+    },
+    {
+      "id": "target.monster.flag.weak",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "weak",
+      "zh": "虚弱",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_WEAK"
+      }
+    },
+    {
+      "id": "target.monster.flag.lightly_drained",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "lightly drained",
+      "zh": "轻度枯竭",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_LIGHTLY_DRAINED"
+      }
+    },
+    {
+      "id": "target.monster.flag.heavily_drained",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "heavily drained",
+      "zh": "严重枯竭",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_HEAVILY_DRAINED"
+      }
+    },
+    {
+      "id": "target.monster.flag.sap_magic",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "magic-sapped",
+      "zh": "魔力被汲取",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_SAP_MAGIC"
+      }
+    },
+    {
+      "id": "target.monster.flag.glowing",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "softly glowing",
+      "zh": "微微发光",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_GLOWING"
+      }
+    },
+    {
+      "id": "target.monster.flag.flooded",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "unable to breathe",
+      "zh": "无法呼吸",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_FLOODED"
+      }
+    },
+    {
+      "id": "target.monster.flag.dimension_anchor",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "unable to translocate",
+      "zh": "无法进行空间转移",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_DIMENSION_ANCHOR"
+      }
+    },
+    {
+      "id": "target.monster.flag.slow_movement",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "covering ground slowly",
+      "zh": "缓慢移动",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_SLOW_MOVEMENT"
+      }
+    },
+    {
+      "id": "target.monster.flag.pain_bond",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "sharing {possessive} pain",
+      "zh": "分担{possessive}痛苦",
+      "params": {
+        "possessive": "text"
+      },
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_PAIN_BOND"
+      }
+    },
+    {
+      "id": "target.monster.flag.idealised",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "idealised",
+      "zh": "被理想化",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_IDEALISED"
+      }
+    },
+    {
+      "id": "target.monster.flag.ally_target",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "ally target",
+      "zh": "友军集火目标",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_ALLY_TARGET"
+      }
+    },
+    {
+      "id": "target.monster.flag.antimagic",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "magic disrupted",
+      "zh": "魔法受到干扰",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_ANTIMAGIC"
+      }
+    },
+    {
+      "id": "target.monster.flag.anguish",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "anguished",
+      "zh": "陷入苦痛",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_ANGUISH"
+      }
+    },
+    {
+      "id": "target.monster.flag.reflecting",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "reflecting blocked projectiles",
+      "zh": "正在反弹被格挡的投射物",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_REFLECTING"
+      }
+    },
+    {
+      "id": "target.monster.flag.teleporting",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "about to teleport",
+      "zh": "即将传送",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_TELEPORTING"
+      }
+    },
+    {
+      "id": "target.monster.flag.bound",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "bound in place",
+      "zh": "被束缚在原地",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_BOUND"
+      }
+    },
+    {
+      "id": "target.monster.flag.bullseye_target",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "targeted by your dimensional bullseye",
+      "zh": "被你的维度靶心锁定",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_BULLSEYE_TARGET"
+      }
+    },
+    {
+      "id": "target.monster.flag.vitrified",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "fragile as glass",
+      "zh": "脆弱如玻璃",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_VITRIFIED"
+      }
+    },
+    {
+      "id": "target.monster.flag.curse_of_agony",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "cursed with the promise of agony",
+      "zh": "被痛苦预言诅咒",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CURSE_OF_AGONY"
+      }
+    },
+    {
+      "id": "target.monster.flag.retreating",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "retreating",
+      "zh": "正在撤退",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_RETREATING"
+      }
+    },
+    {
+      "id": "target.monster.flag.touch_of_beogh",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "empowered by the touch of Beogh",
+      "zh": "受到别欧格之触强化",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_TOUCH_OF_BEOGH"
+      }
+    },
+    {
+      "id": "target.monster.flag.awaiting_recruitment",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "ready to become your apostle",
+      "zh": "即将成为你的使徒",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_AWAITING_RECRUITMENT"
+      }
+    },
+    {
+      "id": "target.monster.flag.vengeance_target",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "target of orcish vengeance",
+      "zh": "成为兽人复仇的目标",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_VENGEANCE_TARGET"
+      }
+    },
+    {
+      "id": "target.monster.flag.magnetised",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "covered in magnetic dust",
+      "zh": "沾满磁尘",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_MAGNETISED"
+      }
+    },
+    {
+      "id": "target.monster.flag.rimeblight",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "afflicted by rimeblight",
+      "zh": "染上霜枯病",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_RIMEBLIGHT"
+      }
+    },
+    {
+      "id": "target.monster.flag.shadowless",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "missing a shadow",
+      "zh": "失去了影子",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_SHADOWLESS"
+      }
+    },
+    {
+      "id": "target.monster.flag.frozen_in_terror",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "paralysed with fear",
+      "zh": "因恐惧而麻痹",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_FROZEN_IN_TERROR"
+      }
+    },
+    {
+      "id": "target.monster.flag.soul_splintered",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "soul-splintered",
+      "zh": "灵魂碎裂",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_SOUL_SPLINTERED"
+      }
+    },
+    {
+      "id": "target.monster.flag.kinetic_grapnel",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "grapneled",
+      "zh": "被抓钩钩住",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_KINETIC_GRAPNEL"
+      }
+    },
+    {
+      "id": "target.monster.flag.tempered",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "tempered",
+      "zh": "得到淬炼",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_TEMPERED"
+      }
+    },
+    {
+      "id": "target.monster.flag.blinkitis",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "untethered in space",
+      "zh": "在空间中脱锚",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_BLINKITIS"
+      }
+    },
+    {
+      "id": "target.monster.flag.chaos_lace",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "interlaced with chaos",
+      "zh": "与混沌交织",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CHAOS_LACE"
+      }
+    },
+    {
+      "id": "target.monster.flag.vexed",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "lashing out in frustration",
+      "zh": "因挫败而猛烈反击",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_VEXED"
+      }
+    },
+    {
+      "id": "target.monster.flag.pyrrhic_recollection",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "ablaze with memories",
+      "zh": "被记忆之火点燃",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_PYRRHIC_RECOLLECTION"
+      }
+    },
+    {
+      "id": "target.monster.flag.clockwork_bee_cast",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "winding a clockwork bee",
+      "zh": "正在上紧发条蜂",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_CLOCKWORK_BEE_CAST"
+      }
+    },
+    {
+      "id": "target.monster.flag.figment",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "feeble figment",
+      "zh": "脆弱的幻象",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_FIGMENT"
+      }
+    },
+    {
+      "id": "target.monster.flag.paradox",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "touched by paradox",
+      "zh": "受到悖论侵染",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_PARADOX"
+      }
+    },
+    {
+      "id": "target.monster.flag.warding",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "damage-immune at range",
+      "zh": "远程攻击无法造成伤害",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_WARDING"
+      }
+    },
+    {
+      "id": "target.monster.flag.diminished_spells",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "diminished spells",
+      "zh": "法术效力减弱",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_DIMINISHED_SPELLS"
+      }
+    },
+    {
+      "id": "target.monster.flag.tesseract_spawn",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "called by a tesseract",
+      "zh": "由超立方体召来",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_TESSERACT_SPAWN"
+      }
+    },
+    {
+      "id": "target.monster.flag.sundering_ready",
+      "context": "目标怪物状态标记；mon-info-flag-name.h 的 long_singular 固定词条。",
+      "en": "ready to sunder",
+      "zh": "已准备好施展裂解",
+      "params": {},
+      "source": {
+        "file": "mon-info-flag-name.h",
+        "anchor": "MB_SUNDERING_READY"
+      }
+    },
+    {
+      "id": "target.monster.wound.okay.wounded",
+      "context": "怪物伤势程度原子；get_damage_level_string。",
+      "en": "not wounded",
+      "zh": "安然无恙",
+      "params": {},
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "get_damage_level_string:okay/wounded"
+      }
+    },
+    {
+      "id": "target.monster.wound.okay.damaged",
+      "context": "怪物伤势程度原子；get_damage_level_string。",
+      "en": "not damaged",
+      "zh": "完好无损",
+      "params": {},
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "get_damage_level_string:okay/damaged"
+      }
+    },
+    {
+      "id": "target.monster.wound.light.wounded",
+      "context": "怪物伤势程度原子；get_damage_level_string。",
+      "en": "lightly wounded",
+      "zh": "轻度受伤",
+      "params": {},
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "get_damage_level_string:light/wounded"
+      }
+    },
+    {
+      "id": "target.monster.wound.light.damaged",
+      "context": "怪物伤势程度原子；get_damage_level_string。",
+      "en": "lightly damaged",
+      "zh": "轻度受损",
+      "params": {},
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "get_damage_level_string:light/damaged"
+      }
+    },
+    {
+      "id": "target.monster.wound.moderate.wounded",
+      "context": "怪物伤势程度原子；get_damage_level_string。",
+      "en": "moderately wounded",
+      "zh": "中度受伤",
+      "params": {},
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "get_damage_level_string:moderate/wounded"
+      }
+    },
+    {
+      "id": "target.monster.wound.moderate.damaged",
+      "context": "怪物伤势程度原子；get_damage_level_string。",
+      "en": "moderately damaged",
+      "zh": "中度受损",
+      "params": {},
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "get_damage_level_string:moderate/damaged"
+      }
+    },
+    {
+      "id": "target.monster.wound.heavy.wounded",
+      "context": "怪物伤势程度原子；get_damage_level_string。",
+      "en": "heavily wounded",
+      "zh": "重度受伤",
+      "params": {},
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "get_damage_level_string:heavy/wounded"
+      }
+    },
+    {
+      "id": "target.monster.wound.heavy.damaged",
+      "context": "怪物伤势程度原子；get_damage_level_string。",
+      "en": "heavily damaged",
+      "zh": "重度受损",
+      "params": {},
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "get_damage_level_string:heavy/damaged"
+      }
+    },
+    {
+      "id": "target.monster.wound.severe.wounded",
+      "context": "怪物伤势程度原子；get_damage_level_string。",
+      "en": "severely wounded",
+      "zh": "严重受伤",
+      "params": {},
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "get_damage_level_string:severe/wounded"
+      }
+    },
+    {
+      "id": "target.monster.wound.severe.damaged",
+      "context": "怪物伤势程度原子；get_damage_level_string。",
+      "en": "severely damaged",
+      "zh": "严重受损",
+      "params": {},
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "get_damage_level_string:severe/damaged"
+      }
+    },
+    {
+      "id": "target.monster.wound.almost.damaged",
+      "context": "怪物伤势最高档；get_damage_level_string。",
+      "en": "almost destroyed",
+      "zh": "濒临摧毁",
+      "params": {},
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "get_damage_level_string:almost/damaged"
+      }
+    },
+    {
+      "id": "target.monster.wound.almost.wounded",
+      "context": "怪物伤势最高档；get_damage_level_string。",
+      "en": "almost dead",
+      "zh": "濒死",
+      "params": {},
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "get_damage_level_string:almost/wounded"
+      }
+    },
+    {
+      "id": "target.monster.wound.colour",
+      "context": "目标怪物伤势颜色包装；颜色标签作为参数保留。",
+      "en": "<{colour}>{wound}</{colour}>",
+      "zh": "<{colour}>{wound}</{colour}>",
+      "params": {
+        "colour": "colour",
+        "wound": "text"
+      },
+      "source": {
+        "file": "mon-info.cc",
+        "anchor": "monster_info::wounds colour markup"
+      }
+    },
+    {
+      "id": "target.monster.memories.one",
+      "context": "目标怪物记忆提示；单数剩余数量。",
+      "en": "{count} memory left",
+      "zh": "还剩{count}条记忆",
+      "params": {
+        "count": "integer"
+      },
+      "source": {
+        "file": "mon-info.cc",
+        "anchor": "monster_info memory count singular"
+      }
+    },
+    {
+      "id": "target.monster.memories.many",
+      "context": "目标怪物记忆提示；复数剩余数量。",
+      "en": "{count} memories left",
+      "zh": "还剩{count}条记忆",
+      "params": {
+        "count": "integer"
+      },
+      "source": {
+        "file": "mon-info.cc",
+        "anchor": "monster_info memory count plural"
+      }
+    },
+    {
+      "id": "target.monster.constriction.by",
+      "context": "目标详情中怪物被其他生物缠束。",
+      "en": "constricted by {actor}",
+      "zh": "被{actor}缠住",
+      "params": {
+        "actor": "name"
+      },
+      "source": {
+        "file": "mon-info.cc",
+        "anchor": "monster_info constriction source"
+      }
+    },
+    {
+      "id": "target.monster.constriction.holding",
+      "context": "目标详情中怪物正在缠束其他生物。",
+      "en": "constricting {actor}",
+      "zh": "正在缠住{actor}",
+      "params": {
+        "actor": "name"
+      },
+      "source": {
+        "file": "mon-info.cc",
+        "anchor": "monster_info constriction target"
+      }
+    },
+    {
+      "id": "target.monster.disturbance",
+      "en": "Disturbance",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "动静"
+    },
+    {
+      "id": "target.monster.area.sanctuary",
+      "en": "sanctuary",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "圣所中"
+    },
+    {
+      "id": "target.monster.area.silenced",
+      "en": "silenced",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "处于沉默区域"
+    },
+    {
+      "id": "target.monster.area.water",
+      "en": "water",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "在水中"
+    },
+    {
+      "id": "target.monster.area.lava",
+      "en": "lava",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "在熔岩中"
+    },
+    {
+      "id": "target.monster.behaviour.sleepwalking",
+      "en": "sleepwalking",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "梦游中"
+    },
+    {
+      "id": "target.monster.behaviour.drifting",
+      "en": "drifting",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "漂流中"
+    },
+    {
+      "id": "target.monster.behaviour.unaware",
+      "en": "hasn't noticed you",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "尚未察觉你"
+    },
+    {
+      "id": "target.monster.attitude.friendly",
+      "en": "friendly",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "友善"
+    },
+    {
+      "id": "target.monster.attitude.slime",
+      "en": "fellow slime",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "同类史莱姆"
+    },
+    {
+      "id": "target.monster.attitude.peaceful",
+      "en": "peaceful",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "和平"
+    },
+    {
+      "id": "target.monster.attitude.indifferent",
+      "en": "indifferent",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "漠不关心"
+    },
+    {
+      "id": "target.monster.attitude.neutral",
+      "en": "neutral",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "中立"
+    },
+    {
+      "id": "target.monster.halo",
+      "en": "haloed",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "沐浴在光环中"
+    },
+    {
+      "id": "target.monster.umbra",
+      "en": "umbra",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "处于暗影中"
+    },
+    {
+      "id": "target.monster.kind.dancing",
+      "en": "dancing weapon",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "舞动武器"
+    },
+    {
+      "id": "target.monster.kind.pandemonium",
+      "en": "pandemonium lord",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "潘德莫尼姆领主"
+    },
+    {
+      "id": "target.monster.kind.ghost",
+      "en": "ghost",
+      "params": {},
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "幽灵"
+    },
+    {
+      "id": "target.monster.join.comma",
+      "en": "{first}, {second}",
+      "params": {
+        "first": "text",
+        "second": "text"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "{first}，{second}"
+    },
+    {
+      "id": "target.monster.join.and",
+      "en": "{first} and {second}",
+      "params": {
+        "first": "text",
+        "second": "text"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "{first}和{second}"
+    },
+    {
+      "id": "target.monster.join.space",
+      "en": "{first} {second}",
+      "params": {
+        "first": "text",
+        "second": "text"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "{first}{second}"
+    },
+    {
+      "id": "target.monster.suffix",
+      "en": "{description} ({suffixes})",
+      "params": {
+        "description": "text",
+        "suffixes": "text"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "{description}（{suffixes}）"
+    },
+    {
+      "id": "target.monster.equipment.wielding",
+      "en": " wielding {item}",
+      "params": {
+        "item": "name"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "手持{item}"
+    },
+    {
+      "id": "target.monster.equipment.armed",
+      "en": " armed with {item}",
+      "params": {
+        "item": "name"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "装备着{item}"
+    },
+    {
+      "id": "target.monster.equipment.animated",
+      "en": " {item}",
+      "params": {
+        "item": "name"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "{item}"
+    },
+    {
+      "id": "target.monster.equipment.armoury",
+      "en": "{weapon} (from an undying armoury)",
+      "params": {
+        "weapon": "text"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "{weapon}（来自不朽军械库）"
+    },
+    {
+      "id": "target.monster.equipment.wearing",
+      "en": "wearing {item}",
+      "params": {
+        "item": "name"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "装备着{item}"
+    },
+    {
+      "id": "target.monster.equipment.quivering",
+      "en": "quivering {item}",
+      "params": {
+        "item": "name"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "箭袋中有{item}"
+    },
+    {
+      "id": "target.monster.equipment.carrying",
+      "en": "carrying {item}",
+      "params": {
+        "item": "name"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "携带着{item}"
+    },
+    {
+      "id": "target.monster.equipment.carrying_pair",
+      "en": "carrying {first} and {second}",
+      "params": {
+        "first": "name",
+        "second": "name"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "携带着{first}和{second}"
+    },
+    {
+      "id": "target.monster.equipment.body",
+      "en": "{monster}{weapon}",
+      "params": {
+        "monster": "text",
+        "weapon": "text"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "{monster}，{weapon}"
+    },
+    {
+      "id": "target.monster.equipment.clauses",
+      "en": "{monster}, {equipment}",
+      "params": {
+        "monster": "text",
+        "equipment": "text"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "{monster}，{equipment}"
+    },
+    {
+      "id": "target.monster.confuse",
+      "en": "chance to confuse on hit: {chance}%",
+      "params": {
+        "chance": "integer"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "命中时有{chance}%几率使目标困惑"
+    },
+    {
+      "id": "target.monster.jinxbite",
+      "en": "chance to call a sprite on attack: {chance}%",
+      "params": {
+        "chance": "integer"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "攻击时有{chance}%几率召来精灵"
+    },
+    {
+      "id": "target.monster.becoming",
+      "en": "becoming {monster}",
+      "params": {
+        "monster": "name"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "即将变成{monster}"
+    },
+    {
+      "id": "target.monster.fire_blocked",
+      "en": "fire blocked by {feature}",
+      "params": {
+        "feature": "name"
+      },
+      "context": "Target monster detail generated at source",
+      "source": {
+        "file": "directn.cc",
+        "anchor": "cell_monster_description_message"
+      },
+      "zh": "火焰被{feature}阻挡"
+    },
+    {
+      "id": "target.monster.pronoun.his",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "his",
+      "zh": "其",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "pronoun possessive/reflexive word arguments"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.her",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "her",
+      "zh": "其",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "pronoun possessive/reflexive word arguments"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.its",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "its",
+      "zh": "其",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "pronoun possessive/reflexive word arguments"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.their",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "their",
+      "zh": "其",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "pronoun possessive/reflexive word arguments"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.your",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "your",
+      "zh": "你的",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "pronoun possessive/reflexive word arguments"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.himself",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "himself",
+      "zh": "自身",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "pronoun possessive/reflexive word arguments"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.herself",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "herself",
+      "zh": "自身",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "pronoun possessive/reflexive word arguments"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.itself",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "itself",
+      "zh": "自身",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "pronoun possessive/reflexive word arguments"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.yourself",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "yourself",
+      "zh": "你自己",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "pronoun possessive/reflexive word arguments"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.themself",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "themself",
+      "zh": "自身",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "pronoun possessive/reflexive word arguments"
+      }
+    },
+    {
+      "id": "target.monster.log.wound",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} is {wound}.",
+      "zh": "{monster}{wound}。",
+      "params": {
+        "monster": "name",
+        "wound": "text"
+      },
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.encounter",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "You encounter {monsters}.",
+      "zh": "你遇到了{monsters}。",
+      "params": {
+        "monsters": "name"
+      },
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.pursuit.one",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monsters} appears in pursuit of the Orb! ",
+      "zh": "{monsters}出现在追逐佐特宝珠的队伍中！",
+      "params": {
+        "monsters": "name"
+      },
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.pursuit.many",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monsters} appear in pursuit of the Orb! ",
+      "zh": "{monsters}出现在追逐佐特宝珠的队伍中！",
+      "params": {
+        "monsters": "name"
+      },
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.equipment",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} {verb} {equipment}.",
+      "zh": "{monster}{verb}{equipment}。",
+      "params": {
+        "monster": "name",
+        "verb": "text",
+        "equipment": "text"
+      },
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.equipment.dancing",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} is{equipment}.",
+      "zh": "{monster}{equipment}。",
+      "params": {
+        "monster": "name",
+        "equipment": "text"
+      },
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.join.space",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{left} {right}",
+      "zh": "{left}{right}",
+      "params": {
+        "left": "text",
+        "right": "text"
+      },
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.join.newline",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{left}\n{right}",
+      "zh": "{left}\n{right}",
+      "params": {
+        "left": "text",
+        "right": "text"
+      },
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.species.count",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{count} {monster}",
+      "zh": "{count}只{monster}",
+      "params": {
+        "count": "integer",
+        "monster": "name"
+      },
+      "source": {
+        "file": "mon-util.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.subject.it",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "It",
+      "zh": "它",
+      "params": {},
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.subject.they",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "They",
+      "zh": "它们",
+      "params": {},
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.subject.there",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "There",
+      "zh": "有",
+      "params": {},
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.verb.is",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "is",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.verb.are",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "are",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.throw.chaotic",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "chaotic",
+      "zh": "混沌的",
+      "params": {},
+      "source": {
+        "file": "throw.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.throw.net_immune",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "immune to nets",
+      "zh": "免疫网具",
+      "params": {},
+      "source": {
+        "file": "throw.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.throw.blink_free",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "can blink free",
+      "zh": "可以闪现脱困",
+      "params": {},
+      "source": {
+        "file": "throw.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.throw.immune",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "immune",
+      "zh": "免疫",
+      "params": {},
+      "source": {
+        "file": "throw.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.throw.frenzy_chance",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "chance to frenzy on hit: {chance}%",
+      "zh": "命中时有{chance}%几率陷入狂暴",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "throw.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.throw.blind_chance",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "chance to blind on hit: {chance}%",
+      "zh": "命中时有{chance}%几率致盲",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "throw.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.hit_chance.aux",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{chance} and {hit_percent}% to hit with your {attacks}",
+      "zh": "{chance}，使用你的{attacks}时命中率为{hit_percent}%",
+      "params": {
+        "chance": "text",
+        "hit_percent": "integer",
+        "attacks": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.hit_chance.about",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "about {chance}",
+      "zh": "{chance}",
+      "params": {
+        "chance": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "target monster callback/log source"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.microwaves",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} appears in a burst of microwaves!",
+      "zh": "{monster}在一阵微波中现身！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.nullspace",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} pops from nullspace!",
+      "zh": "{monster}从虚空中跃出！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.energy",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} appears in a shower of translocational energy.",
+      "zh": "{monster}伴随着一阵空间转移能量现身。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.sparks",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} appears in a shower of sparks.",
+      "zh": "{monster}伴随着火花四溅现身。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.materialises",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} materialises.",
+      "zh": "{monster}显形了。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.chaos",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} emerges from chaos.",
+      "zh": "{monster}从混沌中现身。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.beyond",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} emerges from the beyond.",
+      "zh": "{monster}从彼界现身。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.assembles",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} assembles {reflexive}!",
+      "zh": "{monster}将{reflexive}组装起来！",
+      "params": {
+        "monster": "name",
+        "reflexive": "text"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.erupts",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} erupts from nowhere.",
+      "zh": "{monster}凭空迸发而出。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.bursts",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} bursts from nowhere.",
+      "zh": "{monster}凭空爆发而出。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.space",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} is cast out of space.",
+      "zh": "{monster}被从空间中逐出。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.reality",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} is cast out of reality.",
+      "zh": "{monster}被从现实中逐出。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.pure",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} coalesces out of pure chaos.",
+      "zh": "{monster}从纯粹混沌中凝聚而出。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.seething",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} coalesces out of seething chaos.",
+      "zh": "{monster}从翻涌的混沌中凝聚而出。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.time",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} punctures the fabric of time!",
+      "zh": "{monster}刺穿了时间的帷幕！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.universe",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} punctures the fabric of the universe.",
+      "zh": "{monster}刺穿了宇宙的帷幕。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.manifests",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} manifests!",
+      "zh": "{monster}现身了！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.log.abyss.bang",
+      "context": "怪物目标详情/战斗日志完整模板。",
+      "en": "{monster} manifests with a bang!",
+      "zh": "{monster}伴随着一声巨响现身！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "Abyss monster encounter announcement"
+      }
+    },
+    {
+      "id": "target.monster.list.row",
+      "context": "怪物列表中一行完整详情的参数化容器。",
+      "en": "{description}",
+      "zh": "{description}",
+      "params": {
+        "description": "text"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "monster-list row rendering"
+      }
+    },
+    {
+      "id": "target.monster.here",
+      "context": "怪物鼠标悬停段落；地块详情中的“这里”标题及描述。",
+      "en": "<cyan>Here:</cyan> {description}",
+      "zh": "<cyan>此处：</cyan>{description}",
+      "params": {
+        "description": "text"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "get_square_desc monster hover paragraph"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.he",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "he",
+      "zh": "它",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "decline_pronoun subjective case"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.she",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "she",
+      "zh": "它",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "decline_pronoun subjective case"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.it",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "it",
+      "zh": "它",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "decline_pronoun subjective case"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.they",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "they",
+      "zh": "它们",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "decline_pronoun subjective case"
+      }
+    },
+    {
+      "id": "target.monster.pronoun.you",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "you",
+      "zh": "你",
+      "params": {},
+      "source": {
+        "file": "english.cc",
+        "anchor": "decline_pronoun subjective case"
+      }
+    },
+    {
+      "id": "target.monster.aux.grab",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "grab",
+      "zh": "擒抱",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.kick",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "kick",
+      "zh": "踢击",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.tentacle_spike",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "tentacle spike",
+      "zh": "触手尖刺",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.headbutt",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "headbutt",
+      "zh": "头槌",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.peck",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "peck",
+      "zh": "啄击",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.sting",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "sting",
+      "zh": "蜇刺",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.tail_slap",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "tail-slap",
+      "zh": "尾击",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.off_hand_punch",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "off-hand punch",
+      "zh": "副手拳击",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.off_hand_claw",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "off-hand claw",
+      "zh": "副手爪击",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.off_hand_eel_slap",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "off-hand eel-slap",
+      "zh": "副手鳗击",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.off_hand_tentacle_slap",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "off-hand tentacle-slap",
+      "zh": "副手触手拍击",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.eel_slap",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "eel-slap",
+      "zh": "鳗击",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.claw",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "claw",
+      "zh": "爪击",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.tentacle_slap",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "tentacle-slap",
+      "zh": "触手拍击",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.bite",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "bite",
+      "zh": "撕咬",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.aux.pseudopods",
+      "context": "怪物目标文案中的固定语义词条。",
+      "en": "pseudopods",
+      "zh": "假足触手",
+      "params": {},
+      "source": {
+        "file": "melee-attack.cc",
+        "anchor": "AuxAttackType::get_name"
+      }
+    },
+    {
+      "id": "target.monster.callback.susceptible",
+      "en": "susceptible",
+      "params": {},
+      "context": "Complete semantic target-monster effect descriptor; parameters derived directly from game facts, English original preserved.",
+      "source": {
+        "file": "item-use.cc",
+        "anchor": "_desc_finite_wl"
+      },
+      "zh": "易受影响"
+    },
+    {
+      "id": "target.monster.callback.see_invisible",
+      "en": "can see invisible",
+      "params": {},
+      "context": "Complete semantic target-monster effect descriptor; parameters derived directly from game facts, English original preserved.",
+      "source": {
+        "file": "item-use.cc",
+        "anchor": "_desc_see_invis"
+      },
+      "zh": "能看见隐形生物"
+    },
+    {
+      "id": "target.monster.callback.lose_sight",
+      "en": "will become unable to see you",
+      "params": {},
+      "context": "Complete semantic target-monster effect descriptor; parameters derived directly from game facts, English original preserved.",
+      "source": {
+        "file": "item-use.cc",
+        "anchor": "_desc_see_invis"
+      },
+      "zh": "将无法看见你"
+    },
+    {
+      "id": "target.monster.callback.cannot_see_invisible",
+      "en": "cannot see invisible",
+      "params": {},
+      "context": "Complete semantic target-monster effect descriptor; parameters derived directly from game facts, English original preserved.",
+      "source": {
+        "file": "item-use.cc",
+        "anchor": "_desc_see_invis"
+      },
+      "zh": "看不见隐形生物"
+    },
+    {
+      "id": "target.monster.callback.slouch_damage",
+      "en": "damage: {dice}d3 / 2",
+      "params": {
+        "dice": "integer"
+      },
+      "context": "Complete semantic target-monster effect descriptor; parameters derived directly from game facts, English original preserved.",
+      "source": {
+        "file": "ability.cc",
+        "anchor": "_desc_slouch_damage"
+      },
+      "zh": "伤害：{dice}d3 / 2"
+    },
+    {
+      "id": "target.monster.callback.bound_soul_hp",
+      "en": "hp as a bound soul: ~{hp}",
+      "params": {
+        "hp": "integer"
+      },
+      "context": "Complete semantic target-monster effect descriptor; parameters derived directly from game facts, English original preserved.",
+      "source": {
+        "file": "ability.cc",
+        "anchor": "_desc_bind_soul_hp"
+      },
+      "zh": "束缚灵魂生命值：约{hp}"
+    },
+    {
+      "id": "target.monster.callback.marionette_spells",
+      "en": "{usable}/{total} spells usable",
+      "params": {
+        "usable": "integer",
+        "total": "integer"
+      },
+      "context": "Complete semantic target-monster effect descriptor; parameters derived directly from game facts, English original preserved.",
+      "source": {
+        "file": "ability.cc",
+        "anchor": "_desc_marionette_spells"
+      },
+      "zh": "{usable}/{total}个法术可用"
+    },
+    {
+      "id": "target.monster.callback.pacify_mindless",
+      "en": "mindless",
+      "params": {},
+      "context": "Complete semantic target-monster effect descriptor; parameters derived directly from game facts, English original preserved.",
+      "source": {
+        "file": "spl-goditem.cc",
+        "anchor": "_desc_pacify_chance"
+      },
+      "zh": "无心智"
+    },
+    {
+      "id": "target.monster.callback.pacify_uninterested",
+      "en": "uninterested",
+      "params": {},
+      "context": "Complete semantic target-monster effect descriptor; parameters derived directly from game facts, English original preserved.",
+      "source": {
+        "file": "spl-goditem.cc",
+        "anchor": "_desc_pacify_chance"
+      },
+      "zh": "不感兴趣"
+    },
+    {
+      "id": "target.monster.callback.pacify_low",
+      "en": "chance to pacify: <<1%",
+      "params": {},
+      "context": "Complete semantic target-monster effect descriptor; parameters derived directly from game facts, English original preserved.",
+      "source": {
+        "file": "spl-goditem.cc",
+        "anchor": "_desc_pacify_chance"
+      },
+      "zh": "安抚几率：<<1%"
+    },
+    {
+      "id": "target.monster.callback.pacify_chance",
+      "en": "chance to pacify: {chance}%",
+      "params": {
+        "chance": "integer"
+      },
+      "context": "Complete semantic target-monster effect descriptor; parameters derived directly from game facts, English original preserved.",
+      "source": {
+        "file": "spl-goditem.cc",
+        "anchor": "_desc_pacify_chance"
+      },
+      "zh": "安抚几率：{chance}%"
+    },
+    {
+      "id": "target.monster.hint.unique",
+      "context": "Monster detail hints full paragraph",
+      "en": "Did you think you were the only adventurer in the dungeon? Well, you thought wrong! These unique adversaries often possess skills that normal monsters wouldn't, so be careful.\n\n",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "你以为地牢里只有你一个冒险者吗？那可就想错了！这些独特的敌人往往拥有普通怪物不具备的能力，务必小心。\n\n"
+    },
+    {
+      "id": "target.monster.hint.ghost",
+      "context": "Monster detail hints full paragraph",
+      "en": "The ghost of a deceased adventurer, it would like nothing better than to send you the same way.\n\n",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "这是某位已故冒险者的鬼魂，它最想做的事莫过于送你去和它作伴。\n\n"
+    },
+    {
+      "id": "target.monster.hint.nasty",
+      "context": "Monster detail hints full paragraph",
+      "en": "This monster appears to be really dangerous!\n",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "这只怪物看起来极其危险！\n"
+    },
+    {
+      "id": "target.monster.hint.tough",
+      "context": "Monster detail hints full paragraph",
+      "en": "This monster appears to be quite dangerous.\n",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "这只怪物看起来相当危险。\n"
+    },
+    {
+      "id": "target.monster.hint.berserk",
+      "context": "Monster detail hints full paragraph",
+      "en": "A berserking monster is bloodthirsty and fighting madly. Such a blood rage makes it particularly dangerous!\n\n",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "狂暴的怪物嗜血而疯狂地战斗。这种血怒会令它格外危险！\n\n"
+    },
+    {
+      "id": "target.monster.hint.friendly",
+      "context": "Monster detail hints full paragraph",
+      "en": "Friendly monsters will follow you around and attempt to aid you in battle. You can order nearby allies by <w>t</w>alking to them.",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "友善的怪物会跟随你，并在战斗中试图助你一臂之力。你可以通过与附近的盟友交谈来下达命令（按<w>t</w>）。"
+    },
+    {
+      "id": "target.monster.hint.temporary",
+      "context": "Monster detail hints full paragraph",
+      "en": "\n\nHowever, it is only <w>temporarily</w> friendly, and will become dangerous again when this friendliness wears off.",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "\n\n不过，它只是<w>暂时</w>对你友善；友善状态消退后，它又会变得危险。"
+    },
+    {
+      "id": "target.monster.hint.exclusion",
+      "context": "Monster detail hints full paragraph",
+      "en": "You can easily mark its square as dangerous to avoid accidentally entering into its field of view when using auto-explore or auto-travel. To do so, enter targeting mode with <w>x</w> and then press <w>e</w> when your cursor is hovering over the monster's grid. Doing so will mark this grid and all surrounding ones within a radius of 8 as \"excluded\" ones that explore or travel modes won't enter.",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "你可以轻松地将它所在的格子标记为危险区域，避免使用自动探索或自动旅行时不慎进入它的视野。操作方法：按<w>x</w>进入瞄准模式，将光标移到怪物所在格后按<w>e</w>。这样会将该格及其半径8格范围内的所有格子标记为“排除”；自动探索和自动旅行不会进入这些格子。"
+    },
+    {
+      "id": "target.monster.hint.unaware",
+      "context": "Monster detail hints full paragraph",
+      "en": "Apparently it has not noticed you - yet. Note that you do not have to engage every monster you meet. Sometimes, discretion is the better part of valour.",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "它似乎还没发现你……至少目前如此。记住，你不必和遇到的每只怪物交战。有时，明哲保身才是上策。"
+    },
+    {
+      "id": "target.monster.hint.distracted",
+      "context": "Monster detail hints full paragraph",
+      "en": "Apparently it has been distracted by something. You could use this opportunity to sneak up on this monster - or to sneak away.",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "它似乎被什么东西分散了注意力。你可以趁机悄悄接近它，也可以悄悄离开。"
+    },
+    {
+      "id": "target.monster.hint.no_stats",
+      "context": "Monster detail hints full paragraph",
+      "en": "\nThis monster doesn't appear to have any resistances or susceptibilities. It cannot fly and is of average speed. Examining other, possibly more high-level monsters can give important clues as to how to deal with them.",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "\n这只怪物似乎没有任何抗性或弱点。它不能飞，速度也很普通。查看其他可能更强大的怪物，能帮助你找到应对它们的办法。"
+    },
+    {
+      "id": "target.monster.hint.flee",
+      "context": "Complete dangerous monster advice, alternative chosen semantically",
+      "en": "This might be a good time to run away.",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "现在或许是逃跑的好时机。"
+    },
+    {
+      "id": "target.monster.hint.flee.berserk",
+      "context": "Complete dangerous monster advice, alternative chosen semantically",
+      "en": "This might be a good time to run away or apply your Berserk <w>a</w>bility.",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "现在或许是逃跑或使用狂暴<w>a</w>能力的好时机。"
+    },
+    {
+      "id": "target.monster.hint.style",
+      "context": "Immutable tutorial colour and composed full hint paragraphs; preserve structural placeholders and tags",
+      "en": "\n<{colour}>{body}</{colour}>",
+      "params": {
+        "colour": "colour",
+        "body": "text"
+      },
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_hints_describe_monster_message"
+      },
+      "zh": "\n<{colour}>{body}</{colour}>"
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "target.monster.flag.charmed",
+      "args": {},
+      "canonical": "charmed",
+      "zh": "受魅惑"
+    },
+    {
+      "id": "target.monster.flag.hexed",
+      "args": {},
+      "canonical": "control wrested from you",
+      "zh": "被你夺取了控制权"
+    },
+    {
+      "id": "target.monster.flag.abjurable",
+      "args": {},
+      "canonical": "summoned",
+      "zh": "被召唤"
+    },
+    {
+      "id": "target.monster.flag.minion",
+      "args": {},
+      "canonical": "minion",
+      "zh": "仆从"
+    },
+    {
+      "id": "target.monster.flag.unrewarding",
+      "args": {},
+      "canonical": "unrewarding",
+      "zh": "击杀无奖励"
+    },
+    {
+      "id": "target.monster.flag.wandering",
+      "args": {},
+      "canonical": "wandering",
+      "zh": "正在游荡"
+    },
+    {
+      "id": "target.monster.flag.mesmerizing",
+      "args": {},
+      "canonical": "mesmerising",
+      "zh": "正在迷惑你"
+    },
+    {
+      "id": "target.monster.flag.berserk",
+      "args": {},
+      "canonical": "berserk",
+      "zh": "陷入狂暴"
+    },
+    {
+      "id": "target.monster.flag.hasted",
+      "args": {},
+      "canonical": "fast",
+      "zh": "速度很快"
+    },
+    {
+      "id": "target.monster.flag.rolling",
+      "args": {},
+      "canonical": "rolling",
+      "zh": "正在滚动"
+    },
+    {
+      "id": "target.monster.flag.inner_flame",
+      "args": {},
+      "canonical": "inner flame",
+      "zh": "内焰缠身"
+    },
+    {
+      "id": "target.monster.flag.mirror_damage",
+      "args": {},
+      "canonical": "reflecting injuries",
+      "zh": "反弹伤害"
+    },
+    {
+      "id": "target.monster.flag.bound_soul",
+      "args": {},
+      "canonical": "soul bound",
+      "zh": "灵魂被束缚"
+    },
+    {
+      "id": "target.monster.flag.strong",
+      "args": {},
+      "canonical": "strong",
+      "zh": "强壮"
+    },
+    {
+      "id": "target.monster.flag.empowered_spells",
+      "args": {},
+      "canonical": "spells empowered",
+      "zh": "法术得到强化"
+    },
+    {
+      "id": "target.monster.flag.fully_charged",
+      "args": {},
+      "canonical": "fully charged",
+      "zh": "已充满能量"
+    },
+    {
+      "id": "target.monster.flag.partially_charged",
+      "args": {},
+      "canonical": "partially charged",
+      "zh": "正在蓄能"
+    },
+    {
+      "id": "target.monster.flag.agile",
+      "args": {},
+      "canonical": "unusually agile",
+      "zh": "异常敏捷"
+    },
+    {
+      "id": "target.monster.flag.swift",
+      "args": {},
+      "canonical": "covering ground quickly",
+      "zh": "迅速移动"
+    },
+    {
+      "id": "target.monster.flag.pursuing",
+      "args": {},
+      "canonical": "pursuing quickly",
+      "zh": "正在快速追击"
+    },
+    {
+      "id": "target.monster.flag.still_winds",
+      "args": {},
+      "canonical": "stilling the winds",
+      "zh": "正在止息风暴"
+    },
+    {
+      "id": "target.monster.flag.silencing",
+      "args": {},
+      "canonical": "radiating silence",
+      "zh": "散发着寂静"
+    },
+    {
+      "id": "target.monster.flag.ready_to_howl",
+      "args": {},
+      "canonical": "ready to howl",
+      "zh": "正要嚎叫"
+    },
+    {
+      "id": "target.monster.flag.vortex",
+      "args": {},
+      "canonical": "surrounded by a freezing vortex",
+      "zh": "被冰冷漩涡环绕"
+    },
+    {
+      "id": "target.monster.flag.vortex_cooldown",
+      "args": {},
+      "canonical": "surrounded by restless winds",
+      "zh": "被躁动的风环绕"
+    },
+    {
+      "id": "target.monster.flag.frenzied",
+      "args": {},
+      "canonical": "frenzied and wild",
+      "zh": "狂乱而狂野"
+    },
+    {
+      "id": "target.monster.flag.fear_inspiring",
+      "args": {},
+      "canonical": "inspiring fear",
+      "zh": "令人畏惧"
+    },
+    {
+      "id": "target.monster.flag.word_of_recall",
+      "args": {},
+      "canonical": "chanting recall",
+      "zh": "正在吟唱召回咒"
+    },
+    {
+      "id": "target.monster.flag.deflect_msl",
+      "args": {},
+      "canonical": "deflecting missiles",
+      "zh": "正在偏转飞弹"
+    },
+    {
+      "id": "target.monster.flag.toxic_radiance",
+      "args": {},
+      "canonical": "radiating toxic energy",
+      "zh": "散发着毒性能量"
+    },
+    {
+      "id": "target.monster.flag.concentrate_venom",
+      "args": {},
+      "canonical": "concentrated venom",
+      "zh": "浓缩毒液"
+    },
+    {
+      "id": "target.monster.flag.sign_of_ruin",
+      "args": {},
+      "canonical": "marked with the sign of ruin",
+      "zh": "被毁灭之印标记"
+    },
+    {
+      "id": "target.monster.flag.resistance",
+      "args": {},
+      "canonical": "unusually resistant",
+      "zh": "抗性异常强大"
+    },
+    {
+      "id": "target.monster.flag.invisible",
+      "args": {},
+      "canonical": "slightly transparent",
+      "zh": "略微透明"
+    },
+    {
+      "id": "target.monster.flag.regeneration",
+      "args": {},
+      "canonical": "regenerating",
+      "zh": "正在再生"
+    },
+    {
+      "id": "target.monster.flag.strong_willed",
+      "args": {},
+      "canonical": "strong-willed",
+      "zh": "意志坚定"
+    },
+    {
+      "id": "target.monster.flag.injury_bond",
+      "args": {},
+      "canonical": "sheltered from injuries",
+      "zh": "受到伤害庇护"
+    },
+    {
+      "id": "target.monster.flag.gozag_incited",
+      "args": {},
+      "canonical": "incited by Gozag",
+      "zh": "受到戈扎格煽动"
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_thunder",
+      "args": {},
+      "canonical": "surrounded by thunder",
+      "zh": "被雷霆环绕"
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_flames",
+      "args": {},
+      "canonical": "surrounded by flames",
+      "zh": "被烈焰环绕"
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_chaos",
+      "args": {},
+      "canonical": "surrounded by chaotic energy",
+      "zh": "被混沌能量环绕"
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_mutation",
+      "args": {},
+      "canonical": "surrounded by mutagenic energy",
+      "zh": "被诱变能量环绕"
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_fog",
+      "args": {},
+      "canonical": "surrounded by fog",
+      "zh": "被雾气环绕"
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_ice",
+      "args": {},
+      "canonical": "surrounded by freezing clouds",
+      "zh": "被冰冷云雾环绕"
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_misery",
+      "args": {},
+      "canonical": "surrounded by negative energy",
+      "zh": "被负能量环绕"
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_acid",
+      "args": {},
+      "canonical": "surrounded by acidic fog",
+      "zh": "被酸雾环绕"
+    },
+    {
+      "id": "target.monster.flag.cloud_ring_miasma",
+      "args": {},
+      "canonical": "surrounded by foul miasma",
+      "zh": "被恶臭瘴气环绕"
+    },
+    {
+      "id": "target.monster.flag.fire_champion",
+      "args": {},
+      "canonical": "flame-wreathed",
+      "zh": "烈焰缠身"
+    },
+    {
+      "id": "target.monster.flag.silence_immune",
+      "args": {},
+      "canonical": "unaffected by silence",
+      "zh": "不受沉默影响"
+    },
+    {
+      "id": "target.monster.flag.doubled_vigour",
+      "args": {},
+      "canonical": "doubled in vigour",
+      "zh": "活力倍增"
+    },
+    {
+      "id": "target.monster.flag.possessable",
+      "args": {},
+      "canonical": "soul-gripped",
+      "zh": "灵魂被攫住"
+    },
+    {
+      "id": "target.monster.flag.caught",
+      "args": {},
+      "canonical": "entangled in a net",
+      "zh": "被网缠住"
+    },
+    {
+      "id": "target.monster.flag.webbed",
+      "args": {},
+      "canonical": "entangled in a web",
+      "zh": "被蛛网缠住"
+    },
+    {
+      "id": "target.monster.flag.paralysed",
+      "args": {},
+      "canonical": "paralysed",
+      "zh": "陷入麻痹"
+    },
+    {
+      "id": "target.monster.flag.petrified",
+      "args": {},
+      "canonical": "petrified",
+      "zh": "已石化"
+    },
+    {
+      "id": "target.monster.flag.confused",
+      "args": {},
+      "canonical": "confused",
+      "zh": "陷入混乱"
+    },
+    {
+      "id": "target.monster.flag.dormant",
+      "args": {},
+      "canonical": "dormant",
+      "zh": "处于休眠"
+    },
+    {
+      "id": "target.monster.flag.sleeping",
+      "args": {},
+      "canonical": "asleep",
+      "zh": "正在沉睡"
+    },
+    {
+      "id": "target.monster.flag.unaware",
+      "args": {},
+      "canonical": "unaware",
+      "zh": "毫无察觉"
+    },
+    {
+      "id": "target.monster.flag.blind",
+      "args": {},
+      "canonical": "blind",
+      "zh": "失明"
+    },
+    {
+      "id": "target.monster.flag.distracted",
+      "args": {},
+      "canonical": "not watching you",
+      "zh": "没有留意你"
+    },
+    {
+      "id": "target.monster.flag.cant_see_you",
+      "args": {},
+      "canonical": "unable to see you",
+      "zh": "看不见你"
+    },
+    {
+      "id": "target.monster.flag.infestation",
+      "args": {},
+      "canonical": "infested",
+      "zh": "遭到寄生"
+    },
+    {
+      "id": "target.monster.flag.dumb",
+      "args": {},
+      "canonical": "stupefied",
+      "zh": "变得痴愚"
+    },
+    {
+      "id": "target.monster.flag.pinned",
+      "args": {},
+      "canonical": "pinned",
+      "zh": "被钉住"
+    },
+    {
+      "id": "target.monster.flag.withering",
+      "args": {},
+      "canonical": "withering away",
+      "zh": "正在枯萎"
+    },
+    {
+      "id": "target.monster.flag.crumbling",
+      "args": {},
+      "canonical": "crumbling away",
+      "zh": "正在崩解"
+    },
+    {
+      "id": "target.monster.flag.petrifying",
+      "args": {},
+      "canonical": "petrifying slowly",
+      "zh": "正在缓慢石化"
+    },
+    {
+      "id": "target.monster.flag.mad",
+      "args": {},
+      "canonical": "lost in madness",
+      "zh": "陷入疯狂"
+    },
+    {
+      "id": "target.monster.flag.fleeing",
+      "args": {},
+      "canonical": "fleeing",
+      "zh": "正在逃跑"
+    },
+    {
+      "id": "target.monster.flag.dazed",
+      "args": {},
+      "canonical": "dazed",
+      "zh": "头昏目眩"
+    },
+    {
+      "id": "target.monster.flag.mute",
+      "args": {},
+      "canonical": "mute",
+      "zh": "无法言语"
+    },
+    {
+      "id": "target.monster.flag.frozen",
+      "args": {},
+      "canonical": "encased in ice",
+      "zh": "被冰封住"
+    },
+    {
+      "id": "target.monster.flag.burning",
+      "args": {},
+      "canonical": "covered in liquid flames",
+      "zh": "被液态火焰覆盖"
+    },
+    {
+      "id": "target.monster.flag.poisoned",
+      "args": {},
+      "canonical": "poisoned",
+      "zh": "中毒"
+    },
+    {
+      "id": "target.monster.flag.more_poisoned",
+      "args": {},
+      "canonical": "very poisoned",
+      "zh": "严重中毒"
+    },
+    {
+      "id": "target.monster.flag.max_poisoned",
+      "args": {},
+      "canonical": "extremely poisoned",
+      "zh": "剧毒缠身"
+    },
+    {
+      "id": "target.monster.flag.contam_light",
+      "args": {},
+      "canonical": "contaminated",
+      "zh": "受到污染"
+    },
+    {
+      "id": "target.monster.flag.contam_heavy",
+      "args": {},
+      "canonical": "heavily contaminated",
+      "zh": "受到严重污染"
+    },
+    {
+      "id": "target.monster.flag.slowed",
+      "args": {},
+      "canonical": "slow",
+      "zh": "行动迟缓"
+    },
+    {
+      "id": "target.monster.flag.breath_weapon",
+      "args": {
+        "possessive": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        }
+      },
+      "canonical": "catching his breath",
+      "zh": "正在喘其的气"
+    },
+    {
+      "id": "target.monster.flag.lowered_wl",
+      "args": {},
+      "canonical": "weak-willed",
+      "zh": "意志薄弱"
+    },
+    {
+      "id": "target.monster.flag.fire_vuln",
+      "args": {},
+      "canonical": "more vulnerable to fire",
+      "zh": "更易受到火焰伤害"
+    },
+    {
+      "id": "target.monster.flag.poison_vuln",
+      "args": {},
+      "canonical": "more vulnerable to poison",
+      "zh": "更易中毒"
+    },
+    {
+      "id": "target.monster.flag.wretched",
+      "args": {},
+      "canonical": "misshapen and mutated",
+      "zh": "畸形且变异"
+    },
+    {
+      "id": "target.monster.flag.corrosion",
+      "args": {},
+      "canonical": "corroded",
+      "zh": "遭到腐蚀"
+    },
+    {
+      "id": "target.monster.flag.flayed",
+      "args": {},
+      "canonical": "covered in terrible wounds",
+      "zh": "遍体鳞伤"
+    },
+    {
+      "id": "target.monster.flag.grasping_roots",
+      "args": {},
+      "canonical": "constricted by roots",
+      "zh": "被根须缠住"
+    },
+    {
+      "id": "target.monster.flag.vile_clutch",
+      "args": {},
+      "canonical": "constricted by zombie hands",
+      "zh": "被僵尸之手缠住"
+    },
+    {
+      "id": "target.monster.flag.barbs",
+      "args": {},
+      "canonical": "skewered by barbs",
+      "zh": "被倒刺刺穿"
+    },
+    {
+      "id": "target.monster.flag.sick",
+      "args": {},
+      "canonical": "sick",
+      "zh": "患病"
+    },
+    {
+      "id": "target.monster.flag.weak",
+      "args": {},
+      "canonical": "weak",
+      "zh": "虚弱"
+    },
+    {
+      "id": "target.monster.flag.lightly_drained",
+      "args": {},
+      "canonical": "lightly drained",
+      "zh": "轻度枯竭"
+    },
+    {
+      "id": "target.monster.flag.heavily_drained",
+      "args": {},
+      "canonical": "heavily drained",
+      "zh": "严重枯竭"
+    },
+    {
+      "id": "target.monster.flag.sap_magic",
+      "args": {},
+      "canonical": "magic-sapped",
+      "zh": "魔力被汲取"
+    },
+    {
+      "id": "target.monster.flag.glowing",
+      "args": {},
+      "canonical": "softly glowing",
+      "zh": "微微发光"
+    },
+    {
+      "id": "target.monster.flag.flooded",
+      "args": {},
+      "canonical": "unable to breathe",
+      "zh": "无法呼吸"
+    },
+    {
+      "id": "target.monster.flag.dimension_anchor",
+      "args": {},
+      "canonical": "unable to translocate",
+      "zh": "无法进行空间转移"
+    },
+    {
+      "id": "target.monster.flag.slow_movement",
+      "args": {},
+      "canonical": "covering ground slowly",
+      "zh": "缓慢移动"
+    },
+    {
+      "id": "target.monster.flag.pain_bond",
+      "args": {
+        "possessive": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        }
+      },
+      "canonical": "sharing his pain",
+      "zh": "分担其痛苦"
+    },
+    {
+      "id": "target.monster.flag.idealised",
+      "args": {},
+      "canonical": "idealised",
+      "zh": "被理想化"
+    },
+    {
+      "id": "target.monster.flag.ally_target",
+      "args": {},
+      "canonical": "ally target",
+      "zh": "友军集火目标"
+    },
+    {
+      "id": "target.monster.flag.antimagic",
+      "args": {},
+      "canonical": "magic disrupted",
+      "zh": "魔法受到干扰"
+    },
+    {
+      "id": "target.monster.flag.anguish",
+      "args": {},
+      "canonical": "anguished",
+      "zh": "陷入苦痛"
+    },
+    {
+      "id": "target.monster.flag.reflecting",
+      "args": {},
+      "canonical": "reflecting blocked projectiles",
+      "zh": "正在反弹被格挡的投射物"
+    },
+    {
+      "id": "target.monster.flag.teleporting",
+      "args": {},
+      "canonical": "about to teleport",
+      "zh": "即将传送"
+    },
+    {
+      "id": "target.monster.flag.bound",
+      "args": {},
+      "canonical": "bound in place",
+      "zh": "被束缚在原地"
+    },
+    {
+      "id": "target.monster.flag.bullseye_target",
+      "args": {},
+      "canonical": "targeted by your dimensional bullseye",
+      "zh": "被你的维度靶心锁定"
+    },
+    {
+      "id": "target.monster.flag.vitrified",
+      "args": {},
+      "canonical": "fragile as glass",
+      "zh": "脆弱如玻璃"
+    },
+    {
+      "id": "target.monster.flag.curse_of_agony",
+      "args": {},
+      "canonical": "cursed with the promise of agony",
+      "zh": "被痛苦预言诅咒"
+    },
+    {
+      "id": "target.monster.flag.retreating",
+      "args": {},
+      "canonical": "retreating",
+      "zh": "正在撤退"
+    },
+    {
+      "id": "target.monster.flag.touch_of_beogh",
+      "args": {},
+      "canonical": "empowered by the touch of Beogh",
+      "zh": "受到别欧格之触强化"
+    },
+    {
+      "id": "target.monster.flag.awaiting_recruitment",
+      "args": {},
+      "canonical": "ready to become your apostle",
+      "zh": "即将成为你的使徒"
+    },
+    {
+      "id": "target.monster.flag.vengeance_target",
+      "args": {},
+      "canonical": "target of orcish vengeance",
+      "zh": "成为兽人复仇的目标"
+    },
+    {
+      "id": "target.monster.flag.magnetised",
+      "args": {},
+      "canonical": "covered in magnetic dust",
+      "zh": "沾满磁尘"
+    },
+    {
+      "id": "target.monster.flag.rimeblight",
+      "args": {},
+      "canonical": "afflicted by rimeblight",
+      "zh": "染上霜枯病"
+    },
+    {
+      "id": "target.monster.flag.shadowless",
+      "args": {},
+      "canonical": "missing a shadow",
+      "zh": "失去了影子"
+    },
+    {
+      "id": "target.monster.flag.frozen_in_terror",
+      "args": {},
+      "canonical": "paralysed with fear",
+      "zh": "因恐惧而麻痹"
+    },
+    {
+      "id": "target.monster.flag.soul_splintered",
+      "args": {},
+      "canonical": "soul-splintered",
+      "zh": "灵魂碎裂"
+    },
+    {
+      "id": "target.monster.flag.kinetic_grapnel",
+      "args": {},
+      "canonical": "grapneled",
+      "zh": "被抓钩钩住"
+    },
+    {
+      "id": "target.monster.flag.tempered",
+      "args": {},
+      "canonical": "tempered",
+      "zh": "得到淬炼"
+    },
+    {
+      "id": "target.monster.flag.blinkitis",
+      "args": {},
+      "canonical": "untethered in space",
+      "zh": "在空间中脱锚"
+    },
+    {
+      "id": "target.monster.flag.chaos_lace",
+      "args": {},
+      "canonical": "interlaced with chaos",
+      "zh": "与混沌交织"
+    },
+    {
+      "id": "target.monster.flag.vexed",
+      "args": {},
+      "canonical": "lashing out in frustration",
+      "zh": "因挫败而猛烈反击"
+    },
+    {
+      "id": "target.monster.flag.pyrrhic_recollection",
+      "args": {},
+      "canonical": "ablaze with memories",
+      "zh": "被记忆之火点燃"
+    },
+    {
+      "id": "target.monster.flag.clockwork_bee_cast",
+      "args": {},
+      "canonical": "winding a clockwork bee",
+      "zh": "正在上紧发条蜂"
+    },
+    {
+      "id": "target.monster.flag.figment",
+      "args": {},
+      "canonical": "feeble figment",
+      "zh": "脆弱的幻象"
+    },
+    {
+      "id": "target.monster.flag.paradox",
+      "args": {},
+      "canonical": "touched by paradox",
+      "zh": "受到悖论侵染"
+    },
+    {
+      "id": "target.monster.flag.warding",
+      "args": {},
+      "canonical": "damage-immune at range",
+      "zh": "远程攻击无法造成伤害"
+    },
+    {
+      "id": "target.monster.flag.diminished_spells",
+      "args": {},
+      "canonical": "diminished spells",
+      "zh": "法术效力减弱"
+    },
+    {
+      "id": "target.monster.flag.tesseract_spawn",
+      "args": {},
+      "canonical": "called by a tesseract",
+      "zh": "由超立方体召来"
+    },
+    {
+      "id": "target.monster.flag.sundering_ready",
+      "args": {},
+      "canonical": "ready to sunder",
+      "zh": "已准备好施展裂解"
+    },
+    {
+      "id": "target.monster.wound.okay.wounded",
+      "args": {},
+      "canonical": "not wounded",
+      "zh": "安然无恙"
+    },
+    {
+      "id": "target.monster.wound.okay.damaged",
+      "args": {},
+      "canonical": "not damaged",
+      "zh": "完好无损"
+    },
+    {
+      "id": "target.monster.wound.light.wounded",
+      "args": {},
+      "canonical": "lightly wounded",
+      "zh": "轻度受伤"
+    },
+    {
+      "id": "target.monster.wound.light.damaged",
+      "args": {},
+      "canonical": "lightly damaged",
+      "zh": "轻度受损"
+    },
+    {
+      "id": "target.monster.wound.moderate.wounded",
+      "args": {},
+      "canonical": "moderately wounded",
+      "zh": "中度受伤"
+    },
+    {
+      "id": "target.monster.wound.moderate.damaged",
+      "args": {},
+      "canonical": "moderately damaged",
+      "zh": "中度受损"
+    },
+    {
+      "id": "target.monster.wound.heavy.wounded",
+      "args": {},
+      "canonical": "heavily wounded",
+      "zh": "重度受伤"
+    },
+    {
+      "id": "target.monster.wound.heavy.damaged",
+      "args": {},
+      "canonical": "heavily damaged",
+      "zh": "重度受损"
+    },
+    {
+      "id": "target.monster.wound.severe.wounded",
+      "args": {},
+      "canonical": "severely wounded",
+      "zh": "严重受伤"
+    },
+    {
+      "id": "target.monster.wound.severe.damaged",
+      "args": {},
+      "canonical": "severely damaged",
+      "zh": "严重受损"
+    },
+    {
+      "id": "target.monster.wound.almost.damaged",
+      "args": {},
+      "canonical": "almost destroyed",
+      "zh": "濒临摧毁"
+    },
+    {
+      "id": "target.monster.wound.almost.wounded",
+      "args": {},
+      "canonical": "almost dead",
+      "zh": "濒死"
+    },
+    {
+      "id": "target.monster.wound.colour",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightred",
+          "localized": "lightred"
+        },
+        "wound": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        }
+      },
+      "canonical": "<lightred>his</lightred>",
+      "zh": "<lightred>其</lightred>"
+    },
+    {
+      "id": "target.monster.memories.one",
+      "args": {
+        "count": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "3 memory left",
+      "zh": "还剩3条记忆"
+    },
+    {
+      "id": "target.monster.memories.many",
+      "args": {
+        "count": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "3 memories left",
+      "zh": "还剩3条记忆"
+    },
+    {
+      "id": "target.monster.constriction.by",
+      "args": {
+        "actor": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "constricted by kobold",
+      "zh": "被狗头人缠住"
+    },
+    {
+      "id": "target.monster.constriction.holding",
+      "args": {
+        "actor": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "constricting kobold",
+      "zh": "正在缠住狗头人"
+    },
+    {
+      "id": "target.monster.disturbance",
+      "args": {},
+      "canonical": "Disturbance",
+      "zh": "动静"
+    },
+    {
+      "id": "target.monster.area.sanctuary",
+      "args": {},
+      "canonical": "sanctuary",
+      "zh": "圣所中"
+    },
+    {
+      "id": "target.monster.area.silenced",
+      "args": {},
+      "canonical": "silenced",
+      "zh": "处于沉默区域"
+    },
+    {
+      "id": "target.monster.area.water",
+      "args": {},
+      "canonical": "water",
+      "zh": "在水中"
+    },
+    {
+      "id": "target.monster.area.lava",
+      "args": {},
+      "canonical": "lava",
+      "zh": "在熔岩中"
+    },
+    {
+      "id": "target.monster.behaviour.sleepwalking",
+      "args": {},
+      "canonical": "sleepwalking",
+      "zh": "梦游中"
+    },
+    {
+      "id": "target.monster.behaviour.drifting",
+      "args": {},
+      "canonical": "drifting",
+      "zh": "漂流中"
+    },
+    {
+      "id": "target.monster.behaviour.unaware",
+      "args": {},
+      "canonical": "hasn't noticed you",
+      "zh": "尚未察觉你"
+    },
+    {
+      "id": "target.monster.attitude.friendly",
+      "args": {},
+      "canonical": "friendly",
+      "zh": "友善"
+    },
+    {
+      "id": "target.monster.attitude.slime",
+      "args": {},
+      "canonical": "fellow slime",
+      "zh": "同类史莱姆"
+    },
+    {
+      "id": "target.monster.attitude.peaceful",
+      "args": {},
+      "canonical": "peaceful",
+      "zh": "和平"
+    },
+    {
+      "id": "target.monster.attitude.indifferent",
+      "args": {},
+      "canonical": "indifferent",
+      "zh": "漠不关心"
+    },
+    {
+      "id": "target.monster.attitude.neutral",
+      "args": {},
+      "canonical": "neutral",
+      "zh": "中立"
+    },
+    {
+      "id": "target.monster.halo",
+      "args": {},
+      "canonical": "haloed",
+      "zh": "沐浴在光环中"
+    },
+    {
+      "id": "target.monster.umbra",
+      "args": {},
+      "canonical": "umbra",
+      "zh": "处于暗影中"
+    },
+    {
+      "id": "target.monster.kind.dancing",
+      "args": {},
+      "canonical": "dancing weapon",
+      "zh": "舞动武器"
+    },
+    {
+      "id": "target.monster.kind.pandemonium",
+      "args": {},
+      "canonical": "pandemonium lord",
+      "zh": "潘德莫尼姆领主"
+    },
+    {
+      "id": "target.monster.kind.ghost",
+      "args": {},
+      "canonical": "ghost",
+      "zh": "幽灵"
+    },
+    {
+      "id": "target.monster.join.comma",
+      "args": {
+        "first": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        },
+        "second": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        }
+      },
+      "canonical": "his, his",
+      "zh": "其，其"
+    },
+    {
+      "id": "target.monster.join.and",
+      "args": {
+        "first": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        },
+        "second": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        }
+      },
+      "canonical": "his and his",
+      "zh": "其和其"
+    },
+    {
+      "id": "target.monster.join.space",
+      "args": {
+        "first": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        },
+        "second": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        }
+      },
+      "canonical": "his his",
+      "zh": "其其"
+    },
+    {
+      "id": "target.monster.suffix",
+      "args": {
+        "description": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        },
+        "suffixes": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        }
+      },
+      "canonical": "his (his)",
+      "zh": "其（其）"
+    },
+    {
+      "id": "target.monster.equipment.wielding",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "a +2 long sword",
+          "localized": "+2长剑"
+        }
+      },
+      "canonical": " wielding a +2 long sword",
+      "zh": "手持+2长剑"
+    },
+    {
+      "id": "target.monster.equipment.armed",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "a +2 long sword",
+          "localized": "+2长剑"
+        }
+      },
+      "canonical": " armed with a +2 long sword",
+      "zh": "装备着+2长剑"
+    },
+    {
+      "id": "target.monster.equipment.animated",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "a +2 long sword",
+          "localized": "+2长剑"
+        }
+      },
+      "canonical": " a +2 long sword",
+      "zh": "+2长剑"
+    },
+    {
+      "id": "target.monster.equipment.armoury",
+      "args": {
+        "weapon": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        }
+      },
+      "canonical": "his (from an undying armoury)",
+      "zh": "其（来自不朽军械库）"
+    },
+    {
+      "id": "target.monster.equipment.wearing",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "a +0 kite shield",
+          "localized": "+0鸢盾"
+        }
+      },
+      "canonical": "wearing a +0 kite shield",
+      "zh": "装备着+0鸢盾"
+    },
+    {
+      "id": "target.monster.equipment.quivering",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "a +2 long sword",
+          "localized": "+2长剑"
+        }
+      },
+      "canonical": "quivering a +2 long sword",
+      "zh": "箭袋中有+2长剑"
+    },
+    {
+      "id": "target.monster.equipment.carrying",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "a +2 long sword",
+          "localized": "+2长剑"
+        }
+      },
+      "canonical": "carrying a +2 long sword",
+      "zh": "携带着+2长剑"
+    },
+    {
+      "id": "target.monster.equipment.carrying_pair",
+      "args": {
+        "first": {
+          "type": "name",
+          "canonical": "a wand of flame",
+          "localized": "火焰魔杖"
+        },
+        "second": {
+          "type": "name",
+          "canonical": "a potion of curing",
+          "localized": "治疗药水"
+        }
+      },
+      "canonical": "carrying a wand of flame and a potion of curing",
+      "zh": "携带着火焰魔杖和治疗药水"
+    },
+    {
+      "id": "target.monster.equipment.body",
+      "args": {
+        "monster": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        },
+        "weapon": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        }
+      },
+      "canonical": "hishis",
+      "zh": "其，其"
+    },
+    {
+      "id": "target.monster.equipment.clauses",
+      "args": {
+        "monster": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        },
+        "equipment": {
+          "type": "text",
+          "canonical": "his",
+          "localized": "其"
+        }
+      },
+      "canonical": "his, his",
+      "zh": "其，其"
+    },
+    {
+      "id": "target.monster.confuse",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "chance to confuse on hit: 3%",
+      "zh": "命中时有3%几率使目标困惑"
+    },
+    {
+      "id": "target.monster.jinxbite",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "chance to call a sprite on attack: 3%",
+      "zh": "攻击时有3%几率召来精灵"
+    },
+    {
+      "id": "target.monster.becoming",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "becoming kobold",
+      "zh": "即将变成狗头人"
+    },
+    {
+      "id": "target.monster.fire_blocked",
+      "args": {
+        "feature": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "fire blocked by kobold",
+      "zh": "火焰被狗头人阻挡"
+    },
+    {
+      "id": "target.monster.pronoun.his",
+      "args": {},
+      "canonical": "his",
+      "zh": "其"
+    },
+    {
+      "id": "target.monster.pronoun.her",
+      "args": {},
+      "canonical": "her",
+      "zh": "其"
+    },
+    {
+      "id": "target.monster.pronoun.its",
+      "args": {},
+      "canonical": "its",
+      "zh": "其"
+    },
+    {
+      "id": "target.monster.pronoun.their",
+      "args": {},
+      "canonical": "their",
+      "zh": "其"
+    },
+    {
+      "id": "target.monster.pronoun.your",
+      "args": {},
+      "canonical": "your",
+      "zh": "你的"
+    },
+    {
+      "id": "target.monster.pronoun.himself",
+      "args": {},
+      "canonical": "himself",
+      "zh": "自身"
+    },
+    {
+      "id": "target.monster.pronoun.herself",
+      "args": {},
+      "canonical": "herself",
+      "zh": "自身"
+    },
+    {
+      "id": "target.monster.pronoun.itself",
+      "args": {},
+      "canonical": "itself",
+      "zh": "自身"
+    },
+    {
+      "id": "target.monster.pronoun.yourself",
+      "args": {},
+      "canonical": "yourself",
+      "zh": "你自己"
+    },
+    {
+      "id": "target.monster.pronoun.themself",
+      "args": {},
+      "canonical": "themself",
+      "zh": "自身"
+    },
+    {
+      "id": "target.monster.log.wound",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        },
+        "wound": {
+          "type": "text",
+          "canonical": "moderately wounded",
+          "localized": "中度受伤"
+        }
+      },
+      "canonical": "kobold is moderately wounded.",
+      "zh": "狗头人中度受伤。"
+    },
+    {
+      "id": "target.monster.log.encounter",
+      "args": {
+        "monsters": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "You encounter kobold.",
+      "zh": "你遇到了狗头人。"
+    },
+    {
+      "id": "target.monster.log.pursuit.one",
+      "args": {
+        "monsters": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold appears in pursuit of the Orb! ",
+      "zh": "狗头人出现在追逐佐特宝珠的队伍中！"
+    },
+    {
+      "id": "target.monster.log.pursuit.many",
+      "args": {
+        "monsters": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold appear in pursuit of the Orb! ",
+      "zh": "狗头人出现在追逐佐特宝珠的队伍中！"
+    },
+    {
+      "id": "target.monster.log.equipment",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        },
+        "verb": {
+          "type": "text",
+          "canonical": "wields",
+          "localized": "挥舞着"
+        },
+        "equipment": {
+          "type": "text",
+          "canonical": "a +2 long sword",
+          "localized": "+2长剑"
+        }
+      },
+      "canonical": "kobold wields a +2 long sword.",
+      "zh": "狗头人挥舞着+2长剑。"
+    },
+    {
+      "id": "target.monster.log.equipment.dancing",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        },
+        "equipment": {
+          "type": "text",
+          "canonical": "a +2 long sword",
+          "localized": "+2长剑"
+        }
+      },
+      "canonical": "kobold isa +2 long sword.",
+      "zh": "狗头人+2长剑。"
+    },
+    {
+      "id": "target.monster.log.join.space",
+      "args": {
+        "left": {
+          "type": "text",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        },
+        "right": {
+          "type": "text",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold kobold",
+      "zh": "狗头人狗头人"
+    },
+    {
+      "id": "target.monster.log.join.newline",
+      "args": {
+        "left": {
+          "type": "text",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        },
+        "right": {
+          "type": "text",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold\nkobold",
+      "zh": "狗头人\n狗头人"
+    },
+    {
+      "id": "target.monster.log.species.count",
+      "args": {
+        "count": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        },
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "3 kobold",
+      "zh": "3只狗头人"
+    },
+    {
+      "id": "target.monster.log.subject.it",
+      "args": {},
+      "canonical": "It",
+      "zh": "它"
+    },
+    {
+      "id": "target.monster.log.subject.they",
+      "args": {},
+      "canonical": "They",
+      "zh": "它们"
+    },
+    {
+      "id": "target.monster.log.subject.there",
+      "args": {},
+      "canonical": "There",
+      "zh": "有"
+    },
+    {
+      "id": "target.monster.log.verb.is",
+      "args": {},
+      "canonical": "is",
+      "zh": ""
+    },
+    {
+      "id": "target.monster.log.verb.are",
+      "args": {},
+      "canonical": "are",
+      "zh": ""
+    },
+    {
+      "id": "target.monster.throw.chaotic",
+      "args": {},
+      "canonical": "chaotic",
+      "zh": "混沌的"
+    },
+    {
+      "id": "target.monster.throw.net_immune",
+      "args": {},
+      "canonical": "immune to nets",
+      "zh": "免疫网具"
+    },
+    {
+      "id": "target.monster.throw.blink_free",
+      "args": {},
+      "canonical": "can blink free",
+      "zh": "可以闪现脱困"
+    },
+    {
+      "id": "target.monster.throw.immune",
+      "args": {},
+      "canonical": "immune",
+      "zh": "免疫"
+    },
+    {
+      "id": "target.monster.throw.frenzy_chance",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "50",
+          "localized": "50"
+        }
+      },
+      "canonical": "chance to frenzy on hit: 50%",
+      "zh": "命中时有50%几率陷入狂暴"
+    },
+    {
+      "id": "target.monster.throw.blind_chance",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "50",
+          "localized": "50"
+        }
+      },
+      "canonical": "chance to blind on hit: 50%",
+      "zh": "命中时有50%几率致盲"
+    },
+    {
+      "id": "target.hit_chance.aux",
+      "args": {
+        "chance": {
+          "type": "text",
+          "canonical": "50",
+          "localized": "50"
+        },
+        "hit_percent": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        },
+        "attacks": {
+          "type": "name",
+          "canonical": "short blades",
+          "localized": "短刃"
+        }
+      },
+      "canonical": "50 and 3% to hit with your short blades",
+      "zh": "50，使用你的短刃时命中率为3%"
+    },
+    {
+      "id": "target.hit_chance.about",
+      "args": {
+        "chance": {
+          "type": "text",
+          "canonical": "about 50% to hit with your +0 hand axe",
+          "localized": "命中率约为50%（使用你的+0手斧）"
+        }
+      },
+      "canonical": "about about 50% to hit with your +0 hand axe",
+      "zh": "命中率约为50%（使用你的+0手斧）"
+    },
+    {
+      "id": "target.monster.log.abyss.microwaves",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold appears in a burst of microwaves!",
+      "zh": "狗头人在一阵微波中现身！"
+    },
+    {
+      "id": "target.monster.log.abyss.nullspace",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold pops from nullspace!",
+      "zh": "狗头人从虚空中跃出！"
+    },
+    {
+      "id": "target.monster.log.abyss.energy",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold appears in a shower of translocational energy.",
+      "zh": "狗头人伴随着一阵空间转移能量现身。"
+    },
+    {
+      "id": "target.monster.log.abyss.sparks",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold appears in a shower of sparks.",
+      "zh": "狗头人伴随着火花四溅现身。"
+    },
+    {
+      "id": "target.monster.log.abyss.materialises",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold materialises.",
+      "zh": "狗头人显形了。"
+    },
+    {
+      "id": "target.monster.log.abyss.chaos",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold emerges from chaos.",
+      "zh": "狗头人从混沌中现身。"
+    },
+    {
+      "id": "target.monster.log.abyss.beyond",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold emerges from the beyond.",
+      "zh": "狗头人从彼界现身。"
+    },
+    {
+      "id": "target.monster.log.abyss.assembles",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        },
+        "reflexive": {
+          "type": "text",
+          "canonical": "itself",
+          "localized": "自身"
+        }
+      },
+      "canonical": "kobold assembles itself!",
+      "zh": "狗头人将自身组装起来！"
+    },
+    {
+      "id": "target.monster.log.abyss.erupts",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold erupts from nowhere.",
+      "zh": "狗头人凭空迸发而出。"
+    },
+    {
+      "id": "target.monster.log.abyss.bursts",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold bursts from nowhere.",
+      "zh": "狗头人凭空爆发而出。"
+    },
+    {
+      "id": "target.monster.log.abyss.space",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold is cast out of space.",
+      "zh": "狗头人被从空间中逐出。"
+    },
+    {
+      "id": "target.monster.log.abyss.reality",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold is cast out of reality.",
+      "zh": "狗头人被从现实中逐出。"
+    },
+    {
+      "id": "target.monster.log.abyss.pure",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold coalesces out of pure chaos.",
+      "zh": "狗头人从纯粹混沌中凝聚而出。"
+    },
+    {
+      "id": "target.monster.log.abyss.seething",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold coalesces out of seething chaos.",
+      "zh": "狗头人从翻涌的混沌中凝聚而出。"
+    },
+    {
+      "id": "target.monster.log.abyss.time",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold punctures the fabric of time!",
+      "zh": "狗头人刺穿了时间的帷幕！"
+    },
+    {
+      "id": "target.monster.log.abyss.universe",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold punctures the fabric of the universe.",
+      "zh": "狗头人刺穿了宇宙的帷幕。"
+    },
+    {
+      "id": "target.monster.log.abyss.manifests",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold manifests!",
+      "zh": "狗头人现身了！"
+    },
+    {
+      "id": "target.monster.log.abyss.bang",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "kobold",
+          "localized": "狗头人"
+        }
+      },
+      "canonical": "kobold manifests with a bang!",
+      "zh": "狗头人伴随着一声巨响现身！"
+    },
+    {
+      "id": "target.monster.list.row",
+      "args": {
+        "description": {
+          "type": "text",
+          "canonical": "a kobold",
+          "localized": "一只狗头人"
+        }
+      },
+      "canonical": "a kobold",
+      "zh": "一只狗头人"
+    },
+    {
+      "id": "target.monster.here",
+      "args": {
+        "description": {
+          "type": "text",
+          "canonical": "a kobold",
+          "localized": "一只狗头人"
+        }
+      },
+      "canonical": "<cyan>Here:</cyan> a kobold",
+      "zh": "<cyan>此处：</cyan>一只狗头人"
+    },
+    {
+      "id": "target.monster.pronoun.he",
+      "args": {},
+      "canonical": "he",
+      "zh": "它"
+    },
+    {
+      "id": "target.monster.pronoun.she",
+      "args": {},
+      "canonical": "she",
+      "zh": "它"
+    },
+    {
+      "id": "target.monster.pronoun.it",
+      "args": {},
+      "canonical": "it",
+      "zh": "它"
+    },
+    {
+      "id": "target.monster.pronoun.they",
+      "args": {},
+      "canonical": "they",
+      "zh": "它们"
+    },
+    {
+      "id": "target.monster.pronoun.you",
+      "args": {},
+      "canonical": "you",
+      "zh": "你"
+    },
+    {
+      "id": "target.monster.aux.grab",
+      "args": {},
+      "canonical": "grab",
+      "zh": "擒抱"
+    },
+    {
+      "id": "target.monster.aux.kick",
+      "args": {},
+      "canonical": "kick",
+      "zh": "踢击"
+    },
+    {
+      "id": "target.monster.aux.tentacle_spike",
+      "args": {},
+      "canonical": "tentacle spike",
+      "zh": "触手尖刺"
+    },
+    {
+      "id": "target.monster.aux.headbutt",
+      "args": {},
+      "canonical": "headbutt",
+      "zh": "头槌"
+    },
+    {
+      "id": "target.monster.aux.peck",
+      "args": {},
+      "canonical": "peck",
+      "zh": "啄击"
+    },
+    {
+      "id": "target.monster.aux.sting",
+      "args": {},
+      "canonical": "sting",
+      "zh": "蜇刺"
+    },
+    {
+      "id": "target.monster.aux.tail_slap",
+      "args": {},
+      "canonical": "tail-slap",
+      "zh": "尾击"
+    },
+    {
+      "id": "target.monster.aux.off_hand_punch",
+      "args": {},
+      "canonical": "off-hand punch",
+      "zh": "副手拳击"
+    },
+    {
+      "id": "target.monster.aux.off_hand_claw",
+      "args": {},
+      "canonical": "off-hand claw",
+      "zh": "副手爪击"
+    },
+    {
+      "id": "target.monster.aux.off_hand_eel_slap",
+      "args": {},
+      "canonical": "off-hand eel-slap",
+      "zh": "副手鳗击"
+    },
+    {
+      "id": "target.monster.aux.off_hand_tentacle_slap",
+      "args": {},
+      "canonical": "off-hand tentacle-slap",
+      "zh": "副手触手拍击"
+    },
+    {
+      "id": "target.monster.aux.eel_slap",
+      "args": {},
+      "canonical": "eel-slap",
+      "zh": "鳗击"
+    },
+    {
+      "id": "target.monster.aux.claw",
+      "args": {},
+      "canonical": "claw",
+      "zh": "爪击"
+    },
+    {
+      "id": "target.monster.aux.tentacle_slap",
+      "args": {},
+      "canonical": "tentacle-slap",
+      "zh": "触手拍击"
+    },
+    {
+      "id": "target.monster.aux.bite",
+      "args": {},
+      "canonical": "bite",
+      "zh": "撕咬"
+    },
+    {
+      "id": "target.monster.aux.pseudopods",
+      "args": {},
+      "canonical": "pseudopods",
+      "zh": "假足触手"
+    },
+    {
+      "id": "target.monster.callback.susceptible",
+      "args": {},
+      "canonical": "susceptible",
+      "zh": "易受影响"
+    },
+    {
+      "id": "target.monster.callback.see_invisible",
+      "args": {},
+      "canonical": "can see invisible",
+      "zh": "能看见隐形生物"
+    },
+    {
+      "id": "target.monster.callback.lose_sight",
+      "args": {},
+      "canonical": "will become unable to see you",
+      "zh": "将无法看见你"
+    },
+    {
+      "id": "target.monster.callback.cannot_see_invisible",
+      "args": {},
+      "canonical": "cannot see invisible",
+      "zh": "看不见隐形生物"
+    },
+    {
+      "id": "target.monster.callback.slouch_damage",
+      "args": {
+        "dice": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "damage: 3d3 / 2",
+      "zh": "伤害：3d3 / 2"
+    },
+    {
+      "id": "target.monster.callback.bound_soul_hp",
+      "args": {
+        "hp": {
+          "type": "integer",
+          "canonical": "12",
+          "localized": "12"
+        }
+      },
+      "canonical": "hp as a bound soul: ~12",
+      "zh": "束缚灵魂生命值：约12"
+    },
+    {
+      "id": "target.monster.callback.marionette_spells",
+      "args": {
+        "usable": {
+          "type": "integer",
+          "canonical": "2",
+          "localized": "2"
+        },
+        "total": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "2/5 spells usable",
+      "zh": "2/5个法术可用"
+    },
+    {
+      "id": "target.monster.callback.pacify_mindless",
+      "args": {},
+      "canonical": "mindless",
+      "zh": "无心智"
+    },
+    {
+      "id": "target.monster.callback.pacify_uninterested",
+      "args": {},
+      "canonical": "uninterested",
+      "zh": "不感兴趣"
+    },
+    {
+      "id": "target.monster.callback.pacify_low",
+      "args": {},
+      "canonical": "chance to pacify: <<1%",
+      "zh": "安抚几率：<<1%"
+    },
+    {
+      "id": "target.monster.callback.pacify_chance",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "35",
+          "localized": "35"
+        }
+      },
+      "canonical": "chance to pacify: 35%",
+      "zh": "安抚几率：35%"
+    },
+    {
+      "id": "target.monster.hint.unique",
+      "args": {},
+      "canonical": "Did you think you were the only adventurer in the dungeon? Well, you thought wrong! These unique adversaries often possess skills that normal monsters wouldn't, so be careful.\n\n",
+      "zh": "你以为地牢里只有你一个冒险者吗？那可就想错了！这些独特的敌人往往拥有普通怪物不具备的能力，务必小心。\n\n"
+    },
+    {
+      "id": "target.monster.hint.ghost",
+      "args": {},
+      "canonical": "The ghost of a deceased adventurer, it would like nothing better than to send you the same way.\n\n",
+      "zh": "这是某位已故冒险者的鬼魂，它最想做的事莫过于送你去和它作伴。\n\n"
+    },
+    {
+      "id": "target.monster.hint.nasty",
+      "args": {},
+      "canonical": "This monster appears to be really dangerous!\n",
+      "zh": "这只怪物看起来极其危险！\n"
+    },
+    {
+      "id": "target.monster.hint.tough",
+      "args": {},
+      "canonical": "This monster appears to be quite dangerous.\n",
+      "zh": "这只怪物看起来相当危险。\n"
+    },
+    {
+      "id": "target.monster.hint.berserk",
+      "args": {},
+      "canonical": "A berserking monster is bloodthirsty and fighting madly. Such a blood rage makes it particularly dangerous!\n\n",
+      "zh": "狂暴的怪物嗜血而疯狂地战斗。这种血怒会令它格外危险！\n\n"
+    },
+    {
+      "id": "target.monster.hint.friendly",
+      "args": {},
+      "canonical": "Friendly monsters will follow you around and attempt to aid you in battle. You can order nearby allies by <w>t</w>alking to them.",
+      "zh": "友善的怪物会跟随你，并在战斗中试图助你一臂之力。你可以通过与附近的盟友交谈来下达命令（按<w>t</w>）。"
+    },
+    {
+      "id": "target.monster.hint.temporary",
+      "args": {},
+      "canonical": "\n\nHowever, it is only <w>temporarily</w> friendly, and will become dangerous again when this friendliness wears off.",
+      "zh": "\n\n不过，它只是<w>暂时</w>对你友善；友善状态消退后，它又会变得危险。"
+    },
+    {
+      "id": "target.monster.hint.exclusion",
+      "args": {},
+      "canonical": "You can easily mark its square as dangerous to avoid accidentally entering into its field of view when using auto-explore or auto-travel. To do so, enter targeting mode with <w>x</w> and then press <w>e</w> when your cursor is hovering over the monster's grid. Doing so will mark this grid and all surrounding ones within a radius of 8 as \"excluded\" ones that explore or travel modes won't enter.",
+      "zh": "你可以轻松地将它所在的格子标记为危险区域，避免使用自动探索或自动旅行时不慎进入它的视野。操作方法：按<w>x</w>进入瞄准模式，将光标移到怪物所在格后按<w>e</w>。这样会将该格及其半径8格范围内的所有格子标记为“排除”；自动探索和自动旅行不会进入这些格子。"
+    },
+    {
+      "id": "target.monster.hint.unaware",
+      "args": {},
+      "canonical": "Apparently it has not noticed you - yet. Note that you do not have to engage every monster you meet. Sometimes, discretion is the better part of valour.",
+      "zh": "它似乎还没发现你……至少目前如此。记住，你不必和遇到的每只怪物交战。有时，明哲保身才是上策。"
+    },
+    {
+      "id": "target.monster.hint.distracted",
+      "args": {},
+      "canonical": "Apparently it has been distracted by something. You could use this opportunity to sneak up on this monster - or to sneak away.",
+      "zh": "它似乎被什么东西分散了注意力。你可以趁机悄悄接近它，也可以悄悄离开。"
+    },
+    {
+      "id": "target.monster.hint.no_stats",
+      "args": {},
+      "canonical": "\nThis monster doesn't appear to have any resistances or susceptibilities. It cannot fly and is of average speed. Examining other, possibly more high-level monsters can give important clues as to how to deal with them.",
+      "zh": "\n这只怪物似乎没有任何抗性或弱点。它不能飞，速度也很普通。查看其他可能更强大的怪物，能帮助你找到应对它们的办法。"
+    },
+    {
+      "id": "target.monster.hint.flee",
+      "args": {},
+      "canonical": "This might be a good time to run away.",
+      "zh": "现在或许是逃跑的好时机。"
+    },
+    {
+      "id": "target.monster.hint.flee.berserk",
+      "args": {},
+      "canonical": "This might be a good time to run away or apply your Berserk <w>a</w>bility.",
+      "zh": "现在或许是逃跑或使用狂暴<w>a</w>能力的好时机。"
+    },
+    {
+      "id": "target.monster.hint.style",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "body": {
+          "type": "text",
+          "canonical": "the monster appears dangerous",
+          "localized": "这只怪物看起来危险"
+        }
+      },
+      "canonical": "\n<lightcyan>the monster appears dangerous</lightcyan>",
+      "zh": "\n<lightcyan>这只怪物看起来危险</lightcyan>"
+    }
+  ]
+}

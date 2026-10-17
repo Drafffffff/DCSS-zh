@@ -120,6 +120,12 @@ vector<string> desc_wl_success_chance(const monster_info& mi, int pow,
 vector<string> desc_beam_hit_chance(const monster_info& mi, targeter* hitfunc);
 
 typedef function<vector<string> (const monster_info& mi)> (desc_filter);
+typedef function<vector<ZhArg> (const monster_info& mi)> (typed_desc_filter);
+typed_desc_filter targeter_addl_desc_messages(spell_type spell, int powc,
+                                             spell_flags flags, targeter *hitfunc);
+vector<ZhArg> desc_wl_success_chance_messages(const monster_info& mi, int pow,
+                                             targeter* hitfunc);
+vector<ZhArg> desc_beam_hit_chance_messages(const monster_info& mi, targeter* hitfunc);
 desc_filter targeter_addl_desc(spell_type spell, int powc, spell_flags flags,
                                        targeter *hitfunc);
 spret your_spells(spell_type spell, int powc = 0, bool actual_spell = true,

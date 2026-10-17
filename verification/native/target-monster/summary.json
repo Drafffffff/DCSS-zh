@@ -1,0 +1,106 @@
+{
+  "native_commit": "303fc53dd98aaedcf9f816eeb42acf55cd4a5880",
+  "baseline": "0b10e82b56eb444c37874fa4c7e90befb08f8938",
+  "catalog_ids": 3387,
+  "new_ids": 310,
+  "copy_review_model": "gpt-6-luna",
+  "macos_test_suites": 18,
+  "linux_test_suites": 9,
+  "new_producer_comparisons_per_platform": 97159,
+  "additional_spell_effect_regressions_per_platform": 28698,
+  "source_mirrors_verified": 22,
+  "builds": [
+    "macos-arm64-tiles",
+    "macos-arm64-console",
+    "bazzite-x86_64-tiles",
+    "bazzite-x86_64-console"
+  ],
+  "scenarios": {
+    "macos-console": {
+      "source_saves_unchanged": true,
+      "scenes": [
+        "monster-target-equipped",
+        "monster-target-undead",
+        "monster-target-spell",
+        "monster-encounter",
+        "monster-wound-living",
+        "monster-wound-undead",
+        "monster-long-detail",
+        "monster-status-detail"
+      ],
+      "missing_ids_or_names": false
+    },
+    "macos-regression": {
+      "source_saves_unchanged": true,
+      "scenes": [
+        "skills-help",
+        "prompt-throw-aim"
+      ],
+      "missing_ids_or_names": false
+    },
+    "macos-shop-regression": {
+      "source_saves_unchanged": true,
+      "scenes": [
+        "shop-selected",
+        "shop-purchased"
+      ],
+      "missing_ids_or_names": false
+    },
+    "linux-console": {
+      "source_saves_unchanged": true,
+      "scenes": [
+        "monster-target-equipped",
+        "monster-target-undead",
+        "monster-target-spell",
+        "monster-encounter",
+        "monster-wound-living",
+        "monster-wound-undead",
+        "monster-long-detail",
+        "monster-status-detail"
+      ],
+      "missing_ids_or_names": false
+    },
+    "linux-regression": {
+      "source_saves_unchanged": true,
+      "scenes": [
+        "skills-help",
+        "prompt-throw-aim"
+      ],
+      "missing_ids_or_names": false
+    },
+    "linux-shop-regression": {
+      "source_saves_unchanged": true,
+      "scenes": [
+        "shop-selected",
+        "shop-purchased"
+      ],
+      "missing_ids_or_names": false
+    },
+    "linux-4k": {
+      "source_saves_unchanged": true,
+      "scenes": [
+        "skills-help",
+        "monster-target-equipped",
+        "monster-target-undead",
+        "monster-wound-living",
+        "monster-wound-undead",
+        "monster-long-detail",
+        "monster-status-detail"
+      ],
+      "missing_ids_or_names": false
+    }
+  },
+  "gui": {
+    "macos_window": [
+      1747,
+      1112
+    ],
+    "bazzite_display": [
+      3840,
+      2160
+    ],
+    "screenshots_reviewed": 10,
+    "no_overlap_in_reviewed_panels": true,
+    "unmigrated_first_encounter_popup_and_shout_observed": true
+  }
+}

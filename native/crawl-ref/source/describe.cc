@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-database.h"
 #include "zh-localization.h"
 #include "zh-display-name.h"
 #include "zh-message.h"
@@ -6272,14 +6273,14 @@ static void _describe_aux_hit_chance(ostringstream &result, vector<string>& auxe
  * @param distance          Distance from which the attack is being made. If not
  *                          provided, assume distance between player and the target.
  */
-void describe_to_hit(const monster_info &mi, ostringstream &result,
+ZhArg describe_to_hit_message(const monster_info &mi,
                      const item_def *weapon, bool verbose, attack *source,
                      int distance)
 {
     if (weapon != nullptr
         && !(is_weapon(*weapon) || is_throwable(&you, *weapon)))
     {
-        return; // breadwielding
+        return {"chance", ZhArgType::Text, "", ""}; // breadwielding
     }
 
     const bool melee = weapon == nullptr || !(is_range_weapon(*weapon)
@@ -6298,16 +6299,27 @@ void describe_to_hit(const monster_info &mi, ostringstream &result,
         acc_pct = to_hit_pct(mi, source ? *source : attk, true, false,
                              distance_from);
 
-        describe_hit_chance(acc_pct, result, weapon, verbose, distance_from);
+        auto chance = describe_hit_chance_message(acc_pct, weapon, verbose, distance_from);
 
         vector<string> aux_names = get_player_aux_names();
         if (!aux_names.empty())
         {
             acc_pct = to_hit_pct_aux(mi, attk);
-            _describe_aux_hit_chance(result, aux_names, acc_pct);
+            vector<ZhArg> names;
+            for (const auto &name : aux_names)
+                names.push_back(zh_glossary_name("attack", "target.monster.aux", name));
+            auto attacks = zh_message_list("attacks", names);
+            ostringstream canonical;
+            _describe_aux_hit_chance(canonical, aux_names, acc_pct);
+            auto combined = zh_message_arg("chance", "target.hit_chance.aux", {
+                chance, zh_integer("hit_percent", acc_pct), attacks});
+            combined.canonical = chance.canonical + canonical.str();
+            if (!combined.supported)
+                combined.localized = combined.canonical;
+            chance = combined;
         }
 
-        return;
+        return chance;
     }
     else
     {
@@ -6316,24 +6328,21 @@ void describe_to_hit(const monster_info &mi, ostringstream &result,
         acc_pct = to_hit_pct(mi, attk, false, penetrating, distance_from);
     }
 
-    describe_hit_chance(acc_pct, result, weapon, verbose, distance_from);
+    return describe_hit_chance_message(acc_pct, weapon, verbose, distance_from);
 }
 
 /**
  * Describe the given hit chance and write to an string stream
  */
-void describe_hit_chance(int hit_chance, ostringstream &result, const item_def *weapon,
+ZhArg describe_hit_chance_message(int hit_chance, const item_def *weapon,
                          bool verbose, int distance_from)
 {
-    if (verbose)
-        result << "about ";
-
     const bool blinded = you.duration[DUR_BLIND];
     const auto hit_arg = zh_integer("hit_percent", hit_chance);
     if (!verbose && blinded)
-        result << zh_message("target.hit_chance.distance", {hit_arg}).display();
+        return zh_message_arg("chance", "target.hit_chance.distance", {hit_arg});
     else if (!verbose)
-        result << zh_message("target.hit_chance", {hit_arg}).display();
+        return zh_message_arg("chance", "target.hit_chance", {hit_arg});
     else
     {
         ZhArg weapon_arg;
@@ -6352,13 +6361,26 @@ void describe_hit_chance(int hit_chance, ostringstream &result, const item_def *
             weapon_arg = {"weapon", ZhArgType::Name, canonical_weapon,
                           localized, localized != canonical_weapon};
         }
-        if (blinded)
-            result << zh_message("target.hit_chance.verbose_blind", {
-                hit_arg, weapon_arg, zh_integer("range", distance_from)}).display();
-        else
-            result << zh_message("target.hit_chance.verbose", {
-                hit_arg, weapon_arg}).display();
+        const auto chance = blinded
+            ? zh_message_arg("chance", "target.hit_chance.verbose_blind", {
+                hit_arg, weapon_arg, zh_integer("range", distance_from)})
+            : zh_message_arg("chance", "target.hit_chance.verbose", {hit_arg, weapon_arg});
+        return zh_message_arg("chance", "target.hit_chance.about", {chance});
     }
+}
+
+void describe_to_hit(const monster_info &mi, ostringstream &result,
+                     const item_def *weapon, bool verbose, attack *source, int distance)
+{
+    const auto chance = describe_to_hit_message(mi, weapon, verbose, source, distance);
+    result << (zh_language_enabled() ? chance.localized : chance.canonical);
+}
+
+void describe_hit_chance(int hit_chance, ostringstream &result, const item_def *weapon,
+                         bool verbose, int distance_from)
+{
+    const auto chance = describe_hit_chance_message(hit_chance, weapon, verbose, distance_from);
+    result << (zh_language_enabled() ? chance.localized : chance.canonical);
 }
 
 static bool _visible_to(const monster_info& mi)
@@ -6850,6 +6872,68 @@ static void _desc_mon_death_explosion(ostringstream &result,
     result << "Explosion damage: " << dam.num << "d" << dam.size << "\n";
 }
 
+static ZhArg _monster_player_hit_message(const monster_info& mi)
+{
+    auto chance = describe_to_hit_message(mi, you.weapon(), true);
+    chance.key = "chance";
+    return zh_message_arg("hit", mi.incapacitated()
+        ? "target.monster.detail.player_hit.incapacitated"
+        : mi.base_ev != mi.ev ? "target.monster.detail.player_hit.current"
+                              : "target.monster.detail.player_hit.plain", {chance});
+}
+
+static ZhArg _monster_detail_size_message(size_type size)
+{
+    switch (size)
+    {
+    case SIZE_TINY: return zh_message_arg("size", "target.monster.detail.size.tiny");
+    case SIZE_LITTLE: return zh_message_arg("size", "target.monster.detail.size.little");
+    case SIZE_SMALL: return zh_message_arg("size", "target.monster.detail.size.small");
+    case SIZE_MEDIUM: return zh_message_arg("size", "target.monster.detail.size.medium");
+    case SIZE_LARGE: return zh_message_arg("size", "target.monster.detail.size.large");
+    case SIZE_GIANT: return zh_message_arg("size", "target.monster.detail.size.giant");
+    default: die("Invalid monster body size");
+    }
+}
+
+static ZhArg _monster_door_message(const monster_info& mi)
+{
+    auto subject = zh_word_arg("subject", "target.monster.pronoun.",
+                              mi.pronoun(PRONOUN_SUBJECTIVE), ZhArgType::Name);
+    if (mi.itemuse() > MONUSE_NOTHING && mi.itemuse() != NUM_MONUSE
+        && !mons_class_is_stationary(mi.type)
+        && !mon_shape_is_humanoid(get_mon_shape(mi.type)))
+    {
+        return zh_message_arg("doors", "target.monster.detail.doors.despite", {
+            zh_word_arg("possessive", "target.monster.pronoun.",
+                        mi.pronoun(PRONOUN_POSSESSIVE)), subject});
+    }
+    subject.canonical = uppercase_first(subject.canonical);
+    const char *id = nullptr;
+    if (mi.itemuse() > MONUSE_NOTHING && mi.itemuse() != NUM_MONUSE
+        && !mons_class_is_stationary(mi.type))
+        id = "target.monster.detail.doors.open";
+    else if (mons_class_flag(mi.type, M_CRASH_DOORS))
+        id = "target.monster.detail.doors.crash";
+    else if (mons_class_flag(mi.type, M_EAT_DOORS))
+        id = "target.monster.detail.doors.eat";
+    if (id)
+        return zh_message_arg("doors", id, {subject});
+    return {"doors", ZhArgType::Text, "", ""};
+}
+
+static ZhArg _monster_detail_title_message(const monster_info& mi, const string& title)
+{
+    if (!title.empty())
+        return zh_message_arg("title", "target.monster.detail.title.fixed", {
+            zh_glossary_name("title", "monster.title", title)});
+    auto name = zh_monster_info_arg("monster", mi, DESC_A);
+    name.canonical = uppercase_first(mi.full_name(DESC_A));
+    if (!name.supported)
+        name.localized = name.canonical;
+    return zh_message_arg("title", "target.monster.detail.title.name", {name});
+}
+
 // Describe a monster's (intrinsic) resistances, speed and a few other
 // attributes.
 static string _monster_stat_description(const monster_info& mi, bool mark_spells)
@@ -6876,8 +6960,9 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
 
     // Less important common properties. Arguably should be lower down.
     const size_type sz = mi.body_size();
-    const string size_desc = zh_lookup_exact(sz == SIZE_LITTLE ? "V. Small"
-                                                  : uppercase_first(get_size_adj(sz)));
+    const auto size_message = _monster_detail_size_message(sz);
+    const string size_desc = ZhMessage{size_message.message_id, size_message.canonical,
+                                       size_message.localized}.display();
     const auto holiness = mons_class_holiness(mi.type);
     const string holiness_name = holiness == MH_NONLIVING ? "Nonliv."
                                              : uppercase_first(single_holiness_description(holiness));
@@ -6903,13 +6988,8 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
 
     if (crawl_state.game_started)
     {
-        result << "You have ";
-        describe_to_hit(mi, result, you.weapon(), true);
-        if (mi.incapacitated()) // Affects ev and sh
-            result << " (while incapacitated)";
-        else if (mi.base_ev != mi.ev)
-            result << " (at present)";
-        result << ".\n";
+        const auto hit = _monster_player_hit_message(mi);
+        result << ZhMessage{hit.message_id, hit.canonical, hit.localized}.display();
     }
     result << _monster_attacks_description(mi);
     if (crawl_state.game_started)
@@ -7148,23 +7228,8 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
     if (!(mi.airborne()))
         result << _monster_habitat_description(mi);
 
-    // Hightlight means of interacting with doors.
-    if (mi.itemuse() > MONUSE_NOTHING && mi.itemuse() != NUM_MONUSE &&
-        !mons_class_is_stationary(mi.type))
-    {
-        if (mon_shape_is_humanoid(get_mon_shape(mi.type)))
-            result << uppercase_first(pronoun) << " can open doors.\n";
-        else
-        {
-            result << "Despite " << mi.pronoun(PRONOUN_POSSESSIVE)
-                   << " appearance, " << pronoun << " can open doors.\n";
-        }
-    }
-    else if (mons_class_flag(mi.type, M_CRASH_DOORS))
-        result << uppercase_first(pronoun) << " can crash through doors.\n";
-    else if (mons_class_flag(mi.type, M_EAT_DOORS))
-        result << uppercase_first(pronoun) << " can eat doors.\n";
-
+    const auto doors = _monster_door_message(mi);
+    result << ZhMessage{doors.message_id, doors.canonical, doors.localized}.display();
     result << _monster_spells_description(mi, mark_spells);
 
     return result.str();
@@ -7210,6 +7275,8 @@ static string _desc_shooting_star_dam(const monster_info &mi)
 // canonical source literals first, then use only the reviewed exact-entry map.
 static string _monster_db_source(const char *context, const string &key)
 {
+    if (string(context) == "detail.monster.status_text")
+        return trimmed_string(zh_database_description(key, context));
     string source;
     {
         ZhTranslationPause pause;
@@ -7233,10 +7300,15 @@ static string _monster_quote_source(const string &key)
 void get_monster_db_desc(const monster_info& mi, describe_info &inf,
                          bool &has_stat_desc, bool mark_spells)
 {
-    if (inf.title.empty())
-        inf.title = getMiscString(mi.common_name(DESC_DBNAME) + " title");
-    if (inf.title.empty())
-        inf.title = uppercase_first(mi.full_name(DESC_A)) + ".";
+    string title_source = inf.title;
+    if (title_source.empty())
+    {
+        const ZhTranslationPause canonical;
+        title_source = getMiscString(mi.common_name(DESC_DBNAME) + " title");
+    }
+    const auto title_message = _monster_detail_title_message(mi, title_source);
+    inf.title = ZhMessage{title_message.message_id, title_message.canonical,
+                          title_message.localized}.display();
 
     string db_name;
 
@@ -7623,14 +7695,14 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
 
 static formatted_string _get_monster_status_descriptions(const monster_info& mi)
 {
-    vector<string> descriptors = get_monster_status_descriptors(mi);
+    vector<ZhArg> descriptors = get_monster_status_descriptor_messages(mi);
     if (descriptors.empty())
         return formatted_string();
 
     ostringstream out;
-    for (string& tag : descriptors)
+    for (const auto& tag : descriptors)
     {
-        const string key = make_stringf("%s monstatus", tag.c_str());
+        const string key = make_stringf("%s monstatus", tag.canonical.c_str());
         string lookup = _monster_db_source("detail.monster.status_text", key);
         if (lookup.empty())
             continue;
@@ -7696,11 +7768,9 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
     desc += formatted_string::parse_string_raw(inf.body.str());
     if (crawl_state.game_is_hints())
     {
-        const string hint = hints_describe_monster(mi, has_stat_desc);
+        const string hint = hints_describe_monster_display(mi, has_stat_desc);
         if (!hint.empty())
-            desc += formatted_string::parse_string_raw(zh_message(
-                "monster.detail.hints_fallback", {
-                    ZhArg("body", ZhArgType::Text, hint, hint, false)}, hint).display());
+            desc += formatted_string::parse_string_raw(hint);
     }
     // Footer text is likewise already localized or explicitly source-keyed.
     desc += formatted_string::parse_string_raw(inf.footer);

@@ -6,13 +6,13 @@
 |---|---|---|
 | 接口与渲染 | 规范英文读取与旧匹配暂停已拆分；Mac自动测试及真实回放通过 | raw绘制不改变语言；Lua/存档仍规范英文；参数/标签/缺失校验通过 |
 | 语义名称 | 物品/怪物/地点已有接口；已鉴定魔杖、普通书籍/手册/羊皮纸、杂项及充能状态按语义字段生成；自定义/神器/未鉴定复杂名仍整名回退 | 枚举/鉴定/数量/装备/专名组合测试；不解析最终英文名称 |
-| 详情 | 主边界、物品/怪物/法术正文与共用限制已接入；法术反噬、选择菜单及目标附加效果本批已接入；其他复杂状态、瞄准怪物伤势/装备正文仍待迁移 | 数据库正文语言选择、长文本、动作、不同来源/状态逐项核对；禁止旧matcher |
+| 详情 | 物品/怪物/法术详情已分批接入；本批完成怪物伤势/装备/132枚举状态、状态DB引用展开、教学建议和命中父句/标题/体型/门交互；其他特殊统计说明仍待逐包迁移 | 数据库正文语言选择、长文本、动作、不同来源/状态逐项核对；禁止旧matcher |
 | 技能 | 主面板/查阅菜单/详情/帮助/tile提示已接入；增强/削弱特殊状态仍待真实分支补验 | 主面板、?/k、条目、详情、帮助、训练/增强/削弱、tile提示全部走新链路 |
 | 商店 | 菜单/确认/余额/购物清单主路径已接入，Mac严格回放通过；罕见命名回退仍登记 | 不同余额/数量/排序/颜色/键位/购买/空清单及名称回退 |
 | HUD | 等级/地点/噪声/武器部分接入；其他字段未迁移 | 统一按字段语义接入；列宽/刷新/长短名/最大值；不能整体跳过旧层审计 |
-| 战斗日志 | 战斗命中/失手及共用限制、反噬组合、变形进出已分批接入；本批施法增强/魔杖增强/误施法、四类引导提醒与终止及魔力不足日志接入；剩余战斗/法术/怪物日志待逐包验收 | 玩家/怪物/武器/状态/数值组合，全部成功失败分支保留英文控制数据 |
+| 战斗日志 | 战斗命中/失手及共用限制、反噬组合、变形进出已分批接入；本批施法增强/魔杖增强/误施法、四类引导提醒与终止及魔力不足日志接入；剩余战斗/法术/怪物日志待逐包验收；本批完成怪物首遇/追击/深渊出现/装备及伤势日志，其他怪物业务日志仍待迁移 | 玩家/怪物/武器/状态/数值组合，全部成功失败分支保留英文控制数据 |
 | 装备与物品操作 | 护符穿戴理由/万变护符/确认/延迟已接入；本批变形进出与装备模拟/脱落日志已接入，退休形态整句回退报告；其他物品穿脱/拾取仍待迁移 | 穿脱/挥舞/使用/失败/进度/中断完整消息；量词/所有格 |
-| 瞄准、法术、能力、箭袋 | 目标理由闭环、施法日志及反噬已接入；本批完成瞄准帮助/顶部与动作前缀、箭袋选择/动作名称、法术菜单/风险确认/目标效果；目标怪物伤势装备正文、能力其他菜单与操作日志仍待迁移 | 坐标/距离/法术等级分离；目标名称和无效目标；父视图/箭袋提示也需迁移 |
+| 瞄准、法术、能力、箭袋 | 目标理由、瞄准帮助/顶部/动作、箭袋/法术菜单及风险确认已接入；本批完成目标怪物伤势/装备/状态与全部现有typed效果回调消费者；能力其他菜单和业务日志仍待迁移 | 坐标/距离/法术等级分离；目标名称和无效目标；父视图/箭袋提示也需迁移 |
 | 神祇与角色 | 等级/技能成长部分接入；神祇/变异/状态/能力大量入口待迁移 | 每个实体、状态与等级语义分开；全流程日志/详情/菜单 |
 | 世界与通用界面 | 拾取初见教程已接入；本批完成共用危险地形/云雾/陷阱/排除区/穿墙确认；其他教程、旅行、交互与通用菜单仍待迁移 | 静态/动态生产点完整接入；输入/程序标识不翻译 |
 | 帮助与文档 | 已审校中文手册可复用；入口及标题仍需归一 | 选择正文语言；长文分页/标记/快捷键；无最终英文句匹配 |
@@ -66,7 +66,7 @@
 验证：`tools/test_target_quiver_prompts.py`、`tools/test_spell_prompts.py`、`tools/test_spell_target_effects.py`。
 兼容规则：规范英文提示与冻结旧生成函数对照；Lua target_spell_desc/throw内部提示保留英文；控制键与颜色类型校验；Unicode表头列宽。
 验收记录：[verification/native/prompt-terrain/REPORT.md](../../verification/native/prompt-terrain/REPORT.md)。
-剩余：directn怪物目标伤势/装备正文仍有3处旧详情依赖，前缀已独立生成；箭袋/能力其他业务操作日志、wizard地形构建标题未在本包验收；未审校新名称整行/整父回退并报告缺失，不拼凑中文。
+剩余：目标怪物伤势/装备/状态依赖已由target-monster-details-logs接续迁移；物品/地形/云雾外层悬停仍待后续工作包；箭袋/能力其他业务操作日志、wizard地形构建标题未在本包验收；未审校新名称整行/整父回退并报告缺失，不拼凑中文。
 
 ### terrain-move-confirmation — verified
 
@@ -79,6 +79,17 @@
 验收记录：[verification/native/prompt-terrain/REPORT.md](../../verification/native/prompt-terrain/REPORT.md)。
 剩余：未知未来移动动词/云雾/陷阱名称及任意调用方警告完整回退并报告；其他移动业务日志、旅行及世界交互不在共用确认包内。
 
+### target-monster-details-logs — verified
+
+所属模块：瞄准、法术、能力、箭袋。
+文件：`directn.cc`、`directn.h`、`mon-info.cc`、`mon-info.h`、`describe.cc`、`describe.h`、`spl-cast.cc`、`spl-cast.h`、`throw.cc`、`player-notices.cc`、`mon-util.cc`、`quiver.cc`、`ability.cc`、`item-use.cc`、`spl-goditem.cc`、`evoke.cc`、`hints.cc`、`hints.h`、`database.cc`、`zh-database.h`、`zh-message.cc`。
+生产函数：`get_monster_equipment_desc_message`、`cell_monster_description_message`、`get_monster_status_descriptor_messages`、`monster_info::attributes_messages`、`monster_info::wounds_description_message`、`monster_info::constriction_description_message`、`_abyss_monster_creation_message`、`_handle_encounter_messages`、`print_wounds`、`hints_describe_monster_display`、`zh_database_description`、`_description_message_tree`、`_monster_player_hit_message`、`_monster_detail_size_message`、`_monster_door_message`、`_monster_detail_title_message`。
+显示/业务消费者：`direction_chooser::print_target_monster_description`、`get_square_desc`、`describe_monster`、`fire_target_behaviour::get_monster_desc_messages`。
+验证：`tools/test_target_monster_details.py`、`tools/test_monster_info_messages.py`、`tools/test_monster_detail_logs.py`、`tools/test_spell_target_effects.py`、`tools/test_target_monster_callbacks.py`、`tools/test_monster_hints.py`、`tools/test_monster_status_database.py`、`tools/test_monster_detail_parents.py`。
+兼容规则：保留英文字符串API与Lua数据；typed回调贯通父句；状态枚举、名称快照、英文冻结生成函数与伤势日志逐项对照。
+验收记录：[verification/native/target-monster/REPORT.md](../../verification/native/target-monster/REPORT.md)。
+剩余：玩家幽灵完整生平、未审校复杂名称整父回退并报告；悬停格子外层物品/地形/云雾段落仍旧显示链路；详情统计中的其他特殊怪物说明、首遇教程弹窗、喊叫等动态日志仍需分包迁移；其他怪物业务日志、物品操作日志按模块账本后续验收。
+
 
 ## 公共旧入口
 
@@ -89,9 +100,6 @@
 - `command.cc:642` — `desc = zh_translate(desc);`
 - `command.cc:652` — `desc = zh_translate(desc);`
 - `command.cc:1145` — `text = zh_translate(text);`
-- `directn.cc:1847` — `{prefix, zh_text("description", text, zh_translate(text))}), MSGCH_PROMPT);`
-- `directn.cc:3647` — `desc = zh_translate(desc);`
-- `directn.cc:3649` — `item_desc = zh_translate(item_desc);`
 - `format.cc:99` — `return parse_string_raw(zh_translate(s), main_colour);`
 - `format.cc:127` — `parse_string_to_multiple_raw(zh_translate(s), out, wrap_col);`
 - `format.cc:331` — `ops.emplace_back(zh_translate(other));`

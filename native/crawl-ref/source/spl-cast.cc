@@ -1744,61 +1744,59 @@ static int _to_hit_pct(const monster_info& mi, int acc)
     return base_chance;
 }
 
-static vector<string> _desc_hit_chance(const monster_info& mi, int acc)
+static vector<ZhArg> _desc_hit_chance_messages(const monster_info& mi, int acc)
 {
     if (!acc)
-        return vector<string>{};
+        return vector<ZhArg>{};
     const int hit_pct = _to_hit_pct(mi, acc);
     if (hit_pct == -1)
-        return vector<string>{};
+        return vector<ZhArg>{};
 
-    ostringstream result;
-    describe_hit_chance(hit_pct, result, nullptr, false,
-                        you.pos().distance_from(mi.pos));
-    return vector<string>{result.str()};
+    return vector<ZhArg>{describe_hit_chance_message(hit_pct, nullptr, false,
+                        you.pos().distance_from(mi.pos))};
 }
 
-vector<string> desc_beam_hit_chance(const monster_info& mi, targeter* hitfunc)
+vector<ZhArg> desc_beam_hit_chance_messages(const monster_info& mi, targeter* hitfunc)
 {
     targeter_beam* beam_hitf = dynamic_cast<targeter_beam*>(hitfunc);
     if (!beam_hitf)
-        return vector<string>{};
-    return _desc_hit_chance(mi, beam_hitf->beam.hit);
+        return vector<ZhArg>{};
+    return _desc_hit_chance_messages(mi, beam_hitf->beam.hit);
 }
 
-static vector<string> _desc_plasma_hit_chance(const monster_info& mi, int powc)
+static vector<ZhArg> _desc_plasma_hit_chance_messages(const monster_info& mi, int powc)
 {
     bolt beam;
     zappy(spell_to_zap(SPELL_PLASMA_BEAM), powc, false, beam);
     const int hit_pct = _to_hit_pct(mi, beam.hit);
     if (hit_pct == -1)
-        return vector<string>{};
+        return vector<ZhArg>{};
 
     const auto chance = zh_message_arg("chance",
         you.duration[DUR_BLIND] ? "target.hit_chance.distance" : "target.hit_chance",
         {zh_integer("hit_percent", hit_pct)});
-    return vector<string>{zh_message("spell.prompt.effect.double_hit", {chance}).display()};
+    return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.double_hit", {chance})};
 }
 
-static vector<string> _desc_intoxicate_chance(const monster_info& mi,
+static vector<ZhArg> _desc_intoxicate_chance_messages(const monster_info& mi,
                                               targeter* hitfunc, int pow)
 {
     if (hitfunc && !hitfunc->affects_monster(mi))
-        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.not_susceptible")};
 
     int conf_pct = 40 + pow / 3;
 
     if (get_resist(mi.resists(), MR_RES_POISON) >= 1)
         conf_pct =  conf_pct / 3;
 
-    return vector<string>{zh_message("spell.prompt.chance.confuse", {zh_integer("chance", conf_pct)}).display()};
+    return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.chance.confuse", {zh_integer("chance", conf_pct)})};
 }
 
-static vector<string> _desc_englaciate_chance(const monster_info& mi,
+static vector<ZhArg> _desc_englaciate_chance_messages(const monster_info& mi,
                                               targeter* hitfunc, int pow)
 {
     if (hitfunc && !hitfunc->affects_monster(mi))
-        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.not_susceptible")};
 
     const int outcomes = pow * pow * pow;
     const int target   = 3 * mi.hd - 2;
@@ -1821,117 +1819,115 @@ static vector<string> _desc_englaciate_chance(const monster_info& mi,
     else
         fail_pct = 100;
 
-    return vector<string>{zh_message("spell.prompt.chance.slow", {zh_integer("chance", 100 - fail_pct)}).display()};
+    return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.chance.slow", {zh_integer("chance", 100 - fail_pct)})};
 }
 
-static vector<string> _desc_gloom_chance(const monster_info& mi, int pow)
+static vector<ZhArg> _desc_gloom_chance_messages(const monster_info& mi, int pow)
 {
     if (mons_res_blind(mi.type))
-        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.not_susceptible")};
 
-    return vector<string>{zh_message("spell.prompt.chance.blind", {zh_integer("chance", gloom_success_chance(pow, mi.hd))}).display()};
+    return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.chance.blind", {zh_integer("chance", gloom_success_chance(pow, mi.hd))})};
 }
 
-static vector<string> _desc_airstrike_bonus(const monster_info& mi)
+static vector<ZhArg> _desc_airstrike_bonus_messages(const monster_info& mi)
 {
     const int empty_spaces = airstrike_space_around(mi.pos, false);
-    return vector<string>{zh_message("spell.prompt.effect.empty_space", {zh_integer("spaces", empty_spaces)}).display()};
+    return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.empty_space", {zh_integer("spaces", empty_spaces)})};
 }
 
-static vector<string> _desc_mercury_weak_chance(const monster_info& mi)
+static vector<ZhArg> _desc_mercury_weak_chance_messages(const monster_info& mi)
 {
     if (mi.is(MB_NO_ATTACKS))
-        return vector<string>{};
+        return vector<ZhArg>{};
 
-    return vector<string>{zh_message("spell.prompt.chance.weaken", {zh_integer("chance", get_mercury_weaken_chance(mi.hd))}).display()};
+    return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.chance.weaken", {zh_integer("chance", get_mercury_weaken_chance(mi.hd))})};
 }
 
-static vector<string> _desc_warp_space_chance(int pow)
+static vector<ZhArg> _desc_warp_space_chance_messages(int pow)
 {
-    return vector<string>{zh_message("spell.prompt.chance.blink", {zh_integer("chance", get_warp_space_chance(pow))}).display()};
+    return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.chance.blink", {zh_integer("chance", get_warp_space_chance(pow))})};
 }
 
-static vector<string> _desc_meph_chance(const monster_info& mi)
+static vector<ZhArg> _desc_meph_chance_messages(const monster_info& mi)
 {
     if (get_resist(mi.resists(), MR_RES_POISON) >= 1 || mi.is(MB_CLARITY))
-        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.not_susceptible")};
 
     int pct_chance = 2;
     if (mi.hd < MEPH_HD_CAP)
         pct_chance = 100 - (100 * mi.hd / MEPH_HD_CAP);
-    return vector<string>{zh_message("spell.prompt.chance.affect", {zh_integer("chance", pct_chance)}).display()};
+    return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.chance.affect", {zh_integer("chance", pct_chance)})};
 }
 
-static vector<string> _desc_hailstorm_hit_chance(const monster_info& mi, int pow)
+static vector<ZhArg> _desc_hailstorm_hit_chance_messages(const monster_info& mi, int pow)
 {
     bolt beam;
     zappy(ZAP_HAILSTORM, pow, false, beam);
-    return _desc_hit_chance(mi, beam.hit);
+    return _desc_hit_chance_messages(mi, beam.hit);
 }
 
-static vector<string> _desc_momentum_strike_hit_chance(const monster_info& mi, int pow)
+static vector<ZhArg> _desc_momentum_strike_hit_chance_messages(const monster_info& mi, int pow)
 {
     bolt beam;
     zappy(ZAP_MOMENTUM_STRIKE, pow, false, beam);
-    return _desc_hit_chance(mi, beam.hit);
+    return _desc_hit_chance_messages(mi, beam.hit);
 }
 
-static vector<string> _desc_electric_charge_hit_chance(const monster_info& mi)
+static vector<ZhArg> _desc_electric_charge_hit_chance_messages(const monster_info& mi)
 {
     melee_attack attk(&you, nullptr);
     attk.charge_pow = 1; // to give the accuracy bonus
 
-    vector<string> desc;
-    ostringstream result;
+    vector<ZhArg> desc;
     // Pass in our own attack and specify distance 1 so we get correct to-hit
     // for where the attack *will* be from
-    describe_to_hit(mi, result, nullptr, false, &attk, 1);
-    desc.emplace_back(result.str());
+    desc.emplace_back(describe_to_hit_message(mi, nullptr, false, &attk, 1));
     return desc;
 }
 
-static vector<string> _desc_insubstantial(const monster_info& mi, string message_id)
+static vector<ZhArg> _desc_insubstantial_messages(const monster_info& mi, string message_id)
 {
     if (mons_class_flag(mi.type, M_INSUBSTANTIAL))
-        return vector<string>{zh_message(message_id).display()};
+        return vector<ZhArg>{zh_message_arg("effect", message_id)};
 
-    return vector<string>{};
+    return vector<ZhArg>{};
 }
 
-static vector<string> _desc_vampiric_draining_valid(const monster_info& mi)
+static vector<ZhArg> _desc_vampiric_draining_valid_messages(const monster_info& mi)
 {
     if (mi.mb.get(MB_CANT_DRAIN))
-        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.not_susceptible")};
 
-    return vector<string>{};
+    return vector<ZhArg>{};
 }
 
-static vector<string> _desc_rimeblight_valid(const monster_info& mi)
+static vector<ZhArg> _desc_rimeblight_valid_messages(const monster_info& mi)
 {
     if (mi.is(MB_RIMEBLIGHT))
-        return vector<string>{zh_message("spell.prompt.effect.already_infected").display()};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.already_infected")};
     else if (mons_class_is_peripheral(mi.type))
-        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.not_susceptible")};
 
-    return vector<string>{};
+    return vector<ZhArg>{};
 }
 
-static vector<string> _desc_dispersal_chance(const monster_info& mi, int pow)
+static vector<ZhArg> _desc_dispersal_chance_messages(const monster_info& mi, int pow)
 {
     const int wl = mi.willpower();
     if (mons_class_is_stationary(mi.type))
-        return vector<string>{zh_message("spell.prompt.effect.stationary").display()};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.stationary")};
 
     if (wl == WILL_INVULN)
-        return vector<string>{zh_message("spell.prompt.effect.will_blink").display()};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.will_blink")};
 
     const int success = hex_success_chance(wl, pow, 100);
-    return vector<string>{zh_message("spell.prompt.chance.teleport", {zh_integer("chance", success)}).display()};
+    return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.chance.teleport", {zh_integer("chance", success)})};
 }
 
-static vector<string> _desc_enfeeble_chance(const monster_info& mi, int pow)
+static vector<ZhArg> _desc_enfeeble_chance_messages(const monster_info& mi, int pow)
 {
-    vector<string> all_effects;
+    vector<ZhArg> all_effects;
     const int wl = mi.willpower();
     const bool weakness = !mi.is(MB_NO_ATTACKS);
     const bool antimagic = mi.antimagic_susceptible();
@@ -1941,16 +1937,16 @@ static vector<string> _desc_enfeeble_chance(const monster_info& mi, int pow)
             ? "spell.prompt.effect.enfeeble.both"
             : weakness ? "spell.prompt.effect.enfeeble.weakness"
                        : "spell.prompt.effect.enfeeble.antimagic";
-        all_effects.push_back(zh_message(id).display());
+        all_effects.push_back(zh_message_arg("effect", id));
     }
     if (wl != WILL_INVULN)
     {
         const int success = hex_success_chance(wl, pow, 100);
-        all_effects.push_back(zh_message("spell.prompt.chance.daze_blind", {zh_integer("chance", success)}).display());
+        all_effects.push_back(zh_message_arg("effect", "spell.prompt.chance.daze_blind", {zh_integer("chance", success)}));
     }
 
     if (all_effects.empty())
-        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.not_susceptible")};
 
     return all_effects;
 }
@@ -1997,50 +1993,50 @@ static ZhArg _polymorph_outcomes_arg(const CrawlVector &set)
 }
 
 // Include success chance in targeter for spells checking monster WL.
-vector<string> desc_wl_success_chance(const monster_info& mi, int pow,
+vector<ZhArg> desc_wl_success_chance_messages(const monster_info& mi, int pow,
                                       targeter* hitfunc)
 {
     targeter_beam* beam_hitf = dynamic_cast<targeter_beam*>(hitfunc);
     int wl = mi.willpower();
     if (wl == WILL_INVULN)
-        return vector<string>{zh_message("spell.prompt.effect.infinite_will").display()};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.infinite_will")};
     if (hitfunc && !hitfunc->affects_monster(mi))
-        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.not_susceptible")};
     wl = apply_willpower_bypass(you, wl);
-    vector<string> descs;
+    vector<ZhArg> descs;
     if (beam_hitf && beam_hitf->beam.flavour == BEAM_POLYMORPH)
     {
         // Polymorph has a special effect on ugly things and shapeshifters that
         // does not require passing an WL check.
         if (mi.type == MONS_UGLY_THING || mi.type == MONS_VERY_UGLY_THING)
-            return vector<string>{zh_message("spell.prompt.effect.will_change_colour").display()};
+            return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.will_change_colour")};
         if (mi.is(MB_SHAPESHIFTER))
-            return vector<string>{zh_message("spell.prompt.effect.will_change_shape").display()};
+            return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.will_change_shape")};
         if (mi.type == MONS_SLIME_CREATURE && mi.slime_size > 1)
-            descs.push_back(zh_message("spell.prompt.effect.will_probably_split").display());
+            descs.push_back(zh_message_arg("effect", "spell.prompt.effect.will_probably_split"));
 
         // list out the normal poly set
         if (!mi.props.exists(POLY_SET_KEY))
-            return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+            return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.not_susceptible")};
         const CrawlVector &set = mi.props[POLY_SET_KEY].get_vector();
         if (set.size() <= 0)
-            return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
-        descs.push_back(zh_message("spell.prompt.effect.polymorph",
-                                   {_polymorph_outcomes_arg(set)}).display());
+            return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.not_susceptible")};
+        descs.push_back(zh_message_arg("effect", "spell.prompt.effect.polymorph",
+                                   {_polymorph_outcomes_arg(set)}));
     }
 
     const int success = hex_success_chance(wl, pow, 100);
-    descs.push_back(zh_message("spell.prompt.chance.affect", {zh_integer("chance", success)}).display());
+    descs.push_back(zh_message_arg("effect", "spell.prompt.chance.affect", {zh_integer("chance", success)}));
 
     return descs;
 }
 
-static vector<string> _desc_beckoning_valid(const monster_info& mi)
+static vector<ZhArg> _desc_beckoning_valid_messages(const monster_info& mi)
 {
     if (!can_beckon(mi))
-        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.not_susceptible")};
 
-    return vector<string>{};
+    return vector<ZhArg>{};
 }
 
 class spell_targeting_behaviour : public targeting_behaviour
@@ -2077,7 +2073,7 @@ private:
 
 // TODO: is there a way for this to be part of targeter objects, or
 // direction_chooser itself?
-desc_filter targeter_addl_desc(spell_type spell, int powc, spell_flags flags,
+typed_desc_filter targeter_addl_desc_messages(spell_type spell, int powc, spell_flags flags,
                                        targeter *hitfunc)
 {
     // Add success chance to targeted spells checking monster WL
@@ -2096,28 +2092,28 @@ desc_filter targeter_addl_desc(spell_type spell, int powc, spell_flags flags,
                                                   : powc;
 
         if (spell == SPELL_ENFEEBLE)
-            return bind(_desc_enfeeble_chance, placeholders::_1, eff_pow);
+            return bind(_desc_enfeeble_chance_messages, placeholders::_1, eff_pow);
         else
-            return bind(desc_wl_success_chance, placeholders::_1, eff_pow,
+            return bind(desc_wl_success_chance_messages, placeholders::_1, eff_pow,
                         hitfunc);
     }
     switch (spell)
     {
         case SPELL_INTOXICATE:
-            return bind(_desc_intoxicate_chance, placeholders::_1,
+            return bind(_desc_intoxicate_chance_messages, placeholders::_1,
                         hitfunc, powc);
         case SPELL_ENGLACIATION:
-            return bind(_desc_englaciate_chance, placeholders::_1,
+            return bind(_desc_englaciate_chance_messages, placeholders::_1,
                         hitfunc, powc);
         case SPELL_GLOOM:
-            return bind(_desc_gloom_chance, placeholders::_1, powc);
+            return bind(_desc_gloom_chance_messages, placeholders::_1, powc);
         case SPELL_MEPHITIC_CLOUD:
         case SPELL_NOXIOUS_BREATH:
-            return bind(_desc_meph_chance, placeholders::_1);
+            return bind(_desc_meph_chance_messages, placeholders::_1);
         case SPELL_VAMPIRIC_DRAINING:
-            return bind(_desc_vampiric_draining_valid, placeholders::_1);
+            return bind(_desc_vampiric_draining_valid_messages, placeholders::_1);
         case SPELL_RIMEBLIGHT:
-            return bind(_desc_rimeblight_valid, placeholders::_1);
+            return bind(_desc_rimeblight_valid_messages, placeholders::_1);
         case SPELL_STARBURST:
         {
             targeter_starburst* burst_hitf =
@@ -2125,37 +2121,65 @@ desc_filter targeter_addl_desc(spell_type spell, int powc, spell_flags flags,
             if (!burst_hitf)
                 break;
             targeter_starburst_beam* beam_hitf = &burst_hitf->beams[0];
-            return bind(desc_beam_hit_chance, placeholders::_1, beam_hitf);
+            return bind(desc_beam_hit_chance_messages, placeholders::_1, beam_hitf);
         }
         case SPELL_DISPERSAL:
-            return bind(_desc_dispersal_chance, placeholders::_1, powc);
+            return bind(_desc_dispersal_chance_messages, placeholders::_1, powc);
         case SPELL_AIRSTRIKE:
-            return bind(_desc_airstrike_bonus, placeholders::_1);
+            return bind(_desc_airstrike_bonus_messages, placeholders::_1);
         case SPELL_HAILSTORM:
-            return bind(_desc_hailstorm_hit_chance, placeholders::_1, powc);
+            return bind(_desc_hailstorm_hit_chance_messages, placeholders::_1, powc);
         case SPELL_MOMENTUM_STRIKE:
-            return bind(_desc_momentum_strike_hit_chance, placeholders::_1, powc);
+            return bind(_desc_momentum_strike_hit_chance_messages, placeholders::_1, powc);
         case SPELL_ELECTRIC_CHARGE:
-            return bind(_desc_electric_charge_hit_chance, placeholders::_1);
+            return bind(_desc_electric_charge_hit_chance_messages, placeholders::_1);
         case SPELL_FASTROOT:
-            return bind(_desc_insubstantial, placeholders::_1, "spell.prompt.effect.immune_roots");
+            return bind(_desc_insubstantial_messages, placeholders::_1, "spell.prompt.effect.immune_roots");
         case SPELL_STICKY_FLAME:
-            return bind(_desc_insubstantial, placeholders::_1, "spell.prompt.effect.unstickable");
+            return bind(_desc_insubstantial_messages, placeholders::_1, "spell.prompt.effect.unstickable");
         case SPELL_PLASMA_BEAM:
-            return bind(_desc_plasma_hit_chance, placeholders::_1, powc);
+            return bind(_desc_plasma_hit_chance_messages, placeholders::_1, powc);
         case SPELL_MERCURY_ARROW:
-            return _desc_mercury_weak_chance;
+            return _desc_mercury_weak_chance_messages;
         case SPELL_WARP_SPACE:
-            return bind(_desc_warp_space_chance, powc);
+            return bind(_desc_warp_space_chance_messages, powc);
         case SPELL_BECKONING:
-            return bind(_desc_beckoning_valid, placeholders::_1);
+            return bind(_desc_beckoning_valid_messages, placeholders::_1);
         default:
             break;
     }
     targeter_beam* beam_hitf = dynamic_cast<targeter_beam*>(hitfunc);
     if (beam_hitf && beam_hitf->beam.hit > 0 && !beam_hitf->beam.is_explosion)
-        return bind(desc_beam_hit_chance, placeholders::_1, hitfunc);
+        return bind(desc_beam_hit_chance_messages, placeholders::_1, hitfunc);
     return nullptr;
+}
+
+static vector<string> _canonical_target_effects(const vector<ZhArg>& messages)
+{
+    vector<string> result;
+    for (const auto &message : messages)
+        result.push_back(message.canonical);
+    return result;
+}
+
+vector<string> desc_wl_success_chance(const monster_info& mi, int pow, targeter* hitfunc)
+{
+    return _canonical_target_effects(desc_wl_success_chance_messages(mi, pow, hitfunc));
+}
+
+vector<string> desc_beam_hit_chance(const monster_info& mi, targeter* hitfunc)
+{
+    return _canonical_target_effects(desc_beam_hit_chance_messages(mi, hitfunc));
+}
+
+desc_filter targeter_addl_desc(spell_type spell, int pow, spell_flags flags, targeter* hitfunc)
+{
+    const auto messages = targeter_addl_desc_messages(spell, pow, flags, hitfunc);
+    if (!messages)
+        return nullptr;
+    return [messages](const monster_info& mi) {
+        return _canonical_target_effects(messages(mi));
+    };
 }
 
 /**
@@ -2284,8 +2308,8 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
                                 // it nevertheless requires line-of-fire.
                                 || spell == SPELL_APPORTATION;
 
-        desc_filter additional_desc
-            = targeter_addl_desc(spell, powc, flags, hitfunc.get());
+        typed_desc_filter additional_desc
+            = targeter_addl_desc_messages(spell, powc, flags, hitfunc.get());
 
         // `true` on fourth param skips MP check and a few others that have
         // already been carried out
@@ -2358,7 +2382,7 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
             args.self = confirm_prompt_type::cancel;
         else
             args.self = confirm_prompt_type::none;
-        args.get_desc_func = additional_desc;
+        args.get_desc_messages_func = additional_desc;
         if (!spell_direction(*target, beam, &args))
             return spret::abort;
 

@@ -1,0 +1,68 @@
+{
+  "original_saves_unchanged": true,
+  "scenes": [
+    {
+      "scene": "skills-help",
+      "keys": "m?",
+      "running_at_capture": true,
+      "scene_reached": true,
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "monster-target-equipped",
+      "keys": "l&wiz\rmorc warrior perm_ench:haste; long sword . chain mail . kite shield\rx+",
+      "running_at_capture": true,
+      "scene_reached": true,
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "monster-target-undead",
+      "keys": "l&wiz\rmwight perm_ench:slow\rx+",
+      "running_at_capture": true,
+      "scene_reached": true,
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "monster-wound-living",
+      "keys": "l&wiz\rmorc hp:1000\r&zMagic Dart\rf",
+      "running_at_capture": true,
+      "scene_reached": true,
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "monster-wound-undead",
+      "keys": "l&wiz\rmwight hp:1000\r&zMagic Dart\rf",
+      "running_at_capture": true,
+      "scene_reached": true,
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "monster-long-detail",
+      "keys": "l&wiz\rmorc warrior perm_ench:haste; long sword . chain mail . kite shield\rx+v",
+      "running_at_capture": true,
+      "scene_reached": true,
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "monster-status-detail",
+      "keys": "l&wiz\rmorc warrior perm_ench:haste; long sword . chain mail . kite shield\rx+v!",
+      "running_at_capture": true,
+      "scene_reached": true,
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    }
+  ]
+}

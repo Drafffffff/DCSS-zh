@@ -83,3 +83,32 @@ RESTRICTION_EXPECTED.update({
  'terrain-alarm': {'movement.confirm.trap.onto'},
  'terrain-zot': {'movement.confirm.trap.zot','prompt.confirm.typed_answer'},
 })
+
+# Target-monster details: wizard input touches only each replay's save copy.
+RESTRICTION_SCENES.update({
+ 'monster-target-equipped': 'l&wiz\rmorc warrior perm_ench:haste; long sword . chain mail . kite shield\rx+',
+ 'monster-target-undead': 'l&wiz\rmwight perm_ench:slow\rx+',
+ 'monster-target-spell': 'l&wiz\rmorc warrior perm_ench:haste; long sword . chain mail\r&!Magic Dart\ryZay+',
+ 'monster-encounter': 'l&wiz\rmorc warrior; long sword . chain mail . kite shield\r.',
+})
+RESTRICTION_EXPECTED.update({
+ 'monster-target-equipped': {'target.prompt.describe.monster','target.monster.flag.hasted'},
+ 'monster-target-undead': {'target.prompt.describe.monster','target.monster.flag.slowed'},
+ 'monster-target-spell': {'target.prompt.describe.monster','target.monster.flag.hasted'},
+ 'monster-encounter': {'target.monster.log.encounter'},
+})
+
+RESTRICTION_SCENES.update({
+ 'monster-wound-living': 'l&wiz\rmorc hp:1000\r&zMagic Dart\rf',
+ 'monster-wound-undead': 'l&wiz\rmwight hp:1000\r&zMagic Dart\rf',
+})
+RESTRICTION_EXPECTED.update({
+ 'monster-wound-living': {'target.monster.log.wound'},
+ 'monster-wound-undead': {'target.monster.log.wound'},
+})
+
+RESTRICTION_SCENES['monster-long-detail']='l&wiz\rmorc warrior perm_ench:haste; long sword . chain mail . kite shield\rx+v'
+RESTRICTION_EXPECTED['monster-long-detail']={'monster.detail.lore.orc_warrior_current'}
+
+RESTRICTION_SCENES["monster-status-detail"]=RESTRICTION_SCENES["monster-long-detail"]+"!"
+RESTRICTION_EXPECTED["monster-status-detail"]={"monster.status_text.asleep","monster.status_text.high_tier_stab"}

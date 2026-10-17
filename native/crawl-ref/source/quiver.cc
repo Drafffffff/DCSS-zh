@@ -59,14 +59,10 @@ static bool _items_similar(const item_def& a, const item_def& b,
 
 // TODO: how should newquivers integrate with the local tiles UI?
 
-static vector<string> _desc_hit_chance(const monster_info &mi)
+static vector<ZhArg> _desc_hit_chance(const monster_info &mi)
 {
-    ostringstream result;
-    describe_to_hit(mi, result, you.weapon());
-    string str = result.str();
-    if (str.empty())
-        return vector<string>{};
-    return vector<string>{str};
+    const auto result = describe_to_hit_message(mi, you.weapon());
+    return result.canonical.empty() ? vector<ZhArg>{} : vector<ZhArg>{result};
 }
 
 namespace quiver
@@ -684,7 +680,7 @@ namespace quiver
             else
                 hitfunc = make_unique<targeter_reach>(&you, reach_range);
             args.hitfunc = hitfunc.get();
-            args.get_desc_func = bind(_desc_hit_chance, placeholders::_1);
+            args.get_desc_messages_func = bind(_desc_hit_chance, placeholders::_1);
 
             direction(target, args);
             t = target;

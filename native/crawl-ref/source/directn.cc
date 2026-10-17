@@ -90,6 +90,8 @@ static int  _targeting_cmd_to_compass(command_type command);
 static void _describe_oos_square(const coord_def& where);
 static void _extend_move_to_edge(dist &moves);
 static vector<string> _get_monster_desc_vector(const monster_info& mi);
+static ZhArg _target_detail_join(const string& key, const vector<ZhArg>& parts,
+                                 bool conjunction = false);
 
 #ifdef DEBUG_DIAGNOSTICS
 static void _debug_describe_feature_at(const coord_def &where);
@@ -456,6 +458,7 @@ direction_chooser::direction_chooser(dist& moves_,
 
     behaviour->just_looking = just_looking;
     behaviour->get_desc_func = args.get_desc_func;
+    behaviour->get_desc_messages_func = args.get_desc_messages_func;
     if (unrestricted)
     {
         needs_path = false;
@@ -608,13 +611,15 @@ static coord_def _full_describe_menu(vector<monster_info> const &list_mons,
                      << (g.ch == '<' ? "<<" : stringize_glyph(g.ch))
                      << "</" << col_string << ">) ";
 #endif
-            string str = get_monster_equipment_desc(mi, DESC_FULL, DESC_A, true);
+            vector<ZhArg> row_parts;
+            row_parts.push_back(get_monster_equipment_desc_message(mi, DESC_FULL, DESC_A, true));
             if (mi.dam != MDAM_OKAY)
-                str += ", " + mi.damage_desc();
-
-            string consinfo = mi.constriction_description();
-            if (!consinfo.empty())
-                str += ", " + consinfo;
+                row_parts.push_back(mi.wounds_description_message());
+            const auto consinfo = mi.constriction_description_message();
+            if (!consinfo.canonical.empty())
+                row_parts.push_back(consinfo);
+            const auto row = _target_detail_join("description", row_parts);
+            string str = zh_message("target.monster.list.row", {row}).display();
 
             if (Options.monster_item_view_coordinates)
             {
@@ -628,7 +633,7 @@ static coord_def _full_describe_menu(vector<monster_info> const &list_mons,
             linebreak_string(str, get_number_of_cols() - 9);
 #endif
             vector<formatted_string> fss;
-            formatted_string::parse_string_to_multiple(str, fss);
+            formatted_string::parse_string_to_multiple_raw(str, fss);
             MenuEntry *me = nullptr;
             for (unsigned int j = 0; j < fss.size(); ++j)
             {
@@ -643,6 +648,7 @@ static coord_def _full_describe_menu(vector<monster_info> const &list_mons,
                     me->data = (void*)&mi;
                 }
 #endif
+                me->pretranslated = true;
                 desc_menu.add_entry(me);
             }
         }
@@ -1836,15 +1842,13 @@ static ZhArg _target_prefix_arg(const ZhMessage &message, const char *legacy,
 
 void direction_chooser::print_target_monster_description(bool &did_cloud) const
 {
-    string text = target_description();
-    if (text > "")
+    ZhArg text = cell_monster_description_message(target(), true, behaviour);
+    if (!text.canonical.empty())
     {
-        // Monster/equipment/wound cell details remain a separately tracked
-        // legacy producer; the action prefix and enclosing template are typed.
         const auto prefix = _target_prefix_arg(target_prefix_message,
                                                target_prefix, behaviour->targeted());
         mpr(zh_message("target.prompt.describe.monster",
-            {prefix, zh_text("description", text, zh_translate(text))}), MSGCH_PROMPT);
+            {prefix, text}), MSGCH_PROMPT);
         // If there's a cloud here, it's been described.
         did_cloud = true;
     }
@@ -1882,6 +1886,7 @@ static vector<string> _monster_description_suffixes(const monster_info& mi,
 // name if viewed with x. (eg: "strong, inner flame")
 vector<string> get_monster_status_descriptors(const monster_info& mi)
 {
+    const ZhTranslationPause canonical_only;
     vector<string> suffixes;
     _append_container(suffixes, _cell_description_suffixes(mi.pos));
     _append_container(suffixes, _monster_description_suffixes(mi));
@@ -1890,6 +1895,7 @@ vector<string> get_monster_status_descriptors(const monster_info& mi)
 
 string cell_monster_description(const coord_def& pos, bool include_areas, targeting_behaviour* behavior)
 {
+    const ZhTranslationPause canonical_only;
     // Do we see anything?
     const monster* mon = monster_at(pos);
     if (!mon)
@@ -2005,9 +2011,10 @@ string get_square_desc(const coord_def &pos)
 {
     ostringstream out;
 
-    string mon_desc = cell_monster_description(pos);
+    const auto monster_detail = cell_monster_description_message(pos);
+    string mon_desc = monster_detail.canonical;
     if (!mon_desc.empty())
-        out << "<cyan>Here:</cyan> " << mon_desc << "\n";
+        out << zh_message("target.monster.here", {monster_detail}).display() << "\n";
 
     string desc = cell_items_description(pos);
     if (!desc.empty())
@@ -3642,11 +3649,6 @@ string get_monster_equipment_desc(const monster_info& mi,
         item_descriptions.push_back(carried_desc);
     }
 
-    // Translate complete equipment clauses before comma-joining them with
-    // the monster name; their printf boundaries are otherwise unrecoverable.
-    desc = zh_translate(desc);
-    for (auto &item_desc : item_descriptions)
-        item_desc = zh_translate(item_desc);
     const string item_description = comma_separated_line(
                                                 item_descriptions.begin(),
                                                 item_descriptions.end());
@@ -3654,6 +3656,306 @@ string get_monster_equipment_desc(const monster_info& mi,
     if (!item_description.empty() && !desc.empty())
         desc += ", ";
     return desc + item_description;
+}
+
+// UI-only semantic producers. The string APIs above remain canonical for Lua,
+// control flow and callers which store descriptions.
+static ZhArg _target_detail_join(const string& key, const vector<ZhArg>& parts,
+                                 bool conjunction)
+{
+    ZhArg result(key, ZhArgType::Text, "", "");
+    for (size_t i = 0; i < parts.size(); ++i)
+    {
+        if (parts[i].canonical.empty())
+            continue;
+        if (result.canonical.empty())
+            result = parts[i];
+        else
+        {
+            result.key = "first";
+            result.type = ZhArgType::Text;
+            ZhArg next = parts[i];
+            next.key = "second";
+            next.type = ZhArgType::Text;
+            result = zh_message_arg(key, conjunction && i + 1 == parts.size()
+                ? "target.monster.join.and" : "target.monster.join.comma",
+                {result, next});
+        }
+    }
+    result.key = key;
+    result.type = ZhArgType::Text;
+    return result;
+}
+
+static ZhArg _target_item_arg(const item_def& item,
+                              description_level_type desc = DESC_A)
+{
+    return zh_item_arg("item", item, desc);
+}
+
+static ZhArg _target_weapon_message(const monster_info& mi)
+{
+    const item_def* weap = mi.inv[MSLOT_WEAPON].get();
+    const item_def* alt = mi.inv[MSLOT_ALT_WEAPON].get();
+    ZhArg first("item", ZhArgType::Name, "", "");
+    ZhArg second = first;
+    if (weap)
+    {
+        first = _target_item_arg(*weap);
+        first.canonical = weap->name(DESC_A, false, false, true, false);
+    }
+    if (alt && mi.wields_two_weapons())
+    {
+        second = _target_item_arg(*alt);
+        second.canonical = alt->name(DESC_A, false, false, true, false);
+    }
+    if (first.canonical.empty() && !second.canonical.empty())
+        std::swap(first, second);
+    if (first.canonical == second.canonical && weap && !first.canonical.empty())
+    {
+        item_def dup = *weap;
+        ++dup.quantity;
+        first = _target_item_arg(dup);
+        first.canonical = dup.name(DESC_A, false, false, true, true);
+        second = ZhArg("item", ZhArgType::Name, "", "");
+    }
+    if (mi.props.exists(SPECIAL_WEAPON_KEY))
+    {
+        const string name = ghost_brand_name(
+            (brand_type)mi.props[SPECIAL_WEAPON_KEY].get_int(), mi.type);
+        first = zh_glossary_name("item", "target.monster.special_weapon", name);
+        first.canonical = article_a(name);
+    }
+    if (first.canonical.empty())
+        return ZhArg("weapon", ZhArgType::Text, "", "");
+    ZhArg result = zh_message_arg("weapon",
+        mi.type == MONS_PANDEMONIUM_LORD ? "target.monster.equipment.armed"
+        : mons_class_is_animated_weapon(mi.type) ? "target.monster.equipment.animated"
+                                               : "target.monster.equipment.wielding",
+        {first});
+    if (mi.is(MB_ARMED))
+        result = zh_message_arg("weapon", "target.monster.equipment.armoury", {result});
+    if (!second.canonical.empty())
+    {
+        result.key = "first";
+        second.key = "second";
+        second.type = ZhArgType::Text;
+        result = zh_message_arg("weapon", "target.monster.join.and", {result, second});
+    }
+    return result;
+}
+
+ZhArg get_monster_equipment_desc_message(const monster_info& mi,
+                                         mons_equip_desc_level_type level,
+                                         description_level_type mondtype,
+                                         bool print_attitude)
+{
+    ZhArg monster("monster", ZhArgType::Text, "", "");
+    if (mondtype != DESC_NONE)
+    {
+        monster = zh_monster_info_arg("monster", mi, mondtype);
+        monster.type = ZhArgType::Text;
+        // Detailed player ghost biographies are a separate structured producer.
+        if (print_attitude && mons_is_pghost(mi.type))
+            monster = ZhArg("monster", ZhArgType::Text,
+                get_ghost_description(mi), get_ghost_description(mi), false);
+        if (print_attitude)
+        {
+            vector<ZhArg> attrs;
+            if (mi.attitude == ATT_FRIENDLY)
+                attrs.push_back(zh_message_arg("attribute", "target.monster.attitude.friendly"));
+            else if (mi.attitude == ATT_GOOD_NEUTRAL)
+                attrs.push_back(zh_message_arg("attribute", "target.monster.attitude.peaceful"));
+            else if (mi.attitude != ATT_HOSTILE && !mi.is(MB_FRENZIED))
+                attrs.push_back(zh_message_arg("attribute", "target.monster.attitude.neutral"));
+            _append_container(attrs, mi.attributes_messages());
+            auto suffix = _target_detail_join("suffixes", attrs, true);
+            const char* kind = mi.type == MONS_DANCING_WEAPON ? "dancing"
+                : mi.type == MONS_PANDEMONIUM_LORD ? "pandemonium"
+                : mi.type == MONS_PLAYER_GHOST ? "ghost" : nullptr;
+            if (kind)
+            {
+                auto label = zh_message_arg("second", string("target.monster.kind.") + kind);
+                if (suffix.canonical.empty())
+                    suffix = label;
+                else
+                {
+                    suffix.key = "first";
+                    suffix = zh_message_arg("suffixes", "target.monster.join.space", {suffix, label});
+                }
+            }
+            if (!suffix.canonical.empty())
+            {
+                monster.key = "description";
+                suffix.key = "suffixes";
+                monster = zh_message_arg("monster", "target.monster.suffix", {monster, suffix});
+            }
+        }
+    }
+    auto weapon = _target_weapon_message(mi);
+    if (level == DESC_WEAPON)
+    {
+        if (weapon.canonical.empty()) { monster.key = "description"; return monster; }
+        if (monster.canonical.empty()) { weapon.key = "description"; return weapon; }
+        return zh_message_arg("description", "target.monster.equipment.body", {monster, weapon});
+    }
+    const item_def* arm = mi.inv[MSLOT_ARMOUR].get();
+    const item_def* shield = mi.inv[MSLOT_SHIELD].get();
+    const item_def* missile = mi.inv[MSLOT_MISSILE].get();
+    const item_def* ring = mi.inv[MSLOT_JEWELLERY].get();
+    const item_def* alt = mi.inv[MSLOT_ALT_WEAPON].get();
+    const item_def* wand = mi.inv[MSLOT_WAND].get();
+    const item_def* main = mi.inv[MSLOT_WEAPON].get();
+    if (level == DESC_NOTEWORTHY || level == DESC_NOTEWORTHY_AND_WEAPON)
+    {
+        if (arm && !item_is_worth_listing(*arm)) arm = nullptr;
+        if (shield && !item_is_worth_listing(*shield)) shield = nullptr;
+        if (missile && !item_is_worth_listing(*missile)) missile = nullptr;
+        if (ring && !item_is_worth_listing(*ring)) ring = nullptr;
+    }
+    vector<ZhArg> clauses;
+    if (!weapon.canonical.empty() && !mons_class_is_animated_weapon(mi.type)
+        && (level >= DESC_NOTEWORTHY_AND_WEAPON
+            || (main && item_is_worth_listing(*main))
+            || (mi.wields_two_weapons() && alt && item_is_worth_listing(*alt))))
+    {
+        weapon.canonical.erase(0, 1); // engine weapon clause has one leading space
+        if (!weapon.supported) weapon.localized = weapon.canonical;
+        // The translated template may have its own punctuation; parent joins it.
+        clauses.push_back(weapon);
+    }
+    if (mi.wields_two_weapons()) alt = nullptr;
+    for (const item_def* item : {arm, shield, ring})
+    {
+        if (item == arm && (mi.type == MONS_ARMOUR_ECHO || mi.type == MONS_HAUNTED_ARMOUR))
+            continue;
+        if (item)
+            clauses.push_back(zh_message_arg("clause", "target.monster.equipment.wearing",
+                                             {_target_item_arg(*item)}));
+    }
+    if (missile)
+    {
+        auto item = _target_item_arg(*missile, missile->sub_type == MI_THROWING_NET ? DESC_A : DESC_PLAIN);
+        if (missile->sub_type != MI_THROWING_NET)
+            item.canonical = pluralise(missile->name(DESC_PLAIN));
+        clauses.push_back(zh_message_arg("clause", "target.monster.equipment.quivering", {item}));
+    }
+    if (alt && wand)
+    {
+        auto first = _target_item_arg(*alt); first.key = "first";
+        auto second = _target_item_arg(*wand); second.key = "second";
+        clauses.push_back(zh_message_arg("clause", "target.monster.equipment.carrying_pair", {first, second}));
+    }
+    else if (alt || wand)
+        clauses.push_back(zh_message_arg("clause", "target.monster.equipment.carrying",
+                                         {_target_item_arg(*(alt ? alt : wand))}));
+    auto equipment = _target_detail_join("equipment", clauses, true);
+    if (equipment.canonical.empty()) { monster.key = "description"; return monster; }
+    if (monster.canonical.empty()) { equipment.key = "description"; return equipment; }
+    return zh_message_arg("description", "target.monster.equipment.clauses", {monster, equipment});
+}
+
+static vector<ZhArg> _target_monster_extra_messages(const monster_info& mi)
+{
+    vector<ZhArg> result;
+    auto fixed = [&](const char* id) { result.push_back(zh_message_arg("attribute", id)); };
+    if (mi.is(MB_SLEEPING) || mi.is(MB_DORMANT))
+    {
+        if (mi.sleepwalking) fixed("target.monster.behaviour.sleepwalking");
+        else if (mons_class_flag(mi.type, M_CONFUSED)) fixed("target.monster.behaviour.drifting");
+    }
+    else if (mi.attitude == ATT_HOSTILE && (mi.is(MB_UNAWARE) || mi.is(MB_WANDERING)))
+        fixed("target.monster.behaviour.unaware");
+    if (you.duration[DUR_CONFUSING_TOUCH])
+        result.push_back(zh_message_arg("attribute", "target.monster.confuse", {zh_integer("chance",
+            hex_success_chance(apply_willpower_bypass(you, mi.willpower()),
+                               you.props[CONFUSING_TOUCH_KEY].get_int(), 100))}));
+    else if (you.form == transformation::fungus && !mons_is_unbreathing(mi.type))
+        result.push_back(zh_message_arg("attribute", "target.monster.confuse",
+                                        {zh_integer("chance", melee_confuse_chance(mi.hd))}));
+    if (you.duration[DUR_JINXBITE])
+        result.push_back(zh_message_arg("attribute", "target.monster.jinxbite", {zh_integer("chance",
+            hex_success_chance(apply_willpower_bypass(you, mi.willpower()), calc_spell_power(SPELL_JINXBITE), 100))}));
+    if (mi.type == MONS_ASPIRING_FLESH && mi.props.exists(PROTEAN_TARGET_KEY))
+    {
+        const auto type = (monster_type)mi.props[PROTEAN_TARGET_KEY].get_int();
+        auto name = zh_monster_type_arg("monster", type);
+        name.canonical = mons_type_name(type, DESC_A);
+        if (!name.supported) name.localized = name.canonical;
+        result.push_back(zh_message_arg("attribute", "target.monster.becoming", {name}));
+    }
+    if (mi.attitude == ATT_FRIENDLY) fixed("target.monster.attitude.friendly");
+    else if (mi.fellow_slime()) fixed("target.monster.attitude.slime");
+    else if (mi.attitude == ATT_GOOD_NEUTRAL) fixed("target.monster.attitude.peaceful");
+    else if (mi.attitude != ATT_HOSTILE && !mi.is(MB_FRENZIED)) fixed("target.monster.attitude.indifferent");
+    if (mi.is(MB_HALOED)) fixed("target.monster.halo");
+    if (mi.is(MB_UMBRAED)) fixed("target.monster.umbra");
+    if (mi.fire_blocker)
+    {
+        auto feature = zh_glossary_name("feature", "terrain", feature_description(mi.fire_blocker, NUM_TRAPS, "", DESC_PLAIN));
+        feature.canonical = feature_description(mi.fire_blocker, NUM_TRAPS, "", DESC_A);
+        result.push_back(zh_message_arg("attribute", "target.monster.fire_blocked", {feature}));
+    }
+    return result;
+}
+
+static vector<ZhArg> _target_cell_area_messages(const coord_def& pos)
+{
+    vector<ZhArg> result;
+    if (cloud_struct* cloud = cloud_at(pos))
+        result.push_back(zh_glossary_name("area", "cloud", cloud->cloud_name(true)));
+    if (is_sanctuary(pos)) result.push_back(zh_message_arg("area", "target.monster.area.sanctuary"));
+    if (silenced(pos)) result.push_back(zh_message_arg("area", "target.monster.area.silenced"));
+    switch (env.grid(pos))
+    {
+    case DNGN_DEEP_WATER: result.push_back(zh_message_arg("area", "target.monster.area.water")); break;
+    case DNGN_LAVA: result.push_back(zh_message_arg("area", "target.monster.area.lava")); break;
+    default: break;
+    }
+    return result;
+}
+
+static vector<ZhArg> _target_monster_suffix_messages(const monster_info& mi,
+                                                    targeting_behaviour* behaviour = nullptr)
+{
+    vector<ZhArg> result;
+    auto wounds = mi.wounds_description_message(true);
+    if (!wounds.canonical.empty()) result.push_back(wounds);
+    auto constriction = mi.constriction_description_message();
+    if (!constriction.canonical.empty()) result.push_back(constriction);
+    _append_container(result, mi.attributes_messages());
+    _append_container(result, _target_monster_extra_messages(mi));
+    if (behaviour) _append_container(result, behaviour->get_monster_desc_messages(mi));
+    return result;
+}
+
+vector<ZhArg> get_monster_status_descriptor_messages(const monster_info& mi)
+{
+    auto result = _target_cell_area_messages(mi.pos);
+    _append_container(result, _target_monster_suffix_messages(mi));
+    return result;
+}
+
+ZhArg cell_monster_description_message(const coord_def& pos, bool include_areas,
+                                       targeting_behaviour* behaviour)
+{
+    const monster* mon = monster_at(pos);
+    if (!mon || (!you.can_see(*mon) && !_mon_exposed(mon)))
+        return ZhArg("description", ZhArgType::Text, "", "");
+    vector<ZhArg> suffixes;
+    if (include_areas) suffixes = _target_cell_area_messages(pos);
+    ZhArg description;
+    if (you.can_see(*mon))
+    {
+        monster_info mi(mon);
+        _append_container(suffixes, _target_monster_suffix_messages(mi, behaviour));
+        description = get_monster_equipment_desc_message(mi);
+    }
+    else description = zh_message_arg("description", "target.monster.disturbance");
+    if (!suffixes.empty())
+        description = zh_message_arg("description", "target.monster.suffix",
+            {description, _target_detail_join("suffixes", suffixes)});
+    return description;
 }
 
 static string _get_cloud_desc(const coord_def& where)
@@ -3777,7 +4079,26 @@ command_type targeting_behaviour::get_command(int key)
 vector<string> targeting_behaviour::get_monster_desc(const monster_info& mi)
 {
     vector<string> descs;
-    if (get_desc_func)
+    if (get_desc_messages_func)
+    {
+        for (const auto &message : get_desc_messages_func(mi))
+            descs.push_back(message.canonical);
+    }
+    else if (get_desc_func)
         _append_container(descs, (get_desc_func)(mi));
     return descs;
+}
+
+vector<ZhArg> targeting_behaviour::get_monster_desc_messages(const monster_info& mi)
+{
+    if (get_desc_messages_func)
+        return get_desc_messages_func(mi);
+    vector<ZhArg> result;
+    if (get_desc_func)
+    {
+        const ZhTranslationPause canonical_only;
+        for (const auto& text : get_desc_func(mi))
+            result.emplace_back("attribute", ZhArgType::Text, text, text, false);
+    }
+    return result;
 }

@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "spl-goditem.h"
 
@@ -311,23 +312,24 @@ static int _pacify_chance(const monster_info& mi, const int pow, int scale)
          / (sides * sides - sides);
 }
 
-static vector<string> _desc_pacify_chance(const monster_info& mi, const int pow)
+static vector<ZhArg> _desc_pacify_chance(const monster_info& mi, const int pow)
 {
-    vector<string> descs;
+    vector<ZhArg> descs;
 
     if (mi.intel() <= I_BRAINLESS)
-        descs.push_back("mindless");
+        descs.push_back(zh_message_arg("effect", "target.monster.callback.pacify_mindless"));
     else if (!unpacifiable_reason(mi).empty()
              || _pacification_sides(mi.type, pow)
                 <= _pacification_hp(mi.type) + 1)
-        descs.push_back("uninterested");
+        descs.push_back(zh_message_arg("effect", "target.monster.callback.pacify_uninterested"));
     else
     {
         const int success = _pacify_chance(mi, pow, 100);
         if (success == 0)
-            descs.push_back(make_stringf("chance to pacify: <<1%%"));
+            descs.push_back(zh_message_arg("effect", "target.monster.callback.pacify_low"));
         else
-            descs.push_back(make_stringf("chance to pacify: %d%%", success));
+            descs.push_back(zh_message_arg("effect", "target.monster.callback.pacify_chance",
+                {zh_integer("chance", success)}));
     }
     return descs;
 }
@@ -347,7 +349,7 @@ spret cast_healing(int pow, bool fail)
     args.needs_path = false;
     args.self = confirm_prompt_type::cancel;
     args.target_prefix = "Heal";
-    args.get_desc_func = bind(_desc_pacify_chance, placeholders::_1, pow);
+    args.get_desc_messages_func = bind(_desc_pacify_chance, placeholders::_1, pow);
     direction(spd, args);
 
     if (!spd.isValid)

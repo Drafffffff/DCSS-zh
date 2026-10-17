@@ -1,0 +1,37 @@
+{
+  "source_commit": "0b10e82b56eb444c37874fa4c7e90befb08f8938",
+  "functions": {
+    "_desc_hit_chance": {
+      "file": "quiver.cc",
+      "body": "static vector<string> _desc_hit_chance(const monster_info &mi)\n{\n    ostringstream result;\n    describe_to_hit(mi, result, you.weapon());\n    string str = result.str();\n    if (str.empty())\n        return vector<string>{};\n    return vector<string>{str};\n}"
+    },
+    "_desc_finite_wl": {
+      "file": "item-use.cc",
+      "body": "static vector<string> _desc_finite_wl(const monster_info& mi)\n{\n    vector<string> r;\n    const int wl = mi.willpower();\n    if (wl == WILL_INVULN)\n        r.push_back(\"infinite will\");\n    else\n        r.push_back(\"susceptible\");\n    return r;\n}"
+    },
+    "_desc_res_torment": {
+      "file": "item-use.cc",
+      "body": "static vector<string> _desc_res_torment(const monster_info& mi)\n{\n    if (mi.resists() & (MR_RES_TORMENT))\n        return { \"not susceptible\" };\n    else\n        return { \"susceptible\" };\n}"
+    },
+    "_desc_see_invis": {
+      "file": "item-use.cc",
+      "body": "static vector<string> _desc_see_invis(const monster_info& mi)\n{\n    vector<string> r;\n    if (mi.can_see_invisible())\n        r.push_back(\"can see invisible\");\n    else if (!mi.is(MB_CANT_SEE_YOU))\n    {\n        if (!you.backlit())\n            r.push_back(\"will become unable to see you\");\n        else\n            r.push_back(\"cannot see invisible\");\n    }\n    return r;\n}"
+    },
+    "_desc_slouch_damage": {
+      "file": "ability.cc",
+      "body": "static vector<string> _desc_slouch_damage(const monster_info& mi)\n{\n    if (!monster_at(mi.pos) || !you.can_see(*monster_at(mi.pos)))\n        return vector<string>{};\n    else if (!is_slouchable(mi.pos))\n        return vector<string>{make_stringf(\"not susceptible\")};\n    else\n        return vector<string>{make_stringf(\"damage: %dd3 / 2\", slouch_damage(monster_at(mi.pos)))};\n}"
+    },
+    "_desc_bind_soul_hp": {
+      "file": "ability.cc",
+      "body": "static vector<string> _desc_bind_soul_hp(const monster_info& mi)\n{\n    if (!monster_at(mi.pos) || !yred_can_bind_soul(monster_at(mi.pos)))\n        return vector<string>{};\n    return vector<string>{make_stringf(\"hp as a bound soul: ~%d\", yred_get_bound_soul_hp(mi.type, true))};\n}"
+    },
+    "_desc_marionette_spells": {
+      "file": "ability.cc",
+      "body": "static vector<string> _desc_marionette_spells(const monster_info& mi)\n{\n    if (mi.is(MB_SHADOWLESS) || mi.is(MB_SUMMONED) || mi.attitude != ATT_HOSTILE)\n        return vector<string>();\n\n    vector<mon_spell_slot> spells = get_unique_spells(mi);\n    int num_spells = spells.size();\n    int num_usable_spells = monster_at(mi.pos)->props[DITHMENOS_MARIONETTE_SPELLS_KEY].get_int();\n\n    return vector<string>{make_stringf(\"%d/%d spells usable\", num_usable_spells, num_spells)};\n}"
+    },
+    "_desc_pacify_chance": {
+      "file": "spl-goditem.cc",
+      "body": "static vector<string> _desc_pacify_chance(const monster_info& mi, const int pow)\n{\n    vector<string> descs;\n\n    if (mi.intel() <= I_BRAINLESS)\n        descs.push_back(\"mindless\");\n    else if (!unpacifiable_reason(mi).empty()\n             || _pacification_sides(mi.type, pow)\n                <= _pacification_hp(mi.type) + 1)\n        descs.push_back(\"uninterested\");\n    else\n    {\n        const int success = _pacify_chance(mi, pow, 100);\n        if (success == 0)\n            descs.push_back(make_stringf(\"chance to pacify: <<1%%\"));\n        else\n            descs.push_back(make_stringf(\"chance to pacify: %d%%\", success));\n    }\n    return descs;\n}"
+    }
+  }
+}

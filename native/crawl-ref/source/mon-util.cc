@@ -6,6 +6,8 @@
 #include "AppHdr.h"
 
 #include "mon-util.h"
+#include "zh-message.h"
+#include "zh-display-name.h"
 
 #include <algorithm>
 #include <cmath>
@@ -54,6 +56,8 @@
 #include "mon-poly.h"
 #include "mon-tentacle.h"
 #include "mon-util.h"
+#include "zh-message.h"
+#include "zh-display-name.h"
 #include "mutant-beast.h"
 #include "notes.h"
 #include "options.h"
@@ -5382,13 +5386,14 @@ void print_wounds(const monster& mons)
     if (!mons.alive() || mons.hit_points == mons.max_hit_points)
         return;
 
-    mon_dam_level_type dam_level = mons_get_damage_level(mons);
-    string desc = get_damage_level_string(mons.holiness(), dam_level);
-
-    desc.insert(0, " is ");
-    desc += ".";
-    simple_monster_message(mons, desc.c_str(), false, MSGCH_MONSTER_DAMAGE,
-                           dam_level);
+    // Preserve the old visibility/channel predicate before obtaining names.
+    if (!you.see_cell(mons.pos()) || !mons.visible_to(&you))
+        return;
+    const auto dam_level = mons_get_damage_level(mons);
+    const monster_info info(&mons);
+    mpr(zh_message("target.monster.log.wound", {
+        zh_monster_arg("monster", mons, DESC_THE), info.wounds_description_message()}),
+        MSGCH_MONSTER_DAMAGE, dam_level);
 }
 
 // (true == 'damaged') [constructs, undead, etc.]

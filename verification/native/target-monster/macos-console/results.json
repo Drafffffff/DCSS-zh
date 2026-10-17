@@ -1,0 +1,97 @@
+{
+  "source_fixture_unchanged": true,
+  "scenes": [
+    {
+      "scene": "monster-target-equipped",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "target.monster.flag.hasted",
+        "target.prompt.describe.monster"
+      ]
+    },
+    {
+      "scene": "monster-target-undead",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "target.monster.flag.slowed",
+        "target.prompt.describe.monster"
+      ]
+    },
+    {
+      "scene": "monster-target-spell",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "target.monster.flag.hasted",
+        "target.prompt.describe.monster"
+      ]
+    },
+    {
+      "scene": "monster-encounter",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "target.monster.log.encounter"
+      ]
+    },
+    {
+      "scene": "monster-wound-living",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "target.monster.log.wound"
+      ]
+    },
+    {
+      "scene": "monster-wound-undead",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "target.monster.log.wound"
+      ]
+    },
+    {
+      "scene": "monster-long-detail",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "monster.detail.lore.orc_warrior_current"
+      ]
+    },
+    {
+      "scene": "monster-status-detail",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "monster.status_text.asleep",
+        "monster.status_text.high_tier_stab"
+      ]
+    }
+  ]
+}

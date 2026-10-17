@@ -7,6 +7,7 @@
 
 #include "database.h"
 #include "zh-localization.h"
+#include "zh-database.h"
 
 #include <cstdlib>
 #include <fcntl.h>
@@ -791,6 +792,60 @@ string getQuoteString(const string &key)
 string getLongDescription(const string &key)
 {
     return unwrap_desc(_query_database(DescriptionDB, key, true, true));
+}
+
+// Localize each fixed source row BEFORE expanding the database's structural
+// references. An expanded English paragraph is not a translation lookup key.
+static ZhArg _description_message_tree(string key, const char *context, int depth)
+{
+    if (depth > 32)
+        return {"body", ZhArgType::Text, "", "", false};
+    lowercase(key);
+    const datum row = _database_fetch(DescriptionDB.get(), key);
+    if (row.dsize <= 0)
+        return {"body", ZhArgType::Text, "", ""};
+    const string raw((const char *)row.dptr, row.dsize);
+    // Match the canonical database alias protocol before reading prose.
+    if (raw.size() >= 3 && raw[0] == '<' && raw[raw.size() - 2] == '>'
+        && raw.find('<', 1) == raw.npos && raw.find('\n') == raw.size() - 1)
+        return _description_message_tree(raw.substr(1, raw.size() - 3), context, depth + 1);
+    const string source = trimmed_string(raw);
+    const bool reference_only = source.compare(0, 2, "[[") == 0
+        && source.find("]]", 2) == source.size() - 2;
+    auto message = zh_database_source_arg("body", reference_only
+        ? "detail.monster.status_reference" : context, source);
+    size_t pos = source.find("[[");
+    while (pos != string::npos)
+    {
+        const size_t end = source.find("]]", pos + 2);
+        if (end == string::npos)
+        {
+            message.supported = false;
+            break;
+        }
+        const string token = source.substr(pos, end + 2 - pos);
+        const auto child = _description_message_tree(
+            source.substr(pos + 2, end - pos - 2), context, depth + 1);
+        message.canonical = replace_all(message.canonical, token, child.canonical);
+        message.localized = replace_all(message.localized, token, child.localized);
+        message.supported = message.supported && child.supported;
+        pos = source.find("[[", end + 2);
+    }
+    return message;
+}
+
+string zh_database_description(const string &key, const char *context)
+{
+    if (!zh_language_enabled())
+        return getLongDescription(key);
+    const auto message = _description_message_tree(key, context, 0);
+    // Unknown rows or children fall back as a whole; no bilingual fragments.
+    if (!message.supported)
+    {
+        ZhTranslationPause canonical;
+        return getLongDescription(key);
+    }
+    return unwrap_desc(string(message.localized));
 }
 
 vector<string> getLongDescKeysByRegex(const string &regex,

@@ -6,6 +6,7 @@
 #pragma once
 
 #include <vector>
+#include <functional>
 #include "zh-message.h"
 
 #include "command-type.h"
@@ -34,6 +35,8 @@ public:
     virtual ~monster_view_annotator();
 };
 
+using typed_desc_filter = std::function<vector<ZhArg>(const monster_info&)>;
+
 // An object that modifies the behaviour of the direction prompt.
 class targeting_behaviour
 {
@@ -60,11 +63,13 @@ public:
 
     // Add relevant descriptions to the target status.
     virtual vector<string> get_monster_desc(const monster_info& mi);
+    virtual vector<ZhArg> get_monster_desc_messages(const monster_info& mi);
 private:
     string prompt;
 
 public:
     bool just_looking;
+    typed_desc_filter get_desc_messages_func = nullptr;
     desc_filter get_desc_func; // Function to add relevant descriptions
     maybe_bool needs_path;
 };
@@ -89,6 +94,7 @@ struct direction_chooser_args
     targeting_behaviour *behaviour;
     bool show_floor_desc;
     bool show_boring_feats;
+    typed_desc_filter get_desc_messages_func = nullptr;
     desc_filter get_desc_func;
     coord_def default_place;
 
@@ -355,15 +361,23 @@ bool full_describe_square(const coord_def &c, bool cleanup = true);
 string get_square_desc(const coord_def &pos);
 string cell_monster_description(const coord_def& pos, bool include_areas = false,
                                 targeting_behaviour* behavior = nullptr);
+ZhArg cell_monster_description_message(const coord_def& pos, bool include_areas = false,
+                                       targeting_behaviour* behavior = nullptr);
 string cell_items_description(const coord_def& pos);
 string cell_floor_description(const coord_def& pos, bool boring_too);
 
 vector<string> get_monster_status_descriptors(const monster_info& mi);
+vector<ZhArg> get_monster_status_descriptor_messages(const monster_info& mi);
 
 void describe_floor();
 void _walk_on_decor(dungeon_feature_type new_grid);
 string get_monster_equipment_desc(const monster_info& mi,
                                   //bool full_desc = true,
+                                  mons_equip_desc_level_type level = DESC_FULL,
+                                  description_level_type mondtype = DESC_A,
+                                  bool print_attitude = false);
+
+ZhArg get_monster_equipment_desc_message(const monster_info& mi,
                                   mons_equip_desc_level_type level = DESC_FULL,
                                   description_level_type mondtype = DESC_A,
                                   bool print_attitude = false);

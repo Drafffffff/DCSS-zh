@@ -179,6 +179,7 @@ bool hints_pos_interesting(int x, int y);
 string hints_describe_pos(int x, int y);
 bool hints_monster_interesting(const monster* mons);
 string hints_describe_monster(const monster_info& mi, bool has_stat_desc);
+string hints_describe_monster_display(const monster_info& mi, bool has_stat_desc);
 
 void hints_observe_cell(const coord_def& gc);
 

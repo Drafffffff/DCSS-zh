@@ -2575,7 +2575,7 @@
       "source": "native/crawl-ref/source/dat/descript/monstatus.txt / translations/zh/descript/monstatus.txt",
       "params": {},
       "en": "This creature takes no damage by any means unless the original source of that\ndamage is adjacent to them. Non-damaging side-effects happen normally.\n\n(The source of damage from clouds and projectile-like monsters, such as foxfires,\nis always considered whatever creature first created them.)",
-      "zh": "该生物不会受到任何当前不与其相邻的来源造成的伤害（包括云雾，如果其创造者并不相邻）。",
+      "zh": "除非伤害来源与该生物相邻，否则任何伤害都无法伤到它。非伤害类的附带效果仍会正常生效。\n\n来自云雾和类似投射物怪物（如火焰狐）的伤害，其来源始终视为最初创造它们的生物。",
       "source_context": "detail.monster.status_text"
     },
     {
@@ -2923,9 +2923,9 @@
     {
       "id": "monster.status_text.mute",
       "context": "固定怪物数据库文本；按完整条目精确绑定已有中文译文。",
-      "source": "native/crawl-ref/source/dat/descript/monstatus.txt / translations/zh/descript/monstatus.txt",
+      "source": "native/crawl-ref/source/dat/descript/monstatus.txt#mute monstatus",
       "params": {},
-      "en": "This creature has been stricken permanently mute by the power of Zin. This\nprevents all noise the creature could make, including the vocalisations\nrequired for most creatures to cast spells.\n# Are demons silenced?",
+      "en": "This creature has been stricken permanently mute by the power of Zin. This\nprevents all noise the creature could make, including the vocalisations\nrequired for most creatures to cast spells.",
       "zh": "该生物被辛的力量永久地变成了哑巴。这能阻止该生物发出的一切声响，包括大多数生物施法所需发出的声音。\n# 恶魔会被沉默吗？",
       "source_context": "detail.monster.status_text"
     },
@@ -3445,9 +3445,9 @@
     {
       "id": "monster.status_text.withering_away",
       "context": "固定怪物数据库文本；按完整条目精确绑定已有中文译文。",
-      "source": "native/crawl-ref/source/dat/descript/monstatus.txt / translations/zh/descript/monstatus.txt",
+      "source": "native/crawl-ref/source/dat/descript/monstatus.txt#withering away monstatus",
       "params": {},
-      "en": "This creature will die in a few turns.\n## Not real statuses, but common clauses to add to some others",
+      "en": "This creature will die in a few turns.",
       "zh": "该生物将在几回合内死亡。\n## 以下并非真正的状态，而是用于添加到某些状态中的常见条款。",
       "source_context": "detail.monster.status_text"
     },
@@ -3514,6 +3514,298 @@
       "en": "“Things are only mannequins and even the great world-historical events are only\n costumes beneath which they exchange glances with nothingness, with the base\n and the banal.”\n    -Walter Benjamin, _Protocols to the Experiments on Hashish, Opium and\n     Mescaline 1927-1934_, “Protocol II: Highlights of the Second Hashish\n     Impression”. 15 January 1928.\n     trans. Scott J. Thompson, 1997.",
       "zh": "“事物不过是人体模型，甚至那些伟大的世界历史事件也不过是\n 戏服，其下它们与虚无、与卑下\n 和平庸交换着眼色。”\n    -瓦尔特·本雅明，《1927-1934年哈希什、鸦片与\n     麦司卡林实验记录》，“第二号记录：第二次哈希什\n     印象要点”。1928年1月15日。\n     译：Scott J. Thompson，1997年。",
       "source_context": "detail.monster.quote"
+    },
+    {
+      "id": "monster.detail.lore.orc_warrior_current",
+      "context": "兽人战士当前完整 lore；怪物详情。",
+      "source": "native/crawl-ref/source/dat/descript/monsters.txt#orc warrior / describe.cc monster database lookup",
+      "params": {},
+      "en": "An experienced, armoured and well-armed orc soldier, able to command a small mob of its fellows.",
+      "zh": "这是一名经验丰富、披甲且装备精良的兽人士兵，能指挥一小群同类。",
+      "source_context": "detail.monster.lore"
+    },
+    {
+      "id": "monster.status_text.asleep",
+      "context": "怪物状态详情完整原始模板，内部引用键保持不变。",
+      "source": "native/crawl-ref/source/dat/descript/monstatus.txt#asleep monstatus",
+      "params": {},
+      "en": "This creature is unable to move, act, block, or dodge. Any hostile action will\nawaken it, though melee attacks against it (even by other monsters) will deal\nincreased damage.\n\n[[high-tier stab monstatus]]",
+      "zh": "该生物无法移动、行动、格挡或闪避。任何敌对行动都会将它唤醒，不过对它进行近战攻击（即使攻击者是其他怪物）会造成更高伤害。\n\n[[high-tier stab monstatus]]",
+      "source_context": "detail.monster.status_text"
+    },
+    {
+      "id": "monster.status_text.blind",
+      "context": "怪物状态详情完整原始模板，内部引用键保持不变。",
+      "source": "native/crawl-ref/source/dat/descript/monstatus.txt#blind monstatus",
+      "params": {},
+      "en": "This creature cannot see properly. Its accuracy is greatly decreased, it cannot\nmake attacks of opportunity, and spells it casts may sometimes be aimed at the\nwrong locations.\n\nIt may also stumble around and eventually lose track of its target, especially\nif it has low intelligence.\n\n[[low-tier stab monstatus]]",
+      "zh": "该生物无法正常视物。它的命中率大幅降低，无法发动借机攻击，施放的法术有时还会瞄准错误的位置。\n\n它可能还会四处摸索，最终跟丢目标，尤其是智能较低时。\n\n[[low-tier stab monstatus]]",
+      "source_context": "detail.monster.status_text"
+    },
+    {
+      "id": "monster.status_text.confused",
+      "context": "怪物状态详情完整原始模板，内部引用键保持不变。",
+      "source": "native/crawl-ref/source/dat/descript/monstatus.txt#confused monstatus",
+      "params": {},
+      "en": "This creature is unable to block or use spells or abilities and will stumble around\nat random, attacking whatever it bumps into - be they friend or foe or sometimes even\nthemselves.\n\n[[low-tier stab monstatus]]",
+      "zh": "该生物无法格挡或使用法术、能力，只会随机蹒跚乱走，并攻击碰到的任何目标——无论敌友，有时甚至会攻击自己。\n\n[[low-tier stab monstatus]]",
+      "source_context": "detail.monster.status_text"
+    },
+    {
+      "id": "monster.status_text.entangled_in_a_net",
+      "context": "怪物状态详情完整原始模板，内部引用键保持不变。",
+      "source": "native/crawl-ref/source/dat/descript/monstatus.txt#entangled in a net monstatus",
+      "params": {},
+      "en": "This creature is caught in a net, greatly reducing its evasion and preventing it\nfrom blocking. Any attempt it makes to move or attack will instead struggle against\nthe net, which may eventually destroy it. Spellcasting is unimpaired.\n\n[[low-tier stab monstatus]]",
+      "zh": "该生物被网罩住，闪避率大幅降低，且无法格挡。它试图移动或攻击时，只会挣扎着对抗网具，最终可能把网弄破。它仍能正常施法。\n\n[[low-tier stab monstatus]]",
+      "source_context": "detail.monster.status_text"
+    },
+    {
+      "id": "monster.status_text.entangled_in_a_web",
+      "context": "怪物状态详情完整原始模板，内部引用键保持不变。",
+      "source": "native/crawl-ref/source/dat/descript/monstatus.txt#entangled in a web monstatus",
+      "params": {},
+      "en": "This creature is caught in a spider's web, greatly reducing its evasion and\npreventing it from blocking. Any attempt it makes to move or attack will instead\nstruggle against the web, which may eventually destroy it. Spellcasting is\nunimpaired.\n\n[[low-tier stab monstatus]]",
+      "zh": "该生物被蛛网缠住，闪避率大幅降低，且无法格挡。它试图移动或攻击时，只会挣扎着对抗蛛网，最终可能把蛛网弄破。它仍能正常施法。\n\n[[low-tier stab monstatus]]",
+      "source_context": "detail.monster.status_text"
+    },
+    {
+      "id": "monster.status_text.not_watching_you",
+      "context": "怪物状态详情完整原始模板，内部引用键保持不变。",
+      "source": "native/crawl-ref/source/dat/descript/monstatus.txt#not watching you monstatus",
+      "params": {},
+      "en": "This creature has been briefly distracted by something else.\n\n[[low-tier stab monstatus]]",
+      "zh": "有东西暂时分散了该生物的注意力。\n\n[[low-tier stab monstatus]]",
+      "source_context": "detail.monster.status_text"
+    },
+    {
+      "id": "monster.status_text.paralysed",
+      "context": "怪物状态详情完整原始模板，内部引用键保持不变。",
+      "source": "native/crawl-ref/source/dat/descript/monstatus.txt#paralysed monstatus",
+      "params": {},
+      "en": "This creature is unable to move, act, block, or dodge attacks.\n\n[[high-tier stab monstatus]]",
+      "zh": "该生物无法移动、行动、格挡或闪避攻击。\n\n[[high-tier stab monstatus]]",
+      "source_context": "detail.monster.status_text"
+    },
+    {
+      "id": "monster.status_text.petrifying_slowly",
+      "context": "怪物状态详情完整原始模板，内部引用键保持不变。",
+      "source": "native/crawl-ref/source/dat/descript/monstatus.txt#petrifying slowly monstatus",
+      "params": {},
+      "en": "This creature will soon become fully petrified. Its movement and actions are\n50% slower and it is nearly unable to dodge attacks, though it also takes 33%\nless damage.\n\n[[low-tier stab monstatus]]",
+      "zh": "该生物很快就会彻底石化。它的移动和行动速度减慢50%，几乎无法闪避攻击，但所受伤害也会减少33%。\n\n[[low-tier stab monstatus]]",
+      "source_context": "detail.monster.status_text"
+    },
+    {
+      "id": "monster.status_text.petrified",
+      "context": "怪物状态详情完整原始模板，内部引用键保持不变。",
+      "source": "native/crawl-ref/source/dat/descript/monstatus.txt#petrified monstatus",
+      "params": {},
+      "en": "This creature is unable to move, act, block, or dodge attacks. By being made\nof stone, it also takes 50% less damage, gains immunity to negative energy and\npoison, but become vulnerable to deconstruction.\n\n[[high-tier stab monstatus]]",
+      "zh": "该生物无法移动、行动、格挡或闪避攻击。由于它由石头构成，所受伤害减少50%，并免疫负能量和毒素，但更容易受到解构术伤害。\n\n[[high-tier stab monstatus]]",
+      "source_context": "detail.monster.status_text"
+    },
+    {
+      "id": "monster.status_text.stupefied",
+      "context": "怪物状态详情完整原始模板，内部引用键保持不变。",
+      "source": "native/crawl-ref/source/dat/descript/monstatus.txt#stupefied monstatus",
+      "params": {},
+      "en": "This creature has been struck dumb by the power of Zin and cannot act.\n\n[[high-tier stab monstatus]]",
+      "zh": "该生物被津恩之力震慑，无法行动。\n\n[[high-tier stab monstatus]]",
+      "source_context": "detail.monster.status_text"
+    },
+    {
+      "id": "monster.status_text.unable_to_see_you",
+      "context": "怪物状态详情完整原始模板，内部引用键保持不变。",
+      "source": "native/crawl-ref/source/dat/descript/monstatus.txt#unable to see you monstatus",
+      "params": {},
+      "en": "This creature is unable to see you because you are invisible. Its accuracy\nagainst you is greatly decreased, it cannot make attacks of opportunity, and\nspells it casts may sometimes be aimed at the wrong locations.\n\nIt may also stumble around and eventually lose track of you, especially if it\nhas low intelligence.\n\n[[low-tier stab monstatus]]",
+      "zh": "由于你处于隐形状态，该生物无法看见你。它对你的命中率大幅降低，无法发动借机攻击，施放的法术有时还会瞄准错误的位置。\n\n它可能还会四处摸索，最终跟丢你，尤其是智能较低时。\n\n[[low-tier stab monstatus]]",
+      "source_context": "detail.monster.status_text"
+    },
+    {
+      "id": "target.monster.detail.player_hit.plain",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "You have {chance}.\n",
+      "params": {
+        "chance": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_player_hit_message"
+      },
+      "zh": "你的攻击{chance}。\n"
+    },
+    {
+      "id": "target.monster.detail.player_hit.incapacitated",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "You have {chance} (while incapacitated).\n",
+      "params": {
+        "chance": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_player_hit_message"
+      },
+      "zh": "目标无法行动时，你的攻击{chance}。\n"
+    },
+    {
+      "id": "target.monster.detail.player_hit.current",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "You have {chance} (at present).\n",
+      "params": {
+        "chance": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_player_hit_message"
+      },
+      "zh": "按目标当前的闪避能力，你的攻击{chance}。\n"
+    },
+    {
+      "id": "target.monster.detail.size.tiny",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "Tiny",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_detail_size_message"
+      },
+      "zh": "极小"
+    },
+    {
+      "id": "target.monster.detail.size.little",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "V. Small",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_detail_size_message"
+      },
+      "zh": "很小"
+    },
+    {
+      "id": "target.monster.detail.size.small",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "Small",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_detail_size_message"
+      },
+      "zh": "小"
+    },
+    {
+      "id": "target.monster.detail.size.medium",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "Medium",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_detail_size_message"
+      },
+      "zh": "中等"
+    },
+    {
+      "id": "target.monster.detail.size.large",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "Large",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_detail_size_message"
+      },
+      "zh": "大"
+    },
+    {
+      "id": "target.monster.detail.size.giant",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "Giant",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_detail_size_message"
+      },
+      "zh": "巨大"
+    },
+    {
+      "id": "target.monster.detail.title.name",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "{monster}.",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_detail_title_message"
+      },
+      "zh": "{monster}。"
+    },
+    {
+      "id": "target.monster.detail.title.fixed",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "{title}",
+      "params": {
+        "title": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_detail_title_message"
+      },
+      "zh": "{title}"
+    },
+    {
+      "id": "target.monster.detail.doors.open",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "{subject} can open doors.\n",
+      "params": {
+        "subject": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_door_message"
+      },
+      "zh": "{subject}可以打开门。\n"
+    },
+    {
+      "id": "target.monster.detail.doors.crash",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "{subject} can crash through doors.\n",
+      "params": {
+        "subject": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_door_message"
+      },
+      "zh": "{subject}可以撞破门。\n"
+    },
+    {
+      "id": "target.monster.detail.doors.eat",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "{subject} can eat doors.\n",
+      "params": {
+        "subject": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_door_message"
+      },
+      "zh": "{subject}可以吃门。\n"
+    },
+    {
+      "id": "target.monster.detail.doors.despite",
+      "context": "怪物详情中完整、带参数的父模板。",
+      "en": "Despite {possessive} appearance, {subject} can open doors.\n",
+      "params": {
+        "possessive": "text",
+        "subject": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_door_message"
+      },
+      "zh": "尽管{possessive}外观如此，{subject}仍能打开门。\n"
     }
   ],
   "test_cases": [
@@ -3618,6 +3910,245 @@
       },
       "canonical": "Throw: a throwing net",
       "zh": "投掷：投掷网"
+    },
+    {
+      "id": "monster.detail.lore.orc_warrior_current",
+      "args": {},
+      "canonical": "An experienced, armoured and well-armed orc soldier, able to command a small mob of its fellows.",
+      "zh": "这是一名经验丰富、披甲且装备精良的兽人士兵，能指挥一小群同类。"
+    },
+    {
+      "id": "monster.status_text.asleep",
+      "args": {},
+      "canonical": "This creature is unable to move, act, block, or dodge. Any hostile action will\nawaken it, though melee attacks against it (even by other monsters) will deal\nincreased damage.\n\n[[high-tier stab monstatus]]",
+      "zh": "该生物无法移动、行动、格挡或闪避。任何敌对行动都会将它唤醒，不过对它进行近战攻击（即使攻击者是其他怪物）会造成更高伤害。\n\n[[high-tier stab monstatus]]"
+    },
+    {
+      "id": "monster.status_text.blind",
+      "args": {},
+      "canonical": "This creature cannot see properly. Its accuracy is greatly decreased, it cannot\nmake attacks of opportunity, and spells it casts may sometimes be aimed at the\nwrong locations.\n\nIt may also stumble around and eventually lose track of its target, especially\nif it has low intelligence.\n\n[[low-tier stab monstatus]]",
+      "zh": "该生物无法正常视物。它的命中率大幅降低，无法发动借机攻击，施放的法术有时还会瞄准错误的位置。\n\n它可能还会四处摸索，最终跟丢目标，尤其是智能较低时。\n\n[[low-tier stab monstatus]]"
+    },
+    {
+      "id": "monster.status_text.confused",
+      "args": {},
+      "canonical": "This creature is unable to block or use spells or abilities and will stumble around\nat random, attacking whatever it bumps into - be they friend or foe or sometimes even\nthemselves.\n\n[[low-tier stab monstatus]]",
+      "zh": "该生物无法格挡或使用法术、能力，只会随机蹒跚乱走，并攻击碰到的任何目标——无论敌友，有时甚至会攻击自己。\n\n[[low-tier stab monstatus]]"
+    },
+    {
+      "id": "monster.status_text.damage_immune_at_range",
+      "args": {},
+      "canonical": "This creature takes no damage by any means unless the original source of that\ndamage is adjacent to them. Non-damaging side-effects happen normally.\n\n(The source of damage from clouds and projectile-like monsters, such as foxfires,\nis always considered whatever creature first created them.)",
+      "zh": "除非伤害来源与该生物相邻，否则任何伤害都无法伤到它。非伤害类的附带效果仍会正常生效。\n\n来自云雾和类似投射物怪物（如火焰狐）的伤害，其来源始终视为最初创造它们的生物。"
+    },
+    {
+      "id": "monster.status_text.entangled_in_a_net",
+      "args": {},
+      "canonical": "This creature is caught in a net, greatly reducing its evasion and preventing it\nfrom blocking. Any attempt it makes to move or attack will instead struggle against\nthe net, which may eventually destroy it. Spellcasting is unimpaired.\n\n[[low-tier stab monstatus]]",
+      "zh": "该生物被网罩住，闪避率大幅降低，且无法格挡。它试图移动或攻击时，只会挣扎着对抗网具，最终可能把网弄破。它仍能正常施法。\n\n[[low-tier stab monstatus]]"
+    },
+    {
+      "id": "monster.status_text.entangled_in_a_web",
+      "args": {},
+      "canonical": "This creature is caught in a spider's web, greatly reducing its evasion and\npreventing it from blocking. Any attempt it makes to move or attack will instead\nstruggle against the web, which may eventually destroy it. Spellcasting is\nunimpaired.\n\n[[low-tier stab monstatus]]",
+      "zh": "该生物被蛛网缠住，闪避率大幅降低，且无法格挡。它试图移动或攻击时，只会挣扎着对抗蛛网，最终可能把蛛网弄破。它仍能正常施法。\n\n[[low-tier stab monstatus]]"
+    },
+    {
+      "id": "monster.status_text.not_watching_you",
+      "args": {},
+      "canonical": "This creature has been briefly distracted by something else.\n\n[[low-tier stab monstatus]]",
+      "zh": "有东西暂时分散了该生物的注意力。\n\n[[low-tier stab monstatus]]"
+    },
+    {
+      "id": "monster.status_text.paralysed",
+      "args": {},
+      "canonical": "This creature is unable to move, act, block, or dodge attacks.\n\n[[high-tier stab monstatus]]",
+      "zh": "该生物无法移动、行动、格挡或闪避攻击。\n\n[[high-tier stab monstatus]]"
+    },
+    {
+      "id": "monster.status_text.petrifying_slowly",
+      "args": {},
+      "canonical": "This creature will soon become fully petrified. Its movement and actions are\n50% slower and it is nearly unable to dodge attacks, though it also takes 33%\nless damage.\n\n[[low-tier stab monstatus]]",
+      "zh": "该生物很快就会彻底石化。它的移动和行动速度减慢50%，几乎无法闪避攻击，但所受伤害也会减少33%。\n\n[[low-tier stab monstatus]]"
+    },
+    {
+      "id": "monster.status_text.petrified",
+      "args": {},
+      "canonical": "This creature is unable to move, act, block, or dodge attacks. By being made\nof stone, it also takes 50% less damage, gains immunity to negative energy and\npoison, but become vulnerable to deconstruction.\n\n[[high-tier stab monstatus]]",
+      "zh": "该生物无法移动、行动、格挡或闪避攻击。由于它由石头构成，所受伤害减少50%，并免疫负能量和毒素，但更容易受到解构术伤害。\n\n[[high-tier stab monstatus]]"
+    },
+    {
+      "id": "monster.status_text.stupefied",
+      "args": {},
+      "canonical": "This creature has been struck dumb by the power of Zin and cannot act.\n\n[[high-tier stab monstatus]]",
+      "zh": "该生物被津恩之力震慑，无法行动。\n\n[[high-tier stab monstatus]]"
+    },
+    {
+      "id": "monster.status_text.unable_to_see_you",
+      "args": {},
+      "canonical": "This creature is unable to see you because you are invisible. Its accuracy\nagainst you is greatly decreased, it cannot make attacks of opportunity, and\nspells it casts may sometimes be aimed at the wrong locations.\n\nIt may also stumble around and eventually lose track of you, especially if it\nhas low intelligence.\n\n[[low-tier stab monstatus]]",
+      "zh": "由于你处于隐形状态，该生物无法看见你。它对你的命中率大幅降低，无法发动借机攻击，施放的法术有时还会瞄准错误的位置。\n\n它可能还会四处摸索，最终跟丢你，尤其是智能较低时。\n\n[[low-tier stab monstatus]]"
+    },
+    {
+      "id": "monster.status_text.mute",
+      "args": {},
+      "canonical": "This creature has been stricken permanently mute by the power of Zin. This\nprevents all noise the creature could make, including the vocalisations\nrequired for most creatures to cast spells.",
+      "zh": "该生物被辛的力量永久地变成了哑巴。这能阻止该生物发出的一切声响，包括大多数生物施法所需发出的声音。\n# 恶魔会被沉默吗？"
+    },
+    {
+      "id": "monster.status_text.withering_away",
+      "args": {},
+      "canonical": "This creature will die in a few turns.",
+      "zh": "该生物将在几回合内死亡。\n## 以下并非真正的状态，而是用于添加到某些状态中的常见条款。"
+    },
+    {
+      "id": "target.monster.detail.player_hit.plain",
+      "args": {
+        "chance": {
+          "type": "text",
+          "canonical": "about 50% to hit with your +0 hand axe",
+          "localized": "命中率约为50%（使用你的+0手斧）"
+        }
+      },
+      "canonical": "You have about 50% to hit with your +0 hand axe.\n",
+      "zh": "你的攻击命中率约为50%（使用你的+0手斧）。\n"
+    },
+    {
+      "id": "target.monster.detail.player_hit.incapacitated",
+      "args": {
+        "chance": {
+          "type": "text",
+          "canonical": "about 50% to hit with your +0 hand axe",
+          "localized": "命中率约为50%（使用你的+0手斧）"
+        }
+      },
+      "canonical": "You have about 50% to hit with your +0 hand axe (while incapacitated).\n",
+      "zh": "目标无法行动时，你的攻击命中率约为50%（使用你的+0手斧）。\n"
+    },
+    {
+      "id": "target.monster.detail.player_hit.current",
+      "args": {
+        "chance": {
+          "type": "text",
+          "canonical": "about 50% to hit with your +0 hand axe",
+          "localized": "命中率约为50%（使用你的+0手斧）"
+        }
+      },
+      "canonical": "You have about 50% to hit with your +0 hand axe (at present).\n",
+      "zh": "按目标当前的闪避能力，你的攻击命中率约为50%（使用你的+0手斧）。\n"
+    },
+    {
+      "id": "target.monster.detail.size.tiny",
+      "args": {},
+      "canonical": "Tiny",
+      "zh": "极小"
+    },
+    {
+      "id": "target.monster.detail.size.little",
+      "args": {},
+      "canonical": "V. Small",
+      "zh": "很小"
+    },
+    {
+      "id": "target.monster.detail.size.small",
+      "args": {},
+      "canonical": "Small",
+      "zh": "小"
+    },
+    {
+      "id": "target.monster.detail.size.medium",
+      "args": {},
+      "canonical": "Medium",
+      "zh": "中等"
+    },
+    {
+      "id": "target.monster.detail.size.large",
+      "args": {},
+      "canonical": "Large",
+      "zh": "大"
+    },
+    {
+      "id": "target.monster.detail.size.giant",
+      "args": {},
+      "canonical": "Giant",
+      "zh": "巨大"
+    },
+    {
+      "id": "target.monster.detail.title.name",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "An orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "An orc.",
+      "zh": "兽人。"
+    },
+    {
+      "id": "target.monster.detail.title.fixed",
+      "args": {
+        "title": {
+          "type": "name",
+          "canonical": "orc warrior",
+          "localized": "兽人战士"
+        }
+      },
+      "canonical": "orc warrior",
+      "zh": "兽人战士"
+    },
+    {
+      "id": "target.monster.detail.doors.open",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "It",
+          "localized": "它"
+        }
+      },
+      "canonical": "It can open doors.\n",
+      "zh": "它可以打开门。\n"
+    },
+    {
+      "id": "target.monster.detail.doors.crash",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "It",
+          "localized": "它"
+        }
+      },
+      "canonical": "It can crash through doors.\n",
+      "zh": "它可以撞破门。\n"
+    },
+    {
+      "id": "target.monster.detail.doors.eat",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "It",
+          "localized": "它"
+        }
+      },
+      "canonical": "It can eat doors.\n",
+      "zh": "它可以吃门。\n"
+    },
+    {
+      "id": "target.monster.detail.doors.despite",
+      "args": {
+        "possessive": {
+          "type": "text",
+          "canonical": "about 50% to hit with your +0 hand axe",
+          "localized": "命中率约为50%（使用你的+0手斧）"
+        },
+        "subject": {
+          "type": "name",
+          "canonical": "it",
+          "localized": "它"
+        }
+      },
+      "canonical": "Despite about 50% to hit with your +0 hand axe appearance, it can open doors.\n",
+      "zh": "尽管命中率约为50%（使用你的+0手斧）外观如此，它仍能打开门。\n"
     }
   ],
   "provenance": "固定怪物说明和状态说明按数据库条目精确查找；沿用 translations/zh/descript 中现有整项译文，未匹配、格式标记不一致的文本保留英文。"

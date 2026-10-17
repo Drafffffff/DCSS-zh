@@ -52,6 +52,7 @@
 #include "tilepick.h"
 #endif
 #include "traps.h"
+#include "zh-display-name.h"
 
 #define SPELL_HD_KEY "spell_hd"
 #define NIGHTVISION_KEY "nightvision"
@@ -803,6 +804,7 @@ monster_info::monster_info(const monster* m, int milev)
     // init names of constrictor and constrictees
     constrictor_name = "";
     constricting_name.clear();
+    constriction_messages.clear();
 
     // Name of what this monster is directly constricted by, if any
     if (m->constricted_type == CONSTRICT_MELEE || m->constricted_type == CONSTRICT_ENTANGLE)
@@ -812,6 +814,10 @@ monster_info::monster_info(const monster* m, int milev)
         constrictor_name = "constricted by "
                            + constrictor->name(_article_for(constrictor),
                                                true);
+        auto actor = zh_actor_arg("actor", constrictor, _article_for(constrictor));
+        actor.canonical = constrictor->name(_article_for(constrictor), true);
+        constriction_messages.push_back(zh_message_arg("constriction",
+            "target.monster.constriction.by", {actor}));
     }
 
     // Names of what this monster is directly constricting, if any
@@ -827,6 +833,10 @@ monster_info::monster_info(const monster* m, int milev)
                                             + constrictee->name(
                                                   _article_for(constrictee),
                                                   true));
+                auto actor = zh_actor_arg("actor", constrictee, _article_for(constrictee));
+                actor.canonical = constrictee->name(_article_for(constrictee), true);
+                constriction_messages.push_back(zh_message_arg("constriction",
+                    "target.monster.constriction.holding", {actor}));
             }
         }
     }
@@ -1529,6 +1539,214 @@ vector<string> monster_info::attributes() const
     }
 
     return v;
+}
+
+// Stable identity is selected from the engine flag, never from rendered prose.
+static const char *_monster_flag_message_id(monster_info_flags flag)
+{
+    switch (flag)
+    {
+    case MB_CHARMED: return "target.monster.flag.charmed";
+    case MB_HEXED: return "target.monster.flag.hexed";
+    case MB_ABJURABLE: return "target.monster.flag.abjurable";
+    case MB_MINION: return "target.monster.flag.minion";
+    case MB_UNREWARDING: return "target.monster.flag.unrewarding";
+    case MB_WANDERING: return "target.monster.flag.wandering";
+    case MB_MESMERIZING: return "target.monster.flag.mesmerizing";
+    case MB_BERSERK: return "target.monster.flag.berserk";
+    case MB_HASTED: return "target.monster.flag.hasted";
+    case MB_ROLLING: return "target.monster.flag.rolling";
+    case MB_INNER_FLAME: return "target.monster.flag.inner_flame";
+    case MB_MIRROR_DAMAGE: return "target.monster.flag.mirror_damage";
+    case MB_BOUND_SOUL: return "target.monster.flag.bound_soul";
+    case MB_STRONG: return "target.monster.flag.strong";
+    case MB_EMPOWERED_SPELLS: return "target.monster.flag.empowered_spells";
+    case MB_FULLY_CHARGED: return "target.monster.flag.fully_charged";
+    case MB_PARTIALLY_CHARGED: return "target.monster.flag.partially_charged";
+    case MB_AGILE: return "target.monster.flag.agile";
+    case MB_SWIFT: return "target.monster.flag.swift";
+    case MB_PURSUING: return "target.monster.flag.pursuing";
+    case MB_STILL_WINDS: return "target.monster.flag.still_winds";
+    case MB_SILENCING: return "target.monster.flag.silencing";
+    case MB_READY_TO_HOWL: return "target.monster.flag.ready_to_howl";
+    case MB_VORTEX: return "target.monster.flag.vortex";
+    case MB_VORTEX_COOLDOWN: return "target.monster.flag.vortex_cooldown";
+    case MB_FRENZIED: return "target.monster.flag.frenzied";
+    case MB_FEAR_INSPIRING: return "target.monster.flag.fear_inspiring";
+    case MB_WORD_OF_RECALL: return "target.monster.flag.word_of_recall";
+    case MB_DEFLECT_MSL: return "target.monster.flag.deflect_msl";
+    case MB_TOXIC_RADIANCE: return "target.monster.flag.toxic_radiance";
+    case MB_CONCENTRATE_VENOM: return "target.monster.flag.concentrate_venom";
+    case MB_SIGN_OF_RUIN: return "target.monster.flag.sign_of_ruin";
+    case MB_RESISTANCE: return "target.monster.flag.resistance";
+    case MB_INVISIBLE: return "target.monster.flag.invisible";
+    case MB_REGENERATION: return "target.monster.flag.regeneration";
+    case MB_STRONG_WILLED: return "target.monster.flag.strong_willed";
+    case MB_INJURY_BOND: return "target.monster.flag.injury_bond";
+    case MB_GOZAG_INCITED: return "target.monster.flag.gozag_incited";
+    case MB_CLOUD_RING_THUNDER: return "target.monster.flag.cloud_ring_thunder";
+    case MB_CLOUD_RING_FLAMES: return "target.monster.flag.cloud_ring_flames";
+    case MB_CLOUD_RING_CHAOS: return "target.monster.flag.cloud_ring_chaos";
+    case MB_CLOUD_RING_MUTATION: return "target.monster.flag.cloud_ring_mutation";
+    case MB_CLOUD_RING_FOG: return "target.monster.flag.cloud_ring_fog";
+    case MB_CLOUD_RING_ICE: return "target.monster.flag.cloud_ring_ice";
+    case MB_CLOUD_RING_MISERY: return "target.monster.flag.cloud_ring_misery";
+    case MB_CLOUD_RING_ACID: return "target.monster.flag.cloud_ring_acid";
+    case MB_CLOUD_RING_MIASMA: return "target.monster.flag.cloud_ring_miasma";
+    case MB_FIRE_CHAMPION: return "target.monster.flag.fire_champion";
+    case MB_SILENCE_IMMUNE: return "target.monster.flag.silence_immune";
+    case MB_DOUBLED_VIGOUR: return "target.monster.flag.doubled_vigour";
+    case MB_POSSESSABLE: return "target.monster.flag.possessable";
+    case MB_CAUGHT: return "target.monster.flag.caught";
+    case MB_WEBBED: return "target.monster.flag.webbed";
+    case MB_PARALYSED: return "target.monster.flag.paralysed";
+    case MB_PETRIFIED: return "target.monster.flag.petrified";
+    case MB_CONFUSED: return "target.monster.flag.confused";
+    case MB_DORMANT: return "target.monster.flag.dormant";
+    case MB_SLEEPING: return "target.monster.flag.sleeping";
+    case MB_UNAWARE: return "target.monster.flag.unaware";
+    case MB_BLIND: return "target.monster.flag.blind";
+    case MB_DISTRACTED: return "target.monster.flag.distracted";
+    case MB_CANT_SEE_YOU: return "target.monster.flag.cant_see_you";
+    case MB_INFESTATION: return "target.monster.flag.infestation";
+    case MB_DUMB: return "target.monster.flag.dumb";
+    case MB_PINNED: return "target.monster.flag.pinned";
+    case MB_WITHERING: return "target.monster.flag.withering";
+    case MB_CRUMBLING: return "target.monster.flag.crumbling";
+    case MB_PETRIFYING: return "target.monster.flag.petrifying";
+    case MB_MAD: return "target.monster.flag.mad";
+    case MB_FLEEING: return "target.monster.flag.fleeing";
+    case MB_DAZED: return "target.monster.flag.dazed";
+    case MB_MUTE: return "target.monster.flag.mute";
+    case MB_FROZEN: return "target.monster.flag.frozen";
+    case MB_BURNING: return "target.monster.flag.burning";
+    case MB_POISONED: return "target.monster.flag.poisoned";
+    case MB_MORE_POISONED: return "target.monster.flag.more_poisoned";
+    case MB_MAX_POISONED: return "target.monster.flag.max_poisoned";
+    case MB_CONTAM_LIGHT: return "target.monster.flag.contam_light";
+    case MB_CONTAM_HEAVY: return "target.monster.flag.contam_heavy";
+    case MB_SLOWED: return "target.monster.flag.slowed";
+    case MB_BREATH_WEAPON: return "target.monster.flag.breath_weapon";
+    case MB_LOWERED_WL: return "target.monster.flag.lowered_wl";
+    case MB_FIRE_VULN: return "target.monster.flag.fire_vuln";
+    case MB_POISON_VULN: return "target.monster.flag.poison_vuln";
+    case MB_WRETCHED: return "target.monster.flag.wretched";
+    case MB_CORROSION: return "target.monster.flag.corrosion";
+    case MB_FLAYED: return "target.monster.flag.flayed";
+    case MB_GRASPING_ROOTS: return "target.monster.flag.grasping_roots";
+    case MB_VILE_CLUTCH: return "target.monster.flag.vile_clutch";
+    case MB_BARBS: return "target.monster.flag.barbs";
+    case MB_SICK: return "target.monster.flag.sick";
+    case MB_WEAK: return "target.monster.flag.weak";
+    case MB_LIGHTLY_DRAINED: return "target.monster.flag.lightly_drained";
+    case MB_HEAVILY_DRAINED: return "target.monster.flag.heavily_drained";
+    case MB_SAP_MAGIC: return "target.monster.flag.sap_magic";
+    case MB_GLOWING: return "target.monster.flag.glowing";
+    case MB_FLOODED: return "target.monster.flag.flooded";
+    case MB_DIMENSION_ANCHOR: return "target.monster.flag.dimension_anchor";
+    case MB_SLOW_MOVEMENT: return "target.monster.flag.slow_movement";
+    case MB_PAIN_BOND: return "target.monster.flag.pain_bond";
+    case MB_IDEALISED: return "target.monster.flag.idealised";
+    case MB_ALLY_TARGET: return "target.monster.flag.ally_target";
+    case MB_ANTIMAGIC: return "target.monster.flag.antimagic";
+    case MB_ANGUISH: return "target.monster.flag.anguish";
+    case MB_REFLECTING: return "target.monster.flag.reflecting";
+    case MB_TELEPORTING: return "target.monster.flag.teleporting";
+    case MB_BOUND: return "target.monster.flag.bound";
+    case MB_BULLSEYE_TARGET: return "target.monster.flag.bullseye_target";
+    case MB_VITRIFIED: return "target.monster.flag.vitrified";
+    case MB_CURSE_OF_AGONY: return "target.monster.flag.curse_of_agony";
+    case MB_RETREATING: return "target.monster.flag.retreating";
+    case MB_TOUCH_OF_BEOGH: return "target.monster.flag.touch_of_beogh";
+    case MB_AWAITING_RECRUITMENT: return "target.monster.flag.awaiting_recruitment";
+    case MB_VENGEANCE_TARGET: return "target.monster.flag.vengeance_target";
+    case MB_MAGNETISED: return "target.monster.flag.magnetised";
+    case MB_RIMEBLIGHT: return "target.monster.flag.rimeblight";
+    case MB_SHADOWLESS: return "target.monster.flag.shadowless";
+    case MB_FROZEN_IN_TERROR: return "target.monster.flag.frozen_in_terror";
+    case MB_SOUL_SPLINTERED: return "target.monster.flag.soul_splintered";
+    case MB_KINETIC_GRAPNEL: return "target.monster.flag.kinetic_grapnel";
+    case MB_TEMPERED: return "target.monster.flag.tempered";
+    case MB_BLINKITIS: return "target.monster.flag.blinkitis";
+    case MB_CHAOS_LACE: return "target.monster.flag.chaos_lace";
+    case MB_VEXED: return "target.monster.flag.vexed";
+    case MB_PYRRHIC_RECOLLECTION: return "target.monster.flag.pyrrhic_recollection";
+    case MB_CLOCKWORK_BEE_CAST: return "target.monster.flag.clockwork_bee_cast";
+    case MB_FIGMENT: return "target.monster.flag.figment";
+    case MB_PARADOX: return "target.monster.flag.paradox";
+    case MB_WARDING: return "target.monster.flag.warding";
+    case MB_DIMINISHED_SPELLS: return "target.monster.flag.diminished_spells";
+    case MB_TESSERACT_SPAWN: return "target.monster.flag.tesseract_spawn";
+    case MB_SUNDERING_READY: return "target.monster.flag.sundering_ready";
+    default: return nullptr;
+    }
+}
+
+vector<ZhArg> monster_info::attributes_messages() const
+{
+    vector<ZhArg> result;
+    for (const auto &name : monster_info_flag_names)
+    {
+        if (!is(name.flag) || _hide_moninfo_flag(name.flag)
+            || (name.flag == MB_PARALYSED && is(MB_FROZEN_IN_TERROR)))
+            continue;
+        const char *id = _monster_flag_message_id(name.flag);
+        ASSERT(id);
+        if (name.long_singular.find("@possessive@") != string::npos)
+            result.push_back(zh_message_arg("status", id,
+                {zh_word_arg("possessive", "target.monster.pronoun.",
+                             pronoun(PRONOUN_POSSESSIVE))}));
+        else
+            result.push_back(zh_message_arg("status", id));
+    }
+    if (type == MONS_NAMELESS_REVENANT)
+    {
+        const int count = props.exists(NOBODY_MEMORIES_KEY)
+            ? props[NOBODY_MEMORIES_KEY].get_vector().size() : NOBODY_MAX_MEMORIES;
+        result.push_back(zh_message_arg("status", count == 1
+            ? "target.monster.memories.one" : "target.monster.memories.many",
+            {zh_integer("count", count)}));
+    }
+    return result;
+}
+
+ZhArg monster_info::wounds_description_message(bool use_colour) const
+{
+    if (dam == MDAM_OKAY)
+        return {"wound", ZhArgType::Text, "", ""};
+    const char *level;
+    switch (dam)
+    {
+    case MDAM_ALMOST_DEAD: level = "almost"; break;
+    case MDAM_SEVERELY_DAMAGED: level = "severe"; break;
+    case MDAM_HEAVILY_DAMAGED: level = "heavy"; break;
+    case MDAM_MODERATELY_DAMAGED: level = "moderate"; break;
+    case MDAM_LIGHTLY_DAMAGED: level = "light"; break;
+    default: level = "okay"; break;
+    }
+    const string id = string("target.monster.wound.") + level
+        + (wounded_damaged(holi) ? ".damaged" : ".wounded");
+    auto wound = zh_message_arg("wound", id);
+    if (use_colour)
+        return zh_message_arg("wound", "target.monster.wound.colour",
+            {zh_colour("colour", colour_to_str(channel_to_colour(MSGCH_MONSTER_DAMAGE, dam))), wound});
+    return wound;
+}
+
+ZhArg monster_info::constriction_description_message() const
+{
+    auto result = zh_message_list("constriction", constriction_messages);
+    // The legacy API uses a comma between every constriction clause.
+    result.canonical = constriction_description();
+    // Manually constructed snapshots can lack semantic actor data. Never infer
+    // their names from canonical strings or emit partially translated clauses.
+    if (!result.supported
+        || (!result.canonical.empty() && constriction_messages.empty()))
+    {
+        result.supported = false;
+        result.localized = result.canonical;
+    }
+    return result;
 }
 
 string monster_info::wounds_description_sentence() const

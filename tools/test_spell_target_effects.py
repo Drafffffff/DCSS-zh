@@ -11,8 +11,8 @@ def main():
     source=(SRC/'spl-cast.cc').read_text()
     fixture=json.loads((Path(__file__).parent/'fixtures/spell-target-effects-english.json').read_text())
     assert 'ZhTranslationPause' in block(source,'string target_spell_desc('), 'Lua strings must stay canonical'
-    assert '"spell.prompt.effect.immune_roots"' in block(source,'desc_filter targeter_addl_desc(')
-    assert '"spell.prompt.effect.unstickable"' in block(source,'desc_filter targeter_addl_desc(')
+    assert '"spell.prompt.effect.immune_roots"' in block(source,'typed_desc_filter targeter_addl_desc_messages(')
+    assert '"spell.prompt.effect.unstickable"' in block(source,'typed_desc_filter targeter_addl_desc_messages(')
     assert 'zh_monster_info_arg("monster", info, DESC_PLAIN)' in source
     code=r'''
 #include "zh-message.h"
@@ -70,6 +70,9 @@ void describe_hit_chance(int pct,ostringstream&out,void*,bool,int){out<<"chance 
     # Match the already migrated shared hit descriptor's canonical exactly.
     en=messages['target.hit_chance']['en'];blind_en=messages['target.hit_chance.distance']['en']
     code=code.replace('out<<"chance to hit: "<<pct<<"%";if(you.duration[DUR_BLIND])out<<" (range 1)";', 'string result=you.duration[DUR_BLIND]?'+json.dumps(blind_en)+':'+json.dumps(en)+';auto p=result.find("{hit_percent}");result.replace(p,13,to_string(pct));out<<result;')
+    code+=r'''
+ZhArg describe_hit_chance_message(int pct,void*,bool,int){return zh_message_arg("chance",you.duration[DUR_BLIND]?"target.hit_chance.distance":"target.hit_chance",{zh_integer("hit_percent",pct)});}
+'''
     mapping={q.split('(')[0].split()[-1]:'old_'+q.split('(')[0].split()[-1] for q in fixture['functions']}
     for text in fixture['functions'].values():
         for name,new in sorted(mapping.items(),key=lambda pair:-len(pair[0])):
@@ -79,13 +82,19 @@ void describe_hit_chance(int pct,ostringstream&out,void*,bool,int){out<<"chance 
         if '_mon_threat_string' in q:
             code+=block(source,'static ZhArg _mon_threat_arg(')+'\n'
             code+=block(source,'static ZhArg _polymorph_outcomes_arg(')+'\n'
-        else:code+=block(source,q)+'\n'
+        else:
+            typed_query=q.replace('vector<string>', 'vector<ZhArg>')
+            name=q.split('(')[0].split()[-1]
+            typed_query=typed_query.replace(name+'(', name+'_messages(')
+            code+=block(source,typed_query)+'\n'
+
     code+=r'''
 int cases=0;
+vector<string> displayed(const vector<ZhArg>& args){vector<string> result;for(const auto&arg:args)result.push_back(zh_language_enabled()?arg.localized:arg.canonical);return result;}
 template<class F,class G>void compare(F old,G now){
  vector<string> canonical;defines=0;{ZhTranslationPause pause;canonical=old();}int old_defines=defines;defines=0;
- vector<string> actual;{ZhTranslationPause pause;actual=now();}assert(canonical==actual&&old_defines==defines);defines=0;
- auto translated=now();assert(translated.size()==canonical.size());for(size_t i=0;i<translated.size();++i){assert(translated[i]!=canonical[i]);}assert(old_defines==defines);++cases;
+ vector<string> actual;{ZhTranslationPause pause;actual=displayed(now());}assert(canonical==actual&&old_defines==defines);defines=0;
+ auto translated=displayed(now());assert(translated.size()==canonical.size());for(size_t i=0;i<translated.size();++i){assert(translated[i]!=canonical[i]);}assert(old_defines==defines);++cases;
 }
 int main(){setenv("DCSS_LANG","zh",1);setenv("DCSS_ZH_FORBID_LEGACY","1",1);ZhLegacyGuard guard("test.spell.effects");monster_info mi;targeter hit;targeter_beam beam;
 for(int mask=0;mask<128;++mask)for(int pow:{1,3,10,25,99})for(int hd:{1,3,10,25}){
@@ -111,12 +120,17 @@ for(int type:{0,int(MONS_UGLY_THING),int(MONS_VERY_UGLY_THING),int(MONS_SLIME_CR
  compare([&]{return old_desc_wl_success_chance(mi,40,&beam);},[&]{return desc_wl_success_chance(mi,40,&beam);});
 }
 // Unknown semantic monster name triggers an entire polymorph sentence fallback.
-mi=monster_info();mi.wl=5;mi.props.has=true;beam.affected=true;beam.beam.flavour=BEAM_POLYMORPH;polyset={1,4,2};known=false;auto visible=desc_wl_success_chance(mi,40,&beam);vector<string> canonical;{ZhTranslationPause pause;canonical=old_desc_wl_success_chance(mi,40,&beam);}assert(visible.size()==2&&visible[0]==canonical[0]&&visible[1]!=canonical[1]);++cases;
+mi=monster_info();mi.wl=5;mi.props.has=true;beam.affected=true;beam.beam.flavour=BEAM_POLYMORPH;polyset={1,4,2};known=false;auto visible_args=desc_wl_success_chance(mi,40,&beam);auto visible=displayed(visible_args);assert(!visible_args[0].supported&&visible_args[1].supported);vector<string> canonical;{ZhTranslationPause pause;canonical=old_desc_wl_success_chance(mi,40,&beam);}assert(visible.size()==2&&visible[0]==canonical[0]&&visible[1]!=canonical[1]);++cases;
 // The public Lua entry is guarded by a translation pause; every effect helper
 // above is compared inside that same pause to prove canonical English survives.
 cout<<"PASS: "<<cases<<" actual spell effect producer cases, chances, effect combinations, polymorph grammar/colours, unknown-name full fallback and canonical Lua mode\n";
 }
 '''
+    for q in fixture['functions']:
+        name=q.split('(')[0].split()[-1]
+        if name=='_mon_threat_string':
+            continue
+        code=re.sub(r'\b'+re.escape(name)+r'(?=\()',name+'_messages',code)
     with tempfile.TemporaryDirectory() as tmp:
         p=Path(tmp);(p/'test.cc').write_text(code)
         subprocess.run(['c++','-std=c++11','-DZH_STANDALONE','-I'+str(SRC),str(p/'test.cc'),str(SRC/'zh-message.cc'),str(SRC/'zh-localization.cc'),'-o',str(p/'test')],check=True)

@@ -2,6 +2,7 @@
 #include "AppHdr.h"
 #endif
 #include "zh-message.h"
+#include "zh-database.h"
 #include "zh-localization.h"
 #include <algorithm>
 #include <cstdlib>
@@ -220,6 +221,18 @@ std::string zh_source(const char *context, const char *source_literal)
     if (std::getenv("DCSS_ZH_STRICT_SOURCE"))
         throw std::invalid_argument(std::string("Missing localization source: ") + context);
     return source_literal;
+}
+
+ZhArg zh_database_source_arg(const std::string &key, const char *context,
+                             const std::string &source) {
+    if (source.empty()) return {key, ZhArgType::Text, "", ""};
+    for (const auto &entry : zh_source_definitions)
+        if (entry.context && source == entry.source && std::string(context) == entry.context)
+            return zh_message_arg(key, entry.id);
+    // The regular lookup reports a missing fixed template (and throws in
+    // strict development runs). Propagate support to the entire parent tree.
+    zh_source(context, source.c_str());
+    return {key, ZhArgType::Text, source, source, false};
 }
 
 ZhArg zh_message_arg(const std::string &key, const std::string &id,

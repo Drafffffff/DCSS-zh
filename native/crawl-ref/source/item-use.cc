@@ -2614,23 +2614,23 @@ static bool _scroll_will_harm(const scroll_type scr, const actor &m)
         && could_harm(&you, &m);
 }
 
-static vector<string> _desc_finite_wl(const monster_info& mi)
+static vector<ZhArg> _desc_finite_wl(const monster_info& mi)
 {
-    vector<string> r;
+    vector<ZhArg> r;
     const int wl = mi.willpower();
     if (wl == WILL_INVULN)
-        r.push_back("infinite will");
+        r.push_back(zh_message_arg("effect", "spell.prompt.effect.infinite_will"));
     else
-        r.push_back("susceptible");
+        r.push_back(zh_message_arg("effect", "target.monster.callback.susceptible"));
     return r;
 }
 
-static vector<string> _desc_res_torment(const monster_info& mi)
+static vector<ZhArg> _desc_res_torment(const monster_info& mi)
 {
     if (mi.resists() & (MR_RES_TORMENT))
-        return { "not susceptible" };
+        return { zh_message_arg("effect", "spell.prompt.effect.not_susceptible") };
     else
-        return { "susceptible" };
+        return { zh_message_arg("effect", "target.monster.callback.susceptible") };
 }
 
 class targeter_finite_will : public targeter_multimonster
@@ -2739,13 +2739,13 @@ static bool _scroll_targeting_check(scroll_type scroll, dist *target)
         {
             // TODO: can't these be rolled in with the targeter somehow? Will
             // a fear (etc) targeter ever not have this?
-            args.get_desc_func = targeter_addl_desc(SPELL_CAUSE_FEAR, 1000,
+            args.get_desc_messages_func = targeter_addl_desc_messages(SPELL_CAUSE_FEAR, 1000,
                 get_spell_flags(SPELL_CAUSE_FEAR), hitfunc.get());
         }
         else if (scroll == SCR_VULNERABILITY || scroll == SCR_IMMOLATION)
-            args.get_desc_func = _desc_finite_wl;
+            args.get_desc_messages_func = _desc_finite_wl;
         else if (scroll == SCR_TORMENT)
-            args.get_desc_func = _desc_res_torment;
+            args.get_desc_messages_func = _desc_res_torment;
 
         args.mode = TARG_ANY;
         args.self = confirm_prompt_type::cancel;
@@ -3299,17 +3299,17 @@ bool targeter_invisibility::affects_monster(const monster_info& mon)
     return !mon.is(MB_FIREWOOD) && !mon.can_see_invisible();
 }
 
-static vector<string> _desc_see_invis(const monster_info& mi)
+static vector<ZhArg> _desc_see_invis(const monster_info& mi)
 {
-    vector<string> r;
+    vector<ZhArg> r;
     if (mi.can_see_invisible())
-        r.push_back("can see invisible");
+        r.push_back(zh_message_arg("effect", "target.monster.callback.see_invisible"));
     else if (!mi.is(MB_CANT_SEE_YOU))
     {
         if (!you.backlit())
-            r.push_back("will become unable to see you");
+            r.push_back(zh_message_arg("effect", "target.monster.callback.lose_sight"));
         else
-            r.push_back("cannot see invisible");
+            r.push_back(zh_message_arg("effect", "target.monster.callback.cannot_see_invisible"));
     }
     return r;
 }
@@ -3343,7 +3343,7 @@ bool invisibility_target_check(const char* prompt)
 
     direction_chooser_args args;
     unique_ptr<targeter> hitfunc = make_unique<targeter_invisibility>();
-    args.get_desc_func = _desc_see_invis;
+    args.get_desc_messages_func = _desc_see_invis;
     args.mode = TARG_ANY;
     args.self = confirm_prompt_type::cancel;
     args.hitfunc = hitfunc.get();

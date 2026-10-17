@@ -74,8 +74,16 @@ try:
      time.sleep(.5)
      subprocess.run(['xdotool','key','--delay','150','h','l','h'],env=env,check=True)
      trap_followup+=1
+    if (name.startswith('monster-') and trap_followup < 3
+            and ids and time.monotonic()-started>=12+6*trap_followup and not ready):
+     # First-encounter tutorials force more even with show_more=false.
+     # Advance only this disposable display, never a player's running process.
+     subprocess.run(['xdotool','key','space'],env=env,check=True)
+     trap_followup+=1
     if ready:
      reached=True
+     if name in ('monster-target-equipped','monster-target-undead'):
+      subprocess.run(['xdotool','key','space','Escape','x','plus'],env=env,check=True)
      # SDL may centre the pointer after window creation. Reapply keyboard aim
      # after loading; otherwise the mouse can choose an unseen cell instead.
      if name in ('external-passwall','external-inner-flame','external-simulacrum','external-crocodile'):

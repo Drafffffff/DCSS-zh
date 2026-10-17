@@ -88,6 +88,7 @@ public:
         return true;
     }
     virtual vector<string> get_monster_desc(const monster_info& mi) override;
+    vector<ZhArg> get_monster_desc_messages(const monster_info& mi) override;
 
     bool targeted() override;
 
@@ -194,27 +195,25 @@ void fire_target_behaviour::display_help()
     set_prompt();
 }
 
-vector<string> fire_target_behaviour::get_monster_desc(const monster_info& mi)
+vector<ZhArg> fire_target_behaviour::get_monster_desc_messages(const monster_info& mi)
 {
-    vector<string> descs;
+    vector<ZhArg> descs;
     item_def* item = active_item();
     const item_def *launcher = action.get_launcher();
     const bool ranged = launcher && is_range_weapon(*launcher);
     if (!targeted() || !(ranged || (item && item->base_type == OBJ_MISSILES)))
         return descs;
 
-    ostringstream result;
-    describe_to_hit(mi, result, ranged ? launcher : item);
-    descs.emplace_back(result.str());
+    descs.push_back(describe_to_hit_message(mi, ranged ? launcher : item));
 
     if (get_ammo_brand(*item) == SPMSL_SILVER && mi.is(MB_CHAOTIC))
-        descs.emplace_back("chaotic");
+        descs.push_back(zh_message_arg("effect", "target.monster.throw.chaotic"));
     if (item->is_type(OBJ_MISSILES, MI_THROWING_NET))
     {
         if (mi.net_immune())
-            descs.emplace_back("immune to nets");
+            descs.push_back(zh_message_arg("effect", "target.monster.throw.net_immune"));
         else if (mi.net_escape_capable())
-            descs.emplace_back("can blink free");
+            descs.push_back(zh_message_arg("effect", "target.monster.throw.blink_free"));
     }
 
     // Display the chance for a dart of para/confuse/sleep/frenzy
@@ -229,15 +228,22 @@ vector<string> fire_target_behaviour::get_monster_desc(const monster_info& mi)
             if (mi.holi & (MH_UNDEAD | MH_NONLIVING))
                 immune = true;
 
-            string verb = brand == SPMSL_FRENZY ? "frenzy" : "blind";
-
-            string chance_string = immune ? "immune" :
-                                   make_stringf("chance to %s on hit: %d%%",
-                                                verb.c_str(), chance);
-            descs.emplace_back(chance_string);
+            descs.push_back(immune
+                ? zh_message_arg("effect", "target.monster.throw.immune")
+                : zh_message_arg("effect", brand == SPMSL_FRENZY
+                    ? "target.monster.throw.frenzy_chance"
+                    : "target.monster.throw.blind_chance", {zh_integer("chance", chance)}));
         }
     }
     return descs;
+}
+
+vector<string> fire_target_behaviour::get_monster_desc(const monster_info& mi)
+{
+    vector<string> result;
+    for (const auto &message : get_monster_desc_messages(mi))
+        result.push_back(message.canonical);
+    return result;
 }
 
 /**

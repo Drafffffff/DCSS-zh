@@ -612,7 +612,7 @@ static bool _phial_of_floods(dist *target)
     targeter_beam* beamfunc = dynamic_cast<targeter_beam*>(hitfunc.get());
     if (beamfunc && beamfunc->beam.hit > 0)
     {
-        args.get_desc_func = bind(desc_beam_hit_chance, placeholders::_1,
+        args.get_desc_messages_func = bind(desc_beam_hit_chance_messages, placeholders::_1,
             hitfunc.get());
     }
 

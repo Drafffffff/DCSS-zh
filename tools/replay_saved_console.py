@@ -207,13 +207,31 @@ for result in results:
             assert sentence in terminal,(result['scene'],'intended complete message not visible',ident,sentence)
             visible.append(ident)
         result['visible_message_ids']=visible
-    if result['scene'].startswith(('prompt-', 'terrain-')):
+    if result['scene'].startswith(('prompt-', 'terrain-', 'monster-')):
         # A traced speculative probe is not proof of a displayed message.
         # Compare bound complete templates with the real terminal, ignoring
         # terminal cursor-based padding and style escapes only.
         terminal=(a.out/result['scene']/'transcript.txt').read_text()
         terminal=re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]','',terminal)
         terminal=re.sub(r'\x1b[()][A-Za-z0-9]','',terminal)
+        # DB traces record the fixed template before [[reference]] expansion.
+        # Expand only documented internal keys using reviewed raw templates;
+        # compare the complete resulting paragraph, never omit child prose.
+        def expand_references(text):
+            if '[[' not in text: return text
+            root=Path(__file__).resolve().parents[1]
+            rows={}
+            for section in (root/'native/crawl-ref/source/dat/descript/monstatus.txt').read_text().split('%%%%'):
+                section='\n'.join(line for line in section.splitlines() if not line.startswith('#')).strip()
+                if section:
+                    key,body=section.split('\n',1); rows[key]=body.strip()
+            translated={m['en']:m['zh'] for path in (root/'localization/migration').glob('luna-*-messages.json')
+                        for m in json.loads(path.read_text())['messages']
+                        if m.get('source_context') in ('detail.monster.status_text','detail.monster.status_reference')}
+            def expand(body,depth=0):
+                assert depth<32,'Cyclic DB reference in visible oracle'
+                return re.sub(r'\[\[([^]\n]+)\]\]',lambda match:expand(translated[rows[match[1]]],depth+1),body)
+            return expand(text)
         normalize=lambda text:re.sub(r'\s+','',re.sub(r'<[^>]+>','',text))
         visible=normalize(terminal)
         checked=[]
@@ -221,7 +239,7 @@ for result in results:
             rendered=[line.split('\t',2)[2] for line in result['values']
                       if line.startswith(identity+'\t')]
             assert any(normalize(re.sub(r'\\([nrt])',' ',text)) in visible
-                       for text in rendered),(result['scene'],'bound message not visible',identity)
+                       for text in [expand_references(t) for t in rendered]),(result['scene'],'bound message not visible',identity)
             checked.append(identity)
         result['visible_message_ids']=checked
     if result['scene'].startswith('hints-'):

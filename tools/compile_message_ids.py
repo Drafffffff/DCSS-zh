@@ -31,6 +31,8 @@ def compile_catalog():
                 assert not re.search(r'[{}]',PLACE.sub('',slots)),(identity,language)
             tags=lambda s:sorted(re.findall(r'</?[a-z][^>]*>',s))
             assert tags(entry['en'])==tags(entry['zh']),(identity,'colour/style tags')
+            references=lambda s:sorted(re.findall(r'\[\[[^]\n]+\]\]',s))
+            assert references(entry['en'])==references(entry['zh']),(identity,'internal database references')
             shortcuts=lambda s:sorted(SHORTCUT.findall(s))
             assert shortcuts(entry['en'])==shortcuts(entry['zh']),(identity,'literal shortcut tokens')
             messages[identity]=entry

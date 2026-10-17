@@ -1,0 +1,656 @@
+which: no advpng in (/usr/local/bin:/usr/bin)
+which: no pngcrush in (/usr/local/bin:/usr/bin)
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+make -C rltiles all ARCH=x86_64-redhat-linux NO_PKGCONFIG= TILES=y
+make[1]: Entering directory '/work/source/source/rltiles'
+    GEN tiledef-main.h
+    GEN tiledef-dngn.h
+    GEN tiledef-floor.h
+    GEN tiledef-wall.h
+    GEN tiledef-feat.h
+    GEN tiledef-player.h
+    GEN tiledef-gui.h
+    GEN tiledef-icons.h
+make[1]: Leaving directory '/work/source/source/rltiles'
+    PYTHON config.h
+    PYTHON rltilesstatus-icon-sizes.h
+    CXX zh-message.o
+    CXX zh-display-name.o
+    CXX ability.o
+    CXX abyss.o
+    CXX acquire.o
+    CXX actor.o
+    CXX adjust.o
+    CXX arena.o
+    CXX artefact.o
+    CXX attack.o
+    CXX beam.o
+    CXX behold.o
+    CXX branch.o
+    CXX branch-data-json.o
+    CXX chardump.o
+    CXX cio.o
+    CXX cloud.o
+    CXX clua.o
+    CXX colour.o
+    CXX command.o
+    CXX crash.o
+    CXX ctest.o
+In file included from crash.cc:90:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from crash.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+In file included from command.cc:38:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from command.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX database.o
+    CXX dbg-asrt.o
+In file included from database.cc:27:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from database.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX dbg-maps.o
+    CXX dbg-objstat.o
+    CXX dbg-scan.o
+In file included from dbg-maps.cc:27:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from dbg-maps.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX dbg-util.o
+    CXX death-curse.o
+In file included from dbg-objstat.cc:41:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from dbg-objstat.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX decks.o
+In file included from dbg-util.cc:26:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from dbg-util.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX delay.o
+    CXX describe.o
+    CXX describe-god.o
+    CXX describe-spells.o
+    CXX dgn-layouts.o
+    CXX dgn-overview.o
+    CXX dgn-shoals.o
+    CXX directn.o
+    CXX dlua.o
+    CXX dungeon.o
+    CXX end.o
+    CXX english.o
+    CXX errors.o
+In file included from errors.cc:15:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from errors.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX evoke.o
+    CXX exclude.o
+    CXX fight.o
+    CXX files.o
+    CXX fineff.o
+fineff.cc: In member function 'virtual bool delayed_action_fineff::mergeable(const final_effect&) const':
+fineff.cc:288:40: warning: unused parameter 'a' [-Wunused-parameter]
+  288 |     bool mergeable(const final_effect& a) const override { return false; };
+      |                    ~~~~~~~~~~~~~~~~~~~~^
+In file included from files.cc:87:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from files.cc:13:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX format.o
+    CXX game-options.o
+    CXX ghost.o
+    CXX god-abil.o
+    CXX god-blessing.o
+    CXX god-companions.o
+    CXX god-conduct.o
+    CXX god-menu.o
+    CXX god-passive.o
+    CXX god-prayer.o
+    CXX god-wrath.o
+    CXX hints.o
+hints.cc: In function 'std::string hints_describe_item(const item_def&)':
+hints.cc:2117:69: warning: default argument specified for lambda parameter [-Wc++14-extensions]
+ 2117 |     const auto emit = [&](const string &id, initializer_list<ZhArg> args = {}) {
+      |                                             ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
+    CXX hiscores.o
+    CXX initfile.o
+    CXX invent.o
+In file included from initfile.cc:70:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from initfile.cc:12:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX item-use.o
+    CXX item-name.o
+    CXX item-prop.o
+In file included from item-name.cc:54:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from item-name.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX items.o
+    CXX jobs.o
+    CXX kills.o
+    CXX known-items.o
+    CXX l-crawl.o
+    CXX l-debug.o
+    CXX l-dgn.o
+    CXX l-dgngrd.o
+    CXX l-dgnit.o
+    CXX l-dgnmon.o
+    CXX l-dgntil.o
+    CXX l-feat.o
+    CXX l-file.o
+    CXX l-item.o
+    CXX l-los.o
+    CXX l-moninf.o
+    CXX l-mons.o
+    CXX l-view.o
+    CXX l-wiz.o
+    CXX l-you.o
+    CXX lang-fake.o
+    CXX libutil.o
+    CXX loading-screen.o
+    CXX lookup-help.o
+    CXX macro.o
+    CXX makeitem.o
+    CXX map-knowledge.o
+In file included from macro.cc:55:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from macro.cc:21:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX mapdef.o
+    CXX mapmark.o
+    CXX maps.o
+In file included from maps.cc:31:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from maps.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX melee-attack.o
+    CXX menu.o
+    CXX message.o
+    CXX misc.o
+    CXX mon-abil.o
+    CXX mon-act.o
+    CXX mon-behv.o
+    CXX mon-cast.o
+    CXX mon-clone.o
+    CXX mon-death.o
+    CXX mon-ench.o
+    CXX mon-explode.o
+    CXX mon-gear.o
+    CXX mon-info.o
+    CXX mon-pick.o
+    CXX mon-place.o
+    CXX mon-poly.o
+    CXX mon-speak.o
+    CXX mon-util.o
+    CXX monster.o
+    CXX movement.o
+    CXX mutation.o
+    CXX nearby-danger.o
+    CXX newgame.o
+    CXX ng-init.o
+    CXX ng-input.o
+    CXX ng-setup.o
+    CXX notes.o
+    CXX ouch.o
+    CXX outer-menu.o
+    CXX output.o
+    CXX package.o
+    CXX pattern.o
+    CXX playable.o
+In file included from package.cc:39:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from package.cc:21:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX player-equip.o
+    CXX player-notices.o
+    CXX player-reacts.o
+    CXX player-stats.o
+player-reacts.cc: In function 'void _regenerate_hp_and_mp(int)':
+player-reacts.cc:1209:15: warning: unused variable 'old_hp' [-Wunused-variable]
+ 1209 |     const int old_hp = you.hp;
+      |               ^~~~~~
+player-reacts.cc:1210:15: warning: unused variable 'old_mp' [-Wunused-variable]
+ 1210 |     const int old_mp = you.magic_points;
+      |               ^~~~~~
+    CXX player.o
+    CXX potion.o
+    CXX precision-menu.o
+    CXX prompt.o
+    CXX quiver.o
+    CXX randbook.o
+    CXX random.o
+In file included from random.cc:14:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from random.cc:1:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX ranged-attack.o
+    CXX religion.o
+    CXX scroller.o
+    CXX shopping.o
+    CXX shout.o
+    CXX show.o
+shopping.cc: In member function 'bool ShoppingList::cull_identical_items(const item_def&, int)':
+shopping.cc:2182:30: warning: declaration of 'item_en' shadows a previous local [-Wshadow]
+ 2182 |                 const string item_en = describe_thing(thing, DESC_A);
+      |                              ^~~~~~~
+shopping.cc:2173:26: note: shadowed declaration is here
+ 2173 |             const string item_en = describe_thing(thing, DESC_A);
+      |                          ^~~~~~~
+    CXX showsymb.o
+    CXX skill-menu.o
+    CXX skills.o
+    CXX species.o
+    CXX spl-book.o
+    CXX spl-cast.o
+    CXX spl-damage.o
+    CXX spl-goditem.o
+    CXX spl-miscast.o
+    CXX spl-monench.o
+    CXX spl-selfench.o
+    CXX spl-summoning.o
+    CXX spl-transloc.o
+    CXX spl-util.o
+    CXX spl-vortex.o
+    CXX sqldbm.o
+In file included from sqldbm.cc:17:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from sqldbm.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX stairs.o
+    CXX startup.o
+    CXX stash.o
+In file included from stash.cc:44:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from stash.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX state.o
+    CXX status.o
+    CXX store.o
+    CXX stringutil.o
+    CXX syscalls.o
+    CXX tags.o
+In file included from syscalls.cc:8:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from syscalls.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX target.o
+    CXX terrain.o
+    CXX throw.o
+In file included from tags.cc:85:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from tags.cc:14:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX timed-effects.o
+    CXX transform.o
+    CXX traps.o
+    CXX travel.o
+    CXX ui.o
+    CXX unicode.o
+In file included from unicode.cc:17:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from unicode.cc:7:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX view.o
+    CXX viewmap.o
+    CXX wiz-dgn.o
+    CXX wiz-dump.o
+    CXX wiz-fsim.o
+In file included from wiz-fsim.cc:41:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from wiz-fsim.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX wiz-item.o
+    CXX wiz-mon.o
+    CXX wiz-you.o
+In file included from wiz-item.cc:47:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from wiz-item.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX wizard.o
+    CXX xom.o
+    CXX tilepick.o
+    CXX tileview.o
+    CXX zot.o
+In file included from xom.cc:72:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from xom.cc:6:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX tiledoll.o
+    CXX tilemcache.o
+In file included from tiledoll.cc:17:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from tiledoll.cc:1:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX tilepick-p.o
+    CXX tilecell.o
+    CXX libgui.o
+    CXX tiledgnbuf.o
+    CXX tilereg-abl.o
+    CXX tilereg-cmd.o
+    CXX tilereg-crt.o
+    CXX tilereg-dgn.o
+    CXX tilereg-doll.o
+    CXX tilereg-grid.o
+    CXX tilereg-inv.o
+    CXX tilereg-mem.o
+    CXX tilereg-mon.o
+    CXX tilereg-msg.o
+    CXX tilereg-skl.o
+    CXX tilereg-spl.o
+    CXX tilereg-tab.o
+    CXX tilesdl.o
+    CXX tiletex.o
+    CXX windowmanager-sdl.o
+    CXX glwrapper-ogl.o
+    CXX fontwrapper-ft.o
+    CXX rltiles/tiledef-floor.o
+In file included from fontwrapper-ft.cc:18:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from fontwrapper-ft.cc:1:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+In file included from windowmanager-sdl.cc:32:
+syscalls.h:32:5: warning: redundant redeclaration of 'int fdatasync(int)' in same scope [-Wredundant-decls]
+   32 | int fdatasync(int fd);
+      |     ^~~~~~~~~
+In file included from /usr/include/zconf.h:164,
+                 from /usr/include/zlib.h:41,
+                 from package.h:11,
+                 from tags.h:18,
+                 from store.h:25,
+                 from externs.h:40,
+                 from AppHdr.h:306,
+                 from windowmanager-sdl.cc:1:
+/usr/include/unistd.h:1150:12: note: previous declaration of 'int fdatasync(int)'
+ 1150 | extern int fdatasync (int __fildes);
+      |            ^~~~~~~~~
+    CXX rltiles/tiledef-wall.o
+    CXX rltiles/tiledef-feat.o
+    CXX rltiles/tiledef-main.o
+    CXX rltiles/tiledef-player.o
+    CXX rltiles/tiledef-gui.o
+    CXX rltiles/tiledef-icons.o
+    CXX rltiles/tiledef-dngn.o
+    CXX rltiles/tiledef-unrand.o
+    CXX main.o
+    CXX util/levcomp.tab.o
+    CXX version.o
+levcomp.tab.cc: In function 'int yyparse()':
+levcomp.tab.cc:2482:37: warning: argument 1 value '18446744073709551615' exceeds maximum object size 9223372036854775807 [-Walloc-size-larger-than=]
+In file included from /usr/include/c++/15/cstdlib:83,
+                 from ./externs.h:11,
+                 from ./AppHdr.h:306,
+                 from levcomp.ypp:4:
+/usr/include/stdlib.h:672:14: note: in a call to allocation function 'void* malloc(size_t)' declared here
+  672 | extern void *malloc (size_t __size) __THROW __attribute_malloc__
+      |              ^~~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option '-Wno-null-conversion' may have been intended to silence earlier diagnostics
+    LINK crawl

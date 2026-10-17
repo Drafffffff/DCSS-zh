@@ -6,6 +6,7 @@
 #include "enchant-type.h"
 #include "mon-util.h"
 #include "options.h"
+#include "zh-message.h"
 #include "tag-version.h"
 
 using std::vector;
@@ -309,6 +310,8 @@ struct monster_info_base
     CrawlHashTable props;
     string constrictor_name;
     vector<string> constricting_name;
+    // UI-only semantic snapshots; canonical fields above remain Lua-compatible.
+    vector<ZhArg> constriction_messages;
     monster_spells spells;
     mon_attack_def attack[MAX_NUM_ATTACKS];
     bool can_go_frenzy;
@@ -408,6 +411,9 @@ struct monster_info : public monster_info_base
     string full_name(description_level_type desc = DESC_PLAIN) const;
 
     vector<string> attributes() const;
+    vector<ZhArg> attributes_messages() const;
+    ZhArg wounds_description_message(bool colour = false) const;
+    ZhArg constriction_description_message() const;
 
     const char *pronoun(pronoun_type variant) const;
     bool pronoun_plurality() const;

@@ -2618,22 +2618,18 @@ bool hints_monster_interesting(const monster* mons)
     return mons_threat_level(*mons) >= MTHRT_TOUGH;
 }
 
-string hints_describe_monster(const monster_info& mi, bool has_stat_desc)
+static ZhArg _hints_describe_monster_message(const monster_info& mi, bool has_stat_desc)
 {
-    ostringstream ostr;
+    vector<ZhArg> paragraphs;
     bool dangerous = false;
     if (mons_is_unique(mi.type))
     {
-        ostr << "Did you think you were the only adventurer in the dungeon? "
-                "Well, you thought wrong! These unique adversaries often "
-                "possess skills that normal monsters wouldn't, so be "
-                "careful.\n\n";
+        paragraphs.push_back(zh_message_arg("paragraph", "target.monster.hint.unique"));
         dangerous = true;
     }
     else if (mi.type == MONS_PLAYER_GHOST)
     {
-        ostr << "The ghost of a deceased adventurer, it would like nothing "
-                "better than to send you the same way.\n\n";
+        paragraphs.push_back(zh_message_arg("paragraph", "target.monster.hint.ghost"));
         dangerous = true;
     }
     // Don't call friendly monsters dangerous.
@@ -2641,86 +2637,84 @@ string hints_describe_monster(const monster_info& mi, bool has_stat_desc)
     {
         if (mi.threat == MTHRT_NASTY)
         {
-            ostr << "This monster appears to be really dangerous!\n";
+            paragraphs.push_back(zh_message_arg("paragraph", "target.monster.hint.nasty"));
             dangerous = true;
         }
         else if (mi.threat == MTHRT_TOUGH)
         {
-            ostr << "This monster appears to be quite dangerous.\n";
+            paragraphs.push_back(zh_message_arg("paragraph", "target.monster.hint.tough"));
             dangerous = true;
         }
     }
 
     if (mi.is(MB_BERSERK))
     {
-        ostr << "A berserking monster is bloodthirsty and fighting madly. "
-                "Such a blood rage makes it particularly dangerous!\n\n";
+        paragraphs.push_back(zh_message_arg("paragraph", "target.monster.hint.berserk"));
         dangerous = true;
     }
 
     // Monster is highlighted.
     if (mi.attitude == ATT_FRIENDLY)
     {
-        ostr << "Friendly monsters will follow you around and attempt to aid "
-                "you in battle. You can order nearby allies by <w>t</w>alking "
-                "to them.";
+        paragraphs.push_back(zh_message_arg("paragraph", "target.monster.hint.friendly"));
 
         if (!mons_att_wont_attack(mi.attitude))
         {
-            ostr << "\n\nHowever, it is only <w>temporarily</w> friendly, "
-                    "and will become dangerous again when this friendliness "
-                    "wears off.";
+            paragraphs.push_back(zh_message_arg("paragraph", "target.monster.hint.temporary"));
         }
     }
     else if (dangerous)
     {
         if (!Hints.hints_explored && (mi.is(MB_WANDERING) || mi.is(MB_UNAWARE)))
         {
-            ostr << "You can easily mark its square as dangerous to avoid "
-                    "accidentally entering into its field of view when using "
-                    "auto-explore or auto-travel. To do so, enter targeting "
-                    "mode with <w>x</w> and then press <w>e</w> when your "
-                    "cursor is hovering over the monster's grid. Doing so will "
-                    "mark this grid and all surrounding ones within a radius "
-                    "of 8 as \"excluded\" ones that explore or travel modes "
-                    "won't enter.";
+            paragraphs.push_back(zh_message_arg("paragraph", "target.monster.hint.exclusion"));
         }
         else
         {
-            ostr << "This might be a good time to run away";
-
-            if (you_worship(GOD_TROG) && you.can_go_berserk())
-                ostr << " or apply your Berserk <w>a</w>bility";
-            ostr << ".";
+            paragraphs.push_back(zh_message_arg("paragraph",
+                you_worship(GOD_TROG) && you.can_go_berserk()
+                    ? "target.monster.hint.flee.berserk" : "target.monster.hint.flee"));
         }
     }
     else if (mi.asleep() || mi.is(MB_UNAWARE) || mi.is(MB_WANDERING))
     {
-        ostr << "Apparently it has not noticed you - yet. Note that you do "
-                "not have to engage every monster you meet. Sometimes, "
-                "discretion is the better part of valour.";
+        paragraphs.push_back(zh_message_arg("paragraph", "target.monster.hint.unaware"));
     }
     else if (Options.may_stab_highlight != CHATTR_NORMAL
              && mi.is(MB_DISTRACTED))
     {
-        ostr << "Apparently it has been distracted by something. You could "
-                "use this opportunity to sneak up on this monster - or to "
-                "sneak away.";
+        paragraphs.push_back(zh_message_arg("paragraph", "target.monster.hint.distracted"));
     }
 
     if (!dangerous && !has_stat_desc)
     {
-        ostr << "\nThis monster doesn't appear to have any resistances or "
-                "susceptibilities. It cannot fly and is of average speed. "
-                "Examining other, possibly more high-level monsters can give "
-                "important clues as to how to deal with them.";
+        paragraphs.push_back(zh_message_arg("paragraph", "target.monster.hint.no_stats"));
     }
 
-    if (ostr.str().empty())
-        return "";
-    return "\n<" + colour_to_str(channel_to_colour(MSGCH_TUTORIAL)) + ">"
-            + ostr.str()
-            + "</" + colour_to_str(channel_to_colour(MSGCH_TUTORIAL)) + ">";
+    if (paragraphs.empty())
+        return {"hint", ZhArgType::Text, "", ""};
+    ZhArg body{"body", ZhArgType::Text, "", ""};
+    for (const auto &paragraph : paragraphs)
+    {
+        body.canonical += paragraph.canonical;
+        body.localized += paragraph.localized;
+        body.supported = body.supported && paragraph.supported;
+    }
+    if (!body.supported)
+        body.localized = body.canonical;
+    return zh_message_arg("hint", "target.monster.hint.style", {
+        zh_colour("colour", colour_to_str(channel_to_colour(MSGCH_TUTORIAL))), body});
+}
+
+string hints_describe_monster(const monster_info& mi, bool has_stat_desc)
+{
+    return _hints_describe_monster_message(mi, has_stat_desc).canonical;
+}
+
+string hints_describe_monster_display(const monster_info& mi, bool has_stat_desc)
+{
+    const auto message = _hints_describe_monster_message(mi, has_stat_desc);
+    return zh_language_enabled() ? message.localized : message.canonical;
 }
 
 void hints_observe_cell(const coord_def& gc)

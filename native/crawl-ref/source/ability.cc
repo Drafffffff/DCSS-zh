@@ -2561,33 +2561,36 @@ private:
     ability_type abil;
 };
 
-static vector<string> _desc_slouch_damage(const monster_info& mi)
+static vector<ZhArg> _desc_slouch_damage(const monster_info& mi)
 {
     if (!monster_at(mi.pos) || !you.can_see(*monster_at(mi.pos)))
-        return vector<string>{};
+        return vector<ZhArg>{};
     else if (!is_slouchable(mi.pos))
-        return vector<string>{make_stringf("not susceptible")};
+        return vector<ZhArg>{zh_message_arg("effect", "spell.prompt.effect.not_susceptible")};
     else
-        return vector<string>{make_stringf("damage: %dd3 / 2", slouch_damage(monster_at(mi.pos)))};
+        return vector<ZhArg>{zh_message_arg("effect", "target.monster.callback.slouch_damage",
+            {zh_integer("dice", slouch_damage(monster_at(mi.pos)))})};
 }
 
-static vector<string> _desc_bind_soul_hp(const monster_info& mi)
+static vector<ZhArg> _desc_bind_soul_hp(const monster_info& mi)
 {
     if (!monster_at(mi.pos) || !yred_can_bind_soul(monster_at(mi.pos)))
-        return vector<string>{};
-    return vector<string>{make_stringf("hp as a bound soul: ~%d", yred_get_bound_soul_hp(mi.type, true))};
+        return vector<ZhArg>{};
+    return vector<ZhArg>{zh_message_arg("effect", "target.monster.callback.bound_soul_hp",
+        {zh_integer("hp", yred_get_bound_soul_hp(mi.type, true))})};
 }
 
-static vector<string> _desc_marionette_spells(const monster_info& mi)
+static vector<ZhArg> _desc_marionette_spells(const monster_info& mi)
 {
     if (mi.is(MB_SHADOWLESS) || mi.is(MB_SUMMONED) || mi.attitude != ATT_HOSTILE)
-        return vector<string>();
+        return vector<ZhArg>();
 
     vector<mon_spell_slot> spells = get_unique_spells(mi);
     int num_spells = spells.size();
     int num_usable_spells = monster_at(mi.pos)->props[DITHMENOS_MARIONETTE_SPELLS_KEY].get_int();
 
-    return vector<string>{make_stringf("%d/%d spells usable", num_usable_spells, num_spells)};
+    return vector<ZhArg>{zh_message_arg("effect", "target.monster.callback.marionette_spells",
+        {zh_integer("usable", num_usable_spells), zh_integer("total", num_spells)})};
 }
 
 static vector<coord_def> _find_shadowslip_affected()
@@ -2862,14 +2865,14 @@ bool activate_talent(const talent& tal, dist *target)
                                        ability_name(abil.ability).c_str());
         targeter_beam* beamfunc = dynamic_cast<targeter_beam*>(hitfunc.get());
         if (beamfunc && beamfunc->beam.hit > 0 && !beamfunc->beam.is_explosion)
-            args.get_desc_func = bind(desc_beam_hit_chance, placeholders::_1, hitfunc.get());
+            args.get_desc_messages_func = bind(desc_beam_hit_chance_messages, placeholders::_1, hitfunc.get());
         else if (abil.ability == ABIL_YRED_BIND_SOUL)
-            args.get_desc_func = bind(_desc_bind_soul_hp, placeholders::_1);
+            args.get_desc_messages_func = bind(_desc_bind_soul_hp, placeholders::_1);
         else if (abil.ability == ABIL_CHEIBRIADOS_SLOUCH)
-            args.get_desc_func = bind(_desc_slouch_damage, placeholders::_1);
+            args.get_desc_messages_func = bind(_desc_slouch_damage, placeholders::_1);
         else if (abil.ability == ABIL_DITHMENOS_APHOTIC_MARIONETTE)
         {
-            args.get_desc_func = bind(_desc_marionette_spells, placeholders::_1);
+            args.get_desc_messages_func = bind(_desc_marionette_spells, placeholders::_1);
             // Calculate and cache what spells are usable by each target in
             // screen so that this doesn't get recalculated numerous times as
             // the player interacts with the targeter.
@@ -3748,7 +3751,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
         direction_chooser_args args;
         args.mode = TARG_HOSTILE;
         targeter_banishment btarg;
-        args.get_desc_func = bind(desc_wl_success_chance, placeholders::_1,
+        args.get_desc_messages_func = bind(desc_wl_success_chance_messages, placeholders::_1,
                                   zap_ench_power(ZAP_BANISHMENT, pow, false),
                                   &btarg);
         if (!spell_direction(*target, beam, &args))

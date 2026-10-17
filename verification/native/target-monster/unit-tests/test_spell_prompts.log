@@ -1,0 +1,16 @@
+/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/tmp91ha1rxa/test.cc:26:93: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+   26 | template<class...A>string make_stringf(const char*f,A...a){char b[4096];snprintf(b,sizeof b,f,a...);return b;}
+      |                                                                                             ^
+/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/tmp91ha1rxa/test.cc:32:63: note: in instantiation of function template specialization 'make_stringf<>' requested here
+   32 | template<class...A>void mprf(int,const char*f,A...a){captured=make_stringf(f,a...);}
+      |                                                               ^
+/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/tmp91ha1rxa/test.cc:83:13: note: in instantiation of function template specialization 'mprf<>' requested here
+   83 |             mprf(MSGCH_WARN, "It is impossible to cast this spell "
+      |             ^
+/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/tmp91ha1rxa/test.cc:26:93: note: treat the string as an argument to avoid this
+   26 | template<class...A>string make_stringf(const char*f,A...a){char b[4096];snprintf(b,sizeof b,f,a...);return b;}
+      |                                                                                             ^
+      |                                                                                             "%s",
+1 warning generated.
+PASS: 13837 actual spell prompt/risk/confirmation cases; frozen canonical Lua prompts, accept/cancel behavior, semantic menu actions and complete unknown-name fallback
+Validated 3387 stable message IDs

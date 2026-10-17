@@ -1,0 +1,24 @@
+{
+  "source_fixture_unchanged": true,
+  "scenes": [
+    {
+      "scene": "skills-help",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false
+    },
+    {
+      "scene": "prompt-throw-aim",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "quiver.prompt.throw"
+      ]
+    }
+  ]
+}
