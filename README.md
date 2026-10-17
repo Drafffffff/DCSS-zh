@@ -10,8 +10,8 @@
 
 | 系统 | 下载文件 | 启动方式 |
 | --- | --- | --- |
-| macOS 26+，Apple Silicon | `DCSS-zh-0.34.1-zh.1-macos-arm64.zip` | 打开应用；终端版使用同目录的 `.command` |
-| Bazzite / Fedora 43+，x86_64 | `DCSS-zh-0.34.1-zh.1-bazzite-x86_64.tar.gz` | 运行 `./dcss-zh`；4K 屏使用 `./dcss-zh-4k`；终端版使用 `./dcss-zh-console` |
+| macOS 26+，Apple Silicon | `DCSS-zh-0.34.1-zh.2-macos-arm64.zip` | 打开应用；终端版使用同目录的 `.command` |
+| Bazzite / Fedora 43+，x86_64 | `DCSS-zh-0.34.1-zh.2-bazzite-x86_64.tar.gz` | 运行 `./dcss-zh`；4K 屏使用 `./dcss-zh-4k`；终端版使用 `./dcss-zh-console` |
 
 macOS 包已包含运行库，无需另装 Homebrew；应用未经过 Apple 公证。首次打开若被系统拦截，可在“系统设置 → 隐私与安全性”中允许打开。
 Linux 包包含 SDL2_image / SDL2_mixer，SDL2 与基础系统库使用 Bazzite / Fedora 43+ 提供的版本；不需要 Proton。已在 Bazzite 验证，其他 Linux 发行版尚未验证。
