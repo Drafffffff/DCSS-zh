@@ -926,14 +926,23 @@ string describe_item_spells(const item_def &item)
 string terse_spell_list(const item_def &item)
 {
     vector<string> spell_descs;
+    string localized;
+    bool supported = true;
     for (auto spell : spells_in_book(item))
     {
-        spell_descs.push_back(make_stringf("%s (L%d %s)",
-                                           spell_title(spell),
-                                           spell_difficulty(spell),
-                                           _spell_schools(spell).c_str()));
+        const ZhArg name = zh_glossary_name("spell", "spell.name",
+                                            spell_title(spell));
+        const ZhArg schools = _spell_schools_arg(spell);
+        const ZhMessage row = zh_message("spell.book.terse.row", {
+            name, zh_integer("spell_level", spell_difficulty(spell)), schools});
+        spell_descs.push_back(row.canonical);
+        if (!localized.empty())
+            localized += "、";
+        localized += row.localized;
+        supported = supported && name.supported && schools.supported;
     }
-    // could use comma_separated_fn and skip the intervening vec?
-    return "Spells: " + comma_separated_line(spell_descs.begin(),
-                                             spell_descs.end());
+    return zh_message("spell.book.terse.list", {
+        ZhArg{"spells", ZhArgType::Text,
+              comma_separated_line(spell_descs.begin(), spell_descs.end()),
+              localized, supported}}).display();
 }

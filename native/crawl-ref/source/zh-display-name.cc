@@ -3,6 +3,7 @@
 #include "zh-display-name.h"
 
 #include "artefact.h"
+#include "branch.h"
 #include "item-name.h"
 #include "item-prop.h"
 #include "item-status-flag-type.h"
@@ -10,6 +11,7 @@
 #include "invent.h"
 #include "mon-info.h"
 #include "monster.h"
+#include "place.h"
 #include "zh-localization.h"
 
 #include <cstdlib>
@@ -98,6 +100,8 @@ std::string semantic_item_base(const item_def &item)
         return item_base_name(item.base_type, item.sub_type);
     case OBJ_MISSILES:
         return missile_name(static_cast<missile_type>(item.sub_type));
+    case OBJ_TALISMANS:
+        return talisman_type_name(item.sub_type);
     case OBJ_POTIONS:
         return std::string("potion of ") + potion_type_name(item.sub_type);
     case OBJ_SCROLLS:
@@ -308,6 +312,24 @@ std::string translated_item_name(const item_def &item,
 
     return result;
 }
+}
+
+ZhArg zh_place_arg(const std::string &key, const level_id &place)
+{
+    const std::string canonical = prep_branch_level_name(place);
+    const ZhArg branch = zh_word_arg("branch", "place.branch.",
+        branches[place.branch].longname, ZhArgType::Name);
+    const ZhMessage location = brdepth[place.branch] == 1
+        ? zh_message("place.display.named", {branch})
+        : zh_message("place.display.level",
+                     {branch, zh_integer("depth", place.depth)});
+    return {key, ZhArgType::Text, canonical, location.localized,
+            branch.supported};
+}
+
+ZhArg zh_monster_type_arg(const std::string &key, monster_type type)
+{
+    return zh_glossary_name(key, "monster.name", mons_type_name(type, DESC_PLAIN));
 }
 
 ZhArg zh_monster_arg(const std::string &key, const monster &mon,

@@ -11,6 +11,7 @@ import json
 import os
 from pathlib import Path
 import pty
+import re
 import select
 import signal
 import struct
@@ -25,6 +26,7 @@ p.add_argument('--saves',required=True,type=Path)
 p.add_argument('--name',default='Awigithro')
 p.add_argument('--out',required=True,type=Path)
 p.add_argument('--scenes',default='weapon-detail,skills,skills-help,monster-detail,shop-selected')
+p.add_argument('--require-complete',action='store_true',help='Fail on any missing ID or semantic name in the selected fixtures')
 a=p.parse_args()
 a.binary=a.binary.resolve();a.data=a.data.resolve();a.saves=a.saves.resolve();a.out=a.out.resolve()
 a.out.mkdir(parents=True,exist_ok=True)
@@ -39,6 +41,11 @@ cases={'skill-lookup':'?/k','skill-lookup-detail':'?/ka','hud':'l','hud-wizard':
        'shop-purchased':'l&wiz\r$1000\r&\\a>a\ry',
        'shop-list':'l&wiz\r$1000\r&\\a>a$\x1b$',
        'skills-description':'m?a','skills-enhanced':'m_','skills-general-help':'m??'}
+# Every current talisman subtype, each on a fresh disposable save copy.
+item_source=(Path(__file__).resolve().parents[1]/'native/crawl-ref/source/item-prop.cc').read_text()
+talisman_names=dict(re.findall(r'case TALISMAN_([A-Z_]+):\s*return "([^"]+)";',item_source))
+for kind,name in talisman_names.items():
+    cases['talisman-'+kind.lower()]='l&wiz\r%level:1 pre_id '+name+'\rgid'
 results=[]
 for scene in a.scenes.split(','):
     with tempfile.TemporaryDirectory(prefix='dcss-copy-'+scene+'-') as folder:
@@ -54,9 +61,12 @@ for scene in a.scenes.split(','):
         for f in ('ids.tsv','missing.tsv','names.tsv','legacy.jsonl','values.tsv','boundaries.tsv'):
             (dst/f).unlink(missing_ok=True)
         rc=state/'init.txt'
+        # Advance only the disposable fixture's RNG to avoid this save's
+        # deterministic first low-tier talisman roll becoming a randart.
+        rng_setup='for i=1,8 do crawl.random2(100) end; ' if scene.startswith('talisman-') else ''
         rc.write_text('language=zh\nshow_more=false\nsave_dir='+str(state/'saves')+
             '\nmorgue_dir='+str(state/'morgue')+'\n{\nlocal sent=false\nfunction ready()\n'+
-            'if not sent then sent=true; crawl.sendkeys('+json.dumps(cases[scene]).replace('\\u001b','\\027')+'); end\nend\n}\n')
+            'if not sent then sent=true; '+rng_setup+'crawl.sendkeys('+json.dumps(cases[scene]).replace('\\u001b','\\027')+'); end\nend\n}\n')
         pid,fd=pty.fork()
         if pid==0:
             os.chdir(a.data)
@@ -100,6 +110,8 @@ report={'source_fixture_unchanged':unchanged,'scenes':results}
 (a.out/'results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 assert unchanged, 'Source fixture changed'
 assert all(r['running_at_capture'] and not r['runtime_error'] for r in results),[(r['scene'],r['missing']) for r in results if r['runtime_error'] or not r['running_at_capture']]
+if a.require_complete:
+    assert all(not r['missing'] and not r['names'] for r in results),[(r['scene'],r['missing'],r['names']) for r in results if r['missing'] or r['names']]
 expected={
  'skill-lookup':{'skill.lookup.prompt'},
  'skill-lookup-detail':{'skill.lookup.prompt'},
@@ -117,7 +129,10 @@ expected={
     'weapon-detail':{'item.weapon.base_stats','item.weapon.attack_delay_and_minimum'},
     'monster-detail':{'monster.hit_chance'},
 }
+
 for result in results:
+    if result['scene'].startswith('talisman-') and result['scene']!='talisman-protean':
+        assert 'detail.form\tenter' in result['boundaries'], (result['scene'], 'form producer not reached')
     ids={line.split('\t')[0] for line in result['ids']}
     assert expected.get(result['scene'],set()) <= ids,(result['scene'],ids)
     if result['scene'].startswith(('skills','skill-lookup')):

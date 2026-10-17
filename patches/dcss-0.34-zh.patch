@@ -46560,7 +46560,7 @@ index 4e2f03c..6ebeb81 100644
      bool invalidated() override;
  
 diff --git a/crawl-ref/source/describe-spells.cc b/crawl-ref/source/describe-spells.cc
-index a4a1a95..bd2145d 100644
+index a4a1a95..20747cf 100644
 --- a/crawl-ref/source/describe-spells.cc
 +++ b/crawl-ref/source/describe-spells.cc
 @@ -32,6 +32,7 @@
@@ -46864,8 +46864,39 @@ index a4a1a95..bd2145d 100644
  }
  
  
+@@ -838,14 +926,23 @@ string describe_item_spells(const item_def &item)
+ string terse_spell_list(const item_def &item)
+ {
+     vector<string> spell_descs;
++    string localized;
++    bool supported = true;
+     for (auto spell : spells_in_book(item))
+     {
+-        spell_descs.push_back(make_stringf("%s (L%d %s)",
+-                                           spell_title(spell),
+-                                           spell_difficulty(spell),
+-                                           _spell_schools(spell).c_str()));
++        const ZhArg name = zh_glossary_name("spell", "spell.name",
++                                            spell_title(spell));
++        const ZhArg schools = _spell_schools_arg(spell);
++        const ZhMessage row = zh_message("spell.book.terse.row", {
++            name, zh_integer("spell_level", spell_difficulty(spell)), schools});
++        spell_descs.push_back(row.canonical);
++        if (!localized.empty())
++            localized += "、";
++        localized += row.localized;
++        supported = supported && name.supported && schools.supported;
+     }
+-    // could use comma_separated_fn and skip the intervening vec?
+-    return "Spells: " + comma_separated_line(spell_descs.begin(),
+-                                             spell_descs.end());
++    return zh_message("spell.book.terse.list", {
++        ZhArg{"spells", ZhArgType::Text,
++              comma_separated_line(spell_descs.begin(), spell_descs.end()),
++              localized, supported}}).display();
+ }
 diff --git a/crawl-ref/source/describe.cc b/crawl-ref/source/describe.cc
-index 0a381e1..20e3241 100644
+index 0a381e1..720da67 100644
 --- a/crawl-ref/source/describe.cc
 +++ b/crawl-ref/source/describe.cc
 @@ -4,6 +4,9 @@
@@ -48054,7 +48085,7 @@ index 0a381e1..20e3241 100644
                  break;
  
              default:
-@@ -2523,20 +2764,20 @@ static string _describe_jewellery(const item_def &item, bool verbose)
+@@ -2523,20 +2764,37 @@ static string _describe_jewellery(const item_def &item, bool verbose)
  static string _describe_item_curse(const item_def &item)
  {
      if (!item.props.exists(CURSE_KNOWLEDGE_KEY))
@@ -48067,24 +48098,41 @@ index 0a381e1..20e3241 100644
 -        return "\nIt has a curse placed upon it.";
 -
 -    ostringstream desc;
--
++        return "\n" + zh_source("detail.item.fixed", "It has a curse placed upon it.");
+ 
 -    desc << "\nIt has a curse which improves the following skills:\n";
 -    desc << comma_separated_fn(curses.begin(), curses.end(), desc_curse_skills,
 -                               ".\n", ".\n") << ".";
-+        return "\n" + zh_source("detail.item.fixed", "It has a curse placed upon it.");
- 
+-
 -    return desc.str();
-+    const string skills = comma_separated_fn(curses.begin(), curses.end(),
-+        desc_curse_skills, ".\n", ".\n");
++    string skills;
++    string localized;
++    bool supported = true;
++    for (const auto &curse : curses)
++    {
++        const ZhArg entry = zh_curse_skills_arg("skills", curse);
++        if (!skills.empty())
++        {
++            skills += ".\n";
++            localized += "。\n";
++        }
++        skills += entry.canonical;
++        localized += entry.localized;
++        supported = supported && entry.supported;
++    }
 +    const string description = string("\nIt has a curse which improves the following skills:\n")
 +        + skills + ".";
++    if (supported)
++        return "\n" + zh_message("item.curse.skills.fixed").display() + "\n"
++            + zh_message("item.curse.skills_list", {
++                ZhArg{"skills", ZhArgType::Text, skills, localized, true}}).display();
 +    return zh_message("item.curse.skills_english_fallback", {
 +        ZhArg{"description", ZhArgType::Text, description, description,
 +              false}}).display();
  }
  
  static string _describe_gizmo(const item_def &item)
-@@ -2545,30 +2786,30 @@ static string _describe_gizmo(const item_def &item)
+@@ -2545,30 +2803,30 @@ static string _describe_gizmo(const item_def &item)
  
      if (item.brand)
      {
@@ -48125,7 +48173,7 @@ index 0a381e1..20e3241 100644
                  break;
  
              default:
-@@ -2617,12 +2858,13 @@ static void _uselessness_desc(ostringstream &description, const item_def &item)
+@@ -2617,12 +2875,13 @@ static void _uselessness_desc(ostringstream &description, const item_def &item)
          return;
      if (is_useless_item(item, true))
      {
@@ -48142,7 +48190,7 @@ index 0a381e1..20e3241 100644
              r = _cannot_use_reason(item, false);
          }
          else
-@@ -2630,36 +2872,38 @@ static void _uselessness_desc(ostringstream &description, const item_def &item)
+@@ -2630,36 +2889,38 @@ static void _uselessness_desc(ostringstream &description, const item_def &item)
              switch (item.base_type)
              {
              case OBJ_SCROLLS:
@@ -48197,7 +48245,7 @@ index 0a381e1..20e3241 100644
      }
  }
  
-@@ -2719,7 +2963,7 @@ string get_item_description(const item_def &item,
+@@ -2719,7 +2980,7 @@ string get_item_description(const item_def &item,
          }
          else if (is_unrandom_artefact(item) && item.is_identified())
          {
@@ -48206,7 +48254,7 @@ index 0a381e1..20e3241 100644
              if (!desc.empty())
              {
                  description << desc;
-@@ -2733,25 +2977,25 @@ string get_item_description(const item_def &item,
+@@ -2733,25 +2994,25 @@ string get_item_description(const item_def &item,
          else if (is_artefact(item) && item.is_identified()
                   && item.base_type == OBJ_JEWELLERY)
          {
@@ -48237,7 +48285,7 @@ index 0a381e1..20e3241 100644
                  else if (item.is_identified())
                  {
                      description << "[ERROR: no desc for item name '" << db_name
-@@ -2759,8 +3003,7 @@ string get_item_description(const item_def &item,
+@@ -2759,8 +3020,7 @@ string get_item_description(const item_def &item,
                  }
                  else
                  {
@@ -48247,7 +48295,7 @@ index 0a381e1..20e3241 100644
                      description << ".\n";
                  }
              }
-@@ -2844,7 +3087,8 @@ string get_item_description(const item_def &item,
+@@ -2844,7 +3104,8 @@ string get_item_description(const item_def &item,
          }
          if (verbose)
          {
@@ -48257,7 +48305,7 @@ index 0a381e1..20e3241 100644
              description << _handedness_string(item);
          }
          break;
-@@ -2853,12 +3097,14 @@ string get_item_description(const item_def &item,
+@@ -2853,12 +3114,14 @@ string get_item_description(const item_def &item,
          if (item.sub_type == MISC_ZIGGURAT && you.zigs_completed)
          {
              const int zigs = you.zigs_completed;
@@ -48278,7 +48326,7 @@ index 0a381e1..20e3241 100644
          }
  
          if (verbose)
-@@ -2871,32 +3117,34 @@ string get_item_description(const item_def &item,
+@@ -2871,32 +3134,34 @@ string get_item_description(const item_def &item,
                  // slightly redundant with uselessness desc..
                  const int charges = evoker_charges(item.sub_type);
                  if (charges > 1)
@@ -48324,7 +48372,7 @@ index 0a381e1..20e3241 100644
              }
          }
  
-@@ -2917,13 +3165,21 @@ string get_item_description(const item_def &item,
+@@ -2917,13 +3182,21 @@ string get_item_description(const item_def &item,
                      description << "\n\n" + _describe_lignify_ac();
                  else if (item.sub_type == POT_CANCELLATION)
                  {
@@ -48351,7 +48399,7 @@ index 0a381e1..20e3241 100644
              need_extra_line = false;
          }
          break;
-@@ -2935,11 +3191,13 @@ string get_item_description(const item_def &item,
+@@ -2935,11 +3208,13 @@ string get_item_description(const item_def &item,
  
              const string damage_str = evoke_damage_string(item);
              if (damage_str != "")
@@ -48367,7 +48415,7 @@ index 0a381e1..20e3241 100644
  
              if (verbose)
                  _uselessness_desc(description, item);
-@@ -2952,9 +3210,16 @@ string get_item_description(const item_def &item,
+@@ -2952,9 +3227,16 @@ string get_item_description(const item_def &item,
              if (verbose)
                  _uselessness_desc(description, item);
  
@@ -48387,7 +48435,7 @@ index 0a381e1..20e3241 100644
              need_extra_line = false;
          }
          break;
-@@ -3016,21 +3281,21 @@ string get_item_description(const item_def &item,
+@@ -3016,21 +3298,21 @@ string get_item_description(const item_def &item,
                  if (you.has_mutation(MUT_ARTEFACT_ENCHANTING))
                  {
                      if (!item.is_identified())
@@ -48414,7 +48462,7 @@ index 0a381e1..20e3241 100644
                  }
              }
              // Randart jewellery has already displayed this line.
-@@ -3038,19 +3303,32 @@ string get_item_description(const item_def &item,
+@@ -3038,29 +3320,33 @@ string get_item_description(const item_def &item,
              else if (item.base_type != OBJ_JEWELLERY && item.base_type != OBJ_GIZMOS
                       || (item.is_identified() && is_unrandom_artefact(item)))
              {
@@ -48437,21 +48485,24 @@ index 0a381e1..20e3241 100644
  
      if (verbose && origin_describable(item))
 -        description << "\n" << origin_desc(item) << ".";
-+    {
-+        if (!item.orig_monnum && item.orig_place.branch == BRANCH_DUNGEON)
-+            description << zh_message("item.origin.found_dungeon", {
-+                zh_integer("depth", item.orig_place.depth)}).display();
-+        else
-+        {
-+            const string origin = origin_desc(item) + ".";
-+            description << zh_message("item.origin.english_fallback", {
-+                ZhArg{"origin", ZhArgType::Text, origin, origin, false}}).display();
-+        }
-+    }
++        description << origin_display_desc(item);
  
      // This information is obscure and differs per-item, so looking it up in
      // a docs file you don't know to exist is tedious.
-@@ -3418,7 +3696,8 @@ void get_feature_desc(const coord_def &pos, describe_info &inf, bool include_ext
+     if (verbose && mode != IDM_MONSTER)
+     {
+-        description << "\n\n" << "Stash search prefixes: "
++        description << "\n\n" << zh_message("item.detail.stash_search_prefixes").display() << " "
+                     << userdef_annotate_item(STASH_LUA_SEARCH_ANNOTATE, &item);
+         string menu_prefix = item_prefix(item, false);
+         if (!menu_prefix.empty())
+-            description << "\nMenu/colouring prefixes: " << menu_prefix;
++            description << "\n" << zh_message("item.detail.menu_colouring_prefixes").display()
++                        << " " << menu_prefix;
+     }
+ 
+     return description.str();
+@@ -3418,7 +3704,8 @@ void get_feature_desc(const coord_def &pos, describe_info &inf, bool include_ext
          && !feat_is_closed_door(feat) && !feat_is_endless(feat))
      {
          if (feat_is_reachable_past(feat))
@@ -48461,7 +48512,7 @@ index 0a381e1..20e3241 100644
          else
              long_desc += "\nSome spells can be cast through it.";
      }
-@@ -3435,7 +3714,8 @@ void get_feature_desc(const coord_def &pos, describe_info &inf, bool include_ext
+@@ -3435,7 +3722,8 @@ void get_feature_desc(const coord_def &pos, describe_info &inf, bool include_ext
              inf.body << (d.title == extra_descs.back().title ? "" : "\n") << d.description;
      }
  
@@ -48471,7 +48522,7 @@ index 0a381e1..20e3241 100644
  }
  
  static bool _do_feat_action(const coord_def &pos, const command_type action)
-@@ -3653,7 +3933,7 @@ void get_item_desc(const item_def &item, describe_info &inf)
+@@ -3653,7 +3941,7 @@ void get_item_desc(const item_def &item, describe_info &inf)
      // so we can actually output these spells if space is scarce.
      const item_description_mode mode = item.has_spells() ? IDM_PLAIN
                                                           : IDM_DEFAULT;
@@ -48480,7 +48531,7 @@ index 0a381e1..20e3241 100644
      if (!in_inventory(item))
          name = uppercase_first(name);
      inf.body << name << get_item_description(item, mode);
-@@ -3753,39 +4033,64 @@ static vector<command_type> _allowed_actions(const item_def& item)
+@@ -3753,39 +4041,64 @@ static vector<command_type> _allowed_actions(const item_def& item)
      return actions;
  }
  
@@ -48576,7 +48627,7 @@ index 0a381e1..20e3241 100644
  }
  
  // Take a key and a list of commands and return the command from the list
-@@ -3971,10 +4276,12 @@ command_type describe_item_popup(const item_def &item,
+@@ -3971,10 +4284,12 @@ command_type describe_item_popup(const item_def &item,
      if (!item.defined())
          return CMD_NO_CMD;
  
@@ -48590,7 +48641,7 @@ index 0a381e1..20e3241 100644
      if (!in_inventory(item))
          name = uppercase_first(name);
  
-@@ -3983,17 +4290,18 @@ command_type describe_item_popup(const item_def &item,
+@@ -3983,17 +4298,18 @@ command_type describe_item_popup(const item_def &item,
      if (loc.is_valid() && loc != level_id::current())
      {
          // should be off-level stash search only
@@ -48613,7 +48664,7 @@ index 0a381e1..20e3241 100644
  
      if (!(crawl_state.game_is_hints_tutorial()
            || quote.empty()))
-@@ -4002,12 +4310,16 @@ command_type describe_item_popup(const item_def &item,
+@@ -4002,12 +4318,16 @@ command_type describe_item_popup(const item_def &item,
      }
  
      if (crawl_state.game_is_hints())
@@ -48632,7 +48683,7 @@ index 0a381e1..20e3241 100644
  
      spellset spells = item_spellset(item);
      formatted_string spells_desc;
-@@ -4040,7 +4352,7 @@ command_type describe_item_popup(const item_def &item,
+@@ -4040,7 +4360,7 @@ command_type describe_item_popup(const item_def &item,
      }
  #endif
  
@@ -48641,7 +48692,7 @@ index 0a381e1..20e3241 100644
      title->set_margin_for_sdl(0, 0, 0, 10);
      title_hbox->add_child(std::move(title));
  
-@@ -4059,8 +4371,10 @@ command_type describe_item_popup(const item_def &item,
+@@ -4059,8 +4379,10 @@ command_type describe_item_popup(const item_def &item,
      if (!actions.empty())
      {
          if (!spells.empty())
@@ -48654,7 +48705,7 @@ index 0a381e1..20e3241 100644
          auto footer = make_shared<Text>();
          footer->set_text(footer_text);
          footer->set_margin_for_crt(1, 0, 0, 0);
-@@ -4101,7 +4415,7 @@ command_type describe_item_popup(const item_def &item,
+@@ -4101,7 +4423,7 @@ command_type describe_item_popup(const item_def &item,
  
              show_spell_success = !show_spell_success;
              if (show_spell_success)
@@ -48663,7 +48714,7 @@ index 0a381e1..20e3241 100644
              else
                  text->set_text(fs_desc.trim());
  #ifdef USE_TILE_WEB
-@@ -4211,13 +4525,33 @@ void inscribe_item(item_def &item)
+@@ -4211,13 +4533,33 @@ void inscribe_item(item_def &item)
  static string _player_spell_stats(const spell_type spell)
  {
      string description;
@@ -48704,7 +48755,7 @@ index 0a381e1..20e3241 100644
  
      if (!crawl_state.need_save
          || (get_spell_flags(spell) & spflag::monster))
-@@ -4239,37 +4573,75 @@ static string _player_spell_stats(const spell_type spell)
+@@ -4239,37 +4581,75 @@ static string _player_spell_stats(const spell_type spell)
      }
      else
          failure = failure_rate_to_string(raw_spell_fail(spell));
@@ -48796,7 +48847,7 @@ index 0a381e1..20e3241 100644
      description += "\n";
      return description;
  }
-@@ -4296,26 +4668,32 @@ static string _get_skill_defense_change(skill_type skill)
+@@ -4296,26 +4676,32 @@ static string _get_skill_defense_change(skill_type skill)
      const float ev_diff = (float)(new_ev - cur_ev) / 100.0;
      const float sh_diff = (float)(new_sh - cur_sh) / 100.0;
  
@@ -48840,7 +48891,7 @@ index 0a381e1..20e3241 100644
      }
  
      return "";
-@@ -4323,16 +4701,17 @@ static string _get_skill_defense_change(skill_type skill)
+@@ -4323,16 +4709,17 @@ static string _get_skill_defense_change(skill_type skill)
  
  string get_skill_description(skill_type skill, bool need_title)
  {
@@ -48860,7 +48911,7 @@ index 0a381e1..20e3241 100644
  
      if ((skill == SK_ARMOUR || skill == SK_DODGING || skill == SK_SHIELDS)
          && you.skills[skill] < MAX_SKILL_LEVEL && !is_useless_skill(skill))
-@@ -4343,29 +4722,36 @@ string get_skill_description(skill_type skill, bool need_title)
+@@ -4343,29 +4730,36 @@ string get_skill_description(skill_type skill, bool need_title)
      {
          if (you.has_mutation(MUT_FORLORN))
          {
@@ -48909,7 +48960,7 @@ index 0a381e1..20e3241 100644
      }
  
      return result;
-@@ -4468,116 +4854,139 @@ static string _player_spell_desc(spell_type spell)
+@@ -4468,116 +4862,139 @@ static string _player_spell_desc(spell_type spell)
  
      ostringstream description;
  
@@ -49100,7 +49151,7 @@ index 0a381e1..20e3241 100644
      }
  
      return description.str();
-@@ -4612,19 +5021,19 @@ static void _get_spell_description(const spell_type spell,
+@@ -4612,19 +5029,19 @@ static void _get_spell_description(const spell_type spell,
  {
      description.reserve(500);
  
@@ -49126,7 +49177,7 @@ index 0a381e1..20e3241 100644
  #endif
      }
  
-@@ -4633,21 +5042,25 @@ static void _get_spell_description(const spell_type spell,
+@@ -4633,21 +5050,25 @@ static void _get_spell_description(const spell_type spell,
          if (spell == SPELL_CONJURE_LIVING_SPELLS)
          {
              const spell_type living_spell = living_spell_type_for(mon_owner->type);
@@ -49160,7 +49211,7 @@ index 0a381e1..20e3241 100644
  
          }
  
-@@ -4657,20 +5070,21 @@ static void _get_spell_description(const spell_type spell,
+@@ -4657,20 +5078,21 @@ static void _get_spell_description(const spell_type spell,
                                  || spell == SPELL_FLASHING_BALESTRA
                                  || spell == SPELL_BECKONING_GALE ? 3 : 0);
  
@@ -49188,7 +49239,7 @@ index 0a381e1..20e3241 100644
              }
          }
  
-@@ -4680,11 +5094,18 @@ static void _get_spell_description(const spell_type spell,
+@@ -4680,11 +5102,18 @@ static void _get_spell_description(const spell_type spell,
          const int limit = summons_limit(spell, false);
          if (limit)
          {
@@ -49212,7 +49263,7 @@ index 0a381e1..20e3241 100644
          }
  
          // only display this if the player exists (not in the main menu)
-@@ -4704,20 +5125,21 @@ static void _get_spell_description(const spell_type spell,
+@@ -4704,20 +5133,21 @@ static void _get_spell_description(const spell_type spell,
              if (you.wizard)
                  wiz_info += make_stringf(" (pow %d)", _mon_hex_pow(spell, mon_owner, is_wand));
  #endif
@@ -49242,7 +49293,7 @@ index 0a381e1..20e3241 100644
      if (!quote.empty())
          description += "_________________\n\n<darkgrey>" + quote + "</darkgrey>";
  }
-@@ -4750,6 +5172,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
+@@ -4750,6 +5180,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
                      const item_def* item)
  {
      UNUSED(item);
@@ -49250,7 +49301,7 @@ index 0a381e1..20e3241 100644
  
      string desc;
      _get_spell_description(spell, mon_owner, desc);
-@@ -4766,11 +5189,11 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
+@@ -4766,11 +5197,11 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
      title_hbox->add_child(std::move(spell_icon));
  #endif
  
@@ -49264,7 +49315,7 @@ index 0a381e1..20e3241 100644
      title->set_margin_for_sdl(0, 0, 0, 10);
      title_hbox->add_child(std::move(title));
  
-@@ -4781,7 +5204,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
+@@ -4781,7 +5212,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
  
      auto scroller = make_shared<Scroller>();
      auto text = make_shared<Text>();
@@ -49273,7 +49324,7 @@ index 0a381e1..20e3241 100644
      text->set_wrap_text(true);
      scroller->set_child(std::move(text));
      vbox->add_child(scroller);
-@@ -4948,50 +5371,46 @@ static string _describe_draconian(const monster_info& mi)
+@@ -4948,50 +5379,46 @@ static string _describe_draconian(const monster_info& mi)
  
      if (subsp != mi.type)
      {
@@ -49340,7 +49391,7 @@ index 0a381e1..20e3241 100644
          break;
      default:
          break;
-@@ -5029,16 +5448,16 @@ static const char* _get_resist_name(mon_resist_flags res_type)
+@@ -5029,16 +5456,16 @@ static const char* _get_resist_name(mon_resist_flags res_type)
      }
  }
  
@@ -49363,7 +49414,7 @@ index 0a381e1..20e3241 100644
      }
  }
  
-@@ -5105,7 +5524,15 @@ static string _flavour_base_desc(attack_flavour flavour)
+@@ -5105,7 +5532,15 @@ static string _flavour_base_desc(attack_flavour flavour)
  
      const string* desc = map_find(base_descs, flavour);
      ASSERT(desc);
@@ -49380,7 +49431,7 @@ index 0a381e1..20e3241 100644
  }
  
  struct mon_attack_info
-@@ -5161,7 +5588,8 @@ static mon_attack_info _atk_info(const monster_info& mi, int i)
+@@ -5161,7 +5596,8 @@ static mon_attack_info _atk_info(const monster_info& mi, int i)
  static string _brand_damage_string(const monster_info &mi, brand_type brand,
                                     int dam, int wpn_base_dmg = 0)
  {
@@ -49390,7 +49441,7 @@ index 0a381e1..20e3241 100644
      int brand_dam;
      // Only include damaging brands
      // Heavy is included in base damage calculations instead
-@@ -5199,16 +5627,18 @@ static string _brand_damage_string(const monster_info &mi, brand_type brand,
+@@ -5199,16 +5635,18 @@ static string _brand_damage_string(const monster_info &mi, brand_type brand,
              brand_dam = 4;
              break;
          case SPWPN_SUNDERING:
@@ -49412,7 +49463,7 @@ index 0a381e1..20e3241 100644
  }
  
  // Max damage from a magical staff with a given amount of staff & evo skill
-@@ -5240,9 +5670,9 @@ static string _monster_staff_damage_string(const monster_info &mi,
+@@ -5240,9 +5678,9 @@ static string _monster_staff_damage_string(const monster_info &mi,
                             : staff == STAFF_ALCHEMY       ? "poison"
                             /*staff == STAFF_CONJURATION*/ : "conj";
  
@@ -49425,7 +49476,7 @@ index 0a381e1..20e3241 100644
  }
  
  struct mon_attack_desc_info
-@@ -5323,21 +5753,24 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
+@@ -5323,21 +5761,24 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
                                       int attk_mult)
  {
      if (!desc.empty())
@@ -49457,7 +49508,7 @@ index 0a381e1..20e3241 100644
      }
  
      if (di.flavour_without_dam
-@@ -5346,16 +5779,17 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
+@@ -5346,16 +5787,17 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
          && !flavour_has_mobility(attack.flavour)
          && !(attack.flavour == AF_REACH_CLEAVE_UGLY))
      {
@@ -49481,7 +49532,7 @@ index 0a381e1..20e3241 100644
      }
  }
  
-@@ -5374,23 +5808,42 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5374,23 +5816,42 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
  
      if (weapon_multihits(wpn))
          attk_mult *= weapon_hits_per_swing(*wpn);
@@ -49504,20 +49555,20 @@ index 0a381e1..20e3241 100644
 -    if (attk_mult > 1)
 +    ZhArg weapon_arg = zh_text("weapon", weapon_descriptor, weapon_descriptor);
 +    if (wpn)
-+    {
-+        const ZhArg item_arg = zh_item_arg("weapon", *wpn, DESC_PLAIN);
-+        weapon_arg.localized = ": " + zh_item_display(*wpn, DESC_PLAIN);
-+        weapon_arg.supported = item_arg.supported;
-+    }
-+    else if (!weapon_descriptor.empty())
      {
 -        attk_desc = make_stringf("%dx %s%s", attk_mult, attk_name.c_str(),
 -                                    weapon_descriptor.c_str());
++        const ZhArg item_arg = zh_item_arg("weapon", *wpn, DESC_PLAIN);
++        weapon_arg.localized = ": " + zh_item_display(*wpn, DESC_PLAIN);
++        weapon_arg.supported = item_arg.supported;
+     }
++    else if (!weapon_descriptor.empty())
++    {
 +        const string brand = weapon_descriptor.substr(2);
 +        const ZhArg brand_arg = _monster_attack_atom_arg(brand, "value");
 +        weapon_arg.localized = ": " + brand_arg.localized;
 +        weapon_arg.supported = brand_arg.supported;
-     }
++    }
 +    string attk_desc;
 +    if (attk_mult > 1)
 +        attk_desc = zh_message("monster.attack.counted_label", {
@@ -49531,7 +49582,7 @@ index 0a381e1..20e3241 100644
  
      // Part 2: The "Max Damage" column
      // Display the max damage from the attack (including any weapon)
-@@ -5440,12 +5893,13 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5440,12 +5901,13 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
  
      string dam_str;
      if (dam != real_dam)
@@ -49547,7 +49598,7 @@ index 0a381e1..20e3241 100644
  
      string brand_str;
      if (wpn)
-@@ -5464,11 +5918,11 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5464,11 +5926,11 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
      else if (di.special_flavour != SPWPN_NORMAL)
          brand_str = _brand_damage_string(mi, di.special_flavour, real_dam);
  
@@ -49563,7 +49614,7 @@ index 0a381e1..20e3241 100644
  
      // Part 3: The "Bonus" column
      // Describe any additional effects from a monster's attack flavour
-@@ -5495,10 +5949,10 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5495,10 +5957,10 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
      }
      // ...except Nessos' ranged attacks apply venom as a special effect
      else if (mi.type == MONS_NESSOS)
@@ -49576,7 +49627,7 @@ index 0a381e1..20e3241 100644
  }
  
  // Get all the info required to form an attacks table row for the monster's
-@@ -5510,41 +5964,47 @@ static void _attacks_table_row_throwing(const monster_info &mi,
+@@ -5510,41 +5972,47 @@ static void _attacks_table_row_throwing(const monster_info &mi,
      if (!quiv || quiv->base_type != OBJ_MISSILES)
          return;
  
@@ -49639,7 +49690,7 @@ index 0a381e1..20e3241 100644
          default:
              break;
          }
-@@ -5565,21 +6025,39 @@ static void _attacks_table_row_throwing(const monster_info &mi,
+@@ -5565,21 +6033,39 @@ static void _attacks_table_row_throwing(const monster_info &mi,
              string dmg_msg;
              int silver_dam = max(dam / 3,
                                   silver_damages_victim(&you, dam, dmg_msg));
@@ -49682,7 +49733,7 @@ index 0a381e1..20e3241 100644
      // Hopefully enough width for every possibility
      di.damage_width    = min(di.damage_width, (size_t) 31);
      di.bonus_width     = min(di.bonus_width, 69 - di.damage_width);
-@@ -5594,14 +6072,12 @@ static void _build_table_of_attacks(mon_attack_desc_info &di,
+@@ -5594,14 +6080,12 @@ static void _build_table_of_attacks(mon_attack_desc_info &di,
      // Note: columns are separated by (a minimum of) 2 spaces
  
      // First, the table header
@@ -49700,7 +49751,7 @@ index 0a381e1..20e3241 100644
      }
      result << "\n";
  
-@@ -5707,36 +6183,32 @@ static string _monster_spells_description(const monster_info& mi, bool mark_spel
+@@ -5707,36 +6191,32 @@ static string _monster_spells_description(const monster_info& mi, bool mark_spel
      if (mark_spells)
          description += SPELL_LIST_END;
  
@@ -49751,7 +49802,7 @@ index 0a381e1..20e3241 100644
  }
  
  static void _describe_aux_hit_chance(ostringstream &result, vector<string>& auxes, int chance)
-@@ -5826,23 +6298,36 @@ void describe_hit_chance(int hit_chance, ostringstream &result, const item_def *
+@@ -5826,23 +6306,36 @@ void describe_hit_chance(int hit_chance, ostringstream &result, const item_def *
      if (verbose)
          result << "about ";
  
@@ -49802,7 +49853,7 @@ index 0a381e1..20e3241 100644
      }
  }
  
-@@ -5905,9 +6390,13 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
+@@ -5905,9 +6398,13 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
      const int beat_sh_chance = mon_beat_sh_pct(shield_bypass, scaled_sh);
  
      const int hit_chance = beat_ev_chance * beat_sh_chance / 100;
@@ -49819,7 +49870,7 @@ index 0a381e1..20e3241 100644
  }
  
  /**
-@@ -6060,6 +6549,10 @@ static string _monster_current_target_description(const monster_info &mi)
+@@ -6060,6 +6557,10 @@ static string _monster_current_target_description(const monster_info &mi)
  
      const char* pronoun = mi.pronoun(PRONOUN_SUBJECTIVE);
      const bool plural = mi.pronoun_plurality();
@@ -49830,7 +49881,7 @@ index 0a381e1..20e3241 100644
  
      ostringstream result;
      if (mi.is(MB_ALLY_TARGET))
-@@ -6067,28 +6560,41 @@ static string _monster_current_target_description(const monster_info &mi)
+@@ -6067,28 +6568,41 @@ static string _monster_current_target_description(const monster_info &mi)
          auto allies = find_allies_targeting(*m);
          if (allies.size() == 1)
          {
@@ -49884,7 +49935,7 @@ index 0a381e1..20e3241 100644
      }
  
      return result.str();
-@@ -6101,6 +6607,38 @@ struct TableCell
+@@ -6101,6 +6615,38 @@ struct TableCell
      colour_t colour;
  };
  
@@ -49923,7 +49974,7 @@ index 0a381e1..20e3241 100644
  // TODO: This is similar to column_composer. Deduplicate?
  class TablePrinter
  {
-@@ -6127,7 +6665,7 @@ public:
+@@ -6127,7 +6673,7 @@ public:
      {
          if (fixed_column_num > 0 && (int)rows[rows.size() - 1].size() >= fixed_column_num)
              AddRow();
@@ -49932,7 +49983,7 @@ index 0a381e1..20e3241 100644
      }
  
      int NumCells() const
-@@ -6146,7 +6684,7 @@ public:
+@@ -6146,7 +6692,7 @@ public:
          {
              for (size_t col = 0; col < rows[row].size(); ++col)
              {
@@ -49941,7 +49992,7 @@ index 0a381e1..20e3241 100644
                  if (col == labels_lengths_by_col.size())
                      labels_lengths_by_col.push_back(label_len);
                  else
-@@ -6158,23 +6696,37 @@ public:
+@@ -6158,23 +6704,37 @@ public:
  
          for (const auto &row : rows)
          {
@@ -49990,7 +50041,7 @@ index 0a381e1..20e3241 100644
          }
      }
  };
-@@ -6294,10 +6846,12 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+@@ -6294,10 +6854,12 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
  
      // Less important common properties. Arguably should be lower down.
      const size_type sz = mi.body_size();
@@ -50006,7 +50057,7 @@ index 0a381e1..20e3241 100644
      pr.AddRow();
      if (mi.threat != MTHRT_UNDEF && !mons_class_is_peripheral(mi.type))
          pr.AddCell("Threat", _get_threat_desc(mi.threat));
-@@ -6305,9 +6859,10 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+@@ -6305,9 +6867,10 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
          pr.AddCell(); // ensure alignment
      pr.AddCell("Class", uppercase_first(holi).c_str());
      pr.AddCell("Size", size_desc.c_str());
@@ -50019,7 +50070,7 @@ index 0a381e1..20e3241 100644
      else if (mons_class_fast_regen(mi.type) || mi.is(MB_REGENERATION))
          pr.AddCell("Regen", make_stringf("%d/turn", mi.regen_rate(1)));
                                          // (Wait, what's a 'turn'?)
-@@ -6621,6 +7176,29 @@ static string _desc_shooting_star_dam(const monster_info &mi)
+@@ -6621,6 +7184,29 @@ static string _desc_shooting_star_dam(const monster_info &mi)
      return make_stringf("%dd%d", beam.damage.num, beam.damage.size);
  }
  
@@ -50049,7 +50100,7 @@ index 0a381e1..20e3241 100644
  // Fetches the monster's database description and reads it into inf.
  void get_monster_db_desc(const monster_info& mi, describe_info &inf,
                           bool &has_stat_desc, bool mark_spells)
-@@ -6646,10 +7224,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6646,10 +7232,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      // Don't get description for player ghosts.
      if (mi.type != MONS_PLAYER_GHOST && mi.type != MONS_PLAYER_ILLUSION)
@@ -50065,7 +50116,7 @@ index 0a381e1..20e3241 100644
  
      string symbol;
      symbol += get_monster_data(mi.type)->basechar;
-@@ -6660,10 +7241,10 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6660,10 +7249,10 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      if (!mons_is_unique(mi.type))
      {
          string symbol_prefix = "__" + symbol + "_prefix";
@@ -50078,7 +50129,7 @@ index 0a381e1..20e3241 100644
      }
  
      if (!inf.quote.empty() && !quote2.empty())
-@@ -6697,18 +7278,31 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6697,18 +7286,31 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      }
  
      case MONS_PLAYER_GHOST:
@@ -50114,7 +50165,7 @@ index 0a381e1..20e3241 100644
  
      case MONS_MUTANT_BEAST:
          // vault renames get their own descriptions
-@@ -6718,30 +7312,45 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6718,30 +7320,45 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      case MONS_BLOCK_OF_ICE:
          if (mi.is(MB_SLOWLY_DYING))
@@ -50166,7 +50217,7 @@ index 0a381e1..20e3241 100644
  
      default:
          break;
-@@ -6750,13 +7359,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6750,13 +7367,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      if (mons_class_is_fragile(mi.type))
      {
          if (mi.is(MB_CRUMBLING))
@@ -50184,7 +50235,7 @@ index 0a381e1..20e3241 100644
      }
  
      if (!mons_is_unique(mi.type))
-@@ -6765,21 +7374,26 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6765,21 +7382,26 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
          symbol_suffix += symbol;
          symbol_suffix += "_suffix";
  
@@ -50218,7 +50269,7 @@ index 0a381e1..20e3241 100644
      }
  
      // Get information on resistances, speed, etc.
-@@ -6793,7 +7407,8 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6793,7 +7415,8 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      bool did_stair_use = false;
      if (!mons_class_can_use_stairs(mi.type))
      {
@@ -50228,7 +50279,7 @@ index 0a381e1..20e3241 100644
          did_stair_use = true;
      }
  
-@@ -6803,42 +7418,70 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6803,42 +7426,70 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      if (mi.is(MB_SUMMONED))
      {
@@ -50316,7 +50367,7 @@ index 0a381e1..20e3241 100644
      }
  
      if (!inf.quote.empty())
-@@ -6958,11 +7601,19 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
+@@ -6958,11 +7609,19 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
      for (string& tag : descriptors)
      {
          const string key = make_stringf("%s monstatus", tag.c_str());
@@ -50338,7 +50389,7 @@ index 0a381e1..20e3241 100644
  
          // Wordwrap and indent slightly.
          linebreak_string(lookup, 77);
-@@ -6971,11 +7622,12 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
+@@ -6971,11 +7630,12 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
          out << "   " << lookup << "\n\n";
      }
  
@@ -50352,7 +50403,7 @@ index 0a381e1..20e3241 100644
      bool has_stat_desc = false;
      describe_info inf;
      formatted_string desc;
-@@ -7000,7 +7652,7 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7000,7 +7660,7 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  #endif
  
      auto title = make_shared<Text>();
@@ -50361,7 +50412,7 @@ index 0a381e1..20e3241 100644
      title->set_margin_for_sdl(0, 0, 0, 10);
      title_hbox->add_child(std::move(title));
  
-@@ -7009,24 +7661,34 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7009,24 +7669,34 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
      title_hbox->set_margin_for_sdl(0, 0, 20, 0);
      vbox->add_child(std::move(title_hbox));
  
@@ -50402,7 +50453,7 @@ index 0a381e1..20e3241 100644
      const formatted_string status_desc = _get_monster_status_descriptions(mi);
  
  
-@@ -7037,9 +7699,9 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7037,9 +7707,9 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  
      const string mores[3] =
      {
@@ -50415,7 +50466,7 @@ index 0a381e1..20e3241 100644
      };
  
      const formatted_string *content[3] = { &desc, &status_desc, &quote };
-@@ -7061,14 +7723,14 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7061,14 +7731,14 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  
          string more = make_stringf("%s%s%s", mores[i].c_str(),
              !status_desc.empty()
@@ -50433,7 +50484,7 @@ index 0a381e1..20e3241 100644
      }
  
      more_sw->set_margin_for_sdl(20, 0, 0, 0);
-@@ -7279,11 +7941,14 @@ string get_ghost_description(const monster_info &mi, bool concise)
+@@ -7279,11 +7949,14 @@ string get_ghost_description(const monster_info &mi, bool concise)
  
  void describe_skill(skill_type skill)
  {
@@ -50450,16 +50501,163 @@ index 0a381e1..20e3241 100644
  }
  
  #ifdef USE_TILE_LOCAL // only used in tiles
-@@ -7548,7 +8213,7 @@ static string _describe_talisman_form(transformation form_type)
-         int max_size = -1;
-         for (int j = 0; j < 4; ++j)
-         {
+@@ -7472,7 +8145,85 @@ static void _desc_form_val(TablePrinter& pr, string label, int val)
+     pr.AddCell(label, make_stringf("%+d", val).c_str(), val < 0 ? RED : LIGHTGREY);
+ }
+ 
+-static string _describe_talisman_form(transformation form_type)
++static string _form_atom(const char *domain, const string &source, bool &supported)
++{
++    const ZhArg atom = zh_word_arg("value", domain, source, ZhArgType::Name);
++    supported = supported && atom.supported;
++    return zh_language_enabled() ? atom.localized : atom.canonical;
++}
++
++// Four semantic columns, independent of the number of scaling properties.
++static vector<int> _form_table_widths(const vector<vector<string>> &items)
++{
++    vector<int> widths(4, 6);
++    for (const auto &row : items)
++        for (int col = 0; col < 4; ++col)
++            widths[col] = max(widths[col], min(col == 0 ? 28 : 16,
++                formatted_string::parse_string_raw(row[col]).width() + 2));
++    return widths;
++}
++
++static string _render_form_scaling_table(const vector<vector<string>> &items)
++{
++    const vector<int> widths = _form_table_widths(items);
++    const int total = widths[0] + widths[1] + widths[2] + widths[3];
++    ostringstream out;
++    out << string(total, '_') << "\n\n";
++    for (size_t row = 0; row < items.size(); ++row)
++    {
++        vector<vector<formatted_string>> cells(4);
++        size_t height = 1;
++        for (int col = 0; col < 4; ++col)
++        {
++            const string text = row == 0 || col == 3
++                ? "<white>" + items[row][col] + "</white>" : items[row][col];
++            formatted_string::parse_string_to_multiple_raw(text, cells[col],
++                                                          widths[col] - 2);
++            height = max(height, cells[col].size());
++        }
++        for (size_t line = 0; line < height; ++line)
++        {
++            for (int col = 0; col < 4; ++col)
++            {
++                const formatted_string cell = line < cells[col].size()
++                    ? cells[col][line] : formatted_string();
++                out << cell.to_colour_string()
++                    << string(max(0, widths[col] - cell.width()), ' ');
++            }
++            out << "\n";
++        }
++        if (row == 0)
++            out << string(total, '-') << "\n";
++    }
++    return out.str();
++}
++
++static ZhArg _form_holiness_arg(mon_holy_type holiness)
++{
++    string canonical;
++    string localized;
++    bool supported = true;
++    for (const auto bit : mon_holy_type::range())
++    {
++        if (!(holiness & bit))
++            continue;
++        const string name = holiness_name(bit);
++        const ZhArg atom = zh_word_arg("holiness", "monster.table.",
++                                      uppercase_first(name), ZhArgType::Name);
++        if (!canonical.empty())
++        {
++            canonical += ",";
++            localized += "、";
++        }
++        canonical += name;
++        localized += atom.localized;
++        supported = supported && atom.supported;
++    }
++    return {"holiness", ZhArgType::Text, uppercase_first(canonical), localized,
++            supported};
++}
++
++static string _describe_talisman_form_impl(transformation form_type, bool &supported)
+ {
+     const Form* form = get_form(form_type);
+ 
+@@ -7540,53 +8291,31 @@ static string _describe_talisman_form(transformation form_type)
+         _maybe_populate_form_table(items, bind(&Form::get_effect_chance, form, placeholders::_1), "Daze Power", skill, 0, false, false);
+     }
+ 
+-    vector<int> column_width;
+-
+-    // Determine size of each column (by being slightly wider than the largest entry in it).
+-    for (size_t i = 0; i < items.size(); ++i)
++    for (int col = 1; col < 4; ++col)
++        items[0][col] = _form_atom("form.table.", items[0][col], supported);
++    for (size_t row = 1; row < items.size(); ++row)
+     {
+-        int max_size = -1;
+-        for (int j = 0; j < 4; ++j)
+-        {
 -            const int len = formatted_string::parse_string(items[i][j]).width();
-+            const int len = formatted_string::parse_string_raw(items[i][j]).width();
-             if (len > max_size)
-                 max_size = len;
-         }
-@@ -7628,7 +8293,7 @@ static string _describe_talisman_form(transformation form_type)
+-            if (len > max_size)
+-                max_size = len;
+-        }
+-
+-        // Enforce a minimum column size, but otherwise space just a little apart
+-        max_size = max(6, max_size + 3);
+-
+-        if (i > 0)
+-            max_size += column_width[i - 1];
+-        column_width.push_back(max_size);
++        const string &label = items[row][0];
++        const char *domain = label == "AC" || label == "EV" || label == "Regen"
++            ? "monster.table." : "form.table.";
++        items[row][0] = _form_atom(domain, label, supported);
+     }
+-
+-    column_composer cols(items.size(), column_width);
+-    for (size_t i = 0; i < items.size(); ++i)
+-        for (int j = 0; j < 4; ++j)
+-            cols.add_formatted(i, items[i][j], false, -1, true, j == 3 ? WHITE : LIGHTGREY);
+-
+-    // Actually output the table
+     ostringstream description;
+-
+-    description << string(60, '_') << "\n\n";
+-
+-    vector<formatted_string> lines = cols.formatted_lines();
+-    description << lines[0].to_colour_string() << "\n";
+-    description << string(column_width.back(), '-') << "\n";
+-    description << lines[1].to_colour_string() << "\n";
+-    description << lines[2].to_colour_string() << "\n";
+-    description << "<white>" << lines[3].to_colour_string() << "<lightgrey>\n";
+-
++    description << _render_form_scaling_table(items);
+     if (form->holiness)
+-        description << "\nClass: " << uppercase_first(holiness_description(form->holiness));
++    {
++        const ZhArg holiness = _form_holiness_arg(form->holiness);
++        supported = supported && holiness.supported;
++        description << "\n" << zh_message("item.talisman.form.class_line",
++                                           {holiness}).display();
++    }
+ 
+     // Now add various one-off bits of (generally non-scaling) data after that
+     TablePrinter pr(4, 80);
+     pr.AddRow();
+ 
+     if (form->size != SIZE_CHARACTER)
+-        pr.AddCell("Size", uppercase_first(get_size_adj(form->size)));
++        pr.AddCell("Size", _form_atom("form.size.", get_size_adj(form->size), supported));
+ 
+     _desc_form_val(pr, "Str", form->str_mod);
+     _desc_form_val(pr, "Dex", form->dex_mod);
+@@ -7628,7 +8357,7 @@ static string _describe_talisman_form(transformation form_type)
      else if (form_type == transformation::sphinx)
      {
          if (!you.has_mutation(MUT_NO_ARMOUR))
@@ -50468,18 +50666,80 @@ index 0a381e1..20e3241 100644
          pr.AddCell("Will", "+");
      }
      else if (form_type == transformation::werewolf)
-@@ -7679,7 +8344,10 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7652,10 +8381,22 @@ static string _describe_talisman_form(transformation form_type)
+         pr.Print(description);
+     }
  
+-    // Melding info
+-    string meld_desc = form->melding_description(true);
+-    if (!meld_desc.empty())
+-        description << "\nMelds: " << meld_desc << "\n";
++    // Source atoms come from equipment slots, never a parsed English list.
++    const vector<string> melded = form->melded_equipment_names();
++    if (!melded.empty())
++    {
++        string localized;
++        for (const string &slot : melded)
++        {
++            if (!localized.empty())
++                localized += "、";
++            localized += _form_atom("form.meld.", slot, supported);
++        }
++        description << "\n" << zh_message("item.talisman.form.meld_line", {
++            ZhArg{"items", ZhArgType::Text,
++                comma_separated_line(melded.begin(), melded.end(), ", "),
++                localized, supported}}).display() << "\n";
++    }
+ 
+     // Mutation suppression info
+     vector<string> changes;
+@@ -7672,16 +8413,41 @@ static string _describe_talisman_form(transformation form_type)
+ 
+     if (!changes.empty())
+     {
+-        description << "\nMutations Suppressed: "
+-                    << comma_separated_line(changes.begin(), changes.end(), ", ")
+-                    << "\n";
++        string localized;
++        for (const string &change : changes)
++        {
++            if (!localized.empty())
++                localized += "、";
++            localized += _form_atom("form.mutation.", change, supported);
++        }
++        description << "\n" << zh_message("item.talisman.form.mutations_suppressed", {
++            ZhArg{"mutations", ZhArgType::Text,
++                comma_separated_line(changes.begin(), changes.end(), ", "),
++                localized, supported}}).display() << "\n";
+     }
+-
      description << string(60, '_') << "\n";
- 
--    return description.str();
-+    const string form_description = description.str();
-+    return zh_message("item.talisman.form_english_fallback", {
-+        ZhArg{"description", ZhArgType::Text, form_description,
-+              form_description, false}}).display();
+-
+     return description.str();
  }
  
++static string _describe_talisman_form(transformation form_type)
++{
++    const ZhLegacyGuard boundary("detail.form");
++    string canonical;
++    bool canonical_supported = true;
++    {
++        ZhTranslationPause english;
++        canonical = _describe_talisman_form_impl(form_type, canonical_supported);
++    }
++    if (!zh_language_enabled())
++        return canonical;
++    bool supported = true;
++    const string localized = _describe_talisman_form_impl(form_type, supported);
++    if (supported)
++        return localized;
++    return zh_message("item.talisman.form_english_fallback", {
++        ZhArg{"description", ZhArgType::Text, canonical, canonical, false}}).display();
++}
++
  static string _describe_talisman(const item_def &item, bool verbose)
+ {
+     ostringstream description;
 diff --git a/crawl-ref/source/describe.h b/crawl-ref/source/describe.h
 index f2aea63..87aef9d 100644
 --- a/crawl-ref/source/describe.h
@@ -51042,6 +51302,154 @@ index 9e07e4a..dbc3d84 100644
  
  void display_tagged_block(const string& s);
 +void display_tagged_block_raw(const string& s);
+diff --git a/crawl-ref/source/god-abil.cc b/crawl-ref/source/god-abil.cc
+index b7cdb40..3ffa02c 100644
+--- a/crawl-ref/source/god-abil.cc
++++ b/crawl-ref/source/god-abil.cc
+@@ -6,6 +6,7 @@
+ #include "AppHdr.h"
+ 
+ #include "god-abil.h"
++#include "zh-message.h"
+ 
+ #include <cmath>
+ #include <numeric>
+@@ -2241,6 +2242,35 @@ string desc_curse_skills(const CrawlStoreValue& curse)
+            + comma_separated_fn(trainable.begin(), trainable.end(), skill_name);
+ }
+ 
++ZhArg zh_curse_skills_arg(const string &key, const CrawlStoreValue& curse)
++{
++    const curse_data& data =
++        _ashenzari_curses[static_cast<curse_type>(curse.get_int())];
++    const ZhArg category = zh_word_arg("category", "item.curse.category.",
++                                      data.name, ZhArgType::Name);
++    vector<string> canonical;
++    string localized;
++    bool supported = category.supported;
++    for (skill_type sk : data.boosted)
++    {
++        if (!you.can_currently_train[sk])
++            continue;
++        const ZhArg skill = zh_glossary_name("skill", "skill.name", skill_name(sk));
++        canonical.push_back(skill.canonical);
++        if (!localized.empty())
++            localized += "、";
++        localized += skill.localized;
++        supported = supported && skill.supported;
++    }
++    const ZhMessage entry = canonical.empty()
++        ? zh_message("item.curse.skills.empty", {category}, desc_curse_skills(curse))
++        : zh_message("item.curse.skills.entry", {
++        category, ZhArg{"skills", ZhArgType::Text,
++            comma_separated_line(canonical.begin(), canonical.end()),
++            localized, supported}}, desc_curse_skills(curse));
++    return {key, ZhArgType::Text, entry.canonical, entry.localized, supported};
++}
++
+ /**
+  * Choose skills to boost accompanying the current curse.
+  */
+diff --git a/crawl-ref/source/god-abil.h b/crawl-ref/source/god-abil.h
+index c9704ed..d41e3b0 100644
+--- a/crawl-ref/source/god-abil.h
++++ b/crawl-ref/source/god-abil.h
+@@ -18,6 +18,7 @@
+ #include "spl-cast.h"
+ 
+ class dist;
++struct ZhArg;
+ 
+ #define AVAILABLE_SAC_KEY "available_sacrifices"
+ #define HEALTH_SAC_KEY "current_health_sacrifice"
+@@ -161,6 +162,7 @@ void ashenzari_offer_new_curse();
+ bool ashenzari_curse_item();
+ bool ashenzari_uncurse_item();
+ string desc_curse_skills(const CrawlStoreValue& curse);
++ZhArg zh_curse_skills_arg(const string &key, const CrawlStoreValue& curse);
+ string curse_abbr(const CrawlStoreValue& curse);
+ string curse_name(const CrawlStoreValue& curse);
+ const vector<skill_type>& curse_skills(const CrawlStoreValue& curse);
+diff --git a/crawl-ref/source/items.cc b/crawl-ref/source/items.cc
+index 5d6b98f..d2820f0 100644
+--- a/crawl-ref/source/items.cc
++++ b/crawl-ref/source/items.cc
+@@ -6,6 +6,7 @@
+ #include "AppHdr.h"
+ 
+ #include "items.h"
++#include "zh-display-name.h"
+ 
+ #include <algorithm>
+ #include <cctype>
+@@ -1369,6 +1370,55 @@ string origin_desc(const item_def &item)
+     return desc;
+ }
+ 
++// UI only. Notes, Lua and saves continue to use origin_desc's canonical text.
++string origin_display_desc(const item_def &item)
++{
++    if (!origin_describable(item))
++        return "";
++    const string canonical = "\n" + origin_desc(item) + ".";
++    const ZhArg place = zh_place_arg("place", item.orig_place);
++    const char *id = nullptr;
++    if (item.orig_monnum < 0)
++    {
++        const int source = -item.orig_monnum;
++        switch (source)
++        {
++        case IT_SRC_SHOP: id = "item.origin.shop_purchase"; break;
++        case AQ_SCROLL: id = "item.origin.acquirement"; break;
++        case AQ_INVENTED: id = "item.origin.invented"; break;
++#if TAG_MAJOR_VERSION == 34
++        case AQ_CARD_GENIE: id = "item.origin.genie_draw"; break;
++#endif
++        case AQ_WIZMODE: id = "item.origin.wizard_created"; break;
++        default:
++            if (source > GOD_NO_GOD && source < NUM_GODS)
++                return zh_message("item.origin.god_gift", {
++                    zh_glossary_name("god", "god.name",
++                        god_name(static_cast<god_type>(source))), place},
++                    canonical).display();
++            break;
++        }
++    }
++    else if (item.orig_monnum == MONS_DANCING_WEAPON)
++        id = "item.origin.dancing_weapon";
++    else if (item.orig_monnum)
++    {
++        ZhArg monster = zh_monster_type_arg("monster",
++            static_cast<monster_type>(item.orig_monnum));
++        monster.canonical = _origin_monster_name(item);
++        return zh_message("item.origin.taken_from_monster", {monster, place},
++                          canonical).display();
++    }
++    else
++        id = "item.origin.found_place";
++    if (id)
++        return zh_message(id, {place}, canonical).display();
++    // Corrupt/unknown origin metadata is reported, never word-translated.
++    return zh_message("item.origin.english_fallback", {
++        ZhArg{"origin", ZhArgType::Text, canonical.substr(1),
++              canonical.substr(1), false}}).display();
++}
++
+ /**
+  * Pickup a single item stack at the given location link
+  *
+diff --git a/crawl-ref/source/items.h b/crawl-ref/source/items.h
+index 899e257..a1bc0bd 100644
+--- a/crawl-ref/source/items.h
++++ b/crawl-ref/source/items.h
+@@ -145,6 +145,7 @@ void origin_set_monster(item_def &item, const monster* mons);
+ bool origin_known(const item_def &item);
+ bool origin_describable(const item_def &item);
+ string origin_desc(const item_def &item);
++string origin_display_desc(const item_def &item);
+ void origin_purchased(item_def &item);
+ void origin_acquired(item_def &item, int agent);
+ void milestone_check(const item_def &item);
 diff --git a/crawl-ref/source/l-item.cc b/crawl-ref/source/l-item.cc
 index 36faf37..b53f047 100644
 --- a/crawl-ref/source/l-item.cc
@@ -55001,7 +55409,7 @@ index b06d658..914319f 100644
              }
  
 diff --git a/crawl-ref/source/skill-menu.cc b/crawl-ref/source/skill-menu.cc
-index 2d2afd8..0c856f0 100644
+index 2d2afd8..420efa0 100644
 --- a/crawl-ref/source/skill-menu.cc
 +++ b/crawl-ref/source/skill-menu.cc
 @@ -34,6 +34,9 @@
@@ -55014,7 +55422,7 @@ index 2d2afd8..0c856f0 100644
  
  using namespace ui;
  
-@@ -42,6 +45,155 @@ SkillMenu skm;
+@@ -42,6 +45,162 @@ SkillMenu skm;
  
  static string _format_skill_target(int target);
  
@@ -55105,6 +55513,13 @@ index 2d2afd8..0c856f0 100644
 +    return min(max(current_rows, text_rows), max(1, max_rows));
 +}
 +
++static int _skill_help_columns(int left, int right, int unit)
++{
++    // Use the text item's actual bounds, not the enclosing menu's origin.
++    // Leave one display cell between the last glyph and the frame.
++    return max(1, (right - left) / max(1, unit) - 1);
++}
++
 +static int _skill_help_rows_available(int screen_bottom, int current_rows,
 +                                      int footer_bottom, int unit)
 +{
@@ -55170,7 +55585,7 @@ index 2d2afd8..0c856f0 100644
  #ifdef USE_TILE_LOCAL
  bool SkillTextTileItem::handle_mouse(const wm_mouse_event& me)
  {
-@@ -222,8 +374,11 @@ void SkillMenuEntry::set_name(bool keep_hotkey)
+@@ -222,8 +381,11 @@ void SkillMenuEntry::set_name(bool keep_hotkey)
          m_name->allow_highlight(false);
      }
  
@@ -55184,7 +55599,7 @@ index 2d2afd8..0c856f0 100644
      m_name->set_fg_colour(get_colour());
  #ifdef USE_TILE_LOCAL
      if (is_set(SKMF_SKILL_ICONS))
-@@ -251,10 +406,10 @@ void SkillMenuEntry::_clear()
+@@ -251,10 +413,10 @@ void SkillMenuEntry::_clear()
  {
      m_sk = SK_NONE;
  
@@ -55199,7 +55614,7 @@ index 2d2afd8..0c856f0 100644
  
      m_name->set_id(-1);
      m_name->clear_hotkeys();
-@@ -331,7 +486,7 @@ void SkillMenuEntry::set_aptitude()
+@@ -331,7 +493,7 @@ void SkillMenuEntry::set_aptitude()
          text += "<lightred>+4</lightred>";
      }
  
@@ -55208,7 +55623,7 @@ index 2d2afd8..0c856f0 100644
  }
  
  void SkillMenuEntry::set_level()
-@@ -345,9 +500,9 @@ void SkillMenuEntry::set_level()
+@@ -345,9 +507,9 @@ void SkillMenuEntry::set_level()
          level = you.skill(m_sk, 10, real);
  
      if (mastered())
@@ -55220,7 +55635,7 @@ index 2d2afd8..0c856f0 100644
      m_level->set_fg_colour(get_colour());
  }
  
-@@ -362,22 +517,22 @@ void SkillMenuEntry::set_new_level()
+@@ -362,22 +524,22 @@ void SkillMenuEntry::set_new_level()
          new_level = you.skill(m_sk, 10, real);
          m_progress->set_fg_colour(CYAN);
          if (you.training[m_sk])
@@ -55248,7 +55663,7 @@ index 2d2afd8..0c856f0 100644
      m_progress->set_fg_colour(LIGHTGREY);
      m_progress->set_editable(false);
  }
-@@ -385,10 +540,10 @@ void SkillMenuEntry::set_points()
+@@ -385,10 +547,10 @@ void SkillMenuEntry::set_points()
  void SkillMenuEntry::set_progress()
  {
      if (mastered())
@@ -55261,7 +55676,7 @@ index 2d2afd8..0c856f0 100644
                                            get_skill_percentage(m_sk)));
      }
      m_progress->set_fg_colour(CYAN);
-@@ -405,12 +560,12 @@ void SkillMenuEntry::set_targets()
+@@ -405,12 +567,12 @@ void SkillMenuEntry::set_targets()
      int target = you.get_training_target(m_sk);
      if (target == 0)
      {
@@ -55276,7 +55691,7 @@ index 2d2afd8..0c856f0 100644
          if (target_met(m_sk))
              m_progress->set_fg_colour(DARKGREY); // mainly comes up in wizmode
          else
-@@ -422,24 +577,24 @@ void SkillMenuEntry::set_targets()
+@@ -422,24 +584,24 @@ void SkillMenuEntry::set_targets()
  void SkillMenuEntry::set_title()
  {
      m_name->allow_highlight(false);
@@ -55310,7 +55725,7 @@ index 2d2afd8..0c856f0 100644
      default: die("Invalid view state.");
      }
  }
-@@ -449,9 +604,9 @@ void SkillMenuEntry::set_training()
+@@ -449,9 +611,9 @@ void SkillMenuEntry::set_training()
      m_progress->set_editable(false);
  
      if (!you.training[m_sk])
@@ -55322,7 +55737,7 @@ index 2d2afd8..0c856f0 100644
      m_progress->set_fg_colour(BROWN);
  }
  
-@@ -469,7 +624,7 @@ void SkillMenuEntry::set_cost()
+@@ -469,7 +631,7 @@ void SkillMenuEntry::set_cost()
      auto ratio = scaled_skill_cost(m_sk);
      // Don't let the displayed number go greater than 4 characters
      if (ratio > 0)
@@ -55331,7 +55746,7 @@ index 2d2afd8..0c856f0 100644
  }
  
  SkillMenuSwitch::SkillMenuSwitch(string name, int hotkey) : m_name(name)
-@@ -553,22 +708,16 @@ string SkillMenuSwitch::get_help()
+@@ -553,22 +715,16 @@ string SkillMenuSwitch::get_help()
      switch (m_state)
      {
      case SKM_MODE_AUTO:
@@ -55359,7 +55774,7 @@ index 2d2afd8..0c856f0 100644
      case SKM_LEVEL_ENHANCED:
      {
          string result;
-@@ -594,9 +743,8 @@ string SkillMenuSwitch::get_help()
+@@ -594,9 +750,8 @@ string SkillMenuSwitch::get_help()
                  causes.push_back("the Charlatan's Orb");
              if (you.form == transformation::walking_scroll)
                  causes.push_back("scribal knowledge");
@@ -55371,7 +55786,7 @@ index 2d2afd8..0c856f0 100644
          }
  
          if (skm.is_set(SKMF_REDUCED))
-@@ -610,9 +758,8 @@ string SkillMenuSwitch::get_help()
+@@ -610,9 +765,8 @@ string SkillMenuSwitch::get_help()
                  causes.push_back("the Bane of the Dilettante");
              if (!result.empty())
                  result += " ";
@@ -55383,7 +55798,7 @@ index 2d2afd8..0c856f0 100644
          }
  
          if (!result.empty())
-@@ -620,33 +767,24 @@ string SkillMenuSwitch::get_help()
+@@ -620,33 +774,24 @@ string SkillMenuSwitch::get_help()
      }
      case SKM_VIEW_TRAINING:
          if (skm.is_set(SKMF_SIMPLE))
@@ -55426,7 +55841,7 @@ index 2d2afd8..0c856f0 100644
      }
      default: return "";
      }
-@@ -696,7 +834,7 @@ int SkillMenuSwitch::size() const
+@@ -696,7 +841,7 @@ int SkillMenuSwitch::size() const
      if (m_states.size() <= 1)
          return 0;
      else
@@ -55435,7 +55850,7 @@ index 2d2afd8..0c856f0 100644
  }
  
  bool SkillMenuSwitch::toggle()
-@@ -719,27 +857,40 @@ void SkillMenuSwitch::update()
+@@ -719,27 +864,40 @@ void SkillMenuSwitch::update()
  {
      if (m_states.size() <= 1)
      {
@@ -55484,7 +55899,7 @@ index 2d2afd8..0c856f0 100644
  }
  
  #define TILES_COL 6
-@@ -803,6 +954,7 @@ void SkillMenu::finish_experience(bool experience_change)
+@@ -803,6 +961,7 @@ void SkillMenu::finish_experience(bool experience_change)
  
  void SkillMenu::init(int flag, int region_height)
  {
@@ -55492,7 +55907,7 @@ index 2d2afd8..0c856f0 100644
      m_flags = flag;
      init_flags();
  
-@@ -934,8 +1086,12 @@ int SkillMenu::read_skill_target(skill_type sk)
+@@ -934,8 +1093,12 @@ int SkillMenu::read_skill_target(skill_type sk)
      progress->set_highlight_colour(RED);
  
      // for webtiles dialog input
@@ -55507,7 +55922,7 @@ index 2d2afd8..0c856f0 100644
      progress->set_tag("skill_target");
  
      edit_result r = progress->edit(&prefill, _keyfun_target_input);
-@@ -957,7 +1113,7 @@ int SkillMenu::read_skill_target(skill_type sk)
+@@ -957,7 +1120,7 @@ int SkillMenu::read_skill_target(skill_type sk)
          if (input > 270)
          {
              // 27.0 is the maximum target
@@ -55516,7 +55931,7 @@ index 2d2afd8..0c856f0 100644
              return -1;
          }
          else
-@@ -1040,7 +1196,7 @@ bool SkillMenu::do_skill_enabled_check()
+@@ -1040,7 +1203,7 @@ bool SkillMenu::do_skill_enabled_check()
          // Shouldn't happen, but crash rather than locking the player in the
          // menu. Training will be fixed up on load.
          ASSERT(!you.has_mutation(MUT_DISTRIBUTED_TRAINING));
@@ -55525,7 +55940,7 @@ index 2d2afd8..0c856f0 100644
          // It can be confusing if the only trainable skills are hidden. Turn on
          // SKM_SHOW_ALL if so.
          if (get_state(SKM_SHOW) == SKM_SHOW_DEFAULT)
-@@ -1168,11 +1324,9 @@ void SkillMenu::help()
+@@ -1168,11 +1331,9 @@ void SkillMenu::help()
      {
          string text;
          if (is_set(SKMF_SIMPLE))
@@ -55539,7 +55954,7 @@ index 2d2afd8..0c856f0 100644
          set_help(text);
      }
      else
-@@ -1443,37 +1597,36 @@ void SkillMenu::refresh_button_row()
+@@ -1443,37 +1604,36 @@ void SkillMenu::refresh_button_row()
  {
      if (is_set(SKMF_SPECIAL))
          return;
@@ -55591,7 +56006,7 @@ index 2d2afd8..0c856f0 100644
  }
  
  void SkillMenu::refresh_names()
-@@ -1505,12 +1658,10 @@ void SkillMenu::set_default_help()
+@@ -1505,12 +1665,10 @@ void SkillMenu::set_default_help()
      string text;
      if (is_set(SKMF_EXPERIENCE))
      {
@@ -55606,7 +56021,7 @@ index 2d2afd8..0c856f0 100644
      else
      {
          if (!is_set(SKMF_MANUAL))
-@@ -1519,21 +1670,70 @@ void SkillMenu::set_default_help()
+@@ -1519,21 +1677,76 @@ void SkillMenu::set_default_help()
          if (get_state(SKM_LEVEL) == SKM_LEVEL_ENHANCED)
              text += m_switches[SKM_LEVEL]->get_help() + " ";
          else
@@ -55635,7 +56050,13 @@ index 2d2afd8..0c856f0 100644
 +        return;
 +    }
 +
-+    const int width = max(20, m_max_coord.x - m_min_coord.x - 1);
++    int column_unit = 1;
++#ifdef USE_TILE_LOCAL
++    column_unit = max<int>(1, tiles.get_crt_font()->char_width());
++#endif
++    const int width = _skill_help_columns(m_help->get_min_coord().x,
++                                          m_help->get_max_coord().x,
++                                          column_unit);
 +    msg = _skill_wrap(msg, width);
 +
 +    int unit = 1;
@@ -55682,7 +56103,7 @@ index 2d2afd8..0c856f0 100644
  }
  
  void SkillMenu::set_skills()
-@@ -1635,11 +1835,10 @@ void SkillMenu::set_title()
+@@ -1635,11 +1848,10 @@ void SkillMenu::set_title()
      string t;
      if (is_set(SKMF_EXPERIENCE))
      {
@@ -55696,7 +56117,7 @@ index 2d2afd8..0c856f0 100644
  }
  
  void SkillMenu::shift_bottom_down()
-@@ -1770,6 +1969,7 @@ void UISkillMenu::_allocate_region()
+@@ -1770,6 +1982,7 @@ void UISkillMenu::_allocate_region()
  
  void UISkillMenu::_render()
  {
@@ -55704,7 +56125,7 @@ index 2d2afd8..0c856f0 100644
  #ifdef USE_TILE_LOCAL
      GLW_3VF t = {(float)m_region.x, (float)m_region.y, 0}, s = {1, 1, 1};
      glmanager->set_transform(t, s);
-@@ -1783,6 +1983,7 @@ void UISkillMenu::_render()
+@@ -1783,6 +1996,7 @@ void UISkillMenu::_render()
  #ifdef USE_TILE_LOCAL
  bool UISkillMenu::on_event(const Event& ev)
  {
@@ -55712,7 +56133,7 @@ index 2d2afd8..0c856f0 100644
      if (ev.type() != Event::Type::MouseMove
       && ev.type() != Event::Type::MouseDown
       && ev.type() != Event::Type::MouseWheel)
-@@ -1819,7 +2020,7 @@ void skill_menu(int flag, int exp)
+@@ -1819,7 +2033,7 @@ void skill_menu(int flag, int exp)
      // case where we abort is if all in-principle trainable skills are maxed.
      if (flag & SKMF_EXPERIENCE && !trainable_skills(true))
      {
@@ -55721,7 +56142,7 @@ index 2d2afd8..0c856f0 100644
          return;
      }
  
-@@ -1835,6 +2036,7 @@ void skill_menu(int flag, int exp)
+@@ -1835,6 +2049,7 @@ void skill_menu(int flag, int exp)
      auto popup = make_shared<ui::Popup>(skill_menu_ui);
  
      skill_menu_ui->on_keydown_event([&done, &skill_menu_ui](const KeyEvent& ev) {
@@ -56629,6 +57050,45 @@ index f2bead5..58742ab 100644
      bool m_show_tooltip = false;
      unsigned int m_tooltip_timer_id = 0;
  
+diff --git a/crawl-ref/source/transform.cc b/crawl-ref/source/transform.cc
+index 6088e7d..737bafc 100644
+--- a/crawl-ref/source/transform.cc
++++ b/crawl-ref/source/transform.cc
+@@ -128,6 +128,13 @@ string Form::melding_description(bool itemized) const
+         return "";
+     }
+ 
++    tags = melded_equipment_names();
++    return comma_separated_line(tags.begin(), tags.end(), ", ");
++}
++
++vector<string> Form::melded_equipment_names() const
++{
++    vector<string> tags;
+     if (blocked_slots == EQF_ALL)
+         tags.emplace_back("All Equipment");
+     else if (blocked_slots == EQF_PHYSICAL)
+@@ -142,7 +149,7 @@ string Form::melding_description(bool itemized) const
+         }
+     }
+ 
+-    return comma_separated_line(tags.begin(), tags.end(), ", ");
++    return tags;
+ }
+ 
+ static const FormAttackVerbs DEFAULT_VERBS = FormAttackVerbs(nullptr, nullptr,
+diff --git a/crawl-ref/source/transform.h b/crawl-ref/source/transform.h
+index a28ab47..04783e4 100644
+--- a/crawl-ref/source/transform.h
++++ b/crawl-ref/source/transform.h
+@@ -168,6 +168,7 @@ public:
+ 
+     string player_prayer_action() const;
+     string melding_description(bool itemized) const;
++    vector<string> melded_equipment_names() const;
+ 
+     virtual vector<pair<string, string>> get_fakemuts() const;
+     virtual vector<pair<string, string>> get_bad_fakemuts() const;
 diff --git a/crawl-ref/source/ui.cc b/crawl-ref/source/ui.cc
 index 744b710..6bec025 100644
 --- a/crawl-ref/source/ui.cc
@@ -110536,15 +110996,16 @@ index 0000000..6f29754
 +    {"attunement", "调谐"},
 diff --git a/crawl-ref/source/zh-display-name.cc b/crawl-ref/source/zh-display-name.cc
 new file mode 100644
-index 0000000..3abe914
+index 0000000..5516c97
 --- /dev/null
 +++ b/crawl-ref/source/zh-display-name.cc
-@@ -0,0 +1,449 @@
+@@ -0,0 +1,471 @@
 +#include "AppHdr.h"
 +
 +#include "zh-display-name.h"
 +
 +#include "artefact.h"
++#include "branch.h"
 +#include "item-name.h"
 +#include "item-prop.h"
 +#include "item-status-flag-type.h"
@@ -110552,6 +111013,7 @@ index 0000000..3abe914
 +#include "invent.h"
 +#include "mon-info.h"
 +#include "monster.h"
++#include "place.h"
 +#include "zh-localization.h"
 +
 +#include <cstdlib>
@@ -110640,6 +111102,8 @@ index 0000000..3abe914
 +        return item_base_name(item.base_type, item.sub_type);
 +    case OBJ_MISSILES:
 +        return missile_name(static_cast<missile_type>(item.sub_type));
++    case OBJ_TALISMANS:
++        return talisman_type_name(item.sub_type);
 +    case OBJ_POTIONS:
 +        return std::string("potion of ") + potion_type_name(item.sub_type);
 +    case OBJ_SCROLLS:
@@ -110852,6 +111316,24 @@ index 0000000..3abe914
 +}
 +}
 +
++ZhArg zh_place_arg(const std::string &key, const level_id &place)
++{
++    const std::string canonical = prep_branch_level_name(place);
++    const ZhArg branch = zh_word_arg("branch", "place.branch.",
++        branches[place.branch].longname, ZhArgType::Name);
++    const ZhMessage location = brdepth[place.branch] == 1
++        ? zh_message("place.display.named", {branch})
++        : zh_message("place.display.level",
++                     {branch, zh_integer("depth", place.depth)});
++    return {key, ZhArgType::Text, canonical, location.localized,
++            branch.supported};
++}
++
++ZhArg zh_monster_type_arg(const std::string &key, monster_type type)
++{
++    return zh_glossary_name(key, "monster.name", mons_type_name(type, DESC_PLAIN));
++}
++
 +ZhArg zh_monster_arg(const std::string &key, const monster &mon,
 +                     description_level_type desc)
 +{
@@ -110991,10 +111473,10 @@ index 0000000..3abe914
 +}
 diff --git a/crawl-ref/source/zh-display-name.h b/crawl-ref/source/zh-display-name.h
 new file mode 100644
-index 0000000..12e23cb
+index 0000000..4738d7e
 --- /dev/null
 +++ b/crawl-ref/source/zh-display-name.h
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,29 @@
 +#pragma once
 +
 +#include <string>
@@ -111005,6 +111487,7 @@ index 0000000..12e23cb
 +
 +class monster;
 +struct monster_info;
++class level_id;
 +
 +// Construct a UI-only argument. canonical always retains the engine's English
 +// name; localized is assembled from semantic fields and exact glossary hits.
@@ -111016,6 +111499,8 @@ index 0000000..12e23cb
 +                  description_level_type desc = DESC_A);
 +ZhArg zh_actor_arg(const std::string &key, const actor *who,
 +                   description_level_type desc = DESC_THE);
++ZhArg zh_monster_type_arg(const std::string &key, monster_type type);
++ZhArg zh_place_arg(const std::string &key, const level_id &place);
 +
 +std::string zh_monster_display(const monster &mon,
 +                               description_level_type desc = DESC_THE);
@@ -111603,10 +112088,10 @@ index 0000000..fca52fb
 +};
 diff --git a/crawl-ref/source/zh-message-catalog.inc b/crawl-ref/source/zh-message-catalog.inc
 new file mode 100644
-index 0000000..31672bb
+index 0000000..02b5ffe
 --- /dev/null
 +++ b/crawl-ref/source/zh-message-catalog.inc
-@@ -0,0 +1,2613 @@
+@@ -0,0 +1,2793 @@
 +// Generated from Luna-reviewed message IDs. Do not edit.
 +static const ZhDefinition zh_definitions[] = {
 +    {"artifact.jewel.01", "It sustains your strength, intelligence and dexterity.", "它能维持你的力量、智力和敏捷。", ""},
@@ -111794,18 +112279,78 @@ index 0000000..31672bb
 +    {"feature.enter_key", "While standing here, you can enter <w>{destination}</w> with the <w>{key}</w> key.", "站在这里时，按<w>{key}</w>键即可进入<w>{destination}</w>。", "destination:text;key:key"},
 +    {"feature.reach_past.fixed", "A suitable weapon or spell can reach past it.", "合适的武器或法术可以越过它攻击。", ""},
 +    {"form.class", "Class: {holiness}", "类别：{holiness}", "holiness:name"},
++    {"form.meld.all_equipment", "All Equipment", "所有装备", ""},
++    {"form.meld.all_weapons_and_armour", "All Weapons and Armour", "所有武器和护甲", ""},
++    {"form.meld.amulet", "Amulet", "护符", ""},
++    {"form.meld.armour", "Armour", "护甲", ""},
++    {"form.meld.barding", "Barding", "骑乘护甲", ""},
++    {"form.meld.body_armour", "Body Armour", "躯干护甲", ""},
++    {"form.meld.boots", "Boots", "靴子", ""},
++    {"form.meld.cloak", "Cloak", "斗篷", ""},
++    {"form.meld.gizmo", "Gizmo", "装置", ""},
++    {"form.meld.gloves", "Gloves", "手套", ""},
++    {"form.meld.helmet", "Helmet", "头盔", ""},
++    {"form.meld.offhand", "Offhand", "副手", ""},
++    {"form.meld.ring", "Ring", "戒指", ""},
++    {"form.meld.weapon", "Weapon", "武器", ""},
++    {"form.mutation.anatomy", "Anatomy", "解剖结构", ""},
++    {"form.mutation.blood", "Blood", "血液", ""},
++    {"form.mutation.bones", "Bones", "骨骼", ""},
++    {"form.mutation.hands", "Hands", "手", ""},
++    {"form.mutation.substance", "Substance", "材质", ""},
++    {"form.size.giant", "giant", "巨大", ""},
++    {"form.size.large", "large", "大", ""},
++    {"form.size.medium", "medium", "中", ""},
++    {"form.size.small", "small", "小", ""},
++    {"form.size.tiny", "tiny", "极小", ""},
++    {"form.size.very_small", "very small", "非常小", ""},
++    {"form.table.airstrike_dmg", "Airstrike Dmg", "空袭伤害", ""},
 +    {"form.table.aux_chance", "Aux chance", "辅助攻击几率", ""},
 +    {"form.table.barding", "Barding", "马铠", ""},
++    {"form.table.bat_swarm_recharge", "Bat Swarm Recharge", "蝙蝠群充能", ""},
++    {"form.table.bees", "# of Bees", "蜜蜂数量", ""},
++    {"form.table.bite_dmg", "Bite Dmg", "撕咬伤害", ""},
 +    {"form.table.bite_speed", "Bite speed", "撕咬速度", ""},
++    {"form.table.blade_dmg", "Blade Dmg", "刀刃伤害", ""},
++    {"form.table.blinkbolt_dmg", "Blinkbolt Dmg", "闪电突进伤害", ""},
++    {"form.table.body_armour_ac", "Body Armour AC", "躯干护甲", ""},
++    {"form.table.breath_dmg", "Breath Dmg", "吐息伤害", ""},
++    {"form.table.burstshroom_damage", "Burstshroom damage", "爆裂蘑菇伤害", ""},
 +    {"form.table.claws", "Claws", "爪击", ""},
++    {"form.table.contam_dmg", "Contam Dmg", "污染伤害", ""},
++    {"form.table.cur", "Cur", "当前", ""},
++    {"form.table.daze_power", "Daze Power", "眩惑强度", ""},
++    {"form.table.devour_regen", "Devour Regen", "吞噬再生", ""},
 +    {"form.table.dex", "Dex", "敏捷", ""},
 +    {"form.table.elec_chance", "Elec chance", "触发电击几率", ""},
++    {"form.table.ensnare_chance", "Ensnare Chance", "缠网概率", ""},
++    {"form.table.flare_dmg", "Flare Dmg", "耀光伤害", ""},
++    {"form.table.frigid_wall_dmg", "Frigid Wall Dmg", "冰墙伤害", ""},
++    {"form.table.howl_power", "Howl Power", "嚎叫强度", ""},
++    {"form.table.hp", "HP", "生命值", ""},
++    {"form.table.jolt_damage", "Jolt damage", "电击伤害", ""},
++    {"form.table.max", "Max", "最高", ""},
 +    {"form.table.melee_damage", "Melee damage", "近战伤害", ""},
 +    {"form.table.melee_dmg", "Melee dmg", "近战伤害", ""},
++    {"form.table.min", "Min", "最低", ""},
++    {"form.table.mp", "MP", "魔力", ""},
++    {"form.table.mp_regen", "MP Regen", "魔力再生", ""},
++    {"form.table.parry_sh", "Parry SH", "招架格挡", ""},
++    {"form.table.petrify_chance", "Petrify chance", "石化概率", ""},
++    {"form.table.quill_dmg", "Quill Dmg", "棘刺伤害", ""},
 +    {"form.table.reach", "Reach", "攻击距离", ""},
++    {"form.table.rust_breath_size", "Rust Breath Size", "锈息范围", ""},
 +    {"form.table.sinv", "SInv", "看隐形", ""},
++    {"form.table.skill", "Skill", "技能", ""},
++    {"form.table.slay", "Slay", "杀伤", ""},
++    {"form.table.slay_kill", "+Slay/Kill", "+杀伤/击杀", ""},
++    {"form.table.spell_skill_boost", "Spell Skill Boost", "法术技能加成", ""},
 +    {"form.table.stealth", "Stealth", "潜行", ""},
 +    {"form.table.str", "Str", "力量", ""},
++    {"form.table.takedown_dmg", "Takedown Dmg", "扑杀伤害", ""},
++    {"form.table.tendril_targets", "Tendril targets", "触须目标数", ""},
++    {"form.table.uc_base_dmg", "UC Base Dmg", "拳脚基础伤害", ""},
++    {"form.table.watery_grave_dmg", "Watery Grave Dmg", "水墓伤害", ""},
 +    {"form.value.yes", "Yes", "是", ""},
 +    {"hud.branch.abyss", "Abyss", "深渊", ""},
 +    {"hud.branch.arena", "Arena", "竞技场", ""},
@@ -112002,9 +112547,23 @@ index 0000000..31672bb
 +    {"item.artefact.magic_immutable.fixed", "This ancient artefact cannot be changed by magic or mundane means.", "这件远古神器无法通过魔法或凡俗手段改变。", ""},
 +    {"item.consumable.rarity", "\n\nIt is {article} {rarity} {kind}.", "\n\n这是一件{article}{rarity}{kind}。", "article:text;rarity:text;kind:text"},
 +    {"item.curse.applied.fixed", "It has a curse placed upon it.", "它受到了诅咒。", ""},
++    {"item.curse.category.beguiling", "Beguiling", "迷惑", ""},
++    {"item.curse.category.companions", "Companions", "伙伴", ""},
++    {"item.curse.category.cunning", "Cunning", "狡黠", ""},
++    {"item.curse.category.devices", "Devices", "装置", ""},
++    {"item.curse.category.elements", "Elements", "元素", ""},
++    {"item.curse.category.fortitude", "Fortitude", "坚毅", ""},
++    {"item.curse.category.introspection", "Introspection", "内省", ""},
++    {"item.curse.category.melee", "Melee Combat", "近战", ""},
++    {"item.curse.category.ranged", "Ranged Combat", "远程战斗", ""},
++    {"item.curse.category.sorcery", "Sorcery", "奥术", ""},
++    {"item.curse.skills.empty", "{category}: ", "{category}：当前没有可训练的技能", "category:name"},
++    {"item.curse.skills.entry", "{category}: {skills}", "{category}：{skills}", "category:name;skills:text"},
 +    {"item.curse.skills.fixed", "It has a curse which improves the following skills:", "它受到的诅咒会增强以下技能：", ""},
 +    {"item.curse.skills_english_fallback", "{description}", "{description}", "description:text"},
 +    {"item.curse.skills_list", "{skills}.", "{skills}。", "skills:text"},
++    {"item.detail.menu_colouring_prefixes", "Menu/colouring prefixes:", "菜单/着色前缀：", ""},
++    {"item.detail.stash_search_prefixes", "Stash search prefixes:", "物品搜索前缀：", ""},
 +    {"item.equipment.preview.offhand.fixed", "If you switch to wielding this weapon in your main hand:", "如果你改为在主手挥舞这件武器：", ""},
 +    {"item.equipment.preview.remove", "\n\nIf you {verb} this {type}:", "\n\n如果你{verb}{type}：", "verb:text;type:name"},
 +    {"item.equipment.preview.ring.fixed", "If you were wearing this ring:", "如果你佩戴这枚戒指：", ""},
@@ -112035,8 +112594,17 @@ index 0000000..31672bb
 +    {"item.jewellery.slaying_effect", "\n\nIt affects your accuracy and damage with ranged weapons and melee ({amount}).", "\n\n它会影响你使用远程武器和近战武器时的命中与伤害（{amount}）。", "amount:text"},
 +    {"item.jewellery.stat_effect", "\n\nIt affects your {stat} ({amount}).", "\n\n它会影响你的{stat}（{amount}）。", "stat:text;amount:text"},
 +    {"item.location.offlevel", "It can be found on {level}.", "可在{level}找到。", "level:key"},
++    {"item.origin.acquirement", "\nYou acquired it {place}.", "\n你在{place}获得了它。", "place:text"},
++    {"item.origin.dancing_weapon", "\nYou subdued it {place}.", "\n你在{place}制服了它。", "place:text"},
 +    {"item.origin.english_fallback", "\n{origin}", "\n{origin}", "origin:text"},
 +    {"item.origin.found_dungeon", "\nYou found it on level {depth} of the Dungeon.", "\n你在地下城第{depth}层发现了它。", "depth:integer"},
++    {"item.origin.found_place", "\nYou found it {place}.", "\n你在{place}发现了它。", "place:text"},
++    {"item.origin.genie_draw", "\nYou drew the Genie {place}.", "\n你在{place}抽到了精灵。", "place:text"},
++    {"item.origin.god_gift", "\n{god} gifted it to you {place}.", "\n{god}在{place}赐予了你这件物品。", "god:name;place:text"},
++    {"item.origin.invented", "\nYou invented it yourself {place}.", "\n你在{place}亲手创造了它。", "place:text"},
++    {"item.origin.shop_purchase", "\nYou bought it in a shop {place}.", "\n你在{place}的一家商店买到了它。", "place:text"},
++    {"item.origin.taken_from_monster", "\nYou took it off {monster} {place}.", "\n你在{place}从{monster}身上取下了它。", "monster:name;place:text"},
++    {"item.origin.wizard_created", "\nYour wizardly powers created it {place}.", "\n你在{place}凭借法师之力创造了它。", "place:text"},
 +    {"item.potion.ac", "If you quaff this potion your AC would be {armour_class}.", "喝下这瓶药水后，你的护甲等级将为{armour_class}。", "armour_class:integer"},
 +    {"item.potion.cancellation", "\n\nIf you drink this now, you will no longer be {state}.", "\n\n如果你现在喝下它，将不再处于{state}状态。", "state:text"},
 +    {"item.potion.dexterity", "\n\nIt affects your dexterity ({amount}).", "\n\n它会影响你的敏捷（{amount}）。", "amount:integer"},
@@ -112055,6 +112623,12 @@ index 0000000..31672bb
 +    {"item.stash.location", "It can be found on {depth}.\n\n", "它位于{depth}。\n\n", "depth:text"},
 +    {"item.stat.change", "{direction} by {amount} ({before} -> {after})", "{direction}{amount}（{before} → {after}）", "direction:text;amount:number;before:number;after:number"},
 +    {"item.stat.unchanged.fixed", "remain unchanged", "保持不变", ""},
++    {"item.talisman.form.class_line", "Class: {holiness}", "类别：{holiness}", "holiness:text"},
++    {"item.talisman.form.meld_line", "Melds: {items}", "融合装备：{items}", "items:text"},
++    {"item.talisman.form.mutations_suppressed", "Mutations Suppressed: {mutations}", "压制的突变：{mutations}", "mutations:text"},
++    {"item.talisman.form.size_line", "Size: {size}", "体型：{size}", "size:name"},
++    {"item.talisman.form.table.header", "{skill} {minimum} {maximum} {current}", "{skill} {minimum} {maximum} {current}", "skill:name;minimum:name;maximum:name;current:name"},
++    {"item.talisman.form.table.row", "{label} {minimum} {maximum} {current}", "{label} {minimum} {maximum} {current}", "label:name;minimum:text;maximum:text;current:text"},
 +    {"item.talisman.form_english_fallback", "{description}", "{description}", "description:text"},
 +    {"item.useless.current_default", "This {item_type} is useless to you right now{reason}", "此{item_type}目前对你无用{reason}", "item_type:name;reason:text"},
 +    {"item.useless.drinking_impossible", "Drinking this right now isn't possible{reason}", "现在无法喝下此药水{reason}", "reason:text"},
@@ -112831,6 +113405,48 @@ index 0000000..31672bb
 +    {"monster.will_chance", "Chance to defeat your Will: {chance}%{suffix}\n", "击败你的意志抗性几率：{chance}%{suffix}\n", "chance:integer;suffix:text"},
 +    {"mutation.rank", " (level {skill_level}/{max_level})", "（等级{skill_level}/{max_level}）", "skill_level:integer;max_level:integer"},
 +    {"no_skill_training", "You cannot train any new skills!", "你无法训练任何新技能！", ""},
++    {"place.branch.abyss", "the Abyss", "深渊", ""},
++    {"place.branch.arena", "the Arena", "竞技场", ""},
++    {"place.branch.bailey", "a bailey", "庭院", ""},
++    {"place.branch.bazaar", "a bazaar", "集市", ""},
++    {"place.branch.blade", "the Hall of Blades", "剑刃大厅", ""},
++    {"place.branch.cocytus", "Cocytus", "科奇托斯", ""},
++    {"place.branch.crucible", "the Crucible of Flesh", "炼狱炉", ""},
++    {"place.branch.crypt", "the Crypt", "墓穴", ""},
++    {"place.branch.depths", "the Depths", "深渊层", ""},
++    {"place.branch.desolation", "the Desolation of Salt", "荒盐之地", ""},
++    {"place.branch.dis", "the Iron City of Dis", "迪斯", ""},
++    {"place.branch.dungeon", "the Dungeon", "地牢", ""},
++    {"place.branch.dwarf", "the Dwarven Hall", "矮人大厅", ""},
++    {"place.branch.elf", "the Elven Halls", "精灵大厅", ""},
++    {"place.branch.forest", "the Enchanted Forest", "森林", ""},
++    {"place.branch.gauntlet", "a Gauntlet", "试炼场", ""},
++    {"place.branch.gehenna", "Gehenna", "欣嫩谷", ""},
++    {"place.branch.ice_cave", "an ice cave", "冰窟", ""},
++    {"place.branch.labyrinth", "a Labyrinth", "迷宫", ""},
++    {"place.branch.lair", "the Lair of Beasts", "兽穴", ""},
++    {"place.branch.necropolis", "the Necropolis", "亡者之城", ""},
++    {"place.branch.orc", "the Orcish Mines", "兽人矿坑", ""},
++    {"place.branch.ossuary", "an ossuary", "藏骨堂", ""},
++    {"place.branch.pandemonium", "Pandemonium", "潘德莫尼姆", ""},
++    {"place.branch.sewer", "a sewer", "下水道", ""},
++    {"place.branch.shoals", "the Shoals", "浅滩", ""},
++    {"place.branch.slime", "the Pits of Slime", "史莱姆坑", ""},
++    {"place.branch.snake", "the Snake Pit", "蛇穴", ""},
++    {"place.branch.spider", "the Spider Nest", "蛛巢", ""},
++    {"place.branch.swamp", "the Swamp", "沼泽", ""},
++    {"place.branch.tartarus", "Tartarus", "塔尔塔罗斯", ""},
++    {"place.branch.temple", "the Ecumenical Temple", "神殿", ""},
++    {"place.branch.tomb", "the Tomb of the Ancients", "古墓", ""},
++    {"place.branch.trove", "a treasure trove", "宝库", ""},
++    {"place.branch.vaults", "the Vaults", "宝库", ""},
++    {"place.branch.vestibule", "the Vestibule of Hell", "地狱前厅", ""},
++    {"place.branch.volcano", "a volcano", "火山", ""},
++    {"place.branch.wizlab", "a wizard's laboratory", "巫师实验室", ""},
++    {"place.branch.ziggurat", "a ziggurat", "金字塔", ""},
++    {"place.branch.zot", "the Realm of Zot", "佐特", ""},
++    {"place.display.level", "Level {depth} of {branch}", "{branch}第{depth}层", "depth:integer;branch:name"},
++    {"place.display.named", "{branch}", "{branch}", "branch:name"},
 +    {"prompt.answer.yn", "<lightred>[Y]es or [N]o only, please.</lightred>", "<lightred>请只输入[Y]是或[N]否。</lightred>", ""},
 +    {"prompt.answer.yn_upper", "<lightred>Uppercase [Y]es or [N]o only, please.</lightred>", "<lightred>请只使用大写字母：[Y]是或[N]否。</lightred>", ""},
 +    {"prompt.answer.yna", "<lightred>[Y]es, [N]o, or [A]lways only, please.</lightred>", "<lightred>请只输入[Y]是、[N]否或[A]总是。</lightred>", ""},
@@ -113058,6 +113674,8 @@ index 0000000..31672bb
 +    {"skill_mastered", "You have mastered {skill}!", "你精通了{skill}！", "skill:name"},
 +    {"skill_multi_gain", "Your {base}{skill} skill gained {count} levels and is now at level {level}!", "你的{base}{skill}技能提升了{count}级，现在为{level}级！", "base:text;skill:name;count:integer;level:integer"},
 +    {"skill_multi_loss", "Your {base}{skill} skill lost {count} levels and is now at level {level}!", "你的{base}{skill}技能降低了{count}级，现在为{level}级。", "base:text;skill:name;count:integer;level:integer"},
++    {"spell.book.terse.list", "Spells: {spells}", "法术：{spells}", "spells:text"},
++    {"spell.book.terse.row", "{spell} (L{spell_level} {schools})", "{spell}（法术等级{spell_level}，{schools}）", "spell:name;spell_level:integer;schools:text"},
 +    {"spell.fail_rate", "        Fail: {fail_percent}% <darkgrey>({reference_percent}%)</darkgrey>", "        失败率：{fail_percent}% <darkgrey>（{reference_percent}%）</darkgrey>", "fail_percent:integer;reference_percent:integer"},
 +    {"spell.god_opinion", "{god} {opinion} the use of this spell.\n", "{god}{opinion}此法术。\n", "god:name;opinion:text"},
 +    {"spell.level", "\nLevel: {spell_level}", "\n法术等级：{spell_level}", "spell_level:integer"},
@@ -113826,19 +114444,64 @@ index 0000000..31672bb
 +    {"detail.artifact.unrand", "Valiant:   It becomes more powerful as more dangerous foes come into view.", "artifact.unrand.source.087"},
 +    {"detail.artifact.unrand", "Zealotry:  Whenever the wielder enters a berserk rage, their allies are berserked alongside them.", "artifact.unrand.source.088"},
 +    {"detail.artifact.unrand", "rFlCloud:  It grants immunity to clouds of flame.", "artifact.unrand.source.089"},
++    {"detail.curse.category", "Beguiling", "item.curse.category.beguiling"},
++    {"detail.curse.category", "Companions", "item.curse.category.companions"},
++    {"detail.curse.category", "Cunning", "item.curse.category.cunning"},
++    {"detail.curse.category", "Devices", "item.curse.category.devices"},
++    {"detail.curse.category", "Elements", "item.curse.category.elements"},
++    {"detail.curse.category", "Fortitude", "item.curse.category.fortitude"},
++    {"detail.curse.category", "Introspection", "item.curse.category.introspection"},
++    {"detail.curse.category", "Melee Combat", "item.curse.category.melee"},
++    {"detail.curse.category", "Ranged Combat", "item.curse.category.ranged"},
++    {"detail.curse.category", "Sorcery", "item.curse.category.sorcery"},
 +    {"detail.feature.fixed", "A suitable weapon or spell can reach past it.", "feature.reach_past.fixed"},
++    {"detail.form.table_label", "# of Bees", "form.table.bees"},
++    {"detail.form.table_label", "+Slay/Kill", "form.table.slay_kill"},
++    {"detail.form.table_label", "Airstrike Dmg", "form.table.airstrike_dmg"},
 +    {"detail.form.table_label", "Aux chance", "form.table.aux_chance"},
 +    {"detail.form.table_label", "Barding", "form.table.barding"},
++    {"detail.form.table_label", "Bat Swarm Recharge", "form.table.bat_swarm_recharge"},
++    {"detail.form.table_label", "Bite Dmg", "form.table.bite_dmg"},
 +    {"detail.form.table_label", "Bite speed", "form.table.bite_speed"},
++    {"detail.form.table_label", "Blade Dmg", "form.table.blade_dmg"},
++    {"detail.form.table_label", "Blinkbolt Dmg", "form.table.blinkbolt_dmg"},
++    {"detail.form.table_label", "Body Armour AC", "form.table.body_armour_ac"},
++    {"detail.form.table_label", "Breath Dmg", "form.table.breath_dmg"},
++    {"detail.form.table_label", "Burstshroom damage", "form.table.burstshroom_damage"},
 +    {"detail.form.table_label", "Claws", "form.table.claws"},
++    {"detail.form.table_label", "Contam Dmg", "form.table.contam_dmg"},
++    {"detail.form.table_label", "Cur", "form.table.cur"},
++    {"detail.form.table_label", "Daze Power", "form.table.daze_power"},
++    {"detail.form.table_label", "Devour Regen", "form.table.devour_regen"},
 +    {"detail.form.table_label", "Dex", "form.table.dex"},
 +    {"detail.form.table_label", "Elec chance", "form.table.elec_chance"},
++    {"detail.form.table_label", "Ensnare Chance", "form.table.ensnare_chance"},
++    {"detail.form.table_label", "Flare Dmg", "form.table.flare_dmg"},
++    {"detail.form.table_label", "Frigid Wall Dmg", "form.table.frigid_wall_dmg"},
++    {"detail.form.table_label", "HP", "form.table.hp"},
++    {"detail.form.table_label", "Howl Power", "form.table.howl_power"},
++    {"detail.form.table_label", "Jolt damage", "form.table.jolt_damage"},
++    {"detail.form.table_label", "MP", "form.table.mp"},
++    {"detail.form.table_label", "MP Regen", "form.table.mp_regen"},
++    {"detail.form.table_label", "Max", "form.table.max"},
 +    {"detail.form.table_label", "Melee damage", "form.table.melee_damage"},
 +    {"detail.form.table_label", "Melee dmg", "form.table.melee_dmg"},
++    {"detail.form.table_label", "Min", "form.table.min"},
++    {"detail.form.table_label", "Parry SH", "form.table.parry_sh"},
++    {"detail.form.table_label", "Petrify chance", "form.table.petrify_chance"},
++    {"detail.form.table_label", "Quill Dmg", "form.table.quill_dmg"},
 +    {"detail.form.table_label", "Reach", "form.table.reach"},
++    {"detail.form.table_label", "Rust Breath Size", "form.table.rust_breath_size"},
 +    {"detail.form.table_label", "SInv", "form.table.sinv"},
++    {"detail.form.table_label", "Skill", "form.table.skill"},
++    {"detail.form.table_label", "Slay", "form.table.slay"},
++    {"detail.form.table_label", "Spell Skill Boost", "form.table.spell_skill_boost"},
 +    {"detail.form.table_label", "Stealth", "form.table.stealth"},
 +    {"detail.form.table_label", "Str", "form.table.str"},
++    {"detail.form.table_label", "Takedown Dmg", "form.table.takedown_dmg"},
++    {"detail.form.table_label", "Tendril targets", "form.table.tendril_targets"},
++    {"detail.form.table_label", "UC Base Dmg", "form.table.uc_base_dmg"},
++    {"detail.form.table_label", "Watery Grave Dmg", "form.table.watery_grave_dmg"},
 +    {"detail.form.table_value", "Yes", "form.value.yes"},
 +    {"detail.item.fixed", "\n\nAdditional devices of the same type can be combined with it to improve the rate at which it recharges.", "item.evoker.combine.fixed"},
 +    {"detail.item.fixed", "\n\nIncreasing your evocations skill will improve the rate at which it recharges.", "item.evoker.skill.fixed"},
@@ -113856,7 +114519,9 @@ index 0000000..31672bb
 +    {"detail.item.fixed", "It has a curse which improves the following skills:", "item.curse.skills.fixed"},
 +    {"detail.item.fixed", "It is a fabulous contraption, custom-made by your own hands.", "item.gizmo.description.fixed"},
 +    {"detail.item.fixed", "It is an ancient artefact.", "item.artefact.ancient.fixed"},
++    {"detail.item.fixed", "Menu/colouring prefixes:", "item.detail.menu_colouring_prefixes"},
 +    {"detail.item.fixed", "Once activated", "item.evoker.activated.fixed"},
++    {"detail.item.fixed", "Stash search prefixes:", "item.detail.stash_search_prefixes"},
 +    {"detail.item.fixed", "This ancient artefact cannot be changed by magic or mundane means.", "item.artefact.magic_immutable.fixed"},
 +    {"detail.item.fixed", "This item has been removed.", "item.removed.fixed"},
 +    {"detail.item.fixed", "Wearing heavy armour would reduce your attack speed with this weapon.", "item.weapon.armour_slow_heavy.fixed"},

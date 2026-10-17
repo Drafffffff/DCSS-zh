@@ -1,0 +1,340 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "item.origin.found_place",
+      "context": "物品详情：普通来源地点（非标准地下城条目）",
+      "en": "\nYou found it {place}.",
+      "zh": "\n你在{place}发现了它。",
+      "params": {
+        "place": "text"
+      },
+      "source": {
+        "file": "items.cc",
+        "anchor": "origin_desc; orig_monnum == 0, followed by _origin_place_desc(item)"
+      }
+    },
+    {
+      "id": "item.origin.shop_purchase",
+      "context": "物品详情：商店购买来源",
+      "en": "\nYou bought it in a shop {place}.",
+      "zh": "\n你在{place}的一家商店买到了它。",
+      "params": {
+        "place": "text"
+      },
+      "source": {
+        "file": "items.cc",
+        "anchor": "origin_desc; IT_SRC_SHOP case"
+      }
+    },
+    {
+      "id": "item.origin.acquirement",
+      "context": "物品详情：卷轴/渠道获取来源",
+      "en": "\nYou acquired it {place}.",
+      "zh": "\n你在{place}获得了它。",
+      "params": {
+        "place": "text"
+      },
+      "source": {
+        "file": "items.cc",
+        "anchor": "origin_desc; AQ_SCROLL case"
+      }
+    },
+    {
+      "id": "item.origin.invented",
+      "context": "物品详情：自行发明来源",
+      "en": "\nYou invented it yourself {place}.",
+      "zh": "\n你在{place}亲手创造了它。",
+      "params": {
+        "place": "text"
+      },
+      "source": {
+        "file": "items.cc",
+        "anchor": "origin_desc; AQ_INVENTED case"
+      }
+    },
+    {
+      "id": "item.origin.genie_draw",
+      "context": "物品详情：牌组抽取来源（旧版条件）",
+      "en": "\nYou drew the Genie {place}.",
+      "zh": "\n你在{place}抽到了精灵。",
+      "params": {
+        "place": "text"
+      },
+      "source": {
+        "file": "items.cc",
+        "anchor": "origin_desc; AQ_CARD_GENIE under TAG_MAJOR_VERSION == 34"
+      }
+    },
+    {
+      "id": "item.origin.wizard_created",
+      "context": "物品详情：法师模式创建来源",
+      "en": "\nYour wizardly powers created it {place}.",
+      "zh": "\n你在{place}凭借法师之力创造了它。",
+      "params": {
+        "place": "text"
+      },
+      "source": {
+        "file": "items.cc",
+        "anchor": "origin_desc; AQ_WIZMODE case"
+      }
+    },
+    {
+      "id": "item.origin.god_gift",
+      "context": "物品详情：神祇赠礼来源",
+      "en": "\n{god} gifted it to you {place}.",
+      "zh": "\n{god}在{place}赐予了你这件物品。",
+      "params": {
+        "god": "name",
+        "place": "text"
+      },
+      "source": {
+        "file": "items.cc",
+        "anchor": "origin_desc; negative orig_monnum interpreted as god id and within GOD_NO_GOD..NUM_GODS"
+      }
+    },
+    {
+      "id": "item.origin.dancing_weapon",
+      "context": "物品详情：制服舞动武器来源",
+      "en": "\nYou subdued it {place}.",
+      "zh": "\n你在{place}制服了它。",
+      "params": {
+        "place": "text"
+      },
+      "source": {
+        "file": "items.cc",
+        "anchor": "origin_desc; orig_monnum == MONS_DANCING_WEAPON"
+      }
+    },
+    {
+      "id": "item.origin.taken_from_monster",
+      "context": "物品详情：从怪物身上取得来源",
+      "en": "\nYou took it off {monster} {place}.",
+      "zh": "\n你在{place}从{monster}身上取下了它。",
+      "params": {
+        "monster": "name",
+        "place": "text"
+      },
+      "source": {
+        "file": "items.cc",
+        "anchor": "origin_desc; positive orig_monnum other than MONS_DANCING_WEAPON, _origin_monster_name(item)"
+      }
+    },
+    {
+      "id": "spell.book.terse.row",
+      "context": "怪物/物品法术详情：单行法术名、法术等级与学派",
+      "en": "{spell} (L{spell_level} {schools})",
+      "zh": "{spell}（法术等级{spell_level}，{schools}）",
+      "params": {
+        "spell": "name",
+        "spell_level": "integer",
+        "schools": "text"
+      },
+      "source": {
+        "file": "describe-spells.cc",
+        "anchor": "terse_spell_list; spell_title, spell_difficulty, _spell_schools"
+      }
+    },
+    {
+      "id": "spell.book.terse.list",
+      "context": "怪物/物品法术详情：紧凑法术列表",
+      "en": "Spells: {spells}",
+      "zh": "法术：{spells}",
+      "params": {
+        "spells": "text"
+      },
+      "source": {
+        "file": "describe-spells.cc",
+        "anchor": "terse_spell_list; \"Spells: \" + comma_separated_line(spell_descs)"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "item.origin.found_place",
+      "args": {
+        "place": {
+          "type": "text",
+          "canonical": "on level 5 of the Lair of Beasts",
+          "localized": "兽穴第5层"
+        }
+      },
+      "canonical": "\nYou found it on level 5 of the Lair of Beasts.",
+      "zh": "\n你在兽穴第5层发现了它。"
+    },
+    {
+      "id": "item.origin.shop_purchase",
+      "args": {
+        "place": {
+          "type": "text",
+          "canonical": "on level 5 of the Lair of Beasts",
+          "localized": "兽穴第5层"
+        }
+      },
+      "canonical": "\nYou bought it in a shop on level 5 of the Lair of Beasts.",
+      "zh": "\n你在兽穴第5层的一家商店买到了它。"
+    },
+    {
+      "id": "item.origin.acquirement",
+      "args": {
+        "place": {
+          "type": "text",
+          "canonical": "on level 5 of the Lair of Beasts",
+          "localized": "兽穴第5层"
+        }
+      },
+      "canonical": "\nYou acquired it on level 5 of the Lair of Beasts.",
+      "zh": "\n你在兽穴第5层获得了它。"
+    },
+    {
+      "id": "item.origin.invented",
+      "args": {
+        "place": {
+          "type": "text",
+          "canonical": "on level 5 of the Lair of Beasts",
+          "localized": "兽穴第5层"
+        }
+      },
+      "canonical": "\nYou invented it yourself on level 5 of the Lair of Beasts.",
+      "zh": "\n你在兽穴第5层亲手创造了它。"
+    },
+    {
+      "id": "item.origin.genie_draw",
+      "args": {
+        "place": {
+          "type": "text",
+          "canonical": "on level 5 of the Lair of Beasts",
+          "localized": "兽穴第5层"
+        }
+      },
+      "canonical": "\nYou drew the Genie on level 5 of the Lair of Beasts.",
+      "zh": "\n你在兽穴第5层抽到了精灵。"
+    },
+    {
+      "id": "item.origin.wizard_created",
+      "args": {
+        "place": {
+          "type": "text",
+          "canonical": "on level 5 of the Lair of Beasts",
+          "localized": "兽穴第5层"
+        }
+      },
+      "canonical": "\nYour wizardly powers created it on level 5 of the Lair of Beasts.",
+      "zh": "\n你在兽穴第5层凭借法师之力创造了它。"
+    },
+    {
+      "id": "item.origin.god_gift",
+      "args": {
+        "god": {
+          "type": "name",
+          "canonical": "Xom",
+          "localized": "佐姆"
+        },
+        "place": {
+          "type": "text",
+          "canonical": "on level 5 of the Lair of Beasts",
+          "localized": "兽穴第5层"
+        }
+      },
+      "canonical": "\nXom gifted it to you on level 5 of the Lair of Beasts.",
+      "zh": "\n佐姆在兽穴第5层赐予了你这件物品。"
+    },
+    {
+      "id": "item.origin.dancing_weapon",
+      "args": {
+        "place": {
+          "type": "text",
+          "canonical": "on level 5 of the Lair of Beasts",
+          "localized": "兽穴第5层"
+        }
+      },
+      "canonical": "\nYou subdued it on level 5 of the Lair of Beasts.",
+      "zh": "\n你在兽穴第5层制服了它。"
+    },
+    {
+      "id": "item.origin.taken_from_monster",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "a yak",
+          "localized": "牦牛"
+        },
+        "place": {
+          "type": "text",
+          "canonical": "on level 5 of the Lair of Beasts",
+          "localized": "兽穴第5层"
+        }
+      },
+      "canonical": "\nYou took it off a yak on level 5 of the Lair of Beasts.",
+      "zh": "\n你在兽穴第5层从牦牛身上取下了它。"
+    },
+    {
+      "id": "spell.book.terse.row",
+      "args": {
+        "spell": {
+          "type": "name",
+          "canonical": "Magic Dart",
+          "localized": "魔法飞镖"
+        },
+        "spell_level": {
+          "type": "integer",
+          "canonical": "1",
+          "localized": "1"
+        },
+        "schools": {
+          "type": "text",
+          "canonical": "Conjuration",
+          "localized": "塑能"
+        }
+      },
+      "canonical": "Magic Dart (L1 Conjuration)",
+      "zh": "魔法飞镖（法术等级1，塑能）"
+    },
+    {
+      "id": "spell.book.terse.row",
+      "args": {
+        "spell": {
+          "type": "name",
+          "canonical": "Fireball",
+          "localized": "火球"
+        },
+        "spell_level": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        },
+        "schools": {
+          "type": "text",
+          "canonical": "Conjuration/Fire",
+          "localized": "塑能/火焰"
+        }
+      },
+      "canonical": "Fireball (L5 Conjuration/Fire)",
+      "zh": "火球（法术等级5，塑能/火焰）"
+    },
+    {
+      "id": "spell.book.terse.list",
+      "args": {
+        "spells": {
+          "type": "text",
+          "canonical": "Magic Dart (L1 Conjuration)",
+          "localized": "魔法飞镖（法术等级1，塑能）"
+        }
+      },
+      "canonical": "Spells: Magic Dart (L1 Conjuration)",
+      "zh": "法术：魔法飞镖（法术等级1，塑能）"
+    },
+    {
+      "id": "spell.book.terse.list",
+      "args": {
+        "spells": {
+          "type": "text",
+          "canonical": "Magic Dart (L1 Conjuration) and Fireball (L5 Conjuration/Fire)",
+          "localized": "魔法飞镖（法术等级1，塑能）、火球（法术等级5，塑能/火焰）"
+        }
+      },
+      "canonical": "Spells: Magic Dart (L1 Conjuration) and Fireball (L5 Conjuration/Fire)",
+      "zh": "法术：魔法飞镖（法术等级1，塑能）、火球（法术等级5，塑能/火焰）"
+    }
+  ]
+}

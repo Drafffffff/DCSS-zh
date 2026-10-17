@@ -6,6 +6,7 @@
 #include "AppHdr.h"
 
 #include "items.h"
+#include "zh-display-name.h"
 
 #include <algorithm>
 #include <cctype>
@@ -1367,6 +1368,55 @@ string origin_desc(const item_def &item)
 
     desc += _origin_place_desc(item);
     return desc;
+}
+
+// UI only. Notes, Lua and saves continue to use origin_desc's canonical text.
+string origin_display_desc(const item_def &item)
+{
+    if (!origin_describable(item))
+        return "";
+    const string canonical = "\n" + origin_desc(item) + ".";
+    const ZhArg place = zh_place_arg("place", item.orig_place);
+    const char *id = nullptr;
+    if (item.orig_monnum < 0)
+    {
+        const int source = -item.orig_monnum;
+        switch (source)
+        {
+        case IT_SRC_SHOP: id = "item.origin.shop_purchase"; break;
+        case AQ_SCROLL: id = "item.origin.acquirement"; break;
+        case AQ_INVENTED: id = "item.origin.invented"; break;
+#if TAG_MAJOR_VERSION == 34
+        case AQ_CARD_GENIE: id = "item.origin.genie_draw"; break;
+#endif
+        case AQ_WIZMODE: id = "item.origin.wizard_created"; break;
+        default:
+            if (source > GOD_NO_GOD && source < NUM_GODS)
+                return zh_message("item.origin.god_gift", {
+                    zh_glossary_name("god", "god.name",
+                        god_name(static_cast<god_type>(source))), place},
+                    canonical).display();
+            break;
+        }
+    }
+    else if (item.orig_monnum == MONS_DANCING_WEAPON)
+        id = "item.origin.dancing_weapon";
+    else if (item.orig_monnum)
+    {
+        ZhArg monster = zh_monster_type_arg("monster",
+            static_cast<monster_type>(item.orig_monnum));
+        monster.canonical = _origin_monster_name(item);
+        return zh_message("item.origin.taken_from_monster", {monster, place},
+                          canonical).display();
+    }
+    else
+        id = "item.origin.found_place";
+    if (id)
+        return zh_message(id, {place}, canonical).display();
+    // Corrupt/unknown origin metadata is reported, never word-translated.
+    return zh_message("item.origin.english_fallback", {
+        ZhArg{"origin", ZhArgType::Text, canonical.substr(1),
+              canonical.substr(1), false}}).display();
 }
 
 /**

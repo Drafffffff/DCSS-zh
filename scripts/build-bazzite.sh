@@ -15,6 +15,8 @@ python3 tools/test_pretranslated_rendering.py
 python3 tools/test_skill_menu_layout.py
 python3 tools/test_hud_layout.py
 python3 tools/test_translation_boundaries.py
+python3 tools/test_detail_producers.py
+python3 tools/test_curse_details.py
 rsync -az --exclude='.git' --exclude='*.o' --exclude='*.tmp' --exclude='conftest*' --exclude='*.d' --exclude='*.a' --exclude='*.so' --exclude='*.dylib' --exclude='contrib/lua/src/lua' --exclude='contrib/lua/src/luac' --exclude='crawl' --exclude='.cflags' --exclude='.contrib-libs' --exclude='config.h' --exclude='compflag.h' --exclude='build.h' --exclude='contrib/install' --exclude='rltiles/.cflags' native/crawl-ref/ "$HOST:$REMOTE/source/"
 ssh "$HOST" 'podman start dcss-zh-builder >/dev/null; podman exec -w /work/source/source dcss-zh-builder sh -c "make -j6 && cp crawl /work/crawl-console && make -j6 TILES=y SOUND=y && cp crawl /work/crawl-tiles"'
 mkdir -p output/linux

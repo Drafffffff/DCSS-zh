@@ -1,0 +1,573 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "place.display.level",
+      "context": "地点显示：多层分支中的地点，不包含介词；depth是分支内层数",
+      "en": "Level {depth} of {branch}",
+      "zh": "{branch}第{depth}层",
+      "params": {
+        "depth": "integer",
+        "branch": "name"
+      },
+      "source": {
+        "file": "travel.cc",
+        "anchor": "level_id::describe(long_name=true, with_number=true); multi-level branch path builds \"Level %d of %s\""
+      }
+    },
+    {
+      "id": "place.display.named",
+      "context": "地点显示：单层分支或特殊地点名称，不包含介词与层数",
+      "en": "{branch}",
+      "zh": "{branch}",
+      "params": {
+        "branch": "name"
+      },
+      "source": {
+        "file": "travel.cc",
+        "anchor": "level_id::describe(long_name=true, with_number=true); brdepth[branch] == 1 returns branches[branch].longname"
+      }
+    },
+    {
+      "id": "place.branch.dungeon",
+      "context": "地点显示：Dungeon所在分支的完整源名称映射为已审校分支名",
+      "en": "the Dungeon",
+      "zh": "地牢",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_DUNGEON; longname 'the Dungeon', shortname 'Dungeon'; reuse audited hud.branch.dungeon"
+      }
+    },
+    {
+      "id": "place.branch.temple",
+      "context": "地点显示：Temple所在分支的完整源名称映射为已审校分支名",
+      "en": "the Ecumenical Temple",
+      "zh": "神殿",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_TEMPLE; longname 'the Ecumenical Temple', shortname 'Temple'; reuse audited hud.branch.temple"
+      }
+    },
+    {
+      "id": "place.branch.orc",
+      "context": "地点显示：Orcish Mines所在分支的完整源名称映射为已审校分支名",
+      "en": "the Orcish Mines",
+      "zh": "兽人矿坑",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_ORC; longname 'the Orcish Mines', shortname 'Orcish Mines'; reuse audited hud.branch.orc"
+      }
+    },
+    {
+      "id": "place.branch.elf",
+      "context": "地点显示：Elven Halls所在分支的完整源名称映射为已审校分支名",
+      "en": "the Elven Halls",
+      "zh": "精灵大厅",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_ELF; longname 'the Elven Halls', shortname 'Elven Halls'; reuse audited hud.branch.elf"
+      }
+    },
+    {
+      "id": "place.branch.dwarf",
+      "context": "地点显示：Dwarven Hall所在分支的完整源名称映射为已审校分支名",
+      "en": "the Dwarven Hall",
+      "zh": "矮人大厅",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_DWARF; longname 'the Dwarven Hall', shortname 'Dwarven Hall'; reuse audited hud.branch.dwarf"
+      }
+    },
+    {
+      "id": "place.branch.lair",
+      "context": "地点显示：Lair所在分支的完整源名称映射为已审校分支名",
+      "en": "the Lair of Beasts",
+      "zh": "兽穴",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_LAIR; longname 'the Lair of Beasts', shortname 'Lair'; reuse audited hud.branch.lair"
+      }
+    },
+    {
+      "id": "place.branch.swamp",
+      "context": "地点显示：Swamp所在分支的完整源名称映射为已审校分支名",
+      "en": "the Swamp",
+      "zh": "沼泽",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_SWAMP; longname 'the Swamp', shortname 'Swamp'; reuse audited hud.branch.swamp"
+      }
+    },
+    {
+      "id": "place.branch.shoals",
+      "context": "地点显示：Shoals所在分支的完整源名称映射为已审校分支名",
+      "en": "the Shoals",
+      "zh": "浅滩",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_SHOALS; longname 'the Shoals', shortname 'Shoals'; reuse audited hud.branch.shoals"
+      }
+    },
+    {
+      "id": "place.branch.snake",
+      "context": "地点显示：Snake Pit所在分支的完整源名称映射为已审校分支名",
+      "en": "the Snake Pit",
+      "zh": "蛇穴",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_SNAKE; longname 'the Snake Pit', shortname 'Snake Pit'; reuse audited hud.branch.snake"
+      }
+    },
+    {
+      "id": "place.branch.spider",
+      "context": "地点显示：Spider Nest所在分支的完整源名称映射为已审校分支名",
+      "en": "the Spider Nest",
+      "zh": "蛛巢",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_SPIDER; longname 'the Spider Nest', shortname 'Spider Nest'; reuse audited hud.branch.spider"
+      }
+    },
+    {
+      "id": "place.branch.slime",
+      "context": "地点显示：Slime Pits所在分支的完整源名称映射为已审校分支名",
+      "en": "the Pits of Slime",
+      "zh": "史莱姆坑",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_SLIME; longname 'the Pits of Slime', shortname 'Slime Pits'; reuse audited hud.branch.slime"
+      }
+    },
+    {
+      "id": "place.branch.vaults",
+      "context": "地点显示：Vaults所在分支的完整源名称映射为已审校分支名",
+      "en": "the Vaults",
+      "zh": "宝库",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_VAULTS; longname 'the Vaults', shortname 'Vaults'; reuse audited hud.branch.vaults"
+      }
+    },
+    {
+      "id": "place.branch.blade",
+      "context": "地点显示：Hall of Blades所在分支的完整源名称映射为已审校分支名",
+      "en": "the Hall of Blades",
+      "zh": "剑刃大厅",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_BLADE; longname 'the Hall of Blades', shortname 'Hall of Blades'; reuse audited hud.branch.blade"
+      }
+    },
+    {
+      "id": "place.branch.crypt",
+      "context": "地点显示：Crypt所在分支的完整源名称映射为已审校分支名",
+      "en": "the Crypt",
+      "zh": "墓穴",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_CRYPT; longname 'the Crypt', shortname 'Crypt'; reuse audited hud.branch.crypt"
+      }
+    },
+    {
+      "id": "place.branch.tomb",
+      "context": "地点显示：Tomb所在分支的完整源名称映射为已审校分支名",
+      "en": "the Tomb of the Ancients",
+      "zh": "古墓",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_TOMB; longname 'the Tomb of the Ancients', shortname 'Tomb'; reuse audited hud.branch.tomb"
+      }
+    },
+    {
+      "id": "place.branch.depths",
+      "context": "地点显示：Depths所在分支的完整源名称映射为已审校分支名",
+      "en": "the Depths",
+      "zh": "深渊层",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_DEPTHS; longname 'the Depths', shortname 'Depths'; reuse audited hud.branch.depths"
+      }
+    },
+    {
+      "id": "place.branch.vestibule",
+      "context": "地点显示：Hell所在分支的完整源名称映射为已审校分支名",
+      "en": "the Vestibule of Hell",
+      "zh": "地狱前厅",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_VESTIBULE; longname \"the Vestibule of Hell\", shortname \"Hell\"; based on reviewed hud.branch.hell “地狱” with location-specific “前厅”"
+      }
+    },
+    {
+      "id": "place.branch.dis",
+      "context": "地点显示：Dis所在分支的完整源名称映射为已审校分支名",
+      "en": "the Iron City of Dis",
+      "zh": "迪斯",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_DIS; longname 'the Iron City of Dis', shortname 'Dis'; reuse audited hud.branch.dis"
+      }
+    },
+    {
+      "id": "place.branch.gehenna",
+      "context": "地点显示：Gehenna所在分支的完整源名称映射为已审校分支名",
+      "en": "Gehenna",
+      "zh": "欣嫩谷",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_GEHENNA; longname 'Gehenna', shortname 'Gehenna'; reuse audited hud.branch.gehenna"
+      }
+    },
+    {
+      "id": "place.branch.cocytus",
+      "context": "地点显示：Cocytus所在分支的完整源名称映射为已审校分支名",
+      "en": "Cocytus",
+      "zh": "科奇托斯",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_COCYTUS; longname 'Cocytus', shortname 'Cocytus'; reuse audited hud.branch.cocytus"
+      }
+    },
+    {
+      "id": "place.branch.tartarus",
+      "context": "地点显示：Tartarus所在分支的完整源名称映射为已审校分支名",
+      "en": "Tartarus",
+      "zh": "塔尔塔罗斯",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_TARTARUS; longname 'Tartarus', shortname 'Tartarus'; reuse audited hud.branch.tartarus"
+      }
+    },
+    {
+      "id": "place.branch.zot",
+      "context": "地点显示：Zot所在分支的完整源名称映射为已审校分支名",
+      "en": "the Realm of Zot",
+      "zh": "佐特",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_ZOT; longname 'the Realm of Zot', shortname 'Zot'; reuse audited hud.branch.zot"
+      }
+    },
+    {
+      "id": "place.branch.forest",
+      "context": "地点显示：Forest所在分支的完整源名称映射为已审校分支名",
+      "en": "the Enchanted Forest",
+      "zh": "森林",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_FOREST; longname 'the Enchanted Forest', shortname 'Forest'; reuse audited hud.branch.forest"
+      }
+    },
+    {
+      "id": "place.branch.abyss",
+      "context": "地点显示：Abyss所在分支的完整源名称映射为已审校分支名",
+      "en": "the Abyss",
+      "zh": "深渊",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_ABYSS; longname 'the Abyss', shortname 'Abyss'; reuse audited hud.branch.abyss"
+      }
+    },
+    {
+      "id": "place.branch.pandemonium",
+      "context": "地点显示：Pandemonium所在分支的完整源名称映射为已审校分支名",
+      "en": "Pandemonium",
+      "zh": "潘德莫尼姆",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_PANDEMONIUM; longname 'Pandemonium', shortname 'Pandemonium'; reuse audited hud.branch.pandemonium"
+      }
+    },
+    {
+      "id": "place.branch.ziggurat",
+      "context": "地点显示：Ziggurat所在分支的完整源名称映射为已审校分支名",
+      "en": "a ziggurat",
+      "zh": "金字塔",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_ZIGGURAT; longname 'a ziggurat', shortname 'Ziggurat'; reuse audited hud.branch.ziggurat"
+      }
+    },
+    {
+      "id": "place.branch.labyrinth",
+      "context": "地点显示：Labyrinth所在分支的完整源名称映射为已审校分支名",
+      "en": "a Labyrinth",
+      "zh": "迷宫",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_LABYRINTH; longname 'a Labyrinth', shortname 'Labyrinth'; reuse audited hud.branch.labyrinth"
+      }
+    },
+    {
+      "id": "place.branch.bazaar",
+      "context": "地点显示：Bazaar所在分支的完整源名称映射为已审校分支名",
+      "en": "a bazaar",
+      "zh": "集市",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_BAZAAR; longname 'a bazaar', shortname 'Bazaar'; reuse audited hud.branch.bazaar"
+      }
+    },
+    {
+      "id": "place.branch.trove",
+      "context": "地点显示：Trove所在分支的完整源名称映射为已审校分支名",
+      "en": "a treasure trove",
+      "zh": "宝库",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_TROVE; longname 'a treasure trove', shortname 'Trove'; reuse audited hud.branch.trove"
+      }
+    },
+    {
+      "id": "place.branch.sewer",
+      "context": "地点显示：Sewer所在分支的完整源名称映射为已审校分支名",
+      "en": "a sewer",
+      "zh": "下水道",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_SEWER; longname 'a sewer', shortname 'Sewer'; reuse audited hud.branch.sewer"
+      }
+    },
+    {
+      "id": "place.branch.ossuary",
+      "context": "地点显示：Ossuary所在分支的完整源名称映射为已审校分支名",
+      "en": "an ossuary",
+      "zh": "藏骨堂",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_OSSUARY; longname 'an ossuary', shortname 'Ossuary'; reuse audited hud.branch.ossuary"
+      }
+    },
+    {
+      "id": "place.branch.bailey",
+      "context": "地点显示：Bailey所在分支的完整源名称映射为已审校分支名",
+      "en": "a bailey",
+      "zh": "庭院",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_BAILEY; longname 'a bailey', shortname 'Bailey'; reuse audited hud.branch.bailey"
+      }
+    },
+    {
+      "id": "place.branch.gauntlet",
+      "context": "地点显示：Gauntlet所在分支的完整源名称映射为已审校分支名",
+      "en": "a Gauntlet",
+      "zh": "试炼场",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_GAUNTLET; longname 'a Gauntlet', shortname 'Gauntlet'; reuse audited hud.branch.gauntlet"
+      }
+    },
+    {
+      "id": "place.branch.ice_cave",
+      "context": "地点显示：Ice Cave所在分支的完整源名称映射为已审校分支名",
+      "en": "an ice cave",
+      "zh": "冰窟",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_ICE_CAVE; longname 'an ice cave', shortname 'Ice Cave'; reuse audited hud.branch.ice_cave"
+      }
+    },
+    {
+      "id": "place.branch.volcano",
+      "context": "地点显示：Volcano所在分支的完整源名称映射为已审校分支名",
+      "en": "a volcano",
+      "zh": "火山",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_VOLCANO; longname 'a volcano', shortname 'Volcano'; reuse audited hud.branch.volcano"
+      }
+    },
+    {
+      "id": "place.branch.wizlab",
+      "context": "地点显示：Wizlab所在分支的完整源名称映射为已审校分支名",
+      "en": "a wizard's laboratory",
+      "zh": "巫师实验室",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_WIZLAB; longname \"a wizard's laboratory\", shortname 'Wizlab'; reuse audited hud.branch.wizlab"
+      }
+    },
+    {
+      "id": "place.branch.desolation",
+      "context": "地点显示：Desolation所在分支的完整源名称映射为已审校分支名",
+      "en": "the Desolation of Salt",
+      "zh": "荒盐之地",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_DESOLATION; longname 'the Desolation of Salt', shortname 'Desolation'; reuse audited hud.branch.desolation"
+      }
+    },
+    {
+      "id": "place.branch.arena",
+      "context": "地点显示：Arena所在分支的完整源名称映射为已审校分支名",
+      "en": "the Arena",
+      "zh": "竞技场",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_ARENA; longname 'the Arena', shortname 'Arena'; reuse audited hud.branch.arena"
+      }
+    },
+    {
+      "id": "place.branch.crucible",
+      "context": "地点显示：Crucible所在分支的完整源名称映射为已审校分支名",
+      "en": "the Crucible of Flesh",
+      "zh": "炼狱炉",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_CRUCIBLE; longname 'the Crucible of Flesh', shortname 'Crucible'; reuse audited hud.branch.crucible"
+      }
+    },
+    {
+      "id": "place.branch.necropolis",
+      "context": "地点显示：Necropolis所在分支的完整源名称映射为已审校分支名",
+      "en": "the Necropolis",
+      "zh": "亡者之城",
+      "params": {},
+      "source": {
+        "file": "branch-data.h",
+        "anchor": "BRANCH_NECROPOLIS; longname 'the Necropolis', shortname 'Necropolis'; reuse audited hud.branch.necropolis"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "place.display.level",
+      "args": {
+        "depth": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        },
+        "branch": {
+          "type": "name",
+          "canonical": "the Dungeon",
+          "localized": "地牢"
+        }
+      },
+      "canonical": "Level 5 of the Dungeon",
+      "zh": "地牢第5层"
+    },
+    {
+      "id": "place.display.level",
+      "args": {
+        "depth": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        },
+        "branch": {
+          "type": "name",
+          "canonical": "the Lair of Beasts",
+          "localized": "兽穴"
+        }
+      },
+      "canonical": "Level 5 of the Lair of Beasts",
+      "zh": "兽穴第5层"
+    },
+    {
+      "id": "place.display.level",
+      "args": {
+        "depth": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        },
+        "branch": {
+          "type": "name",
+          "canonical": "the Depths",
+          "localized": "深渊层"
+        }
+      },
+      "canonical": "Level 3 of the Depths",
+      "zh": "深渊层第3层"
+    },
+    {
+      "id": "place.display.named",
+      "args": {
+        "branch": {
+          "type": "name",
+          "canonical": "the Ecumenical Temple",
+          "localized": "神殿"
+        }
+      },
+      "canonical": "the Ecumenical Temple",
+      "zh": "神殿"
+    },
+    {
+      "id": "place.display.named",
+      "args": {
+        "branch": {
+          "type": "name",
+          "canonical": "Pandemonium",
+          "localized": "潘德莫尼姆"
+        }
+      },
+      "canonical": "Pandemonium",
+      "zh": "潘德莫尼姆"
+    },
+    {
+      "id": "place.display.named",
+      "args": {
+        "branch": {
+          "type": "name",
+          "canonical": "the Vestibule of Hell",
+          "localized": "地狱前厅"
+        }
+      },
+      "canonical": "the Vestibule of Hell",
+      "zh": "地狱前厅"
+    },
+    {
+      "id": "place.display.named",
+      "args": {
+        "branch": {
+          "type": "name",
+          "canonical": "a wizard's laboratory",
+          "localized": "巫师实验室"
+        }
+      },
+      "canonical": "a wizard's laboratory",
+      "zh": "巫师实验室"
+    }
+  ]
+}

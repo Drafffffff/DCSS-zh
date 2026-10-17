@@ -128,6 +128,13 @@ string Form::melding_description(bool itemized) const
         return "";
     }
 
+    tags = melded_equipment_names();
+    return comma_separated_line(tags.begin(), tags.end(), ", ");
+}
+
+vector<string> Form::melded_equipment_names() const
+{
+    vector<string> tags;
     if (blocked_slots == EQF_ALL)
         tags.emplace_back("All Equipment");
     else if (blocked_slots == EQF_PHYSICAL)
@@ -142,7 +149,7 @@ string Form::melding_description(bool itemized) const
         }
     }
 
-    return comma_separated_line(tags.begin(), tags.end(), ", ");
+    return tags;
 }
 
 static const FormAttackVerbs DEFAULT_VERBS = FormAttackVerbs(nullptr, nullptr,

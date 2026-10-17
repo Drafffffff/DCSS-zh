@@ -18,6 +18,7 @@
 #include "spl-cast.h"
 
 class dist;
+struct ZhArg;
 
 #define AVAILABLE_SAC_KEY "available_sacrifices"
 #define HEALTH_SAC_KEY "current_health_sacrifice"
@@ -161,6 +162,7 @@ void ashenzari_offer_new_curse();
 bool ashenzari_curse_item();
 bool ashenzari_uncurse_item();
 string desc_curse_skills(const CrawlStoreValue& curse);
+ZhArg zh_curse_skills_arg(const string &key, const CrawlStoreValue& curse);
 string curse_abbr(const CrawlStoreValue& curse);
 string curse_name(const CrawlStoreValue& curse);
 const vector<skill_type>& curse_skills(const CrawlStoreValue& curse);

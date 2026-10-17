@@ -35,7 +35,7 @@ def extract_function(name):
 
 helpers = "\n".join(extract_function(name) for name in (
     "_skill_cells", "_skill_wrap", "_skill_line_count",
-    "_skill_help_rows", "_skill_help_rows_available", "_skill_text_width"))
+    "_skill_help_rows", "_skill_help_columns", "_skill_help_rows_available", "_skill_text_width"))
 
 harness = r'''#include <algorithm>
 #include <cassert>
@@ -93,6 +93,10 @@ int main() {
     assert(_skill_help_rows(3, lines, 200) == lines);
     assert(_skill_help_rows(3, lines, 12) == 12);
     assert(_skill_help_rows(3, 2, 12) == 3);
+    assert(_skill_help_columns(2, 81, 1) == 78);
+    assert(_skill_help_columns(48, 1944, 24) == 78);
+    assert(_skill_help_columns(100, 105, 24) == 1);
+    assert(_skill_help_columns(0, 0, 0) == 1);
     // Reserve the complete footer span: two wrapped switch rows need one
     // additional row, and tile coordinates scale by the font height.
     assert(_skill_help_rows_available(36, 3, 14, 1) == 25);

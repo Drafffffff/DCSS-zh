@@ -8,6 +8,7 @@
 
 class monster;
 struct monster_info;
+class level_id;
 
 // Construct a UI-only argument. canonical always retains the engine's English
 // name; localized is assembled from semantic fields and exact glossary hits.
@@ -19,6 +20,8 @@ ZhArg zh_item_arg(const std::string &key, const item_def &item,
                   description_level_type desc = DESC_A);
 ZhArg zh_actor_arg(const std::string &key, const actor *who,
                    description_level_type desc = DESC_THE);
+ZhArg zh_monster_type_arg(const std::string &key, monster_type type);
+ZhArg zh_place_arg(const std::string &key, const level_id &place);
 
 std::string zh_monster_display(const monster &mon,
                                description_level_type desc = DESC_THE);

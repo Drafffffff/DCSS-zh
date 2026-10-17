@@ -132,6 +132,13 @@ static int _skill_help_rows(int current_rows, int text_rows, int max_rows)
     return min(max(current_rows, text_rows), max(1, max_rows));
 }
 
+static int _skill_help_columns(int left, int right, int unit)
+{
+    // Use the text item's actual bounds, not the enclosing menu's origin.
+    // Leave one display cell between the last glyph and the frame.
+    return max(1, (right - left) / max(1, unit) - 1);
+}
+
 static int _skill_help_rows_available(int screen_bottom, int current_rows,
                                       int footer_bottom, int unit)
 {
@@ -1690,7 +1697,13 @@ void SkillMenu::set_help(string msg)
         return;
     }
 
-    const int width = max(20, m_max_coord.x - m_min_coord.x - 1);
+    int column_unit = 1;
+#ifdef USE_TILE_LOCAL
+    column_unit = max<int>(1, tiles.get_crt_font()->char_width());
+#endif
+    const int width = _skill_help_columns(m_help->get_min_coord().x,
+                                          m_help->get_max_coord().x,
+                                          column_unit);
     msg = _skill_wrap(msg, width);
 
     int unit = 1;

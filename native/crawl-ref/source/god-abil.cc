@@ -6,6 +6,7 @@
 #include "AppHdr.h"
 
 #include "god-abil.h"
+#include "zh-message.h"
 
 #include <cmath>
 #include <numeric>
@@ -2239,6 +2240,35 @@ string desc_curse_skills(const CrawlStoreValue& curse)
 
     return c.name + ": "
            + comma_separated_fn(trainable.begin(), trainable.end(), skill_name);
+}
+
+ZhArg zh_curse_skills_arg(const string &key, const CrawlStoreValue& curse)
+{
+    const curse_data& data =
+        _ashenzari_curses[static_cast<curse_type>(curse.get_int())];
+    const ZhArg category = zh_word_arg("category", "item.curse.category.",
+                                      data.name, ZhArgType::Name);
+    vector<string> canonical;
+    string localized;
+    bool supported = category.supported;
+    for (skill_type sk : data.boosted)
+    {
+        if (!you.can_currently_train[sk])
+            continue;
+        const ZhArg skill = zh_glossary_name("skill", "skill.name", skill_name(sk));
+        canonical.push_back(skill.canonical);
+        if (!localized.empty())
+            localized += "、";
+        localized += skill.localized;
+        supported = supported && skill.supported;
+    }
+    const ZhMessage entry = canonical.empty()
+        ? zh_message("item.curse.skills.empty", {category}, desc_curse_skills(curse))
+        : zh_message("item.curse.skills.entry", {
+        category, ZhArg{"skills", ZhArgType::Text,
+            comma_separated_line(canonical.begin(), canonical.end()),
+            localized, supported}}, desc_curse_skills(curse));
+    return {key, ZhArgType::Text, entry.canonical, entry.localized, supported};
 }
 
 /**

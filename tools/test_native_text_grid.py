@@ -1,12 +1,30 @@
 #!/usr/bin/env python3
 """Exercise production text writes: wide cells, clipping, clearing and UTF-8 chunks."""
 from pathlib import Path
-import subprocess,tempfile
+import subprocess,tempfile,json,re
 source=Path(__file__).resolve().parents[1]/'native/crawl-ref/source/tilereg-text.cc'
 s=source.read_text(); start=s.index('void TextRegion::addstr('); end=s.index('\nvoid TextRegion::putwch',start)
 table=(source.parent/'describe.cc').read_text(); tstart=table.index('struct TableCell'); tend=table.index('// Converts a numeric resistance',tstart)
 pad=(source.parent/'stringutil.cc').read_text(); pstart=pad.index('string padded_str('); pend=pad.index('\nint ends_with(',pstart)
 wstart=pad.index('string wordwrap_line('); wend=pad.index('\nstring strip_filename_unsafe_chars',wstart)
+reviewed={m['en'] for file in (source.parents[3]/'localization/migration').glob('luna-*-messages.json')
+          for m in json.loads(file.read_text())['messages'] if m['id'].startswith(('form.table.','monster.table.'))}
+form_data=(source.parent/'form-data.h').read_text()
+dice_labels=set(re.findall(r'(?:new dicedef_calculator<[^>]+>|nullptr),\s*"([^"]+)"',form_data))
+form_impl=table[table.index('static string _describe_talisman_form_impl'):table.index('static string _describe_talisman_form(transformation')]
+static_labels=set(re.findall(r',\s*"([^"]+)",\s*skill',form_impl))
+static_labels.update(re.findall(r'pr.AddCell\("([^"]+)"',form_impl))
+static_labels.update({'Skill','Min','Max','Cur','Body Armour AC','Airstrike Dmg','Str','Dex'})
+assert dice_labels|static_labels <= reviewed, ('Unreviewed form labels', sorted((dice_labels|static_labels)-reviewed))
+def helper(name):
+    start=table.index('static ',table.index(name)-40)
+    brace=table.index('{',table.index(name));depth=0
+    for end in range(brace,len(table)):
+        if table[end]=='{':depth+=1
+        if table[end]=='}':
+            depth-=1
+            if not depth:return table[start:end+1]
+    raise AssertionError(name)
 code=r'''
 #include <algorithm>
 #include <cassert>
@@ -15,6 +33,7 @@ code=r'''
 #include <vector>
 #include <sstream>
 #include <map>
+#include <regex>
 #include <utility>
 using std::vector;
 using std::map;
@@ -61,6 +80,18 @@ string colourize_str(const string &s,colour_t) {return s;}
 string _get_indent(const string&) {return "";}
 string wordwrap_line(string&,int,bool,bool,int=0);
 '''+pad[wstart:wend]+table[tstart:tend]+r'''
+// Geometry seam; production raw parsing/colours have a separate test.
+struct formatted_string {
+ string text;
+ int width()const{return strwidth(text);}
+ string to_colour_string()const{return text;}
+ static formatted_string parse_string_raw(const string&s){return {std::regex_replace(s,std::regex("</?[^>]+>"),"")};}
+ static void parse_string_to_multiple_raw(const string&s,vector<formatted_string>&out,int width){
+  string text=parse_string_raw(s).text;
+  while(!text.empty())out.push_back({wordwrap_line(text,width,false,false)});
+ }
+};
+'''+helper('_form_table_widths')+helper('_render_form_scaling_table')+r'''
 int main() {
  assert(strwidth(padded_str("生命上限",16,false))==16);
  assert(strwidth(padded_str("护甲",8,true))==8);
@@ -116,9 +147,20 @@ int main() {
   assert(std::count(compact.begin(),compact.end(),':')==columns-1);
   cases++;
  }
+ // The actual fixed-column form renderer cannot grow with property count.
+ for(int count:{1,10,30}) {
+  vector<vector<string>> items={{" ","最低","最高","当前"}};
+  for(int row=0;row<count;++row)items.push_back({"极长中文属性标签用于验证表格自动换行与列宽","<red>-12345678901234567890%</red>","+12345678901234567890%","12345678901234567890"});
+  const auto widths=_form_table_widths(items);assert(widths.size()==4);
+  const string rendered=_render_form_scaling_table(items);
+  std::istringstream lines(rendered);string line;
+  while(std::getline(lines,line))assert(strwidth(line)<=76);
+  for(char digit='0';digit<='9';++digit)assert(std::count(rendered.begin(),rendered.end(),digit)==6*count);
+  cases++;
+ }
  TextRegion scrolling;scrolling.addstr("A\nB\nC\nD");
  assert(scrolling.cbuf[0]==U'B' && scrolling.cbuf[40]==U'C' && scrolling.cbuf[80]==U'D');
- std::cout << "PASS: " << cases << " grid/chunk cases, HUD columns, wide overwrite, clearing, clipping, UTF-8 chunks, scrolling and bounded detail tables\n";
+ std::cout << "PASS: " << cases << " grid/chunk cases, HUD columns, wide overwrite, clearing, clipping, UTF-8 chunks, scrolling and bounded detail/form tables\n";
 }
 '''
 with tempfile.TemporaryDirectory() as tmp:

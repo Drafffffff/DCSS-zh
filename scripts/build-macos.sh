@@ -12,6 +12,8 @@ python3 tools/test_pretranslated_rendering.py
 python3 tools/test_skill_menu_layout.py
 python3 tools/test_hud_layout.py
 python3 tools/test_translation_boundaries.py
+python3 tools/test_detail_producers.py
+python3 tools/test_curse_details.py
 mkdir -p output/macos verification/native
 cd native/crawl-ref/source
 make -j"${JOBS:-8}" FORCE_PKGCONFIG=y MACOSX_MIN_VERSION=26.0

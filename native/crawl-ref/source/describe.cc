@@ -2771,10 +2771,27 @@ static string _describe_item_curse(const item_def &item)
     if (curses.empty())
         return "\n" + zh_source("detail.item.fixed", "It has a curse placed upon it.");
 
-    const string skills = comma_separated_fn(curses.begin(), curses.end(),
-        desc_curse_skills, ".\n", ".\n");
+    string skills;
+    string localized;
+    bool supported = true;
+    for (const auto &curse : curses)
+    {
+        const ZhArg entry = zh_curse_skills_arg("skills", curse);
+        if (!skills.empty())
+        {
+            skills += ".\n";
+            localized += "。\n";
+        }
+        skills += entry.canonical;
+        localized += entry.localized;
+        supported = supported && entry.supported;
+    }
     const string description = string("\nIt has a curse which improves the following skills:\n")
         + skills + ".";
+    if (supported)
+        return "\n" + zh_message("item.curse.skills.fixed").display() + "\n"
+            + zh_message("item.curse.skills_list", {
+                ZhArg{"skills", ZhArgType::Text, skills, localized, true}}).display();
     return zh_message("item.curse.skills_english_fallback", {
         ZhArg{"description", ZhArgType::Text, description, description,
               false}}).display();
@@ -3318,27 +3335,18 @@ string get_item_description(const item_def &item,
     }
 
     if (verbose && origin_describable(item))
-    {
-        if (!item.orig_monnum && item.orig_place.branch == BRANCH_DUNGEON)
-            description << zh_message("item.origin.found_dungeon", {
-                zh_integer("depth", item.orig_place.depth)}).display();
-        else
-        {
-            const string origin = origin_desc(item) + ".";
-            description << zh_message("item.origin.english_fallback", {
-                ZhArg{"origin", ZhArgType::Text, origin, origin, false}}).display();
-        }
-    }
+        description << origin_display_desc(item);
 
     // This information is obscure and differs per-item, so looking it up in
     // a docs file you don't know to exist is tedious.
     if (verbose && mode != IDM_MONSTER)
     {
-        description << "\n\n" << "Stash search prefixes: "
+        description << "\n\n" << zh_message("item.detail.stash_search_prefixes").display() << " "
                     << userdef_annotate_item(STASH_LUA_SEARCH_ANNOTATE, &item);
         string menu_prefix = item_prefix(item, false);
         if (!menu_prefix.empty())
-            description << "\nMenu/colouring prefixes: " << menu_prefix;
+            description << "\n" << zh_message("item.detail.menu_colouring_prefixes").display()
+                        << " " << menu_prefix;
     }
 
     return description.str();
@@ -8137,7 +8145,85 @@ static void _desc_form_val(TablePrinter& pr, string label, int val)
     pr.AddCell(label, make_stringf("%+d", val).c_str(), val < 0 ? RED : LIGHTGREY);
 }
 
-static string _describe_talisman_form(transformation form_type)
+static string _form_atom(const char *domain, const string &source, bool &supported)
+{
+    const ZhArg atom = zh_word_arg("value", domain, source, ZhArgType::Name);
+    supported = supported && atom.supported;
+    return zh_language_enabled() ? atom.localized : atom.canonical;
+}
+
+// Four semantic columns, independent of the number of scaling properties.
+static vector<int> _form_table_widths(const vector<vector<string>> &items)
+{
+    vector<int> widths(4, 6);
+    for (const auto &row : items)
+        for (int col = 0; col < 4; ++col)
+            widths[col] = max(widths[col], min(col == 0 ? 28 : 16,
+                formatted_string::parse_string_raw(row[col]).width() + 2));
+    return widths;
+}
+
+static string _render_form_scaling_table(const vector<vector<string>> &items)
+{
+    const vector<int> widths = _form_table_widths(items);
+    const int total = widths[0] + widths[1] + widths[2] + widths[3];
+    ostringstream out;
+    out << string(total, '_') << "\n\n";
+    for (size_t row = 0; row < items.size(); ++row)
+    {
+        vector<vector<formatted_string>> cells(4);
+        size_t height = 1;
+        for (int col = 0; col < 4; ++col)
+        {
+            const string text = row == 0 || col == 3
+                ? "<white>" + items[row][col] + "</white>" : items[row][col];
+            formatted_string::parse_string_to_multiple_raw(text, cells[col],
+                                                          widths[col] - 2);
+            height = max(height, cells[col].size());
+        }
+        for (size_t line = 0; line < height; ++line)
+        {
+            for (int col = 0; col < 4; ++col)
+            {
+                const formatted_string cell = line < cells[col].size()
+                    ? cells[col][line] : formatted_string();
+                out << cell.to_colour_string()
+                    << string(max(0, widths[col] - cell.width()), ' ');
+            }
+            out << "\n";
+        }
+        if (row == 0)
+            out << string(total, '-') << "\n";
+    }
+    return out.str();
+}
+
+static ZhArg _form_holiness_arg(mon_holy_type holiness)
+{
+    string canonical;
+    string localized;
+    bool supported = true;
+    for (const auto bit : mon_holy_type::range())
+    {
+        if (!(holiness & bit))
+            continue;
+        const string name = holiness_name(bit);
+        const ZhArg atom = zh_word_arg("holiness", "monster.table.",
+                                      uppercase_first(name), ZhArgType::Name);
+        if (!canonical.empty())
+        {
+            canonical += ",";
+            localized += "、";
+        }
+        canonical += name;
+        localized += atom.localized;
+        supported = supported && atom.supported;
+    }
+    return {"holiness", ZhArgType::Text, uppercase_first(canonical), localized,
+            supported};
+}
+
+static string _describe_talisman_form_impl(transformation form_type, bool &supported)
 {
     const Form* form = get_form(form_type);
 
@@ -8205,53 +8291,31 @@ static string _describe_talisman_form(transformation form_type)
         _maybe_populate_form_table(items, bind(&Form::get_effect_chance, form, placeholders::_1), "Daze Power", skill, 0, false, false);
     }
 
-    vector<int> column_width;
-
-    // Determine size of each column (by being slightly wider than the largest entry in it).
-    for (size_t i = 0; i < items.size(); ++i)
+    for (int col = 1; col < 4; ++col)
+        items[0][col] = _form_atom("form.table.", items[0][col], supported);
+    for (size_t row = 1; row < items.size(); ++row)
     {
-        int max_size = -1;
-        for (int j = 0; j < 4; ++j)
-        {
-            const int len = formatted_string::parse_string_raw(items[i][j]).width();
-            if (len > max_size)
-                max_size = len;
-        }
-
-        // Enforce a minimum column size, but otherwise space just a little apart
-        max_size = max(6, max_size + 3);
-
-        if (i > 0)
-            max_size += column_width[i - 1];
-        column_width.push_back(max_size);
+        const string &label = items[row][0];
+        const char *domain = label == "AC" || label == "EV" || label == "Regen"
+            ? "monster.table." : "form.table.";
+        items[row][0] = _form_atom(domain, label, supported);
     }
-
-    column_composer cols(items.size(), column_width);
-    for (size_t i = 0; i < items.size(); ++i)
-        for (int j = 0; j < 4; ++j)
-            cols.add_formatted(i, items[i][j], false, -1, true, j == 3 ? WHITE : LIGHTGREY);
-
-    // Actually output the table
     ostringstream description;
-
-    description << string(60, '_') << "\n\n";
-
-    vector<formatted_string> lines = cols.formatted_lines();
-    description << lines[0].to_colour_string() << "\n";
-    description << string(column_width.back(), '-') << "\n";
-    description << lines[1].to_colour_string() << "\n";
-    description << lines[2].to_colour_string() << "\n";
-    description << "<white>" << lines[3].to_colour_string() << "<lightgrey>\n";
-
+    description << _render_form_scaling_table(items);
     if (form->holiness)
-        description << "\nClass: " << uppercase_first(holiness_description(form->holiness));
+    {
+        const ZhArg holiness = _form_holiness_arg(form->holiness);
+        supported = supported && holiness.supported;
+        description << "\n" << zh_message("item.talisman.form.class_line",
+                                           {holiness}).display();
+    }
 
     // Now add various one-off bits of (generally non-scaling) data after that
     TablePrinter pr(4, 80);
     pr.AddRow();
 
     if (form->size != SIZE_CHARACTER)
-        pr.AddCell("Size", uppercase_first(get_size_adj(form->size)));
+        pr.AddCell("Size", _form_atom("form.size.", get_size_adj(form->size), supported));
 
     _desc_form_val(pr, "Str", form->str_mod);
     _desc_form_val(pr, "Dex", form->dex_mod);
@@ -8317,10 +8381,22 @@ static string _describe_talisman_form(transformation form_type)
         pr.Print(description);
     }
 
-    // Melding info
-    string meld_desc = form->melding_description(true);
-    if (!meld_desc.empty())
-        description << "\nMelds: " << meld_desc << "\n";
+    // Source atoms come from equipment slots, never a parsed English list.
+    const vector<string> melded = form->melded_equipment_names();
+    if (!melded.empty())
+    {
+        string localized;
+        for (const string &slot : melded)
+        {
+            if (!localized.empty())
+                localized += "、";
+            localized += _form_atom("form.meld.", slot, supported);
+        }
+        description << "\n" << zh_message("item.talisman.form.meld_line", {
+            ZhArg{"items", ZhArgType::Text,
+                comma_separated_line(melded.begin(), melded.end(), ", "),
+                localized, supported}}).display() << "\n";
+    }
 
     // Mutation suppression info
     vector<string> changes;
@@ -8337,17 +8413,39 @@ static string _describe_talisman_form(transformation form_type)
 
     if (!changes.empty())
     {
-        description << "\nMutations Suppressed: "
-                    << comma_separated_line(changes.begin(), changes.end(), ", ")
-                    << "\n";
+        string localized;
+        for (const string &change : changes)
+        {
+            if (!localized.empty())
+                localized += "、";
+            localized += _form_atom("form.mutation.", change, supported);
+        }
+        description << "\n" << zh_message("item.talisman.form.mutations_suppressed", {
+            ZhArg{"mutations", ZhArgType::Text,
+                comma_separated_line(changes.begin(), changes.end(), ", "),
+                localized, supported}}).display() << "\n";
     }
-
     description << string(60, '_') << "\n";
+    return description.str();
+}
 
-    const string form_description = description.str();
+static string _describe_talisman_form(transformation form_type)
+{
+    const ZhLegacyGuard boundary("detail.form");
+    string canonical;
+    bool canonical_supported = true;
+    {
+        ZhTranslationPause english;
+        canonical = _describe_talisman_form_impl(form_type, canonical_supported);
+    }
+    if (!zh_language_enabled())
+        return canonical;
+    bool supported = true;
+    const string localized = _describe_talisman_form_impl(form_type, supported);
+    if (supported)
+        return localized;
     return zh_message("item.talisman.form_english_fallback", {
-        ZhArg{"description", ZhArgType::Text, form_description,
-              form_description, false}}).display();
+        ZhArg{"description", ZhArgType::Text, canonical, canonical, false}}).display();
 }
 
 static string _describe_talisman(const item_def &item, bool verbose)

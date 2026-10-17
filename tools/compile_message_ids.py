@@ -32,6 +32,17 @@ def compile_catalog():
             shortcuts=lambda s:sorted(re.findall(r'\[[^\]\n]*\]|\((?:[A-Za-z=]|[A-Za-z]/[A-Za-z])\)',s))
             assert shortcuts(entry['en'])==shortcuts(entry['zh']),(identity,'literal shortcut tokens')
             messages[identity]=entry
+    for path in sorted(LOC.glob('luna-*-messages.json')):
+        for case in json.loads(path.read_text()).get('test_cases', []):
+            identity=case['id']
+            assert identity in messages,(path,identity,'oracle ID is missing')
+            schema=messages[identity]['params']
+            assert set(case['args'])==set(schema),(identity,'oracle parameter completeness')
+            for key,value in case['args'].items():
+                assert value['type']==schema[key],(identity,key,'oracle parameter type')
+                assert isinstance(value['canonical'],str) and isinstance(value['localized'],str),(identity,key)
+                if value['type'] in ('key','key_markup','colour','integer','number'):
+                    assert value['canonical']==value['localized'],(identity,key,'translated structural parameter')
     out=['// Generated from Luna-reviewed message IDs. Do not edit.','static const ZhDefinition zh_definitions[] = {']
     q=lambda s:json.dumps(s,ensure_ascii=False)
     for key,e in sorted(messages.items()):

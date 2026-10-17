@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[1]
 SRC=ROOT/'native/crawl-ref/source'
 OUT=ROOT/'analysis/message-migration'
 APIS={'zh_message','zh_source','zh_translate','zh_word','zh_word_arg',
-      'zh_glossary_name','zh_item_arg','zh_monster_arg','zh_monster_info_arg',
+      'zh_glossary_name','zh_place_arg','zh_monster_type_arg','origin_display_desc','zh_item_arg','zh_monster_arg','zh_monster_info_arg',
       'mpr','mprf','cprintf','CPRINTF','make_stringf','vmake_stringf','getLongDescription','getQuoteString',
       'parse_string','parse_string_raw','parse_string_to_multiple',
       'parse_string_to_multiple_raw','set_title','set_title_pretranslated',

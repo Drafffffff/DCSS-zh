@@ -1,0 +1,1162 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "item.curse.category.melee",
+      "context": "Ashenzari 诅咒技能组的枚举类别",
+      "en": "Melee Combat",
+      "zh": "近战",
+      "params": {},
+      "source": {
+        "file": "god-abil.cc",
+        "anchor": "_ashenzari_curses; curse_data.name semantic category"
+      },
+      "source_context": "detail.curse.category"
+    },
+    {
+      "id": "item.curse.category.ranged",
+      "context": "Ashenzari 诅咒技能组的枚举类别",
+      "en": "Ranged Combat",
+      "zh": "远程战斗",
+      "params": {},
+      "source": {
+        "file": "god-abil.cc",
+        "anchor": "_ashenzari_curses; curse_data.name semantic category"
+      },
+      "source_context": "detail.curse.category"
+    },
+    {
+      "id": "item.curse.category.elements",
+      "context": "Ashenzari 诅咒技能组的枚举类别",
+      "en": "Elements",
+      "zh": "元素",
+      "params": {},
+      "source": {
+        "file": "god-abil.cc",
+        "anchor": "_ashenzari_curses; curse_data.name semantic category"
+      },
+      "source_context": "detail.curse.category"
+    },
+    {
+      "id": "item.curse.category.sorcery",
+      "context": "Ashenzari 诅咒技能组的枚举类别",
+      "en": "Sorcery",
+      "zh": "奥术",
+      "params": {},
+      "source": {
+        "file": "god-abil.cc",
+        "anchor": "_ashenzari_curses; curse_data.name semantic category"
+      },
+      "source_context": "detail.curse.category"
+    },
+    {
+      "id": "item.curse.category.companions",
+      "context": "Ashenzari 诅咒技能组的枚举类别",
+      "en": "Companions",
+      "zh": "伙伴",
+      "params": {},
+      "source": {
+        "file": "god-abil.cc",
+        "anchor": "_ashenzari_curses; curse_data.name semantic category"
+      },
+      "source_context": "detail.curse.category"
+    },
+    {
+      "id": "item.curse.category.beguiling",
+      "context": "Ashenzari 诅咒技能组的枚举类别",
+      "en": "Beguiling",
+      "zh": "迷惑",
+      "params": {},
+      "source": {
+        "file": "god-abil.cc",
+        "anchor": "_ashenzari_curses; curse_data.name semantic category"
+      },
+      "source_context": "detail.curse.category"
+    },
+    {
+      "id": "item.curse.category.introspection",
+      "context": "Ashenzari 诅咒技能组的枚举类别",
+      "en": "Introspection",
+      "zh": "内省",
+      "params": {},
+      "source": {
+        "file": "god-abil.cc",
+        "anchor": "_ashenzari_curses; curse_data.name semantic category"
+      },
+      "source_context": "detail.curse.category"
+    },
+    {
+      "id": "item.curse.category.fortitude",
+      "context": "Ashenzari 诅咒技能组的枚举类别",
+      "en": "Fortitude",
+      "zh": "坚毅",
+      "params": {},
+      "source": {
+        "file": "god-abil.cc",
+        "anchor": "_ashenzari_curses; curse_data.name semantic category"
+      },
+      "source_context": "detail.curse.category"
+    },
+    {
+      "id": "item.curse.category.cunning",
+      "context": "Ashenzari 诅咒技能组的枚举类别",
+      "en": "Cunning",
+      "zh": "狡黠",
+      "params": {},
+      "source": {
+        "file": "god-abil.cc",
+        "anchor": "_ashenzari_curses; curse_data.name semantic category"
+      },
+      "source_context": "detail.curse.category"
+    },
+    {
+      "id": "item.curse.category.devices",
+      "context": "Ashenzari 诅咒技能组的枚举类别",
+      "en": "Devices",
+      "zh": "装置",
+      "params": {},
+      "source": {
+        "file": "god-abil.cc",
+        "anchor": "_ashenzari_curses; curse_data.name semantic category"
+      },
+      "source_context": "detail.curse.category"
+    },
+    {
+      "id": "item.curse.skills.entry",
+      "context": "物品详情：单个诅咒类别及其可训练技能",
+      "en": "{category}: {skills}",
+      "zh": "{category}：{skills}",
+      "params": {
+        "category": "name",
+        "skills": "text"
+      },
+      "source": {
+        "file": "god-abil.cc",
+        "anchor": "desc_curse_skills; c.name and comma_separated_fn(trainable, skill_name)"
+      }
+    },
+    {
+      "id": "item.curse.skills.empty",
+      "context": "物品详情：诅咒类别当前没有可训练技能",
+      "en": "{category}: ",
+      "zh": "{category}：当前没有可训练的技能",
+      "params": {
+        "category": "name"
+      },
+      "source": {
+        "file": "god-abil.cc",
+        "anchor": "desc_curse_skills; trainable filtered by can_currently_train and may be empty"
+      }
+    },
+    {
+      "id": "form.table.skill",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Skill",
+      "zh": "技能",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Skill'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.min",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Min",
+      "zh": "最低",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Min'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.max",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Max",
+      "zh": "最高",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Max'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.cur",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Cur",
+      "zh": "当前",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Cur'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.hp",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "HP",
+      "zh": "生命值",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'HP'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.uc_base_dmg",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "UC Base Dmg",
+      "zh": "拳脚基础伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'UC Base Dmg'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.mp",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "MP",
+      "zh": "魔力",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'MP'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.slay",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Slay",
+      "zh": "杀伤",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Slay'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.slay_kill",
+      "context": "变形护符详情：狼人扑杀增益表格行标签",
+      "en": "+Slay/Kill",
+      "zh": "+杀伤/击杀",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; werewolf branch _maybe_populate_form_table(..., \"+Slay/Kill\", ...)"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.mp_regen",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "MP Regen",
+      "zh": "魔力再生",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'MP Regen'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.ensnare_chance",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Ensnare Chance",
+      "zh": "缠网概率",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Ensnare Chance'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.body_armour_ac",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Body Armour AC",
+      "zh": "躯干护甲",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Body Armour AC'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.breath_dmg",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Breath Dmg",
+      "zh": "吐息伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Breath Dmg'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.blinkbolt_dmg",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Blinkbolt Dmg",
+      "zh": "闪电突进伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Blinkbolt Dmg'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.quill_dmg",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Quill Dmg",
+      "zh": "棘刺伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Quill Dmg'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.contam_dmg",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Contam Dmg",
+      "zh": "污染伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Contam Dmg'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.frigid_wall_dmg",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Frigid Wall Dmg",
+      "zh": "冰墙伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Frigid Wall Dmg'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.watery_grave_dmg",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Watery Grave Dmg",
+      "zh": "水墓伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Watery Grave Dmg'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.flare_dmg",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Flare Dmg",
+      "zh": "耀光伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Flare Dmg'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.airstrike_dmg",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Airstrike Dmg",
+      "zh": "空袭伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Airstrike Dmg'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.bite_dmg",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Bite Dmg",
+      "zh": "撕咬伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Bite Dmg'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.devour_regen",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Devour Regen",
+      "zh": "吞噬再生",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Devour Regen'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.blade_dmg",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Blade Dmg",
+      "zh": "刀刃伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Blade Dmg'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.parry_sh",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Parry SH",
+      "zh": "招架格挡",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Parry SH'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.bees",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "# of Bees",
+      "zh": "蜜蜂数量",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label '# of Bees'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.takedown_dmg",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Takedown Dmg",
+      "zh": "扑杀伤害",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Takedown Dmg'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.howl_power",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Howl Power",
+      "zh": "嚎叫强度",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Howl Power'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.spell_skill_boost",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Spell Skill Boost",
+      "zh": "法术技能加成",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Spell Skill Boost'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.rust_breath_size",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Rust Breath Size",
+      "zh": "锈息范围",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Rust Breath Size'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.tendril_targets",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Tendril targets",
+      "zh": "触须目标数",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Tendril targets'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.petrify_chance",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Petrify chance",
+      "zh": "石化概率",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Petrify chance'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.bat_swarm_recharge",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Bat Swarm Recharge",
+      "zh": "蝙蝠群充能",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Bat Swarm Recharge'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.daze_power",
+      "context": "变形护符详情：表格固定列/行标签",
+      "en": "Daze Power",
+      "zh": "眩惑强度",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; exact table cell label 'Daze Power'"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "item.talisman.form.table.header",
+      "context": "变形护符详情：缩放表格表头",
+      "en": "{skill} {minimum} {maximum} {current}",
+      "zh": "{skill} {minimum} {maximum} {current}",
+      "params": {
+        "skill": "name",
+        "minimum": "name",
+        "maximum": "name",
+        "current": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; items.push_back({\" \", \"Min\", \"Max\", \"Cur\"})"
+      }
+    },
+    {
+      "id": "item.talisman.form.table.row",
+      "context": "变形护符详情：缩放表格数据行",
+      "en": "{label} {minimum} {maximum} {current}",
+      "zh": "{label} {minimum} {maximum} {current}",
+      "params": {
+        "label": "name",
+        "minimum": "text",
+        "maximum": "text",
+        "current": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_maybe_populate_form_table and related _maybe_note_* row producers; table columns are generated for min/max/current skill"
+      }
+    },
+    {
+      "id": "item.talisman.form.class_line",
+      "context": "变形护符详情：形态类别",
+      "en": "Class: {holiness}",
+      "zh": "类别：{holiness}",
+      "params": {
+        "holiness": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; form->holiness and holiness_description; reuse reviewed monster.table_value atoms"
+      }
+    },
+    {
+      "id": "item.talisman.form.size_line",
+      "context": "变形护符详情：形态体型",
+      "en": "Size: {size}",
+      "zh": "体型：{size}",
+      "params": {
+        "size": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; get_size_adj(form->size), only when size != SIZE_CHARACTER"
+      }
+    },
+    {
+      "id": "item.talisman.form.meld_line",
+      "context": "变形护符详情：装备融合列表",
+      "en": "Melds: {items}",
+      "zh": "融合装备：{items}",
+      "params": {
+        "items": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; form->melding_description(true), list must be assembled from reviewed slot/all-equipment atoms"
+      }
+    },
+    {
+      "id": "item.talisman.form.mutations_suppressed",
+      "context": "变形护符详情：被压制的突变列表",
+      "en": "Mutations Suppressed: {mutations}",
+      "zh": "压制的突变：{mutations}",
+      "params": {
+        "mutations": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; changes_anatomy/substance/has_blood/has_bones/eel_hands flags"
+      }
+    },
+    {
+      "id": "item.detail.stash_search_prefixes",
+      "context": "物品详情：Lua stash 搜索前缀说明标签",
+      "en": "Stash search prefixes:",
+      "zh": "物品搜索前缀：",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description verbose tail before userdef_annotate_item(STASH_LUA_SEARCH_ANNOTATE, &item)"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "item.detail.menu_colouring_prefixes",
+      "context": "物品详情：菜单/着色前缀说明标签",
+      "en": "Menu/colouring prefixes:",
+      "zh": "菜单/着色前缀：",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_item_description verbose tail before item_prefix(item, false)"
+      },
+      "source_context": "detail.item.fixed"
+    },
+    {
+      "id": "form.size.tiny",
+      "context": "变形详情：get_size_adj 体型枚举",
+      "en": "tiny",
+      "zh": "极小",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; get_size_adj(form->size)"
+      }
+    },
+    {
+      "id": "form.size.very_small",
+      "context": "变形详情：get_size_adj 体型枚举",
+      "en": "very small",
+      "zh": "非常小",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; get_size_adj(form->size)"
+      }
+    },
+    {
+      "id": "form.size.small",
+      "context": "变形详情：get_size_adj 体型枚举",
+      "en": "small",
+      "zh": "小",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; get_size_adj(form->size)"
+      }
+    },
+    {
+      "id": "form.size.medium",
+      "context": "变形详情：get_size_adj 体型枚举",
+      "en": "medium",
+      "zh": "中",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; get_size_adj(form->size)"
+      }
+    },
+    {
+      "id": "form.size.large",
+      "context": "变形详情：get_size_adj 体型枚举",
+      "en": "large",
+      "zh": "大",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; get_size_adj(form->size)"
+      }
+    },
+    {
+      "id": "form.size.giant",
+      "context": "变形详情：get_size_adj 体型枚举",
+      "en": "giant",
+      "zh": "巨大",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; get_size_adj(form->size)"
+      }
+    },
+    {
+      "id": "form.meld.all_equipment",
+      "context": "变形详情：融合装备名枚举",
+      "en": "All Equipment",
+      "zh": "所有装备",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.meld.all_weapons_and_armour",
+      "context": "变形详情：融合装备名枚举",
+      "en": "All Weapons and Armour",
+      "zh": "所有武器和护甲",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.meld.weapon",
+      "context": "变形详情：融合装备名枚举",
+      "en": "Weapon",
+      "zh": "武器",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.meld.cloak",
+      "context": "变形详情：融合装备名枚举",
+      "en": "Cloak",
+      "zh": "斗篷",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.meld.helmet",
+      "context": "变形详情：融合装备名枚举",
+      "en": "Helmet",
+      "zh": "头盔",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.meld.gloves",
+      "context": "变形详情：融合装备名枚举",
+      "en": "Gloves",
+      "zh": "手套",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.meld.boots",
+      "context": "变形详情：融合装备名枚举",
+      "en": "Boots",
+      "zh": "靴子",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.meld.offhand",
+      "context": "变形详情：融合装备名枚举",
+      "en": "Offhand",
+      "zh": "副手",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.meld.body_armour",
+      "context": "变形详情：融合装备名枚举",
+      "en": "Body Armour",
+      "zh": "躯干护甲",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.meld.barding",
+      "context": "变形详情：融合装备名枚举",
+      "en": "Barding",
+      "zh": "骑乘护甲",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.meld.ring",
+      "context": "变形详情：融合装备名枚举",
+      "en": "Ring",
+      "zh": "戒指",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.meld.amulet",
+      "context": "变形详情：融合装备名枚举",
+      "en": "Amulet",
+      "zh": "护符",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.meld.gizmo",
+      "context": "变形详情：融合装备名枚举",
+      "en": "Gizmo",
+      "zh": "装置",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.meld.armour",
+      "context": "变形详情：融合装备名枚举",
+      "en": "Armour",
+      "zh": "护甲",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; melding_description(true), equip_slot_name and aggregate literals"
+      }
+    },
+    {
+      "id": "form.mutation.anatomy",
+      "context": "变形详情：被压制突变枚举",
+      "en": "Anatomy",
+      "zh": "解剖结构",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; changes vector populated from form mutation suppression flags"
+      }
+    },
+    {
+      "id": "form.mutation.substance",
+      "context": "变形详情：被压制突变枚举",
+      "en": "Substance",
+      "zh": "材质",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; changes vector populated from form mutation suppression flags"
+      }
+    },
+    {
+      "id": "form.mutation.blood",
+      "context": "变形详情：被压制突变枚举",
+      "en": "Blood",
+      "zh": "血液",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; changes vector populated from form mutation suppression flags"
+      }
+    },
+    {
+      "id": "form.mutation.bones",
+      "context": "变形详情：被压制突变枚举",
+      "en": "Bones",
+      "zh": "骨骼",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; changes vector populated from form mutation suppression flags"
+      }
+    },
+    {
+      "id": "form.mutation.hands",
+      "context": "变形详情：被压制突变枚举",
+      "en": "Hands",
+      "zh": "手",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_talisman_form; changes vector populated from form mutation suppression flags"
+      }
+    },
+    {
+      "id": "form.table.jolt_damage",
+      "context": "变形护符详情：特殊骰伤表格行标签",
+      "en": "Jolt damage",
+      "zh": "电击伤害",
+      "params": {},
+      "source": {
+        "file": "form-data.h",
+        "anchor": "form-data.h:738 special_dice_name, used by _maybe_note_form_dice"
+      },
+      "source_context": "detail.form.table_label"
+    },
+    {
+      "id": "form.table.burstshroom_damage",
+      "context": "变形护符详情：特殊骰伤表格行标签",
+      "en": "Burstshroom damage",
+      "zh": "爆裂蘑菇伤害",
+      "params": {},
+      "source": {
+        "file": "form-data.h",
+        "anchor": "form-data.h:756 special_dice_name, used by _maybe_note_form_dice"
+      },
+      "source_context": "detail.form.table_label"
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "item.curse.skills.entry",
+      "args": {
+        "category": {
+          "type": "name",
+          "canonical": "Melee Combat",
+          "localized": "近战"
+        },
+        "skills": {
+          "type": "text",
+          "canonical": "Short Blades, Long Blades",
+          "localized": "短刃、长刃"
+        }
+      },
+      "canonical": "Melee Combat: Short Blades, Long Blades",
+      "zh": "近战：短刃、长刃"
+    },
+    {
+      "id": "item.curse.skills.entry",
+      "args": {
+        "category": {
+          "type": "name",
+          "canonical": "Fortitude",
+          "localized": "坚毅"
+        },
+        "skills": {
+          "type": "text",
+          "canonical": "Armour, Shields",
+          "localized": "护甲、盾牌"
+        }
+      },
+      "canonical": "Fortitude: Armour, Shields",
+      "zh": "坚毅：护甲、盾牌"
+    },
+    {
+      "id": "item.talisman.form.table.row",
+      "args": {
+        "label": {
+          "type": "name",
+          "canonical": "HP",
+          "localized": "生命值"
+        },
+        "minimum": {
+          "type": "text",
+          "canonical": "+10%",
+          "localized": "+10%"
+        },
+        "maximum": {
+          "type": "text",
+          "canonical": "+20%",
+          "localized": "+20%"
+        },
+        "current": {
+          "type": "text",
+          "canonical": "<red>-10%</red>",
+          "localized": "<red>-10%</red>"
+        }
+      },
+      "canonical": "HP +10% +20% <red>-10%</red>",
+      "zh": "生命值 +10% +20% <red>-10%</red>"
+    },
+    {
+      "id": "item.talisman.form.class_line",
+      "args": {
+        "holiness": {
+          "type": "text",
+          "canonical": "Nonliving",
+          "localized": "非生命"
+        }
+      },
+      "canonical": "Class: Nonliving",
+      "zh": "类别：非生命"
+    },
+    {
+      "id": "item.talisman.form.size_line",
+      "args": {
+        "size": {
+          "type": "name",
+          "canonical": "very small",
+          "localized": "很小"
+        }
+      },
+      "canonical": "Size: very small",
+      "zh": "体型：很小"
+    },
+    {
+      "id": "item.talisman.form.meld_line",
+      "args": {
+        "items": {
+          "type": "text",
+          "canonical": "All Weapons and Armour",
+          "localized": "所有武器与护甲"
+        }
+      },
+      "canonical": "Melds: All Weapons and Armour",
+      "zh": "融合装备：所有武器与护甲"
+    },
+    {
+      "id": "item.talisman.form.mutations_suppressed",
+      "args": {
+        "mutations": {
+          "type": "text",
+          "canonical": "Anatomy, Blood, Hands",
+          "localized": "形态、血液、双手"
+        }
+      },
+      "canonical": "Mutations Suppressed: Anatomy, Blood, Hands",
+      "zh": "压制的突变：形态、血液、双手"
+    },
+    {
+      "id": "item.detail.stash_search_prefixes",
+      "args": {},
+      "canonical": "Stash search prefixes:",
+      "zh": "物品搜索前缀："
+    },
+    {
+      "id": "item.detail.menu_colouring_prefixes",
+      "args": {},
+      "canonical": "Menu/colouring prefixes:",
+      "zh": "菜单/着色前缀："
+    },
+    {
+      "id": "item.curse.skills.empty",
+      "args": {
+        "category": {
+          "type": "name",
+          "canonical": "Elements",
+          "localized": "元素"
+        }
+      },
+      "canonical": "Elements: ",
+      "zh": "元素：当前没有可训练的技能"
+    },
+    {
+      "id": "item.talisman.form.class_line",
+      "args": {
+        "holiness": {
+          "type": "text",
+          "canonical": "holy,demonic",
+          "localized": "神圣、恶魔"
+        }
+      },
+      "canonical": "Class: holy,demonic",
+      "zh": "类别：神圣、恶魔"
+    },
+    {
+      "id": "form.table.slay_kill",
+      "args": {},
+      "canonical": "+Slay/Kill",
+      "zh": "+杀伤/击杀"
+    },
+    {
+      "id": "item.talisman.form.table.row",
+      "args": {
+        "label": {
+          "type": "name",
+          "canonical": "Jolt damage",
+          "localized": "电击伤害"
+        },
+        "minimum": {
+          "type": "text",
+          "canonical": "1d3",
+          "localized": "1d3"
+        },
+        "maximum": {
+          "type": "text",
+          "canonical": "3d8",
+          "localized": "3d8"
+        },
+        "current": {
+          "type": "text",
+          "canonical": "2d5",
+          "localized": "2d5"
+        }
+      },
+      "canonical": "Jolt damage 1d3 3d8 2d5",
+      "zh": "电击伤害 1d3 3d8 2d5"
+    },
+    {
+      "id": "item.talisman.form.table.row",
+      "args": {
+        "label": {
+          "type": "name",
+          "canonical": "Burstshroom damage",
+          "localized": "爆裂蘑菇伤害"
+        },
+        "minimum": {
+          "type": "text",
+          "canonical": "1d3",
+          "localized": "1d3"
+        },
+        "maximum": {
+          "type": "text",
+          "canonical": "3d8",
+          "localized": "3d8"
+        },
+        "current": {
+          "type": "text",
+          "canonical": "2d5",
+          "localized": "2d5"
+        }
+      },
+      "canonical": "Burstshroom damage 1d3 3d8 2d5",
+      "zh": "爆裂蘑菇伤害 1d3 3d8 2d5"
+    }
+  ]
+}

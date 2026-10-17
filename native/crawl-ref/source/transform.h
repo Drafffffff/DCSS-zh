@@ -168,6 +168,7 @@ public:
 
     string player_prayer_action() const;
     string melding_description(bool itemized) const;
+    vector<string> melded_equipment_names() const;
 
     virtual vector<pair<string, string>> get_fakemuts() const;
     virtual vector<pair<string, string>> get_bad_fakemuts() const;
