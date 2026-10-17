@@ -1,0 +1,22 @@
+{
+  "native_commit": "cc710081cd3f163eabf78c65b9144e040ef30aa8",
+  "builds": {
+    "macos-tiles": "pass",
+    "macos-console": "pass",
+    "linux-tiles": "pass",
+    "linux-console": "pass"
+  },
+  "actual_producer_cases": 16572,
+  "message_validation_checks": 6821,
+  "macos_copied_save_scenes": 10,
+  "linux_copied_save_scenes": 10,
+  "bazzite_native_4k_scenes": 6,
+  "final_regression_scenes": {
+    "macos-console": 2,
+    "linux-console": 3,
+    "bazzite-4k": 2
+  },
+  "original_saves_unchanged": true,
+  "scope": "ordinary item-operation main flows; known remaining producers are listed in REPORT.md; no coverage percentage",
+  "report": "REPORT.md"
+}

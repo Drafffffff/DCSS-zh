@@ -172,3 +172,40 @@ RESTRICTION_EXPECTED.update({
  'speech-imp-taunt': {'speech.shout.imp_taunt'},
  'speech-orc-dialogue': {'speech.monspeak.68bf6884b74c8861'},
 })
+
+# Item-operation work package: actual commands, a fresh copied ZhSmoke fixture
+# for every scene. Wizard item creation is an input path, never log injection.
+RESTRICTION_SCENES.update({
+ 'item-pickup': 'l&wiz\r%pre_id stone q:3\rg',
+ 'item-stack': 'l&wiz\r%pre_id stone q:3\rg&%pre_id stone q:2\rg',
+ 'item-drop': 'l&wiz\r%pre_id stone q:3\rgdc\r',
+ 'item-wield': 'l&wiz\r%pre_id long sword ego:flaming\rgwc',
+ 'item-unwield': 'w-',
+ 'item-takeoff': 'Tb.....',
+ 'item-wear': 'Tb.....',
+ 'item-gold': 'l&wiz\r%gold q:123\rg',
+ 'item-quaff': 'l&wiz\r%pre_id potion of might\rgqm',
+ 'item-read': 'l&wiz\r%pre_id scroll of enchant weapon\rgrwa',
+ 'item-wear-menu': 'W',
+})
+RESTRICTION_EXPECTED.update({
+ 'item-pickup': {'operation.pickup.item_name'},
+ 'item-stack': {'operation.pickup.stack.merged'},
+ 'item-drop': {'operation.drop.success'},
+ 'item-wield': {'operation.equipment.effect.weapon_flame_on'},
+ 'item-unwield': {'operation.equipment.log.unequip'},
+ 'item-takeoff': {'equip_finish'},
+ 'item-wear': {'equip_start','equip_finish'},
+ 'item-gold': {'operation.pickup.gold.plural'},
+ 'item-quaff': {'operation.potion.might.fresh'},
+ 'item-read': {'operation.use.scroll.success','operation.use.weapon.enchant'},
+ 'item-wear-menu': {'operation.equipment.menu.wear_both'},
+})
+
+# A hints-mode door tutorial interrupts the copied fixture's equipment delay.
+# Accept the real continuation prompt, then finish the requested operation.
+RESTRICTION_FOLLOWUPS['item-takeoff'] = {'trigger':'要继续脱下衣物吗', 'keys':'Y.....'}
+RESTRICTION_FOLLOWUPS['item-wear'] = {'trigger':'要继续脱下衣物吗', 'keys':'Y.....Wb.....'}
+
+RESTRICTION_SCENES['item-inventory'] = 'i'
+RESTRICTION_EXPECTED['item-inventory'] = {'operation.inventory.category.subtitle.go_to_first'}

@@ -4,6 +4,8 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-display-name.h"
+#include "zh-message.h"
 
 #include "nearby-danger.h"
 
@@ -226,18 +228,19 @@ vector<monster* > get_nearby_monsters(bool want_move,
     return mons;
 }
 
-#define UNSAFE_MSG(msg) {                           \
-    if (announce || reason)                         \
+#define UNSAFE_MSG(value) {                         \
+    if (announce || reason || display_reason)        \
     {                                               \
+        const ZhArg msg = value;                     \
         if (announce)                               \
-            mprf(MSGCH_WARN, "%s!", msg);           \
-        if (reason)                                 \
-            *reason = msg;                          \
+            mpr(zh_message("operation.safety.warning", {msg}), MSGCH_WARN); \
+        if (reason) *reason = msg.canonical;          \
+        if (display_reason) *display_reason = msg;    \
         return false;                               \
     }}
 
 bool i_feel_safe(bool announce, bool want_move, bool just_monsters,
-                 bool check_dist, int range, string* reason)
+                 bool check_dist, int range, string* reason, ZhArg* display_reason)
 {
     if (!just_monsters)
     {
@@ -251,20 +254,21 @@ bool i_feel_safe(bool announce, bool want_move, bool just_monsters,
             // Qazlal immunity will allow for it, however.
             bool your_fault = cloud_is_yours_at(you.pos());
             if (cloud_damages_over_time(type, want_move, your_fault))
-                UNSAFE_MSG(make_stringf("you are in a cloud of %s", cloud_type_name(type).c_str()).c_str());
+                UNSAFE_MSG(zh_message_arg("reason", "operation.equipment.reason.unsafe.cloud",
+                    {zh_word_arg("cloud_type", "movement.confirm.cloud_name.", cloud_type_name(type))}));
         }
 
         if (poison_is_lethal())
-            UNSAFE_MSG("there is a lethal amount of poison in your body");
+            UNSAFE_MSG(zh_message_arg("reason", "operation.equipment.reason.unsafe.lethal_poison"));
 
         if (contam_max_damage() >= you.hp)
-            UNSAFE_MSG("you are contaminated with a potentially lethal amount of magic");
+            UNSAFE_MSG(zh_message_arg("reason", "operation.equipment.reason.unsafe.lethal_contamination"));
 
         if (you.duration[DUR_STICKY_FLAME])
-            UNSAFE_MSG("you are on fire");
+            UNSAFE_MSG(zh_message_arg("reason", "operation.equipment.reason.unsafe.on_fire"));
 
         if (you.props[EMERGENCY_FLIGHT_KEY])
-            UNSAFE_MSG("you are being drained by your emergency flight");
+            UNSAFE_MSG(zh_message_arg("reason", "operation.equipment.reason.unsafe.emergency_flight"));
 
         // No monster will attack you inside a sanctuary,
         // so presence of monsters won't matter -- until it starts shrinking...
@@ -294,6 +298,16 @@ bool i_feel_safe(bool announce, bool want_move, bool just_monsters,
         _announce_monsters(announcement, visible);
     if (reason)
         *reason = announcement;
+    if (display_reason)
+    {
+        if (visible.size() == 1)
+            *display_reason = zh_message_arg("reason", "operation.equipment.reason.unsafe.monster_one",
+                {zh_monster_arg("monster", *visible[0], DESC_A)});
+        else
+            *display_reason = zh_message_arg("reason", visible.size() > 1
+                ? "operation.equipment.reason.unsafe.monsters_many"
+                : "operation.equipment.reason.unsafe.monster_sensed");
+    }
 
     return false;
 }

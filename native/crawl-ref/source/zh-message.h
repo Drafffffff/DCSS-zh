@@ -55,3 +55,6 @@ std::string zh_source(const char *context, const char *source_literal);
 
 ZhMessage zh_message_values(const std::string &id, const std::vector<ZhArg> &args,
                             const std::string &canonical = "");
+
+// Rebind an already captured semantic snapshot without re-reading game state.
+ZhArg zh_named_arg(const std::string &key, ZhArg value);

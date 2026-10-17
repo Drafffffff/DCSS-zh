@@ -1,0 +1,2070 @@
+{
+  "model": "Luna",
+  "purpose": "Player-facing equipment menus, restrictions, warnings, and immediate equipment-change messages.",
+  "messages": [
+    {
+      "id": "operation.equipment.confirm.berserk_launcher",
+      "context": "狂暴时仍要持用远程武器的二次确认；item 是 DESC_INVENTORY 的完整物品名。",
+      "en": "You can't shoot while berserk! Really wield {item}?",
+      "zh": "你在狂暴时无法射击！仍要持用{item}吗？",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "warn_about_changing_gear; berserk and is_range_weapon; item.name(DESC_INVENTORY)",
+        "line": 1258
+      }
+    },
+    {
+      "id": "operation.equipment.confirm.keep_disrobing",
+      "context": "装备卸下延迟针对非副手护甲的确认。",
+      "en": "Keep disrobing?",
+      "zh": "要继续脱下衣物吗？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOffDelay::try_interrupt; is_armour and not SLOT_OFFHAND",
+        "line": 228
+      }
+    },
+    {
+      "id": "operation.equipment.confirm.keep_equipping",
+      "context": "EquipOnDelay 中断穿戴时的确认。",
+      "en": "Keep equipping yourself?",
+      "zh": "要继续装备吗？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay::try_interrupt; yesno prompt",
+        "line": 183
+      }
+    },
+    {
+      "id": "operation.equipment.confirm.keep_removing",
+      "context": "卸下武器、首饰、副手装备时的确认。",
+      "en": "Keep removing your equipment?",
+      "zh": "要继续卸下装备吗？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOffDelay::try_interrupt; non-armour prompt",
+        "line": 228
+      }
+    },
+    {
+      "id": "operation.equipment.confirm.unsafe_delay",
+      "context": "装备变更需要多个回合且当前不安全时的确认；reason 是 i_feel_safe 输出的完整原因。 reason 仅允许引用 operation.equipment.reason.unsafe.* 中的完整原因 ID；云类和单只怪物原因分别带一个 name 参数。",
+      "en": "Spend multiple turns changing equipment while {reason}?",
+      "zh": "在{reason}的情况下仍要花多个回合更换装备吗？",
+      "params": {
+        "reason": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "warn_about_changing_gear; i_feel_safe reason",
+        "line": 1258
+      }
+    },
+    {
+      "id": "operation.equipment.log.equipped_item",
+      "context": "装备武器或首饰后显示的完整物品标签；item 由 name(DESC_INVENTORY_EQUIP) 产生，是显示名称接口提供的完整名称，而非普通文本。",
+      "en": "{item}",
+      "zh": "{item}",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "_equip_weapon_effect / _equip_jewellery_effect; mprf_nocap item.name(DESC_INVENTORY_EQUIP)",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.log.unequip",
+      "context": "立即装备变更中逐件卸下物品；action 来自 item_unequip_verb，item 是 DESC_YOUR 完整物品名。 action 的有限值来自 item_unequip_verb：unwield→卸下、take off→脱下、remove→取下；物品参数保留 DESC_YOUR 名称。",
+      "en": "You {action} {item}.",
+      "zh": "你把{item}{action}。",
+      "params": {
+        "action": "text",
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "do_equipment_change; item_unequip_verb(*item), item.name(DESC_YOUR)",
+        "line": 1556
+      }
+    },
+    {
+      "id": "operation.equipment.menu.armour_takeoff",
+      "context": "物品操作菜单：脱下护甲标题。",
+      "en": "Take off which piece of armour?",
+      "zh": "要脱下哪件护甲？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_TAKEOFF",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.menu.describe_selected",
+      "context": "允许方向键选择时显示的物品说明提示；问号快捷键必须保留。",
+      "en": "[<w>?</w>] describe selected",
+      "zh": "[<w>?</w>] 查看选中物品",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "UseItemMenu::get_keyhelp; MF_ARROWS_SELECT",
+        "line": 726
+      }
+    },
+    {
+      "id": "operation.equipment.menu.drink",
+      "context": "_default_use_title 的固定物品操作菜单标题；虽然是相邻物品操作，归于同一入口菜单批次。",
+      "en": "Drink which item?",
+      "zh": "要喝哪件物品？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_QUAFF",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.menu.equip",
+      "context": "物品操作菜单：装备选择标题。",
+      "en": "Equip which item?",
+      "zh": "要装备哪件物品？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_EQUIP; default",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.menu.equip_both",
+      "context": "物品操作菜单：Options.equip_unequip 为真时的装备选择标题。",
+      "en": "Equip or unequip which item?",
+      "zh": "要装备或卸下哪件物品？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_EQUIP; Options.equip_unequip",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.menu.evoke",
+      "context": "_default_use_title 的固定物品操作菜单标题；虽然是相邻物品操作，归于同一入口菜单批次。",
+      "en": "Evoke which item?",
+      "zh": "要激发哪件物品？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_EVOKE",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.menu.jewellery_both",
+      "context": "物品操作菜单：首饰戴上/取下标题。",
+      "en": "Put on or remove which piece of jewellery?",
+      "zh": "要戴上或取下哪件首饰？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_PUTON; Options.equip_unequip",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.menu.jewellery_puton",
+      "context": "物品操作菜单：首饰戴上标题。",
+      "en": "Put on which piece of jewellery?",
+      "zh": "要戴上哪件首饰？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_PUTON; default",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.menu.jewellery_remove",
+      "context": "物品操作菜单：取下首饰标题。",
+      "en": "Remove which piece of jewellery?",
+      "zh": "要取下哪件首饰？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_REMOVE",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.menu.keyhelp.equip_mode",
+      "context": "装备菜单当前操作为装备时的 Tab 模式帮助；按键及颜色标签固定保留。",
+      "en": "[<w>tab</w>] <w>equip</w>|unequip  ",
+      "zh": "[<w>tab</w>] <w>装备</w>|卸下  ",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "UseItemMenu::get_keyhelp; generalize_oper(oper)==OPER_EQUIP",
+        "line": 726
+      }
+    },
+    {
+      "id": "operation.equipment.menu.keyhelp.unequip_mode",
+      "context": "装备菜单当前操作为卸下时的 Tab 模式帮助；按键及颜色标签固定保留。",
+      "en": "[<w>tab</w>] equip|<w>unequip</w>  ",
+      "zh": "[<w>tab</w>] 装备|<w>卸下</w>  ",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "UseItemMenu::get_keyhelp; generalize_oper(oper)==OPER_UNEQUIP",
+        "line": 726
+      }
+    },
+    {
+      "id": "operation.equipment.menu.mode_cycle",
+      "context": "多种操作模式的循环帮助；command 来自 menu_keyhelp_cmd 且保留键标记；modes 由 _oper_name 条目以原有颜色标记连接。",
+      "en": "{command} {modes}   ",
+      "zh": "{command} {modes}   ",
+      "params": {
+        "command": "key_markup",
+        "modes": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "UseItemMenu::get_keyhelp; available_modes and menu_keyhelp_cmd",
+        "line": 726
+      }
+    },
+    {
+      "id": "operation.equipment.menu.read",
+      "context": "_default_use_title 的固定物品操作菜单标题；虽然是相邻物品操作，归于同一入口菜单批次。",
+      "en": "Read which item?",
+      "zh": "要阅读哪件物品？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_READ",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.menu.unequip",
+      "context": "物品操作菜单：通用卸下标题。",
+      "en": "Unequip which item?",
+      "zh": "要卸下哪件物品？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_UNEQUIP",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.menu.wear",
+      "context": "物品操作菜单：护甲穿戴标题。",
+      "en": "Wear which item?",
+      "zh": "要穿戴哪件物品？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_WEAR; default",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.menu.wear_both",
+      "context": "物品操作菜单：护甲装备/脱下标题。",
+      "en": "Wear or take off which item?",
+      "zh": "要穿戴或脱下哪件物品？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_WEAR; Options.equip_unequip",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.menu.wield",
+      "context": "物品操作菜单：武器装备标题；保留原始快捷键提示（-）。",
+      "en": "Wield which item (- for none)?",
+      "zh": "要持用哪件武器（-表示空手）？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_WIELD; default",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.menu.wield_both",
+      "context": "物品操作菜单：武器装备/卸下标题；保留原始快捷键提示（-）。",
+      "en": "Wield or unwield which item (- for none)?",
+      "zh": "要持用或卸下哪件武器（-表示空手）？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_default_use_title OPER_WIELD; Options.equip_unequip",
+        "line": 149
+      }
+    },
+    {
+      "id": "operation.equipment.prompt.swap_keys",
+      "context": "候选物品较少时的快捷键帮助；颜色标记保留，快捷键和值不可变更。",
+      "en": "(<w>?</w> for menu, <w>Esc</w> to cancel)",
+      "zh": "（按<w>?</w>打开菜单，按<w>Esc</w>取消）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_item_swap_prompt; literal help prompt",
+        "line": 1134
+      }
+    },
+    {
+      "id": "operation.equipment.prompt.swap_list",
+      "context": "更换装备时提示从列出的物品中移除一件；同时用于菜单标题。",
+      "en": "To do this, you must remove one of the following items:",
+      "zh": "要这么做，你必须先卸下以下物品中的一件：",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_item_swap_menu / _item_swap_prompt; candidate selection prompt",
+        "line": 1103
+      }
+    },
+    {
+      "id": "operation.equipment.reason.antennae_headgear",
+      "context": "大型触角阻止佩戴头部装备。",
+      "en": "You can't wear any headgear with your large antennae!",
+      "zh": "你的大型触角让你无法佩戴任何头部装备！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_HELMET; ANTENNAE level >= 3",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.antennae_helmet",
+      "context": "触角无法穿过头盔。",
+      "en": "You can't fit that over your antennae.",
+      "zh": "你的触角穿不过那顶头盔。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "can_equip_item; hard helmet and MUT_ANTENNAE",
+        "line": 465
+      }
+    },
+    {
+      "id": "operation.equipment.reason.beak_helmet",
+      "context": "鸟喙无法穿过头盔。",
+      "en": "You can't fit that over your beak.",
+      "zh": "你的鸟喙穿不过那顶头盔。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "can_equip_item; hard helmet and MUT_BEAK",
+        "line": 465
+      }
+    },
+    {
+      "id": "operation.equipment.reason.blood_hunger",
+      "context": "被注视时无法卸下恶魔斧。",
+      "en": "Your thirst for blood prevents you from unwielding your weapon!",
+      "zh": "嗜血欲望让你无法卸下武器！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "can_unequip_item; UNRAND_DEMON_AXE and you.beheld()",
+        "line": 1615
+      }
+    },
+    {
+      "id": "operation.equipment.reason.cannot_fit",
+      "context": "无法穿入护甲或马铠。",
+      "en": "You can't fit into that!",
+      "zh": "你穿不进那件装备！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_BARDING; no compatible species/form",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.claws_fit",
+      "context": "巨爪无法套入手套；body_part 为手部名称。",
+      "en": "Those can't fit over your huge {body_part}.",
+      "zh": "这件装备套不住你巨大的{body_part}。",
+      "params": {
+        "body_part": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_GLOVES; CLAWS level >= 3 and hand_name(true)",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.current_form",
+      "context": "当前形态无法装备物品。",
+      "en": "You can't equip that in your current form.",
+      "zh": "你当前的形态无法装备那件物品。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "can_equip_item; slot_is_melded and include_form",
+        "line": 465
+      }
+    },
+    {
+      "id": "operation.equipment.reason.cursed",
+      "context": "尝试卸下诅咒装备。",
+      "en": "{item} is stuck to your body!",
+      "zh": "{item}黏在你的身体上！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "can_unequip_item; item.cursed; item.name(DESC_YOUR)",
+        "line": 1615
+      }
+    },
+    {
+      "id": "operation.equipment.reason.cursed_chain",
+      "context": "装备特殊格槽物品所需的连锁卸下无法完成，因为被诅咒物品阻挡。item 是 item.name(DESC_INVENTORY)；完整的 C++ 参数值是待卸下装备名。",
+      "en": "A cursed item is preventing you from removing {item}.",
+      "zh": "有诅咒物品阻止你卸下{item}。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "handle_chain_removal; chain_remove.size() < chain_remove_num; item.name(DESC_INVENTORY)",
+        "line": 1477
+      }
+    },
+    {
+      "id": "operation.equipment.reason.cursed_slot",
+      "context": "候选装备槽中全是诅咒装备而无法腾出槽位；item 为 DESC_YOUR 名称。",
+      "en": "{item} is stuck to your body!",
+      "zh": "{item}黏在你的身体上！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "player_equip_set::find_removable_items_for_slot; !quiet && !found_item && cursed_item; item.name(DESC_YOUR)",
+        "line": 749
+      }
+    },
+    {
+      "id": "operation.equipment.reason.demonic_touch",
+      "context": "恶魔之触会摧毁手套。",
+      "en": "Your demonic touch would destroy those.",
+      "zh": "你的恶魔之触会摧毁这件装备。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_GLOVES; DEMONIC_TOUCH >= 3",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.empty_hands",
+      "context": "当前空手状态提示；when 仅为 already/now，form 仅为 empty-handed/empty-clawed/empty-tentacled。 when 复用 operation.equipment.value.when.*；form 复用 operation.equipment.value.empty_form.*。",
+      "en": "You are {when} {form}.",
+      "zh": "你{when}{form}。",
+      "params": {
+        "when": "text",
+        "form": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/message.cc",
+        "anchor": "canned_msg MSG_EMPTY_HANDED_ALREADY / MSG_EMPTY_HANDED_NOW; when selection and body form",
+        "line": 2034
+      }
+    },
+    {
+      "id": "operation.equipment.reason.empty_mouth",
+      "context": "无抓握突变时当前嘴部空空的提示；when 仅为 already/now。 when 复用 operation.equipment.value.when.*。",
+      "en": "Your mouth is {when} empty.",
+      "zh": "你的嘴{when}空空如也。",
+      "params": {
+        "when": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/message.cc",
+        "anchor": "canned_msg MSG_EMPTY_HANDED_ALREADY / MSG_EMPTY_HANDED_NOW; MUT_NO_GRASPING",
+        "line": 2034
+      }
+    },
+    {
+      "id": "operation.equipment.reason.floating_feet",
+      "context": "漂浮突变导致没有脚部装备槽。",
+      "en": "You have no feet!",
+      "zh": "你没有脚！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_BOOTS; MUT_FLOAT",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.form_wear_remove",
+      "context": "当前形态无法穿戴或脱下任何装备；wear 是 wear/remove 动词。 允许 action 仅为 wear→穿戴、remove→脱下。",
+      "en": "You can't {action} anything in your present form.",
+      "zh": "你当前的形态无法{action}任何装备。",
+      "params": {
+        "action": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_can_generically_use_armour; wear ? wear : remove",
+        "line": 901
+      }
+    },
+    {
+      "id": "operation.equipment.reason.haunt_large",
+      "context": "无实体形态无法附身体型过大的护甲。",
+      "en": "You can't haunt something so large.",
+      "zh": "你无法附身于这么大的东西。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_BODY_ARMOUR; MUT_FORMLESS",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.headgear_too_large",
+      "context": "头部太小，无法使用头盔装备槽。",
+      "en": "That is much too large for your head.",
+      "zh": "那东西对你的头来说太大了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_HELMET; MUT_NO_ARMOUR",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.helmet_size",
+      "context": "头盔尺寸与头部大小不合；size_relation 为 small/large。 size_relation 仅为 small→小、large→大；参数本身不含 too。 zh size_relation：小/大。",
+      "en": "This helmet is too {size_relation} for your head.",
+      "zh": "这顶头盔对你的头来说太{size_relation}了。",
+      "params": {
+        "size_relation": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "can_equip_item; hard helmet and player_size",
+        "line": 465
+      }
+    },
+    {
+      "id": "operation.equipment.reason.hooves_boots",
+      "context": "蹄子无法穿入靴子。",
+      "en": "Your hooves can't fit into boots.",
+      "zh": "你的蹄子穿不进靴子。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_BOOTS; HOOVES >= 3",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.horns_headgear",
+      "context": "大型角阻止佩戴头部装备。",
+      "en": "You can't wear any headgear with your large horns!",
+      "zh": "你的大角让你无法佩戴任何头部装备！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_HELMET; HORNS level >= 3",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.horns_helmet",
+      "context": "角无法穿过头盔。",
+      "en": "You can't fit that over your horns.",
+      "zh": "你的角穿不过那顶头盔。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "can_equip_item; hard helmet and MUT_HORNS",
+        "line": 465
+      }
+    },
+    {
+      "id": "operation.equipment.reason.inventory_full",
+      "context": "拾取地面装备前背包已无空间。",
+      "en": "You can't carry that many items.",
+      "zh": "你的背包装不下这么多物品。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_move_item_from_floor_to_inv / try_equip_item; inventory capacity failure",
+        "line": 1065
+      }
+    },
+    {
+      "id": "operation.equipment.reason.jewellery_form",
+      "context": "不可取消变形且当前无法穿戴任何首饰；action 是 wear/remove，form_note 为可选原文尾句。 允许 action 仅为 wear→佩戴、remove→取下；form_note 仅为空串或 \" in your present form\"→\"（当前形态下）\"。 zh action：wear→穿戴、remove→取下。",
+      "en": "You can't {action} jewellery{form_note}.",
+      "zh": "你当前无法{action}首饰{form_note}。",
+      "params": {
+        "action": "text",
+        "form_note": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_can_generically_use OPER_PUTON/REMOVE; you_can_wear ring and amulet; mutation conditional suffix",
+        "line": 943
+      }
+    },
+    {
+      "id": "operation.equipment.reason.limb_fit",
+      "context": "手套无法套在对应手部上。",
+      "en": "Those can't fit on your {body_part}.",
+      "zh": "这件装备套不上你的{body_part}。",
+      "params": {
+        "body_part": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_GLOVES; Octopode/no armour and hand_name(true)",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.limb_size",
+      "context": "手套或鞋靴尺寸与身体部位不合；size_relation 的实际英文输入为 too big/too small，词项分别映射为“大/小”；模板自身保留“太”。body_part 来自 hand_name/foot_name。",
+      "en": "Those are {size_relation} for your {body_part}.",
+      "zh": "这件装备对你的{body_part}来说太{size_relation}。",
+      "params": {
+        "size_relation": "text",
+        "body_part": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_GLOVES/SLOT_BOOTS; body_size and hand_name/foot_name",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.melded",
+      "context": "尝试卸下融入身体的装备。",
+      "en": "{item} is melded into your body!",
+      "zh": "{item}已融入你的身体！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "can_unequip_item; item_is_melded; item.name(DESC_YOUR)",
+        "line": 1615
+      }
+    },
+    {
+      "id": "operation.equipment.reason.need_hand",
+      "context": "缺少一只手，提示需要另一只对应部位。",
+      "en": "You'd need another {body_part} to do that!",
+      "zh": "你还需要另一只{body_part}才能这么做！",
+      "params": {
+        "body_part": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_OFFHAND; you.hand_name(false)",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.need_tentacles",
+      "context": "缺少手部且触手用于行走，无法腾出副手槽。",
+      "en": "You need the rest of your tentacles for walking.",
+      "zh": "你需要用其余触手行走。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_OFFHAND; MUT_MISSING_HAND and MUT_TENTACLE_ARMS",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_amulets",
+      "context": "无首饰突变无法佩戴护身符。",
+      "en": "You can't wear amulets.",
+      "zh": "你无法佩戴护身符。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_AMULET; MUT_NO_JEWELLERY",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_armour_remove",
+      "context": "因无甲突变而无法脱下身上的皮肤。",
+      "en": "You can't remove your {skin}, sorry.",
+      "zh": "抱歉，你无法脱下自己的{skin}。",
+      "params": {
+        "skin": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_can_generically_use_armour(false); species::skin_name(you.species)",
+        "line": 901
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_armour_slot",
+      "context": "无甲突变或章鱼人没有护甲槽。",
+      "en": "You can't wear armour!",
+      "zh": "你无法穿戴护甲！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_BODY_ARMOUR; SP_OCTOPODE or MUT_NO_ARMOUR",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_armour_wear",
+      "context": "因无甲突变而无法穿戴护甲。",
+      "en": "You can't wear anything.",
+      "zh": "你无法穿戴任何护甲。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_can_generically_use_armour(wear=true); MUT_NO_ARMOUR",
+        "line": 901
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_boots",
+      "context": "当前种族或无甲状态不能穿靴子。",
+      "en": "You can't wear boots.",
+      "zh": "你无法穿靴子。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_BOOTS; Octopode or MUT_NO_ARMOUR",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_cloak",
+      "context": "当前种族或无甲状态不能穿披风。",
+      "en": "You can't wear that.",
+      "zh": "你无法穿戴那件装备。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_CLOAK; Octopode or MUT_NO_ARMOUR",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_exoframe",
+      "context": "非齿轮人没有外骨骼框架安装装备。",
+      "en": "You lack an exoframe to install that in.",
+      "zh": "你没有可安装该物品的外骨骼框架。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_GIZMO; species != SP_COGLIN",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_feet",
+      "context": "没有脚部装备槽。",
+      "en": "You don't have any feet!",
+      "zh": "你没有脚！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_BOOTS; wears_barding or MUT_FORMLESS",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_hands",
+      "context": "无实体形态没有手套装备槽。",
+      "en": "You don't have hands.",
+      "zh": "你没有手。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_GLOVES; MUT_FORMLESS",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_head",
+      "context": "无实体形态没有头部装备槽。",
+      "en": "You don't have a head.",
+      "zh": "你没有头。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_HELMET; MUT_FORMLESS",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_hold_paws",
+      "context": "爪子无法抓握物品。",
+      "en": "You can't hold anything in your paws.",
+      "zh": "你的爪子无法握持任何东西。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_OFFHAND; MUT_NO_GRASPING",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_rings",
+      "context": "无首饰突变无法佩戴戒指。",
+      "en": "You can't wear any rings.",
+      "zh": "你无法佩戴任何戒指。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_RING; MUT_NO_JEWELLERY",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_shoulders",
+      "context": "无实体形态没有肩膀槽可穿披风。",
+      "en": "You don't have any shoulders.",
+      "zh": "你没有肩膀。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_CLOAK; MUT_FORMLESS",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.no_weapon",
+      "context": "没有可用武器槽（无抓握突变）。",
+      "en": "You can't wield any weapon.",
+      "zh": "你无法持用任何武器。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_WEAPON; MUT_NO_GRASPING",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.not_equipment",
+      "context": "尝试装备不可装备的物品。",
+      "en": "That isn't an equippable item.",
+      "zh": "那不是可装备的物品。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "can_equip_item NO_EQUIP; !item_type_is_equipment",
+        "line": 465
+      }
+    },
+    {
+      "id": "operation.equipment.reason.octopode_helmet",
+      "context": "章鱼人无法佩戴该头盔；保留源代码拼写语义。",
+      "en": "Your can't wear that!",
+      "zh": "你无法佩戴那顶头盔！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "can_equip_item; hard helmet and SP_OCTOPODE",
+        "line": 465
+      }
+    },
+    {
+      "id": "operation.equipment.reason.reptilian_head",
+      "context": "爬行类头部无法佩戴该头盔。",
+      "en": "You can't wear that with your reptilian head.",
+      "zh": "你的爬行类头部无法佩戴那顶头盔。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "can_equip_item; is_hard_helmet and draconian",
+        "line": 465
+      }
+    },
+    {
+      "id": "operation.equipment.reason.size",
+      "context": "护甲尺寸过大或过小；size_relation 是 large/small。 size_relation 仅为 large→大、small→小；英语模板中的 too 在参数外。 zh size_relation：大/小。",
+      "en": "That is too {size_relation} for you to equip!",
+      "zh": "那件装备对你来说太{size_relation}了！",
+      "params": {
+        "size_relation": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "can_equip_item; fit_armour_size and bad_size",
+        "line": 465
+      }
+    },
+    {
+      "id": "operation.equipment.reason.stinger_cloak",
+      "context": "尖锐尾刺阻止穿戴披风。",
+      "en": "You can't wear that with your sharp stinger!",
+      "zh": "你的尖锐尾刺让你无法穿戴那件装备！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_CLOAK; WEAKNESS_STINGER >= 3",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.talons_boots",
+      "context": "利爪无法穿入靴子。",
+      "en": "Your talons can't fit into boots.",
+      "zh": "你的利爪穿不进靴子。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_BOOTS; TALONS >= 3",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.reason.too_berserk",
+      "context": "装备操作被狂暴状态阻止。",
+      "en": "You are too berserk!",
+      "zh": "你狂暴得太厉害了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/message.cc",
+        "anchor": "canned_msg MSG_TOO_BERSERK",
+        "line": 1992
+      }
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "context": "i_feel_safe 返回的安全原因完整句；用于多回合装备危险确认。 cloud_type 是 cloud_type_name(type) 的完整本地化名称。",
+      "en": "you are in a cloud of {cloud_type}",
+      "zh": "你身处{cloud_type}云雾中",
+      "params": {
+        "cloud_type": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/nearby-danger.cc",
+        "anchor": "i_feel_safe; unsafe reason branch",
+        "line": 254
+      }
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.emergency_flight",
+      "context": "i_feel_safe 返回的安全原因完整句；用于多回合装备危险确认。",
+      "en": "you are being drained by your emergency flight",
+      "zh": "紧急飞行正在不断消耗你的力量",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/nearby-danger.cc",
+        "anchor": "i_feel_safe; unsafe reason branch",
+        "line": 254
+      }
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.lethal_contamination",
+      "context": "i_feel_safe 返回的安全原因完整句；用于多回合装备危险确认。",
+      "en": "you are contaminated with a potentially lethal amount of magic",
+      "zh": "你受到的魔法污染可能致命",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/nearby-danger.cc",
+        "anchor": "i_feel_safe; unsafe reason branch",
+        "line": 254
+      }
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.lethal_poison",
+      "context": "i_feel_safe 返回的安全原因完整句；用于多回合装备危险确认。",
+      "en": "there is a lethal amount of poison in your body",
+      "zh": "你的体内毒素已达到致命剂量",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/nearby-danger.cc",
+        "anchor": "i_feel_safe; unsafe reason branch",
+        "line": 254
+      }
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.monster_one",
+      "context": "单只可见怪物的安全原因；monster 是 monster.name(DESC_A) 的完整名。",
+      "en": "{monster} is nearby",
+      "zh": "{monster}就在附近",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/nearby-danger.cc",
+        "anchor": "_seen_monsters_announcement; visible.size()==1",
+        "line": 146
+      }
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.monster_sensed",
+      "context": "i_feel_safe 返回的安全原因完整句；用于多回合装备危险确认。",
+      "en": "there is a strange disturbance nearby",
+      "zh": "附近有一阵奇怪的动静",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/nearby-danger.cc",
+        "anchor": "i_feel_safe; unsafe reason branch",
+        "line": 254
+      }
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.monsters_many",
+      "context": "i_feel_safe 返回的安全原因完整句；用于多回合装备危险确认。",
+      "en": "there are monsters nearby",
+      "zh": "附近有怪物",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/nearby-danger.cc",
+        "anchor": "i_feel_safe; unsafe reason branch",
+        "line": 254
+      }
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.on_fire",
+      "context": "i_feel_safe 返回的安全原因完整句；用于多回合装备危险确认。",
+      "en": "you are on fire",
+      "zh": "你身上着火了",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/nearby-danger.cc",
+        "anchor": "i_feel_safe; unsafe reason branch",
+        "line": 254
+      }
+    },
+    {
+      "id": "operation.equipment.reason.vainglory_crown",
+      "context": "虚荣持续期间无法在人前摘下王冠。",
+      "en": "It would be unfitting for someone so glorious to remove their crown in front of an audience.",
+      "zh": "如此荣耀之人当众摘下王冠，实在有失体面。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "can_unequip_item; DUR_VAINGLORY and UNRAND_VAINGLORY",
+        "line": 1615
+      }
+    },
+    {
+      "id": "operation.equipment.reason.weapon_size",
+      "context": "武器对体型过大者来说无法持用。",
+      "en": "That's too large for you to wield.",
+      "zh": "那件武器对你来说太大，无法持用。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "can_equip_item; is_weapon_too_large and not MUT_QUADRUMANOUS",
+        "line": 465
+      }
+    },
+    {
+      "id": "operation.equipment.reason.wings",
+      "context": "龙人翅膀导致胸甲无法穿入；wing_note 为代码按大翅膀条件生成的原文片段。 wing_note 仅为空串或 \", even vestigial as they are,\"→\"（即使只是退化翅膀）\"。",
+      "en": "Your wings{wing_note} won't fit in that.",
+      "zh": "你的翅膀{wing_note}穿不进这件护甲。",
+      "params": {
+        "wing_note": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "get_player_equip_slot_count SLOT_BODY_ARMOUR; species::is_draconian and MUT_BIG_WINGS conditional phrase",
+        "line": 85
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.drop",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "drop",
+      "zh": "丢弃",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.equip",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "equip",
+      "zh": "装备",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.evoke",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "evoke",
+      "zh": "激发",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.fire",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "fire",
+      "zh": "射击",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.memorise",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "memorise from",
+      "zh": "从中学习",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.put_on",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "put on",
+      "zh": "戴上",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.quaff",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "quaff",
+      "zh": "喝下",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.quiver",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "quiver",
+      "zh": "装入箭袋",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.read",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "read",
+      "zh": "阅读",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.remove",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "remove",
+      "zh": "取下",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.take_off",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "take off",
+      "zh": "脱下",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.unequip",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "unequip",
+      "zh": "卸下",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.unwield",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "unwield",
+      "zh": "卸下",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.wear",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "wear",
+      "zh": "穿戴",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.wield",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "wield",
+      "zh": "持用",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.action.zap",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "zap",
+      "zh": "使用",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.consequence.excommunicated",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": " You'd be excommunicated if you did!",
+      "zh": "否则你会被逐出教会！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.consequence.none",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.consequence.penance",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": " This could place you under penance!",
+      "zh": "此举可能招致神罚！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.destruction.destroy",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "and destroy ",
+      "zh": "并摧毁",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.destruction.none",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.empty_form.empty_clawed",
+      "context": "MSG_EMPTY_HANDED_* 的有限空手形态词。",
+      "en": "empty-clawed",
+      "zh": "没有可用的爪子",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/message.cc",
+        "anchor": "canned_msg empty-handed body form branch",
+        "line": 2034
+      }
+    },
+    {
+      "id": "operation.equipment.value.empty_form.empty_handed",
+      "context": "MSG_EMPTY_HANDED_* 的有限空手形态词。",
+      "en": "empty-handed",
+      "zh": "空着手",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/message.cc",
+        "anchor": "canned_msg empty-handed body form branch",
+        "line": 2034
+      }
+    },
+    {
+      "id": "operation.equipment.value.empty_form.empty_tentacled",
+      "context": "MSG_EMPTY_HANDED_* 的有限空手形态词。",
+      "en": "empty-tentacled",
+      "zh": "没有可用的触手",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/message.cc",
+        "anchor": "canned_msg empty-handed body form branch",
+        "line": 2034
+      }
+    },
+    {
+      "id": "operation.equipment.value.faith_ignore.ashen",
+      "context": "ignore_faith_reason() 的有限固定返回短语；作为神祇消息后缀词项传入。",
+      "en": " cares nothing for such trivial demonstrations of your faith.",
+      "zh": "对你这种微不足道的信仰表现毫不在意。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "ignore_faith_reason; ashen branch",
+        "line": 829
+      }
+    },
+    {
+      "id": "operation.equipment.value.faith_ignore.gozag",
+      "context": "ignore_faith_reason() 的有限固定返回短语；作为神祇消息后缀词项传入。",
+      "en": " cares for nothing but gold!",
+      "zh": "只关心金币！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "ignore_faith_reason; gozag branch",
+        "line": 829
+      }
+    },
+    {
+      "id": "operation.equipment.value.faith_ignore.ignis",
+      "context": "ignore_faith_reason() 的有限固定返回短语；作为神祇消息后缀词项传入。",
+      "en": " already offers you all the fire that remains!",
+      "zh": "已经把所剩的全部火焰赐予了你！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "ignore_faith_reason; ignis branch",
+        "line": 829
+      }
+    },
+    {
+      "id": "operation.equipment.value.faith_ignore.ru",
+      "context": "ignore_faith_reason() 的有限固定返回短语；作为神祇消息后缀词项传入。",
+      "en": " says: An ascetic of your devotion has no use for such trinkets.",
+      "zh": "说道：“像你这样虔诚的苦修者，用不着这种小玩意。”",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "ignore_faith_reason; ru branch",
+        "line": 829
+      }
+    },
+    {
+      "id": "operation.equipment.value.form_note.current_form",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": " in your present form",
+      "zh": "（当前形态下）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.form_note.none",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.modifier.none",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.modifier.strange",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "strange ",
+      "zh": "奇异的",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.movement.slither",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "slither",
+      "zh": "游动步态",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.movement.step",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "step",
+      "zh": "步伐",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.outcome.burn",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "burn",
+      "zh": "烧伤",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.outcome.drown",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "drown",
+      "zh": "溺水",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.penance.none",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.penance.possible",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": " This could place you under penance!",
+      "zh": "此举可能招致神罚！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.phrase.crackling",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "stops crackling",
+      "zh": "停止噼啪作响",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.phrase.dripping_poison",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "stops dripping with poison",
+      "zh": "不再滴落毒液",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.phrase.dull",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "goes dull",
+      "zh": "变得黯淡",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.phrase.flaming",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "stops flaming",
+      "zh": "停止燃烧",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.phrase.glowing",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "stops glowing",
+      "zh": "停止发光",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.phrase.oozing_slime",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "stops oozing corrosive slime",
+      "zh": "停止渗出腐蚀性黏液",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.phrase.quivering",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "stops quivering",
+      "zh": "停止颤动",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.phrase.radiating_force",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "stops radiating force",
+      "zh": "停止散发力量",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.phrase.still",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "goes still",
+      "zh": "平静下来",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.plural_suffix.none",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.plural_suffix.s",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "s",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.pronoun.itself",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "itself",
+      "zh": "自身",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.pronoun.themselves",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "themselves",
+      "zh": "自身",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.size_relation.big",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "big",
+      "zh": "大",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.size_relation.large",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "large",
+      "zh": "大",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.size_relation.small",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "small",
+      "zh": "小",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.state.exhausted",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": " exhausted",
+      "zh": "魔力耗尽",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.state.injured",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": " injured",
+      "zh": "受伤",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.state.none",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.state.uninjured",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": " uninjured",
+      "zh": "未受伤",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.teleport_note.about_to_teleport",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": " while about to teleport",
+      "zh": "（即将传送时）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.teleport_note.none",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.verb.pass",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "pass",
+      "zh": "穿过",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.verb.passes",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "passes",
+      "zh": "穿过",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.verb.tingle",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "tingle",
+      "zh": "发麻",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.verb.tingles",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "tingles",
+      "zh": "发麻",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.when.already",
+      "context": "MSG_EMPTY_HANDED_* 的有限时间状态词。",
+      "en": "already",
+      "zh": "已经",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/message.cc",
+        "anchor": "canned_msg empty-handed when branch",
+        "line": 2034
+      }
+    },
+    {
+      "id": "operation.equipment.value.when.now",
+      "context": "MSG_EMPTY_HANDED_* 的有限时间状态词。",
+      "en": "now",
+      "zh": "现在",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/message.cc",
+        "anchor": "canned_msg empty-handed when branch",
+        "line": 2034
+      }
+    },
+    {
+      "id": "operation.equipment.value.wing_note.none",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": "",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.value.wing_note.vestigial",
+      "context": "有限参数词项；调用端按对应源代码分支选择。",
+      "en": ", even vestigial as they are,",
+      "zh": "（即使只是退化翅膀）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enumerated parameter value; see luna-item-equipment-review.md",
+        "line": 187
+      }
+    },
+    {
+      "id": "operation.equipment.warning.flight_danger",
+      "context": "移除装备将失去飞行并在当前危险地形溺水或烧伤；item 为 DESC_YOUR 名称，outcome 为 drown/burn。 outcome 仅为 drown→溺水、burn→烧伤。",
+      "en": "Removing {item} right now would cause you to {outcome}!",
+      "zh": "现在脱下{item}会导致你{outcome}！",
+      "params": {
+        "item": "name",
+        "outcome": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "warn_about_changing_gear; item_grants_flight and dangerous terrain; item.name(DESC_YOUR), terrain-derived drown/burn",
+        "line": 1258
+      }
+    },
+    {
+      "id": "operation.equipment.value.size_relation.too_big",
+      "context": "四肢尺寸 reason 参数的精确有限输入。句式模板本身含“太”，此词项只译为“大”。",
+      "en": "too big",
+      "zh": "大",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "finite value supplied to zh_word_arg; see luna-item-equipment-review.md",
+        "line": 163
+      }
+    },
+    {
+      "id": "operation.equipment.value.size_relation.too_small",
+      "context": "四肢尺寸 reason 参数的精确有限输入。句式模板本身含“太”，此词项只译为“小”。",
+      "en": "too small",
+      "zh": "小",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "finite value supplied to zh_word_arg; see luna-item-equipment-review.md",
+        "line": 163
+      }
+    },
+    {
+      "id": "operation.equipment.value.plural_suffix.regen_plural",
+      "context": "再生装备调谐时复数物品的精确输入；中文整句由 regen_attune 模板承载，此参数为空。",
+      "en": " as they attune themselves",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "finite value supplied to zh_word_arg; see luna-item-equipment-review.md",
+        "line": 163
+      }
+    },
+    {
+      "id": "operation.equipment.value.plural_suffix.regen_singular",
+      "context": "再生装备调谐时单数物品的精确输入；中文整句由 regen_attune 模板承载，此参数为空。",
+      "en": "s as it attunes itself",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "finite value supplied to zh_word_arg; see luna-item-equipment-review.md",
+        "line": 163
+      }
+    },
+    {
+      "id": "operation.equipment.menu.inscribe_item",
+      "context": "背包刻写入口的固定选择标题；随后由 prompt_invent_item 的 operation.inventory.selection.prompt 完整模板追加菜单/退出快捷键提示。",
+      "en": "Inscribe which item?",
+      "zh": "要给哪件物品刻写？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "prompt_inscribe_item; prompt_invent_item fixed title",
+        "line": 1840
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "operation.equipment.reason.no_armour_remove",
+      "args": {
+        "skin": {
+          "type": "name",
+          "canonical": "skin",
+          "localized": "皮肤"
+        }
+      },
+      "canonical": "You can't remove your skin, sorry.",
+      "zh": "抱歉，你无法脱下自己的皮肤。"
+    },
+    {
+      "id": "operation.equipment.reason.form_wear_remove",
+      "args": {
+        "action": {
+          "type": "text",
+          "canonical": "wear",
+          "localized": "穿戴"
+        }
+      },
+      "canonical": "You can't wear anything in your present form.",
+      "zh": "你当前的形态无法穿戴任何装备。"
+    },
+    {
+      "id": "operation.equipment.confirm.berserk_launcher",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "a longbow",
+          "localized": "一把长弓"
+        }
+      },
+      "canonical": "You can't shoot while berserk! Really wield a longbow?",
+      "zh": "你在狂暴时无法射击！仍要持用一把长弓吗？"
+    },
+    {
+      "id": "operation.equipment.warning.flight_danger",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "your ring of flight",
+          "localized": "你的飞行戒指"
+        },
+        "outcome": {
+          "type": "text",
+          "canonical": "drown",
+          "localized": "溺水"
+        }
+      },
+      "canonical": "Removing your ring of flight right now would cause you to drown!",
+      "zh": "现在脱下你的飞行戒指会导致你溺水！"
+    },
+    {
+      "id": "operation.equipment.log.unequip",
+      "args": {
+        "action": {
+          "type": "text",
+          "canonical": "unwield",
+          "localized": "卸下"
+        },
+        "item": {
+          "type": "name",
+          "canonical": "your long sword",
+          "localized": "你的长剑"
+        }
+      },
+      "canonical": "You unwield your long sword.",
+      "zh": "你把你的长剑卸下。"
+    },
+    {
+      "id": "operation.equipment.menu.inscribe_item",
+      "args": {},
+      "canonical": "Inscribe which item?",
+      "zh": "要给哪件物品刻写？"
+    }
+  ]
+}

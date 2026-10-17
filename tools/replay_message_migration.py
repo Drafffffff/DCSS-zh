@@ -90,6 +90,13 @@ try:
      # Advance only this disposable display, never a player's running process.
      subprocess.run(['xdotool','key','space'],env=env,check=True)
      trap_followup+=1
+    if name in ('item-wear','item-takeoff') and trap_followup == 0 and ids and time.monotonic()-started >= 12 and not ready:
+     # The copied hints save interrupts an equipment delay at the door tutorial.
+     # Continue the real confirmation before checking the finish message.
+     keys=['space','Y','period','period','period','period','period']
+     if name == 'item-wear': keys += ['W','b','period','period','period','period','period']
+     subprocess.run(['xdotool','key','--delay','200']+keys,env=env,check=True)
+     trap_followup+=1
     if (name.startswith(('shout-','speech-')) and trap_followup < 2
             and ids and time.monotonic()-started >= 12+12*trap_followup and not ready):
      # A forced first-encounter more screen discards the queued look command.

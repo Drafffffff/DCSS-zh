@@ -263,3 +263,9 @@ ZhArg zh_message_list(const std::string &key, const std::vector<ZhArg> &items) {
         result.localized = result.canonical;
     return result;
 }
+
+ZhArg zh_named_arg(const std::string &key, ZhArg value)
+{
+    value.key = key;
+    return value;
+}

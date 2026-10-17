@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "items.h"
 #include "zh-display-name.h"
@@ -1053,10 +1054,10 @@ void pickup_menu(int item_link)
     auto items = const_item_list_on_square(item_link);
     ASSERT(items.size());
 
-    string prompt = "Pick up what? " + slot_description() + " (_ for help)";
+    string prompt = zh_message("operation.pickup.menu.title", {zh_message_arg("slot_help", "operation.inventory.slot_description", {zh_integer("occupied", inv_count(INVENT_GEAR)), zh_integer("capacity", MAX_GEAR)})}).display();
 
     if (items.size() == 1 && items[0]->quantity > 1)
-        prompt = "Select pick up quantity by entering a number, then select the item";
+        prompt = zh_message("operation.pickup.menu.quantity_instruction").display();
     vector<SelItem> selected = select_items(items, prompt.c_str(), false,
                                             menu_type::pickup);
     if (selected.empty())
@@ -1064,7 +1065,7 @@ void pickup_menu(int item_link)
     redraw_screen();
     update_screen();
 
-    string pickup_warning;
+    ZhMessage pickup_warning;
     for (const SelItem &sel : selected)
     {
         // Moving the item might destroy it, in which case we can't
@@ -1088,7 +1089,7 @@ void pickup_menu(int item_link)
                 // floor.
                 if (!move_item_to_inv(j, num_to_take))
                 {
-                    pickup_warning = "You can't carry that many items.";
+                    pickup_warning = zh_message("operation.pickup.failed.capacity");
                     if (env.item[j].defined())
                         env.item[j].flags = oldflags;
                 }
@@ -1104,7 +1105,7 @@ void pickup_menu(int item_link)
         }
     }
 
-    if (!pickup_warning.empty())
+    if (!pickup_warning.canonical.empty())
     {
         mpr(pickup_warning);
         learned_something_new(HINT_FULL_INVENTORY);
@@ -1434,22 +1435,19 @@ bool pickup_single_item(int link, int qty)
     item_def* item = &env.item[link];
     if (item_is_stationary(env.item[link]))
     {
-        mpr("You can't pick that up.");
+        mpr(zh_message("operation.pickup.failed.stationary"));
         return false;
     }
     if (item->base_type == OBJ_GOLD && !qty && !i_feel_safe()
-        && !yesno("Are you sure you want to pick up this pile of gold now?",
-                  true, 'n'))
+        && !yesno(zh_message("operation.pickup.confirm.gold_pile"), true, 'n'))
     {
         canned_msg(MSG_OK);
         return false;
     }
     if (qty == 0 && item->quantity > 1 && item->base_type != OBJ_GOLD)
     {
-        const string prompt
-                = make_stringf("Pick up how many of %s (; or enter for all)? ",
-                               item->name(DESC_THE, false,
-                                          false, false).c_str());
+        const string prompt = zh_message("operation.pickup.quantity.prompt",
+            {zh_item_arg("item_name", *item, DESC_THE)}).display();
 
         qty = prompt_for_quantity(prompt.c_str());
         if (qty == -1)
@@ -1478,7 +1476,7 @@ bool pickup_single_item(int link, int qty)
 
     if (!pickup_succ)
     {
-        mpr("You can't carry that many items.");
+        mpr(zh_message("operation.pickup.failed.capacity"));
         learned_something_new(HINT_FULL_INVENTORY);
         return false;
     }
@@ -1513,7 +1511,7 @@ void pickup(bool partial_quantity)
     you.last_pickup.clear();
 
     if (o == NON_ITEM)
-        mpr("There are no items here.");
+        mpr(zh_message("operation.pickup.none.here"));
     else if (num_items == 1) // just one movable item?
     {
         // Get the link to the movable item in the pile.
@@ -1532,10 +1530,10 @@ void pickup(bool partial_quantity)
     {
         int next;
         if (num_items == 0)
-            mpr("There are no objects that can be picked up here.");
+            mpr(zh_message("operation.pickup.none.selectable"));
         else
-            mpr("There are several objects here.");
-        string pickup_warning;
+            mpr(zh_message("operation.pickup.multiple.here"));
+        ZhMessage pickup_warning;
         bool any_selectable = false;
         while (o != NON_ITEM)
         {
@@ -1551,10 +1549,8 @@ void pickup(bool partial_quantity)
 
             if (keyin != 'a')
             {
-                string prompt = "Pick up %s? ((y)es/(n)o/(a)ll/(m)enu/*?g,/q)";
-
-                mprf(MSGCH_PROMPT, prompt.c_str(),
-                     menu_colour_item_name(env.item[o], DESC_A).c_str());
+                mpr(zh_message("operation.pickup.confirm.item",
+                    {zh_item_menu_arg("item_name", env.item[o], DESC_A)}), MSGCH_PROMPT);
 
                 mouse_control mc(MOUSE_MODE_YESNO);
                 keyin = getch_ck();
@@ -1582,7 +1578,7 @@ void pickup(bool partial_quantity)
                 // attempt to actually pick up the object.
                 if (!move_item_to_inv(o, num_to_take))
                 {
-                    pickup_warning = "You can't carry that many items.";
+                    pickup_warning = zh_message("operation.pickup.failed.capacity");
                     env.item[o].flags = old_flags;
                 }
             }
@@ -1598,10 +1594,10 @@ void pickup(bool partial_quantity)
         if (!any_selectable)
         {
             for (stack_iterator si(you.pos(), true); si; ++si)
-                mprf_nocap("%s", menu_colour_item_name(*si, DESC_A).c_str());
+                mpr(zh_message("operation.pickup.item_name", {zh_item_menu_arg("item_name", *si, DESC_A)}));
         }
 
-        if (!pickup_warning.empty())
+        if (!pickup_warning.canonical.empty())
             mpr(pickup_warning);
     }
     if (you.last_pickup.empty())
@@ -1792,12 +1788,12 @@ void get_gold(const item_def& item, int quant, bool quiet)
 
     if (!quiet)
     {
-        const string gain = quant != you.gold
-                            ? make_stringf(" (gained %d)", quant)
-                            : "";
-
-        mprf("You now have %d gold piece%s%s.",
-             you.gold, you.gold != 1 ? "s" : "", gain.c_str());
+        const ZhArg gain = quant != you.gold
+            ? zh_message_arg("gain", "operation.pickup.gold.gain_suffix", {zh_integer("quantity", quant)})
+            : zh_text("gain", "", "");
+        mpr(zh_message(you.gold == 1 ? "operation.pickup.gold.singular"
+                                     : "operation.pickup.gold.plural",
+                       {zh_integer("quantity", you.gold), gain}));
         learned_something_new(HINT_SEEN_GOLD);
     }
 }
@@ -1815,7 +1811,7 @@ static bool _put_item_in_inv(item_def& it, int quant_got, bool quiet, bool& put_
     if (item_is_stationary(it))
     {
         if (!quiet)
-            mpr("You can't pick that up.");
+            mpr(zh_message("operation.pickup.failed.stationary"));
         // Fake a successful pickup (return 1), so we can continue to
         // pick up anything else that might be on this square.
         return true;
@@ -1898,14 +1894,13 @@ static void _get_book(item_def& it)
     {
         if (you.has_mutation(MUT_INNATE_CASTER))
         {
-            mprf("%s burns to shimmering ash in your grasp.",
-                 it.name(DESC_THE).c_str());
+            mpr(zh_message("operation.pickup.book.burns", {zh_item_arg("item_name", it, DESC_THE)}));
             return;
         }
-        mprf("You pick up %s and begin reading...", it.name(DESC_A).c_str());
+        mpr(zh_message("operation.pickup.book.reading", {zh_item_arg("item_name", it, DESC_A)}));
 
         if (!library_add_spells(spells_in_book(it)))
-            mpr("Unfortunately, you learned nothing new or useful.");
+            mpr(zh_message("operation.pickup.book.no_new_spells"));
 
         taken_new_item(it.base_type);
 
@@ -1918,22 +1913,20 @@ static void _get_book(item_def& it)
 
     if (is_useless_skill(sk))
     {
-        mprf("You pick up %s. Unfortunately, it's quite useless to you.",
-             it.name(DESC_A).c_str());
+        mpr(zh_message("operation.pickup.manual.useless", {zh_item_arg("item_name", it, DESC_A)}));
         return;
     }
 
     if (you.skills[sk] >= MAX_SKILL_LEVEL)
     {
-        mprf("You pick up %s, but it has nothing more to teach you.",
-             it.name(DESC_A).c_str());
+        mpr(zh_message("operation.pickup.manual.max_skill", {zh_item_arg("item_name", it, DESC_A)}));
         return;
     }
 
     if (you.skill_manual_points[sk])
-        mprf("You pick up another %s and continue studying.", it.name(DESC_PLAIN).c_str());
+        mpr(zh_message("operation.pickup.manual.continue", {zh_item_arg("item_name", it, DESC_PLAIN)}));
     else
-        mprf("You pick up %s and begin studying.", it.name(DESC_A).c_str());
+        mpr(zh_message("operation.pickup.manual.begin", {zh_item_arg("item_name", it, DESC_A)}));
     you.skill_manual_points[sk] += it.skill_points;
     you.skills_to_show.insert(sk);
 }
@@ -1984,29 +1977,27 @@ static void _get_rune(const item_def& it, bool quiet)
     if (!quiet)
     {
         flash_view_delay(UA_PICKUP, rune_colour(it.sub_type), 300);
-        mprf("You pick up the %s rune and feel its power.",
-             rune_type_name(it.sub_type));
+        mpr(zh_message("operation.pickup.rune.found", {zh_glossary_name("rune_name", "rune", rune_type_name(it.sub_type))}));
         int nrunes = runes_in_pack();
         if (nrunes >= you.obtainable_runes)
-            mpr("You have collected all the runes! Now go and win!");
+            mpr(zh_message("operation.pickup.rune.all"));
         else if (nrunes == ZOT_ENTRY_RUNES)
         {
             // might be inappropriate in new Sprints, please change it then
-            mprf("%d runes! That's enough to enter the realm of Zot.",
-                 nrunes);
+            mpr(zh_message("operation.pickup.rune.zot_threshold", {zh_integer("quantity", nrunes)}));
         }
         else if (nrunes > 1)
         {
             if (player_in_branch(BRANCH_PANDEMONIUM) && _got_all_pan_runes())
-                mpr("You've emptied out Pandemonium! Nothing left here but demons.");
-            mprf("You now have %d runes.", nrunes);
+                mpr(zh_message("operation.pickup.rune.pan_complete"));
+            mpr(zh_message("operation.pickup.rune.count", {zh_integer("quantity", nrunes)}));
         }
 
-        mpr("Press } to see all the runes you have collected.");
+        mpr(zh_message("operation.pickup.rune.collection_key"));
     }
 
     if (it.sub_type == RUNE_ABYSSAL)
-        mpr("You feel the abyssal rune guiding you out of this place.");
+        mpr(zh_message("operation.pickup.rune.abyss_guidance"));
 }
 
 static bool _is_disabled_gem(gem_type gem)
@@ -2051,14 +2042,14 @@ static void _get_gem(const item_def& it, bool quiet)
 
     flash_view_delay(UA_PICKUP, it.gem_colour(), 300);
     // XXX: consider customizing this message per-gem
-    mprf("You pick up %s and feel its impossibly delicate weight in your %s.",
-         it.name(DESC_THE).c_str(), you.hand_name(true).c_str());
+    mpr(zh_message("operation.pickup.gem.found", {zh_item_arg("item_name", it, DESC_THE), zh_glossary_name("hand_name", "body_part", you.hand_name(true))}));
     if (_got_all_gems())
     {
-        mprf("You've found all the gems! Together, they sparkle an otherworldly %s!",
-             getSpeakString("misc_colour").c_str());
+        const string colour = getSpeakString("misc_colour");
+        mpr(zh_message("operation.pickup.gem.all",
+            {zh_word_arg("colour", "operation.inventory.misc_colour.", colour)}));
     }
-    mpr("Press } and ! to see all the gems you have collected.");
+    mpr(zh_message("operation.pickup.gem.collection_keys"));
     print_gem_warnings(it.sub_type, 0);
 }
 
@@ -2069,10 +2060,10 @@ static void _get_orb()
 {
     run_animation(ANIMATION_ORB, UA_PICKUP);
 
-    mprf(MSGCH_ORB, "You pick up the Orb of Zot!");
+    mpr(zh_message("operation.pickup.orb.found"), MSGCH_ORB);
 
     if (bezotted())
-        mpr("Zot can harm you no longer.");
+        mpr(zh_message("operation.pickup.orb.safe"));
 
     env.orb_pos = you.pos(); // can be wrong in wizmode
     orb_pickup_noise(you.pos(), 30);
@@ -2135,11 +2126,10 @@ static bool _merge_stackable_item_into_inv(const item_def &it, int quant_got,
 #endif
             string prefix = you.inv[inv_slot].slot != old_slot
                             ? make_stringf("%c -> ", old_slot) : "";
-            mprf_nocap("%s%s (gained %d)",
-                        prefix.c_str(),
-                        menu_colour_item_name(you.inv[inv_slot],
-                                                    DESC_INVENTORY).c_str(),
-                        quant_got);
+            mpr(zh_message("operation.pickup.stack.merged",
+                {zh_text("slot_prefix", prefix, prefix),
+                 zh_item_menu_arg("item_name", you.inv[inv_slot], DESC_INVENTORY),
+                 zh_integer("quantity", quant_got)}));
         }
         return true;
     }
@@ -2163,8 +2153,7 @@ static bool _merge_evokers(const item_def &it, int &inv_slot, bool quiet)
         {
             if (!quiet)
             {
-                mprf("%s cannot be improved any further.",
-                     you.inv[inv_slot].name(DESC_YOUR).c_str());
+                mpr(zh_message("operation.pickup.evoker.maxed", {zh_item_arg("item_name", you.inv[inv_slot], DESC_YOUR)}));
             }
             return true;
         }
@@ -2178,9 +2167,7 @@ static bool _merge_evokers(const item_def &it, int &inv_slot, bool quiet)
 #ifdef USE_SOUND
             parse_sound(PICKUP_SOUND);
 #endif
-            mprf_nocap("%s (improved by +1).",
-                        menu_colour_item_name(you.inv[inv_slot],
-                                                    DESC_INVENTORY).c_str());
+            mpr(zh_message("operation.pickup.evoker.improved", {zh_item_menu_arg("item_name", you.inv[inv_slot], DESC_INVENTORY)}));
         }
 
         return true;
@@ -2217,10 +2204,10 @@ static bool _merge_wand_charges(const item_def &it, int &inv_slot, bool quiet)
 #ifdef USE_SOUND
             parse_sound(PICKUP_SOUND);
 #endif
-            mprf_nocap("%s (gained %d charge%s)",
-                        menu_colour_item_name(you.inv[inv_slot],
-                                                    DESC_INVENTORY).c_str(),
-                        it.charges, it.charges == 1 ? "" : "s");
+            mpr(zh_message(it.charges == 1 ? "operation.pickup.wand.charge.singular"
+                                                   : "operation.pickup.wand.charges.plural",
+                {zh_item_menu_arg("item_name", you.inv[inv_slot], DESC_INVENTORY),
+                 zh_integer("quantity", it.charges)}));
         }
 
         return true;
@@ -2392,7 +2379,7 @@ item_def *auto_assign_item_slot(item_def& item, bool quiet)
         item.slot = _letter_for_consumable(item, false);
 
         if (item.slot != old_slot && !quiet)
-            mprf_nocap("%c -> %s", old_slot, item.name(DESC_INVENTORY).c_str());
+            mpr(zh_message("operation.inventory.slot.reassigned", {zh_key("old_slot", string(1, old_slot)), zh_item_arg("item_name", item, DESC_INVENTORY)}));
         // We return null since the previous item reference wasn't invalidated.
         return nullptr;
     }
@@ -2489,7 +2476,7 @@ static int _place_item_in_free_slot(item_def &it, int quant_got,
 #ifdef USE_SOUND
         parse_sound(PICKUP_SOUND);
 #endif
-        mprf_nocap("%s", menu_colour_item_name(item, DESC_INVENTORY).c_str());
+        mpr(zh_message("operation.pickup.item_name", {zh_item_menu_arg("item_name", item, DESC_INVENTORY)}));
     }
 
     return item.link;
@@ -2704,7 +2691,7 @@ bool move_item_to_grid(int *const obj, const coord_def& p, bool silent)
     }
 
     if (p == you.pos() && _id_floor_item(item))
-        mprf("You see here %s.", item.name(DESC_A).c_str());
+        mpr(zh_message("operation.safety.floor.identified", {zh_item_arg("item", item, DESC_A)}));
 
     return true;
 }
@@ -2854,16 +2841,15 @@ static bool _check_dangerous_drop(const item_def & item)
     if (!feat_eliminates_items(env.grid(you.pos())))
         return true;
 
-    string prompt = "Are you sure you want to drop " + item.name(DESC_THE)
-                  + " into "
-                  + feature_description_at(you.pos(), false, DESC_A) + "? "
-                  + "You won't be able to retrieve "
-                  + (item.quantity == 1 ? "it." : "them.");
+    const ZhMessage prompt = zh_message(item.quantity == 1
+        ? "operation.drop.confirm.hazard.singular" : "operation.drop.confirm.hazard.plural",
+        {zh_item_arg("item_name", item, DESC_THE),
+         zh_glossary_name("feature_name", "terrain", feature_description_at(you.pos(), false, DESC_A))});
 
     // don't interrupt delays; this might do something strange to macros
     // that trigger it, but the main way drops interact with delays is
     // through multidrop and armour delays
-    if (yesno(prompt.c_str(), true, 'n', true, false))
+    if (yesno(prompt, true, 'n', true, false))
         return true;
 
     canned_msg(MSG_OK);
@@ -2894,14 +2880,14 @@ bool drop_item(int item_dropped, int quant_drop)
     {
         if (item.base_type == OBJ_GIZMOS)
         {
-            mpr("That is permanently installed in your exoskeleton.");
+            mpr(zh_message("operation.drop.failed.installed"));
             return false;
         }
 
         const bool is_wpn = is_weapon(item);
         if (!Options.easy_unequip && !is_wpn)
         {
-            mprf(MSGCH_PROMPT, "You will have to take that off first.");
+            mpr(zh_message("operation.drop.requires_unequip"), MSGCH_PROMPT);
             return false;
         }
 
@@ -2928,11 +2914,11 @@ bool drop_item(int item_dropped, int quant_drop)
 
     if (copy_item_to_grid(item, you.pos(), quant_drop, true, true) == NON_ITEM)
     {
-        mpr("Too many items on this level, not dropping the item.");
+        mpr(zh_message("operation.drop.failed.level_item_limit"));
         return false;
     }
 
-    mprf("You drop %s.", quant_name(item, quant_drop, DESC_A).c_str());
+    mpr(zh_message("operation.drop.success", {zh_item_quantity_arg("item_phrase", item, quant_drop, DESC_A)}));
 
     // If you drop an item in as a merfolk, it is below the water line and
     // makes no noise falling.
@@ -2962,7 +2948,7 @@ void drop_last()
     }
 
     if (items_to_drop.empty())
-        mpr("No item to drop.");
+        mpr(zh_message("operation.drop.none.last_pickup"));
     else
     {
         you.last_pickup.clear();
@@ -3036,11 +3022,10 @@ static void _maybe_disable_autopickup_for_dropped_items(vector<SelItem> &items)
     }
     if (autopickup_remove_count == 1)
     {
-        mprf("Autopickup disabled for %s.",
-             pluralise(last_touched_item->name(DESC_DBNAME)).c_str());
+        mpr(zh_message("operation.drop.autopickup.disabled.item", {zh_item_base_arg("item_name", *last_touched_item)}));
     }
     else if (autopickup_remove_count > 1)
-        mprf("Autopickup disabled for %d items.", autopickup_remove_count);
+        mpr(zh_message("operation.drop.autopickup.disabled.count", {zh_integer("quantity", autopickup_remove_count)}));
 }
 
 /**
@@ -3490,7 +3475,7 @@ static void _do_autopickup()
 
     int o = you.visible_igrd(you.pos());
 
-    string pickup_warning;
+    ZhMessage pickup_warning;
     while (o != NON_ITEM)
     {
         const int next = env.item[o].link;
@@ -3521,14 +3506,14 @@ static void _do_autopickup()
             else
             {
                 n_tried_pickup++;
-                pickup_warning = "Your pack is full.";
+                pickup_warning = zh_message("operation.pickup.autopickup.full_pack");
                 mi.flags = iflags;
             }
         }
         o = next;
     }
 
-    if (!pickup_warning.empty())
+    if (!pickup_warning.canonical.empty())
         mpr(pickup_warning);
 
     if (did_pickup)
@@ -5045,7 +5030,7 @@ static void _identify_last_item(item_def &item)
 
     if (in_inventory(item))
     {
-        mprf_nocap("%s", item.name(DESC_INVENTORY_EQUIP).c_str());
+        mpr(zh_message("operation.pickup.item_name", {zh_item_arg("item_name", item, DESC_INVENTORY_EQUIP)}));
         auto_assign_item_slot(item);
     }
 }

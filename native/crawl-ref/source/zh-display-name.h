@@ -30,3 +30,10 @@ std::string zh_monster_display(const monster &mon,
                                description_level_type desc = DESC_THE);
 std::string zh_item_display(const item_def &item,
                             description_level_type desc = DESC_A);
+
+// UI snapshots for operation logs: quantity is the amount moved, not the stack
+// left afterwards; menu colours remain engine control strings.
+ZhArg zh_item_quantity_arg(const std::string &key, const item_def &item, int quantity,
+                          description_level_type desc = DESC_A);
+ZhArg zh_item_menu_arg(const std::string &key, const item_def &item,
+                      description_level_type desc = DESC_A);

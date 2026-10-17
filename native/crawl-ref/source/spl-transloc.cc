@@ -1100,14 +1100,17 @@ static bool _real_teleport_cleanup(coord_def oldpos, coord_def newpos, bool quie
     return large_change;
 }
 
-static bool _teleport_player(bool wizard_tele, string reason="")
+static bool _teleport_player(bool wizard_tele, string reason="", const ZhMessage *display_reason=nullptr)
 {
     if (!wizard_tele
         && (crawl_state.game_is_sprint() || you.no_tele())
             && !player_in_branch(BRANCH_ABYSS))
     {
         if (!reason.empty())
-            mpr(reason);
+            {
+                if (display_reason) mpr(*display_reason);
+                else mpr(reason);
+            }
         canned_msg(MSG_STRANGE_STASIS);
         return false;
     }
@@ -1121,7 +1124,10 @@ static bool _teleport_player(bool wizard_tele, string reason="")
     if (player_in_branch(BRANCH_ABYSS) && !wizard_tele)
     {
         if (!reason.empty())
-            mpr(reason);
+            {
+                if (display_reason) mpr(*display_reason);
+                else mpr(reason);
+            }
         abyss_teleport();
         if (you.pet_target != MHITYOU)
             you.pet_target = MHITNOT;
@@ -1188,7 +1194,10 @@ static bool _teleport_player(bool wizard_tele, string reason="")
             return false;
 
         if (!reason.empty())
-            mpr(reason);
+            {
+                if (display_reason) mpr(*display_reason);
+                else mpr(reason);
+            }
 
         large_change = _real_teleport_cleanup(old_pos, newpos);
     }
@@ -1388,7 +1397,7 @@ bool you_teleport_to(const coord_def where_to, bool move_monsters)
     return true;
 }
 
-void you_teleport_now(bool wizard_tele, string reason)
+static void _you_teleport_now(bool wizard_tele, string reason, const ZhMessage *display_reason)
 {
     bool randtele;
 
@@ -1399,7 +1408,7 @@ void you_teleport_now(bool wizard_tele, string reason)
         you.props.erase(TELEPORTITIS_SOURCE);
     }
     else
-        randtele = _teleport_player(wizard_tele, reason);
+        randtele = _teleport_player(wizard_tele, reason, display_reason);
 
     // Xom is amused by teleports that land you in a dangerous place, unless
     // the player is in the Abyss and teleported to escape from all the
@@ -1410,6 +1419,16 @@ void you_teleport_now(bool wizard_tele, string reason)
     {
         xom_is_stimulated(200);
     }
+}
+
+void you_teleport_now(bool wizard_tele, string reason)
+{
+    _you_teleport_now(wizard_tele, reason, nullptr);
+}
+
+void you_teleport_now(bool wizard_tele, const ZhMessage &reason)
+{
+    _you_teleport_now(wizard_tele, reason.canonical, &reason);
 }
 
 spret cast_dimensional_bullseye(int pow, monster *target, bool fail)

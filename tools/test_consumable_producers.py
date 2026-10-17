@@ -74,6 +74,7 @@ bool silenced(int){return you.silent;}const char*player_silenced_reason(){return
 bool mapped=true,selectable=true,cancellable=true;
 bool is_map_persistent(){return mapped;}bool any_items_of_type(int,int,bool){return selectable;}
 string no_selectables_message(int type){switch(type){case OSEL_UNIDENT:return "You don't currently have any unidentified items.";case OSEL_ENCHANTABLE_ARMOUR:return "You aren't carrying any armour which can be enchanted further.";case OSEL_ENCHANTABLE_WEAPON:return "You aren't carrying any weapons that can be enchanted.";case OSEL_BRANDABLE_WEAPON:return "You aren't carrying any weapons that can be branded.";default:return "Unknown selector";}}
+ZhArg no_selectables_display_reason(int type){const string value=no_selectables_message(type);return {"reason",ZhArgType::Text,value,value,false};}
 bool has_drunken_brawl_targets(){return you.drunken_targets;}bool player_is_cancellable(){return cancellable;}
 string make_stringf(const char*fmt,...){char b[1024];va_list a;va_start(a,fmt);vsnprintf(b,sizeof b,fmt,a);va_end(a);return b;}
 struct PotionSeam {bool can_quaff(string*r,bool,ZhArg*d=nullptr)const{*r="";if(d)*d={"reason",ZhArgType::Text,"","",true};return true;}} potion;

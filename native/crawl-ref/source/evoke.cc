@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-display-name.h"
 
 #include "evoke.h"
 #include "zh-message.h"
@@ -86,7 +87,7 @@ static bool _evoke_horn_of_geryon()
 
     bool created = false;
 
-    mprf(MSGCH_SOUND, "You produce a hideous howling noise!");
+    mpr(zh_message("operation.evoke.call.howl"), MSGCH_SOUND);
     noisy(15, you.pos()); // same as hell effect noise
     did_god_conduct(DID_EVIL, 3);
     int num = 1;
@@ -112,7 +113,7 @@ static bool _evoke_horn_of_geryon()
             created = true;
     }
     if (!created)
-        mpr("Nothing answers your call.");
+        mpr(zh_message("operation.evoke.call.none"));
     return true;
 }
 
@@ -187,7 +188,7 @@ void zap_wand(int slot, dist *_target)
     item_def& wand = you.inv[item_slot];
     if (wand.base_type != OBJ_WANDS)
     {
-        mpr("You can't zap that!");
+        mpr(zh_message("operation.evoke.wand.wrong_item"));
         return;
     }
 
@@ -230,7 +231,7 @@ void zap_wand(int slot, dist *_target)
         || you.unrand_equipped(UNRAND_GADGETEER))
         && x_chance_in_y(3, 10))
     {
-        mpr("You conserve a charge of your wand.");
+        mpr(zh_message("operation.evoke.wand.conserve_charge"));
     }
     else
         wand.charges--;
@@ -239,7 +240,7 @@ void zap_wand(int slot, dist *_target)
     {
         ASSERT(in_inventory(wand));
 
-        mpr("The now-empty wand crumbles to dust.");
+        mpr(zh_message("operation.evoke.wand.empty"));
         dec_inv_item_quantity(wand.link, 1);
     }
 
@@ -269,7 +270,7 @@ static bool _box_of_beasts()
     if (!player_summon_check(MONS_MUTANT_BEAST))
         return false;
 
-    mpr("You open the lid...");
+    mpr(zh_message("operation.evoke.beasts.open"));
 
     // two rolls to reduce std deviation - +-6 so can get < max even at 27 sk
     int rnd_factor = random2(7);
@@ -289,12 +290,13 @@ static bool _box_of_beasts()
     if (!mons)
     {
         // Failed to create monster for some reason
-        mpr("...but nothing happens.");
+        mpr(zh_message("operation.evoke.nothing"));
         return true;
     }
 
-    mprf("...and %s %s out!",
-         mons->name(DESC_A).c_str(), mons->airborne() ? "flies" : "leaps");
+    mpr(zh_message(mons->airborne() ? "operation.evoke.beasts.fly"
+                                      : "operation.evoke.beasts.leap",
+                   {zh_monster_arg("monster", *mons, DESC_A)}));
     did_god_conduct(DID_CHAOS, random_range(5,10));
 
     return true;
@@ -393,21 +395,21 @@ static bool _sack_of_spiders()
     if (!player_summon_check(MONS_REDBACK))
         return false;
 
-    mpr("You reach into the sack...");
+    mpr(zh_message("operation.evoke.spiders.open"));
 
     const bool made_mons = _spill_out_spiders();
     if (made_mons)
-        mpr("...and things crawl out!");
+        mpr(zh_message("operation.evoke.spiders.out"));
 
     const bool webbed = _place_webs();
     if (!made_mons && !webbed)
     {
-        mpr("...but nothing happens.");
+        mpr(zh_message("operation.evoke.nothing"));
         return true;
     }
 
     if (!made_mons)
-        mpr("...but only cobwebs fall out.");
+        mpr(zh_message("operation.evoke.spiders.webs"));
     return true;
 }
 
@@ -418,7 +420,7 @@ static bool _make_zig(item_def &zig)
         || player_in_branch(BRANCH_ARENA)
         || is_temp_terrain(you.pos()))
     {
-        mpr("You can't place a gateway to a ziggurat here.");
+        mpr(zh_message("operation.evoke.ziggurat.blocked"));
         return false;
     }
     for (int lev = 1; lev <= brdepth[BRANCH_ZIGGURAT]; lev++)
@@ -426,7 +428,7 @@ static bool _make_zig(item_def &zig)
         if (is_level_on_stack(level_id(BRANCH_ZIGGURAT, lev))
             || you.where_are_you == BRANCH_ZIGGURAT)
         {
-            mpr("Finish your current ziggurat first!");
+            mpr(zh_message("operation.evoke.ziggurat.finish"));
             return false;
         }
     }
@@ -434,7 +436,7 @@ static bool _make_zig(item_def &zig)
     ASSERT(in_inventory(zig));
     dec_inv_item_quantity(zig.link, 1);
     dungeon_terrain_changed(you.pos(), DNGN_ENTER_ZIGGURAT);
-    mpr("You set the figurine down, and a mystic portal to a ziggurat forms.");
+    mpr(zh_message("operation.evoke.ziggurat.open"));
     return true;
 }
 
@@ -502,9 +504,9 @@ void wind_blast(actor* agent, int pow, coord_def target)
     {
         // Nemelex card only.
         if (pow > 120)
-            mpr("A mighty gale blasts forth from the card!");
+            mpr(zh_message("operation.evoke.card.gale.mighty"));
         else
-            mpr("A fierce wind blows from the card.");
+            mpr(zh_message("operation.evoke.card.gale.fierce"));
     }
 
     noisy(8, agent->pos());
@@ -649,9 +651,9 @@ static spret _phantom_mirror(dist *target)
     if (!victim || !you.can_see(*victim))
     {
         if (beam.target == you.pos())
-            mpr("You can't use the mirror on yourself.");
+            mpr(zh_message("operation.evoke.mirror.self"));
         else
-            mpr("You can't see anything there to clone.");
+            mpr(zh_message("operation.evoke.mirror.empty"));
         return spret::abort;
     }
 
@@ -660,7 +662,7 @@ static spret _phantom_mirror(dist *target)
     if (!actor_is_illusion_cloneable(victim)
         && !victim->has_ench(ENCH_PHANTOM_MIRROR))
     {
-        mpr("The mirror can't reflect that.");
+        mpr(zh_message("operation.evoke.mirror.reflect"));
         return spret::abort;
     }
 
@@ -706,8 +708,7 @@ static spret _phantom_mirror(dist *target)
     // mirrored copy will not properly count as summoned for some purposes.
     mon->flags &= ~(MF_HARD_RESET | MF_NO_REWARD);
 
-    mprf("You reflect %s with the mirror!",
-         victim->name(DESC_THE).c_str());
+    mpr(zh_message("operation.evoke.mirror.clone", {zh_monster_arg("name", *victim, DESC_THE)}));
 
     return spret::success;
 }
@@ -844,8 +845,7 @@ static spret _tremorstone()
         return act && _valid_tremorstone_target(*act->as_monster());
     };
     if ((!see_target
-        && !yesno("You can't see anything, release a tremorstone anyway?",
-                 true, 'n'))
+        && !yesno(zh_message("operation.evoke.tremorstone.confirm"), true, 'n'))
         || stop_attack_prompt(hitfunc, "release a tremorstone", vulnerable))
     {
         return spret::abort;
@@ -861,7 +861,7 @@ static spret _tremorstone()
     beam.ex_size = 2;
     beam.target = center;
 
-    mpr("The tremorstone explodes into fragments!");
+    mpr(zh_message("operation.evoke.tremorstone.explode"));
 
     const int num_explosions = tremorstone_count(power);
     for (int i = 0; i < num_explosions; i++)
@@ -915,8 +915,7 @@ static spret _condenser()
     }
 
     if (!see_targets
-        && !yesno("You can't see anything. Try to condense clouds anyway?",
-                  true, 'n'))
+        && !yesno(zh_message("operation.evoke.condenser.confirm"), true, 'n'))
     {
         canned_msg(MSG_OK);
         return spret::abort;
@@ -953,7 +952,7 @@ static spret _condenser()
     }
 
     if (did_something)
-        mpr("Clouds condense from the air!");
+        mpr(zh_message("operation.evoke.condenser.success"));
 
     return spret::success;
 }
@@ -1084,10 +1083,10 @@ string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
 
 bool item_currently_evokable(const item_def *item)
 {
-    const string err = cannot_evoke_item_reason(item);
-    if (!err.empty())
-        mpr(err);
-    return err.empty();
+    const ZhArg err = cannot_evoke_item_display_reason(item);
+    if (!err.canonical.empty())
+        mpr(ZhMessage{"", err.canonical, err.localized});
+    return err.canonical.empty();
 }
 
 bool item_ever_evokable(const item_def &item)
@@ -1114,8 +1113,7 @@ bool evoke_item(item_def& item, dist *preselect)
         if (!check_transform_into(transformation::flux, false))
             return false;
 
-        mprf("You crush the flux bauble in your %s and feel its energy "
-            "flooding your body.", you.hand_name(false).c_str());
+        mpr(zh_message("operation.evoke.flux", {zh_glossary_name("body_part", "body_part", you.hand_name(false))}));
         ASSERT(in_inventory(item));
         dec_inv_item_quantity(item.link, 1);
         transform(0, transformation::flux, true);
@@ -1170,7 +1168,7 @@ bool evoke_item(item_def& item, dist *preselect)
                 return false;
             expend_xp_evoker(item.sub_type);
             if (!evoker_charges(item.sub_type))
-                mpr("The box is emptied!");
+                mpr(zh_message("operation.evoke.box.empty"));
             practise_evoking(1);
             break;
 
@@ -1179,7 +1177,7 @@ bool evoke_item(item_def& item, dist *preselect)
                 return false;
             expend_xp_evoker(item.sub_type);
             if (!evoker_charges(item.sub_type))
-                mpr("The sack is emptied!");
+                mpr(zh_message("operation.evoke.sack.empty"));
             practise_evoking(1);
             break;
 
@@ -1189,14 +1187,14 @@ bool evoke_item(item_def& item, dist *preselect)
                 practise_evoking(1);
                 expend_xp_evoker(item.sub_type);
                 if (!evoker_charges(item.sub_type))
-                    mpr("The lightning rod overheats!");
+                    mpr(zh_message("operation.evoke.rod.overheat"));
             }
             else
                 return false;
             break;
 
         case MISC_QUAD_DAMAGE:
-            mpr("QUAD DAMAGE!");
+            mpr(zh_message("operation.evoke.quad_damage"));
             you.duration[DUR_QUAD_DAMAGE] = 30 * BASELINE_DELAY;
             ASSERT(in_inventory(item));
             dec_inv_item_quantity(item.link, 1);
@@ -1213,7 +1211,7 @@ bool evoke_item(item_def& item, dist *preselect)
                 case spret::success:
                     expend_xp_evoker(item.sub_type);
                     if (!evoker_charges(item.sub_type))
-                        mpr("The mirror clouds!");
+                        mpr(zh_message("operation.evoke.mirror.clouds"));
                     // deliberate fall-through
                 case spret::fail:
                     practise_evoking(1);
@@ -1236,7 +1234,7 @@ bool evoke_item(item_def& item, dist *preselect)
                 case spret::success:
                     expend_xp_evoker(item.sub_type);
                     if (!evoker_charges(item.sub_type))
-                        mpr("The tin is emptied!");
+                        mpr(zh_message("operation.evoke.tin.empty"));
                 case spret::fail:
                     practise_evoking(1);
                     break;
@@ -1253,7 +1251,7 @@ bool evoke_item(item_def& item, dist *preselect)
                 case spret::success:
                     expend_xp_evoker(item.sub_type);
                     if (!evoker_charges(item.sub_type))
-                        mpr("The condenser dries out!");
+                        mpr(zh_message("operation.evoke.condenser.dry"));
                 case spret::fail:
                     practise_evoking(1);
                     break;

@@ -1774,7 +1774,10 @@ namespace quiver
             if (!is_enabled())
             {
                 const item_def *item = item_slot == -1 ? nullptr : &you.inv[item_slot];
-                mpr(cannot_evoke_item_reason(item));
+                {
+                    const ZhArg reason = cannot_evoke_item_display_reason(item);
+                    mpr(ZhMessage{"", reason.canonical, reason.localized});
+                }
                 return;
             }
 

@@ -79,8 +79,8 @@ macOS 打包脚本会收集第三方运行库的许可证与版本清单；相�
 
 ## 消息模板迁移（进行中）
 
-最新一批按账本迁移随机小恶魔/恶魔嘲讽、普通怪物对白、逃跑/逼入死角等行为对白与两处 blink-other 对白。原始数据库模板及递归语法绑定稳定 ID，中文模板先选择再填语义参数；保留规范英文、随机调用与频道。文案由 Luna 翻译审校，并修复像素字体弯引号越过单格的问题。Mac/Linux 四种构建、存档副本回放与 Bazzite 4K 可见喊叫/嘲讽/技能帮助截图通过，详见[本批验收报告](verification/native/random-speech/REPORT.md)。
+最新一批按账本迁移普通物品操作主链路：拾取、合并、丢弃、穿脱、挥舞、饮药、读卷轴及魔杖/杂项使用的直接提示。完整模板在参数填入前选择，数量与附魔前名称先快照；装备限制理由直接传递 typed 参数，保留规范英文和内部数据。文案由 Luna 分工审校。Mac/Linux 四种构建、两端各十个存档副本操作场景、Mac 实际菜单与 Bazzite 原生 4K 操作截图通过；详见[本批验收报告](verification/native/item-operations/REPORT.md)。
 
-迁移沿[项目模块账本](analysis/message-migration/LEDGER.md)记录生产函数、消费者、测试和剩余入口。内嵌 Lua 对白、部分语义参数、外部施法/死亡/使徒对白消费者、武器噪声、神祇对白、玩家谜语、其他教程与业务日志仍待后续包，不能称为全面迁移。此前[首遇与固定喊叫验收](verification/native/monster-events/REPORT.md)保留，本批补齐其未取得的 4K 可见喊叫截图。
+迁移沿[项目模块账本](analysis/message-migration/LEDGER.md)记录生产函数、消费者、测试和剩余入口。本批仍未完成专名武器问候/告别、最后类别鉴定、地面集合摘要、外部数据库低语，以及物品使用后进入法术/怪物/神祇/状态模块的其他消息。内嵌 Lua 白话、复杂语义名称、其余教程与动态日志也继续排队，不能称为全面迁移或 100% 汉化。此前[随机对白及引号修复验收](verification/native/random-speech/REPORT.md)保留。
 
 第一批已建立生成处完整模板、命名类型参数和独立显示名接口，移除通用逐词兜底；Mac 与 Bazzite 构建及存档副本场景已验证。仍有旧渲染入口与未迁移文案，详情见[迁移范围、验证和限制](verification/native/message-migration/REPORT.md)及[架构记录](analysis/message-migration/architecture.md)。

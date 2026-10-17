@@ -39,7 +39,7 @@
     },
     {
       "name": "装备与物品操作",
-      "state": "护符穿戴理由/万变护符/确认/延迟已接入；本批变形进出与装备模拟/脱落日志已接入，退休形态整句回退报告；其他物品穿脱/拾取仍待迁移",
+      "state": "普通拾取/丢弃/穿脱/挥舞/使用主链路、typed理由、药水直接效果及库存分类已分批接入并经存档副本验证；专名武器、最后类别鉴定、集合摘要和跨模块效果消费者仍待后续包",
       "acceptance": "穿脱/挥舞/使用/失败/进度/中断完整消息；量词/所有格"
     },
     {
@@ -402,6 +402,67 @@
         "武器噪声、神祇对白与玩家谜语独立包；其他教程与动态日志仍在模块账本排队"
       ],
       "report": "verification/native/random-speech/REPORT.md"
+    },
+    {
+      "id": "item-operations",
+      "module": "装备与物品操作",
+      "state": "verified",
+      "sources": [
+        "items.cc",
+        "invent.cc",
+        "invent.h",
+        "item-use.cc",
+        "item-use.h",
+        "player-equip.cc",
+        "player-equip.h",
+        "evoke.cc",
+        "potion.cc",
+        "delay.cc",
+        "quiver.cc",
+        "nearby-danger.cc",
+        "religion.cc",
+        "spl-transloc.cc",
+        "zh-display-name.cc",
+        "zh-message.cc"
+      ],
+      "producers": [
+        "get_gold",
+        "enchant_weapon",
+        "enchant_armour",
+        "no_selectables_display_reason",
+        "get_player_equip_slot_count",
+        "can_equip_item",
+        "ignore_faith_display_reason",
+        "zh_item_quantity_arg",
+        "zh_item_menu_arg"
+      ],
+      "consumers": [
+        "drink",
+        "read",
+        "try_equip_item",
+        "try_unequip_item",
+        "use_an_item_menu",
+        "prompt_invent_item",
+        "maybe_warn_about_removing",
+        "check_warning_inscriptions"
+      ],
+      "tests": [
+        "tools/test_item_operations.py",
+        "tools/test_message_ids.py",
+        "tools/test_consumable_producers.py",
+        "tools/test_shared_restrictions.py",
+        "tools/test_pretranslated_rendering.py",
+        "tools/replay_saved_console.py",
+        "tools/replay_message_migration.py"
+      ],
+      "canonical_compatibility": "模板在格式化前选择；数量、名字与附魔前状态快照；规范英文 wrapper、随机调用、Lua和存档控制数据保持；颜色和快捷键分参",
+      "remaining": [
+        "专名武器问候/告别、最后类别鉴定、Orb逃离启动和地面集合摘要尚待迁移",
+        "外部数据库低语及法术/怪物/神祇/状态效果消费者须另包迁移",
+        "其他 const char* 自定义物品提示与复杂名称仍保留明确旧边界或整父回退",
+        "旅行/仆从灌注/伙伴塑形和箭袋近战反馈尚未完成"
+      ],
+      "report": "verification/native/item-operations/REPORT.md"
     }
   ]
 }

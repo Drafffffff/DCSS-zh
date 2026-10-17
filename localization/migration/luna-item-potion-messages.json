@@ -1,0 +1,1149 @@
+{
+  "model": "Luna",
+  "messages": [
+    {
+      "id": "operation.potion.curing.queasy",
+      "context": "potion effect player-facing message",
+      "en": "You feel queasy.",
+      "zh": "你感到一阵恶心。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 146
+      }
+    },
+    {
+      "id": "operation.potion.curing.inert",
+      "context": "potion effect player-facing message",
+      "en": "That felt strangely inert.",
+      "zh": "这感觉出奇地毫无作用。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 157
+      }
+    },
+    {
+      "id": "operation.potion.heal_wounds.queasy",
+      "context": "potion effect player-facing message",
+      "en": "You feel queasy.",
+      "zh": "你感到一阵恶心。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 216
+      }
+    },
+    {
+      "id": "operation.potion.heal_wounds.inert",
+      "context": "potion effect player-facing message",
+      "en": "That seemed strangely inert.",
+      "zh": "这似乎出奇地毫无作用。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 221
+      }
+    },
+    {
+      "id": "operation.potion.heal_wounds.better",
+      "context": "potion effect player-facing message",
+      "en": "You feel much better.",
+      "zh": "你感觉好多了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 232
+      }
+    },
+    {
+      "id": "operation.potion.cancellation.purged",
+      "context": "potion effect player-facing message",
+      "en": "You feel magically purged.",
+      "zh": "你感到体内的魔法力量被涤荡一空。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 426
+      }
+    },
+    {
+      "id": "operation.potion.cancellation.contamination_less",
+      "context": "potion effect player-facing message",
+      "en": "You feel slightly less contaminated with magical energies.",
+      "zh": "你感觉受到的魔法能量污染稍微减轻了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 431
+      }
+    },
+    {
+      "id": "operation.potion.ambrosia.brief",
+      "context": "potion effect player-facing message",
+      "en": "You feel briefly invigorated.",
+      "zh": "你短暂地感到精力充沛。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 462
+      }
+    },
+    {
+      "id": "operation.potion.experience.level",
+      "context": "potion effect player-facing message",
+      "en": "You feel more experienced!",
+      "zh": "你感到经验更加丰富了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 572
+      }
+    },
+    {
+      "id": "operation.potion.experience.memories",
+      "context": "potion effect player-facing message",
+      "en": "A flood of memories washes over you.",
+      "zh": "记忆如潮水般涌上心头。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 578
+      }
+    },
+    {
+      "id": "operation.potion.magic.no_effect",
+      "context": "potion effect player-facing message",
+      "en": "Magic washes over you without effect.",
+      "zh": "魔法流过你的身体，却没有产生任何效果。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 636
+      }
+    },
+    {
+      "id": "operation.potion.magic.savour",
+      "context": "potion effect player-facing message",
+      "en": "You savour every drop.",
+      "zh": "你细细品味每一滴药水。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 645
+      }
+    },
+    {
+      "id": "operation.potion.magic.courses",
+      "context": "potion effect player-facing message",
+      "en": "Magic courses through your body.",
+      "zh": "魔法在你的体内奔涌。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 647
+      }
+    },
+    {
+      "id": "operation.potion.berserk.irritated",
+      "context": "potion effect player-facing message",
+      "en": "You feel slightly irritated.",
+      "zh": "你感到有些恼火。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 673
+      }
+    },
+    {
+      "id": "operation.potion.lignify.too_dead",
+      "context": "potion effect player-facing message",
+      "en": "You're too dead to put down roots!",
+      "zh": "你已经死得太彻底，无法扎根！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 771
+      }
+    },
+    {
+      "id": "operation.potion.lignify.woody",
+      "context": "potion effect player-facing message",
+      "en": "You feel woody for a moment.",
+      "zh": "你短暂地感到身体变得木质化。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 805
+      }
+    },
+    {
+      "id": "operation.potion.mutation.strange",
+      "context": "potion effect player-facing message",
+      "en": "You feel extremely strange.",
+      "zh": "你感到极其怪异。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 836
+      }
+    },
+    {
+      "id": "operation.potion.moonshine.tipsy",
+      "context": "potion effect player-facing message",
+      "en": "You feel tipsy.",
+      "zh": "你感到微醺。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 899
+      }
+    },
+    {
+      "id": "operation.potion.alchemy.extract",
+      "context": "potion effect player-facing message",
+      "en": "You extract magical energy from the potion.",
+      "zh": "你从药水中提取出魔法能量。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "potion effect player-facing message",
+        "line": 1013
+      }
+    },
+    {
+      "id": "operation.potion.might.fresh",
+      "context": "PotionMight::effect when not already mighty",
+      "en": "You feel very mighty all of a sudden.",
+      "zh": "你突然感到力量大增。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionMight::effect when not already mighty",
+        "line": 296
+      }
+    },
+    {
+      "id": "operation.potion.might.stronger",
+      "context": "PotionMight::effect when already mighty",
+      "en": "You feel mightier all of a sudden.",
+      "zh": "你突然感到力量更加强大。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionMight::effect when already mighty",
+        "line": 296
+      }
+    },
+    {
+      "id": "operation.potion.brilliance.fresh",
+      "context": "PotionBrilliance::effect when brilliance is not active",
+      "en": "You feel clever all of a sudden.",
+      "zh": "你突然感到聪慧过人。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionBrilliance::effect when brilliance is not active",
+        "line": 338
+      }
+    },
+    {
+      "id": "operation.potion.brilliance.stronger",
+      "context": "PotionBrilliance::effect when brilliance is active",
+      "en": "You feel more clever all of a sudden.",
+      "zh": "你突然感到更加聪慧。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionBrilliance::effect when brilliance is active",
+        "line": 338
+      }
+    },
+    {
+      "id": "operation.potion.attraction.fresh",
+      "context": "PotionAttraction::effect when attraction is not active",
+      "en": "You feel attractive to monsters.",
+      "zh": "你觉得自己对怪物很有吸引力。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionAttraction::effect when attraction is not active",
+        "line": 365
+      }
+    },
+    {
+      "id": "operation.potion.attraction.stronger",
+      "context": "PotionAttraction::effect when attraction is active",
+      "en": "You feel more attractive to monsters.",
+      "zh": "你觉得自己对怪物更有吸引力了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionAttraction::effect when attraction is active",
+        "line": 365
+      }
+    },
+    {
+      "id": "operation.potion.ambrosia.fresh",
+      "context": "PotionAmbrosia::effect when ambrosia is not active",
+      "en": "You feel invigorated.",
+      "zh": "你感到精力充沛。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionAmbrosia::effect when ambrosia is not active",
+        "line": 454
+      }
+    },
+    {
+      "id": "operation.potion.ambrosia.more",
+      "context": "PotionAmbrosia::effect when ambrosia is active",
+      "en": "You feel more invigorated.",
+      "zh": "你感到更加精力充沛。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionAmbrosia::effect when ambrosia is active",
+        "line": 454
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.affliction",
+      "context": "PotionInvisibility::effect backlit branch; degree and possessive are finite zh_word_arg atoms; afflictions is zh_message_list of finite affliction atoms.",
+      "en": "You become {degree}transparent, but the glow from {possessive} {afflictions} prevents you from becoming completely invisible.",
+      "zh": "你变得{degree}透明，但来自{possessive}{afflictions}的光芒使你无法完全隐形。",
+      "params": {
+        "degree": "text",
+        "possessive": "text",
+        "afflictions": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::effect when backlit; degree/possessive/afflictions expressions documented",
+        "line": 495
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.first",
+      "context": "PotionInvisibility::effect when invisibility was inactive",
+      "en": "You fade into invisibility!",
+      "zh": "你渐渐隐去，进入隐形状态！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::effect when invisibility was inactive",
+        "line": 505
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.further",
+      "context": "PotionInvisibility::effect when already invisible",
+      "en": "You fade further into invisibility.",
+      "zh": "你进一步隐去，变得更加隐形。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::effect when already invisible",
+        "line": 505
+      }
+    },
+    {
+      "id": "operation.potion.magic.armour_enhances",
+      "context": "PotionMagic::effect with Kryia artefact body armour",
+      "en": "{armour} enhances the restoration.",
+      "zh": "{armour}增强了恢复效果。",
+      "params": {
+        "armour": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionMagic::effect with Kryia artefact body armour",
+        "line": 641
+      }
+    },
+    {
+      "id": "operation.potion.resistance.protected",
+      "context": "PotionResistance::effect",
+      "en": "You feel protected.",
+      "zh": "你感到受到保护。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionResistance::effect",
+        "line": 735
+      }
+    },
+    {
+      "id": "operation.potion.fungus.spores.curing",
+      "context": "Potion fungus spore emission; finite _spore_msg label curing",
+      "en": "Your fungus emits curing spores!",
+      "zh": "你的真菌释放出治愈孢子！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "_handle_potion_fungus; _spore_msg finite potion label",
+        "line": 982
+      }
+    },
+    {
+      "id": "operation.potion.fungus.spores.healing",
+      "context": "Potion fungus spore emission; finite _spore_msg label healing",
+      "en": "Your fungus emits healing spores!",
+      "zh": "你的真菌释放出治疗孢子！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "_handle_potion_fungus; _spore_msg finite potion label",
+        "line": 982
+      }
+    },
+    {
+      "id": "operation.potion.fungus.spores.quickening",
+      "context": "Potion fungus spore emission; finite _spore_msg label quickening",
+      "en": "Your fungus emits quickening spores!",
+      "zh": "你的真菌释放出加速孢子！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "_handle_potion_fungus; _spore_msg finite potion label",
+        "line": 982
+      }
+    },
+    {
+      "id": "operation.potion.fungus.spores.strenghtening",
+      "context": "Potion fungus spore emission; finite _spore_msg label strenghtening",
+      "en": "Your fungus emits strenghtening spores!",
+      "zh": "你的真菌释放出强化孢子！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "_handle_potion_fungus; _spore_msg finite potion label",
+        "line": 982
+      }
+    },
+    {
+      "id": "operation.potion.fungus.spores.amplifying",
+      "context": "Potion fungus spore emission; finite _spore_msg label amplifying",
+      "en": "Your fungus emits amplifying spores!",
+      "zh": "你的真菌释放出增效孢子！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "_handle_potion_fungus; _spore_msg finite potion label",
+        "line": 982
+      }
+    },
+    {
+      "id": "operation.potion.fungus.spores.enlightening",
+      "context": "Potion fungus spore emission; finite _spore_msg label enlightening",
+      "en": "Your fungus emits enlightening spores!",
+      "zh": "你的真菌释放出启迪孢子！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "_handle_potion_fungus; _spore_msg finite potion label",
+        "line": 982
+      }
+    },
+    {
+      "id": "operation.potion.fungus.spores.invisible",
+      "context": "Potion fungus spore emission; finite _spore_msg label invisible",
+      "en": "Your fungus emits invisible spores!",
+      "zh": "你的真菌释放出隐形孢子！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "_handle_potion_fungus; _spore_msg finite potion label",
+        "line": 982
+      }
+    },
+    {
+      "id": "operation.potion.fungus.spores.magical",
+      "context": "Potion fungus spore emission; finite _spore_msg label magical",
+      "en": "Your fungus emits magical spores!",
+      "zh": "你的真菌释放出魔法孢子！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "_handle_potion_fungus; _spore_msg finite potion label",
+        "line": 982
+      }
+    },
+    {
+      "id": "operation.potion.fungus.spores.infuriating",
+      "context": "Potion fungus spore emission; finite _spore_msg label infuriating",
+      "en": "Your fungus emits infuriating spores!",
+      "zh": "你的真菌释放出激怒孢子！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "_handle_potion_fungus; _spore_msg finite potion label",
+        "line": 982
+      }
+    },
+    {
+      "id": "operation.potion.fungus.spores.bolstering",
+      "context": "Potion fungus spore emission; finite _spore_msg label bolstering",
+      "en": "Your fungus emits bolstering spores!",
+      "zh": "你的真菌释放出强韧孢子！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "_handle_potion_fungus; _spore_msg finite potion label",
+        "line": 982
+      }
+    },
+    {
+      "id": "operation.potion.unknown_identified",
+      "context": "quaff_potion; newly identified potion name(DESC_QUALNAME)",
+      "en": "It was {potion}.",
+      "zh": "这是一瓶{potion}。",
+      "params": {
+        "potion": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "quaff_potion; newly identified potion name(DESC_QUALNAME)",
+        "line": 1004
+      }
+    },
+    {
+      "id": "operation.potion.lignify.cloud_confirm",
+      "context": "PotionLignify::quaff; damaging cloud confirmation",
+      "en": "Really become a tree while standing in a cloud of {cloud}?",
+      "zh": "真的要在{cloud}云中变成树吗？",
+      "params": {
+        "cloud": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionLignify::quaff; damaging cloud confirmation",
+        "line": 789
+      }
+    },
+    {
+      "id": "operation.potion.mutation.resistant_confirm",
+      "context": "PotionMutation::quaff when mutation resistant",
+      "en": "Really drink that potion of mutation while resistant to mutation?",
+      "zh": "你确实要在具有突变抗性时喝下这瓶突变药水吗？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionMutation::quaff when mutation resistant",
+        "line": 873
+      }
+    },
+    {
+      "id": "operation.potion.mutation.zin_confirm",
+      "context": "PotionMutation::quaff under Zin without mutation resistance",
+      "en": "Really drink that potion of mutation? Zin will disapprove.",
+      "zh": "你确实要喝下这瓶突变药水吗？津将会不悦。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionMutation::quaff under Zin without mutation resistance",
+        "line": 873
+      }
+    },
+    {
+      "id": "operation.potion.mutation.resistant_zin_confirm",
+      "context": "PotionMutation::quaff under Zin while mutation resistant",
+      "en": "Really drink that potion of mutation while resistant to mutation? Zin will disapprove.",
+      "zh": "你确实要在具有突变抗性时喝下这瓶突变药水吗？津将会不悦。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionMutation::quaff under Zin while mutation resistant",
+        "line": 873
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.degree.more",
+      "context": "Finite semantic atom for invisibility degree when already invisible",
+      "en": "more ",
+      "zh": "更",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::effect; finite degree/possessive/affliction value passed through zh_word_arg or zh_message_list",
+        "line": 495
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.degree.none",
+      "context": "Finite semantic atom for invisibility degree when not already invisible",
+      "en": "",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::effect; finite degree/possessive/affliction value passed through zh_word_arg or zh_message_list",
+        "line": 495
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.possessive.the",
+      "context": "Finite semantic atom for halo possessive when source uses the halo",
+      "en": "the",
+      "zh": "",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::effect; finite degree/possessive/affliction value passed through zh_word_arg or zh_message_list",
+        "line": 495
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.possessive.your",
+      "context": "Finite semantic atom for possessive for other backlight sources",
+      "en": "your",
+      "zh": "你的",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::effect; finite degree/possessive/affliction value passed through zh_word_arg or zh_message_list",
+        "line": 495
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.affliction.halo",
+      "context": "Finite semantic atom for backlight source: halo",
+      "en": "halo",
+      "zh": "光环",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::effect; finite degree/possessive/affliction value passed through zh_word_arg or zh_message_list",
+        "line": 495
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.affliction.magical_contamination",
+      "context": "Finite semantic atom for backlight source: magical contamination",
+      "en": "magical contamination",
+      "zh": "魔法污染",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::effect; finite degree/possessive/affliction value passed through zh_word_arg or zh_message_list",
+        "line": 495
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.affliction.corona",
+      "context": "Finite semantic atom for backlight source: corona",
+      "en": "corona",
+      "zh": "日冕光环",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::effect; finite degree/possessive/affliction value passed through zh_word_arg or zh_message_list",
+        "line": 495
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.affliction.liquid_flames",
+      "context": "Finite semantic atom for backlight source: liquid flames",
+      "en": "liquid flames",
+      "zh": "液火",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::effect; finite degree/possessive/affliction value passed through zh_word_arg or zh_message_list",
+        "line": 495
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.affliction.quad_damage",
+      "context": "Finite semantic atom for backlight source: quad-damage glow marker; preserve source emphasis",
+      "en": "!!!QUAD DAMAGE!!!",
+      "zh": "!!!四倍伤害!!!",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::effect; finite degree/possessive/affliction value passed through zh_word_arg or zh_message_list",
+        "line": 495
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.affliction.form",
+      "context": "Finite semantic atom for backlight source: flux form",
+      "en": "form",
+      "zh": "形态",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::effect; finite degree/possessive/affliction value passed through zh_word_arg or zh_message_list",
+        "line": 495
+      }
+    },
+    {
+      "id": "operation.potion.invisibility.confirm_temporary",
+      "context": "PotionInvisibility::check_known_quaff temporary can_quaff restriction; reason is the typed display argument from invis_allowed, followed by the source prompt suffix.",
+      "en": "{reason} Use anyway?",
+      "zh": "{reason}仍要使用吗？",
+      "params": {
+        "reason": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/potion.cc",
+        "anchor": "PotionInvisibility::check_known_quaff; append Use anyway? to temporary can_quaff reason",
+        "line": 525
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "operation.potion.curing.queasy",
+      "args": {},
+      "canonical": "You feel queasy.",
+      "zh": "你感到一阵恶心。"
+    },
+    {
+      "id": "operation.potion.curing.inert",
+      "args": {},
+      "canonical": "That felt strangely inert.",
+      "zh": "这感觉出奇地毫无作用。"
+    },
+    {
+      "id": "operation.potion.heal_wounds.queasy",
+      "args": {},
+      "canonical": "You feel queasy.",
+      "zh": "你感到一阵恶心。"
+    },
+    {
+      "id": "operation.potion.heal_wounds.inert",
+      "args": {},
+      "canonical": "That seemed strangely inert.",
+      "zh": "这似乎出奇地毫无作用。"
+    },
+    {
+      "id": "operation.potion.heal_wounds.better",
+      "args": {},
+      "canonical": "You feel much better.",
+      "zh": "你感觉好多了。"
+    },
+    {
+      "id": "operation.potion.cancellation.purged",
+      "args": {},
+      "canonical": "You feel magically purged.",
+      "zh": "你感到体内的魔法力量被涤荡一空。"
+    },
+    {
+      "id": "operation.potion.cancellation.contamination_less",
+      "args": {},
+      "canonical": "You feel slightly less contaminated with magical energies.",
+      "zh": "你感觉受到的魔法能量污染稍微减轻了。"
+    },
+    {
+      "id": "operation.potion.ambrosia.brief",
+      "args": {},
+      "canonical": "You feel briefly invigorated.",
+      "zh": "你短暂地感到精力充沛。"
+    },
+    {
+      "id": "operation.potion.experience.level",
+      "args": {},
+      "canonical": "You feel more experienced!",
+      "zh": "你感到经验更加丰富了！"
+    },
+    {
+      "id": "operation.potion.experience.memories",
+      "args": {},
+      "canonical": "A flood of memories washes over you.",
+      "zh": "记忆如潮水般涌上心头。"
+    },
+    {
+      "id": "operation.potion.magic.no_effect",
+      "args": {},
+      "canonical": "Magic washes over you without effect.",
+      "zh": "魔法流过你的身体，却没有产生任何效果。"
+    },
+    {
+      "id": "operation.potion.magic.savour",
+      "args": {},
+      "canonical": "You savour every drop.",
+      "zh": "你细细品味每一滴药水。"
+    },
+    {
+      "id": "operation.potion.magic.courses",
+      "args": {},
+      "canonical": "Magic courses through your body.",
+      "zh": "魔法在你的体内奔涌。"
+    },
+    {
+      "id": "operation.potion.berserk.irritated",
+      "args": {},
+      "canonical": "You feel slightly irritated.",
+      "zh": "你感到有些恼火。"
+    },
+    {
+      "id": "operation.potion.lignify.too_dead",
+      "args": {},
+      "canonical": "You're too dead to put down roots!",
+      "zh": "你已经死得太彻底，无法扎根！"
+    },
+    {
+      "id": "operation.potion.lignify.woody",
+      "args": {},
+      "canonical": "You feel woody for a moment.",
+      "zh": "你短暂地感到身体变得木质化。"
+    },
+    {
+      "id": "operation.potion.mutation.strange",
+      "args": {},
+      "canonical": "You feel extremely strange.",
+      "zh": "你感到极其怪异。"
+    },
+    {
+      "id": "operation.potion.moonshine.tipsy",
+      "args": {},
+      "canonical": "You feel tipsy.",
+      "zh": "你感到微醺。"
+    },
+    {
+      "id": "operation.potion.alchemy.extract",
+      "args": {},
+      "canonical": "You extract magical energy from the potion.",
+      "zh": "你从药水中提取出魔法能量。"
+    },
+    {
+      "id": "operation.potion.might.fresh",
+      "args": {},
+      "canonical": "You feel very mighty all of a sudden.",
+      "zh": "你突然感到力量大增。"
+    },
+    {
+      "id": "operation.potion.might.stronger",
+      "args": {},
+      "canonical": "You feel mightier all of a sudden.",
+      "zh": "你突然感到力量更加强大。"
+    },
+    {
+      "id": "operation.potion.brilliance.fresh",
+      "args": {},
+      "canonical": "You feel clever all of a sudden.",
+      "zh": "你突然感到聪慧过人。"
+    },
+    {
+      "id": "operation.potion.brilliance.stronger",
+      "args": {},
+      "canonical": "You feel more clever all of a sudden.",
+      "zh": "你突然感到更加聪慧。"
+    },
+    {
+      "id": "operation.potion.attraction.fresh",
+      "args": {},
+      "canonical": "You feel attractive to monsters.",
+      "zh": "你觉得自己对怪物很有吸引力。"
+    },
+    {
+      "id": "operation.potion.attraction.stronger",
+      "args": {},
+      "canonical": "You feel more attractive to monsters.",
+      "zh": "你觉得自己对怪物更有吸引力了。"
+    },
+    {
+      "id": "operation.potion.ambrosia.fresh",
+      "args": {},
+      "canonical": "You feel invigorated.",
+      "zh": "你感到精力充沛。"
+    },
+    {
+      "id": "operation.potion.ambrosia.more",
+      "args": {},
+      "canonical": "You feel more invigorated.",
+      "zh": "你感到更加精力充沛。"
+    },
+    {
+      "id": "operation.potion.invisibility.first",
+      "args": {},
+      "canonical": "You fade into invisibility!",
+      "zh": "你渐渐隐去，进入隐形状态！"
+    },
+    {
+      "id": "operation.potion.invisibility.further",
+      "args": {},
+      "canonical": "You fade further into invisibility.",
+      "zh": "你进一步隐去，变得更加隐形。"
+    },
+    {
+      "id": "operation.potion.resistance.protected",
+      "args": {},
+      "canonical": "You feel protected.",
+      "zh": "你感到受到保护。"
+    },
+    {
+      "id": "operation.potion.invisibility.affliction",
+      "args": {
+        "degree": {
+          "type": "text",
+          "canonical": "more ",
+          "localized": "更"
+        },
+        "possessive": {
+          "type": "text",
+          "canonical": "your",
+          "localized": "你的"
+        },
+        "afflictions": {
+          "type": "text",
+          "canonical": "halo and magical contamination",
+          "localized": "光环及魔法污染"
+        }
+      },
+      "canonical": "You become more transparent, but the glow from your halo and magical contamination prevents you from becoming completely invisible.",
+      "zh": "你变得更透明，但来自你的光环及魔法污染的光芒使你无法完全隐形。"
+    },
+    {
+      "id": "operation.potion.magic.armour_enhances",
+      "args": {
+        "armour": {
+          "type": "name",
+          "canonical": "the robe of Augmentation",
+          "localized": "增强长袍"
+        }
+      },
+      "canonical": "the robe of Augmentation enhances the restoration.",
+      "zh": "增强长袍增强了恢复效果。"
+    },
+    {
+      "id": "operation.potion.fungus.spores.healing",
+      "args": {},
+      "canonical": "Your fungus emits healing spores!",
+      "zh": "你的真菌释放出治疗孢子！"
+    },
+    {
+      "id": "operation.potion.unknown_identified",
+      "args": {
+        "potion": {
+          "type": "name",
+          "canonical": "a potion of curing",
+          "localized": "治疗药水"
+        }
+      },
+      "canonical": "It was a potion of curing.",
+      "zh": "这是一瓶治疗药水。"
+    },
+    {
+      "id": "operation.potion.lignify.cloud_confirm",
+      "args": {
+        "cloud": {
+          "type": "text",
+          "canonical": "poison gas",
+          "localized": "毒气"
+        }
+      },
+      "canonical": "Really become a tree while standing in a cloud of poison gas?",
+      "zh": "真的要在毒气云中变成树吗？"
+    },
+    {
+      "id": "operation.potion.mutation.resistant_confirm",
+      "args": {},
+      "canonical": "Really drink that potion of mutation while resistant to mutation?",
+      "zh": "你确实要在具有突变抗性时喝下这瓶突变药水吗？"
+    },
+    {
+      "id": "operation.potion.mutation.zin_confirm",
+      "args": {},
+      "canonical": "Really drink that potion of mutation? Zin will disapprove.",
+      "zh": "你确实要喝下这瓶突变药水吗？津将会不悦。"
+    },
+    {
+      "id": "operation.potion.mutation.resistant_zin_confirm",
+      "args": {},
+      "canonical": "Really drink that potion of mutation while resistant to mutation? Zin will disapprove.",
+      "zh": "你确实要在具有突变抗性时喝下这瓶突变药水吗？津将会不悦。"
+    },
+    {
+      "id": "operation.potion.fungus.spores.curing",
+      "args": {},
+      "canonical": "Your fungus emits curing spores!",
+      "zh": "你的真菌释放出治愈孢子！"
+    },
+    {
+      "id": "operation.potion.fungus.spores.quickening",
+      "args": {},
+      "canonical": "Your fungus emits quickening spores!",
+      "zh": "你的真菌释放出加速孢子！"
+    },
+    {
+      "id": "operation.potion.fungus.spores.strenghtening",
+      "args": {},
+      "canonical": "Your fungus emits strenghtening spores!",
+      "zh": "你的真菌释放出强化孢子！"
+    },
+    {
+      "id": "operation.potion.fungus.spores.amplifying",
+      "args": {},
+      "canonical": "Your fungus emits amplifying spores!",
+      "zh": "你的真菌释放出增效孢子！"
+    },
+    {
+      "id": "operation.potion.fungus.spores.enlightening",
+      "args": {},
+      "canonical": "Your fungus emits enlightening spores!",
+      "zh": "你的真菌释放出启迪孢子！"
+    },
+    {
+      "id": "operation.potion.fungus.spores.invisible",
+      "args": {},
+      "canonical": "Your fungus emits invisible spores!",
+      "zh": "你的真菌释放出隐形孢子！"
+    },
+    {
+      "id": "operation.potion.fungus.spores.magical",
+      "args": {},
+      "canonical": "Your fungus emits magical spores!",
+      "zh": "你的真菌释放出魔法孢子！"
+    },
+    {
+      "id": "operation.potion.fungus.spores.infuriating",
+      "args": {},
+      "canonical": "Your fungus emits infuriating spores!",
+      "zh": "你的真菌释放出激怒孢子！"
+    },
+    {
+      "id": "operation.potion.fungus.spores.bolstering",
+      "args": {},
+      "canonical": "Your fungus emits bolstering spores!",
+      "zh": "你的真菌释放出强韧孢子！"
+    },
+    {
+      "id": "operation.potion.invisibility.degree.more",
+      "args": {},
+      "canonical": "more ",
+      "zh": "更"
+    },
+    {
+      "id": "operation.potion.invisibility.degree.none",
+      "args": {},
+      "canonical": "",
+      "zh": ""
+    },
+    {
+      "id": "operation.potion.invisibility.possessive.the",
+      "args": {},
+      "canonical": "the",
+      "zh": ""
+    },
+    {
+      "id": "operation.potion.invisibility.possessive.your",
+      "args": {},
+      "canonical": "your",
+      "zh": "你的"
+    },
+    {
+      "id": "operation.potion.invisibility.affliction.halo",
+      "args": {},
+      "canonical": "halo",
+      "zh": "光环"
+    },
+    {
+      "id": "operation.potion.invisibility.affliction.magical_contamination",
+      "args": {},
+      "canonical": "magical contamination",
+      "zh": "魔法污染"
+    },
+    {
+      "id": "operation.potion.invisibility.affliction.corona",
+      "args": {},
+      "canonical": "corona",
+      "zh": "日冕光环"
+    },
+    {
+      "id": "operation.potion.invisibility.affliction.liquid_flames",
+      "args": {},
+      "canonical": "liquid flames",
+      "zh": "液火"
+    },
+    {
+      "id": "operation.potion.invisibility.affliction.quad_damage",
+      "args": {},
+      "canonical": "!!!QUAD DAMAGE!!!",
+      "zh": "!!!四倍伤害!!!"
+    },
+    {
+      "id": "operation.potion.invisibility.affliction.form",
+      "args": {},
+      "canonical": "form",
+      "zh": "形态"
+    },
+    {
+      "id": "operation.potion.invisibility.affliction",
+      "case": "all_afflictions",
+      "args": {
+        "degree": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "possessive": {
+          "type": "text",
+          "canonical": "the",
+          "localized": ""
+        },
+        "afflictions": {
+          "type": "text",
+          "canonical": "halo, magical contamination, corona, liquid flames, !!!QUAD DAMAGE!!! and form",
+          "localized": "光环、魔法污染、日冕光环、液火、!!!四倍伤害!!!及形态"
+        }
+      },
+      "canonical": "You become transparent, but the glow from the halo, magical contamination, corona, liquid flames, !!!QUAD DAMAGE!!! and form prevents you from becoming completely invisible.",
+      "zh": "你变得透明，但来自光环、魔法污染、日冕光环、液火、!!!四倍伤害!!!及形态的光芒使你无法完全隐形。"
+    },
+    {
+      "id": "operation.potion.invisibility.confirm_temporary",
+      "args": {
+        "reason": {
+          "type": "text",
+          "canonical": "You are backlit; invisibility will do you no good right now.",
+          "localized": "你正被背光照亮，隐形目前对你无用。"
+        }
+      },
+      "canonical": "You are backlit; invisibility will do you no good right now. Use anyway?",
+      "zh": "你正被背光照亮，隐形目前对你无用。仍要使用吗？"
+    }
+  ],
+  "reuses": [
+    "item.reason.drink.heal_deaths_door",
+    "item.reason.drink.no_ailments",
+    "item.reason.drink.cannot_heal_potions",
+    "item.reason.drink.cannot_currently_heal",
+    "item.reason.drink.health_full",
+    "item.reason.drink.haste_stasis",
+    "item.reason.drink.chei_no_haste",
+    "item.reason.drink.trog_no_spellcasting",
+    "item.reason.drink.brilliance_active",
+    "item.reason.drink.nothing_to_cancel",
+    "item.reason.drink.no_magic_restore",
+    "item.reason.drink.magic_full",
+    "item.reason.drink.already_berserk",
+    "item.reason.drink.berserk_recovering",
+    "item.reason.drink.death_door_blood_rage",
+    "item.reason.drink.mesmerised_rage",
+    "item.reason.drink.too_calm_rage",
+    "item.reason.drink.undead_blood_rage",
+    "item.reason.drink.stasis_rage",
+    "item.reason.drink.cannot_mutate_currently",
+    "item.reason.drink.cannot_mutate_permanently"
+  ]
+}

@@ -1,0 +1,5244 @@
+{
+  "baseline": "798db5ea62e769e8e7343038fbaef3f8eb84bf3f",
+  "method": "Final source lexical bindings in changed implementation files, including older bindings. Not a migrated-message count or coverage metric.",
+  "bindings": [
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 135,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.47c93cdb1e21\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 143,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.3a760cca1145\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 194,
+      "api": "zh_message",
+      "anchor": "&& !yesno(zh_message(\"operation.equipment.confirm.keep_equipping\"), false, 0, false))"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 202,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"equip.stop\", {"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 203,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"action\", \"equip.action.\", get_verb()),"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 204,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"slot\", \"equip.slot.\", _eq_category(equip), ZhArgType::Name)},"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 239,
+      "api": "zh_message",
+      "anchor": "const ZhMessage prompt = zh_message(is_armour"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 253,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"equip.stop\", {"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 254,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"action\", \"equip.action.\", get_verb()),"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 255,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"slot\", \"equip.slot.\", _eq_category(equip), ZhArgType::Name)},"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 264,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.81a36fb8685a\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 271,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.f03c61cf90cb\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 281,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.66bc840b0831\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 289,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.c0b24353fab2\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 304,
+      "api": "zh_message",
+      "anchor": "&& !yesno(zh_message(\"talisman.delay.keep_transforming\"), false, 0, false))"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 312,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.6bbc231ddad8\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 335,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.8376fc32ce30\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 343,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.cda37b09bd6c\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 438,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.2ffc5a0df028\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 469,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"equip_start\", {"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 470,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"action\", \"equip.action.\", get_verb()),"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 471,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"slot\", \"equip.slot.\", _eq_category(equip), ZhArgType::Name)},"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 477,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"equip_start\", {"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 478,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"action\", \"equip.action.\", get_verb()),"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 479,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"slot\", \"equip.slot.\", _eq_category(equip), ZhArgType::Name)},"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 485,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"equip_continue\", {"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 486,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"action\", \"equip.action.\", get_verb()),"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 487,
+      "api": "zh_item_arg",
+      "anchor": "zh_item_arg(\"item\", equip, DESC_YOUR)},"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 493,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"equip_continue\", {"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 494,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"action\", \"equip.action.\", get_verb()),"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 495,
+      "api": "zh_item_arg",
+      "anchor": "zh_item_arg(\"item\", equip, DESC_YOUR)},"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 507,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.fe318d92d093\"), MSGCH_MULTITURN_ACTION);"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 512,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.2719740e7076\"), MSGCH_MULTITURN_ACTION);"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 517,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.94d14d14b2db\"), MSGCH_MULTITURN_ACTION);"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 536,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.6ff9f87b44ae\"), MSGCH_MULTITURN_ACTION);"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 538,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.c8feee978c02\"), MSGCH_MULTITURN_ACTION);"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 700,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.d9fcc097f296\"), MSGCH_MULTITURN_ACTION);"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 702,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.3eb4e1c5dca1\"), MSGCH_MULTITURN_ACTION);"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 759,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"equip_finish\", {"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 760,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"action\", \"equip.action.\", get_verb()),"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 761,
+      "api": "zh_item_arg",
+      "anchor": "zh_item_arg(\"item\", equip, DESC_YOUR)},"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 777,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"equip_finish\", {"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 778,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"action\", \"equip.action.\", get_verb()),"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 779,
+      "api": "zh_item_arg",
+      "anchor": "zh_item_arg(\"item\", equip, DESC_YOUR)},"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 793,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.ae0b3d8e0830\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 804,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.282c5871d332\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 819,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.1958b88bd811\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 853,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.d8a80c867b15\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 914,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.2028adf4bd74\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 949,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.8c8b2c5c3fe0\"), MSGCH_DIAGNOSTICS);"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 977,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.1a7d90a94a28\"), MSGCH_ERROR);"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 1086,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.beb409c29e7c\"), MSGCH_WARN);"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 1103,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.4986a1322940\"), MSGCH_WARN);"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 1145,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.61eda2682482\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 1150,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.0302433d8eb5\"));"
+    },
+    {
+      "file": "crawl-ref/source/delay.cc",
+      "line": 1158,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.delay.fixed.06d463587db4\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 90,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.call.howl\"), MSGCH_SOUND);"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 116,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.call.none\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 191,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.wand.wrong_item\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 234,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.wand.conserve_charge\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 243,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.wand.empty\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 273,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.beasts.open\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 293,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.nothing\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 297,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(mons->airborne() ? \"operation.evoke.beasts.fly\""
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 398,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.spiders.open\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 402,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.spiders.out\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 407,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.nothing\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 412,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.spiders.webs\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 423,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.ziggurat.blocked\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 431,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.ziggurat.finish\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 439,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.ziggurat.open\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 507,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.card.gale.mighty\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 509,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.card.gale.fierce\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 654,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.mirror.self\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 656,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.mirror.empty\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 665,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.mirror.reflect\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 711,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.mirror.clone\", {zh_monster_arg(\"name\", *victim, DESC_THE)}));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 848,
+      "api": "zh_message",
+      "anchor": "&& !yesno(zh_message(\"operation.evoke.tremorstone.confirm\"), true, 'n'))"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 864,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.tremorstone.explode\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 918,
+      "api": "zh_message",
+      "anchor": "&& !yesno(zh_message(\"operation.evoke.condenser.confirm\"), true, 'n'))"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 955,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.condenser.success\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1001,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.berserk\");"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1004,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.confused\");"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1022,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.flux_already\");"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1036,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.no_artifice\");"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1040,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.item_removed\");"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1042,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.wrong_evoke\");"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1046,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.no_charges\");"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1050,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.allies_forbidden\");"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1057,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.still_air\");"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1065,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.horn_silenced\");"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1071,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.inert_evoker\", {"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1116,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.flux\", {zh_glossary_name(\"body_part\", \"body_part\", you.hand_name(false))}));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1171,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.box.empty\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1180,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.sack.empty\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1190,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.rod.overheat\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1197,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.quad_damage\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1214,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.mirror.clouds\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1237,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.tin.empty\"));"
+    },
+    {
+      "file": "crawl-ref/source/evoke.cc",
+      "line": 1254,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.evoke.condenser.dry\"));"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 90,
+      "api": "zh_message",
+      "anchor": "text = zh_message(\"operation.pickup.item_name\","
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 91,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"item_name\", i, DESC_INVENTORY_EQUIP)}).display().substr(4);"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 94,
+      "api": "zh_message",
+      "anchor": "text = zh_message(\"operation.pickup.item_name\","
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 95,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"item_name\", i, DESC_A)}).display();"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 349,
+      "api": "zh_message",
+      "anchor": "? zh_message(ids[0], {zh_message_arg(\"slots\", \"operation.inventory.slot_description\", {zh_integer(\"occupied\", inv_count(INVENT_GEAR)), zh_integer(\"capacity\", MAX_GEAR)})}).display()"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 349,
+      "api": "zh_message_arg",
+      "anchor": "? zh_message(ids[0], {zh_message_arg(\"slots\", \"operation.inventory.slot_description\", {zh_integer(\"occupied\", inv_count(INVENT_GEAR)), zh_integer(\"capacity\", MAX_GEAR)})}).display()"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 350,
+      "api": "zh_message",
+      "anchor": ": zh_message(ids[cur_osel]).display();"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 355,
+      "api": "zh_message",
+      "anchor": "set_title(new InvTitle(this, s.empty() ? zh_message(\"operation.safety.inventory.title.inventory\", {zh_message_arg(\"slots\", \"operation.inventory.slot_description\", {zh_integer(\"occupied\", inv_count(INVENT_GEAR)), zh_integer(\"capacity\", MAX_GEAR)})}).display()"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 355,
+      "api": "zh_message_arg",
+      "anchor": "set_title(new InvTitle(this, s.empty() ? zh_message(\"operation.safety.inventory.title.inventory\", {zh_message_arg(\"slots\", \"operation.inventory.slot_description\", {zh_integer(\"occupied\", inv_count(INVENT_GEAR)), zh_integer(\"capacity\", MAX_GEAR)})}).display()"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 575,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.empty\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 578,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.weapons\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 580,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.blessable_weapons\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 584,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.currently_wearable_armour\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 586,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.wearable_armour\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 589,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.unidentified\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 591,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.enchantable_armour\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 593,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.corpses\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 595,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.potions\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 597,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.scrolls\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 599,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.books\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 601,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.wands\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 603,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.jewellery\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 605,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.amulets\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 607,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.jewellery_talismans\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 609,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.launchable\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 612,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.cannot_evoke\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 613,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.evokable\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 615,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.cursed_equipped\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 617,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.worn_armour\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 619,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.worn_jewellery\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 621,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.wearing_nothing\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 623,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.equipable\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 625,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.brandable_weapons\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 627,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.enchantable_weapons\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 629,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.artefact_melee_weapons\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 631,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.cursable\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 633,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.uncursed_rings\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 635,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.quiverable\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 638,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.inventory.selection.empty.such_object\");"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1024,
+      "api": "zh_word_arg",
+      "anchor": "const ZhArg category = zh_word_arg(\"category\","
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1039,
+      "api": "zh_message",
+      "anchor": "subtitle = zh_message(subtitle_id, {category,"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1518,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"operation.drop.menu.title\", {zh_message_arg(\"slot_help\", \"operation.inventory.slot_description\", {zh_integer(\"occupied\", inv_count(INVENT_GEAR)), zh_integer(\"capacity\", MAX_GEAR)})}).display();"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1518,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message(\"operation.drop.menu.title\", {zh_message_arg(\"slot_help\", \"operation.inventory.slot_description\", {zh_integer(\"occupied\", inv_count(INVENT_GEAR)), zh_integer(\"capacity\", MAX_GEAR)})}).display();"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1644,
+      "api": "zh_message",
+      "anchor": "const ZhMessage prompt = zh_message(\"operation.inventory.warning.remove\","
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1645,
+      "api": "zh_word_arg",
+      "anchor": "{zh_word_arg(\"operation_verb\", \"operation.inventory.verb.\", verb),"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1646,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"destroy_prefix\", \"operation.inventory.warning.destroy_prefix.\", item.cursed() ? \" and destroy \" : \"\"),"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1647,
+      "api": "zh_item_arg",
+      "anchor": "zh_item_arg(\"item_name\", item, DESC_INVENTORY),"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1648,
+      "api": "zh_message_arg",
+      "anchor": "penance ? zh_message_arg(\"warning_suffix\", \"operation.inventory.warning.suffix.penance\")"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1773,
+      "api": "zh_message",
+      "anchor": "const ZhMessage prompt = zh_message(\"operation.inventory.warning.operation\","
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1774,
+      "api": "zh_word_arg",
+      "anchor": "{zh_word_arg(\"operation_verb\", \"operation.inventory.verb.\", _operation_verb(oper)),"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1775,
+      "api": "zh_item_arg",
+      "anchor": "zh_item_arg(\"item_name\", item, in_inventory(item) ? DESC_INVENTORY : DESC_A),"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1777,
+      "api": "zh_message_arg",
+      "anchor": "? zh_message_arg(\"teleport_suffix\", \"operation.inventory.warning.teleport_suffix\")"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1779,
+      "api": "zh_message_arg",
+      "anchor": "zh_message_arg(\"warning_suffix\", suffix_id)});"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1857,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.inventory.selection.prompt\", {"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1978,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.inventory.selection.none_exists\"));"
+    },
+    {
+      "file": "crawl-ref/source/invent.cc",
+      "line": 1980,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.inventory.selection.wrong_kind\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3067,
+      "api": "zh_message_arg",
+      "anchor": "case OSEL_UNIDENT: return zh_message_arg(\"reason\", \"item.reason.selectable.unidentified\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3068,
+      "api": "zh_message_arg",
+      "anchor": "case OSEL_ENCHANTABLE_ARMOUR: return zh_message_arg(\"reason\", \"item.reason.selectable.enchantable_armour\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3069,
+      "api": "zh_message_arg",
+      "anchor": "case OSEL_ENCHANTABLE_WEAPON: return zh_message_arg(\"reason\", \"item.reason.selectable.enchantable_weapon\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3070,
+      "api": "zh_message_arg",
+      "anchor": "case OSEL_BRANDABLE_WEAPON: return zh_message_arg(\"reason\", \"item.reason.selectable.brandable_weapon\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3081,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.geh_smog\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3084,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.berserk\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3087,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.confused\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3090,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.no_scrolls\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3093,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", silenced(you.pos())"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3097,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.renounce_scrolls\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3120,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.no_control_memory\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3124,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.trog_memory\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3129,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.no_weapon_enhance\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3133,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.no_armour_enchant\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3138,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.nothing_to_identify\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3140,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.no_need_identification\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3146,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.no_summons\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3173,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.wrong_item\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3190,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.no_forgetting\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3208,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.still_air\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3213,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.unmappable\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3226,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.not_drink\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3248,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.drink_state\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3251,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.berserk\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3254,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.renounce_drink\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3257,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.cocytus_cold\");"
+    },
+    {
+      "file": "crawl-ref/source/item-name.cc",
+      "line": 3261,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"item.reason.use.wrong_drink\");"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 156,
+      "api": "zh_message",
+      "anchor": "? zh_message(\"operation.equipment.menu.equip_both\").display()"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 157,
+      "api": "zh_message",
+      "anchor": ": zh_message(\"operation.equipment.menu.equip\").display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 160,
+      "api": "zh_message",
+      "anchor": "? zh_message(\"operation.equipment.menu.wield_both\").display()"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 161,
+      "api": "zh_message",
+      "anchor": ": zh_message(\"operation.equipment.menu.wield\").display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 164,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"operation.equipment.menu.wear_both\").display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 165,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"operation.equipment.menu.wear\").display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 168,
+      "api": "zh_message",
+      "anchor": "? zh_message(\"operation.equipment.menu.jewellery_both\").display()"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 169,
+      "api": "zh_message",
+      "anchor": ": zh_message(\"operation.equipment.menu.jewellery_puton\").display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 171,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"operation.equipment.menu.drink\").display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 173,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"operation.equipment.menu.read\").display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 175,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"operation.equipment.menu.evoke\").display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 177,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"operation.equipment.menu.armour_takeoff\").display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 179,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"operation.equipment.menu.jewellery_remove\").display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 181,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"operation.equipment.menu.unequip\").display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 625,
+      "api": "zh_message",
+      "anchor": "const string cycle_hint = zh_message(\"operation.safety.menu.header.cycle\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 634,
+      "api": "zh_message",
+      "anchor": "inv_header->text = zh_message(\"operation.safety.menu.header.inventory\").display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 642,
+      "api": "zh_message",
+      "anchor": "floor_header->text = zh_message(\"operation.safety.menu.header.floor\").display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 645,
+      "api": "zh_message",
+      "anchor": "floor_header->text += zh_message(\"operation.safety.menu.header.easy_floor\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 647,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"action\", \"operation.equipment.value.action.\", _oper_name(oper))}).display();"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 734,
+      "api": "zh_message",
+      "anchor": "? zh_message(\"operation.equipment.menu.describe_selected\").display() : \"\";"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 744,
+      "api": "zh_message",
+      "anchor": "eu_modes = zh_message(generalize_oper(oper) == OPER_EQUIP"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 914,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.no_armour_wear\"), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 917,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.no_armour_remove\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 925,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.form_wear_remove\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 926,
+      "api": "zh_word_arg",
+      "anchor": "{zh_word_arg(\"action\", \"operation.equipment.value.\", wear ? \"wear\" : \"remove\")}), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 983,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.jewellery_form\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 984,
+      "api": "zh_word_arg",
+      "anchor": "{zh_word_arg(\"action\", \"operation.equipment.value.\", oper == OPER_PUTON ? \"wear\" : \"remove\"),"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 985,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"form_note\", \"operation.equipment.value.\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1075,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.inventory_full\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1113,
+      "api": "zh_message",
+      "anchor": "zh_message(\"operation.equipment.prompt.swap_list\"),"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1187,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.prompt.swap_list\"), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1188,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.prompt.swap_keys\"), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1194,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.safety.item_swap.candidate\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1195,
+      "api": "zh_item_arg",
+      "anchor": "{zh_key(\"key\", key), zh_item_arg(\"item\", *candidates[i], DESC_INVENTORY)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1261,
+      "api": "zh_message",
+      "anchor": "const ZhMessage prompt = zh_message(\"operation.equipment.confirm.berserk_launcher\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1262,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"item\", *to_equip, DESC_INVENTORY)});"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1292,
+      "api": "zh_message",
+      "anchor": "const ZhMessage warning = zh_message(\"operation.equipment.confirm.unsafe_delay\", {reason});"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1313,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.warning.flight_danger\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1314,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"item\", *item, DESC_YOUR),"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1315,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"outcome\", \"operation.equipment.value.\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1342,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.inventory_full\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1493,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.cursed_chain\", {zh_item_arg(\"item\", item, DESC_INVENTORY)}), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1493,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.cursed_chain\", {zh_item_arg(\"item\", item, DESC_INVENTORY)}), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1585,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.log.unequip\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1586,
+      "api": "zh_word_arg",
+      "anchor": "{zh_word_arg(\"action\", \"operation.equipment.value.\", item_unequip_verb(*item)),"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1587,
+      "api": "zh_item_arg",
+      "anchor": "zh_item_arg(\"item\", *item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1620,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.melded\", {zh_item_arg(\"item\", item, DESC_YOUR)}), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1620,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.melded\", {zh_item_arg(\"item\", item, DESC_YOUR)}), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1629,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.cursed\", {zh_item_arg(\"item\", item, DESC_YOUR)}), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1629,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.cursed\", {zh_item_arg(\"item\", item, DESC_YOUR)}), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1638,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.blood_hunger\"), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1647,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.vainglory_crown\"), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1843,
+      "api": "zh_message",
+      "anchor": "int item_slot = prompt_invent_item(zh_message(\"operation.equipment.menu.inscribe_item\"),"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1884,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.drink.drunken_weapon\", {zh_item_arg(\"name\", *you.weapon(), DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1884,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.use.drink.drunken_weapon\", {zh_item_arg(\"name\", *you.weapon(), DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1887,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.drink.drunken_unarmed\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1927,
+      "api": "zh_message",
+      "anchor": "const ZhMessage prompt = zh_message(\"operation.use.drink.confirm\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1928,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"name\", *potion, DESC_DBNAME), penance"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1929,
+      "api": "zh_message_arg",
+      "anchor": "? zh_message_arg(\"reason\", \"operation.use.drink.penance\")"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1944,
+      "api": "zh_message",
+      "anchor": "const ZhMessage unrand_prompt = zh_message(\"operation.use.drink.victory\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1945,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"name\", *item, DESC_THE)});"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1998,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.drink.metabolism\", {zh_item_arg(\"name\", *potion, DESC_QUALNAME)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 1998,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.use.drink.metabolism\", {zh_item_arg(\"name\", *potion, DESC_QUALNAME)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2005,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.discovery\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2109,
+      "api": "zh_item_arg",
+      "anchor": "const ZhArg operation_name = zh_item_arg(\"name\", wpn, in_inventory(wpn) ? DESC_YOUR : DESC_THE);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2120,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.heavy\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2120,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.heavy\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2125,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.protection\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2125,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.protection\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2130,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.flaming\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2130,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.flaming\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2135,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.freezing\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2135,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.freezing\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2140,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.draining\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2140,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.draining\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2145,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.vampirism\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2145,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.vampirism\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2150,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.venom\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2150,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.venom\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2155,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.electricity\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2155,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.electricity\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2160,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.chaos\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2160,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.chaos\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2165,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.acid\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2165,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.acid\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2170,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.spectral\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2170,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.spectral\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2175,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.rebuke\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2175,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.rebuke\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2180,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.valour\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2180,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.valour\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2185,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.entangling\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2185,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.entangling\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2190,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.sundering\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2190,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.sundering\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2195,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.concussion\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2195,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.concussion\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2200,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.devious\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2200,
+      "api": "zh_named_arg",
+      "anchor": "mpr(zh_message(\"operation.use.weapon.brand.devious\", {zh_named_arg(\"name\", operation_name)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2211,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_arg(\"item_name\", wpn, DESC_INVENTORY_EQUIP)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2211,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_arg(\"item_name\", wpn, DESC_INVENTORY_EQUIP)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2232,
+      "api": "zh_message",
+      "anchor": "|| yesno(zh_message(\"operation.use.scroll.abort\"), false, 0))"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2257,
+      "api": "zh_message",
+      "anchor": "branding ? zh_message(\"operation.use.scroll.brand_target\").display().c_str()"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2258,
+      "api": "zh_message",
+      "anchor": ": zh_message(\"operation.use.scroll.enchant_weapon_target\").display().c_str());"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2305,
+      "api": "zh_item_arg",
+      "anchor": "const ZhArg operation_name = zh_item_arg(\"name\", wpn, in_inventory(wpn) ? DESC_YOUR : DESC_THE);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2313,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(wpn.plus < MAX_WPN_ENCHANT"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2393,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.identify.result\", {zh_key(\"old_key\", string(1, old_slot)), zh_item_menu_arg(\"item\", item, DESC_INVENTORY_EQUIP)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2393,
+      "api": "zh_item_menu_arg",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.identify.result\", {zh_key(\"old_key\", string(1, old_slot)), zh_item_menu_arg(\"item\", item, DESC_INVENTORY_EQUIP)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2396,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_menu_arg(\"item_name\", item, DESC_INVENTORY_EQUIP)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2396,
+      "api": "zh_item_menu_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_menu_arg(\"item_name\", item, DESC_INVENTORY_EQUIP)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2399,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_menu_arg(\"item_name\", item, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2399,
+      "api": "zh_item_menu_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_menu_arg(\"item_name\", item, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2461,
+      "api": "zh_item_arg",
+      "anchor": "const ZhArg operation_name = zh_item_arg(\"name\", arm, in_inventory(arm) ? DESC_YOUR : DESC_THE);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2472,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(id, {operation_name}));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2498,
+      "api": "zh_message",
+      "anchor": "OSEL_ENCHANTABLE_ARMOUR, zh_message(\"operation.use.scroll.enchant_armour_target\").display().c_str());"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2545,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.vulnerability\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2559,
+      "api": "zh_message",
+      "anchor": "if (!yesno(zh_message(\"operation.use.scroll.abort\"), false, 0))"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2612,
+      "api": "zh_message_arg",
+      "anchor": "r.push_back(zh_message_arg(\"effect\", \"spell.prompt.effect.infinite_will\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2614,
+      "api": "zh_message_arg",
+      "anchor": "r.push_back(zh_message_arg(\"effect\", \"target.monster.callback.susceptible\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2621,
+      "api": "zh_message_arg",
+      "anchor": "return { zh_message_arg(\"effect\", \"spell.prompt.effect.not_susceptible\") };"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2623,
+      "api": "zh_message_arg",
+      "anchor": "return { zh_message_arg(\"effect\", \"target.monster.callback.susceptible\") };"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2854,
+      "api": "zh_item_arg",
+      "anchor": "const ZhArg scroll_display = zh_item_arg(\"name\", *scroll, DESC_DBNAME);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2855,
+      "api": "zh_message",
+      "anchor": "const ZhMessage penance_prompt = zh_message(hostile_check"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2882,
+      "api": "zh_message",
+      "anchor": "&& !yesno(zh_message(hostile_check ? \"operation.use.scroll.confirm.danger\""
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2888,
+      "api": "zh_message",
+      "anchor": "else if (!bad_item && !hostile_check && !yesno(zh_message("
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2902,
+      "api": "zh_message",
+      "anchor": "const ZhMessage unrand_prompt = zh_message(\"operation.use.scroll.confirm.victory\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2903,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"name\", *item, DESC_THE)});"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2946,
+      "api": "zh_message",
+      "anchor": "const ZhMessage pre_succ_msg = zh_message(success_id,"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 2947,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"name\", *scroll, DESC_QUALNAME)});"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3007,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.acquire.unknown\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3015,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.acquire.lost\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3024,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.fear\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3078,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.immolation.success\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3080,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.immolation.fail\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3101,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.reveal.enchant_weapon\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3115,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.reveal.brand_weapon\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3129,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.reveal.identify\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3145,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.reveal.enchant_armour\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3162,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.removed\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3180,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.reveal.amnesia\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3185,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.scroll.amnesia.nothing\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3206,
+      "api": "zh_item_arg",
+      "anchor": "const ZhArg scroll_name = zh_item_arg(\"name\", *scroll, DESC_QUALNAME);"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3230,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(!cancel_scroll ? \"operation.use.scroll.quantity\""
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3239,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.use.discovery\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3286,
+      "api": "zh_message_arg",
+      "anchor": "r.push_back(zh_message_arg(\"effect\", \"target.monster.callback.see_invisible\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3290,
+      "api": "zh_message_arg",
+      "anchor": "r.push_back(zh_message_arg(\"effect\", \"target.monster.callback.lose_sight\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3292,
+      "api": "zh_message_arg",
+      "anchor": "r.push_back(zh_message_arg(\"effect\", \"target.monster.callback.cannot_see_invisible\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3322,
+      "api": "zh_message",
+      "anchor": "return yesno(zh_message(\"operation.use.invisibility.none_susceptible\"), true, 'n');"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3347,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"talisman.reason.unstable\");"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3350,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"talisman.reason.unusable_skill\");"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3366,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"talisman.reason.leave_form\");"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3371,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"talisman.reason.okawaru_allies\");"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3373,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"talisman.reason.loveless\");"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3395,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"talisman.reason.cannot_carry\"));"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3410,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"talisman.protean.transforms\","
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3411,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"item\", real_item, DESC_YOUR),"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3426,
+      "api": "zh_message",
+      "anchor": "if (!i_feel_safe(true) && !yesno(zh_message(\"talisman.confirm.begin_transform\"), true, 'n'))"
+    },
+    {
+      "file": "crawl-ref/source/item-use.cc",
+      "line": 3447,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.failed.stationary\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1057,
+      "api": "zh_message",
+      "anchor": "string prompt = zh_message(\"operation.pickup.menu.title\", {zh_message_arg(\"slot_help\", \"operation.inventory.slot_description\", {zh_integer(\"occupied\", inv_count(INVENT_GEAR)), zh_integer(\"capacity\", MAX_GEAR)})}).display();"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1057,
+      "api": "zh_message_arg",
+      "anchor": "string prompt = zh_message(\"operation.pickup.menu.title\", {zh_message_arg(\"slot_help\", \"operation.inventory.slot_description\", {zh_integer(\"occupied\", inv_count(INVENT_GEAR)), zh_integer(\"capacity\", MAX_GEAR)})}).display();"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1060,
+      "api": "zh_message",
+      "anchor": "prompt = zh_message(\"operation.pickup.menu.quantity_instruction\").display();"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1092,
+      "api": "zh_message",
+      "anchor": "pickup_warning = zh_message(\"operation.pickup.failed.capacity\");"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1396,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"item.origin.god_gift\", {"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1410,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"item.origin.taken_from_monster\", {monster, place},"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1416,
+      "api": "zh_message",
+      "anchor": "return zh_message(id, {place}, canonical).display();"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1418,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"item.origin.english_fallback\", {"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1438,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.failed.stationary\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1442,
+      "api": "zh_message",
+      "anchor": "&& !yesno(zh_message(\"operation.pickup.confirm.gold_pile\"), true, 'n'))"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1449,
+      "api": "zh_message",
+      "anchor": "const string prompt = zh_message(\"operation.pickup.quantity.prompt\","
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1450,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"item_name\", *item, DESC_THE)}).display();"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1479,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.failed.capacity\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1514,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.none.here\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1533,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.none.selectable\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1535,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.multiple.here\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1552,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.confirm.item\","
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1553,
+      "api": "zh_item_menu_arg",
+      "anchor": "{zh_item_menu_arg(\"item_name\", env.item[o], DESC_A)}), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1581,
+      "api": "zh_message",
+      "anchor": "pickup_warning = zh_message(\"operation.pickup.failed.capacity\");"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1597,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_menu_arg(\"item_name\", *si, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1597,
+      "api": "zh_item_menu_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_menu_arg(\"item_name\", *si, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1792,
+      "api": "zh_message_arg",
+      "anchor": "? zh_message_arg(\"gain\", \"operation.pickup.gold.gain_suffix\", {zh_integer(\"quantity\", quant)})"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1794,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(you.gold == 1 ? \"operation.pickup.gold.singular\""
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1814,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.failed.stationary\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1897,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.book.burns\", {zh_item_arg(\"item_name\", it, DESC_THE)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1897,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.book.burns\", {zh_item_arg(\"item_name\", it, DESC_THE)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1900,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.book.reading\", {zh_item_arg(\"item_name\", it, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1900,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.book.reading\", {zh_item_arg(\"item_name\", it, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1903,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.book.no_new_spells\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1916,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.manual.useless\", {zh_item_arg(\"item_name\", it, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1916,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.manual.useless\", {zh_item_arg(\"item_name\", it, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1922,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.manual.max_skill\", {zh_item_arg(\"item_name\", it, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1922,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.manual.max_skill\", {zh_item_arg(\"item_name\", it, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1927,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.manual.continue\", {zh_item_arg(\"item_name\", it, DESC_PLAIN)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1927,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.manual.continue\", {zh_item_arg(\"item_name\", it, DESC_PLAIN)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1929,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.manual.begin\", {zh_item_arg(\"item_name\", it, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1929,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.manual.begin\", {zh_item_arg(\"item_name\", it, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1980,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.rune.found\", {zh_glossary_name(\"rune_name\", \"rune\", rune_type_name(it.sub_type))}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1983,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.rune.all\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1987,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.rune.zot_threshold\", {zh_integer(\"quantity\", nrunes)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1992,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.rune.pan_complete\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1993,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.rune.count\", {zh_integer(\"quantity\", nrunes)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 1996,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.rune.collection_key\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2000,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.rune.abyss_guidance\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2045,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.gem.found\", {zh_item_arg(\"item_name\", it, DESC_THE), zh_glossary_name(\"hand_name\", \"body_part\", you.hand_name(true))}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2045,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.gem.found\", {zh_item_arg(\"item_name\", it, DESC_THE), zh_glossary_name(\"hand_name\", \"body_part\", you.hand_name(true))}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2049,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.gem.all\","
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2050,
+      "api": "zh_word_arg",
+      "anchor": "{zh_word_arg(\"colour\", \"operation.inventory.misc_colour.\", colour)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2052,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.gem.collection_keys\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2063,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.orb.found\"), MSGCH_ORB);"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2066,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.orb.safe\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2129,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.stack.merged\","
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2131,
+      "api": "zh_item_menu_arg",
+      "anchor": "zh_item_menu_arg(\"item_name\", you.inv[inv_slot], DESC_INVENTORY),"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2156,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.evoker.maxed\", {zh_item_arg(\"item_name\", you.inv[inv_slot], DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2156,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.evoker.maxed\", {zh_item_arg(\"item_name\", you.inv[inv_slot], DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2170,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.evoker.improved\", {zh_item_menu_arg(\"item_name\", you.inv[inv_slot], DESC_INVENTORY)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2170,
+      "api": "zh_item_menu_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.evoker.improved\", {zh_item_menu_arg(\"item_name\", you.inv[inv_slot], DESC_INVENTORY)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2207,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(it.charges == 1 ? \"operation.pickup.wand.charge.singular\""
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2209,
+      "api": "zh_item_menu_arg",
+      "anchor": "{zh_item_menu_arg(\"item_name\", you.inv[inv_slot], DESC_INVENTORY),"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2382,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.inventory.slot.reassigned\", {zh_key(\"old_slot\", string(1, old_slot)), zh_item_arg(\"item_name\", item, DESC_INVENTORY)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2382,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.inventory.slot.reassigned\", {zh_key(\"old_slot\", string(1, old_slot)), zh_item_arg(\"item_name\", item, DESC_INVENTORY)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2479,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_menu_arg(\"item_name\", item, DESC_INVENTORY)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2479,
+      "api": "zh_item_menu_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_menu_arg(\"item_name\", item, DESC_INVENTORY)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2694,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.safety.floor.identified\", {zh_item_arg(\"item\", item, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2694,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.safety.floor.identified\", {zh_item_arg(\"item\", item, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2844,
+      "api": "zh_message",
+      "anchor": "const ZhMessage prompt = zh_message(item.quantity == 1"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2846,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"item_name\", item, DESC_THE),"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2883,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.drop.failed.installed\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2890,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.drop.requires_unequip\"), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2917,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.drop.failed.level_item_limit\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2921,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.drop.success\", {zh_item_quantity_arg(\"item_phrase\", item, quant_drop, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2921,
+      "api": "zh_item_quantity_arg",
+      "anchor": "mpr(zh_message(\"operation.drop.success\", {zh_item_quantity_arg(\"item_phrase\", item, quant_drop, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 2951,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.drop.none.last_pickup\"));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 3025,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.drop.autopickup.disabled.item\", {zh_item_base_arg(\"item_name\", *last_touched_item)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 3028,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.drop.autopickup.disabled.count\", {zh_integer(\"quantity\", autopickup_remove_count)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 3509,
+      "api": "zh_message",
+      "anchor": "pickup_warning = zh_message(\"operation.pickup.autopickup.full_pack\");"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 5033,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_arg(\"item_name\", item, DESC_INVENTORY_EQUIP)}));"
+    },
+    {
+      "file": "crawl-ref/source/items.cc",
+      "line": 5033,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_arg(\"item_name\", item, DESC_INVENTORY_EQUIP)}));"
+    },
+    {
+      "file": "crawl-ref/source/nearby-danger.cc",
+      "line": 236,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.safety.warning\", {msg}), MSGCH_WARN); \\"
+    },
+    {
+      "file": "crawl-ref/source/nearby-danger.cc",
+      "line": 257,
+      "api": "zh_message_arg",
+      "anchor": "UNSAFE_MSG(zh_message_arg(\"reason\", \"operation.equipment.reason.unsafe.cloud\","
+    },
+    {
+      "file": "crawl-ref/source/nearby-danger.cc",
+      "line": 258,
+      "api": "zh_word_arg",
+      "anchor": "{zh_word_arg(\"cloud_type\", \"movement.confirm.cloud_name.\", cloud_type_name(type))}));"
+    },
+    {
+      "file": "crawl-ref/source/nearby-danger.cc",
+      "line": 262,
+      "api": "zh_message_arg",
+      "anchor": "UNSAFE_MSG(zh_message_arg(\"reason\", \"operation.equipment.reason.unsafe.lethal_poison\"));"
+    },
+    {
+      "file": "crawl-ref/source/nearby-danger.cc",
+      "line": 265,
+      "api": "zh_message_arg",
+      "anchor": "UNSAFE_MSG(zh_message_arg(\"reason\", \"operation.equipment.reason.unsafe.lethal_contamination\"));"
+    },
+    {
+      "file": "crawl-ref/source/nearby-danger.cc",
+      "line": 268,
+      "api": "zh_message_arg",
+      "anchor": "UNSAFE_MSG(zh_message_arg(\"reason\", \"operation.equipment.reason.unsafe.on_fire\"));"
+    },
+    {
+      "file": "crawl-ref/source/nearby-danger.cc",
+      "line": 271,
+      "api": "zh_message_arg",
+      "anchor": "UNSAFE_MSG(zh_message_arg(\"reason\", \"operation.equipment.reason.unsafe.emergency_flight\"));"
+    },
+    {
+      "file": "crawl-ref/source/nearby-danger.cc",
+      "line": 304,
+      "api": "zh_message_arg",
+      "anchor": "*display_reason = zh_message_arg(\"reason\", \"operation.equipment.reason.unsafe.monster_one\","
+    },
+    {
+      "file": "crawl-ref/source/nearby-danger.cc",
+      "line": 307,
+      "api": "zh_message_arg",
+      "anchor": "*display_reason = zh_message_arg(\"reason\", visible.size() > 1"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 91,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.no_weapon\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 99,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.need_tentacles\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 102,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.need_hand\", {zh_glossary_name(\"body_part\", \"body_part\", you.hand_name(false))}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 106,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.no_hold_paws\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 121,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.haunt_large\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 124,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.wings\", {zh_word_arg(\"wing_note\", \"operation.equipment.value.\", you.has_mutation(MUT_BIG_WINGS)"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 124,
+      "api": "zh_word_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.wings\", {zh_word_arg(\"wing_note\", \"operation.equipment.value.\", you.has_mutation(MUT_BIG_WINGS)"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 128,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.no_armour_slot\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 139,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.no_head\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 141,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.headgear_too_large\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 145,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.horns_headgear\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 147,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.antennae_headgear\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 161,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.no_hands\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 163,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.limb_size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", \"too big\"), zh_glossary_name(\"body_part\", \"body_part\", you.hand_name(true))}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 163,
+      "api": "zh_word_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.limb_size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", \"too big\"), zh_glossary_name(\"body_part\", \"body_part\", you.hand_name(true))}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 165,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.limb_size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", \"too small\"), zh_glossary_name(\"body_part\", \"body_part\", you.hand_name(true))}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 165,
+      "api": "zh_word_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.limb_size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", \"too small\"), zh_glossary_name(\"body_part\", \"body_part\", you.hand_name(true))}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 167,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.limb_fit\", {zh_glossary_name(\"body_part\", \"body_part\", you.hand_name(true))}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 169,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.claws_fit\", {zh_glossary_name(\"body_part\", \"body_part\", you.hand_name(true))}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 171,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.demonic_touch\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 179,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.no_feet\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 181,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.limb_size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", \"too big\"), zh_glossary_name(\"body_part\", \"body_part\", you.foot_name(true))}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 181,
+      "api": "zh_word_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.limb_size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", \"too big\"), zh_glossary_name(\"body_part\", \"body_part\", you.foot_name(true))}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 183,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.limb_size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", \"too small\"), zh_glossary_name(\"body_part\", \"body_part\", you.foot_name(true))}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 183,
+      "api": "zh_word_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.limb_size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", \"too small\"), zh_glossary_name(\"body_part\", \"body_part\", you.foot_name(true))}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 185,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.no_boots\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 187,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.hooves_boots\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 189,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.talons_boots\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 191,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.floating_feet\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 202,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.cannot_fit\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 211,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.no_shoulders\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 213,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.no_cloak\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 215,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.stinger_cloak\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 222,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.no_rings\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 242,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.no_amulets\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 251,
+      "api": "zh_message_arg",
+      "anchor": "NO_SLOT(zh_message_arg(\"reason\", \"operation.equipment.reason.no_exoframe\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 475,
+      "api": "zh_message_arg",
+      "anchor": "NO_EQUIP(zh_message_arg(\"reason\", \"operation.equipment.reason.not_equipment\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 494,
+      "api": "zh_message_arg",
+      "anchor": "const ZhArg r = zh_message_arg(\"reason\", \"operation.equipment.reason.current_form\");"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 522,
+      "api": "zh_message_arg",
+      "anchor": "NO_EQUIP(zh_message_arg(\"reason\", \"operation.equipment.reason.size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", (bad_size > 0) ? \"large\" : \"small\")}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 522,
+      "api": "zh_word_arg",
+      "anchor": "NO_EQUIP(zh_message_arg(\"reason\", \"operation.equipment.reason.size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", (bad_size > 0) ? \"large\" : \"small\")}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 534,
+      "api": "zh_message_arg",
+      "anchor": "NO_EQUIP(zh_message_arg(\"reason\", \"operation.equipment.reason.helmet_size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", \"small\")}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 534,
+      "api": "zh_word_arg",
+      "anchor": "NO_EQUIP(zh_message_arg(\"reason\", \"operation.equipment.reason.helmet_size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", \"small\")}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 536,
+      "api": "zh_message_arg",
+      "anchor": "NO_EQUIP(zh_message_arg(\"reason\", \"operation.equipment.reason.helmet_size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", \"large\")}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 536,
+      "api": "zh_word_arg",
+      "anchor": "NO_EQUIP(zh_message_arg(\"reason\", \"operation.equipment.reason.helmet_size\", {zh_word_arg(\"size_relation\", \"operation.equipment.value.\", \"large\")}))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 538,
+      "api": "zh_message_arg",
+      "anchor": "NO_EQUIP(zh_message_arg(\"reason\", \"operation.equipment.reason.reptilian_head\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 540,
+      "api": "zh_message_arg",
+      "anchor": "NO_EQUIP(zh_message_arg(\"reason\", \"operation.equipment.reason.octopode_helmet\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 542,
+      "api": "zh_message_arg",
+      "anchor": "NO_EQUIP(zh_message_arg(\"reason\", \"operation.equipment.reason.horns_helmet\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 544,
+      "api": "zh_message_arg",
+      "anchor": "NO_EQUIP(zh_message_arg(\"reason\", \"operation.equipment.reason.antennae_helmet\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 546,
+      "api": "zh_message_arg",
+      "anchor": "NO_EQUIP(zh_message_arg(\"reason\", \"operation.equipment.reason.beak_helmet\"))"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 555,
+      "api": "zh_message_arg",
+      "anchor": "NO_EQUIP(zh_message_arg(\"reason\", \"operation.equipment.reason.weapon_size\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 802,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.cursed_slot\", {zh_item_arg(\"item\", *cursed_item, DESC_YOUR)}), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 802,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.reason.cursed_slot\", {zh_item_arg(\"item\", *cursed_item, DESC_YOUR)}), MSGCH_PROMPT);"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1201,
+      "api": "zh_item_arg",
+      "anchor": "meld_msg.push_back(zh_item_arg(\"item\", *meld_item, DESC_PLAIN));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1203,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.meld\", {zh_message_list(\"items\", meld_msg), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", meld_msg.size() > 1 ? \"\" : \"s\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1203,
+      "api": "zh_message_list",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.meld\", {zh_message_list(\"items\", meld_msg), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", meld_msg.size() > 1 ? \"\" : \"s\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1203,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.meld\", {zh_message_list(\"items\", meld_msg), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", meld_msg.size() > 1 ? \"\" : \"s\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1317,
+      "api": "zh_item_arg",
+      "anchor": "unmeld_msg.push_back(zh_item_arg(\"item\", *unmeld_item, DESC_PLAIN));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1319,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.unmeld\", {zh_message_list(\"items\", unmeld_msg), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", unmeld_msg.size() > 1 ? \"\" : \"s\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1319,
+      "api": "zh_message_list",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.unmeld\", {zh_message_list(\"items\", unmeld_msg), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", unmeld_msg.size() > 1 ? \"\" : \"s\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1319,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.unmeld\", {zh_message_list(\"items\", unmeld_msg), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", unmeld_msg.size() > 1 ? \"\" : \"s\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1513,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.light\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1738,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.contamination_start\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1743,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.bane\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1750,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.rampage_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1756,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.archmagi_weak\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1758,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.archmagi_power\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1805,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.contamination_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1812,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.rampage_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1816,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.archmagi_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1834,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.fragile_break\", {zh_item_arg(\"item\", item, DESC_THE)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1834,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.fragile_break\", {zh_item_arg(\"item\", item, DESC_THE)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1845,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.warn_holy\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1847,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.warn_evil\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1849,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.warn_unclean\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1851,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.warn_chaotic\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1853,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.warn_hasty\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1855,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.warn_wizardly\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1872,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_flame_on\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1872,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_flame_on\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1876,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(is_range_weapon(item) ? \"operation.equipment.effect.weapon_freeze_ranged\" : \"operation.equipment.effect.weapon_freeze_melee\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1876,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(is_range_weapon(item) ? \"operation.equipment.effect.weapon_freeze_ranged\" : \"operation.equipment.effect.weapon_freeze_melee\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1882,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_dull\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1882,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_dull\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1886,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_divine\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1886,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_divine\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1893,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_dull\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1893,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_dull\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1897,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_foul\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1897,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_foul\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1904,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_electric_hear\"), MSGCH_SOUND);"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1907,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.spark_sight\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1911,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_venom\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1911,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_venom\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1915,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_protection\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1915,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_protection\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1919,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.draining_aura\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1926,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.speed_tingle\","
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1928,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"verb\", \"operation.equipment.value.\", conjugate_verb(\"tingle\", plural))}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1933,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.vampire_dread\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1941,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_pain_trog\", {zh_item_arg(\"item\", item, DESC_YOUR)}, make_stringf(\"Trog suppresses %s necromantic effect.\", apostrophise(item_name).c_str())), MSGCH_GOD);"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1941,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_pain_trog\", {zh_item_arg(\"item\", item, DESC_YOUR)}, make_stringf(\"Trog suppresses %s necromantic effect.\", apostrophise(item_name).c_str())), MSGCH_GOD);"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1944,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.pain_ineptitude\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1947,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_pain_skill_low\", {zh_glossary_name(\"arm\", \"body_part\", you.arm_name(false))}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1951,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_pain_skill_high\", {zh_glossary_name(\"arm\", \"body_part\", you.arm_name(false))}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1957,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_chaos\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1957,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_chaos\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1967,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_penetration\", {zh_glossary_name(\"hand\", \"body_part\", hand), zh_word_arg(\"verb\", \"operation.equipment.value.\", conjugate_verb(\"pass\", plural))}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1967,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_penetration\", {zh_glossary_name(\"hand\", \"body_part\", hand), zh_word_arg(\"verb\", \"operation.equipment.value.\", conjugate_verb(\"pass\", plural))}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1972,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_reaping\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1972,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_reaping\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1977,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.antimagic_fail\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1981,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.antimagic_leave\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1986,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.distortion_warp\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1990,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_acid\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1990,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_acid\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1994,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_spectral\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1994,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_spectral\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1998,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_rebuke\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_glossary_name(\"hand\", \"body_part\", you.hand_name(true))}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 1998,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_rebuke\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_glossary_name(\"hand\", \"body_part\", you.hand_name(true))}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2003,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_valour_eager\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2005,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_valour_dull\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_glossary_name(\"hand\", \"body_part\", you.hand_name(true))}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2005,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_valour_dull\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_glossary_name(\"hand\", \"body_part\", you.hand_name(true))}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2009,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_vines\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2009,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_vines\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2013,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_sunder\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2013,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_sunder\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2017,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_concussion\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2017,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_concussion\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2021,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.devious_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2033,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_arg(\"item_name\", item, DESC_INVENTORY_EQUIP)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2033,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_arg(\"item_name\", item, DESC_INVENTORY_EQUIP)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2053,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops flaming\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2053,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops flaming\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2053,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops flaming\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2058,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops glowing\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2058,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops glowing\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2058,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops glowing\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2063,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops glowing\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2063,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops glowing\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2063,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops glowing\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2068,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops glowing\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2068,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops glowing\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2068,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops glowing\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2073,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops crackling\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2073,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops crackling\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2073,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops crackling\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2078,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops dripping with poison\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2078,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops dripping with poison\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2078,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops dripping with poison\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2083,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"goes still\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2083,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"goes still\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2083,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"goes still\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2093,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.vampire_subside\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2105,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.magic_return\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2120,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops oozing corrosive slime\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2120,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops oozing corrosive slime\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2120,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops oozing corrosive slime\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2125,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops quivering\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2125,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops quivering\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2125,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops quivering\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2129,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.valour_meek\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2134,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.safety.vines_retreat\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2134,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.safety.vines_retreat\", {zh_item_arg(\"item\", item, DESC_YOUR)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2139,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"goes dull\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2139,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"goes dull\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2139,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"goes dull\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2144,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops radiating force\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2144,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops radiating force\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2144,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.weapon_brand_off\", {zh_item_arg(\"item\", item, DESC_YOUR), zh_word_arg(\"phrase\", \"operation.equipment.value.\", \"stops radiating force\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2148,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.devious_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2161,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.spirit_draw\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2166,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.deepdwarf_spirit\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2173,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.spirit_powerless\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2176,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.spirit_watch\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2220,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.fire_resist_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2224,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.cold_resist_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2229,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.poison_resist_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2233,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.see_invis_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2239,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.invis_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2255,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.ponderous_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2263,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.will_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2267,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.protection_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2272,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.stealth_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2276,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.resistance_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2280,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.positive_energy_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2285,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.archmagi_weak\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2287,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.archmagi_power\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2295,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.aim_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2299,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.repulsion_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2303,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.shadows_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2309,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.rampage_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2315,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.infusion_pool\", {zh_glossary_name(\"hands\", \"body_part\", you.hand_name(true))}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2321,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.hands_empty\", {zh_glossary_name(\"hands\", \"body_part\", hands), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", can_plural ? \"\" : \"s\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2321,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.hands_empty\", {zh_glossary_name(\"hands\", \"body_part\", hands), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", can_plural ? \"\" : \"s\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2351,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.fire_resist_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2355,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.cold_resist_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2360,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.poison_resist_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2366,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.see_invis_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2387,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.spring_step\", {zh_word_arg(\"movement\", \"operation.equipment.value.\", noun)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2387,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.spring_step\", {zh_word_arg(\"movement\", \"operation.equipment.value.\", noun)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2398,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.will_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2402,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.protection_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2407,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.stealth_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2411,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.resistance_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2415,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.positive_energy_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2419,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.archmagi_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2425,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.alone\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2428,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.deepdwarf_magic\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2434,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.aim_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2438,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.repulsion_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2442,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.shadows_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2448,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.rampage_off\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2453,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.infusion_leave\", {zh_glossary_name(\"hands\", \"body_part\", you.hand_name(true))}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2489,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.faith_less_pious\"), MSGCH_GOD);"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2523,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.regen_cold\", {zh_glossary_name(\"item_type\", \"item.base\", item_name), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", plural ? \"\" : \"s\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2523,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.regen_cold\", {zh_glossary_name(\"item_type\", \"item.base\", item_name), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", plural ? \"\" : \"s\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2530,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.regen_cold\", {zh_glossary_name(\"item_type\", \"item.base\", item_name), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", plural ? \"\" : \"s\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2530,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.regen_cold\", {zh_glossary_name(\"item_type\", \"item.base\", item_name), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", plural ? \"\" : \"s\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2540,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.regen_attune\", {zh_glossary_name(\"item_type\", \"item.base\", item_name), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", plural ? \" as they attune themselves\" : \"s as it attunes itself\"), zh_word_arg(\"state\", \"operation.equipment.value.\", regen_hp ? \" uninjured\" : \"\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2540,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.regen_attune\", {zh_glossary_name(\"item_type\", \"item.base\", item_name), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", plural ? \" as they attune themselves\" : \"s as it attunes itself\"), zh_word_arg(\"state\", \"operation.equipment.value.\", regen_hp ? \" uninjured\" : \"\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2540,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.regen_attune\", {zh_glossary_name(\"item_type\", \"item.base\", item_name), zh_word_arg(\"plural_suffix\", \"operation.equipment.value.\", plural ? \" as they attune themselves\" : \"s as it attunes itself\"), zh_word_arg(\"state\", \"operation.equipment.value.\", regen_hp ? \" uninjured\" : \"\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2545,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.regen_cannot_attune\", {zh_glossary_name(\"item_type\", \"item.base\", item_name), zh_word_arg(\"pronoun\", \"operation.equipment.value.\", plural ? \"themselves\" : \"itself\"), zh_word_arg(\"state\", \"operation.equipment.value.\", low_hp ? \" injured\" : \" exhausted\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2545,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.regen_cannot_attune\", {zh_glossary_name(\"item_type\", \"item.base\", item_name), zh_word_arg(\"pronoun\", \"operation.equipment.value.\", plural ? \"themselves\" : \"itself\"), zh_word_arg(\"state\", \"operation.equipment.value.\", low_hp ? \" injured\" : \" exhausted\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2545,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.regen_cannot_attune\", {zh_glossary_name(\"item_type\", \"item.base\", item_name), zh_word_arg(\"pronoun\", \"operation.equipment.value.\", plural ? \"themselves\" : \"itself\"), zh_word_arg(\"state\", \"operation.equipment.value.\", low_hp ? \" injured\" : \" exhausted\")}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2566,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.reflect_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2604,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.foreign_magic\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2615,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.amulet_confidence\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2620,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.faith_enough\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2626,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.safety.faith_ignore\","
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2630,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.divine_interest\", {zh_word_arg(\"modifier\", \"operation.equipment.value.\", you_worship(GOD_NO_GOD) ? \"strange \" : \"\")}), MSGCH_GOD);"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2630,
+      "api": "zh_word_arg",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.divine_interest\", {zh_word_arg(\"modifier\", \"operation.equipment.value.\", you_worship(GOD_NO_GOD) ? \"strange \" : \"\")}), MSGCH_GOD);"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2638,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.acrobat_noop\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2640,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.acrobat_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2648,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.wildshape_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2653,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.alchemy_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2657,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.dissipation_on\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2668,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_arg(\"item_name\", item, DESC_INVENTORY_EQUIP)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2668,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.pickup.item_name\", {zh_item_arg(\"item_name\", item, DESC_INVENTORY_EQUIP)}));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2740,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.deepdwarf_magic\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2773,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.distortion_safe\","
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2775,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"action\", \"operation.equipment.value.\", brand ? \"rebrand\" : \"unwield\")}), MSGCH_GOD);"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2782,
+      "api": "zh_message",
+      "anchor": "you_teleport_now(false, zh_message(\"operation.equipment.effect.distortion_teleport\"));"
+    },
+    {
+      "file": "crawl-ref/source/player-equip.cc",
+      "line": 2793,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.equipment.effect.warp_into\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 58,
+      "api": "zh_message_arg",
+      "anchor": "const ZhArg value = zh_message_arg(\"reason\", id);"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 147,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.curing.queasy\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 158,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.curing.inert\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 217,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.heal_wounds.queasy\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 222,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.heal_wounds.inert\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 233,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.heal_wounds.better\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 297,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(were_mighty ? \"operation.potion.might.stronger\" : \"operation.potion.might.fresh\"), MSGCH_DURATION);"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 338,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(were_brilliant ? \"operation.potion.brilliance.stronger\" : \"operation.potion.brilliance.fresh\"), MSGCH_DURATION);"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 364,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(was_attractive ? \"operation.potion.attraction.stronger\" : \"operation.potion.attraction.fresh\"), MSGCH_DURATION);"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 424,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.cancellation.purged\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 429,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.cancellation.contamination_less\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 452,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(you.duration[DUR_AMBROSIA] ? \"operation.potion.ambrosia.more\" : \"operation.potion.ambrosia.fresh\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 459,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.ambrosia.brief\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 481,
+      "api": "zh_message_arg",
+      "anchor": "afflictions.push_back(zh_message_arg(\"affliction\","
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 484,
+      "api": "zh_message_arg",
+      "anchor": "afflictions.push_back(zh_message_arg(\"affliction\","
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 487,
+      "api": "zh_message_arg",
+      "anchor": "afflictions.push_back(zh_message_arg(\"affliction\","
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 490,
+      "api": "zh_message_arg",
+      "anchor": "afflictions.push_back(zh_message_arg(\"affliction\","
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 493,
+      "api": "zh_message_arg",
+      "anchor": "afflictions.push_back(zh_message_arg(\"affliction\","
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 496,
+      "api": "zh_message_arg",
+      "anchor": "afflictions.push_back(zh_message_arg(\"affliction\","
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 498,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.invisibility.affliction\", {"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 499,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"degree\", \"operation.potion.invisibility.degree.\","
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 501,
+      "api": "zh_word_arg",
+      "anchor": "zh_word_arg(\"possessive\", \"operation.potion.invisibility.possessive.\","
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 503,
+      "api": "zh_message_list",
+      "anchor": "zh_message_list(\"afflictions\", afflictions)}), MSGCH_DURATION);"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 507,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(!you.duration[DUR_INVIS] ? \"operation.potion.invisibility.first\""
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 527,
+      "api": "zh_message",
+      "anchor": "&& !yesno(zh_message(\"operation.potion.invisibility.confirm_temporary\", {reason}), false, 'n'))"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 573,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.experience.level\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 579,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.experience.memories\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 637,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.magic.no_effect\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 642,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.magic.armour_enhances\", {zh_item_arg(\"armour\", *you.body_armour(), DESC_THE)}));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 642,
+      "api": "zh_item_arg",
+      "anchor": "mpr(zh_message(\"operation.potion.magic.armour_enhances\", {zh_item_arg(\"armour\", *you.body_armour(), DESC_THE)}));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 645,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.magic.savour\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 647,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.magic.courses\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 673,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.berserk.irritated\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 712,
+      "api": "zh_message_arg",
+      "anchor": "const ZhArg value = zh_message_arg(\"reason\", temporary"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 735,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.resistance.protected\"), MSGCH_DURATION);"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 771,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.lignify.too_dead\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 789,
+      "api": "zh_message",
+      "anchor": "&& !yesno(zh_message(\"operation.potion.lignify.cloud_confirm\","
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 790,
+      "api": "zh_word_arg",
+      "anchor": "{zh_word_arg(\"cloud\", \"movement.confirm.cloud_name.\", cloud_type_name(cloud))}), false, 'n'))"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 803,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.lignify.woody\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 834,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.mutation.strange\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 866,
+      "api": "zh_message",
+      "anchor": "const ZhMessage msg = zh_message(you.rmut_from_item()"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 896,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.moonshine.tipsy\"));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 979,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.fungus.spores.\" + _spore_msg.at(potion)));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 1001,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.unknown_identified\", {zh_item_quantity_arg(\"potion\", potion, 1, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 1001,
+      "api": "zh_item_quantity_arg",
+      "anchor": "mpr(zh_message(\"operation.potion.unknown_identified\", {zh_item_quantity_arg(\"potion\", potion, 1, DESC_A)}));"
+    },
+    {
+      "file": "crawl-ref/source/potion.cc",
+      "line": 1010,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"operation.potion.alchemy.extract\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 128,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.quiver.fixed.1074683161dc\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 132,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.quiver.fixed.9407bd01a4e0\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 172,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"caption\", \"quiver.prompt.\" + suffix"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 178,
+      "api": "zh_item_arg",
+      "anchor": "auto name = zh_item_arg(\"name\", item, DESC_PLAIN);"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 189,
+      "api": "zh_message",
+      "anchor": "result += formatted_string::parse_string_raw(zh_message(\"quiver.prompt.named\","
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 197,
+      "api": "zh_message",
+      "anchor": "zh_message(short_desc ? \"quiver.prompt.empty.short\""
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 213,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"quiver.prompt.description\","
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 320,
+      "api": "zh_message",
+      "anchor": "auto message = zh_message(no_other_items ? \"quiver.prompt.keys.select\""
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 621,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.quiver.fixed.205abeaf1832\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 633,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.quiver.fixed.ca609a6e55e1\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 635,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.quiver.fixed.4b1e92859bf3\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 708,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.quiver.fixed.df9264af4818\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 792,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.quiver.fixed.f41b93943185\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 809,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.quiver.fixed.6ee7d04d31b5\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 811,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.quiver.fixed.f0c8efe09afe\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 907,
+      "api": "zh_message_arg",
+      "anchor": "qdesc += _quiver_named_description(zh_message_arg(\"caption\", id),"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 1018,
+      "api": "zh_message_arg",
+      "anchor": "caption = zh_message_arg(\"caption\", string(\"quiver.prompt.\")"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 1251,
+      "api": "zh_message_arg",
+      "anchor": "ZhArg caption = zh_message_arg(\"caption\", channelled_spell_active(spell)"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 1255,
+      "api": "zh_word_arg",
+      "anchor": "ZhArg name = zh_word_arg(\"name\", \"spell.name.\", title, ZhArgType::Name);"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 1258,
+      "api": "zh_message",
+      "anchor": "const auto charges = zh_message(\"quiver.prompt.spell.charges\","
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 1267,
+      "api": "zh_message",
+      "anchor": "const auto failure = zh_message(\"quiver.prompt.spell.failure\","
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 1375,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.quiver.fixed.1a5179633fbd\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 1533,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.quiver.fixed.89927b47a2e7\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 1552,
+      "api": "zh_message_arg",
+      "anchor": "name = zh_message_arg(\"name\", \"quiver.prompt.ability.build\","
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 1561,
+      "api": "zh_message_arg",
+      "anchor": "? zh_message_arg(\"cards\", \"quiver.prompt.cards.next\","
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 1563,
+      "api": "zh_message_arg",
+      "anchor": ": zh_message_arg(\"cards\", \"quiver.prompt.cards.deck\","
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 1570,
+      "api": "zh_message_arg",
+      "anchor": "zh_message_arg(\"caption\", \"quiver.prompt.ability\"), name, quiver_color());"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 2547,
+      "api": "zh_message",
+      "anchor": "s += zh_message(\"quiver.prompt.menu.inventory\").display();"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 2549,
+      "api": "zh_message",
+      "anchor": "s += zh_message(\"quiver.prompt.menu.spells\").display();"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 2551,
+      "api": "zh_message",
+      "anchor": "s += zh_message(\"quiver.prompt.menu.abilities\").display();"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 2554,
+      "api": "zh_message",
+      "anchor": "string mode = zh_message(focus_mode == Focus::NONE"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 2568,
+      "api": "zh_message",
+      "anchor": "action_desc += zh_message(\"quiver.prompt.menu.quivered\").display();"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 2671,
+      "api": "zh_message",
+      "anchor": "return zh_message(id,"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 2720,
+      "api": "zh_message",
+      "anchor": "more_message = zh_message(\"quiver.prompt.menu.no_actions\").display();"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 2750,
+      "api": "zh_message",
+      "anchor": "int slot = prompt_invent_item(zh_message(allow_empty"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 2837,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.quiver.fixed.ffae51a08912\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 2877,
+      "api": "zh_message",
+      "anchor": "return formatted_string::parse_string_raw(zh_message(allow_empty"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 3009,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.quiver.fixed.7df9d7641b32\"));"
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 3023,
+      "api": "zh_message",
+      "anchor": "const auto prompt = zh_message(\"quiver.prompt.confirm\","
+    },
+    {
+      "file": "crawl-ref/source/quiver.cc",
+      "line": 3024,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"item\", you.inv[s->get_item()], DESC_INVENTORY)});"
+    },
+    {
+      "file": "crawl-ref/source/religion.cc",
+      "line": 835,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.equipment.value.faith_ignore.gozag\");"
+    },
+    {
+      "file": "crawl-ref/source/religion.cc",
+      "line": 837,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.equipment.value.faith_ignore.ashen\");"
+    },
+    {
+      "file": "crawl-ref/source/religion.cc",
+      "line": 840,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.equipment.value.faith_ignore.ignis\");"
+    },
+    {
+      "file": "crawl-ref/source/religion.cc",
+      "line": 844,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"operation.equipment.value.faith_ignore.ru\");"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 78,
+      "api": "zh_message",
+      "anchor": "return count > 1 ? zh_message(\"transloc.teleport.follow.monsters\")"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 79,
+      "api": "zh_message",
+      "anchor": ": zh_message(\"transloc.teleport.follow.monster\");"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 85,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"transloc.gravitas.around_monster\", {zh_monster_arg(\"monster\", *mon)});"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 96,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"transloc.gravitas.around_terrain\", {terrain});"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 98,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"transloc.gravitas.inward\");"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 105,
+      "api": "zh_message",
+      "anchor": "? zh_message(\"transloc.beckon.singular\", {name})"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 106,
+      "api": "zh_message",
+      "anchor": ": zh_message(\"transloc.beckon.plural\", {name});"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 112,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"transloc.piledriver.one\", {zh_monster_arg(\"monster\", *mons[0])});"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 113,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"transloc.piledriver.many\","
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 189,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.blink.no_landing\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 214,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.jump_in_place\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 247,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.jump_air\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 282,
+      "api": "zh_message",
+      "anchor": "args.top_prompt = zh_message(hopping ? \"transloc.target.hop.where\""
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 290,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(hopping ? \"transloc.target.hop.hup\""
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 297,
+      "api": "zh_message",
+      "anchor": "const ZhMessage prompt = zh_message(hopping ? \"transloc.target.hop.cancel\""
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 314,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(hopping ? \"transloc.target.hop.away\""
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 324,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(hopping ? \"transloc.target.hop.closer\""
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 332,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(hopping ? \"transloc.target.hop.solid\""
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 340,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(hopping ? \"transloc.target.hop.occupied\""
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 382,
+      "api": "zh_message",
+      "anchor": "args.top_prompt = zh_message(\"transloc.target.blink.where\").display();"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 395,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.blink_map_border\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 402,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.blink_monsters\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 519,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.out_of_range\")); // ! targeting"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 533,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.hop_no_room\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 542,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.boing\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 559,
+      "api": "zh_message_arg",
+      "anchor": "example_reason = zh_message_arg(\"reason\", \"transloc.charge.reason.target\","
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 571,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"transloc.charge.reason.none\");"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 574,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(\"reason\", \"transloc.charge.reason.many\");"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 607,
+      "api": "zh_message_arg",
+      "anchor": "_charge_failure(zh_message_arg(\"reason\", \"transloc.charge.reason.self\"),"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 614,
+      "api": "zh_message_arg",
+      "anchor": "_charge_failure(zh_message_arg(\"reason\", \"transloc.charge.reason.adjacent\"),"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 622,
+      "api": "zh_message_arg",
+      "anchor": "_charge_failure(zh_message_arg(\"reason\", \"transloc.charge.reason.out_of_range\"),"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 633,
+      "api": "zh_message_arg",
+      "anchor": "_charge_failure(zh_message_arg(\"reason\", \"transloc.charge.reason.unseen\"),"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 642,
+      "api": "zh_message_arg",
+      "anchor": "_charge_failure(zh_message_arg(\"reason\", \"transloc.charge.reason.ally\"),"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 664,
+      "api": "zh_message_arg",
+      "anchor": "_charge_failure(zh_message_arg(\"reason\", \"transloc.charge.reason.blocked\"),"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 688,
+      "api": "zh_message_arg",
+      "anchor": "_charge_failure(zh_message_arg(\"reason\", \"transloc.charge.reason.terrain_blocked\","
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 697,
+      "api": "zh_message_arg",
+      "anchor": "_charge_failure(zh_message_arg(\"reason\", \"transloc.charge.reason.stationary\","
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 712,
+      "api": "zh_message_arg",
+      "anchor": "_charge_failure(zh_message_arg(\"reason\", \"transloc.charge.reason.beholder\","
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 723,
+      "api": "zh_message_arg",
+      "anchor": "_charge_failure(zh_message_arg(\"reason\", \"transloc.charge.reason.fearmonger\","
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 761,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.hurled_away\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 827,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.charge.immovably_fixed\", {zh_monster_arg(\"monster\", *dest_mon)}));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 844,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.charge_silence\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 846,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.charge_crackle\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 855,
+      "api": "zh_message",
+      "anchor": "mpr(agent.is_monster() ? zh_message(\"transloc.charge.remains\")"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 856,
+      "api": "zh_message",
+      "anchor": ": zh_message(\"transloc.charge.remain\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 941,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.blink.orb_interference\"), MSGCH_ORB);"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 954,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.blink.occupied\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1003,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.stable\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1010,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.start_player\"), MSGCH_WARN);"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1012,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.start_hostile\"), MSGCH_WARN);"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1014,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.start_other\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1020,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.delay_abyss\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1025,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.delay_orb\"), MSGCH_ORB);"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1083,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.surroundings_flicker\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1088,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.surroundings_slightly\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1093,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.surroundings_suddenly\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1156,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.hup_cancel\"), MSGCH_ERROR);"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1173,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.wizard_blocked\"), MSGCH_WARN);"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1324,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.teleport.source_arrives\","
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1459,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.ranged_link.created\", {zh_monster_arg(\"monster\", *target)}));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1527,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.no_attack_target\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1529,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.no_safe_attack_target\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1551,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.manifold.blade\", {zh_actor_arg(\"actor\", &agent, DESC_ITS)}));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1553,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.warp\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1623,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.no_apport_target\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1631,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.cannot_apport\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1698,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.terrain_blocked\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1706,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(item.quantity > 1 ? \"transloc.apport.many\""
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1729,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.gauntlet_seal\"), MSGCH_ORB);"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1736,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.out_of_range\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1742,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.passage_blocked\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1777,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.passage_other_side_wall\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1782,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.passage_space\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1797,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.bug\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1832,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.air_shimmers\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1904,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.tambourine\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 1928,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.gravitas.pinned\", {zh_monster_arg(\"monster\", *mon)}));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 2031,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.gravity.attracted\", {zh_monster_arg(\"monster\", mon)}));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 2079,
+      "api": "zh_message",
+      "anchor": "if (!yesno(zh_message(\"transloc.chaos.confirm\"), true, 'n'))"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 2089,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.chaos_word\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 2123,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.no_target\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 2138,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.blinkbolt.away\", {name}));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 2147,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.blinkbolt.closer\", {name}));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 2317,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.space_blocked\"));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 2449,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(direction_message));"
+    },
+    {
+      "file": "crawl-ref/source/spl-transloc.cc",
+      "line": 2628,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.bestial.pounce\", {zh_monster_arg(\"monster\", *targ)}));"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 119,
+      "api": "zh_message_arg",
+      "anchor": "name = zh_message_arg(\"species\", \"monster.name.headed\","
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 296,
+      "api": "zh_message",
+      "anchor": "base_zh = zh_message(\"item.book.display.manual\", {skill}).localized;"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 304,
+      "api": "zh_word_arg",
+      "anchor": "const ZhArg spell = zh_word_arg(\"spell\", \"spell.name.\","
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 308,
+      "api": "zh_message",
+      "anchor": "base_zh = zh_message(\"item.book.display.parchment\", {spell}).localized;"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 315,
+      "api": "zh_message",
+      "anchor": "base_zh = zh_message(\"item.wand.display.charges\", {"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 324,
+      "api": "zh_message",
+      "anchor": "base_zh = zh_message(\"item.miscellany.display.ziggurat_progress\", {"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 327,
+      "api": "zh_message",
+      "anchor": "base_zh = zh_message(\"item.miscellany.display.evoker_plus\", {"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 330,
+      "api": "zh_message",
+      "anchor": "base_zh = zh_message(\"item.miscellany.display.inert\", {name()}).localized;"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 332,
+      "api": "zh_message",
+      "anchor": "base_zh = zh_message(\"item.miscellany.display.charges\", {"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 458,
+      "api": "zh_word_arg",
+      "anchor": "const ZhArg branch = zh_word_arg(\"branch\", \"place.branch.\","
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 461,
+      "api": "zh_message",
+      "anchor": "? zh_message(\"place.display.named\", {branch})"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 462,
+      "api": "zh_message",
+      "anchor": ": zh_message(\"place.display.level\","
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 574,
+      "api": "zh_item_arg",
+      "anchor": "ZhArg zh_item_arg(const std::string &key, const item_def &item,"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 616,
+      "api": "zh_item_arg",
+      "anchor": "const ZhArg arg = zh_item_arg(\"name\", item, desc);"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 620,
+      "api": "zh_item_quantity_arg",
+      "anchor": "ZhArg zh_item_quantity_arg(const std::string &key, const item_def &item,"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 625,
+      "api": "zh_item_arg",
+      "anchor": "return zh_item_arg(key, snapshot, desc);"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 628,
+      "api": "zh_item_menu_arg",
+      "anchor": "ZhArg zh_item_menu_arg(const std::string &key, const item_def &item,"
+    },
+    {
+      "file": "crawl-ref/source/zh-display-name.cc",
+      "line": 631,
+      "api": "zh_item_arg",
+      "anchor": "ZhArg result = zh_item_arg(key, item, desc);"
+    },
+    {
+      "file": "crawl-ref/source/zh-message.cc",
+      "line": 101,
+      "api": "zh_message",
+      "anchor": "ZhMessage zh_message(const std::string &id,std::initializer_list<ZhArg> values,const std::string &canonical) {"
+    },
+    {
+      "file": "crawl-ref/source/zh-message.cc",
+      "line": 170,
+      "api": "zh_word_arg",
+      "anchor": "ZhArg zh_word_arg(const std::string &key,const std::string &domain,const std::string &english,ZhArgType kind) {"
+    },
+    {
+      "file": "crawl-ref/source/zh-message.cc",
+      "line": 182,
+      "api": "zh_word_arg",
+      "anchor": "const auto arg=zh_word_arg(\"value\",domain,english);"
+    },
+    {
+      "file": "crawl-ref/source/zh-message.cc",
+      "line": 214,
+      "api": "zh_message",
+      "anchor": "return zh_message(entry.id).display();"
+    },
+    {
+      "file": "crawl-ref/source/zh-message.cc",
+      "line": 234,
+      "api": "zh_message_arg",
+      "anchor": "return zh_message_arg(key, entry.id);"
+    },
+    {
+      "file": "crawl-ref/source/zh-message.cc",
+      "line": 241,
+      "api": "zh_message_arg",
+      "anchor": "ZhArg zh_message_arg(const std::string &key, const std::string &id,"
+    },
+    {
+      "file": "crawl-ref/source/zh-message.cc",
+      "line": 243,
+      "api": "zh_message",
+      "anchor": "const ZhMessage value = zh_message(id, args);"
+    },
+    {
+      "file": "crawl-ref/source/zh-message.cc",
+      "line": 251,
+      "api": "zh_message_list",
+      "anchor": "ZhArg zh_message_list(const std::string &key, const std::vector<ZhArg> &items) {"
+    },
+    {
+      "file": "crawl-ref/source/zh-message.cc",
+      "line": 267,
+      "api": "zh_named_arg",
+      "anchor": "ZhArg zh_named_arg(const std::string &key, ZhArg value)"
+    }
+  ]
+}

@@ -21,7 +21,8 @@ const int ARMOUR_EQUIP_DELAY = 5;
 operation_types use_an_item_menu(item_def *&target, operation_types oper,
                 int item_type=OSEL_ANY,
                 const char* prompt=nullptr,
-                function<bool ()> allowcancel = [](){ return true; });
+                function<bool ()> allowcancel = [](){ return true; },
+                bool prompt_pretranslated = false);
 // Change the lambda to always_true<> when g++ 4.7 support is dropped.
 
 bool oni_drunken_swing();

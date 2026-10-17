@@ -1,0 +1,1089 @@
+{
+  "model": "Luna",
+  "messages": [
+    {
+      "id": "operation.safety.faith_ignore",
+      "context": "god message when a faith amulet is irrelevant to the current god; reason is one full leading-space ignore_faith_reason phrase",
+      "en": "{god}{reason}",
+      "zh": "{god}{reason}",
+      "params": {
+        "god": "name",
+        "reason": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect AMU_FAITH; simple_god_message(ignore_reason)",
+        "line": 2627
+      }
+    },
+    {
+      "id": "operation.safety.floor.identified",
+      "context": "message when a newly identified floor item is shown; item is item.name(DESC_A)",
+      "en": "You see here {item}.",
+      "zh": "你在这里看见{item}。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/items.cc",
+        "anchor": "pickup item identification at player position",
+        "line": 2694
+      }
+    },
+    {
+      "id": "operation.safety.floor.many",
+      "context": "floor inspection summary for item stacks; items is item_message(items)",
+      "en": "Items here: {items}.",
+      "zh": "这里有这些物品：{items}。",
+      "params": {
+        "items": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/items.cc",
+        "anchor": "item_check; stack summary threshold reached",
+        "line": 935
+      }
+    },
+    {
+      "id": "operation.safety.floor.single",
+      "context": "floor inspection single item message; item is menu_colour_item_name(DESC_A)",
+      "en": "You see here {item}.",
+      "zh": "你在这里看见{item}。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/items.cc",
+        "anchor": "item_check; one visible floor item",
+        "line": 928
+      }
+    },
+    {
+      "id": "operation.safety.inventory.title.evoke",
+      "context": "paged inventory title for evocable items category",
+      "en": "Evocable Items:     (Left/Right/Tab to switch category)",
+      "zh": "可激发物品     （按 Left/Right/Tab 切换类别）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/invent.cc",
+        "anchor": "InvMenu::set_title MF_PAGED_INVENTORY cur_osel=3",
+        "line": 343
+      }
+    },
+    {
+      "id": "operation.safety.inventory.title.gear",
+      "context": "paged inventory title for gear category; slots is slot_description() using operation.inventory.slot_description",
+      "en": "Gear: {slots}    (Left/Right/Tab to switch category)",
+      "zh": "{slots}    （按 Left/Right/Tab 切换类别）",
+      "params": {
+        "slots": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/invent.cc",
+        "anchor": "InvMenu::set_title MF_PAGED_INVENTORY cur_osel=0",
+        "line": 340
+      }
+    },
+    {
+      "id": "operation.safety.inventory.title.inventory",
+      "context": "ordinary inventory title; slots is slot_description() using operation.inventory.slot_description",
+      "en": "Inventory: {slots}",
+      "zh": "{slots}",
+      "params": {
+        "slots": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/invent.cc",
+        "anchor": "InvMenu::set_title when title is empty",
+        "line": 350
+      }
+    },
+    {
+      "id": "operation.safety.inventory.title.potions",
+      "context": "paged inventory title for potions category",
+      "en": "Potions:     (Left/Right/Tab to switch category)",
+      "zh": "药水     （按 Left/Right/Tab 切换类别）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/invent.cc",
+        "anchor": "InvMenu::set_title MF_PAGED_INVENTORY cur_osel=1",
+        "line": 341
+      }
+    },
+    {
+      "id": "operation.safety.inventory.title.scrolls",
+      "context": "paged inventory title for scrolls category",
+      "en": "Scrolls:     (Left/Right/Tab to switch category)",
+      "zh": "卷轴     （按 Left/Right/Tab 切换类别）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/invent.cc",
+        "anchor": "InvMenu::set_title MF_PAGED_INVENTORY cur_osel=2",
+        "line": 342
+      }
+    },
+    {
+      "id": "operation.safety.item_swap.candidate",
+      "context": "candidate choice in the short equipment swap prompt; key is the hotkey and item is name(DESC_INVENTORY)",
+      "en": "<w>{key}</w> or {item}",
+      "zh": "<w>{key}</w> 或 {item}",
+      "params": {
+        "key": "key",
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_item_swap_prompt; formatted choice line",
+        "line": 1195
+      }
+    },
+    {
+      "id": "operation.safety.menu.header.cycle",
+      "context": "hint appended to an inactive inventory/floor header; key is the configured header-cycle command markup",
+      "en": "<lightgray> ({key} to select)</lightgray>",
+      "zh": "<lightgray>（按{key}选择）</lightgray>",
+      "params": {
+        "key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "UseItemMenu::update_sections; cycle_hint and CMD_MENU_CYCLE_HEADERS",
+        "line": 624
+      }
+    },
+    {
+      "id": "operation.safety.menu.header.easy_floor",
+      "context": "hint for quick-using the sole floor item; action reuses operation.equipment.value.action.*",
+      "en": "<lightgray> ({key} to {action})</lightgray>",
+      "zh": "<lightgray>（按{key}执行：{action}）</lightgray>",
+      "params": {
+        "key": "key_markup",
+        "action": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "UseItemMenu::update_sections; easy_floor and _oper_name",
+        "line": 642
+      }
+    },
+    {
+      "id": "operation.safety.menu.header.floor",
+      "context": "UseItemMenu floor section heading",
+      "en": "Floor Items",
+      "zh": "地面物品",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "UseItemMenu::populate_menu and update_sections; floor section header",
+        "line": 507
+      }
+    },
+    {
+      "id": "operation.safety.menu.header.inventory",
+      "context": "UseItemMenu inventory section heading",
+      "en": "Inventory Items",
+      "zh": "背包物品",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "UseItemMenu::populate_menu and update_sections; inventory section header",
+        "line": 484
+      }
+    },
+    {
+      "id": "operation.safety.menu.teleport_cancel",
+      "context": "identified teleportation scroll while a teleport is already pending",
+      "en": " (cancels current teleport)",
+      "zh": "（会取消当前传送）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "_note_tele_cancel; appends to identified teleportation scroll menu entry while DUR_TELEPORT",
+        "line": 442
+      }
+    },
+    {
+      "id": "operation.safety.monster_announcement.many",
+      "context": "full warning announcement for multiple visible nearby monsters",
+      "en": "There are monsters nearby!",
+      "zh": "附近有多只怪物！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/nearby-danger.cc",
+        "anchor": "_seen_monsters_announcement; visible.size()>1, followed by _announce_monsters exclamation",
+        "line": 156
+      }
+    },
+    {
+      "id": "operation.safety.monster_announcement.one",
+      "context": "full warning announcement for one visible nearby monster",
+      "en": "{monster} is nearby!",
+      "zh": "{monster}就在附近！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/nearby-danger.cc",
+        "anchor": "_seen_monsters_announcement; visible.size()==1, followed by _announce_monsters exclamation",
+        "line": 153
+      }
+    },
+    {
+      "id": "operation.safety.monster_announcement.sensed",
+      "context": "full warning announcement for sensed but not visible nearby monster",
+      "en": "There is a strange disturbance nearby!",
+      "zh": "附近有一阵奇怪的动静！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/nearby-danger.cc",
+        "anchor": "_seen_monsters_announcement; sensed monster with no visible monsters, followed by _announce_monsters exclamation",
+        "line": 158
+      }
+    },
+    {
+      "id": "operation.safety.vines_retreat",
+      "context": "entangling weapon effect when it is unwielded; item is msg name",
+      "en": "The vines retreat back into {item}.",
+      "zh": "藤蔓缩回{item}之中。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "_unequip_weapon_effect SPWPN_ENTANGLING",
+        "line": 2135
+      }
+    },
+    {
+      "id": "operation.safety.warning",
+      "context": "i_feel_safe announced unsafe reason; warning punctuation wraps a reason ID without altering its semantics",
+      "en": "{reason}!",
+      "zh": "{reason}！",
+      "params": {
+        "reason": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/nearby-danger.cc",
+        "anchor": "UNSAFE_MSG; mprf MSGCH_WARN appends exclamation mark",
+        "line": 233
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "operation.safety.warning",
+      "args": {
+        "reason": {
+          "type": "text",
+          "canonical": "there is a lethal amount of poison in your body",
+          "localized": "你的体内毒素已达到致命剂量"
+        }
+      },
+      "canonical": "there is a lethal amount of poison in your body!",
+      "zh": "你的体内毒素已达到致命剂量！"
+    },
+    {
+      "id": "operation.safety.monster_announcement.one",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "a kobold",
+          "localized": "一只狗头人"
+        }
+      },
+      "canonical": "a kobold is nearby!",
+      "zh": "一只狗头人就在附近！"
+    },
+    {
+      "id": "operation.safety.monster_announcement.many",
+      "args": {},
+      "canonical": "There are monsters nearby!",
+      "zh": "附近有多只怪物！"
+    },
+    {
+      "id": "operation.safety.monster_announcement.sensed",
+      "args": {},
+      "canonical": "There is a strange disturbance nearby!",
+      "zh": "附近有一阵奇怪的动静！"
+    },
+    {
+      "id": "operation.safety.menu.header.cycle",
+      "args": {
+        "key": {
+          "type": "key_markup",
+          "canonical": "[Tab]",
+          "localized": "[Tab]"
+        }
+      },
+      "canonical": "<lightgray> ([Tab] to select)</lightgray>",
+      "zh": "<lightgray>（按[Tab]选择）</lightgray>"
+    },
+    {
+      "id": "operation.safety.menu.header.easy_floor",
+      "args": {
+        "key": {
+          "type": "key_markup",
+          "canonical": ",",
+          "localized": ","
+        },
+        "action": {
+          "type": "text",
+          "canonical": "quaff",
+          "localized": "喝下"
+        }
+      },
+      "canonical": "<lightgray> (, to quaff)</lightgray>",
+      "zh": "<lightgray>（按,执行：喝下）</lightgray>"
+    },
+    {
+      "id": "operation.safety.menu.teleport_cancel",
+      "args": {},
+      "canonical": " (cancels current teleport)",
+      "zh": "（会取消当前传送）"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "poison gas",
+          "localized": "毒气"
+        }
+      },
+      "canonical": "you are in a cloud of poison gas",
+      "zh": "你身处毒气云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.lethal_poison",
+      "args": {},
+      "canonical": "there is a lethal amount of poison in your body",
+      "zh": "你的体内毒素已达到致命剂量"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.lethal_contamination",
+      "args": {},
+      "canonical": "you are contaminated with a potentially lethal amount of magic",
+      "zh": "你受到的魔法污染可能致命"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.on_fire",
+      "args": {},
+      "canonical": "you are on fire",
+      "zh": "你身上着火了"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.emergency_flight",
+      "args": {},
+      "canonical": "you are being drained by your emergency flight",
+      "zh": "紧急飞行正在不断消耗你的力量"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.monster_one",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "a kobold",
+          "localized": "一只狗头人"
+        }
+      },
+      "canonical": "a kobold is nearby",
+      "zh": "一只狗头人就在附近"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.monsters_many",
+      "args": {},
+      "canonical": "there are monsters nearby",
+      "zh": "附近有怪物"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.monster_sensed",
+      "args": {},
+      "canonical": "there is a strange disturbance nearby",
+      "zh": "附近有一阵奇怪的动静"
+    },
+    {
+      "id": "operation.equipment.confirm.unsafe_delay",
+      "args": {
+        "reason": {
+          "type": "text",
+          "canonical": "you are in a cloud of poison gas",
+          "localized": "你身处毒气云雾中"
+        }
+      },
+      "canonical": "Spend multiple turns changing equipment while you are in a cloud of poison gas?",
+      "zh": "在你身处毒气云雾中的情况下仍要花多个回合更换装备吗？"
+    },
+    {
+      "id": "operation.equipment.menu.describe_selected",
+      "args": {},
+      "canonical": "[<w>?</w>] describe selected",
+      "zh": "[<w>?</w>] 查看选中物品"
+    },
+    {
+      "id": "operation.equipment.menu.mode_cycle",
+      "args": {
+        "command": {
+          "type": "key_markup",
+          "canonical": "[Tab]",
+          "localized": "[Tab]"
+        },
+        "modes": {
+          "type": "text",
+          "canonical": "<w>quaff</w>|read|evoke",
+          "localized": "<w>喝下</w>|阅读|激发"
+        }
+      },
+      "canonical": "[Tab] <w>quaff</w>|read|evoke   ",
+      "zh": "[Tab] <w>喝下</w>|阅读|激发   "
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "blazing flames",
+          "localized": "烈焰"
+        }
+      },
+      "canonical": "you are in a cloud of blazing flames",
+      "zh": "你身处烈焰云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "noxious fumes",
+          "localized": "有毒烟雾"
+        }
+      },
+      "canonical": "you are in a cloud of noxious fumes",
+      "zh": "你身处有毒烟雾云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "freezing vapours",
+          "localized": "冰冷蒸汽"
+        }
+      },
+      "canonical": "you are in a cloud of freezing vapours",
+      "zh": "你身处冰冷蒸汽云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "poison gas",
+          "localized": "毒气"
+        }
+      },
+      "canonical": "you are in a cloud of poison gas",
+      "zh": "你身处毒气云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "black smoke",
+          "localized": "黑烟"
+        }
+      },
+      "canonical": "you are in a cloud of black smoke",
+      "zh": "你身处黑烟云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "grey smoke",
+          "localized": "灰烟"
+        }
+      },
+      "canonical": "you are in a cloud of grey smoke",
+      "zh": "你身处灰烟云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "blue smoke",
+          "localized": "蓝烟"
+        }
+      },
+      "canonical": "you are in a cloud of blue smoke",
+      "zh": "你身处蓝烟云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "purple smoke",
+          "localized": "紫烟"
+        }
+      },
+      "canonical": "you are in a cloud of purple smoke",
+      "zh": "你身处紫烟云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "translocational energy",
+          "localized": "空间转移能量"
+        }
+      },
+      "canonical": "you are in a cloud of translocational energy",
+      "zh": "你身处空间转移能量云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "a forest fire",
+          "localized": "森林火灾"
+        }
+      },
+      "canonical": "you are in a cloud of a forest fire",
+      "zh": "你身处森林火灾云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "a cloud of scalding steam",
+          "localized": "滚烫蒸汽"
+        }
+      },
+      "canonical": "you are in a cloud of a cloud of scalding steam",
+      "zh": "你身处滚烫蒸汽云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "thick gloom",
+          "localized": "浓重阴霾"
+        }
+      },
+      "canonical": "you are in a cloud of thick gloom",
+      "zh": "你身处浓重阴霾云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "ink",
+          "localized": "墨汁"
+        }
+      },
+      "canonical": "you are in a cloud of ink",
+      "zh": "你身处墨汁云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "calcifying dust",
+          "localized": "钙化尘埃"
+        }
+      },
+      "canonical": "you are in a cloud of calcifying dust",
+      "zh": "你身处钙化尘埃云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "blessed fire",
+          "localized": "祝福之火"
+        }
+      },
+      "canonical": "you are in a cloud of blessed fire",
+      "zh": "你身处祝福之火云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "dark miasma",
+          "localized": "黑色瘴气"
+        }
+      },
+      "canonical": "you are in a cloud of dark miasma",
+      "zh": "你身处黑色瘴气云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "thin mist",
+          "localized": "薄雾"
+        }
+      },
+      "canonical": "you are in a cloud of thin mist",
+      "zh": "你身处薄雾云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "seething chaos",
+          "localized": "翻涌的混沌"
+        }
+      },
+      "canonical": "you are in a cloud of seething chaos",
+      "zh": "你身处翻涌的混沌云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "the rain",
+          "localized": "雨水"
+        }
+      },
+      "canonical": "you are in a cloud of the rain",
+      "zh": "你身处雨水云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "mutagenic fog",
+          "localized": "诱变雾气"
+        }
+      },
+      "canonical": "you are in a cloud of mutagenic fog",
+      "zh": "你身处诱变雾气云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "magical condensation",
+          "localized": "魔法凝露"
+        }
+      },
+      "canonical": "you are in a cloud of magical condensation",
+      "zh": "你身处魔法凝露云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "whirling frost",
+          "localized": "旋舞冰霜"
+        }
+      },
+      "canonical": "you are in a cloud of whirling frost",
+      "zh": "你身处旋舞冰霜云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "sparse dust",
+          "localized": "稀薄尘埃"
+        }
+      },
+      "canonical": "you are in a cloud of sparse dust",
+      "zh": "你身处稀薄尘埃云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "spectral mist",
+          "localized": "幽灵雾气"
+        }
+      },
+      "canonical": "you are in a cloud of spectral mist",
+      "zh": "你身处幽灵雾气云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "acidic fog",
+          "localized": "酸雾"
+        }
+      },
+      "canonical": "you are in a cloud of acidic fog",
+      "zh": "你身处酸雾云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "a thunderstorm",
+          "localized": "雷暴"
+        }
+      },
+      "canonical": "you are in a cloud of a thunderstorm",
+      "zh": "你身处雷暴云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "excruciating misery",
+          "localized": "极度痛苦"
+        }
+      },
+      "canonical": "you are in a cloud of excruciating misery",
+      "zh": "你身处极度痛苦云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "white fluffiness",
+          "localized": "白色绒团"
+        }
+      },
+      "canonical": "you are in a cloud of white fluffiness",
+      "zh": "你身处白色绒团云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "salt",
+          "localized": "盐"
+        }
+      },
+      "canonical": "you are in a cloud of salt",
+      "zh": "你身处盐云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "golden dust",
+          "localized": "金尘"
+        }
+      },
+      "canonical": "you are in a cloud of golden dust",
+      "zh": "你身处金尘云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "embers",
+          "localized": "余烬"
+        }
+      },
+      "canonical": "you are in a cloud of embers",
+      "zh": "你身处余烬云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "wisps of flame",
+          "localized": "火焰微粒"
+        }
+      },
+      "canonical": "you are in a cloud of wisps of flame",
+      "zh": "你身处火焰微粒云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "alcoholic mist",
+          "localized": "酒精雾气"
+        }
+      },
+      "canonical": "you are in a cloud of alcoholic mist",
+      "zh": "你身处酒精雾气云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "volatile sparks",
+          "localized": "不稳定火花"
+        }
+      },
+      "canonical": "you are in a cloud of volatile sparks",
+      "zh": "你身处不稳定火花云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "sparks",
+          "localized": "火花"
+        }
+      },
+      "canonical": "you are in a cloud of sparks",
+      "zh": "你身处火花云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "faint pestilence",
+          "localized": "微弱疫病"
+        }
+      },
+      "canonical": "you are in a cloud of faint pestilence",
+      "zh": "你身处微弱疫病云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "magnetised fragments",
+          "localized": "磁化碎片"
+        }
+      },
+      "canonical": "you are in a cloud of magnetised fragments",
+      "zh": "你身处磁化碎片云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "bats",
+          "localized": "蝙蝠"
+        }
+      },
+      "canonical": "you are in a cloud of bats",
+      "zh": "你身处蝙蝠云雾中"
+    },
+    {
+      "id": "operation.equipment.reason.unsafe.cloud",
+      "args": {
+        "cloud_type": {
+          "type": "text",
+          "canonical": "rust",
+          "localized": "锈"
+        }
+      },
+      "canonical": "you are in a cloud of rust",
+      "zh": "你身处锈云雾中"
+    },
+    {
+      "id": "operation.safety.item_swap.candidate",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        },
+        "item": {
+          "type": "name",
+          "canonical": "a +0 dagger",
+          "localized": "一把+0匕首"
+        }
+      },
+      "canonical": "<w>a</w> or a +0 dagger",
+      "zh": "<w>a</w> 或 一把+0匕首"
+    },
+    {
+      "id": "operation.safety.inventory.title.gear",
+      "args": {
+        "slots": {
+          "type": "text",
+          "canonical": "3/52 gear slots",
+          "localized": "装备栏位：3/52"
+        }
+      },
+      "canonical": "Gear: 3/52 gear slots    (Left/Right/Tab to switch category)",
+      "zh": "装备栏位：3/52    （按 Left/Right/Tab 切换类别）"
+    },
+    {
+      "id": "operation.safety.inventory.title.potions",
+      "args": {},
+      "canonical": "Potions:     (Left/Right/Tab to switch category)",
+      "zh": "药水     （按 Left/Right/Tab 切换类别）"
+    },
+    {
+      "id": "operation.safety.inventory.title.scrolls",
+      "args": {},
+      "canonical": "Scrolls:     (Left/Right/Tab to switch category)",
+      "zh": "卷轴     （按 Left/Right/Tab 切换类别）"
+    },
+    {
+      "id": "operation.safety.inventory.title.evoke",
+      "args": {},
+      "canonical": "Evocable Items:     (Left/Right/Tab to switch category)",
+      "zh": "可激发物品     （按 Left/Right/Tab 切换类别）"
+    },
+    {
+      "id": "operation.safety.inventory.title.inventory",
+      "args": {
+        "slots": {
+          "type": "text",
+          "canonical": "3/52 gear slots",
+          "localized": "装备栏位：3/52"
+        }
+      },
+      "canonical": "Inventory: 3/52 gear slots",
+      "zh": "装备栏位：3/52"
+    },
+    {
+      "id": "operation.safety.floor.single",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "a +0 dagger",
+          "localized": "一把+0匕首"
+        }
+      },
+      "canonical": "You see here a +0 dagger.",
+      "zh": "你在这里看见一把+0匕首。"
+    },
+    {
+      "id": "operation.safety.floor.identified",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "a potion of curing",
+          "localized": "一瓶治疗药水"
+        }
+      },
+      "canonical": "You see here a potion of curing.",
+      "zh": "你在这里看见一瓶治疗药水。"
+    },
+    {
+      "id": "operation.safety.floor.many",
+      "args": {
+        "items": {
+          "type": "text",
+          "canonical": "a +0 dagger; a potion of curing",
+          "localized": "一把+0匕首；一瓶治疗药水"
+        }
+      },
+      "canonical": "Items here: a +0 dagger; a potion of curing.",
+      "zh": "这里有这些物品：一把+0匕首；一瓶治疗药水。"
+    },
+    {
+      "id": "operation.safety.faith_ignore",
+      "args": {
+        "god": {
+          "type": "name",
+          "canonical": "Gozag",
+          "localized": "戈扎格"
+        },
+        "reason": {
+          "type": "text",
+          "canonical": " cares for nothing but gold!",
+          "localized": "只关心金币！"
+        }
+      },
+      "canonical": "Gozag cares for nothing but gold!",
+      "zh": "戈扎格只关心金币！"
+    },
+    {
+      "id": "operation.safety.faith_ignore",
+      "args": {
+        "god": {
+          "type": "name",
+          "canonical": "Ashenzari",
+          "localized": "阿申扎里"
+        },
+        "reason": {
+          "type": "text",
+          "canonical": " cares nothing for such trivial demonstrations of your faith.",
+          "localized": "对你这种微不足道的信仰表现毫不在意。"
+        }
+      },
+      "canonical": "Ashenzari cares nothing for such trivial demonstrations of your faith.",
+      "zh": "阿申扎里对你这种微不足道的信仰表现毫不在意。"
+    },
+    {
+      "id": "operation.safety.faith_ignore",
+      "args": {
+        "god": {
+          "type": "name",
+          "canonical": "Ignis",
+          "localized": "伊格尼斯"
+        },
+        "reason": {
+          "type": "text",
+          "canonical": " already offers you all the fire that remains!",
+          "localized": "已经把所剩的全部火焰赐予了你！"
+        }
+      },
+      "canonical": "Ignis already offers you all the fire that remains!",
+      "zh": "伊格尼斯已经把所剩的全部火焰赐予了你！"
+    },
+    {
+      "id": "operation.safety.faith_ignore",
+      "args": {
+        "god": {
+          "type": "name",
+          "canonical": "Ru",
+          "localized": "鲁"
+        },
+        "reason": {
+          "type": "text",
+          "canonical": " says: An ascetic of your devotion has no use for such trinkets.",
+          "localized": "说道：“像你这样虔诚的苦修者，用不着这种小玩意。”"
+        }
+      },
+      "canonical": "Ru says: An ascetic of your devotion has no use for such trinkets.",
+      "zh": "鲁说道：“像你这样虔诚的苦修者，用不着这种小玩意。”"
+    },
+    {
+      "id": "operation.safety.vines_retreat",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "your +0 lajatang",
+          "localized": "你的+0月牙铲"
+        }
+      },
+      "canonical": "The vines retreat back into your +0 lajatang.",
+      "zh": "藤蔓缩回你的+0月牙铲之中。"
+    },
+    {
+      "id": "operation.pickup.failed.stationary",
+      "args": {},
+      "canonical": "You can't pick that up.",
+      "zh": "这件物品无法拾取。"
+    }
+  ]
+}

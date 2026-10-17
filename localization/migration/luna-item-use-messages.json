@@ -1,0 +1,1309 @@
+{
+  "model": "Luna",
+  "messages": [
+    {
+      "id": "operation.evoke.beasts.fly",
+      "context": "flying mutant beast emerges from box",
+      "en": "...and {monster} flies out!",
+      "zh": "……{monster}飞了出来！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "flying mutant beast emerges from box",
+        "line": 296
+      }
+    },
+    {
+      "id": "operation.evoke.beasts.leap",
+      "context": "non-flying mutant beast emerges from box",
+      "en": "...and {monster} leaps out!",
+      "zh": "……{monster}跃了出来！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "non-flying mutant beast emerges from box",
+        "line": 296
+      }
+    },
+    {
+      "id": "operation.evoke.beasts.open",
+      "context": "opening box of beasts",
+      "en": "You open the lid...",
+      "zh": "你打开盒盖……",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "opening box of beasts",
+        "line": 272
+      }
+    },
+    {
+      "id": "operation.evoke.box.empty",
+      "context": "box of beasts depleted",
+      "en": "The box is emptied!",
+      "zh": "野兽盒空了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "box of beasts depleted",
+        "line": 1173
+      }
+    },
+    {
+      "id": "operation.evoke.call.howl",
+      "context": "sound when horn call is heard",
+      "en": "You produce a hideous howling noise!",
+      "zh": "你发出一阵骇人的嚎叫！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "sound when horn call is heard",
+        "line": 89
+      }
+    },
+    {
+      "id": "operation.evoke.call.none",
+      "context": "no response to a call",
+      "en": "Nothing answers your call.",
+      "zh": "没有任何回应。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "no response to a call",
+        "line": 115
+      }
+    },
+    {
+      "id": "operation.evoke.card.gale.fierce",
+      "context": "fierce wind card effect",
+      "en": "A fierce wind blows from the card.",
+      "zh": "一阵猛烈的风从卡牌中吹出。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "fierce wind card effect",
+        "line": 507
+      }
+    },
+    {
+      "id": "operation.evoke.card.gale.mighty",
+      "context": "mighty gale card effect",
+      "en": "A mighty gale blasts forth from the card!",
+      "zh": "一阵猛烈的狂风从卡牌中迸发！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "mighty gale card effect",
+        "line": 505
+      }
+    },
+    {
+      "id": "operation.evoke.condenser.confirm",
+      "context": "confirmation when no visible clouds to condense",
+      "en": "You can't see anything. Try to condense clouds anyway?",
+      "zh": "你看不到任何东西。仍要尝试凝聚云雾吗？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "confirmation when no visible clouds to condense",
+        "line": 918
+      }
+    },
+    {
+      "id": "operation.evoke.condenser.dry",
+      "context": "condenser vane depleted",
+      "en": "The condenser dries out!",
+      "zh": "凝云叶片干涸了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "condenser vane depleted",
+        "line": 1256
+      }
+    },
+    {
+      "id": "operation.evoke.condenser.success",
+      "context": "clouds condense",
+      "en": "Clouds condense from the air!",
+      "zh": "云雾从空气中凝聚而出！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "clouds condense",
+        "line": 956
+      }
+    },
+    {
+      "id": "operation.evoke.flux",
+      "context": "flux bauble crushed in the player anatomical body part; use established equipment body_part name domain",
+      "en": "You crush the flux bauble in your {body_part} and feel its energy flooding your body.",
+      "zh": "你用{body_part}捏碎通量宝珠，感到其中的能量涌遍全身。",
+      "params": {
+        "body_part": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "flux bauble effect; hand name is supplied by player anatomy",
+        "line": 1117
+      }
+    },
+    {
+      "id": "operation.evoke.mirror.clone",
+      "context": "successful phantom mirror cloning",
+      "en": "You reflect {name} with the mirror!",
+      "zh": "你用幻影镜映照出{name}！",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "successful phantom mirror cloning",
+        "line": 709
+      }
+    },
+    {
+      "id": "operation.evoke.mirror.clouds",
+      "context": "phantom mirror charge depleted",
+      "en": "The mirror clouds!",
+      "zh": "幻影镜蒙上了雾气！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "phantom mirror charge depleted",
+        "line": 1216
+      }
+    },
+    {
+      "id": "operation.evoke.mirror.empty",
+      "context": "nothing at target to clone",
+      "en": "You can't see anything there to clone.",
+      "zh": "你看不到那里有任何可以复制的东西。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "nothing at target to clone",
+        "line": 654
+      }
+    },
+    {
+      "id": "operation.evoke.mirror.reflect",
+      "context": "target cannot be reflected",
+      "en": "The mirror can't reflect that.",
+      "zh": "幻影镜无法映照那个目标。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "target cannot be reflected",
+        "line": 663
+      }
+    },
+    {
+      "id": "operation.evoke.mirror.self",
+      "context": "cannot use phantom mirror on self",
+      "en": "You can't use the mirror on yourself.",
+      "zh": "你不能对自己使用幻影镜。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "cannot use phantom mirror on self",
+        "line": 652
+      }
+    },
+    {
+      "id": "operation.evoke.nothing",
+      "context": "evoked item had no effect",
+      "en": "...but nothing happens.",
+      "zh": "……但什么也没发生。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "evoked item had no effect",
+        "line": 292
+      }
+    },
+    {
+      "id": "operation.evoke.quad_damage",
+      "context": "quad damage activates",
+      "en": "QUAD DAMAGE!",
+      "zh": "四倍伤害！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "quad damage activates",
+        "line": 1199
+      }
+    },
+    {
+      "id": "operation.evoke.rod.overheat",
+      "context": "lightning rod overheats",
+      "en": "The lightning rod overheats!",
+      "zh": "闪电棒过热了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "lightning rod overheats",
+        "line": 1192
+      }
+    },
+    {
+      "id": "operation.evoke.sack.empty",
+      "context": "sack of spiders depleted",
+      "en": "The sack is emptied!",
+      "zh": "蜘蛛袋空了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "sack of spiders depleted",
+        "line": 1182
+      }
+    },
+    {
+      "id": "operation.evoke.spiders.open",
+      "context": "reaching into sack of spiders",
+      "en": "You reach into the sack...",
+      "zh": "你把手伸进袋子里……",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "reaching into sack of spiders",
+        "line": 396
+      }
+    },
+    {
+      "id": "operation.evoke.spiders.out",
+      "context": "spiders emerge from sack",
+      "en": "...and things crawl out!",
+      "zh": "……有东西爬了出来！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "spiders emerge from sack",
+        "line": 400
+      }
+    },
+    {
+      "id": "operation.evoke.spiders.webs",
+      "context": "only cobwebs fall out",
+      "en": "...but only cobwebs fall out.",
+      "zh": "……但掉出来的只有蜘蛛网。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "only cobwebs fall out",
+        "line": 410
+      }
+    },
+    {
+      "id": "operation.evoke.tin.empty",
+      "context": "tin of tremorstones depleted",
+      "en": "The tin is emptied!",
+      "zh": "震石罐空了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "tin of tremorstones depleted",
+        "line": 1239
+      }
+    },
+    {
+      "id": "operation.evoke.tremorstone.confirm",
+      "context": "confirmation when tremorstone has no visible target",
+      "en": "You can't see anything, release a tremorstone anyway?",
+      "zh": "你看不到任何东西，仍要释放震石吗？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "confirmation when tremorstone has no visible target",
+        "line": 847
+      }
+    },
+    {
+      "id": "operation.evoke.tremorstone.explode",
+      "context": "tremorstone explodes",
+      "en": "The tremorstone explodes into fragments!",
+      "zh": "震石爆裂成碎片！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "tremorstone explodes",
+        "line": 864
+      }
+    },
+    {
+      "id": "operation.evoke.wand.conserve_charge",
+      "context": "gadgeteer charge conservation",
+      "en": "You conserve a charge of your wand.",
+      "zh": "你保住了魔杖的一次充能。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "gadgeteer charge conservation",
+        "line": 233
+      }
+    },
+    {
+      "id": "operation.evoke.wand.empty",
+      "context": "wand runs out of charges and crumbles",
+      "en": "The now-empty wand crumbles to dust.",
+      "zh": "耗尽的魔杖化作尘埃。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "wand runs out of charges and crumbles",
+        "line": 242
+      }
+    },
+    {
+      "id": "operation.evoke.wand.target",
+      "context": "wand selection prompt",
+      "en": "Zap which item?",
+      "zh": "要对哪件物品施放？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "wand selection prompt",
+        "line": 178
+      }
+    },
+    {
+      "id": "operation.evoke.wand.wrong_item",
+      "context": "attempting to zap non-wand",
+      "en": "You can't zap that!",
+      "zh": "你不能对那件物品施放！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "attempting to zap non-wand",
+        "line": 190
+      }
+    },
+    {
+      "id": "operation.evoke.ziggurat.blocked",
+      "context": "cannot place ziggurat portal here",
+      "en": "You can't place a gateway to a ziggurat here.",
+      "zh": "你不能在这里开启通往地底迷城的入口。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "cannot place ziggurat portal here",
+        "line": 421
+      }
+    },
+    {
+      "id": "operation.evoke.ziggurat.finish",
+      "context": "must finish current ziggurat first",
+      "en": "Finish your current ziggurat first!",
+      "zh": "先完成当前的地底迷城！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "must finish current ziggurat first",
+        "line": 429
+      }
+    },
+    {
+      "id": "operation.evoke.ziggurat.open",
+      "context": "ziggurat portal forms",
+      "en": "You set the figurine down, and a mystic portal to a ziggurat forms.",
+      "zh": "你放下雕像，一道通往地底迷城的神秘传送门随之形成。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/evoke.cc",
+        "anchor": "ziggurat portal forms",
+        "line": 437
+      }
+    },
+    {
+      "id": "operation.use.armour.enchant",
+      "context": "singular armour name; successful enchant with further enchantments possible",
+      "en": "{name} glows green for a moment.",
+      "zh": "{name}泛起绿光，持续片刻。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "singular armour name; successful enchant with further enchantments possible",
+        "line": 2482
+      }
+    },
+    {
+      "id": "operation.use.armour.enchant.max",
+      "context": "singular armour name; successful enchant reaches maximum",
+      "en": "{name} glows green for a while.",
+      "zh": "{name}泛起绿光，持续了一阵。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "singular armour name; successful enchant reaches maximum",
+        "line": 2482
+      }
+    },
+    {
+      "id": "operation.use.armour.enchant.plural",
+      "context": "plural armour name; successful enchant with further enchantments possible",
+      "en": "{name} glow green for a moment.",
+      "zh": "{name}泛起绿光，持续片刻。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "plural armour name; successful enchant with further enchantments possible",
+        "line": 2482
+      }
+    },
+    {
+      "id": "operation.use.armour.enchant.plural.max",
+      "context": "plural armour name; successful enchant reaches maximum",
+      "en": "{name} glow green for a while.",
+      "zh": "{name}泛起绿光，持续了一阵。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "plural armour name; successful enchant reaches maximum",
+        "line": 2482
+      }
+    },
+    {
+      "id": "operation.use.discovery",
+      "context": "unknown potion discovery healing message",
+      "en": "The energy of discovery flows from your fingertips!",
+      "zh": "发现的能量从你的指尖涌出！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "unknown potion discovery healing message",
+        "line": 2011
+      }
+    },
+    {
+      "id": "operation.use.drink.confirm",
+      "context": "confirmation before drinking known dangerous or penance potion",
+      "en": "Really quaff the {name}?{reason}",
+      "zh": "真的要喝下{name}吗？{reason}",
+      "params": {
+        "name": "name",
+        "reason": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "confirmation before drinking known dangerous or penance potion",
+        "line": 1930
+      }
+    },
+    {
+      "id": "operation.use.drink.drunken_unarmed",
+      "context": "drunken brawling potion message unarmed",
+      "en": "You take a swig of the potion and flex your muscles.",
+      "zh": "你啜饮药水，绷紧肌肉。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "drunken brawling potion message unarmed",
+        "line": 1969
+      }
+    },
+    {
+      "id": "operation.use.drink.drunken_weapon",
+      "context": "drunken brawling potion message when wielding weapon",
+      "en": "You take a swig of the potion and twirl {name}.",
+      "zh": "你啜饮药水，挥舞起{name}。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "drunken brawling potion message when wielding weapon",
+        "line": 1965
+      }
+    },
+    {
+      "id": "operation.use.drink.metabolism",
+      "context": "You have efficient metabolism, savouring potion",
+      "en": "Your mutated metabolism churns, savouring the {name}.",
+      "zh": "你的变异代谢在体内翻涌，细细品味着{name}。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "You have efficient metabolism, savouring potion",
+        "line": 2003
+      }
+    },
+    {
+      "id": "operation.use.drink.penance",
+      "context": "extra potion confirmation reason when action incurs penance",
+      "en": " This action would place you under penance!",
+      "zh": " 此举会使你受到神罚！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "extra potion confirmation reason when action incurs penance",
+        "line": 1932
+      }
+    },
+    {
+      "id": "operation.use.drink.victory",
+      "context": "confirmation for drinking near monsters while wearing Victory artefact armour",
+      "en": "Really quaff with monsters nearby while wearing {name}?",
+      "zh": "身边有怪物时还要穿着{name}喝药吗？",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "confirmation for drinking near monsters while wearing Victory item",
+        "line": 1948
+      }
+    },
+    {
+      "id": "operation.use.invisibility.none_susceptible",
+      "context": "confirmation when no visible enemy can be concealed from",
+      "en": "You can't see any enemy this would conceal you from. Use anyway?",
+      "zh": "你看不到会因隐形而失去你踪迹的敌人。仍要使用吗？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "confirmation when no visible enemy can be concealed from",
+        "line": 3342
+      }
+    },
+    {
+      "id": "operation.use.scroll.abort",
+      "context": "confirmation when aborting known scroll target selection",
+      "en": "Really abort (and waste the scroll)?",
+      "zh": "真的要取消（并浪费卷轴）吗？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "confirmation when aborting known scroll target selection",
+        "line": 2243
+      }
+    },
+    {
+      "id": "operation.use.scroll.acquire.lost",
+      "context": "acquirement impossible on item-eliminating terrain",
+      "en": "Anything you acquired here would fall and be lost!",
+      "zh": "在这里获得的任何物品都会掉落遗失！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "acquirement impossible on item-eliminating terrain",
+        "line": 3035
+      }
+    },
+    {
+      "id": "operation.use.scroll.acquire.unknown",
+      "context": "unidentified acquirement scroll reveal",
+      "en": "This is a scroll of acquirement!",
+      "zh": "这是一张获取卷轴！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "unidentified acquirement scroll reveal",
+        "line": 3027
+      }
+    },
+    {
+      "id": "operation.use.scroll.amnesia.nothing",
+      "context": "amnesia when player has no spells or is innate caster",
+      "en": "You feel forgetful for a moment.",
+      "zh": "你一时感到有些健忘。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "amnesia when player has no spells or is innate caster",
+        "line": 3205
+      }
+    },
+    {
+      "id": "operation.use.scroll.brand_target",
+      "context": "brand weapon target prompt",
+      "en": "Brand which weapon?",
+      "zh": "要给哪件武器赋予词缀？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "brand weapon target prompt",
+        "line": 2268
+      }
+    },
+    {
+      "id": "operation.use.scroll.confirm.danger",
+      "context": "known dangerous/bad scroll confirmation when relevant hostile target exists",
+      "en": "Really read the {name}?",
+      "zh": "真的要阅读{name}吗？",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "known dangerous/bad scroll confirmation when relevant hostile target exists",
+        "line": 2889
+      }
+    },
+    {
+      "id": "operation.use.scroll.confirm.danger.no_targets",
+      "context": "known dangerous/bad scroll confirmation when no hostile target is visible",
+      "en": "Really read the {name}? You can't even see any enemies this would affect.",
+      "zh": "真的要阅读{name}吗？你甚至看不到任何会受其影响的敌人。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "known dangerous/bad scroll confirmation when no hostile target is visible",
+        "line": 2889
+      }
+    },
+    {
+      "id": "operation.use.scroll.confirm.no_targets",
+      "context": "known scroll with no relevant target and no separate bad-item prompt",
+      "en": "You can't see any enemies this would affect, really read the {name}?",
+      "zh": "你看不到任何会受其影响的敌人，真的还要阅读{name}吗？",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "known scroll with no relevant target and no separate bad-item prompt",
+        "line": 2900
+      }
+    },
+    {
+      "id": "operation.use.scroll.confirm.penance",
+      "context": "known scroll; god would impose penance; relevant hostile target exists",
+      "en": "Really read the {name}? This action would place you under penance!",
+      "zh": "真的要阅读{name}吗？此举会使你受到神罚！",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "known scroll; god would impose penance; relevant hostile target exists",
+        "line": 2863
+      }
+    },
+    {
+      "id": "operation.use.scroll.confirm.penance.no_targets",
+      "context": "known scroll; god would impose penance; no hostile target visible",
+      "en": "Really read the {name}? This action would place you under penance and you can't even see any enemies this would affect!",
+      "zh": "真的要阅读{name}吗？此举会使你受到神罚，而且你看不到任何会受其影响的敌人！",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "known scroll; god would impose penance; no hostile target visible",
+        "line": 2863
+      }
+    },
+    {
+      "id": "operation.use.scroll.confirm.victory",
+      "context": "wearing Victory artefact armour with nearby monsters",
+      "en": "Really read with monsters nearby while wearing {name}?",
+      "zh": "身边有怪物时还要穿着{name}阅读卷轴吗？",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "wearing Victory artefact armour with nearby monsters",
+        "line": 2920
+      }
+    },
+    {
+      "id": "operation.use.scroll.enchant_armour_target",
+      "context": "enchant armour target prompt",
+      "en": "Enchant which item?",
+      "zh": "要附魔哪件物品？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enchant armour target prompt",
+        "line": 2508
+      }
+    },
+    {
+      "id": "operation.use.scroll.enchant_weapon_target",
+      "context": "enchant weapon target prompt",
+      "en": "Enchant which weapon?",
+      "zh": "要附魔哪件武器？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "enchant weapon target prompt",
+        "line": 2269
+      }
+    },
+    {
+      "id": "operation.use.scroll.fear",
+      "context": "fear scroll effect",
+      "en": "You assume a fearsome visage.",
+      "zh": "你摆出一副可怖的面容。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "fear scroll effect",
+        "line": 3044
+      }
+    },
+    {
+      "id": "operation.use.scroll.identify.result",
+      "context": "identified inventory item moved to new inventory letter",
+      "en": "{old_key} -> {item}",
+      "zh": "{old_key} → {item}",
+      "params": {
+        "old_key": "key",
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "identified inventory item moved to new inventory letter",
+        "line": 2403
+      }
+    },
+    {
+      "id": "operation.use.scroll.identify_target",
+      "context": "identify target prompt, backslash opens known items",
+      "en": "Identify which item? (\\ to view known items)",
+      "zh": "要鉴定哪件物品？（按\\查看已知物品）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "identify target prompt, backslash opens known items",
+        "line": 2381
+      }
+    },
+    {
+      "id": "operation.use.scroll.immolation.fail",
+      "context": "immolation finds nothing it can affect",
+      "en": "The air around you briefly surges with heat, but it dissipates.",
+      "zh": "你周围的空气短暂地热浪翻涌，随后消散。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "immolation finds nothing it can affect",
+        "line": 3100
+      }
+    },
+    {
+      "id": "operation.use.scroll.immolation.success",
+      "context": "inner flame applied to nearby creatures",
+      "en": "The creatures around you are filled with an inner flame!",
+      "zh": "你周围的生物体内燃起了火焰！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "inner flame applied to nearby creatures",
+        "line": 3098
+      }
+    },
+    {
+      "id": "operation.use.scroll.quantity",
+      "context": "unidentified scroll consumed; report revealed scroll identity",
+      "en": "It was a {name}.",
+      "zh": "那是一张{name}。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "unidentified scroll consumed; report revealed scroll identity",
+        "line": 3250
+      }
+    },
+    {
+      "id": "operation.use.scroll.quantity.present",
+      "context": "unidentified scroll remains present; report revealed scroll identity",
+      "en": "It is a {name}.",
+      "zh": "这是一张{name}。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "unidentified scroll remains present; report revealed scroll identity",
+        "line": 3250
+      }
+    },
+    {
+      "id": "operation.use.scroll.removed",
+      "context": "legacy removed scroll message",
+      "en": "This item has been removed, sorry!",
+      "zh": "抱歉，此物品已被移除！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "legacy removed scroll message",
+        "line": 3182
+      }
+    },
+    {
+      "id": "operation.use.scroll.reveal.amnesia",
+      "context": "unidentified scroll reveal",
+      "en": "It is a scroll of amnesia.",
+      "zh": "这是一张失忆卷轴。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "unidentified scroll reveal",
+        "line": 3200
+      }
+    },
+    {
+      "id": "operation.use.scroll.reveal.brand_weapon",
+      "context": "unidentified scroll reveal",
+      "en": "It is a scroll of brand weapon.",
+      "zh": "这是一张武器赋缀卷轴。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "unidentified scroll reveal",
+        "line": 3135
+      }
+    },
+    {
+      "id": "operation.use.scroll.reveal.enchant_armour",
+      "context": "unidentified scroll reveal",
+      "en": "It is a scroll of enchant armour.",
+      "zh": "这是一张护甲附魔卷轴。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "unidentified scroll reveal",
+        "line": 3165
+      }
+    },
+    {
+      "id": "operation.use.scroll.reveal.enchant_weapon",
+      "context": "unidentified scroll reveal",
+      "en": "It is a scroll of enchant weapon.",
+      "zh": "这是一张武器附魔卷轴。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "unidentified scroll reveal",
+        "line": 3121
+      }
+    },
+    {
+      "id": "operation.use.scroll.reveal.identify",
+      "context": "unidentified scroll reveal",
+      "en": "It is a scroll of identify.",
+      "zh": "这是一张鉴定卷轴。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "unidentified scroll reveal",
+        "line": 3149
+      }
+    },
+    {
+      "id": "operation.use.scroll.success",
+      "context": "ordinary reading voice; scroll crumbles to dust",
+      "en": "As you read the {name}, it crumbles to dust.",
+      "zh": "你阅读{name}，它随即化作尘埃。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "ordinary reading voice; scroll crumbles to dust",
+        "line": 2960
+      }
+    },
+    {
+      "id": "operation.use.scroll.success.fog",
+      "context": "ordinary reading voice; fog scroll dissolves into smoke",
+      "en": "As you read the {name}, it dissolves into smoke.",
+      "zh": "你阅读{name}，它随即化作烟雾。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "ordinary reading voice; fog scroll dissolves into smoke",
+        "line": 2960
+      }
+    },
+    {
+      "id": "operation.use.scroll.success.loud",
+      "context": "booming voice mutation; scroll crumbles to dust",
+      "en": "As you thunderously recite the {name}, it crumbles to dust.",
+      "zh": "你以雷鸣般的嗓音诵读{name}，它随即化作尘埃。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "booming voice mutation; scroll crumbles to dust",
+        "line": 2960
+      }
+    },
+    {
+      "id": "operation.use.scroll.success.loud.fog",
+      "context": "booming voice mutation; fog scroll dissolves into smoke",
+      "en": "As you thunderously recite the {name}, it dissolves into smoke.",
+      "zh": "你以雷鸣般的嗓音诵读{name}，它随即化作烟雾。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "booming voice mutation; fog scroll dissolves into smoke",
+        "line": 2960
+      }
+    },
+    {
+      "id": "operation.use.vulnerability",
+      "context": "vulnerability scroll affects surroundings",
+      "en": "A wave of despondency washes over your surroundings.",
+      "zh": "一阵沮丧之意席卷了周遭。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "vulnerability scroll affects surroundings",
+        "line": 2555
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.acid",
+      "context": "weapon brand effect",
+      "en": "{name} oozes corrosive slime.",
+      "zh": "{name}渗出腐蚀性黏液。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2176
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.chaos",
+      "context": "weapon brand effect",
+      "en": "{name} erupts in a glittering mayhem of colour.",
+      "zh": "{name}迸发出一片绚烂混沌的色彩。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2171
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.concussion",
+      "context": "weapon brand effect",
+      "en": "{name} begins to exert an overwhelming pressure.",
+      "zh": "{name}开始散发出令人窒息的压迫感。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2206
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.devious",
+      "context": "weapon brand effect",
+      "en": "{name} glints wickedly in the shadows.",
+      "zh": "{name}在阴影中闪烁着邪异的光芒。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2211
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.draining",
+      "context": "weapon brand effect",
+      "en": "{name} craves living souls!",
+      "zh": "{name}渴求生者的灵魂！",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2151
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.electricity",
+      "context": "weapon brand effect",
+      "en": "{name} crackles with electricity.",
+      "zh": "{name}噼啪作响，缠绕着电光。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2166
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.entangling",
+      "context": "weapon brand effect",
+      "en": "{name} erupts in a tangle of vines.",
+      "zh": "{name}迸发出一团藤蔓。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2196
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.flaming",
+      "context": "weapon brand effect",
+      "en": "{name} is engulfed in flames!",
+      "zh": "{name}被火焰吞没！",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2141
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.freezing",
+      "context": "weapon brand effect",
+      "en": "{name} is covered with a thin layer of ice!",
+      "zh": "{name}覆上了一层薄冰！",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2146
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.heavy",
+      "context": "weapon brand effect",
+      "en": "{name} becomes incredibly heavy!",
+      "zh": "{name}变得沉重无比！",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2131
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.protection",
+      "context": "weapon brand effect",
+      "en": "{name} projects an invisible shield of force!",
+      "zh": "{name}投射出一道无形的力场护盾！",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2136
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.rebuke",
+      "context": "weapon brand effect",
+      "en": "{name} quivers with indignation.",
+      "zh": "{name}因愤怒而颤动。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2186
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.spectral",
+      "context": "weapon brand effect",
+      "en": "{name} acquires a faint afterimage.",
+      "zh": "{name}浮现出一道淡淡的残影。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2181
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.sundering",
+      "context": "weapon brand effect",
+      "en": "{name} becomes viciously sharp.",
+      "zh": "{name}变得锋利无比。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2201
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.valour",
+      "context": "weapon brand effect",
+      "en": "{name} thrums with vital power.",
+      "zh": "{name}振荡着蓬勃的力量。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2191
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.vampirism",
+      "context": "weapon brand effect",
+      "en": "{name} thirsts for the lives of mortals!",
+      "zh": "{name}渴求凡人的生命！",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2156
+      }
+    },
+    {
+      "id": "operation.use.weapon.brand.venom",
+      "context": "weapon brand effect",
+      "en": "{name} drips with poison.",
+      "zh": "{name}滴落着毒液。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon brand effect",
+        "line": 2161
+      }
+    },
+    {
+      "id": "operation.use.weapon.enchant",
+      "context": "weapon enchantment succeeds below maximum enchantment",
+      "en": "{name} glows red for a moment.",
+      "zh": "{name}泛起红光，持续片刻。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon enchantment succeeds below maximum enchantment",
+        "line": 2325
+      }
+    },
+    {
+      "id": "operation.use.weapon.enchant.max",
+      "context": "weapon enchantment reaches maximum; longer glow duration",
+      "en": "{name} glows red for a while.",
+      "zh": "{name}泛起红光，持续了一阵。",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/item-use.cc",
+        "anchor": "weapon enchantment reaches maximum; longer glow duration",
+        "line": 2325
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "operation.use.scroll.confirm.penance",
+      "args": {
+        "name": {
+          "type": "name",
+          "canonical": "scroll of torment",
+          "localized": "折磨卷轴"
+        }
+      },
+      "canonical": "Really read the scroll of torment? This action would place you under penance!",
+      "zh": "真的要阅读折磨卷轴吗？此举会使你受到神罚！"
+    },
+    {
+      "id": "operation.use.scroll.success.loud.fog",
+      "args": {
+        "name": {
+          "type": "name",
+          "canonical": "scroll of fog",
+          "localized": "浓雾卷轴"
+        }
+      },
+      "canonical": "As you thunderously recite the scroll of fog, it dissolves into smoke.",
+      "zh": "你以雷鸣般的嗓音诵读浓雾卷轴，它随即化作烟雾。"
+    },
+    {
+      "id": "operation.use.scroll.quantity",
+      "args": {
+        "name": {
+          "type": "name",
+          "canonical": "scroll of identify",
+          "localized": "鉴定卷轴"
+        }
+      },
+      "canonical": "It was a scroll of identify.",
+      "zh": "那是一张鉴定卷轴。"
+    },
+    {
+      "id": "operation.evoke.beasts.fly",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "a mutant beast",
+          "localized": "一只变异野兽"
+        }
+      },
+      "canonical": "...and a mutant beast flies out!",
+      "zh": "……一只变异野兽飞了出来！"
+    },
+    {
+      "id": "operation.evoke.flux",
+      "args": {
+        "body_part": {
+          "type": "name",
+          "canonical": "hand",
+          "localized": "手"
+        }
+      },
+      "canonical": "You crush the flux bauble in your hand and feel its energy flooding your body.",
+      "zh": "你用手捏碎通量宝珠，感到其中的能量涌遍全身。"
+    }
+  ]
+}

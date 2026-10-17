@@ -191,7 +191,7 @@ bool EquipOnDelay::try_interrupt(bool force)
         // yesno might call this function again, don't double prompt
         was_prompted = true;
         if (!crawl_state.disables[DIS_CONFIRMATIONS]
-            && !yesno("Keep equipping yourself?", false, 0, false))
+            && !yesno(zh_message("operation.equipment.confirm.keep_equipping"), false, 0, false))
         {
             interrupt = true;
         }
@@ -236,12 +236,13 @@ bool EquipOffDelay::try_interrupt(bool force)
         const bool is_armour = equip.base_type == OBJ_ARMOUR
                                // Shields and orbs aren't clothes.
                                && get_armour_slot(equip) != SLOT_OFFHAND;
-        const char* verb = is_armour ? "disrobing" : "removing your equipment";
-        const string prompt = make_stringf("Keep %s?", verb);
+        const ZhMessage prompt = zh_message(is_armour
+            ? "operation.equipment.confirm.keep_disrobing"
+            : "operation.equipment.confirm.keep_removing");
         // yesno might call this function again, don't double prompt
         was_prompted = true;
         if (!crawl_state.disables[DIS_CONFIRMATIONS]
-            && !yesno(prompt.c_str(), false, 0, false))
+            && !yesno(prompt, false, 0, false))
         {
             interrupt = true;
         }

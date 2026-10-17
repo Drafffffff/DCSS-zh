@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-display-name.h"
 
 #include "potion.h"
 #include "zh-message.h"
@@ -76,10 +77,10 @@ bool PotionEffect::quaff(bool was_known) const
 
 bool PotionEffect::check_known_quaff() const
 {
-    string reason;
-    if (!can_quaff(&reason))
+    ZhArg reason;
+    if (!can_quaff(nullptr, true, &reason))
     {
-        mpr(reason);
+        mpr(ZhMessage{"", reason.canonical, reason.localized});
         return false;
     }
     return true;
@@ -143,7 +144,7 @@ public:
         }
 
         if (ddoor)
-            mpr("You feel queasy.");
+            mpr(zh_message("operation.potion.curing.queasy"));
         else if (you.can_potion_heal()
                  || !is_potion
                  || you.duration[DUR_POISONING]
@@ -154,7 +155,7 @@ public:
             canned_msg(MSG_GAIN_HEALTH);
         }
         else
-            mpr("That felt strangely inert.");
+            mpr(zh_message("operation.potion.curing.inert"));
         // need to redraw from yellow to green even if no hp was gained
         if (you.duration[DUR_POISONING])
             you.redraw_hit_points = true;
@@ -213,12 +214,12 @@ public:
     {
         if (you.duration[DUR_DEATHS_DOOR])
         {
-            mpr("You feel queasy.");
+            mpr(zh_message("operation.potion.heal_wounds.queasy"));
             return false;
         }
         if (!you.can_potion_heal() && is_potion)
         {
-            mpr("That seemed strangely inert.");
+            mpr(zh_message("operation.potion.heal_wounds.inert"));
             return false;
         }
 
@@ -229,7 +230,7 @@ public:
         inc_hp(amount);
         if (is_potion)
             print_potion_heal_message();
-        mpr("You feel much better.");
+        mpr(zh_message("operation.potion.heal_wounds.better"));
         return true;
     }
 };
@@ -293,8 +294,7 @@ public:
     {
         const bool were_mighty = you.duration[DUR_MIGHT] > 0;
 
-        mprf(MSGCH_DURATION, "You feel %s all of a sudden.",
-             were_mighty ? "mightier" : "very mighty");
+        mpr(zh_message(were_mighty ? "operation.potion.might.stronger" : "operation.potion.might.fresh"), MSGCH_DURATION);
         const int dur = _scale_pot_duration(35 + random2(pow), is_potion);
         you.increase_duration(DUR_MIGHT, dur);
         return true;
@@ -335,8 +335,7 @@ public:
     {
         const bool were_brilliant = you.duration[DUR_BRILLIANCE] > 0;
 
-        mprf(MSGCH_DURATION, "You feel %sclever all of a sudden.",
-             were_brilliant ? "more " : "");
+        mpr(zh_message(were_brilliant ? "operation.potion.brilliance.stronger" : "operation.potion.brilliance.fresh"), MSGCH_DURATION);
         const int dur = _scale_pot_duration(35 + random2(pow), is_potion);
         you.increase_duration(DUR_BRILLIANCE, dur);
         return true;
@@ -362,8 +361,7 @@ public:
     {
         const bool was_attractive = you.duration[DUR_ATTRACTIVE] > 0;
 
-        mprf(MSGCH_DURATION, "You feel %sattractive to monsters.",
-             was_attractive ? "more " : "");
+        mpr(zh_message(was_attractive ? "operation.potion.attraction.stronger" : "operation.potion.attraction.fresh"), MSGCH_DURATION);
 
         const int dur = _scale_pot_duration((20 + random2(pow)/2), is_potion);
         you.increase_duration(DUR_ATTRACTIVE, dur);
@@ -423,12 +421,12 @@ public:
     bool effect(bool=true, int=40, bool=true) const override
     {
         debuff_player(true);
-        mpr("You feel magically purged.");
+        mpr(zh_message("operation.potion.cancellation.purged"));
         if (you.magic_contamination > 0)
         {
             contaminate_player(-1 * random_range(250, 1000));
             if (you.magic_contamination > 0)
-                mpr("You feel slightly less contaminated with magical energies.");
+                mpr(zh_message("operation.potion.cancellation.contamination_less"));
         }
         return true;
     }
@@ -451,15 +449,14 @@ public:
         if (confuse_player(ambrosia_turns, false, true))
         {
             print_potion_heal_message();
-            mprf("You feel%s invigorated.",
-                 you.duration[DUR_AMBROSIA] ? " more" : "");
+            mpr(zh_message(you.duration[DUR_AMBROSIA] ? "operation.potion.ambrosia.more" : "operation.potion.ambrosia.fresh"));
             you.increase_duration(DUR_AMBROSIA, ambrosia_turns);
             return true;
         }
 
         // should be unreachable: nothing blocks intentional confusion. (If
         // this ever changes, consider adding a `can_quaff`)
-        mpr("You feel briefly invigorated.");
+        mpr(zh_message("operation.potion.ambrosia.brief"));
         return false;
     }
 };
@@ -479,32 +476,36 @@ public:
     {
         if (you.backlit())
         {
-            vector<const char *> afflictions;
+            vector<ZhArg> afflictions;
             if (you.haloed() && !you.umbraed())
-                afflictions.push_back("halo");
+                afflictions.push_back(zh_message_arg("affliction",
+                    "operation.potion.invisibility.affliction.halo"));
             if (player_harmful_contamination())
-                afflictions.push_back("magical contamination");
+                afflictions.push_back(zh_message_arg("affliction",
+                    "operation.potion.invisibility.affliction.magical_contamination"));
             if (you.duration[DUR_CORONA])
-                afflictions.push_back("corona");
+                afflictions.push_back(zh_message_arg("affliction",
+                    "operation.potion.invisibility.affliction.corona"));
             if (you.duration[DUR_STICKY_FLAME])
-                afflictions.push_back("liquid flames");
+                afflictions.push_back(zh_message_arg("affliction",
+                    "operation.potion.invisibility.affliction.liquid_flames"));
             if (you.duration[DUR_QUAD_DAMAGE])
-                afflictions.push_back("!!!QUAD DAMAGE!!!");
+                afflictions.push_back(zh_message_arg("affliction",
+                    "operation.potion.invisibility.affliction.quad_damage"));
             if (you.form == transformation::flux)
-                afflictions.push_back("form");
-            mprf(MSGCH_DURATION,
-                 "You become %stransparent, but the glow from %s "
-                 "%s prevents you from becoming completely invisible.",
-                 you.duration[DUR_INVIS] ? "more " : "",
-                 you.haloed() && you.halo_radius() == -1 ? "the" : "your",
-                 comma_separated_line(afflictions.begin(),
-                                      afflictions.end()).c_str());
+                afflictions.push_back(zh_message_arg("affliction",
+                    "operation.potion.invisibility.affliction.form"));
+            mpr(zh_message("operation.potion.invisibility.affliction", {
+                zh_word_arg("degree", "operation.potion.invisibility.degree.",
+                    you.duration[DUR_INVIS] ? "more " : ""),
+                zh_word_arg("possessive", "operation.potion.invisibility.possessive.",
+                    you.haloed() && you.halo_radius() == -1 ? "the" : "your"),
+                zh_message_list("afflictions", afflictions)}), MSGCH_DURATION);
         }
         else
         {
-            mprf(MSGCH_DURATION, !you.duration[DUR_INVIS]
-                 ? "You fade into invisibility!"
-                 : "You fade further into invisibility.");
+            mpr(zh_message(!you.duration[DUR_INVIS] ? "operation.potion.invisibility.first"
+                                                      : "operation.potion.invisibility.further"), MSGCH_DURATION);
         }
 
         const int dur = _scale_pot_duration(15 + random2(pow), is_potion);
@@ -514,16 +515,16 @@ public:
 
     bool check_known_quaff() const override
     {
-        string reason;
+        ZhArg reason;
         // invis can be drunk while temp useless, if the player accepts at the
         // prompt
-        if (!can_quaff(&reason, false))
+        if (!can_quaff(nullptr, false, &reason))
         {
-            mpr(reason);
+            mpr(ZhMessage{"", reason.canonical, reason.localized});
             return false;
         }
-        if (!can_quaff(&reason, true)
-             && !yesno((reason + " Use anyway?").c_str(), false, 'n'))
+        if (!can_quaff(nullptr, true, &reason)
+             && !yesno(zh_message("operation.potion.invisibility.confirm_temporary", {reason}), false, 'n'))
         {
             canned_msg(MSG_OK);
             return false;
@@ -569,13 +570,13 @@ public:
         if (you.experience_level < you.get_max_xl())
         {
             const int levels = min(you.get_max_xl(), pow / 40);
-            mpr("You feel more experienced!");
+            mpr(zh_message("operation.potion.experience.level"));
             // Defer calling level_change() until later in drink() to prevent
             // SIGHUP abuse.
             adjust_level(levels, true);
         }
         else
-            mpr("A flood of memories washes over you.");
+            mpr(zh_message("operation.potion.experience.memories"));
 
         // these are included in default force_more_message
         const int exp = 7500 * you.experience_level * pow / 40;
@@ -633,18 +634,17 @@ public:
                                : POT_MAGIC_MP;
         inc_mp(amount);
         if (you.has_mutation(MUT_HP_CASTING))
-            mpr("Magic washes over you without effect.");
+            mpr(zh_message("operation.potion.magic.no_effect"));
         else
         {
             if (is_potion && you.unrand_equipped(UNRAND_KRYIAS))
             {
-                mprf("%s enhances the restoration.",
-                     you.body_armour()->name(DESC_THE, false, false, false).c_str());
+                mpr(zh_message("operation.potion.magic.armour_enhances", {zh_item_arg("armour", *you.body_armour(), DESC_THE)}));
             }
             else if (is_potion && you.has_mutation(MUT_DOUBLE_POTION_HEAL))
-                mpr("You savour every drop.");
+                mpr(zh_message("operation.potion.magic.savour"));
 
-            mpr("Magic courses through your body.");
+            mpr(zh_message("operation.potion.magic.courses"));
         }
         return true;
     }
@@ -670,7 +670,7 @@ public:
     {
         if (you.is_lifeless_undead())
         {
-            mpr("You feel slightly irritated.");
+            mpr(zh_message("operation.potion.berserk.irritated"));
             return false;
         }
 
@@ -732,7 +732,7 @@ public:
 
     bool effect(bool=true, int pow = 40, bool is_potion = true) const override
     {
-        mprf(MSGCH_DURATION, "You feel protected.");
+        mpr(zh_message("operation.potion.resistance.protected"), MSGCH_DURATION);
         const int add = _scale_pot_duration(35 + random2(pow), is_potion);;
         you.increase_duration(DUR_RESISTANCE, add);
         return true;
@@ -768,7 +768,7 @@ public:
     {
         if (you.form == transformation::death) // Gozag potion petition
         {
-            mpr("You're too dead to put down roots!");
+            mpr(zh_message("operation.potion.lignify.too_dead"));
             return false;
         }
         const int dur = _scale_pot_duration(15 + random2(30) + random2(15), is_potion);
@@ -786,10 +786,8 @@ public:
             if (cloud_damages_over_time(cloud, false)
                 // Tree form is immune to these two.
                 && cloud != CLOUD_MEPHITIC && cloud != CLOUD_POISON
-                && !yesno(make_stringf("Really become a tree while standing in "
-                                       "a cloud of %s?",
-                                       cloud_type_name(cloud).c_str()).c_str(),
-                          false, 'n'))
+                && !yesno(zh_message("operation.potion.lignify.cloud_confirm",
+                    {zh_word_arg("cloud", "movement.confirm.cloud_name.", cloud_type_name(cloud))}), false, 'n'))
             {
                 canned_msg(MSG_OK);
                 return false;
@@ -802,7 +800,7 @@ public:
             did_god_conduct(DID_CHAOS, 10, was_known);
         }
         else
-            mpr("You feel woody for a moment.");
+            mpr(zh_message("operation.potion.lignify.woody"));
         return true;
     }
 };
@@ -833,7 +831,7 @@ public:
         if (have_passive(passive_t::cleanse_mut_potions))
             simple_god_message(" cleanses your potion of mutation!");
         else
-            mpr("You feel extremely strange.");
+            mpr(zh_message("operation.potion.mutation.strange"));
         bool mutated = false;
         int remove_mutations = random_range(MIN_REMOVED, MAX_REMOVED);
         int add_mutations = random_range(MIN_ADDED, MAX_ADDED);
@@ -863,14 +861,13 @@ public:
         if (was_known && !check_known_quaff())
             return false;
 
-        string msg = "Really drink that potion of mutation";
-        msg += you.rmut_from_item() ? " while resistant to mutation?" : "?";
         const bool zin_check = you_worship(GOD_ZIN)
                             && !have_passive(passive_t::cleanse_mut_potions);
-        if (zin_check)
-            msg += " Zin will disapprove.";
+        const ZhMessage msg = zh_message(you.rmut_from_item()
+            ? zin_check ? "operation.potion.mutation.resistant_zin_confirm" : "operation.potion.mutation.resistant_confirm"
+            : "operation.potion.mutation.zin_confirm");
         if (was_known && (zin_check || you.rmut_from_item())
-                      && !yesno(msg.c_str(), false, 'n'))
+                      && !yesno(msg, false, 'n'))
         {
             canned_msg(MSG_OK);
             return false;
@@ -896,7 +893,7 @@ public:
 
     bool effect(bool=true, int=40, bool is_potion = true) const override
     {
-        mpr("You feel tipsy.");
+        mpr(zh_message("operation.potion.moonshine.tipsy"));
         const int dur = _scale_pot_duration(random_range(10, 25), is_potion);
         you.increase_duration(DUR_VERTIGO, dur, 50);
         return true;
@@ -979,7 +976,7 @@ static void _handle_potion_fungus(potion_type potion)
                                                            targs.size() * 9 / 10 + 1));
 
 
-    mprf("Your fungus emits %s spores!", _spore_msg.at(potion).c_str());
+    mpr(zh_message("operation.potion.fungus.spores." + _spore_msg.at(potion)));
 
 
     for (int i = 0; i < num_affected; ++i)
@@ -1001,7 +998,7 @@ bool quaff_potion(item_def &potion, bool force)
     if (!was_known)
     {
         identify_item(potion);
-        mprf("It was %s.", article_a(potion.name(DESC_QUALNAME)).c_str());
+        mpr(zh_message("operation.potion.unknown_identified", {zh_item_quantity_arg("potion", potion, 1, DESC_A)}));
     }
 
     const potion_type ptyp = static_cast<potion_type>(potion.sub_type);
@@ -1010,7 +1007,7 @@ bool quaff_potion(item_def &potion, bool force)
         if (you.wearing(OBJ_JEWELLERY, AMU_CHEMISTRY, false, true)
             && you.magic_points < you.max_magic_points)
         {
-            mpr("You extract magical energy from the potion.");
+            mpr(zh_message("operation.potion.alchemy.extract"));
             inc_mp(random_range(5, 9));
         }
 

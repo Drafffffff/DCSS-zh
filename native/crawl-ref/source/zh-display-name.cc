@@ -10,6 +10,7 @@
 #include "item-status-flag-type.h"
 #include "items.h"
 #include "invent.h"
+#include "colour.h"
 #include "mon-info.h"
 #include "monster.h"
 #include "place.h"
@@ -264,8 +265,11 @@ std::string translated_item_name(const item_def &item,
     };
     // Unknown identities, artefacts and status-heavy names stay wholly
     // canonical unless every visible semantic component is covered.
-    if (desc == DESC_NONE || desc == DESC_DBNAME
-        || desc == DESC_BASENAME || desc == DESC_QUALNAME
+    const bool consumable_base = item.is_identified()
+        && (item.base_type == OBJ_POTIONS || item.base_type == OBJ_SCROLLS);
+    if (desc == DESC_NONE || ((desc == DESC_DBNAME || desc == DESC_QUALNAME)
+                             && !consumable_base)
+        || desc == DESC_BASENAME
         || is_artefact(item) || item.cursed() || !item.inscription.empty()
         || item.props.exists(ITEM_NAME_KEY))
         return fallback();
@@ -611,4 +615,32 @@ std::string zh_item_display(const item_def &item, description_level_type desc)
 {
     const ZhArg arg = zh_item_arg("name", item, desc);
     return zh_language_enabled() ? arg.localized : arg.canonical;
+}
+
+ZhArg zh_item_quantity_arg(const std::string &key, const item_def &item,
+                          int quantity, description_level_type desc)
+{
+    item_def snapshot = item;
+    snapshot.quantity = quantity;
+    return zh_item_arg(key, snapshot, desc);
+}
+
+ZhArg zh_item_menu_arg(const std::string &key, const item_def &item,
+                      description_level_type desc)
+{
+    ZhArg result = zh_item_arg(key, item, desc);
+    string prefix;
+    int colour;
+    {
+        ZhTranslationPause canonical;
+        prefix = item_prefix(item, false);
+        colour = menu_colour(result.canonical, prefix, "pickup", false);
+    }
+    if (colour != -1)
+    {
+        const string tag = colour_to_str(colour);
+        result.canonical = "<" + tag + ">" + result.canonical + "</" + tag + ">";
+        result.localized = "<" + tag + ">" + result.localized + "</" + tag + ">";
+    }
+    return result;
 }

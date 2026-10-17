@@ -44,6 +44,8 @@ for path in sorted(LOC.glob('luna-*-messages.json')):
   template_en=messages[case['id']]['en']
   for key,value in case['args'].items():
    template_en=template_en.replace('{'+key+'}',str(value['canonical']))
+  # The renderer decodes literal braces after named substitutions.
+  template_en=template_en.replace('{{','{').replace('}}','}')
   override=''
   if template_en != case['canonical']:
    # The English caller retains its original singular/plural morphology.

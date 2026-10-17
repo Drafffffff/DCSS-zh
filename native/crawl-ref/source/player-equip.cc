@@ -1,4 +1,6 @@
 #include "AppHdr.h"
+#include "zh-display-name.h"
+#include "zh-message.h"
 
 #include "player-equip.h"
 
@@ -72,9 +74,11 @@ static bool _use_slots(unrand_type item, bool count_melded, bool count_items)
  * @return The number of slots of the given type the player has.
  */
 int get_player_equip_slot_count(equipment_slot slot, string* zero_reason,
-                                bool count_melded_unrands, bool count_items)
+                                bool count_melded_unrands, bool count_items, ZhArg* display_reason)
 {
-#define NO_SLOT(x) {if (count == 0) {if (zero_reason) { *zero_reason = x; }; return 0;}}
+#define NO_SLOT(x) {if (count == 0) { const ZhArg r = x; \
+    if (zero_reason) *zero_reason = r.canonical; \
+    if (display_reason) *display_reason = r; return 0; }}
 
 size_type player_size = you.body_size(PSIZE_TORSO, true);
 int count = 0;
@@ -84,7 +88,7 @@ int count = 0;
 
     case SLOT_WEAPON:
         if (you.has_mutation(MUT_NO_GRASPING))
-            NO_SLOT("You can't wield any weapon.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_weapon"))
         else
             return 1;
 
@@ -92,15 +96,14 @@ int count = 0;
         if (you.has_mutation(MUT_MISSING_HAND))
         {
             if (you.has_innate_mutation(MUT_TENTACLE_ARMS))
-                NO_SLOT("You need the rest of your tentacles for walking.")
+                NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.need_tentacles"))
             else
             {
-                NO_SLOT(make_stringf("You'd need another %s to do that!",
-                                        you.hand_name(false).c_str()))
+                NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.need_hand", {zh_glossary_name("body_part", "body_part", you.hand_name(false))}))
             }
         }
         else if (you.has_mutation(MUT_NO_GRASPING))
-            NO_SLOT("You can't hold anything in your paws.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_hold_paws"))
         // Coglins get a SLOT_WEAPON_OR_OFFHAND instead.
         else if (you.has_mutation(MUT_WIELD_OFFHAND))
             return 0;
@@ -115,15 +118,14 @@ int count = 0;
 
     case SLOT_BODY_ARMOUR:
         if (you.has_mutation(MUT_FORMLESS))
-            NO_SLOT("You can't haunt something so large.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.haunt_large"))
         if (species::is_draconian(you.species))
         {
-            NO_SLOT(make_stringf("Your wings%s won't fit in that.",
-                                    you.has_mutation(MUT_BIG_WINGS)
-                                    ? "" : ", even vestigial as they are,"))
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.wings", {zh_word_arg("wing_note", "operation.equipment.value.", you.has_mutation(MUT_BIG_WINGS)
+                                    ? "" : ", even vestigial as they are,")}))
         }
         else if (you.species == SP_OCTOPODE || you.has_mutation(MUT_NO_ARMOUR))
-            NO_SLOT("You can't wear armour!");
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_armour_slot"));
 
         return 1;
 
@@ -134,15 +136,15 @@ int count = 0;
             ++count;
 
         if (you.has_mutation(MUT_FORMLESS))
-            NO_SLOT("You don't have a head.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_head"))
         else if (you.has_mutation(MUT_NO_ARMOUR))
-            NO_SLOT("That is much too large for your head.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.headgear_too_large"))
         else if (you.form == transformation::serpent)
             return 2;
         else if (you.get_mutation_level(MUT_HORNS, false) >= 3)
-            NO_SLOT("You can't wear any headgear with your large horns!")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.horns_headgear"))
         else if (you.get_mutation_level(MUT_ANTENNAE, false) >= 3)
-            NO_SLOT("You can't wear any headgear with your large antennae!")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.antennae_headgear"))
         else
             ++count;
 
@@ -156,17 +158,17 @@ int count = 0;
             ++count;
 
         if (you.has_mutation(MUT_FORMLESS))
-            NO_SLOT("You don't have hands.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_hands"))
         else if (player_size <= SIZE_LITTLE)
-            NO_SLOT(make_stringf("Those are too big for your %s.", you.hand_name(true).c_str()))
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_size", {zh_word_arg("size_relation", "operation.equipment.value.", "too big"), zh_glossary_name("body_part", "body_part", you.hand_name(true))}))
         else if (player_size >= SIZE_LARGE)
-            NO_SLOT(make_stringf("Those are too small for your %s.", you.hand_name(true).c_str()))
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_size", {zh_word_arg("size_relation", "operation.equipment.value.", "too small"), zh_glossary_name("body_part", "body_part", you.hand_name(true))}))
         else if (you.species == SP_OCTOPODE || you.has_mutation(MUT_NO_ARMOUR))
-            NO_SLOT(make_stringf("Those can't fit on your %s.", you.hand_name(true).c_str()))
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_fit", {zh_glossary_name("body_part", "body_part", you.hand_name(true))}))
         else if (you.get_mutation_level(MUT_CLAWS, false) >= 3)
-            NO_SLOT(make_stringf("Those can't fit over your huge %s.", you.hand_name(true).c_str()))
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.claws_fit", {zh_glossary_name("body_part", "body_part", you.hand_name(true))}))
         else if (you.get_mutation_level(MUT_DEMONIC_TOUCH, false) >= 3)
-            NO_SLOT("Your demonic touch would destroy those.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.demonic_touch"))
         else
             ++count;
 
@@ -174,19 +176,19 @@ int count = 0;
 
     case SLOT_BOOTS:
         if (species::wears_barding(you.species) || you.has_mutation(MUT_FORMLESS))
-            NO_SLOT("You don't have any feet!")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_feet"))
         else if (player_size <= SIZE_LITTLE)
-            NO_SLOT(make_stringf("Those are too big for your %s.", you.foot_name(true).c_str()))
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_size", {zh_word_arg("size_relation", "operation.equipment.value.", "too big"), zh_glossary_name("body_part", "body_part", you.foot_name(true))}))
         else if (player_size >= SIZE_LARGE)
-            NO_SLOT(make_stringf("Those are too small for your %s.", you.foot_name(true).c_str()))
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_size", {zh_word_arg("size_relation", "operation.equipment.value.", "too small"), zh_glossary_name("body_part", "body_part", you.foot_name(true))}))
         else if (you.species == SP_OCTOPODE || you.has_mutation(MUT_NO_ARMOUR))
-            NO_SLOT("You can't wear boots.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_boots"))
         else if (you.get_mutation_level(MUT_HOOVES, false) >= 3)
-            NO_SLOT("Your hooves can't fit into boots.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.hooves_boots"))
         else if (you.get_mutation_level(MUT_TALONS, false) >= 3)
-            NO_SLOT("Your talons can't fit into boots.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.talons_boots"))
         else if (you.has_mutation(MUT_FLOAT))
-            NO_SLOT("You have no feet!")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.floating_feet"))
 
         return 1;
 
@@ -197,7 +199,7 @@ int count = 0;
         if (you.form == transformation::sphinx && !you.has_mutation(MUT_NO_ARMOUR))
             return 1;
 
-        NO_SLOT("You can't fit into that!")
+        NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.cannot_fit"))
 
     case SLOT_CLOAK:
         // If octopodes are allowed to wear bardings, then surely they can also
@@ -206,18 +208,18 @@ int count = 0;
             return 1;
 
         if (you.has_mutation(MUT_FORMLESS))
-            NO_SLOT("You don't have any shoulders.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_shoulders"))
         else if (you.species == SP_OCTOPODE || you.has_mutation(MUT_NO_ARMOUR))
-            NO_SLOT("You can't wear that.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_cloak"))
         else if (you.get_mutation_level(MUT_WEAKNESS_STINGER, false) >= 3)
-            NO_SLOT("You can't wear that with your sharp stinger!")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.stinger_cloak"))
 
         return 1;
 
     case SLOT_RING:
     {
         if (you.has_mutation(MUT_NO_JEWELLERY))
-            NO_SLOT("You can't wear any rings.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_rings"))
 
         int ring_count = 2;
         if (you.species == SP_OCTOPODE)
@@ -237,7 +239,7 @@ int count = 0;
 
     case SLOT_AMULET:
         if (you.has_mutation(MUT_NO_JEWELLERY))
-            NO_SLOT("You can't wear amulets.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_amulets"))
 
         if (_use_slots(UNRAND_JUSTICARS_REGALIA, count_melded_unrands, count_items))
             return 2;
@@ -246,7 +248,7 @@ int count = 0;
 
     case SLOT_GIZMO:
         if (you.species != SP_COGLIN)
-            NO_SLOT("You lack an exoframe to install that in.")
+            NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_exoframe"))
 
         return 1;
 
@@ -462,12 +464,15 @@ bool slot_is_melded(equipment_slot slot)
  *
  * @return True if the player is capable of theoretically wearing this item.
  */
-bool can_equip_item(const item_def& item, bool include_form, string* veto_reason)
+bool can_equip_item(const item_def& item, bool include_form, string* veto_reason,
+                    ZhArg* display_reason)
 {
-#define NO_EQUIP(x) {if (veto_reason) { *veto_reason = x; }; return 0;}
+#define NO_EQUIP(x) { const ZhArg r = x; \
+    if (veto_reason) *veto_reason = r.canonical; \
+    if (display_reason) *display_reason = r; return 0; }
 
     if (!item_type_is_equipment(item.base_type))
-        NO_EQUIP("That isn't an equippable item.")
+        NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.not_equipment"))
 
     vector<equipment_slot> slots = get_all_item_slots(item);
 
@@ -480,14 +485,15 @@ bool can_equip_item(const item_def& item, bool include_form, string* veto_reason
         for (equipment_slot alt_slot : flex)
         {
             // If we don't have this slot, veto_reason will be set here.
-            if (get_player_equip_slot_count(alt_slot, veto_reason))
+            if (get_player_equip_slot_count(alt_slot, veto_reason, false, true, display_reason))
             {
                 if (include_form && slot_is_melded(alt_slot))
                 {
                     // Note that this slot is blocked due to transformation, in
                     // the likely case that no other compatible slot exists.
-                    if (veto_reason)
-                        *veto_reason = "You can't equip that in your current form.";
+                    const ZhArg r = zh_message_arg("reason", "operation.equipment.reason.current_form");
+                    if (veto_reason) *veto_reason = r.canonical;
+                    if (display_reason) *display_reason = r;
                 }
                 else
                 {
@@ -513,8 +519,7 @@ bool can_equip_item(const item_def& item, bool include_form, string* veto_reason
             int bad_size = fit_armour_size(item, player_size);
             if (bad_size != 0)
             {
-                NO_EQUIP(make_stringf("That is too %s for you to equip!",
-                                            (bad_size > 0) ? "large" : "small"))
+                NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.size", {zh_word_arg("size_relation", "operation.equipment.value.", (bad_size > 0) ? "large" : "small")}))
             }
         }
 
@@ -526,19 +531,19 @@ bool can_equip_item(const item_def& item, bool include_form, string* veto_reason
             if (you.form == transformation::serpent)
                 return true;
             if (player_size >= SIZE_LARGE)
-                NO_EQUIP("This helmet is too small for your head.")
+                NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.helmet_size", {zh_word_arg("size_relation", "operation.equipment.value.", "small")}))
             else if (player_size <= SIZE_LITTLE)
-                NO_EQUIP("This helmet is too large for your head.")
+                NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.helmet_size", {zh_word_arg("size_relation", "operation.equipment.value.", "large")}))
             else if (species::is_draconian(you.species))
-                NO_EQUIP("You can't wear that with your reptilian head.")
+                NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.reptilian_head"))
             else if (you.species == SP_OCTOPODE)
-                NO_EQUIP("Your can't wear that!")
+                NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.octopode_helmet"))
             else if (you.has_mutation(MUT_HORNS, include_form))
-                NO_EQUIP("You can't fit that over your horns.")
+                NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.horns_helmet"))
             else if (you.has_mutation(MUT_ANTENNAE, include_form))
-                NO_EQUIP("You can't fit that over your antennae.")
+                NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.antennae_helmet"))
             else if (you.has_mutation(MUT_BEAK, include_form))
-                NO_EQUIP("You can't fit that over your beak.")
+                NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.beak_helmet"))
         }
     }
     else if (item.base_type == OBJ_WEAPONS)
@@ -547,7 +552,7 @@ bool can_equip_item(const item_def& item, bool include_form, string* veto_reason
         if (is_weapon_too_large(item, bsize)
             && !you.has_mutation(MUT_QUADRUMANOUS))
         {
-            NO_EQUIP("That's too large for you to wield.");
+            NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.weapon_size"));
         }
     }
 
@@ -794,7 +799,7 @@ void player_equip_set::find_removable_items_for_slot(equipment_slot base_slot,
     }
 
     if (!quiet && !found_item && cursed_item)
-        mprf(MSGCH_PROMPT, "%s is stuck to your body!", cursed_item->name(DESC_YOUR).c_str());
+        mpr(zh_message("operation.equipment.reason.cursed_slot", {zh_item_arg("item", *cursed_item, DESC_YOUR)}), MSGCH_PROMPT);
 }
 
 /**
@@ -1191,13 +1196,11 @@ void player_equip_set::handle_melding(vector<item_def*>& to_meld, bool skip_effe
         return;
 
     // Print a message.
-    vector<string> meld_msg;
+    vector<ZhArg> meld_msg;
     for (item_def* meld_item : to_meld)
-        meld_msg.emplace_back(meld_item->name(DESC_PLAIN));
+        meld_msg.push_back(zh_item_arg("item", *meld_item, DESC_PLAIN));
 
-    mprf("Your %s meld%s into your body.",
-            comma_separated_line(meld_msg.begin(), meld_msg.end()).c_str(),
-            meld_msg.size() > 1 ? "" : "s");
+    mpr(zh_message("operation.equipment.effect.meld", {zh_message_list("items", meld_msg), zh_word_arg("plural_suffix", "operation.equipment.value.", meld_msg.size() > 1 ? "" : "s")}));
 
     update();
 
@@ -1309,13 +1312,11 @@ void player_equip_set::handle_unmelding(vector<item_def*>& to_unmeld, bool skip_
     // Print a message.
     if (!skip_effects)
     {
-        vector<string> unmeld_msg;
+        vector<ZhArg> unmeld_msg;
         for (item_def* unmeld_item : to_unmeld)
-            unmeld_msg.emplace_back(unmeld_item->name(DESC_PLAIN));
+            unmeld_msg.push_back(zh_item_arg("item", *unmeld_item, DESC_PLAIN));
 
-        mprf("Your %s unmeld%s from your body.",
-                comma_separated_line(unmeld_msg.begin(), unmeld_msg.end()).c_str(),
-                unmeld_msg.size() > 1 ? "" : "s");
+        mpr(zh_message("operation.equipment.effect.unmeld", {zh_message_list("items", unmeld_msg), zh_word_arg("plural_suffix", "operation.equipment.value.", unmeld_msg.size() > 1 ? "" : "s")}));
     }
 
     update();
@@ -1509,7 +1510,7 @@ static void _calc_hp_artefact()
 static void _flight_equip()
 {
     if (you.airborne()) // already aloft
-        mpr("You feel rather light.");
+        mpr(zh_message("operation.equipment.effect.light"));
     else
         float_player();
     you.attribute[ATTR_PERM_FLIGHT] = 1;
@@ -1734,27 +1735,27 @@ void equip_artefact_effect(item_def &item, bool *show_msgs, bool unmeld)
         _flight_equip();
 
     if (proprt[ARTP_CONTAM] && msg && !unmeld)
-        mpr("You feel a build-up of mutagenic energy.");
+        mpr(zh_message("operation.equipment.effect.contamination_start"));
 
     if (proprt[ARTP_BANE] && !unmeld)
     {
         if (msg)
-            mpr("You feel a malign power afflict you.");
+            mpr(zh_message("operation.equipment.effect.bane"));
         add_bane(NUM_BANES, "Equipping an artefact");
     }
 
     if (proprt[ARTP_RAMPAGING] && msg && !unmeld
         && !you.has_mutation(MUT_ROLLPAGE))
     {
-        mpr("You feel ready to rampage towards enemies.");
+        mpr(zh_message("operation.equipment.effect.rampage_on"));
     }
 
     if (proprt[ARTP_ARCHMAGI] && msg && !unmeld)
     {
         if (!you.skill(SK_SPELLCASTING))
-            mpr("You feel strangely lacking in power.");
+            mpr(zh_message("operation.equipment.effect.archmagi_weak"));
         else
-            mpr("You feel powerful.");
+            mpr(zh_message("operation.equipment.effect.archmagi_power"));
     }
 
     if (proprt[ARTP_HP])
@@ -1801,18 +1802,18 @@ void unequip_artefact_effect(item_def &item,  bool *show_msgs, bool meld)
 
     if (proprt[ARTP_CONTAM] && !meld)
     {
-        mpr("Mutagenic energies flood into your body!");
+        mpr(zh_message("operation.equipment.effect.contamination_off"));
         contaminate_player(1200, true);
     }
 
     if (proprt[ARTP_RAMPAGING] && msg && !meld
         && !you.rampaging())
     {
-        mpr("You no longer feel able to rampage towards enemies.");
+        mpr(zh_message("operation.equipment.effect.rampage_off"));
     }
 
     if (proprt[ARTP_ARCHMAGI] && msg && !meld)
-        mpr("You feel strangely numb.");
+        mpr(zh_message("operation.equipment.effect.archmagi_off"));
 
     if (proprt[ARTP_DRAIN] && !meld)
         drain_player(150, true, true);
@@ -1830,7 +1831,7 @@ void unequip_artefact_effect(item_def &item,  bool *show_msgs, bool meld)
 
     if (artefact_property(item, ARTP_FRAGILE) && !meld)
     {
-        mprf("%s crumbles to dust!", item.name(DESC_THE).c_str());
+        mpr(zh_message("operation.equipment.effect.fragile_break", {zh_item_arg("item", item, DESC_THE)}));
 
         // Hide unwield messages for weapons that have already been destroyed.
         if (item.base_type == OBJ_WEAPONS)
@@ -1841,17 +1842,17 @@ void unequip_artefact_effect(item_def &item,  bool *show_msgs, bool meld)
 static void _equip_use_warning(const item_def& item)
 {
     if (is_holy_item(item) && you_worship(GOD_YREDELEMNUL))
-        mpr("You really shouldn't be using a holy item like this.");
+        mpr(zh_message("operation.equipment.effect.warn_holy"));
     else if (is_evil_item(item) && is_good_god(you.religion))
-        mpr("You really shouldn't be using an evil item like this.");
+        mpr(zh_message("operation.equipment.effect.warn_evil"));
     else if (is_unclean_item(item) && you_worship(GOD_ZIN))
-        mpr("You really shouldn't be using an unclean item like this.");
+        mpr(zh_message("operation.equipment.effect.warn_unclean"));
     else if (is_chaotic_item(item) && you_worship(GOD_ZIN))
-        mpr("You really shouldn't be using a chaotic item like this.");
+        mpr(zh_message("operation.equipment.effect.warn_chaotic"));
     else if (is_hasty_item(item) && you_worship(GOD_CHEIBRIADOS))
-        mpr("You really shouldn't be using a hasty item like this.");
+        mpr(zh_message("operation.equipment.effect.warn_hasty"));
     else if (is_wizardly_item(item) && you_worship(GOD_TROG))
-        mpr("You really shouldn't be using a wizardly item like this.");
+        mpr(zh_message("operation.equipment.effect.warn_wizardly"));
 }
 
 // Provide a function for handling initial wielding of 'special' weapons
@@ -1868,70 +1869,68 @@ static void _equip_weapon_effect(item_def& item, bool showMsgs, bool unmeld)
         switch (special)
         {
         case SPWPN_FLAMING:
-            mprf("%s bursts into flame!", item_name.c_str());
+            mpr(zh_message("operation.equipment.effect.weapon_flame_on", {zh_item_arg("item", item, DESC_YOUR)}));
             break;
 
         case SPWPN_FREEZING:
-            mprf("%s %s", item_name.c_str(),
-                is_range_weapon(item) ?
-                    "is covered in frost." :
-                    "glows with a cold blue light!");
+            mpr(zh_message(is_range_weapon(item) ? "operation.equipment.effect.weapon_freeze_ranged" : "operation.equipment.effect.weapon_freeze_melee", {zh_item_arg("item", item, DESC_YOUR)}));
             break;
 
         case SPWPN_HOLY_WRATH:
             if (you.undead_or_demonic())
             {
-                mprf("%s sits dull and lifeless in your grasp.",
-                        item_name.c_str());
+                mpr(zh_message("operation.equipment.effect.weapon_dull", {zh_item_arg("item", item, DESC_YOUR)}));
             }
             else
             {
-                mprf("%s softly glows with a divine radiance!",
-                        item_name.c_str());
+                mpr(zh_message("operation.equipment.effect.weapon_divine", {zh_item_arg("item", item, DESC_YOUR)}));
             }
             break;
 
         case SPWPN_FOUL_FLAME:
             if (you.is_holy())
             {
-                mprf("%s sits dull and lifeless in your grasp.",
-                        item_name.c_str());
+                mpr(zh_message("operation.equipment.effect.weapon_dull", {zh_item_arg("item", item, DESC_YOUR)}));
             }
             else
             {
-                mprf("%s glows horrifically with a foul blackness!",
-                        item_name.c_str());
+                mpr(zh_message("operation.equipment.effect.weapon_foul", {zh_item_arg("item", item, DESC_YOUR)}));
             }
             break;
 
         case SPWPN_ELECTROCUTION:
             if (!silenced(you.pos()))
             {
-                mprf(MSGCH_SOUND,
-                        "You hear the crackle of electricity.");
+                mpr(zh_message("operation.equipment.effect.weapon_electric_hear"), MSGCH_SOUND);
             }
             else
-                mpr("You see sparks fly.");
+                mpr(zh_message("operation.equipment.effect.spark_sight"));
             break;
 
         case SPWPN_VENOM:
-            mprf("%s begins to drip with poison!", item_name.c_str());
+            mpr(zh_message("operation.equipment.effect.weapon_venom", {zh_item_arg("item", item, DESC_YOUR)}));
             break;
 
         case SPWPN_PROTECTION:
-            mprf("%s hums with potential!", item_name.c_str());
+            mpr(zh_message("operation.equipment.effect.weapon_protection", {zh_item_arg("item", item, DESC_YOUR)}));
             break;
 
         case SPWPN_DRAINING:
-            mpr("You sense an unholy aura.");
+            mpr(zh_message("operation.equipment.effect.draining_aura"));
             break;
 
         case SPWPN_SPEED:
-            mpr(you.hands_act("tingle", "!"));
+            {
+                bool plural = true;
+                const string hands = you.hand_name(true, &plural);
+                mpr(zh_message("operation.equipment.effect.speed_tingle",
+                    {zh_glossary_name("hands", "body_part", hands),
+                     zh_word_arg("verb", "operation.equipment.value.", conjugate_verb("tingle", plural))}));
+            }
             break;
 
         case SPWPN_VAMPIRISM:
-            mpr("You feel a sense of dread.");
+            mpr(zh_message("operation.equipment.effect.vampire_dread"));
             break;
 
         case SPWPN_PAIN:
@@ -1939,27 +1938,23 @@ static void _equip_weapon_effect(item_def& item, bool showMsgs, bool unmeld)
             const string your_arm = you.arm_name(false);
             if (you_worship(GOD_TROG))
             {
-                mprf(MSGCH_GOD, "Trog suppresses %s necromantic effect.",
-                        apostrophise(item_name).c_str());
+                mpr(zh_message("operation.equipment.effect.weapon_pain_trog", {zh_item_arg("item", item, DESC_YOUR)}, make_stringf("Trog suppresses %s necromantic effect.", apostrophise(item_name).c_str())), MSGCH_GOD);
             }
             else if (you.skill(SK_NECROMANCY) == 0)
-                mpr("You have a feeling of ineptitude.");
+                mpr(zh_message("operation.equipment.effect.pain_ineptitude"));
             else if (you.skill(SK_NECROMANCY) <= 6)
             {
-                mprf("Pain shudders through your %s!",
-                        your_arm.c_str());
+                mpr(zh_message("operation.equipment.effect.weapon_pain_skill_low", {zh_glossary_name("arm", "body_part", you.arm_name(false))}));
             }
             else
             {
-                mprf("A searing pain shoots up your %s!",
-                        your_arm.c_str());
+                mpr(zh_message("operation.equipment.effect.weapon_pain_skill_high", {zh_glossary_name("arm", "body_part", you.arm_name(false))}));
             }
             break;
         }
 
         case SPWPN_CHAOS:
-            mprf("%s is briefly surrounded by a scintillating aura of "
-                    "random colours.", item_name.c_str());
+            mpr(zh_message("operation.equipment.effect.weapon_chaos", {zh_item_arg("item", item, DESC_YOUR)}));
             break;
 
         case SPWPN_PENETRATION:
@@ -1969,64 +1964,61 @@ static void _equip_weapon_effect(item_def& item, bool showMsgs, bool unmeld)
             bool plural = true;
             string hand = you.hand_name(true, &plural);
 
-            mprf("Your %s briefly %s through it before you manage "
-                    "to get a firm grip on it.",
-                    hand.c_str(), conjugate_verb("pass", plural).c_str());
+            mpr(zh_message("operation.equipment.effect.weapon_penetration", {zh_glossary_name("hand", "body_part", hand), zh_word_arg("verb", "operation.equipment.value.", conjugate_verb("pass", plural))}));
             break;
         }
 
         case SPWPN_REAPING:
-            mprf("%s is briefly surrounded by shifting shadows.",
-                    item_name.c_str());
+            mpr(zh_message("operation.equipment.effect.weapon_reaping", {zh_item_arg("item", item, DESC_YOUR)}));
             break;
 
         case SPWPN_ANTIMAGIC:
             if (you.has_mutation(MUT_HP_CASTING))
-                mpr("You feel a force failing to suppress your magic.");
+                mpr(zh_message("operation.equipment.effect.antimagic_fail"));
             else
             {
                 // Even if your maxmp is 0.
-                mpr("You feel magic leave you.");
+                mpr(zh_message("operation.equipment.effect.antimagic_leave"));
             }
             break;
 
         case SPWPN_DISTORTION:
-            mpr("Space warps around you for a moment!");
+            mpr(zh_message("operation.equipment.effect.distortion_warp"));
             break;
 
         case SPWPN_ACID:
-            mprf("%s begins to ooze corrosive slime!", item_name.c_str());
+            mpr(zh_message("operation.equipment.effect.weapon_acid", {zh_item_arg("item", item, DESC_YOUR)}));
             break;
 
         case SPWPN_SPECTRAL:
-            mprf("You feel a bond with %s.", item_name.c_str());
+            mpr(zh_message("operation.equipment.effect.weapon_spectral", {zh_item_arg("item", item, DESC_YOUR)}));
             break;
 
         case SPWPN_REBUKE:
-            mprf("%s quivers in your %s.", item_name.c_str(), you.hand_name(true).c_str());
+            mpr(zh_message("operation.equipment.effect.weapon_rebuke", {zh_item_arg("item", item, DESC_YOUR), zh_glossary_name("hand", "body_part", you.hand_name(true))}));
             break;
 
         case SPWPN_VALOUR:
             if (you.hp > you.hp_max * 4 / 5)
-                mprf("Your weapon gleams with eagerness.");
+                mpr(zh_message("operation.equipment.effect.weapon_valour_eager"));
             else
-                mprf("%s feels dull in your %s.", item_name.c_str(), you.hand_name(true).c_str());
+                mpr(zh_message("operation.equipment.effect.weapon_valour_dull", {zh_item_arg("item", item, DESC_YOUR), zh_glossary_name("hand", "body_part", you.hand_name(true))}));
             break;
 
         case SPWPN_ENTANGLING:
-            mprf("Vines begin sprouting from %s.", item_name.c_str());
+            mpr(zh_message("operation.equipment.effect.weapon_vines", {zh_item_arg("item", item, DESC_YOUR)}));
             break;
 
         case SPWPN_SUNDERING:
-            mprf("%s gleams with a vicious edge.", item_name.c_str());
+            mpr(zh_message("operation.equipment.effect.weapon_sunder", {zh_item_arg("item", item, DESC_YOUR)}));
             break;
 
         case SPWPN_CONCUSSION:
-            mprf("%s radiates an overwhelming force.", item_name.c_str());
+            mpr(zh_message("operation.equipment.effect.weapon_concussion", {zh_item_arg("item", item, DESC_YOUR)}));
             break;
 
         case SPWPN_DEVIOUS:
-            mpr("You feel a baleful cunning.");
+            mpr(zh_message("operation.equipment.effect.devious_on"));
             break;
 
         default:
@@ -2038,7 +2030,7 @@ static void _equip_weapon_effect(item_def& item, bool showMsgs, bool unmeld)
         calc_mp();
 
     if (!unmeld)
-        mprf_nocap("%s", item.name(DESC_INVENTORY_EQUIP).c_str());
+        mpr(zh_message("operation.pickup.item_name", {zh_item_arg("item_name", item, DESC_INVENTORY_EQUIP)}));
 }
 
 static void _unequip_weapon_effect(item_def& item, bool showMsgs, bool meld)
@@ -2058,37 +2050,37 @@ static void _unequip_weapon_effect(item_def& item, bool showMsgs, bool meld)
             {
             case SPWPN_FLAMING:
                 if (showMsgs)
-                    mprf("%s stops flaming.", msg.c_str());
+                    mpr(zh_message("operation.equipment.effect.weapon_brand_off", {zh_item_arg("item", item, DESC_YOUR), zh_word_arg("phrase", "operation.equipment.value.", "stops flaming")}));
                 break;
 
             case SPWPN_HOLY_WRATH:
                 if (showMsgs && !you.undead_or_demonic())
-                    mprf("%s stops glowing.", msg.c_str());
+                    mpr(zh_message("operation.equipment.effect.weapon_brand_off", {zh_item_arg("item", item, DESC_YOUR), zh_word_arg("phrase", "operation.equipment.value.", "stops glowing")}));
                 break;
 
             case SPWPN_FOUL_FLAME:
                 if (showMsgs && !you.is_holy())
-                    mprf("%s stops glowing.", msg.c_str());
+                    mpr(zh_message("operation.equipment.effect.weapon_brand_off", {zh_item_arg("item", item, DESC_YOUR), zh_word_arg("phrase", "operation.equipment.value.", "stops glowing")}));
                 break;
 
             case SPWPN_FREEZING:
                 if (showMsgs)
-                    mprf("%s stops glowing.", msg.c_str());
+                    mpr(zh_message("operation.equipment.effect.weapon_brand_off", {zh_item_arg("item", item, DESC_YOUR), zh_word_arg("phrase", "operation.equipment.value.", "stops glowing")}));
                 break;
 
             case SPWPN_ELECTROCUTION:
                 if (showMsgs)
-                    mprf("%s stops crackling.", msg.c_str());
+                    mpr(zh_message("operation.equipment.effect.weapon_brand_off", {zh_item_arg("item", item, DESC_YOUR), zh_word_arg("phrase", "operation.equipment.value.", "stops crackling")}));
                 break;
 
             case SPWPN_VENOM:
                 if (showMsgs)
-                    mprf("%s stops dripping with poison.", msg.c_str());
+                    mpr(zh_message("operation.equipment.effect.weapon_brand_off", {zh_item_arg("item", item, DESC_YOUR), zh_word_arg("phrase", "operation.equipment.value.", "stops dripping with poison")}));
                 break;
 
             case SPWPN_PROTECTION:
                 if (showMsgs)
-                    mprf("%s goes still.", msg.c_str());
+                    mpr(zh_message("operation.equipment.effect.weapon_brand_off", {zh_item_arg("item", item, DESC_YOUR), zh_word_arg("phrase", "operation.equipment.value.", "goes still")}));
                 if (you.duration[DUR_SPWPN_PROTECTION])
                 {
                     you.duration[DUR_SPWPN_PROTECTION] = 0;
@@ -2098,7 +2090,7 @@ static void _unequip_weapon_effect(item_def& item, bool showMsgs, bool meld)
 
             case SPWPN_VAMPIRISM:
                 if (showMsgs)
-                    mpr("You feel the dreadful sensation subside.");
+                    mpr(zh_message("operation.equipment.effect.vampire_subside"));
                 break;
 
             case SPWPN_DISTORTION:
@@ -2110,7 +2102,7 @@ static void _unequip_weapon_effect(item_def& item, bool showMsgs, bool meld)
             case SPWPN_ANTIMAGIC:
                 calc_mp();
                 if (!you.has_mutation(MUT_HP_CASTING))
-                    mpr("You feel magic returning to you.");
+                    mpr(zh_message("operation.equipment.effect.magic_return"));
                 break;
 
             case SPWPN_SPECTRAL:
@@ -2125,35 +2117,35 @@ static void _unequip_weapon_effect(item_def& item, bool showMsgs, bool meld)
                 // effect when reading brand weapon in read() in item-use.cc
 
             case SPWPN_ACID:
-                mprf("%s stops oozing corrosive slime.", msg.c_str());
+                mpr(zh_message("operation.equipment.effect.weapon_brand_off", {zh_item_arg("item", item, DESC_YOUR), zh_word_arg("phrase", "operation.equipment.value.", "stops oozing corrosive slime")}));
                 break;
 
             case SPWPN_REBUKE:
                 if (showMsgs)
-                    mprf("%s stops quivering.", msg.c_str());
+                    mpr(zh_message("operation.equipment.effect.weapon_brand_off", {zh_item_arg("item", item, DESC_YOUR), zh_word_arg("phrase", "operation.equipment.value.", "stops quivering")}));
                 break;
 
             case SPWPN_VALOUR:
-                mpr("You feel very meek.");
+                mpr(zh_message("operation.equipment.effect.valour_meek"));
                 you.weaken(&you, 10);
                 break;
 
             case SPWPN_ENTANGLING:
-                mprf("The vines retreat back into %s.", msg.c_str());
+                mpr(zh_message("operation.safety.vines_retreat", {zh_item_arg("item", item, DESC_YOUR)}));
                 you.stop_directly_constricting_all(true);
                 break;
 
             case SPWPN_SUNDERING:
-                mprf("%s goes dull.", msg.c_str());
+                mpr(zh_message("operation.equipment.effect.weapon_brand_off", {zh_item_arg("item", item, DESC_YOUR), zh_word_arg("phrase", "operation.equipment.value.", "goes dull")}));
                 break;
 
             case SPWPN_CONCUSSION:
                 if (showMsgs)
-                    mprf("%s stops radiating force.", msg.c_str());
+                    mpr(zh_message("operation.equipment.effect.weapon_brand_off", {zh_item_arg("item", item, DESC_YOUR), zh_word_arg("phrase", "operation.equipment.value.", "stops radiating force")}));
                 break;
 
             case SPWPN_DEVIOUS:
-                mpr("You feel guileless.");
+                mpr(zh_message("operation.equipment.effect.devious_off"));
                 you.duration[DUR_DEVIOUS] = 0;
                 you.redraw_evasion = true;
                 break;
@@ -2166,22 +2158,22 @@ static void _spirit_shield_message(bool unmeld)
 {
     if (!unmeld && you.spirit_shield() < 2 && !you.has_mutation(MUT_HP_CASTING))
     {
-        mpr("You feel your power drawn to a protective spirit.");
+        mpr(zh_message("operation.equipment.effect.spirit_draw"));
 #if TAG_MAJOR_VERSION == 34
         if (you.species == SP_DEEP_DWARF)
         {
             drain_mp(you.magic_points, true);
-            mpr("Now linked to your health, your magic stops regenerating.");
+            mpr(zh_message("operation.equipment.effect.deepdwarf_spirit"));
         }
 #endif
     }
     else if (!unmeld && (you.get_mutation_level(MUT_MANA_SHIELD)
                          || you.has_mutation(MUT_HP_CASTING)))
     {
-        mpr("You feel the presence of a powerless spirit.");
+        mpr(zh_message("operation.equipment.effect.spirit_powerless"));
     }
     else if (!you.get_mutation_level(MUT_MANA_SHIELD))
-        mpr("You feel spirits watching over you.");
+        mpr(zh_message("operation.equipment.effect.spirit_watch"));
 }
 
 static void _zonguldrok_comment_on_hat(const item_def& hat)
@@ -2225,26 +2217,26 @@ static void _equip_armour_effect(item_def& arm, bool unmeld)
         switch (ego)
         {
         case SPARM_FIRE_RESISTANCE:
-            mpr("You feel resistant to fire.");
+            mpr(zh_message("operation.equipment.effect.fire_resist_on"));
             break;
 
         case SPARM_COLD_RESISTANCE:
-            mpr("You feel resistant to cold.");
+            mpr(zh_message("operation.equipment.effect.cold_resist_on"));
             break;
 
         case SPARM_POISON_RESISTANCE:
             if (player_res_poison(false, false, false) < 3)
-                mpr("You feel resistant to poison.");
+                mpr(zh_message("operation.equipment.effect.poison_resist_on"));
             break;
 
         case SPARM_SEE_INVISIBLE:
-            mpr("You feel perceptive.");
+            mpr(zh_message("operation.equipment.effect.see_invis_on"));
             autotoggle_autopickup(false);
             break;
 
         case SPARM_INVISIBILITY:
             if (!you.duration[DUR_INVIS])
-                mpr("You become transparent for a moment.");
+                mpr(zh_message("operation.equipment.effect.invis_on"));
             break;
 
         case SPARM_STRENGTH:
@@ -2260,7 +2252,7 @@ static void _equip_armour_effect(item_def& arm, bool unmeld)
             break;
 
         case SPARM_PONDEROUSNESS:
-            mpr("You feel rather ponderous.");
+            mpr(zh_message("operation.equipment.effect.ponderous_on"));
             break;
 
         case SPARM_FLYING:
@@ -2268,31 +2260,31 @@ static void _equip_armour_effect(item_def& arm, bool unmeld)
             break;
 
         case SPARM_WILLPOWER:
-            mpr("You feel strong-willed.");
+            mpr(zh_message("operation.equipment.effect.will_on"));
             break;
 
         case SPARM_PROTECTION:
-            mpr("You feel protected.");
+            mpr(zh_message("operation.equipment.effect.protection_on"));
             break;
 
         case SPARM_STEALTH:
             if (!you.get_mutation_level(MUT_NO_STEALTH))
-                mpr("You feel stealthy.");
+                mpr(zh_message("operation.equipment.effect.stealth_on"));
             break;
 
         case SPARM_RESISTANCE:
-            mpr("You feel resistant to extremes of temperature.");
+            mpr(zh_message("operation.equipment.effect.resistance_on"));
             break;
 
         case SPARM_POSITIVE_ENERGY:
-            mpr("You feel more protected from negative energy.");
+            mpr(zh_message("operation.equipment.effect.positive_energy_on"));
             break;
 
         case SPARM_ARCHMAGI:
             if (!you.skill(SK_SPELLCASTING))
-                mpr("You feel strangely lacking in power.");
+                mpr(zh_message("operation.equipment.effect.archmagi_weak"));
             else
-                mpr("You feel powerful.");
+                mpr(zh_message("operation.equipment.effect.archmagi_power"));
             break;
 
         case SPARM_SPIRIT_SHIELD:
@@ -2300,35 +2292,33 @@ static void _equip_armour_effect(item_def& arm, bool unmeld)
             break;
 
         case SPARM_HURLING:
-            mpr("You feel that your aim is more steady.");
+            mpr(zh_message("operation.equipment.effect.aim_on"));
             break;
 
         case SPARM_REPULSION:
-            mpr("You are surrounded by a repulsion field.");
+            mpr(zh_message("operation.equipment.effect.repulsion_on"));
             break;
 
         case SPARM_SHADOWS:
-            mpr("It gets dark.");
+            mpr(zh_message("operation.equipment.effect.shadows_on"));
             update_vision_range();
             break;
 
         case SPARM_RAMPAGING:
             if (!you.has_mutation(MUT_ROLLPAGE))
-                mpr("You feel ready to rampage towards enemies.");
+                mpr(zh_message("operation.equipment.effect.rampage_on"));
             break;
 
         case SPARM_INFUSION:
             if (you.max_magic_points || you.has_mutation(MUT_HP_CASTING))
             {
-                mprf("You feel magic pooling in your %s.",
-                     you.hand_name(true).c_str());
+                mpr(zh_message("operation.equipment.effect.infusion_pool", {zh_glossary_name("hands", "body_part", you.hand_name(true))}));
             }
             else
             {
                 bool can_plural = false;
                 const string hands = you.hand_name(true, &can_plural);
-                mprf("Your %s feel%s oddly empty.",
-                     hands.c_str(), can_plural ? "" : "s");
+                mpr(zh_message("operation.equipment.effect.hands_empty", {zh_glossary_name("hands", "body_part", hands), zh_word_arg("plural_suffix", "operation.equipment.value.", can_plural ? "" : "s")}));
             }
             break;
 
@@ -2358,22 +2348,22 @@ static void _unequip_armour_effect(item_def& item, bool meld)
     switch (get_armour_ego_type(item))
     {
     case SPARM_FIRE_RESISTANCE:
-        mpr("You feel less resistant to fire.");
+        mpr(zh_message("operation.equipment.effect.fire_resist_off"));
         break;
 
     case SPARM_COLD_RESISTANCE:
-        mpr("You feel less resistant to cold.");
+        mpr(zh_message("operation.equipment.effect.cold_resist_off"));
         break;
 
     case SPARM_POISON_RESISTANCE:
         if (player_res_poison() <= 0)
-            mpr("You no longer feel resistant to poison.");
+            mpr(zh_message("operation.equipment.effect.poison_resist_off"));
         break;
 
     case SPARM_SEE_INVISIBLE:
         if (!you.can_see_invisible())
         {
-            mpr("You feel less perceptive.");
+            mpr(zh_message("operation.equipment.effect.see_invis_off"));
             _mark_unseen_monsters();
         }
         break;
@@ -2394,7 +2384,7 @@ static void _unequip_armour_effect(item_def& item, bool meld)
     {
         // XX can the noun here be derived from the species walking verb?
         const string noun = you.species == SP_NAGA ? "slither" : "step";
-        mprf("That put a bit of spring back into your %s.", noun.c_str());
+        mpr(zh_message("operation.equipment.effect.spring_step", {zh_word_arg("movement", "operation.equipment.value.", noun)}));
         break;
     }
 
@@ -2405,62 +2395,62 @@ static void _unequip_armour_effect(item_def& item, bool meld)
         break;
 
     case SPARM_WILLPOWER:
-        mpr("You feel less strong-willed.");
+        mpr(zh_message("operation.equipment.effect.will_off"));
         break;
 
     case SPARM_PROTECTION:
-        mpr("You feel less protected.");
+        mpr(zh_message("operation.equipment.effect.protection_off"));
         break;
 
     case SPARM_STEALTH:
         if (!you.get_mutation_level(MUT_NO_STEALTH))
-            mpr("You feel less stealthy.");
+            mpr(zh_message("operation.equipment.effect.stealth_off"));
         break;
 
     case SPARM_RESISTANCE:
-        mpr("You feel hot and cold all over.");
+        mpr(zh_message("operation.equipment.effect.resistance_off"));
         break;
 
     case SPARM_POSITIVE_ENERGY:
-        mpr("You feel less protected from negative energy.");
+        mpr(zh_message("operation.equipment.effect.positive_energy_off"));
         break;
 
     case SPARM_ARCHMAGI:
-        mpr("You feel strangely numb.");
+        mpr(zh_message("operation.equipment.effect.archmagi_off"));
         break;
 
     case SPARM_SPIRIT_SHIELD:
         if (!you.spirit_shield())
         {
-            mpr("You feel strangely alone.");
+            mpr(zh_message("operation.equipment.effect.alone"));
 #if TAG_MAJOR_VERSION == 34
             if (you.species == SP_DEEP_DWARF)
-                mpr("Your magic begins regenerating once more.");
+                mpr(zh_message("operation.equipment.effect.deepdwarf_magic"));
 #endif
         }
         break;
 
     case SPARM_HURLING:
-        mpr("Your aim is not that steady anymore.");
+        mpr(zh_message("operation.equipment.effect.aim_off"));
         break;
 
     case SPARM_REPULSION:
-        mpr("The haze of the repulsion field disappears.");
+        mpr(zh_message("operation.equipment.effect.repulsion_off"));
         break;
 
     case SPARM_SHADOWS:
-        mpr("The dungeon's light returns to normal.");
+        mpr(zh_message("operation.equipment.effect.shadows_off"));
         update_vision_range();
         break;
 
     case SPARM_RAMPAGING:
         if (!you.rampaging())
-            mpr("You no longer feel able to rampage towards enemies.");
+            mpr(zh_message("operation.equipment.effect.rampage_off"));
         break;
 
     case SPARM_INFUSION:
         if (you.max_magic_points || you.has_mutation(MUT_HP_CASTING))
-            mprf("You feel magic leave your %s.", you.hand_name(true).c_str());
+            mpr(zh_message("operation.equipment.effect.infusion_leave", {zh_glossary_name("hands", "body_part", you.hand_name(true))}));
         break;
 
     case SPARM_LIGHT:
@@ -2496,7 +2486,7 @@ static void _remove_amulet_of_faith(item_def &item)
 
     const int piety_loss = div_rand_round(you.raw_piety, 3);
     // Piety penalty for removing the Amulet of Faith.
-    mprf(MSGCH_GOD, "You feel less pious.");
+    mpr(zh_message("operation.equipment.effect.faith_less_pious"), MSGCH_GOD);
     dprf("%s: piety drain: %d", item.name(DESC_PLAIN).c_str(), piety_loss);
     lose_piety(piety_loss);
 }
@@ -2530,16 +2520,14 @@ static void _handle_regen_item_equip(const item_def& item)
 #if TAG_MAJOR_VERSION == 34
     if (regen_hp && !regen_mp && you.get_mutation_level(MUT_NO_REGENERATION))
     {
-        mprf("The %s feel%s cold and inert.", item_name.c_str(),
-             plural ? "" : "s");
+        mpr(zh_message("operation.equipment.effect.regen_cold", {zh_glossary_name("item_type", "item.base", item_name), zh_word_arg("plural_suffix", "operation.equipment.value.", plural ? "" : "s")}));
         return;
     }
 #endif
     if (regen_mp && !regen_hp && !player_regenerates_mp()
         && !item.is_type(OBJ_JEWELLERY, AMU_CHEMISTRY))
     {
-        mprf("The %s feel%s cold and inert.", item_name.c_str(),
-             plural ? "" : "s");
+        mpr(zh_message("operation.equipment.effect.regen_cold", {zh_glossary_name("item_type", "item.base", item_name), zh_word_arg("plural_suffix", "operation.equipment.value.", plural ? "" : "s")}));
 
         return;
     }
@@ -2549,15 +2537,12 @@ static void _handle_regen_item_equip(const item_def& item)
 
     if (!low_mp && !low_hp)
     {
-        mprf("The %s throb%s to your%s body.", item_name.c_str(),
-             plural ? " as they attune themselves" : "s as it attunes itself",
-             regen_hp ? " uninjured" : "");
+        mpr(zh_message("operation.equipment.effect.regen_attune", {zh_glossary_name("item_type", "item.base", item_name), zh_word_arg("plural_suffix", "operation.equipment.value.", plural ? " as they attune themselves" : "s as it attunes itself"), zh_word_arg("state", "operation.equipment.value.", regen_hp ? " uninjured" : "")}));
         you.equipment.get_entry_for(item).attuned = true;
         return;
     }
 
-    mprf("The %s cannot attune %s to your%s body.", item_name.c_str(),
-         plural ? "themselves" : "itself", low_hp ? " injured" : " exhausted");
+    mpr(zh_message("operation.equipment.effect.regen_cannot_attune", {zh_glossary_name("item_type", "item.base", item_name), zh_word_arg("pronoun", "operation.equipment.value.", plural ? "themselves" : "itself"), zh_word_arg("state", "operation.equipment.value.", low_hp ? " injured" : " exhausted")}));
 
     return;
 }
@@ -2578,7 +2563,7 @@ bool parrying_boost_active()
 static void _equip_amulet_of_reflection()
 {
     you.redraw_armour_class = true;
-    mpr("You feel a shielding aura gather around you.");
+    mpr(zh_message("operation.equipment.effect.reflect_on"));
 }
 
 static void _equip_jewellery_effect(item_def &item, bool unmeld)
@@ -2616,7 +2601,7 @@ static void _equip_jewellery_effect(item_def &item, bool unmeld)
     case RING_MAGICAL_POWER:
         if (you.has_mutation(MUT_HP_CASTING))
         {
-            mpr("You repel a surge of foreign magic.");
+            mpr(zh_message("operation.equipment.effect.foreign_magic"));
             break;
         }
         canned_msg(MSG_MANA_INCREASE);
@@ -2627,22 +2612,22 @@ static void _equip_jewellery_effect(item_def &item, bool unmeld)
     {
         if (you.has_mutation(MUT_FORLORN))
         {
-            mpr("You feel a surge of self-confidence.");
+            mpr(zh_message("operation.equipment.effect.amulet_confidence"));
             break;
         }
         if (you.has_mutation(MUT_FAITH))
         {
-            mpr("You already have all the faith you need.");
+            mpr(zh_message("operation.equipment.effect.faith_enough"));
             break;
         }
 
-        const string ignore_reason = ignore_faith_reason();
-        if (!ignore_reason.empty())
-            simple_god_message(ignore_reason.c_str());
+        const ZhArg ignore_reason = ignore_faith_display_reason();
+        if (!ignore_reason.canonical.empty())
+            mpr(zh_message("operation.safety.faith_ignore",
+                {zh_glossary_name("god", "god.name", god_name(you.religion)), ignore_reason}), MSGCH_GOD);
         else
         {
-            mprf(MSGCH_GOD, "You feel a %ssurge of divine interest.",
-                            you_worship(GOD_NO_GOD) ? "strange " : "");
+            mpr(zh_message("operation.equipment.effect.divine_interest", {zh_word_arg("modifier", "operation.equipment.value.", you_worship(GOD_NO_GOD) ? "strange " : "")}), MSGCH_GOD);
         }
     }
 
@@ -2650,9 +2635,9 @@ static void _equip_jewellery_effect(item_def &item, bool unmeld)
 
     case AMU_ACROBAT:
         if (you.has_mutation(MUT_TENGU_FLIGHT))
-            mpr("You feel no more acrobatic than usual.");
+            mpr(zh_message("operation.equipment.effect.acrobat_noop"));
         else
-            mpr("You feel ready to tumble and roll out of harm's way.");
+            mpr(zh_message("operation.equipment.effect.acrobat_on"));
         break;
 
     case AMU_REFLECTION:
@@ -2660,16 +2645,16 @@ static void _equip_jewellery_effect(item_def &item, bool unmeld)
         break;
 
     case AMU_WILDSHAPE:
-        mpr("You feel a wild power.");
+        mpr(zh_message("operation.equipment.effect.wildshape_on"));
         _change_wildshape_status();
         break;
 
     case AMU_CHEMISTRY:
-        mpr("You feel a deeper understanding of alchemy.");
+        mpr(zh_message("operation.equipment.effect.alchemy_on"));
         break;
 
     case AMU_DISSIPATION:
-        mpr("You feel as though your troubles will go away faster.");
+        mpr(zh_message("operation.equipment.effect.dissipation_on"));
         break;
 
     case AMU_GUARDIAN_SPIRIT:
@@ -2680,7 +2665,7 @@ static void _equip_jewellery_effect(item_def &item, bool unmeld)
     }
 
     if (!unmeld)
-        mprf_nocap("%s", item.name(DESC_INVENTORY_EQUIP).c_str());
+        mpr(zh_message("operation.pickup.item_name", {zh_item_arg("item_name", item, DESC_INVENTORY_EQUIP)}));
 }
 
 static void _unequip_jewellery_effect(item_def &item, bool meld)
@@ -2752,7 +2737,7 @@ static void _unequip_jewellery_effect(item_def &item, bool meld)
 #if TAG_MAJOR_VERSION == 34
     case AMU_GUARDIAN_SPIRIT:
         if (you.species == SP_DEEP_DWARF && player_regenerates_mp())
-            mpr("Your magic begins regenerating once more.");
+            mpr(zh_message("operation.equipment.effect.deepdwarf_magic"));
         break;
 #endif
 
@@ -2785,16 +2770,16 @@ void unwield_distortion(bool brand)
 {
     if (have_passive(passive_t::safe_distortion))
     {
-        simple_god_message(make_stringf(" absorbs the residual spatial "
-                           "distortion as you %s your "
-                           "weapon.", brand ? "rebrand" : "unwield").c_str());
+        mpr(zh_message("operation.equipment.effect.distortion_safe",
+            {zh_glossary_name("god", "god.name", god_name(you.religion)),
+             zh_word_arg("action", "operation.equipment.value.", brand ? "rebrand" : "unwield")}), MSGCH_GOD);
         return;
     }
 
     if (coinflip())
     {
         you.props[TELEPORTITIS_SOURCE].get_int() = MID_PLAYER;
-        you_teleport_now(false, "Space warps around you!");
+        you_teleport_now(false, zh_message("operation.equipment.effect.distortion_teleport"));
     }
     else if (coinflip())
     {
@@ -2805,7 +2790,7 @@ void unwield_distortion(bool brand)
     }
     else
     {
-        mpr("Space warps into you!");
+        mpr(zh_message("operation.equipment.effect.warp_into"));
         contaminate_player(random2avg(3000, 3), true);
     }
 }

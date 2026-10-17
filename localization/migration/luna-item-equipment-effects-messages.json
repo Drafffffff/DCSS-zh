@@ -1,0 +1,1564 @@
+{
+  "model": "Luna",
+  "purpose": "Player-visible equipment activation, deactivation, melding, and passive-effect feedback in player-equip.cc.",
+  "messages": [
+    {
+      "id": "operation.equipment.effect.acrobat_noop",
+      "context": "天狗飞行突变装备敏捷护身符。",
+      "en": "You feel no more acrobatic than usual.",
+      "zh": "你并未觉得比平时更加灵活。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.acrobat_on",
+      "context": "装备敏捷护身符。",
+      "en": "You feel ready to tumble and roll out of harm's way.",
+      "zh": "你感到自己已准备好翻滚躲避危险。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.aim_off",
+      "context": "卸下投掷护甲。",
+      "en": "Your aim is not that steady anymore.",
+      "zh": "你的准头不再那么稳定。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.aim_on",
+      "context": "装备投掷护甲。",
+      "en": "You feel that your aim is more steady.",
+      "zh": "你感到自己的准头更加稳定。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.alchemy_on",
+      "context": "装备炼金术护身符。",
+      "en": "You feel a deeper understanding of alchemy.",
+      "zh": "你感到自己对炼金术有了更深的理解。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.alone",
+      "context": "失去守护灵效果。",
+      "en": "You feel strangely alone.",
+      "zh": "你感到莫名孤独。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.amulet_confidence",
+      "context": "孤寂突变装备信仰护身符。",
+      "en": "You feel a surge of self-confidence.",
+      "zh": "你感到信心大增。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.antimagic_fail",
+      "context": "生命施法突变使反魔法武器无法压制魔法。",
+      "en": "You feel a force failing to suppress your magic.",
+      "zh": "你感到有一股力量未能压制你的魔法。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.antimagic_leave",
+      "context": "持用反魔法武器时感到魔法离去。",
+      "en": "You feel magic leave you.",
+      "zh": "你感到魔法离你而去。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.archmagi_off",
+      "context": "卸下大法师神器失去力量。",
+      "en": "You feel strangely numb.",
+      "zh": "你感到莫名麻木。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.archmagi_power",
+      "context": "装备大法师神器并拥有法术学识。",
+      "en": "You feel powerful.",
+      "zh": "你感到力量充沛。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.archmagi_weak",
+      "context": "装备大法师神器但没有法术学识。",
+      "en": "You feel strangely lacking in power.",
+      "zh": "你感到自己莫名缺乏力量。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.armour_poise_off",
+      "context": "卸下笨重护甲；movement 根据种族为 step/slither。",
+      "en": "That put a bit of spring back into your {movement}.",
+      "zh": "这让你的{movement}轻快了些。",
+      "params": {
+        "movement": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.bane",
+      "context": "装备神器受到恶性力量侵袭。",
+      "en": "You feel a malign power afflict you.",
+      "zh": "你感到一股恶性力量侵袭了你。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.cold_resist_off",
+      "context": "卸下寒抗护甲。",
+      "en": "You feel less resistant to cold.",
+      "zh": "你感到自己对寒冷的抵抗力减弱了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.cold_resist_on",
+      "context": "装备寒抗护甲。",
+      "en": "You feel resistant to cold.",
+      "zh": "你感到自己能够抵御寒冷。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.contamination_off",
+      "context": "卸下神器，变异能量涌入身体。",
+      "en": "Mutagenic energies flood into your body!",
+      "zh": "变异能量涌入你的身体！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.contamination_start",
+      "context": "装备神器获得污染能量。",
+      "en": "You feel a build-up of mutagenic energy.",
+      "zh": "你感到变异能量正在积聚。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.deepdwarf_magic",
+      "context": "34版本深矮人失去守护灵后魔法恢复。",
+      "en": "Your magic begins regenerating once more.",
+      "zh": "你的魔法开始重新恢复。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.deepdwarf_spirit",
+      "context": "34版本深矮人装备守护灵护甲，魔法不再再生。",
+      "en": "Now linked to your health, your magic stops regenerating.",
+      "zh": "现在魔法与你的生命值相连，不再自行恢复。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.devious_off",
+      "context": "卸下狡诈武器。",
+      "en": "You feel guileless.",
+      "zh": "你感到自己毫无心机。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.devious_on",
+      "context": "持用狡诈武器。",
+      "en": "You feel a baleful cunning.",
+      "zh": "你感到一股恶意的狡诈。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.dissipation_on",
+      "context": "装备消散护身符。",
+      "en": "You feel as though your troubles will go away faster.",
+      "zh": "你感到烦恼似乎会更快消散。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.distortion_banish",
+      "context": "unwield_distortion 的 banishment cause；action 仅选 rebranding/unwielding 的中文词项 operation.equipment.value.distortion_banish_action.*。",
+      "en": "{action} a weapon of distortion",
+      "zh": "你因{action}扭曲武器而被放逐",
+      "params": {
+        "action": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.distortion_safe",
+      "context": "安全扭曲被动吸收余波；action 为 rebrand/unwield。 action 复用 operation.equipment.value.distortion_action.*。",
+      "en": "{god} absorbs the residual spatial distortion as you {action} your weapon.",
+      "zh": "{god}吸收了余下的空间扭曲，你{action}了武器。",
+      "params": {
+        "god": "name",
+        "action": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.distortion_teleport",
+      "context": "卸下/重塑扭曲武器时触发传送。",
+      "en": "Space warps around you!",
+      "zh": "周围的空间扭曲了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "unwield_distortion; you_teleport_now reason",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.distortion_warp",
+      "context": "持用空间扭曲武器时空间扭曲。",
+      "en": "Space warps around you for a moment!",
+      "zh": "周围的空间扭曲了一瞬！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.divine_interest",
+      "context": "信仰护身符激活；前缀依 GOD_NO_GOD 选择 strange 或空串。 modifier 值复用 operation.equipment.value.modifier.none/strange。",
+      "en": "You feel a {modifier}surge of divine interest.",
+      "zh": "你感到一阵{modifier}神意涌动。",
+      "params": {
+        "modifier": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.draining_aura",
+      "context": "持用吸取生命武器。",
+      "en": "You sense an unholy aura.",
+      "zh": "你感到一股邪恶气息。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.faith_enough",
+      "context": "已有信仰突变而装备信仰护身符。",
+      "en": "You already have all the faith you need.",
+      "zh": "你已经拥有所需的全部信仰。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.faith_less_pious",
+      "context": "卸下信仰护身符时的信仰下降反馈。",
+      "en": "You feel less pious.",
+      "zh": "你感到自己的虔诚减退了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "_remove_amulet_of_faith; piety loss message",
+        "line": 2490
+      }
+    },
+    {
+      "id": "operation.equipment.effect.fire_resist_off",
+      "context": "卸下火抗护甲。",
+      "en": "You feel less resistant to fire.",
+      "zh": "你感到自己对火焰的抵抗力减弱了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.fire_resist_on",
+      "context": "装备火抗护甲。",
+      "en": "You feel resistant to fire.",
+      "zh": "你感到自己能够抵御火焰。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.foreign_magic",
+      "context": "生命施法者装备魔力戒指。",
+      "en": "You repel a surge of foreign magic.",
+      "zh": "你排斥了一股外来的魔力。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.fragile_break",
+      "context": "卸下脆弱神器时物品粉碎；item 为 DESC_THE 名称。",
+      "en": "{item} crumbles to dust!",
+      "zh": "{item}化为尘埃！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.god_faith_ignore",
+      "context": "信仰护身符激活但神祇有忽略理由；reason 是 ignore_faith_reason 的完整原因。 reason 仅为 operation.equipment.value.faith_ignore.* 中的祇名后缀词项。",
+      "en": "{reason}",
+      "zh": "{reason}",
+      "params": {
+        "reason": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.god_less_interested",
+      "context": "卸下信仰护身符后神祇兴趣减退；simple_god_message 会补入神祇名。",
+      "en": "{god} seems less interested in you.",
+      "zh": "{god}似乎对你不再那么感兴趣。",
+      "params": {
+        "god": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "_remove_amulet_of_faith; simple_god_message suffix",
+        "line": 2490
+      }
+    },
+    {
+      "id": "operation.equipment.effect.hands_empty",
+      "context": "装备灌注护甲但没有魔法容量；hands 与 can_plural 来自 hand_name。",
+      "en": "Your {hands} feel{plural_suffix} oddly empty.",
+      "zh": "你的{hands}感到空空如也{plural_suffix}。",
+      "params": {
+        "hands": "name",
+        "plural_suffix": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.infusion_empty",
+      "context": "装备灌注护甲；hands 与复数词尾来自 hand_name 和 can_plural。 zh 的 plural_suffix 使用 canonical override 空串；有限英文形态复用 operation.equipment.value.plural_suffix.*。",
+      "en": "Your {hands} feel{plural_suffix} oddly empty.",
+      "zh": "你的{hands}感到空空如也{plural_suffix}。",
+      "params": {
+        "hands": "name",
+        "plural_suffix": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.infusion_leave",
+      "context": "卸下灌注护甲；hands 来自 hand_name(true)。",
+      "en": "You feel magic leave your {hands}.",
+      "zh": "你感到魔法离开了你的{hands}。",
+      "params": {
+        "hands": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.infusion_pool",
+      "context": "装备灌注护甲；hands 来自 hand_name(true)。",
+      "en": "You feel magic pooling in your {hands}.",
+      "zh": "你感到魔法在你的{hands}中汇聚。",
+      "params": {
+        "hands": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.invis_on",
+      "context": "装备隐形护甲并首次获得隐形。",
+      "en": "You become transparent for a moment.",
+      "zh": "你短暂地变得透明。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.light",
+      "context": "获得飞行效果时已经处于空中。",
+      "en": "You feel rather light.",
+      "zh": "你感到身轻如燕。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.magic_leave_hand",
+      "context": "卸下灌注护甲；hands 来自 hand_name。",
+      "en": "You feel magic leave your {hands}.",
+      "zh": "你感到魔法离开了你的{hands}。",
+      "params": {
+        "hands": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.magic_pool",
+      "context": "装备灌注护甲，魔法汇聚到手中；hands 来自 hand_name。",
+      "en": "You feel magic pooling in your {hands}.",
+      "zh": "你感到魔法在你的{hands}中汇聚。",
+      "params": {
+        "hands": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.magic_return",
+      "context": "卸下反魔法武器后魔法恢复。",
+      "en": "You feel magic returning to you.",
+      "zh": "你感到魔法回到了你身上。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.meld",
+      "context": "一件或多件装备融入身体；items 为 comma_separated_line(DESC_PLAIN)；plural 为源码按数量选择空串或 s。 plural_suffix 英语仅为空串/s，中文参数值为空串。 zh 中 plural_suffix 使用 canonical override 空串，英文 s 不进入中文。",
+      "en": "Your {items} meld{plural_suffix} into your body.",
+      "zh": "你的{items}{plural_suffix}融入了身体。",
+      "params": {
+        "items": "text",
+        "plural_suffix": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.pain_ineptitude",
+      "context": "死灵学为零时持用痛苦武器。",
+      "en": "You have a feeling of ineptitude.",
+      "zh": "你感到自己力不从心。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.poison_resist_off",
+      "context": "失去毒抗护甲且无其他毒抗。",
+      "en": "You no longer feel resistant to poison.",
+      "zh": "你不再觉得自己能够抵御毒素。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.poison_resist_on",
+      "context": "装备毒抗护甲。",
+      "en": "You feel resistant to poison.",
+      "zh": "你感到自己能够抵御毒素。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.ponderous_on",
+      "context": "装备笨重护甲。",
+      "en": "You feel rather ponderous.",
+      "zh": "你感到行动颇为笨重。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.positive_energy_off",
+      "context": "卸下正能量护甲。",
+      "en": "You feel less protected from negative energy.",
+      "zh": "你感到自己对负能量的防护减弱了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.positive_energy_on",
+      "context": "装备正能量护甲。",
+      "en": "You feel more protected from negative energy.",
+      "zh": "你感到自己更能抵御负能量。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.protection_off",
+      "context": "卸下防护护甲。",
+      "en": "You feel less protected.",
+      "zh": "你感到自己受到的保护减少了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.protection_on",
+      "context": "装备防护护甲。",
+      "en": "You feel protected.",
+      "zh": "你感到受到保护。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.rampage_off",
+      "context": "失去神器冲锋效果。",
+      "en": "You no longer feel able to rampage towards enemies.",
+      "zh": "你不再觉得自己能冲向敌人。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.rampage_on",
+      "context": "装备冲锋神器，获得冲向敌人的能力。",
+      "en": "You feel ready to rampage towards enemies.",
+      "zh": "你感到自己已准备好冲向敌人。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.reflect_on",
+      "context": "装备反射护身符。",
+      "en": "You feel a shielding aura gather around you.",
+      "zh": "你感到一道护盾光环在身边汇聚。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.regen_attune",
+      "context": "再生装备角色当前未受伤/未缺魔法值；item_type、plural_suffix、state 均来自对应源码条件。plural_suffix 实际输入为“ as they attune themselves”或“s as it attunes itself”，中文有限值均为空，由本完整中文句承载单复数语义。state 实际有限输入为空串或“ uninjured”；此消息分支调用时传这两者之一，state 词项已有专属定义。",
+      "en": "The {item_type} throb{plural_suffix} to your{state} body.",
+      "zh": "{item_type}正在与你{state}的身体调谐并产生共鸣{plural_suffix}。",
+      "params": {
+        "item_type": "name",
+        "plural_suffix": "text",
+        "state": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.regen_cannot_attune",
+      "context": "再生装备无法调谐；item_type、pronoun、state 来自物品类型、数量与受伤/缺魔条件。 zh 参数有限值：pronoun→自身；state 仅为 injured→受伤、exhausted→魔力耗尽。 有限 state 值复用 operation.equipment.value.state.*；有限代词复用 operation.equipment.value.pronoun.*。",
+      "en": "The {item_type} cannot attune {pronoun} to your{state} body.",
+      "zh": "{item_type}{pronoun}无法与你{state}时的身体调谐。",
+      "params": {
+        "item_type": "name",
+        "pronoun": "text",
+        "state": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.regen_cold",
+      "context": "再生装备暂时无法提供效果；item_type 来自装备名，plural_suffix 由部位数量条件生成。 plural_suffix 英语仅为空串/s，中文参数值为空串。 zh 的 plural_suffix 使用 canonical override 空串；有限英文形态复用 operation.equipment.value.plural_suffix.*。",
+      "en": "The {item_type} feel{plural_suffix} cold and inert.",
+      "zh": "{item_type}{plural_suffix}摸起来冰冷而毫无生气。",
+      "params": {
+        "item_type": "name",
+        "plural_suffix": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.repulsion_off",
+      "context": "卸下偏斜护甲。",
+      "en": "The haze of the repulsion field disappears.",
+      "zh": "偏斜力场的薄雾消散了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.repulsion_on",
+      "context": "装备偏斜护甲。",
+      "en": "You are surrounded by a repulsion field.",
+      "zh": "你周围出现了一道偏斜力场。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.resistance_off",
+      "context": "卸下抗性护甲。",
+      "en": "You feel hot and cold all over.",
+      "zh": "你感到浑身忽冷忽热。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.resistance_on",
+      "context": "装备抗性护甲。",
+      "en": "You feel resistant to extremes of temperature.",
+      "zh": "你感到自己能够抵御极端温度。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.see_invis_off",
+      "context": "卸下隐形视物护甲且失去该能力。",
+      "en": "You feel less perceptive.",
+      "zh": "你感到感知变得迟钝。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.see_invis_on",
+      "context": "装备隐形视物护甲。",
+      "en": "You feel perceptive.",
+      "zh": "你感到感知更加敏锐。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.shadows_off",
+      "context": "卸下暗影护甲。",
+      "en": "The dungeon's light returns to normal.",
+      "zh": "地牢的光线恢复了正常。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.shadows_on",
+      "context": "装备暗影护甲。",
+      "en": "It gets dark.",
+      "zh": "四周暗了下来。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.spark_sight",
+      "context": "静音区域中持用电击武器。",
+      "en": "You see sparks fly.",
+      "zh": "你看见火花四溅。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.speed_tingle",
+      "context": "you.hands_act(\"tingle\", \"!\")：you.hand_name(true, &plural) → hands:name，conjugate_verb(\"tingle\", plural) → verb:text；verb 仅引用 operation.equipment.value.verb.tingle/tingles。",
+      "en": "Your {hands} {verb}!",
+      "zh": "你的{hands}{verb}！",
+      "params": {
+        "hands": "name",
+        "verb": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.spirit_draw",
+      "context": "护甲效果将力量牵引至守护灵。",
+      "en": "You feel your power drawn to a protective spirit.",
+      "zh": "你感到力量被引向守护灵。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.spirit_powerless",
+      "context": "存在无力守护灵。",
+      "en": "You feel the presence of a powerless spirit.",
+      "zh": "你感到有一个无力的守护灵存在。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.spirit_watch",
+      "context": "守护灵注视着你。",
+      "en": "You feel spirits watching over you.",
+      "zh": "你感到守护灵在守望着你。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.spring_step",
+      "context": "卸下笨重护甲；noun 取 step 或 slither。 movement 值复用 operation.equipment.value.movement.step/slither。",
+      "en": "That put a bit of spring back into your {movement}.",
+      "zh": "这让你的{movement}轻快了些。",
+      "params": {
+        "movement": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.stealth_off",
+      "context": "卸下潜行护甲。",
+      "en": "You feel less stealthy.",
+      "zh": "你感到身形不再那么隐秘。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.stealth_on",
+      "context": "装备潜行护甲。",
+      "en": "You feel stealthy.",
+      "zh": "你感到身形更加隐秘。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.unmeld",
+      "context": "一件或多件装备从身体解除融合；同上。 plural_suffix 英语仅为空串/s，中文参数值为空串。 zh 中 plural_suffix 使用 canonical override 空串，英文 s 不进入中文。",
+      "en": "Your {items} unmeld{plural_suffix} from your body.",
+      "zh": "你的{items}{plural_suffix}从身体中解除了融合。",
+      "params": {
+        "items": "text",
+        "plural_suffix": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.valour_meek",
+      "context": "卸下勇气武器后感到怯弱。",
+      "en": "You feel very meek.",
+      "zh": "你感到自己十分怯懦。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.vampire_dread",
+      "context": "持用吸血武器。",
+      "en": "You feel a sense of dread.",
+      "zh": "你感到一阵恐惧。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.vampire_subside",
+      "context": "卸下吸血武器后恐惧消退。",
+      "en": "You feel the dreadful sensation subside.",
+      "zh": "你感到那股可怕的感觉逐渐消退。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.warn_chaotic",
+      "context": "津神信徒装备混乱物品时的提醒。",
+      "en": "You really shouldn't be using a chaotic item like this.",
+      "zh": "你实在不该使用混乱物品。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.warn_evil",
+      "context": "善良神祇信徒装备邪恶物品时的提醒。",
+      "en": "You really shouldn't be using an evil item like this.",
+      "zh": "你实在不该使用邪恶物品。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.warn_hasty",
+      "context": "契布莉娅多斯信徒装备急躁物品时的提醒。",
+      "en": "You really shouldn't be using a hasty item like this.",
+      "zh": "你实在不该使用急躁物品。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.warn_holy",
+      "context": "邪恶神祇信徒装备神圣物品时的提醒。",
+      "en": "You really shouldn't be using a holy item like this.",
+      "zh": "你实在不该使用这样的神圣物品。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.warn_unclean",
+      "context": "津神信徒装备不洁物品时的提醒。",
+      "en": "You really shouldn't be using an unclean item like this.",
+      "zh": "你实在不该使用不洁物品。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.warn_wizardly",
+      "context": "特罗格信徒装备法师物品时的提醒。",
+      "en": "You really shouldn't be using a wizardly item like this.",
+      "zh": "你实在不该使用法师物品。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.warp_into",
+      "context": "空间扭曲效果反噬玩家。",
+      "en": "Space warps into you!",
+      "zh": "空间向你扭曲而来！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_acid",
+      "context": "持用酸液武器。",
+      "en": "{item} begins to ooze corrosive slime!",
+      "zh": "{item}开始渗出腐蚀性黏液！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_brand_off",
+      "context": "卸下武器后品牌效果消退；phrase 由固定分支选出。 phrase 有限值：stops flaming / stops glowing / stops crackling / stops dripping with poison / goes still / stops oozing corrosive slime / stops quivering / goes dull / stops radiating force / stops glowing with a divine radiance. phrase 值复用 operation.equipment.value.phrase.*，由分支固定选择。",
+      "en": "{item} {phrase}.",
+      "zh": "{item}{phrase}。",
+      "params": {
+        "item": "name",
+        "phrase": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_chaos",
+      "context": "持用混乱武器。",
+      "en": "{item} is briefly surrounded by a scintillating aura of random colours.",
+      "zh": "{item}短暂地被一道闪烁的随机色光环包围。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_concussion",
+      "context": "持用震荡武器。",
+      "en": "{item} radiates an overwhelming force.",
+      "zh": "{item}散发出压倒性的力量。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_divine",
+      "context": "持用神圣武器。",
+      "en": "{item} softly glows with a divine radiance!",
+      "zh": "{item}柔和地发出神圣光辉！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_dull",
+      "context": "武器对玩家无效时的持用反馈。",
+      "en": "{item} sits dull and lifeless in your grasp.",
+      "zh": "{item}在你手中黯淡无光，毫无生气。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_electric_hear",
+      "context": "持用电击武器且角色未处于静音时听到的声音提示。",
+      "en": "You hear the crackle of electricity.",
+      "zh": "你听见电流噼啪作响。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "_equip_weapon_effect; SPWPN_ELECTROCUTION and not silenced",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_flame_on",
+      "context": "持用火焰武器。",
+      "en": "{item} bursts into flame!",
+      "zh": "{item}燃起火焰！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_foul",
+      "context": "持用污秽火焰武器。",
+      "en": "{item} glows horrifically with a foul blackness!",
+      "zh": "{item}骇人地泛起污秽黑光！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_freeze_melee",
+      "context": "持用近战寒冰武器。",
+      "en": "{item} glows with a cold blue light!",
+      "zh": "{item}泛起冰冷的蓝光！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_freeze_ranged",
+      "context": "持用远程寒冰武器。",
+      "en": "{item} is covered in frost.",
+      "zh": "{item}覆上了一层冰霜。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_pain_skill_high",
+      "context": "死灵学高于 6 时持用痛苦武器；arm 来自 arm_name(false)。",
+      "en": "A searing pain shoots up your {arm}!",
+      "zh": "灼热剧痛沿着你的{arm}窜上！",
+      "params": {
+        "arm": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_pain_skill_low",
+      "context": "死灵学不高于 6 时持用痛苦武器；arm 来自 arm_name(false)。",
+      "en": "Pain shudders through your {arm}!",
+      "zh": "剧痛震颤着你的{arm}！",
+      "params": {
+        "arm": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_pain_trog",
+      "context": "特罗格压制痛苦武器的死灵效果；item 来自 apostrophise(item_name)。",
+      "en": "Trog suppresses {item} necromantic effect.",
+      "zh": "特罗格压制了{item}死灵效果。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_penetration",
+      "context": "_equip_weapon_effect SPWPN_PENETRATION：hand_name(true, &plural) → hand:name，conjugate_verb(\"pass\", plural) → verb:text；verb 仅引用 operation.equipment.value.verb.pass/passes。",
+      "en": "Your {hand} briefly {verb} through it before you manage to get a firm grip on it.",
+      "zh": "你的{hand}短暂地{verb}穿过它，之后才终于牢牢握住。",
+      "params": {
+        "hand": "name",
+        "verb": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_protection",
+      "context": "持用防护武器。",
+      "en": "{item} hums with potential!",
+      "zh": "{item}嗡嗡作响，蕴含着力量！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_reaping",
+      "context": "持用收割武器。",
+      "en": "{item} is briefly surrounded by shifting shadows.",
+      "zh": "{item}短暂地被流动的阴影包围。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_rebuke",
+      "context": "持用责罚武器；hand 来自 hand_name(true)。",
+      "en": "{item} quivers in your {hand}.",
+      "zh": "{item}在你的{hand}中颤动。",
+      "params": {
+        "item": "name",
+        "hand": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_spectral",
+      "context": "持用幽灵武器。",
+      "en": "You feel a bond with {item}.",
+      "zh": "你感到自己与{item}建立了联系。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_sunder",
+      "context": "持用破坏武器。",
+      "en": "{item} gleams with a vicious edge.",
+      "zh": "{item}闪烁着凶狠的锋芒。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_valour_dull",
+      "context": "生命值不高时持用勇气武器。",
+      "en": "{item} feels dull in your {hand}.",
+      "zh": "你觉得{item}在你的{hand}中黯淡无光。",
+      "params": {
+        "item": "name",
+        "hand": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_valour_eager",
+      "context": "生命值高于五分之四时持用勇气武器。",
+      "en": "Your weapon gleams with eagerness.",
+      "zh": "你的武器闪耀着热切的光芒。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "_equip_weapon_effect; SPWPN_VALOUR and hp > hp_max * 4 / 5",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_venom",
+      "context": "持用毒液武器。",
+      "en": "{item} begins to drip with poison!",
+      "zh": "{item}开始滴下毒液！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.weapon_vines",
+      "context": "持用缠绕武器。",
+      "en": "Vines begin sprouting from {item}.",
+      "zh": "藤蔓开始从{item}上生长出来。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equipment effect branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.effect.wildshape_on",
+      "context": "装备野性变形护身符。",
+      "en": "You feel a wild power.",
+      "zh": "你感到一股野性力量。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.will_off",
+      "context": "卸下意志护甲。",
+      "en": "You feel less strong-willed.",
+      "zh": "你感到意志不再那么坚定。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.effect.will_on",
+      "context": "装备意志护甲。",
+      "en": "You feel strong-willed.",
+      "zh": "你感到意志坚定。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "equip_artefact_effect / unequip_artefact_effect / _equip_weapon_effect / _unequip_weapon_effect / _equip_armour_effect / _unequip_armour_effect / _equip_jewellery_effect / unwield_distortion; corresponding branch",
+        "line": 1865
+      }
+    },
+    {
+      "id": "operation.equipment.value.distortion_action.rebrand",
+      "context": "安全扭曲被动模板中的有限动作词。",
+      "en": "rebrand",
+      "zh": "重塑品牌",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "unwield_distortion; safe_distortion action branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.value.distortion_action.unwield",
+      "context": "安全扭曲被动模板中的有限动作词。",
+      "en": "unwield",
+      "zh": "卸下",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "unwield_distortion; safe_distortion action branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.value.distortion_banish_action.rebranding",
+      "context": "扭曲武器放逐原因中的有限动作词。",
+      "en": "rebranding",
+      "zh": "重塑品牌时",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "unwield_distortion; banishment cause action branch",
+        "line": 1730
+      }
+    },
+    {
+      "id": "operation.equipment.value.distortion_banish_action.unwielding",
+      "context": "扭曲武器放逐原因中的有限动作词。",
+      "en": "unwielding",
+      "zh": "卸下时",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-equip.cc",
+        "anchor": "unwield_distortion; banishment cause action branch",
+        "line": 1730
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "operation.equipment.effect.weapon_flame_on",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "your flaming sword",
+          "localized": "你的火焰长剑"
+        }
+      },
+      "canonical": "your flaming sword bursts into flame!",
+      "zh": "你的火焰长剑燃起火焰！"
+    },
+    {
+      "id": "operation.equipment.effect.meld",
+      "args": {
+        "items": {
+          "type": "text",
+          "canonical": "leather armour",
+          "localized": "皮甲"
+        },
+        "plural_suffix": {
+          "type": "text",
+          "canonical": "s",
+          "localized": ""
+        }
+      },
+      "canonical": "Your leather armour melds into your body.",
+      "zh": "你的皮甲融入了身体。"
+    }
+  ]
+}

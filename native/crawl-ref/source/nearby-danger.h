@@ -5,6 +5,8 @@
 
 #pragma once
 
+struct ZhArg;
+
 #include "coord.h"
 #include "random.h" // shuffle_array
 
@@ -32,7 +34,7 @@ vector<monster* > get_nearby_monsters(bool want_move = false,
 
 bool i_feel_safe(bool announce = false, bool want_move = false,
                  bool just_monsters = false, bool check_dist = true,
-                 int range = -1, string* reason = nullptr);
+                 int range = -1, string* reason = nullptr, ZhArg* display_reason = nullptr);
 
 bool can_rest_here(bool announce = false);
 

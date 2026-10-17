@@ -11,7 +11,7 @@
 | 商店 | 菜单/确认/余额/购物清单主路径已接入，Mac严格回放通过；罕见命名回退仍登记 | 不同余额/数量/排序/颜色/键位/购买/空清单及名称回退 |
 | HUD | 等级/地点/噪声/武器部分接入；其他字段未迁移 | 统一按字段语义接入；列宽/刷新/长短名/最大值；不能整体跳过旧层审计 |
 | 战斗日志 | 战斗命中/失手及共用限制、反噬组合、变形进出已分批接入；本批施法增强/魔杖增强/误施法、四类引导提醒与终止及魔力不足日志接入；剩余战斗/法术/怪物日志待逐包验收；本批完成怪物首遇/追击/深渊出现/装备及伤势日志，其他怪物业务日志仍待迁移；随机嘲讽/普通怪物对白与行为对白由 monster-random-speech 接续，嵌入Lua及外部业务消费者仍未完成 | 玩家/怪物/武器/状态/数值组合，全部成功失败分支保留英文控制数据 |
-| 装备与物品操作 | 护符穿戴理由/万变护符/确认/延迟已接入；本批变形进出与装备模拟/脱落日志已接入，退休形态整句回退报告；其他物品穿脱/拾取仍待迁移 | 穿脱/挥舞/使用/失败/进度/中断完整消息；量词/所有格 |
+| 装备与物品操作 | 普通拾取/丢弃/穿脱/挥舞/使用主链路、typed理由、药水直接效果及库存分类已分批接入并经存档副本验证；专名武器、最后类别鉴定、集合摘要和跨模块效果消费者仍待后续包 | 穿脱/挥舞/使用/失败/进度/中断完整消息；量词/所有格 |
 | 瞄准、法术、能力、箭袋 | 目标理由、瞄准帮助/顶部/动作、箭袋/法术菜单及风险确认已接入；本批完成目标怪物伤势/装备/状态与全部现有typed效果回调消费者；能力其他菜单和业务日志仍待迁移 | 坐标/距离/法术等级分离；目标名称和无效目标；父视图/箭袋提示也需迁移 |
 | 神祇与角色 | 等级/技能成长部分接入；神祇/变异/状态/能力大量入口待迁移 | 每个实体、状态与等级语义分开；全流程日志/详情/菜单 |
 | 世界与通用界面 | 拾取初见教程已接入；本批完成共用危险地形/云雾/陷阱/排除区/穿墙确认；其他教程、旅行、交互与通用菜单仍待迁移 | 静态/动态生产点完整接入；输入/程序标识不翻译 |
@@ -111,6 +111,17 @@
 兼容规则：数据库选择保留原始叶模板/递归树；规范英文与随机调用只执行一次；控制值/频道/可见性/副作用顺序保持原义；不按最终英文反向匹配。
 验收记录：[verification/native/random-speech/REPORT.md](../../verification/native/random-speech/REPORT.md)。
 剩余：18条内嵌Lua语法保留原协议，整父规范英文回退并报告；53条纯控制值不属于待翻译文案；god_is非无神分支、部分方位别体及未知自定义语义名称仍整父回退；mon-cast其余施法组合、mon-death、mon-abil、god-companions等getSpeakString消费者尚未迁移；武器噪声、神祇对白与玩家谜语独立包；其他教程与动态日志仍在模块账本排队。
+
+### item-operations — verified
+
+所属模块：装备与物品操作。
+文件：`items.cc`、`invent.cc`、`invent.h`、`item-use.cc`、`item-use.h`、`player-equip.cc`、`player-equip.h`、`evoke.cc`、`potion.cc`、`delay.cc`、`quiver.cc`、`nearby-danger.cc`、`religion.cc`、`spl-transloc.cc`、`zh-display-name.cc`、`zh-message.cc`。
+生产函数：`get_gold`、`enchant_weapon`、`enchant_armour`、`no_selectables_display_reason`、`get_player_equip_slot_count`、`can_equip_item`、`ignore_faith_display_reason`、`zh_item_quantity_arg`、`zh_item_menu_arg`。
+显示/业务消费者：`drink`、`read`、`try_equip_item`、`try_unequip_item`、`use_an_item_menu`、`prompt_invent_item`、`maybe_warn_about_removing`、`check_warning_inscriptions`。
+验证：`tools/test_item_operations.py`、`tools/test_message_ids.py`、`tools/test_consumable_producers.py`、`tools/test_shared_restrictions.py`、`tools/test_pretranslated_rendering.py`、`tools/replay_saved_console.py`、`tools/replay_message_migration.py`。
+兼容规则：模板在格式化前选择；数量、名字与附魔前状态快照；规范英文 wrapper、随机调用、Lua和存档控制数据保持；颜色和快捷键分参。
+验收记录：[verification/native/item-operations/REPORT.md](../../verification/native/item-operations/REPORT.md)。
+剩余：专名武器问候/告别、最后类别鉴定、Orb逃离启动和地面集合摘要尚待迁移；外部数据库低语及法术/怪物/神祇/状态效果消费者须另包迁移；其他 const char* 自定义物品提示与复杂名称仍保留明确旧边界或整父回退；旅行/仆从灌注/伙伴塑形和箭袋近战反馈尚未完成。
 
 
 ## 公共旧入口

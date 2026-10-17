@@ -4,6 +4,7 @@
 #include "spl-cast.h"
 
 struct ZhArg;
+struct ZhMessage;
 class actor;
 class dist;
 struct dice_def;
@@ -86,3 +87,6 @@ spret cast_teleport_other(const coord_def& target, int power, bool fail);
 
 vector<coord_def> get_bestial_landing_spots(coord_def target);
 spret do_bestial_takedown(coord_def target);
+
+// UI message snapshot; canonical overload remains available to engine callers.
+void you_teleport_now(bool wizard_tele, const ZhMessage &reason);

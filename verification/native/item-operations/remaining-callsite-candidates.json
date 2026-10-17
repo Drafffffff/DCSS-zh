@@ -1,0 +1,383 @@
+{
+  "note": "Lexical review candidates, includes canonical/control/debug/shared-domain calls; not coverage or completion.",
+  "calls": [
+    {
+      "file": "items.cc",
+      "line": 217,
+      "api": "mprf",
+      "source": "mprf(MSGCH_WARN, \"Too many items on level, removing some.\")"
+    },
+    {
+      "file": "items.cc",
+      "line": 514,
+      "api": "mprf",
+      "source": "mprf(MSGCH_ERROR, \"Item %s claims to be held by monster %s, but \"\n                          \"it isn't in the monster's inventory.\",\n             env.item[dest].name(DESC_PLAIN, false, true).c_str(),\n             mons->name(DESC_PLAIN, true).c_str())"
+    },
+    {
+      "file": "items.cc",
+      "line": 568,
+      "api": "mprf",
+      "source": "mprf(MSGCH_ERROR, \"BUG WARNING: Problems unlinking item '%s', (%d, %d)!!!\",\n         env.item[dest].name(DESC_PLAIN).c_str(),\n         env.item[dest].pos.x, env.item[dest].pos.y)"
+    },
+    {
+      "file": "items.cc",
+      "line": 620,
+      "api": "mprf",
+      "source": "mprf(MSGCH_ERROR, \"BUG WARNING: Item didn't seem to be linked at all.\")"
+    },
+    {
+      "file": "items.cc",
+      "line": 1110,
+      "api": "mpr",
+      "source": "mpr(pickup_warning)"
+    },
+    {
+      "file": "items.cc",
+      "line": 1601,
+      "api": "mpr",
+      "source": "mpr(pickup_warning)"
+    },
+    {
+      "file": "items.cc",
+      "line": 3241,
+      "api": "mprf",
+      "source": "mprf(MSGCH_ERROR, \"ch_force_autopickup failed: %s\",\n             clua.error.c_str())"
+    },
+    {
+      "file": "items.cc",
+      "line": 3517,
+      "api": "mpr",
+      "source": "mpr(pickup_warning)"
+    },
+    {
+      "file": "items.cc",
+      "line": 4480,
+      "api": "mprf",
+      "source": "mprf(channel, \"weird detected item\")"
+    },
+    {
+      "file": "items.cc",
+      "line": 4485,
+      "api": "mprf",
+      "source": "mprf(channel, \"undefined item\")"
+    },
+    {
+      "file": "items.cc",
+      "line": 4494,
+      "api": "mprf",
+      "source": "mprf(channel, \"weird item subtype and no info\")"
+    },
+    {
+      "file": "items.cc",
+      "line": 4496,
+      "api": "mprf",
+      "source": "mprf(channel, \"huge item subtype\")"
+    },
+    {
+      "file": "items.cc",
+      "line": 4498,
+      "api": "mprf",
+      "source": "mprf(channel, \"unided item of a type that can't be\")"
+    },
+    {
+      "file": "items.cc",
+      "line": 4504,
+      "api": "mprf",
+      "source": "mprf(channel, \"item color invalid\")"
+    },
+    {
+      "file": "items.cc",
+      "line": 4509,
+      "api": "mprf",
+      "source": "mprf(channel, \"item has uninitialized rnd\")"
+    },
+    {
+      "file": "items.cc",
+      "line": 4583,
+      "api": "mprf",
+      "source": "mprf(MSGCH_PROMPT, \"%s\", line.c_str())"
+    },
+    {
+      "file": "items.cc",
+      "line": 4587,
+      "api": "mprf",
+      "source": "mprf(MSGCH_PROMPT, \"Which rune (ESC to exit)? \")"
+    },
+    {
+      "file": "items.cc",
+      "line": 4667,
+      "api": "mpr",
+      "source": "mpr(item->name(DESC_DBNAME))"
+    },
+    {
+      "file": "items.cc",
+      "line": 4708,
+      "api": "mprf",
+      "source": "mprf(\"%s (%s)\", entry->name,\n                                 debug_art_val_str(*item).c_str())"
+    },
+    {
+      "file": "items.cc",
+      "line": 4772,
+      "api": "mpr",
+      "source": "mpr(item->name(DESC_PLAIN))"
+    },
+    {
+      "file": "items.cc",
+      "line": 4794,
+      "api": "mpr",
+      "source": "mpr(\"Sorry, no books on that skill today.\")"
+    },
+    {
+      "file": "items.cc",
+      "line": 4806,
+      "api": "mpr",
+      "source": "mpr(\"That parchment doesn't seem to exist.\")"
+    },
+    {
+      "file": "items.cc",
+      "line": 5029,
+      "api": "mprf",
+      "source": "mprf(\"You have identified the last %s.\", class_name.c_str())"
+    },
+    {
+      "file": "items.cc",
+      "line": 5125,
+      "api": "mprf",
+      "source": "mprf(\"You welcome %s%s into your grasp.\", full_name.c_str(),\n         new_name ? \"\" : \" back\")"
+    },
+    {
+      "file": "items.cc",
+      "line": 5134,
+      "api": "mprf",
+      "source": "mprf(\"You whisper farewell to %s.\", name.c_str())"
+    },
+    {
+      "file": "invent.cc",
+      "line": 1861,
+      "api": "mprf",
+      "source": "mprf(MSGCH_PROMPT, \"%s (<w>?</w> for menu, <w>Esc</w> to quit)\", prompt)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 1839,
+      "api": "mpr",
+      "source": "mpr(\"You don't have anything to inscribe.\")"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2263,
+      "api": "mpr",
+      "source": "mpr(pre_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2276,
+      "api": "mprf",
+      "source": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str())"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2345,
+      "api": "mprf",
+      "source": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str())"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2379,
+      "api": "mpr",
+      "source": "mpr(pre_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2416,
+      "api": "mprf",
+      "source": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str())"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2486,
+      "api": "mprf",
+      "source": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str())"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2506,
+      "api": "mpr",
+      "source": "mpr(pre_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2950,
+      "api": "mpr",
+      "source": "mpr(pre_succ_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2967,
+      "api": "mpr",
+      "source": "mpr(pre_succ_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2974,
+      "api": "mpr",
+      "source": "mpr(pre_succ_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2984,
+      "api": "mpr",
+      "source": "mpr(pre_succ_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2996,
+      "api": "mpr",
+      "source": "mpr(pre_succ_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3091,
+      "api": "mpr",
+      "source": "mpr(pre_succ_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3100,
+      "api": "mpr",
+      "source": "mpr(pre_succ_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3114,
+      "api": "mpr",
+      "source": "mpr(pre_succ_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3128,
+      "api": "mpr",
+      "source": "mpr(pre_succ_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3144,
+      "api": "mpr",
+      "source": "mpr(pre_succ_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3179,
+      "api": "mpr",
+      "source": "mpr(pre_succ_msg)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3197,
+      "api": "mpr",
+      "source": "mpr(\"Read a buggy scroll, please report this.\")"
+    },
+    {
+      "file": "player-equip.cc",
+      "line": 2209,
+      "api": "mprf",
+      "source": "mprf(MSGCH_TALK, \"%s\", msg.c_str())"
+    },
+    {
+      "file": "delay.cc",
+      "line": 522,
+      "api": "mprf",
+      "source": "mprf(MSGCH_MULTITURN_ACTION, \"You begin to imbue your servitor with \"\n         \"knowledge of %s.\",\n         spell_title(spell))"
+    },
+    {
+      "file": "delay.cc",
+      "line": 529,
+      "api": "mprf",
+      "source": "mprf(MSGCH_MULTITURN_ACTION, \"You begin to imprint %s upon your paragon.\",\n         wpn.name(DESC_THE).c_str())"
+    },
+    {
+      "file": "delay.cc",
+      "line": 580,
+      "api": "mprf",
+      "source": "mprf(\"You're confused, stopping %s.\",\n             you.running.runmode_name().c_str())"
+    },
+    {
+      "file": "delay.cc",
+      "line": 920,
+      "api": "mprf",
+      "source": "mprf(\"You finish imprinting the physical structure of %s upon your paragon.\",\n            wpn.name(DESC_THE).c_str())"
+    },
+    {
+      "file": "delay.cc",
+      "line": 970,
+      "api": "mprf",
+      "source": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str())"
+    },
+    {
+      "file": "delay.cc",
+      "line": 1073,
+      "api": "mprf",
+      "source": "mprf(MSGCH_WARN,\n                 \"Deactivating autopickup; reactivate with <w>%s</w>.\",\n                 command_to_string(CMD_TOGGLE_AUTOPICKUP).c_str())"
+    },
+    {
+      "file": "delay.cc",
+      "line": 1111,
+      "api": "mprf",
+      "source": "mprf(MSGCH_MONSTER_WARNING, \"%s is now too close for your liking.\", mon->name(DESC_THE).c_str())"
+    },
+    {
+      "file": "delay.cc",
+      "line": 1113,
+      "api": "mprf",
+      "source": "mprf(MSGCH_MONSTER_WARNING, \"%s comes into view.\", mon->name(DESC_A).c_str())"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 124,
+      "api": "mprf",
+      "source": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str())"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 136,
+      "api": "mprf",
+      "source": "mprf(\"You are too depleted to draw on your %s recklessly!\",\n                you.has_mutation(MUT_HP_CASTING) ? \"health\" : \"magic\")"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 438,
+      "api": "mprf",
+      "source": "mprf(\"You deconstruct %s.\", mons->name(DESC_THE).c_str())"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 643,
+      "api": "mprf",
+      "source": "mprf(\"You cannot attack while %s.\", held_status())"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 719,
+      "api": "mprf",
+      "source": "mprf(\"You attack %s.\",\n                         feature_description_at(target.target,\n                                                false, DESC_THE).c_str())"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 774,
+      "api": "mprf",
+      "source": "mprf(\"You fail to reach past %s.\", midmons->name(DESC_THE).c_str())"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 795,
+      "api": "mprf",
+      "source": "mprf(\"%s is in the way.\",\n                         mons->observable() ? mons->name(DESC_THE).c_str()\n                                            : \"Something you can't see\")"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 820,
+      "api": "mprf",
+      "source": "mprf(\"You deconstruct %s.\", mons->name(DESC_THE).c_str())"
+    }
+  ]
+}

@@ -209,7 +209,7 @@ for result in results:
             assert sentence in terminal,(result['scene'],'intended complete message not visible',ident,sentence)
             visible.append(ident)
         result['visible_message_ids']=visible
-    if result['scene'].startswith(('prompt-', 'terrain-', 'monster-', 'encounter-', 'shout-', 'speech-')):
+    if result['scene'].startswith(('prompt-', 'terrain-', 'monster-', 'encounter-', 'shout-', 'speech-', 'item-')):
         # A traced speculative probe is not proof of a displayed message.
         # Compare bound complete templates with the real terminal, ignoring
         # terminal cursor-based padding and style escapes only.

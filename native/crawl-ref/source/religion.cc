@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "religion.h"
 
@@ -826,28 +827,32 @@ bool faith_has_penalty()
 
 /// Is an amulet of faith irrelevant to you while you worship your current god?
 /// If so, what how would that god explain why?
-string ignore_faith_reason()
+ZhArg ignore_faith_display_reason()
 {
     switch (you.religion)
     {
     case GOD_GOZAG:
-        return " cares for nothing but gold!";
+        return zh_message_arg("reason", "operation.equipment.value.faith_ignore.gozag");
     case GOD_ASHENZARI:
-        return " cares nothing for such trivial demonstrations of your faith.";
+        return zh_message_arg("reason", "operation.equipment.value.faith_ignore.ashen");
     case GOD_IGNIS:
         // XXX: would it be better to offer a discount..?
-        return " already offers you all the fire that remains!";
+        return zh_message_arg("reason", "operation.equipment.value.faith_ignore.ignis");
     case GOD_RU:
         if (you.raw_piety >= piety_breakpoint(5))
         {
-            return " says: An ascetic of your devotion"
-                   " has no use for such trinkets.";
+            return zh_message_arg("reason", "operation.equipment.value.faith_ignore.ru");
         }
         break;
     default:
         break;
     }
-    return "";
+    return zh_text("reason", "", "");
+}
+
+string ignore_faith_reason()
+{
+    return ignore_faith_display_reason().canonical;
 }
 
 void set_penance_xp_timeout()

@@ -4,6 +4,9 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-localization.h"
+#include "zh-display-name.h"
+#include "zh-message.h"
 
 #include "invent.h"
 
@@ -54,11 +57,12 @@
 static void _get_inv_items_to_show(vector<const item_def*> &v,
                                    int selector, int excluded_slot = -1);
 
-InvTitle::InvTitle(Menu *mn, const string &title, invtitle_annotator tfn)
+InvTitle::InvTitle(Menu *mn, const string &title, invtitle_annotator tfn, bool translated)
     : MenuEntry(title, MEL_TITLE)
 {
     m       = mn;
     titlefn = tfn;
+    pretranslated = translated;
 }
 
 string InvTitle::get_text() const
@@ -83,10 +87,12 @@ InvEntry::InvEntry(const item_def &i)
         // We need to do this in order to get the 'wielded' annotation.
         // We then toss out the first four characters, which look
         // like this: "a - ". Ow. FIXME.
-        text = i.name(DESC_INVENTORY_EQUIP, false).substr(4);
+        text = zh_message("operation.pickup.item_name",
+            {zh_item_arg("item_name", i, DESC_INVENTORY_EQUIP)}).display().substr(4);
     }
     else
-        text = i.name(DESC_A, false);
+        text = zh_message("operation.pickup.item_name",
+            {zh_item_arg("item_name", i, DESC_A)}).display();
 
     if (i.base_type != OBJ_GOLD && in_inventory(i))
         add_hotkey(i.slot);
@@ -96,11 +102,15 @@ InvEntry::InvEntry(const item_def &i)
     add_class_hotkeys(i);
 
     quantity = i.quantity;
+    pretranslated = true;
 }
 
 int InvEntry::highlight_colour(bool temp) const
 {
-    return menu_colour(get_text(), item_prefix(*item, temp), tag, false);
+    // Colour rules are program configuration, matched against canonical names.
+    ZhTranslationPause canonical;
+    return menu_colour(item->name(in_inventory(*item) ? DESC_INVENTORY_EQUIP : DESC_A),
+                       item_prefix(*item, temp), tag, false);
 }
 
 const string &InvEntry::get_basename() const
@@ -332,22 +342,19 @@ void InvMenu::set_title(const string &s)
 {
     if ((flags & MF_PAGED_INVENTORY))
     {
-        string str;
-        switch (cur_osel)
-        {
-            case 0: str = "Gear: " + slot_description(); break;
-            case 1: str = "Potions: "; break;
-            case 2: str = "Scrolls: "; break;
-            case 3: str = "Evocable Items: "; break;
-        }
-        str += "    (Left/Right/Tab to switch category)";
-        set_title(new InvTitle(this, str, title_annotate));
+        const char *ids[] = {"operation.safety.inventory.title.gear",
+            "operation.safety.inventory.title.potions", "operation.safety.inventory.title.scrolls",
+            "operation.safety.inventory.title.evoke"};
+        string str = cur_osel == 0
+            ? zh_message(ids[0], {zh_message_arg("slots", "operation.inventory.slot_description", {zh_integer("occupied", inv_count(INVENT_GEAR)), zh_integer("capacity", MAX_GEAR)})}).display()
+            : zh_message(ids[cur_osel]).display();
+        set_title(new InvTitle(this, str, title_annotate, true));
         return;
     }
 
-    set_title(new InvTitle(this, s.empty() ? "Inventory: " + slot_description()
+    set_title(new InvTitle(this, s.empty() ? zh_message("operation.safety.inventory.title.inventory", {zh_message_arg("slots", "operation.inventory.slot_description", {zh_integer("occupied", inv_count(INVENT_GEAR)), zh_integer("capacity", MAX_GEAR)})}).display()
                                            : s,
-                           title_annotate));
+                           title_annotate, s.empty()));
 }
 
 bool InvMenu::skip_process_command(int keyin)
@@ -560,75 +567,80 @@ static bool _has_temp_unwearable_armour()
  * @return              A message such as "You aren't carrying any weapons."
  *                      "Your armour is currently melded into you.", etc.
  */
-string no_selectables_message(int item_selector)
+ZhArg no_selectables_display_reason(int item_selector)
 {
     switch (item_selector)
     {
     case OSEL_ANY:
-        return "You aren't carrying anything.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.empty");
     case OSEL_WIELD:
     case OBJ_WEAPONS:
-        return "You aren't carrying any weapons.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.weapons");
     case OSEL_BLESSABLE_WEAPON:
-        return "You aren't carrying any weapons that can be blessed.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.blessable_weapons");
     case OBJ_ARMOUR:
     {
         if (_has_temp_unwearable_armour())
-            return "You aren't carrying any currently wearable armour.";
+            return zh_message_arg("reason", "operation.inventory.selection.empty.currently_wearable_armour");
         else
-            return "You aren't carrying any wearable armour.";
+            return zh_message_arg("reason", "operation.inventory.selection.empty.wearable_armour");
     }
     case OSEL_UNIDENT:
-        return "You don't currently have any unidentified items.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.unidentified");
     case OSEL_ENCHANTABLE_ARMOUR:
-        return "You aren't carrying any armour which can be enchanted further.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.enchantable_armour");
     case OBJ_CORPSES:
-        return "You don't have any corpses.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.corpses");
     case OBJ_POTIONS:
-        return "You aren't carrying any potions.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.potions");
     case OBJ_SCROLLS:
-        return "You aren't carrying any scrolls.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.scrolls");
     case OBJ_BOOKS:
-        return "You don't have any books.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.books");
     case OBJ_WANDS:
-        return "You aren't carrying any wands.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.wands");
     case OBJ_JEWELLERY:
-        return "You aren't carrying any pieces of jewellery.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.jewellery");
     case OSEL_AMULET:
-        return "You aren't carrying any amulets.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.amulets");
     case OSEL_JEWELLERY_OR_TALISMAN:
-        return "You aren't carrying any jewellery or talismans.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.jewellery_talismans");
     case OSEL_LAUNCHING:
-        return "You aren't carrying any items that might be thrown or fired.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.launchable");
     case OSEL_EVOKABLE:
         if (you.get_mutation_level(MUT_NO_ARTIFICE)) // iffy
-            return "You cannot evoke magical items.";
-        return "You aren't carrying any items that you can evoke.";
+            return zh_message_arg("reason", "operation.inventory.selection.empty.cannot_evoke");
+        return zh_message_arg("reason", "operation.inventory.selection.empty.evokable");
     case OSEL_CURSED_WORN:
-        return "None of your equipped items are cursed.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.cursed_equipped");
     case OSEL_WORN_ARMOUR:
-        return "You aren't wearing any pieces of armour.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.worn_armour");
     case OSEL_WORN_JEWELLERY_OR_TALISMAN:
-        return "You aren't wearing any rings, amulets, or talismans.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.worn_jewellery");
     case OSEL_WORN_EQUIPABLE:
-        return "You aren't wearing anything.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.wearing_nothing");
     case OSEL_EQUIPABLE:
-        return "You aren't carrying anything that can be equipped.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.equipable");
     case OSEL_BRANDABLE_WEAPON:
-        return "You aren't carrying any weapons that can be branded.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.brandable_weapons");
     case OSEL_ENCHANTABLE_WEAPON:
-        return "You aren't carrying any weapons that can be enchanted.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.enchantable_weapons");
     case OSEL_ARTEFACT_WEAPON:
-        return "You aren't carrying any artefact melee weapons.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.artefact_melee_weapons");
     case OSEL_CURSABLE:
-        return "You aren't wearing any cursable items.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.cursable");
     case OSEL_UNCURSED_WORN_RINGS:
-        return "You aren't wearing any uncursed rings.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.uncursed_rings");
     case OSEL_QUIVER_ACTION:
-        return "You don't have any quiverable items.";
+        return zh_message_arg("reason", "operation.inventory.selection.empty.quiverable");
     }
 
-    return "You aren't carrying any such object.";
+    return zh_message_arg("reason", "operation.inventory.selection.empty.such_object");
+}
+
+string no_selectables_message(int item_selector)
+{
+    return no_selectables_display_reason(item_selector).canonical;
 }
 
 void InvMenu::load_inv_items(int item_selector, int excluded_slot,
@@ -640,7 +652,10 @@ void InvMenu::load_inv_items(int item_selector, int excluded_slot,
     load_items(tobeshown, procfn, 'a', true, true);
 
     if (!item_count())
-        set_title(no_selectables_message(item_selector));
+        {
+            const ZhArg reason = no_selectables_display_reason(item_selector);
+            set_title_pretranslated(ZhMessage{"", reason.canonical, reason.localized}.display());
+        }
     else
         set_title("");
 }
@@ -986,16 +1001,16 @@ menu_letter InvMenu::load_items(const vector<const item_def*> &mitems,
     if (sort)
         cond = find_menu_sort_condition();
 
-    string select_all;
+    string subtitle_id;
     if (subkeys)
     {
         // Mention the class selection shortcuts.
         if (is_set(MF_SECONDARY_SCROLL))
-            select_all = "go to first";
+            subtitle_id = "operation.inventory.category.subtitle.go_to_first";
         else if (is_set(MF_MULTISELECT))
-            select_all = "select all";
+            subtitle_id = "operation.inventory.category.subtitle.select_all";
         else
-            select_all = "select first";
+            subtitle_id = "operation.inventory.category.subtitle.select_first";
     }
 
     for (int obj = 0; obj < NUM_OBJECT_CLASSES; ++obj)
@@ -1005,25 +1020,30 @@ menu_letter InvMenu::load_items(const vector<const item_def*> &mitems,
         if (!inv_class[i])
             continue;
 
-        string subtitle = item_class_name(i);
-
+        const string category_en = item_class_name(i);
+        const ZhArg category = zh_word_arg("category",
+            "operation.inventory.item_class.", category_en);
+        string subtitle = zh_language_enabled() ? category.localized : category.canonical;
         if (subkeys)
         {
             vector<char> glyphs;
             get_class_hotkeys(i, glyphs);
             if (!glyphs.empty())
             {
-                // longest string
-                const string str = "Magical Staves ";
-                subtitle += string(strwidth(str) - strwidth(subtitle),
-                                   ' ');
-                subtitle += "("+select_all+" with <w>";
-                for (char gly : glyphs)
-                    subtitle += gly;
-                subtitle += "</w><blue>)";
+                // Keep English padding and shortcut bytes unchanged; compute
+                // Chinese alignment from the translated category's cell width.
+                const int width = strwidth("Magical Staves ");
+                const string padding_en(width - strwidth(category_en), ' ');
+                const string padding_zh(max(1, width - strwidth(category.localized)), ' ');
+                string keys(glyphs.begin(), glyphs.end());
+                subtitle = zh_message(subtitle_id, {category,
+                    zh_text("padding", padding_en, padding_zh),
+                    zh_key_markup("keys", keys)}).display();
             }
         }
-        add_entry(new MenuEntry(subtitle, MEL_SUBTITLE));
+        MenuEntry *heading = new MenuEntry(subtitle, MEL_SUBTITLE);
+        heading->pretranslated = true;
+        add_entry(heading);
 
         items_in_class.clear();
 
@@ -1422,7 +1442,8 @@ static int _invent_select(const char *title = nullptr,
                                     vector<SelItem> *items = nullptr,
                                     vector<text_pattern> *filter = nullptr,
                                     Menu::selitem_tfn selitemfn = nullptr,
-                                    const vector<SelItem> *pre_select = nullptr)
+                                    const vector<SelItem> *pre_select = nullptr,
+                                    bool translated_title = false)
 {
     InvMenu menu(flags | MF_ALLOW_FORMATTING | MF_INIT_HOVER);
 
@@ -1436,7 +1457,12 @@ static int _invent_select(const char *title = nullptr,
 
     // Don't override title if there are no items.
     if (title && menu.item_count())
-        menu.set_title(title);
+    {
+        if (translated_title)
+            menu.set_title_pretranslated(title);
+        else
+            menu.set_title(title);
+    }
 
     // Cycle through all pages to properly apply pre-selections immediately.
     if (flags & MF_PAGED_INVENTORY)
@@ -1489,7 +1515,7 @@ void display_inventory()
 
 static string _drop_menu_titlefn(const Menu*, const string &)
 {
-    return "Drop what? (Left/Right/Tab to switch category) " + slot_description() + " (_ for help)";
+    return zh_message("operation.drop.menu.title", {zh_message_arg("slot_help", "operation.inventory.slot_description", {zh_integer("occupied", inv_count(INVENT_GEAR)), zh_integer("capacity", MAX_GEAR)})}).display();
 }
 
 /**
@@ -1610,27 +1636,21 @@ static bool _has_warning_inscription(const item_def& item,
 // be prompted.
 bool maybe_warn_about_removing(const item_def& item)
 {
-    string prompt;
     bool penance = false;
-
     if (!needs_handle_warning(item, OPER_UNEQUIP, penance))
         return true;
-
-    if (item.base_type == OBJ_WEAPONS || item.base_type == OBJ_STAVES)
-        prompt += "Really unwield ";
-    else if (item.base_type == OBJ_ARMOUR)
-        prompt += "Really take off ";
-    else
-        prompt += "Really remove ";
-
-    // now ask
-    if (item.cursed())
-        prompt += "and destroy ";
-    prompt += item.name(DESC_INVENTORY);
-    prompt += "?";
-    if (penance)
-        prompt += " This could place you under penance!";
-    return yesno(prompt.c_str(), false, 'n');
+    const string verb = item.base_type == OBJ_WEAPONS || item.base_type == OBJ_STAVES
+        ? "unwield" : item.base_type == OBJ_ARMOUR ? "take off" : "remove";
+    const ZhMessage prompt = zh_message("operation.inventory.warning.remove",
+        {zh_word_arg("operation_verb", "operation.inventory.verb.", verb),
+         zh_word_arg("destroy_prefix", "operation.inventory.warning.destroy_prefix.", item.cursed() ? " and destroy " : ""),
+         zh_item_arg("item_name", item, DESC_INVENTORY),
+         penance ? zh_message_arg("warning_suffix", "operation.inventory.warning.suffix.penance")
+                 : zh_text("warning_suffix", "", "")},
+        "Really " + verb + " " + (item.cursed() ? "and destroy " : "")
+            + item.name(DESC_INVENTORY) + "?"
+            + (penance ? " This could place you under penance!" : ""));
+    return yesno(prompt, false, 'n');
 }
 
 static string _operation_verb(operation_types oper)
@@ -1746,18 +1766,18 @@ bool check_warning_inscriptions(const item_def& item,
                 return true;
         }
 
-        // XXX: duplicates a check in delay.cc:_finish_delay()
-        string prompt = "Really " + _operation_verb(oper) + " ";
-        prompt += (in_inventory(item) ? item.name(DESC_INVENTORY)
-                                      : item.name(DESC_A));
-        if (needs_notele_warning(item, oper))
-            prompt += " while about to teleport";
-        prompt += "?";
-        if (god_despises_item(item, you.religion))
-            prompt += " You'd be excommunicated if you did!";
-        else if (penance)
-            prompt += " This could place you under penance!";
-        return yesno(prompt.c_str(), false, 'n');
+        const string suffix_id = god_despises_item(item, you.religion)
+            ? "operation.inventory.warning.suffix.excommunicated"
+            : penance ? "operation.inventory.warning.suffix.penance"
+                      : "operation.inventory.warning.suffix.none";
+        const ZhMessage prompt = zh_message("operation.inventory.warning.operation",
+            {zh_word_arg("operation_verb", "operation.inventory.verb.", _operation_verb(oper)),
+             zh_item_arg("item_name", item, in_inventory(item) ? DESC_INVENTORY : DESC_A),
+             needs_notele_warning(item, oper)
+                 ? zh_message_arg("teleport_suffix", "operation.inventory.warning.teleport_suffix")
+                 : zh_text("teleport_suffix", "", ""),
+             zh_message_arg("warning_suffix", suffix_id)});
+        return yesno(prompt, false, 'n');
     }
 
     return true;
@@ -1787,11 +1807,12 @@ bool check_warning_inscriptions(const item_def& item,
  *          - PROMPT_GOT_SPECIAL: if the player hits the "other_valid_char".
  *          - PROMPT_NOTHING:     if there are no matching items.
  */
-int prompt_invent_item(const char *prompt,
+static int _prompt_invent_item(const char *prompt,
                        menu_type mtype, int type_expect,
                        operation_types oper,
                        invent_prompt_flags flags,
-                       const char other_valid_char)
+                       const char other_valid_char,
+                       const ZhMessage *display_prompt)
 {
     const bool do_warning = !(flags & invprompt_flag::no_warning);
     const bool allow_list_known = !(flags & invprompt_flag::hide_known);
@@ -1802,8 +1823,8 @@ int prompt_invent_item(const char *prompt,
     if (!any_items_of_type(type_expect) && type_expect != OSEL_WIELD
         && type_expect != OSEL_QUIVER_ACTION)
     {
-        mprf(MSGCH_PROMPT, "%s",
-             no_selectables_message(type_expect).c_str());
+        const ZhArg reason = no_selectables_display_reason(type_expect);
+        mpr(ZhMessage{"", reason.canonical, reason.localized}, MSGCH_PROMPT);
         return PROMPT_NOTHING;
     }
 
@@ -1831,7 +1852,14 @@ int prompt_invent_item(const char *prompt,
         }
 
         if (need_prompt)
-            mprf(MSGCH_PROMPT, "%s (<w>?</w> for menu, <w>Esc</w> to quit)", prompt);
+        {
+            if (display_prompt)
+                mpr(zh_message("operation.inventory.selection.prompt", {
+                    ZhArg{"prompt", ZhArgType::Text, display_prompt->canonical,
+                          display_prompt->display(), true}}), MSGCH_PROMPT);
+            else
+                mprf(MSGCH_PROMPT, "%s (<w>?</w> for menu, <w>Esc</w> to quit)", prompt);
+        }
         else
             flush_prev_message();
 
@@ -1863,8 +1891,10 @@ int prompt_invent_item(const char *prompt,
 
             while (true)
             {
-                keyin = _invent_select(prompt,
-                    mtype, type_expect, -1, mflags, nullptr, &items);
+                const string title = display_prompt ? display_prompt->display() : prompt;
+                keyin = _invent_select(title.c_str(),
+                    mtype, type_expect, -1, mflags, nullptr, &items,
+                    nullptr, nullptr, nullptr, display_prompt != nullptr);
 
                 if (allow_list_known && keyin == '\\')
                 {
@@ -1945,9 +1975,9 @@ int prompt_invent_item(const char *prompt,
                 ret = letter_to_index(keyin);
 
             if (must_exist && !you.inv[ret].defined())
-                mpr("You don't have any such object.");
+                mpr(zh_message("operation.inventory.selection.none_exists"));
             else if (must_exist && !item_is_selected(you.inv[ret], type_expect))
-                mpr("That's the wrong kind of item!");
+                mpr(zh_message("operation.inventory.selection.wrong_kind"));
             else if (!do_warning || check_warning_inscriptions(you.inv[ret], oper))
                 break;
         }
@@ -2014,4 +2044,20 @@ void identify_inventory()
     for (auto &item : you.inv)
         if (item.defined())
             identify_item(item);
+}
+
+int prompt_invent_item(const char *prompt, menu_type type, int type_expect,
+                       operation_types oper, invent_prompt_flags flags,
+                       const char other_valid_char)
+{
+    return _prompt_invent_item(prompt, type, type_expect, oper, flags,
+                               other_valid_char, nullptr);
+}
+
+int prompt_invent_item(const ZhMessage &prompt, menu_type type, int type_expect,
+                       operation_types oper, invent_prompt_flags flags,
+                       const char other_valid_char)
+{
+    return _prompt_invent_item(prompt.canonical.c_str(), type, type_expect, oper,
+                               flags, other_valid_char, &prompt);
 }

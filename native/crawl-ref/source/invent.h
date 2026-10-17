@@ -67,7 +67,7 @@ typedef string (*invtitle_annotator)(const Menu *m, const string &oldtitle);
 class InvTitle : public MenuEntry
 {
 public:
-    InvTitle(Menu *mn, const string &title, invtitle_annotator tfn);
+    InvTitle(Menu *mn, const string &title, invtitle_annotator tfn, bool translated = false);
 
     string get_text() const override;
 
@@ -208,6 +208,12 @@ int prompt_invent_item(const char *prompt,
                        invent_prompt_flags flags = invprompt_flag::none,
                        const char other_valid_char = '\0');
 
+// Typed prompts preserve canonical control text and bypass the legacy renderer.
+int prompt_invent_item(const ZhMessage &prompt, menu_type type, int type_expect,
+                       operation_types oper = OPER_ANY,
+                       invent_prompt_flags flags = invprompt_flag::none,
+                       const char other_valid_char = '\0');
+
 vector<SelItem> select_items(
                         const vector<const item_def*> &items,
                         const char *title, bool noselect = false,
@@ -241,3 +247,7 @@ bool needs_handle_warning(const item_def &item, operation_types oper,
                           bool &penance, bool check_inscriptions = true);
 item_def *digit_inscription_to_item(char digit, operation_types oper);
 operation_types generalize_oper(operation_types oper);
+
+// Typed UI reason; the string API above remains canonical for engine clients.
+struct ZhArg;
+ZhArg no_selectables_display_reason(int item_selector);

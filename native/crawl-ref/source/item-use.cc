@@ -97,6 +97,7 @@ class UseItemMenu : public InvMenu
     void save_hover();
     void restore_hover(bool preserve_pos);
     string get_keyhelp(bool scrollable) const override;
+    bool get_keyhelp_pretranslated() const override { return true; }
     bool skip_process_command(int keyin) override
     {
         // override superclass behavior for everything except id menu
@@ -152,32 +153,32 @@ static string _default_use_title(operation_types oper)
     {
     case OPER_EQUIP:
         return Options.equip_unequip
-            ? "Equip or unequip which item?"
-            : "Equip which item?";
+            ? zh_message("operation.equipment.menu.equip_both").display()
+            : zh_message("operation.equipment.menu.equip").display();
     case OPER_WIELD:
         return Options.equip_unequip
-            ? "Wield or unwield which item (- for none)?"
-            : "Wield which item (- for none)?";
+            ? zh_message("operation.equipment.menu.wield_both").display()
+            : zh_message("operation.equipment.menu.wield").display();
     case OPER_WEAR:
         if (Options.equip_unequip)
-            return "Wear or take off which item?";
-        return "Wear which item?";
+            return zh_message("operation.equipment.menu.wear_both").display();
+        return zh_message("operation.equipment.menu.wear").display();
     case OPER_PUTON:
         return Options.equip_unequip
-            ? "Put on or remove which piece of jewellery?"
-            : "Put on which piece of jewellery?";
+            ? zh_message("operation.equipment.menu.jewellery_both").display()
+            : zh_message("operation.equipment.menu.jewellery_puton").display();
     case OPER_QUAFF:
-        return "Drink which item?";
+        return zh_message("operation.equipment.menu.drink").display();
     case OPER_READ:
-        return "Read which item?";
+        return zh_message("operation.equipment.menu.read").display();
     case OPER_EVOKE:
-        return "Evoke which item?";
+        return zh_message("operation.equipment.menu.evoke").display();
     case OPER_TAKEOFF:
-        return "Take off which piece of armour?";
+        return zh_message("operation.equipment.menu.armour_takeoff").display();
     case OPER_REMOVE:
-        return "Remove which piece of jewellery?";
+        return zh_message("operation.equipment.menu.jewellery_remove").display();
     case OPER_UNEQUIP:
-        return "Unequip which item?";
+        return zh_message("operation.equipment.menu.unequip").display();
     default:
         return "buggy";
     }
@@ -316,7 +317,7 @@ bool UseItemMenu::cycle_mode(bool forward)
     populate_list();
     populate_menu();
     update_sections();
-    set_title(_default_use_title(oper));
+    set_title_pretranslated(_default_use_title(oper));
     restore_hover(true);
     return true;
 }
@@ -343,7 +344,7 @@ void UseItemMenu::reset(operation_types _oper, const char* prompt_override)
     if (prompt_override)
         set_title(prompt_override);
     else
-        set_title(_default_use_title(oper));
+        set_title_pretranslated(_default_use_title(oper));
     // see `item_is_selected` for more on what can be used for item_type.
     if (item_type_filter == OSEL_ANY)
         item_type_filter = default_osel(oper);
@@ -425,8 +426,8 @@ bool UseItemMenu::empty_check() const
     if (any_items_of_type(item_type_filter, -1, oper != OPER_EVOKE))
         return false;
 
-    mprf(MSGCH_PROMPT, "%s",
-        no_selectables_message(item_type_filter).c_str());
+    const ZhArg reason = no_selectables_display_reason(item_type_filter);
+    mpr(ZhMessage{"", reason.canonical, reason.localized}, MSGCH_PROMPT);
     return true;
 }
 
@@ -621,28 +622,29 @@ void UseItemMenu::update_sections()
     for (; i < static_cast<int>(items.size()); i++)
         if (items[i]->level == MEL_ITEM)
             items[i]->set_enabled(!is_inventory);
-    const string cycle_hint = make_stringf("<lightgray> (%s to select)</lightgray>",
-            menu_keyhelp_cmd(CMD_MENU_CYCLE_HEADERS).c_str());
+    const string cycle_hint = zh_message("operation.safety.menu.header.cycle",
+        {zh_key_markup("key", menu_keyhelp_cmd(CMD_MENU_CYCLE_HEADERS))}).display();
 
     // a `,` will trigger quick activation, rather than cycle headers
     const bool easy_floor = Options.easy_floor_use && item_floor.size() == 1
         && (is_inventory || !inv_header);
     if (inv_header)
     {
-        inv_header->text = "Inventory Items";
+        inv_header->pretranslated = true;
+        inv_header->text = zh_message("operation.safety.menu.header.inventory").display();
         if (!is_inventory)
             inv_header->text += cycle_hint;
     }
 
     if (floor_header)
     {
-        floor_header->text = "Floor Items";
+        floor_header->pretranslated = true;
+        floor_header->text = zh_message("operation.safety.menu.header.floor").display();
         if (easy_floor)
         {
-            floor_header->text += make_stringf(
-                "<lightgray> (%s to %s)</lightgray>",
-                menu_keyhelp_cmd(CMD_MENU_CYCLE_HEADERS).c_str(),
-                _oper_name(oper).c_str());
+            floor_header->text += zh_message("operation.safety.menu.header.easy_floor",
+                {zh_key_markup("key", menu_keyhelp_cmd(CMD_MENU_CYCLE_HEADERS)),
+                 zh_word_arg("action", "operation.equipment.value.action.", _oper_name(oper))}).display();
         }
         else if (is_inventory)
             floor_header->text += cycle_hint;
@@ -729,7 +731,7 @@ string UseItemMenu::get_keyhelp(bool) const
 
     // XX the logic here is getting convoluted, if only these were widgets...
     const string desc_key = is_set(MF_ARROWS_SELECT)
-                                    ? "[<w>?</w>] describe selected" : "";
+                                    ? zh_message("operation.equipment.menu.describe_selected").display() : "";
     string full;
     string eu_modes;
     string modes;
@@ -739,9 +741,9 @@ string UseItemMenu::get_keyhelp(bool) const
     {
         if (_equip_oper(oper))
         {
-            eu_modes = "[<w>tab</w>] ";
-            eu_modes += (generalize_oper(oper) == OPER_EQUIP)
-                ? "<w>equip</w>|unequip  " : "equip|<w>unequip</w>  ";
+            eu_modes = zh_message(generalize_oper(oper) == OPER_EQUIP
+                ? "operation.equipment.menu.keyhelp.equip_mode"
+                : "operation.equipment.menu.keyhelp.unequip_mode").display();
         }
 
         if (available_modes.size() > 1)
@@ -749,7 +751,7 @@ string UseItemMenu::get_keyhelp(bool) const
             vector<string> mode_names;
             for (const auto &o : available_modes)
             {
-                string n = _oper_name(o);
+                string n = zh_word("operation.equipment.value.action.", _oper_name(o));
                 if (o == oper)
                     n = "<w>" + n + "</w>";
                 mode_names.push_back(n);
@@ -762,15 +764,15 @@ string UseItemMenu::get_keyhelp(bool) const
     if (eu_modes.size() && desc_key.size() && modes.size() && full.size())
     {
         // too much stuff to fit in one row
-        r = pad_more_with(full, desc_key) + "\n";
-        r += pad_more_with(modes, eu_modes);
+        r = pad_more_with_pretranslated(full, desc_key) + "\n";
+        r += pad_more_with_pretranslated(modes, eu_modes);
         return r;
     }
     else
     {
         // if both of these are shown, always keep them in a stable position
         if (eu_modes.size() && desc_key.size())
-            r = pad_more_with("", desc_key);
+            r = pad_more_with_pretranslated("", desc_key);
 
         // annoying: I cannot get more height changes to work correctly. So as
         // a workaround, this will produce a two line more, potentially
@@ -779,9 +781,9 @@ string UseItemMenu::get_keyhelp(bool) const
             r += "\n";
         r += modes + full;
         if (eu_modes.size() && desc_key.size())
-            return pad_more_with(r, eu_modes); // desc_key on prev line
+            return pad_more_with_pretranslated(r, eu_modes); // desc_key on prev line
         else // at most one of these is shown
-            return pad_more_with(r, desc_key.size() ? desc_key : eu_modes);
+            return pad_more_with_pretranslated(r, desc_key.size() ? desc_key : eu_modes);
     }
 }
 
@@ -909,19 +911,19 @@ static bool _can_generically_use_armour(bool wear=true)
     if (you.has_mutation(MUT_NO_ARMOUR))
     {
         if (wear)
-            mprf(MSGCH_PROMPT, "You can't wear anything.");
+            mpr(zh_message("operation.equipment.reason.no_armour_wear"), MSGCH_PROMPT);
         else
         {
-            mprf(MSGCH_PROMPT, "You can't remove your %s, sorry.",
-                species::skin_name(you.species).c_str());
+            mpr(zh_message("operation.equipment.reason.no_armour_remove",
+                {zh_glossary_name("skin", "body_part", species::skin_name(you.species))}), MSGCH_PROMPT);
         }
         return false;
     }
 
     if (!form_can_wear())
     {
-        mprf(MSGCH_PROMPT, "You can't %s anything in your present form.",
-            wear ? "wear" : "remove");
+        mpr(zh_message("operation.equipment.reason.form_wear_remove",
+            {zh_word_arg("action", "operation.equipment.value.", wear ? "wear" : "remove")}), MSGCH_PROMPT);
         return false;
     }
 
@@ -932,10 +934,10 @@ static bool _can_wield_anything()
 {
     item_def dummy_weapon;
     dummy_weapon.base_type = OBJ_WEAPONS;
-    string veto_reason;
-    bool ret = can_equip_item(dummy_weapon, true, &veto_reason);
-    if (!veto_reason.empty())
-        mprf(MSGCH_PROMPT, "%s", veto_reason.c_str());
+    ZhArg veto_reason;
+    bool ret = can_equip_item(dummy_weapon, true, nullptr, &veto_reason);
+    if (!ret && !veto_reason.canonical.empty())
+        mpr(ZhMessage{"", veto_reason.canonical, veto_reason.localized}, MSGCH_PROMPT);
 
     return ret;
 }
@@ -944,17 +946,17 @@ static bool _can_generically_use(operation_types oper)
 {
     // check preconditions
     // XX should this be part of the menu?
-    string err;
+    ZhArg err{"reason", ZhArgType::Text, "", "", true};
     switch (oper)
     {
     case OPER_QUAFF:
-        err = cannot_drink_item_reason();
+        err = cannot_drink_item_display_reason();
         break;
     case OPER_READ:
-        err = cannot_read_item_reason();
+        err = cannot_read_item_display_reason();
         break;
     case OPER_EVOKE:
-        err = cannot_evoke_item_reason();
+        err = cannot_evoke_item_display_reason();
         break;
     case OPER_WEAR:
         if (!_can_generically_use_armour())
@@ -978,9 +980,10 @@ static bool _can_generically_use(operation_types oper)
             && you_can_wear(SLOT_AMULET, true) == false
             && you.transform_uncancellable)
         {
-            mprf(MSGCH_PROMPT, "You can't %s jewellery%s.",
-                oper == OPER_PUTON ? "wear" : "remove",
-                you.has_mutation(MUT_NO_JEWELLERY) ? "" :  " in your present form");
+            mpr(zh_message("operation.equipment.reason.jewellery_form",
+                {zh_word_arg("action", "operation.equipment.value.", oper == OPER_PUTON ? "wear" : "remove"),
+                 zh_word_arg("form_note", "operation.equipment.value.",
+                     you.has_mutation(MUT_NO_JEWELLERY) ? "" : " in your present form")}), MSGCH_PROMPT);
             return false;
         }
         break;
@@ -992,9 +995,9 @@ static bool _can_generically_use(operation_types oper)
         break;
     }
 
-    if (!err.empty())
+    if (!err.canonical.empty())
     {
-        mprf(MSGCH_PROMPT, "%s", err.c_str());
+        mpr(ZhMessage{"", err.canonical, err.localized}, MSGCH_PROMPT);
         return false;
     }
     return true;
@@ -1069,7 +1072,7 @@ static int _move_item_from_floor_to_inv(const item_def &to_get)
 
     if (!move_item_to_inv(to_get.index(), to_get.quantity, true))
     {
-        mpr("You can't carry that many items.");
+        mpr(zh_message("operation.equipment.reason.inventory_full"));
         you.last_pickup = tmp_l_p;
     }
     // Get the slot of the last thing picked up
@@ -1107,7 +1110,7 @@ static item_def* _item_swap_menu(const vector<item_def*>& candidates)
         item->flags |= ISFLAG_MARKED_FOR_MENU;
 
     int ret = prompt_invent_item(
-                "To do this, you must remove one of the following items:",
+                zh_message("operation.equipment.prompt.swap_list"),
                 menu_type::invlist, OSEL_MARKED_ITEMS, OPER_UNEQUIP,
                 invprompt_flag::no_warning | invprompt_flag::hide_known);
 
@@ -1181,20 +1184,15 @@ static item_def* _item_swap_prompt(const vector<item_def*>& candidates)
 
     clear_messages();
 
-    mprf(MSGCH_PROMPT,
-         "To do this, you must remove one of the following items:");
-    mprf(MSGCH_PROMPT, "(<w>?</w> for menu, <w>Esc</w> to cancel)");
+    mpr(zh_message("operation.equipment.prompt.swap_list"), MSGCH_PROMPT);
+    mpr(zh_message("operation.equipment.prompt.swap_keys"), MSGCH_PROMPT);
 
     for (size_t i = 0; i < candidates.size(); i++)
     {
-        string m = "<w>";
-        const char key = _item_swap_keys[i];
-        m += key;
-        if (key == '<')
-            m += '<';
-
-        m += "</w> or " + candidates[i]->name(DESC_INVENTORY);
-        mprf_nocap("%s", m.c_str());
+        string key(1, _item_swap_keys[i]);
+        if (_item_swap_keys[i] == '<') key += '<';
+        mpr(zh_message("operation.safety.item_swap.candidate",
+            {zh_key("key", key), zh_item_arg("item", *candidates[i], DESC_INVENTORY)}));
     }
     flush_prev_message();
 
@@ -1260,9 +1258,9 @@ bool warn_about_changing_gear(const vector<item_def*>& to_remove, item_def* to_e
     // Switching to a launcher while berserk is likely a mistake.
     if (to_equip && you.berserk() && is_range_weapon(*to_equip))
     {
-        string prompt = "You can't shoot while berserk! Really wield " +
-                        to_equip->name(DESC_INVENTORY) + "?";
-        if (!yesno(prompt.c_str(), false, 'n'))
+        const ZhMessage prompt = zh_message("operation.equipment.confirm.berserk_launcher",
+            {zh_item_arg("item", *to_equip, DESC_INVENTORY)});
+        if (!yesno(prompt, false, 'n'))
         {
             canned_msg(MSG_OK);
             return false;
@@ -1288,11 +1286,11 @@ bool warn_about_changing_gear(const vector<item_def*>& to_remove, item_def* to_e
             needs_delay = true;
     }
 
-    string reason;
-    if (needs_delay && !i_feel_safe(false, false, false, true, -1, &reason))
+    ZhArg reason;
+    if (needs_delay && !i_feel_safe(false, false, false, true, -1, nullptr, &reason))
     {
-        string warning = make_stringf("Spend multiple turns changing equipment while %s?", reason.c_str());
-        if (!yesno(warning.c_str(), true, 'n'))
+        const ZhMessage warning = zh_message("operation.equipment.confirm.unsafe_delay", {reason});
+        if (!yesno(warning, true, 'n'))
         {
             canned_msg(MSG_OK);
             return false;
@@ -1312,9 +1310,10 @@ bool warn_about_changing_gear(const vector<item_def*>& to_remove, item_def* to_e
             {
                 if (++removed_flight >= equipped_flight)
                 {
-                    mprf(MSGCH_PROMPT, "Removing %s right now would cause you to %s!",
-                            item->name(DESC_YOUR).c_str(),
-                            env.grid(you.pos()) == DNGN_DEEP_WATER ? "drown" : "burn");
+                    mpr(zh_message("operation.equipment.warning.flight_danger",
+                        {zh_item_arg("item", *item, DESC_YOUR),
+                         zh_word_arg("outcome", "operation.equipment.value.",
+                             env.grid(you.pos()) == DNGN_DEEP_WATER ? "drown" : "burn")}), MSGCH_PROMPT);
                     return false;
                 }
             }
@@ -1329,10 +1328,10 @@ bool try_equip_item(item_def& item)
     if (item.base_type == OBJ_TALISMANS)
         return use_talisman(item);
 
-    string reason;
-    if (!can_equip_item(item, true, &reason))
+    ZhArg reason;
+    if (!can_equip_item(item, true, nullptr, &reason))
     {
-        mprf(MSGCH_PROMPT, "%s", reason.c_str());
+        mpr(ZhMessage{"", reason.canonical, reason.localized}, MSGCH_PROMPT);
         return false;
     }
 
@@ -1340,7 +1339,7 @@ bool try_equip_item(item_def& item)
     // to even pick it up, first
     if (item.pos != ITEM_IN_INVENTORY && !room_in_inventory(item))
     {
-        mpr("You can't carry that many items.");
+        mpr(zh_message("operation.equipment.reason.inventory_full"));
         return false;
     }
     else if (item_is_equipped(item))
@@ -1491,8 +1490,7 @@ bool handle_chain_removal(vector<item_def*>& to_remove, bool interactive)
         {
             if ((int)chain_remove.size() < chain_remove_num)
             {
-                mprf(MSGCH_PROMPT, "A cursed item is preventing you from removing %s.",
-                        item.name(DESC_INVENTORY).c_str());
+                mpr(zh_message("operation.equipment.reason.cursed_chain", {zh_item_arg("item", item, DESC_INVENTORY)}), MSGCH_PROMPT);
                 return false;
             }
             // We must remove all of the items found.
@@ -1584,8 +1582,9 @@ void do_equipment_change(item_def* to_equip, equipment_slot equip_slot,
                 start_delay<EquipOffDelay>(1, *item);
             else
             {
-                mprf("You %s %s.", item_unequip_verb(*item).c_str(),
-                                   item->name(DESC_YOUR).c_str());
+                mpr(zh_message("operation.equipment.log.unequip",
+                {zh_word_arg("action", "operation.equipment.value.", item_unequip_verb(*item)),
+                 zh_item_arg("item", *item, DESC_YOUR)}));
                 unequip_item(*item);
             }
         }
@@ -1618,8 +1617,7 @@ bool can_unequip_item(item_def& item, bool silent)
     {
         if (!silent)
         {
-            mprf(MSGCH_PROMPT, "%s is melded into your body!",
-                               item.name(DESC_YOUR).c_str());
+            mpr(zh_message("operation.equipment.reason.melded", {zh_item_arg("item", item, DESC_YOUR)}), MSGCH_PROMPT);
         }
         return false;
     }
@@ -1628,8 +1626,7 @@ bool can_unequip_item(item_def& item, bool silent)
     {
         if (!silent)
         {
-            mprf(MSGCH_PROMPT, "%s is stuck to your body!",
-                                item.name(DESC_YOUR).c_str());
+            mpr(zh_message("operation.equipment.reason.cursed", {zh_item_arg("item", item, DESC_YOUR)}), MSGCH_PROMPT);
         }
         return false;
     }
@@ -1638,8 +1635,7 @@ bool can_unequip_item(item_def& item, bool silent)
     {
         if (!silent)
         {
-            mprf(MSGCH_PROMPT, "Your thirst for blood prevents you from unwielding "
-                               "your weapon!");
+            mpr(zh_message("operation.equipment.reason.blood_hunger"), MSGCH_PROMPT);
         }
         return false;
     }
@@ -1648,8 +1644,7 @@ bool can_unequip_item(item_def& item, bool silent)
     {
         if (!silent)
         {
-            mprf(MSGCH_PROMPT, "It would be unfitting for someone so glorious to "
-                               "remove their crown in front of an audience.");
+            mpr(zh_message("operation.equipment.reason.vainglory_crown"), MSGCH_PROMPT);
         }
         return false;
     }
@@ -1727,9 +1722,12 @@ static bool _try_unwield_weapons()
  *         was aborted
  */
 operation_types use_an_item_menu(item_def *&target, operation_types oper, int item_type,
-                      const char* prompt, function<bool ()> allowcancel)
+                      const char* prompt, function<bool ()> allowcancel,
+                      bool prompt_pretranslated)
 {
     UseItemMenu menu(oper, item_type, prompt);
+    if (prompt && prompt_pretranslated)
+        menu.set_title_pretranslated(prompt);
 
     // First bail if there's nothing appropriate to choose in inv or on floor
     if (menu.empty_check())
@@ -1842,7 +1840,7 @@ void prompt_inscribe_item()
         return;
     }
 
-    int item_slot = prompt_invent_item("Inscribe which item?",
+    int item_slot = prompt_invent_item(zh_message("operation.equipment.menu.inscribe_item"),
                                        menu_type::invlist, OSEL_ANY);
 
     if (prompt_failed(item_slot))
@@ -1883,11 +1881,10 @@ bool oni_drunken_swing()
         bool success = false;
         if (you.weapon())
         {
-            mprf("You take a swig of the potion and twirl %s.",
-                 you.weapon()->name(DESC_YOUR).c_str());
+            mpr(zh_message("operation.use.drink.drunken_weapon", {zh_item_arg("name", *you.weapon(), DESC_YOUR)}));
         }
         else
-            mpr("You take a swig of the potion and flex your muscles.");
+            mpr(zh_message("operation.use.drink.drunken_unarmed"));
 
         for (actor* victim : targets)
         {
@@ -1910,10 +1907,10 @@ bool oni_drunken_swing()
 
 bool drink(item_def* potion)
 {
-    string r = cannot_drink_item_reason(potion, true, true);
-    if (!r.empty())
+    const ZhArg r = cannot_drink_item_display_reason(potion, true, true);
+    if (!r.canonical.empty())
     {
-        mpr(r);
+        mpr(ZhMessage{"", r.canonical, r.localized});
         return false;
     }
     ASSERT(potion);
@@ -1927,13 +1924,13 @@ bool drink(item_def* potion)
     }
 
     bool penance = god_hates_item(*potion);
-    string prompt = make_stringf("Really quaff the %s?%s",
-                                 potion->name(DESC_DBNAME).c_str(),
-                                 penance ? " This action would place"
-                                           " you under penance!" : "");
+    const ZhMessage prompt = zh_message("operation.use.drink.confirm",
+        {zh_item_arg("name", *potion, DESC_DBNAME), penance
+            ? zh_message_arg("reason", "operation.use.drink.penance")
+            : zh_text("reason", "", "")});
     if (alreadyknown && (is_dangerous_item(*potion, true) || penance)
         && Options.bad_item_prompt
-        && !yesno(prompt.c_str(), false, 'n'))
+        && !yesno(prompt, false, 'n'))
     {
         canned_msg(MSG_OK);
         return false;
@@ -1944,14 +1941,12 @@ bool drink(item_def* potion)
         && !you.props.exists(VICTORY_CONDUCT_KEY))
     {
         item_def *item = you.equipment.get_first_slot_item(SLOT_BODY_ARMOUR, true);
-        string unrand_prompt = make_stringf("Really quaff with monsters nearby "
-                                            "while wearing %s?",
-                                            item->name(DESC_THE, false, true,
-                                                       false).c_str());
+        const ZhMessage unrand_prompt = zh_message("operation.use.drink.victory",
+            {zh_item_arg("name", *item, DESC_THE)});
 
         if (item->props[VICTORY_STAT_KEY].get_int() > 0
             && nearby_mons
-            && !yesno(unrand_prompt.c_str(), false, 'n'))
+            && !yesno(unrand_prompt, false, 'n'))
         {
             canned_msg(MSG_OK);
             return false;
@@ -2000,15 +1995,14 @@ bool drink(item_def* potion)
             || potion->sub_type == POT_MIGHT
             || potion->sub_type == POT_RESISTANCE))
         {
-            mprf("Your mutated metabolism churns, savouring the %s.",
-                potion->name(DESC_QUALNAME).c_str());
+            mpr(zh_message("operation.use.drink.metabolism", {zh_item_arg("name", *potion, DESC_QUALNAME)}));
         }
 
     if (!alreadyknown)
     {
         if (heal_on_id)
         {
-            mpr("The energy of discovery flows from your fingertips!");
+            mpr(zh_message("operation.use.discovery"));
             potionlike_effect(POT_HEAL_WOUNDS, 40);
         }
 
@@ -2108,16 +2102,11 @@ static void _rebrand_weapon(item_def& wpn)
     set_item_ego_type(wpn, OBJ_WEAPONS, new_brand);
 }
 
-static string _item_name(item_def &item)
-{
-    return item.name(in_inventory(item) ? DESC_YOUR : DESC_THE);
-}
-
 static void _brand_weapon(item_def &wpn)
 {
     you.wield_change = true;
 
-    const string itname = _item_name(wpn);
+    const ZhArg operation_name = zh_item_arg("name", wpn, in_inventory(wpn) ? DESC_YOUR : DESC_THE);
 
     _rebrand_weapon(wpn);
 
@@ -2128,87 +2117,87 @@ static void _brand_weapon(item_def &wpn)
     {
     case SPWPN_HEAVY:
         flash_colour = BROWN;
-        mprf("%s becomes incredibly heavy!",itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.heavy", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_PROTECTION:
         flash_colour = YELLOW;
-        mprf("%s projects an invisible shield of force!",itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.protection", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_FLAMING:
         flash_colour = RED;
-        mprf("%s is engulfed in flames!", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.flaming", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_FREEZING:
         flash_colour = LIGHTCYAN;
-        mprf("%s is covered with a thin layer of ice!", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.freezing", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_DRAINING:
         flash_colour = DARKGREY;
-        mprf("%s craves living souls!", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.draining", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_VAMPIRISM:
         flash_colour = DARKGREY;
-        mprf("%s thirsts for the lives of mortals!", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.vampirism", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_VENOM:
         flash_colour = GREEN;
-        mprf("%s drips with poison.", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.venom", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_ELECTROCUTION:
         flash_colour = LIGHTCYAN;
-        mprf("%s crackles with electricity.", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.electricity", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_CHAOS:
         flash_colour = random_colour();
-        mprf("%s erupts in a glittering mayhem of colour.", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.chaos", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_ACID:
         flash_colour = ETC_SLIME;
-        mprf("%s oozes corrosive slime.", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.acid", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_SPECTRAL:
         flash_colour = BLUE;
-        mprf("%s acquires a faint afterimage.", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.spectral", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_REBUKE:
         flash_colour = WHITE;
-        mprf("%s quivers with indignation.", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.rebuke", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_VALOUR:
         flash_colour = WHITE;
-        mprf("%s thrums with vital power.", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.valour", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_ENTANGLING:
         flash_colour = LIGHTGREEN;
-        mprf("%s erupts in a tangle of vines.", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.entangling", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_SUNDERING:
         flash_colour = LIGHTRED;
-        mprf("%s becomes viciously sharp.", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.sundering", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_CONCUSSION:
         flash_colour = YELLOW;
-        mprf("%s begins to exert an overwhelming pressure.", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.concussion", {zh_named_arg("name", operation_name)}));
         break;
 
     case SPWPN_DEVIOUS:
         flash_colour = BLUE;
-        mprf("%s glints wickedly in the shadows.", itname.c_str());
+        mpr(zh_message("operation.use.weapon.brand.devious", {zh_named_arg("name", operation_name)}));
         break;
 
     default:
@@ -2219,7 +2208,7 @@ static void _brand_weapon(item_def &wpn)
     if (success)
     {
         item_set_appearance(wpn);
-        mprf_nocap("%s", wpn.name(DESC_INVENTORY_EQUIP).c_str());
+        mpr(zh_message("operation.pickup.item_name", {zh_item_arg("item_name", wpn, DESC_INVENTORY_EQUIP)}));
         // Might be rebranding to/from protection or evasion.
         you.redraw_armour_class = true;
         you.redraw_evasion = true;
@@ -2240,12 +2229,12 @@ static item_def* _choose_target_item_for_scroll(bool scroll_known, object_select
                        {
                            if (scroll_known
                                || crawl_state.seen_hups
-                               || yesno("Really abort (and waste the scroll)?", false, 0))
+                               || yesno(zh_message("operation.use.scroll.abort"), false, 0))
                            {
                                return true;
                            }
                            return false;
-                       });
+                       }, true);
     return success != OPER_NONE ? target : nullptr;
 }
 
@@ -2259,14 +2248,14 @@ static object_selector _enchant_selector(scroll_type scroll)
 }
 
 // Returns nullptr if no weapon was chosen.
-static item_def* _scroll_choose_weapon(bool alreadyknown, const string &pre_msg,
+static item_def* _scroll_choose_weapon(bool alreadyknown, const ZhMessage &pre_msg,
                                        scroll_type scroll)
 {
     const bool branding = scroll == SCR_BRAND_WEAPON;
 
     item_def* target = _choose_target_item_for_scroll(alreadyknown, _enchant_selector(scroll),
-                                                      branding ? "Brand which weapon?"
-                                                               : "Enchant which weapon?");
+                                                      branding ? zh_message("operation.use.scroll.brand_target").display().c_str()
+                                                               : zh_message("operation.use.scroll.enchant_weapon_target").display().c_str());
     if (!target)
         return target;
 
@@ -2277,7 +2266,7 @@ static item_def* _scroll_choose_weapon(bool alreadyknown, const string &pre_msg,
 }
 
 // Returns true if succesful
-static bool _handle_brand_weapon(bool alreadyknown, const string &pre_msg)
+static bool _handle_brand_weapon(bool alreadyknown, const ZhMessage &pre_msg)
 {
     item_def* weapon = nullptr;
     string letter = "";
@@ -2305,7 +2294,7 @@ static bool _handle_brand_weapon(bool alreadyknown, const string &pre_msg)
 
 bool uncancel_brand_weapon()
 {
-    return _handle_brand_weapon(false, "");
+    return _handle_brand_weapon(false, ZhMessage{});
 }
 
 bool enchant_weapon(item_def &wpn, bool quiet)
@@ -2313,7 +2302,7 @@ bool enchant_weapon(item_def &wpn, bool quiet)
     bool success = false;
 
     // Get item name now before changing enchantment.
-    string iname = _item_name(wpn);
+    const ZhArg operation_name = zh_item_arg("name", wpn, in_inventory(wpn) ? DESC_YOUR : DESC_THE);
 
     if (is_enchantable_weapon(wpn))
     {
@@ -2321,8 +2310,9 @@ bool enchant_weapon(item_def &wpn, bool quiet)
         success = true;
         if (!quiet)
         {
-            const char* dur = wpn.plus < MAX_WPN_ENCHANT ? "moment" : "while";
-            mprf("%s glows red for a %s.", iname.c_str(), dur);
+            mpr(zh_message(wpn.plus < MAX_WPN_ENCHANT
+                ? "operation.use.weapon.enchant" : "operation.use.weapon.enchant.max",
+                {operation_name}));
         }
     }
 
@@ -2345,7 +2335,7 @@ bool enchant_weapon(item_def &wpn, bool quiet)
  * @return  true if the scroll is used up. (That is, whether it was used or
  *          whether it was previously unknown (& thus uncancellable).)
  */
-static bool _identify(bool alreadyknown, const string &pre_msg)
+static bool _identify(bool alreadyknown, const ZhMessage &pre_msg)
 {
     item_def* itemp = nullptr;
     string letter = "";
@@ -2400,24 +2390,23 @@ static bool _identify(bool alreadyknown, const string &pre_msg)
         auto_assign_item_slot(item, true);
         if (item.slot != old_slot)
         {
-            mprf_nocap("%c -> %s", old_slot,
-                        menu_colour_item_name(item, DESC_INVENTORY_EQUIP).c_str());
+            mpr(zh_message("operation.use.scroll.identify.result", {zh_key("old_key", string(1, old_slot)), zh_item_menu_arg("item", item, DESC_INVENTORY_EQUIP)}));
         }
         else
-            mprf_nocap("%s", menu_colour_item_name(item, DESC_INVENTORY_EQUIP).c_str());
+            mpr(zh_message("operation.pickup.item_name", {zh_item_menu_arg("item_name", item, DESC_INVENTORY_EQUIP)}));
     }
     else
-        mprf_nocap("%s", menu_colour_item_name(item, DESC_A).c_str());
+        mpr(zh_message("operation.pickup.item_name", {zh_item_menu_arg("item_name", item, DESC_A)}));
 
     return true;
 }
 
 bool uncancel_identify()
 {
-    return _identify(false, "");
+    return _identify(false, ZhMessage{});
 }
 
-static bool _handle_enchant_weapon(bool alreadyknown, const string &pre_msg)
+static bool _handle_enchant_weapon(bool alreadyknown, const ZhMessage &pre_msg)
 {
     item_def* weapon = nullptr;
     string letter = "";
@@ -2453,7 +2442,7 @@ static bool _handle_enchant_weapon(bool alreadyknown, const string &pre_msg)
 
 bool uncancel_enchant_weapon()
 {
-    return _handle_enchant_weapon(false, "");
+    return _handle_enchant_weapon(false, ZhMessage{});
 }
 
 bool enchant_armour(item_def &arm, bool quiet)
@@ -2469,7 +2458,7 @@ bool enchant_armour(item_def &arm, bool quiet)
         return false;
     }
 
-    string name = _item_name(arm);
+    const ZhArg operation_name = zh_item_arg("name", arm, in_inventory(arm) ? DESC_YOUR : DESC_THE);
 
     ++arm.plus;
 
@@ -2477,16 +2466,17 @@ bool enchant_armour(item_def &arm, bool quiet)
     {
         const bool plural = armour_is_hide(arm)
                             && arm.sub_type != ARM_TROLL_LEATHER_ARMOUR;
-        string glow = conjugate_verb("glow", plural);
-        const char* dur = is_enchantable_armour(arm) ? "moment" : "while";
-        mprf("%s %s green for a %s.", name.c_str(), glow.c_str(), dur);
+        const string id = string("operation.use.armour.enchant")
+                        + (plural ? ".plural" : "")
+                        + (is_enchantable_armour(arm) ? "" : ".max");
+        mpr(zh_message(id, {operation_name}));
     }
 
     return true;
 }
 
 /// Returns whether the scroll is used up.
-static bool _handle_enchant_armour(bool alreadyknown, const string &pre_msg)
+static bool _handle_enchant_armour(bool alreadyknown, const ZhMessage &pre_msg)
 {
     item_def* target= nullptr;
     string letter = "";
@@ -2505,7 +2495,7 @@ static bool _handle_enchant_armour(bool alreadyknown, const string &pre_msg)
     if (!target)
     {
         target = _choose_target_item_for_scroll(alreadyknown,
-            OSEL_ENCHANTABLE_ARMOUR, "Enchant which item?");
+            OSEL_ENCHANTABLE_ARMOUR, zh_message("operation.use.scroll.enchant_armour_target").display().c_str());
     }
 
     if (!target)
@@ -2531,7 +2521,7 @@ static bool _handle_enchant_armour(bool alreadyknown, const string &pre_msg)
 
 bool uncancel_enchant_armour()
 {
-    return _handle_enchant_armour(false, "");
+    return _handle_enchant_armour(false, ZhMessage{});
 }
 
 static void _vulnerability_scroll()
@@ -2552,7 +2542,7 @@ static void _vulnerability_scroll()
     }
 
     you.strip_willpower(&you, dur, true);
-    mpr("A wave of despondency washes over your surroundings.");
+    mpr(zh_message("operation.use.vulnerability"));
 }
 
 static bool _handle_amnesia(bool alreadyknown)
@@ -2566,7 +2556,7 @@ static bool _handle_amnesia(bool alreadyknown)
         {
             if (crawl_state.seen_hups)
                 return false;
-            if (!yesno("Really abort (and waste the scroll)?", false, 0))
+            if (!yesno(zh_message("operation.use.scroll.abort"), false, 0))
                 continue;
         }
 
@@ -2845,10 +2835,10 @@ static bool _scroll_has_forced_targeter(scroll_type scroll)
  */
 bool read(item_def* scroll, dist *target)
 {
-    string failure_reason = cannot_read_item_reason(scroll);
-    if (!failure_reason.empty())
+    const ZhArg failure_reason = cannot_read_item_display_reason(scroll);
+    if (!failure_reason.canonical.empty())
     {
-        mpr(failure_reason);
+        mpr(ZhMessage{"", failure_reason.canonical, failure_reason.localized});
         return false;
     }
     ASSERT(scroll);
@@ -2861,11 +2851,10 @@ bool read(item_def* scroll, dist *target)
         bool penance = god_hates_item(*scroll);
         string verb_object = "read the " + scroll->name(DESC_DBNAME);
 
-        string penance_prompt = make_stringf("Really %s? This action would"
-                                             " place you under penance%s!",
-                                             verb_object.c_str(),
-                                             hostile_check ? ""
-                    : " and you can't even see any enemies this would affect");
+        const ZhArg scroll_display = zh_item_arg("name", *scroll, DESC_DBNAME);
+        const ZhMessage penance_prompt = zh_message(hostile_check
+            ? "operation.use.scroll.confirm.penance" : "operation.use.scroll.confirm.penance.no_targets",
+            {scroll_display});
 
         targeter_radius hitfunc(&you, LOS_NO_TRANS);
 
@@ -2884,26 +2873,20 @@ bool read(item_def* scroll, dist *target)
         {
             return false;
         }
-        else if (penance && !yesno(penance_prompt.c_str(), false, 'n'))
+        else if (penance && !yesno(penance_prompt, false, 'n'))
         {
             canned_msg(MSG_OK);
             return false;
         }
         else if (bad_item
-                 && !yesno(make_stringf("Really %s?%s",
-                                        verb_object.c_str(),
-                                        hostile_check ? ""
-                        : " You can't even see any enemies this would affect."
-                                        ).c_str(),
-                           false, 'n'))
+                 && !yesno(zh_message(hostile_check ? "operation.use.scroll.confirm.danger"
+                        : "operation.use.scroll.confirm.danger.no_targets", {scroll_display}), false, 'n'))
         {
             canned_msg(MSG_OK);
             return false;
         }
-        else if (!bad_item && !hostile_check && !yesno(make_stringf(
-            "You can't see any enemies this would affect, really %s?",
-                                        verb_object.c_str()).c_str(),
-                                                false, 'n'))
+        else if (!bad_item && !hostile_check && !yesno(zh_message(
+            "operation.use.scroll.confirm.no_targets", {scroll_display}), false, 'n'))
         {
             // is this too nanny dev?
             canned_msg(MSG_OK);
@@ -2916,14 +2899,12 @@ bool read(item_def* scroll, dist *target)
         && !you.props.exists(VICTORY_CONDUCT_KEY))
     {
         item_def *item = you.equipment.get_first_slot_item(SLOT_BODY_ARMOUR, true);
-        string unrand_prompt = make_stringf("Really read with monsters nearby "
-                                            "while wearing %s?",
-                                            item->name(DESC_THE, false, true,
-                                                       false).c_str());
+        const ZhMessage unrand_prompt = zh_message("operation.use.scroll.confirm.victory",
+            {zh_item_arg("name", *item, DESC_THE)});
 
         if (item->props[VICTORY_STAT_KEY].get_int() > 0
             && nearby_mons
-            && !yesno(unrand_prompt.c_str(), false, 'n'))
+            && !yesno(unrand_prompt, false, 'n'))
         {
             canned_msg(MSG_OK);
             return false;
@@ -2933,7 +2914,6 @@ bool read(item_def* scroll, dist *target)
     // Ok - now we FINALLY get to read a scroll !!! {dlb}
     you.turn_is_over = true;
 
-    const int prev_quantity = scroll->quantity;
     int link = in_inventory(*scroll) ? scroll->link : -1;
     const bool alreadyknown = item_type_known(*scroll);
 
@@ -2960,11 +2940,11 @@ bool read(item_def* scroll, dist *target)
 
     // For cancellable scrolls leave printing this message to their
     // respective functions.
-    const string pre_succ_msg =
-            make_stringf("As you %s the %s, it %s.",
-                          is_loud ? "thunderously recite" : "read",
-                          scroll->name(DESC_QUALNAME).c_str(),
-                         which_scroll == SCR_FOG ? "dissolves into smoke" : "crumbles to dust");
+    const string success_id = string("operation.use.scroll.success")
+                            + (is_loud ? ".loud" : "")
+                            + (which_scroll == SCR_FOG ? ".fog" : "");
+    const ZhMessage pre_succ_msg = zh_message(success_id,
+        {zh_item_arg("name", *scroll, DESC_QUALNAME)});
     if (!_is_cancellable_scroll(which_scroll))
     {
         mpr(pre_succ_msg);
@@ -3024,7 +3004,7 @@ bool read(item_def* scroll, dist *target)
 
     case SCR_ACQUIREMENT:
         if (!alreadyknown)
-            mpr("This is a scroll of acquirement!");
+            mpr(zh_message("operation.use.scroll.acquire.unknown"));
 
         // included in default force_more_message
         // Identify it early in case the player checks the '\' screen.
@@ -3032,7 +3012,7 @@ bool read(item_def* scroll, dist *target)
 
         if (feat_eliminates_items(env.grid(you.pos())))
         {
-            mpr("Anything you acquired here would fall and be lost!");
+            mpr(zh_message("operation.use.scroll.acquire.lost"));
             cancel_scroll = true;
             break;
         }
@@ -3041,7 +3021,7 @@ bool read(item_def* scroll, dist *target)
         break;
 
     case SCR_FEAR:
-        mpr("You assume a fearsome visage.");
+        mpr(zh_message("operation.use.scroll.fear"));
         mass_enchantment(ENCH_FEAR, 1000);
         break;
 
@@ -3095,9 +3075,9 @@ bool read(item_def* scroll, dist *target)
         }
 
         if (had_effect)
-            mpr("The creatures around you are filled with an inner flame!");
+            mpr(zh_message("operation.use.scroll.immolation.success"));
         else
-            mpr("The air around you briefly surges with heat, but it dissipates.");
+            mpr(zh_message("operation.use.scroll.immolation.fail"));
 
         bad_effect = true;
         break;
@@ -3118,7 +3098,7 @@ bool read(item_def* scroll, dist *target)
         if (!alreadyknown)
         {
             mpr(pre_succ_msg);
-            mpr("It is a scroll of enchant weapon.");
+            mpr(zh_message("operation.use.scroll.reveal.enchant_weapon"));
             // included in default force_more_message (to show it before menu)
 
             run_uncancel(UNC_ENCHANT_WEAPON);
@@ -3132,7 +3112,7 @@ bool read(item_def* scroll, dist *target)
         if (!alreadyknown)
         {
             mpr(pre_succ_msg);
-            mpr("It is a scroll of brand weapon.");
+            mpr(zh_message("operation.use.scroll.reveal.brand_weapon"));
             // included in default force_more_message (to show it before menu)
 
             run_uncancel(UNC_BRAND_WEAPON);
@@ -3146,7 +3126,7 @@ bool read(item_def* scroll, dist *target)
         if (!alreadyknown)
         {
             mpr(pre_succ_msg);
-            mpr("It is a scroll of identify.");
+            mpr(zh_message("operation.use.scroll.reveal.identify"));
             // included in default force_more_message (to show it before menu)
             // Do this here so it doesn't turn up in the ID menu.
             identify_item(*scroll);
@@ -3162,7 +3142,7 @@ bool read(item_def* scroll, dist *target)
         if (!alreadyknown)
         {
             mpr(pre_succ_msg);
-            mpr("It is a scroll of enchant armour.");
+            mpr(zh_message("operation.use.scroll.reveal.enchant_armour"));
             // included in default force_more_message (to show it before menu)
 
             run_uncancel(UNC_ENCHANT_ARMOUR);
@@ -3179,7 +3159,7 @@ bool read(item_def* scroll, dist *target)
     case SCR_RANDOM_USELESSNESS:
     case SCR_HOLY_WORD:
     {
-        mpr("This item has been removed, sorry!");
+        mpr(zh_message("operation.use.scroll.removed"));
         cancel_scroll = true;
         break;
     }
@@ -3197,12 +3177,12 @@ bool read(item_def* scroll, dist *target)
         if (!alreadyknown)
         {
             mpr(pre_succ_msg);
-            mpr("It is a scroll of amnesia.");
+            mpr(zh_message("operation.use.scroll.reveal.amnesia"));
             // included in default force_more_message (to show it before menu)
         }
         if (you.spell_no == 0 || you.has_mutation(MUT_INNATE_CASTER))
         {
-            mpr("You feel forgetful for a moment.");
+            mpr(zh_message("operation.use.scroll.amnesia.nothing"));
             break;
         }
 
@@ -3223,7 +3203,7 @@ bool read(item_def* scroll, dist *target)
 
     identify_item(*scroll);
 
-    string scroll_name = scroll->name(DESC_QUALNAME);
+    const ZhArg scroll_name = zh_item_arg("name", *scroll, DESC_QUALNAME);
 
     if (!cancel_scroll)
     {
@@ -3247,16 +3227,16 @@ bool read(item_def* scroll, dist *target)
         && which_scroll != SCR_AMNESIA
         && which_scroll != SCR_ACQUIREMENT)
     {
-        mprf("It %s %s.",
-             scroll->quantity < prev_quantity ? "was" : "is",
-             article_a(scroll_name).c_str());
+        mpr(zh_message(!cancel_scroll ? "operation.use.scroll.quantity"
+                                     : "operation.use.scroll.quantity.present",
+                       {scroll_name}));
     }
 
     if (!alreadyknown)
     {
         if (you.unrand_equipped(UNRAND_DELATRAS_GLOVES))
         {
-            mpr("The energy of discovery flows from your fingertips!");
+            mpr(zh_message("operation.use.discovery"));
             potionlike_effect(POT_MAGIC, 40);
         }
 
@@ -3339,7 +3319,7 @@ bool invisibility_target_check(const char* prompt)
     if (!found_any)
         return true;
     if (!found_susceptible)
-        return yesno("You can't see any enemy this would conceal you from. Use anyway?", true, 'n');
+        return yesno(zh_message("operation.use.invisibility.none_susceptible"), true, 'n');
 
     direction_chooser_args args;
     unique_ptr<targeter> hitfunc = make_unique<targeter_invisibility>();
@@ -3464,7 +3444,7 @@ void tile_item_pickup(int idx, bool part)
 {
     if (item_is_stationary(env.item[idx]))
     {
-        mpr("You can't pick that up.");
+        mpr(zh_message("operation.pickup.failed.stationary"));
         return;
     }
 

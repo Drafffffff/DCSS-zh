@@ -3068,7 +3068,7 @@ static ZhArg _no_items_reason(object_selector type, bool check_floor = false)
         case OSEL_ENCHANTABLE_ARMOUR: return zh_message_arg("reason", "item.reason.selectable.enchantable_armour");
         case OSEL_ENCHANTABLE_WEAPON: return zh_message_arg("reason", "item.reason.selectable.enchantable_weapon");
         case OSEL_BRANDABLE_WEAPON: return zh_message_arg("reason", "item.reason.selectable.brandable_weapon");
-        default: return _unmigrated_item_reason(no_selectables_message(type));
+        default: return no_selectables_display_reason(type);
         }
     }
     return _unmigrated_item_reason("");
