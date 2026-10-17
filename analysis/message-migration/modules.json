@@ -14,7 +14,7 @@
     },
     {
       "name": "详情",
-      "state": "主边界、物品/怪物/法术正文与共用限制已接入；本批法术反噬类型/后果/列表/完整父句在生成处组成；其他复杂状态及法术选择菜单仍待迁移",
+      "state": "主边界、物品/怪物/法术正文与共用限制已接入；法术反噬、选择菜单及目标附加效果本批已接入；其他复杂状态、瞄准怪物伤势/装备正文仍待迁移",
       "acceptance": "数据库正文语言选择、长文本、动作、不同来源/状态逐项核对；禁止旧matcher"
     },
     {
@@ -44,7 +44,7 @@
     },
     {
       "name": "瞄准、法术、能力、箭袋",
-      "state": "法术共用父理由与反噬组成、targeter固定/实体理由和五类外部理由生成到通知/实际施法均已接入；string notify_fail已移除；施法选择、风险、瞄准帮助与箭袋仍待迁移",
+      "state": "目标理由闭环、施法日志及反噬已接入；本批完成瞄准帮助/顶部与动作前缀、箭袋选择/动作名称、法术菜单/风险确认/目标效果；目标怪物伤势装备正文、能力其他菜单与操作日志仍待迁移",
       "acceptance": "坐标/距离/法术等级分离；目标名称和无效目标；父视图/箭袋提示也需迁移"
     },
     {
@@ -54,7 +54,7 @@
     },
     {
       "name": "世界与通用界面",
-      "state": "本批拾取初见教程完整模板及控制标记处理已接入，修复旧中文数据库错误闭合标签；其余教程、地形、旅行、交互与通用菜单仍待迁移",
+      "state": "拾取初见教程已接入；本批完成共用危险地形/云雾/陷阱/排除区/穿墙确认；其他教程、旅行、交互与通用菜单仍待迁移",
       "acceptance": "静态/动态生产点完整接入；输入/程序标识不翻译"
     },
     {
@@ -163,40 +163,77 @@
     {
       "id": "target-quiver-prompts",
       "module": "瞄准、法术、能力、箭袋",
-      "state": "queued",
+      "state": "verified",
       "sources": [
         "directn.cc",
+        "directn.h",
         "quiver.cc",
+        "quiver.h",
+        "throw.cc",
         "spl-cast.cc"
       ],
       "producers": [
-        "direction_chooser::print_key_hints",
-        "_spell_failure_rate_description"
+        "_target_key_prompt",
+        "_target_prefix_arg",
+        "_quiver_caption",
+        "_quiver_named_description",
+        "_spell_menu_action",
+        "_spell_failure_rate_arg",
+        "_spellcasting_aborted",
+        "desc_wl_success_chance"
       ],
-      "consumers": [],
-      "tests": [],
+      "consumers": [
+        "direction_chooser::print_key_hints",
+        "direction_chooser::print_top_prompt",
+        "list_spells",
+        "cast_a_spell",
+        "target_spell_desc"
+      ],
+      "tests": [
+        "tools/test_target_quiver_prompts.py",
+        "tools/test_spell_prompts.py",
+        "tools/test_spell_target_effects.py"
+      ],
       "remaining": [
-        "Press帮助行、风险评语、施法选择、箭袋动作全文模板"
-      ]
+        "directn怪物目标伤势/装备正文仍有3处旧详情依赖，前缀已独立生成",
+        "箭袋/能力其他业务操作日志、wizard地形构建标题未在本包验收",
+        "未审校新名称整行/整父回退并报告缺失，不拼凑中文"
+      ],
+      "report": "verification/native/prompt-terrain/REPORT.md",
+      "canonical_compatibility": "规范英文提示与冻结旧生成函数对照；Lua target_spell_desc/throw内部提示保留英文；控制键与颜色类型校验；Unicode表头列宽"
     },
     {
       "id": "terrain-move-confirmation",
       "module": "世界与通用界面",
-      "state": "queued",
+      "state": "verified",
       "sources": [
         "player.cc",
-        "spl-other.cc"
+        "player.h",
+        "spl-other.cc",
+        "prompt.cc",
+        "prompt.h"
       ],
       "producers": [
-        "check_moveto_terrain"
+        "check_moveto_terrain",
+        "check_moveto_cloud",
+        "check_moveto_trap",
+        "check_moveto_exclusions",
+        "confirm_prompt"
       ],
       "consumers": [
+        "check_moveto",
+        "check_move_over",
         "passwall_path::check_moveto"
       ],
-      "tests": [],
+      "tests": [
+        "tools/test_terrain_confirmation.py"
+      ],
       "remaining": [
-        "移动动词、危险地形、飞行到期与穿墙提示父句整体迁移"
-      ]
+        "未知未来移动动词/云雾/陷阱名称及任意调用方警告完整回退并报告",
+        "其他移动业务日志、旅行及世界交互不在共用确认包内"
+      ],
+      "report": "verification/native/prompt-terrain/REPORT.md",
+      "canonical_compatibility": "yesno/confirm_prompt保留Lua英文及yes输入；确认顺序/接受取消/危险判定/RNG不变；移除typed确认提示200字节截断"
     }
   ]
 }

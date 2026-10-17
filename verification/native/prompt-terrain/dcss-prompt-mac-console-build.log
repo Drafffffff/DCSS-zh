@@ -1,0 +1,10 @@
+fatal: No names found, cannot describe anything.
+/Library/Developer/CommandLineTools/usr/bin/make -C rltiles all ARCH=arm64-apple-darwin25.6.0 NO_PKGCONFIG= TILES=
+    PYTHON config.h
+    PYTHON rltilesstatus-icon-sizes.h
+    GEN compflag.h
+    GEN build.h
+    CXX spl-cast.o
+    CXX version.o
+    CXX zh-message.o
+    LINK crawl

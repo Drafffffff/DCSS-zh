@@ -17,6 +17,9 @@ namespace ui
         bool format_msg=false);
 }
 
+// Display complete translated prompt without truncating UTF-8; require is an
+// engine input token and remains canonical.
+bool confirm_prompt(const char *require, const ZhMessage &prompt);
 bool confirm_prompt(const char* require, const char* fmt, ...);
 typedef map<int, int> explicit_keymap;
 int yesno(const char * str, bool allow_lowercase, int default_answer,

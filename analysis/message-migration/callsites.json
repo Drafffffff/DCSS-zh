@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "method": "lexical callsite inventory; not a translation coverage metric",
-  "native_head": "1f1534607672da27c968bab89fbb870f04b60f6b",
+  "native_head": "0b10e82b56eb444c37874fa4c7e90befb08f8938",
   "files": {
     "ability.cc": "e3a84dff6dfef86f21ce60542d4fc3ed85f219a4d53d8bfa0ec241a390e99067",
     "abyss.cc": "84b56154fb4cfb65c0b25ae8dd465938a2a11bab44cb6b347ff05e24840ce554",
@@ -41,7 +41,7 @@
     "dgn-layouts.cc": "dccf23f73f168128c020088d8b608765a0b29cf5eafc1ce640d614941b3000f2",
     "dgn-overview.cc": "1bbb0bbd579def51b5b34c4f7eb6e125015b52771dbaf8e5a0abb9f85571f050",
     "dgn-shoals.cc": "d86ac178fa0bc9440f4d12b251b8771ea30decc1ca9b42a9385ec28618f445bd",
-    "directn.cc": "c9fdab55ed20af8e50bf3cc5ba7de2c36b644bb19d8142931ddfab8aaec3da21",
+    "directn.cc": "29e10c18ad18c4eee9db9d0f64b30fccfbe9cff671f022346200de9b4311e2e9",
     "dlua.cc": "4c0335bc871e4524b4ef87ab22fe7387c52413ddbb0c2b0196b5b04fca3b091d",
     "dungeon.cc": "32233703006a2448f5b3d4e3fe4221b330a9a39d9266b4c5194abdb8787c2f74",
     "end.cc": "5afdc42130b3fe886dd14be58642308c2478ff2a79ac9facddc9a2faab80f7d5",
@@ -142,11 +142,11 @@
     "player-notices.cc": "930152dac43fcfcbe38d48108733c56ee0a2fee6fd461591298990d08b51eb9c",
     "player-reacts.cc": "9453883fb2150906e8ba9dad79b6733ffed95f1394eca175b00fe0fd0ed74496",
     "player-stats.cc": "406f409934440e1ec519b930994768091d57a34c855da910110b1056a1a34b29",
-    "player.cc": "8b7720f897a4d3ddfa768f7d590800605a2a874fc013e25677809cf0559cf84f",
+    "player.cc": "ebdf0ea14057eab7d5ef9ea15e32c8713e21aeae287a9344cae452bedaacec8d",
     "potion.cc": "784c0e492f204af47b37f555cac4565ec40950bd575949f8fc32eb73b12278c0",
     "precision-menu.cc": "22c3d84faa16bbbfdf1f0025264224fcfa2ebea23c3c1d3e0036ff35ccfd12aa",
-    "prompt.cc": "3a0fb4a708b7c4415ad22982d610b389d7317ba0f1829a62bacf908e5415f17c",
-    "quiver.cc": "dd61c170c56b1d3aba52b20b9160be5e173e39b868dd2751c1e5f29b9a3e3338",
+    "prompt.cc": "8ca80605cad7d97122fafd8580b08424d78084b89e4aa6c5b30150274ba2b6e5",
+    "quiver.cc": "7fc378868b61ae3a41f469ae422a3f00d9889c612336488ab883d403a3d2f9d5",
     "randbook.cc": "2b827a3cab37558aa7edee206034f98b8ed0b583cc8abb3e9e2ee3706de70916",
     "ranged-attack.cc": "b50b7bd4c656f907eed661e3410f1c1eef516385ccb3c440ca7c2e927b51d6ae",
     "religion.cc": "c34eb17758daad258d590f3ee33e15099583c3db26d1c1e17a0b67d099f5c764",
@@ -159,13 +159,13 @@
     "skills.cc": "1cdee422c303cdfe0495eb5a0de71a538ce1fb92aaeebcb2361d7ad961dc7ccb",
     "species.cc": "9898f86e826508b046770e3e1c4aefa9383dfa3196045e41ebb87755e2e287ab",
     "spl-book.cc": "08facc7c17e85073c96b2968acd1710cadd3eaf7a05546821e65bd7d29aebc40",
-    "spl-cast.cc": "c7e358d6adb03719451efdd0f990f49f17724f0ece5251318194b838babe7e01",
+    "spl-cast.cc": "08c81968d2ce0a8c62212a6256898e276cffc51b281f1cac3c16c3b885651493",
     "spl-clouds.cc": "f696ffb83835bcdeedfa3ee6b7bfdab2d9f80934512750a3a684d97b09c490ac",
     "spl-damage.cc": "9dfc6fcf05c93c9e1f3fe3396b0efb91c9afc685f2bd889ae038958e39c0ad05",
     "spl-goditem.cc": "2da364e34ee6206f39a1d619dfaa23678ced1049f63e82a07a9af68b0f1356e4",
     "spl-miscast.cc": "f2b43f1e6537050365c56dfc8d7006fb719d41aeb13caa6804a7a3d13df24782",
     "spl-monench.cc": "fe403433efd598b4dfc1ba9e133406f56ed651596d6fe5e74c43409cdc5b230f",
-    "spl-other.cc": "dadc490d18e4d80c3a7c970a55d6ff02d94681db12fa76d3cff07589913a7d1a",
+    "spl-other.cc": "5267b8f0bb139f82c2b901c7128d153459c1b5fef9826d8bb233f2e3ec22800b",
     "spl-selfench.cc": "2a5fc3b7d83c8a417a4ee4657b09c59cc02b0651dde8ea07bb0ff079ae1e45f6",
     "spl-summoning.cc": "8e02a7168862429db4002d7f5d4b96ee7a65fc305ac4350d8ef7f391f2e26a53",
     "spl-transloc.cc": "aef28327f52c8fddd56dbe88999e977ced5e4f8375dba4738831af79c6d590c2",
@@ -182,7 +182,7 @@
     "target.cc": "84e1564d5d6f3a4452d7b989952d1a8c763fe178a260d441136b6f05a5a67c83",
     "teleport.cc": "6292910bd8e04499b6238e024551db6e09ec07775cbae967d6ec89150ad8943e",
     "terrain.cc": "1af4851bbbf7a07b82821a0d02405ef00f6552424edccf8f459efbe725e598c9",
-    "throw.cc": "f6eb03e652ec0b9152285a439c954bea323fb6f618b2ad2caf7cb18179e0b3f0",
+    "throw.cc": "315bf12d912369c7c1e3cdb58f3653b289d3225e39cba3c6f4f0580dacb9ddc5",
     "tiledgnbuf.cc": "b1967f03ff03a390eb5c9a5f03b9f8b8bf4f0ae14192373f880b75f6b1e57c31",
     "tilepick.cc": "7db0179b91d78972f2d468613e8b8a786616c6c7e289b4ad078b6bb67a801652",
     "tilereg-abl.cc": "54aadbcbacf2a466a5ec7facda66f5fcd985abc3f326144ee05ca7785aaebb75",
@@ -220,7 +220,7 @@
     "xom.cc": "f8569a5334a3b11f0668c482db3fc922289d570d0f1c19cedec3a1bcf8a917e6",
     "zh-display-name.cc": "cd367306b52260f9f37ec11a010fa604624bbeaf31640b415aceb5f46027e931",
     "zh-localization.cc": "e1b98b33dbf1fa491dfb6341a102e68365158c63df848856ddf1dd3731efee82",
-    "zh-message.cc": "471173cdbd551206810d7725d37ee7554e021e28dff5abde9967f1bde3a49afe",
+    "zh-message.cc": "737fa81cc2ec894be6bdcb40a66a3caa5cd32cf705bf9d42cf74cc49c3933449",
     "zot.cc": "5ac5d946b32ba5168e2a63813f8bc2662340e7f3016717c696838fca4b9fdea0"
   },
   "modules": [
@@ -236,7 +236,7 @@
     },
     {
       "name": "详情",
-      "state": "主边界、物品/怪物/法术正文与共用限制已接入；本批法术反噬类型/后果/列表/完整父句在生成处组成；其他复杂状态及法术选择菜单仍待迁移",
+      "state": "主边界、物品/怪物/法术正文与共用限制已接入；法术反噬、选择菜单及目标附加效果本批已接入；其他复杂状态、瞄准怪物伤势/装备正文仍待迁移",
       "acceptance": "数据库正文语言选择、长文本、动作、不同来源/状态逐项核对；禁止旧matcher"
     },
     {
@@ -266,7 +266,7 @@
     },
     {
       "name": "瞄准、法术、能力、箭袋",
-      "state": "法术共用父理由与反噬组成、targeter固定/实体理由和五类外部理由生成到通知/实际施法均已接入；string notify_fail已移除；施法选择、风险、瞄准帮助与箭袋仍待迁移",
+      "state": "目标理由闭环、施法日志及反噬已接入；本批完成瞄准帮助/顶部与动作前缀、箭袋选择/动作名称、法术菜单/风险确认/目标效果；目标怪物伤势装备正文、能力其他菜单与操作日志仍待迁移",
       "acceptance": "坐标/距离/法术等级分离；目标名称和无效目标；父视图/箭袋提示也需迁移"
     },
     {
@@ -276,7 +276,7 @@
     },
     {
       "name": "世界与通用界面",
-      "state": "本批拾取初见教程完整模板及控制标记处理已接入，修复旧中文数据库错误闭合标签；其余教程、地形、旅行、交互与通用菜单仍待迁移",
+      "state": "拾取初见教程已接入；本批完成共用危险地形/云雾/陷阱/排除区/穿墙确认；其他教程、旅行、交互与通用菜单仍待迁移",
       "acceptance": "静态/动态生产点完整接入；输入/程序标识不翻译"
     },
     {
@@ -10565,7 +10565,15 @@
     },
     {
       "file": "directn.cc",
-      "line": 242,
+      "line": 248,
+      "api": "mpr",
+      "anchor": "mpr(current, MSGCH_PROMPT);",
+      "module": "targeting",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "directn.cc",
+      "line": 250,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"%s\", top_prompt.c_str());",
       "module": "targeting",
@@ -10573,23 +10581,31 @@
     },
     {
       "file": "directn.cc",
-      "line": 246,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_PROMPT, \"%s\",",
+      "line": 255,
+      "api": "mpr",
+      "anchor": "mpr(moves.fire_context->get()->quiver_description_message(), MSGCH_PROMPT);",
       "module": "targeting",
       "classification": "callsite-review-required"
     },
     {
       "file": "directn.cc",
-      "line": 298,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_PROMPT, \"%s\", prompt.c_str());",
+      "line": 291,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"target.prompt.keys\", {describe, travel, get_item,",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "directn.cc",
+      "line": 310,
+      "api": "mpr",
+      "anchor": "mpr(_target_key_prompt(just_looking, you.see_cell(target()),",
       "module": "targeting",
       "classification": "callsite-review-required"
     },
     {
       "file": "directn.cc",
-      "line": 319,
+      "line": 333,
       "api": "make_stringf",
       "anchor": "string location_str = make_stringf(\"Location (%d, %d)\", relpos.x, -relpos.y);",
       "module": "targeting",
@@ -10597,7 +10613,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 320,
+      "line": 334,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PLAIN, \"%s\", location_str.c_str());",
       "module": "targeting",
@@ -10605,7 +10621,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 340,
+      "line": 354,
       "api": "mprf",
       "anchor": "mprf(MSGCH_EXAMINE, \"%s\", str.c_str());",
       "module": "targeting",
@@ -10613,7 +10629,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 475,
+      "line": 492,
       "api": "cprintf",
       "anchor": "void print(const string &str) { cprintf(\"%s\", str.c_str()); }",
       "module": "targeting",
@@ -10621,7 +10637,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 562,
+      "line": 579,
       "api": "set_title",
       "anchor": "desc_menu.set_title(new MenuEntry(title, MEL_TITLE));",
       "module": "targeting",
@@ -10629,7 +10645,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 572,
+      "line": 589,
       "api": "set_title",
       "anchor": "desc_menu.set_title(new MenuEntry(title_secondary, MEL_TITLE), false);",
       "module": "targeting",
@@ -10637,7 +10653,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 605,
+      "line": 622,
       "api": "make_stringf",
       "anchor": "str = make_stringf(\"(%d, %d) %s\", relpos.x, -relpos.y,",
       "module": "targeting",
@@ -10645,7 +10661,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 614,
+      "line": 631,
       "api": "parse_string_to_multiple",
       "anchor": "formatted_string::parse_string_to_multiple(str, fss);",
       "module": "targeting",
@@ -10653,7 +10669,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 894,
+      "line": 911,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.97d957ab6ef7\"));",
       "module": "targeting",
@@ -10661,7 +10677,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 894,
+      "line": 911,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.97d957ab6ef7\"));",
       "module": "targeting",
@@ -10669,7 +10685,15 @@
     },
     {
       "file": "directn.cc",
-      "line": 983,
+      "line": 952,
+      "api": "zh_message",
+      "anchor": "args.target_prefix_message = zh_message(\"target.prompt.prefix.here\");",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "directn.cc",
+      "line": 1001,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.d78f2801d65a\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10677,7 +10701,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 983,
+      "line": 1001,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.d78f2801d65a\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10685,7 +10709,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 993,
+      "line": 1011,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.e2e06dfdfa15\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10693,7 +10717,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 993,
+      "line": 1011,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.e2e06dfdfa15\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10701,7 +10725,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1009,
+      "line": 1027,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.0f9f90374e10\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10709,7 +10733,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1009,
+      "line": 1027,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.0f9f90374e10\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10717,7 +10741,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1011,
+      "line": 1029,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.3dc8b040abab\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10725,7 +10749,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1011,
+      "line": 1029,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.3dc8b040abab\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10733,7 +10757,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1033,
+      "line": 1051,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.ebdf36ec18e9\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10741,7 +10765,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1033,
+      "line": 1051,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.ebdf36ec18e9\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10749,7 +10773,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1660,
+      "line": 1678,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.d981b534da0c\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10757,7 +10781,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1660,
+      "line": 1678,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.d981b534da0c\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10765,7 +10789,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1689,
+      "line": 1707,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.0636deeaa119\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10773,7 +10797,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1689,
+      "line": 1707,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.0636deeaa119\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10781,7 +10805,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1709,
+      "line": 1727,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.354f9b635564\"), MSGCH_ERROR);",
       "module": "targeting",
@@ -10789,7 +10813,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1709,
+      "line": 1727,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.354f9b635564\"), MSGCH_ERROR);",
       "module": "targeting",
@@ -10797,7 +10821,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1728,
+      "line": 1746,
       "api": "mpr",
       "anchor": "mpr(message, MSGCH_PROMPT);",
       "module": "targeting",
@@ -10805,7 +10829,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1734,
+      "line": 1752,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"%s\", err.c_str());",
       "module": "targeting",
@@ -10813,7 +10837,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1748,
+      "line": 1766,
       "api": "mpr",
       "anchor": "mpr(hitfunc->failure_message(), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10821,7 +10845,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1750,
+      "line": 1768,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"target.reason.out_of_range\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10829,7 +10853,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1750,
+      "line": 1768,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"target.reason.out_of_range\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10837,23 +10861,55 @@
     },
     {
       "file": "directn.cc",
-      "line": 1810,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_PROMPT, \"%s: <lightgrey>%s</lightgrey>\",",
+      "line": 1846,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"target.prompt.describe.monster\",",
       "module": "targeting",
       "classification": "callsite-review-required"
     },
     {
       "file": "directn.cc",
-      "line": 1904,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_PROMPT, \"%s: %s\",",
+      "line": 1846,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"target.prompt.describe.monster\",",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "directn.cc",
+      "line": 1847,
+      "api": "zh_translate",
+      "anchor": "{prefix, zh_text(\"description\", text, zh_translate(text))}), MSGCH_PROMPT);",
+      "module": "targeting",
+      "classification": "legacy-hook"
+    },
+    {
+      "file": "directn.cc",
+      "line": 1939,
+      "api": "zh_item_arg",
+      "anchor": "auto name = zh_item_arg(\"item\", *item, DESC_A);",
+      "module": "targeting",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "directn.cc",
+      "line": 1948,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"target.prompt.describe.item\",",
       "module": "targeting",
       "classification": "callsite-review-required"
     },
     {
       "file": "directn.cc",
-      "line": 1919,
+      "line": 1948,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"target.prompt.describe.item\",",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "directn.cc",
+      "line": 1963,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"<cyan>Item%s here:</cyan> %s.\",",
       "module": "targeting",
@@ -10861,7 +10917,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1931,
+      "line": 1975,
       "api": "mprf",
       "anchor": "mprf(MSGCH_FLOOR_ITEMS, \"%s\", items.c_str());",
       "module": "targeting",
@@ -10869,7 +10925,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 1956,
+      "line": 2000,
       "api": "mprf",
       "anchor": "mprf(MSGCH_EXAMINE_FILTER, \"%s.\", desc.c_str());",
       "module": "targeting",
@@ -10877,7 +10933,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2028,
+      "line": 2072,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.7b2b961607d8\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10885,7 +10941,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2028,
+      "line": 2072,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.7b2b961607d8\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10893,7 +10949,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2058,
+      "line": 2102,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.d0eb01836559\"));",
       "module": "targeting",
@@ -10901,7 +10957,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2058,
+      "line": 2102,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.d0eb01836559\"));",
       "module": "targeting",
@@ -10909,7 +10965,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2098,
+      "line": 2142,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DIAGNOSTICS, \"Trying to run portal debug at %d/%d...\",",
       "module": "targeting",
@@ -10917,7 +10973,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2104,
+      "line": 2148,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DIAGNOSTICS, \"Got result: %s!\",",
       "module": "targeting",
@@ -10925,7 +10981,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2167,
+      "line": 2211,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.dee8959d944c\"));",
       "module": "targeting",
@@ -10933,7 +10989,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2167,
+      "line": 2211,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.dee8959d944c\"));",
       "module": "targeting",
@@ -10941,7 +10997,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2303,
+      "line": 2347,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.a4b8dca9fa69\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10949,7 +11005,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2303,
+      "line": 2347,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.a4b8dca9fa69\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -10957,7 +11013,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2354,
+      "line": 2398,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.89c4beed12e3\"));",
       "module": "targeting",
@@ -10965,7 +11021,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2354,
+      "line": 2398,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.89c4beed12e3\"));",
       "module": "targeting",
@@ -10973,7 +11029,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2362,
+      "line": 2406,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.259d47e25ef1\"));",
       "module": "targeting",
@@ -10981,7 +11037,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2362,
+      "line": 2406,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.259d47e25ef1\"));",
       "module": "targeting",
@@ -10989,7 +11045,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2364,
+      "line": 2408,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.03844ec9825b\"));",
       "module": "targeting",
@@ -10997,7 +11053,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2364,
+      "line": 2408,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.03844ec9825b\"));",
       "module": "targeting",
@@ -11005,7 +11061,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2366,
+      "line": 2410,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.1648eda141e7\"));",
       "module": "targeting",
@@ -11013,7 +11069,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2366,
+      "line": 2410,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.1648eda141e7\"));",
       "module": "targeting",
@@ -11021,7 +11077,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2895,
+      "line": 2939,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.e2e06dfdfa15\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -11029,7 +11085,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2895,
+      "line": 2939,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.e2e06dfdfa15\"), MSGCH_EXAMINE_FILTER);",
       "module": "targeting",
@@ -11037,7 +11093,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 2960,
+      "line": 3004,
       "api": "mprf",
       "anchor": "mprf(MSGCH_EXAMINE_FILTER, \"[%s]\", desc.c_str());",
       "module": "targeting",
@@ -11045,7 +11101,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3013,
+      "line": 3057,
       "api": "mprf",
       "anchor": "mprf(channel, \"%s%s here.\", prefix, feat.c_str());",
       "module": "targeting",
@@ -11053,7 +11109,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3015,
+      "line": 3059,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.directn.fixed.c75e332c4eb6\"), MSGCH_EXAMINE);",
       "module": "targeting",
@@ -11061,7 +11117,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3015,
+      "line": 3059,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.directn.fixed.c75e332c4eb6\"), MSGCH_EXAMINE);",
       "module": "targeting",
@@ -11069,7 +11125,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3099,
+      "line": 3143,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DECOR_FLAVOUR, \"%s\", decorLine.c_str());",
       "module": "targeting",
@@ -11077,7 +11133,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3127,
+      "line": 3171,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"statue of %s\", mons_type_name(you.zot_orb_monster, DESC_A).c_str());",
       "module": "targeting",
@@ -11085,7 +11141,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3404,
+      "line": 3448,
       "api": "make_stringf",
       "anchor": "descs.emplace_back(make_stringf(\"chance to confuse on hit: %d%%\",",
       "module": "targeting",
@@ -11093,7 +11149,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3410,
+      "line": 3454,
       "api": "make_stringf",
       "anchor": "descs.emplace_back(make_stringf(\"chance to confuse on hit: %d%%\",",
       "module": "targeting",
@@ -11101,7 +11157,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3418,
+      "line": 3462,
       "api": "make_stringf",
       "anchor": "descs.emplace_back(make_stringf(\"chance to call a sprite on attack: %d%%\",",
       "module": "targeting",
@@ -11109,7 +11165,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3425,
+      "line": 3469,
       "api": "make_stringf",
       "anchor": "descs.emplace_back(make_stringf(\"becoming %s\", mons_type_name(mtype, DESC_A).c_str()));",
       "module": "targeting",
@@ -11117,7 +11173,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3557,
+      "line": 3601,
       "api": "make_stringf",
       "anchor": "const string armour_desc = make_stringf(\"wearing %s\",",
       "module": "targeting",
@@ -11125,7 +11181,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3564,
+      "line": 3608,
       "api": "make_stringf",
       "anchor": "const string shield_desc = make_stringf(\"wearing %s\",",
       "module": "targeting",
@@ -11133,7 +11189,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3571,
+      "line": 3615,
       "api": "make_stringf",
       "anchor": "const string rng_desc = make_stringf(\"wearing %s\",",
       "module": "targeting",
@@ -11141,7 +11197,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3581,
+      "line": 3625,
       "api": "make_stringf",
       "anchor": "item_descriptions.push_back(make_stringf(\"quivering %s\", qvr_desc.c_str()));",
       "module": "targeting",
@@ -11149,7 +11205,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3603,
+      "line": 3647,
       "api": "zh_translate",
       "anchor": "desc = zh_translate(desc);",
       "module": "targeting",
@@ -11157,7 +11213,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3605,
+      "line": 3649,
       "api": "zh_translate",
       "anchor": "item_desc = zh_translate(item_desc);",
       "module": "targeting",
@@ -11165,7 +11221,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3643,
+      "line": 3687,
       "api": "make_stringf",
       "anchor": "out << make_stringf(\"This square %s.\",",
       "module": "targeting",
@@ -11173,7 +11229,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3652,
+      "line": 3696,
       "api": "make_stringf",
       "anchor": "out << make_stringf(\"There is a cloud of %s here.\",",
       "module": "targeting",
@@ -11181,7 +11237,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3674,
+      "line": 3718,
       "api": "make_stringf",
       "anchor": "height_desc = make_stringf(\" (height: %d)\", (*env.heightmap)(where));",
       "module": "targeting",
@@ -11189,7 +11245,7 @@
     },
     {
       "file": "directn.cc",
-      "line": 3683,
+      "line": 3727,
       "api": "make_stringf",
       "anchor": "vault = make_stringf(\" [Vault: %s (%d,%d)-(%d,%d) (%dx%d)]\",",
       "module": "targeting",
@@ -30701,39 +30757,79 @@
     },
     {
       "file": "player.cc",
-      "line": 181,
-      "api": "make_stringf",
-      "anchor": "string prompt = make_stringf(\"Really %s into that cloud of %s?\",",
+      "line": 183,
+      "api": "zh_word_arg",
+      "anchor": "return zh_word_arg(\"move\", \"movement.confirm.verb.\", verb);",
       "module": "character",
-      "classification": "callsite-review-required"
+      "classification": "semantic-name"
     },
     {
       "file": "player.cc",
-      "line": 210,
-      "api": "make_stringf",
-      "anchor": "string prompt = make_stringf(msg.c_str(), move_verb.c_str());",
+      "line": 192,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"movement.confirm.prefaced\", {warning, prompt});",
       "module": "character",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
+    },
+    {
+      "file": "player.cc",
+      "line": 224,
+      "api": "zh_glossary_name",
+      "anchor": "const auto cloud = zh_glossary_name(\"cloud\", \"movement.confirm.cloud_name\",",
+      "module": "character",
+      "classification": "semantic-name"
     },
     {
       "file": "player.cc",
       "line": 226,
-      "api": "make_stringf",
-      "anchor": "prompt = make_stringf(\"Really %s %s that %s?\", move_verb.c_str(),",
+      "api": "zh_message",
+      "anchor": "const auto prompt = zh_message(\"movement.confirm.cloud\",",
       "module": "character",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "player.cc",
-      "line": 249,
-      "api": "mpr",
-      "anchor": "mpr(msg);",
-      "module": "character",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "player.cc",
       "line": 253,
+      "api": "zh_message",
+      "anchor": "const auto prompt = zh_message(\"movement.confirm.trap.zot\",",
+      "module": "character",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "player.cc",
+      "line": 268,
+      "api": "zh_glossary_name",
+      "anchor": "auto name = zh_glossary_name(\"trap\", \"movement.confirm.trap_name\",",
+      "module": "character",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "player.cc",
+      "line": 271,
+      "api": "zh_message",
+      "anchor": "const auto prompt = zh_message(",
+      "module": "character",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "player.cc",
+      "line": 293,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"movement.confirm.warning\", {warning}));",
+      "module": "character",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "player.cc",
+      "line": 293,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"movement.confirm.warning\", {warning}));",
+      "module": "character",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "player.cc",
+      "line": 297,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f6b38629d93a\"));",
       "module": "character",
@@ -30741,7 +30837,7 @@
     },
     {
       "file": "player.cc",
-      "line": 253,
+      "line": 297,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f6b38629d93a\"));",
       "module": "character",
@@ -30749,15 +30845,15 @@
     },
     {
       "file": "player.cc",
-      "line": 368,
-      "api": "make_stringf",
-      "anchor": "const string prompt = make_stringf((count == (int) areas.size() ?",
+      "line": 399,
+      "api": "zh_message",
+      "anchor": "const auto prompt = zh_message(count == (int) areas.size()",
       "module": "character",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "player.cc",
-      "line": 447,
+      "line": 478,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.317958edac42\"));",
       "module": "character",
@@ -30765,7 +30861,7 @@
     },
     {
       "file": "player.cc",
-      "line": 447,
+      "line": 478,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.317958edac42\"));",
       "module": "character",
@@ -30773,7 +30869,7 @@
     },
     {
       "file": "player.cc",
-      "line": 456,
+      "line": 487,
       "api": "make_stringf",
       "anchor": "make_stringf(\" is %s!\", held_status(mons)).c_str());",
       "module": "character",
@@ -30781,7 +30877,7 @@
     },
     {
       "file": "player.cc",
-      "line": 515,
+      "line": 546,
       "api": "mprf",
       "anchor": "mprf(\"There is no room for %s to move out of your way! \"",
       "module": "character",
@@ -30789,7 +30885,7 @@
     },
     {
       "file": "player.cc",
-      "line": 556,
+      "line": 587,
       "api": "mprf",
       "anchor": "mprf(\"You %s the toxic bog.\", stepped ? \"enter\" : \"fall into\");",
       "module": "character",
@@ -30797,7 +30893,7 @@
     },
     {
       "file": "player.cc",
-      "line": 559,
+      "line": 590,
       "api": "mprf",
       "anchor": "mprf(\"You %s the %s water.\",",
       "module": "character",
@@ -30805,7 +30901,7 @@
     },
     {
       "file": "player.cc",
-      "line": 566,
+      "line": 597,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.9f1b9c45a39d\"));",
       "module": "character",
@@ -30813,7 +30909,7 @@
     },
     {
       "file": "player.cc",
-      "line": 566,
+      "line": 597,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.9f1b9c45a39d\"));",
       "module": "character",
@@ -30821,7 +30917,7 @@
     },
     {
       "file": "player.cc",
-      "line": 568,
+      "line": 599,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b07fe3081ab6\"));",
       "module": "character",
@@ -30829,7 +30925,7 @@
     },
     {
       "file": "player.cc",
-      "line": 568,
+      "line": 599,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b07fe3081ab6\"));",
       "module": "character",
@@ -30837,7 +30933,7 @@
     },
     {
       "file": "player.cc",
-      "line": 570,
+      "line": 601,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f97fa7815eba\"));",
       "module": "character",
@@ -30845,7 +30941,7 @@
     },
     {
       "file": "player.cc",
-      "line": 570,
+      "line": 601,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f97fa7815eba\"));",
       "module": "character",
@@ -30853,7 +30949,7 @@
     },
     {
       "file": "player.cc",
-      "line": 632,
+      "line": 663,
       "api": "mprf",
       "anchor": "mprf(\"%s is dragged along with you!\", mon->name(DESC_THE).c_str());",
       "module": "character",
@@ -30861,7 +30957,7 @@
     },
     {
       "file": "player.cc",
-      "line": 766,
+      "line": 797,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.c8c5405f3ce9\"));",
       "module": "character",
@@ -30869,7 +30965,7 @@
     },
     {
       "file": "player.cc",
-      "line": 766,
+      "line": 797,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c8c5405f3ce9\"));",
       "module": "character",
@@ -30877,7 +30973,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2534,
+      "line": 2565,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b211f2b56e24\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -30885,7 +30981,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2534,
+      "line": 2565,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b211f2b56e24\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -30893,7 +30989,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2558,
+      "line": 2589,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.15990630ec92\"), MSGCH_DURATION);",
       "module": "character",
@@ -30901,7 +30997,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2558,
+      "line": 2589,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.15990630ec92\"), MSGCH_DURATION);",
       "module": "character",
@@ -30909,7 +31005,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2573,
+      "line": 2604,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.1be18fb61d1a\"), MSGCH_DURATION);",
       "module": "character",
@@ -30917,7 +31013,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2573,
+      "line": 2604,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.1be18fb61d1a\"), MSGCH_DURATION);",
       "module": "character",
@@ -30925,7 +31021,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2591,
+      "line": 2622,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a685b7f79723\"), MSGCH_DURATION);",
       "module": "character",
@@ -30933,7 +31029,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2591,
+      "line": 2622,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a685b7f79723\"), MSGCH_DURATION);",
       "module": "character",
@@ -30941,7 +31037,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2609,
+      "line": 2640,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.54de1620950f\"), MSGCH_DURATION);",
       "module": "character",
@@ -30949,7 +31045,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2609,
+      "line": 2640,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.54de1620950f\"), MSGCH_DURATION);",
       "module": "character",
@@ -30957,7 +31053,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2625,
+      "line": 2656,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.922f812c9a91\"), MSGCH_DURATION);",
       "module": "character",
@@ -30965,7 +31061,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2625,
+      "line": 2656,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.922f812c9a91\"), MSGCH_DURATION);",
       "module": "character",
@@ -30973,7 +31069,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2756,
+      "line": 2787,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ad735ad09cb1\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30981,7 +31077,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2756,
+      "line": 2787,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ad735ad09cb1\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30989,7 +31085,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2782,
+      "line": 2813,
       "api": "make_stringf",
       "anchor": "make_stringf(\"HP: %d/%d MP: %d/%d\",",
       "module": "character",
@@ -30997,7 +31093,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2898,
+      "line": 2929,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.0b7e31772b95\"));",
       "module": "character",
@@ -31005,7 +31101,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2898,
+      "line": 2929,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.0b7e31772b95\"));",
       "module": "character",
@@ -31013,7 +31109,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2912,
+      "line": 2943,
       "api": "mprf",
       "anchor": "mprf(\"The power to cast %s wells up from within.\", spell_title(spell));",
       "module": "character",
@@ -31021,7 +31117,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2948,
+      "line": 2979,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.6e96344ef2c2\"));",
       "module": "character",
@@ -31029,7 +31125,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2948,
+      "line": 2979,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.6e96344ef2c2\"));",
       "module": "character",
@@ -31037,7 +31133,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2963,
+      "line": 2994,
       "api": "mprf",
       "anchor": "mprf(\"You remember %s.\", msg.c_str());",
       "module": "character",
@@ -31045,7 +31141,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2964,
+      "line": 2995,
       "api": "mprf",
       "anchor": "mprf(\"(You can now cast %s.)\", spell_title(spell));",
       "module": "character",
@@ -31053,7 +31149,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3011,
+      "line": 3042,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"level_welcome_back\", {zh_integer(\"level\", new_exp)}), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31061,7 +31157,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3011,
+      "line": 3042,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"level_welcome_back\", {zh_integer(\"level\", new_exp)}), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31069,7 +31165,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3024,
+      "line": 3055,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"level_final\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31077,7 +31173,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3024,
+      "line": 3055,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"level_final\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31085,7 +31181,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3026,
+      "line": 3057,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"level_highest\", {zh_integer(\"level\", you.get_max_xl())}), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31093,7 +31189,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3026,
+      "line": 3057,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"level_highest\", {zh_integer(\"level\", you.get_max_xl())}), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31101,7 +31197,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3029,
+      "line": 3060,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"level_reached\", {zh_integer(\"level\", new_exp)}), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31109,7 +31205,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3029,
+      "line": 3060,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"level_reached\", {zh_integer(\"level\", new_exp)}), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31117,7 +31213,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3063,
+      "line": 3094,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.afbf4620fc0b\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31125,7 +31221,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3063,
+      "line": 3094,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.afbf4620fc0b\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31133,7 +31229,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3096,
+      "line": 3127,
       "api": "mprf",
       "anchor": "mprf(MSGCH_INTRINSIC_GAIN,",
       "module": "character",
@@ -31141,7 +31237,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3109,
+      "line": 3140,
       "api": "mprf",
       "anchor": "mprf(MSGCH_INTRINSIC_GAIN, \"You learn %s %s%s.\",",
       "module": "character",
@@ -31149,7 +31245,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3126,
+      "line": 3157,
       "api": "mprf",
       "anchor": "mprf(MSGCH_INTRINSIC_GAIN, \"%s\", mut.c_str());",
       "module": "character",
@@ -31157,7 +31253,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3157,
+      "line": 3188,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.57ff2a662ac7\"), MSGCH_MUTATION);",
       "module": "character",
@@ -31165,7 +31261,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3157,
+      "line": 3188,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.57ff2a662ac7\"), MSGCH_MUTATION);",
       "module": "character",
@@ -31173,7 +31269,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3180,
+      "line": 3211,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.e9afebcbc29f\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31181,7 +31277,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3180,
+      "line": 3211,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.e9afebcbc29f\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31189,7 +31285,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3203,
+      "line": 3234,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.7d49fd6b4439\"));",
       "module": "character",
@@ -31197,7 +31293,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3203,
+      "line": 3234,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.7d49fd6b4439\"));",
       "module": "character",
@@ -31205,7 +31301,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3204,
+      "line": 3235,
       "api": "mprf",
       "anchor": "mprf(\"(press <w>%c</w> on the <w>%s</w>bility menu to create your gizmo)\",",
       "module": "character",
@@ -31213,7 +31309,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3231,
+      "line": 3262,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.c44abc792b3b\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31221,7 +31317,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3231,
+      "line": 3262,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c44abc792b3b\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31229,7 +31325,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3432,
+      "line": 3463,
       "api": "vmake_stringf",
       "anchor": "string msg = vmake_stringf(fmt, argp);",
       "module": "character",
@@ -31237,7 +31333,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3435,
+      "line": 3466,
       "api": "mprf",
       "anchor": "mprf(\"%s (%d).\", msg.c_str(), value);",
       "module": "character",
@@ -31245,7 +31341,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3437,
+      "line": 3468,
       "api": "mprf",
       "anchor": "mprf(\"%s.\", msg.c_str());",
       "module": "character",
@@ -31253,7 +31349,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3519,
+      "line": 3550,
       "api": "make_stringf",
       "anchor": "make_stringf( \" (and is slowed by your %s)\",",
       "module": "character",
@@ -31261,7 +31357,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3524,
+      "line": 3555,
       "api": "mprf",
       "anchor": "mprf(\"Your attack delay is about %.1f%s%s.\",",
       "module": "character",
@@ -31269,7 +31365,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3544,
+      "line": 3575,
       "api": "mpr",
       "anchor": "mpr(uppercase_first(damage_rating(weapon)));",
       "module": "character",
@@ -31277,7 +31373,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3547,
+      "line": 3578,
       "api": "mprf",
       "anchor": "mprf(\"Your damage rating with %s is about %s\",",
       "module": "character",
@@ -31285,7 +31381,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3563,
+      "line": 3594,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.c059a1601a4f\"));",
       "module": "character",
@@ -31293,7 +31389,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3563,
+      "line": 3594,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c059a1601a4f\"));",
       "module": "character",
@@ -31301,7 +31397,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3565,
+      "line": 3596,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.df40fe94f2bb\"));",
       "module": "character",
@@ -31309,7 +31405,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3565,
+      "line": 3596,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.df40fe94f2bb\"));",
       "module": "character",
@@ -31317,7 +31413,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3567,
+      "line": 3598,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.07caac949a5d\"));",
       "module": "character",
@@ -31325,7 +31421,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3567,
+      "line": 3598,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.07caac949a5d\"));",
       "module": "character",
@@ -31333,7 +31429,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3570,
+      "line": 3601,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.064bc0f60dfa\"));",
       "module": "character",
@@ -31341,7 +31437,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3570,
+      "line": 3601,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.064bc0f60dfa\"));",
       "module": "character",
@@ -31349,7 +31445,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3576,
+      "line": 3607,
       "api": "mpr",
       "anchor": "mpr(inf.long_text);",
       "module": "character",
@@ -31357,7 +31453,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3580,
+      "line": 3611,
       "api": "mpr",
       "anchor": "mpr(cinfo);",
       "module": "character",
@@ -31365,7 +31461,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3595,
+      "line": 3626,
       "api": "mprf",
       "anchor": "mprf(\"Your base attributes are Str %d, Int %d, Dex %d.\",",
       "module": "character",
@@ -31373,7 +31469,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3893,
+      "line": 3924,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.eeb1764e5e81\"), MSGCH_DANGER);",
       "module": "character",
@@ -31381,7 +31477,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3893,
+      "line": 3924,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.eeb1764e5e81\"), MSGCH_DANGER);",
       "module": "character",
@@ -31389,7 +31485,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3906,
+      "line": 3937,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ea953d9458f9\"), MSGCH_DANGER);",
       "module": "character",
@@ -31397,7 +31493,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3906,
+      "line": 3937,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ea953d9458f9\"), MSGCH_DANGER);",
       "module": "character",
@@ -31405,7 +31501,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3982,
+      "line": 4013,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.5d19ee3ad29e\"));",
       "module": "character",
@@ -31413,7 +31509,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3982,
+      "line": 4013,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.5d19ee3ad29e\"));",
       "module": "character",
@@ -31421,7 +31517,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3996,
+      "line": 4027,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.02013454d0bf\"));",
       "module": "character",
@@ -31429,7 +31525,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3996,
+      "line": 4027,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.02013454d0bf\"));",
       "module": "character",
@@ -31437,7 +31533,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4021,
+      "line": 4052,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.3401e9a52695\"));",
       "module": "character",
@@ -31445,7 +31541,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4021,
+      "line": 4052,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.3401e9a52695\"));",
       "module": "character",
@@ -31453,7 +31549,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4023,
+      "line": 4054,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ed5e93024041\"));",
       "module": "character",
@@ -31461,7 +31557,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4023,
+      "line": 4054,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ed5e93024041\"));",
       "module": "character",
@@ -31469,7 +31565,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4345,
+      "line": 4376,
       "api": "make_stringf",
       "anchor": "msg = make_stringf(\"%s (up to %d damage)\", msg.c_str(), dmg);",
       "module": "character",
@@ -31477,7 +31573,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4387,
+      "line": 4418,
       "api": "mprf",
       "anchor": "mprf(player_harmful_contamination() ? MSGCH_WARN : MSGCH_PLAIN,",
       "module": "character",
@@ -31485,7 +31581,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4397,
+      "line": 4428,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b66971b3da07\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31493,7 +31589,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4397,
+      "line": 4428,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b66971b3da07\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31501,7 +31597,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4402,
+      "line": 4433,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.553d2b23a231\"));",
       "module": "character",
@@ -31509,7 +31605,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4402,
+      "line": 4433,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.553d2b23a231\"));",
       "module": "character",
@@ -31517,7 +31613,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4407,
+      "line": 4438,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.bbd446d809fb\"));",
       "module": "character",
@@ -31525,7 +31621,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4407,
+      "line": 4438,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.bbd446d809fb\"));",
       "module": "character",
@@ -31533,7 +31629,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4449,
+      "line": 4480,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.5d95aa318143\"));",
       "module": "character",
@@ -31541,7 +31637,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4449,
+      "line": 4480,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.5d95aa318143\"));",
       "module": "character",
@@ -31549,7 +31645,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4456,
+      "line": 4487,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.96d8f0cf3116\"));",
       "module": "character",
@@ -31557,7 +31653,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4456,
+      "line": 4487,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.96d8f0cf3116\"));",
       "module": "character",
@@ -31565,7 +31661,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4469,
+      "line": 4500,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"You are %sconfused.\",",
       "module": "character",
@@ -31573,7 +31669,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4491,
+      "line": 4522,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b6b736605d87\"));",
       "module": "character",
@@ -31581,7 +31677,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4491,
+      "line": 4522,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b6b736605d87\"));",
       "module": "character",
@@ -31589,7 +31685,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4518,
+      "line": 4549,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f48806eab7eb\"), MSGCH_DANGER);",
       "module": "character",
@@ -31597,7 +31693,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4518,
+      "line": 4549,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f48806eab7eb\"), MSGCH_DANGER);",
       "module": "character",
@@ -31605,7 +31701,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4521,
+      "line": 4552,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"You are %spoisoned.\",",
       "module": "character",
@@ -31613,7 +31709,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4659,
+      "line": 4690,
       "api": "mprf",
       "anchor": "mprf(channel, \"You feel %ssick.\", adj);",
       "module": "character",
@@ -31621,7 +31717,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4682,
+      "line": 4713,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.9ff260957d19\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31629,7 +31725,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4682,
+      "line": 4713,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.9ff260957d19\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31637,7 +31733,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4785,
+      "line": 4816,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a9dc5ba96673\"));",
       "module": "character",
@@ -31645,7 +31741,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4785,
+      "line": 4816,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a9dc5ba96673\"));",
       "module": "character",
@@ -31653,7 +31749,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4830,
+      "line": 4861,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"You are even more covered in %sliquid fire!\",",
       "module": "character",
@@ -31661,7 +31757,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4835,
+      "line": 4866,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"You are covered in %sliquid fire! Move or burn!\",",
       "module": "character",
@@ -31669,7 +31765,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4851,
+      "line": 4882,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ad3746104ea7\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31677,7 +31773,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4851,
+      "line": 4882,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ad3746104ea7\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31685,7 +31781,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4859,
+      "line": 4890,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"The liquid fire burns you%s!\",",
       "module": "character",
@@ -31693,7 +31789,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4874,
+      "line": 4905,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f2e9693d0527\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31701,7 +31797,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4874,
+      "line": 4905,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f2e9693d0527\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31709,7 +31805,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4896,
+      "line": 4927,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.5163b219aa32\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31717,7 +31813,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4896,
+      "line": 4927,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.5163b219aa32\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31725,7 +31821,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4900,
+      "line": 4931,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.5b96bc17f132\"));",
       "module": "character",
@@ -31733,7 +31829,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4900,
+      "line": 4931,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.5b96bc17f132\"));",
       "module": "character",
@@ -31741,7 +31837,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4917,
+      "line": 4948,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.93544939e336\"));",
       "module": "character",
@@ -31749,7 +31845,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4917,
+      "line": 4948,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.93544939e336\"));",
       "module": "character",
@@ -31757,7 +31853,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4919,
+      "line": 4950,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b2c8685edc86\"));",
       "module": "character",
@@ -31765,7 +31861,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4919,
+      "line": 4950,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b2c8685edc86\"));",
       "module": "character",
@@ -31773,7 +31869,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4938,
+      "line": 4969,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f31b4003079f\"));",
       "module": "character",
@@ -31781,7 +31877,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4938,
+      "line": 4969,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f31b4003079f\"));",
       "module": "character",
@@ -31789,7 +31885,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4948,
+      "line": 4979,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b6473254722c\"));",
       "module": "character",
@@ -31797,7 +31893,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4948,
+      "line": 4979,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b6473254722c\"));",
       "module": "character",
@@ -31805,7 +31901,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4952,
+      "line": 4983,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a138df415c24\"), MSGCH_WARN);",
       "module": "character",
@@ -31813,7 +31909,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4952,
+      "line": 4983,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a138df415c24\"), MSGCH_WARN);",
       "module": "character",
@@ -31821,7 +31917,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4954,
+      "line": 4985,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.43a8620b49ce\"), MSGCH_WARN);",
       "module": "character",
@@ -31829,7 +31925,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4954,
+      "line": 4985,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.43a8620b49ce\"), MSGCH_WARN);",
       "module": "character",
@@ -31837,7 +31933,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4987,
+      "line": 5018,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.6e285643cc04\"), MSGCH_DURATION);",
       "module": "character",
@@ -31845,7 +31941,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4987,
+      "line": 5018,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.6e285643cc04\"), MSGCH_DURATION);",
       "module": "character",
@@ -31853,7 +31949,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5003,
+      "line": 5034,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a0b504e77b01\"));",
       "module": "character",
@@ -31861,7 +31957,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5003,
+      "line": 5034,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a0b504e77b01\"));",
       "module": "character",
@@ -31869,7 +31965,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5009,
+      "line": 5040,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.e72c34c856ac\"));",
       "module": "character",
@@ -31877,7 +31973,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5009,
+      "line": 5040,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.e72c34c856ac\"));",
       "module": "character",
@@ -31885,7 +31981,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5035,
+      "line": 5066,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.09f0da825ecd\"));",
       "module": "character",
@@ -31893,7 +31989,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5035,
+      "line": 5066,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.09f0da825ecd\"));",
       "module": "character",
@@ -31901,7 +31997,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5037,
+      "line": 5068,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.80f6250477fa\"));",
       "module": "character",
@@ -31909,7 +32005,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5037,
+      "line": 5068,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.80f6250477fa\"));",
       "module": "character",
@@ -31917,7 +32013,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5066,
+      "line": 5097,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.42f15c1f1050\"), MSGCH_DURATION);",
       "module": "character",
@@ -31925,7 +32021,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5066,
+      "line": 5097,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.42f15c1f1050\"), MSGCH_DURATION);",
       "module": "character",
@@ -31933,7 +32029,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5080,
+      "line": 5111,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.78c808411fdb\"));",
       "module": "character",
@@ -31941,7 +32037,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5080,
+      "line": 5111,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.78c808411fdb\"));",
       "module": "character",
@@ -31949,7 +32045,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5095,
+      "line": 5126,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.6e285643cc04\"));",
       "module": "character",
@@ -31957,7 +32053,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5095,
+      "line": 5126,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.6e285643cc04\"));",
       "module": "character",
@@ -31965,7 +32061,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5097,
+      "line": 5128,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.7411d8dc9ec5\"));",
       "module": "character",
@@ -31973,7 +32069,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5097,
+      "line": 5128,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.7411d8dc9ec5\"));",
       "module": "character",
@@ -31981,7 +32077,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5099,
+      "line": 5130,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.0cd12539e354\"));",
       "module": "character",
@@ -31989,7 +32085,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5099,
+      "line": 5130,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.0cd12539e354\"));",
       "module": "character",
@@ -31997,7 +32093,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5121,
+      "line": 5152,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.e3434c787b90\"), MSGCH_DURATION);",
       "module": "character",
@@ -32005,7 +32101,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5121,
+      "line": 5152,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.e3434c787b90\"), MSGCH_DURATION);",
       "module": "character",
@@ -32013,7 +32109,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5129,
+      "line": 5160,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a138df415c24\"), MSGCH_DURATION);",
       "module": "character",
@@ -32021,7 +32117,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5129,
+      "line": 5160,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a138df415c24\"), MSGCH_DURATION);",
       "module": "character",
@@ -32029,41 +32125,9 @@
     },
     {
       "file": "player.cc",
-      "line": 5175,
-      "api": "mpr",
-      "anchor": "mpr(zh_message(\"log.player.fixed.b70c560b0221\"));",
-      "module": "character",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "player.cc",
-      "line": 5175,
-      "api": "zh_message",
-      "anchor": "mpr(zh_message(\"log.player.fixed.b70c560b0221\"));",
-      "module": "character",
-      "classification": "typed-producer"
-    },
-    {
-      "file": "player.cc",
-      "line": 5192,
-      "api": "mpr",
-      "anchor": "mpr(zh_message(\"log.player.fixed.b70c560b0221\"));",
-      "module": "character",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "player.cc",
-      "line": 5192,
-      "api": "zh_message",
-      "anchor": "mpr(zh_message(\"log.player.fixed.b70c560b0221\"));",
-      "module": "character",
-      "classification": "typed-producer"
-    },
-    {
-      "file": "player.cc",
       "line": 5206,
       "api": "mpr",
-      "anchor": "mpr(zh_message(\"log.player.fixed.c4921e335753\"));",
+      "anchor": "mpr(zh_message(\"log.player.fixed.b70c560b0221\"));",
       "module": "character",
       "classification": "callsite-review-required"
     },
@@ -32071,13 +32135,45 @@
       "file": "player.cc",
       "line": 5206,
       "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.player.fixed.b70c560b0221\"));",
+      "module": "character",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "player.cc",
+      "line": 5223,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"log.player.fixed.b70c560b0221\"));",
+      "module": "character",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "player.cc",
+      "line": 5223,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.player.fixed.b70c560b0221\"));",
+      "module": "character",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "player.cc",
+      "line": 5237,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"log.player.fixed.c4921e335753\"));",
+      "module": "character",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "player.cc",
+      "line": 5237,
+      "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c4921e335753\"));",
       "module": "character",
       "classification": "typed-producer"
     },
     {
       "file": "player.cc",
-      "line": 5271,
+      "line": 5302,
       "api": "zh_message",
       "anchor": "else if (!quiet && !yesno(zh_message(\"player.invisibility.backlit.confirm\"), false, 'n'))",
       "module": "character",
@@ -32085,7 +32181,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5287,
+      "line": 5318,
       "api": "mpr",
       "anchor": "mpr(ZhMessage{\"\", msg.canonical, msg.localized});",
       "module": "character",
@@ -32093,7 +32189,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5309,
+      "line": 5340,
       "api": "mpr",
       "anchor": "mpr(msg);",
       "module": "character",
@@ -32101,7 +32197,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5318,
+      "line": 5349,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.4df385894366\"));",
       "module": "character",
@@ -32109,7 +32205,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5318,
+      "line": 5349,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.4df385894366\"));",
       "module": "character",
@@ -32117,7 +32213,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5322,
+      "line": 5353,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.7d5c9b530085\"));",
       "module": "character",
@@ -32125,7 +32221,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5322,
+      "line": 5353,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.7d5c9b530085\"));",
       "module": "character",
@@ -32133,7 +32229,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5324,
+      "line": 5355,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.fa1ced711fcf\"));",
       "module": "character",
@@ -32141,7 +32237,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5324,
+      "line": 5355,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.fa1ced711fcf\"));",
       "module": "character",
@@ -32149,7 +32245,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5334,
+      "line": 5365,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DURATION, \"You feel %s buoyant.\", standing ? \"very\" : \"more\");",
       "module": "character",
@@ -32157,7 +32253,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5344,
+      "line": 5375,
       "api": "mprf",
       "anchor": "mprf(\"You can't survive in this terrain! You fly above the %s, but the \"",
       "module": "character",
@@ -32165,7 +32261,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5381,
+      "line": 5412,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b7f20a7bcd10\"));",
       "module": "character",
@@ -32173,7 +32269,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5381,
+      "line": 5412,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b7f20a7bcd10\"));",
       "module": "character",
@@ -32181,7 +32277,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5958,
+      "line": 5989,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.829884916256\"));",
       "module": "character",
@@ -32189,7 +32285,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5958,
+      "line": 5989,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.829884916256\"));",
       "module": "character",
@@ -32197,7 +32293,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5965,
+      "line": 5996,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.52a856e4e5eb\"));",
       "module": "character",
@@ -32205,7 +32301,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5965,
+      "line": 5996,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.52a856e4e5eb\"));",
       "module": "character",
@@ -32213,7 +32309,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7169,
+      "line": 7200,
       "api": "zh_item_arg",
       "anchor": "{zh_item_arg(\"item\", *item, DESC_A)}));",
       "module": "character",
@@ -32221,7 +32317,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7171,
+      "line": 7202,
       "api": "zh_item_arg",
       "anchor": "worn_notele.push_back(zh_item_arg(\"item\", *item, DESC_A));",
       "module": "character",
@@ -32229,7 +32325,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7358,
+      "line": 7389,
       "api": "mprf",
       "anchor": "mprf(\"Your boots keep you from %s.\", event.c_str());",
       "module": "character",
@@ -32237,7 +32333,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7366,
+      "line": 7397,
       "api": "make_stringf",
       "anchor": "make_stringf(\"%s corrodes you!\",",
       "module": "character",
@@ -32245,7 +32341,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7397,
+      "line": 7428,
       "api": "mprf",
       "anchor": "mprf(\"You are splashed with acid%s%s\",",
       "module": "character",
@@ -32253,7 +32349,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7437,
+      "line": 7468,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.85a5ea676a5d\"));",
       "module": "character",
@@ -32261,7 +32357,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7437,
+      "line": 7468,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.85a5ea676a5d\"));",
       "module": "character",
@@ -32269,7 +32365,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7445,
+      "line": 7476,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.72d50f6145da\"));",
       "module": "character",
@@ -32277,7 +32373,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7445,
+      "line": 7476,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.72d50f6145da\"));",
       "module": "character",
@@ -32285,7 +32381,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7451,
+      "line": 7482,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.80a76d3b0472\"));",
       "module": "character",
@@ -32293,7 +32389,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7451,
+      "line": 7482,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.80a76d3b0472\"));",
       "module": "character",
@@ -32301,7 +32397,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7489,
+      "line": 7520,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f0a0a5118b22\"));",
       "module": "character",
@@ -32309,7 +32405,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7489,
+      "line": 7520,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f0a0a5118b22\"));",
       "module": "character",
@@ -32317,7 +32413,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7506,
+      "line": 7537,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.618daf161a37\"), MSGCH_WARN);",
       "module": "character",
@@ -32325,7 +32421,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7506,
+      "line": 7537,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.618daf161a37\"), MSGCH_WARN);",
       "module": "character",
@@ -32333,7 +32429,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7515,
+      "line": 7546,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.d27ae14a3f17\"));",
       "module": "character",
@@ -32341,7 +32437,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7515,
+      "line": 7546,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.d27ae14a3f17\"));",
       "module": "character",
@@ -32349,7 +32445,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7528,
+      "line": 7559,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.d2bdfb3f43a3\"));",
       "module": "character",
@@ -32357,7 +32453,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7528,
+      "line": 7559,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.d2bdfb3f43a3\"));",
       "module": "character",
@@ -32365,7 +32461,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7533,
+      "line": 7564,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.72d50f6145da\"));",
       "module": "character",
@@ -32373,7 +32469,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7533,
+      "line": 7564,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.72d50f6145da\"));",
       "module": "character",
@@ -32381,7 +32477,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7540,
+      "line": 7571,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"You %s\", special_msg.c_str());",
       "module": "character",
@@ -32389,7 +32485,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7542,
+      "line": 7573,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.846b34a08211\"), MSGCH_WARN);",
       "module": "character",
@@ -32397,7 +32493,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7542,
+      "line": 7573,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.846b34a08211\"), MSGCH_WARN);",
       "module": "character",
@@ -32405,7 +32501,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7752,
+      "line": 7783,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ac1dadc8b841\"));",
       "module": "character",
@@ -32413,7 +32509,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7752,
+      "line": 7783,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ac1dadc8b841\"));",
       "module": "character",
@@ -32421,7 +32517,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7756,
+      "line": 7787,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.e17e096be55f\"));",
       "module": "character",
@@ -32429,7 +32525,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7756,
+      "line": 7787,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.e17e096be55f\"));",
       "module": "character",
@@ -32437,7 +32533,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7858,
+      "line": 7889,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.65ebd6ac4614\"));",
       "module": "character",
@@ -32445,7 +32541,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7858,
+      "line": 7889,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.65ebd6ac4614\"));",
       "module": "character",
@@ -32453,7 +32549,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7860,
+      "line": 7891,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.c071f78462fb\"));",
       "module": "character",
@@ -32461,7 +32557,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7860,
+      "line": 7891,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c071f78462fb\"));",
       "module": "character",
@@ -32469,7 +32565,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7863,
+      "line": 7894,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.bde17ebff2fb\"));",
       "module": "character",
@@ -32477,7 +32573,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7863,
+      "line": 7894,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.bde17ebff2fb\"));",
       "module": "character",
@@ -32485,7 +32581,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8023,
+      "line": 8054,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f054beca32fb\"), MSGCH_WARN);",
       "module": "character",
@@ -32493,7 +32589,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8023,
+      "line": 8054,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f054beca32fb\"), MSGCH_WARN);",
       "module": "character",
@@ -32501,7 +32597,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8101,
+      "line": 8132,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.803b80d78507\"));",
       "module": "character",
@@ -32509,7 +32605,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8101,
+      "line": 8132,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.803b80d78507\"));",
       "module": "character",
@@ -32517,7 +32613,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8109,
+      "line": 8140,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.2d2edc83a41a\"));",
       "module": "character",
@@ -32525,7 +32621,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8109,
+      "line": 8140,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.2d2edc83a41a\"));",
       "module": "character",
@@ -32533,7 +32629,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8118,
+      "line": 8149,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.3008880f42d6\"));",
       "module": "character",
@@ -32541,7 +32637,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8118,
+      "line": 8149,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.3008880f42d6\"));",
       "module": "character",
@@ -32549,7 +32645,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8138,
+      "line": 8169,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.6f60f7135c65\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -32557,7 +32653,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8138,
+      "line": 8169,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.6f60f7135c65\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -32565,7 +32661,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8148,
+      "line": 8179,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.7529b9550152\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -32573,7 +32669,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8148,
+      "line": 8179,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.7529b9550152\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -32581,7 +32677,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8185,
+      "line": 8216,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.14ef56476046\"));",
       "module": "character",
@@ -32589,7 +32685,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8185,
+      "line": 8216,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.14ef56476046\"));",
       "module": "character",
@@ -32597,7 +32693,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8190,
+      "line": 8221,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ecde9946f021\"));",
       "module": "character",
@@ -32605,7 +32701,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8190,
+      "line": 8221,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ecde9946f021\"));",
       "module": "character",
@@ -32613,7 +32709,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8204,
+      "line": 8235,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.c94de1b52d24\"));",
       "module": "character",
@@ -32621,7 +32717,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8204,
+      "line": 8235,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c94de1b52d24\"));",
       "module": "character",
@@ -32629,7 +32725,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8211,
+      "line": 8242,
       "api": "mprf",
       "anchor": "mprf(\"You can't shaft yourself while %s.\", held_status());",
       "module": "character",
@@ -32637,7 +32733,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8218,
+      "line": 8249,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a931f64997c0\"));",
       "module": "character",
@@ -32645,7 +32741,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8218,
+      "line": 8249,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a931f64997c0\"));",
       "module": "character",
@@ -32653,7 +32749,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8227,
+      "line": 8258,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.fe2c5b3915e7\"));",
       "module": "character",
@@ -32661,7 +32757,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8227,
+      "line": 8258,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.fe2c5b3915e7\"));",
       "module": "character",
@@ -32669,7 +32765,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8234,
+      "line": 8265,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.d14285701180\"));",
       "module": "character",
@@ -32677,7 +32773,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8234,
+      "line": 8265,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.d14285701180\"));",
       "module": "character",
@@ -32685,7 +32781,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8247,
+      "line": 8278,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.4c0163e9fee0\"));",
       "module": "character",
@@ -32693,7 +32789,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8247,
+      "line": 8278,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.4c0163e9fee0\"));",
       "module": "character",
@@ -32701,7 +32797,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8311,
+      "line": 8342,
       "api": "mpr",
       "anchor": "mpr(msg);",
       "module": "character",
@@ -32709,7 +32805,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8362,
+      "line": 8393,
       "api": "mprf",
       "anchor": "mprf(\"You escape %s grasp.\", object.c_str());",
       "module": "character",
@@ -32717,7 +32813,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8379,
+      "line": 8410,
       "api": "mprf",
       "anchor": "mprf(\"%s grasp on you weakens, but your attempt to escape fails.\",",
       "module": "character",
@@ -32725,7 +32821,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8391,
+      "line": 8422,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.84e4013d58c6\"));",
       "module": "character",
@@ -32733,7 +32829,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8391,
+      "line": 8422,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.84e4013d58c6\"));",
       "module": "character",
@@ -32741,7 +32837,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8396,
+      "line": 8427,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.636523da6016\"), MSGCH_WARN);",
       "module": "character",
@@ -32749,7 +32845,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8396,
+      "line": 8427,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.636523da6016\"), MSGCH_WARN);",
       "module": "character",
@@ -32757,7 +32853,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8448,
+      "line": 8479,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.4227ac222fe6\"), MSGCH_WARN);",
       "module": "character",
@@ -32765,7 +32861,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8448,
+      "line": 8479,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.4227ac222fe6\"), MSGCH_WARN);",
       "module": "character",
@@ -32773,7 +32869,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8450,
+      "line": 8481,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.0b2082fc5426\"), MSGCH_WARN);",
       "module": "character",
@@ -32781,7 +32877,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8450,
+      "line": 8481,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.0b2082fc5426\"), MSGCH_WARN);",
       "module": "character",
@@ -32789,7 +32885,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8458,
+      "line": 8489,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.790cca5ed0b1\"), MSGCH_WARN);",
       "module": "character",
@@ -32797,7 +32893,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8458,
+      "line": 8489,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.790cca5ed0b1\"), MSGCH_WARN);",
       "module": "character",
@@ -32805,7 +32901,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8460,
+      "line": 8491,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.8d8a97fee7bb\"), MSGCH_WARN);",
       "module": "character",
@@ -32813,7 +32909,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8460,
+      "line": 8491,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.8d8a97fee7bb\"), MSGCH_WARN);",
       "module": "character",
@@ -32821,7 +32917,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8470,
+      "line": 8501,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.4d13b70c64f6\"));",
       "module": "character",
@@ -32829,7 +32925,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8470,
+      "line": 8501,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.4d13b70c64f6\"));",
       "module": "character",
@@ -32837,7 +32933,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8483,
+      "line": 8514,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.1b5d3ef4f9c8\"), MSGCH_WARN);",
       "module": "character",
@@ -32845,7 +32941,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8483,
+      "line": 8514,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.1b5d3ef4f9c8\"), MSGCH_WARN);",
       "module": "character",
@@ -32853,7 +32949,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8502,
+      "line": 8533,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.c77d1f3354da\"), MSGCH_WARN);",
       "module": "character",
@@ -32861,7 +32957,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8502,
+      "line": 8533,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c77d1f3354da\"), MSGCH_WARN);",
       "module": "character",
@@ -32869,7 +32965,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8504,
+      "line": 8535,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a7466ffde2b9\"));",
       "module": "character",
@@ -32877,7 +32973,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8504,
+      "line": 8535,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a7466ffde2b9\"));",
       "module": "character",
@@ -32885,7 +32981,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8523,
+      "line": 8554,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"%s floods into your lungs!\", substance);",
       "module": "character",
@@ -32893,7 +32989,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8579,
+      "line": 8610,
       "api": "make_stringf",
       "anchor": "cinfo += make_stringf(\"You have %d tentacle%s available for constriction.\",",
       "module": "character",
@@ -32901,7 +32997,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8592,
+      "line": 8623,
       "api": "make_stringf",
       "anchor": "cinfo += make_stringf(\"You are being constricted by %s.\",",
       "module": "character",
@@ -32909,7 +33005,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8704,
+      "line": 8735,
       "api": "mprf",
       "anchor": "mprf(\"%s enhances the healing.\",",
       "module": "character",
@@ -32917,7 +33013,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8708,
+      "line": 8739,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.427c94948754\"));",
       "module": "character",
@@ -32925,7 +33021,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8708,
+      "line": 8739,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.427c94948754\"));",
       "module": "character",
@@ -32933,7 +33029,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8710,
+      "line": 8741,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.66eff7d065ce\")); // bad message, but this should",
       "module": "character",
@@ -32941,7 +33037,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8710,
+      "line": 8741,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.66eff7d065ce\")); // bad message, but this should",
       "module": "character",
@@ -32949,7 +33045,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8714,
+      "line": 8745,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.5754027073ba\"));",
       "module": "character",
@@ -32957,7 +33053,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8714,
+      "line": 8745,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.5754027073ba\"));",
       "module": "character",
@@ -32965,7 +33061,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8716,
+      "line": 8747,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ef49406b77e0\"));",
       "module": "character",
@@ -32973,7 +33069,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8716,
+      "line": 8747,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ef49406b77e0\"));",
       "module": "character",
@@ -32981,7 +33077,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8838,
+      "line": 8869,
       "api": "make_stringf",
       "anchor": "string prompt = make_stringf(\"This %s%s is marked as excluded! \"",
       "module": "character",
@@ -32989,7 +33085,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8871,
+      "line": 8902,
       "api": "mprf",
       "anchor": "mprf(berserk_open.c_str(), adj, noun);",
       "module": "character",
@@ -32997,7 +33093,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8874,
+      "line": 8905,
       "api": "mprf",
       "anchor": "mprf(\"The %s%s flies open!\", adj, noun);",
       "module": "character",
@@ -33005,7 +33101,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8884,
+      "line": 8915,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, berserk_open.c_str(), adj, noun);",
       "module": "character",
@@ -33013,7 +33109,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8887,
+      "line": 8918,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, \"The %s%s flies open with a bang!\", adj, noun);",
       "module": "character",
@@ -33021,7 +33117,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8894,
+      "line": 8925,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, door_open_creak.c_str(), adj, noun);",
       "module": "character",
@@ -33029,7 +33125,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8897,
+      "line": 8928,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, \"As you open the %s%s, it creaks loudly!\",",
       "module": "character",
@@ -33037,7 +33133,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8920,
+      "line": 8951,
       "api": "mprf",
       "anchor": "mprf(verb, adj, noun);",
       "module": "character",
@@ -33045,7 +33141,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8976,
+      "line": 9007,
       "api": "make_stringf",
       "anchor": "const string waynoun_str = make_stringf(\"%sway\", noun);",
       "module": "character",
@@ -33053,7 +33149,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8994,
+      "line": 9025,
       "api": "mprf",
       "anchor": "mprf(\"Something is blocking the %s!\", waynoun);",
       "module": "character",
@@ -33061,7 +33157,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9000,
+      "line": 9031,
       "api": "mprf",
       "anchor": "mprf(\"There's a creature in the %s!\", waynoun);",
       "module": "character",
@@ -33069,7 +33165,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9008,
+      "line": 9039,
       "api": "mprf",
       "anchor": "mprf(\"There's something jamming the %s.\", waynoun);",
       "module": "character",
@@ -33077,7 +33173,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9016,
+      "line": 9047,
       "api": "mprf",
       "anchor": "mprf(\"There's a thick-headed creature in the %s!\", waynoun);",
       "module": "character",
@@ -33085,7 +33181,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9041,
+      "line": 9072,
       "api": "mprf",
       "anchor": "mprf(berserk_close.c_str(), adj, noun);",
       "module": "character",
@@ -33093,7 +33189,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9044,
+      "line": 9075,
       "api": "mprf",
       "anchor": "mprf(\"You slam the %s%s shut%s!\", adj, noun, items_msg);",
       "module": "character",
@@ -33101,7 +33197,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9054,
+      "line": 9085,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, berserk_close.c_str(), adj, noun);",
       "module": "character",
@@ -33109,7 +33205,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9058,
+      "line": 9089,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, \"You slam the %s%s shut with a bang%s!\",",
       "module": "character",
@@ -33117,7 +33213,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9068,
+      "line": 9099,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, door_close_creak.c_str(), adj, noun);",
       "module": "character",
@@ -33125,7 +33221,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9071,
+      "line": 9102,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, \"As you close the %s%s%s, it creaks loudly!\",",
       "module": "character",
@@ -33133,7 +33229,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9082,
+      "line": 9113,
       "api": "mprf",
       "anchor": "mprf(door_airborne.c_str(), adj, noun);",
       "module": "character",
@@ -33141,7 +33237,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9084,
+      "line": 9115,
       "api": "mprf",
       "anchor": "mprf(\"You reach down and close the %s%s%s.\", adj, noun, items_msg);",
       "module": "character",
@@ -33149,7 +33245,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9089,
+      "line": 9120,
       "api": "mprf",
       "anchor": "mprf(door_close_verb.c_str(), adj, noun);",
       "module": "character",
@@ -33157,7 +33253,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9091,
+      "line": 9122,
       "api": "mprf",
       "anchor": "mprf(\"You close the %s%s%s.\", adj, noun, items_msg);",
       "module": "character",
@@ -33165,7 +33261,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9186,
+      "line": 9217,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.8aa532b40db2\"), MSGCH_WARN);",
       "module": "character",
@@ -33173,7 +33269,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9186,
+      "line": 9217,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.8aa532b40db2\"), MSGCH_WARN);",
       "module": "character",
@@ -33181,7 +33277,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9229,
+      "line": 9260,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.2da6e3eca155\"));",
       "module": "character",
@@ -33189,7 +33285,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9229,
+      "line": 9260,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.2da6e3eca155\"));",
       "module": "character",
@@ -33197,7 +33293,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9241,
+      "line": 9272,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.fbbe6b7544e6\"));",
       "module": "character",
@@ -33205,7 +33301,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9241,
+      "line": 9272,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.fbbe6b7544e6\"));",
       "module": "character",
@@ -33213,7 +33309,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9349,
+      "line": 9380,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.6dd7dec7fc6a\"), MSGCH_DURATION);",
       "module": "character",
@@ -33221,7 +33317,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9349,
+      "line": 9380,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.6dd7dec7fc6a\"), MSGCH_DURATION);",
       "module": "character",
@@ -33229,7 +33325,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9406,
+      "line": 9437,
       "api": "mprf",
       "anchor": "mprf(\"You devour the vestiges of %s's existence in your flames.\",",
       "module": "character",
@@ -33237,7 +33333,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9466,
+      "line": 9497,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DURATION, \"You feel %sagile all of a sudden.\",",
       "module": "character",
@@ -33653,7 +33749,23 @@
     },
     {
       "file": "prompt.cc",
-      "line": 164,
+      "line": 153,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"prompt.confirm.typed_answer\", {text, zh_key(\"answer\", require)}),",
+      "module": "other-review-required",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "prompt.cc",
+      "line": 153,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"prompt.confirm.typed_answer\", {text, zh_key(\"answer\", require)}),",
+      "module": "other-review-required",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "prompt.cc",
+      "line": 178,
       "api": "make_stringf",
       "anchor": ": make_stringf(\"%s \", str ? str : \"Buggy prompt?\");",
       "module": "other-review-required",
@@ -33661,7 +33773,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 178,
+      "line": 192,
       "api": "set_more_pretranslated",
       "anchor": "pop.set_more_pretranslated(\"\");",
       "module": "other-review-required",
@@ -33669,7 +33781,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 208,
+      "line": 222,
       "api": "zh_message",
       "anchor": "MenuEntry * const y_me = new MenuEntry(translated ? zh_message(\"prompt.choice.yes\").display()",
       "module": "other-review-required",
@@ -33677,7 +33789,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 211,
+      "line": 225,
       "api": "zh_message",
       "anchor": "MenuEntry * const n_me = new MenuEntry(translated ? zh_message(\"prompt.choice.no\").display()",
       "module": "other-review-required",
@@ -33685,7 +33797,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 214,
+      "line": 228,
       "api": "zh_message",
       "anchor": "MenuEntry * const a_me = new MenuEntry(translated ? zh_message(\"prompt.choice.always\").display()",
       "module": "other-review-required",
@@ -33693,7 +33805,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 225,
+      "line": 239,
       "api": "set_title",
       "anchor": "pop.set_title(question);",
       "module": "other-review-required",
@@ -33701,7 +33813,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 250,
+      "line": 264,
       "api": "set_more_pretranslated",
       "anchor": "pop.set_more_pretranslated(zh_message(\"prompt.enter_default\",",
       "module": "other-review-required",
@@ -33709,7 +33821,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 250,
+      "line": 264,
       "api": "zh_message",
       "anchor": "pop.set_more_pretranslated(zh_message(\"prompt.enter_default\",",
       "module": "other-review-required",
@@ -33717,7 +33829,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 251,
+      "line": 265,
       "api": "zh_message",
       "anchor": "{zh_text(\"choice\", choice, zh_message(id).localized)}).display());",
       "module": "other-review-required",
@@ -33725,7 +33837,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 254,
+      "line": 268,
       "api": "set_more",
       "anchor": "pop.set_more(make_stringf(\"<white>[enter]</white>: %s\", choice));",
       "module": "other-review-required",
@@ -33733,7 +33845,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 254,
+      "line": 268,
       "api": "make_stringf",
       "anchor": "pop.set_more(make_stringf(\"<white>[enter]</white>: %s\", choice));",
       "module": "other-review-required",
@@ -33741,7 +33853,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 288,
+      "line": 302,
       "api": "mpr",
       "anchor": "mpr(*translated, MSGCH_PROMPT);",
       "module": "other-review-required",
@@ -33749,7 +33861,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 290,
+      "line": 304,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"%s\", prompt.c_str());",
       "module": "other-review-required",
@@ -33757,7 +33869,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 335,
+      "line": 349,
       "api": "make_stringf",
       "anchor": "const string pr = make_stringf(\"<lightred>%s%s only, please.</lightred>\",",
       "module": "other-review-required",
@@ -33765,7 +33877,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 345,
+      "line": 359,
       "api": "zh_message",
       "anchor": "const auto answer_prompt = zh_message(id);",
       "module": "other-review-required",
@@ -33773,7 +33885,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 347,
+      "line": 361,
       "api": "set_more_pretranslated",
       "anchor": "pop.set_more_pretranslated(answer_prompt.display());",
       "module": "other-review-required",
@@ -33781,7 +33893,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 349,
+      "line": 363,
       "api": "mpr",
       "anchor": "mpr(answer_prompt, MSGCH_PROMPT);",
       "module": "other-review-required",
@@ -33789,7 +33901,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 352,
+      "line": 366,
       "api": "set_more",
       "anchor": "pop.set_more(pr); // replaces keyhint if it's there",
       "module": "other-review-required",
@@ -33797,7 +33909,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 354,
+      "line": 368,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"%s\", pr.c_str());",
       "module": "other-review-required",
@@ -33805,7 +33917,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 493,
+      "line": 507,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"(%s) %s\", keycode_to_name(me.hotkeys[0]).c_str(), me.text.c_str());",
       "module": "other-review-required",
@@ -33813,7 +33925,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 495,
+      "line": 509,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"    %s\", me.text.c_str());",
       "module": "other-review-required",
@@ -33821,7 +33933,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 540,
+      "line": 554,
       "api": "cprintf",
       "anchor": "line.cprintf(\"%-*s\",",
       "module": "other-review-required",
@@ -33829,7 +33941,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 614,
+      "line": 628,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"%s\", prompt_text.c_str());",
       "module": "other-review-required",
@@ -33837,7 +33949,7 @@
     },
     {
       "file": "prompt.cc",
-      "line": 634,
+      "line": 648,
       "api": "set_title",
       "anchor": "set_title(new MenuEntry(_title, MEL_TITLE));",
       "module": "other-review-required",
@@ -33845,7 +33957,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 125,
+      "line": 128,
       "api": "mprf",
       "anchor": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());",
       "module": "targeting",
@@ -33853,7 +33965,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 129,
+      "line": 132,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.1074683161dc\"));",
       "module": "targeting",
@@ -33861,7 +33973,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 129,
+      "line": 132,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.1074683161dc\"));",
       "module": "targeting",
@@ -33869,7 +33981,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 133,
+      "line": 136,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.9407bd01a4e0\"));",
       "module": "targeting",
@@ -33877,7 +33989,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 133,
+      "line": 136,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.9407bd01a4e0\"));",
       "module": "targeting",
@@ -33885,7 +33997,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 137,
+      "line": 140,
       "api": "mprf",
       "anchor": "mprf(\"You are too depleted to draw on your %s recklessly!\",",
       "module": "targeting",
@@ -33893,7 +34005,31 @@
     },
     {
       "file": "quiver.cc",
-      "line": 145,
+      "line": 182,
+      "api": "zh_item_arg",
+      "anchor": "auto name = zh_item_arg(\"name\", item, DESC_PLAIN);",
+      "module": "targeting",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 193,
+      "api": "parse_string_raw",
+      "anchor": "result += formatted_string::parse_string_raw(zh_message(\"quiver.prompt.named\",",
+      "module": "targeting",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 193,
+      "api": "zh_message",
+      "anchor": "result += formatted_string::parse_string_raw(zh_message(\"quiver.prompt.named\",",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 200,
       "api": "parse_string",
       "anchor": "return formatted_string::parse_string(",
       "module": "targeting",
@@ -33901,15 +34037,31 @@
     },
     {
       "file": "quiver.cc",
-      "line": 257,
-      "api": "zh_translate",
-      "anchor": "key_hint = zh_translate(key_hint);",
+      "line": 201,
+      "api": "zh_message",
+      "anchor": "zh_message(short_desc ? \"quiver.prompt.empty.short\"",
       "module": "targeting",
-      "classification": "legacy-hook"
+      "classification": "typed-producer"
     },
     {
       "file": "quiver.cc",
-      "line": 359,
+      "line": 217,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"quiver.prompt.description\",",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 324,
+      "api": "zh_message",
+      "anchor": "auto message = zh_message(no_other_items ? \"quiver.prompt.keys.select\"",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 442,
       "api": "mprf",
       "anchor": "mprf(\"You deconstruct %s.\", mons->name(DESC_THE).c_str());",
       "module": "targeting",
@@ -33917,39 +34069,15 @@
     },
     {
       "file": "quiver.cc",
-      "line": 402,
-      "api": "cprintf",
-      "anchor": "qdesc.cprintf(\"%s%c) \", zh_translate(uppercase_first(verb) + \": \").c_str(),",
+      "line": 598,
+      "api": "zh_glossary_name",
+      "anchor": ": zh_glossary_name(\"name\", \"item.unarmed\",",
       "module": "targeting",
-      "classification": "callsite-review-required"
+      "classification": "semantic-name"
     },
     {
       "file": "quiver.cc",
-      "line": 402,
-      "api": "zh_translate",
-      "anchor": "qdesc.cprintf(\"%s%c) \", zh_translate(uppercase_first(verb) + \": \").c_str(),",
-      "module": "targeting",
-      "classification": "legacy-hook"
-    },
-    {
-      "file": "quiver.cc",
-      "line": 506,
-      "api": "cprintf",
-      "anchor": "qdesc.cprintf(\"%s%c) \", zh_translate(uppercase_first(verb) + \": \").c_str(),",
-      "module": "targeting",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "quiver.cc",
-      "line": 506,
-      "api": "zh_translate",
-      "anchor": "qdesc.cprintf(\"%s%c) \", zh_translate(uppercase_first(verb) + \": \").c_str(),",
-      "module": "targeting",
-      "classification": "legacy-hook"
-    },
-    {
-      "file": "quiver.cc",
-      "line": 547,
+      "line": 625,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.205abeaf1832\"));",
       "module": "targeting",
@@ -33957,7 +34085,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 547,
+      "line": 625,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.205abeaf1832\"));",
       "module": "targeting",
@@ -33965,7 +34093,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 559,
+      "line": 637,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.ca609a6e55e1\"));",
       "module": "targeting",
@@ -33973,7 +34101,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 559,
+      "line": 637,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.ca609a6e55e1\"));",
       "module": "targeting",
@@ -33981,7 +34109,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 561,
+      "line": 639,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.4b1e92859bf3\"));",
       "module": "targeting",
@@ -33989,7 +34117,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 561,
+      "line": 639,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.4b1e92859bf3\"));",
       "module": "targeting",
@@ -33997,7 +34125,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 569,
+      "line": 647,
       "api": "mprf",
       "anchor": "mprf(\"You cannot attack while %s.\", held_status());",
       "module": "targeting",
@@ -34005,7 +34133,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 634,
+      "line": 712,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.df9264af4818\"));",
       "module": "targeting",
@@ -34013,7 +34141,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 634,
+      "line": 712,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.df9264af4818\"));",
       "module": "targeting",
@@ -34021,7 +34149,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 645,
+      "line": 723,
       "api": "mprf",
       "anchor": "mprf(\"You attack %s.\",",
       "module": "targeting",
@@ -34029,7 +34157,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 700,
+      "line": 778,
       "api": "mprf",
       "anchor": "mprf(\"You fail to reach past %s.\", midmons->name(DESC_THE).c_str());",
       "module": "targeting",
@@ -34037,7 +34165,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 718,
+      "line": 796,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.f41b93943185\"));",
       "module": "targeting",
@@ -34045,7 +34173,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 718,
+      "line": 796,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.f41b93943185\"));",
       "module": "targeting",
@@ -34053,7 +34181,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 721,
+      "line": 799,
       "api": "mprf",
       "anchor": "mprf(\"%s is in the way.\",",
       "module": "targeting",
@@ -34061,7 +34189,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 735,
+      "line": 813,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.6ee7d04d31b5\"));",
       "module": "targeting",
@@ -34069,7 +34197,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 735,
+      "line": 813,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.6ee7d04d31b5\"));",
       "module": "targeting",
@@ -34077,7 +34205,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 737,
+      "line": 815,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.f0c8efe09afe\"));",
       "module": "targeting",
@@ -34085,7 +34213,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 737,
+      "line": 815,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.f0c8efe09afe\"));",
       "module": "targeting",
@@ -34093,7 +34221,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 746,
+      "line": 824,
       "api": "mprf",
       "anchor": "mprf(\"You deconstruct %s.\", mons->name(DESC_THE).c_str());",
       "module": "targeting",
@@ -34101,71 +34229,31 @@
     },
     {
       "file": "quiver.cc",
-      "line": 827,
-      "api": "cprintf",
-      "anchor": "qdesc.cprintf(\"%s: \", quiver_verb().c_str());",
+      "line": 1259,
+      "api": "zh_word_arg",
+      "anchor": "ZhArg name = zh_word_arg(\"name\", \"spell.name.\", title, ZhArgType::Name);",
       "module": "targeting",
-      "classification": "callsite-review-required"
+      "classification": "semantic-name"
     },
     {
       "file": "quiver.cc",
-      "line": 942,
-      "api": "make_stringf",
-      "anchor": "make_stringf(\"%s%s\",",
+      "line": 1262,
+      "api": "zh_message",
+      "anchor": "const auto charges = zh_message(\"quiver.prompt.spell.charges\",",
       "module": "targeting",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "quiver.cc",
-      "line": 945,
-      "api": "cprintf",
-      "anchor": "qdesc.cprintf(\"%s: \", uppercase_first(verb).c_str());",
+      "line": 1271,
+      "api": "zh_message",
+      "anchor": "const auto failure = zh_message(\"quiver.prompt.spell.failure\",",
       "module": "targeting",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "quiver.cc",
-      "line": 1177,
-      "api": "cprintf",
-      "anchor": "qdesc.cprintf(\"Continue: \");",
-      "module": "targeting",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "quiver.cc",
-      "line": 1179,
-      "api": "cprintf",
-      "anchor": "qdesc.cprintf(\"Cast: \");",
-      "module": "targeting",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "quiver.cc",
-      "line": 1184,
-      "api": "cprintf",
-      "anchor": "qdesc.cprintf(\"%s\", spell == SPELL_MAXWELLS_COUPLING ?",
-      "module": "targeting",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "quiver.cc",
-      "line": 1189,
-      "api": "cprintf",
-      "anchor": "qdesc.cprintf(\" (%d/%d)\", you.props[GRAVE_CLAW_CHARGES_KEY].get_int()",
-      "module": "targeting",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "quiver.cc",
-      "line": 1195,
-      "api": "cprintf",
-      "anchor": "qdesc.cprintf(\" (%s)\",",
-      "module": "targeting",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "quiver.cc",
-      "line": 1300,
+      "line": 1379,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.1a5179633fbd\"));",
       "module": "targeting",
@@ -34173,7 +34261,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 1300,
+      "line": 1379,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.1a5179633fbd\"));",
       "module": "targeting",
@@ -34181,7 +34269,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 1458,
+      "line": 1537,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.89927b47a2e7\"));",
       "module": "targeting",
@@ -34189,7 +34277,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 1458,
+      "line": 1537,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.89927b47a2e7\"));",
       "module": "targeting",
@@ -34197,39 +34285,31 @@
     },
     {
       "file": "quiver.cc",
-      "line": 1471,
-      "api": "cprintf",
-      "anchor": "qdesc.cprintf(\"Abil: \");",
+      "line": 1550,
+      "api": "zh_glossary_name",
+      "anchor": "ZhArg name = zh_glossary_name(\"name\", \"ability\", ability_name(ability));",
       "module": "targeting",
-      "classification": "callsite-review-required"
+      "classification": "semantic-name"
     },
     {
       "file": "quiver.cc",
-      "line": 1480,
-      "api": "cprintf",
-      "anchor": "qdesc.cprintf(\"Build '%s'\", dungeon_feature_name(",
+      "line": 1557,
+      "api": "zh_glossary_name",
+      "anchor": "{zh_glossary_name(\"feature\", \"terrain\",",
       "module": "targeting",
-      "classification": "callsite-review-required"
+      "classification": "semantic-name"
     },
     {
       "file": "quiver.cc",
-      "line": 1485,
-      "api": "cprintf",
-      "anchor": "qdesc.cprintf(\"%s\", ability_name(ability).c_str());",
+      "line": 1566,
+      "api": "zh_glossary_name",
+      "anchor": "{zh_glossary_name(\"card\", \"card\", stack_top())})",
       "module": "targeting",
-      "classification": "callsite-review-required"
+      "classification": "semantic-name"
     },
     {
       "file": "quiver.cc",
-      "line": 1488,
-      "api": "cprintf",
-      "anchor": "qdesc.cprintf(\" %s\", nemelex_card_text(ability).c_str());",
-      "module": "targeting",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "quiver.cc",
-      "line": 1695,
+      "line": 1781,
       "api": "mpr",
       "anchor": "mpr(cannot_evoke_item_reason(item));",
       "module": "targeting",
@@ -34237,7 +34317,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 2417,
+      "line": 2503,
       "api": "set_title",
       "anchor": "set_title(new MenuEntry(\"\", MEL_TITLE));",
       "module": "targeting",
@@ -34245,23 +34325,71 @@
     },
     {
       "file": "quiver.cc",
-      "line": 2469,
-      "api": "make_stringf",
-      "anchor": "string mode = make_stringf(\"%s focus mode: %s\",",
+      "line": 2548,
+      "api": "zh_message",
+      "anchor": "s += zh_message(\"quiver.prompt.menu.inventory\").display();",
       "module": "targeting",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "quiver.cc",
-      "line": 2587,
-      "api": "make_stringf",
-      "anchor": "make_stringf(\" <lightgrey>(%s to cycle)</lightgrey>\",",
+      "line": 2550,
+      "api": "zh_message",
+      "anchor": "s += zh_message(\"quiver.prompt.menu.spells\").display();",
       "module": "targeting",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "quiver.cc",
-      "line": 2753,
+      "line": 2552,
+      "api": "zh_message",
+      "anchor": "s += zh_message(\"quiver.prompt.menu.abilities\").display();",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 2555,
+      "api": "zh_message",
+      "anchor": "string mode = zh_message(focus_mode == Focus::NONE",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 2569,
+      "api": "zh_message",
+      "anchor": "action_desc += zh_message(\"quiver.prompt.menu.quivered\").display();",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 2672,
+      "api": "zh_message",
+      "anchor": "return zh_message(id,",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 2721,
+      "api": "zh_message",
+      "anchor": "more_message = zh_message(\"quiver.prompt.menu.no_actions\").display();",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 2751,
+      "api": "zh_message",
+      "anchor": "int slot = prompt_invent_item(zh_message(allow_empty",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 2838,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.ffae51a08912\"));",
       "module": "targeting",
@@ -34269,7 +34397,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 2753,
+      "line": 2838,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.ffae51a08912\"));",
       "module": "targeting",
@@ -34277,15 +34405,23 @@
     },
     {
       "file": "quiver.cc",
-      "line": 2798,
-      "api": "parse_string",
-      "anchor": "return formatted_string::parse_string(s);",
+      "line": 2878,
+      "api": "parse_string_raw",
+      "anchor": "return formatted_string::parse_string_raw(zh_message(allow_empty",
       "module": "targeting",
       "classification": "callsite-review-required"
     },
     {
       "file": "quiver.cc",
-      "line": 2929,
+      "line": 2878,
+      "api": "zh_message",
+      "anchor": "return formatted_string::parse_string_raw(zh_message(allow_empty",
+      "module": "targeting",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 3010,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.7df9d7641b32\"));",
       "module": "targeting",
@@ -34293,7 +34429,7 @@
     },
     {
       "file": "quiver.cc",
-      "line": 2929,
+      "line": 3010,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.quiver.fixed.7df9d7641b32\"));",
       "module": "targeting",
@@ -34301,11 +34437,19 @@
     },
     {
       "file": "quiver.cc",
-      "line": 2943,
-      "api": "make_stringf",
-      "anchor": "const string prompt = make_stringf(\"Really quiver %s?\",",
+      "line": 3024,
+      "api": "zh_message",
+      "anchor": "const auto prompt = zh_message(\"quiver.prompt.confirm\",",
       "module": "targeting",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 3025,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"item\", you.inv[s->get_item()], DESC_INVENTORY)});",
+      "module": "targeting",
+      "classification": "semantic-name"
     },
     {
       "file": "randbook.cc",
@@ -37621,7 +37765,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 101,
+      "line": 103,
       "api": "zh_message",
       "anchor": "return zh_message(id);",
       "module": "spells",
@@ -37629,7 +37773,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 107,
+      "line": 109,
       "api": "mpr",
       "anchor": "mpr(_surge_power_message(enhanced));",
       "module": "spells",
@@ -37637,7 +37781,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 113,
+      "line": 115,
       "api": "mpr",
       "anchor": "mpr(zh_message(mp_cost < 3 ? \"spell.cast.wand.slight\"",
       "module": "spells",
@@ -37645,7 +37789,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 113,
+      "line": 115,
       "api": "zh_message",
       "anchor": "mpr(zh_message(mp_cost < 3 ? \"spell.cast.wand.slight\"",
       "module": "spells",
@@ -37653,7 +37797,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 119,
+      "line": 121,
       "api": "zh_message",
       "anchor": "return zh_message(id, {",
       "module": "spells",
@@ -37661,7 +37805,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 120,
+      "line": 122,
       "api": "zh_word_arg",
       "anchor": "zh_word_arg(\"spell\", \"spell.name.\", spell_title(spell), ZhArgType::Name)});",
       "module": "spells",
@@ -37669,15 +37813,39 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 148,
-      "api": "parse_string",
-      "anchor": "const int width = strwidth(formatted_string::parse_string(failure_rate).tostring());",
+      "line": 129,
+      "api": "zh_word_arg",
+      "anchor": "return zh_word_arg(\"spell\", \"spell.name.\", spell_title(spell), ZhArgType::Name);",
+      "module": "spells",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 139,
+      "api": "zh_glossary_name",
+      "anchor": "const auto name = zh_glossary_name(\"school\", \"spell.school\",",
+      "module": "spells",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 170,
+      "api": "zh_message",
+      "anchor": "? zh_message(\"spell.stats.range.not_applicable\").display()",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 202,
+      "api": "parse_string_raw",
+      "anchor": "const int width = strwidth(formatted_string::parse_string_raw(failure_rate).tostring());",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-cast.cc",
-      "line": 207,
+      "line": 265,
       "api": "make_stringf",
       "anchor": "return make_stringf(\" %s + \", keycode_to_name(hotkeys[0]).c_str());",
       "module": "spells",
@@ -37685,23 +37853,39 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 279,
-      "api": "make_stringf",
-      "anchor": "const string titlestring = make_stringf(\"%-25.25s\",",
+      "line": 337,
+      "api": "ZhLegacyGuard",
+      "anchor": "const ZhLegacyGuard guard(\"spell.prompt.menu\");",
       "module": "spells",
-      "classification": "callsite-review-required"
+      "classification": "boundary-assertion"
     },
     {
       "file": "spl-cast.cc",
-      "line": 280,
-      "api": "make_stringf",
-      "anchor": "make_stringf(\"Your spells (%s)\", real_action.c_str()).c_str());",
+      "line": 340,
+      "api": "zh_message",
+      "anchor": "zh_message(\"spell.prompt.menu.title\", {action_arg}).display(), 25);",
       "module": "spells",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "spl-cast.cc",
-      "line": 288,
+      "line": 345,
+      "api": "zh_message",
+      "anchor": "titlestring + zh_message(\"spell.prompt.menu.header.base\").display(),",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 346,
+      "api": "zh_message",
+      "anchor": "titlestring + zh_message(\"spell.prompt.menu.header.extra\").display(),",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 349,
       "api": "set_title",
       "anchor": "spell_menu.set_title(me, true, true);",
       "module": "spells",
@@ -37709,39 +37893,47 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 296,
-      "api": "make_stringf",
-      "anchor": "string more_str = make_stringf(\"<lightgrey>Select a spell to %s</lightgrey>\",",
+      "line": 357,
+      "api": "zh_message",
+      "anchor": "string more_str = zh_message(\"spell.prompt.menu.select\", {action_arg}).display();",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 358,
+      "api": "zh_message",
+      "anchor": "string help_desc = zh_message(\"spell.prompt.menu.help\").display();",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 366,
+      "api": "zh_message",
+      "anchor": "toggle_desc = zh_message(\"spell.prompt.menu.toggle\", {",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 368,
+      "api": "zh_message",
+      "anchor": "const string exit = zh_message(\"spell.prompt.menu.exit\", {",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 371,
+      "api": "set_more_pretranslated",
+      "anchor": "spell_menu.set_more_pretranslated(more_str);",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-cast.cc",
-      "line": 298,
-      "api": "make_stringf",
-      "anchor": "string help_desc = make_stringf(\"   [<w>?</w>] help    \");",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 308,
-      "api": "set_more",
-      "anchor": "spell_menu.set_more(formatted_string::parse_string(more_str));",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 308,
-      "api": "parse_string",
-      "anchor": "spell_menu.set_more(formatted_string::parse_string(more_str));",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 727,
+      "line": 791,
       "api": "mpr",
       "anchor": "mpr(\"You are unable to access your magic!\");",
       "module": "spells",
@@ -37749,7 +37941,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 735,
+      "line": 799,
       "api": "mpr",
       "anchor": "mpr(\"Something interferes with your magic!\");",
       "module": "spells",
@@ -37757,7 +37949,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 749,
+      "line": 813,
       "api": "mpr",
       "anchor": "mpr(\"You're too confused to cast spells.\");",
       "module": "spells",
@@ -37765,7 +37957,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 757,
+      "line": 821,
       "api": "mprf",
       "anchor": "mprf(\"You cannot cast spells while %s!\", player_silenced_reason());",
       "module": "spells",
@@ -37773,7 +37965,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 801,
+      "line": 865,
       "api": "mpr",
       "anchor": "mpr(\"Magical energy flows into your mind!\");",
       "module": "spells",
@@ -37781,7 +37973,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 803,
+      "line": 867,
       "api": "mprf",
       "anchor": "mprf(\"Magical energy flows from %s into your mind!\",",
       "module": "spells",
@@ -37789,7 +37981,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 809,
+      "line": 873,
       "api": "mpr",
       "anchor": "mpr(\"Magical energy flows into your mind!\");",
       "module": "spells",
@@ -37797,7 +37989,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 830,
+      "line": 894,
       "api": "mprf",
       "anchor": "mprf(MSGCH_TALK, \"%s\", msg.c_str());",
       "module": "spells",
@@ -37805,7 +37997,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 898,
+      "line": 962,
       "api": "mprf",
       "anchor": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());",
       "module": "spells",
@@ -37813,47 +38005,87 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 942,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_PROMPT, \"Cast which spell? (? or * to list) \");",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 946,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_PROMPT, \"Casting: <w>%s</w> <lightgrey>(%s)</lightgrey>\",",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 949,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_PROMPT, \"Confirm with . or Enter, or press \"",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 992,
+      "line": 1006,
       "api": "mpr",
-      "anchor": "mpr(\"You don't know that spell.\");",
+      "anchor": "mpr(zh_message(\"spell.prompt.select\"), MSGCH_PROMPT);",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-cast.cc",
-      "line": 1002,
+      "line": 1006,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"spell.prompt.select\"), MSGCH_PROMPT);",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1010,
       "api": "mpr",
-      "anchor": "mpr(\"You don't know that spell.\");",
+      "anchor": "mpr(zh_message(\"spell.prompt.recast\", {",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-cast.cc",
-      "line": 1011,
+      "line": 1010,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"spell.prompt.recast\", {",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1013,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"spell.prompt.confirm.recast\"), MSGCH_PROMPT);",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1013,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"spell.prompt.confirm.recast\"), MSGCH_PROMPT);",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1055,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"spell.prompt.unknown\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1055,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"spell.prompt.unknown\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1065,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"spell.prompt.unknown\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1065,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"spell.prompt.unknown\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1074,
       "api": "mpr",
       "anchor": "mpr(ZhMessage{\"\", reason.canonical, reason.localized});",
       "module": "spells",
@@ -37861,15 +38093,31 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 1020,
+      "line": 1083,
       "api": "mpr",
-      "anchor": "mpr(\"You can't see any susceptible monsters within range! \"",
+      "anchor": "mpr(zh_message(\"spell.prompt.no_targets\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-cast.cc",
-      "line": 1143,
+      "line": 1083,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"spell.prompt.no_targets\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1099,
+      "api": "zh_message",
+      "anchor": "if (!yesno(zh_message(\"spell.prompt.penance\"), true, 'n'))",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1204,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"You lose access to your magic!\");",
       "module": "spells",
@@ -37877,7 +38125,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 1158,
+      "line": 1219,
       "api": "mpr",
       "anchor": "mpr(\"Couldn't try casting monster spell because you're \"",
       "module": "spells",
@@ -37885,7 +38133,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 1166,
+      "line": 1227,
       "api": "mpr",
       "anchor": "mpr(\"Couldn't try casting monster spell because there is \"",
       "module": "spells",
@@ -37893,7 +38141,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 1171,
+      "line": 1232,
       "api": "mpr",
       "anchor": "mpr(\"Invalid player spell, attempting to cast it as monster spell.\");",
       "module": "spells",
@@ -37901,7 +38149,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 1226,
+      "line": 1287,
       "api": "mpr",
       "anchor": "mpr(ZhMessage{\"\", msg.canonical, msg.localized});",
       "module": "spells",
@@ -37909,151 +38157,351 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 1258,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_WARN, \"It is impossible to cast this spell \"",
+      "line": 1300,
+      "api": "zh_message",
+      "anchor": "const auto prompt = zh_message(\"spell.prompt.confirm.cast\", {",
       "module": "spells",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "spl-cast.cc",
-      "line": 1263,
-      "api": "make_stringf",
-      "anchor": "string prompt = make_stringf(\"The spell is %s to miscast \"",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 1269,
-      "api": "make_stringf",
-      "anchor": "prompt = make_stringf(\"%s Continue anyway?\", prompt.c_str());",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 1723,
-      "api": "make_stringf",
-      "anchor": "return vector<string>{make_stringf(\"2x%s\", result.str().c_str())};",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 1737,
-      "api": "make_stringf",
-      "anchor": "return vector<string>{make_stringf(\"chance to confuse: %d%%\", conf_pct)};",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 1767,
-      "api": "make_stringf",
-      "anchor": "return vector<string>{make_stringf(\"chance to slow: %d%%\", 100 - fail_pct)};",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 1775,
-      "api": "make_stringf",
-      "anchor": "return vector<string>{make_stringf(\"chance to blind: %d%%\", gloom_success_chance(pow, mi.hd))};",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 1781,
-      "api": "make_stringf",
-      "anchor": "return vector<string>{make_stringf(\"empty space bonus: %d/8\", empty_spaces)};",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 1789,
-      "api": "make_stringf",
-      "anchor": "return vector<string>{make_stringf(\"chance to weaken: %d%%\",",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 1795,
-      "api": "make_stringf",
-      "anchor": "return vector<string>{make_stringf(\"chance to blink: %d%%\",",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 1807,
-      "api": "make_stringf",
-      "anchor": "return vector<string>{make_stringf(\"chance to affect: %d%%\", pct_chance)};",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 1874,
-      "api": "make_stringf",
-      "anchor": "return vector<string>{make_stringf(\"chance to teleport: %d%%\", success)};",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 1895,
-      "api": "make_stringf",
-      "anchor": "all_effects.push_back(make_stringf(\"chance to daze and blind: %d%%\", success));",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 1961,
-      "api": "make_stringf",
-      "anchor": "descs.push_back(make_stringf(\"chance to affect: %d%%\", success));",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 2223,
-      "api": "make_stringf",
-      "anchor": "string title = make_stringf(\"%s: <%s>%s</%s>\", verb.c_str(),",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 2227,
-      "api": "make_stringf",
-      "anchor": "title += make_stringf(\" <lightgrey>(%s)</lightgrey>\",",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 2233,
-      "api": "make_stringf",
-      "anchor": "title += make_stringf(\"<lightgrey> (%d/%d uses available)</lightgrey>\",",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 2280,
+      "line": 1319,
       "api": "mpr",
-      "anchor": "mpr(\"Sorry, this spell works on others only.\");",
+      "anchor": "mpr(zh_message(\"spell.prompt.impossible\"), MSGCH_WARN);",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-cast.cc",
-      "line": 2412,
+      "line": 1319,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"spell.prompt.impossible\"), MSGCH_WARN);",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1323,
+      "api": "zh_message",
+      "anchor": "const auto prompt = zh_message(",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1780,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.double_hit\", {chance}).display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1787,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.not_susceptible\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1794,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.chance.confuse\", {zh_integer(\"chance\", conf_pct)}).display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1801,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.not_susceptible\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1824,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.chance.slow\", {zh_integer(\"chance\", 100 - fail_pct)}).display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1830,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.not_susceptible\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1832,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.chance.blind\", {zh_integer(\"chance\", gloom_success_chance(pow, mi.hd))}).display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1838,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.empty_space\", {zh_integer(\"spaces\", empty_spaces)}).display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1846,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.chance.weaken\", {zh_integer(\"chance\", get_mercury_weaken_chance(mi.hd))}).display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1851,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.chance.blink\", {zh_integer(\"chance\", get_warp_space_chance(pow))}).display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1857,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.not_susceptible\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1862,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.chance.affect\", {zh_integer(\"chance\", pct_chance)}).display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1896,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(message_id).display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1904,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.not_susceptible\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1912,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.already_infected\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1914,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.not_susceptible\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1923,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.stationary\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1926,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.will_blink\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1929,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.chance.teleport\", {zh_integer(\"chance\", success)}).display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1944,
+      "api": "zh_message",
+      "anchor": "all_effects.push_back(zh_message(id).display());",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1949,
+      "api": "zh_message",
+      "anchor": "all_effects.push_back(zh_message(\"spell.prompt.chance.daze_blind\", {zh_integer(\"chance\", success)}).display());",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1953,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.not_susceptible\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1974,
+      "api": "zh_monster_type_arg",
+      "anchor": "name = zh_monster_type_arg(\"monster\", dummy.type);",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 1977,
+      "api": "zh_monster_info_arg",
+      "anchor": "name = zh_monster_info_arg(\"monster\", info, DESC_PLAIN);",
+      "module": "spells",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2006,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.infinite_will\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2008,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.not_susceptible\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2016,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.will_change_colour\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2018,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.will_change_shape\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2020,
+      "api": "zh_message",
+      "anchor": "descs.push_back(zh_message(\"spell.prompt.effect.will_probably_split\").display());",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2024,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.not_susceptible\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2027,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.not_susceptible\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2028,
+      "api": "zh_message",
+      "anchor": "descs.push_back(zh_message(\"spell.prompt.effect.polymorph\",",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2033,
+      "api": "zh_message",
+      "anchor": "descs.push_back(zh_message(\"spell.prompt.chance.affect\", {zh_integer(\"chance\", success)}).display());",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2041,
+      "api": "zh_message",
+      "anchor": "return vector<string>{zh_message(\"spell.prompt.effect.not_susceptible\").display()};",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2324,
+      "api": "zh_message",
+      "anchor": "args.target_prefix_message = zh_message(\"target.prompt.prefix.apport\");",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2327,
+      "api": "zh_message",
+      "anchor": "args.target_prefix_message = zh_message(\"target.prompt.prefix.smite\");",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2330,
+      "api": "zh_message",
+      "anchor": "args.target_prefix_message = zh_message(\"target.prompt.prefix.fragment\");",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2368,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"spell.prompt.others_only\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2368,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"spell.prompt.others_only\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-cast.cc",
+      "line": 2500,
       "api": "mpr",
       "anchor": "mpr(_casting_spell_log(\"spell.cast.miscast\", spell));",
       "module": "spells",
@@ -38061,7 +38509,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 2436,
+      "line": 2524,
       "api": "mprf",
       "anchor": "mprf(MSGCH_ERROR, \"Spell '%s' is not a player castable spell.\",",
       "module": "spells",
@@ -38069,7 +38517,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 2440,
+      "line": 2528,
       "api": "mprf",
       "anchor": "mprf(MSGCH_ERROR, \"Invalid spell!\");",
       "module": "spells",
@@ -38077,7 +38525,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 2833,
+      "line": 2921,
       "api": "mpr",
       "anchor": "mpr(breath_message[spell].c_str());",
       "module": "spells",
@@ -38085,7 +38533,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 2858,
+      "line": 2946,
       "api": "mprf",
       "anchor": "mprf(\"Sorry, the spell '%s' is gone!\", spell_title(spell));",
       "module": "spells",
@@ -38093,7 +38541,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3014,
+      "line": 3102,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%d%%\", failure_rate_to_int(fail));",
       "module": "spells",
@@ -38101,7 +38549,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3025,
+      "line": 3113,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"<%s>%s</%s>\",",
       "module": "spells",
@@ -38109,7 +38557,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3034,
+      "line": 3122,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"<lightcyan>*</lightcyan><%s>%d%%</%s><lightcyan>*</lightcyan>\",",
       "module": "spells",
@@ -38117,7 +38565,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3039,
+      "line": 3127,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"<%s>%d%%</%s><darkgrey> (%d%%)</darkgrey>\",",
       "module": "spells",
@@ -38125,15 +38573,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3051,
-      "api": "make_stringf",
-      "anchor": "return make_stringf(\"<%s>%s</%s>; <%s>%s</%s> risk of failure\",",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-cast.cc",
-      "line": 3098,
+      "line": 3182,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%s (%d)\", desc, noise);",
       "module": "spells",
@@ -38141,7 +38581,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3108,
+      "line": 3192,
       "api": "zh_word_arg",
       "anchor": "const ZhArg rating = zh_word_arg(\"rating\", \"spell.noise.\",",
       "module": "spells",
@@ -38149,7 +38589,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3114,
+      "line": 3198,
       "api": "zh_message",
       "anchor": "const ZhMessage value = zh_message(\"spell.noise.display.wizard\", {",
       "module": "spells",
@@ -38157,7 +38597,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3138,
+      "line": 3222,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%d (%d)\", power, cap);",
       "module": "spells",
@@ -38165,7 +38605,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3213,
+      "line": 3297,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%dd%d\", dmg.num, dmg.size);",
       "module": "spells",
@@ -38173,7 +38613,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3240,
+      "line": 3324,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%d-%d/arc\", FLAT_DISCHARGE_ARC_DAMAGE, max);",
       "module": "spells",
@@ -38181,7 +38621,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3245,
+      "line": 3329,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"(3-9)d%d\", piledriver_collision_damage(pow, 1, false).size);",
       "module": "spells",
@@ -38189,7 +38629,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3247,
+      "line": 3331,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"2d(%d-%d)\", gavotte_impact_damage(pow, 1, false).size,",
       "module": "spells",
@@ -38197,7 +38637,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3251,
+      "line": 3335,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"(3-5)d%d\", _spell_damage(spell, pow).size);",
       "module": "spells",
@@ -38205,7 +38645,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3259,
+      "line": 3343,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%dd%d/%dd%d\",",
       "module": "spells",
@@ -38213,7 +38653,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3268,
+      "line": 3352,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%dd(%d+%d*)\", dmg.num, dmg.size, bonus);",
       "module": "spells",
@@ -38221,7 +38661,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3270,
+      "line": 3354,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%dd%d\", dmg.num, dmg.size);",
       "module": "spells",
@@ -38229,7 +38669,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3290,
+      "line": 3374,
       "api": "make_stringf",
       "anchor": "mult = make_stringf(\"%dx\", tremorstone_count(pow));",
       "module": "spells",
@@ -38237,7 +38677,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3294,
+      "line": 3378,
       "api": "make_stringf",
       "anchor": "const string dam_str = make_stringf(\"%s%dd%d\", mult.c_str(), dam.num,",
       "module": "spells",
@@ -38245,7 +38685,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3302,
+      "line": 3386,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%s (+%s)\",",
       "module": "spells",
@@ -38253,7 +38693,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3352,
+      "line": 3436,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%d%%\", percent);",
       "module": "spells",
@@ -38261,7 +38701,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3432,
+      "line": 3516,
       "api": "mpr",
       "anchor": "mpr(\"Malevolent energies surge around you.\");",
       "module": "spells",
@@ -38269,7 +38709,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3462,
+      "line": 3546,
       "api": "zh_message",
       "anchor": "ZhMessage message = zh_message(id);",
       "module": "spells",
@@ -38277,7 +38717,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3481,
+      "line": 3565,
       "api": "mpr",
       "anchor": "mpr(reminder);",
       "module": "spells",
@@ -38285,7 +38725,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3512,
+      "line": 3596,
       "api": "mpr",
       "anchor": "mpr(_casting_spell_log(\"spell.channel.insufficient_magic\", spell));",
       "module": "spells",
@@ -38293,7 +38733,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3536,
+      "line": 3620,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"Attempting to channel buggy spell: %s\", spell_title(spell));",
       "module": "spells",
@@ -38301,7 +38741,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3553,
+      "line": 3637,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"spell.channel.stop.flame_wave\"));",
       "module": "spells",
@@ -38309,7 +38749,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3553,
+      "line": 3637,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"spell.channel.stop.flame_wave\"));",
       "module": "spells",
@@ -38317,7 +38757,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3557,
+      "line": 3641,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"spell.channel.stop.searing_ray\"));",
       "module": "spells",
@@ -38325,7 +38765,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3557,
+      "line": 3641,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"spell.channel.stop.searing_ray\"));",
       "module": "spells",
@@ -38333,7 +38773,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3561,
+      "line": 3645,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"spell.channel.stop.maxwell\"));",
       "module": "spells",
@@ -38341,7 +38781,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3561,
+      "line": 3645,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"spell.channel.stop.maxwell\"));",
       "module": "spells",
@@ -38349,7 +38789,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3565,
+      "line": 3649,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"spell.channel.stop.clockwork_bee\"));",
       "module": "spells",
@@ -38357,7 +38797,7 @@
     },
     {
       "file": "spl-cast.cc",
-      "line": 3565,
+      "line": 3649,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"spell.channel.stop.clockwork_bee\"));",
       "module": "spells",
@@ -43661,15 +44101,39 @@
     },
     {
       "file": "throw.cc",
-      "line": 170,
-      "api": "make_stringf",
-      "anchor": "internal_prompt = make_stringf(\"Non-targeted %s\",",
+      "line": 97,
+      "api": "zh_message",
+      "anchor": "? zh_message(\"target.prompt.action.confused\").canonical",
       "module": "other-review-required",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "throw.cc",
-      "line": 231,
+      "line": 105,
+      "api": "zh_message",
+      "anchor": "message = zh_message(\"target.prompt.action.confused\");",
+      "module": "other-review-required",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "throw.cc",
+      "line": 170,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"target.prompt.action.none\");",
+      "module": "other-review-required",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "throw.cc",
+      "line": 173,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"target.prompt.action.untargeted\",",
+      "module": "other-review-required",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "throw.cc",
+      "line": 235,
       "api": "make_stringf",
       "anchor": "make_stringf(\"chance to %s on hit: %d%%\",",
       "module": "other-review-required",
@@ -43677,7 +44141,7 @@
     },
     {
       "file": "throw.cc",
-      "line": 290,
+      "line": 294,
       "api": "mpr",
       "anchor": "mpr(\"You have nothing you can fire or use right now.\");",
       "module": "other-review-required",
@@ -43685,7 +44149,7 @@
     },
     {
       "file": "throw.cc",
-      "line": 299,
+      "line": 303,
       "api": "make_stringf",
       "anchor": "const string title = make_stringf(",
       "module": "other-review-required",
@@ -43693,7 +44157,7 @@
     },
     {
       "file": "throw.cc",
-      "line": 332,
+      "line": 336,
       "api": "mprf",
       "anchor": "mprf(\"You cannot throw/fire anything while %s.\", held_status());",
       "module": "other-review-required",
@@ -43701,7 +44165,7 @@
     },
     {
       "file": "throw.cc",
-      "line": 342,
+      "line": 346,
       "api": "mprf",
       "anchor": "mprf(\"You cannot shoot with your %s while %s.\",",
       "module": "other-review-required",
@@ -43709,7 +44173,7 @@
     },
     {
       "file": "throw.cc",
-      "line": 746,
+      "line": 750,
       "api": "mprf",
       "anchor": "mprf(\"You %s %s%s.\",",
       "module": "other-review-required",
@@ -43717,7 +44181,7 @@
     },
     {
       "file": "throw.cc",
-      "line": 836,
+      "line": 840,
       "api": "mpr",
       "anchor": "mpr(make_stringf(\"%s%s %s %s.\",",
       "module": "other-review-required",
@@ -43725,7 +44189,7 @@
     },
     {
       "file": "throw.cc",
-      "line": 836,
+      "line": 840,
       "api": "make_stringf",
       "anchor": "mpr(make_stringf(\"%s%s %s %s.\",",
       "module": "other-review-required",

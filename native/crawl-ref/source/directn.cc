@@ -5,6 +5,7 @@
 
 #include "AppHdr.h"
 #include "zh-message.h"
+#include "zh-display-name.h"
 
 #include "directn.h"
 #include "zh-localization.h"
@@ -239,63 +240,76 @@ static monster* _get_current_target()
 void direction_chooser::print_top_prompt() const
 {
     if (!top_prompt.empty())
-        mprf(MSGCH_PROMPT, "%s", top_prompt.c_str());
+    {
+        ZhMessage current = top_prompt_message;
+        if (behaviour)
+            behaviour->get_top_prompt_message(current);
+        if (!current.id.empty() && top_prompt == current.canonical)
+            mpr(current, MSGCH_PROMPT);
+        else
+            mprf(MSGCH_PROMPT, "%s", top_prompt.c_str());
+    }
     else if (moves.fire_context)
     {
         // TODO: consolidate top prompt construction more
-        mprf(MSGCH_PROMPT, "%s",
-            moves.fire_context->get()->quiver_description().tostring().c_str());
+        mpr(moves.fire_context->get()->quiver_description_message(), MSGCH_PROMPT);
     }
+}
+
+// A single parent owns the complete key-help sentence. Optional clauses are
+// typed children, so unsupported children fall back as one complete parent.
+static ZhMessage _target_key_prompt(bool looking, bool visible, bool item,
+                                    const ZhArg &action, bool targeted,
+                                    int restricts)
+{
+    ZhArg describe = zh_text("describe", "", "");
+    ZhArg travel = zh_text("travel", "", "");
+    ZhArg get_item = zh_text("item", "", "");
+    ZhArg direction = zh_text("direction", "", "");
+    if (looking)
+    {
+        if (visible)
+            describe = zh_message_arg("describe", "target.prompt.describe");
+        travel = zh_message_arg("travel", "target.prompt.travel");
+        if (item)
+            get_item = zh_message_arg("item", "target.prompt.item");
+    }
+    else
+    {
+        const char *id = !targeted ? "target.prompt.direction.activate"
+            : restricts == DIR_NONE ? "target.prompt.direction.straight"
+            : restricts == DIR_TARGET || restricts == DIR_ENFORCE_RANGE
+                ? "target.prompt.direction.move" : nullptr;
+        if (id)
+        {
+            direction = zh_message_arg("direction", id);
+            const string separator = action.canonical.empty() ? ", " : "";
+            direction.canonical = separator + direction.canonical;
+            direction.localized = separator + direction.localized;
+        }
+    }
+    return zh_message("target.prompt.keys", {describe, travel, get_item,
+        looking ? zh_text("action", "", "") : action, direction});
 }
 
 void direction_chooser::print_key_hints() const
 {
-    // TODO: build this as a vector and insert ,s and \ns in a smarter way
-    string prompt = "Press: ? - help";
-
-    if (just_looking)
+    ZhArg action = zh_text("action", "", "");
+    if (!just_looking && moves.fire_context)
     {
-        if (you.see_cell(target()))
-            prompt += ", v - describe";
-        prompt += ", . - travel";
-        if (in_bounds(target()) && env.map_knowledge(target()).item())
-            prompt += ", g - get item";
-    }
-    else
-    {
-        if (moves.fire_context)
+        const auto message = moves.fire_context->fire_key_hints_message();
+        action = ZhArg("action", ZhArgType::Text, message.canonical,
+                       message.localized,
+                       message.canonical.empty() || message.canonical != message.localized);
+        if (!action.canonical.empty())
         {
-            const string hint = moves.fire_context->fire_key_hints();
-            if (!hint.empty())
-                prompt += hint + "\n";
-        }
-        string direction_hint = "";
-        if (!behaviour->targeted())
-            direction_hint = "Dir - look around, f - activate";
-        else
-        {
-            switch (restricts)
-            {
-            case DIR_NONE:
-                direction_hint = "Shift-Dir - straight line";
-                break;
-            case DIR_TARGET:
-            case DIR_ENFORCE_RANGE:
-                direction_hint = "Dir - move target";
-                break;
-            }
-        }
-
-        if (direction_hint.size())
-        {
-            if (prompt[prompt.size() - 1] != '\n')
-                prompt += ", ";
-            prompt += direction_hint;
+            action.canonical += "\n";
+            action.localized += "\n";
         }
     }
-
-    // Display the prompt.
-    mprf(MSGCH_PROMPT, "%s", prompt.c_str());
+    mpr(_target_key_prompt(just_looking, you.see_cell(target()),
+        in_bounds(target()) && env.map_knowledge(target()).item(), action,
+        behaviour->targeted(), restricts), MSGCH_PROMPT);
 }
 
 bool direction_chooser::targets_objects() const
@@ -422,8 +436,11 @@ direction_chooser::direction_chooser(dist& moves_,
     try_multizap(args.try_multizap),
     allow_shift_dir(args.allow_shift_dir),
     self(args.self),
+    target_prefix_message(args.target_prefix_message),
     target_prefix(args.target_prefix),
-    top_prompt(args.top_prompt),
+    top_prompt_message(args.top_prompt_message),
+    top_prompt(args.top_prompt_message.id.empty() ? args.top_prompt
+                                               : args.top_prompt_message.canonical),
     behaviour(args.behaviour),
     show_floor_desc(args.show_floor_desc),
     show_boring_feats(args.show_boring_feats),
@@ -932,6 +949,7 @@ static dist _look_around_target(const coord_def &whence)
     args.just_looking = true;
     args.needs_path = false;
     args.target_prefix = "Here";
+    args.target_prefix_message = zh_message("target.prompt.prefix.here");
     args.default_place = whence - you.pos();
     direction(lmove, args);
     return lmove;
@@ -1802,14 +1820,31 @@ string direction_chooser::target_description() const
     return cell_monster_description(target(), true, behaviour);
 }
 
+// A prefix is an action-specific semantic message, independent of the
+// pending cell-detail producers. Never infer a spell from a rendered sentence.
+static ZhArg _target_prefix_arg(const ZhMessage &message, const char *legacy,
+                                bool targeted)
+{
+    if (!message.id.empty())
+        return ZhArg("prefix", ZhArgType::Text, message.canonical,
+                     message.localized);
+    if (legacy)
+        return ZhArg("prefix", ZhArgType::Text, legacy, legacy, false);
+    return zh_message_arg("prefix", targeted ? "target.prompt.prefix.aim"
+                                             : "target.prompt.prefix.look");
+}
+
 void direction_chooser::print_target_monster_description(bool &did_cloud) const
 {
     string text = target_description();
     if (text > "")
     {
-        mprf(MSGCH_PROMPT, "%s: <lightgrey>%s</lightgrey>",
-            target_prefix ? target_prefix : !behaviour->targeted() ? "Look" : "Aim",
-            text.c_str());
+        // Monster/equipment/wound cell details remain a separately tracked
+        // legacy producer; the action prefix and enclosing template are typed.
+        const auto prefix = _target_prefix_arg(target_prefix_message,
+                                               target_prefix, behaviour->targeted());
+        mpr(zh_message("target.prompt.describe.monster",
+            {prefix, zh_text("description", text, zh_translate(text))}), MSGCH_PROMPT);
         // If there's a cloud here, it's been described.
         did_cloud = true;
     }
@@ -1901,9 +1936,18 @@ void direction_chooser::print_target_object_description() const
         return;
 
     // FIXME: remove the duplication with print_items_description().
-    mprf(MSGCH_PROMPT, "%s: %s",
-         target_prefix ? target_prefix : "Aim",
-         menu_colour_item_name(*item, DESC_A).c_str());
+    auto name = zh_item_arg("item", *item, DESC_A);
+    const int colour = menu_colour(item->name(DESC_A), item_prefix(*item, false),
+                                   "pickup", false);
+    if (colour != -1)
+    {
+        const string tag = colour_to_str(colour);
+        name.canonical = "<" + tag + ">" + name.canonical + "</" + tag + ">";
+        name.localized = "<" + tag + ">" + name.localized + "</" + tag + ">";
+    }
+    mpr(zh_message("target.prompt.describe.item",
+        {_target_prefix_arg(target_prefix_message, target_prefix, true), name}),
+        MSGCH_PROMPT);
 }
 
 string cell_items_description(const coord_def& pos)

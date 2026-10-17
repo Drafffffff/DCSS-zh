@@ -4,6 +4,7 @@
 **/
 
 #pragma once
+#include "zh-message.h"
 
 #include <vector>
 
@@ -76,6 +77,7 @@ namespace quiver
         virtual vector<tile_def> get_tiles() const;
 
         virtual formatted_string quiver_description(bool short_desc=false) const;
+        ZhMessage quiver_description_message(bool short_desc=false) const;
         virtual string quiver_verb() const { return ""; } // currently only for items
 
         // basically noops for this class, but keep `target` clean
@@ -148,6 +150,7 @@ namespace quiver
         void target();
         shared_ptr<action> do_target();
         virtual string fire_key_hints() const;
+        ZhMessage fire_key_hints_message() const;
         virtual bool targeter_handles_key(command_type c) const;
     protected:
         action_cycler(shared_ptr<action> init);

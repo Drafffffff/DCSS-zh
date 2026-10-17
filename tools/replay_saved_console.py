@@ -207,6 +207,23 @@ for result in results:
             assert sentence in terminal,(result['scene'],'intended complete message not visible',ident,sentence)
             visible.append(ident)
         result['visible_message_ids']=visible
+    if result['scene'].startswith(('prompt-', 'terrain-')):
+        # A traced speculative probe is not proof of a displayed message.
+        # Compare bound complete templates with the real terminal, ignoring
+        # terminal cursor-based padding and style escapes only.
+        terminal=(a.out/result['scene']/'transcript.txt').read_text()
+        terminal=re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]','',terminal)
+        terminal=re.sub(r'\x1b[()][A-Za-z0-9]','',terminal)
+        normalize=lambda text:re.sub(r'\s+','',re.sub(r'<[^>]+>','',text))
+        visible=normalize(terminal)
+        checked=[]
+        for identity in sorted(RESTRICTION_EXPECTED[result['scene']]):
+            rendered=[line.split('\t',2)[2] for line in result['values']
+                      if line.startswith(identity+'\t')]
+            assert any(normalize(re.sub(r'\\([nrt])',' ',text)) in visible
+                       for text in rendered),(result['scene'],'bound message not visible',identity)
+            checked.append(identity)
+        result['visible_message_ids']=checked
     if result['scene'].startswith('hints-'):
         assert 'detail.item.hints\tenter' in result['boundaries'], (result['scene'], 'hint producer not reached')
     if result['scene'].startswith('talisman-') and result['scene']!='talisman-protean':

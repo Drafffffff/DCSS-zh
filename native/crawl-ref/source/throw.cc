@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "throw.h"
 
@@ -81,16 +82,28 @@ public:
     virtual bool should_redraw() const override { return need_redraw; }
     virtual void clear_redraw()        override { need_redraw = false; }
     virtual void update_top_prompt(string* p_top_prompt) override;
+    bool get_top_prompt_message(ZhMessage &message) const override
+    {
+        message = internal_message;
+        return true;
+    }
     virtual vector<string> get_monster_desc(const monster_info& mi) override;
 
     bool targeted() override;
 
     string get_error() override
     {
-        if (you.confused())
-            return "You are confused and cannot control your aim.";
-        else
-            return targeting_behaviour::get_error();
+        return you.confused()
+            ? zh_message("target.prompt.action.confused").canonical
+            : targeting_behaviour::get_error();
+    }
+
+    bool get_message_error(ZhMessage &message) override
+    {
+        if (!you.confused())
+            return targeting_behaviour::get_message_error(message);
+        message = zh_message("target.prompt.action.confused");
+        return true;
     }
 
 public:
@@ -102,7 +115,8 @@ private:
 
     quiver::action &action;
     string prompt;
-    string internal_prompt;
+    string internal_prompt; // Canonical behavior/control compatibility
+    ZhMessage internal_message;
     bool need_redraw;
 };
 
@@ -149,34 +163,24 @@ bool fire_target_behaviour::targeted()
     return action.is_targeted();
 }
 
+static ZhMessage _fire_action_prompt(const ZhMessage &description, bool empty,
+                                     bool targeted)
+{
+    if (empty)
+        return zh_message("target.prompt.action.none");
+    if (targeted)
+        return description;
+    return zh_message("target.prompt.action.untargeted",
+        {zh_text("action", lowercase_first(description.canonical),
+                 description.localized)});
+}
+
 void fire_target_behaviour::set_prompt()
 {
-    string old_prompt = internal_prompt; // Keep for comparison at the end.
-    internal_prompt.clear();
-
-    ostringstream msg;
-
-
-    if (action == quiver::action())
-        internal_prompt = "No action selected";
-    else
-    {
-        // TODO: might be nice to use colors here, but there's a wonky interaction
-        // with the direction targeter's colors that would need to be fixed
-        internal_prompt = action.quiver_description().tostring();
-
-        if (!targeted())
-        {
-            internal_prompt = make_stringf("Non-targeted %s",
-                lowercase_first(internal_prompt).c_str());
-        }
-    }
-
-    // Write it out.
-    internal_prompt += msg.str();
-
-    // Never unset need_redraw here, because we might have cleared the
-    // screen or something else which demands a redraw.
+    const string old_prompt = internal_prompt;
+    internal_message = _fire_action_prompt(action.quiver_description_message(),
+        action == quiver::action(), targeted());
+    internal_prompt = internal_message.canonical;
     if (internal_prompt != old_prompt)
         need_redraw = true;
 }

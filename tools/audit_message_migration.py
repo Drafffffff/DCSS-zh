@@ -12,8 +12,8 @@ for path in sorted(SRC.glob('*.cc')):
  literal_ids=set(re.findall(r'"([a-z][a-z0-9_.]+)"',text)) & set(messages)
  for identity in literal_ids:
   bindings.setdefault(identity,[]).append(path.name)
- direct_ids=(re.findall(r'\bzh_message\(\s*"([a-z0-9_.]+)"',text)
-             + re.findall(r'\bzh_message_arg\(\s*"[^"]*"\s*,\s*"([a-z0-9_.]+)"',text)
+ direct_ids=(re.findall(r'\bzh_message\(\s*"([a-z0-9_.]+)"\s*(?=[,)])',text)
+             + re.findall(r'\bzh_message_arg\(\s*"[^"]*"\s*,\s*"([a-z0-9_.]+)"\s*(?=[,)])',text)
              + re.findall(r'\b_potion_reason\(\s*"([a-z0-9_.]+)"',text))
  for identity in direct_ids:
   if identity not in messages:missing.append((path.name,identity))

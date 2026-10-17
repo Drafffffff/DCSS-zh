@@ -47,7 +47,9 @@ try:
    # Software rendering may take tens of seconds to finish loading at 4K.
    # Wait for a real producer trace, then let its frame settle; a live splash
    # screen is not evidence that the requested scenario was reached.
-   deadline=time.monotonic()+90
+   started=time.monotonic()
+   deadline=started+90
+   trap_followup=0
    reached=False
    while p.poll() is None and time.monotonic()<deadline:
     wanted = ('detail.item.hints' if name.startswith('hints-') else
@@ -62,6 +64,16 @@ try:
     ready=(all(identity+'\t' in ids for identity in RESTRICTION_EXPECTED[name])
            if name in RESTRICTION_EXPECTED else
            bool(wanted and wanted in trace or not wanted and ids))
+    # Hints trap discovery opens a forced more screen and drops queued input
+    # in local tiles. Advance only this disposable X display, then perform the
+    # actual leave/re-enter movement. A traced expected confirmation is still
+    # required below; this is input staging, not a synthetic UI message.
+    if (name in ('terrain-alarm','terrain-zot') and trap_followup < 3
+            and ids and time.monotonic()-started>=12 + 6*trap_followup and not ready):
+     subprocess.run(['xdotool','key','space'],env=env,check=True)
+     time.sleep(.5)
+     subprocess.run(['xdotool','key','--delay','150','h','l','h'],env=env,check=True)
+     trap_followup+=1
     if ready:
      reached=True
      # SDL may centre the pointer after window creation. Reapply keyboard aim

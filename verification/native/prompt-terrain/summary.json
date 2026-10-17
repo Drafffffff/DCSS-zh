@@ -1,0 +1,269 @@
+{
+  "macos-console": {
+    "source_fixture_unchanged": true,
+    "scenes": [
+      {
+        "scene": "prompt-spell-menu",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "spell.prompt.menu.select",
+          "spell.prompt.menu.title"
+        ]
+      },
+      {
+        "scene": "prompt-spell-extra",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "spell.prompt.menu.header.extra"
+        ]
+      },
+      {
+        "scene": "prompt-spell-aim",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "spell.prompt.target.aim",
+          "spell.prompt.target.risk"
+        ]
+      },
+      {
+        "scene": "prompt-quiver-menu",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "quiver.prompt.menu.title.empty"
+        ]
+      },
+      {
+        "scene": "prompt-throw-aim",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "quiver.prompt.throw"
+        ]
+      },
+      {
+        "scene": "terrain-binding",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "movement.confirm.binding_sigil"
+        ]
+      },
+      {
+        "scene": "terrain-alarm",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "movement.confirm.trap.onto"
+        ]
+      },
+      {
+        "scene": "terrain-zot",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "movement.confirm.trap.zot",
+          "prompt.confirm.typed_answer"
+        ]
+      },
+      {
+        "scene": "skills-help",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": []
+      }
+    ]
+  },
+  "bazzite-console": {
+    "source_fixture_unchanged": true,
+    "scenes": [
+      {
+        "scene": "prompt-spell-menu",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "spell.prompt.menu.select",
+          "spell.prompt.menu.title"
+        ]
+      },
+      {
+        "scene": "prompt-spell-extra",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "spell.prompt.menu.header.extra"
+        ]
+      },
+      {
+        "scene": "prompt-spell-aim",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "spell.prompt.target.aim",
+          "spell.prompt.target.risk"
+        ]
+      },
+      {
+        "scene": "prompt-quiver-menu",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "quiver.prompt.menu.title.empty"
+        ]
+      },
+      {
+        "scene": "prompt-throw-aim",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "quiver.prompt.throw"
+        ]
+      },
+      {
+        "scene": "terrain-binding",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "movement.confirm.binding_sigil"
+        ]
+      },
+      {
+        "scene": "terrain-alarm",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "movement.confirm.trap.onto"
+        ]
+      },
+      {
+        "scene": "terrain-zot",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": [],
+        "visible_message_ids": [
+          "movement.confirm.trap.zot",
+          "prompt.confirm.typed_answer"
+        ]
+      },
+      {
+        "scene": "skills-help",
+        "running_at_capture": true,
+        "runtime_error": false,
+        "missing": [],
+        "names": []
+      }
+    ]
+  },
+  "bazzite-4k": {
+    "original_saves_unchanged": true,
+    "scenes": [
+      {
+        "scene": "skills-help",
+        "scene_reached": true,
+        "running_at_capture": true,
+        "lua_error": false,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "prompt-spell-menu",
+        "scene_reached": true,
+        "running_at_capture": true,
+        "lua_error": false,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "prompt-spell-extra",
+        "scene_reached": true,
+        "running_at_capture": true,
+        "lua_error": false,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "prompt-spell-aim",
+        "scene_reached": true,
+        "running_at_capture": true,
+        "lua_error": false,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "prompt-quiver-menu",
+        "scene_reached": true,
+        "running_at_capture": true,
+        "lua_error": false,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "prompt-throw-aim",
+        "scene_reached": true,
+        "running_at_capture": true,
+        "lua_error": false,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "terrain-binding",
+        "scene_reached": true,
+        "running_at_capture": true,
+        "lua_error": false,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "terrain-alarm",
+        "scene_reached": true,
+        "running_at_capture": true,
+        "lua_error": false,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "terrain-zot",
+        "scene_reached": true,
+        "running_at_capture": true,
+        "lua_error": false,
+        "missing": [],
+        "names": []
+      }
+    ]
+  }
+}

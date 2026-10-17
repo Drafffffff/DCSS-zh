@@ -1062,6 +1062,9 @@ bool check_moveto(const coord_def& p, const string &move_verb = "step",
                   bool physically = true);
 bool check_moveto_terrain(const coord_def& p, const string &move_verb,
                           const string &msg = "", bool *prompted = nullptr);
+// Typed complete warning; canonical contents remain available for English/Lua.
+bool check_moveto_terrain_display(const coord_def& p, const string &move_verb,
+                                  const ZhArg &warning, bool *prompted = nullptr);
 bool check_moveto_cloud(const coord_def& p, const string &move_verb = "step",
                         bool *prompted = nullptr);
 bool check_moveto_exclusions(const vector<coord_def> &areas,

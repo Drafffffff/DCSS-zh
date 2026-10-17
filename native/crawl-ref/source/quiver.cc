@@ -6,6 +6,9 @@
 #include "AppHdr.h"
 #include "zh-message.h"
 #include "zh-localization.h"
+#include "zh-display-name.h"
+#include "colour.h"
+#include "decks.h"
 
 #include "quiver.h"
 
@@ -140,11 +143,79 @@ namespace quiver
         return af_hp_check || af_mp_check;
     }
 
+    static ZhArg _quiver_caption(const string &verb, bool confused,
+                                 const string &key)
+    {
+        // This table is keyed by semantic action/form verb, never by a
+        // formatted English sentence. Unknown future forms are explicit
+        // whole-heading fallbacks rather than word substitutions.
+        string suffix;
+        if (verb == "fire") suffix = "fire";
+        if (verb == "attack") suffix = "attack";
+        if (verb == "punch") suffix = "punch";
+        if (verb == "reach") suffix = "reach";
+        if (verb == "cleave") suffix = "cleave";
+        if (verb == "hit") suffix = "hit";
+        if (verb == "buffet") suffix = "form.buffet";
+        if (verb == "lash") suffix = "form.lash";
+        if (verb == "swat") suffix = "form.swat";
+        if (verb == "headbutt") suffix = "form.headbutt";
+        if (verb == "touch") suffix = "form.touch";
+        if (verb == "bite") suffix = "form.bite";
+        if (verb == "snap") suffix = "form.snap";
+        if (verb == "release spores at") suffix = "form.release_spores_at";
+        if (verb == "claw") suffix = "form.claw";
+        if (verb == "slap") suffix = "form.slap";
+        if (verb == "smack") suffix = "form.smack";
+        if (suffix.empty())
+        {
+            const string canonical = uppercase_first(
+                (confused ? "confused " : "") + verb) + ": " + key + ") ";
+            return ZhArg("caption", ZhArgType::Text, canonical, canonical, false);
+        }
+        return zh_message_arg("caption", "quiver.prompt." + suffix
+            + (confused ? ".confused" : ""), {zh_key("key", key)});
+    }
+
+    static ZhArg _quiver_item_name(const item_def &item)
+    {
+        auto name = zh_item_arg("name", item, DESC_PLAIN);
+        name.canonical = item.name(DESC_PLAIN, true);
+        return name;
+    }
+
+    static formatted_string _quiver_named_description(const ZhArg &caption,
+                                                      ZhArg name, int colour)
+    {
+        name.key = "name";
+        formatted_string result;
+        result.textcolour(Options.status_caption_colour);
+        result += formatted_string::parse_string_raw(zh_message("quiver.prompt.named",
+            {caption, zh_colour("colour", colour_to_str(colour)), name}).display());
+        return result;
+    }
+
     formatted_string action::quiver_description(bool short_desc) const
     {
         return formatted_string::parse_string(
-                        short_desc ? "<darkgrey>Empty</darkgrey>"
-                                   : "<darkgrey>Nothing quivered</darkgrey>");
+                        zh_message(short_desc ? "quiver.prompt.empty.short"
+                                              : "quiver.prompt.empty.long").display());
+    }
+
+    ZhMessage action::quiver_description_message(bool short_desc) const
+    {
+        // The virtual descriptions are pure display producers. Generate both
+        // representations through their semantic templates, never translate
+        // the formatted English result. This bridge retains legacy callers'
+        // formatted_string API while the target chooser takes a typed message.
+        const string localized = quiver_description(short_desc).tostring();
+        string canonical;
+        {
+            ZhTranslationPause canonical_names;
+            canonical = quiver_description(short_desc).tostring();
+        }
+        return zh_message("quiver.prompt.description",
+            {zh_text("description", canonical, localized)});
     }
 
     vector<tile_def> action::get_tiles() const
@@ -248,18 +319,30 @@ namespace quiver
         return a;
     }
 
+    static ZhMessage _quiver_key_hints(bool no_other_items)
+    {
+        auto message = zh_message(no_other_items ? "quiver.prompt.keys.select"
+                                                : "quiver.prompt.keys.cycle");
+        const initializer_list<command_type> commands =
+            {CMD_TARGET_SELECT_ACTION, CMD_TARGET_CYCLE_QUIVER_BACKWARD,
+             CMD_TARGET_CYCLE_QUIVER_FORWARD};
+        insert_commands(message.canonical, commands);
+        insert_commands(message.localized, commands);
+        return message;
+    }
+
+    ZhMessage action_cycler::fire_key_hints_message() const
+    {
+        // The ammo-only throw cycler explicitly disables action selection and
+        // all cycling; preserve that subclass contract without English hints.
+        if (!targeter_handles_key(CMD_TARGET_SELECT_ACTION))
+            return {"", "", ""};
+        return _quiver_key_hints(*get() == *next());
+    }
+
     string action_cycler::fire_key_hints() const
     {
-        const bool no_other_items = *get() == *next();
-        string key_hint = no_other_items
-                            ? ", <w>%</w> - select action"
-                            : ", <w>%</w> - select action, <w>%</w> or <w>%</w> - cycle";
-        key_hint = zh_translate(key_hint);
-        insert_commands(key_hint,
-                        { CMD_TARGET_SELECT_ACTION,
-                          CMD_TARGET_CYCLE_QUIVER_BACKWARD,
-                          CMD_TARGET_CYCLE_QUIVER_FORWARD });
-        return key_hint;
+        return fire_key_hints_message().canonical;
     }
 
     bool action_cycler::targeter_handles_key(command_type c) const
@@ -395,13 +478,9 @@ namespace quiver
             // TODO: or just lightgrey?
             qdesc.textcolour(Options.status_caption_colour);
 
-            if (!short_desc)
-            {
-                string verb = you.confused() ? "confused " : "";
-                verb += quiver_verb();
-                qdesc.cprintf("%s%c) ", zh_translate(uppercase_first(verb) + ": ").c_str(),
-                                weapon.slot);
-            }
+            ZhArg caption = short_desc ? zh_text("caption", "", "")
+                : _quiver_caption(quiver_verb(), you.confused(),
+                                  string(1, weapon.slot));
 
             const string prefix = item_prefix(weapon);
             const int prefcol =
@@ -413,7 +492,8 @@ namespace quiver
             else
                 qdesc.textcolour(LIGHTGREY);
 
-            qdesc += weapon.name(DESC_PLAIN, true);
+            qdesc += _quiver_named_description(caption,
+                _quiver_item_name(weapon), (!is_enabled() ? DARKGREY : prefcol != -1 ? prefcol : LIGHTGREY));
             return qdesc;
         }
 
@@ -498,14 +578,9 @@ namespace quiver
             // TODO: or just lightgrey?
             qdesc.textcolour(Options.status_caption_colour);
 
-            if (!short_desc)
-            {
-                string verb = you.confused() ? "confused " : "";
-
-                verb += quiver_verb();
-                qdesc.cprintf("%s%c) ", zh_translate(uppercase_first(verb) + ": ").c_str(),
-                                weapon ? weapon->slot : '-');
-            }
+            ZhArg caption = short_desc ? zh_text("caption", "", "")
+                : _quiver_caption(quiver_verb(), you.confused(),
+                                  string(1, weapon ? weapon->slot : '-'));
 
             const string prefix = weapon ? item_prefix(*weapon) : "";
 
@@ -518,8 +593,11 @@ namespace quiver
             else
                 qdesc.textcolour(LIGHTGREY);
 
-            qdesc += weapon ? weapon->name(DESC_PLAIN, true)
-                            : you.unarmed_attack_name();
+            qdesc += _quiver_named_description(caption,
+                weapon ? _quiver_item_name(*weapon)
+                       : zh_glossary_name("name", "item.unarmed",
+                                          you.unarmed_attack_name()),
+                (!is_enabled() ? DARKGREY : prefcol != -1 ? prefcol : LIGHTGREY));
 
             return qdesc;
         }
@@ -594,7 +672,7 @@ namespace quiver
             args.restricts = DIR_TARGET;
             args.mode = TARG_HOSTILE;
             args.range = reach_range;
-            args.top_prompt = quiver_description().tostring();
+            args.top_prompt_message = quiver_description_message();
             args.self = confirm_prompt_type::cancel;
 
             unique_ptr<targeter> hitfunc;
@@ -824,10 +902,14 @@ namespace quiver
             const item_def& quiver = you.inv[item_slot];
             ASSERT(quiver.link != NON_ITEM);
             qdesc.textcolour(Options.status_caption_colour);
-            qdesc.cprintf("%s: ", quiver_verb().c_str());
-
-            qdesc.textcolour(quiver_color());
-            qdesc += quiver.name(DESC_PLAIN, true);
+            const string verb = quiver_verb();
+            const char *id = verb == "Read" ? "quiver.prompt.read"
+                : verb == "Drink" ? "quiver.prompt.drink"
+                : verb == "Zap" ? "quiver.prompt.zap"
+                : verb == "Evoke" ? "quiver.prompt.evoke"
+                : "quiver.prompt.activate";
+            qdesc += _quiver_named_description(zh_message_arg("caption", id),
+                _quiver_item_name(quiver), quiver_color());
 
             return qdesc;
         }
@@ -935,15 +1017,11 @@ namespace quiver
             ASSERT(quiver.link != NON_ITEM);
             // TODO: or just lightgrey?
             qdesc.textcolour(Options.status_caption_colour);
-            // XX abstract to quiver verb?
+            ZhArg caption = zh_text("caption", "", "");
             if (!short_desc)
-            {
-                const string verb =
-                    make_stringf("%s%s",
-                                 you.confused() ? "confused " : "",
-                                 is_throwable(&you, quiver) ? "throw" : "toss (no damage)");
-                qdesc.cprintf("%s: ", uppercase_first(verb).c_str());
-            }
+                caption = zh_message_arg("caption", string("quiver.prompt.")
+                    + (is_throwable(&you, quiver) ? "throw" : "toss")
+                    + (you.confused() ? ".confused" : ""));
 
             // TODO: I don't actually know what this prefix stuff is
             const string prefix = item_prefix(quiver);
@@ -956,7 +1034,8 @@ namespace quiver
                 qdesc.textcolour(prefcol);
             else
                 qdesc.textcolour(LIGHTGREY);
-            qdesc += quiver.name(DESC_PLAIN, true);
+            qdesc += _quiver_named_description(caption,
+                _quiver_item_name(quiver), (!is_enabled() ? DARKGREY : prefcol != -1 ? prefcol : LIGHTGREY));
 
             return qdesc;
         }
@@ -1173,28 +1252,28 @@ namespace quiver
             formatted_string qdesc;
 
             qdesc.textcolour(Options.status_caption_colour);
-            if (channelled_spell_active(spell))
-                qdesc.cprintf("Continue: ");
-            else
-                qdesc.cprintf("Cast: ");
-
-            qdesc.textcolour(quiver_color());
-
-            // TODO: is showing the spell letter useful?
-            qdesc.cprintf("%s", spell == SPELL_MAXWELLS_COUPLING ?
-                                "Capacitive Coupling" : spell_title(spell));
-
+            ZhArg caption = zh_message_arg("caption", channelled_spell_active(spell)
+                ? "quiver.prompt.continue" : "quiver.prompt.cast");
+            const string title = spell == SPELL_MAXWELLS_COUPLING
+                ? "Capacitive Coupling" : spell_title(spell);
+            ZhArg name = zh_word_arg("name", "spell.name.", title, ZhArgType::Name);
             if (spell == SPELL_GRAVE_CLAW)
             {
-                qdesc.cprintf(" (%d/%d)", you.props[GRAVE_CLAW_CHARGES_KEY].get_int()
-                                        , GRAVE_CLAW_MAX_CHARGES);
+                const auto charges = zh_message("quiver.prompt.spell.charges",
+                    {zh_integer("charges", you.props[GRAVE_CLAW_CHARGES_KEY].get_int()),
+                     zh_integer("maximum", GRAVE_CLAW_MAX_CHARGES)});
+                name.canonical += charges.canonical;
+                name.localized += charges.localized;
             }
-
             if (fail_severity(spell) > 0)
             {
-                qdesc.cprintf(" (%s)",
-                        failure_rate_to_string(raw_spell_fail(spell)).c_str());
+                const string rate = failure_rate_to_string(raw_spell_fail(spell));
+                const auto failure = zh_message("quiver.prompt.spell.failure",
+                    {zh_text("rate", rate, rate)});
+                name.canonical += failure.canonical;
+                name.localized += failure.localized;
             }
+            qdesc += _quiver_named_description(caption, name, quiver_color());
 
             return qdesc;
         }
@@ -1468,24 +1547,31 @@ namespace quiver
             formatted_string qdesc;
 
             qdesc.textcolour(Options.status_caption_colour);
-            qdesc.cprintf("Abil: ");
-
-            qdesc.textcolour(quiver_color());
-            string abil_name = ability_name(ability);
+            ZhArg name = zh_glossary_name("name", "ability", ability_name(ability));
 #ifdef WIZARD
             int last_feat = you.props[WIZ_LAST_FEATURE_TYPE_PROP].get_int();
             if (ability == ABIL_WIZ_BUILD_TERRAIN
                 && last_feat != DNGN_UNSEEN)
             {
-                qdesc.cprintf("Build '%s'", dungeon_feature_name(
-                    static_cast<dungeon_feature_type>(last_feat)));
+                name = zh_message_arg("name", "quiver.prompt.ability.build",
+                    {zh_glossary_name("feature", "terrain",
+                        dungeon_feature_name(static_cast<dungeon_feature_type>(last_feat)))});
+                name.type = ZhArgType::Name;
             }
-            else
 #endif
-                qdesc.cprintf("%s", ability_name(ability).c_str());
-
             if (is_card_ability(ability))
-                qdesc.cprintf(" %s", nemelex_card_text(ability).c_str());
+            {
+                ZhArg cards = ability == ABIL_NEMELEX_DRAW_STACK
+                    ? zh_message_arg("cards", "quiver.prompt.cards.next",
+                        {zh_glossary_name("card", "card", stack_top())})
+                    : zh_message_arg("cards", "quiver.prompt.cards.deck",
+                        {zh_integer("count", deck_cards(ability_deck(ability)))});
+                name.canonical += cards.canonical;
+                name.localized += cards.localized;
+                name.supported = name.supported && cards.supported;
+            }
+            qdesc += _quiver_named_description(
+                zh_message_arg("caption", "quiver.prompt.ability"), name, quiver_color());
 
             return qdesc;
         }
@@ -2459,17 +2545,16 @@ namespace quiver
             string s = more_message + "\n";
 
             if (any_items)
-                s += "[<w>*/%</w>] inventory  ";
+                s += zh_message("quiver.prompt.menu.inventory").display();
             if (any_spells)
-                s += "[<w>&</w>] all spells  ";
+                s += zh_message("quiver.prompt.menu.spells").display();
             if (any_abilities)
-                s += "[<w>^</w>] all abilities  ";
+                s += zh_message("quiver.prompt.menu.abilities").display();
 
 
-            string mode = make_stringf("%s focus mode: %s",
-                menu_keyhelp_cmd(CMD_MENU_CYCLE_MODE).c_str(),
-                focus_mode == Focus::NONE ? "<w>off</w>|on"
-                                          : "off|<w>on</w>");;
+            string mode = zh_message(focus_mode == Focus::NONE
+                ? "quiver.prompt.menu.focus.off" : "quiver.prompt.menu.focus.on",
+                {zh_key_markup("key", menu_keyhelp_cmd(CMD_MENU_CYCLE_MODE))}).display();
 
             return pad_more_with(s, mode);
         }
@@ -2481,7 +2566,7 @@ namespace quiver
                 return;
             string action_desc = a->quiver_description();
             if (you.quiver_action.item_is_quivered(a->get_item()))
-                action_desc += " (quivered)";
+                action_desc += zh_message("quiver.prompt.menu.quivered").display();
             MenuEntry *me = new MenuEntry(action_desc,
                                                 MEL_ITEM, 1,
                                                 (int) hotkey);
@@ -2583,9 +2668,10 @@ namespace quiver
 
             // this key shortcut does still work without arrow selection, but
             // it typically doesn't do much in this menu.
-            const string keyhelp =
-                make_stringf(" <lightgrey>(%s to cycle)</lightgrey>",
-                            menu_keyhelp_cmd(CMD_MENU_CYCLE_HEADERS).c_str());
+            const auto header = [](const char *id) {
+                return zh_message(id,
+                    {zh_key_markup("key", menu_keyhelp_cmd(CMD_MENU_CYCLE_HEADERS))}).display();
+            };
 
             first_item = 0;
             first_spell = it_count;
@@ -2594,7 +2680,7 @@ namespace quiver
             if (it_count && show_headers)
             {
                 add_entry(
-                    new MenuEntry("<lightcyan>Items</lightcyan>" + keyhelp,
+                    new MenuEntry(header("quiver.prompt.menu.header.items"),
                     MEL_SUBTITLE));
                 first_spell += 1;
                 first_abil += 1;
@@ -2607,7 +2693,7 @@ namespace quiver
                 if (i == it_count && spell_count && show_headers)
                 {
                     add_entry(
-                        new MenuEntry("<lightcyan>Spells</lightcyan>" + keyhelp,
+                        new MenuEntry(header("quiver.prompt.menu.header.spells"),
                         MEL_SUBTITLE));
                     first_spell += 1;
                     first_abil += 1;
@@ -2615,7 +2701,7 @@ namespace quiver
                 else if (i == it_count + spell_count && show_headers)
                 {
                     add_entry(
-                        new MenuEntry("<lightcyan>Abilities</lightcyan>" + keyhelp,
+                        new MenuEntry(header("quiver.prompt.menu.header.abilities"),
                         MEL_SUBTITLE));
                     first_abil += 1;
                 }
@@ -2632,8 +2718,7 @@ namespace quiver
 
             if (actions.size() == 0)
             {
-                more_message =
-                    "<lightred>No regular actions available to quiver.</lightred>";
+                more_message = zh_message("quiver.prompt.menu.no_actions").display();
             }
             if (last_hovered < 0)
             {
@@ -2663,9 +2748,9 @@ namespace quiver
 
         bool _choose_from_inv()
         {
-            int slot = prompt_invent_item(allow_empty
-                                            ? "Quiver which item? (- for none)"
-                                            : "Quiver which item?",
+            int slot = prompt_invent_item(zh_message(allow_empty
+                                            ? "quiver.prompt.choose.empty"
+                                            : "quiver.prompt.choose").display().c_str(),
                                           menu_type::invlist, OSEL_QUIVER_ACTION,
                                           OPER_QUIVER, invprompt_flag::hide_known, '-');
 
@@ -2790,12 +2875,8 @@ namespace quiver
 
         virtual formatted_string calc_title() override
         {
-            string s = "Quiver which action? ";
-            vector<string> extra_cmds;
-
-            if (allow_empty)
-                s += "([<w>-</w>] to clear)";
-            return formatted_string::parse_string(s);
+            return formatted_string::parse_string_raw(zh_message(allow_empty
+                ? "quiver.prompt.menu.title.empty" : "quiver.prompt.menu.title").display());
         }
 
         bool any_spells;
@@ -2940,9 +3021,10 @@ namespace quiver
         {
             if (!_quiver_inscription_ok(s->get_item()))
             {
-                const string prompt = make_stringf("Really quiver %s?",
-                    you.inv[s->get_item()].name(DESC_INVENTORY).c_str());
-                if (!yesno(prompt.c_str(), true, 'n'))
+                const auto prompt = zh_message("quiver.prompt.confirm",
+                    {zh_item_arg("item", you.inv[s->get_item()], DESC_INVENTORY)});
+                ZhLegacyPause legacy_pause;
+                if (!yesno(prompt.display().c_str(), true, 'n'))
                     return false;
             }
             // XX does this really need to be so flexible

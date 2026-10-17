@@ -144,6 +144,20 @@ bool confirm_prompt(const char* require, const char* fmt, ...)
     return true;
 }
 
+// Complete-template path. Keep the legacy answer buffer and comparison exactly
+// as before, but never put a multibyte display prompt in that input buffer.
+bool confirm_prompt(const char *require, const ZhMessage &prompt)
+{
+    const ZhArg text("prompt", ZhArgType::Text, prompt.canonical,
+                     prompt.localized, prompt.canonical != prompt.localized);
+    mpr(zh_message("prompt.confirm.typed_answer", {text, zh_key("answer", require)}),
+        MSGCH_PROMPT);
+    char buf[200];
+    if (cancellable_get_line(buf, sizeof buf))
+        return false;
+    return strcasecmp(buf, require) == 0;
+}
+
 // jmf: general helper (should be used all over in code)
 //      -- idea borrowed from Nethack
 static int _yesno(const char *str, bool allow_lowercase, int default_answer,

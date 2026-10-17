@@ -1,0 +1,92 @@
+[
+  {
+    "test": "test_message_ids.py",
+    "exit": 0,
+    "tail": "PASS: 1669 named-message oracle and validation checks\nValidated 3072 stable message IDs\n"
+  },
+  {
+    "test": "test_translation_boundaries.py",
+    "exit": 0,
+    "tail": "PASS: actual canonical DB readers, raw language scopes and 34 skill chooser labels/keys\nValidated 3072 stable message IDs\n"
+  },
+  {
+    "test": "test_pretranslated_rendering.py",
+    "exit": 0,
+    "tail": "PASS: 30 raw parser and bounded widget cases\n"
+  },
+  {
+    "test": "test_native_text_grid.py",
+    "exit": 0,
+    "tail": "PASS: 347 grid/chunk cases, HUD columns, wide overwrite, clearing, clipping, UTF-8 chunks, scrolling and bounded detail/form tables\n"
+  },
+  {
+    "test": "test_skill_menu_layout.py",
+    "exit": 0,
+    "tail": "PASS: extracted production skill-menu layout helpers; 106 rows at 100 cells\n"
+  },
+  {
+    "test": "test_detail_producers.py",
+    "exit": 0,
+    "tail": "PASS: actual origin branches, canonical mode, raw scopes, whole-list fallback and spell levels\nValidated 3072 stable message IDs\n"
+  },
+  {
+    "test": "test_hud_layout.py",
+    "exit": 0,
+    "tail": "PASS: HUD experience/noise extracted producers and display-cell bounds\n/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/tmpo8kc9qa0/test.cc:97:48: warning: '&&' within '||' [-Wlogical-op-parentheses]\n   97 |         && (you.running > 0 || you.running < 0 && Options.travel_delay == -1))\n      |                             ~~ ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/tmpo8kc9qa0/test.cc:97:48: note: place parentheses around the '&&' expression to silence this warning\n   97 |         && (you.running > 0 || you.running < 0 && Options.travel_delay == -1))\n      |                                                ^                            \n      |                                (                                            )\n1 warning generated.\n"
+  },
+  {
+    "test": "test_miscast_composition.py",
+    "exit": 0,
+    "tail": "PASS: 30720 actual miscast compositions, all school bitsets/numbers/severity, frozen canonical and parent fallback\nValidated 3072 stable message IDs\n"
+  },
+  {
+    "test": "test_spell_talisman_reasons.py",
+    "exit": 0,
+    "tail": "PASS: 42493 real spell/talisman producer cases; 74 distinct canonical restrictions, priority, temp/prevent/skip, skill boundaries and child fallback\nValidated 3072 stable message IDs\n"
+  },
+  {
+    "test": "test_shared_restrictions.py",
+    "exit": 0,
+    "tail": "PASS: 18670 real shared-restriction cases; canonical snapshots, state priority, confirmation and log effects\nValidated 3072 stable message IDs\n"
+  },
+  {
+    "test": "test_external_target_reasons.py",
+    "exit": 0,
+    "tail": "PASS: 49296 actual external target predicate comparisons; canonical wrappers, priority, visibility, hidden blockers and consumer binding\nValidated 3072 stable message IDs\n"
+  },
+  {
+    "test": "test_target_notifications.py",
+    "exit": 0,
+    "tail": "PASS: 100 real target notification producer cases, canonical names, branches and whole-message fallback\nValidated 3072 stable message IDs\n"
+  },
+  {
+    "test": "test_casting_logs.py",
+    "exit": 0,
+    "tail": "PASS: 67 actual casting/channel producer cases, canonical text, state, quiet branches, remapped keys and unknown-name fallback\nValidated 3072 stable message IDs\n"
+  },
+  {
+    "test": "test_transform_pickup.py",
+    "exit": 0,
+    "tail": "PASS: 399 production transform/markup cases, canonical snapshots, RNG effects, names, remapped keys and display-mode pruning\nPASS: 399 production transform/markup cases, canonical snapshots, RNG effects, names, remapped keys and display-mode pruning\nPASS: 399 production transform/markup cases, canonical snapshots, RNG effects, names, remapped keys and display-mode pruning\nValidated 3077 stable message IDs\n"
+  },
+  {
+    "test": "test_item_hints.py",
+    "exit": 0,
+    "tail": "PASS: 405 actual item-hint branch/state combinations, canonical reference, event side effects and remapped keys\nPASS: 405 actual item-hint branch/state combinations, canonical reference, event side effects and remapped keys\nPASS: 405 actual item-hint branch/state combinations, canonical reference, event side effects and remapped keys\nValidated 3077 stable message IDs\nPASS: all 51 reviewed hint IDs reached through production branches across console/local/web modes\n"
+  },
+  {
+    "test": "test_target_quiver_prompts.py",
+    "exit": 0,
+    "tail": "PASS: 2214 actual targeting/quiver producer cases, frozen canonical key help, remapped shortcuts, semantic action forms, colour markers and whole-parent unsupported-name fallback\nValidated 3077 stable message IDs\n"
+  },
+  {
+    "test": "test_terrain_confirmation.py",
+    "exit": 0,
+    "tail": "PASS: 38340 real terrain/cloud/trap/exclusion confirmations, canonical Lua prompts, branch priority, acceptance, flags, typed passwall warnings and UTF-8 input prompt\nValidated 3077 stable message IDs\n"
+  },
+  {
+    "test": "test_spell_prompts.py",
+    "exit": 0,
+    "tail": "\n   32 | template<class...A>void mprf(int,const char*f,A...a){captured=make_stringf(f,a...);}\n      |                                                               ^\n/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/tmp95xvz7kn/test.cc:83:13: note: in instantiation of function template specialization 'mprf<>' requested here\n   83 |             mprf(MSGCH_WARN, \"It is impossible to cast this spell \"\n      |             ^\n/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/tmp95xvz7kn/test.cc:26:93: note: treat the string as an argument to avoid this\n   26 | template<class...A>string make_stringf(const char*f,A...a){char b[4096];snprintf(b,sizeof b,f,a...);return b;}\n      |                                                                                             ^\n      |                                                                                             \"%s\", \n1 warning generated.\n"
+  }
+]

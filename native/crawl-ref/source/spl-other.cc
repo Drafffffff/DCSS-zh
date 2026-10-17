@@ -366,18 +366,18 @@ bool passwall_path::check_moveto() const
 {
     // assumes is_valid()
 
-    string terrain_msg;
+    auto warning = zh_text("warning", "", "");
     if (env.grid(actual_dest) == DNGN_DEEP_WATER)
-        terrain_msg = "You sense a deep body of water on the other side of the rock.";
+        warning = zh_message_arg("warning", "movement.confirm.passwall.water");
     else if (env.grid(actual_dest) == DNGN_LAVA)
-        terrain_msg = "You sense an intense heat on the other side of the rock.";
+        warning = zh_message_arg("warning", "movement.confirm.passwall.lava");
 
     // Pre-confirm exclusions in unseen squares as well as the actual dest
     // even if seen, so that this doesn't leak information.
 
     // TODO: handle uncertainty in messaging for things other than exclusions
 
-    return check_moveto_terrain(actual_dest, "passwall", terrain_msg)
+    return check_moveto_terrain_display(actual_dest, "passwall", warning)
         && check_moveto_exclusions(possible_dests(), "passwall")
         && check_moveto_cloud(actual_dest, "passwall")
         && check_moveto_trap(actual_dest, "passwall");

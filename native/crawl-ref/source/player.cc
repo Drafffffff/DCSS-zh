@@ -149,6 +149,49 @@ static void _moveto_maybe_repel_stairs()
     }
 }
 
+// This adapter enumerates legacy movement actions, not pieces of a displayed
+// sentence. Keep the canonical verb for Lua prompt callbacks and English mode.
+static ZhArg _movement_verb_arg(const string &verb)
+{
+    static const struct { const char *canonical, *id; } verbs[] = {
+        {"step", "movement.confirm.verb.step"},
+        {"stride", "movement.confirm.verb.stride"},
+        {"roll", "movement.confirm.verb.roll"},
+        {"rampage", "movement.confirm.verb.rampage"},
+        {"fly", "movement.confirm.verb.fly"},
+        {"swim", "movement.confirm.verb.swim"},
+        {"slither", "movement.confirm.verb.slither"},
+        {"walk", "movement.confirm.verb.walk"},
+        {"wriggle", "movement.confirm.verb.wriggle"},
+        {"float", "movement.confirm.verb.float"},
+        {"hop", "movement.confirm.verb.hop"},
+        {"blink", "movement.confirm.verb.blink"},
+        {"charge", "movement.confirm.verb.charge"},
+        {"leap", "movement.confirm.verb.leap"},
+        {"line pass", "movement.confirm.verb.line_pass"},
+        {"move", "movement.confirm.verb.move"},
+        {"transfer", "movement.confirm.verb.transfer"},
+        {"wall jump", "movement.confirm.verb.wall_jump"},
+        {"passwall", "movement.confirm.verb.passwall"},
+        {"potentially stumble back", "movement.confirm.verb.potentially_stumble_back"},
+    };
+    for (const auto &entry : verbs)
+        if (verb == entry.canonical)
+            return zh_message_arg("move", entry.id);
+    // A new action must receive its own reviewed semantic label. Report it and
+    // fall back with the complete parent, never translate unknown word parts.
+    return zh_word_arg("move", "movement.confirm.verb.", verb);
+}
+
+static ZhMessage _movement_prompt(const string &id, const string &verb,
+                                  const ZhArg &warning)
+{
+    const auto prompt = zh_message_arg("prompt", id, {_movement_verb_arg(verb)});
+    if (warning.canonical.empty())
+        return {prompt.message_id, prompt.canonical, prompt.localized};
+    return zh_message("movement.confirm.prefaced", {warning, prompt});
+}
+
 bool check_moveto_cloud(const coord_def& p, const string &move_verb,
                         bool *prompted)
 {
@@ -178,12 +221,13 @@ bool check_moveto_cloud(const coord_def& p, const string &move_verb,
 
         if (prompted)
             *prompted = true;
-        string prompt = make_stringf("Really %s into that cloud of %s?",
-                                     move_verb.c_str(),
-                                     cloud_type_name(ctype).c_str());
+        const auto cloud = zh_glossary_name("cloud", "movement.confirm.cloud_name",
+                                             cloud_type_name(ctype));
+        const auto prompt = zh_message("movement.confirm.cloud",
+                                       {_movement_verb_arg(move_verb), cloud});
         learned_something_new(HINT_CLOUD_WARNING);
 
-        if (!yesno(prompt.c_str(), false, 'n'))
+        if (!yesno(prompt, false, 'n'))
         {
             canned_msg(MSG_OK);
             return false;
@@ -206,12 +250,12 @@ bool check_moveto_trap(const coord_def& p, const string &move_verb,
 
     if (trap->type == TRAP_ZOT && !trap->is_safe() && !crawl_state.disables[DIS_CONFIRMATIONS])
     {
-        string msg = "Do you really want to %s into the Zot trap?";
-        string prompt = make_stringf(msg.c_str(), move_verb.c_str());
+        const auto prompt = zh_message("movement.confirm.trap.zot",
+                                       {_movement_verb_arg(move_verb)});
 
         if (prompted)
             *prompted = true;
-        if (!confirm_prompt("yes", "%s", prompt.c_str()))
+        if (!confirm_prompt("yes", prompt))
         {
             canned_msg(MSG_OK);
             return false;
@@ -219,16 +263,16 @@ bool check_moveto_trap(const coord_def& p, const string &move_verb,
     }
     else if (!trap->is_safe() && !crawl_state.disables[DIS_CONFIRMATIONS])
     {
-        string prompt;
-
         if (prompted)
             *prompted = true;
-        prompt = make_stringf("Really %s %s that %s?", move_verb.c_str(),
-                              (trap->type == TRAP_ALARM
-                               || trap->type == TRAP_PLATE) ? "onto"
-                              : "into",
-                              feature_description_at(p, false, DESC_BASENAME).c_str());
-        if (!yesno(prompt.c_str(), true, 'n'))
+        auto name = zh_glossary_name("trap", "movement.confirm.trap_name",
+                                    full_trap_name(trap->type));
+        name.canonical = feature_description_at(p, false, DESC_BASENAME);
+        const auto prompt = zh_message(
+            (trap->type == TRAP_ALARM || trap->type == TRAP_PLATE)
+                ? "movement.confirm.trap.onto" : "movement.confirm.trap.into",
+            {_movement_verb_arg(move_verb), name});
+        if (!yesno(prompt, true, 'n'))
         {
             canned_msg(MSG_OK);
             return false;
@@ -237,7 +281,7 @@ bool check_moveto_trap(const coord_def& p, const string &move_verb,
     return true;
 }
 
-static bool _check_moveto_dangerous(const coord_def& p, const string& msg)
+static bool _check_moveto_dangerous(const coord_def& p, const ZhArg &warning)
 {
     if (you.can_swim() && feat_is_water(env.grid(p))
         || you.airborne() || !is_feat_dangerous(env.grid(p)))
@@ -245,8 +289,8 @@ static bool _check_moveto_dangerous(const coord_def& p, const string& msg)
         return true;
     }
 
-    if (!msg.empty())
-        mpr(msg);
+    if (!warning.canonical.empty())
+        mpr(zh_message("movement.confirm.warning", {warning}));
     else if (species::likes_water(you.species) && feat_is_water(env.grid(p)))
     {
         // player normally likes water, but is in a form that doesn't
@@ -258,21 +302,16 @@ static bool _check_moveto_dangerous(const coord_def& p, const string& msg)
 }
 
 static bool _check_moveto_binding_sigil(coord_def p, const string &move_verb,
-                                        const string &msg, bool *prompted)
+                                        const ZhArg &warning, bool *prompted)
 {
     if (env.grid(p) == DNGN_BINDING_SIGIL && !you.is_binding_sigil_immune())
     {
-        string prompt;
         if (prompted)
             *prompted = true;
+        const auto prompt = _movement_prompt("movement.confirm.binding_sigil",
+                                              move_verb, warning);
 
-        if (!msg.empty())
-            prompt = msg + " ";
-
-        prompt += "Are you sure you want to " + move_verb
-                + " onto a binding sigil?";
-
-        if (!yesno(prompt.c_str(), false, 'n'))
+        if (!yesno(prompt, false, 'n'))
         {
             canned_msg(MSG_OK);
             return false;
@@ -281,35 +320,29 @@ static bool _check_moveto_binding_sigil(coord_def p, const string &move_verb,
     return true;
 }
 
-bool check_moveto_terrain(const coord_def& p, const string &move_verb,
-                          const string &msg, bool *prompted)
+bool check_moveto_terrain_display(const coord_def& p, const string &move_verb,
+                                  const ZhArg &warning, bool *prompted)
 {
     // Boldly go into the unknown (for ranged move prompts)
     if (!env.map_knowledge(p).known())
         return true;
 
-    if (!_check_moveto_dangerous(p, msg))
+    if (!_check_moveto_dangerous(p, warning))
         return false;
 
-    if (!_check_moveto_binding_sigil(p, move_verb, msg, prompted))
+    if (!_check_moveto_binding_sigil(p, move_verb, warning, prompted))
         return false;
 
     if (!you.airborne() && !you.duration[DUR_NOXIOUS_BOG]
         && env.grid(you.pos()) != DNGN_TOXIC_BOG
         && env.grid(p) == DNGN_TOXIC_BOG)
     {
-        string prompt;
-
         if (prompted)
             *prompted = true;
+        const auto prompt = _movement_prompt("movement.confirm.toxic_bog",
+                                              move_verb, warning);
 
-        if (!msg.empty())
-            prompt = msg + " ";
-
-        prompt += "Are you sure you want to " + move_verb
-                + " into a toxic bog?";
-
-        if (!yesno(prompt.c_str(), false, 'n'))
+        if (!yesno(prompt, false, 'n'))
         {
             canned_msg(MSG_OK);
             return false;
@@ -318,34 +351,32 @@ bool check_moveto_terrain(const coord_def& p, const string &move_verb,
     if (!need_expiration_warning() && need_expiration_warning(p)
         && !crawl_state.disables[DIS_CONFIRMATIONS])
     {
-        string prompt;
-
         if (prompted)
             *prompted = true;
+        // Each combination chooses a complete sentence before substitution.
+        // Terrain, flying and expiring form are gameplay states, not English.
+        const string id = string("movement.confirm.expiration.")
+            + (you.airborne() ? "over." : "into.")
+            + (env.grid(p) == DNGN_DEEP_WATER ? "deep_water." : "lava.")
+            + (need_expiration_warning(DUR_FLIGHT, p) ? "flight" : "form");
+        const auto prompt = _movement_prompt(id, move_verb, warning);
 
-        if (!msg.empty())
-            prompt = msg + " ";
-
-        prompt += "Are you sure you want to " + move_verb;
-
-        if (!you.airborne())
-            prompt += " into ";
-        else
-            prompt += " over ";
-
-        prompt += env.grid(p) == DNGN_DEEP_WATER ? "deep water" : "lava";
-
-        prompt += need_expiration_warning(DUR_FLIGHT, p)
-            ? " while you are losing your buoyancy?"
-            : " while your transformation is expiring?";
-
-        if (!yesno(prompt.c_str(), false, 'n'))
+        if (!yesno(prompt, false, 'n'))
         {
             canned_msg(MSG_OK);
             return false;
         }
     }
     return true;
+}
+
+// Compatibility entry point: arbitrary legacy warnings are not translated or
+// parsed. Internal passwall producers use the typed API below directly.
+bool check_moveto_terrain(const coord_def& p, const string &move_verb,
+                          const string &msg, bool *prompted)
+{
+    const ZhArg warning("warning", ZhArgType::Text, msg, msg, msg.empty());
+    return check_moveto_terrain_display(p, move_verb, warning, prompted);
 }
 
 bool check_moveto_exclusions(const vector<coord_def> &areas,
@@ -365,14 +396,13 @@ bool check_moveto_exclusions(const vector<coord_def> &areas,
     }
     if (count == 0)
         return true;
-    const string prompt = make_stringf((count == (int) areas.size() ?
-                    "Really %s into a travel-excluded area?" :
-                    "You might %s into a travel-excluded area, are you sure?"),
-                              move_verb.c_str());
+    const auto prompt = zh_message(count == (int) areas.size()
+        ? "movement.confirm.exclusion.certain"
+        : "movement.confirm.exclusion.possible", {_movement_verb_arg(move_verb)});
 
     if (prompted)
         *prompted = true;
-    if (!yesno(prompt.c_str(), false, 'n'))
+    if (!yesno(prompt, false, 'n'))
     {
         canned_msg(MSG_OK);
         return false;
@@ -414,7 +444,8 @@ static bool _check_move_over_terrain(coord_def p, const string& move_verb)
     if (crawl_state.disables[DIS_CONFIRMATIONS])
         return true;
 
-    return _check_moveto_binding_sigil(p, move_verb, "", nullptr);
+    return _check_moveto_binding_sigil(p, move_verb,
+                                        zh_text("warning", "", ""), nullptr);
 }
 
 bool check_move_over(coord_def p, const string& move_verb)

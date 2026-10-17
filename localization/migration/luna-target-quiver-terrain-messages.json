@@ -1,0 +1,5483 @@
+{
+  "model": "Luna",
+  "purpose": "Targeting and quiver prompts, spell menu/targeting copy, and movement/terrain confirmation fragments. Translation review proposal; source code remains unchanged.",
+  "messages": [
+    {
+      "id": "target.prompt.keys",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Press: ? - help{describe}{travel}{item}{action}{direction}",
+      "params": {
+        "describe": "text",
+        "travel": "text",
+        "item": "text",
+        "action": "text",
+        "direction": "text"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "按键：? - 帮助{describe}{travel}{item}{action}{direction}"
+    },
+    {
+      "id": "target.prompt.describe",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": ", v - describe",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "，v - 查看说明"
+    },
+    {
+      "id": "target.prompt.travel",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": ", . - travel",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "，. - 自动移动"
+    },
+    {
+      "id": "target.prompt.item",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": ", g - get item",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "，g - 拾取物品"
+    },
+    {
+      "id": "target.prompt.direction.activate",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Dir - look around, f - activate",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "方向键 - 查看周围，f - 激活"
+    },
+    {
+      "id": "target.prompt.direction.straight",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Shift-Dir - straight line",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "Shift+方向键 - 直线瞄准"
+    },
+    {
+      "id": "target.prompt.direction.move",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Dir - move target",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "方向键 - 移动目标"
+    },
+    {
+      "id": "quiver.prompt.keys.select",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": ", <w>%</w> - select action",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "，<w>%</w> - 选择动作"
+    },
+    {
+      "id": "quiver.prompt.keys.cycle",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": ", <w>%</w> - select action, <w>%</w> or <w>%</w> - cycle",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "，<w>%</w> - 选择动作，<w>%</w> 或 <w>%</w> - 切换"
+    },
+    {
+      "id": "quiver.prompt.empty.short",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "<darkgrey>Empty</darkgrey>",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "<darkgrey>空</darkgrey>"
+    },
+    {
+      "id": "quiver.prompt.empty.long",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "<darkgrey>Nothing quivered</darkgrey>",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "<darkgrey>没有待用物品</darkgrey>"
+    },
+    {
+      "id": "quiver.prompt.cast",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Cast: ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "施法： "
+    },
+    {
+      "id": "quiver.prompt.continue",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Continue: ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "继续： "
+    },
+    {
+      "id": "quiver.prompt.ability",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Abil: ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "能力： "
+    },
+    {
+      "id": "quiver.prompt.activate",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Activate: ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "启动： "
+    },
+    {
+      "id": "quiver.prompt.read",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Read: ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "阅读： "
+    },
+    {
+      "id": "quiver.prompt.drink",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Drink: ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "饮用： "
+    },
+    {
+      "id": "quiver.prompt.zap",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Zap: ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "施放： "
+    },
+    {
+      "id": "quiver.prompt.evoke",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Evoke: ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "唤起： "
+    },
+    {
+      "id": "quiver.prompt.throw",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Throw: ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "投掷： "
+    },
+    {
+      "id": "quiver.prompt.toss",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Toss (no damage): ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "抛掷（不造成伤害）： "
+    },
+    {
+      "id": "quiver.prompt.throw.confused",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Confused throw: ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "困惑时投掷： "
+    },
+    {
+      "id": "quiver.prompt.toss.confused",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Confused toss (no damage): ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "困惑时抛掷（不造成伤害）： "
+    },
+    {
+      "id": "quiver.prompt.fire",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Fire: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "射击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.fire.confused",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Confused fire: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "困惑时射击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.attack",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Attack: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "攻击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.attack.confused",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Confused attack: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "困惑时攻击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.punch",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Punch: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "拳击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.punch.confused",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Confused punch: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "困惑时拳击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.reach",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Reach: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "长兵器攻击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.reach.confused",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Confused reach: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "困惑时长兵器攻击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.cleave",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Cleave: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "横扫：{key}) "
+    },
+    {
+      "id": "quiver.prompt.cleave.confused",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Confused cleave: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "困惑时横扫：{key}) "
+    },
+    {
+      "id": "quiver.prompt.hit",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Hit: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "击打：{key}) "
+    },
+    {
+      "id": "quiver.prompt.hit.confused",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Confused hit: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "困惑时击打：{key}) "
+    },
+    {
+      "id": "quiver.prompt.menu.inventory",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "[<w>*/%</w>] inventory  ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "[<w>*/%</w>] 物品栏  "
+    },
+    {
+      "id": "quiver.prompt.menu.spells",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "[<w>&</w>] all spells  ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "[<w>&</w>] 所有法术  "
+    },
+    {
+      "id": "quiver.prompt.menu.abilities",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "[<w>^</w>] all abilities  ",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "[<w>^</w>] 所有能力  "
+    },
+    {
+      "id": "quiver.prompt.menu.focus.off",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "{key} focus mode: <w>off</w>|on",
+      "params": {
+        "key": "key_markup"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "{key} 专注模式：<w>关</w>|开"
+    },
+    {
+      "id": "quiver.prompt.menu.focus.on",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "{key} focus mode: off|<w>on</w>",
+      "params": {
+        "key": "key_markup"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "{key} 专注模式：关|<w>开</w>"
+    },
+    {
+      "id": "quiver.prompt.menu.quivered",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": " (quivered)",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "（已设为待用）"
+    },
+    {
+      "id": "quiver.prompt.choose.empty",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Quiver which item? (- for none)",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "选择待用物品？（- 表示不选）"
+    },
+    {
+      "id": "quiver.prompt.choose",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Quiver which item?",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "选择待用物品？"
+    },
+    {
+      "id": "quiver.prompt.confirm",
+      "context": "Targeting/quiver UI at source; preserve markup and shortcut placeholders exactly.",
+      "en": "Really quiver {item}?",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "quiver.cc"
+      },
+      "zh": "确定将{item}设为待用物品？"
+    },
+    {
+      "id": "quiver.prompt.named",
+      "en": "{caption}<{colour}>{name}</{colour}>",
+      "params": {
+        "caption": "text",
+        "colour": "colour",
+        "name": "name"
+      },
+      "context": "Quiver full named action; preserve colour placeholder tags.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "source literal"
+      },
+      "zh": "{caption}<{colour}>{name}</{colour}>"
+    },
+    {
+      "id": "quiver.prompt.spell.charges",
+      "en": " ({charges}/{maximum})",
+      "params": {
+        "charges": "integer",
+        "maximum": "integer"
+      },
+      "context": "Quiver full named action; preserve colour placeholder tags.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "source literal"
+      },
+      "zh": "（{charges}/{maximum}）"
+    },
+    {
+      "id": "quiver.prompt.spell.failure",
+      "en": " ({rate})",
+      "params": {
+        "rate": "text"
+      },
+      "context": "Quiver full named action; preserve colour placeholder tags.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "source literal"
+      },
+      "zh": "（{rate}）"
+    },
+    {
+      "id": "quiver.prompt.form.bite",
+      "en": "Bite: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "撕咬：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.bite.confused",
+      "en": "Confused bite: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "困惑时撕咬：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.buffet",
+      "en": "Buffet: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "冲撞：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.buffet.confused",
+      "en": "Confused buffet: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "困惑时冲撞：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.claw",
+      "en": "Claw: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "爪击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.claw.confused",
+      "en": "Confused claw: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "困惑时爪击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.headbutt",
+      "en": "Headbutt: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "头槌：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.headbutt.confused",
+      "en": "Confused headbutt: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "困惑时头槌：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.lash",
+      "en": "Lash: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "鞭击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.lash.confused",
+      "en": "Confused lash: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "困惑时鞭击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.release_spores_at",
+      "en": "Release spores at: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "释放孢子：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.release_spores_at.confused",
+      "en": "Confused release spores at: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "困惑时释放孢子：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.slap",
+      "en": "Slap: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "掌掴：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.slap.confused",
+      "en": "Confused slap: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "困惑时掌掴：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.smack",
+      "en": "Smack: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "拍击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.smack.confused",
+      "en": "Confused smack: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "困惑时拍击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.snap",
+      "en": "Snap: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "咬击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.snap.confused",
+      "en": "Confused snap: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "困惑时咬击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.swat",
+      "en": "Swat: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "挥击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.swat.confused",
+      "en": "Confused swat: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "困惑时挥击：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.touch",
+      "en": "Touch: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "触碰：{key}) "
+    },
+    {
+      "id": "quiver.prompt.form.touch.confused",
+      "en": "Confused touch: {key}) ",
+      "params": {
+        "key": "key"
+      },
+      "context": "Player unarmed form medium action verb, full action heading.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "form-data.h"
+      },
+      "zh": "困惑时触碰：{key}) "
+    },
+    {
+      "id": "quiver.prompt.ability.build",
+      "en": "Build '{feature}'",
+      "params": {
+        "feature": "name"
+      },
+      "context": "Quiver ability suffix/full title. Build feature is semantic terrain UI name; internal identifiers stay untouched.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "source literal"
+      },
+      "zh": "建造“{feature}”"
+    },
+    {
+      "id": "quiver.prompt.cards.next",
+      "en": " (next: {card})",
+      "params": {
+        "card": "name"
+      },
+      "context": "Quiver ability suffix/full title. Build feature is semantic terrain UI name; internal identifiers stay untouched.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "source literal"
+      },
+      "zh": "（下一张：{card}）"
+    },
+    {
+      "id": "quiver.prompt.cards.deck",
+      "en": " ({count} in deck)",
+      "params": {
+        "count": "integer"
+      },
+      "context": "Quiver ability suffix/full title. Build feature is semantic terrain UI name; internal identifiers stay untouched.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "source literal"
+      },
+      "zh": "（牌堆中{count}张）"
+    },
+    {
+      "id": "spell.name.quiver_capacitive_coupling",
+      "en": "Capacitive Coupling",
+      "params": {},
+      "context": "Quiver ability suffix/full title. Build feature is semantic terrain UI name; internal identifiers stay untouched.",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "source literal"
+      },
+      "zh": "电容耦合"
+    },
+    {
+      "id": "spell.prompt.risk.0",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "<{colour}>safe</{colour}>; <{colour}>{failure}%</{colour}> risk of failure",
+      "params": {
+        "colour": "colour",
+        "failure": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "risk.0"
+      },
+      "zh": "<{colour}>安全</{colour}>；<{colour}>{failure}%</{colour}>失败风险"
+    },
+    {
+      "id": "spell.prompt.confirm.risk.0",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "The spell is safe to miscast (<{colour}>{failure}%</{colour}> risk of failure). Continue anyway?",
+      "params": {
+        "colour": "colour",
+        "failure": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "confirm.risk.0"
+      },
+      "zh": "此法术不会造成严重反噬（失败风险<{colour}>{failure}%</{colour}>）。仍要继续吗？"
+    },
+    {
+      "id": "spell.prompt.risk.1",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "<{colour}>mildly dangerous</{colour}>; <{colour}>{failure}%</{colour}> risk of failure",
+      "params": {
+        "colour": "colour",
+        "failure": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "risk.1"
+      },
+      "zh": "<{colour}>略有危险</{colour}>；<{colour}>{failure}%</{colour}>失败风险"
+    },
+    {
+      "id": "spell.prompt.confirm.risk.1",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "The spell is mildly dangerous to miscast (<{colour}>{failure}%</{colour}> risk of failure). Continue anyway?",
+      "params": {
+        "colour": "colour",
+        "failure": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "confirm.risk.1"
+      },
+      "zh": "此法术反噬略有危险（失败风险<{colour}>{failure}%</{colour}>）。仍要继续吗？"
+    },
+    {
+      "id": "spell.prompt.risk.2",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "<{colour}>dangerous</{colour}>; <{colour}>{failure}%</{colour}> risk of failure",
+      "params": {
+        "colour": "colour",
+        "failure": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "risk.2"
+      },
+      "zh": "<{colour}>危险</{colour}>；<{colour}>{failure}%</{colour}>失败风险"
+    },
+    {
+      "id": "spell.prompt.confirm.risk.2",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "The spell is dangerous to miscast (<{colour}>{failure}%</{colour}> risk of failure)! Continue anyway?",
+      "params": {
+        "colour": "colour",
+        "failure": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "confirm.risk.2"
+      },
+      "zh": "此法术反噬危险（失败风险<{colour}>{failure}%</{colour}>）！仍要继续吗？"
+    },
+    {
+      "id": "spell.prompt.risk.3",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "<{colour}>quite dangerous</{colour}>; <{colour}>{failure}%</{colour}> risk of failure",
+      "params": {
+        "colour": "colour",
+        "failure": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "risk.3"
+      },
+      "zh": "<{colour}>相当危险</{colour}>；<{colour}>{failure}%</{colour}>失败风险"
+    },
+    {
+      "id": "spell.prompt.confirm.risk.3",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "The spell is quite dangerous to miscast (<{colour}>{failure}%</{colour}> risk of failure)! Continue anyway?",
+      "params": {
+        "colour": "colour",
+        "failure": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "confirm.risk.3"
+      },
+      "zh": "此法术反噬相当危险（失败风险<{colour}>{failure}%</{colour}>）！仍要继续吗？"
+    },
+    {
+      "id": "spell.prompt.risk.4",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "<{colour}>extremely dangerous</{colour}>; <{colour}>{failure}%</{colour}> risk of failure",
+      "params": {
+        "colour": "colour",
+        "failure": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "risk.4"
+      },
+      "zh": "<{colour}>极其危险</{colour}>；<{colour}>{failure}%</{colour}>失败风险"
+    },
+    {
+      "id": "spell.prompt.confirm.risk.4",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "The spell is extremely dangerous to miscast (<{colour}>{failure}%</{colour}> risk of failure)! Continue anyway?",
+      "params": {
+        "colour": "colour",
+        "failure": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "confirm.risk.4"
+      },
+      "zh": "此法术反噬极其危险（失败风险<{colour}>{failure}%</{colour}>）！仍要继续吗？"
+    },
+    {
+      "id": "spell.prompt.risk.5",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "<{colour}>astonishingly dangerous</{colour}>; <{colour}>{failure}%</{colour}> risk of failure",
+      "params": {
+        "colour": "colour",
+        "failure": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "risk.5"
+      },
+      "zh": "<{colour}>骇人地危险</{colour}>；<{colour}>{failure}%</{colour}>失败风险"
+    },
+    {
+      "id": "spell.prompt.confirm.risk.5",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "The spell is astonishingly dangerous to miscast (<{colour}>{failure}%</{colour}> risk of failure)! Continue anyway?",
+      "params": {
+        "colour": "colour",
+        "failure": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "confirm.risk.5"
+      },
+      "zh": "此法术反噬危险至极（失败风险<{colour}>{failure}%</{colour}>）！仍要继续吗？"
+    },
+    {
+      "id": "spell.prompt.action.cast",
+      "context": "Semantic spell-menu action value, never translate internal action identifier.",
+      "en": "cast",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "action.cast"
+      },
+      "zh": "施放"
+    },
+    {
+      "id": "spell.prompt.action.describe",
+      "context": "Semantic spell-menu action value, never translate internal action identifier.",
+      "en": "describe",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "action.describe"
+      },
+      "zh": "查看说明"
+    },
+    {
+      "id": "spell.prompt.action.adjust",
+      "context": "Semantic spell-menu action value, never translate internal action identifier.",
+      "en": "adjust",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "action.adjust"
+      },
+      "zh": "调整"
+    },
+    {
+      "id": "spell.prompt.action.adjust_it_to",
+      "context": "Semantic spell-menu action value, never translate internal action identifier.",
+      "en": "adjust it to",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "action.adjust_it_to"
+      },
+      "zh": "调整为"
+    },
+    {
+      "id": "spell.prompt.action.forget",
+      "context": "Semantic spell-menu action value, never translate internal action identifier.",
+      "en": "forget",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "action.forget"
+      },
+      "zh": "遗忘"
+    },
+    {
+      "id": "spell.prompt.action.quiver",
+      "context": "Semantic spell-menu action value, never translate internal action identifier.",
+      "en": "quiver",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "action.quiver"
+      },
+      "zh": "设为待用"
+    },
+    {
+      "id": "spell.prompt.menu.title",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "Your spells ({action})",
+      "params": {
+        "action": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "menu.title"
+      },
+      "zh": "你的法术（{action}）"
+    },
+    {
+      "id": "spell.prompt.menu.select",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "<lightgrey>Select a spell to {action}</lightgrey>",
+      "params": {
+        "action": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "menu.select"
+      },
+      "zh": "<lightgrey>选择要{action}的法术</lightgrey>"
+    },
+    {
+      "id": "spell.prompt.menu.help",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "   [<w>?</w>] help    ",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "menu.help"
+      },
+      "zh": "   [<w>?</w>] 帮助    "
+    },
+    {
+      "id": "spell.prompt.menu.toggle",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "{keys} toggle spell headers",
+      "params": {
+        "keys": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "menu.toggle"
+      },
+      "zh": "{keys} 切换法术标题"
+    },
+    {
+      "id": "spell.prompt.menu.header.base",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "           Type                      Failure  Level  ",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "menu.header.base"
+      },
+      "zh": "           类型                      失败率   等级   "
+    },
+    {
+      "id": "spell.prompt.menu.header.extra",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "           Power     Damage    Range   Noise         ",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "menu.header.extra"
+      },
+      "zh": "           威力      伤害      射程    噪声          "
+    },
+    {
+      "id": "spell.prompt.select",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "Cast which spell? (? or * to list) ",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "select"
+      },
+      "zh": "施放哪个法术？（? 或 * 查看列表） "
+    },
+    {
+      "id": "spell.prompt.recast",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "Casting: <w>{spell}</w> <lightgrey>({risk})</lightgrey>",
+      "params": {
+        "spell": "name",
+        "risk": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "recast"
+      },
+      "zh": "施放中：<w>{spell}</w> <lightgrey>（{risk}）</lightgrey>"
+    },
+    {
+      "id": "spell.prompt.confirm.recast",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "Confirm with . or Enter, or press ? or * to list all spells.",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "confirm.recast"
+      },
+      "zh": "按 . 或 Enter 确认，或按 ? 或 * 查看所有法术。"
+    },
+    {
+      "id": "spell.prompt.unknown",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "You don't know that spell.",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "unknown"
+      },
+      "zh": "你不会那个法术。"
+    },
+    {
+      "id": "spell.prompt.no_targets",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "You can't see any susceptible monsters within range! (Use <w>Z</w> to cast anyway.)",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "no_targets"
+      },
+      "zh": "视野内没有可受影响的怪物！（使用 <w>Z</w> 仍可施法。）"
+    },
+    {
+      "id": "spell.prompt.penance",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "Casting this spell will place you under penance. Really cast?",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "penance"
+      },
+      "zh": "施放此法术会招致神罚。仍要施放吗？"
+    },
+    {
+      "id": "spell.prompt.confirm.cast",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "Really cast {spell}?",
+      "params": {
+        "spell": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "confirm.cast"
+      },
+      "zh": "确定施放{spell}？"
+    },
+    {
+      "id": "spell.prompt.impossible",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "It is impossible to cast this spell (100% risk of failure)!",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "impossible"
+      },
+      "zh": "无法施放此法术（失败风险为100%）！"
+    },
+    {
+      "id": "spell.prompt.target.aim",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "Aiming: <{colour}>{spell}</{colour}>",
+      "params": {
+        "colour": "colour",
+        "spell": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "target.aim"
+      },
+      "zh": "瞄准：<{colour}>{spell}</{colour}>"
+    },
+    {
+      "id": "spell.prompt.target.cast",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "Casting: <{colour}>{spell}</{colour}>",
+      "params": {
+        "colour": "colour",
+        "spell": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "target.cast"
+      },
+      "zh": "施放：<{colour}>{spell}</{colour}>"
+    },
+    {
+      "id": "spell.prompt.target.restart",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "<lightred>Restarting spell</lightred>: <{colour}>{spell}</{colour}>",
+      "params": {
+        "colour": "colour",
+        "spell": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "target.restart"
+      },
+      "zh": "<lightred>重新开始施法</lightred>：<{colour}>{spell}</{colour}>"
+    },
+    {
+      "id": "spell.prompt.target.risk",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "{title} <lightgrey>({risk})</lightgrey>",
+      "params": {
+        "title": "text",
+        "risk": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "target.risk"
+      },
+      "zh": "{title} <lightgrey>（{risk}）</lightgrey>"
+    },
+    {
+      "id": "spell.prompt.target.charges",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "{title}<lightgrey> ({available}/{maximum} uses available)</lightgrey>",
+      "params": {
+        "title": "text",
+        "available": "integer",
+        "maximum": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "target.charges"
+      },
+      "zh": "{title}<lightgrey>（可用次数：{available}/{maximum}）</lightgrey>"
+    },
+    {
+      "id": "spell.prompt.others_only",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "Sorry, this spell works on others only.",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "others_only"
+      },
+      "zh": "抱歉，此法术只能对其他目标生效。"
+    },
+    {
+      "id": "spell.prompt.effect.not_susceptible",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "not susceptible",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.not_susceptible"
+      },
+      "zh": "不受影响"
+    },
+    {
+      "id": "spell.prompt.effect.already_infected",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "already infected",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.already_infected"
+      },
+      "zh": "已受感染"
+    },
+    {
+      "id": "spell.prompt.effect.stationary",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "stationary",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.stationary"
+      },
+      "zh": "无法移动"
+    },
+    {
+      "id": "spell.prompt.effect.will_blink",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "will blink",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.will_blink"
+      },
+      "zh": "将会闪现"
+    },
+    {
+      "id": "spell.prompt.effect.infinite_will",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "infinite will",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.infinite_will"
+      },
+      "zh": "意志力无限"
+    },
+    {
+      "id": "spell.prompt.effect.will_change_colour",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "will change colour",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.will_change_colour"
+      },
+      "zh": "将会变色"
+    },
+    {
+      "id": "spell.prompt.effect.will_change_shape",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "will change shape",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.will_change_shape"
+      },
+      "zh": "将会变形"
+    },
+    {
+      "id": "spell.prompt.effect.will_probably_split",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "will probably split",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.will_probably_split"
+      },
+      "zh": "很可能会分裂"
+    },
+    {
+      "id": "spell.prompt.chance.confuse",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "chance to confuse: {chance}%",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "chance.confuse"
+      },
+      "zh": "混乱概率：{chance}%"
+    },
+    {
+      "id": "spell.prompt.chance.slow",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "chance to slow: {chance}%",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "chance.slow"
+      },
+      "zh": "减速概率：{chance}%"
+    },
+    {
+      "id": "spell.prompt.chance.blind",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "chance to blind: {chance}%",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "chance.blind"
+      },
+      "zh": "致盲概率：{chance}%"
+    },
+    {
+      "id": "spell.prompt.chance.weaken",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "chance to weaken: {chance}%",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "chance.weaken"
+      },
+      "zh": "虚弱概率：{chance}%"
+    },
+    {
+      "id": "spell.prompt.chance.blink",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "chance to blink: {chance}%",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "chance.blink"
+      },
+      "zh": "闪现概率：{chance}%"
+    },
+    {
+      "id": "spell.prompt.chance.affect",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "chance to affect: {chance}%",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "chance.affect"
+      },
+      "zh": "影响概率：{chance}%"
+    },
+    {
+      "id": "spell.prompt.chance.teleport",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "chance to teleport: {chance}%",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "chance.teleport"
+      },
+      "zh": "传送概率：{chance}%"
+    },
+    {
+      "id": "spell.prompt.chance.daze_blind",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "chance to daze and blind: {chance}%",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "chance.daze_blind"
+      },
+      "zh": "震慑并致盲概率：{chance}%"
+    },
+    {
+      "id": "spell.prompt.effect.empty_space",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "empty space bonus: {spaces}/8",
+      "params": {
+        "spaces": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.empty_space"
+      },
+      "zh": "空地加成：{spaces}/8"
+    },
+    {
+      "id": "spell.prompt.effect.enfeeble.weakness",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "will inflict weakness",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.enfeeble.weakness"
+      },
+      "zh": "将施加虚弱"
+    },
+    {
+      "id": "spell.prompt.effect.enfeeble.antimagic",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "will diminish spells",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.enfeeble.antimagic"
+      },
+      "zh": "将削弱法术"
+    },
+    {
+      "id": "spell.prompt.effect.enfeeble.both",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "will inflict weakness and diminish spells",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.enfeeble.both"
+      },
+      "zh": "将施加虚弱并削弱法术"
+    },
+    {
+      "id": "spell.prompt.effect.polymorph",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "will become {monsters}",
+      "params": {
+        "monsters": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.polymorph"
+      },
+      "zh": "将变成{monsters}"
+    },
+    {
+      "id": "spell.prompt.effect.double_hit",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "2x{chance}",
+      "params": {
+        "chance": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "effect.double_hit"
+      },
+      "zh": "2倍{chance}"
+    },
+    {
+      "id": "spell.prompt.menu.exit",
+      "context": "Spell prompts generated before formatting; canonical English and all markup/key tokens must remain exact.",
+      "en": "{keys} exit",
+      "params": {
+        "keys": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "menu.exit"
+      },
+      "zh": "{keys} 返回"
+    },
+    {
+      "id": "movement.confirm.verb.step",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "step",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "踏"
+    },
+    {
+      "id": "movement.confirm.verb.stride",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "stride",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "大步迈"
+    },
+    {
+      "id": "movement.confirm.verb.roll",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "roll",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "滚"
+    },
+    {
+      "id": "movement.confirm.verb.rampage",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "rampage",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "狂奔"
+    },
+    {
+      "id": "movement.confirm.verb.fly",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "fly",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "飞"
+    },
+    {
+      "id": "movement.confirm.verb.swim",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "swim",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "游"
+    },
+    {
+      "id": "movement.confirm.verb.slither",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "slither",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "爬"
+    },
+    {
+      "id": "movement.confirm.verb.walk",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "walk",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "走"
+    },
+    {
+      "id": "movement.confirm.verb.wriggle",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "wriggle",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "扭动"
+    },
+    {
+      "id": "movement.confirm.verb.float",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "float",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "漂"
+    },
+    {
+      "id": "movement.confirm.verb.hop",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "hop",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "跳"
+    },
+    {
+      "id": "movement.confirm.verb.blink",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "blink",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "闪现"
+    },
+    {
+      "id": "movement.confirm.verb.charge",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "charge",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "冲"
+    },
+    {
+      "id": "movement.confirm.verb.leap",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "leap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "跃"
+    },
+    {
+      "id": "movement.confirm.verb.line_pass",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "line pass",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "沿直线穿行"
+    },
+    {
+      "id": "movement.confirm.verb.move",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "move",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "移动"
+    },
+    {
+      "id": "movement.confirm.verb.transfer",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "transfer",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "传送"
+    },
+    {
+      "id": "movement.confirm.verb.wall_jump",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "wall jump",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "蹬墙跳"
+    },
+    {
+      "id": "movement.confirm.verb.passwall",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "passwall",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "穿墙"
+    },
+    {
+      "id": "movement.confirm.verb.potentially_stumble_back",
+      "context": "Movement semantic verb label; selected by exact stable legacy movement action, not parsed prose. Chinese verb must fit complete prompts (onto/into/over separately organized).",
+      "en": "potentially stumble back",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "踉跄着退回"
+    },
+    {
+      "id": "movement.confirm.cloud",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Really {move} into that cloud of {cloud}?",
+      "params": {
+        "move": "text",
+        "cloud": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "确定要{move}进那团{cloud}云雾里吗？"
+    },
+    {
+      "id": "movement.confirm.trap.zot",
+      "context": "Dangerous Zot trap; confirm_prompt still requires literal engine control string yes, never translate it.",
+      "en": "Do you really want to {move} into the Zot trap?",
+      "params": {
+        "move": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "确定要{move}进佐特陷阱吗？"
+    },
+    {
+      "id": "movement.confirm.trap.onto",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Really {move} onto that {trap}?",
+      "params": {
+        "move": "text",
+        "trap": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "确定要{move}到那个{trap}上吗？"
+    },
+    {
+      "id": "movement.confirm.trap.into",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Really {move} into that {trap}?",
+      "params": {
+        "move": "text",
+        "trap": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "确定要{move}进那个{trap}吗？"
+    },
+    {
+      "id": "movement.confirm.binding_sigil",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Are you sure you want to {move} onto a binding sigil?",
+      "params": {
+        "move": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "确定要{move}到束缚符印上吗？"
+    },
+    {
+      "id": "movement.confirm.toxic_bog",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Are you sure you want to {move} into a toxic bog?",
+      "params": {
+        "move": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "确定要{move}进剧毒沼泽吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.into.deep_water.flight",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Are you sure you want to {move} into deep water while you are losing your buoyancy?",
+      "params": {
+        "move": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "你正在失去浮力，确定要{move}进深水吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.into.deep_water.form",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Are you sure you want to {move} into deep water while your transformation is expiring?",
+      "params": {
+        "move": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "你的变形即将结束，确定要{move}进深水吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.into.lava.flight",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Are you sure you want to {move} into lava while you are losing your buoyancy?",
+      "params": {
+        "move": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "你正在失去浮力，确定要{move}进熔岩吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.into.lava.form",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Are you sure you want to {move} into lava while your transformation is expiring?",
+      "params": {
+        "move": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "你的变形即将结束，确定要{move}进熔岩吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.over.deep_water.flight",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Are you sure you want to {move} over deep water while you are losing your buoyancy?",
+      "params": {
+        "move": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "你正在失去浮力，确定要{move}越过深水吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.over.deep_water.form",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Are you sure you want to {move} over deep water while your transformation is expiring?",
+      "params": {
+        "move": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "你的变形即将结束，确定要{move}越过深水吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.over.lava.flight",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Are you sure you want to {move} over lava while you are losing your buoyancy?",
+      "params": {
+        "move": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "你正在失去浮力，确定要{move}越过熔岩吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.over.lava.form",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Are you sure you want to {move} over lava while your transformation is expiring?",
+      "params": {
+        "move": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "你的变形即将结束，确定要{move}越过熔岩吗？"
+    },
+    {
+      "id": "movement.confirm.exclusion.certain",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "Really {move} into a travel-excluded area?",
+      "params": {
+        "move": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "确定要{move}进旅行排除区域吗？"
+    },
+    {
+      "id": "movement.confirm.exclusion.possible",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "You might {move} into a travel-excluded area, are you sure?",
+      "params": {
+        "move": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "你可能会{move}到旅行排除区域，确定继续吗？"
+    },
+    {
+      "id": "movement.confirm.prefaced",
+      "context": "Two COMPLETE independently translated sentences: passwall sensed danger then full movement confirmation. Retain canonical separator space; Chinese punctuation must remain natural.",
+      "en": "{warning} {prompt}",
+      "params": {
+        "warning": "text",
+        "prompt": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "{warning} {prompt}"
+    },
+    {
+      "id": "movement.confirm.passwall.water",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "You sense a deep body of water on the other side of the rock.",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-other.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "你感觉到岩石另一侧有一片深水。"
+    },
+    {
+      "id": "movement.confirm.passwall.lava",
+      "context": "Movement confirmation: whole prompt, preserve any control keys",
+      "en": "You sense an intense heat on the other side of the rock.",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-other.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "你感觉到岩石另一侧传来灼热。"
+    },
+    {
+      "id": "movement.confirm.cloud_name.0",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "blazing flames",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "烈焰"
+    },
+    {
+      "id": "movement.confirm.cloud_name.1",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "noxious fumes",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "有毒烟雾"
+    },
+    {
+      "id": "movement.confirm.cloud_name.2",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "freezing vapours",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "冰冷蒸汽"
+    },
+    {
+      "id": "movement.confirm.cloud_name.3",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "poison gas",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "毒气"
+    },
+    {
+      "id": "movement.confirm.cloud_name.4",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "black smoke",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "黑烟"
+    },
+    {
+      "id": "movement.confirm.cloud_name.5",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "grey smoke",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "灰烟"
+    },
+    {
+      "id": "movement.confirm.cloud_name.6",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "blue smoke",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "蓝烟"
+    },
+    {
+      "id": "movement.confirm.cloud_name.7",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "purple smoke",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "紫烟"
+    },
+    {
+      "id": "movement.confirm.cloud_name.8",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "translocational energy",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "空间转移能量"
+    },
+    {
+      "id": "movement.confirm.cloud_name.9",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "a forest fire",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "森林火灾"
+    },
+    {
+      "id": "movement.confirm.cloud_name.10",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "a cloud of scalding steam",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "滚烫蒸汽"
+    },
+    {
+      "id": "movement.confirm.cloud_name.11",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "thick gloom",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "浓重阴霾"
+    },
+    {
+      "id": "movement.confirm.cloud_name.12",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "ink",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "墨汁"
+    },
+    {
+      "id": "movement.confirm.cloud_name.13",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "calcifying dust",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "钙化尘埃"
+    },
+    {
+      "id": "movement.confirm.cloud_name.14",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "blessed fire",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "祝福之火"
+    },
+    {
+      "id": "movement.confirm.cloud_name.15",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "dark miasma",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "黑色瘴气"
+    },
+    {
+      "id": "movement.confirm.cloud_name.16",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "thin mist",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "薄雾"
+    },
+    {
+      "id": "movement.confirm.cloud_name.17",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "seething chaos",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "翻涌的混沌"
+    },
+    {
+      "id": "movement.confirm.cloud_name.18",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "the rain",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "雨水"
+    },
+    {
+      "id": "movement.confirm.cloud_name.19",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "mutagenic fog",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "诱变雾气"
+    },
+    {
+      "id": "movement.confirm.cloud_name.20",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "magical condensation",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "魔法凝露"
+    },
+    {
+      "id": "movement.confirm.cloud_name.21",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "whirling frost",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "旋舞冰霜"
+    },
+    {
+      "id": "movement.confirm.cloud_name.22",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "sparse dust",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "稀薄尘埃"
+    },
+    {
+      "id": "movement.confirm.cloud_name.23",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "spectral mist",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "幽灵雾气"
+    },
+    {
+      "id": "movement.confirm.cloud_name.24",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "acidic fog",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "酸雾"
+    },
+    {
+      "id": "movement.confirm.cloud_name.25",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "a thunderstorm",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "雷暴"
+    },
+    {
+      "id": "movement.confirm.cloud_name.26",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "excruciating misery",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "极度痛苦"
+    },
+    {
+      "id": "movement.confirm.cloud_name.27",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "white fluffiness",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "白色绒团"
+    },
+    {
+      "id": "movement.confirm.cloud_name.28",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "salt",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "盐"
+    },
+    {
+      "id": "movement.confirm.cloud_name.29",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "golden dust",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "金尘"
+    },
+    {
+      "id": "movement.confirm.cloud_name.30",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "embers",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "余烬"
+    },
+    {
+      "id": "movement.confirm.cloud_name.31",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "wisps of flame",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "火焰微粒"
+    },
+    {
+      "id": "movement.confirm.cloud_name.32",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "alcoholic mist",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "酒精雾气"
+    },
+    {
+      "id": "movement.confirm.cloud_name.33",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "volatile sparks",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "不稳定火花"
+    },
+    {
+      "id": "movement.confirm.cloud_name.34",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "sparks",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "火花"
+    },
+    {
+      "id": "movement.confirm.cloud_name.35",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "faint pestilence",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "微弱疫病"
+    },
+    {
+      "id": "movement.confirm.cloud_name.36",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "magnetised fragments",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "磁化碎片"
+    },
+    {
+      "id": "movement.confirm.cloud_name.37",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "bats",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "蝙蝠"
+    },
+    {
+      "id": "movement.confirm.cloud_name.38",
+      "context": "Cloud type display name selected by cloud_type_name enum, not a final sentence.",
+      "en": "rust",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/cloud.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "锈"
+    },
+    {
+      "id": "movement.confirm.trap_name.0",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "Zot trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "佐特陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.1",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "alarm trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "警报陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.2",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "pressure plate",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "压力板"
+    },
+    {
+      "id": "movement.confirm.trap_name.3",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "teleport trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "传送陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.4",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "permanent teleport trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "永久传送陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.5",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "shaft",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "地坑"
+    },
+    {
+      "id": "movement.confirm.trap_name.6",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "web",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "蛛网"
+    },
+    {
+      "id": "movement.confirm.trap_name.7",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "passage of Golubria",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "戈鲁布里亚通道"
+    },
+    {
+      "id": "movement.confirm.trap_name.8",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "dispersal trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "驱散陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.9",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "net trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "捕网陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.10",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "blade trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "刀刃陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.11",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "arrow trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "箭矢陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.12",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "spear trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "长矛陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.13",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "bolt trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "弩箭陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.14",
+      "context": "Trap type display name selected by full_trap_name enum, canonical overridden with feature_description_at basename.",
+      "en": "needle trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "shared movement and passwall terrain confirmations"
+      },
+      "zh": "毒针陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_0",
+      "context": "Trap type display name selected by full_trap_name enum; exact reviewed label, not final-message matching.",
+      "en": "harlequin's trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "trap_names and full_trap_name"
+      },
+      "zh": "丑角陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_1",
+      "context": "Trap type display name selected by full_trap_name enum; exact reviewed label, not final-message matching.",
+      "en": "archmage's trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "trap_names and full_trap_name"
+      },
+      "zh": "大法师陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_2",
+      "context": "Trap type display name selected by full_trap_name enum; exact reviewed label, not final-message matching.",
+      "en": "tyrant's trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "trap_names and full_trap_name"
+      },
+      "zh": "暴君陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_3",
+      "context": "Trap type display name selected by full_trap_name enum; exact reviewed label, not final-message matching.",
+      "en": "devourer's trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "trap_names and full_trap_name"
+      },
+      "zh": "吞噬者陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_4",
+      "context": "Trap type display name selected by full_trap_name enum; exact reviewed label, not final-message matching.",
+      "en": "gas trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "trap_names and full_trap_name"
+      },
+      "zh": "毒气陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_5",
+      "context": "Trap type display name selected by full_trap_name enum; exact reviewed label, not final-message matching.",
+      "en": "shadow trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "trap_names and full_trap_name"
+      },
+      "zh": "暗影陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_6",
+      "context": "Trap type display name selected by full_trap_name enum; exact reviewed label, not final-message matching.",
+      "en": "dormant shadow trap",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/describe.cc",
+        "anchor": "trap_names and full_trap_name"
+      },
+      "zh": "沉睡的暗影陷阱"
+    },
+    {
+      "id": "prompt.confirm.typed_answer",
+      "context": "Complete typed-answer confirmation suffix. Keep answer key canonical yes unchanged; prompt is an already translated complete child. Preserve English trailing space.",
+      "en": "{prompt} (Confirm with \"{answer}\".) ",
+      "params": {
+        "prompt": "text",
+        "answer": "key"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/prompt.cc",
+        "anchor": "confirm_prompt ZhMessage overload"
+      },
+      "zh": "{prompt}（按“{answer}”确认。） "
+    },
+    {
+      "id": "movement.confirm.warning",
+      "context": "Wrapper of a complete danger warning child. Preserve placeholder unchanged in Chinese; reports unsupported legacy warning arguments and never reparses English. Preserve source English when this passthrough argument is unreviewed.",
+      "en": "{warning}",
+      "params": {
+        "warning": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "_check_moveto_dangerous"
+      },
+      "zh": "{warning}"
+    },
+    {
+      "id": "spell.prompt.effect.immune_roots",
+      "context": "Spell target effect chosen by enum FASTROOT, complete fixed label.",
+      "en": "immune to roots",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "_desc_insubstantial"
+      },
+      "zh": "免疫树根束缚"
+    },
+    {
+      "id": "spell.prompt.effect.unstickable",
+      "context": "Spell target effect chosen by enum STICKY_FLAME, complete fixed label.",
+      "en": "unstickable",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "_desc_insubstantial"
+      },
+      "zh": "不会被黏住"
+    },
+    {
+      "id": "spell.prompt.effect.polymorph.name",
+      "context": "Styled semantic monster name, Chinese name has no English article. Preserve exact colour tags and colour structural argument.",
+      "en": "<{colour}>{monster}</{colour}>",
+      "params": {
+        "colour": "colour",
+        "monster": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "_mon_threat_arg"
+      },
+      "zh": "<{colour}>{monster}</{colour}>"
+    },
+    {
+      "id": "spell.prompt.effect.polymorph.list.middle",
+      "context": "Semantic list of complete styled monster names, intermediate list join; parent fallback must be whole when a child unsupported.",
+      "en": "{left}, {right}",
+      "params": {
+        "left": "text",
+        "right": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "desc_wl_success_chance"
+      },
+      "zh": "{left}、{right}"
+    },
+    {
+      "id": "spell.prompt.effect.polymorph.list.last",
+      "context": "Semantic list of alternative complete styled monster names, FINAL list join; canonical includes comma then or even when exactly two items.",
+      "en": "{left}, or {right}",
+      "params": {
+        "left": "text",
+        "right": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/spl-cast.cc",
+        "anchor": "desc_wl_success_chance"
+      },
+      "zh": "{left}或{right}"
+    },
+    {
+      "id": "quiver.prompt.description",
+      "en": "{description}",
+      "params": {
+        "description": "text"
+      },
+      "context": "Pass through the source-generated quiver description child. Preserve source English only when that child has no reviewed translation.",
+      "source": {
+        "file": "native/crawl-ref/source/quiver.cc",
+        "anchor": "quiver description bridge"
+      },
+      "zh": "{description}"
+    },
+    {
+      "id": "quiver.prompt.menu.header.items",
+      "en": "<lightcyan>Items</lightcyan> <lightgrey>({key} to cycle)</lightgrey>",
+      "params": {
+        "key": "key_markup"
+      },
+      "context": "Quiver category heading; preserve style markup and key placeholder.",
+      "source": {
+        "file": "native/crawl-ref/source/quiver.cc",
+        "anchor": "quiver category headers"
+      },
+      "zh": "<lightcyan>物品</lightcyan> <lightgrey>（{key}切换）</lightgrey>"
+    },
+    {
+      "id": "quiver.prompt.menu.header.spells",
+      "en": "<lightcyan>Spells</lightcyan> <lightgrey>({key} to cycle)</lightgrey>",
+      "params": {
+        "key": "key_markup"
+      },
+      "context": "Quiver category heading; preserve style markup and key placeholder.",
+      "source": {
+        "file": "native/crawl-ref/source/quiver.cc",
+        "anchor": "quiver category headers"
+      },
+      "zh": "<lightcyan>法术</lightcyan> <lightgrey>（{key}切换）</lightgrey>"
+    },
+    {
+      "id": "quiver.prompt.menu.header.abilities",
+      "en": "<lightcyan>Abilities</lightcyan> <lightgrey>({key} to cycle)</lightgrey>",
+      "params": {
+        "key": "key_markup"
+      },
+      "context": "Quiver category heading; preserve style markup and key placeholder.",
+      "source": {
+        "file": "native/crawl-ref/source/quiver.cc",
+        "anchor": "quiver category headers"
+      },
+      "zh": "<lightcyan>能力</lightcyan> <lightgrey>（{key}切换）</lightgrey>"
+    },
+    {
+      "id": "quiver.prompt.menu.no_actions",
+      "en": "<lightred>No regular actions available to quiver.</lightred>",
+      "params": {},
+      "context": "Quiver empty action category message; preserve warning style tag.",
+      "source": {
+        "file": "native/crawl-ref/source/quiver.cc",
+        "anchor": "quiver action list empty state"
+      },
+      "zh": "<lightred>没有可设为待用的常规动作。</lightred>"
+    },
+    {
+      "id": "quiver.prompt.menu.title",
+      "en": "Quiver which action? ",
+      "params": {},
+      "context": "Quiver action menu prompt; preserve trailing source space.",
+      "source": {
+        "file": "native/crawl-ref/source/quiver.cc",
+        "anchor": "quiver action menu"
+      },
+      "zh": "选择待用动作？ "
+    },
+    {
+      "id": "quiver.prompt.menu.title.empty",
+      "en": "Quiver which action? ([<w>-</w>] to clear)",
+      "params": {},
+      "context": "Quiver action menu prompt when an existing action can be cleared; preserve shortcut token.",
+      "source": {
+        "file": "native/crawl-ref/source/quiver.cc",
+        "anchor": "quiver action menu"
+      },
+      "zh": "选择待用动作？（按 [<w>-</w>] 清除）"
+    },
+    {
+      "id": "target.prompt.action.none",
+      "en": "No action selected",
+      "params": {},
+      "context": "Target mode action label.",
+      "source": {
+        "file": "native/crawl-ref/source/throw.cc",
+        "anchor": "target prompt action prefix bridge"
+      },
+      "zh": "未选择动作"
+    },
+    {
+      "id": "target.prompt.action.untargeted",
+      "en": "Non-targeted {action}",
+      "params": {
+        "action": "text"
+      },
+      "context": "Target mode action label for an action that needs no target selection.",
+      "source": {
+        "file": "native/crawl-ref/source/throw.cc",
+        "anchor": "target prompt action prefix bridge"
+      },
+      "zh": "无需指定目标：{action}"
+    },
+    {
+      "id": "target.prompt.action.confused",
+      "en": "You are confused and cannot control your aim.",
+      "params": {},
+      "context": "Target mode confusion message.",
+      "source": {
+        "file": "native/crawl-ref/source/throw.cc",
+        "anchor": "target prompt action prefix bridge"
+      },
+      "zh": "你正处于混乱状态，无法控制瞄准。"
+    },
+    {
+      "id": "target.prompt.prefix.look",
+      "en": "Look",
+      "params": {},
+      "context": "Target prompt prefix selected by action type.",
+      "source": {
+        "file": "native/crawl-ref/source/throw.cc",
+        "anchor": "target prompt prefix table"
+      },
+      "zh": "查看"
+    },
+    {
+      "id": "target.prompt.prefix.aim",
+      "en": "Aim",
+      "params": {},
+      "context": "Target prompt prefix selected by action type.",
+      "source": {
+        "file": "native/crawl-ref/source/throw.cc",
+        "anchor": "target prompt prefix table"
+      },
+      "zh": "瞄准"
+    },
+    {
+      "id": "target.prompt.prefix.here",
+      "en": "Here",
+      "params": {},
+      "context": "Target prompt prefix selected by action type.",
+      "source": {
+        "file": "native/crawl-ref/source/throw.cc",
+        "anchor": "target prompt prefix table"
+      },
+      "zh": "此处"
+    },
+    {
+      "id": "target.prompt.prefix.apport",
+      "en": "Apport",
+      "params": {},
+      "context": "Target prompt prefix selected by spell/action type.",
+      "source": {
+        "file": "native/crawl-ref/source/throw.cc",
+        "anchor": "target prompt prefix table"
+      },
+      "zh": "物品移位"
+    },
+    {
+      "id": "target.prompt.prefix.smite",
+      "en": "Smite",
+      "params": {},
+      "context": "Target prompt prefix selected by spell/action type.",
+      "source": {
+        "file": "native/crawl-ref/source/throw.cc",
+        "anchor": "target prompt prefix table"
+      },
+      "zh": "神罚"
+    },
+    {
+      "id": "target.prompt.prefix.fragment",
+      "en": "Fragment what (e.g. wall or brittle monster)?",
+      "params": {},
+      "context": "Target prompt prefix selected by spell/action type.",
+      "source": {
+        "file": "native/crawl-ref/source/throw.cc",
+        "anchor": "target prompt prefix table"
+      },
+      "zh": "要碎解什么（例如墙壁或脆弱怪物）？"
+    },
+    {
+      "id": "target.prompt.describe.monster",
+      "en": "{prefix}: <lightgrey>{description}</lightgrey>",
+      "params": {
+        "prefix": "text",
+        "description": "text"
+      },
+      "context": "Target monster description wrapper; child description may remain source English until its own producer is migrated. Preserve source English in those child arguments.",
+      "source": {
+        "file": "native/crawl-ref/source/throw.cc",
+        "anchor": "monster target prompt description"
+      },
+      "zh": "{prefix}：<lightgrey>{description}</lightgrey>"
+    },
+    {
+      "id": "target.prompt.describe.item",
+      "en": "{prefix}: {item}",
+      "params": {
+        "prefix": "text",
+        "item": "name"
+      },
+      "context": "Target item description, including its reviewed semantic item name.",
+      "source": {
+        "file": "native/crawl-ref/source/throw.cc",
+        "anchor": "item target prompt description"
+      },
+      "zh": "{prefix}：{item}"
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "target.prompt.keys",
+      "args": {
+        "describe": {
+          "type": "text",
+          "canonical": ", v - describe",
+          "localized": ", v - 查看说明"
+        },
+        "travel": {
+          "type": "text",
+          "canonical": ", . - travel",
+          "localized": ", . - 自动移动"
+        },
+        "item": {
+          "type": "text",
+          "canonical": ", g - get item",
+          "localized": ", g - 拾取物品"
+        },
+        "action": {
+          "type": "text",
+          "canonical": "cast",
+          "localized": "施法"
+        },
+        "direction": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        }
+      },
+      "canonical": "Press: ? - help, v - describe, . - travel, g - get itemcast",
+      "zh": "按键：? - 帮助, v - 查看说明, . - 自动移动, g - 拾取物品施法"
+    },
+    {
+      "id": "target.prompt.describe",
+      "args": {},
+      "canonical": ", v - describe",
+      "zh": "，v - 查看说明"
+    },
+    {
+      "id": "target.prompt.travel",
+      "args": {},
+      "canonical": ", . - travel",
+      "zh": "，. - 自动移动"
+    },
+    {
+      "id": "target.prompt.item",
+      "args": {},
+      "canonical": ", g - get item",
+      "zh": "，g - 拾取物品"
+    },
+    {
+      "id": "target.prompt.direction.activate",
+      "args": {},
+      "canonical": "Dir - look around, f - activate",
+      "zh": "方向键 - 查看周围，f - 激活"
+    },
+    {
+      "id": "target.prompt.direction.straight",
+      "args": {},
+      "canonical": "Shift-Dir - straight line",
+      "zh": "Shift+方向键 - 直线瞄准"
+    },
+    {
+      "id": "target.prompt.direction.move",
+      "args": {},
+      "canonical": "Dir - move target",
+      "zh": "方向键 - 移动目标"
+    },
+    {
+      "id": "quiver.prompt.keys.select",
+      "args": {},
+      "canonical": ", <w>%</w> - select action",
+      "zh": "，<w>%</w> - 选择动作"
+    },
+    {
+      "id": "quiver.prompt.keys.cycle",
+      "args": {},
+      "canonical": ", <w>%</w> - select action, <w>%</w> or <w>%</w> - cycle",
+      "zh": "，<w>%</w> - 选择动作，<w>%</w> 或 <w>%</w> - 切换"
+    },
+    {
+      "id": "quiver.prompt.empty.short",
+      "args": {},
+      "canonical": "<darkgrey>Empty</darkgrey>",
+      "zh": "<darkgrey>空</darkgrey>"
+    },
+    {
+      "id": "quiver.prompt.empty.long",
+      "args": {},
+      "canonical": "<darkgrey>Nothing quivered</darkgrey>",
+      "zh": "<darkgrey>没有待用物品</darkgrey>"
+    },
+    {
+      "id": "quiver.prompt.cast",
+      "args": {},
+      "canonical": "Cast: ",
+      "zh": "施法： "
+    },
+    {
+      "id": "quiver.prompt.continue",
+      "args": {},
+      "canonical": "Continue: ",
+      "zh": "继续： "
+    },
+    {
+      "id": "quiver.prompt.ability",
+      "args": {},
+      "canonical": "Abil: ",
+      "zh": "能力： "
+    },
+    {
+      "id": "quiver.prompt.activate",
+      "args": {},
+      "canonical": "Activate: ",
+      "zh": "启动： "
+    },
+    {
+      "id": "quiver.prompt.read",
+      "args": {},
+      "canonical": "Read: ",
+      "zh": "阅读： "
+    },
+    {
+      "id": "quiver.prompt.drink",
+      "args": {},
+      "canonical": "Drink: ",
+      "zh": "饮用： "
+    },
+    {
+      "id": "quiver.prompt.zap",
+      "args": {},
+      "canonical": "Zap: ",
+      "zh": "施放： "
+    },
+    {
+      "id": "quiver.prompt.evoke",
+      "args": {},
+      "canonical": "Evoke: ",
+      "zh": "唤起： "
+    },
+    {
+      "id": "quiver.prompt.throw",
+      "args": {},
+      "canonical": "Throw: ",
+      "zh": "投掷： "
+    },
+    {
+      "id": "quiver.prompt.toss",
+      "args": {},
+      "canonical": "Toss (no damage): ",
+      "zh": "抛掷（不造成伤害）： "
+    },
+    {
+      "id": "quiver.prompt.throw.confused",
+      "args": {},
+      "canonical": "Confused throw: ",
+      "zh": "困惑时投掷： "
+    },
+    {
+      "id": "quiver.prompt.toss.confused",
+      "args": {},
+      "canonical": "Confused toss (no damage): ",
+      "zh": "困惑时抛掷（不造成伤害）： "
+    },
+    {
+      "id": "quiver.prompt.fire",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Fire: a) ",
+      "zh": "射击：a) "
+    },
+    {
+      "id": "quiver.prompt.fire.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused fire: a) ",
+      "zh": "困惑时射击：a) "
+    },
+    {
+      "id": "quiver.prompt.attack",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Attack: a) ",
+      "zh": "攻击：a) "
+    },
+    {
+      "id": "quiver.prompt.attack.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused attack: a) ",
+      "zh": "困惑时攻击：a) "
+    },
+    {
+      "id": "quiver.prompt.punch",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Punch: a) ",
+      "zh": "拳击：a) "
+    },
+    {
+      "id": "quiver.prompt.punch.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused punch: a) ",
+      "zh": "困惑时拳击：a) "
+    },
+    {
+      "id": "quiver.prompt.reach",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Reach: a) ",
+      "zh": "长兵器攻击：a) "
+    },
+    {
+      "id": "quiver.prompt.reach.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused reach: a) ",
+      "zh": "困惑时长兵器攻击：a) "
+    },
+    {
+      "id": "quiver.prompt.cleave",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Cleave: a) ",
+      "zh": "横扫：a) "
+    },
+    {
+      "id": "quiver.prompt.cleave.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused cleave: a) ",
+      "zh": "困惑时横扫：a) "
+    },
+    {
+      "id": "quiver.prompt.hit",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Hit: a) ",
+      "zh": "击打：a) "
+    },
+    {
+      "id": "quiver.prompt.hit.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused hit: a) ",
+      "zh": "困惑时击打：a) "
+    },
+    {
+      "id": "quiver.prompt.menu.inventory",
+      "args": {},
+      "canonical": "[<w>*/%</w>] inventory  ",
+      "zh": "[<w>*/%</w>] 物品栏  "
+    },
+    {
+      "id": "quiver.prompt.menu.spells",
+      "args": {},
+      "canonical": "[<w>&</w>] all spells  ",
+      "zh": "[<w>&</w>] 所有法术  "
+    },
+    {
+      "id": "quiver.prompt.menu.abilities",
+      "args": {},
+      "canonical": "[<w>^</w>] all abilities  ",
+      "zh": "[<w>^</w>] 所有能力  "
+    },
+    {
+      "id": "quiver.prompt.menu.focus.off",
+      "args": {
+        "key": {
+          "type": "key_markup",
+          "canonical": "<w>Z</w>",
+          "localized": "<w>Z</w>"
+        }
+      },
+      "canonical": "<w>Z</w> focus mode: <w>off</w>|on",
+      "zh": "<w>Z</w> 专注模式：<w>关</w>|开"
+    },
+    {
+      "id": "quiver.prompt.menu.focus.on",
+      "args": {
+        "key": {
+          "type": "key_markup",
+          "canonical": "<w>Z</w>",
+          "localized": "<w>Z</w>"
+        }
+      },
+      "canonical": "<w>Z</w> focus mode: off|<w>on</w>",
+      "zh": "<w>Z</w> 专注模式：关|<w>开</w>"
+    },
+    {
+      "id": "quiver.prompt.menu.quivered",
+      "args": {},
+      "canonical": " (quivered)",
+      "zh": "（已设为待用）"
+    },
+    {
+      "id": "quiver.prompt.choose.empty",
+      "args": {},
+      "canonical": "Quiver which item? (- for none)",
+      "zh": "选择待用物品？（- 表示不选）"
+    },
+    {
+      "id": "quiver.prompt.choose",
+      "args": {},
+      "canonical": "Quiver which item?",
+      "zh": "选择待用物品？"
+    },
+    {
+      "id": "quiver.prompt.confirm",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": ", g - get item",
+          "localized": ", g - 拾取物品"
+        }
+      },
+      "canonical": "Really quiver , g - get item?",
+      "zh": "确定将, g - 拾取物品设为待用物品？"
+    },
+    {
+      "id": "quiver.prompt.named",
+      "args": {
+        "caption": {
+          "type": "text",
+          "canonical": "Fire: ",
+          "localized": "射击："
+        },
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "name": {
+          "type": "name",
+          "canonical": "fireball",
+          "localized": "火球"
+        }
+      },
+      "canonical": "Fire: <lightcyan>fireball</lightcyan>",
+      "zh": "射击：<lightcyan>火球</lightcyan>"
+    },
+    {
+      "id": "quiver.prompt.spell.charges",
+      "args": {
+        "charges": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        },
+        "maximum": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": " (3/3)",
+      "zh": "（3/3）"
+    },
+    {
+      "id": "quiver.prompt.spell.failure",
+      "args": {
+        "rate": {
+          "type": "text",
+          "canonical": "25%",
+          "localized": "25%"
+        }
+      },
+      "canonical": " (25%)",
+      "zh": "（25%）"
+    },
+    {
+      "id": "quiver.prompt.form.bite",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Bite: a) ",
+      "zh": "撕咬：a) "
+    },
+    {
+      "id": "quiver.prompt.form.bite.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused bite: a) ",
+      "zh": "困惑时撕咬：a) "
+    },
+    {
+      "id": "quiver.prompt.form.buffet",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Buffet: a) ",
+      "zh": "冲撞：a) "
+    },
+    {
+      "id": "quiver.prompt.form.buffet.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused buffet: a) ",
+      "zh": "困惑时冲撞：a) "
+    },
+    {
+      "id": "quiver.prompt.form.claw",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Claw: a) ",
+      "zh": "爪击：a) "
+    },
+    {
+      "id": "quiver.prompt.form.claw.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused claw: a) ",
+      "zh": "困惑时爪击：a) "
+    },
+    {
+      "id": "quiver.prompt.form.headbutt",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Headbutt: a) ",
+      "zh": "头槌：a) "
+    },
+    {
+      "id": "quiver.prompt.form.headbutt.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused headbutt: a) ",
+      "zh": "困惑时头槌：a) "
+    },
+    {
+      "id": "quiver.prompt.form.lash",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Lash: a) ",
+      "zh": "鞭击：a) "
+    },
+    {
+      "id": "quiver.prompt.form.lash.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused lash: a) ",
+      "zh": "困惑时鞭击：a) "
+    },
+    {
+      "id": "quiver.prompt.form.release_spores_at",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Release spores at: a) ",
+      "zh": "释放孢子：a) "
+    },
+    {
+      "id": "quiver.prompt.form.release_spores_at.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused release spores at: a) ",
+      "zh": "困惑时释放孢子：a) "
+    },
+    {
+      "id": "quiver.prompt.form.slap",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Slap: a) ",
+      "zh": "掌掴：a) "
+    },
+    {
+      "id": "quiver.prompt.form.slap.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused slap: a) ",
+      "zh": "困惑时掌掴：a) "
+    },
+    {
+      "id": "quiver.prompt.form.smack",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Smack: a) ",
+      "zh": "拍击：a) "
+    },
+    {
+      "id": "quiver.prompt.form.smack.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused smack: a) ",
+      "zh": "困惑时拍击：a) "
+    },
+    {
+      "id": "quiver.prompt.form.snap",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Snap: a) ",
+      "zh": "咬击：a) "
+    },
+    {
+      "id": "quiver.prompt.form.snap.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused snap: a) ",
+      "zh": "困惑时咬击：a) "
+    },
+    {
+      "id": "quiver.prompt.form.swat",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Swat: a) ",
+      "zh": "挥击：a) "
+    },
+    {
+      "id": "quiver.prompt.form.swat.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused swat: a) ",
+      "zh": "困惑时挥击：a) "
+    },
+    {
+      "id": "quiver.prompt.form.touch",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Touch: a) ",
+      "zh": "触碰：a) "
+    },
+    {
+      "id": "quiver.prompt.form.touch.confused",
+      "args": {
+        "key": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Confused touch: a) ",
+      "zh": "困惑时触碰：a) "
+    },
+    {
+      "id": "quiver.prompt.ability.build",
+      "args": {
+        "feature": {
+          "type": "name",
+          "canonical": "a wall",
+          "localized": "墙壁"
+        }
+      },
+      "canonical": "Build 'a wall'",
+      "zh": "建造“墙壁”"
+    },
+    {
+      "id": "quiver.prompt.cards.next",
+      "args": {
+        "card": {
+          "type": "name",
+          "canonical": "a card",
+          "localized": "一张牌"
+        }
+      },
+      "canonical": " (next: a card)",
+      "zh": "（下一张：一张牌）"
+    },
+    {
+      "id": "quiver.prompt.cards.deck",
+      "args": {
+        "count": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": " (3 in deck)",
+      "zh": "（牌堆中3张）"
+    },
+    {
+      "id": "spell.name.quiver_capacitive_coupling",
+      "args": {},
+      "canonical": "Capacitive Coupling",
+      "zh": "电容耦合"
+    },
+    {
+      "id": "spell.prompt.risk.0",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "failure": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "<lightcyan>safe</lightcyan>; <lightcyan>3%</lightcyan> risk of failure",
+      "zh": "<lightcyan>安全</lightcyan>；<lightcyan>3%</lightcyan>失败风险"
+    },
+    {
+      "id": "spell.prompt.confirm.risk.0",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "failure": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "The spell is safe to miscast (<lightcyan>3%</lightcyan> risk of failure). Continue anyway?",
+      "zh": "此法术不会造成严重反噬（失败风险<lightcyan>3%</lightcyan>）。仍要继续吗？"
+    },
+    {
+      "id": "spell.prompt.risk.1",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "failure": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "<lightcyan>mildly dangerous</lightcyan>; <lightcyan>3%</lightcyan> risk of failure",
+      "zh": "<lightcyan>略有危险</lightcyan>；<lightcyan>3%</lightcyan>失败风险"
+    },
+    {
+      "id": "spell.prompt.confirm.risk.1",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "failure": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "The spell is mildly dangerous to miscast (<lightcyan>3%</lightcyan> risk of failure). Continue anyway?",
+      "zh": "此法术反噬略有危险（失败风险<lightcyan>3%</lightcyan>）。仍要继续吗？"
+    },
+    {
+      "id": "spell.prompt.risk.2",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "failure": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "<lightcyan>dangerous</lightcyan>; <lightcyan>3%</lightcyan> risk of failure",
+      "zh": "<lightcyan>危险</lightcyan>；<lightcyan>3%</lightcyan>失败风险"
+    },
+    {
+      "id": "spell.prompt.confirm.risk.2",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "failure": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "The spell is dangerous to miscast (<lightcyan>3%</lightcyan> risk of failure)! Continue anyway?",
+      "zh": "此法术反噬危险（失败风险<lightcyan>3%</lightcyan>）！仍要继续吗？"
+    },
+    {
+      "id": "spell.prompt.risk.3",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "failure": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "<lightcyan>quite dangerous</lightcyan>; <lightcyan>3%</lightcyan> risk of failure",
+      "zh": "<lightcyan>相当危险</lightcyan>；<lightcyan>3%</lightcyan>失败风险"
+    },
+    {
+      "id": "spell.prompt.confirm.risk.3",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "failure": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "The spell is quite dangerous to miscast (<lightcyan>3%</lightcyan> risk of failure)! Continue anyway?",
+      "zh": "此法术反噬相当危险（失败风险<lightcyan>3%</lightcyan>）！仍要继续吗？"
+    },
+    {
+      "id": "spell.prompt.risk.4",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "failure": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "<lightcyan>extremely dangerous</lightcyan>; <lightcyan>3%</lightcyan> risk of failure",
+      "zh": "<lightcyan>极其危险</lightcyan>；<lightcyan>3%</lightcyan>失败风险"
+    },
+    {
+      "id": "spell.prompt.confirm.risk.4",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "failure": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "The spell is extremely dangerous to miscast (<lightcyan>3%</lightcyan> risk of failure)! Continue anyway?",
+      "zh": "此法术反噬极其危险（失败风险<lightcyan>3%</lightcyan>）！仍要继续吗？"
+    },
+    {
+      "id": "spell.prompt.risk.5",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "failure": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "<lightcyan>astonishingly dangerous</lightcyan>; <lightcyan>3%</lightcyan> risk of failure",
+      "zh": "<lightcyan>骇人地危险</lightcyan>；<lightcyan>3%</lightcyan>失败风险"
+    },
+    {
+      "id": "spell.prompt.confirm.risk.5",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "failure": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "The spell is astonishingly dangerous to miscast (<lightcyan>3%</lightcyan> risk of failure)! Continue anyway?",
+      "zh": "此法术反噬危险至极（失败风险<lightcyan>3%</lightcyan>）！仍要继续吗？"
+    },
+    {
+      "id": "spell.prompt.action.cast",
+      "args": {},
+      "canonical": "cast",
+      "zh": "施放"
+    },
+    {
+      "id": "spell.prompt.action.describe",
+      "args": {},
+      "canonical": "describe",
+      "zh": "查看说明"
+    },
+    {
+      "id": "spell.prompt.action.adjust",
+      "args": {},
+      "canonical": "adjust",
+      "zh": "调整"
+    },
+    {
+      "id": "spell.prompt.action.adjust_it_to",
+      "args": {},
+      "canonical": "adjust it to",
+      "zh": "调整为"
+    },
+    {
+      "id": "spell.prompt.action.forget",
+      "args": {},
+      "canonical": "forget",
+      "zh": "遗忘"
+    },
+    {
+      "id": "spell.prompt.action.quiver",
+      "args": {},
+      "canonical": "quiver",
+      "zh": "设为待用"
+    },
+    {
+      "id": "spell.prompt.menu.title",
+      "args": {
+        "action": {
+          "type": "text",
+          "canonical": "cast",
+          "localized": "施法"
+        }
+      },
+      "canonical": "Your spells (cast)",
+      "zh": "你的法术（施法）"
+    },
+    {
+      "id": "spell.prompt.menu.select",
+      "args": {
+        "action": {
+          "type": "text",
+          "canonical": "cast",
+          "localized": "施法"
+        }
+      },
+      "canonical": "<lightgrey>Select a spell to cast</lightgrey>",
+      "zh": "<lightgrey>选择要施法的法术</lightgrey>"
+    },
+    {
+      "id": "spell.prompt.menu.help",
+      "args": {},
+      "canonical": "   [<w>?</w>] help    ",
+      "zh": "   [<w>?</w>] 帮助    "
+    },
+    {
+      "id": "spell.prompt.menu.toggle",
+      "args": {
+        "keys": {
+          "type": "key_markup",
+          "canonical": "<w>Z</w>",
+          "localized": "<w>Z</w>"
+        }
+      },
+      "canonical": "<w>Z</w> toggle spell headers",
+      "zh": "<w>Z</w> 切换法术标题"
+    },
+    {
+      "id": "spell.prompt.menu.header.base",
+      "args": {},
+      "canonical": "           Type                      Failure  Level  ",
+      "zh": "           类型                      失败率   等级   "
+    },
+    {
+      "id": "spell.prompt.menu.header.extra",
+      "args": {},
+      "canonical": "           Power     Damage    Range   Noise         ",
+      "zh": "           威力      伤害      射程    噪声          "
+    },
+    {
+      "id": "spell.prompt.select",
+      "args": {},
+      "canonical": "Cast which spell? (? or * to list) ",
+      "zh": "施放哪个法术？（? 或 * 查看列表） "
+    },
+    {
+      "id": "spell.prompt.recast",
+      "args": {
+        "spell": {
+          "type": "name",
+          "canonical": "Fireball",
+          "localized": "火球"
+        },
+        "risk": {
+          "type": "text",
+          "canonical": "safe",
+          "localized": "安全"
+        }
+      },
+      "canonical": "Casting: <w>Fireball</w> <lightgrey>(safe)</lightgrey>",
+      "zh": "施放中：<w>火球</w> <lightgrey>（安全）</lightgrey>"
+    },
+    {
+      "id": "spell.prompt.confirm.recast",
+      "args": {},
+      "canonical": "Confirm with . or Enter, or press ? or * to list all spells.",
+      "zh": "按 . 或 Enter 确认，或按 ? 或 * 查看所有法术。"
+    },
+    {
+      "id": "spell.prompt.unknown",
+      "args": {},
+      "canonical": "You don't know that spell.",
+      "zh": "你不会那个法术。"
+    },
+    {
+      "id": "spell.prompt.no_targets",
+      "args": {},
+      "canonical": "You can't see any susceptible monsters within range! (Use <w>Z</w> to cast anyway.)",
+      "zh": "视野内没有可受影响的怪物！（使用 <w>Z</w> 仍可施法。）"
+    },
+    {
+      "id": "spell.prompt.penance",
+      "args": {},
+      "canonical": "Casting this spell will place you under penance. Really cast?",
+      "zh": "施放此法术会招致神罚。仍要施放吗？"
+    },
+    {
+      "id": "spell.prompt.confirm.cast",
+      "args": {
+        "spell": {
+          "type": "name",
+          "canonical": "Fireball",
+          "localized": "火球"
+        }
+      },
+      "canonical": "Really cast Fireball?",
+      "zh": "确定施放火球？"
+    },
+    {
+      "id": "spell.prompt.impossible",
+      "args": {},
+      "canonical": "It is impossible to cast this spell (100% risk of failure)!",
+      "zh": "无法施放此法术（失败风险为100%）！"
+    },
+    {
+      "id": "spell.prompt.target.aim",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "spell": {
+          "type": "name",
+          "canonical": "Fireball",
+          "localized": "火球"
+        }
+      },
+      "canonical": "Aiming: <lightcyan>Fireball</lightcyan>",
+      "zh": "瞄准：<lightcyan>火球</lightcyan>"
+    },
+    {
+      "id": "spell.prompt.target.cast",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "spell": {
+          "type": "name",
+          "canonical": "Fireball",
+          "localized": "火球"
+        }
+      },
+      "canonical": "Casting: <lightcyan>Fireball</lightcyan>",
+      "zh": "施放：<lightcyan>火球</lightcyan>"
+    },
+    {
+      "id": "spell.prompt.target.restart",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "spell": {
+          "type": "name",
+          "canonical": "Fireball",
+          "localized": "火球"
+        }
+      },
+      "canonical": "<lightred>Restarting spell</lightred>: <lightcyan>Fireball</lightcyan>",
+      "zh": "<lightred>重新开始施法</lightred>：<lightcyan>火球</lightcyan>"
+    },
+    {
+      "id": "spell.prompt.target.risk",
+      "args": {
+        "title": {
+          "type": "text",
+          "canonical": "Fireball",
+          "localized": "火球"
+        },
+        "risk": {
+          "type": "text",
+          "canonical": "safe",
+          "localized": "安全"
+        }
+      },
+      "canonical": "Fireball <lightgrey>(safe)</lightgrey>",
+      "zh": "火球 <lightgrey>（安全）</lightgrey>"
+    },
+    {
+      "id": "spell.prompt.target.charges",
+      "args": {
+        "title": {
+          "type": "text",
+          "canonical": "Fireball",
+          "localized": "火球"
+        },
+        "available": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        },
+        "maximum": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "Fireball<lightgrey> (3/3 uses available)</lightgrey>",
+      "zh": "火球<lightgrey>（可用次数：3/3）</lightgrey>"
+    },
+    {
+      "id": "spell.prompt.others_only",
+      "args": {},
+      "canonical": "Sorry, this spell works on others only.",
+      "zh": "抱歉，此法术只能对其他目标生效。"
+    },
+    {
+      "id": "spell.prompt.effect.not_susceptible",
+      "args": {},
+      "canonical": "not susceptible",
+      "zh": "不受影响"
+    },
+    {
+      "id": "spell.prompt.effect.already_infected",
+      "args": {},
+      "canonical": "already infected",
+      "zh": "已受感染"
+    },
+    {
+      "id": "spell.prompt.effect.stationary",
+      "args": {},
+      "canonical": "stationary",
+      "zh": "无法移动"
+    },
+    {
+      "id": "spell.prompt.effect.will_blink",
+      "args": {},
+      "canonical": "will blink",
+      "zh": "将会闪现"
+    },
+    {
+      "id": "spell.prompt.effect.infinite_will",
+      "args": {},
+      "canonical": "infinite will",
+      "zh": "意志力无限"
+    },
+    {
+      "id": "spell.prompt.effect.will_change_colour",
+      "args": {},
+      "canonical": "will change colour",
+      "zh": "将会变色"
+    },
+    {
+      "id": "spell.prompt.effect.will_change_shape",
+      "args": {},
+      "canonical": "will change shape",
+      "zh": "将会变形"
+    },
+    {
+      "id": "spell.prompt.effect.will_probably_split",
+      "args": {},
+      "canonical": "will probably split",
+      "zh": "很可能会分裂"
+    },
+    {
+      "id": "spell.prompt.chance.confuse",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "chance to confuse: 3%",
+      "zh": "混乱概率：3%"
+    },
+    {
+      "id": "spell.prompt.chance.slow",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "chance to slow: 3%",
+      "zh": "减速概率：3%"
+    },
+    {
+      "id": "spell.prompt.chance.blind",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "chance to blind: 3%",
+      "zh": "致盲概率：3%"
+    },
+    {
+      "id": "spell.prompt.chance.weaken",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "chance to weaken: 3%",
+      "zh": "虚弱概率：3%"
+    },
+    {
+      "id": "spell.prompt.chance.blink",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "chance to blink: 3%",
+      "zh": "闪现概率：3%"
+    },
+    {
+      "id": "spell.prompt.chance.affect",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "chance to affect: 3%",
+      "zh": "影响概率：3%"
+    },
+    {
+      "id": "spell.prompt.chance.teleport",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "chance to teleport: 3%",
+      "zh": "传送概率：3%"
+    },
+    {
+      "id": "spell.prompt.chance.daze_blind",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "chance to daze and blind: 3%",
+      "zh": "震慑并致盲概率：3%"
+    },
+    {
+      "id": "spell.prompt.effect.empty_space",
+      "args": {
+        "spaces": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "empty space bonus: 3/8",
+      "zh": "空地加成：3/8"
+    },
+    {
+      "id": "spell.prompt.effect.enfeeble.weakness",
+      "args": {},
+      "canonical": "will inflict weakness",
+      "zh": "将施加虚弱"
+    },
+    {
+      "id": "spell.prompt.effect.enfeeble.antimagic",
+      "args": {},
+      "canonical": "will diminish spells",
+      "zh": "将削弱法术"
+    },
+    {
+      "id": "spell.prompt.effect.enfeeble.both",
+      "args": {},
+      "canonical": "will inflict weakness and diminish spells",
+      "zh": "将施加虚弱并削弱法术"
+    },
+    {
+      "id": "spell.prompt.effect.polymorph",
+      "args": {
+        "monsters": {
+          "type": "text",
+          "canonical": "orcs",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "will become orcs",
+      "zh": "将变成兽人"
+    },
+    {
+      "id": "spell.prompt.effect.double_hit",
+      "args": {
+        "chance": {
+          "type": "text",
+          "canonical": "25",
+          "localized": "25"
+        }
+      },
+      "canonical": "2x25",
+      "zh": "2倍25"
+    },
+    {
+      "id": "spell.prompt.menu.exit",
+      "args": {
+        "keys": {
+          "type": "key_markup",
+          "canonical": "<w>Z</w>",
+          "localized": "<w>Z</w>"
+        }
+      },
+      "canonical": "<w>Z</w> exit",
+      "zh": "<w>Z</w> 返回"
+    },
+    {
+      "id": "movement.confirm.verb.step",
+      "args": {},
+      "canonical": "step",
+      "zh": "踏"
+    },
+    {
+      "id": "movement.confirm.verb.stride",
+      "args": {},
+      "canonical": "stride",
+      "zh": "大步迈"
+    },
+    {
+      "id": "movement.confirm.verb.roll",
+      "args": {},
+      "canonical": "roll",
+      "zh": "滚"
+    },
+    {
+      "id": "movement.confirm.verb.rampage",
+      "args": {},
+      "canonical": "rampage",
+      "zh": "狂奔"
+    },
+    {
+      "id": "movement.confirm.verb.fly",
+      "args": {},
+      "canonical": "fly",
+      "zh": "飞"
+    },
+    {
+      "id": "movement.confirm.verb.swim",
+      "args": {},
+      "canonical": "swim",
+      "zh": "游"
+    },
+    {
+      "id": "movement.confirm.verb.slither",
+      "args": {},
+      "canonical": "slither",
+      "zh": "爬"
+    },
+    {
+      "id": "movement.confirm.verb.walk",
+      "args": {},
+      "canonical": "walk",
+      "zh": "走"
+    },
+    {
+      "id": "movement.confirm.verb.wriggle",
+      "args": {},
+      "canonical": "wriggle",
+      "zh": "扭动"
+    },
+    {
+      "id": "movement.confirm.verb.float",
+      "args": {},
+      "canonical": "float",
+      "zh": "漂"
+    },
+    {
+      "id": "movement.confirm.verb.hop",
+      "args": {},
+      "canonical": "hop",
+      "zh": "跳"
+    },
+    {
+      "id": "movement.confirm.verb.blink",
+      "args": {},
+      "canonical": "blink",
+      "zh": "闪现"
+    },
+    {
+      "id": "movement.confirm.verb.charge",
+      "args": {},
+      "canonical": "charge",
+      "zh": "冲"
+    },
+    {
+      "id": "movement.confirm.verb.leap",
+      "args": {},
+      "canonical": "leap",
+      "zh": "跃"
+    },
+    {
+      "id": "movement.confirm.verb.line_pass",
+      "args": {},
+      "canonical": "line pass",
+      "zh": "沿直线穿行"
+    },
+    {
+      "id": "movement.confirm.verb.move",
+      "args": {},
+      "canonical": "move",
+      "zh": "移动"
+    },
+    {
+      "id": "movement.confirm.verb.transfer",
+      "args": {},
+      "canonical": "transfer",
+      "zh": "传送"
+    },
+    {
+      "id": "movement.confirm.verb.wall_jump",
+      "args": {},
+      "canonical": "wall jump",
+      "zh": "蹬墙跳"
+    },
+    {
+      "id": "movement.confirm.verb.passwall",
+      "args": {},
+      "canonical": "passwall",
+      "zh": "穿墙"
+    },
+    {
+      "id": "movement.confirm.verb.potentially_stumble_back",
+      "args": {},
+      "canonical": "potentially stumble back",
+      "zh": "踉跄着退回"
+    },
+    {
+      "id": "movement.confirm.cloud",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        },
+        "cloud": {
+          "type": "name",
+          "canonical": "poison gas",
+          "localized": "毒气"
+        }
+      },
+      "canonical": "Really example into that cloud of poison gas?",
+      "zh": "确定要示例进那团毒气云雾里吗？"
+    },
+    {
+      "id": "movement.confirm.trap.zot",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        }
+      },
+      "canonical": "Do you really want to example into the Zot trap?",
+      "zh": "确定要示例进佐特陷阱吗？"
+    },
+    {
+      "id": "movement.confirm.trap.onto",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        },
+        "trap": {
+          "type": "name",
+          "canonical": "alarm trap",
+          "localized": "警报陷阱"
+        }
+      },
+      "canonical": "Really example onto that alarm trap?",
+      "zh": "确定要示例到那个警报陷阱上吗？"
+    },
+    {
+      "id": "movement.confirm.trap.into",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        },
+        "trap": {
+          "type": "name",
+          "canonical": "alarm trap",
+          "localized": "警报陷阱"
+        }
+      },
+      "canonical": "Really example into that alarm trap?",
+      "zh": "确定要示例进那个警报陷阱吗？"
+    },
+    {
+      "id": "movement.confirm.binding_sigil",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        }
+      },
+      "canonical": "Are you sure you want to example onto a binding sigil?",
+      "zh": "确定要示例到束缚符印上吗？"
+    },
+    {
+      "id": "movement.confirm.toxic_bog",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        }
+      },
+      "canonical": "Are you sure you want to example into a toxic bog?",
+      "zh": "确定要示例进剧毒沼泽吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.into.deep_water.flight",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        }
+      },
+      "canonical": "Are you sure you want to example into deep water while you are losing your buoyancy?",
+      "zh": "你正在失去浮力，确定要示例进深水吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.into.deep_water.form",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        }
+      },
+      "canonical": "Are you sure you want to example into deep water while your transformation is expiring?",
+      "zh": "你的变形即将结束，确定要示例进深水吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.into.lava.flight",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        }
+      },
+      "canonical": "Are you sure you want to example into lava while you are losing your buoyancy?",
+      "zh": "你正在失去浮力，确定要示例进熔岩吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.into.lava.form",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        }
+      },
+      "canonical": "Are you sure you want to example into lava while your transformation is expiring?",
+      "zh": "你的变形即将结束，确定要示例进熔岩吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.over.deep_water.flight",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        }
+      },
+      "canonical": "Are you sure you want to example over deep water while you are losing your buoyancy?",
+      "zh": "你正在失去浮力，确定要示例越过深水吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.over.deep_water.form",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        }
+      },
+      "canonical": "Are you sure you want to example over deep water while your transformation is expiring?",
+      "zh": "你的变形即将结束，确定要示例越过深水吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.over.lava.flight",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        }
+      },
+      "canonical": "Are you sure you want to example over lava while you are losing your buoyancy?",
+      "zh": "你正在失去浮力，确定要示例越过熔岩吗？"
+    },
+    {
+      "id": "movement.confirm.expiration.over.lava.form",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        }
+      },
+      "canonical": "Are you sure you want to example over lava while your transformation is expiring?",
+      "zh": "你的变形即将结束，确定要示例越过熔岩吗？"
+    },
+    {
+      "id": "movement.confirm.exclusion.certain",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        }
+      },
+      "canonical": "Really example into a travel-excluded area?",
+      "zh": "确定要示例进旅行排除区域吗？"
+    },
+    {
+      "id": "movement.confirm.exclusion.possible",
+      "args": {
+        "move": {
+          "type": "text",
+          "canonical": "example",
+          "localized": "示例"
+        }
+      },
+      "canonical": "You might example into a travel-excluded area, are you sure?",
+      "zh": "你可能会示例到旅行排除区域，确定继续吗？"
+    },
+    {
+      "id": "movement.confirm.prefaced",
+      "args": {
+        "warning": {
+          "type": "text",
+          "canonical": "Danger!",
+          "localized": "危险！"
+        },
+        "prompt": {
+          "type": "text",
+          "canonical": "Really step into that cloud of poison gas?",
+          "localized": "确定要踏入毒气云雾吗？"
+        }
+      },
+      "canonical": "Danger! Really step into that cloud of poison gas?",
+      "zh": "危险！ 确定要踏入毒气云雾吗？"
+    },
+    {
+      "id": "movement.confirm.passwall.water",
+      "args": {},
+      "canonical": "You sense a deep body of water on the other side of the rock.",
+      "zh": "你感觉到岩石另一侧有一片深水。"
+    },
+    {
+      "id": "movement.confirm.passwall.lava",
+      "args": {},
+      "canonical": "You sense an intense heat on the other side of the rock.",
+      "zh": "你感觉到岩石另一侧传来灼热。"
+    },
+    {
+      "id": "movement.confirm.cloud_name.0",
+      "args": {},
+      "canonical": "blazing flames",
+      "zh": "烈焰"
+    },
+    {
+      "id": "movement.confirm.cloud_name.1",
+      "args": {},
+      "canonical": "noxious fumes",
+      "zh": "有毒烟雾"
+    },
+    {
+      "id": "movement.confirm.cloud_name.2",
+      "args": {},
+      "canonical": "freezing vapours",
+      "zh": "冰冷蒸汽"
+    },
+    {
+      "id": "movement.confirm.cloud_name.3",
+      "args": {},
+      "canonical": "poison gas",
+      "zh": "毒气"
+    },
+    {
+      "id": "movement.confirm.cloud_name.4",
+      "args": {},
+      "canonical": "black smoke",
+      "zh": "黑烟"
+    },
+    {
+      "id": "movement.confirm.cloud_name.5",
+      "args": {},
+      "canonical": "grey smoke",
+      "zh": "灰烟"
+    },
+    {
+      "id": "movement.confirm.cloud_name.6",
+      "args": {},
+      "canonical": "blue smoke",
+      "zh": "蓝烟"
+    },
+    {
+      "id": "movement.confirm.cloud_name.7",
+      "args": {},
+      "canonical": "purple smoke",
+      "zh": "紫烟"
+    },
+    {
+      "id": "movement.confirm.cloud_name.8",
+      "args": {},
+      "canonical": "translocational energy",
+      "zh": "空间转移能量"
+    },
+    {
+      "id": "movement.confirm.cloud_name.9",
+      "args": {},
+      "canonical": "a forest fire",
+      "zh": "森林火灾"
+    },
+    {
+      "id": "movement.confirm.cloud_name.10",
+      "args": {},
+      "canonical": "a cloud of scalding steam",
+      "zh": "滚烫蒸汽"
+    },
+    {
+      "id": "movement.confirm.cloud_name.11",
+      "args": {},
+      "canonical": "thick gloom",
+      "zh": "浓重阴霾"
+    },
+    {
+      "id": "movement.confirm.cloud_name.12",
+      "args": {},
+      "canonical": "ink",
+      "zh": "墨汁"
+    },
+    {
+      "id": "movement.confirm.cloud_name.13",
+      "args": {},
+      "canonical": "calcifying dust",
+      "zh": "钙化尘埃"
+    },
+    {
+      "id": "movement.confirm.cloud_name.14",
+      "args": {},
+      "canonical": "blessed fire",
+      "zh": "祝福之火"
+    },
+    {
+      "id": "movement.confirm.cloud_name.15",
+      "args": {},
+      "canonical": "dark miasma",
+      "zh": "黑色瘴气"
+    },
+    {
+      "id": "movement.confirm.cloud_name.16",
+      "args": {},
+      "canonical": "thin mist",
+      "zh": "薄雾"
+    },
+    {
+      "id": "movement.confirm.cloud_name.17",
+      "args": {},
+      "canonical": "seething chaos",
+      "zh": "翻涌的混沌"
+    },
+    {
+      "id": "movement.confirm.cloud_name.18",
+      "args": {},
+      "canonical": "the rain",
+      "zh": "雨水"
+    },
+    {
+      "id": "movement.confirm.cloud_name.19",
+      "args": {},
+      "canonical": "mutagenic fog",
+      "zh": "诱变雾气"
+    },
+    {
+      "id": "movement.confirm.cloud_name.20",
+      "args": {},
+      "canonical": "magical condensation",
+      "zh": "魔法凝露"
+    },
+    {
+      "id": "movement.confirm.cloud_name.21",
+      "args": {},
+      "canonical": "whirling frost",
+      "zh": "旋舞冰霜"
+    },
+    {
+      "id": "movement.confirm.cloud_name.22",
+      "args": {},
+      "canonical": "sparse dust",
+      "zh": "稀薄尘埃"
+    },
+    {
+      "id": "movement.confirm.cloud_name.23",
+      "args": {},
+      "canonical": "spectral mist",
+      "zh": "幽灵雾气"
+    },
+    {
+      "id": "movement.confirm.cloud_name.24",
+      "args": {},
+      "canonical": "acidic fog",
+      "zh": "酸雾"
+    },
+    {
+      "id": "movement.confirm.cloud_name.25",
+      "args": {},
+      "canonical": "a thunderstorm",
+      "zh": "雷暴"
+    },
+    {
+      "id": "movement.confirm.cloud_name.26",
+      "args": {},
+      "canonical": "excruciating misery",
+      "zh": "极度痛苦"
+    },
+    {
+      "id": "movement.confirm.cloud_name.27",
+      "args": {},
+      "canonical": "white fluffiness",
+      "zh": "白色绒团"
+    },
+    {
+      "id": "movement.confirm.cloud_name.28",
+      "args": {},
+      "canonical": "salt",
+      "zh": "盐"
+    },
+    {
+      "id": "movement.confirm.cloud_name.29",
+      "args": {},
+      "canonical": "golden dust",
+      "zh": "金尘"
+    },
+    {
+      "id": "movement.confirm.cloud_name.30",
+      "args": {},
+      "canonical": "embers",
+      "zh": "余烬"
+    },
+    {
+      "id": "movement.confirm.cloud_name.31",
+      "args": {},
+      "canonical": "wisps of flame",
+      "zh": "火焰微粒"
+    },
+    {
+      "id": "movement.confirm.cloud_name.32",
+      "args": {},
+      "canonical": "alcoholic mist",
+      "zh": "酒精雾气"
+    },
+    {
+      "id": "movement.confirm.cloud_name.33",
+      "args": {},
+      "canonical": "volatile sparks",
+      "zh": "不稳定火花"
+    },
+    {
+      "id": "movement.confirm.cloud_name.34",
+      "args": {},
+      "canonical": "sparks",
+      "zh": "火花"
+    },
+    {
+      "id": "movement.confirm.cloud_name.35",
+      "args": {},
+      "canonical": "faint pestilence",
+      "zh": "微弱疫病"
+    },
+    {
+      "id": "movement.confirm.cloud_name.36",
+      "args": {},
+      "canonical": "magnetised fragments",
+      "zh": "磁化碎片"
+    },
+    {
+      "id": "movement.confirm.cloud_name.37",
+      "args": {},
+      "canonical": "bats",
+      "zh": "蝙蝠"
+    },
+    {
+      "id": "movement.confirm.cloud_name.38",
+      "args": {},
+      "canonical": "rust",
+      "zh": "锈"
+    },
+    {
+      "id": "movement.confirm.trap_name.0",
+      "args": {},
+      "canonical": "Zot trap",
+      "zh": "佐特陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.1",
+      "args": {},
+      "canonical": "alarm trap",
+      "zh": "警报陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.2",
+      "args": {},
+      "canonical": "pressure plate",
+      "zh": "压力板"
+    },
+    {
+      "id": "movement.confirm.trap_name.3",
+      "args": {},
+      "canonical": "teleport trap",
+      "zh": "传送陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.4",
+      "args": {},
+      "canonical": "permanent teleport trap",
+      "zh": "永久传送陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.5",
+      "args": {},
+      "canonical": "shaft",
+      "zh": "地坑"
+    },
+    {
+      "id": "movement.confirm.trap_name.6",
+      "args": {},
+      "canonical": "web",
+      "zh": "蛛网"
+    },
+    {
+      "id": "movement.confirm.trap_name.7",
+      "args": {},
+      "canonical": "passage of Golubria",
+      "zh": "戈鲁布里亚通道"
+    },
+    {
+      "id": "movement.confirm.trap_name.8",
+      "args": {},
+      "canonical": "dispersal trap",
+      "zh": "驱散陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.9",
+      "args": {},
+      "canonical": "net trap",
+      "zh": "捕网陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.10",
+      "args": {},
+      "canonical": "blade trap",
+      "zh": "刀刃陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.11",
+      "args": {},
+      "canonical": "arrow trap",
+      "zh": "箭矢陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.12",
+      "args": {},
+      "canonical": "spear trap",
+      "zh": "长矛陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.13",
+      "args": {},
+      "canonical": "bolt trap",
+      "zh": "弩箭陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.14",
+      "args": {},
+      "canonical": "needle trap",
+      "zh": "毒针陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_0",
+      "args": {},
+      "canonical": "harlequin's trap",
+      "zh": "丑角陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_1",
+      "args": {},
+      "canonical": "archmage's trap",
+      "zh": "大法师陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_2",
+      "args": {},
+      "canonical": "tyrant's trap",
+      "zh": "暴君陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_3",
+      "args": {},
+      "canonical": "devourer's trap",
+      "zh": "吞噬者陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_4",
+      "args": {},
+      "canonical": "gas trap",
+      "zh": "毒气陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_5",
+      "args": {},
+      "canonical": "shadow trap",
+      "zh": "暗影陷阱"
+    },
+    {
+      "id": "movement.confirm.trap_name.extra_6",
+      "args": {},
+      "canonical": "dormant shadow trap",
+      "zh": "沉睡的暗影陷阱"
+    },
+    {
+      "id": "prompt.confirm.typed_answer",
+      "args": {
+        "prompt": {
+          "type": "text",
+          "canonical": "Really step into that cloud of poison gas?",
+          "localized": "确定要踏入毒气云雾吗？"
+        },
+        "answer": {
+          "type": "key",
+          "canonical": "a",
+          "localized": "a"
+        }
+      },
+      "canonical": "Really step into that cloud of poison gas? (Confirm with \"a\".) ",
+      "zh": "确定要踏入毒气云雾吗？（按“a”确认。） "
+    },
+    {
+      "id": "movement.confirm.warning",
+      "args": {
+        "warning": {
+          "type": "text",
+          "canonical": "Danger!",
+          "localized": "危险！"
+        }
+      },
+      "canonical": "Danger!",
+      "zh": "危险！"
+    },
+    {
+      "id": "spell.prompt.effect.immune_roots",
+      "args": {},
+      "canonical": "immune to roots",
+      "zh": "免疫树根束缚"
+    },
+    {
+      "id": "spell.prompt.effect.unstickable",
+      "args": {},
+      "canonical": "unstickable",
+      "zh": "不会被黏住"
+    },
+    {
+      "id": "spell.prompt.effect.polymorph.name",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "lightcyan",
+          "localized": "lightcyan"
+        },
+        "monster": {
+          "type": "name",
+          "canonical": "ugly thing",
+          "localized": "丑陋怪物"
+        }
+      },
+      "canonical": "<lightcyan>ugly thing</lightcyan>",
+      "zh": "<lightcyan>丑陋怪物</lightcyan>"
+    },
+    {
+      "id": "spell.prompt.effect.polymorph.list.middle",
+      "args": {
+        "left": {
+          "type": "text",
+          "canonical": "<lightcyan>an orc</lightcyan>",
+          "localized": "<lightcyan>兽人</lightcyan>"
+        },
+        "right": {
+          "type": "text",
+          "canonical": "<lightred>a troll</lightred>",
+          "localized": "<lightred>巨魔</lightred>"
+        }
+      },
+      "canonical": "<lightcyan>an orc</lightcyan>, <lightred>a troll</lightred>",
+      "zh": "<lightcyan>兽人</lightcyan>、<lightred>巨魔</lightred>"
+    },
+    {
+      "id": "spell.prompt.effect.polymorph.list.last",
+      "args": {
+        "left": {
+          "type": "text",
+          "canonical": "<lightcyan>an orc</lightcyan>",
+          "localized": "<lightcyan>兽人</lightcyan>"
+        },
+        "right": {
+          "type": "text",
+          "canonical": "<lightred>a troll</lightred>",
+          "localized": "<lightred>巨魔</lightred>"
+        }
+      },
+      "canonical": "<lightcyan>an orc</lightcyan>, or <lightred>a troll</lightred>",
+      "zh": "<lightcyan>兽人</lightcyan>或<lightred>巨魔</lightred>"
+    },
+    {
+      "id": "quiver.prompt.description",
+      "args": {
+        "description": {
+          "type": "text",
+          "canonical": "A cold ball of fire.",
+          "localized": "一团冰冷的火焰。"
+        }
+      },
+      "canonical": "A cold ball of fire.",
+      "zh": "一团冰冷的火焰。"
+    },
+    {
+      "id": "quiver.prompt.menu.header.items",
+      "args": {
+        "key": {
+          "type": "key_markup",
+          "canonical": "<w>Z</w>",
+          "localized": "<w>Z</w>"
+        }
+      },
+      "canonical": "<lightcyan>Items</lightcyan> <lightgrey>(<w>Z</w> to cycle)</lightgrey>",
+      "zh": "<lightcyan>物品</lightcyan> <lightgrey>（<w>Z</w>切换）</lightgrey>"
+    },
+    {
+      "id": "quiver.prompt.menu.header.spells",
+      "args": {
+        "key": {
+          "type": "key_markup",
+          "canonical": "<w>Z</w>",
+          "localized": "<w>Z</w>"
+        }
+      },
+      "canonical": "<lightcyan>Spells</lightcyan> <lightgrey>(<w>Z</w> to cycle)</lightgrey>",
+      "zh": "<lightcyan>法术</lightcyan> <lightgrey>（<w>Z</w>切换）</lightgrey>"
+    },
+    {
+      "id": "quiver.prompt.menu.header.abilities",
+      "args": {
+        "key": {
+          "type": "key_markup",
+          "canonical": "<w>Z</w>",
+          "localized": "<w>Z</w>"
+        }
+      },
+      "canonical": "<lightcyan>Abilities</lightcyan> <lightgrey>(<w>Z</w> to cycle)</lightgrey>",
+      "zh": "<lightcyan>能力</lightcyan> <lightgrey>（<w>Z</w>切换）</lightgrey>"
+    },
+    {
+      "id": "quiver.prompt.menu.no_actions",
+      "args": {},
+      "canonical": "<lightred>No regular actions available to quiver.</lightred>",
+      "zh": "<lightred>没有可设为待用的常规动作。</lightred>"
+    },
+    {
+      "id": "quiver.prompt.menu.title",
+      "args": {},
+      "canonical": "Quiver which action? ",
+      "zh": "选择待用动作？ "
+    },
+    {
+      "id": "quiver.prompt.menu.title.empty",
+      "args": {},
+      "canonical": "Quiver which action? ([<w>-</w>] to clear)",
+      "zh": "选择待用动作？（按 [<w>-</w>] 清除）"
+    },
+    {
+      "id": "target.prompt.action.none",
+      "args": {},
+      "canonical": "No action selected",
+      "zh": "未选择动作"
+    },
+    {
+      "id": "target.prompt.action.untargeted",
+      "args": {
+        "action": {
+          "type": "text",
+          "canonical": "cast",
+          "localized": "施法"
+        }
+      },
+      "canonical": "Non-targeted cast",
+      "zh": "无需指定目标：施法"
+    },
+    {
+      "id": "target.prompt.action.confused",
+      "args": {},
+      "canonical": "You are confused and cannot control your aim.",
+      "zh": "你正处于混乱状态，无法控制瞄准。"
+    },
+    {
+      "id": "target.prompt.prefix.look",
+      "args": {},
+      "canonical": "Look",
+      "zh": "查看"
+    },
+    {
+      "id": "target.prompt.prefix.aim",
+      "args": {},
+      "canonical": "Aim",
+      "zh": "瞄准"
+    },
+    {
+      "id": "target.prompt.prefix.here",
+      "args": {},
+      "canonical": "Here",
+      "zh": "此处"
+    },
+    {
+      "id": "target.prompt.prefix.apport",
+      "args": {},
+      "canonical": "Apport",
+      "zh": "物品移位"
+    },
+    {
+      "id": "target.prompt.prefix.smite",
+      "args": {},
+      "canonical": "Smite",
+      "zh": "神罚"
+    },
+    {
+      "id": "target.prompt.prefix.fragment",
+      "args": {},
+      "canonical": "Fragment what (e.g. wall or brittle monster)?",
+      "zh": "要碎解什么（例如墙壁或脆弱怪物）？"
+    },
+    {
+      "id": "target.prompt.describe.monster",
+      "args": {
+        "prefix": {
+          "type": "text",
+          "canonical": "Aim",
+          "localized": "瞄准"
+        },
+        "description": {
+          "type": "text",
+          "canonical": "A cold ball of fire.",
+          "localized": "一团冰冷的火焰。"
+        }
+      },
+      "canonical": "Aim: <lightgrey>A cold ball of fire.</lightgrey>",
+      "zh": "瞄准：<lightgrey>一团冰冷的火焰。</lightgrey>"
+    },
+    {
+      "id": "target.prompt.describe.item",
+      "args": {
+        "prefix": {
+          "type": "text",
+          "canonical": "Aim",
+          "localized": "瞄准"
+        },
+        "item": {
+          "type": "name",
+          "canonical": ", g - get item",
+          "localized": ", g - 拾取物品"
+        }
+      },
+      "canonical": "Aim: , g - get item",
+      "zh": "瞄准：, g - 拾取物品"
+    }
+  ]
+}

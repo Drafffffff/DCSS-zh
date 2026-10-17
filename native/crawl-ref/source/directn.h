@@ -6,6 +6,7 @@
 #pragma once
 
 #include <vector>
+#include "zh-message.h"
 
 #include "command-type.h"
 #include "enum.h"
@@ -49,6 +50,7 @@ public:
 
     // Update the prompt shown at top.
     virtual void update_top_prompt(string*) {}
+    virtual bool get_top_prompt_message(ZhMessage&) const { return false; }
 
     virtual bool targeted() { return true; }
 
@@ -80,7 +82,9 @@ struct direction_chooser_args
     bool unrestricted; // for wizmode
     bool allow_shift_dir;
     confirm_prompt_type self;
+    ZhMessage target_prefix_message; // Optional typed action prefix
     const char *target_prefix;
+    ZhMessage top_prompt_message; // Optional source-generated UI message
     string top_prompt;
     targeting_behaviour *behaviour;
     bool show_floor_desc;
@@ -277,7 +281,9 @@ private:
                                 // potential multizap shots.
     bool allow_shift_dir;       // Allow aiming in cardinal directions.
     confirm_prompt_type self;   // What do when aiming at yourself
+    ZhMessage target_prefix_message; // Optional typed action prefix
     const char *target_prefix;  // A string displayed before describing target
+    ZhMessage top_prompt_message; // Optional source-generated UI message
     string top_prompt;          // Shown at the top of the message window
     targeting_behaviour *behaviour; // Can be nullptr for default
     bool show_floor_desc;       // Describe the floor of the current target

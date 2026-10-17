@@ -61,3 +61,25 @@ RESTRICTION_FOLLOWUPS = {
   'keys': '&^60\raahh.',
  },
 }
+
+# Template migration batch: real input into fresh disposable fixture copies.
+RESTRICTION_SCENES.update({
+ 'prompt-spell-menu': 'l&wiz\r!Magic Dart\ryZ?',
+ 'prompt-spell-extra': 'l&wiz\r!Magic Dart\ryZ?I',
+ 'prompt-spell-aim': 'l&wiz\r!Magic Dart\ryZay',
+ 'prompt-quiver-menu': 'l&wiz\r!Magic Dart\ryQ',
+ 'prompt-throw-aim': 'l&wiz\r%pre_id stone q:3\rgFc',
+ 'terrain-binding': 'l&wiz\r(binding_sigil\rhl',
+ 'terrain-alarm': 'lh&wiz\r(trap_alarm\rhlh',
+ 'terrain-zot': 'lh&wiz\r(trap_zot\rhlh',
+})
+RESTRICTION_EXPECTED.update({
+ 'prompt-spell-menu': {'spell.prompt.menu.title','spell.prompt.menu.select'},
+ 'prompt-spell-extra': {'spell.prompt.menu.header.extra'},
+ 'prompt-spell-aim': {'spell.prompt.target.aim','spell.prompt.target.risk'},
+ 'prompt-quiver-menu': {'quiver.prompt.menu.title.empty'},
+ 'prompt-throw-aim': {'quiver.prompt.throw'},
+ 'terrain-binding': {'movement.confirm.binding_sigil'},
+ 'terrain-alarm': {'movement.confirm.trap.onto'},
+ 'terrain-zot': {'movement.confirm.trap.zot','prompt.confirm.typed_answer'},
+})

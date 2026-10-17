@@ -1,0 +1,27 @@
+[
+  {
+    "test": "test_message_ids.py",
+    "exit": 0,
+    "tail": "PASS: 1674 named-message oracle and validation checks\nValidated 3077 stable message IDs\n"
+  },
+  {
+    "test": "test_spell_prompts.py",
+    "exit": 0,
+    "tail": "at-security]\n   26 | template<class...A>string make_stringf(const char*f,A...a){char b[4096];snprintf(b,sizeof b,f,a...);return b;}\n      |                                                                                             ^\n/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/tmpbtqcai14/test.cc:32:63: note: in instantiation of function template specialization 'make_stringf<>' requested here\n   32 | template<class...A>void mprf(int,const char*f,A...a){captured=make_stringf(f,a...);}\n      |                                                               ^\n/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/tmpbtqcai14/test.cc:83:13: note: in instantiation of function template specialization 'mprf<>' requested here\n   83 |             mprf(MSGCH_WARN, \"It is impossible to cast this spell \"\n      |             ^\n/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/tmpbtqcai14/test.cc:26:93: note: treat the string as an argument to avoid this\n   26 | template<class...A>string make_stringf(const char*f,A...a){char b[4096];snprintf(b,sizeof b,f,a...);return b;}\n      |                                                                                             ^\n      |                                                                                             \"%s\", \n1 warning generated.\n"
+  },
+  {
+    "test": "test_target_quiver_prompts.py",
+    "exit": 0,
+    "tail": "PASS: 2214 actual targeting/quiver producer cases, frozen canonical key help, remapped shortcuts, semantic action forms, colour markers and whole-parent unsupported-name fallback\nValidated 3077 stable message IDs\n"
+  },
+  {
+    "test": "test_spell_target_effects.py",
+    "exit": 0,
+    "tail": "PASS: 28698 actual spell effect producer cases, chances, effect combinations, polymorph grammar/colours, unknown-name full fallback and canonical Lua mode\nValidated 3077 stable message IDs\n"
+  },
+  {
+    "test": "test_terrain_confirmation.py",
+    "exit": 0,
+    "tail": "PASS: 38340 real terrain/cloud/trap/exclusion confirmations, canonical Lua prompts, branch priority, acceptance, flags, typed passwall warnings and UTF-8 input prompt\nValidated 3077 stable message IDs\n"
+  }
+]

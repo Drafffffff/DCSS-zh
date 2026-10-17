@@ -93,7 +93,7 @@ ZhArg zh_key_markup(const std::string &key,const std::string &value) {
     return {key,ZhArgType::KeyMarkup,value,value};
 }
 ZhArg zh_colour(const std::string &key,const std::string &value) {
-    static const std::set<std::string> colours={"black","blue","green","cyan","red","magenta","brown","lightgrey","darkgrey","lightblue","lightgreen","lightcyan","lightred","lightmagenta","yellow","white"};
+    static const std::set<std::string> colours={"w","black","blue","green","cyan","red","magenta","brown","lightgrey","darkgrey","lightblue","lightgreen","lightcyan","lightred","lightmagenta","yellow","white"};
     if (!colours.count(value)) throw std::invalid_argument("Invalid localization colour token");
     return {key,ZhArgType::Colour,value,value};
 }

@@ -50954,21 +50954,152 @@ index f2aea63..87aef9d 100644
  
  const char* get_size_adj(const size_type size, bool ignore_medium = false);
 diff --git a/crawl-ref/source/directn.cc b/crawl-ref/source/directn.cc
-index 05963d8..ce0f531 100644
+index 05963d8..a1617a1 100644
 --- a/crawl-ref/source/directn.cc
 +++ b/crawl-ref/source/directn.cc
-@@ -4,8 +4,10 @@
+@@ -4,8 +4,11 @@
  **/
  
  #include "AppHdr.h"
 +#include "zh-message.h"
++#include "zh-display-name.h"
  
  #include "directn.h"
 +#include "zh-localization.h"
  
  #include <algorithm>
  #include <cstdarg>
-@@ -889,7 +891,7 @@ void full_describe_view()
+@@ -237,63 +240,76 @@ static monster* _get_current_target()
+ void direction_chooser::print_top_prompt() const
+ {
+     if (!top_prompt.empty())
+-        mprf(MSGCH_PROMPT, "%s", top_prompt.c_str());
++    {
++        ZhMessage current = top_prompt_message;
++        if (behaviour)
++            behaviour->get_top_prompt_message(current);
++        if (!current.id.empty() && top_prompt == current.canonical)
++            mpr(current, MSGCH_PROMPT);
++        else
++            mprf(MSGCH_PROMPT, "%s", top_prompt.c_str());
++    }
+     else if (moves.fire_context)
+     {
+         // TODO: consolidate top prompt construction more
+-        mprf(MSGCH_PROMPT, "%s",
+-            moves.fire_context->get()->quiver_description().tostring().c_str());
++        mpr(moves.fire_context->get()->quiver_description_message(), MSGCH_PROMPT);
+     }
+ }
+ 
+-void direction_chooser::print_key_hints() const
++// A single parent owns the complete key-help sentence. Optional clauses are
++// typed children, so unsupported children fall back as one complete parent.
++static ZhMessage _target_key_prompt(bool looking, bool visible, bool item,
++                                    const ZhArg &action, bool targeted,
++                                    int restricts)
+ {
+-    // TODO: build this as a vector and insert ,s and \ns in a smarter way
+-    string prompt = "Press: ? - help";
+-
+-    if (just_looking)
++    ZhArg describe = zh_text("describe", "", "");
++    ZhArg travel = zh_text("travel", "", "");
++    ZhArg get_item = zh_text("item", "", "");
++    ZhArg direction = zh_text("direction", "", "");
++    if (looking)
+     {
+-        if (you.see_cell(target()))
+-            prompt += ", v - describe";
+-        prompt += ", . - travel";
+-        if (in_bounds(target()) && env.map_knowledge(target()).item())
+-            prompt += ", g - get item";
++        if (visible)
++            describe = zh_message_arg("describe", "target.prompt.describe");
++        travel = zh_message_arg("travel", "target.prompt.travel");
++        if (item)
++            get_item = zh_message_arg("item", "target.prompt.item");
+     }
+     else
+     {
+-        if (moves.fire_context)
+-        {
+-            const string hint = moves.fire_context->fire_key_hints();
+-            if (!hint.empty())
+-                prompt += hint + "\n";
+-        }
+-        string direction_hint = "";
+-        if (!behaviour->targeted())
+-            direction_hint = "Dir - look around, f - activate";
+-        else
++        const char *id = !targeted ? "target.prompt.direction.activate"
++            : restricts == DIR_NONE ? "target.prompt.direction.straight"
++            : restricts == DIR_TARGET || restricts == DIR_ENFORCE_RANGE
++                ? "target.prompt.direction.move" : nullptr;
++        if (id)
+         {
+-            switch (restricts)
+-            {
+-            case DIR_NONE:
+-                direction_hint = "Shift-Dir - straight line";
+-                break;
+-            case DIR_TARGET:
+-            case DIR_ENFORCE_RANGE:
+-                direction_hint = "Dir - move target";
+-                break;
+-            }
++            direction = zh_message_arg("direction", id);
++            const string separator = action.canonical.empty() ? ", " : "";
++            direction.canonical = separator + direction.canonical;
++            direction.localized = separator + direction.localized;
+         }
++    }
++    return zh_message("target.prompt.keys", {describe, travel, get_item,
++        looking ? zh_text("action", "", "") : action, direction});
++}
+ 
+-        if (direction_hint.size())
++void direction_chooser::print_key_hints() const
++{
++    ZhArg action = zh_text("action", "", "");
++    if (!just_looking && moves.fire_context)
++    {
++        const auto message = moves.fire_context->fire_key_hints_message();
++        action = ZhArg("action", ZhArgType::Text, message.canonical,
++                       message.localized,
++                       message.canonical.empty() || message.canonical != message.localized);
++        if (!action.canonical.empty())
+         {
+-            if (prompt[prompt.size() - 1] != '\n')
+-                prompt += ", ";
+-            prompt += direction_hint;
++            action.canonical += "\n";
++            action.localized += "\n";
+         }
+     }
+-
+-    // Display the prompt.
+-    mprf(MSGCH_PROMPT, "%s", prompt.c_str());
++    mpr(_target_key_prompt(just_looking, you.see_cell(target()),
++        in_bounds(target()) && env.map_knowledge(target()).item(), action,
++        behaviour->targeted(), restricts), MSGCH_PROMPT);
+ }
+ 
+ bool direction_chooser::targets_objects() const
+@@ -420,8 +436,11 @@ direction_chooser::direction_chooser(dist& moves_,
+     try_multizap(args.try_multizap),
+     allow_shift_dir(args.allow_shift_dir),
+     self(args.self),
++    target_prefix_message(args.target_prefix_message),
+     target_prefix(args.target_prefix),
+-    top_prompt(args.top_prompt),
++    top_prompt_message(args.top_prompt_message),
++    top_prompt(args.top_prompt_message.id.empty() ? args.top_prompt
++                                               : args.top_prompt_message.canonical),
+     behaviour(args.behaviour),
+     show_floor_desc(args.show_floor_desc),
+     show_boring_feats(args.show_boring_feats),
+@@ -889,7 +908,7 @@ void full_describe_view()
  
      if (list_mons.empty() && list_items.empty() && list_features.empty())
      {
@@ -50977,7 +51108,15 @@ index 05963d8..ce0f531 100644
          return;
      }
  
-@@ -978,7 +980,7 @@ bool direction_chooser::move_is_ok() const
+@@ -930,6 +949,7 @@ static dist _look_around_target(const coord_def &whence)
+     args.just_looking = true;
+     args.needs_path = false;
+     args.target_prefix = "Here";
++    args.target_prefix_message = zh_message("target.prompt.prefix.here");
+     args.default_place = whence - you.pos();
+     direction(lmove, args);
+     return lmove;
+@@ -978,7 +998,7 @@ bool direction_chooser::move_is_ok() const
              if (hitfunc && hitfunc->can_affect_unseen())
                  return true; // is this too broad?
              if (you.see_cell(target()))
@@ -50986,7 +51125,7 @@ index 05963d8..ce0f531 100644
              // XXX: Hack to let bump attack with a ranged weapon still work
              //      when Primordial Nightfall is active. Hopefully doesn't
              //      affect anything else?
-@@ -988,7 +990,7 @@ bool direction_chooser::move_is_ok() const
+@@ -988,7 +1008,7 @@ bool direction_chooser::move_is_ok() const
                  return true;
              }
              else
@@ -50995,7 +51134,7 @@ index 05963d8..ce0f531 100644
              return false;
          }
  
-@@ -1004,9 +1006,9 @@ bool direction_chooser::move_is_ok() const
+@@ -1004,9 +1024,9 @@ bool direction_chooser::move_is_ok() const
                      if (moves.interactive)
                      {
                          if (harmful_to_player)
@@ -51007,7 +51146,7 @@ index 05963d8..ce0f531 100644
                      }
                      return false;
                  }
-@@ -1028,7 +1030,7 @@ bool direction_chooser::move_is_ok() const
+@@ -1028,7 +1048,7 @@ bool direction_chooser::move_is_ok() const
                  // avoid printing this message when autotargeting -- it doesn't
                  // make much sense
                  if (moves.interactive)
@@ -51016,7 +51155,7 @@ index 05963d8..ce0f531 100644
                  return false;
              }
          }
-@@ -1655,7 +1657,7 @@ bool direction_chooser::pickup_item()
+@@ -1655,7 +1675,7 @@ bool direction_chooser::pickup_item()
          ii = env.map_knowledge(target()).item();
      if (!ii || !ii->is_valid(true))
      {
@@ -51025,7 +51164,7 @@ index 05963d8..ce0f531 100644
          return false;
      }
      ii->flags |= ISFLAG_THROWN; // make autoexplore greedy
-@@ -1684,7 +1686,7 @@ bool direction_chooser::pickup_item()
+@@ -1684,7 +1704,7 @@ bool direction_chooser::pickup_item()
  
      if (!just_looking) // firing/casting prompt
      {
@@ -51034,7 +51173,7 @@ index 05963d8..ce0f531 100644
          return false;
      }
  
-@@ -1704,7 +1706,7 @@ bool direction_chooser::handle_signals()
+@@ -1704,7 +1724,7 @@ bool direction_chooser::handle_signals()
          moves.isCancel = true;
          moves.cmd_result = CMD_NO_CMD;
  
@@ -51043,7 +51182,7 @@ index 05963d8..ce0f531 100644
          return true;
      }
      return false;
-@@ -1719,9 +1721,18 @@ void direction_chooser::show_initial_prompt()
+@@ -1719,9 +1739,18 @@ void direction_chooser::show_initial_prompt()
          return;
      behaviour->update_top_prompt(&top_prompt);
      describe_cell();
@@ -51065,7 +51204,7 @@ index 05963d8..ce0f531 100644
  }
  
  void direction_chooser::print_target_description(bool &did_cloud) const
-@@ -1733,8 +1744,10 @@ void direction_chooser::print_target_description(bool &did_cloud) const
+@@ -1733,8 +1762,10 @@ void direction_chooser::print_target_description(bool &did_cloud) const
  
      if (!in_range(target()))
      {
@@ -51078,7 +51217,64 @@ index 05963d8..ce0f531 100644
      }
  }
  
-@@ -2012,7 +2025,7 @@ void direction_chooser::toggle_beam()
+@@ -1789,14 +1820,31 @@ string direction_chooser::target_description() const
+     return cell_monster_description(target(), true, behaviour);
+ }
+ 
++// A prefix is an action-specific semantic message, independent of the
++// pending cell-detail producers. Never infer a spell from a rendered sentence.
++static ZhArg _target_prefix_arg(const ZhMessage &message, const char *legacy,
++                                bool targeted)
++{
++    if (!message.id.empty())
++        return ZhArg("prefix", ZhArgType::Text, message.canonical,
++                     message.localized);
++    if (legacy)
++        return ZhArg("prefix", ZhArgType::Text, legacy, legacy, false);
++    return zh_message_arg("prefix", targeted ? "target.prompt.prefix.aim"
++                                             : "target.prompt.prefix.look");
++}
++
+ void direction_chooser::print_target_monster_description(bool &did_cloud) const
+ {
+     string text = target_description();
+     if (text > "")
+     {
+-        mprf(MSGCH_PROMPT, "%s: <lightgrey>%s</lightgrey>",
+-            target_prefix ? target_prefix : !behaviour->targeted() ? "Look" : "Aim",
+-            text.c_str());
++        // Monster/equipment/wound cell details remain a separately tracked
++        // legacy producer; the action prefix and enclosing template are typed.
++        const auto prefix = _target_prefix_arg(target_prefix_message,
++                                               target_prefix, behaviour->targeted());
++        mpr(zh_message("target.prompt.describe.monster",
++            {prefix, zh_text("description", text, zh_translate(text))}), MSGCH_PROMPT);
+         // If there's a cloud here, it's been described.
+         did_cloud = true;
+     }
+@@ -1888,9 +1936,18 @@ void direction_chooser::print_target_object_description() const
+         return;
+ 
+     // FIXME: remove the duplication with print_items_description().
+-    mprf(MSGCH_PROMPT, "%s: %s",
+-         target_prefix ? target_prefix : "Aim",
+-         menu_colour_item_name(*item, DESC_A).c_str());
++    auto name = zh_item_arg("item", *item, DESC_A);
++    const int colour = menu_colour(item->name(DESC_A), item_prefix(*item, false),
++                                   "pickup", false);
++    if (colour != -1)
++    {
++        const string tag = colour_to_str(colour);
++        name.canonical = "<" + tag + ">" + name.canonical + "</" + tag + ">";
++        name.localized = "<" + tag + ">" + name.localized + "</" + tag + ">";
++    }
++    mpr(zh_message("target.prompt.describe.item",
++        {_target_prefix_arg(target_prefix_message, target_prefix, true), name}),
++        MSGCH_PROMPT);
+ }
+ 
+ string cell_items_description(const coord_def& pos)
+@@ -2012,7 +2069,7 @@ void direction_chooser::toggle_beam()
  {
      if (!needs_path)
      {
@@ -51087,7 +51283,7 @@ index 05963d8..ce0f531 100644
          return;
      }
  
-@@ -2042,7 +2055,7 @@ void direction_chooser::handle_movement_key(command_type key_command,
+@@ -2042,7 +2099,7 @@ void direction_chooser::handle_movement_key(command_type key_command,
          if (unshifted)
              set_target(target() + delta);
          else if (!allow_shift_dir)
@@ -51096,7 +51292,7 @@ index 05963d8..ce0f531 100644
          else
              *loop_done = select_compass_direction(delta);
      }
-@@ -2151,7 +2164,7 @@ void direction_chooser::handle_wizard_command(command_type key_command,
+@@ -2151,7 +2208,7 @@ void direction_chooser::handle_wizard_command(command_type key_command,
  
      case CMD_TARGET_WIZARD_HURT_MONSTER:
          m->hit_points = 1;
@@ -51105,7 +51301,7 @@ index 05963d8..ce0f531 100644
          flush_prev_message();
          break;
  
-@@ -2287,7 +2300,7 @@ void direction_chooser::full_describe()
+@@ -2287,7 +2344,7 @@ void direction_chooser::full_describe()
  
      if (list_mons.empty() && list_items.empty() && list_features.empty())
      {
@@ -51114,7 +51310,7 @@ index 05963d8..ce0f531 100644
          flush_prev_message();
          return;
      }
-@@ -2338,7 +2351,7 @@ bool direction_chooser::process_command(command_type command)
+@@ -2338,7 +2395,7 @@ bool direction_chooser::process_command(command_type command)
              break;
  
          if (!is_map_persistent())
@@ -51123,7 +51319,7 @@ index 05963d8..ce0f531 100644
          else
          {
              const bool was_excluded = is_exclude_root(target());
-@@ -2346,11 +2359,11 @@ bool direction_chooser::process_command(command_type command)
+@@ -2346,11 +2403,11 @@ bool direction_chooser::process_command(command_type command)
              need_viewport_redraw   = true;
              const bool is_excluded = is_exclude_root(target());
              if (!was_excluded && is_excluded)
@@ -51138,7 +51334,7 @@ index 05963d8..ce0f531 100644
          }
  
          need_cursor_redraw = true;
-@@ -2450,6 +2463,10 @@ public:
+@@ -2450,6 +2507,10 @@ public:
  
      void _render() override
      {
@@ -51149,7 +51345,7 @@ index 05963d8..ce0f531 100644
          if (crawl_state.invisible_targeting)
              return;
  
-@@ -2875,7 +2892,7 @@ static void _extend_move_to_edge(dist &moves)
+@@ -2875,7 +2936,7 @@ static void _extend_move_to_edge(dist &moves)
  // cache and noted in the Dungeon (O)verview, names the stair.
  static void _describe_oos_square(const coord_def& where)
  {
@@ -51158,7 +51354,7 @@ index 05963d8..ce0f531 100644
  
      if (!in_bounds(where) || !env.map_knowledge(where).seen())
      {
-@@ -2995,7 +3012,7 @@ void describe_floor()
+@@ -2995,7 +3056,7 @@ void describe_floor()
  
      mprf(channel, "%s%s here.", prefix, feat.c_str());
      if (grid == DNGN_ENTER_GAUNTLET)
@@ -51167,7 +51363,7 @@ index 05963d8..ce0f531 100644
      else if (feat_is_fountain(grid) || feat_is_food(grid))
          _walk_on_decor(grid);
  }
-@@ -3581,6 +3598,11 @@ string get_monster_equipment_desc(const monster_info& mi,
+@@ -3581,6 +3642,11 @@ string get_monster_equipment_desc(const monster_info& mi,
          item_descriptions.push_back(carried_desc);
      }
  
@@ -51180,10 +51376,23 @@ index 05963d8..ce0f531 100644
                                                  item_descriptions.begin(),
                                                  item_descriptions.end());
 diff --git a/crawl-ref/source/directn.h b/crawl-ref/source/directn.h
-index 403cf3b..f536e31 100644
+index 403cf3b..69749b1 100644
 --- a/crawl-ref/source/directn.h
 +++ b/crawl-ref/source/directn.h
-@@ -53,6 +53,8 @@ public:
+@@ -6,6 +6,7 @@
+ #pragma once
+ 
+ #include <vector>
++#include "zh-message.h"
+ 
+ #include "command-type.h"
+ #include "enum.h"
+@@ -49,10 +50,13 @@ public:
+ 
+     // Update the prompt shown at top.
+     virtual void update_top_prompt(string*) {}
++    virtual bool get_top_prompt_message(ZhMessage&) const { return false; }
+ 
      virtual bool targeted() { return true; }
  
      virtual string get_error() { return ""; }
@@ -51192,6 +51401,26 @@ index 403cf3b..f536e31 100644
  
      // Add relevant descriptions to the target status.
      virtual vector<string> get_monster_desc(const monster_info& mi);
+@@ -78,7 +82,9 @@ struct direction_chooser_args
+     bool unrestricted; // for wizmode
+     bool allow_shift_dir;
+     confirm_prompt_type self;
++    ZhMessage target_prefix_message; // Optional typed action prefix
+     const char *target_prefix;
++    ZhMessage top_prompt_message; // Optional source-generated UI message
+     string top_prompt;
+     targeting_behaviour *behaviour;
+     bool show_floor_desc;
+@@ -275,7 +281,9 @@ private:
+                                 // potential multizap shots.
+     bool allow_shift_dir;       // Allow aiming in cardinal directions.
+     confirm_prompt_type self;   // What do when aiming at yourself
++    ZhMessage target_prefix_message; // Optional typed action prefix
+     const char *target_prefix;  // A string displayed before describing target
++    ZhMessage top_prompt_message; // Optional source-generated UI message
+     string top_prompt;          // Shown at the top of the message window
+     targeting_behaviour *behaviour; // Can be nullptr for default
+     bool show_floor_desc;       // Describe the floor of the current target
 diff --git a/crawl-ref/source/evoke.cc b/crawl-ref/source/evoke.cc
 index f64efe4..c797d49 100644
 --- a/crawl-ref/source/evoke.cc
@@ -55037,7 +55266,7 @@ index d0fd758..2924cec 100644
      return success;
  }
 diff --git a/crawl-ref/source/player.cc b/crawl-ref/source/player.cc
-index 982b651..5831852 100644
+index 982b651..f880d1c 100644
 --- a/crawl-ref/source/player.cc
 +++ b/crawl-ref/source/player.cc
 @@ -4,6 +4,8 @@
@@ -55058,7 +55287,132 @@ index 982b651..5831852 100644
      did_god_conduct(DID_CHAOS, 10);
  }
  
-@@ -248,7 +250,7 @@ static bool _check_moveto_dangerous(const coord_def& p, const string& msg)
+@@ -147,6 +149,49 @@ static void _moveto_maybe_repel_stairs()
+     }
+ }
+ 
++// This adapter enumerates legacy movement actions, not pieces of a displayed
++// sentence. Keep the canonical verb for Lua prompt callbacks and English mode.
++static ZhArg _movement_verb_arg(const string &verb)
++{
++    static const struct { const char *canonical, *id; } verbs[] = {
++        {"step", "movement.confirm.verb.step"},
++        {"stride", "movement.confirm.verb.stride"},
++        {"roll", "movement.confirm.verb.roll"},
++        {"rampage", "movement.confirm.verb.rampage"},
++        {"fly", "movement.confirm.verb.fly"},
++        {"swim", "movement.confirm.verb.swim"},
++        {"slither", "movement.confirm.verb.slither"},
++        {"walk", "movement.confirm.verb.walk"},
++        {"wriggle", "movement.confirm.verb.wriggle"},
++        {"float", "movement.confirm.verb.float"},
++        {"hop", "movement.confirm.verb.hop"},
++        {"blink", "movement.confirm.verb.blink"},
++        {"charge", "movement.confirm.verb.charge"},
++        {"leap", "movement.confirm.verb.leap"},
++        {"line pass", "movement.confirm.verb.line_pass"},
++        {"move", "movement.confirm.verb.move"},
++        {"transfer", "movement.confirm.verb.transfer"},
++        {"wall jump", "movement.confirm.verb.wall_jump"},
++        {"passwall", "movement.confirm.verb.passwall"},
++        {"potentially stumble back", "movement.confirm.verb.potentially_stumble_back"},
++    };
++    for (const auto &entry : verbs)
++        if (verb == entry.canonical)
++            return zh_message_arg("move", entry.id);
++    // A new action must receive its own reviewed semantic label. Report it and
++    // fall back with the complete parent, never translate unknown word parts.
++    return zh_word_arg("move", "movement.confirm.verb.", verb);
++}
++
++static ZhMessage _movement_prompt(const string &id, const string &verb,
++                                  const ZhArg &warning)
++{
++    const auto prompt = zh_message_arg("prompt", id, {_movement_verb_arg(verb)});
++    if (warning.canonical.empty())
++        return {prompt.message_id, prompt.canonical, prompt.localized};
++    return zh_message("movement.confirm.prefaced", {warning, prompt});
++}
++
+ bool check_moveto_cloud(const coord_def& p, const string &move_verb,
+                         bool *prompted)
+ {
+@@ -176,12 +221,13 @@ bool check_moveto_cloud(const coord_def& p, const string &move_verb,
+ 
+         if (prompted)
+             *prompted = true;
+-        string prompt = make_stringf("Really %s into that cloud of %s?",
+-                                     move_verb.c_str(),
+-                                     cloud_type_name(ctype).c_str());
++        const auto cloud = zh_glossary_name("cloud", "movement.confirm.cloud_name",
++                                             cloud_type_name(ctype));
++        const auto prompt = zh_message("movement.confirm.cloud",
++                                       {_movement_verb_arg(move_verb), cloud});
+         learned_something_new(HINT_CLOUD_WARNING);
+ 
+-        if (!yesno(prompt.c_str(), false, 'n'))
++        if (!yesno(prompt, false, 'n'))
+         {
+             canned_msg(MSG_OK);
+             return false;
+@@ -204,12 +250,12 @@ bool check_moveto_trap(const coord_def& p, const string &move_verb,
+ 
+     if (trap->type == TRAP_ZOT && !trap->is_safe() && !crawl_state.disables[DIS_CONFIRMATIONS])
+     {
+-        string msg = "Do you really want to %s into the Zot trap?";
+-        string prompt = make_stringf(msg.c_str(), move_verb.c_str());
++        const auto prompt = zh_message("movement.confirm.trap.zot",
++                                       {_movement_verb_arg(move_verb)});
+ 
+         if (prompted)
+             *prompted = true;
+-        if (!confirm_prompt("yes", "%s", prompt.c_str()))
++        if (!confirm_prompt("yes", prompt))
+         {
+             canned_msg(MSG_OK);
+             return false;
+@@ -217,16 +263,16 @@ bool check_moveto_trap(const coord_def& p, const string &move_verb,
+     }
+     else if (!trap->is_safe() && !crawl_state.disables[DIS_CONFIRMATIONS])
+     {
+-        string prompt;
+-
+         if (prompted)
+             *prompted = true;
+-        prompt = make_stringf("Really %s %s that %s?", move_verb.c_str(),
+-                              (trap->type == TRAP_ALARM
+-                               || trap->type == TRAP_PLATE) ? "onto"
+-                              : "into",
+-                              feature_description_at(p, false, DESC_BASENAME).c_str());
+-        if (!yesno(prompt.c_str(), true, 'n'))
++        auto name = zh_glossary_name("trap", "movement.confirm.trap_name",
++                                    full_trap_name(trap->type));
++        name.canonical = feature_description_at(p, false, DESC_BASENAME);
++        const auto prompt = zh_message(
++            (trap->type == TRAP_ALARM || trap->type == TRAP_PLATE)
++                ? "movement.confirm.trap.onto" : "movement.confirm.trap.into",
++            {_movement_verb_arg(move_verb), name});
++        if (!yesno(prompt, true, 'n'))
+         {
+             canned_msg(MSG_OK);
+             return false;
+@@ -235,7 +281,7 @@ bool check_moveto_trap(const coord_def& p, const string &move_verb,
+     return true;
+ }
+ 
+-static bool _check_moveto_dangerous(const coord_def& p, const string& msg)
++static bool _check_moveto_dangerous(const coord_def& p, const ZhArg &warning)
+ {
+     if (you.can_swim() && feat_is_water(env.grid(p))
+         || you.airborne() || !is_feat_dangerous(env.grid(p)))
+@@ -243,12 +289,12 @@ static bool _check_moveto_dangerous(const coord_def& p, const string& msg)
+         return true;
+     }
+ 
+-    if (!msg.empty())
+-        mpr(msg);
++    if (!warning.canonical.empty())
++        mpr(zh_message("movement.confirm.warning", {warning}));
      else if (species::likes_water(you.species) && feat_is_water(env.grid(p)))
      {
          // player normally likes water, but is in a form that doesn't
@@ -55067,7 +55421,159 @@ index 982b651..5831852 100644
      }
      else
          canned_msg(MSG_UNTHINKING_ACT);
-@@ -442,7 +444,7 @@ bool swap_check(monster* mons, coord_def &loc, bool quiet)
+@@ -256,21 +302,16 @@ static bool _check_moveto_dangerous(const coord_def& p, const string& msg)
+ }
+ 
+ static bool _check_moveto_binding_sigil(coord_def p, const string &move_verb,
+-                                        const string &msg, bool *prompted)
++                                        const ZhArg &warning, bool *prompted)
+ {
+     if (env.grid(p) == DNGN_BINDING_SIGIL && !you.is_binding_sigil_immune())
+     {
+-        string prompt;
+         if (prompted)
+             *prompted = true;
++        const auto prompt = _movement_prompt("movement.confirm.binding_sigil",
++                                              move_verb, warning);
+ 
+-        if (!msg.empty())
+-            prompt = msg + " ";
+-
+-        prompt += "Are you sure you want to " + move_verb
+-                + " onto a binding sigil?";
+-
+-        if (!yesno(prompt.c_str(), false, 'n'))
++        if (!yesno(prompt, false, 'n'))
+         {
+             canned_msg(MSG_OK);
+             return false;
+@@ -279,35 +320,29 @@ static bool _check_moveto_binding_sigil(coord_def p, const string &move_verb,
+     return true;
+ }
+ 
+-bool check_moveto_terrain(const coord_def& p, const string &move_verb,
+-                          const string &msg, bool *prompted)
++bool check_moveto_terrain_display(const coord_def& p, const string &move_verb,
++                                  const ZhArg &warning, bool *prompted)
+ {
+     // Boldly go into the unknown (for ranged move prompts)
+     if (!env.map_knowledge(p).known())
+         return true;
+ 
+-    if (!_check_moveto_dangerous(p, msg))
++    if (!_check_moveto_dangerous(p, warning))
+         return false;
+ 
+-    if (!_check_moveto_binding_sigil(p, move_verb, msg, prompted))
++    if (!_check_moveto_binding_sigil(p, move_verb, warning, prompted))
+         return false;
+ 
+     if (!you.airborne() && !you.duration[DUR_NOXIOUS_BOG]
+         && env.grid(you.pos()) != DNGN_TOXIC_BOG
+         && env.grid(p) == DNGN_TOXIC_BOG)
+     {
+-        string prompt;
+-
+         if (prompted)
+             *prompted = true;
++        const auto prompt = _movement_prompt("movement.confirm.toxic_bog",
++                                              move_verb, warning);
+ 
+-        if (!msg.empty())
+-            prompt = msg + " ";
+-
+-        prompt += "Are you sure you want to " + move_verb
+-                + " into a toxic bog?";
+-
+-        if (!yesno(prompt.c_str(), false, 'n'))
++        if (!yesno(prompt, false, 'n'))
+         {
+             canned_msg(MSG_OK);
+             return false;
+@@ -316,28 +351,17 @@ bool check_moveto_terrain(const coord_def& p, const string &move_verb,
+     if (!need_expiration_warning() && need_expiration_warning(p)
+         && !crawl_state.disables[DIS_CONFIRMATIONS])
+     {
+-        string prompt;
+-
+         if (prompted)
+             *prompted = true;
+-
+-        if (!msg.empty())
+-            prompt = msg + " ";
+-
+-        prompt += "Are you sure you want to " + move_verb;
+-
+-        if (!you.airborne())
+-            prompt += " into ";
+-        else
+-            prompt += " over ";
+-
+-        prompt += env.grid(p) == DNGN_DEEP_WATER ? "deep water" : "lava";
+-
+-        prompt += need_expiration_warning(DUR_FLIGHT, p)
+-            ? " while you are losing your buoyancy?"
+-            : " while your transformation is expiring?";
+-
+-        if (!yesno(prompt.c_str(), false, 'n'))
++        // Each combination chooses a complete sentence before substitution.
++        // Terrain, flying and expiring form are gameplay states, not English.
++        const string id = string("movement.confirm.expiration.")
++            + (you.airborne() ? "over." : "into.")
++            + (env.grid(p) == DNGN_DEEP_WATER ? "deep_water." : "lava.")
++            + (need_expiration_warning(DUR_FLIGHT, p) ? "flight" : "form");
++        const auto prompt = _movement_prompt(id, move_verb, warning);
++
++        if (!yesno(prompt, false, 'n'))
+         {
+             canned_msg(MSG_OK);
+             return false;
+@@ -346,6 +370,15 @@ bool check_moveto_terrain(const coord_def& p, const string &move_verb,
+     return true;
+ }
+ 
++// Compatibility entry point: arbitrary legacy warnings are not translated or
++// parsed. Internal passwall producers use the typed API below directly.
++bool check_moveto_terrain(const coord_def& p, const string &move_verb,
++                          const string &msg, bool *prompted)
++{
++    const ZhArg warning("warning", ZhArgType::Text, msg, msg, msg.empty());
++    return check_moveto_terrain_display(p, move_verb, warning, prompted);
++}
++
+ bool check_moveto_exclusions(const vector<coord_def> &areas,
+                              const string &move_verb,
+                              bool *prompted)
+@@ -363,14 +396,13 @@ bool check_moveto_exclusions(const vector<coord_def> &areas,
+     }
+     if (count == 0)
+         return true;
+-    const string prompt = make_stringf((count == (int) areas.size() ?
+-                    "Really %s into a travel-excluded area?" :
+-                    "You might %s into a travel-excluded area, are you sure?"),
+-                              move_verb.c_str());
++    const auto prompt = zh_message(count == (int) areas.size()
++        ? "movement.confirm.exclusion.certain"
++        : "movement.confirm.exclusion.possible", {_movement_verb_arg(move_verb)});
+ 
+     if (prompted)
+         *prompted = true;
+-    if (!yesno(prompt.c_str(), false, 'n'))
++    if (!yesno(prompt, false, 'n'))
+     {
+         canned_msg(MSG_OK);
+         return false;
+@@ -412,7 +444,8 @@ static bool _check_move_over_terrain(coord_def p, const string& move_verb)
+     if (crawl_state.disables[DIS_CONFIRMATIONS])
+         return true;
+ 
+-    return _check_moveto_binding_sigil(p, move_verb, "", nullptr);
++    return _check_moveto_binding_sigil(p, move_verb,
++                                        zh_text("warning", "", ""), nullptr);
+ }
+ 
+ bool check_move_over(coord_def p, const string& move_verb)
+@@ -442,7 +475,7 @@ bool swap_check(monster* mons, coord_def &loc, bool quiet)
          || mons->type == MONS_BLAZEHEART_CORE)
      {
          if (!quiet)
@@ -55076,7 +55582,7 @@ index 982b651..5831852 100644
          return false;
      }
  
-@@ -561,11 +563,11 @@ static void _enter_water(dungeon_feature_type old_feat,
+@@ -561,11 +594,11 @@ static void _enter_water(dungeon_feature_type old_feat,
  
      if (you.slow_in_water())
      {
@@ -55091,7 +55597,7 @@ index 982b651..5831852 100644
  }
  
  static bool _valid_entanglement_target(const monster& mon, bool check_no_tele)
-@@ -761,7 +763,7 @@ void player::finalise_movement(const actor* /*to_blame*/)
+@@ -761,7 +794,7 @@ void player::finalise_movement(const actor* /*to_blame*/)
             redraw_armour_class = true;
             wield_change = true;
             if (!was_slimy)
@@ -55100,7 +55606,7 @@ index 982b651..5831852 100644
         }
      }
  
-@@ -2529,7 +2531,7 @@ static void _handle_hp_drain(int exp)
+@@ -2529,7 +2562,7 @@ static void _handle_hp_drain(int exp)
      calc_hp();
  
      if (drain_removed)
@@ -55109,7 +55615,7 @@ index 982b651..5831852 100644
  }
  
  static void _handle_breath_recharge(int exp)
-@@ -2553,7 +2555,7 @@ static void _handle_breath_recharge(int exp)
+@@ -2553,7 +2586,7 @@ static void _handle_breath_recharge(int exp)
      {
          you.props.erase(DRACONIAN_BREATH_RECHARGE_KEY);
          gain_draconian_breath_uses(1);
@@ -55118,7 +55624,7 @@ index 982b651..5831852 100644
      }
  }
  
-@@ -2568,7 +2570,7 @@ static void _handle_cacophony_recharge(int exp)
+@@ -2568,7 +2601,7 @@ static void _handle_cacophony_recharge(int exp)
      if (you.props[CACOPHONY_XP_KEY].get_int() <= 0)
      {
          you.props.erase(CACOPHONY_XP_KEY);
@@ -55127,7 +55633,7 @@ index 982b651..5831852 100644
      }
  }
  
-@@ -2586,7 +2588,7 @@ static void _handle_batform_recharge(int exp)
+@@ -2586,7 +2619,7 @@ static void _handle_batform_recharge(int exp)
      if (you.props[BATFORM_XP_KEY].get_int() <= 0)
      {
          you.props.erase(BATFORM_XP_KEY);
@@ -55136,7 +55642,7 @@ index 982b651..5831852 100644
      }
  }
  
-@@ -2604,7 +2606,7 @@ static void _handle_watery_grave_recharge(int exp)
+@@ -2604,7 +2637,7 @@ static void _handle_watery_grave_recharge(int exp)
      if (you.props[WATERY_GRAVE_XP_KEY].get_int() <= 0)
      {
          you.props.erase(WATERY_GRAVE_XP_KEY);
@@ -55145,7 +55651,7 @@ index 982b651..5831852 100644
      }
  }
  
-@@ -2620,7 +2622,7 @@ static void _handle_banes(int exp)
+@@ -2620,7 +2653,7 @@ static void _handle_banes(int exp)
          you.attribute[ATTR_DOOM] -= div_rand_round(loss, 60);
          if (you.attribute[ATTR_DOOM] <= 0)
          {
@@ -55154,7 +55660,7 @@ index 982b651..5831852 100644
              you.attribute[ATTR_DOOM] = 0;
          }
  
-@@ -2751,7 +2753,7 @@ static bool _felid_extra_life()
+@@ -2751,7 +2784,7 @@ static bool _felid_extra_life()
          && you.lives < 2)
      {
          you.lives++;
@@ -55163,7 +55669,7 @@ index 982b651..5831852 100644
          you.attribute[ATTR_LIFE_GAINED] = you.max_level;
          // Should play the 1UP sound from SMB...
          return true;
-@@ -2893,8 +2895,7 @@ static void _gain_innate_spells()
+@@ -2893,8 +2926,7 @@ static void _gain_innate_spells()
                                       oldspell);
                  if (oldindex != end(you.spells))
                  {
@@ -55173,7 +55679,7 @@ index 982b651..5831852 100644
                      del_spell_from_memory(oldspell);
                      spell_vec[j].get_int() = SPELL_NO_SPELL;
                      break;
-@@ -2944,7 +2945,7 @@ static void _revenant_spell_gift()
+@@ -2944,7 +2976,7 @@ static void _revenant_spell_gift()
      // spells. Hey, it's probably not literally impossible.
      if (gift_possibilities.empty())
      {
@@ -55182,7 +55688,7 @@ index 982b651..5831852 100644
          return;
      }
  
-@@ -3007,8 +3008,7 @@ void level_change(bool skip_attribute_increase)
+@@ -3007,8 +3039,7 @@ void level_change(bool skip_attribute_increase)
  
          if (new_exp <= you.max_level)
          {
@@ -55192,7 +55698,7 @@ index 982b651..5831852 100644
  
              // No more prompts for this XL past this point.
  
-@@ -3021,14 +3021,12 @@ void level_change(bool skip_attribute_increase)
+@@ -3021,14 +3052,12 @@ void level_change(bool skip_attribute_increase)
              update_screen();
  
              if (new_exp == 27)
@@ -55210,7 +55716,7 @@ index 982b651..5831852 100644
              }
  
              const bool manual_stat_level = you.has_mutation(MUT_DIVINE_ATTRS)
-@@ -3062,7 +3060,7 @@ void level_change(bool skip_attribute_increase)
+@@ -3062,7 +3091,7 @@ void level_change(bool skip_attribute_increase)
              case SP_NAGA:
                  if (!(you.experience_level % 3))
                  {
@@ -55219,7 +55725,7 @@ index 982b651..5831852 100644
                      you.redraw_armour_class = true;
                  }
                  break;
-@@ -3156,8 +3154,7 @@ void level_change(bool skip_attribute_increase)
+@@ -3156,8 +3185,7 @@ void level_change(bool skip_attribute_increase)
                          {
                              if (you.experience_level == level)
                              {
@@ -55229,7 +55735,7 @@ index 982b651..5831852 100644
                                  mark_milestone("monstrous", "discovered their "
                                                 "monstrous ancestry!");
                                  take_note(Note(NOTE_MESSAGE, 0, 0,
-@@ -3180,8 +3177,7 @@ void level_change(bool skip_attribute_increase)
+@@ -3180,8 +3208,7 @@ void level_change(bool skip_attribute_increase)
                      {
                          if (!gave_message)
                          {
@@ -55239,7 +55745,7 @@ index 982b651..5831852 100644
  
                              gave_message = true;
                          }
-@@ -3204,8 +3200,7 @@ void level_change(bool skip_attribute_increase)
+@@ -3204,8 +3231,7 @@ void level_change(bool skip_attribute_increase)
  
                      case COGLIN_GIZMO_XL:
                      {
@@ -55249,7 +55755,7 @@ index 982b651..5831852 100644
                          mprf("(press <w>%c</w> on the <w>%s</w>bility menu to create your gizmo)",
                                  get_talent(ABIL_INVENT_GIZMO).hotkey,
                                  command_to_string(CMD_USE_ABILITY).c_str());
-@@ -3233,7 +3228,7 @@ void level_change(bool skip_attribute_increase)
+@@ -3233,7 +3259,7 @@ void level_change(bool skip_attribute_increase)
  
          if (species::is_draconian(you.species) && !(you.experience_level % 3))
          {
@@ -55258,7 +55764,7 @@ index 982b651..5831852 100644
              you.redraw_armour_class = true;
          }
          if (!updated_maxhp)
-@@ -3565,14 +3560,14 @@ void display_char_status()
+@@ -3565,14 +3591,14 @@ void display_char_status()
      if (halo_size >= 0)
      {
          if (halo_size > 5)
@@ -55277,7 +55783,7 @@ index 982b651..5831852 100644
  
      status_info inf;
      for (unsigned i = 0; i <= STATUS_LAST_STATUS; ++i)
-@@ -3895,7 +3890,7 @@ void flush_mp()
+@@ -3895,7 +3921,7 @@ void flush_mp()
          && you.magic_points < you.max_magic_points
                                * Options.magic_point_warning / 100)
      {
@@ -55286,7 +55792,7 @@ index 982b651..5831852 100644
      }
  
      take_note(Note(NOTE_MP_CHANGE, you.magic_points, you.max_magic_points));
-@@ -3908,7 +3903,7 @@ void flush_hp()
+@@ -3908,7 +3934,7 @@ void flush_hp()
          && you.hp <= (you.hp_max * Options.hp_warning) / 100)
      {
          flash_view_delay(UA_HP, RED, 50);
@@ -55295,7 +55801,7 @@ index 982b651..5831852 100644
          dungeon_events.fire_event(DET_HP_WARNING);
      }
      you.redraw_hit_points = true;
-@@ -3984,7 +3979,7 @@ bool enough_hp(int minimum, bool suppress_msg, bool abort_macros)
+@@ -3984,7 +4010,7 @@ bool enough_hp(int minimum, bool suppress_msg, bool abort_macros)
      if (you.duration[DUR_DEATHS_DOOR])
      {
          if (!suppress_msg)
@@ -55304,7 +55810,7 @@ index 982b651..5831852 100644
  
          if (abort_macros)
          {
-@@ -3998,7 +3993,7 @@ bool enough_hp(int minimum, bool suppress_msg, bool abort_macros)
+@@ -3998,7 +4024,7 @@ bool enough_hp(int minimum, bool suppress_msg, bool abort_macros)
      if (you.hp < minimum + 1)
      {
          if (!suppress_msg)
@@ -55313,7 +55819,7 @@ index 982b651..5831852 100644
  
          if (abort_macros)
          {
-@@ -4023,9 +4018,9 @@ bool enough_mp(int minimum, bool suppress_msg, bool abort_macros)
+@@ -4023,9 +4049,9 @@ bool enough_mp(int minimum, bool suppress_msg, bool abort_macros)
          if (!suppress_msg)
          {
              if (get_real_mp(true) < minimum)
@@ -55325,7 +55831,7 @@ index 982b651..5831852 100644
          }
          if (abort_macros)
          {
-@@ -4399,19 +4394,17 @@ void contaminate_player(int change, bool controlled, bool msg)
+@@ -4399,19 +4425,17 @@ void contaminate_player(int change, bool controlled, bool msg)
      {
          if (!player_harmful_contamination() && was_glowing)
          {
@@ -55348,7 +55854,7 @@ index 982b651..5831852 100644
  
      if (you.magic_contamination > 0)
          learned_something_new(HINT_GLOWING);
-@@ -4453,14 +4446,14 @@ bool confuse_player(int amount, bool quiet, bool force)
+@@ -4453,14 +4477,14 @@ bool confuse_player(int amount, bool quiet, bool force)
      if (!force && you.clarity())
      {
          if (!quiet)
@@ -55365,7 +55871,7 @@ index 982b651..5831852 100644
          return false;
      }
  
-@@ -4495,7 +4488,7 @@ bool poison_player(int amount, string source, string source_aux, bool force)
+@@ -4495,7 +4519,7 @@ bool poison_player(int amount, string source, string source_aux, bool force)
  
      if (you.duration[DUR_DIVINE_STAMINA] > 0)
      {
@@ -55374,7 +55880,7 @@ index 982b651..5831852 100644
          return false;
      }
  
-@@ -4522,7 +4515,7 @@ bool poison_player(int amount, string source, string source_aux, bool force)
+@@ -4522,7 +4546,7 @@ bool poison_player(int amount, string source, string source_aux, bool force)
      if (you.duration[DUR_POISONING] > old_value)
      {
          if (poison_is_lethal() && !was_fatal)
@@ -55383,7 +55889,7 @@ index 982b651..5831852 100644
          else
          {
              mprf(MSGCH_WARN, "You are %spoisoned.",
-@@ -4686,7 +4679,7 @@ void reduce_player_poison(int amount)
+@@ -4686,7 +4710,7 @@ void reduce_player_poison(int amount)
          you.duration[DUR_POISONING] = 0;
          you.props.erase(POISONER_KEY);
          you.props.erase(POISON_AUX_KEY);
@@ -55392,7 +55898,7 @@ index 982b651..5831852 100644
      }
  
      you.redraw_hit_points = true;
-@@ -4789,7 +4782,7 @@ bool miasma_player(actor *who, string source_aux)
+@@ -4789,7 +4813,7 @@ bool miasma_player(actor *who, string source_aux)
  
      if (you.duration[DUR_DIVINE_STAMINA] > 0)
      {
@@ -55401,7 +55907,7 @@ index 982b651..5831852 100644
          return false;
      }
  
-@@ -4855,7 +4848,7 @@ void dec_sticky_flame_player(int delay)
+@@ -4855,7 +4879,7 @@ void dec_sticky_flame_player(int delay)
  
      if (feat_is_water(env.grid(you.pos())))
      {
@@ -55410,7 +55916,7 @@ index 982b651..5831852 100644
          end_sticky_flame_player();
          return;
      }
-@@ -4878,7 +4871,7 @@ void dec_sticky_flame_player(int delay)
+@@ -4878,7 +4902,7 @@ void dec_sticky_flame_player(int delay)
  
      if (you.duration[DUR_STICKY_FLAME == 0])
      {
@@ -55419,7 +55925,7 @@ index 982b651..5831852 100644
          end_sticky_flame_player();
      }
  }
-@@ -4900,11 +4893,11 @@ void shake_off_sticky_flame()
+@@ -4900,11 +4924,11 @@ void shake_off_sticky_flame()
      // (20 aut is picked fairly arbitrarily to include even most slowed actions)
      if (dur <= 20)
      {
@@ -55433,7 +55939,7 @@ index 982b651..5831852 100644
  }
  
  // End the sticky flame status entirely
-@@ -4921,9 +4914,9 @@ void silence_player(int turns)
+@@ -4921,9 +4945,9 @@ void silence_player(int turns)
      ASSERT(!crawl_state.game_is_arena());
  
      if (you.duration[DUR_SILENCE])
@@ -55445,7 +55951,7 @@ index 982b651..5831852 100644
  
      you.increase_duration(DUR_SILENCE, turns, 30);
  
-@@ -4942,7 +4935,7 @@ bool slow_player(int turns)
+@@ -4942,7 +4966,7 @@ bool slow_player(int turns)
  
      if (you.stasis())
      {
@@ -55454,7 +55960,7 @@ index 982b651..5831852 100644
          return false;
      }
  
-@@ -4952,13 +4945,13 @@ bool slow_player(int turns)
+@@ -4952,13 +4976,13 @@ bool slow_player(int turns)
      int threshold = haste_mul(100);
  
      if (you.duration[DUR_SLOW] >= threshold * BASELINE_DELAY)
@@ -55471,7 +55977,7 @@ index 982b651..5831852 100644
  
          you.increase_duration(DUR_SLOW, turns, threshold);
          learned_something_new(HINT_YOU_ENCHANTED);
-@@ -4991,7 +4984,7 @@ void dec_slow_player(int delay)
+@@ -4991,7 +5015,7 @@ void dec_slow_player(int delay)
      {
          you.duration[DUR_SLOW] = 0;
          if (!have_stat_zero())
@@ -55480,7 +55986,7 @@ index 982b651..5831852 100644
      }
  }
  
-@@ -5007,13 +5000,13 @@ void barb_player(int turns, int pow)
+@@ -5007,13 +5031,13 @@ void barb_player(int turns, int pow)
  
      if (!you.duration[DUR_BARBS])
      {
@@ -55496,7 +56002,7 @@ index 982b651..5831852 100644
          you.increase_duration(DUR_BARBS, turns, max_turns);
          you.attribute[ATTR_BARBS_POW] =
              min(max_pow, you.attribute[ATTR_BARBS_POW]++);
-@@ -5039,9 +5032,9 @@ void blind_player(int amount, colour_t flavour_colour)
+@@ -5039,9 +5063,9 @@ void blind_player(int amount, colour_t flavour_colour)
      {
          you.props[BLIND_COLOUR_KEY] = flavour_colour;
          if (current > 0)
@@ -55508,7 +56014,7 @@ index 982b651..5831852 100644
          learned_something_new(HINT_YOU_ENCHANTED);
          xom_is_stimulated((you.duration[DUR_BLIND] - current) / BASELINE_DELAY);
      }
-@@ -5070,7 +5063,7 @@ void dec_berserk_recovery_player(int delay)
+@@ -5070,7 +5094,7 @@ void dec_berserk_recovery_player(int delay)
  
      if (you.duration[DUR_BERSERK_COOLDOWN] <= BASELINE_DELAY)
      {
@@ -55517,7 +56023,7 @@ index 982b651..5831852 100644
          you.duration[DUR_BERSERK_COOLDOWN] = 0;
      }
  }
-@@ -5084,7 +5077,7 @@ bool haste_player(int turns, bool rageext)
+@@ -5084,7 +5108,7 @@ bool haste_player(int turns, bool rageext)
  
      if (you.stasis())
      {
@@ -55526,7 +56032,7 @@ index 982b651..5831852 100644
          return false;
      }
      else if (have_passive(passive_t::no_haste))
-@@ -5099,11 +5092,11 @@ bool haste_player(int turns, bool rageext)
+@@ -5099,11 +5123,11 @@ bool haste_player(int turns, bool rageext)
      const int threshold = 80;
  
      if (!you.duration[DUR_HASTE])
@@ -55541,7 +56047,7 @@ index 982b651..5831852 100644
  
      you.increase_duration(DUR_HASTE, turns, threshold);
  
-@@ -5125,7 +5118,7 @@ void dec_haste_player(int delay)
+@@ -5125,7 +5149,7 @@ void dec_haste_player(int delay)
          // message if we cross the threshold
          if (old_dur > threshold && you.duration[DUR_HASTE] <= threshold)
          {
@@ -55550,7 +56056,7 @@ index 982b651..5831852 100644
              if (coinflip())
                  you.duration[DUR_HASTE] -= BASELINE_DELAY;
          }
-@@ -5133,7 +5126,7 @@ void dec_haste_player(int delay)
+@@ -5133,7 +5157,7 @@ void dec_haste_player(int delay)
      else if (you.duration[DUR_HASTE] <= BASELINE_DELAY)
      {
          if (!you.duration[DUR_BERSERK])
@@ -55559,7 +56065,7 @@ index 982b651..5831852 100644
          you.duration[DUR_HASTE] = 0;
      }
  }
-@@ -5179,7 +5172,7 @@ void dec_ambrosia_player(int delay)
+@@ -5179,7 +5203,7 @@ void dec_ambrosia_player(int delay)
      inc_mp(you.scale_potion_mp_healing(mp_restoration));
  
      if (!you.duration[DUR_AMBROSIA])
@@ -55568,7 +56074,7 @@ index 982b651..5831852 100644
  }
  
  void dec_channel_player(int delay)
-@@ -5196,7 +5189,7 @@ void dec_channel_player(int delay)
+@@ -5196,7 +5220,7 @@ void dec_channel_player(int delay)
      inc_mp(mp_restoration);
  
      if (!you.duration[DUR_CHANNEL_ENERGY])
@@ -55577,7 +56083,7 @@ index 982b651..5831852 100644
  }
  
  void dec_frozen_ramparts(int delay)
-@@ -5210,7 +5203,7 @@ void dec_frozen_ramparts(int delay)
+@@ -5210,7 +5234,7 @@ void dec_frozen_ramparts(int delay)
      if (!you.duration[DUR_FROZEN_RAMPARTS])
      {
          end_frozen_ramparts();
@@ -55586,7 +56092,7 @@ index 982b651..5831852 100644
      }
  }
  
-@@ -5231,66 +5224,67 @@ void apply_rampage_heal(int distance_moved)
+@@ -5231,66 +5255,67 @@ void apply_rampage_heal(int distance_moved)
      you.props[RAMPAGE_HEAL_KEY] = min(RAMPAGE_HEAL_MAX, heal + distance_moved);
  }
  
@@ -55670,7 +56176,7 @@ index 982b651..5831852 100644
      }
      return success;
  }
-@@ -5321,13 +5315,13 @@ void float_player()
+@@ -5321,13 +5346,13 @@ void float_player()
  {
      if (you.fishtail)
      {
@@ -55687,7 +56193,7 @@ index 982b651..5831852 100644
  }
  
  void fly_player(int pow, bool already_flying)
-@@ -5384,7 +5378,7 @@ bool land_player(bool quiet)
+@@ -5384,7 +5409,7 @@ bool land_player(bool quiet)
      }
  
      if (!quiet)
@@ -55696,7 +56202,7 @@ index 982b651..5831852 100644
  
      // Re-enter the terrain.
      // Interrupt travel, but not other delays.
-@@ -5961,14 +5955,14 @@ void player::banish(const actor* /*agent*/, const string &who, bool force)
+@@ -5961,14 +5986,14 @@ void player::banish(const actor* /*agent*/, const string &who, bool force)
  
      if (elapsed_time <= attribute[ATTR_BANISHMENT_IMMUNITY])
      {
@@ -55713,7 +56219,7 @@ index 982b651..5831852 100644
          return;
      }
  
-@@ -7146,70 +7140,59 @@ int player_willpower(bool temp)
+@@ -7146,70 +7171,59 @@ int player_willpower(bool temp)
   * @return              Why the player is prevented from teleporting, if they
   *                      are; else, the empty string.
   */
@@ -55813,7 +56319,7 @@ index 982b651..5831852 100644
  }
  
  /**
-@@ -7451,7 +7434,7 @@ void player::paralyse(const actor *who, int str, string source)
+@@ -7451,7 +7465,7 @@ void player::paralyse(const actor *who, int str, string source)
  
      if (stasis())
      {
@@ -55822,7 +56328,7 @@ index 982b651..5831852 100644
          return;
      }
  
-@@ -7459,13 +7442,13 @@ void player::paralyse(const actor *who, int str, string source)
+@@ -7459,13 +7473,13 @@ void player::paralyse(const actor *who, int str, string source)
      if (who && who != &you
          && (duration[DUR_PARALYSIS] || duration[DUR_STUN_IMMUNITY]))
      {
@@ -55838,7 +56344,7 @@ index 982b651..5831852 100644
      _pruneify();
  
      you.duration[DUR_PARALYSIS] = str * BASELINE_DELAY + 5;
-@@ -7503,7 +7486,7 @@ void player::petrify(const actor *who, bool force)
+@@ -7503,7 +7517,7 @@ void player::petrify(const actor *who, bool force)
  
      if (duration[DUR_DIVINE_STAMINA] > 0)
      {
@@ -55847,7 +56353,7 @@ index 982b651..5831852 100644
          return;
      }
  
-@@ -7520,7 +7503,7 @@ void player::petrify(const actor *who, bool force)
+@@ -7520,7 +7534,7 @@ void player::petrify(const actor *who, bool force)
          props.erase(DISABLED_BY_KEY);
  
      redraw_evasion = true;
@@ -55856,7 +56362,7 @@ index 982b651..5831852 100644
  }
  
  bool player::fully_petrify(bool /*quiet*/)
-@@ -7529,7 +7512,7 @@ bool player::fully_petrify(bool /*quiet*/)
+@@ -7529,7 +7543,7 @@ bool player::fully_petrify(bool /*quiet*/)
                          + random2(4 * BASELINE_DELAY);
      redraw_armour_class = true;
      redraw_evasion = true;
@@ -55865,7 +56371,7 @@ index 982b651..5831852 100644
      _pruneify();
  
      stop_delay(true, true);
-@@ -7542,12 +7525,12 @@ bool player::vex(const actor* who, int dur, string source, string special_msg)
+@@ -7542,12 +7556,12 @@ bool player::vex(const actor* who, int dur, string source, string special_msg)
  {
      if (you.clarity())
      {
@@ -55880,7 +56386,7 @@ index 982b651..5831852 100644
          return false;
      }
      else if (you.duration[DUR_VEXED])
-@@ -7556,7 +7539,7 @@ bool player::vex(const actor* who, int dur, string source, string special_msg)
+@@ -7556,7 +7570,7 @@ bool player::vex(const actor* who, int dur, string source, string special_msg)
      if (!special_msg.empty())
          mprf(MSGCH_WARN, "You %s", special_msg.c_str());
      else
@@ -55889,7 +56395,7 @@ index 982b651..5831852 100644
      you.duration[DUR_VEXED] = dur * BASELINE_DELAY;
  
      const bool use_actor_name = source.empty() && who != nullptr;
-@@ -7766,11 +7749,11 @@ bool player::sicken(int amount)
+@@ -7766,11 +7780,11 @@ bool player::sicken(int amount)
  
      if (duration[DUR_DIVINE_STAMINA] > 0)
      {
@@ -55903,7 +56409,7 @@ index 982b651..5831852 100644
      increase_duration(DUR_SICKNESS, amount, 210);
  
      return true;
-@@ -7872,12 +7855,12 @@ void player::backlight()
+@@ -7872,12 +7886,12 @@ void player::backlight()
      if (!duration[DUR_INVIS])
      {
          if (duration[DUR_CORONA])
@@ -55919,7 +56425,7 @@ index 982b651..5831852 100644
  
      increase_duration(DUR_CORONA, random_range(15, 35), 250);
  }
-@@ -8037,7 +8020,7 @@ bool player::doom(int amount)
+@@ -8037,7 +8051,7 @@ bool player::doom(int amount)
      if (you.attribute[ATTR_DOOM] >= 100)
      {
          you.attribute[ATTR_DOOM] = 0;
@@ -55928,7 +56434,7 @@ index 982b651..5831852 100644
          add_bane();
          return true;
      }
-@@ -8115,7 +8098,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
+@@ -8115,7 +8129,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
  
      if (duration[DUR_STUN_IMMUNITY])
      {
@@ -55937,7 +56443,7 @@ index 982b651..5831852 100644
          return;
      }
  
-@@ -8123,7 +8106,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
+@@ -8123,7 +8137,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
          || duration[DUR_PETRIFIED]
          || duration[DUR_PETRIFYING])
      {
@@ -55946,7 +56452,7 @@ index 982b651..5831852 100644
          return;
      }
  
-@@ -8132,7 +8115,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
+@@ -8132,7 +8146,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
      else
          props.erase(DISABLED_BY_KEY);
  
@@ -55955,7 +56461,7 @@ index 982b651..5831852 100644
      _pruneify();
  
      stop_directly_constricting_all();
-@@ -8152,7 +8135,7 @@ void player::wake_up(bool break_sleep, bool break_daze)
+@@ -8152,7 +8166,7 @@ void player::wake_up(bool break_sleep, bool break_daze)
      {
          duration[DUR_SLEEP] = 0;
          give_stun_immunity(random_range(3, 5));
@@ -55964,7 +56470,7 @@ index 982b651..5831852 100644
          flash_view(UA_MONSTER, BLACK);
          redraw_armour_class = true;
          redraw_evasion = true;
-@@ -8162,7 +8145,7 @@ void player::wake_up(bool break_sleep, bool break_daze)
+@@ -8162,7 +8176,7 @@ void player::wake_up(bool break_sleep, bool break_daze)
      {
          duration[DUR_DAZED] = 0;
          give_stun_immunity(1);
@@ -55973,7 +56479,7 @@ index 982b651..5831852 100644
      }
  }
  
-@@ -8199,13 +8182,12 @@ bool player::do_shaft()
+@@ -8199,13 +8213,12 @@ bool player::do_shaft()
      }
      if (you.species == SP_FORMICID)
      {
@@ -55989,7 +56495,7 @@ index 982b651..5831852 100644
          return false;
      }
  
-@@ -8219,7 +8201,7 @@ bool player::can_do_shaft_ability(bool quiet) const
+@@ -8219,7 +8232,7 @@ bool player::can_do_shaft_ability(bool quiet) const
      if (form_changes_anatomy())
      {
          if (!quiet)
@@ -55998,7 +56504,7 @@ index 982b651..5831852 100644
          return false;
      }
  
-@@ -8233,7 +8215,7 @@ bool player::can_do_shaft_ability(bool quiet) const
+@@ -8233,7 +8246,7 @@ bool player::can_do_shaft_ability(bool quiet) const
      if (you.cannot_move())
      {
          if (!quiet)
@@ -56007,7 +56513,7 @@ index 982b651..5831852 100644
          return false;
      }
  
-@@ -8242,14 +8224,14 @@ bool player::can_do_shaft_ability(bool quiet) const
+@@ -8242,14 +8255,14 @@ bool player::can_do_shaft_ability(bool quiet) const
          if (!is_valid_shaft_level(false))
          {
              if (!quiet)
@@ -56024,7 +56530,7 @@ index 982b651..5831852 100644
          return false;
      }
  
-@@ -8262,7 +8244,7 @@ bool player::do_shaft_ability()
+@@ -8262,7 +8275,7 @@ bool player::do_shaft_ability()
  {
      if (can_do_shaft_ability(true))
      {
@@ -56033,7 +56539,7 @@ index 982b651..5831852 100644
          down_stairs(DNGN_TRAP_SHAFT, true);
          return true;
      }
-@@ -8406,12 +8388,12 @@ void player::sentinel_mark(bool trap)
+@@ -8406,12 +8419,12 @@ void player::sentinel_mark(bool trap)
      flash_tile(you.pos(), YELLOW, 120, TILE_BOLT_SENTINEL_MARK);
      if (duration[DUR_SENTINEL_MARK])
      {
@@ -56048,7 +56554,7 @@ index 982b651..5831852 100644
          increase_duration(DUR_SENTINEL_MARK, trap ? random_range(25, 40)
                                                    : random_range(35, 60),
                            250);
-@@ -8463,9 +8445,9 @@ bool player::made_nervous_by(const monster *mons)
+@@ -8463,9 +8476,9 @@ bool player::made_nervous_by(const monster *mons)
  void player::weaken(const actor */*attacker*/, int pow)
  {
      if (!duration[DUR_WEAK])
@@ -56060,7 +56566,7 @@ index 982b651..5831852 100644
  
      increase_duration(DUR_WEAK, pow + random2(pow + 3), 50);
  }
-@@ -8473,9 +8455,9 @@ void player::weaken(const actor */*attacker*/, int pow)
+@@ -8473,9 +8486,9 @@ void player::weaken(const actor */*attacker*/, int pow)
  void player::diminish(const actor */*attacker*/, int pow)
  {
      if (!duration[DUR_DIMINISHED_SPELLS])
@@ -56072,7 +56578,7 @@ index 982b651..5831852 100644
  
      increase_duration(DUR_DIMINISHED_SPELLS, pow + random2(pow + 3), 50);
  }
-@@ -8485,7 +8467,7 @@ bool player::strip_willpower(actor */*attacker*/, int dur, bool quiet)
+@@ -8485,7 +8498,7 @@ bool player::strip_willpower(actor */*attacker*/, int dur, bool quiet)
      // Only prints a message when you gain this status for the first time,
      // replicating old behavior. Should this change?
      if (!quiet && !you.duration[DUR_LOWERED_WL])
@@ -56081,7 +56587,7 @@ index 982b651..5831852 100644
  
      you.increase_duration(DUR_LOWERED_WL, dur, 40);
  
-@@ -8498,7 +8480,7 @@ bool player::drain_magic(actor */*attacker*/, int pow)
+@@ -8498,7 +8511,7 @@ bool player::drain_magic(actor */*attacker*/, int pow)
      if (!amount)
          return false;
  
@@ -56090,7 +56596,7 @@ index 982b651..5831852 100644
      drain_mp(amount);
      return true;
  }
-@@ -8517,9 +8499,9 @@ void player::vitrify(const actor* /*attacker*/, int dur, bool quiet)
+@@ -8517,9 +8530,9 @@ void player::vitrify(const actor* /*attacker*/, int dur, bool quiet)
      if (!quiet)
      {
          if (!you.duration[DUR_VITRIFIED])
@@ -56102,7 +56608,7 @@ index 982b651..5831852 100644
      }
  
      you.increase_duration(DUR_VITRIFIED, dur, 50);
-@@ -8723,15 +8705,15 @@ void print_potion_heal_message()
+@@ -8723,15 +8736,15 @@ void print_potion_heal_message()
                   you.body_armour()->name(DESC_THE, false, false, false).c_str());
          }
          else if (you.has_mutation(MUT_DOUBLE_POTION_HEAL))
@@ -56122,7 +56628,7 @@ index 982b651..5831852 100644
  }
  
  bool player::can_potion_heal(bool temp)
-@@ -9201,7 +9183,7 @@ int player::inaccuracy() const
+@@ -9201,7 +9214,7 @@ int player::inaccuracy() const
  void player_end_berserk()
  {
      if (!you.duration[DUR_PARALYSIS] && !you.petrified())
@@ -56131,7 +56637,7 @@ index 982b651..5831852 100644
  
      you.berserk_penalty = 0;
  
-@@ -9244,7 +9226,7 @@ void activate_sanguine_armour()
+@@ -9244,7 +9257,7 @@ void activate_sanguine_armour()
      you.duration[DUR_SANGUINE_ARMOUR] = random_range(60, 100);
      if (!was_active)
      {
@@ -56140,7 +56646,7 @@ index 982b651..5831852 100644
          you.redraw_armour_class = true;
      }
  }
-@@ -9256,7 +9238,7 @@ void activate_sanguine_armour()
+@@ -9256,7 +9269,7 @@ void activate_sanguine_armour()
  void refresh_weapon_protection()
  {
      if (!you.duration[DUR_SPWPN_PROTECTION])
@@ -56149,7 +56655,7 @@ index 982b651..5831852 100644
  
      you.increase_duration(DUR_SPWPN_PROTECTION, 3 + random2(2), 5);
      you.redraw_armour_class = true;
-@@ -9364,7 +9346,7 @@ void trickster_trigger(const monster& victim, enchant_type ench)
+@@ -9364,7 +9377,7 @@ void trickster_trigger(const monster& victim, enchant_type ench)
      if (!you.props.exists(TRICKSTER_POW_KEY))
      {
          you.props[TRICKSTER_POW_KEY].get_int() = 0;
@@ -56159,7 +56665,7 @@ index 982b651..5831852 100644
  
      // Start the bonus off at meaningful level, but give less for each effect
 diff --git a/crawl-ref/source/player.h b/crawl-ref/source/player.h
-index 7e5f8ce..ae12627 100644
+index 7e5f8ce..4192c89 100644
 --- a/crawl-ref/source/player.h
 +++ b/crawl-ref/source/player.h
 @@ -11,6 +11,8 @@
@@ -56188,7 +56694,17 @@ index 7e5f8ce..ae12627 100644
      int slaying(bool throwing = false, bool random = true) const override;
      bool antimagic_susceptible() const override;
  
-@@ -1284,7 +1287,7 @@ int trickster_bonus();
+@@ -1059,6 +1062,9 @@ bool check_moveto(const coord_def& p, const string &move_verb = "step",
+                   bool physically = true);
+ bool check_moveto_terrain(const coord_def& p, const string &move_verb,
+                           const string &msg = "", bool *prompted = nullptr);
++// Typed complete warning; canonical contents remain available for English/Lua.
++bool check_moveto_terrain_display(const coord_def& p, const string &move_verb,
++                                  const ZhArg &warning, bool *prompted = nullptr);
+ bool check_moveto_cloud(const coord_def& p, const string &move_verb = "step",
+                         bool *prompted = nullptr);
+ bool check_moveto_exclusions(const vector<coord_def> &areas,
+@@ -1284,7 +1290,7 @@ int trickster_bonus();
  int enkindle_max_charges();
  void maybe_harvest_memory(const monster& victim);
  bool invis_allowed(bool quiet = false, string *fail_reason = nullptr,
@@ -56614,7 +57130,7 @@ index 05617b9..0369d6a 100644
      string m_render_text;
  
 diff --git a/crawl-ref/source/prompt.cc b/crawl-ref/source/prompt.cc
-index 18614a7..2589c61 100644
+index 18614a7..d660dd3 100644
 --- a/crawl-ref/source/prompt.cc
 +++ b/crawl-ref/source/prompt.cc
 @@ -24,6 +24,8 @@
@@ -56673,8 +57189,24 @@ index 18614a7..2589c61 100644
      // slightly smarter error msging than just `mprf(MSGCH_ERROR, ...)`: if
      // there are ui elements on the stack, show a popup on top of them; either
      // way, log the error to MSGCH_ERROR.
-@@ -127,9 +146,10 @@ bool confirm_prompt(const char* require, const char* fmt, ...)
+@@ -125,11 +144,26 @@ bool confirm_prompt(const char* require, const char* fmt, ...)
+     return true;
+ }
  
++// Complete-template path. Keep the legacy answer buffer and comparison exactly
++// as before, but never put a multibyte display prompt in that input buffer.
++bool confirm_prompt(const char *require, const ZhMessage &prompt)
++{
++    const ZhArg text("prompt", ZhArgType::Text, prompt.canonical,
++                     prompt.localized, prompt.canonical != prompt.localized);
++    mpr(zh_message("prompt.confirm.typed_answer", {text, zh_key("answer", require)}),
++        MSGCH_PROMPT);
++    char buf[200];
++    if (cancellable_get_line(buf, sizeof buf))
++        return false;
++    return strcasecmp(buf, require) == 0;
++}
++
  // jmf: general helper (should be used all over in code)
  //      -- idea borrowed from Nethack
 -int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_after,
@@ -56687,7 +57219,7 @@ index 18614a7..2589c61 100644
  {
      if (interrupt_delays && !crawl_state.is_repeating_cmd())
          interrupt_activity(activity_interrupt::force);
-@@ -140,7 +160,8 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
+@@ -140,7 +174,8 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
      if (res.is_bool())
          return bool(res);
  
@@ -56697,7 +57229,7 @@ index 18614a7..2589c61 100644
  
      bool use_popup = !crawl_state.need_save // not in game, no message pane
          || ui::has_layout() // already in a popup; no choice but to use another one
-@@ -153,6 +174,8 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
+@@ -153,6 +188,8 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
      if (use_popup)
          flags |= MF_ARROWS_SELECT;
      Menu pop(flags, "prompt", KMC_CONFIRM);
@@ -56706,7 +57238,7 @@ index 18614a7..2589c61 100644
  
      bool enter_defaults = false;
  
-@@ -182,16 +205,22 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
+@@ -182,16 +219,22 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
  
      if (use_popup)
      {
@@ -56732,7 +57264,7 @@ index 18614a7..2589c61 100644
          question->wrap_text();
          pop.set_title(question);
          pop.add_entry(y_me);
-@@ -209,11 +238,20 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
+@@ -209,11 +252,20 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
  
          if (enter_defaults)
          {
@@ -56757,7 +57289,7 @@ index 18614a7..2589c61 100644
          }
      }
      mouse_control mc(MOUSE_MODE_YESNO);
-@@ -245,7 +283,12 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
+@@ -245,7 +297,12 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
              else
              {
                  if (!noprompt)
@@ -56771,7 +57303,7 @@ index 18614a7..2589c61 100644
  
                  tmp = ui::getch(KMC_CONFIRM);
                  if (pop.f_keyfilter)
-@@ -294,7 +337,18 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
+@@ -294,7 +351,18 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
                                             ask_always ?
                                                 "[Y]es, [N]o, or [A]lways" :
                                                 "[Y]es or [N]o");
@@ -56791,7 +57323,7 @@ index 18614a7..2589c61 100644
                  pop.set_more(pr); // replaces keyhint if it's there
              else
                  mprf(MSGCH_PROMPT, "%s", pr.c_str());
-@@ -302,6 +356,23 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
+@@ -302,6 +370,23 @@ int yesno(const char *str, bool allow_lowercase, int default_answer, bool clear_
      }
  }
  
@@ -56816,10 +57348,10 @@ index 18614a7..2589c61 100644
   * Prompt the user for a quantity of things.
   *
 diff --git a/crawl-ref/source/prompt.h b/crawl-ref/source/prompt.h
-index 5395aed..6c7dc9e 100644
+index 5395aed..a17f7b4 100644
 --- a/crawl-ref/source/prompt.h
 +++ b/crawl-ref/source/prompt.h
-@@ -6,10 +6,12 @@
+@@ -6,15 +6,20 @@
  #pragma once
  
  #include "menu.h"
@@ -56832,7 +57364,15 @@ index 5395aed..6c7dc9e 100644
      int message(string msg,
          string title="", string prompt="<cyan>Hit any key to continue...</cyan>",
          bool format_msg=false);
-@@ -24,6 +26,11 @@ int yesno(const char * str, bool allow_lowercase, int default_answer,
+ }
+ 
++// Display complete translated prompt without truncating UTF-8; require is an
++// engine input token and remains canonical.
++bool confirm_prompt(const char *require, const ZhMessage &prompt);
+ bool confirm_prompt(const char* require, const char* fmt, ...);
+ typedef map<int, int> explicit_keymap;
+ int yesno(const char * str, bool allow_lowercase, int default_answer,
+@@ -24,6 +29,11 @@ int yesno(const char * str, bool allow_lowercase, int default_answer,
            bool allow_popup = true,
            bool ask_always = false);
  
@@ -56845,19 +57385,22 @@ index 5395aed..6c7dc9e 100644
  int prompt_for_int(const char *prompt, bool nonneg, const string &prefill = "");
  double prompt_for_float(const char* prompt);
 diff --git a/crawl-ref/source/quiver.cc b/crawl-ref/source/quiver.cc
-index a03a16a..155ee49 100644
+index a03a16a..4741bbc 100644
 --- a/crawl-ref/source/quiver.cc
 +++ b/crawl-ref/source/quiver.cc
-@@ -4,6 +4,8 @@
+@@ -4,6 +4,11 @@
  **/
  
  #include "AppHdr.h"
 +#include "zh-message.h"
 +#include "zh-localization.h"
++#include "zh-display-name.h"
++#include "colour.h"
++#include "decks.h"
  
  #include "quiver.h"
  
-@@ -124,11 +126,11 @@ namespace quiver
+@@ -124,11 +129,11 @@ namespace quiver
              return true;
          }
          if (af_hp_check)
@@ -56871,33 +57414,188 @@ index a03a16a..155ee49 100644
          }
          else if (af_mp_check)
          {
-@@ -252,6 +254,7 @@ namespace quiver
-         string key_hint = no_other_items
-                             ? ", <w>%</w> - select action"
-                             : ", <w>%</w> - select action, <w>%</w> or <w>%</w> - cycle";
-+        key_hint = zh_translate(key_hint);
-         insert_commands(key_hint,
-                         { CMD_TARGET_SELECT_ACTION,
-                           CMD_TARGET_CYCLE_QUIVER_BACKWARD,
-@@ -396,7 +399,7 @@ namespace quiver
-             {
-                 string verb = you.confused() ? "confused " : "";
-                 verb += quiver_verb();
+@@ -138,11 +143,79 @@ namespace quiver
+         return af_hp_check || af_mp_check;
+     }
+ 
++    static ZhArg _quiver_caption(const string &verb, bool confused,
++                                 const string &key)
++    {
++        // This table is keyed by semantic action/form verb, never by a
++        // formatted English sentence. Unknown future forms are explicit
++        // whole-heading fallbacks rather than word substitutions.
++        string suffix;
++        if (verb == "fire") suffix = "fire";
++        if (verb == "attack") suffix = "attack";
++        if (verb == "punch") suffix = "punch";
++        if (verb == "reach") suffix = "reach";
++        if (verb == "cleave") suffix = "cleave";
++        if (verb == "hit") suffix = "hit";
++        if (verb == "buffet") suffix = "form.buffet";
++        if (verb == "lash") suffix = "form.lash";
++        if (verb == "swat") suffix = "form.swat";
++        if (verb == "headbutt") suffix = "form.headbutt";
++        if (verb == "touch") suffix = "form.touch";
++        if (verb == "bite") suffix = "form.bite";
++        if (verb == "snap") suffix = "form.snap";
++        if (verb == "release spores at") suffix = "form.release_spores_at";
++        if (verb == "claw") suffix = "form.claw";
++        if (verb == "slap") suffix = "form.slap";
++        if (verb == "smack") suffix = "form.smack";
++        if (suffix.empty())
++        {
++            const string canonical = uppercase_first(
++                (confused ? "confused " : "") + verb) + ": " + key + ") ";
++            return ZhArg("caption", ZhArgType::Text, canonical, canonical, false);
++        }
++        return zh_message_arg("caption", "quiver.prompt." + suffix
++            + (confused ? ".confused" : ""), {zh_key("key", key)});
++    }
++
++    static ZhArg _quiver_item_name(const item_def &item)
++    {
++        auto name = zh_item_arg("name", item, DESC_PLAIN);
++        name.canonical = item.name(DESC_PLAIN, true);
++        return name;
++    }
++
++    static formatted_string _quiver_named_description(const ZhArg &caption,
++                                                      ZhArg name, int colour)
++    {
++        name.key = "name";
++        formatted_string result;
++        result.textcolour(Options.status_caption_colour);
++        result += formatted_string::parse_string_raw(zh_message("quiver.prompt.named",
++            {caption, zh_colour("colour", colour_to_str(colour)), name}).display());
++        return result;
++    }
++
+     formatted_string action::quiver_description(bool short_desc) const
+     {
+         return formatted_string::parse_string(
+-                        short_desc ? "<darkgrey>Empty</darkgrey>"
+-                                   : "<darkgrey>Nothing quivered</darkgrey>");
++                        zh_message(short_desc ? "quiver.prompt.empty.short"
++                                              : "quiver.prompt.empty.long").display());
++    }
++
++    ZhMessage action::quiver_description_message(bool short_desc) const
++    {
++        // The virtual descriptions are pure display producers. Generate both
++        // representations through their semantic templates, never translate
++        // the formatted English result. This bridge retains legacy callers'
++        // formatted_string API while the target chooser takes a typed message.
++        const string localized = quiver_description(short_desc).tostring();
++        string canonical;
++        {
++            ZhTranslationPause canonical_names;
++            canonical = quiver_description(short_desc).tostring();
++        }
++        return zh_message("quiver.prompt.description",
++            {zh_text("description", canonical, localized)});
+     }
+ 
+     vector<tile_def> action::get_tiles() const
+@@ -246,17 +319,30 @@ namespace quiver
+         return a;
+     }
+ 
++    static ZhMessage _quiver_key_hints(bool no_other_items)
++    {
++        auto message = zh_message(no_other_items ? "quiver.prompt.keys.select"
++                                                : "quiver.prompt.keys.cycle");
++        const initializer_list<command_type> commands =
++            {CMD_TARGET_SELECT_ACTION, CMD_TARGET_CYCLE_QUIVER_BACKWARD,
++             CMD_TARGET_CYCLE_QUIVER_FORWARD};
++        insert_commands(message.canonical, commands);
++        insert_commands(message.localized, commands);
++        return message;
++    }
++
++    ZhMessage action_cycler::fire_key_hints_message() const
++    {
++        // The ammo-only throw cycler explicitly disables action selection and
++        // all cycling; preserve that subclass contract without English hints.
++        if (!targeter_handles_key(CMD_TARGET_SELECT_ACTION))
++            return {"", "", ""};
++        return _quiver_key_hints(*get() == *next());
++    }
++
+     string action_cycler::fire_key_hints() const
+     {
+-        const bool no_other_items = *get() == *next();
+-        string key_hint = no_other_items
+-                            ? ", <w>%</w> - select action"
+-                            : ", <w>%</w> - select action, <w>%</w> or <w>%</w> - cycle";
+-        insert_commands(key_hint,
+-                        { CMD_TARGET_SELECT_ACTION,
+-                          CMD_TARGET_CYCLE_QUIVER_BACKWARD,
+-                          CMD_TARGET_CYCLE_QUIVER_FORWARD });
+-        return key_hint;
++        return fire_key_hints_message().canonical;
+     }
+ 
+     bool action_cycler::targeter_handles_key(command_type c) const
+@@ -392,13 +478,9 @@ namespace quiver
+             // TODO: or just lightgrey?
+             qdesc.textcolour(Options.status_caption_colour);
+ 
+-            if (!short_desc)
+-            {
+-                string verb = you.confused() ? "confused " : "";
+-                verb += quiver_verb();
 -                qdesc.cprintf("%s: %c) ", uppercase_first(verb).c_str(),
-+                qdesc.cprintf("%s%c) ", zh_translate(uppercase_first(verb) + ": ").c_str(),
-                                 weapon.slot);
-             }
+-                                weapon.slot);
+-            }
++            ZhArg caption = short_desc ? zh_text("caption", "", "")
++                : _quiver_caption(quiver_verb(), you.confused(),
++                                  string(1, weapon.slot));
  
-@@ -500,7 +503,7 @@ namespace quiver
-                 string verb = you.confused() ? "confused " : "";
+             const string prefix = item_prefix(weapon);
+             const int prefcol =
+@@ -410,7 +492,8 @@ namespace quiver
+             else
+                 qdesc.textcolour(LIGHTGREY);
  
-                 verb += quiver_verb();
+-            qdesc += weapon.name(DESC_PLAIN, true);
++            qdesc += _quiver_named_description(caption,
++                _quiver_item_name(weapon), (!is_enabled() ? DARKGREY : prefcol != -1 ? prefcol : LIGHTGREY));
+             return qdesc;
+         }
+ 
+@@ -495,14 +578,9 @@ namespace quiver
+             // TODO: or just lightgrey?
+             qdesc.textcolour(Options.status_caption_colour);
+ 
+-            if (!short_desc)
+-            {
+-                string verb = you.confused() ? "confused " : "";
+-
+-                verb += quiver_verb();
 -                qdesc.cprintf("%s: %c) ", uppercase_first(verb).c_str(),
-+                qdesc.cprintf("%s%c) ", zh_translate(uppercase_first(verb) + ": ").c_str(),
-                                 weapon ? weapon->slot : '-');
-             }
+-                                weapon ? weapon->slot : '-');
+-            }
++            ZhArg caption = short_desc ? zh_text("caption", "", "")
++                : _quiver_caption(quiver_verb(), you.confused(),
++                                  string(1, weapon ? weapon->slot : '-'));
  
-@@ -541,7 +544,7 @@ namespace quiver
+             const string prefix = weapon ? item_prefix(*weapon) : "";
+ 
+@@ -515,8 +593,11 @@ namespace quiver
+             else
+                 qdesc.textcolour(LIGHTGREY);
+ 
+-            qdesc += weapon ? weapon->name(DESC_PLAIN, true)
+-                            : you.unarmed_attack_name();
++            qdesc += _quiver_named_description(caption,
++                weapon ? _quiver_item_name(*weapon)
++                       : zh_glossary_name("name", "item.unarmed",
++                                          you.unarmed_attack_name()),
++                (!is_enabled() ? DARKGREY : prefcol != -1 ? prefcol : LIGHTGREY));
+ 
+             return qdesc;
+         }
+@@ -541,7 +622,7 @@ namespace quiver
                          coord_def move(random2(3) - 1, random2(3) - 1);
                          if (move.origin())
                          {
@@ -56906,7 +57604,7 @@ index a03a16a..155ee49 100644
                              you.turn_is_over = true;
                              return;
                          }
-@@ -553,9 +556,9 @@ namespace quiver
+@@ -553,9 +634,9 @@ namespace quiver
                  else
                  {
                      if (target.needs_targeting())
@@ -56918,7 +57616,16 @@ index a03a16a..155ee49 100644
                      return;
                  }
              }
-@@ -628,7 +631,7 @@ namespace quiver
+@@ -591,7 +672,7 @@ namespace quiver
+             args.restricts = DIR_TARGET;
+             args.mode = TARG_HOSTILE;
+             args.range = reach_range;
+-            args.top_prompt = quiver_description().tostring();
++            args.top_prompt_message = quiver_description_message();
+             args.self = confirm_prompt_type::cancel;
+ 
+             unique_ptr<targeter> hitfunc;
+@@ -628,7 +709,7 @@ namespace quiver
  
              if (x_distance > reach_range || y_distance > reach_range)
              {
@@ -56927,7 +57634,7 @@ index a03a16a..155ee49 100644
                  return;
              }
  
-@@ -712,7 +715,7 @@ namespace quiver
+@@ -712,7 +793,7 @@ namespace quiver
                  }
  
                  if (success)
@@ -56936,7 +57643,7 @@ index a03a16a..155ee49 100644
                  else
                  {
                      mprf("%s is in the way.",
-@@ -729,9 +732,9 @@ namespace quiver
+@@ -729,9 +810,9 @@ namespace quiver
                  if (!force_player_cleave(target.target) && !you.fumbles_attack())
                  {
                      if (x_distance <= 1 && y_distance <= 1)
@@ -56948,7 +57655,101 @@ index a03a16a..155ee49 100644
                  }
                  you.time_taken = attack_delay;
                  you.turn_is_over = true;
-@@ -1294,7 +1297,7 @@ namespace quiver
+@@ -821,10 +902,14 @@ namespace quiver
+             const item_def& quiver = you.inv[item_slot];
+             ASSERT(quiver.link != NON_ITEM);
+             qdesc.textcolour(Options.status_caption_colour);
+-            qdesc.cprintf("%s: ", quiver_verb().c_str());
+-
+-            qdesc.textcolour(quiver_color());
+-            qdesc += quiver.name(DESC_PLAIN, true);
++            const string verb = quiver_verb();
++            const char *id = verb == "Read" ? "quiver.prompt.read"
++                : verb == "Drink" ? "quiver.prompt.drink"
++                : verb == "Zap" ? "quiver.prompt.zap"
++                : verb == "Evoke" ? "quiver.prompt.evoke"
++                : "quiver.prompt.activate";
++            qdesc += _quiver_named_description(zh_message_arg("caption", id),
++                _quiver_item_name(quiver), quiver_color());
+ 
+             return qdesc;
+         }
+@@ -932,15 +1017,11 @@ namespace quiver
+             ASSERT(quiver.link != NON_ITEM);
+             // TODO: or just lightgrey?
+             qdesc.textcolour(Options.status_caption_colour);
+-            // XX abstract to quiver verb?
++            ZhArg caption = zh_text("caption", "", "");
+             if (!short_desc)
+-            {
+-                const string verb =
+-                    make_stringf("%s%s",
+-                                 you.confused() ? "confused " : "",
+-                                 is_throwable(&you, quiver) ? "throw" : "toss (no damage)");
+-                qdesc.cprintf("%s: ", uppercase_first(verb).c_str());
+-            }
++                caption = zh_message_arg("caption", string("quiver.prompt.")
++                    + (is_throwable(&you, quiver) ? "throw" : "toss")
++                    + (you.confused() ? ".confused" : ""));
+ 
+             // TODO: I don't actually know what this prefix stuff is
+             const string prefix = item_prefix(quiver);
+@@ -953,7 +1034,8 @@ namespace quiver
+                 qdesc.textcolour(prefcol);
+             else
+                 qdesc.textcolour(LIGHTGREY);
+-            qdesc += quiver.name(DESC_PLAIN, true);
++            qdesc += _quiver_named_description(caption,
++                _quiver_item_name(quiver), (!is_enabled() ? DARKGREY : prefcol != -1 ? prefcol : LIGHTGREY));
+ 
+             return qdesc;
+         }
+@@ -1170,28 +1252,28 @@ namespace quiver
+             formatted_string qdesc;
+ 
+             qdesc.textcolour(Options.status_caption_colour);
+-            if (channelled_spell_active(spell))
+-                qdesc.cprintf("Continue: ");
+-            else
+-                qdesc.cprintf("Cast: ");
+-
+-            qdesc.textcolour(quiver_color());
+-
+-            // TODO: is showing the spell letter useful?
+-            qdesc.cprintf("%s", spell == SPELL_MAXWELLS_COUPLING ?
+-                                "Capacitive Coupling" : spell_title(spell));
+-
++            ZhArg caption = zh_message_arg("caption", channelled_spell_active(spell)
++                ? "quiver.prompt.continue" : "quiver.prompt.cast");
++            const string title = spell == SPELL_MAXWELLS_COUPLING
++                ? "Capacitive Coupling" : spell_title(spell);
++            ZhArg name = zh_word_arg("name", "spell.name.", title, ZhArgType::Name);
+             if (spell == SPELL_GRAVE_CLAW)
+             {
+-                qdesc.cprintf(" (%d/%d)", you.props[GRAVE_CLAW_CHARGES_KEY].get_int()
+-                                        , GRAVE_CLAW_MAX_CHARGES);
++                const auto charges = zh_message("quiver.prompt.spell.charges",
++                    {zh_integer("charges", you.props[GRAVE_CLAW_CHARGES_KEY].get_int()),
++                     zh_integer("maximum", GRAVE_CLAW_MAX_CHARGES)});
++                name.canonical += charges.canonical;
++                name.localized += charges.localized;
+             }
+-
+             if (fail_severity(spell) > 0)
+             {
+-                qdesc.cprintf(" (%s)",
+-                        failure_rate_to_string(raw_spell_fail(spell)).c_str());
++                const string rate = failure_rate_to_string(raw_spell_fail(spell));
++                const auto failure = zh_message("quiver.prompt.spell.failure",
++                    {zh_text("rate", rate, rate)});
++                name.canonical += failure.canonical;
++                name.localized += failure.localized;
+             }
++            qdesc += _quiver_named_description(caption, name, quiver_color());
+ 
+             return qdesc;
+         }
+@@ -1294,7 +1376,7 @@ namespace quiver
  
          {
              if (!quiet)
@@ -56957,7 +57758,7 @@ index a03a16a..155ee49 100644
              return false;
          }
          return true;
-@@ -1452,7 +1455,7 @@ namespace quiver
+@@ -1452,7 +1534,7 @@ namespace quiver
  
              // TODO: does non-targeted case come up?
              if (target.isCancel && !target.interactive && is_targeted())
@@ -56966,7 +57767,146 @@ index a03a16a..155ee49 100644
  
              t = target; // copy back, in case they are different
          }
-@@ -2747,7 +2750,7 @@ namespace quiver
+@@ -1465,24 +1547,31 @@ namespace quiver
+             formatted_string qdesc;
+ 
+             qdesc.textcolour(Options.status_caption_colour);
+-            qdesc.cprintf("Abil: ");
+-
+-            qdesc.textcolour(quiver_color());
+-            string abil_name = ability_name(ability);
++            ZhArg name = zh_glossary_name("name", "ability", ability_name(ability));
+ #ifdef WIZARD
+             int last_feat = you.props[WIZ_LAST_FEATURE_TYPE_PROP].get_int();
+             if (ability == ABIL_WIZ_BUILD_TERRAIN
+                 && last_feat != DNGN_UNSEEN)
+             {
+-                qdesc.cprintf("Build '%s'", dungeon_feature_name(
+-                    static_cast<dungeon_feature_type>(last_feat)));
++                name = zh_message_arg("name", "quiver.prompt.ability.build",
++                    {zh_glossary_name("feature", "terrain",
++                        dungeon_feature_name(static_cast<dungeon_feature_type>(last_feat)))});
++                name.type = ZhArgType::Name;
+             }
+-            else
+ #endif
+-                qdesc.cprintf("%s", ability_name(ability).c_str());
+-
+             if (is_card_ability(ability))
+-                qdesc.cprintf(" %s", nemelex_card_text(ability).c_str());
++            {
++                ZhArg cards = ability == ABIL_NEMELEX_DRAW_STACK
++                    ? zh_message_arg("cards", "quiver.prompt.cards.next",
++                        {zh_glossary_name("card", "card", stack_top())})
++                    : zh_message_arg("cards", "quiver.prompt.cards.deck",
++                        {zh_integer("count", deck_cards(ability_deck(ability)))});
++                name.canonical += cards.canonical;
++                name.localized += cards.localized;
++                name.supported = name.supported && cards.supported;
++            }
++            qdesc += _quiver_named_description(
++                zh_message_arg("caption", "quiver.prompt.ability"), name, quiver_color());
+ 
+             return qdesc;
+         }
+@@ -2456,17 +2545,16 @@ namespace quiver
+             string s = more_message + "\n";
+ 
+             if (any_items)
+-                s += "[<w>*/%</w>] inventory  ";
++                s += zh_message("quiver.prompt.menu.inventory").display();
+             if (any_spells)
+-                s += "[<w>&</w>] all spells  ";
++                s += zh_message("quiver.prompt.menu.spells").display();
+             if (any_abilities)
+-                s += "[<w>^</w>] all abilities  ";
++                s += zh_message("quiver.prompt.menu.abilities").display();
+ 
+ 
+-            string mode = make_stringf("%s focus mode: %s",
+-                menu_keyhelp_cmd(CMD_MENU_CYCLE_MODE).c_str(),
+-                focus_mode == Focus::NONE ? "<w>off</w>|on"
+-                                          : "off|<w>on</w>");;
++            string mode = zh_message(focus_mode == Focus::NONE
++                ? "quiver.prompt.menu.focus.off" : "quiver.prompt.menu.focus.on",
++                {zh_key_markup("key", menu_keyhelp_cmd(CMD_MENU_CYCLE_MODE))}).display();
+ 
+             return pad_more_with(s, mode);
+         }
+@@ -2478,7 +2566,7 @@ namespace quiver
+                 return;
+             string action_desc = a->quiver_description();
+             if (you.quiver_action.item_is_quivered(a->get_item()))
+-                action_desc += " (quivered)";
++                action_desc += zh_message("quiver.prompt.menu.quivered").display();
+             MenuEntry *me = new MenuEntry(action_desc,
+                                                 MEL_ITEM, 1,
+                                                 (int) hotkey);
+@@ -2580,9 +2668,10 @@ namespace quiver
+ 
+             // this key shortcut does still work without arrow selection, but
+             // it typically doesn't do much in this menu.
+-            const string keyhelp =
+-                make_stringf(" <lightgrey>(%s to cycle)</lightgrey>",
+-                            menu_keyhelp_cmd(CMD_MENU_CYCLE_HEADERS).c_str());
++            const auto header = [](const char *id) {
++                return zh_message(id,
++                    {zh_key_markup("key", menu_keyhelp_cmd(CMD_MENU_CYCLE_HEADERS))}).display();
++            };
+ 
+             first_item = 0;
+             first_spell = it_count;
+@@ -2591,7 +2680,7 @@ namespace quiver
+             if (it_count && show_headers)
+             {
+                 add_entry(
+-                    new MenuEntry("<lightcyan>Items</lightcyan>" + keyhelp,
++                    new MenuEntry(header("quiver.prompt.menu.header.items"),
+                     MEL_SUBTITLE));
+                 first_spell += 1;
+                 first_abil += 1;
+@@ -2604,7 +2693,7 @@ namespace quiver
+                 if (i == it_count && spell_count && show_headers)
+                 {
+                     add_entry(
+-                        new MenuEntry("<lightcyan>Spells</lightcyan>" + keyhelp,
++                        new MenuEntry(header("quiver.prompt.menu.header.spells"),
+                         MEL_SUBTITLE));
+                     first_spell += 1;
+                     first_abil += 1;
+@@ -2612,7 +2701,7 @@ namespace quiver
+                 else if (i == it_count + spell_count && show_headers)
+                 {
+                     add_entry(
+-                        new MenuEntry("<lightcyan>Abilities</lightcyan>" + keyhelp,
++                        new MenuEntry(header("quiver.prompt.menu.header.abilities"),
+                         MEL_SUBTITLE));
+                     first_abil += 1;
+                 }
+@@ -2629,8 +2718,7 @@ namespace quiver
+ 
+             if (actions.size() == 0)
+             {
+-                more_message =
+-                    "<lightred>No regular actions available to quiver.</lightred>";
++                more_message = zh_message("quiver.prompt.menu.no_actions").display();
+             }
+             if (last_hovered < 0)
+             {
+@@ -2660,9 +2748,9 @@ namespace quiver
+ 
+         bool _choose_from_inv()
+         {
+-            int slot = prompt_invent_item(allow_empty
+-                                            ? "Quiver which item? (- for none)"
+-                                            : "Quiver which item?",
++            int slot = prompt_invent_item(zh_message(allow_empty
++                                            ? "quiver.prompt.choose.empty"
++                                            : "quiver.prompt.choose").display().c_str(),
+                                           menu_type::invlist, OSEL_QUIVER_ACTION,
+                                           OPER_QUIVER, invprompt_flag::hide_known, '-');
+ 
+@@ -2747,7 +2835,7 @@ namespace quiver
              {
                  set_to_quiver(make_shared<quiver::action>());
                  // TODO maybe drop this messaging?
@@ -56975,7 +57915,22 @@ index a03a16a..155ee49 100644
                  return false;
              }
              else if (isadigit(key))
-@@ -2923,7 +2926,7 @@ namespace quiver
+@@ -2787,12 +2875,8 @@ namespace quiver
+ 
+         virtual formatted_string calc_title() override
+         {
+-            string s = "Quiver which action? ";
+-            vector<string> extra_cmds;
+-
+-            if (allow_empty)
+-                s += "([<w>-</w>] to clear)";
+-            return formatted_string::parse_string(s);
++            return formatted_string::parse_string_raw(zh_message(allow_empty
++                ? "quiver.prompt.menu.title.empty" : "quiver.prompt.menu.title").display());
+         }
+ 
+         bool any_spells;
+@@ -2923,7 +3007,7 @@ namespace quiver
  
          if (menu.pointless())
          {
@@ -56984,6 +57939,48 @@ index a03a16a..155ee49 100644
              return;
          }
  
+@@ -2937,9 +3021,10 @@ namespace quiver
+         {
+             if (!_quiver_inscription_ok(s->get_item()))
+             {
+-                const string prompt = make_stringf("Really quiver %s?",
+-                    you.inv[s->get_item()].name(DESC_INVENTORY).c_str());
+-                if (!yesno(prompt.c_str(), true, 'n'))
++                const auto prompt = zh_message("quiver.prompt.confirm",
++                    {zh_item_arg("item", you.inv[s->get_item()], DESC_INVENTORY)});
++                ZhLegacyPause legacy_pause;
++                if (!yesno(prompt.display().c_str(), true, 'n'))
+                     return false;
+             }
+             // XX does this really need to be so flexible
+diff --git a/crawl-ref/source/quiver.h b/crawl-ref/source/quiver.h
+index 753b27b..d9b5d76 100644
+--- a/crawl-ref/source/quiver.h
++++ b/crawl-ref/source/quiver.h
+@@ -4,6 +4,7 @@
+ **/
+ 
+ #pragma once
++#include "zh-message.h"
+ 
+ #include <vector>
+ 
+@@ -76,6 +77,7 @@ namespace quiver
+         virtual vector<tile_def> get_tiles() const;
+ 
+         virtual formatted_string quiver_description(bool short_desc=false) const;
++        ZhMessage quiver_description_message(bool short_desc=false) const;
+         virtual string quiver_verb() const { return ""; } // currently only for items
+ 
+         // basically noops for this class, but keep `target` clean
+@@ -148,6 +150,7 @@ namespace quiver
+         void target();
+         shared_ptr<action> do_target();
+         virtual string fire_key_hints() const;
++        ZhMessage fire_key_hints_message() const;
+         virtual bool targeter_handles_key(command_type c) const;
+     protected:
+         action_cycler(shared_ptr<action> init);
 diff --git a/crawl-ref/source/scroller.cc b/crawl-ref/source/scroller.cc
 index cc2b224..9d38a0f 100644
 --- a/crawl-ref/source/scroller.cc
@@ -58713,21 +59710,26 @@ index 2ab4ec2..5a3a2e3 100644
  
  spell_type spell_in_wand(wand_type wand);
 diff --git a/crawl-ref/source/spl-cast.cc b/crawl-ref/source/spl-cast.cc
-index e840154..8097372 100644
+index e840154..924f1b7 100644
 --- a/crawl-ref/source/spl-cast.cc
 +++ b/crawl-ref/source/spl-cast.cc
-@@ -6,6 +6,7 @@
+@@ -6,6 +6,9 @@
  #include "AppHdr.h"
  
  #include "spl-cast.h"
 +#include "zh-message.h"
++#include "zh-display-name.h"
++#include "zh-localization.h"
  
  #include <iomanip>
  #include <sstream>
-@@ -89,32 +90,34 @@ static int _apply_enhancement(const int initial_power,
+@@ -87,39 +90,93 @@
+ static int _spell_enhancement(spell_type spell);
+ static int _apply_enhancement(const int initial_power,
                                const int enhancer_levels);
- static string _spell_failure_rate_description(spell_type spell);
- 
+-static string _spell_failure_rate_description(spell_type spell);
++static ZhArg _spell_failure_rate_arg(const string &key, spell_type spell);
++
 +static ZhMessage _surge_power_message(int enhanced)
 +{
 +    const char *id = enhanced < -2 ? "spell.cast.surge.numb.extraordinary"
@@ -58738,7 +59740,7 @@ index e840154..8097372 100644
 +        : "spell.cast.surge.power.normal";
 +    return zh_message(id);
 +}
-+
+ 
  void surge_power(const int enhanced)
  {
 -    if (enhanced)               // one way or the other {dlb}
@@ -58761,12 +59763,6 @@ index e840154..8097372 100644
  void surge_power_wand(const int mp_cost)
  {
      if (mp_cost)
--    {
--        const bool slight = mp_cost < 3;
--        mprf("You feel a %ssurge of power%s",
--             slight ? "slight " : "",
--             slight ? "."      : "!");
--    }
 +        mpr(zh_message(mp_cost < 3 ? "spell.cast.wand.slight"
 +                                  : "spell.cast.wand.power"));
 +}
@@ -58775,10 +59771,222 @@ index e840154..8097372 100644
 +{
 +    return zh_message(id, {
 +        zh_word_arg("spell", "spell.name.", spell_title(spell), ZhArgType::Name)});
++}
++
++// The row chooses one language before measuring columns. Internal spell/school
++// names remain canonical; unknown semantic names fall back as a complete row.
++static ZhArg _spell_menu_name(spell_type spell)
++{
++    return zh_word_arg("spell", "spell.name.", spell_title(spell), ZhArgType::Name);
++}
++
++static ZhArg _spell_menu_schools(spell_type spell)
++{
++    ZhArg result("schools", ZhArgType::Name, "", "");
++    for (const auto bit : spschools_type::range())
+     {
+-        const bool slight = mp_cost < 3;
+-        mprf("You feel a %ssurge of power%s",
+-             slight ? "slight " : "",
+-             slight ? "."      : "!");
++        if (!spell_typematch(spell, bit))
++            continue;
++        const auto name = zh_glossary_name("school", "spell.school",
++                                           spelltype_long_name(bit));
++        if (!result.canonical.empty())
++        {
++            result.canonical += "/";
++            result.localized += "/";
++        }
++        result.canonical += name.canonical;
++        result.localized += name.localized;
++        result.supported = result.supported && name.supported;
+     }
++    return result;
++}
++
++static ZhArg _spell_menu_action(const string &action)
++{
++    static const pair<const char *, const char *> actions[] = {
++        {"cast", "cast"}, {"describe", "describe"}, {"adjust", "adjust"},
++        {"adjust it to", "adjust_it_to"}, {"forget", "forget"},
++        {"quiver", "quiver"}
++    };
++    for (const auto &entry : actions)
++        if (action == entry.first)
++            return zh_message_arg("action", string("spell.prompt.action.") + entry.second);
++    return ZhArg("action", ZhArgType::Text, action, action, false);
++}
++
++static string _spell_numeric_display(const string &value, bool localized)
++{
++    // N/A is a numerical availability sentinel, never a final-sentence lookup.
++    return localized && (value.empty() || value == "N/A")
++        ? zh_message("spell.stats.range.not_applicable").display()
++        : value.empty() ? "N/A" : value;
  }
  
  static string _spell_base_description(spell_type spell, bool transient)
-@@ -1002,10 +1005,10 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
+ {
+     ostringstream desc;
++    const auto name = _spell_menu_name(spell);
++    const auto schools = _spell_menu_schools(spell);
++    const bool localized = zh_language_enabled() && name.supported && schools.supported;
+ 
+     int highlight =  spell_highlight_by_utility(spell, COL_UNKNOWN, transient);
+     if (you.duration[DUR_ENKINDLED] && highlight == COL_UNKNOWN
+@@ -131,10 +188,10 @@ static string _spell_base_description(spell_type spell, bool transient)
+     desc << "<" << colour_to_str(highlight) << ">" << left;
+ 
+     // spell name
+-    desc << chop_string(spell_title(spell), 32);
++    desc << chop_string(localized ? name.localized : name.canonical, 32);
+ 
+     // spell schools
+-    desc << spell_schools_string(spell);
++    desc << (localized ? schools.localized : schools.canonical);
+ 
+     const int so_far = strwidth(desc.str()) - (strwidth(colour_to_str(highlight))+2);
+     if (so_far < 58)
+@@ -142,7 +199,7 @@ static string _spell_base_description(spell_type spell, bool transient)
+ 
+     // spell fail rate, level
+     const string failure_rate = spell_failure_rate_string(spell, false);
+-    const int width = strwidth(formatted_string::parse_string(failure_rate).tostring());
++    const int width = strwidth(formatted_string::parse_string_raw(failure_rate).tostring());
+     const bool show_enkindle = you.has_mutation(MUT_MNEMOPHAGE);
+ 
+     // Revenants have spell level right-justified instead of left-justified to make
+@@ -161,6 +218,9 @@ static string _spell_base_description(spell_type spell, bool transient)
+ static string _spell_extra_description(spell_type spell, bool transient)
+ {
+     ostringstream desc;
++    const auto name = _spell_menu_name(spell);
++    const auto schools = _spell_menu_schools(spell);
++    const bool localized = zh_language_enabled() && name.supported && schools.supported;
+ 
+     int highlight =  spell_highlight_by_utility(spell, COL_UNKNOWN, transient);
+     if (you.duration[DUR_ENKINDLED] && spell_can_be_enkindled(spell) && highlight == COL_UNKNOWN)
+@@ -169,16 +229,17 @@ static string _spell_extra_description(spell_type spell, bool transient)
+     desc << "<" << colour_to_str(highlight) << ">" << left;
+ 
+     // spell name
+-    desc << chop_string(spell_title(spell), 32);
++    desc << chop_string(localized ? name.localized : name.canonical, 32);
+ 
+     // spell power, spell range, noise
+     const string rangestring = spell_range_string(spell);
+     const string damagestring = spell_damage_string(spell, false, -1, true);
+ 
+-    desc << chop_string(spell_power_string(spell), 10)
+-         << chop_string(damagestring.length() ? damagestring : "N/A", 10)
+-         << chop_string(rangestring, 8)
+-         << chop_string(spell_noise_string(spell, 10), 14);
++    desc << chop_string(_spell_numeric_display(spell_power_string(spell), localized), 10)
++         << chop_string(_spell_numeric_display(damagestring, localized), 10)
++         << chop_string(_spell_numeric_display(rangestring, localized), 8)
++         << chop_string(localized ? spell_noise_display_arg("noise", spell).localized
++                               : spell_noise_string(spell, 10), 14);
+ 
+     desc << "</" << colour_to_str(highlight) <<">";
+ 
+@@ -273,15 +334,18 @@ int list_spells(bool toggle_with_I, bool transient, bool viewing,
+     const string real_action = viewing ? "describe" : action;
+ 
+     SpellMenu spell_menu;
+-    const string titlestring = make_stringf("%-25.25s",
+-            make_stringf("Your spells (%s)", real_action.c_str()).c_str());
++    const ZhLegacyGuard guard("spell.prompt.menu");
++    const auto action_arg = _spell_menu_action(real_action);
++    const string titlestring = chop_string(
++        zh_message("spell.prompt.menu.title", {action_arg}).display(), 25);
+ 
+     {
+         ToggleableMenuEntry* me =
+             new ToggleableMenuEntry(
+-                titlestring + "           Type                      Failure  Level  ",
+-                titlestring + "           Power     Damage    Range   Noise         ",
++                titlestring + zh_message("spell.prompt.menu.header.base").display(),
++                titlestring + zh_message("spell.prompt.menu.header.extra").display(),
+                 MEL_TITLE);
++        me->pretranslated = true;
+         spell_menu.set_title(me, true, true);
+     }
+     spell_menu.set_highlighter(nullptr);
+@@ -290,9 +354,8 @@ int list_spells(bool toggle_with_I, bool transient, bool viewing,
+     spell_menu.add_toggle_from_command(CMD_MENU_CYCLE_MODE);
+     spell_menu.add_toggle_from_command(CMD_MENU_CYCLE_MODE_REVERSE);
+ 
+-    string more_str = make_stringf("<lightgrey>Select a spell to %s</lightgrey>",
+-        real_action.c_str());
+-    string help_desc = make_stringf("   [<w>?</w>] help    ");
++    string more_str = zh_message("spell.prompt.menu.select", {action_arg}).display();
++    string help_desc = zh_message("spell.prompt.menu.help").display();
+     string toggle_desc = menu_keyhelp_cmd(CMD_MENU_CYCLE_MODE);
+     if (toggle_with_I)
+     {
+@@ -300,9 +363,12 @@ int list_spells(bool toggle_with_I, bool transient, bool viewing,
+         spell_menu.add_toggle_key('I');
+         toggle_desc += "/[<w>I</w>]";
+     }
+-    toggle_desc += " toggle spell headers";
+-    more_str = pad_more_with_esc(more_str + help_desc + toggle_desc);
+-    spell_menu.set_more(formatted_string::parse_string(more_str));
++    toggle_desc = zh_message("spell.prompt.menu.toggle", {
++        zh_key_markup("keys", toggle_desc)}).display();
++    const string exit = zh_message("spell.prompt.menu.exit", {
++        zh_key_markup("keys", menu_keyhelp_cmd(CMD_MENU_EXIT))}).display();
++    more_str = pad_more_with_pretranslated(more_str + help_desc + toggle_desc, exit);
++    spell_menu.set_more_pretranslated(more_str);
+     // TODO: should allow toggling between execute and examine
+     spell_menu.menu_action = viewing ? Menu::ACT_EXAMINE : Menu::ACT_EXECUTE;
+ 
+@@ -319,6 +385,7 @@ int list_spells(bool toggle_with_I, bool transient, bool viewing,
+             new SpellMenuEntry(_spell_base_description(spell, transient),
+                                _spell_extra_description(spell, transient),
+                                MEL_ITEM, 1, letter);
++        me->pretranslated = true;
+         me->colour = spell_highlight_by_utility(spell, COL_UNKNOWN, transient);
+         // TODO: maybe fill this from the quiver if there's a quivered spell and
+         // no last cast one?
+@@ -936,15 +1003,14 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
+                 if (you.last_cast_spell == SPELL_NO_SPELL
+                     || !Options.enable_recast_spell)
+                 {
+-                    mprf(MSGCH_PROMPT, "Cast which spell? (? or * to list) ");
++                    mpr(zh_message("spell.prompt.select"), MSGCH_PROMPT);
+                 }
+                 else
+                 {
+-                    mprf(MSGCH_PROMPT, "Casting: <w>%s</w> <lightgrey>(%s)</lightgrey>",
+-                                       spell_title(you.last_cast_spell),
+-                                       _spell_failure_rate_description(you.last_cast_spell).c_str());
+-                    mprf(MSGCH_PROMPT, "Confirm with . or Enter, or press "
+-                                       "? or * to list all spells.");
++                    mpr(zh_message("spell.prompt.recast", {
++                        _spell_menu_name(you.last_cast_spell),
++                        _spell_failure_rate_arg("risk", you.last_cast_spell)}), MSGCH_PROMPT);
++                    mpr(zh_message("spell.prompt.confirm.recast"), MSGCH_PROMPT);
+                 }
+ 
+                 keyin = numpad_to_regular(get_ch());
+@@ -986,7 +1052,7 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
+         }
+         else if (!isaalpha(keyin))
+         {
+-            mpr("You don't know that spell.");
++            mpr(zh_message("spell.prompt.unknown"));
+             crawl_state.zero_turns_taken();
+             return spret::abort;
+         }
+@@ -996,16 +1062,16 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
+ 
+     if (spell == SPELL_NO_SPELL)
+     {
+-        mpr("You don't know that spell.");
++        mpr(zh_message("spell.prompt.unknown"));
+         crawl_state.zero_turns_taken();
+         return spret::abort;
      }
  
      // MP, confusion, Ru sacs
@@ -58792,17 +60000,37 @@ index e840154..8097372 100644
          crawl_state.zero_turns_taken();
          return spret::abort;
      }
-@@ -1215,14 +1218,12 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
+@@ -1014,8 +1080,7 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
+     {
+         // Abort if there are no hostiles within range, but flash the range
+         // markers for a short while.
+-        mpr("You can't see any susceptible monsters within range! "
+-            "(Use <w>Z</w> to cast anyway.)");
++        mpr(zh_message("spell.prompt.no_targets"));
+ 
+         if ((Options.use_animations & UA_RANGE) && Options.darken_beyond_range)
+         {
+@@ -1031,8 +1096,7 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
+         && !crawl_state.disables[DIS_CONFIRMATIONS])
+     {
+         // None currently dock just piety, right?
+-        if (!yesno("Casting this spell will place you under penance. "
+-                   "Really cast?", true, 'n'))
++        if (!yesno(zh_message("spell.prompt.penance"), true, 'n'))
+         {
+             canned_msg(MSG_OK);
+             crawl_state.zero_turns_taken();
+@@ -1215,14 +1279,12 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
   */
  static bool _spellcasting_aborted(spell_type spell, bool fake_spell)
  {
 -    string msg;
+-
+-    // casting-general checks (MP etc) are not carried out here
+-    msg = spell_uselessness_reason(spell, true, true, true);
 +    // Casting-general checks (MP etc) are not carried out here.
 +    const ZhArg msg = spell_uselessness_display_reason(spell, true, true, true);
  
--    // casting-general checks (MP etc) are not carried out here
--    msg = spell_uselessness_reason(spell, true, true, true);
--
 -    if (!msg.empty())
 +    if (!msg.canonical.empty())
      {
@@ -58811,7 +60039,343 @@ index e840154..8097372 100644
          return true;
      }
  
-@@ -1975,7 +1976,7 @@ class spell_targeting_behaviour : public targeting_behaviour
+@@ -1235,8 +1297,9 @@ static bool _spellcasting_aborted(spell_type spell, bool fake_spell)
+             if (!action.matches(name))
+                 continue;
+ 
+-            string prompt = "Really cast " + string(name) + "?";
+-            if (!yesno(prompt.c_str(), false, 'n'))
++            const auto prompt = zh_message("spell.prompt.confirm.cast", {
++                _spell_menu_name(spell)});
++            if (!yesno(prompt, false, 'n'))
+             {
+                 canned_msg(MSG_OK);
+                 return true;
+@@ -1246,7 +1309,6 @@ static bool _spellcasting_aborted(spell_type spell, bool fake_spell)
+     }
+ 
+     const int severity = fail_severity(spell);
+-    const string failure_rate = spell_failure_rate_string(spell, true);
+     if (Options.fail_severity_to_confirm > 0
+         && Options.fail_severity_to_confirm <= severity
+         && !crawl_state.disables[DIS_CONFIRMATIONS]
+@@ -1254,19 +1316,15 @@ static bool _spellcasting_aborted(spell_type spell, bool fake_spell)
+     {
+         if (failure_rate_to_int(raw_spell_fail(spell)) == 100)
+         {
+-            mprf(MSGCH_WARN, "It is impossible to cast this spell "
+-                    "(100%% risk of failure)!");
++            mpr(zh_message("spell.prompt.impossible"), MSGCH_WARN);
+             return true;
+         }
+ 
+-        string prompt = make_stringf("The spell is %s to miscast "
+-                                     "(%s risk of failure)%s",
+-                                     fail_severity_adjs[severity],
+-                                     failure_rate.c_str(),
+-                                     severity > 1 ? "!" : ".");
+-
+-        prompt = make_stringf("%s Continue anyway?", prompt.c_str());
+-        if (!yesno(prompt.c_str(), false, 'n'))
++        const auto prompt = zh_message(
++            "spell.prompt.confirm.risk." + to_string(severity), {
++                zh_colour("colour", colour_to_str(failure_rate_colour(spell))),
++                zh_integer("failure", failure_rate_to_int(raw_spell_fail(spell)))});
++        if (!yesno(prompt, false, 'n'))
+         {
+             canned_msg(MSG_OK);
+             return true;
+@@ -1716,31 +1774,31 @@ static vector<string> _desc_plasma_hit_chance(const monster_info& mi, int powc)
+     if (hit_pct == -1)
+         return vector<string>{};
+ 
+-    ostringstream result;
+-    describe_hit_chance(hit_pct, result, nullptr, false,
+-                        you.pos().distance_from(mi.pos));
+-    return vector<string>{make_stringf("2x%s", result.str().c_str())};
++    const auto chance = zh_message_arg("chance",
++        you.duration[DUR_BLIND] ? "target.hit_chance.distance" : "target.hit_chance",
++        {zh_integer("hit_percent", hit_pct)});
++    return vector<string>{zh_message("spell.prompt.effect.double_hit", {chance}).display()};
+ }
+ 
+ static vector<string> _desc_intoxicate_chance(const monster_info& mi,
+                                               targeter* hitfunc, int pow)
+ {
+     if (hitfunc && !hitfunc->affects_monster(mi))
+-        return vector<string>{"not susceptible"};
++        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+ 
+     int conf_pct = 40 + pow / 3;
+ 
+     if (get_resist(mi.resists(), MR_RES_POISON) >= 1)
+         conf_pct =  conf_pct / 3;
+ 
+-    return vector<string>{make_stringf("chance to confuse: %d%%", conf_pct)};
++    return vector<string>{zh_message("spell.prompt.chance.confuse", {zh_integer("chance", conf_pct)}).display()};
+ }
+ 
+ static vector<string> _desc_englaciate_chance(const monster_info& mi,
+                                               targeter* hitfunc, int pow)
+ {
+     if (hitfunc && !hitfunc->affects_monster(mi))
+-        return vector<string>{"not susceptible"};
++        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+ 
+     const int outcomes = pow * pow * pow;
+     const int target   = 3 * mi.hd - 2;
+@@ -1763,21 +1821,21 @@ static vector<string> _desc_englaciate_chance(const monster_info& mi,
+     else
+         fail_pct = 100;
+ 
+-    return vector<string>{make_stringf("chance to slow: %d%%", 100 - fail_pct)};
++    return vector<string>{zh_message("spell.prompt.chance.slow", {zh_integer("chance", 100 - fail_pct)}).display()};
+ }
+ 
+ static vector<string> _desc_gloom_chance(const monster_info& mi, int pow)
+ {
+     if (mons_res_blind(mi.type))
+-        return vector<string>{"not susceptible"};
++        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+ 
+-    return vector<string>{make_stringf("chance to blind: %d%%", gloom_success_chance(pow, mi.hd))};
++    return vector<string>{zh_message("spell.prompt.chance.blind", {zh_integer("chance", gloom_success_chance(pow, mi.hd))}).display()};
+ }
+ 
+ static vector<string> _desc_airstrike_bonus(const monster_info& mi)
+ {
+     const int empty_spaces = airstrike_space_around(mi.pos, false);
+-    return vector<string>{make_stringf("empty space bonus: %d/8", empty_spaces)};
++    return vector<string>{zh_message("spell.prompt.effect.empty_space", {zh_integer("spaces", empty_spaces)}).display()};
+ }
+ 
+ static vector<string> _desc_mercury_weak_chance(const monster_info& mi)
+@@ -1785,25 +1843,23 @@ static vector<string> _desc_mercury_weak_chance(const monster_info& mi)
+     if (mi.is(MB_NO_ATTACKS))
+         return vector<string>{};
+ 
+-    return vector<string>{make_stringf("chance to weaken: %d%%",
+-                            get_mercury_weaken_chance(mi.hd))};
++    return vector<string>{zh_message("spell.prompt.chance.weaken", {zh_integer("chance", get_mercury_weaken_chance(mi.hd))}).display()};
+ }
+ 
+ static vector<string> _desc_warp_space_chance(int pow)
+ {
+-    return vector<string>{make_stringf("chance to blink: %d%%",
+-                            get_warp_space_chance(pow))};
++    return vector<string>{zh_message("spell.prompt.chance.blink", {zh_integer("chance", get_warp_space_chance(pow))}).display()};
+ }
+ 
+ static vector<string> _desc_meph_chance(const monster_info& mi)
+ {
+     if (get_resist(mi.resists(), MR_RES_POISON) >= 1 || mi.is(MB_CLARITY))
+-        return vector<string>{"not susceptible"};
++        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+ 
+     int pct_chance = 2;
+     if (mi.hd < MEPH_HD_CAP)
+         pct_chance = 100 - (100 * mi.hd / MEPH_HD_CAP);
+-    return vector<string>{make_stringf("chance to affect: %d%%", pct_chance)};
++    return vector<string>{zh_message("spell.prompt.chance.affect", {zh_integer("chance", pct_chance)}).display()};
+ }
+ 
+ static vector<string> _desc_hailstorm_hit_chance(const monster_info& mi, int pow)
+@@ -1834,10 +1890,10 @@ static vector<string> _desc_electric_charge_hit_chance(const monster_info& mi)
+     return desc;
+ }
+ 
+-static vector<string> _desc_insubstantial(const monster_info& mi, string desc)
++static vector<string> _desc_insubstantial(const monster_info& mi, string message_id)
+ {
+     if (mons_class_flag(mi.type, M_INSUBSTANTIAL))
+-        return vector<string>{desc};
++        return vector<string>{zh_message(message_id).display()};
+ 
+     return vector<string>{};
+ }
+@@ -1845,7 +1901,7 @@ static vector<string> _desc_insubstantial(const monster_info& mi, string desc)
+ static vector<string> _desc_vampiric_draining_valid(const monster_info& mi)
+ {
+     if (mi.mb.get(MB_CANT_DRAIN))
+-        return vector<string>{"not susceptible"};
++        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+ 
+     return vector<string>{};
+ }
+@@ -1853,9 +1909,9 @@ static vector<string> _desc_vampiric_draining_valid(const monster_info& mi)
+ static vector<string> _desc_rimeblight_valid(const monster_info& mi)
+ {
+     if (mi.is(MB_RIMEBLIGHT))
+-        return vector<string>{"already infected"};
++        return vector<string>{zh_message("spell.prompt.effect.already_infected").display()};
+     else if (mons_class_is_peripheral(mi.type))
+-        return vector<string>{"not susceptible"};
++        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+ 
+     return vector<string>{};
+ }
+@@ -1864,62 +1920,80 @@ static vector<string> _desc_dispersal_chance(const monster_info& mi, int pow)
+ {
+     const int wl = mi.willpower();
+     if (mons_class_is_stationary(mi.type))
+-        return vector<string>{"stationary"};
++        return vector<string>{zh_message("spell.prompt.effect.stationary").display()};
+ 
+     if (wl == WILL_INVULN)
+-        return vector<string>{"will blink"};
++        return vector<string>{zh_message("spell.prompt.effect.will_blink").display()};
+ 
+     const int success = hex_success_chance(wl, pow, 100);
+-    return vector<string>{make_stringf("chance to teleport: %d%%", success)};
++    return vector<string>{zh_message("spell.prompt.chance.teleport", {zh_integer("chance", success)}).display()};
+ }
+ 
+ static vector<string> _desc_enfeeble_chance(const monster_info& mi, int pow)
+ {
+-    vector<string> base_effects;
+     vector<string> all_effects;
+     const int wl = mi.willpower();
+-
+-    if (!mi.is(MB_NO_ATTACKS))
+-        base_effects.push_back("inflict weakness");
+-    if (mi.antimagic_susceptible())
+-        base_effects.push_back("diminish spells");
+-    if (!base_effects.empty())
++    const bool weakness = !mi.is(MB_NO_ATTACKS);
++    const bool antimagic = mi.antimagic_susceptible();
++    if (weakness || antimagic)
+     {
+-        all_effects.push_back("will " +
+-            comma_separated_line(base_effects.begin(), base_effects.end()));
++        const char *id = weakness && antimagic
++            ? "spell.prompt.effect.enfeeble.both"
++            : weakness ? "spell.prompt.effect.enfeeble.weakness"
++                       : "spell.prompt.effect.enfeeble.antimagic";
++        all_effects.push_back(zh_message(id).display());
+     }
+     if (wl != WILL_INVULN)
+     {
+         const int success = hex_success_chance(wl, pow, 100);
+-        all_effects.push_back(make_stringf("chance to daze and blind: %d%%", success));
++        all_effects.push_back(zh_message("spell.prompt.chance.daze_blind", {zh_integer("chance", success)}).display());
+     }
+ 
+     if (all_effects.empty())
+-        return vector<string>{"not susceptible"};
++        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+ 
+     return all_effects;
+ }
+ 
+-static string _mon_threat_string(const CrawlStoreValue &mon_store)
++// Retain the engine's random dummy construction and threat colour, but build
++// display names through the dedicated semantic interface. Ghost-demon outcomes
++// intentionally use their base type, matching the original canonical grammar.
++static ZhArg _mon_threat_arg(const CrawlStoreValue &mon_store)
+ {
+     monster dummy;
+     dummy.type = static_cast<monster_type>(mon_store.get_int());
+     define_monster(dummy);
+-
++    monster_info info(&dummy);
+     int col;
+     string desc;
+-    monster_info(&dummy).to_string(1, desc, col, true, nullptr, false);
+-
+-    // Ghost demons need their underlying monster name. Without this,
+-    // we'll get e.g. a specific ugly thing colour based on what the
+-    // dummy monster rolled, which may not match what the actual monster
+-    // rolls.
++    info.to_string(1, desc, col, true, nullptr, false);
++    ZhArg name;
+     if (mons_is_ghost_demon(dummy.type))
++    {
+         desc = get_monster_data(dummy.type)->name;
++        name = zh_monster_type_arg("monster", dummy.type);
++    }
++    else
++        name = zh_monster_info_arg("monster", info, DESC_PLAIN);
++    name.canonical = article_a(desc);
++    return zh_message_arg("monsters", "spell.prompt.effect.polymorph.name",
++                           {zh_colour("colour", colour_to_str(col)), name});
++}
+ 
+-    const string col_name = colour_to_str(col);
+-
+-    return "<" + col_name + ">" + article_a(desc) + "</" + col_name + ">";
++static ZhArg _polymorph_outcomes_arg(const CrawlVector &set)
++{
++    auto result = _mon_threat_arg(set[0]);
++    for (size_t i = 1; i < set.size(); ++i)
++    {
++        auto left = result;
++        left.key = "left";
++        auto right = _mon_threat_arg(set[i]);
++        right.key = "right";
++        result = zh_message_arg("monsters", i + 1 == set.size()
++            ? "spell.prompt.effect.polymorph.list.last"
++            : "spell.prompt.effect.polymorph.list.middle", {left, right});
++    }
++    return result;
+ }
+ 
+ // Include success chance in targeter for spells checking monster WL.
+@@ -1929,9 +2003,9 @@ vector<string> desc_wl_success_chance(const monster_info& mi, int pow,
+     targeter_beam* beam_hitf = dynamic_cast<targeter_beam*>(hitfunc);
+     int wl = mi.willpower();
+     if (wl == WILL_INVULN)
+-        return vector<string>{"infinite will"};
++        return vector<string>{zh_message("spell.prompt.effect.infinite_will").display()};
+     if (hitfunc && !hitfunc->affects_monster(mi))
+-        return vector<string>{"not susceptible"};
++        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+     wl = apply_willpower_bypass(you, wl);
+     vector<string> descs;
+     if (beam_hitf && beam_hitf->beam.flavour == BEAM_POLYMORPH)
+@@ -1939,25 +2013,24 @@ vector<string> desc_wl_success_chance(const monster_info& mi, int pow,
+         // Polymorph has a special effect on ugly things and shapeshifters that
+         // does not require passing an WL check.
+         if (mi.type == MONS_UGLY_THING || mi.type == MONS_VERY_UGLY_THING)
+-            return vector<string>{"will change colour"};
++            return vector<string>{zh_message("spell.prompt.effect.will_change_colour").display()};
+         if (mi.is(MB_SHAPESHIFTER))
+-            return vector<string>{"will change shape"};
++            return vector<string>{zh_message("spell.prompt.effect.will_change_shape").display()};
+         if (mi.type == MONS_SLIME_CREATURE && mi.slime_size > 1)
+-            descs.push_back("will probably split");
++            descs.push_back(zh_message("spell.prompt.effect.will_probably_split").display());
+ 
+         // list out the normal poly set
+         if (!mi.props.exists(POLY_SET_KEY))
+-            return vector<string>{"not susceptible"};
++            return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+         const CrawlVector &set = mi.props[POLY_SET_KEY].get_vector();
+         if (set.size() <= 0)
+-            return vector<string>{"not susceptible"};
+-        descs.push_back("will become "
+-                        + comma_separated_fn(set.begin(), set.end(),
+-                                             _mon_threat_string, ", or "));
++            return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
++        descs.push_back(zh_message("spell.prompt.effect.polymorph",
++                                   {_polymorph_outcomes_arg(set)}).display());
+     }
+ 
+     const int success = hex_success_chance(wl, pow, 100);
+-    descs.push_back(make_stringf("chance to affect: %d%%", success));
++    descs.push_back(zh_message("spell.prompt.chance.affect", {zh_integer("chance", success)}).display());
+ 
+     return descs;
+ }
+@@ -1965,7 +2038,7 @@ vector<string> desc_wl_success_chance(const monster_info& mi, int pow,
+ static vector<string> _desc_beckoning_valid(const monster_info& mi)
+ {
+     if (!can_beckon(mi))
+-        return vector<string>{"not susceptible"};
++        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+ 
+     return vector<string>{};
+ }
+@@ -1975,7 +2048,7 @@ class spell_targeting_behaviour : public targeting_behaviour
  public:
      spell_targeting_behaviour(spell_type _spell)
          : targeting_behaviour(false), spell(_spell),
@@ -58820,7 +60384,7 @@ index e840154..8097372 100644
      {
      }
  
-@@ -1986,14 +1987,20 @@ public:
+@@ -1986,14 +2059,20 @@ public:
  
      string get_error() override
      {
@@ -58843,7 +60407,95 @@ index e840154..8097372 100644
  };
  
  // TODO: is there a way for this to be part of targeter objects, or
-@@ -2402,7 +2409,7 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
+@@ -2059,9 +2138,9 @@ desc_filter targeter_addl_desc(spell_type spell, int powc, spell_flags flags,
+         case SPELL_ELECTRIC_CHARGE:
+             return bind(_desc_electric_charge_hit_chance, placeholders::_1);
+         case SPELL_FASTROOT:
+-            return bind(_desc_insubstantial, placeholders::_1, "immune to roots");
++            return bind(_desc_insubstantial, placeholders::_1, "spell.prompt.effect.immune_roots");
+         case SPELL_STICKY_FLAME:
+-            return bind(_desc_insubstantial, placeholders::_1, "unstickable");
++            return bind(_desc_insubstantial, placeholders::_1, "spell.prompt.effect.unstickable");
+         case SPELL_PLASMA_BEAM:
+             return bind(_desc_plasma_hit_chance, placeholders::_1, powc);
+         case SPELL_MERCURY_ARROW:
+@@ -2089,6 +2168,8 @@ desc_filter targeter_addl_desc(spell_type spell, int powc, spell_flags flags,
+  **/
+ string target_spell_desc(const monster_info& mi, spell_type spell)
+ {
++    // Lua consumes canonical descriptions, independently of display language.
++    const ZhTranslationPause canonical;
+     int powc = calc_spell_power(spell);
+     const int range = spell_range(spell, &you);
+ 
+@@ -2210,22 +2291,22 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
+         // already been carried out
+         const bool useless = spell_is_useless(spell, true, false, true);
+         const char *spell_title_color = useless ? "darkgrey" : "w";
+-        const string verb = channelled_spell_active(spell)
+-            ? "<lightred>Restarting spell</lightred>"
+-            : is_targeted ? "Aiming" : "Casting";
+-        string title = make_stringf("%s: <%s>%s</%s>", verb.c_str(),
+-                    spell_title_color, spell_title(spell), spell_title_color);
++        const char *title_id = channelled_spell_active(spell)
++            ? "spell.prompt.target.restart"
++            : is_targeted ? "spell.prompt.target.aim" : "spell.prompt.target.cast";
++        ZhArg title = zh_message_arg("title", title_id, {
++            zh_colour("colour", spell_title_color), _spell_menu_name(spell)});
+         if (actual_spell)
+         {
+-            title += make_stringf(" <lightgrey>(%s)</lightgrey>",
+-                _spell_failure_rate_description(spell).c_str());
++            title = zh_message_arg("title", "spell.prompt.target.risk", {
++                title, _spell_failure_rate_arg("risk", spell)});
+         }
+ 
+         if (spell == SPELL_GRAVE_CLAW)
+         {
+-            title += make_stringf("<lightgrey> (%d/%d uses available)</lightgrey>",
+-                                  you.props[GRAVE_CLAW_CHARGES_KEY].get_int(),
+-                                  GRAVE_CLAW_MAX_CHARGES);
++            title = zh_message_arg("title", "spell.prompt.target.charges", {
++                title, zh_integer("available", you.props[GRAVE_CLAW_CHARGES_KEY].get_int()),
++                zh_integer("maximum", GRAVE_CLAW_MAX_CHARGES)});
+         }
+ 
+         spell_targeting_behaviour beh(spell);
+@@ -2236,8 +2317,22 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
+         args.mode = targ;
+         args.range = range;
+         args.needs_path = needs_path;
+-        args.target_prefix = prompt;
+-        args.top_prompt = title;
++        args.target_prefix = prompt; // canonical compatibility for old consumers
++        switch (spell)
++        {
++        case SPELL_APPORTATION:
++            args.target_prefix_message = zh_message("target.prompt.prefix.apport");
++            break;
++        case SPELL_SMITING:
++            args.target_prefix_message = zh_message("target.prompt.prefix.smite");
++            break;
++        case SPELL_LRD:
++            args.target_prefix_message = zh_message("target.prompt.prefix.fragment");
++            break;
++        default:
++            break;
++        }
++        args.top_prompt_message = ZhMessage{title.message_id, title.canonical, title.localized};
+         args.behaviour = &beh;
+ 
+         if (testbits(flags, spflag::prefer_farthest))
+@@ -2270,7 +2365,7 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
+         if (testbits(flags, spflag::not_self) && target->isMe())
+         {
+             if (spell == SPELL_TELEPORT_OTHER)
+-                mpr("Sorry, this spell works on others only.");
++                mpr(zh_message("spell.prompt.others_only"));
+             else
+                 canned_msg(MSG_UNTHINKING_ACT);
+ 
+@@ -2402,7 +2497,7 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
      {
          if (actual_spell)
          {
@@ -58852,8 +60504,23 @@ index e840154..8097372 100644
              flush_input_buffer(FLUSH_ON_FAILURE);
              learned_something_new(HINT_SPELL_MISCAST);
              miscast_effect(spell, fail);
-@@ -3045,7 +3052,7 @@ static string _spell_failure_rate_description(spell_type spell)
-             col, severity_adj, col, col, failure.c_str(), col);
+@@ -3034,18 +3129,14 @@ string spell_failure_rate_string(spell_type spell, bool terse)
+     }
+ }
+ 
+-static string _spell_failure_rate_description(spell_type spell)
++static ZhArg _spell_failure_rate_arg(const string &key, spell_type spell)
+ {
+-    const string failure = failure_rate_to_string(raw_spell_fail(spell));
+-    const char *severity_adj = fail_severity_adjs[fail_severity(spell)];
+-    const string colour = colour_to_str(failure_rate_colour(spell));
+-    const char *col = colour.c_str();
+-
+-    return make_stringf("<%s>%s</%s>; <%s>%s</%s> risk of failure",
+-            col, severity_adj, col, col, failure.c_str(), col);
++    return zh_message_arg(key, "spell.prompt.risk." + to_string(fail_severity(spell)), {
++        zh_colour("colour", colour_to_str(failure_rate_colour(spell))),
++        zh_integer("failure", failure_rate_to_int(raw_spell_fail(spell)))});
  }
  
 -string spell_noise_string(spell_type spell, int chop_wiz_display_width)
@@ -58861,7 +60528,7 @@ index e840154..8097372 100644
  {
      const int casting_noise = spell_noise(spell);
      int effect_noise = spell_effect_noise(spell);
-@@ -3054,8 +3061,11 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+@@ -3054,8 +3145,11 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
      if (spell == SPELL_POLAR_VORTEX)
          effect_noise = 15;
  
@@ -58874,7 +60541,7 @@ index e840154..8097372 100644
      const char* noise_descriptions[] =
      {
          "Silent", "Almost silent", "Quiet", "A bit loud", "Loud", "Very loud",
-@@ -3065,8 +3075,14 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+@@ -3065,8 +3159,14 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
      const int breakpoints[] = { 1, 2, 4, 8, 15, 20, 30 };
      COMPILE_CHECK(ARRAYSZ(noise_descriptions) == 1 + ARRAYSZ(breakpoints));
  
@@ -58890,7 +60557,7 @@ index e840154..8097372 100644
  
  #ifdef WIZARD
      if (you.wizard)
-@@ -3086,6 +3102,23 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+@@ -3086,6 +3186,23 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
          return desc;
  }
  
@@ -58914,7 +60581,7 @@ index e840154..8097372 100644
  int power_to_barcount(int power)
  {
      if (power == -1)
-@@ -3415,7 +3448,25 @@ bool channelled_spell_active(spell_type spell)
+@@ -3415,7 +3532,25 @@ bool channelled_spell_active(spell_type spell)
      return you.attribute[ATTR_CHANNELLED_SPELL] == spell;
  }
  
@@ -58941,7 +60608,7 @@ index e840154..8097372 100644
  {
      you.attribute[ATTR_CHANNELLED_SPELL] = spell;
      you.attribute[ATTR_CHANNEL_DURATION] = -1;
-@@ -3425,12 +3476,9 @@ void start_channelling_spell(spell_type spell, string reminder_msg, bool do_effe
+@@ -3425,12 +3560,9 @@ void start_channelling_spell(spell_type spell, string reminder_msg, bool do_effe
      else
          you.attribute[ATTR_CHANNEL_DURATION] = 0;
  
@@ -58957,7 +60624,7 @@ index e840154..8097372 100644
  }
  
  void handle_channelled_spell()
-@@ -3461,8 +3509,7 @@ void handle_channelled_spell()
+@@ -3461,8 +3593,7 @@ void handle_channelled_spell()
      if ((spell == SPELL_FLAME_WAVE || spell == SPELL_SEARING_RAY)
          && turn > 1 && !enough_mp(1, true))
      {
@@ -58967,7 +60634,7 @@ index e840154..8097372 100644
          stop_channelling_spells(true);
          return;
      }
-@@ -3503,19 +3550,19 @@ void stop_channelling_spells(bool quiet)
+@@ -3503,19 +3634,19 @@ void stop_channelling_spells(bool quiet)
      switch (spell)
      {
          case SPELL_FLAME_WAVE:
@@ -59131,7 +60798,7 @@ index 2802dc3..2b41b0e 100644
  int get_mercury_weaken_chance(int victim_hd);
  dice_def poisonous_vapours_damage(int pow, bool random);
 diff --git a/crawl-ref/source/spl-other.cc b/crawl-ref/source/spl-other.cc
-index bb1020e..30344f9 100644
+index bb1020e..d78ddb2 100644
 --- a/crawl-ref/source/spl-other.cc
 +++ b/crawl-ref/source/spl-other.cc
 @@ -5,6 +5,7 @@
@@ -59208,6 +60875,29 @@ index bb1020e..30344f9 100644
  /// find possible destinations, given the player's map knowledge
  vector <coord_def> passwall_path::possible_dests() const
  {
+@@ -354,18 +366,18 @@ bool passwall_path::check_moveto() const
+ {
+     // assumes is_valid()
+ 
+-    string terrain_msg;
++    auto warning = zh_text("warning", "", "");
+     if (env.grid(actual_dest) == DNGN_DEEP_WATER)
+-        terrain_msg = "You sense a deep body of water on the other side of the rock.";
++        warning = zh_message_arg("warning", "movement.confirm.passwall.water");
+     else if (env.grid(actual_dest) == DNGN_LAVA)
+-        terrain_msg = "You sense an intense heat on the other side of the rock.";
++        warning = zh_message_arg("warning", "movement.confirm.passwall.lava");
+ 
+     // Pre-confirm exclusions in unseen squares as well as the actual dest
+     // even if seen, so that this doesn't leak information.
+ 
+     // TODO: handle uncertainty in messaging for things other than exclusions
+ 
+-    return check_moveto_terrain(actual_dest, "passwall", terrain_msg)
++    return check_moveto_terrain_display(actual_dest, "passwall", warning)
+         && check_moveto_exclusions(possible_dests(), "passwall")
+         && check_moveto_cloud(actual_dest, "passwall")
+         && check_moveto_trap(actual_dest, "passwall");
 @@ -384,12 +396,12 @@ spret cast_passwall(const coord_def& c, int pow, bool fail)
  
      coord_def delta = c - you.pos();
@@ -61489,6 +63179,112 @@ index e0ee711..78e5c09 100644
      bool anyone_there(coord_def loc);
  };
  
+diff --git a/crawl-ref/source/throw.cc b/crawl-ref/source/throw.cc
+index 030106a..105f14d 100644
+--- a/crawl-ref/source/throw.cc
++++ b/crawl-ref/source/throw.cc
+@@ -4,6 +4,7 @@
+ **/
+ 
+ #include "AppHdr.h"
++#include "zh-message.h"
+ 
+ #include "throw.h"
+ 
+@@ -81,16 +82,28 @@ public:
+     virtual bool should_redraw() const override { return need_redraw; }
+     virtual void clear_redraw()        override { need_redraw = false; }
+     virtual void update_top_prompt(string* p_top_prompt) override;
++    bool get_top_prompt_message(ZhMessage &message) const override
++    {
++        message = internal_message;
++        return true;
++    }
+     virtual vector<string> get_monster_desc(const monster_info& mi) override;
+ 
+     bool targeted() override;
+ 
+     string get_error() override
+     {
+-        if (you.confused())
+-            return "You are confused and cannot control your aim.";
+-        else
+-            return targeting_behaviour::get_error();
++        return you.confused()
++            ? zh_message("target.prompt.action.confused").canonical
++            : targeting_behaviour::get_error();
++    }
++
++    bool get_message_error(ZhMessage &message) override
++    {
++        if (!you.confused())
++            return targeting_behaviour::get_message_error(message);
++        message = zh_message("target.prompt.action.confused");
++        return true;
+     }
+ 
+ public:
+@@ -102,7 +115,8 @@ private:
+ 
+     quiver::action &action;
+     string prompt;
+-    string internal_prompt;
++    string internal_prompt; // Canonical behavior/control compatibility
++    ZhMessage internal_message;
+     bool need_redraw;
+ };
+ 
+@@ -149,34 +163,24 @@ bool fire_target_behaviour::targeted()
+     return action.is_targeted();
+ }
+ 
+-void fire_target_behaviour::set_prompt()
++static ZhMessage _fire_action_prompt(const ZhMessage &description, bool empty,
++                                     bool targeted)
+ {
+-    string old_prompt = internal_prompt; // Keep for comparison at the end.
+-    internal_prompt.clear();
+-
+-    ostringstream msg;
+-
+-
+-    if (action == quiver::action())
+-        internal_prompt = "No action selected";
+-    else
+-    {
+-        // TODO: might be nice to use colors here, but there's a wonky interaction
+-        // with the direction targeter's colors that would need to be fixed
+-        internal_prompt = action.quiver_description().tostring();
+-
+-        if (!targeted())
+-        {
+-            internal_prompt = make_stringf("Non-targeted %s",
+-                lowercase_first(internal_prompt).c_str());
+-        }
+-    }
+-
+-    // Write it out.
+-    internal_prompt += msg.str();
++    if (empty)
++        return zh_message("target.prompt.action.none");
++    if (targeted)
++        return description;
++    return zh_message("target.prompt.action.untargeted",
++        {zh_text("action", lowercase_first(description.canonical),
++                 description.localized)});
++}
+ 
+-    // Never unset need_redraw here, because we might have cleared the
+-    // screen or something else which demands a redraw.
++void fire_target_behaviour::set_prompt()
++{
++    const string old_prompt = internal_prompt;
++    internal_message = _fire_action_prompt(action.quiver_description_message(),
++        action == quiver::action(), targeted());
++    internal_prompt = internal_message.canonical;
+     if (internal_prompt != old_prompt)
+         need_redraw = true;
+ }
 diff --git a/crawl-ref/source/tilereg-doll.cc b/crawl-ref/source/tilereg-doll.cc
 index 3b412f1..dd09eb1 100644
 --- a/crawl-ref/source/tilereg-doll.cc
@@ -118160,10 +119956,10 @@ index 0000000..fca52fb
 +};
 diff --git a/crawl-ref/source/zh-message-catalog.inc b/crawl-ref/source/zh-message-catalog.inc
 new file mode 100644
-index 0000000..dc0161b
+index 0000000..75fd3d6
 --- /dev/null
 +++ b/crawl-ref/source/zh-message-catalog.inc
-@@ -0,0 +1,3534 @@
+@@ -0,0 +1,3793 @@
 +// Generated from Luna-reviewed message IDs. Do not edit.
 +static const ZhDefinition zh_definitions[] = {
 +    {"artifact.jewel.01", "It sustains your strength, intelligence and dexterity.", "它能维持你的力量、智力和敏捷。", ""},
@@ -119614,6 +121410,107 @@ index 0000000..dc0161b
 +    {"monster.targeted_by_one", "{subject} {verb} currently targeted by {ally}.", "{subject}{verb}目前被{ally}选为目标。", "subject:name;verb:text;ally:name"},
 +    {"monster.targeting_foe", "{subject} {verb} currently targeting {foe}.", "{subject}{verb}正在以{foe}为目标。", "subject:name;verb:text;foe:name"},
 +    {"monster.will_chance", "Chance to defeat your Will: {chance}%{suffix}\n", "击败你的意志抗性几率：{chance}%{suffix}\n", "chance:integer;suffix:text"},
++    {"movement.confirm.binding_sigil", "Are you sure you want to {move} onto a binding sigil\?", "确定要{move}到束缚符印上吗？", "move:text"},
++    {"movement.confirm.cloud", "Really {move} into that cloud of {cloud}\?", "确定要{move}进那团{cloud}云雾里吗？", "move:text;cloud:name"},
++    {"movement.confirm.cloud_name.0", "blazing flames", "烈焰", ""},
++    {"movement.confirm.cloud_name.1", "noxious fumes", "有毒烟雾", ""},
++    {"movement.confirm.cloud_name.10", "a cloud of scalding steam", "滚烫蒸汽", ""},
++    {"movement.confirm.cloud_name.11", "thick gloom", "浓重阴霾", ""},
++    {"movement.confirm.cloud_name.12", "ink", "墨汁", ""},
++    {"movement.confirm.cloud_name.13", "calcifying dust", "钙化尘埃", ""},
++    {"movement.confirm.cloud_name.14", "blessed fire", "祝福之火", ""},
++    {"movement.confirm.cloud_name.15", "dark miasma", "黑色瘴气", ""},
++    {"movement.confirm.cloud_name.16", "thin mist", "薄雾", ""},
++    {"movement.confirm.cloud_name.17", "seething chaos", "翻涌的混沌", ""},
++    {"movement.confirm.cloud_name.18", "the rain", "雨水", ""},
++    {"movement.confirm.cloud_name.19", "mutagenic fog", "诱变雾气", ""},
++    {"movement.confirm.cloud_name.2", "freezing vapours", "冰冷蒸汽", ""},
++    {"movement.confirm.cloud_name.20", "magical condensation", "魔法凝露", ""},
++    {"movement.confirm.cloud_name.21", "whirling frost", "旋舞冰霜", ""},
++    {"movement.confirm.cloud_name.22", "sparse dust", "稀薄尘埃", ""},
++    {"movement.confirm.cloud_name.23", "spectral mist", "幽灵雾气", ""},
++    {"movement.confirm.cloud_name.24", "acidic fog", "酸雾", ""},
++    {"movement.confirm.cloud_name.25", "a thunderstorm", "雷暴", ""},
++    {"movement.confirm.cloud_name.26", "excruciating misery", "极度痛苦", ""},
++    {"movement.confirm.cloud_name.27", "white fluffiness", "白色绒团", ""},
++    {"movement.confirm.cloud_name.28", "salt", "盐", ""},
++    {"movement.confirm.cloud_name.29", "golden dust", "金尘", ""},
++    {"movement.confirm.cloud_name.3", "poison gas", "毒气", ""},
++    {"movement.confirm.cloud_name.30", "embers", "余烬", ""},
++    {"movement.confirm.cloud_name.31", "wisps of flame", "火焰微粒", ""},
++    {"movement.confirm.cloud_name.32", "alcoholic mist", "酒精雾气", ""},
++    {"movement.confirm.cloud_name.33", "volatile sparks", "不稳定火花", ""},
++    {"movement.confirm.cloud_name.34", "sparks", "火花", ""},
++    {"movement.confirm.cloud_name.35", "faint pestilence", "微弱疫病", ""},
++    {"movement.confirm.cloud_name.36", "magnetised fragments", "磁化碎片", ""},
++    {"movement.confirm.cloud_name.37", "bats", "蝙蝠", ""},
++    {"movement.confirm.cloud_name.38", "rust", "锈", ""},
++    {"movement.confirm.cloud_name.4", "black smoke", "黑烟", ""},
++    {"movement.confirm.cloud_name.5", "grey smoke", "灰烟", ""},
++    {"movement.confirm.cloud_name.6", "blue smoke", "蓝烟", ""},
++    {"movement.confirm.cloud_name.7", "purple smoke", "紫烟", ""},
++    {"movement.confirm.cloud_name.8", "translocational energy", "空间转移能量", ""},
++    {"movement.confirm.cloud_name.9", "a forest fire", "森林火灾", ""},
++    {"movement.confirm.exclusion.certain", "Really {move} into a travel-excluded area\?", "确定要{move}进旅行排除区域吗？", "move:text"},
++    {"movement.confirm.exclusion.possible", "You might {move} into a travel-excluded area, are you sure\?", "你可能会{move}到旅行排除区域，确定继续吗？", "move:text"},
++    {"movement.confirm.expiration.into.deep_water.flight", "Are you sure you want to {move} into deep water while you are losing your buoyancy\?", "你正在失去浮力，确定要{move}进深水吗？", "move:text"},
++    {"movement.confirm.expiration.into.deep_water.form", "Are you sure you want to {move} into deep water while your transformation is expiring\?", "你的变形即将结束，确定要{move}进深水吗？", "move:text"},
++    {"movement.confirm.expiration.into.lava.flight", "Are you sure you want to {move} into lava while you are losing your buoyancy\?", "你正在失去浮力，确定要{move}进熔岩吗？", "move:text"},
++    {"movement.confirm.expiration.into.lava.form", "Are you sure you want to {move} into lava while your transformation is expiring\?", "你的变形即将结束，确定要{move}进熔岩吗？", "move:text"},
++    {"movement.confirm.expiration.over.deep_water.flight", "Are you sure you want to {move} over deep water while you are losing your buoyancy\?", "你正在失去浮力，确定要{move}越过深水吗？", "move:text"},
++    {"movement.confirm.expiration.over.deep_water.form", "Are you sure you want to {move} over deep water while your transformation is expiring\?", "你的变形即将结束，确定要{move}越过深水吗？", "move:text"},
++    {"movement.confirm.expiration.over.lava.flight", "Are you sure you want to {move} over lava while you are losing your buoyancy\?", "你正在失去浮力，确定要{move}越过熔岩吗？", "move:text"},
++    {"movement.confirm.expiration.over.lava.form", "Are you sure you want to {move} over lava while your transformation is expiring\?", "你的变形即将结束，确定要{move}越过熔岩吗？", "move:text"},
++    {"movement.confirm.passwall.lava", "You sense an intense heat on the other side of the rock.", "你感觉到岩石另一侧传来灼热。", ""},
++    {"movement.confirm.passwall.water", "You sense a deep body of water on the other side of the rock.", "你感觉到岩石另一侧有一片深水。", ""},
++    {"movement.confirm.prefaced", "{warning} {prompt}", "{warning} {prompt}", "warning:text;prompt:text"},
++    {"movement.confirm.toxic_bog", "Are you sure you want to {move} into a toxic bog\?", "确定要{move}进剧毒沼泽吗？", "move:text"},
++    {"movement.confirm.trap.into", "Really {move} into that {trap}\?", "确定要{move}进那个{trap}吗？", "move:text;trap:name"},
++    {"movement.confirm.trap.onto", "Really {move} onto that {trap}\?", "确定要{move}到那个{trap}上吗？", "move:text;trap:name"},
++    {"movement.confirm.trap.zot", "Do you really want to {move} into the Zot trap\?", "确定要{move}进佐特陷阱吗？", "move:text"},
++    {"movement.confirm.trap_name.0", "Zot trap", "佐特陷阱", ""},
++    {"movement.confirm.trap_name.1", "alarm trap", "警报陷阱", ""},
++    {"movement.confirm.trap_name.10", "blade trap", "刀刃陷阱", ""},
++    {"movement.confirm.trap_name.11", "arrow trap", "箭矢陷阱", ""},
++    {"movement.confirm.trap_name.12", "spear trap", "长矛陷阱", ""},
++    {"movement.confirm.trap_name.13", "bolt trap", "弩箭陷阱", ""},
++    {"movement.confirm.trap_name.14", "needle trap", "毒针陷阱", ""},
++    {"movement.confirm.trap_name.2", "pressure plate", "压力板", ""},
++    {"movement.confirm.trap_name.3", "teleport trap", "传送陷阱", ""},
++    {"movement.confirm.trap_name.4", "permanent teleport trap", "永久传送陷阱", ""},
++    {"movement.confirm.trap_name.5", "shaft", "地坑", ""},
++    {"movement.confirm.trap_name.6", "web", "蛛网", ""},
++    {"movement.confirm.trap_name.7", "passage of Golubria", "戈鲁布里亚通道", ""},
++    {"movement.confirm.trap_name.8", "dispersal trap", "驱散陷阱", ""},
++    {"movement.confirm.trap_name.9", "net trap", "捕网陷阱", ""},
++    {"movement.confirm.trap_name.extra_0", "harlequin's trap", "丑角陷阱", ""},
++    {"movement.confirm.trap_name.extra_1", "archmage's trap", "大法师陷阱", ""},
++    {"movement.confirm.trap_name.extra_2", "tyrant's trap", "暴君陷阱", ""},
++    {"movement.confirm.trap_name.extra_3", "devourer's trap", "吞噬者陷阱", ""},
++    {"movement.confirm.trap_name.extra_4", "gas trap", "毒气陷阱", ""},
++    {"movement.confirm.trap_name.extra_5", "shadow trap", "暗影陷阱", ""},
++    {"movement.confirm.trap_name.extra_6", "dormant shadow trap", "沉睡的暗影陷阱", ""},
++    {"movement.confirm.verb.blink", "blink", "闪现", ""},
++    {"movement.confirm.verb.charge", "charge", "冲", ""},
++    {"movement.confirm.verb.float", "float", "漂", ""},
++    {"movement.confirm.verb.fly", "fly", "飞", ""},
++    {"movement.confirm.verb.hop", "hop", "跳", ""},
++    {"movement.confirm.verb.leap", "leap", "跃", ""},
++    {"movement.confirm.verb.line_pass", "line pass", "沿直线穿行", ""},
++    {"movement.confirm.verb.move", "move", "移动", ""},
++    {"movement.confirm.verb.passwall", "passwall", "穿墙", ""},
++    {"movement.confirm.verb.potentially_stumble_back", "potentially stumble back", "踉跄着退回", ""},
++    {"movement.confirm.verb.rampage", "rampage", "狂奔", ""},
++    {"movement.confirm.verb.roll", "roll", "滚", ""},
++    {"movement.confirm.verb.slither", "slither", "爬", ""},
++    {"movement.confirm.verb.step", "step", "踏", ""},
++    {"movement.confirm.verb.stride", "stride", "大步迈", ""},
++    {"movement.confirm.verb.swim", "swim", "游", ""},
++    {"movement.confirm.verb.transfer", "transfer", "传送", ""},
++    {"movement.confirm.verb.walk", "walk", "走", ""},
++    {"movement.confirm.verb.wall_jump", "wall jump", "蹬墙跳", ""},
++    {"movement.confirm.verb.wriggle", "wriggle", "扭动", ""},
++    {"movement.confirm.warning", "{warning}", "{warning}", "warning:text"},
 +    {"mutation.rank", " (level {skill_level}/{max_level})", "（等级{skill_level}/{max_level}）", "skill_level:integer;max_level:integer"},
 +    {"no_skill_training", "You cannot train any new skills!", "你无法训练任何新技能！", ""},
 +    {"place.branch.abyss", "the Abyss", "深渊", ""},
@@ -119682,6 +121579,7 @@ index 0000000..dc0161b
 +    {"prompt.choice.bugs", "bugs", "错误报告", ""},
 +    {"prompt.choice.no", "No", "否", ""},
 +    {"prompt.choice.yes", "Yes", "是", ""},
++    {"prompt.confirm.typed_answer", "{prompt} (Confirm with \"{answer}\".) ", "{prompt}（按“{answer}”确认。） ", "prompt:text;answer:key"},
 +    {"prompt.continue", "<cyan>Hit any key to continue...</cyan>", "<cyan>按任意键继续……</cyan>", ""},
 +    {"prompt.enter_default", "<white>[enter]</white>: {choice}", "<white>[enter]</white>：{choice}", "choice:text"},
 +    {"prompt.error.title", "Error!", "错误！", ""},
@@ -119692,7 +121590,79 @@ index 0000000..dc0161b
 +    {"quiver.log.depleted_resource", "You are too depleted to draw on your {resource} recklessly!", "你的{resource}所剩无几，无法肆意消耗！", "resource:name"},
 +    {"quiver.log.fail_reach_past", "You fail to reach past {target}.", "你没能越过{target}攻击。", "target:name"},
 +    {"quiver.log.in_the_way", "{target} is in the way.", "{target}挡住了去路。", "target:name"},
++    {"quiver.prompt.ability", "Abil: ", "能力： ", ""},
++    {"quiver.prompt.ability.build", "Build '{feature}'", "建造“{feature}”", "feature:name"},
++    {"quiver.prompt.activate", "Activate: ", "启动： ", ""},
++    {"quiver.prompt.attack", "Attack: {key}) ", "攻击：{key}) ", "key:key"},
++    {"quiver.prompt.attack.confused", "Confused attack: {key}) ", "困惑时攻击：{key}) ", "key:key"},
++    {"quiver.prompt.cards.deck", " ({count} in deck)", "（牌堆中{count}张）", "count:integer"},
++    {"quiver.prompt.cards.next", " (next: {card})", "（下一张：{card}）", "card:name"},
++    {"quiver.prompt.cast", "Cast: ", "施法： ", ""},
++    {"quiver.prompt.choose", "Quiver which item\?", "选择待用物品？", ""},
++    {"quiver.prompt.choose.empty", "Quiver which item\? (- for none)", "选择待用物品？（- 表示不选）", ""},
++    {"quiver.prompt.cleave", "Cleave: {key}) ", "横扫：{key}) ", "key:key"},
++    {"quiver.prompt.cleave.confused", "Confused cleave: {key}) ", "困惑时横扫：{key}) ", "key:key"},
++    {"quiver.prompt.confirm", "Really quiver {item}\?", "确定将{item}设为待用物品？", "item:name"},
 +    {"quiver.prompt.confirm_quiver", "Really quiver {action}\?", "确定将{action}设为箭袋动作吗？", "action:name"},
++    {"quiver.prompt.continue", "Continue: ", "继续： ", ""},
++    {"quiver.prompt.description", "{description}", "{description}", "description:text"},
++    {"quiver.prompt.drink", "Drink: ", "饮用： ", ""},
++    {"quiver.prompt.empty.long", "<darkgrey>Nothing quivered</darkgrey>", "<darkgrey>没有待用物品</darkgrey>", ""},
++    {"quiver.prompt.empty.short", "<darkgrey>Empty</darkgrey>", "<darkgrey>空</darkgrey>", ""},
++    {"quiver.prompt.evoke", "Evoke: ", "唤起： ", ""},
++    {"quiver.prompt.fire", "Fire: {key}) ", "射击：{key}) ", "key:key"},
++    {"quiver.prompt.fire.confused", "Confused fire: {key}) ", "困惑时射击：{key}) ", "key:key"},
++    {"quiver.prompt.form.bite", "Bite: {key}) ", "撕咬：{key}) ", "key:key"},
++    {"quiver.prompt.form.bite.confused", "Confused bite: {key}) ", "困惑时撕咬：{key}) ", "key:key"},
++    {"quiver.prompt.form.buffet", "Buffet: {key}) ", "冲撞：{key}) ", "key:key"},
++    {"quiver.prompt.form.buffet.confused", "Confused buffet: {key}) ", "困惑时冲撞：{key}) ", "key:key"},
++    {"quiver.prompt.form.claw", "Claw: {key}) ", "爪击：{key}) ", "key:key"},
++    {"quiver.prompt.form.claw.confused", "Confused claw: {key}) ", "困惑时爪击：{key}) ", "key:key"},
++    {"quiver.prompt.form.headbutt", "Headbutt: {key}) ", "头槌：{key}) ", "key:key"},
++    {"quiver.prompt.form.headbutt.confused", "Confused headbutt: {key}) ", "困惑时头槌：{key}) ", "key:key"},
++    {"quiver.prompt.form.lash", "Lash: {key}) ", "鞭击：{key}) ", "key:key"},
++    {"quiver.prompt.form.lash.confused", "Confused lash: {key}) ", "困惑时鞭击：{key}) ", "key:key"},
++    {"quiver.prompt.form.release_spores_at", "Release spores at: {key}) ", "释放孢子：{key}) ", "key:key"},
++    {"quiver.prompt.form.release_spores_at.confused", "Confused release spores at: {key}) ", "困惑时释放孢子：{key}) ", "key:key"},
++    {"quiver.prompt.form.slap", "Slap: {key}) ", "掌掴：{key}) ", "key:key"},
++    {"quiver.prompt.form.slap.confused", "Confused slap: {key}) ", "困惑时掌掴：{key}) ", "key:key"},
++    {"quiver.prompt.form.smack", "Smack: {key}) ", "拍击：{key}) ", "key:key"},
++    {"quiver.prompt.form.smack.confused", "Confused smack: {key}) ", "困惑时拍击：{key}) ", "key:key"},
++    {"quiver.prompt.form.snap", "Snap: {key}) ", "咬击：{key}) ", "key:key"},
++    {"quiver.prompt.form.snap.confused", "Confused snap: {key}) ", "困惑时咬击：{key}) ", "key:key"},
++    {"quiver.prompt.form.swat", "Swat: {key}) ", "挥击：{key}) ", "key:key"},
++    {"quiver.prompt.form.swat.confused", "Confused swat: {key}) ", "困惑时挥击：{key}) ", "key:key"},
++    {"quiver.prompt.form.touch", "Touch: {key}) ", "触碰：{key}) ", "key:key"},
++    {"quiver.prompt.form.touch.confused", "Confused touch: {key}) ", "困惑时触碰：{key}) ", "key:key"},
++    {"quiver.prompt.hit", "Hit: {key}) ", "击打：{key}) ", "key:key"},
++    {"quiver.prompt.hit.confused", "Confused hit: {key}) ", "困惑时击打：{key}) ", "key:key"},
++    {"quiver.prompt.keys.cycle", ", <w>%</w> - select action, <w>%</w> or <w>%</w> - cycle", "，<w>%</w> - 选择动作，<w>%</w> 或 <w>%</w> - 切换", ""},
++    {"quiver.prompt.keys.select", ", <w>%</w> - select action", "，<w>%</w> - 选择动作", ""},
++    {"quiver.prompt.menu.abilities", "[<w>^</w>] all abilities  ", "[<w>^</w>] 所有能力  ", ""},
++    {"quiver.prompt.menu.focus.off", "{key} focus mode: <w>off</w>|on", "{key} 专注模式：<w>关</w>|开", "key:key_markup"},
++    {"quiver.prompt.menu.focus.on", "{key} focus mode: off|<w>on</w>", "{key} 专注模式：关|<w>开</w>", "key:key_markup"},
++    {"quiver.prompt.menu.header.abilities", "<lightcyan>Abilities</lightcyan> <lightgrey>({key} to cycle)</lightgrey>", "<lightcyan>能力</lightcyan> <lightgrey>（{key}切换）</lightgrey>", "key:key_markup"},
++    {"quiver.prompt.menu.header.items", "<lightcyan>Items</lightcyan> <lightgrey>({key} to cycle)</lightgrey>", "<lightcyan>物品</lightcyan> <lightgrey>（{key}切换）</lightgrey>", "key:key_markup"},
++    {"quiver.prompt.menu.header.spells", "<lightcyan>Spells</lightcyan> <lightgrey>({key} to cycle)</lightgrey>", "<lightcyan>法术</lightcyan> <lightgrey>（{key}切换）</lightgrey>", "key:key_markup"},
++    {"quiver.prompt.menu.inventory", "[<w>*/%</w>] inventory  ", "[<w>*/%</w>] 物品栏  ", ""},
++    {"quiver.prompt.menu.no_actions", "<lightred>No regular actions available to quiver.</lightred>", "<lightred>没有可设为待用的常规动作。</lightred>", ""},
++    {"quiver.prompt.menu.quivered", " (quivered)", "（已设为待用）", ""},
++    {"quiver.prompt.menu.spells", "[<w>&</w>] all spells  ", "[<w>&</w>] 所有法术  ", ""},
++    {"quiver.prompt.menu.title", "Quiver which action\? ", "选择待用动作？ ", ""},
++    {"quiver.prompt.menu.title.empty", "Quiver which action\? ([<w>-</w>] to clear)", "选择待用动作？（按 [<w>-</w>] 清除）", ""},
++    {"quiver.prompt.named", "{caption}<{colour}>{name}</{colour}>", "{caption}<{colour}>{name}</{colour}>", "caption:text;colour:colour;name:name"},
++    {"quiver.prompt.punch", "Punch: {key}) ", "拳击：{key}) ", "key:key"},
++    {"quiver.prompt.punch.confused", "Confused punch: {key}) ", "困惑时拳击：{key}) ", "key:key"},
++    {"quiver.prompt.reach", "Reach: {key}) ", "长兵器攻击：{key}) ", "key:key"},
++    {"quiver.prompt.reach.confused", "Confused reach: {key}) ", "困惑时长兵器攻击：{key}) ", "key:key"},
++    {"quiver.prompt.read", "Read: ", "阅读： ", ""},
++    {"quiver.prompt.spell.charges", " ({charges}/{maximum})", "（{charges}/{maximum}）", "charges:integer;maximum:integer"},
++    {"quiver.prompt.spell.failure", " ({rate})", "（{rate}）", "rate:text"},
++    {"quiver.prompt.throw", "Throw: ", "投掷： ", ""},
++    {"quiver.prompt.throw.confused", "Confused throw: ", "困惑时投掷： ", ""},
++    {"quiver.prompt.toss", "Toss (no damage): ", "抛掷（不造成伤害）： ", ""},
++    {"quiver.prompt.toss.confused", "Confused toss (no damage): ", "困惑时抛掷（不造成伤害）： ", ""},
++    {"quiver.prompt.zap", "Zap: ", "施放： ", ""},
 +    {"quiver.ui.empty_long", "Nothing quivered", "没有设定箭袋动作", ""},
 +    {"quiver.ui.empty_short", "Empty", "空", ""},
 +    {"shared.log.berserk.anger_overcomes_fear", "Your anger overwhelms your terror!", "你的怒火压过了恐惧！", ""},
@@ -120332,6 +122302,7 @@ index 0000000..dc0161b
 +    {"spell.name.pyroclastic_surge", "Pyroclastic Surge", "火山碎屑涌动", ""},
 +    {"spell.name.pyrrhic_recollection", "Pyrrhic Recollection", "惨胜回忆", ""},
 +    {"spell.name.quicksilver_bolt", "Quicksilver Bolt", "水银之矢", ""},
++    {"spell.name.quiver_capacitive_coupling", "Capacitive Coupling", "电容耦合", ""},
 +    {"spell.name.random_bolt", "Random Bolt", "随机弩矢", ""},
 +    {"spell.name.random_effects", "Random Effects", "随机效果", ""},
 +    {"spell.name.ravenous_swarm", "Ravenous Swarm", "贪婪虫群", ""},
@@ -120540,6 +122511,72 @@ index 0000000..dc0161b
 +    {"spell.player.servitor_inactive", "Your servitor is unable to mimic any of your spells.\n", "你的仆役无法模仿你的任何法术。\n", ""},
 +    {"spell.player.summon_cap", "You can sustain at most {count} {creature}{plural} summoned by this spell.\n", "此法术最多可维持{count}个{creature}召唤物{plural}。\n", "count:text;creature:text;plural:text"},
 +    {"spell.player.useless_reason", "\nThis spell would have no effect right now because {reason}\n", "\n此法术目前不会产生效果，因为{reason}\n", "reason:text"},
++    {"spell.prompt.action.adjust", "adjust", "调整", ""},
++    {"spell.prompt.action.adjust_it_to", "adjust it to", "调整为", ""},
++    {"spell.prompt.action.cast", "cast", "施放", ""},
++    {"spell.prompt.action.describe", "describe", "查看说明", ""},
++    {"spell.prompt.action.forget", "forget", "遗忘", ""},
++    {"spell.prompt.action.quiver", "quiver", "设为待用", ""},
++    {"spell.prompt.chance.affect", "chance to affect: {chance}%", "影响概率：{chance}%", "chance:integer"},
++    {"spell.prompt.chance.blind", "chance to blind: {chance}%", "致盲概率：{chance}%", "chance:integer"},
++    {"spell.prompt.chance.blink", "chance to blink: {chance}%", "闪现概率：{chance}%", "chance:integer"},
++    {"spell.prompt.chance.confuse", "chance to confuse: {chance}%", "混乱概率：{chance}%", "chance:integer"},
++    {"spell.prompt.chance.daze_blind", "chance to daze and blind: {chance}%", "震慑并致盲概率：{chance}%", "chance:integer"},
++    {"spell.prompt.chance.slow", "chance to slow: {chance}%", "减速概率：{chance}%", "chance:integer"},
++    {"spell.prompt.chance.teleport", "chance to teleport: {chance}%", "传送概率：{chance}%", "chance:integer"},
++    {"spell.prompt.chance.weaken", "chance to weaken: {chance}%", "虚弱概率：{chance}%", "chance:integer"},
++    {"spell.prompt.confirm.cast", "Really cast {spell}\?", "确定施放{spell}？", "spell:name"},
++    {"spell.prompt.confirm.recast", "Confirm with . or Enter, or press \? or * to list all spells.", "按 . 或 Enter 确认，或按 \? 或 * 查看所有法术。", ""},
++    {"spell.prompt.confirm.risk.0", "The spell is safe to miscast (<{colour}>{failure}%</{colour}> risk of failure). Continue anyway\?", "此法术不会造成严重反噬（失败风险<{colour}>{failure}%</{colour}>）。仍要继续吗？", "colour:colour;failure:integer"},
++    {"spell.prompt.confirm.risk.1", "The spell is mildly dangerous to miscast (<{colour}>{failure}%</{colour}> risk of failure). Continue anyway\?", "此法术反噬略有危险（失败风险<{colour}>{failure}%</{colour}>）。仍要继续吗？", "colour:colour;failure:integer"},
++    {"spell.prompt.confirm.risk.2", "The spell is dangerous to miscast (<{colour}>{failure}%</{colour}> risk of failure)! Continue anyway\?", "此法术反噬危险（失败风险<{colour}>{failure}%</{colour}>）！仍要继续吗？", "colour:colour;failure:integer"},
++    {"spell.prompt.confirm.risk.3", "The spell is quite dangerous to miscast (<{colour}>{failure}%</{colour}> risk of failure)! Continue anyway\?", "此法术反噬相当危险（失败风险<{colour}>{failure}%</{colour}>）！仍要继续吗？", "colour:colour;failure:integer"},
++    {"spell.prompt.confirm.risk.4", "The spell is extremely dangerous to miscast (<{colour}>{failure}%</{colour}> risk of failure)! Continue anyway\?", "此法术反噬极其危险（失败风险<{colour}>{failure}%</{colour}>）！仍要继续吗？", "colour:colour;failure:integer"},
++    {"spell.prompt.confirm.risk.5", "The spell is astonishingly dangerous to miscast (<{colour}>{failure}%</{colour}> risk of failure)! Continue anyway\?", "此法术反噬危险至极（失败风险<{colour}>{failure}%</{colour}>）！仍要继续吗？", "colour:colour;failure:integer"},
++    {"spell.prompt.effect.already_infected", "already infected", "已受感染", ""},
++    {"spell.prompt.effect.double_hit", "2x{chance}", "2倍{chance}", "chance:text"},
++    {"spell.prompt.effect.empty_space", "empty space bonus: {spaces}/8", "空地加成：{spaces}/8", "spaces:integer"},
++    {"spell.prompt.effect.enfeeble.antimagic", "will diminish spells", "将削弱法术", ""},
++    {"spell.prompt.effect.enfeeble.both", "will inflict weakness and diminish spells", "将施加虚弱并削弱法术", ""},
++    {"spell.prompt.effect.enfeeble.weakness", "will inflict weakness", "将施加虚弱", ""},
++    {"spell.prompt.effect.immune_roots", "immune to roots", "免疫树根束缚", ""},
++    {"spell.prompt.effect.infinite_will", "infinite will", "意志力无限", ""},
++    {"spell.prompt.effect.not_susceptible", "not susceptible", "不受影响", ""},
++    {"spell.prompt.effect.polymorph", "will become {monsters}", "将变成{monsters}", "monsters:text"},
++    {"spell.prompt.effect.polymorph.list.last", "{left}, or {right}", "{left}或{right}", "left:text;right:text"},
++    {"spell.prompt.effect.polymorph.list.middle", "{left}, {right}", "{left}、{right}", "left:text;right:text"},
++    {"spell.prompt.effect.polymorph.name", "<{colour}>{monster}</{colour}>", "<{colour}>{monster}</{colour}>", "colour:colour;monster:name"},
++    {"spell.prompt.effect.stationary", "stationary", "无法移动", ""},
++    {"spell.prompt.effect.unstickable", "unstickable", "不会被黏住", ""},
++    {"spell.prompt.effect.will_blink", "will blink", "将会闪现", ""},
++    {"spell.prompt.effect.will_change_colour", "will change colour", "将会变色", ""},
++    {"spell.prompt.effect.will_change_shape", "will change shape", "将会变形", ""},
++    {"spell.prompt.effect.will_probably_split", "will probably split", "很可能会分裂", ""},
++    {"spell.prompt.impossible", "It is impossible to cast this spell (100% risk of failure)!", "无法施放此法术（失败风险为100%）！", ""},
++    {"spell.prompt.menu.exit", "{keys} exit", "{keys} 返回", "keys:key_markup"},
++    {"spell.prompt.menu.header.base", "           Type                      Failure  Level  ", "           类型                      失败率   等级   ", ""},
++    {"spell.prompt.menu.header.extra", "           Power     Damage    Range   Noise         ", "           威力      伤害      射程    噪声          ", ""},
++    {"spell.prompt.menu.help", "   [<w>\?</w>] help    ", "   [<w>\?</w>] 帮助    ", ""},
++    {"spell.prompt.menu.select", "<lightgrey>Select a spell to {action}</lightgrey>", "<lightgrey>选择要{action}的法术</lightgrey>", "action:text"},
++    {"spell.prompt.menu.title", "Your spells ({action})", "你的法术（{action}）", "action:text"},
++    {"spell.prompt.menu.toggle", "{keys} toggle spell headers", "{keys} 切换法术标题", "keys:key_markup"},
++    {"spell.prompt.no_targets", "You can't see any susceptible monsters within range! (Use <w>Z</w> to cast anyway.)", "视野内没有可受影响的怪物！（使用 <w>Z</w> 仍可施法。）", ""},
++    {"spell.prompt.others_only", "Sorry, this spell works on others only.", "抱歉，此法术只能对其他目标生效。", ""},
++    {"spell.prompt.penance", "Casting this spell will place you under penance. Really cast\?", "施放此法术会招致神罚。仍要施放吗？", ""},
++    {"spell.prompt.recast", "Casting: <w>{spell}</w> <lightgrey>({risk})</lightgrey>", "施放中：<w>{spell}</w> <lightgrey>（{risk}）</lightgrey>", "spell:name;risk:text"},
++    {"spell.prompt.risk.0", "<{colour}>safe</{colour}>; <{colour}>{failure}%</{colour}> risk of failure", "<{colour}>安全</{colour}>；<{colour}>{failure}%</{colour}>失败风险", "colour:colour;failure:integer"},
++    {"spell.prompt.risk.1", "<{colour}>mildly dangerous</{colour}>; <{colour}>{failure}%</{colour}> risk of failure", "<{colour}>略有危险</{colour}>；<{colour}>{failure}%</{colour}>失败风险", "colour:colour;failure:integer"},
++    {"spell.prompt.risk.2", "<{colour}>dangerous</{colour}>; <{colour}>{failure}%</{colour}> risk of failure", "<{colour}>危险</{colour}>；<{colour}>{failure}%</{colour}>失败风险", "colour:colour;failure:integer"},
++    {"spell.prompt.risk.3", "<{colour}>quite dangerous</{colour}>; <{colour}>{failure}%</{colour}> risk of failure", "<{colour}>相当危险</{colour}>；<{colour}>{failure}%</{colour}>失败风险", "colour:colour;failure:integer"},
++    {"spell.prompt.risk.4", "<{colour}>extremely dangerous</{colour}>; <{colour}>{failure}%</{colour}> risk of failure", "<{colour}>极其危险</{colour}>；<{colour}>{failure}%</{colour}>失败风险", "colour:colour;failure:integer"},
++    {"spell.prompt.risk.5", "<{colour}>astonishingly dangerous</{colour}>; <{colour}>{failure}%</{colour}> risk of failure", "<{colour}>骇人地危险</{colour}>；<{colour}>{failure}%</{colour}>失败风险", "colour:colour;failure:integer"},
++    {"spell.prompt.select", "Cast which spell\? (\? or * to list) ", "施放哪个法术？（\? 或 * 查看列表） ", ""},
++    {"spell.prompt.target.aim", "Aiming: <{colour}>{spell}</{colour}>", "瞄准：<{colour}>{spell}</{colour}>", "colour:colour;spell:name"},
++    {"spell.prompt.target.cast", "Casting: <{colour}>{spell}</{colour}>", "施放：<{colour}>{spell}</{colour}>", "colour:colour;spell:name"},
++    {"spell.prompt.target.charges", "{title}<lightgrey> ({available}/{maximum} uses available)</lightgrey>", "{title}<lightgrey>（可用次数：{available}/{maximum}）</lightgrey>", "title:text;available:integer;maximum:integer"},
++    {"spell.prompt.target.restart", "<lightred>Restarting spell</lightred>: <{colour}>{spell}</{colour}>", "<lightred>重新开始施法</lightred>：<{colour}>{spell}</{colour}>", "colour:colour;spell:name"},
++    {"spell.prompt.target.risk", "{title} <lightgrey>({risk})</lightgrey>", "{title} <lightgrey>（{risk}）</lightgrey>", "title:text;risk:text"},
++    {"spell.prompt.unknown", "You don't know that spell.", "你不会那个法术。", ""},
 +    {"spell.range", "Range: {range}", "施法距离：{range}", "range:text"},
 +    {"spell.reason.already_channeling", "you are already channelling the dead.", "你已经在引导亡者了。", ""},
 +    {"spell.reason.already_effect", "this spell is already in effect.", "此法术的效果仍在持续。", ""},
@@ -120703,6 +122740,24 @@ index 0000000..dc0161b
 +    {"target.hit_chance.distance", "{hit_percent}% to hit at this distance", "当前距离命中率{hit_percent}%", "hit_percent:integer"},
 +    {"target.hit_chance.verbose", "about {hit_percent}% to hit with {weapon}", "命中率约为{hit_percent}%（使用{weapon}）", "hit_percent:integer;weapon:name"},
 +    {"target.hit_chance.verbose_blind", "about {hit_percent}% to hit with {weapon} (while you are blinded and from distance {range})", "命中率约为{hit_percent}%（使用{weapon}；失明时距离为{range}格）", "hit_percent:integer;weapon:name;range:integer"},
++    {"target.prompt.action.confused", "You are confused and cannot control your aim.", "你正处于混乱状态，无法控制瞄准。", ""},
++    {"target.prompt.action.none", "No action selected", "未选择动作", ""},
++    {"target.prompt.action.untargeted", "Non-targeted {action}", "无需指定目标：{action}", "action:text"},
++    {"target.prompt.describe", ", v - describe", "，v - 查看说明", ""},
++    {"target.prompt.describe.item", "{prefix}: {item}", "{prefix}：{item}", "prefix:text;item:name"},
++    {"target.prompt.describe.monster", "{prefix}: <lightgrey>{description}</lightgrey>", "{prefix}：<lightgrey>{description}</lightgrey>", "prefix:text;description:text"},
++    {"target.prompt.direction.activate", "Dir - look around, f - activate", "方向键 - 查看周围，f - 激活", ""},
++    {"target.prompt.direction.move", "Dir - move target", "方向键 - 移动目标", ""},
++    {"target.prompt.direction.straight", "Shift-Dir - straight line", "Shift+方向键 - 直线瞄准", ""},
++    {"target.prompt.item", ", g - get item", "，g - 拾取物品", ""},
++    {"target.prompt.keys", "Press: \? - help{describe}{travel}{item}{action}{direction}", "按键：\? - 帮助{describe}{travel}{item}{action}{direction}", "describe:text;travel:text;item:text;action:text;direction:text"},
++    {"target.prompt.prefix.aim", "Aim", "瞄准", ""},
++    {"target.prompt.prefix.apport", "Apport", "物品移位", ""},
++    {"target.prompt.prefix.fragment", "Fragment what (e.g. wall or brittle monster)\?", "要碎解什么（例如墙壁或脆弱怪物）？", ""},
++    {"target.prompt.prefix.here", "Here", "此处", ""},
++    {"target.prompt.prefix.look", "Look", "查看", ""},
++    {"target.prompt.prefix.smite", "Smite", "神罚", ""},
++    {"target.prompt.travel", ", . - travel", "，. - 自动移动", ""},
 +    {"target.reason.a_summoned_shadow_is_too_ephemeral_to_take", "A summoned shadow is too ephemeral to take hold of.", "被召唤的影子太虚幻，无法抓住。", ""},
 +    {"target.reason.digging_in_that_direction_will_not_affect_any", "Digging in that direction won't affect any walls.", "朝那个方向挖掘不会影响任何墙壁。", ""},
 +    {"target.reason.gravity_is_already_pointing_downward", "Gravity is already pointing downward.", "重力已经朝下。", ""},
@@ -121700,7 +123755,7 @@ index 0000000..dc0161b
 +};
 diff --git a/crawl-ref/source/zh-message.cc b/crawl-ref/source/zh-message.cc
 new file mode 100644
-index 0000000..91a2960
+index 0000000..72ce9be
 --- /dev/null
 +++ b/crawl-ref/source/zh-message.cc
 @@ -0,0 +1,249 @@
@@ -121799,7 +123854,7 @@ index 0000000..91a2960
 +    return {key,ZhArgType::KeyMarkup,value,value};
 +}
 +ZhArg zh_colour(const std::string &key,const std::string &value) {
-+    static const std::set<std::string> colours={"black","blue","green","cyan","red","magenta","brown","lightgrey","darkgrey","lightblue","lightgreen","lightcyan","lightred","lightmagenta","yellow","white"};
++    static const std::set<std::string> colours={"w","black","blue","green","cyan","red","magenta","brown","lightgrey","darkgrey","lightblue","lightgreen","lightcyan","lightred","lightmagenta","yellow","white"};
 +    if (!colours.count(value)) throw std::invalid_argument("Invalid localization colour token");
 +    return {key,ZhArgType::Colour,value,value};
 +}

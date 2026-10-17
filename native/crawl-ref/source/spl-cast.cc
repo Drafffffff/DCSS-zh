@@ -7,6 +7,8 @@
 
 #include "spl-cast.h"
 #include "zh-message.h"
+#include "zh-display-name.h"
+#include "zh-localization.h"
 
 #include <iomanip>
 #include <sstream>
@@ -88,7 +90,7 @@
 static int _spell_enhancement(spell_type spell);
 static int _apply_enhancement(const int initial_power,
                               const int enhancer_levels);
-static string _spell_failure_rate_description(spell_type spell);
+static ZhArg _spell_failure_rate_arg(const string &key, spell_type spell);
 
 static ZhMessage _surge_power_message(int enhanced)
 {
@@ -120,9 +122,61 @@ static ZhMessage _casting_spell_log(const char *id, spell_type spell)
         zh_word_arg("spell", "spell.name.", spell_title(spell), ZhArgType::Name)});
 }
 
+// The row chooses one language before measuring columns. Internal spell/school
+// names remain canonical; unknown semantic names fall back as a complete row.
+static ZhArg _spell_menu_name(spell_type spell)
+{
+    return zh_word_arg("spell", "spell.name.", spell_title(spell), ZhArgType::Name);
+}
+
+static ZhArg _spell_menu_schools(spell_type spell)
+{
+    ZhArg result("schools", ZhArgType::Name, "", "");
+    for (const auto bit : spschools_type::range())
+    {
+        if (!spell_typematch(spell, bit))
+            continue;
+        const auto name = zh_glossary_name("school", "spell.school",
+                                           spelltype_long_name(bit));
+        if (!result.canonical.empty())
+        {
+            result.canonical += "/";
+            result.localized += "/";
+        }
+        result.canonical += name.canonical;
+        result.localized += name.localized;
+        result.supported = result.supported && name.supported;
+    }
+    return result;
+}
+
+static ZhArg _spell_menu_action(const string &action)
+{
+    static const pair<const char *, const char *> actions[] = {
+        {"cast", "cast"}, {"describe", "describe"}, {"adjust", "adjust"},
+        {"adjust it to", "adjust_it_to"}, {"forget", "forget"},
+        {"quiver", "quiver"}
+    };
+    for (const auto &entry : actions)
+        if (action == entry.first)
+            return zh_message_arg("action", string("spell.prompt.action.") + entry.second);
+    return ZhArg("action", ZhArgType::Text, action, action, false);
+}
+
+static string _spell_numeric_display(const string &value, bool localized)
+{
+    // N/A is a numerical availability sentinel, never a final-sentence lookup.
+    return localized && (value.empty() || value == "N/A")
+        ? zh_message("spell.stats.range.not_applicable").display()
+        : value.empty() ? "N/A" : value;
+}
+
 static string _spell_base_description(spell_type spell, bool transient)
 {
     ostringstream desc;
+    const auto name = _spell_menu_name(spell);
+    const auto schools = _spell_menu_schools(spell);
+    const bool localized = zh_language_enabled() && name.supported && schools.supported;
 
     int highlight =  spell_highlight_by_utility(spell, COL_UNKNOWN, transient);
     if (you.duration[DUR_ENKINDLED] && highlight == COL_UNKNOWN
@@ -134,10 +188,10 @@ static string _spell_base_description(spell_type spell, bool transient)
     desc << "<" << colour_to_str(highlight) << ">" << left;
 
     // spell name
-    desc << chop_string(spell_title(spell), 32);
+    desc << chop_string(localized ? name.localized : name.canonical, 32);
 
     // spell schools
-    desc << spell_schools_string(spell);
+    desc << (localized ? schools.localized : schools.canonical);
 
     const int so_far = strwidth(desc.str()) - (strwidth(colour_to_str(highlight))+2);
     if (so_far < 58)
@@ -145,7 +199,7 @@ static string _spell_base_description(spell_type spell, bool transient)
 
     // spell fail rate, level
     const string failure_rate = spell_failure_rate_string(spell, false);
-    const int width = strwidth(formatted_string::parse_string(failure_rate).tostring());
+    const int width = strwidth(formatted_string::parse_string_raw(failure_rate).tostring());
     const bool show_enkindle = you.has_mutation(MUT_MNEMOPHAGE);
 
     // Revenants have spell level right-justified instead of left-justified to make
@@ -164,6 +218,9 @@ static string _spell_base_description(spell_type spell, bool transient)
 static string _spell_extra_description(spell_type spell, bool transient)
 {
     ostringstream desc;
+    const auto name = _spell_menu_name(spell);
+    const auto schools = _spell_menu_schools(spell);
+    const bool localized = zh_language_enabled() && name.supported && schools.supported;
 
     int highlight =  spell_highlight_by_utility(spell, COL_UNKNOWN, transient);
     if (you.duration[DUR_ENKINDLED] && spell_can_be_enkindled(spell) && highlight == COL_UNKNOWN)
@@ -172,16 +229,17 @@ static string _spell_extra_description(spell_type spell, bool transient)
     desc << "<" << colour_to_str(highlight) << ">" << left;
 
     // spell name
-    desc << chop_string(spell_title(spell), 32);
+    desc << chop_string(localized ? name.localized : name.canonical, 32);
 
     // spell power, spell range, noise
     const string rangestring = spell_range_string(spell);
     const string damagestring = spell_damage_string(spell, false, -1, true);
 
-    desc << chop_string(spell_power_string(spell), 10)
-         << chop_string(damagestring.length() ? damagestring : "N/A", 10)
-         << chop_string(rangestring, 8)
-         << chop_string(spell_noise_string(spell, 10), 14);
+    desc << chop_string(_spell_numeric_display(spell_power_string(spell), localized), 10)
+         << chop_string(_spell_numeric_display(damagestring, localized), 10)
+         << chop_string(_spell_numeric_display(rangestring, localized), 8)
+         << chop_string(localized ? spell_noise_display_arg("noise", spell).localized
+                               : spell_noise_string(spell, 10), 14);
 
     desc << "</" << colour_to_str(highlight) <<">";
 
@@ -276,15 +334,18 @@ int list_spells(bool toggle_with_I, bool transient, bool viewing,
     const string real_action = viewing ? "describe" : action;
 
     SpellMenu spell_menu;
-    const string titlestring = make_stringf("%-25.25s",
-            make_stringf("Your spells (%s)", real_action.c_str()).c_str());
+    const ZhLegacyGuard guard("spell.prompt.menu");
+    const auto action_arg = _spell_menu_action(real_action);
+    const string titlestring = chop_string(
+        zh_message("spell.prompt.menu.title", {action_arg}).display(), 25);
 
     {
         ToggleableMenuEntry* me =
             new ToggleableMenuEntry(
-                titlestring + "           Type                      Failure  Level  ",
-                titlestring + "           Power     Damage    Range   Noise         ",
+                titlestring + zh_message("spell.prompt.menu.header.base").display(),
+                titlestring + zh_message("spell.prompt.menu.header.extra").display(),
                 MEL_TITLE);
+        me->pretranslated = true;
         spell_menu.set_title(me, true, true);
     }
     spell_menu.set_highlighter(nullptr);
@@ -293,9 +354,8 @@ int list_spells(bool toggle_with_I, bool transient, bool viewing,
     spell_menu.add_toggle_from_command(CMD_MENU_CYCLE_MODE);
     spell_menu.add_toggle_from_command(CMD_MENU_CYCLE_MODE_REVERSE);
 
-    string more_str = make_stringf("<lightgrey>Select a spell to %s</lightgrey>",
-        real_action.c_str());
-    string help_desc = make_stringf("   [<w>?</w>] help    ");
+    string more_str = zh_message("spell.prompt.menu.select", {action_arg}).display();
+    string help_desc = zh_message("spell.prompt.menu.help").display();
     string toggle_desc = menu_keyhelp_cmd(CMD_MENU_CYCLE_MODE);
     if (toggle_with_I)
     {
@@ -303,9 +363,12 @@ int list_spells(bool toggle_with_I, bool transient, bool viewing,
         spell_menu.add_toggle_key('I');
         toggle_desc += "/[<w>I</w>]";
     }
-    toggle_desc += " toggle spell headers";
-    more_str = pad_more_with_esc(more_str + help_desc + toggle_desc);
-    spell_menu.set_more(formatted_string::parse_string(more_str));
+    toggle_desc = zh_message("spell.prompt.menu.toggle", {
+        zh_key_markup("keys", toggle_desc)}).display();
+    const string exit = zh_message("spell.prompt.menu.exit", {
+        zh_key_markup("keys", menu_keyhelp_cmd(CMD_MENU_EXIT))}).display();
+    more_str = pad_more_with_pretranslated(more_str + help_desc + toggle_desc, exit);
+    spell_menu.set_more_pretranslated(more_str);
     // TODO: should allow toggling between execute and examine
     spell_menu.menu_action = viewing ? Menu::ACT_EXAMINE : Menu::ACT_EXECUTE;
 
@@ -322,6 +385,7 @@ int list_spells(bool toggle_with_I, bool transient, bool viewing,
             new SpellMenuEntry(_spell_base_description(spell, transient),
                                _spell_extra_description(spell, transient),
                                MEL_ITEM, 1, letter);
+        me->pretranslated = true;
         me->colour = spell_highlight_by_utility(spell, COL_UNKNOWN, transient);
         // TODO: maybe fill this from the quiver if there's a quivered spell and
         // no last cast one?
@@ -939,15 +1003,14 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
                 if (you.last_cast_spell == SPELL_NO_SPELL
                     || !Options.enable_recast_spell)
                 {
-                    mprf(MSGCH_PROMPT, "Cast which spell? (? or * to list) ");
+                    mpr(zh_message("spell.prompt.select"), MSGCH_PROMPT);
                 }
                 else
                 {
-                    mprf(MSGCH_PROMPT, "Casting: <w>%s</w> <lightgrey>(%s)</lightgrey>",
-                                       spell_title(you.last_cast_spell),
-                                       _spell_failure_rate_description(you.last_cast_spell).c_str());
-                    mprf(MSGCH_PROMPT, "Confirm with . or Enter, or press "
-                                       "? or * to list all spells.");
+                    mpr(zh_message("spell.prompt.recast", {
+                        _spell_menu_name(you.last_cast_spell),
+                        _spell_failure_rate_arg("risk", you.last_cast_spell)}), MSGCH_PROMPT);
+                    mpr(zh_message("spell.prompt.confirm.recast"), MSGCH_PROMPT);
                 }
 
                 keyin = numpad_to_regular(get_ch());
@@ -989,7 +1052,7 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
         }
         else if (!isaalpha(keyin))
         {
-            mpr("You don't know that spell.");
+            mpr(zh_message("spell.prompt.unknown"));
             crawl_state.zero_turns_taken();
             return spret::abort;
         }
@@ -999,7 +1062,7 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
 
     if (spell == SPELL_NO_SPELL)
     {
-        mpr("You don't know that spell.");
+        mpr(zh_message("spell.prompt.unknown"));
         crawl_state.zero_turns_taken();
         return spret::abort;
     }
@@ -1017,8 +1080,7 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
     {
         // Abort if there are no hostiles within range, but flash the range
         // markers for a short while.
-        mpr("You can't see any susceptible monsters within range! "
-            "(Use <w>Z</w> to cast anyway.)");
+        mpr(zh_message("spell.prompt.no_targets"));
 
         if ((Options.use_animations & UA_RANGE) && Options.darken_beyond_range)
         {
@@ -1034,8 +1096,7 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
         && !crawl_state.disables[DIS_CONFIRMATIONS])
     {
         // None currently dock just piety, right?
-        if (!yesno("Casting this spell will place you under penance. "
-                   "Really cast?", true, 'n'))
+        if (!yesno(zh_message("spell.prompt.penance"), true, 'n'))
         {
             canned_msg(MSG_OK);
             crawl_state.zero_turns_taken();
@@ -1236,8 +1297,9 @@ static bool _spellcasting_aborted(spell_type spell, bool fake_spell)
             if (!action.matches(name))
                 continue;
 
-            string prompt = "Really cast " + string(name) + "?";
-            if (!yesno(prompt.c_str(), false, 'n'))
+            const auto prompt = zh_message("spell.prompt.confirm.cast", {
+                _spell_menu_name(spell)});
+            if (!yesno(prompt, false, 'n'))
             {
                 canned_msg(MSG_OK);
                 return true;
@@ -1247,7 +1309,6 @@ static bool _spellcasting_aborted(spell_type spell, bool fake_spell)
     }
 
     const int severity = fail_severity(spell);
-    const string failure_rate = spell_failure_rate_string(spell, true);
     if (Options.fail_severity_to_confirm > 0
         && Options.fail_severity_to_confirm <= severity
         && !crawl_state.disables[DIS_CONFIRMATIONS]
@@ -1255,19 +1316,15 @@ static bool _spellcasting_aborted(spell_type spell, bool fake_spell)
     {
         if (failure_rate_to_int(raw_spell_fail(spell)) == 100)
         {
-            mprf(MSGCH_WARN, "It is impossible to cast this spell "
-                    "(100%% risk of failure)!");
+            mpr(zh_message("spell.prompt.impossible"), MSGCH_WARN);
             return true;
         }
 
-        string prompt = make_stringf("The spell is %s to miscast "
-                                     "(%s risk of failure)%s",
-                                     fail_severity_adjs[severity],
-                                     failure_rate.c_str(),
-                                     severity > 1 ? "!" : ".");
-
-        prompt = make_stringf("%s Continue anyway?", prompt.c_str());
-        if (!yesno(prompt.c_str(), false, 'n'))
+        const auto prompt = zh_message(
+            "spell.prompt.confirm.risk." + to_string(severity), {
+                zh_colour("colour", colour_to_str(failure_rate_colour(spell))),
+                zh_integer("failure", failure_rate_to_int(raw_spell_fail(spell)))});
+        if (!yesno(prompt, false, 'n'))
         {
             canned_msg(MSG_OK);
             return true;
@@ -1717,31 +1774,31 @@ static vector<string> _desc_plasma_hit_chance(const monster_info& mi, int powc)
     if (hit_pct == -1)
         return vector<string>{};
 
-    ostringstream result;
-    describe_hit_chance(hit_pct, result, nullptr, false,
-                        you.pos().distance_from(mi.pos));
-    return vector<string>{make_stringf("2x%s", result.str().c_str())};
+    const auto chance = zh_message_arg("chance",
+        you.duration[DUR_BLIND] ? "target.hit_chance.distance" : "target.hit_chance",
+        {zh_integer("hit_percent", hit_pct)});
+    return vector<string>{zh_message("spell.prompt.effect.double_hit", {chance}).display()};
 }
 
 static vector<string> _desc_intoxicate_chance(const monster_info& mi,
                                               targeter* hitfunc, int pow)
 {
     if (hitfunc && !hitfunc->affects_monster(mi))
-        return vector<string>{"not susceptible"};
+        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
 
     int conf_pct = 40 + pow / 3;
 
     if (get_resist(mi.resists(), MR_RES_POISON) >= 1)
         conf_pct =  conf_pct / 3;
 
-    return vector<string>{make_stringf("chance to confuse: %d%%", conf_pct)};
+    return vector<string>{zh_message("spell.prompt.chance.confuse", {zh_integer("chance", conf_pct)}).display()};
 }
 
 static vector<string> _desc_englaciate_chance(const monster_info& mi,
                                               targeter* hitfunc, int pow)
 {
     if (hitfunc && !hitfunc->affects_monster(mi))
-        return vector<string>{"not susceptible"};
+        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
 
     const int outcomes = pow * pow * pow;
     const int target   = 3 * mi.hd - 2;
@@ -1764,21 +1821,21 @@ static vector<string> _desc_englaciate_chance(const monster_info& mi,
     else
         fail_pct = 100;
 
-    return vector<string>{make_stringf("chance to slow: %d%%", 100 - fail_pct)};
+    return vector<string>{zh_message("spell.prompt.chance.slow", {zh_integer("chance", 100 - fail_pct)}).display()};
 }
 
 static vector<string> _desc_gloom_chance(const monster_info& mi, int pow)
 {
     if (mons_res_blind(mi.type))
-        return vector<string>{"not susceptible"};
+        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
 
-    return vector<string>{make_stringf("chance to blind: %d%%", gloom_success_chance(pow, mi.hd))};
+    return vector<string>{zh_message("spell.prompt.chance.blind", {zh_integer("chance", gloom_success_chance(pow, mi.hd))}).display()};
 }
 
 static vector<string> _desc_airstrike_bonus(const monster_info& mi)
 {
     const int empty_spaces = airstrike_space_around(mi.pos, false);
-    return vector<string>{make_stringf("empty space bonus: %d/8", empty_spaces)};
+    return vector<string>{zh_message("spell.prompt.effect.empty_space", {zh_integer("spaces", empty_spaces)}).display()};
 }
 
 static vector<string> _desc_mercury_weak_chance(const monster_info& mi)
@@ -1786,25 +1843,23 @@ static vector<string> _desc_mercury_weak_chance(const monster_info& mi)
     if (mi.is(MB_NO_ATTACKS))
         return vector<string>{};
 
-    return vector<string>{make_stringf("chance to weaken: %d%%",
-                            get_mercury_weaken_chance(mi.hd))};
+    return vector<string>{zh_message("spell.prompt.chance.weaken", {zh_integer("chance", get_mercury_weaken_chance(mi.hd))}).display()};
 }
 
 static vector<string> _desc_warp_space_chance(int pow)
 {
-    return vector<string>{make_stringf("chance to blink: %d%%",
-                            get_warp_space_chance(pow))};
+    return vector<string>{zh_message("spell.prompt.chance.blink", {zh_integer("chance", get_warp_space_chance(pow))}).display()};
 }
 
 static vector<string> _desc_meph_chance(const monster_info& mi)
 {
     if (get_resist(mi.resists(), MR_RES_POISON) >= 1 || mi.is(MB_CLARITY))
-        return vector<string>{"not susceptible"};
+        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
 
     int pct_chance = 2;
     if (mi.hd < MEPH_HD_CAP)
         pct_chance = 100 - (100 * mi.hd / MEPH_HD_CAP);
-    return vector<string>{make_stringf("chance to affect: %d%%", pct_chance)};
+    return vector<string>{zh_message("spell.prompt.chance.affect", {zh_integer("chance", pct_chance)}).display()};
 }
 
 static vector<string> _desc_hailstorm_hit_chance(const monster_info& mi, int pow)
@@ -1835,10 +1890,10 @@ static vector<string> _desc_electric_charge_hit_chance(const monster_info& mi)
     return desc;
 }
 
-static vector<string> _desc_insubstantial(const monster_info& mi, string desc)
+static vector<string> _desc_insubstantial(const monster_info& mi, string message_id)
 {
     if (mons_class_flag(mi.type, M_INSUBSTANTIAL))
-        return vector<string>{desc};
+        return vector<string>{zh_message(message_id).display()};
 
     return vector<string>{};
 }
@@ -1846,7 +1901,7 @@ static vector<string> _desc_insubstantial(const monster_info& mi, string desc)
 static vector<string> _desc_vampiric_draining_valid(const monster_info& mi)
 {
     if (mi.mb.get(MB_CANT_DRAIN))
-        return vector<string>{"not susceptible"};
+        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
 
     return vector<string>{};
 }
@@ -1854,9 +1909,9 @@ static vector<string> _desc_vampiric_draining_valid(const monster_info& mi)
 static vector<string> _desc_rimeblight_valid(const monster_info& mi)
 {
     if (mi.is(MB_RIMEBLIGHT))
-        return vector<string>{"already infected"};
+        return vector<string>{zh_message("spell.prompt.effect.already_infected").display()};
     else if (mons_class_is_peripheral(mi.type))
-        return vector<string>{"not susceptible"};
+        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
 
     return vector<string>{};
 }
@@ -1865,62 +1920,80 @@ static vector<string> _desc_dispersal_chance(const monster_info& mi, int pow)
 {
     const int wl = mi.willpower();
     if (mons_class_is_stationary(mi.type))
-        return vector<string>{"stationary"};
+        return vector<string>{zh_message("spell.prompt.effect.stationary").display()};
 
     if (wl == WILL_INVULN)
-        return vector<string>{"will blink"};
+        return vector<string>{zh_message("spell.prompt.effect.will_blink").display()};
 
     const int success = hex_success_chance(wl, pow, 100);
-    return vector<string>{make_stringf("chance to teleport: %d%%", success)};
+    return vector<string>{zh_message("spell.prompt.chance.teleport", {zh_integer("chance", success)}).display()};
 }
 
 static vector<string> _desc_enfeeble_chance(const monster_info& mi, int pow)
 {
-    vector<string> base_effects;
     vector<string> all_effects;
     const int wl = mi.willpower();
-
-    if (!mi.is(MB_NO_ATTACKS))
-        base_effects.push_back("inflict weakness");
-    if (mi.antimagic_susceptible())
-        base_effects.push_back("diminish spells");
-    if (!base_effects.empty())
+    const bool weakness = !mi.is(MB_NO_ATTACKS);
+    const bool antimagic = mi.antimagic_susceptible();
+    if (weakness || antimagic)
     {
-        all_effects.push_back("will " +
-            comma_separated_line(base_effects.begin(), base_effects.end()));
+        const char *id = weakness && antimagic
+            ? "spell.prompt.effect.enfeeble.both"
+            : weakness ? "spell.prompt.effect.enfeeble.weakness"
+                       : "spell.prompt.effect.enfeeble.antimagic";
+        all_effects.push_back(zh_message(id).display());
     }
     if (wl != WILL_INVULN)
     {
         const int success = hex_success_chance(wl, pow, 100);
-        all_effects.push_back(make_stringf("chance to daze and blind: %d%%", success));
+        all_effects.push_back(zh_message("spell.prompt.chance.daze_blind", {zh_integer("chance", success)}).display());
     }
 
     if (all_effects.empty())
-        return vector<string>{"not susceptible"};
+        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
 
     return all_effects;
 }
 
-static string _mon_threat_string(const CrawlStoreValue &mon_store)
+// Retain the engine's random dummy construction and threat colour, but build
+// display names through the dedicated semantic interface. Ghost-demon outcomes
+// intentionally use their base type, matching the original canonical grammar.
+static ZhArg _mon_threat_arg(const CrawlStoreValue &mon_store)
 {
     monster dummy;
     dummy.type = static_cast<monster_type>(mon_store.get_int());
     define_monster(dummy);
-
+    monster_info info(&dummy);
     int col;
     string desc;
-    monster_info(&dummy).to_string(1, desc, col, true, nullptr, false);
-
-    // Ghost demons need their underlying monster name. Without this,
-    // we'll get e.g. a specific ugly thing colour based on what the
-    // dummy monster rolled, which may not match what the actual monster
-    // rolls.
+    info.to_string(1, desc, col, true, nullptr, false);
+    ZhArg name;
     if (mons_is_ghost_demon(dummy.type))
+    {
         desc = get_monster_data(dummy.type)->name;
+        name = zh_monster_type_arg("monster", dummy.type);
+    }
+    else
+        name = zh_monster_info_arg("monster", info, DESC_PLAIN);
+    name.canonical = article_a(desc);
+    return zh_message_arg("monsters", "spell.prompt.effect.polymorph.name",
+                           {zh_colour("colour", colour_to_str(col)), name});
+}
 
-    const string col_name = colour_to_str(col);
-
-    return "<" + col_name + ">" + article_a(desc) + "</" + col_name + ">";
+static ZhArg _polymorph_outcomes_arg(const CrawlVector &set)
+{
+    auto result = _mon_threat_arg(set[0]);
+    for (size_t i = 1; i < set.size(); ++i)
+    {
+        auto left = result;
+        left.key = "left";
+        auto right = _mon_threat_arg(set[i]);
+        right.key = "right";
+        result = zh_message_arg("monsters", i + 1 == set.size()
+            ? "spell.prompt.effect.polymorph.list.last"
+            : "spell.prompt.effect.polymorph.list.middle", {left, right});
+    }
+    return result;
 }
 
 // Include success chance in targeter for spells checking monster WL.
@@ -1930,9 +2003,9 @@ vector<string> desc_wl_success_chance(const monster_info& mi, int pow,
     targeter_beam* beam_hitf = dynamic_cast<targeter_beam*>(hitfunc);
     int wl = mi.willpower();
     if (wl == WILL_INVULN)
-        return vector<string>{"infinite will"};
+        return vector<string>{zh_message("spell.prompt.effect.infinite_will").display()};
     if (hitfunc && !hitfunc->affects_monster(mi))
-        return vector<string>{"not susceptible"};
+        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
     wl = apply_willpower_bypass(you, wl);
     vector<string> descs;
     if (beam_hitf && beam_hitf->beam.flavour == BEAM_POLYMORPH)
@@ -1940,25 +2013,24 @@ vector<string> desc_wl_success_chance(const monster_info& mi, int pow,
         // Polymorph has a special effect on ugly things and shapeshifters that
         // does not require passing an WL check.
         if (mi.type == MONS_UGLY_THING || mi.type == MONS_VERY_UGLY_THING)
-            return vector<string>{"will change colour"};
+            return vector<string>{zh_message("spell.prompt.effect.will_change_colour").display()};
         if (mi.is(MB_SHAPESHIFTER))
-            return vector<string>{"will change shape"};
+            return vector<string>{zh_message("spell.prompt.effect.will_change_shape").display()};
         if (mi.type == MONS_SLIME_CREATURE && mi.slime_size > 1)
-            descs.push_back("will probably split");
+            descs.push_back(zh_message("spell.prompt.effect.will_probably_split").display());
 
         // list out the normal poly set
         if (!mi.props.exists(POLY_SET_KEY))
-            return vector<string>{"not susceptible"};
+            return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
         const CrawlVector &set = mi.props[POLY_SET_KEY].get_vector();
         if (set.size() <= 0)
-            return vector<string>{"not susceptible"};
-        descs.push_back("will become "
-                        + comma_separated_fn(set.begin(), set.end(),
-                                             _mon_threat_string, ", or "));
+            return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
+        descs.push_back(zh_message("spell.prompt.effect.polymorph",
+                                   {_polymorph_outcomes_arg(set)}).display());
     }
 
     const int success = hex_success_chance(wl, pow, 100);
-    descs.push_back(make_stringf("chance to affect: %d%%", success));
+    descs.push_back(zh_message("spell.prompt.chance.affect", {zh_integer("chance", success)}).display());
 
     return descs;
 }
@@ -1966,7 +2038,7 @@ vector<string> desc_wl_success_chance(const monster_info& mi, int pow,
 static vector<string> _desc_beckoning_valid(const monster_info& mi)
 {
     if (!can_beckon(mi))
-        return vector<string>{"not susceptible"};
+        return vector<string>{zh_message("spell.prompt.effect.not_susceptible").display()};
 
     return vector<string>{};
 }
@@ -2066,9 +2138,9 @@ desc_filter targeter_addl_desc(spell_type spell, int powc, spell_flags flags,
         case SPELL_ELECTRIC_CHARGE:
             return bind(_desc_electric_charge_hit_chance, placeholders::_1);
         case SPELL_FASTROOT:
-            return bind(_desc_insubstantial, placeholders::_1, "immune to roots");
+            return bind(_desc_insubstantial, placeholders::_1, "spell.prompt.effect.immune_roots");
         case SPELL_STICKY_FLAME:
-            return bind(_desc_insubstantial, placeholders::_1, "unstickable");
+            return bind(_desc_insubstantial, placeholders::_1, "spell.prompt.effect.unstickable");
         case SPELL_PLASMA_BEAM:
             return bind(_desc_plasma_hit_chance, placeholders::_1, powc);
         case SPELL_MERCURY_ARROW:
@@ -2096,6 +2168,8 @@ desc_filter targeter_addl_desc(spell_type spell, int powc, spell_flags flags,
  **/
 string target_spell_desc(const monster_info& mi, spell_type spell)
 {
+    // Lua consumes canonical descriptions, independently of display language.
+    const ZhTranslationPause canonical;
     int powc = calc_spell_power(spell);
     const int range = spell_range(spell, &you);
 
@@ -2217,22 +2291,22 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
         // already been carried out
         const bool useless = spell_is_useless(spell, true, false, true);
         const char *spell_title_color = useless ? "darkgrey" : "w";
-        const string verb = channelled_spell_active(spell)
-            ? "<lightred>Restarting spell</lightred>"
-            : is_targeted ? "Aiming" : "Casting";
-        string title = make_stringf("%s: <%s>%s</%s>", verb.c_str(),
-                    spell_title_color, spell_title(spell), spell_title_color);
+        const char *title_id = channelled_spell_active(spell)
+            ? "spell.prompt.target.restart"
+            : is_targeted ? "spell.prompt.target.aim" : "spell.prompt.target.cast";
+        ZhArg title = zh_message_arg("title", title_id, {
+            zh_colour("colour", spell_title_color), _spell_menu_name(spell)});
         if (actual_spell)
         {
-            title += make_stringf(" <lightgrey>(%s)</lightgrey>",
-                _spell_failure_rate_description(spell).c_str());
+            title = zh_message_arg("title", "spell.prompt.target.risk", {
+                title, _spell_failure_rate_arg("risk", spell)});
         }
 
         if (spell == SPELL_GRAVE_CLAW)
         {
-            title += make_stringf("<lightgrey> (%d/%d uses available)</lightgrey>",
-                                  you.props[GRAVE_CLAW_CHARGES_KEY].get_int(),
-                                  GRAVE_CLAW_MAX_CHARGES);
+            title = zh_message_arg("title", "spell.prompt.target.charges", {
+                title, zh_integer("available", you.props[GRAVE_CLAW_CHARGES_KEY].get_int()),
+                zh_integer("maximum", GRAVE_CLAW_MAX_CHARGES)});
         }
 
         spell_targeting_behaviour beh(spell);
@@ -2243,8 +2317,22 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
         args.mode = targ;
         args.range = range;
         args.needs_path = needs_path;
-        args.target_prefix = prompt;
-        args.top_prompt = title;
+        args.target_prefix = prompt; // canonical compatibility for old consumers
+        switch (spell)
+        {
+        case SPELL_APPORTATION:
+            args.target_prefix_message = zh_message("target.prompt.prefix.apport");
+            break;
+        case SPELL_SMITING:
+            args.target_prefix_message = zh_message("target.prompt.prefix.smite");
+            break;
+        case SPELL_LRD:
+            args.target_prefix_message = zh_message("target.prompt.prefix.fragment");
+            break;
+        default:
+            break;
+        }
+        args.top_prompt_message = ZhMessage{title.message_id, title.canonical, title.localized};
         args.behaviour = &beh;
 
         if (testbits(flags, spflag::prefer_farthest))
@@ -2277,7 +2365,7 @@ spret your_spells(spell_type spell, int powc, bool actual_spell,
         if (testbits(flags, spflag::not_self) && target->isMe())
         {
             if (spell == SPELL_TELEPORT_OTHER)
-                mpr("Sorry, this spell works on others only.");
+                mpr(zh_message("spell.prompt.others_only"));
             else
                 canned_msg(MSG_UNTHINKING_ACT);
 
@@ -3041,15 +3129,11 @@ string spell_failure_rate_string(spell_type spell, bool terse)
     }
 }
 
-static string _spell_failure_rate_description(spell_type spell)
+static ZhArg _spell_failure_rate_arg(const string &key, spell_type spell)
 {
-    const string failure = failure_rate_to_string(raw_spell_fail(spell));
-    const char *severity_adj = fail_severity_adjs[fail_severity(spell)];
-    const string colour = colour_to_str(failure_rate_colour(spell));
-    const char *col = colour.c_str();
-
-    return make_stringf("<%s>%s</%s>; <%s>%s</%s> risk of failure",
-            col, severity_adj, col, col, failure.c_str(), col);
+    return zh_message_arg(key, "spell.prompt.risk." + to_string(fail_severity(spell)), {
+        zh_colour("colour", colour_to_str(failure_rate_colour(spell))),
+        zh_integer("failure", failure_rate_to_int(raw_spell_fail(spell)))});
 }
 
 static int _display_spell_noise(spell_type spell)
