@@ -142625,3 +142625,25 @@ index 0000000..9ad5d13
 +    result.key = key; result.source = result.canonical = source;
 +    return result;
 +}
+diff --git a/crawl-ref/source/describe.cc b/crawl-ref/source/describe.cc
+index 37db4d5..5ae418c 100644
+--- a/crawl-ref/source/describe.cc
++++ b/crawl-ref/source/describe.cc
+@@ -6281,6 +6281,8 @@ ZhArg describe_to_hit_message(const monster_info &mi,
+             for (const auto &name : aux_names)
+                 names.push_back(zh_glossary_name("attack", "target.monster.aux", name));
+             auto attacks = zh_message_list("attacks", names);
++            // This list denotes attack names, not an arbitrary text fragment.
++            attacks.type = ZhArgType::Name;
+             ostringstream canonical;
+             _describe_aux_hit_chance(canonical, aux_names, acc_pct);
+             auto combined = zh_message_arg("chance", "target.hit_chance.aux", {
+@@ -6337,7 +6339,7 @@ ZhArg describe_hit_chance_message(int hit_chance, const item_def *weapon,
+             ? zh_message_arg("chance", "target.hit_chance.verbose_blind", {
+                 hit_arg, weapon_arg, zh_integer("range", distance_from)})
+             : zh_message_arg("chance", "target.hit_chance.verbose", {hit_arg, weapon_arg});
+-        return zh_message_arg("chance", "target.hit_chance.about", {chance});
++        return chance;
+     }
+ }
+ 
