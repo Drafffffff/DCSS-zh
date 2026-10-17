@@ -79,4 +79,6 @@ macOS 打包脚本会收集第三方运行库的许可证与版本清单；相�
 
 ## 消息模板迁移（进行中）
 
+最新一批已将传送、隐形、狂暴、变形的共用限制理由接入结构化模板，并迁移传送相关固定和实体日志。Mac/Bazzite 四种构建、两端存档副本与 Bazzite 4K 回放通过；范围及剩余入口见[本批验证报告](verification/native/shared-restrictions/REPORT.md)。
+
 第一批已建立生成处完整模板、命名类型参数和独立显示名接口，移除通用逐词兜底；Mac 与 Bazzite 构建及存档副本场景已验证。仍有旧渲染入口与未迁移文案，详情见[迁移范围、验证和限制](verification/native/message-migration/REPORT.md)及[架构记录](analysis/message-migration/architecture.md)。

@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "transform.h"
 
@@ -1836,29 +1837,34 @@ bool lifeless_prevents_form(transformation which_trans)
 /**
  * Is the player unable to enter the given form? If so, why?
  */
-string cant_transform_reason(transformation which_trans,
+ZhArg cant_transform_display_reason(transformation which_trans,
                              bool involuntary, bool temp)
 {
     if (!involuntary && you.has_mutation(MUT_NO_FORMS))
-        return "You have sacrificed the ability to change form!";
+        return zh_message_arg("reason", "item.reason.transform.permanent");
 
     // the undead cannot enter most forms.
     if (lifeless_prevents_form(which_trans))
-        return "Your unliving flesh cannot be transformed in this way.";
+        return zh_message_arg("reason", "item.reason.transform.undead");
 
     if (SP_GARGOYLE == you.species && which_trans == transformation::statue)
-        return "You're already a statue.";
+        return zh_message_arg("reason", "item.reason.transform.gargoyle");
 
     if (!temp)
-        return "";
+        return {"reason", ZhArgType::Text, "", "", true};
 
     if (you.transform_uncancellable && which_trans != transformation::slaughter)
-        return "You are stuck in your current form!";
+        return zh_message_arg("reason", "item.reason.transform.stuck");
 
     if (which_trans == transformation::death && you.duration[DUR_DEATHS_DOOR])
-        return "You cannot mock death while in death's door.";
+        return zh_message_arg("reason", "item.reason.transform.death_door");
 
-    return "";
+    return {"reason", ZhArgType::Text, "", "", true};
+}
+
+string cant_transform_reason(transformation which_trans, bool involuntary, bool temp)
+{
+    return cant_transform_display_reason(which_trans, involuntary, temp).canonical;
 }
 
 bool check_transform_into(transformation which_trans, bool involuntary,
@@ -1878,11 +1884,11 @@ bool check_transform_into(transformation which_trans, bool involuntary,
         return false;
     }
 
-    const string reason = cant_transform_reason(which_trans, involuntary, true);
-    if (!reason.empty())
+    const ZhArg reason = cant_transform_display_reason(which_trans, involuntary, true);
+    if (!reason.canonical.empty())
     {
         if (!involuntary)
-            mpr(reason);
+            mpr(ZhMessage{"", reason.canonical, reason.localized});
         return false;
     }
 
@@ -1892,15 +1898,15 @@ bool check_transform_into(transformation which_trans, bool involuntary,
     const auto feat = env.grid(you.pos());
     if (!involuntary && feat_dangerous_for_form(which_trans, feat, talisman))
     {
-        mprf("Transforming right now would cause you to %s!",
-             feat == DNGN_DEEP_WATER ? "drown" : "burn");
+        mpr(feat == DNGN_DEEP_WATER
+            ? zh_message("shared.log.transform.drown")
+            : zh_message("shared.log.transform.burn"));
         return false;
     }
 
     if (!involuntary && get_form(which_trans)->mult_hp(100) < 90)
     {
-        if (!yesno("This transformation would significantly lower your maximum hit points. "
-                  "Transform anyway?", true, 'n'))
+        if (!yesno(zh_message("shared.prompt.transform.lower_max_hp"), true, 'n'))
         {
             return false;
         }

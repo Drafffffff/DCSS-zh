@@ -540,7 +540,7 @@ public:
     bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
     {
         // quaffing invis
-        return invis_allowed(true, reason, temp);
+        return invis_allowed(true, reason, temp, display);
     }
 };
 
@@ -663,7 +663,7 @@ public:
 
     bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
     {
-        return you.can_go_berserk(true, true, true, reason, temp);
+        return you.can_go_berserk(true, true, true, reason, temp, display);
     }
 
     bool effect(bool was_known = true, int = 40, bool is_potion = true) const override
@@ -752,13 +752,15 @@ public:
 
     bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
     {
-        const string treason = cant_transform_reason(transformation::tree,
-                                                     false, temp);
-        if (treason.empty())
+        const ZhArg treason = cant_transform_display_reason(transformation::tree,
+                                                               false, temp);
+        if (display)
+            *display = treason;
+        if (treason.canonical.empty())
             return true;
 
         if (reason)
-            *reason = treason;
+            *reason = treason.canonical;
         return false;
     }
 

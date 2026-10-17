@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "player.h"
 
@@ -670,25 +671,25 @@ bool player::go_berserk(bool intentional, bool potion)
     if (crawl_state.game_is_hints())
         Hints.hints_berserk_counter++;
 
-    mpr("A red film seems to cover your vision as you go berserk!");
+    mpr(zh_message("shared.log.berserk.red_vision"));
 
     if (you.duration[DUR_FINESSE] > 0)
     {
         you.duration[DUR_FINESSE] = 0; // Totally incompatible.
-        mpr("Your finesse ends abruptly.");
+        mpr(zh_message("shared.log.berserk.finesse_ends"));
     }
 
     if (you.duration[DUR_AFRAID] > 0)
     {
         you.clear_fearmongers();
         you.duration[DUR_AFRAID] = 0; // Too angry to be scared.
-        mpr("Your anger overwhelms your terror!");
+        mpr(zh_message("shared.log.berserk.anger_overcomes_fear"));
     }
 
     if (!_god_prevents_berserk_haste(intentional))
-        mpr("You feel yourself moving faster!");
+        mpr(zh_message("shared.log.berserk.faster"));
 
-    mpr("You feel mighty!");
+    mpr(zh_message("shared.log.berserk.mighty"));
 
     int dur = (20 + random2avg(19,2)) / 2;
     if (potion && you.has_mutation(MUT_EFFICIENT_METABOLISM))
@@ -717,35 +718,37 @@ bool player::can_go_berserk() const
 }
 
 bool player::can_go_berserk(bool intentional, bool potion, bool quiet,
-                            string *reason, bool temp) const
+                            string *reason, bool temp, ZhArg *display) const
 {
     const bool verbose = (intentional || potion) && !quiet;
-    string msg;
+    ZhArg msg{"reason", ZhArgType::Text, "", "", true};
     bool success = false;
 
     if (berserk() && temp)
-        msg = "You're already berserk!";
+        msg = zh_message_arg("reason", "item.reason.drink.already_berserk");
     else if (duration[DUR_BERSERK_COOLDOWN] && temp)
-        msg = "You're still recovering from your berserk rage.";
+        msg = zh_message_arg("reason", "item.reason.drink.berserk_recovering");
     else if (duration[DUR_DEATHS_DOOR] && temp)
-        msg = "You can't enter a blood rage from death's door.";
+        msg = zh_message_arg("reason", "item.reason.drink.death_door_blood_rage");
     else if (beheld() && !you.unrand_equipped(UNRAND_DEMON_AXE) && temp)
-        msg = "You are too mesmerised to rage.";
+        msg = zh_message_arg("reason", "item.reason.drink.mesmerised_rage");
     else if (!intentional && !potion && clarity() && temp)
-        msg = "You're too calm and focused to rage.";
+        msg = zh_message_arg("reason", "item.reason.drink.too_calm_rage");
     else if (is_lifeless_undead(temp))
-        msg = "You cannot raise a blood rage in your lifeless body.";
+        msg = zh_message_arg("reason", "item.reason.drink.undead_blood_rage");
     else if (stasis())
-        msg = "Your stasis prevents you from going berserk.";
+        msg = zh_message_arg("reason", "item.reason.drink.stasis_rage");
     else
         success = true;
 
     if (!success)
     {
         if (verbose)
-            mpr(msg);
+            mpr(ZhMessage{"", msg.canonical, msg.localized});
         if (reason)
-            *reason = msg;
+            *reason = msg.canonical;
+        if (display)
+            *display = msg;
     }
     return success;
 }

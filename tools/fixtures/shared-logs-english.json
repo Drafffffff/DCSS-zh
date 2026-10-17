@@ -1,0 +1,194 @@
+{
+  "spl-transloc.cc": [
+    [
+      "You feel jittery for a moment.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You jump in place.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You jump through the air!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "Please don't blink into the map border.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "Please don't try to blink into monsters.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "That's out of range!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You tried to hop, but there was no room to land!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "Boing!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You are hurled out of the way!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You charge forward in eerie silence!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You charge forward with an electric crackle!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You feel the Orb interfering with your translocation!",
+      "MSGCH_ORB"
+    ],
+    [
+      "Oops! There was something there already!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You feel strangely stable.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You feel space start to destabilise around you!",
+      "MSGCH_WARN"
+    ],
+    [
+      "You feel a distressing malevolence running through your instability!",
+      "MSGCH_WARN"
+    ],
+    [
+      "You feel strangely unstable.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You feel the power of the Abyss delaying your translocation!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You feel the Orb delaying your translocation!",
+      "MSGCH_ORB"
+    ],
+    [
+      "Your surroundings flicker for a moment.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "Your surroundings seem slightly different.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "Your surroundings suddenly seem different.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "Controlled teleport interrupted by HUP signal, cancelling teleport.",
+      "MSGCH_ERROR"
+    ],
+    [
+      "Even you can't go there right now. Sorry!",
+      "MSGCH_WARN"
+    ],
+    [
+      "You can't see anything to attack.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You can't see anything you can safely attack.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "Space momentarily warps into an impossible shape!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You don't see anything to apport there.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You cannot apport that!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "Not with that terrain in the way!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "A magic seal in the Gauntlet prevents you from opening a passage!",
+      "MSGCH_ORB"
+    ],
+    [
+      "That's out of range!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You can't create a passage there!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You cannot create a passage on the other side of the transparent wall.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "Creating a passage of Golubria requires sufficient empty space.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "Something buggy happened.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "The air shimmers briefly around you.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You rattle the tambourine.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You speak a word of chaos!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You see nothing there to target!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "Space begins to contract around you, but something blocks your path.",
+      "MSGCH_PLAIN"
+    ]
+  ],
+  "player-act.cc": [
+    [
+      "Your unstable footing causes you to fumble your attack.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "A red film seems to cover your vision as you go berserk!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "Your finesse ends abruptly.",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "Your anger overwhelms your terror!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You feel yourself moving faster!",
+      "MSGCH_PLAIN"
+    ],
+    [
+      "You feel mighty!",
+      "MSGCH_PLAIN"
+    ]
+  ]
+}

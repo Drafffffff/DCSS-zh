@@ -229,3 +229,19 @@ ZhArg zh_message_arg(const std::string &key, const std::string &id,
         [](const ZhArg &arg) { return arg.supported; });
     return {key, ZhArgType::Text, value.canonical, value.localized, supported};
 }
+
+ZhArg zh_message_list(const std::string &key, const std::vector<ZhArg> &items) {
+    ZhArg result{key, ZhArgType::Text, "", "", true};
+    for (size_t i = 0; i < items.size(); ++i) {
+        if (i) {
+            result.canonical += i + 1 == items.size() ? " and " : ", ";
+            result.localized += i + 1 == items.size() ? "及" : "、";
+        }
+        result.canonical += items[i].canonical;
+        result.localized += items[i].localized;
+        result.supported = result.supported && items[i].supported;
+    }
+    if (!result.supported)
+        result.localized = result.canonical;
+    return result;
+}

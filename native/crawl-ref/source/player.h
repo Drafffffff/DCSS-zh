@@ -11,6 +11,8 @@
 #include <memory>
 #include <vector>
 
+struct ZhArg;
+
 #include "actor.h"
 #include "attribute-type.h"
 #include "bane-type.h"
@@ -767,7 +769,7 @@ public:
     bool can_go_berserk() const override;
     bool can_go_berserk(bool intentional, bool potion = false,
                         bool quiet = false, string *reason = nullptr,
-                        bool temp = true) const;
+                        bool temp = true, ZhArg *display = nullptr) const;
     bool go_berserk(bool intentional, bool potion = false) override;
     bool berserk() const override;
     bool can_mutate() const override;
@@ -861,6 +863,7 @@ public:
     int willpower() const override;
     bool no_tele(bool blink = false, bool temp = true) const override;
     string no_tele_reason(bool blink = false, bool temp = true) const;
+    ZhArg no_tele_display_reason(bool blink = false, bool temp = true) const;
     int slaying(bool throwing = false, bool random = true) const override;
     bool antimagic_susceptible() const override;
 
@@ -1284,7 +1287,7 @@ int trickster_bonus();
 int enkindle_max_charges();
 void maybe_harvest_memory(const monster& victim);
 bool invis_allowed(bool quiet = false, string *fail_reason = nullptr,
-                                                        bool temp = true);
+                   bool temp = true, ZhArg *display = nullptr);
 bool flight_allowed(bool quiet = false, string *fail_reason = nullptr);
 void fly_player(int pow, bool already_flying = false);
 void float_player();

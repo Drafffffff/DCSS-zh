@@ -1,6 +1,7 @@
 #pragma once
 #include <initializer_list>
 #include <string>
+#include <vector>
 
 enum class ZhArgType { Text, Name, Integer, Number, Key, Colour, KeyMarkup };
 struct ZhArg {
@@ -33,6 +34,8 @@ ZhMessage zh_message(const std::string &id, std::initializer_list<ZhArg> args = 
                      const std::string &canonical = "");
 ZhArg zh_message_arg(const std::string &key, const std::string &id,
                      std::initializer_list<ZhArg> args = {});
+// Structured semantic lists retain English grammar and child support.
+ZhArg zh_message_list(const std::string &key, const std::vector<ZhArg> &items);
 // Exact whole entries only. Intended for semantic enum labels and base names;
 // never call this with an assembled sentence or an internal identifier.
 std::string zh_lookup_exact(const std::string &text);

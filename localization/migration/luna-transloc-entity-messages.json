@@ -1,0 +1,392 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "transloc.teleport.follow.monster",
+      "context": "瞬移跟随日志：一只怪物",
+      "en": "You are hurled through space towards a monster!",
+      "zh": "你被抛过空间，朝一只怪物飞去。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_teleport_player_mons; mons_near_target <= 1"
+      }
+    },
+    {
+      "id": "transloc.teleport.follow.monsters",
+      "context": "瞬移跟随日志：多只怪物",
+      "en": "You are hurled through space towards some monsters!",
+      "zh": "你被抛过空间，朝一些怪物飞去。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_teleport_player_mons; mons_near_target > 1"
+      }
+    },
+    {
+      "id": "transloc.teleport.source_arrives",
+      "context": "瞬移跟随日志：施法者抵达",
+      "en": "{monster} tunnels through space-time and arrives with you!",
+      "zh": "{monster}穿越时空隧道，与你一同抵达！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_teleport_player_mons; source->alive and habitable spot found; MSGCH_WARN"
+      }
+    },
+    {
+      "id": "transloc.gravitas.inward",
+      "context": "重力波日志：无实体环绕",
+      "en": "Waves of gravity draw inward.",
+      "zh": "重力波向内涌动。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "gravitas; mons == nullptr and target terrain is not solid"
+      }
+    },
+    {
+      "id": "transloc.gravitas.around_monster",
+      "context": "重力波日志：怪物周围",
+      "en": "Waves of gravity draw inward around {monster}.",
+      "zh": "重力波在{monster}周围向内涌动。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "gravitas; monster_at(where)"
+      }
+    },
+    {
+      "id": "transloc.gravitas.around_terrain",
+      "context": "重力波日志：地形周围",
+      "en": "Waves of gravity draw inward around {terrain}.",
+      "zh": "重力波在{terrain}周围向内涌动。",
+      "params": {
+        "terrain": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "gravitas; no monster and feat_is_solid; feature_description(DESC_THE)"
+      }
+    },
+    {
+      "id": "transloc.gravitas.pinned",
+      "context": "重力束缚日志",
+      "en": "{monster} is pinned by gravity.",
+      "zh": "{monster}被重力束缚住。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "gravitas; visible hostile monster; name(DESC_THE)"
+      }
+    },
+    {
+      "id": "transloc.beckon.singular",
+      "context": "召引日志：单数动词形式",
+      "en": "{monster} hurls suddenly forward!",
+      "zh": "{monster}突然被猛地拽向前方！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "beckon; beckoned.conj_verb(\"hurl\") returns hurls"
+      }
+    },
+    {
+      "id": "transloc.beckon.plural",
+      "context": "召引日志：复数动词形式",
+      "en": "{monster} hurl suddenly forward!",
+      "zh": "{monster}突然被猛地拽向前方！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "beckon; beckoned.conj_verb(\"hurl\") returns hurl"
+      }
+    },
+    {
+      "id": "transloc.piledriver.one",
+      "context": "空间收缩日志：单个目标",
+      "en": "Space contracts around you and {monster} and then re-expands violently!",
+      "zh": "空间在你和{monster}周围收缩，随后猛烈地重新扩张！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "piledriver; mons.size() == 1; name(DESC_THE)"
+      }
+    },
+    {
+      "id": "transloc.piledriver.many",
+      "context": "空间收缩日志：多个目标",
+      "en": "Space contracts around you and {count_word} other creatures and then re-expands violently!",
+      "zh": "空间在你和{count_word}只其他生物周围收缩，随后猛烈地重新扩张！",
+      "params": {
+        "count_word": "text"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "piledriver; mons.size() != 1; number_in_words(mons.size())"
+      }
+    },
+    {
+      "id": "transloc.charge.immovably_fixed",
+      "context": "电流冲锋日志：固定目标",
+      "en": "{monster} is immovably fixed there.",
+      "zh": "{monster}被牢牢固定在原地。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "electric_charge; invalid_dest; dest_mon->name(DESC_THE)"
+      }
+    },
+    {
+      "id": "transloc.charge.remain",
+      "context": "电流冲锋日志：玩家留在原地",
+      "en": "...but somehow remain in the same place.",
+      "zh": "……但不知为何仍停留在原地。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "electric_charge; failed blocker displacement; agent.is_monster() == false, suffix empty"
+      }
+    },
+    {
+      "id": "transloc.charge.remains",
+      "context": "电流冲锋日志：怪物留在原地",
+      "en": "...but somehow remains in the same place.",
+      "zh": "……但不知为何仍停留在原地。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "electric_charge; failed blocker displacement; agent.is_monster() == true, suffix s"
+      }
+    },
+    {
+      "id": "transloc.ranged_link.created",
+      "context": "远程武器维度链接日志",
+      "en": "You create a dimensional link between your ranged weaponry and {monster}.",
+      "zh": "你在自己的远程武器与{monster}之间建立了维度链接。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "ranged weaponry dimensional link; target->name(DESC_THE)"
+      }
+    },
+    {
+      "id": "transloc.manifold.blade",
+      "context": "空间折叠日志：持刃者所有格",
+      "en": "Space folds impossibly around {actor} blade!",
+      "zh": "空间在{actor}刀刃周围以不可能的方式折叠！",
+      "params": {
+        "actor": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "manifold assault; agent.name(DESC_ITS); autumn katana branch"
+      }
+    },
+    {
+      "id": "transloc.gravity.attracted",
+      "context": "引力牵引日志",
+      "en": "{monster} is attracted toward you.",
+      "zh": "{monster}被吸引向你。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "attract_monster; mon.name(DESC_THE)"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "transloc.teleport.follow.monster",
+      "args": {},
+      "canonical": "You are hurled through space towards a monster!",
+      "zh": "你被抛过空间，朝一只怪物飞去。"
+    },
+    {
+      "id": "transloc.teleport.follow.monsters",
+      "args": {},
+      "canonical": "You are hurled through space towards some monsters!",
+      "zh": "你被抛过空间，朝一些怪物飞去。"
+    },
+    {
+      "id": "transloc.teleport.source_arrives",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc wizard",
+          "localized": "兽人巫师"
+        }
+      },
+      "canonical": "the orc wizard tunnels through space-time and arrives with you!",
+      "zh": "兽人巫师穿越时空隧道，与你一同抵达！"
+    },
+    {
+      "id": "transloc.gravitas.inward",
+      "args": {},
+      "canonical": "Waves of gravity draw inward.",
+      "zh": "重力波向内涌动。"
+    },
+    {
+      "id": "transloc.gravitas.around_monster",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the centaur",
+          "localized": "半人马"
+        }
+      },
+      "canonical": "Waves of gravity draw inward around the centaur.",
+      "zh": "重力波在半人马周围向内涌动。"
+    },
+    {
+      "id": "transloc.gravitas.around_terrain",
+      "args": {
+        "terrain": {
+          "type": "name",
+          "canonical": "the stone wall",
+          "localized": "石墙"
+        }
+      },
+      "canonical": "Waves of gravity draw inward around the stone wall.",
+      "zh": "重力波在石墙周围向内涌动。"
+    },
+    {
+      "id": "transloc.gravitas.pinned",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "the orc is pinned by gravity.",
+      "zh": "兽人被重力束缚住。"
+    },
+    {
+      "id": "transloc.beckon.singular",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "the orc hurls suddenly forward!",
+      "zh": "兽人突然被猛地拽向前方！"
+    },
+    {
+      "id": "transloc.beckon.plural",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orcs",
+          "localized": "兽人们"
+        }
+      },
+      "canonical": "the orcs hurl suddenly forward!",
+      "zh": "兽人们突然被猛地拽向前方！"
+    },
+    {
+      "id": "transloc.piledriver.one",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the yak",
+          "localized": "牦牛"
+        }
+      },
+      "canonical": "Space contracts around you and the yak and then re-expands violently!",
+      "zh": "空间在你和牦牛周围收缩，随后猛烈地重新扩张！"
+    },
+    {
+      "id": "transloc.piledriver.many",
+      "args": {
+        "count_word": {
+          "type": "text",
+          "canonical": "four",
+          "localized": "四"
+        }
+      },
+      "canonical": "Space contracts around you and four other creatures and then re-expands violently!",
+      "zh": "空间在你和四只其他生物周围收缩，随后猛烈地重新扩张！"
+    },
+    {
+      "id": "transloc.charge.immovably_fixed",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the statue",
+          "localized": "石像鬼雕像"
+        }
+      },
+      "canonical": "the statue is immovably fixed there.",
+      "zh": "石像鬼雕像被牢牢固定在原地。"
+    },
+    {
+      "id": "transloc.charge.remain",
+      "args": {},
+      "canonical": "...but somehow remain in the same place.",
+      "zh": "……但不知为何仍停留在原地。"
+    },
+    {
+      "id": "transloc.charge.remains",
+      "args": {},
+      "canonical": "...but somehow remains in the same place.",
+      "zh": "……但不知为何仍停留在原地。"
+    },
+    {
+      "id": "transloc.ranged_link.created",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the hydra",
+          "localized": "多头蛇"
+        }
+      },
+      "canonical": "You create a dimensional link between your ranged weaponry and the hydra.",
+      "zh": "你在自己的远程武器与多头蛇之间建立了维度链接。"
+    },
+    {
+      "id": "transloc.manifold.blade",
+      "args": {
+        "actor": {
+          "type": "name",
+          "canonical": "its",
+          "localized": "它的"
+        }
+      },
+      "canonical": "Space folds impossibly around its blade!",
+      "zh": "空间在它的刀刃周围以不可能的方式折叠！"
+    },
+    {
+      "id": "transloc.gravity.attracted",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the slime creature",
+          "localized": "黏液生物"
+        }
+      },
+      "canonical": "the slime creature is attracted toward you.",
+      "zh": "黏液生物被吸引向你。"
+    }
+  ]
+}

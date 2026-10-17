@@ -21,6 +21,8 @@ cases += [('hints-armour','ib'),('hints-wand','l&wiz\r%pre_id wand of flame\rgi\
           ('hints-book','l&wiz\r%pre_id book of Flames\rxrva'),
           ('hints-manual','l&wiz\r%pre_id manual of Axes\rxrva'),
           ('hints-misc','l&wiz\r%pre_id phial of floods\rxrva')]
+from qa_restriction_scenes import RESTRICTION_SCENES, RESTRICTION_EXPECTED
+cases += list(RESTRICTION_SCENES.items())
 if os.environ.get('DCSS_QA_SCENES'):
  cases=[c for c in cases if c[0] in os.environ['DCSS_QA_SCENES'].split(',')]
 x=subprocess.Popen(['Xvfb',':96','-screen','0','3840x2160x24','-nolisten','tcp'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
@@ -33,7 +35,7 @@ try:
   for folder in ('dat','docs'):(tmp/folder).symlink_to(home/'Games/dcss-zh/game'/folder,target_is_directory=True)
   shutil.copytree(save_source,tmp/'saves')
   rc=(source/'init.txt').read_text().replace(str(source/'saves'),str(tmp/'saves')).replace(str(source/'morgue'),str(tmp/'morgue'))
-  rc+='\nshow_more=false\n{\nlocal checked=false\nfunction ready()\nif not checked then checked=true; crawl.sendkeys('+json.dumps(keys).replace('\\u001b','\\027')+'); end\nend\n}\n'
+  rc+='\nshow_more=false\n{\nlocal checked=false\nfunction ready()\nif not checked then checked=true; crawl.sendkeys('+json.dumps(keys).replace('\\u001b','\\027').replace('\\u0004','\\004')+'); end\nend\n}\n'
   (tmp/'init.txt').write_text(rc)
   env={**os.environ,'DISPLAY':':96','LC_ALL':'C','DCSS_LANG':'zh','DCSS_ZH_FORBID_LEGACY':'1','DCSS_ZH_STRICT_SOURCE':'1','DCSS_ZH_TRACE':str(tmp/'legacy.jsonl'),'DCSS_ZH_BOUNDARY_TRACE':str(tmp/'boundaries.tsv'),'DCSS_ZH_MESSAGE_VALUES':str(tmp/'values.tsv'),'DCSS_ZH_ID_TRACE':str(tmp/'ids.tsv'),'DCSS_ZH_ID_MISSING':str(tmp/'missing.tsv'),'DCSS_ZH_NAME_MISSING':str(tmp/'names.tsv'),'LD_LIBRARY_PATH':str(home/'Games/dcss-zh/game/lib')}
   with (tmp/'run.log').open('w') as log:
@@ -52,7 +54,11 @@ try:
               'detail.monster' if name=='monster-detail' else
               'shop.' if name.startswith('shop-') else '')
     trace=(tmp/'boundaries.tsv').read_text() if (tmp/'boundaries.tsv').exists() else ''
-    if wanted and wanted in trace or not wanted and (tmp/'ids.tsv').exists():
+    ids=(tmp/'ids.tsv').read_text() if (tmp/'ids.tsv').exists() else ''
+    ready=(all(identity+'\t' in ids for identity in RESTRICTION_EXPECTED[name])
+           if name in RESTRICTION_EXPECTED else
+           bool(wanted and wanted in trace or not wanted and ids))
+    if ready:
      reached=True
      time.sleep(3)
      break
@@ -104,11 +110,12 @@ expected={
  'weapon-detail':{'item.weapon.base_stats','item.weapon.attack_delay_and_minimum'},
  'monster-detail':{'monster.hit_chance','target.hit_chance.verbose'},
 }
+expected.update(RESTRICTION_EXPECTED)
 for result in results:
  assert result['scene_reached'] and result['running_at_capture'] and not result['lua_error'],result['scene']
  ids={line.split('\t')[0] for line in result['id_trace']}
  assert expected.get(result['scene'],set()) <= ids,(result['scene'],ids)
- if result['scene'].startswith('hints-'):
+ if result['scene'].startswith('hints-') or result['scene'] in RESTRICTION_EXPECTED:
   assert not result['missing'],(result['scene'],result['missing'])
   assert not result['names'],(result['scene'],result['names'])
  if result['scene'].startswith('skills') or result['scene'] in ('combat','equipment','weapon-detail'):

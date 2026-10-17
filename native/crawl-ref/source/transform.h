@@ -338,6 +338,8 @@ bool feat_dangerous_for_form(transformation which_trans,
                              const item_def* talisman = nullptr);
 bool transforming_is_unsafe(transformation which_trans);
 
+ZhArg cant_transform_display_reason(transformation which_trans,
+                                    bool involuntary = false, bool temp = true);
 string cant_transform_reason(transformation which_trans, bool involuntary = false,
                              bool temp = true);
 bool check_transform_into(transformation which_trans, bool involuntary = false,

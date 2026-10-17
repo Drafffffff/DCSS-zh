@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "method": "lexical callsite inventory; not a translation coverage metric",
-  "native_head": "7648b0bb40f4f6cca7d138224526fa3522d369f0",
+  "native_head": "aa75645d4ec4357e329085e0c27c94c66b2e9c53",
   "files": {
-    "ability.cc": "7c89dd80830688f66c5777b140a22283cae40f0cde6f18f712adf4da3333167f",
+    "ability.cc": "e3a84dff6dfef86f21ce60542d4fc3ed85f219a4d53d8bfa0ec241a390e99067",
     "abyss.cc": "84b56154fb4cfb65c0b25ae8dd465938a2a11bab44cb6b347ff05e24840ce554",
     "acquire.cc": "bbace4d8f7c442e83cda507ccc02a1845c50d3a507df06ca1fe3632ccea5b499",
     "actor.cc": "1f882a0d1c7a56d57de38e805a40e39db3b04b8025b6b2b53bb1eaeb3fd9b586",
@@ -46,7 +46,7 @@
     "dungeon.cc": "32233703006a2448f5b3d4e3fe4221b330a9a39d9266b4c5194abdb8787c2f74",
     "end.cc": "5afdc42130b3fe886dd14be58642308c2478ff2a79ac9facddc9a2faab80f7d5",
     "errors.cc": "f97d9dd95c3d24d519a8bea38a75d24610db972f16bd9b20844b76351f6c0a96",
-    "evoke.cc": "b644272de045f6189e5c52e73da0932b61ba282c8353bb3385dddff5448d3c34",
+    "evoke.cc": "2f725f538ff4052311f231c228335ad91f00aa7ca1bda8d53980fef8673579a0",
     "exclude.cc": "98c300ab00e886576ebc6b3491d913865ae187b9e4d7412294940a5330a7233b",
     "fearmonger.cc": "fc4f9d91a8f8dc221cc93419353544b2d013f34c2da8fa555acd5683314e4657",
     "fight.cc": "1a41571210aec23eafe5aa08f951fc2255391345bb34643e3af3cda393425cb7",
@@ -68,9 +68,9 @@
     "hiscores.cc": "683130f230bbfb5d2e0edbd57def87232c7aec56bddcbb419521ab722cfc2508",
     "initfile.cc": "d26deb77154390c9074d5ee58a0181d750c42468a1f13eefe1142aa5a59d6e87",
     "invent.cc": "e21fb8bc1ff3856f953c77cb50c28a4188dfd47fe4484b578e2671adbd261aea",
-    "item-name.cc": "72afc1276190b947ba468135e444fd762b6ff2e2b8c127b7418037baaa79deed",
+    "item-name.cc": "66d0583483d20684500471f89db44dbe056be9c0697d51e1986b476746cc3716",
     "item-prop.cc": "e8282a459b77d7050dcb206713b941dfe2d1fa304256f9c42f0ef0966f0617a0",
-    "item-use.cc": "7ce24c4dd24ac00fa2a4aaa86f841199fd5592f7ad455e5b3647fa367fe4f336",
+    "item-use.cc": "1dcaaaa1506b4c2c2c9d146a2d115b7bb0eaccdb426ee580f075f481055c8f3c",
     "items.cc": "2497e8f68ff95188513c03303486045282dce14a9225fe93c8f5cf836cd13ae4",
     "json.cc": "4ce237b8a57900590f8f439299f5c34e157cd29a04c4064b7e9b17cb6c23123f",
     "kills.cc": "088df399db49dd7836f7d2d214406f4280f61ffb08e1d31e822fc34769f6cb27",
@@ -137,13 +137,13 @@
     "outer-menu.cc": "032c23ab73158fc5ceae7ea3070a8f535a5b89088536af3393f07da874b61619",
     "output.cc": "fd68849f63bfb848187e0eb1e0a066c38208e70f1120564de80c0534e30ca240",
     "pattern.cc": "b1c554e996c9f72a9439ee76473b6f2bd7e0aed34dbd28672f4400dbc3a694e9",
-    "player-act.cc": "eea386f40fedfee188fd65f29a9051a981a0039014995def36f582f300ee8540",
+    "player-act.cc": "2d1537719b5fbff6fca07af1430bf1620d00e51af04b9d47548692f5360d3a52",
     "player-equip.cc": "31cceb019791a3b23915337a2694f57675d3a11e6e5d58d3e4fb6b578b7c148b",
     "player-notices.cc": "930152dac43fcfcbe38d48108733c56ee0a2fee6fd461591298990d08b51eb9c",
     "player-reacts.cc": "9453883fb2150906e8ba9dad79b6733ffed95f1394eca175b00fe0fd0ed74496",
     "player-stats.cc": "406f409934440e1ec519b930994768091d57a34c855da910110b1056a1a34b29",
-    "player.cc": "cb2c006a96b73242d6438f6167b9ea786b46c03756c12dc7a5f45a3cf426b70a",
-    "potion.cc": "8b287d18861d9bedd3e2b81669088defb321f76b47e4195cc042714ece29b89f",
+    "player.cc": "8b7720f897a4d3ddfa768f7d590800605a2a874fc013e25677809cf0559cf84f",
+    "potion.cc": "784c0e492f204af47b37f555cac4565ec40950bd575949f8fc32eb73b12278c0",
     "precision-menu.cc": "22c3d84faa16bbbfdf1f0025264224fcfa2ebea23c3c1d3e0036ff35ccfd12aa",
     "prompt.cc": "3a0fb4a708b7c4415ad22982d610b389d7317ba0f1829a62bacf908e5415f17c",
     "quiver.cc": "dd61c170c56b1d3aba52b20b9160be5e173e39b868dd2751c1e5f29b9a3e3338",
@@ -168,7 +168,7 @@
     "spl-other.cc": "3f13e297cb3ee0fc50c3486014a48acca605ee84b2a1a42a9cdea389a23ff06e",
     "spl-selfench.cc": "2a5fc3b7d83c8a417a4ee4657b09c59cc02b0651dde8ea07bb0ff079ae1e45f6",
     "spl-summoning.cc": "ad26cd231d87d82b5a0283a335f032d2afb4c76849fd156eae2e7f2278cce1ef",
-    "spl-transloc.cc": "30df86f3bba09a0452c59c53bbd7cced647fecf9bbd811701c0dbc6ff8188c90",
+    "spl-transloc.cc": "6e757d30f89651ef8b8bac1244af2eb671716932c975fe3a8fbd15112fec17ae",
     "spl-util.cc": "e9fb4e305e05e06d25d2bae321d204b289ca1aeb10316e6cb46ab4b550abc4c8",
     "spl-vortex.cc": "bfd44e40dfdef85d6ec06b1ee2c532ef18377a100d5eb8c39e6b4e9e304017a3",
     "stairs.cc": "136f23f1d378c47c9ef66419f9ff3b0020fcb44a2c00d9fd1acb0d08708bca9c",
@@ -201,7 +201,7 @@
     "tileweb-text.cc": "b21ed771cb98621e824f4c6e2db44872706d5ffe7203d3a690a7a0e24f68ecf0",
     "tileweb.cc": "34dbe57229f7df1a8048e835d19561892ecac6436760e1857b6edfbe74df89a7",
     "timed-effects.cc": "33ed25e742a30f2f4a0a83d91e2627f995d653c2f66a548ef17de41dc3582d28",
-    "transform.cc": "34e905352c6ae48a3da21c26df2b39da0a9d500fd0a1499c04988fb7ade7f7a0",
+    "transform.cc": "83a588c5710c93f7c585e11dc4fc845320cc5a1baab4a25f4ab7350ab8f11a2e",
     "traps.cc": "de28d424e7d4af00fd2e0afa194cfdf15d225ec33cc07f7a6dae27ac86e15a71",
     "travel.cc": "9a795c7afdc978e9238ee8e2d8c4b0b1e53967bf5178a8adbbb5b7da11323ebe",
     "ui.cc": "5df1beac53a844044b04da6054d7984bb1a50bfa791f6dfadc02646c61c8a3b8",
@@ -219,7 +219,7 @@
     "xom.cc": "f8569a5334a3b11f0668c482db3fc922289d570d0f1c19cedec3a1bcf8a917e6",
     "zh-display-name.cc": "cd367306b52260f9f37ec11a010fa604624bbeaf31640b415aceb5f46027e931",
     "zh-localization.cc": "e1b98b33dbf1fa491dfb6341a102e68365158c63df848856ddf1dd3731efee82",
-    "zh-message.cc": "5d6b75ae43164f9167d8d399381b61617a0387ef01956945414de149d27aec8f",
+    "zh-message.cc": "d400726c04b7ac7ee95e7850ba17f36a6a5a6e2c6ece61c8e2c65fea40e213ee",
     "zot.cc": "5ac5d946b32ba5168e2a63813f8bc2662340e7f3016717c696838fca4b9fdea0"
   },
   "modules": [
@@ -235,7 +235,7 @@
     },
     {
       "name": "详情",
-      "state": "主边界、来源、法术列表、诅咒、护符、教学提示、消耗品稀有度及大部分使用限制已接入；噪声/伤害共享语义接口；外部传送/隐形/狂暴/变形理由仍待迁移",
+      "state": "主边界、来源、法术列表、诅咒、护符、教学提示、消耗品稀有度及大部分使用限制已接入；噪声/伤害共享语义接口；传送/隐形/狂暴/变形共用理由已接入；外部法术父理由与复杂状态仍待迁移",
       "acceptance": "数据库正文语言选择、长文本、动作、不同来源/状态逐项核对；禁止旧matcher"
     },
     {
@@ -255,7 +255,7 @@
     },
     {
       "name": "战斗日志",
-      "state": "已提交部分动态击中/未命中；大量其余生产点待迁移",
+      "state": "已提交部分动态击中/未命中；本批接入传送固定日志、17条实体日志及狂暴/变形操作提示；其余动态目标/物品/动词日志仍待迁移",
       "acceptance": "玩家/怪物/武器/状态/数值组合，全部成功失败分支保留英文控制数据"
     },
     {
@@ -292,7 +292,7 @@
   "callsites": [
     {
       "file": "ability.cc",
-      "line": 318,
+      "line": 319,
       "api": "make_stringf",
       "anchor": "return make_stringf(\" (about %d%% of your maximum possible piety)\", perc);",
       "module": "character",
@@ -300,7 +300,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 911,
+      "line": 912,
       "api": "make_stringf",
       "anchor": "text += make_stringf(\"%s%s (%s)\", i ? \", \" : \"\",",
       "module": "character",
@@ -308,7 +308,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 940,
+      "line": 941,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"(next: %s)\", stack_top().c_str());",
       "module": "character",
@@ -316,7 +316,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 942,
+      "line": 943,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"(%d in deck)\", cards);",
       "module": "character",
@@ -324,7 +324,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 959,
+      "line": 960,
       "api": "make_stringf",
       "anchor": "ret += make_stringf(\", %d MP\", abil.get_mp_cost());",
       "module": "character",
@@ -332,7 +332,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 966,
+      "line": 967,
       "api": "make_stringf",
       "anchor": "ret += make_stringf(\", Permanent MP (%d left)\", get_real_mp(false));",
       "module": "character",
@@ -340,7 +340,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 981,
+      "line": 982,
       "api": "make_stringf",
       "anchor": "ret += make_stringf(\", %d HP\", hp_cost);",
       "module": "character",
@@ -348,7 +348,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 984,
+      "line": 985,
       "api": "make_stringf",
       "anchor": "ret += make_stringf(\", Piety%s\", abil.piety_pips().c_str());",
       "module": "character",
@@ -356,7 +356,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 991,
+      "line": 992,
       "api": "make_stringf",
       "anchor": "ret += make_stringf(\", %d/%d uses available\",",
       "module": "character",
@@ -364,7 +364,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1024,
+      "line": 1025,
       "api": "make_stringf",
       "anchor": "ret += make_stringf(\", %d Gold\", amount);",
       "module": "character",
@@ -372,7 +372,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1365,
+      "line": 1366,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"Accept %s\",",
       "module": "character",
@@ -380,7 +380,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1496,
+      "line": 1497,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"6 + %dd%d\", dam.num, dam.size);",
       "module": "character",
@@ -388,7 +388,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1498,
+      "line": 1499,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"2d%d*\", _tso_cleansing_flame_power(false));",
       "module": "character",
@@ -396,7 +396,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1500,
+      "line": 1501,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%dd3 / 2 (against normal-speed enemies)\",",
       "module": "character",
@@ -404,7 +404,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1509,
+      "line": 1510,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%dd%d/upheaval\", dam.num, dam.size);",
       "module": "character",
@@ -412,7 +412,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1515,
+      "line": 1516,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"10 + (4-8)d%d\", apocalypse_die_size(false));",
       "module": "character",
@@ -420,7 +420,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1521,
+      "line": 1522,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%dd%d + 1/6 of current HP\",",
       "module": "character",
@@ -428,7 +428,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1556,
+      "line": 1557,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%dd%d\", dam.num, dam.size);",
       "module": "character",
@@ -436,7 +436,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1569,
+      "line": 1570,
       "api": "getLongDescription",
       "anchor": "lookup = getLongDescription(name + \" ability\");",
       "module": "character",
@@ -444,7 +444,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1612,
+      "line": 1613,
       "api": "make_stringf",
       "anchor": "lookup += make_stringf(\"Damage: %s\\n \", damage_str.c_str());",
       "module": "character",
@@ -452,7 +452,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1613,
+      "line": 1614,
       "api": "make_stringf",
       "anchor": "lookup += make_stringf(\"Range: %s\\n\", range_str.c_str());",
       "module": "character",
@@ -460,7 +460,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1620,
+      "line": 1621,
       "api": "getQuoteString",
       "anchor": "const string quote = getQuoteString(name + \" ability\");",
       "module": "character",
@@ -468,7 +468,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1634,
+      "line": 1635,
       "api": "mpr",
       "anchor": "mpr(\"Sorry, you're not good enough to have a special ability.\");",
       "module": "character",
@@ -476,7 +476,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1657,
+      "line": 1658,
       "api": "mprf",
       "anchor": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());",
       "module": "character",
@@ -484,7 +484,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1729,
+      "line": 1730,
       "api": "mpr",
       "anchor": "mpr(\"You can't do that.\");",
       "module": "character",
@@ -492,7 +492,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1745,
+      "line": 1746,
       "api": "mpr",
       "anchor": "mpr(reason);",
       "module": "character",
@@ -500,7 +500,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1754,
+      "line": 1755,
       "api": "mpr",
       "anchor": "mpr(\"Your legs are too worn out to hop.\");",
       "module": "character",
@@ -508,7 +508,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1777,
+      "line": 1778,
       "api": "mpr",
       "anchor": "mpr(\"You're already rising!\");",
       "module": "character",
@@ -516,7 +516,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1787,
+      "line": 1788,
       "api": "mpr",
       "anchor": "mpr(\"You can't rise from this level without the Orb!\");",
       "module": "character",
@@ -524,7 +524,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1794,
+      "line": 1795,
       "api": "mpr",
       "anchor": "mpr(\"You can't rise from this level!\");",
       "module": "character",
@@ -532,7 +532,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1844,
+      "line": 1845,
       "api": "mprf",
       "anchor": "mprf(\"You cannot call out to %s while %s.\",",
       "module": "character",
@@ -540,7 +540,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1852,
+      "line": 1853,
       "api": "mprf",
       "anchor": "mprf(\"You cannot speak a word of chaos while %s.\", player_silenced_reason());",
       "module": "character",
@@ -548,7 +548,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1868,
+      "line": 1869,
       "api": "mpr",
       "anchor": "mpr(\"That deck is empty!\");",
       "module": "character",
@@ -556,7 +556,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1917,
+      "line": 1918,
       "api": "mpr",
       "anchor": "mpr(\"There's no appreciative audience!\");",
       "module": "character",
@@ -564,7 +564,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1919,
+      "line": 1920,
       "api": "mpr",
       "anchor": "mpr(\"You are not zealous enough to affect this audience!\");",
       "module": "character",
@@ -572,7 +572,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1930,
+      "line": 1931,
       "api": "mpr",
       "anchor": "mpr(\"There's already a sanctuary in place on this level.\");",
       "module": "character",
@@ -580,7 +580,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1939,
+      "line": 1940,
       "api": "mpr",
       "anchor": "mpr(\"You have nothing to donate!\");",
       "module": "character",
@@ -588,7 +588,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1948,
+      "line": 1949,
       "api": "mpr",
       "anchor": "mpr(\"You are already engaged in single combat!\");",
       "module": "character",
@@ -596,7 +596,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1958,
+      "line": 1959,
       "api": "mpr",
       "anchor": "mpr(\"Any gift you received here would fall and be lost!\");",
       "module": "character",
@@ -604,7 +604,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1973,
+      "line": 1974,
       "api": "mpr",
       "anchor": "mpr(\"You can't heal while in death's door.\");",
       "module": "character",
@@ -612,7 +612,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1987,
+      "line": 1988,
       "api": "mpr",
       "anchor": "mpr(\"Nothing ails you!\");",
       "module": "character",
@@ -620,7 +620,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 1996,
+      "line": 1997,
       "api": "mpr",
       "anchor": "mpr(\"You have already been granted divine vigour!\");",
       "module": "character",
@@ -628,7 +628,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2005,
+      "line": 2006,
       "api": "mpr",
       "anchor": "mpr(\"You are already calling forth ooze!\");",
       "module": "character",
@@ -636,7 +636,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2014,
+      "line": 2015,
       "api": "mpr",
       "anchor": "mpr(\"You aren't in the Abyss!\");",
       "module": "character",
@@ -644,7 +644,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2026,
+      "line": 2027,
       "api": "mpr",
       "anchor": "mpr(\"You're already here!\");",
       "module": "character",
@@ -652,7 +652,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2049,
+      "line": 2050,
       "api": "mpr",
       "anchor": "mpr(\"There isn't enough space to grow briars here.\");",
       "module": "character",
@@ -660,7 +660,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2059,
+      "line": 2060,
       "api": "mpr",
       "anchor": "mpr(\"You're too exhausted to draw out your power.\");",
       "module": "character",
@@ -668,7 +668,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2072,
+      "line": 2073,
       "api": "mpr",
       "anchor": "mpr(\"You have no need to draw out power.\");",
       "module": "character",
@@ -676,7 +676,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2081,
+      "line": 2082,
       "api": "mpr",
       "anchor": "mpr(\"You're too exhausted to power leap.\");",
       "module": "character",
@@ -684,7 +684,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2090,
+      "line": 2091,
       "api": "mpr",
       "anchor": "mpr(\"You're too exhausted to unleash your apocalyptic power.\");",
       "module": "character",
@@ -692,7 +692,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2101,
+      "line": 2102,
       "api": "mpr",
       "anchor": "mpr(\"You can't see any clouds you can empower.\");",
       "module": "character",
@@ -700,7 +700,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2119,
+      "line": 2120,
       "api": "mpr",
       "anchor": "mpr(\"You have exhausted your breath weapon. Slay more foes!\");",
       "module": "character",
@@ -708,7 +708,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2145,
+      "line": 2146,
       "api": "mpr",
       "anchor": "mpr(\"You can't heal while in death's door.\");",
       "module": "character",
@@ -716,7 +716,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2151,
+      "line": 2152,
       "api": "mpr",
       "anchor": "mpr(\"You don't have enough innate magic capacity.\");",
       "module": "character",
@@ -724,7 +724,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2169,
+      "line": 2170,
       "api": "mprf",
       "anchor": "mprf(\"In %d experience levels, you will have learned enough to \"",
       "module": "character",
@@ -732,7 +732,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2184,
+      "line": 2185,
       "api": "mpr",
       "anchor": "mpr(\"You are already making a cacophony!\");",
       "module": "character",
@@ -740,7 +740,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2190,
+      "line": 2191,
       "api": "mpr",
       "anchor": "mpr(\"You must recover your energy before unleashing another cacophony.\");",
       "module": "character",
@@ -748,7 +748,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2196,
+      "line": 2197,
       "api": "mpr",
       "anchor": "mpr(\"You aren't haunting any armour at the moment!\");",
       "module": "character",
@@ -756,7 +756,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2207,
+      "line": 2208,
       "api": "mpr",
       "anchor": "mpr(\"You must recover your energy before scattering into bats again.\");",
       "module": "character",
@@ -764,15 +764,15 @@
     },
     {
       "file": "ability.cc",
-      "line": 2214,
+      "line": 2215,
       "api": "mpr",
-      "anchor": "mpr(reason);",
+      "anchor": "mpr(ZhMessage{\"\", reason.canonical, reason.localized});",
       "module": "character",
       "classification": "callsite-review-required"
     },
     {
       "file": "ability.cc",
-      "line": 2225,
+      "line": 2226,
       "api": "mpr",
       "anchor": "mpr(\"You are already burning your memories away!\");",
       "module": "character",
@@ -780,7 +780,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2232,
+      "line": 2233,
       "api": "mpr",
       "anchor": "mpr(\"You don't have any memories left to burn.\");",
       "module": "character",
@@ -788,15 +788,15 @@
     },
     {
       "file": "ability.cc",
-      "line": 2274,
+      "line": 2275,
       "api": "mpr",
-      "anchor": "mpr(no_tele_reason);",
+      "anchor": "mpr(ZhMessage{\"\", no_tele_reason.canonical, no_tele_reason.localized});",
       "module": "character",
       "classification": "callsite-review-required"
     },
     {
       "file": "ability.cc",
-      "line": 2282,
+      "line": 2283,
       "api": "mpr",
       "anchor": "mpr(\"You must recover your energy before doing this again.\");",
       "module": "character",
@@ -804,7 +804,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2292,
+      "line": 2293,
       "api": "mpr",
       "anchor": "mpr(\"There is no water in range!\");",
       "module": "character",
@@ -812,7 +812,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2304,
+      "line": 2305,
       "api": "mpr",
       "anchor": "mpr(\"You are already invisible!\");",
       "module": "character",
@@ -820,7 +820,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2322,
+      "line": 2323,
       "api": "mpr",
       "anchor": "mpr(\"You don't have enough experience to sacrifice.\");",
       "module": "character",
@@ -828,7 +828,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2335,
+      "line": 2336,
       "api": "mprf",
       "anchor": "mprf(\"%s is still trapped in memory!\",",
       "module": "character",
@@ -836,7 +836,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2346,
+      "line": 2347,
       "api": "mpr",
       "anchor": "mpr(\"You are already lashing out.\");",
       "module": "character",
@@ -844,7 +844,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2352,
+      "line": 2353,
       "api": "mpr",
       "anchor": "mpr(\"You are too exhausted to lash out.\");",
       "module": "character",
@@ -852,7 +852,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2361,
+      "line": 2362,
       "api": "mpr",
       "anchor": "mpr(\"You are already engulfed in a heavenly storm!\");",
       "module": "character",
@@ -860,7 +860,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2372,
+      "line": 2373,
       "api": "mpr",
       "anchor": "mpr(\"You are too terrified to wall jump!\");",
       "module": "character",
@@ -868,7 +868,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2379,
+      "line": 2380,
       "api": "mprf",
       "anchor": "mprf(\"You cannot wall jump while caught in a %s.\",",
       "module": "character",
@@ -876,7 +876,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2396,
+      "line": 2397,
       "api": "mpr",
       "anchor": "mpr(\"There is nothing to wall jump against here.\");",
       "module": "character",
@@ -884,7 +884,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2422,
+      "line": 2423,
       "api": "mpr",
       "anchor": "mpr(\"The black torch is already ablaze!\");",
       "module": "character",
@@ -892,7 +892,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2429,
+      "line": 2430,
       "api": "mpr",
       "anchor": "mpr(reason.c_str());",
       "module": "character",
@@ -900,7 +900,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2439,
+      "line": 2440,
       "api": "mpr",
       "anchor": "mpr(\"The black torch is unlit!\");",
       "module": "character",
@@ -908,7 +908,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2445,
+      "line": 2446,
       "api": "mpr",
       "anchor": "mpr(\"You must stoke the torch's fire more first.\");",
       "module": "character",
@@ -916,7 +916,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2454,
+      "line": 2455,
       "api": "mpr",
       "anchor": "mpr(\"You are already invoking Yredulemnul's grip!\");",
       "module": "character",
@@ -924,7 +924,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2463,
+      "line": 2464,
       "api": "mpr",
       "anchor": "mpr(\"You already have the maximum number of followers. Dismiss one first.\");",
       "module": "character",
@@ -932,7 +932,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2472,
+      "line": 2473,
       "api": "mpr",
       "anchor": "mpr(\"You have already called for blood!\");",
       "module": "character",
@@ -940,7 +940,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2478,
+      "line": 2479,
       "api": "mpr",
       "anchor": "mpr(\"Your apostles are all alive!\");",
       "module": "character",
@@ -948,7 +948,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2484,
+      "line": 2485,
       "api": "mpr",
       "anchor": "mpr(\"You must be standing atop the corpse of a fallen apostle!\");",
       "module": "character",
@@ -956,7 +956,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2495,
+      "line": 2496,
       "api": "mpr",
       "anchor": "mpr(reason.c_str());",
       "module": "character",
@@ -964,7 +964,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2507,
+      "line": 2508,
       "api": "mpr",
       "anchor": "mpr(reason.c_str());",
       "module": "character",
@@ -972,7 +972,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2517,
+      "line": 2518,
       "api": "mpr",
       "anchor": "mpr(\"Night has already fallen.\");",
       "module": "character",
@@ -980,7 +980,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2526,
+      "line": 2527,
       "api": "mpr",
       "anchor": "mpr(\"Makhleb denies you. Endure the Crucible first!\");",
       "module": "character",
@@ -988,7 +988,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2532,
+      "line": 2533,
       "api": "mpr",
       "anchor": "mpr(\"You are already a vessel of slaughter!\");",
       "module": "character",
@@ -996,7 +996,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2568,
+      "line": 2569,
       "api": "make_stringf",
       "anchor": "return vector<string>{make_stringf(\"not susceptible\")};",
       "module": "character",
@@ -1004,7 +1004,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2570,
+      "line": 2571,
       "api": "make_stringf",
       "anchor": "return vector<string>{make_stringf(\"damage: %dd3 / 2\", slouch_damage(monster_at(mi.pos)))};",
       "module": "character",
@@ -1012,7 +1012,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2577,
+      "line": 2578,
       "api": "make_stringf",
       "anchor": "return vector<string>{make_stringf(\"hp as a bound soul: ~%d\", yred_get_bound_soul_hp(mi.type, true))};",
       "module": "character",
@@ -1020,7 +1020,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2589,
+      "line": 2590,
       "api": "make_stringf",
       "anchor": "return vector<string>{make_stringf(\"%d/%d spells usable\", num_usable_spells, num_spells)};",
       "module": "character",
@@ -1028,7 +1028,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2799,
+      "line": 2800,
       "api": "mpr",
       "anchor": "mpr(\"A dragon answers your prayer!\");",
       "module": "character",
@@ -1036,7 +1036,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2859,
+      "line": 2860,
       "api": "make_stringf",
       "anchor": "args.top_prompt = make_stringf(\"%s: <w>%s</w>\",",
       "module": "character",
@@ -1044,7 +1044,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2881,
+      "line": 2882,
       "api": "make_stringf",
       "anchor": "make_stringf(\" <lightgrey>(%s risk of failure)</lightgrey>\",",
       "module": "character",
@@ -1052,7 +1052,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 2965,
+      "line": 2966,
       "api": "mpr",
       "anchor": "mpr(\"You fail to use your ability.\");",
       "module": "character",
@@ -1060,7 +1060,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3012,
+      "line": 3013,
       "api": "mpr",
       "anchor": "mpr(\"You feel the orb feeding on your energy!\");",
       "module": "character",
@@ -1068,7 +1068,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3079,
+      "line": 3080,
       "api": "mpr",
       "anchor": "mpr(\"You feel stolen life flooding into you!\");",
       "module": "character",
@@ -1076,7 +1076,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3081,
+      "line": 3082,
       "api": "mpr",
       "anchor": "mpr(\"You feel stolen life flooding into you from an unseen source!\");",
       "module": "character",
@@ -1084,7 +1084,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3188,
+      "line": 3189,
       "api": "mpr",
       "anchor": "mpr(\"You send your armour flying and begin to make an unholy cacophony!\");",
       "module": "character",
@@ -1092,7 +1092,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3228,
+      "line": 3229,
       "api": "mpr",
       "anchor": "mpr(\"Your magical essence is drained by the effort!\");",
       "module": "character",
@@ -1100,7 +1100,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3239,
+      "line": 3240,
       "api": "mpr",
       "anchor": "mpr(\"You extend your mandibles.\");",
       "module": "character",
@@ -1108,7 +1108,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3244,
+      "line": 3245,
       "api": "mpr",
       "anchor": "mpr(\"You retract your mandibles.\");",
       "module": "character",
@@ -1116,7 +1116,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3316,
+      "line": 3317,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"%s forbids using such a weapon!\",",
       "module": "character",
@@ -1124,7 +1124,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3420,
+      "line": 3421,
       "api": "mpr",
       "anchor": "mpr(\"You scatter into a swarm of vampire bats!\");",
       "module": "character",
@@ -1132,7 +1132,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3429,
+      "line": 3430,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DURATION, \"Your flames flare with remembrance!\");",
       "module": "character",
@@ -1140,7 +1140,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3447,
+      "line": 3448,
       "api": "mpr",
       "anchor": "mpr(\"You clear your throat and prepare to recite.\");",
       "module": "character",
@@ -1148,7 +1148,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3513,
+      "line": 3514,
       "api": "mpr",
       "anchor": "mpr(\"You invoke the name of Kikubaaqudgha!\");",
       "module": "character",
@@ -1156,7 +1156,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3553,
+      "line": 3554,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DURATION, \"You call down Yredelemnul's inexorable grip.\");",
       "module": "character",
@@ -1164,7 +1164,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3567,
+      "line": 3568,
       "api": "mprf",
       "anchor": "mprf(\"You attempt to bind %s soul, but %s is merely a clone!\",",
       "module": "character",
@@ -1172,7 +1172,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3579,
+      "line": 3580,
       "api": "mprf",
       "anchor": "mprf(\"You wrap your dark will around %s soul!\",",
       "module": "character",
@@ -1180,7 +1180,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3586,
+      "line": 3587,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DURATION, you.duration[DUR_HEROISM]",
       "module": "character",
@@ -1188,7 +1188,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3602,
+      "line": 3603,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DURATION, \"%s\",",
       "module": "character",
@@ -1196,7 +1196,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3606,
+      "line": 3607,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DURATION, \"You can now deal lightning-fast blows.\");",
       "module": "character",
@@ -1204,7 +1204,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3639,
+      "line": 3640,
       "api": "mprf",
       "anchor": "mprf(\"You can't see any nearby targets.\");",
       "module": "character",
@@ -1212,7 +1212,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3701,
+      "line": 3702,
       "api": "mpr",
       "anchor": "mpr(\"You channel some magical energy.\");",
       "module": "character",
@@ -1220,7 +1220,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3714,
+      "line": 3715,
       "api": "mpr",
       "anchor": "mpr(\"You are healed.\");",
       "module": "character",
@@ -1228,7 +1228,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3758,
+      "line": 3759,
       "api": "mpr",
       "anchor": "mpr(\"You cannot banish yourself!\");",
       "module": "character",
@@ -1236,7 +1236,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 3874,
+      "line": 3875,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DURATION, \"A thick mucus forms on %s.\", msg.c_str());",
       "module": "character",
@@ -1244,7 +1244,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 4028,
+      "line": 4029,
       "api": "mprf",
       "anchor": "mprf(MSGCH_GOD, \"Your muscles tense, ready for explosive movement...\");",
       "module": "character",
@@ -1252,7 +1252,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 4051,
+      "line": 4052,
       "api": "mpr",
       "anchor": "mpr(\"You begin to rise into the air.\");",
       "module": "character",
@@ -1260,7 +1260,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 4101,
+      "line": 4102,
       "api": "mprf",
       "anchor": "mprf(\"Now building '%s'\", dungeon_feature_name(feat));",
       "module": "character",
@@ -1268,7 +1268,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 4106,
+      "line": 4107,
       "api": "mpr",
       "anchor": "mpr(\"Sorry, you can't do that.\");",
       "module": "character",
@@ -1276,7 +1276,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 4169,
+      "line": 4170,
       "api": "set_title",
       "anchor": "abil_menu.set_title(me, true, true);",
       "module": "character",
@@ -1284,7 +1284,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 4172,
+      "line": 4173,
       "api": "set_title",
       "anchor": "abil_menu.set_title(",
       "module": "character",
@@ -1292,7 +1292,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 4190,
+      "line": 4191,
       "api": "set_more",
       "anchor": "abil_menu.set_more(hints_abilities_info());",
       "module": "character",
@@ -1300,7 +1300,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 4194,
+      "line": 4195,
       "api": "set_more",
       "anchor": "abil_menu.set_more(formatted_string::parse_string(",
       "module": "character",
@@ -1308,7 +1308,7 @@
     },
     {
       "file": "ability.cc",
-      "line": 4194,
+      "line": 4195,
       "api": "parse_string",
       "anchor": "abil_menu.set_more(formatted_string::parse_string(",
       "module": "character",
@@ -11748,7 +11748,7 @@
     },
     {
       "file": "evoke.cc",
-      "line": 1069,
+      "line": 1071,
       "api": "zh_glossary_name",
       "anchor": "zh_glossary_name(\"item\", \"item.miscellany\",",
       "module": "other-review-required",
@@ -11756,7 +11756,7 @@
     },
     {
       "file": "evoke.cc",
-      "line": 1085,
+      "line": 1087,
       "api": "mpr",
       "anchor": "mpr(err);",
       "module": "other-review-required",
@@ -11764,7 +11764,7 @@
     },
     {
       "file": "evoke.cc",
-      "line": 1113,
+      "line": 1115,
       "api": "mprf",
       "anchor": "mprf(\"You crush the flux bauble in your %s and feel its energy \"",
       "module": "other-review-required",
@@ -11772,7 +11772,7 @@
     },
     {
       "file": "evoke.cc",
-      "line": 1169,
+      "line": 1171,
       "api": "mpr",
       "anchor": "mpr(\"The box is emptied!\");",
       "module": "other-review-required",
@@ -11780,7 +11780,7 @@
     },
     {
       "file": "evoke.cc",
-      "line": 1178,
+      "line": 1180,
       "api": "mpr",
       "anchor": "mpr(\"The sack is emptied!\");",
       "module": "other-review-required",
@@ -11788,7 +11788,7 @@
     },
     {
       "file": "evoke.cc",
-      "line": 1188,
+      "line": 1190,
       "api": "mpr",
       "anchor": "mpr(\"The lightning rod overheats!\");",
       "module": "other-review-required",
@@ -11796,7 +11796,7 @@
     },
     {
       "file": "evoke.cc",
-      "line": 1195,
+      "line": 1197,
       "api": "mpr",
       "anchor": "mpr(\"QUAD DAMAGE!\");",
       "module": "other-review-required",
@@ -11804,7 +11804,7 @@
     },
     {
       "file": "evoke.cc",
-      "line": 1212,
+      "line": 1214,
       "api": "mpr",
       "anchor": "mpr(\"The mirror clouds!\");",
       "module": "other-review-required",
@@ -11812,7 +11812,7 @@
     },
     {
       "file": "evoke.cc",
-      "line": 1235,
+      "line": 1237,
       "api": "mpr",
       "anchor": "mpr(\"The tin is emptied!\");",
       "module": "other-review-required",
@@ -11820,7 +11820,7 @@
     },
     {
       "file": "evoke.cc",
-      "line": 1252,
+      "line": 1254,
       "api": "mpr",
       "anchor": "mpr(\"The condenser dries out!\");",
       "module": "other-review-required",
@@ -16172,7 +16172,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 317,
+      "line": 318,
       "api": "set_title",
       "anchor": "set_title(_default_use_title(oper));",
       "module": "equipment-items",
@@ -16180,7 +16180,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 342,
+      "line": 343,
       "api": "set_title",
       "anchor": "set_title(prompt_override);",
       "module": "equipment-items",
@@ -16188,7 +16188,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 344,
+      "line": 345,
       "api": "set_title",
       "anchor": "set_title(_default_use_title(oper));",
       "module": "equipment-items",
@@ -16196,7 +16196,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 426,
+      "line": 427,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"%s\",",
       "module": "equipment-items",
@@ -16204,7 +16204,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 622,
+      "line": 623,
       "api": "make_stringf",
       "anchor": "const string cycle_hint = make_stringf(\"<lightgray> (%s to select)</lightgray>\",",
       "module": "equipment-items",
@@ -16212,7 +16212,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 640,
+      "line": 641,
       "api": "make_stringf",
       "anchor": "floor_header->text += make_stringf(",
       "module": "equipment-items",
@@ -16220,7 +16220,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 910,
+      "line": 911,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"You can't wear anything.\");",
       "module": "equipment-items",
@@ -16228,7 +16228,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 913,
+      "line": 914,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"You can't remove your %s, sorry.\",",
       "module": "equipment-items",
@@ -16236,7 +16236,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 921,
+      "line": 922,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"You can't %s anything in your present form.\",",
       "module": "equipment-items",
@@ -16244,7 +16244,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 936,
+      "line": 937,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"%s\", veto_reason.c_str());",
       "module": "equipment-items",
@@ -16252,7 +16252,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 979,
+      "line": 980,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"You can't %s jewellery%s.\",",
       "module": "equipment-items",
@@ -16260,7 +16260,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 995,
+      "line": 996,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"%s\", err.c_str());",
       "module": "equipment-items",
@@ -16268,7 +16268,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1070,
+      "line": 1071,
       "api": "mpr",
       "anchor": "mpr(\"You can't carry that many items.\");",
       "module": "equipment-items",
@@ -16276,7 +16276,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1182,
+      "line": 1183,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT,",
       "module": "equipment-items",
@@ -16284,7 +16284,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1184,
+      "line": 1185,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"(<w>?</w> for menu, <w>Esc</w> to cancel)\");",
       "module": "equipment-items",
@@ -16292,7 +16292,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1292,
+      "line": 1293,
       "api": "make_stringf",
       "anchor": "string warning = make_stringf(\"Spend multiple turns changing equipment while %s?\", reason.c_str());",
       "module": "equipment-items",
@@ -16300,7 +16300,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1313,
+      "line": 1314,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"Removing %s right now would cause you to %s!\",",
       "module": "equipment-items",
@@ -16308,7 +16308,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1333,
+      "line": 1334,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"%s\", reason.c_str());",
       "module": "equipment-items",
@@ -16316,7 +16316,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1341,
+      "line": 1342,
       "api": "mpr",
       "anchor": "mpr(\"You can't carry that many items.\");",
       "module": "equipment-items",
@@ -16324,7 +16324,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1492,
+      "line": 1493,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"A cursed item is preventing you from removing %s.\",",
       "module": "equipment-items",
@@ -16332,7 +16332,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1585,
+      "line": 1586,
       "api": "mprf",
       "anchor": "mprf(\"You %s %s.\", item_unequip_verb(*item).c_str(),",
       "module": "equipment-items",
@@ -16340,7 +16340,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1619,
+      "line": 1620,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"%s is melded into your body!\",",
       "module": "equipment-items",
@@ -16348,7 +16348,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1629,
+      "line": 1630,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"%s is stuck to your body!\",",
       "module": "equipment-items",
@@ -16356,7 +16356,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1639,
+      "line": 1640,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"Your thirst for blood prevents you from unwielding \"",
       "module": "equipment-items",
@@ -16364,7 +16364,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1649,
+      "line": 1650,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"It would be unfitting for someone so glorious to \"",
       "module": "equipment-items",
@@ -16372,7 +16372,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1839,
+      "line": 1840,
       "api": "mpr",
       "anchor": "mpr(\"You don't have anything to inscribe.\");",
       "module": "equipment-items",
@@ -16380,7 +16380,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1884,
+      "line": 1885,
       "api": "mprf",
       "anchor": "mprf(\"You take a swig of the potion and twirl %s.\",",
       "module": "equipment-items",
@@ -16388,7 +16388,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1888,
+      "line": 1889,
       "api": "mpr",
       "anchor": "mpr(\"You take a swig of the potion and flex your muscles.\");",
       "module": "equipment-items",
@@ -16396,7 +16396,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1914,
+      "line": 1915,
       "api": "mpr",
       "anchor": "mpr(r);",
       "module": "equipment-items",
@@ -16404,7 +16404,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1928,
+      "line": 1929,
       "api": "make_stringf",
       "anchor": "string prompt = make_stringf(\"Really quaff the %s?%s\",",
       "module": "equipment-items",
@@ -16412,7 +16412,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 1945,
+      "line": 1946,
       "api": "make_stringf",
       "anchor": "string unrand_prompt = make_stringf(\"Really quaff with monsters nearby \"",
       "module": "equipment-items",
@@ -16420,7 +16420,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2001,
+      "line": 2002,
       "api": "mprf",
       "anchor": "mprf(\"Your mutated metabolism churns, savouring the %s.\",",
       "module": "equipment-items",
@@ -16428,7 +16428,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2009,
+      "line": 2010,
       "api": "mpr",
       "anchor": "mpr(\"The energy of discovery flows from your fingertips!\");",
       "module": "equipment-items",
@@ -16436,7 +16436,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2129,
+      "line": 2130,
       "api": "mprf",
       "anchor": "mprf(\"%s becomes incredibly heavy!\",itname.c_str());",
       "module": "equipment-items",
@@ -16444,7 +16444,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2134,
+      "line": 2135,
       "api": "mprf",
       "anchor": "mprf(\"%s projects an invisible shield of force!\",itname.c_str());",
       "module": "equipment-items",
@@ -16452,7 +16452,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2139,
+      "line": 2140,
       "api": "mprf",
       "anchor": "mprf(\"%s is engulfed in flames!\", itname.c_str());",
       "module": "equipment-items",
@@ -16460,7 +16460,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2144,
+      "line": 2145,
       "api": "mprf",
       "anchor": "mprf(\"%s is covered with a thin layer of ice!\", itname.c_str());",
       "module": "equipment-items",
@@ -16468,7 +16468,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2149,
+      "line": 2150,
       "api": "mprf",
       "anchor": "mprf(\"%s craves living souls!\", itname.c_str());",
       "module": "equipment-items",
@@ -16476,7 +16476,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2154,
+      "line": 2155,
       "api": "mprf",
       "anchor": "mprf(\"%s thirsts for the lives of mortals!\", itname.c_str());",
       "module": "equipment-items",
@@ -16484,7 +16484,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2159,
+      "line": 2160,
       "api": "mprf",
       "anchor": "mprf(\"%s drips with poison.\", itname.c_str());",
       "module": "equipment-items",
@@ -16492,7 +16492,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2164,
+      "line": 2165,
       "api": "mprf",
       "anchor": "mprf(\"%s crackles with electricity.\", itname.c_str());",
       "module": "equipment-items",
@@ -16500,7 +16500,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2169,
+      "line": 2170,
       "api": "mprf",
       "anchor": "mprf(\"%s erupts in a glittering mayhem of colour.\", itname.c_str());",
       "module": "equipment-items",
@@ -16508,7 +16508,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2174,
+      "line": 2175,
       "api": "mprf",
       "anchor": "mprf(\"%s oozes corrosive slime.\", itname.c_str());",
       "module": "equipment-items",
@@ -16516,7 +16516,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2179,
+      "line": 2180,
       "api": "mprf",
       "anchor": "mprf(\"%s acquires a faint afterimage.\", itname.c_str());",
       "module": "equipment-items",
@@ -16524,7 +16524,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2184,
+      "line": 2185,
       "api": "mprf",
       "anchor": "mprf(\"%s quivers with indignation.\", itname.c_str());",
       "module": "equipment-items",
@@ -16532,7 +16532,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2189,
+      "line": 2190,
       "api": "mprf",
       "anchor": "mprf(\"%s thrums with vital power.\", itname.c_str());",
       "module": "equipment-items",
@@ -16540,7 +16540,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2194,
+      "line": 2195,
       "api": "mprf",
       "anchor": "mprf(\"%s erupts in a tangle of vines.\", itname.c_str());",
       "module": "equipment-items",
@@ -16548,7 +16548,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2199,
+      "line": 2200,
       "api": "mprf",
       "anchor": "mprf(\"%s becomes viciously sharp.\", itname.c_str());",
       "module": "equipment-items",
@@ -16556,7 +16556,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2204,
+      "line": 2205,
       "api": "mprf",
       "anchor": "mprf(\"%s begins to exert an overwhelming pressure.\", itname.c_str());",
       "module": "equipment-items",
@@ -16564,7 +16564,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2209,
+      "line": 2210,
       "api": "mprf",
       "anchor": "mprf(\"%s glints wickedly in the shadows.\", itname.c_str());",
       "module": "equipment-items",
@@ -16572,7 +16572,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2272,
+      "line": 2273,
       "api": "mpr",
       "anchor": "mpr(pre_msg);",
       "module": "equipment-items",
@@ -16580,7 +16580,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2285,
+      "line": 2286,
       "api": "mprf",
       "anchor": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());",
       "module": "equipment-items",
@@ -16588,7 +16588,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2323,
+      "line": 2324,
       "api": "mprf",
       "anchor": "mprf(\"%s glows red for a %s.\", iname.c_str(), dur);",
       "module": "equipment-items",
@@ -16596,7 +16596,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2353,
+      "line": 2354,
       "api": "mprf",
       "anchor": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());",
       "module": "equipment-items",
@@ -16604,7 +16604,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2387,
+      "line": 2388,
       "api": "mpr",
       "anchor": "mpr(pre_msg);",
       "module": "equipment-items",
@@ -16612,7 +16612,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2425,
+      "line": 2426,
       "api": "mprf",
       "anchor": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());",
       "module": "equipment-items",
@@ -16620,7 +16620,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2480,
+      "line": 2481,
       "api": "mprf",
       "anchor": "mprf(\"%s %s green for a %s.\", name.c_str(), glow.c_str(), dur);",
       "module": "equipment-items",
@@ -16628,7 +16628,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2494,
+      "line": 2495,
       "api": "mprf",
       "anchor": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());",
       "module": "equipment-items",
@@ -16636,7 +16636,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2514,
+      "line": 2515,
       "api": "mpr",
       "anchor": "mpr(pre_msg);",
       "module": "equipment-items",
@@ -16644,7 +16644,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2553,
+      "line": 2554,
       "api": "mpr",
       "anchor": "mpr(\"A wave of despondency washes over your surroundings.\");",
       "module": "equipment-items",
@@ -16652,7 +16652,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2849,
+      "line": 2850,
       "api": "mpr",
       "anchor": "mpr(failure_reason);",
       "module": "equipment-items",
@@ -16660,7 +16660,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2862,
+      "line": 2863,
       "api": "make_stringf",
       "anchor": "string penance_prompt = make_stringf(\"Really %s? This action would\"",
       "module": "equipment-items",
@@ -16668,7 +16668,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2891,
+      "line": 2892,
       "api": "make_stringf",
       "anchor": "&& !yesno(make_stringf(\"Really %s?%s\",",
       "module": "equipment-items",
@@ -16676,7 +16676,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2901,
+      "line": 2902,
       "api": "make_stringf",
       "anchor": "else if (!bad_item && !hostile_check && !yesno(make_stringf(",
       "module": "equipment-items",
@@ -16684,7 +16684,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2917,
+      "line": 2918,
       "api": "make_stringf",
       "anchor": "string unrand_prompt = make_stringf(\"Really read with monsters nearby \"",
       "module": "equipment-items",
@@ -16692,7 +16692,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2962,
+      "line": 2963,
       "api": "make_stringf",
       "anchor": "make_stringf(\"As you %s the %s, it %s.\",",
       "module": "equipment-items",
@@ -16700,15 +16700,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 2968,
-      "api": "mpr",
-      "anchor": "mpr(pre_succ_msg);",
-      "module": "equipment-items",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "item-use.cc",
-      "line": 2985,
+      "line": 2969,
       "api": "mpr",
       "anchor": "mpr(pre_succ_msg);",
       "module": "equipment-items",
@@ -16718,13 +16710,21 @@
       "file": "item-use.cc",
       "line": 2986,
       "api": "mpr",
-      "anchor": "mpr(reason);",
+      "anchor": "mpr(pre_succ_msg);",
       "module": "equipment-items",
       "classification": "callsite-review-required"
     },
     {
       "file": "item-use.cc",
-      "line": 2992,
+      "line": 2987,
+      "api": "mpr",
+      "anchor": "mpr(ZhMessage{\"\", reason.canonical, reason.localized});",
+      "module": "equipment-items",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2993,
       "api": "mpr",
       "anchor": "mpr(pre_succ_msg);",
       "module": "equipment-items",
@@ -16732,7 +16732,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3002,
+      "line": 3003,
       "api": "mpr",
       "anchor": "mpr(pre_succ_msg); // ordering is iffy but w/e",
       "module": "equipment-items",
@@ -16740,7 +16740,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3014,
+      "line": 3015,
       "api": "mpr",
       "anchor": "mpr(pre_succ_msg);",
       "module": "equipment-items",
@@ -16748,15 +16748,15 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3015,
+      "line": 3016,
       "api": "mpr",
-      "anchor": "mpr(reason);",
+      "anchor": "mpr(ZhMessage{\"\", reason.canonical, reason.localized});",
       "module": "equipment-items",
       "classification": "callsite-review-required"
     },
     {
       "file": "item-use.cc",
-      "line": 3025,
+      "line": 3026,
       "api": "mpr",
       "anchor": "mpr(\"This is a scroll of acquirement!\");",
       "module": "equipment-items",
@@ -16764,7 +16764,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3033,
+      "line": 3034,
       "api": "mpr",
       "anchor": "mpr(\"Anything you acquired here would fall and be lost!\");",
       "module": "equipment-items",
@@ -16772,7 +16772,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3042,
+      "line": 3043,
       "api": "mpr",
       "anchor": "mpr(\"You assume a fearsome visage.\");",
       "module": "equipment-items",
@@ -16780,7 +16780,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3096,
+      "line": 3097,
       "api": "mpr",
       "anchor": "mpr(\"The creatures around you are filled with an inner flame!\");",
       "module": "equipment-items",
@@ -16788,7 +16788,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3098,
+      "line": 3099,
       "api": "mpr",
       "anchor": "mpr(\"The air around you briefly surges with heat, but it dissipates.\");",
       "module": "equipment-items",
@@ -16796,15 +16796,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3109,
-      "api": "mpr",
-      "anchor": "mpr(pre_succ_msg);",
-      "module": "equipment-items",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "item-use.cc",
-      "line": 3118,
+      "line": 3110,
       "api": "mpr",
       "anchor": "mpr(pre_succ_msg);",
       "module": "equipment-items",
@@ -16814,15 +16806,15 @@
       "file": "item-use.cc",
       "line": 3119,
       "api": "mpr",
-      "anchor": "mpr(\"It is a scroll of enchant weapon.\");",
+      "anchor": "mpr(pre_succ_msg);",
       "module": "equipment-items",
       "classification": "callsite-review-required"
     },
     {
       "file": "item-use.cc",
-      "line": 3132,
+      "line": 3120,
       "api": "mpr",
-      "anchor": "mpr(pre_succ_msg);",
+      "anchor": "mpr(\"It is a scroll of enchant weapon.\");",
       "module": "equipment-items",
       "classification": "callsite-review-required"
     },
@@ -16830,15 +16822,15 @@
       "file": "item-use.cc",
       "line": 3133,
       "api": "mpr",
-      "anchor": "mpr(\"It is a scroll of brand weapon.\");",
+      "anchor": "mpr(pre_succ_msg);",
       "module": "equipment-items",
       "classification": "callsite-review-required"
     },
     {
       "file": "item-use.cc",
-      "line": 3146,
+      "line": 3134,
       "api": "mpr",
-      "anchor": "mpr(pre_succ_msg);",
+      "anchor": "mpr(\"It is a scroll of brand weapon.\");",
       "module": "equipment-items",
       "classification": "callsite-review-required"
     },
@@ -16846,15 +16838,15 @@
       "file": "item-use.cc",
       "line": 3147,
       "api": "mpr",
-      "anchor": "mpr(\"It is a scroll of identify.\");",
+      "anchor": "mpr(pre_succ_msg);",
       "module": "equipment-items",
       "classification": "callsite-review-required"
     },
     {
       "file": "item-use.cc",
-      "line": 3162,
+      "line": 3148,
       "api": "mpr",
-      "anchor": "mpr(pre_succ_msg);",
+      "anchor": "mpr(\"It is a scroll of identify.\");",
       "module": "equipment-items",
       "classification": "callsite-review-required"
     },
@@ -16862,13 +16854,21 @@
       "file": "item-use.cc",
       "line": 3163,
       "api": "mpr",
+      "anchor": "mpr(pre_succ_msg);",
+      "module": "equipment-items",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3164,
+      "api": "mpr",
       "anchor": "mpr(\"It is a scroll of enchant armour.\");",
       "module": "equipment-items",
       "classification": "callsite-review-required"
     },
     {
       "file": "item-use.cc",
-      "line": 3180,
+      "line": 3181,
       "api": "mpr",
       "anchor": "mpr(\"This item has been removed, sorry!\");",
       "module": "equipment-items",
@@ -16876,7 +16876,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3197,
+      "line": 3198,
       "api": "mpr",
       "anchor": "mpr(pre_succ_msg);",
       "module": "equipment-items",
@@ -16884,7 +16884,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3198,
+      "line": 3199,
       "api": "mpr",
       "anchor": "mpr(\"It is a scroll of amnesia.\");",
       "module": "equipment-items",
@@ -16892,7 +16892,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3203,
+      "line": 3204,
       "api": "mpr",
       "anchor": "mpr(\"You feel forgetful for a moment.\");",
       "module": "equipment-items",
@@ -16900,7 +16900,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3215,
+      "line": 3216,
       "api": "mpr",
       "anchor": "mpr(\"Read a buggy scroll, please report this.\");",
       "module": "equipment-items",
@@ -16908,7 +16908,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3248,
+      "line": 3249,
       "api": "mprf",
       "anchor": "mprf(\"It %s %s.\",",
       "module": "equipment-items",
@@ -16916,7 +16916,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3257,
+      "line": 3258,
       "api": "mpr",
       "anchor": "mpr(\"The energy of discovery flows from your fingertips!\");",
       "module": "equipment-items",
@@ -16924,7 +16924,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3398,
+      "line": 3399,
       "api": "mpr",
       "anchor": "mpr(reason);",
       "module": "equipment-items",
@@ -16932,7 +16932,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3404,
+      "line": 3405,
       "api": "mpr",
       "anchor": "mpr(\"You can't carry that many items.\");",
       "module": "equipment-items",
@@ -16940,7 +16940,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3417,
+      "line": 3418,
       "api": "mprf",
       "anchor": "mprf(\"%s responds to your shapeshifting skill and transforms into a %s!\",",
       "module": "equipment-items",
@@ -16948,7 +16948,7 @@
     },
     {
       "file": "item-use.cc",
-      "line": 3453,
+      "line": 3454,
       "api": "mpr",
       "anchor": "mpr(\"You can't pick that up.\");",
       "module": "equipment-items",
@@ -28940,7 +28940,7 @@
     },
     {
       "file": "player-act.cc",
-      "line": 611,
+      "line": 612,
       "api": "mpr",
       "anchor": "mpr(\"Your unstable footing causes you to fumble your attack.\");",
       "module": "other-review-required",
@@ -28948,49 +28948,89 @@
     },
     {
       "file": "player-act.cc",
-      "line": 673,
+      "line": 674,
       "api": "mpr",
-      "anchor": "mpr(\"A red film seems to cover your vision as you go berserk!\");",
+      "anchor": "mpr(zh_message(\"shared.log.berserk.red_vision\"));",
       "module": "other-review-required",
       "classification": "callsite-review-required"
     },
     {
       "file": "player-act.cc",
-      "line": 678,
+      "line": 674,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.berserk.red_vision\"));",
+      "module": "other-review-required",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "player-act.cc",
+      "line": 679,
       "api": "mpr",
-      "anchor": "mpr(\"Your finesse ends abruptly.\");",
+      "anchor": "mpr(zh_message(\"shared.log.berserk.finesse_ends\"));",
       "module": "other-review-required",
       "classification": "callsite-review-required"
     },
     {
       "file": "player-act.cc",
-      "line": 685,
+      "line": 679,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.berserk.finesse_ends\"));",
+      "module": "other-review-required",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "player-act.cc",
+      "line": 686,
       "api": "mpr",
-      "anchor": "mpr(\"Your anger overwhelms your terror!\");",
+      "anchor": "mpr(zh_message(\"shared.log.berserk.anger_overcomes_fear\"));",
       "module": "other-review-required",
       "classification": "callsite-review-required"
     },
     {
       "file": "player-act.cc",
-      "line": 689,
+      "line": 686,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.berserk.anger_overcomes_fear\"));",
+      "module": "other-review-required",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "player-act.cc",
+      "line": 690,
       "api": "mpr",
-      "anchor": "mpr(\"You feel yourself moving faster!\");",
+      "anchor": "mpr(zh_message(\"shared.log.berserk.faster\"));",
       "module": "other-review-required",
       "classification": "callsite-review-required"
     },
     {
       "file": "player-act.cc",
-      "line": 691,
+      "line": 690,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.berserk.faster\"));",
+      "module": "other-review-required",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "player-act.cc",
+      "line": 692,
       "api": "mpr",
-      "anchor": "mpr(\"You feel mighty!\");",
+      "anchor": "mpr(zh_message(\"shared.log.berserk.mighty\"));",
       "module": "other-review-required",
       "classification": "callsite-review-required"
     },
     {
       "file": "player-act.cc",
-      "line": 746,
+      "line": 692,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.berserk.mighty\"));",
+      "module": "other-review-required",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "player-act.cc",
+      "line": 747,
       "api": "mpr",
-      "anchor": "mpr(msg);",
+      "anchor": "mpr(ZhMessage{\"\", msg.canonical, msg.localized});",
       "module": "other-review-required",
       "classification": "callsite-review-required"
     },
@@ -30532,7 +30572,7 @@
     },
     {
       "file": "player.cc",
-      "line": 111,
+      "line": 112,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.e901e61d6069\"));",
       "module": "character",
@@ -30540,7 +30580,7 @@
     },
     {
       "file": "player.cc",
-      "line": 111,
+      "line": 112,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.e901e61d6069\"));",
       "module": "character",
@@ -30548,7 +30588,7 @@
     },
     {
       "file": "player.cc",
-      "line": 142,
+      "line": 143,
       "api": "mprf",
       "anchor": "mprf(\"%s slides away as you move %s it!\", stair_str.c_str(),",
       "module": "character",
@@ -30556,7 +30596,7 @@
     },
     {
       "file": "player.cc",
-      "line": 180,
+      "line": 181,
       "api": "make_stringf",
       "anchor": "string prompt = make_stringf(\"Really %s into that cloud of %s?\",",
       "module": "character",
@@ -30564,7 +30604,7 @@
     },
     {
       "file": "player.cc",
-      "line": 209,
+      "line": 210,
       "api": "make_stringf",
       "anchor": "string prompt = make_stringf(msg.c_str(), move_verb.c_str());",
       "module": "character",
@@ -30572,7 +30612,7 @@
     },
     {
       "file": "player.cc",
-      "line": 225,
+      "line": 226,
       "api": "make_stringf",
       "anchor": "prompt = make_stringf(\"Really %s %s that %s?\", move_verb.c_str(),",
       "module": "character",
@@ -30580,7 +30620,7 @@
     },
     {
       "file": "player.cc",
-      "line": 248,
+      "line": 249,
       "api": "mpr",
       "anchor": "mpr(msg);",
       "module": "character",
@@ -30588,7 +30628,7 @@
     },
     {
       "file": "player.cc",
-      "line": 252,
+      "line": 253,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f6b38629d93a\"));",
       "module": "character",
@@ -30596,7 +30636,7 @@
     },
     {
       "file": "player.cc",
-      "line": 252,
+      "line": 253,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f6b38629d93a\"));",
       "module": "character",
@@ -30604,7 +30644,7 @@
     },
     {
       "file": "player.cc",
-      "line": 367,
+      "line": 368,
       "api": "make_stringf",
       "anchor": "const string prompt = make_stringf((count == (int) areas.size() ?",
       "module": "character",
@@ -30612,7 +30652,7 @@
     },
     {
       "file": "player.cc",
-      "line": 446,
+      "line": 447,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.317958edac42\"));",
       "module": "character",
@@ -30620,7 +30660,7 @@
     },
     {
       "file": "player.cc",
-      "line": 446,
+      "line": 447,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.317958edac42\"));",
       "module": "character",
@@ -30628,7 +30668,7 @@
     },
     {
       "file": "player.cc",
-      "line": 455,
+      "line": 456,
       "api": "make_stringf",
       "anchor": "make_stringf(\" is %s!\", held_status(mons)).c_str());",
       "module": "character",
@@ -30636,7 +30676,7 @@
     },
     {
       "file": "player.cc",
-      "line": 514,
+      "line": 515,
       "api": "mprf",
       "anchor": "mprf(\"There is no room for %s to move out of your way! \"",
       "module": "character",
@@ -30644,7 +30684,7 @@
     },
     {
       "file": "player.cc",
-      "line": 555,
+      "line": 556,
       "api": "mprf",
       "anchor": "mprf(\"You %s the toxic bog.\", stepped ? \"enter\" : \"fall into\");",
       "module": "character",
@@ -30652,7 +30692,7 @@
     },
     {
       "file": "player.cc",
-      "line": 558,
+      "line": 559,
       "api": "mprf",
       "anchor": "mprf(\"You %s the %s water.\",",
       "module": "character",
@@ -30660,7 +30700,7 @@
     },
     {
       "file": "player.cc",
-      "line": 565,
+      "line": 566,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.9f1b9c45a39d\"));",
       "module": "character",
@@ -30668,7 +30708,7 @@
     },
     {
       "file": "player.cc",
-      "line": 565,
+      "line": 566,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.9f1b9c45a39d\"));",
       "module": "character",
@@ -30676,7 +30716,7 @@
     },
     {
       "file": "player.cc",
-      "line": 567,
+      "line": 568,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b07fe3081ab6\"));",
       "module": "character",
@@ -30684,7 +30724,7 @@
     },
     {
       "file": "player.cc",
-      "line": 567,
+      "line": 568,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b07fe3081ab6\"));",
       "module": "character",
@@ -30692,7 +30732,7 @@
     },
     {
       "file": "player.cc",
-      "line": 569,
+      "line": 570,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f97fa7815eba\"));",
       "module": "character",
@@ -30700,7 +30740,7 @@
     },
     {
       "file": "player.cc",
-      "line": 569,
+      "line": 570,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f97fa7815eba\"));",
       "module": "character",
@@ -30708,7 +30748,7 @@
     },
     {
       "file": "player.cc",
-      "line": 631,
+      "line": 632,
       "api": "mprf",
       "anchor": "mprf(\"%s is dragged along with you!\", mon->name(DESC_THE).c_str());",
       "module": "character",
@@ -30716,7 +30756,7 @@
     },
     {
       "file": "player.cc",
-      "line": 765,
+      "line": 766,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.c8c5405f3ce9\"));",
       "module": "character",
@@ -30724,7 +30764,7 @@
     },
     {
       "file": "player.cc",
-      "line": 765,
+      "line": 766,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c8c5405f3ce9\"));",
       "module": "character",
@@ -30732,7 +30772,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2533,
+      "line": 2534,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b211f2b56e24\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -30740,7 +30780,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2533,
+      "line": 2534,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b211f2b56e24\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -30748,7 +30788,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2557,
+      "line": 2558,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.15990630ec92\"), MSGCH_DURATION);",
       "module": "character",
@@ -30756,7 +30796,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2557,
+      "line": 2558,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.15990630ec92\"), MSGCH_DURATION);",
       "module": "character",
@@ -30764,7 +30804,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2572,
+      "line": 2573,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.1be18fb61d1a\"), MSGCH_DURATION);",
       "module": "character",
@@ -30772,7 +30812,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2572,
+      "line": 2573,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.1be18fb61d1a\"), MSGCH_DURATION);",
       "module": "character",
@@ -30780,7 +30820,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2590,
+      "line": 2591,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a685b7f79723\"), MSGCH_DURATION);",
       "module": "character",
@@ -30788,7 +30828,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2590,
+      "line": 2591,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a685b7f79723\"), MSGCH_DURATION);",
       "module": "character",
@@ -30796,7 +30836,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2608,
+      "line": 2609,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.54de1620950f\"), MSGCH_DURATION);",
       "module": "character",
@@ -30804,7 +30844,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2608,
+      "line": 2609,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.54de1620950f\"), MSGCH_DURATION);",
       "module": "character",
@@ -30812,7 +30852,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2624,
+      "line": 2625,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.922f812c9a91\"), MSGCH_DURATION);",
       "module": "character",
@@ -30820,7 +30860,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2624,
+      "line": 2625,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.922f812c9a91\"), MSGCH_DURATION);",
       "module": "character",
@@ -30828,7 +30868,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2755,
+      "line": 2756,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ad735ad09cb1\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30836,7 +30876,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2755,
+      "line": 2756,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ad735ad09cb1\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30844,7 +30884,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2781,
+      "line": 2782,
       "api": "make_stringf",
       "anchor": "make_stringf(\"HP: %d/%d MP: %d/%d\",",
       "module": "character",
@@ -30852,7 +30892,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2897,
+      "line": 2898,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.0b7e31772b95\"));",
       "module": "character",
@@ -30860,7 +30900,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2897,
+      "line": 2898,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.0b7e31772b95\"));",
       "module": "character",
@@ -30868,7 +30908,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2911,
+      "line": 2912,
       "api": "mprf",
       "anchor": "mprf(\"The power to cast %s wells up from within.\", spell_title(spell));",
       "module": "character",
@@ -30876,7 +30916,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2947,
+      "line": 2948,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.6e96344ef2c2\"));",
       "module": "character",
@@ -30884,7 +30924,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2947,
+      "line": 2948,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.6e96344ef2c2\"));",
       "module": "character",
@@ -30892,7 +30932,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2962,
+      "line": 2963,
       "api": "mprf",
       "anchor": "mprf(\"You remember %s.\", msg.c_str());",
       "module": "character",
@@ -30900,7 +30940,7 @@
     },
     {
       "file": "player.cc",
-      "line": 2963,
+      "line": 2964,
       "api": "mprf",
       "anchor": "mprf(\"(You can now cast %s.)\", spell_title(spell));",
       "module": "character",
@@ -30908,7 +30948,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3010,
+      "line": 3011,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"level_welcome_back\", {zh_integer(\"level\", new_exp)}), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30916,7 +30956,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3010,
+      "line": 3011,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"level_welcome_back\", {zh_integer(\"level\", new_exp)}), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30924,7 +30964,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3023,
+      "line": 3024,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"level_final\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30932,7 +30972,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3023,
+      "line": 3024,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"level_final\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30940,7 +30980,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3025,
+      "line": 3026,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"level_highest\", {zh_integer(\"level\", you.get_max_xl())}), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30948,7 +30988,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3025,
+      "line": 3026,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"level_highest\", {zh_integer(\"level\", you.get_max_xl())}), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30956,7 +30996,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3028,
+      "line": 3029,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"level_reached\", {zh_integer(\"level\", new_exp)}), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30964,7 +31004,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3028,
+      "line": 3029,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"level_reached\", {zh_integer(\"level\", new_exp)}), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30972,7 +31012,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3062,
+      "line": 3063,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.afbf4620fc0b\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30980,7 +31020,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3062,
+      "line": 3063,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.afbf4620fc0b\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -30988,7 +31028,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3095,
+      "line": 3096,
       "api": "mprf",
       "anchor": "mprf(MSGCH_INTRINSIC_GAIN,",
       "module": "character",
@@ -30996,7 +31036,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3108,
+      "line": 3109,
       "api": "mprf",
       "anchor": "mprf(MSGCH_INTRINSIC_GAIN, \"You learn %s %s%s.\",",
       "module": "character",
@@ -31004,7 +31044,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3125,
+      "line": 3126,
       "api": "mprf",
       "anchor": "mprf(MSGCH_INTRINSIC_GAIN, \"%s\", mut.c_str());",
       "module": "character",
@@ -31012,7 +31052,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3156,
+      "line": 3157,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.57ff2a662ac7\"), MSGCH_MUTATION);",
       "module": "character",
@@ -31020,7 +31060,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3156,
+      "line": 3157,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.57ff2a662ac7\"), MSGCH_MUTATION);",
       "module": "character",
@@ -31028,7 +31068,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3179,
+      "line": 3180,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.e9afebcbc29f\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31036,31 +31076,31 @@
     },
     {
       "file": "player.cc",
-      "line": 3179,
+      "line": 3180,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.e9afebcbc29f\"), MSGCH_INTRINSIC_GAIN);",
-      "module": "character",
-      "classification": "typed-producer"
-    },
-    {
-      "file": "player.cc",
-      "line": 3202,
-      "api": "mpr",
-      "anchor": "mpr(zh_message(\"log.player.fixed.7d49fd6b4439\"));",
-      "module": "character",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "player.cc",
-      "line": 3202,
-      "api": "zh_message",
-      "anchor": "mpr(zh_message(\"log.player.fixed.7d49fd6b4439\"));",
       "module": "character",
       "classification": "typed-producer"
     },
     {
       "file": "player.cc",
       "line": 3203,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"log.player.fixed.7d49fd6b4439\"));",
+      "module": "character",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "player.cc",
+      "line": 3203,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"log.player.fixed.7d49fd6b4439\"));",
+      "module": "character",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "player.cc",
+      "line": 3204,
       "api": "mprf",
       "anchor": "mprf(\"(press <w>%c</w> on the <w>%s</w>bility menu to create your gizmo)\",",
       "module": "character",
@@ -31068,7 +31108,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3230,
+      "line": 3231,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.c44abc792b3b\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31076,7 +31116,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3230,
+      "line": 3231,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c44abc792b3b\"), MSGCH_INTRINSIC_GAIN);",
       "module": "character",
@@ -31084,7 +31124,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3431,
+      "line": 3432,
       "api": "vmake_stringf",
       "anchor": "string msg = vmake_stringf(fmt, argp);",
       "module": "character",
@@ -31092,7 +31132,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3434,
+      "line": 3435,
       "api": "mprf",
       "anchor": "mprf(\"%s (%d).\", msg.c_str(), value);",
       "module": "character",
@@ -31100,7 +31140,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3436,
+      "line": 3437,
       "api": "mprf",
       "anchor": "mprf(\"%s.\", msg.c_str());",
       "module": "character",
@@ -31108,7 +31148,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3518,
+      "line": 3519,
       "api": "make_stringf",
       "anchor": "make_stringf( \" (and is slowed by your %s)\",",
       "module": "character",
@@ -31116,7 +31156,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3523,
+      "line": 3524,
       "api": "mprf",
       "anchor": "mprf(\"Your attack delay is about %.1f%s%s.\",",
       "module": "character",
@@ -31124,7 +31164,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3543,
+      "line": 3544,
       "api": "mpr",
       "anchor": "mpr(uppercase_first(damage_rating(weapon)));",
       "module": "character",
@@ -31132,7 +31172,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3546,
+      "line": 3547,
       "api": "mprf",
       "anchor": "mprf(\"Your damage rating with %s is about %s\",",
       "module": "character",
@@ -31140,7 +31180,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3562,
+      "line": 3563,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.c059a1601a4f\"));",
       "module": "character",
@@ -31148,7 +31188,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3562,
+      "line": 3563,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c059a1601a4f\"));",
       "module": "character",
@@ -31156,7 +31196,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3564,
+      "line": 3565,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.df40fe94f2bb\"));",
       "module": "character",
@@ -31164,7 +31204,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3564,
+      "line": 3565,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.df40fe94f2bb\"));",
       "module": "character",
@@ -31172,7 +31212,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3566,
+      "line": 3567,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.07caac949a5d\"));",
       "module": "character",
@@ -31180,7 +31220,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3566,
+      "line": 3567,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.07caac949a5d\"));",
       "module": "character",
@@ -31188,7 +31228,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3569,
+      "line": 3570,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.064bc0f60dfa\"));",
       "module": "character",
@@ -31196,7 +31236,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3569,
+      "line": 3570,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.064bc0f60dfa\"));",
       "module": "character",
@@ -31204,7 +31244,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3575,
+      "line": 3576,
       "api": "mpr",
       "anchor": "mpr(inf.long_text);",
       "module": "character",
@@ -31212,7 +31252,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3579,
+      "line": 3580,
       "api": "mpr",
       "anchor": "mpr(cinfo);",
       "module": "character",
@@ -31220,7 +31260,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3594,
+      "line": 3595,
       "api": "mprf",
       "anchor": "mprf(\"Your base attributes are Str %d, Int %d, Dex %d.\",",
       "module": "character",
@@ -31228,7 +31268,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3892,
+      "line": 3893,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.eeb1764e5e81\"), MSGCH_DANGER);",
       "module": "character",
@@ -31236,7 +31276,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3892,
+      "line": 3893,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.eeb1764e5e81\"), MSGCH_DANGER);",
       "module": "character",
@@ -31244,7 +31284,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3905,
+      "line": 3906,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ea953d9458f9\"), MSGCH_DANGER);",
       "module": "character",
@@ -31252,7 +31292,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3905,
+      "line": 3906,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ea953d9458f9\"), MSGCH_DANGER);",
       "module": "character",
@@ -31260,7 +31300,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3981,
+      "line": 3982,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.5d19ee3ad29e\"));",
       "module": "character",
@@ -31268,7 +31308,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3981,
+      "line": 3982,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.5d19ee3ad29e\"));",
       "module": "character",
@@ -31276,7 +31316,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3995,
+      "line": 3996,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.02013454d0bf\"));",
       "module": "character",
@@ -31284,7 +31324,7 @@
     },
     {
       "file": "player.cc",
-      "line": 3995,
+      "line": 3996,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.02013454d0bf\"));",
       "module": "character",
@@ -31292,7 +31332,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4020,
+      "line": 4021,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.3401e9a52695\"));",
       "module": "character",
@@ -31300,7 +31340,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4020,
+      "line": 4021,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.3401e9a52695\"));",
       "module": "character",
@@ -31308,7 +31348,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4022,
+      "line": 4023,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ed5e93024041\"));",
       "module": "character",
@@ -31316,7 +31356,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4022,
+      "line": 4023,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ed5e93024041\"));",
       "module": "character",
@@ -31324,7 +31364,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4344,
+      "line": 4345,
       "api": "make_stringf",
       "anchor": "msg = make_stringf(\"%s (up to %d damage)\", msg.c_str(), dmg);",
       "module": "character",
@@ -31332,7 +31372,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4386,
+      "line": 4387,
       "api": "mprf",
       "anchor": "mprf(player_harmful_contamination() ? MSGCH_WARN : MSGCH_PLAIN,",
       "module": "character",
@@ -31340,7 +31380,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4396,
+      "line": 4397,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b66971b3da07\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31348,7 +31388,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4396,
+      "line": 4397,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b66971b3da07\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31356,7 +31396,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4401,
+      "line": 4402,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.553d2b23a231\"));",
       "module": "character",
@@ -31364,7 +31404,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4401,
+      "line": 4402,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.553d2b23a231\"));",
       "module": "character",
@@ -31372,7 +31412,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4406,
+      "line": 4407,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.bbd446d809fb\"));",
       "module": "character",
@@ -31380,7 +31420,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4406,
+      "line": 4407,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.bbd446d809fb\"));",
       "module": "character",
@@ -31388,7 +31428,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4448,
+      "line": 4449,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.5d95aa318143\"));",
       "module": "character",
@@ -31396,7 +31436,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4448,
+      "line": 4449,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.5d95aa318143\"));",
       "module": "character",
@@ -31404,7 +31444,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4455,
+      "line": 4456,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.96d8f0cf3116\"));",
       "module": "character",
@@ -31412,7 +31452,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4455,
+      "line": 4456,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.96d8f0cf3116\"));",
       "module": "character",
@@ -31420,7 +31460,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4468,
+      "line": 4469,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"You are %sconfused.\",",
       "module": "character",
@@ -31428,7 +31468,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4490,
+      "line": 4491,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b6b736605d87\"));",
       "module": "character",
@@ -31436,7 +31476,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4490,
+      "line": 4491,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b6b736605d87\"));",
       "module": "character",
@@ -31444,7 +31484,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4517,
+      "line": 4518,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f48806eab7eb\"), MSGCH_DANGER);",
       "module": "character",
@@ -31452,7 +31492,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4517,
+      "line": 4518,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f48806eab7eb\"), MSGCH_DANGER);",
       "module": "character",
@@ -31460,7 +31500,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4520,
+      "line": 4521,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"You are %spoisoned.\",",
       "module": "character",
@@ -31468,7 +31508,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4658,
+      "line": 4659,
       "api": "mprf",
       "anchor": "mprf(channel, \"You feel %ssick.\", adj);",
       "module": "character",
@@ -31476,7 +31516,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4681,
+      "line": 4682,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.9ff260957d19\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31484,7 +31524,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4681,
+      "line": 4682,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.9ff260957d19\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31492,7 +31532,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4784,
+      "line": 4785,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a9dc5ba96673\"));",
       "module": "character",
@@ -31500,7 +31540,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4784,
+      "line": 4785,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a9dc5ba96673\"));",
       "module": "character",
@@ -31508,7 +31548,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4829,
+      "line": 4830,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"You are even more covered in %sliquid fire!\",",
       "module": "character",
@@ -31516,7 +31556,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4834,
+      "line": 4835,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"You are covered in %sliquid fire! Move or burn!\",",
       "module": "character",
@@ -31524,7 +31564,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4850,
+      "line": 4851,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ad3746104ea7\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31532,7 +31572,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4850,
+      "line": 4851,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ad3746104ea7\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31540,7 +31580,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4858,
+      "line": 4859,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"The liquid fire burns you%s!\",",
       "module": "character",
@@ -31548,7 +31588,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4873,
+      "line": 4874,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f2e9693d0527\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31556,7 +31596,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4873,
+      "line": 4874,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f2e9693d0527\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31564,7 +31604,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4895,
+      "line": 4896,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.5163b219aa32\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31572,7 +31612,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4895,
+      "line": 4896,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.5163b219aa32\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -31580,7 +31620,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4899,
+      "line": 4900,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.5b96bc17f132\"));",
       "module": "character",
@@ -31588,7 +31628,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4899,
+      "line": 4900,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.5b96bc17f132\"));",
       "module": "character",
@@ -31596,7 +31636,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4916,
+      "line": 4917,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.93544939e336\"));",
       "module": "character",
@@ -31604,7 +31644,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4916,
+      "line": 4917,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.93544939e336\"));",
       "module": "character",
@@ -31612,7 +31652,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4918,
+      "line": 4919,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b2c8685edc86\"));",
       "module": "character",
@@ -31620,7 +31660,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4918,
+      "line": 4919,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b2c8685edc86\"));",
       "module": "character",
@@ -31628,7 +31668,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4937,
+      "line": 4938,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f31b4003079f\"));",
       "module": "character",
@@ -31636,7 +31676,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4937,
+      "line": 4938,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f31b4003079f\"));",
       "module": "character",
@@ -31644,7 +31684,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4947,
+      "line": 4948,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b6473254722c\"));",
       "module": "character",
@@ -31652,7 +31692,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4947,
+      "line": 4948,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b6473254722c\"));",
       "module": "character",
@@ -31660,7 +31700,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4951,
+      "line": 4952,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a138df415c24\"), MSGCH_WARN);",
       "module": "character",
@@ -31668,7 +31708,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4951,
+      "line": 4952,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a138df415c24\"), MSGCH_WARN);",
       "module": "character",
@@ -31676,7 +31716,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4953,
+      "line": 4954,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.43a8620b49ce\"), MSGCH_WARN);",
       "module": "character",
@@ -31684,7 +31724,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4953,
+      "line": 4954,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.43a8620b49ce\"), MSGCH_WARN);",
       "module": "character",
@@ -31692,7 +31732,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4986,
+      "line": 4987,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.6e285643cc04\"), MSGCH_DURATION);",
       "module": "character",
@@ -31700,7 +31740,7 @@
     },
     {
       "file": "player.cc",
-      "line": 4986,
+      "line": 4987,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.6e285643cc04\"), MSGCH_DURATION);",
       "module": "character",
@@ -31708,7 +31748,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5002,
+      "line": 5003,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a0b504e77b01\"));",
       "module": "character",
@@ -31716,7 +31756,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5002,
+      "line": 5003,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a0b504e77b01\"));",
       "module": "character",
@@ -31724,7 +31764,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5008,
+      "line": 5009,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.e72c34c856ac\"));",
       "module": "character",
@@ -31732,7 +31772,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5008,
+      "line": 5009,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.e72c34c856ac\"));",
       "module": "character",
@@ -31740,7 +31780,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5034,
+      "line": 5035,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.09f0da825ecd\"));",
       "module": "character",
@@ -31748,7 +31788,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5034,
+      "line": 5035,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.09f0da825ecd\"));",
       "module": "character",
@@ -31756,7 +31796,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5036,
+      "line": 5037,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.80f6250477fa\"));",
       "module": "character",
@@ -31764,7 +31804,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5036,
+      "line": 5037,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.80f6250477fa\"));",
       "module": "character",
@@ -31772,7 +31812,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5065,
+      "line": 5066,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.42f15c1f1050\"), MSGCH_DURATION);",
       "module": "character",
@@ -31780,7 +31820,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5065,
+      "line": 5066,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.42f15c1f1050\"), MSGCH_DURATION);",
       "module": "character",
@@ -31788,7 +31828,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5079,
+      "line": 5080,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.78c808411fdb\"));",
       "module": "character",
@@ -31796,7 +31836,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5079,
+      "line": 5080,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.78c808411fdb\"));",
       "module": "character",
@@ -31804,7 +31844,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5094,
+      "line": 5095,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.6e285643cc04\"));",
       "module": "character",
@@ -31812,7 +31852,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5094,
+      "line": 5095,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.6e285643cc04\"));",
       "module": "character",
@@ -31820,7 +31860,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5096,
+      "line": 5097,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.7411d8dc9ec5\"));",
       "module": "character",
@@ -31828,7 +31868,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5096,
+      "line": 5097,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.7411d8dc9ec5\"));",
       "module": "character",
@@ -31836,7 +31876,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5098,
+      "line": 5099,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.0cd12539e354\"));",
       "module": "character",
@@ -31844,7 +31884,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5098,
+      "line": 5099,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.0cd12539e354\"));",
       "module": "character",
@@ -31852,7 +31892,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5120,
+      "line": 5121,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.e3434c787b90\"), MSGCH_DURATION);",
       "module": "character",
@@ -31860,7 +31900,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5120,
+      "line": 5121,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.e3434c787b90\"), MSGCH_DURATION);",
       "module": "character",
@@ -31868,7 +31908,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5128,
+      "line": 5129,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a138df415c24\"), MSGCH_DURATION);",
       "module": "character",
@@ -31876,7 +31916,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5128,
+      "line": 5129,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a138df415c24\"), MSGCH_DURATION);",
       "module": "character",
@@ -31884,7 +31924,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5174,
+      "line": 5175,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b70c560b0221\"));",
       "module": "character",
@@ -31892,7 +31932,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5174,
+      "line": 5175,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b70c560b0221\"));",
       "module": "character",
@@ -31900,7 +31940,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5191,
+      "line": 5192,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b70c560b0221\"));",
       "module": "character",
@@ -31908,7 +31948,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5191,
+      "line": 5192,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b70c560b0221\"));",
       "module": "character",
@@ -31916,7 +31956,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5205,
+      "line": 5206,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.c4921e335753\"));",
       "module": "character",
@@ -31924,7 +31964,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5205,
+      "line": 5206,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c4921e335753\"));",
       "module": "character",
@@ -31932,7 +31972,23 @@
     },
     {
       "file": "player.cc",
-      "line": 5285,
+      "line": 5271,
+      "api": "zh_message",
+      "anchor": "else if (!quiet && !yesno(zh_message(\"player.invisibility.backlit.confirm\"), false, 'n'))",
+      "module": "character",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "player.cc",
+      "line": 5287,
+      "api": "mpr",
+      "anchor": "mpr(ZhMessage{\"\", msg.canonical, msg.localized});",
+      "module": "character",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "player.cc",
+      "line": 5309,
       "api": "mpr",
       "anchor": "mpr(msg);",
       "module": "character",
@@ -31940,15 +31996,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5307,
-      "api": "mpr",
-      "anchor": "mpr(msg);",
-      "module": "character",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "player.cc",
-      "line": 5316,
+      "line": 5318,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.4df385894366\"));",
       "module": "character",
@@ -31956,7 +32004,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5316,
+      "line": 5318,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.4df385894366\"));",
       "module": "character",
@@ -31964,7 +32012,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5320,
+      "line": 5322,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.7d5c9b530085\"));",
       "module": "character",
@@ -31972,7 +32020,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5320,
+      "line": 5322,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.7d5c9b530085\"));",
       "module": "character",
@@ -31980,7 +32028,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5322,
+      "line": 5324,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.fa1ced711fcf\"));",
       "module": "character",
@@ -31988,7 +32036,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5322,
+      "line": 5324,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.fa1ced711fcf\"));",
       "module": "character",
@@ -31996,7 +32044,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5332,
+      "line": 5334,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DURATION, \"You feel %s buoyant.\", standing ? \"very\" : \"more\");",
       "module": "character",
@@ -32004,7 +32052,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5342,
+      "line": 5344,
       "api": "mprf",
       "anchor": "mprf(\"You can't survive in this terrain! You fly above the %s, but the \"",
       "module": "character",
@@ -32012,7 +32060,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5379,
+      "line": 5381,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.b7f20a7bcd10\"));",
       "module": "character",
@@ -32020,7 +32068,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5379,
+      "line": 5381,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.b7f20a7bcd10\"));",
       "module": "character",
@@ -32028,7 +32076,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5956,
+      "line": 5958,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.829884916256\"));",
       "module": "character",
@@ -32036,7 +32084,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5956,
+      "line": 5958,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.829884916256\"));",
       "module": "character",
@@ -32044,7 +32092,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5963,
+      "line": 5965,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.52a856e4e5eb\"));",
       "module": "character",
@@ -32052,7 +32100,7 @@
     },
     {
       "file": "player.cc",
-      "line": 5963,
+      "line": 5965,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.52a856e4e5eb\"));",
       "module": "character",
@@ -32060,39 +32108,23 @@
     },
     {
       "file": "player.cc",
-      "line": 7175,
-      "api": "make_stringf",
-      "anchor": "problems.push_back(make_stringf(\"wielding %s\",",
+      "line": 7169,
+      "api": "zh_item_arg",
+      "anchor": "{zh_item_arg(\"item\", *item, DESC_A)}));",
       "module": "character",
-      "classification": "callsite-review-required"
+      "classification": "semantic-name"
     },
     {
       "file": "player.cc",
-      "line": 7185,
-      "api": "make_stringf",
-      "anchor": "make_stringf(\"wearing %s %s preventing teleportation\",",
+      "line": 7171,
+      "api": "zh_item_arg",
+      "anchor": "worn_notele.push_back(zh_item_arg(\"item\", *item, DESC_A));",
       "module": "character",
-      "classification": "callsite-review-required"
+      "classification": "semantic-name"
     },
     {
       "file": "player.cc",
-      "line": 7192,
-      "api": "make_stringf",
-      "anchor": "make_stringf(\"wearing %s\",",
-      "module": "character",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "player.cc",
-      "line": 7201,
-      "api": "make_stringf",
-      "anchor": "return make_stringf(\"You cannot %s because you are %s.\",",
-      "module": "character",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "player.cc",
-      "line": 7367,
+      "line": 7358,
       "api": "mprf",
       "anchor": "mprf(\"Your boots keep you from %s.\", event.c_str());",
       "module": "character",
@@ -32100,7 +32132,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7375,
+      "line": 7366,
       "api": "make_stringf",
       "anchor": "make_stringf(\"%s corrodes you!\",",
       "module": "character",
@@ -32108,7 +32140,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7406,
+      "line": 7397,
       "api": "mprf",
       "anchor": "mprf(\"You are splashed with acid%s%s\",",
       "module": "character",
@@ -32116,7 +32148,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7446,
+      "line": 7437,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.85a5ea676a5d\"));",
       "module": "character",
@@ -32124,7 +32156,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7446,
+      "line": 7437,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.85a5ea676a5d\"));",
       "module": "character",
@@ -32132,7 +32164,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7454,
+      "line": 7445,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.72d50f6145da\"));",
       "module": "character",
@@ -32140,7 +32172,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7454,
+      "line": 7445,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.72d50f6145da\"));",
       "module": "character",
@@ -32148,7 +32180,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7460,
+      "line": 7451,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.80a76d3b0472\"));",
       "module": "character",
@@ -32156,7 +32188,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7460,
+      "line": 7451,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.80a76d3b0472\"));",
       "module": "character",
@@ -32164,7 +32196,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7498,
+      "line": 7489,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f0a0a5118b22\"));",
       "module": "character",
@@ -32172,7 +32204,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7498,
+      "line": 7489,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f0a0a5118b22\"));",
       "module": "character",
@@ -32180,7 +32212,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7515,
+      "line": 7506,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.618daf161a37\"), MSGCH_WARN);",
       "module": "character",
@@ -32188,7 +32220,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7515,
+      "line": 7506,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.618daf161a37\"), MSGCH_WARN);",
       "module": "character",
@@ -32196,7 +32228,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7524,
+      "line": 7515,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.d27ae14a3f17\"));",
       "module": "character",
@@ -32204,7 +32236,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7524,
+      "line": 7515,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.d27ae14a3f17\"));",
       "module": "character",
@@ -32212,7 +32244,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7537,
+      "line": 7528,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.d2bdfb3f43a3\"));",
       "module": "character",
@@ -32220,7 +32252,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7537,
+      "line": 7528,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.d2bdfb3f43a3\"));",
       "module": "character",
@@ -32228,7 +32260,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7542,
+      "line": 7533,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.72d50f6145da\"));",
       "module": "character",
@@ -32236,7 +32268,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7542,
+      "line": 7533,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.72d50f6145da\"));",
       "module": "character",
@@ -32244,7 +32276,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7549,
+      "line": 7540,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"You %s\", special_msg.c_str());",
       "module": "character",
@@ -32252,7 +32284,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7551,
+      "line": 7542,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.846b34a08211\"), MSGCH_WARN);",
       "module": "character",
@@ -32260,7 +32292,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7551,
+      "line": 7542,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.846b34a08211\"), MSGCH_WARN);",
       "module": "character",
@@ -32268,7 +32300,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7761,
+      "line": 7752,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ac1dadc8b841\"));",
       "module": "character",
@@ -32276,7 +32308,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7761,
+      "line": 7752,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ac1dadc8b841\"));",
       "module": "character",
@@ -32284,7 +32316,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7765,
+      "line": 7756,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.e17e096be55f\"));",
       "module": "character",
@@ -32292,7 +32324,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7765,
+      "line": 7756,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.e17e096be55f\"));",
       "module": "character",
@@ -32300,7 +32332,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7867,
+      "line": 7858,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.65ebd6ac4614\"));",
       "module": "character",
@@ -32308,7 +32340,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7867,
+      "line": 7858,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.65ebd6ac4614\"));",
       "module": "character",
@@ -32316,7 +32348,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7869,
+      "line": 7860,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.c071f78462fb\"));",
       "module": "character",
@@ -32324,7 +32356,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7869,
+      "line": 7860,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c071f78462fb\"));",
       "module": "character",
@@ -32332,7 +32364,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7872,
+      "line": 7863,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.bde17ebff2fb\"));",
       "module": "character",
@@ -32340,7 +32372,7 @@
     },
     {
       "file": "player.cc",
-      "line": 7872,
+      "line": 7863,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.bde17ebff2fb\"));",
       "module": "character",
@@ -32348,7 +32380,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8032,
+      "line": 8023,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.f054beca32fb\"), MSGCH_WARN);",
       "module": "character",
@@ -32356,7 +32388,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8032,
+      "line": 8023,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.f054beca32fb\"), MSGCH_WARN);",
       "module": "character",
@@ -32364,7 +32396,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8110,
+      "line": 8101,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.803b80d78507\"));",
       "module": "character",
@@ -32372,7 +32404,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8110,
+      "line": 8101,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.803b80d78507\"));",
       "module": "character",
@@ -32380,7 +32412,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8118,
+      "line": 8109,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.2d2edc83a41a\"));",
       "module": "character",
@@ -32388,7 +32420,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8118,
+      "line": 8109,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.2d2edc83a41a\"));",
       "module": "character",
@@ -32396,7 +32428,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8127,
+      "line": 8118,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.3008880f42d6\"));",
       "module": "character",
@@ -32404,7 +32436,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8127,
+      "line": 8118,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.3008880f42d6\"));",
       "module": "character",
@@ -32412,7 +32444,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8147,
+      "line": 8138,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.6f60f7135c65\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -32420,7 +32452,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8147,
+      "line": 8138,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.6f60f7135c65\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -32428,7 +32460,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8157,
+      "line": 8148,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.7529b9550152\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -32436,7 +32468,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8157,
+      "line": 8148,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.7529b9550152\"), MSGCH_RECOVERY);",
       "module": "character",
@@ -32444,7 +32476,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8194,
+      "line": 8185,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.14ef56476046\"));",
       "module": "character",
@@ -32452,7 +32484,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8194,
+      "line": 8185,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.14ef56476046\"));",
       "module": "character",
@@ -32460,7 +32492,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8199,
+      "line": 8190,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ecde9946f021\"));",
       "module": "character",
@@ -32468,7 +32500,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8199,
+      "line": 8190,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ecde9946f021\"));",
       "module": "character",
@@ -32476,7 +32508,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8213,
+      "line": 8204,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.c94de1b52d24\"));",
       "module": "character",
@@ -32484,7 +32516,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8213,
+      "line": 8204,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c94de1b52d24\"));",
       "module": "character",
@@ -32492,7 +32524,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8220,
+      "line": 8211,
       "api": "mprf",
       "anchor": "mprf(\"You can't shaft yourself while %s.\", held_status());",
       "module": "character",
@@ -32500,7 +32532,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8227,
+      "line": 8218,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a931f64997c0\"));",
       "module": "character",
@@ -32508,7 +32540,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8227,
+      "line": 8218,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a931f64997c0\"));",
       "module": "character",
@@ -32516,7 +32548,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8236,
+      "line": 8227,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.fe2c5b3915e7\"));",
       "module": "character",
@@ -32524,7 +32556,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8236,
+      "line": 8227,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.fe2c5b3915e7\"));",
       "module": "character",
@@ -32532,7 +32564,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8243,
+      "line": 8234,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.d14285701180\"));",
       "module": "character",
@@ -32540,7 +32572,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8243,
+      "line": 8234,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.d14285701180\"));",
       "module": "character",
@@ -32548,7 +32580,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8256,
+      "line": 8247,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.4c0163e9fee0\"));",
       "module": "character",
@@ -32556,7 +32588,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8256,
+      "line": 8247,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.4c0163e9fee0\"));",
       "module": "character",
@@ -32564,7 +32596,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8320,
+      "line": 8311,
       "api": "mpr",
       "anchor": "mpr(msg);",
       "module": "character",
@@ -32572,7 +32604,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8371,
+      "line": 8362,
       "api": "mprf",
       "anchor": "mprf(\"You escape %s grasp.\", object.c_str());",
       "module": "character",
@@ -32580,7 +32612,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8388,
+      "line": 8379,
       "api": "mprf",
       "anchor": "mprf(\"%s grasp on you weakens, but your attempt to escape fails.\",",
       "module": "character",
@@ -32588,7 +32620,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8400,
+      "line": 8391,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.84e4013d58c6\"));",
       "module": "character",
@@ -32596,7 +32628,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8400,
+      "line": 8391,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.84e4013d58c6\"));",
       "module": "character",
@@ -32604,7 +32636,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8405,
+      "line": 8396,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.636523da6016\"), MSGCH_WARN);",
       "module": "character",
@@ -32612,7 +32644,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8405,
+      "line": 8396,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.636523da6016\"), MSGCH_WARN);",
       "module": "character",
@@ -32620,7 +32652,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8457,
+      "line": 8448,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.4227ac222fe6\"), MSGCH_WARN);",
       "module": "character",
@@ -32628,7 +32660,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8457,
+      "line": 8448,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.4227ac222fe6\"), MSGCH_WARN);",
       "module": "character",
@@ -32636,7 +32668,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8459,
+      "line": 8450,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.0b2082fc5426\"), MSGCH_WARN);",
       "module": "character",
@@ -32644,7 +32676,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8459,
+      "line": 8450,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.0b2082fc5426\"), MSGCH_WARN);",
       "module": "character",
@@ -32652,7 +32684,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8467,
+      "line": 8458,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.790cca5ed0b1\"), MSGCH_WARN);",
       "module": "character",
@@ -32660,7 +32692,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8467,
+      "line": 8458,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.790cca5ed0b1\"), MSGCH_WARN);",
       "module": "character",
@@ -32668,7 +32700,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8469,
+      "line": 8460,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.8d8a97fee7bb\"), MSGCH_WARN);",
       "module": "character",
@@ -32676,7 +32708,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8469,
+      "line": 8460,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.8d8a97fee7bb\"), MSGCH_WARN);",
       "module": "character",
@@ -32684,7 +32716,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8479,
+      "line": 8470,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.4d13b70c64f6\"));",
       "module": "character",
@@ -32692,7 +32724,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8479,
+      "line": 8470,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.4d13b70c64f6\"));",
       "module": "character",
@@ -32700,7 +32732,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8492,
+      "line": 8483,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.1b5d3ef4f9c8\"), MSGCH_WARN);",
       "module": "character",
@@ -32708,7 +32740,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8492,
+      "line": 8483,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.1b5d3ef4f9c8\"), MSGCH_WARN);",
       "module": "character",
@@ -32716,7 +32748,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8511,
+      "line": 8502,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.c77d1f3354da\"), MSGCH_WARN);",
       "module": "character",
@@ -32724,7 +32756,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8511,
+      "line": 8502,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.c77d1f3354da\"), MSGCH_WARN);",
       "module": "character",
@@ -32732,7 +32764,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8513,
+      "line": 8504,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.a7466ffde2b9\"));",
       "module": "character",
@@ -32740,7 +32772,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8513,
+      "line": 8504,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.a7466ffde2b9\"));",
       "module": "character",
@@ -32748,7 +32780,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8532,
+      "line": 8523,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"%s floods into your lungs!\", substance);",
       "module": "character",
@@ -32756,7 +32788,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8588,
+      "line": 8579,
       "api": "make_stringf",
       "anchor": "cinfo += make_stringf(\"You have %d tentacle%s available for constriction.\",",
       "module": "character",
@@ -32764,7 +32796,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8601,
+      "line": 8592,
       "api": "make_stringf",
       "anchor": "cinfo += make_stringf(\"You are being constricted by %s.\",",
       "module": "character",
@@ -32772,7 +32804,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8713,
+      "line": 8704,
       "api": "mprf",
       "anchor": "mprf(\"%s enhances the healing.\",",
       "module": "character",
@@ -32780,7 +32812,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8717,
+      "line": 8708,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.427c94948754\"));",
       "module": "character",
@@ -32788,7 +32820,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8717,
+      "line": 8708,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.427c94948754\"));",
       "module": "character",
@@ -32796,7 +32828,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8719,
+      "line": 8710,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.66eff7d065ce\")); // bad message, but this should",
       "module": "character",
@@ -32804,7 +32836,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8719,
+      "line": 8710,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.66eff7d065ce\")); // bad message, but this should",
       "module": "character",
@@ -32812,7 +32844,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8723,
+      "line": 8714,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.5754027073ba\"));",
       "module": "character",
@@ -32820,7 +32852,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8723,
+      "line": 8714,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.5754027073ba\"));",
       "module": "character",
@@ -32828,7 +32860,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8725,
+      "line": 8716,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.ef49406b77e0\"));",
       "module": "character",
@@ -32836,7 +32868,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8725,
+      "line": 8716,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.ef49406b77e0\"));",
       "module": "character",
@@ -32844,7 +32876,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8847,
+      "line": 8838,
       "api": "make_stringf",
       "anchor": "string prompt = make_stringf(\"This %s%s is marked as excluded! \"",
       "module": "character",
@@ -32852,7 +32884,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8880,
+      "line": 8871,
       "api": "mprf",
       "anchor": "mprf(berserk_open.c_str(), adj, noun);",
       "module": "character",
@@ -32860,7 +32892,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8883,
+      "line": 8874,
       "api": "mprf",
       "anchor": "mprf(\"The %s%s flies open!\", adj, noun);",
       "module": "character",
@@ -32868,7 +32900,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8893,
+      "line": 8884,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, berserk_open.c_str(), adj, noun);",
       "module": "character",
@@ -32876,7 +32908,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8896,
+      "line": 8887,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, \"The %s%s flies open with a bang!\", adj, noun);",
       "module": "character",
@@ -32884,7 +32916,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8903,
+      "line": 8894,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, door_open_creak.c_str(), adj, noun);",
       "module": "character",
@@ -32892,7 +32924,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8906,
+      "line": 8897,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, \"As you open the %s%s, it creaks loudly!\",",
       "module": "character",
@@ -32900,7 +32932,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8929,
+      "line": 8920,
       "api": "mprf",
       "anchor": "mprf(verb, adj, noun);",
       "module": "character",
@@ -32908,7 +32940,7 @@
     },
     {
       "file": "player.cc",
-      "line": 8985,
+      "line": 8976,
       "api": "make_stringf",
       "anchor": "const string waynoun_str = make_stringf(\"%sway\", noun);",
       "module": "character",
@@ -32916,7 +32948,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9003,
+      "line": 8994,
       "api": "mprf",
       "anchor": "mprf(\"Something is blocking the %s!\", waynoun);",
       "module": "character",
@@ -32924,7 +32956,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9009,
+      "line": 9000,
       "api": "mprf",
       "anchor": "mprf(\"There's a creature in the %s!\", waynoun);",
       "module": "character",
@@ -32932,7 +32964,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9017,
+      "line": 9008,
       "api": "mprf",
       "anchor": "mprf(\"There's something jamming the %s.\", waynoun);",
       "module": "character",
@@ -32940,7 +32972,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9025,
+      "line": 9016,
       "api": "mprf",
       "anchor": "mprf(\"There's a thick-headed creature in the %s!\", waynoun);",
       "module": "character",
@@ -32948,7 +32980,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9050,
+      "line": 9041,
       "api": "mprf",
       "anchor": "mprf(berserk_close.c_str(), adj, noun);",
       "module": "character",
@@ -32956,7 +32988,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9053,
+      "line": 9044,
       "api": "mprf",
       "anchor": "mprf(\"You slam the %s%s shut%s!\", adj, noun, items_msg);",
       "module": "character",
@@ -32964,7 +32996,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9063,
+      "line": 9054,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, berserk_close.c_str(), adj, noun);",
       "module": "character",
@@ -32972,7 +33004,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9067,
+      "line": 9058,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, \"You slam the %s%s shut with a bang%s!\",",
       "module": "character",
@@ -32980,7 +33012,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9077,
+      "line": 9068,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, door_close_creak.c_str(), adj, noun);",
       "module": "character",
@@ -32988,7 +33020,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9080,
+      "line": 9071,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, \"As you close the %s%s%s, it creaks loudly!\",",
       "module": "character",
@@ -32996,7 +33028,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9091,
+      "line": 9082,
       "api": "mprf",
       "anchor": "mprf(door_airborne.c_str(), adj, noun);",
       "module": "character",
@@ -33004,7 +33036,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9093,
+      "line": 9084,
       "api": "mprf",
       "anchor": "mprf(\"You reach down and close the %s%s%s.\", adj, noun, items_msg);",
       "module": "character",
@@ -33012,7 +33044,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9098,
+      "line": 9089,
       "api": "mprf",
       "anchor": "mprf(door_close_verb.c_str(), adj, noun);",
       "module": "character",
@@ -33020,7 +33052,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9100,
+      "line": 9091,
       "api": "mprf",
       "anchor": "mprf(\"You close the %s%s%s.\", adj, noun, items_msg);",
       "module": "character",
@@ -33028,7 +33060,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9195,
+      "line": 9186,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.8aa532b40db2\"), MSGCH_WARN);",
       "module": "character",
@@ -33036,7 +33068,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9195,
+      "line": 9186,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.8aa532b40db2\"), MSGCH_WARN);",
       "module": "character",
@@ -33044,7 +33076,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9238,
+      "line": 9229,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.2da6e3eca155\"));",
       "module": "character",
@@ -33052,7 +33084,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9238,
+      "line": 9229,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.2da6e3eca155\"));",
       "module": "character",
@@ -33060,7 +33092,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9250,
+      "line": 9241,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.fbbe6b7544e6\"));",
       "module": "character",
@@ -33068,7 +33100,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9250,
+      "line": 9241,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.fbbe6b7544e6\"));",
       "module": "character",
@@ -33076,7 +33108,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9358,
+      "line": 9349,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"log.player.fixed.6dd7dec7fc6a\"), MSGCH_DURATION);",
       "module": "character",
@@ -33084,7 +33116,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9358,
+      "line": 9349,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"log.player.fixed.6dd7dec7fc6a\"), MSGCH_DURATION);",
       "module": "character",
@@ -33092,7 +33124,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9415,
+      "line": 9406,
       "api": "mprf",
       "anchor": "mprf(\"You devour the vestiges of %s's existence in your flames.\",",
       "module": "character",
@@ -33100,7 +33132,7 @@
     },
     {
       "file": "player.cc",
-      "line": 9475,
+      "line": 9466,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DURATION, \"You feel %sagile all of a sudden.\",",
       "module": "character",
@@ -33300,7 +33332,7 @@
     },
     {
       "file": "potion.cc",
-      "line": 769,
+      "line": 771,
       "api": "mpr",
       "anchor": "mpr(\"You're too dead to put down roots!\");",
       "module": "other-review-required",
@@ -33308,7 +33340,7 @@
     },
     {
       "file": "potion.cc",
-      "line": 787,
+      "line": 789,
       "api": "make_stringf",
       "anchor": "&& !yesno(make_stringf(\"Really become a tree while standing in \"",
       "module": "other-review-required",
@@ -33316,7 +33348,7 @@
     },
     {
       "file": "potion.cc",
-      "line": 803,
+      "line": 805,
       "api": "mpr",
       "anchor": "mpr(\"You feel woody for a moment.\");",
       "module": "other-review-required",
@@ -33324,7 +33356,7 @@
     },
     {
       "file": "potion.cc",
-      "line": 834,
+      "line": 836,
       "api": "mpr",
       "anchor": "mpr(\"You feel extremely strange.\");",
       "module": "other-review-required",
@@ -33332,7 +33364,7 @@
     },
     {
       "file": "potion.cc",
-      "line": 897,
+      "line": 899,
       "api": "mpr",
       "anchor": "mpr(\"You feel tipsy.\");",
       "module": "other-review-required",
@@ -33340,7 +33372,7 @@
     },
     {
       "file": "potion.cc",
-      "line": 980,
+      "line": 982,
       "api": "mprf",
       "anchor": "mprf(\"Your fungus emits %s spores!\", _spore_msg.at(potion).c_str());",
       "module": "other-review-required",
@@ -33348,7 +33380,7 @@
     },
     {
       "file": "potion.cc",
-      "line": 1002,
+      "line": 1004,
       "api": "mprf",
       "anchor": "mprf(\"It was %s.\", article_a(potion.name(DESC_QUALNAME)).c_str());",
       "module": "other-review-required",
@@ -33356,7 +33388,7 @@
     },
     {
       "file": "potion.cc",
-      "line": 1011,
+      "line": 1013,
       "api": "mpr",
       "anchor": "mpr(\"You extract magical energy from the potion.\");",
       "module": "other-review-required",
@@ -40788,31 +40820,151 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 144,
+      "line": 78,
+      "api": "zh_message",
+      "anchor": "return count > 1 ? zh_message(\"transloc.teleport.follow.monsters\")",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 79,
+      "api": "zh_message",
+      "anchor": ": zh_message(\"transloc.teleport.follow.monster\");",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 85,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"transloc.gravitas.around_monster\", {zh_monster_arg(\"monster\", *mon)});",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 85,
+      "api": "zh_monster_arg",
+      "anchor": "return zh_message(\"transloc.gravitas.around_monster\", {zh_monster_arg(\"monster\", *mon)});",
+      "module": "spells",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 94,
+      "api": "zh_glossary_name",
+      "anchor": "ZhArg terrain = zh_glossary_name(\"terrain\", \"terrain\", plain);",
+      "module": "spells",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 96,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"transloc.gravitas.around_terrain\", {terrain});",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 98,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"transloc.gravitas.inward\");",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 105,
+      "api": "zh_message",
+      "anchor": "? zh_message(\"transloc.beckon.singular\", {name})",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 106,
+      "api": "zh_message",
+      "anchor": ": zh_message(\"transloc.beckon.plural\", {name});",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 112,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"transloc.piledriver.one\", {zh_monster_arg(\"monster\", *mons[0])});",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 112,
+      "api": "zh_monster_arg",
+      "anchor": "return zh_message(\"transloc.piledriver.one\", {zh_monster_arg(\"monster\", *mons[0])});",
+      "module": "spells",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 113,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"transloc.piledriver.many\",",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 189,
       "api": "mpr",
-      "anchor": "mpr(\"You feel jittery for a moment.\");",
+      "anchor": "mpr(zh_message(\"shared.log.blink.no_landing\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 169,
+      "line": 189,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.blink.no_landing\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 214,
       "api": "mpr",
-      "anchor": "mpr(\"You jump in place.\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.jump_in_place\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 202,
+      "line": 214,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.jump_in_place\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 247,
       "api": "mpr",
-      "anchor": "mpr(\"You jump through the air!\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.jump_air\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 240,
+      "line": 247,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.jump_air\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 285,
       "api": "mprf",
       "anchor": "mprf(\"Cancelling %s due to HUP.\", verb.c_str());",
       "module": "spells",
@@ -40820,7 +40972,7 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 261,
+      "line": 306,
       "api": "mprf",
       "anchor": "mprf(\"You cannot %s away from %s!\",",
       "module": "spells",
@@ -40828,7 +40980,7 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 270,
+      "line": 315,
       "api": "mprf",
       "anchor": "mprf(\"You cannot %s closer to %s!\",",
       "module": "spells",
@@ -40836,7 +40988,7 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 279,
+      "line": 324,
       "api": "mprf",
       "anchor": "mprf(\"You can't %s into that!\", verb.c_str());",
       "module": "spells",
@@ -40844,7 +40996,7 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 286,
+      "line": 331,
       "api": "mprf",
       "anchor": "mprf(\"You can't %s onto %s!\", verb.c_str(),",
       "module": "spells",
@@ -40852,47 +41004,87 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 340,
+      "line": 385,
       "api": "mpr",
-      "anchor": "mpr(\"Please don't blink into the map border.\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.blink_map_border\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 347,
+      "line": 385,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.blink_map_border\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 392,
       "api": "mpr",
-      "anchor": "mpr(\"Please don't try to blink into monsters.\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.blink_monsters\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 464,
+      "line": 392,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.blink_monsters\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 509,
       "api": "mpr",
-      "anchor": "mpr(\"That's out of range!\"); // ! targeting",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.out_of_range\")); // ! targeting",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 478,
+      "line": 509,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.out_of_range\")); // ! targeting",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 523,
       "api": "mpr",
-      "anchor": "mpr(\"You tried to hop, but there was no room to land!\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.hop_no_room\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 487,
+      "line": 523,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.hop_no_room\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 532,
       "api": "mpr",
-      "anchor": "mpr(\"Boing!\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.boing\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 504,
+      "line": 532,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.boing\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 549,
       "api": "make_stringf",
       "anchor": "example_reason = make_stringf(\"you can't charge at %s because %s\",",
       "module": "spells",
@@ -40900,7 +41092,7 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 525,
+      "line": 570,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"You cannot do that while %s.\", held_status());",
       "module": "spells",
@@ -40908,7 +41100,7 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 643,
+      "line": 688,
       "api": "make_stringf",
       "anchor": "*fail_reason = make_stringf(\"You cannot charge away from %s!\",",
       "module": "spells",
@@ -40916,7 +41108,7 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 655,
+      "line": 700,
       "api": "make_stringf",
       "anchor": "*fail_reason = make_stringf(\"You cannot charge closer to %s!\",",
       "module": "spells",
@@ -40924,135 +41116,279 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 694,
+      "line": 739,
       "api": "mpr",
-      "anchor": "mpr(\"You are hurled out of the way!\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.hurled_away\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 760,
-      "api": "mprf",
-      "anchor": "mprf(\"%s is immovably fixed there.\", dest_mon->name(DESC_THE).c_str());",
+      "line": 739,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.hurled_away\"));",
       "module": "spells",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 777,
+      "line": 805,
       "api": "mpr",
-      "anchor": "mpr(\"You charge forward in eerie silence!\");",
+      "anchor": "mpr(zh_message(\"transloc.charge.immovably_fixed\", {zh_monster_arg(\"monster\", *dest_mon)}));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 779,
+      "line": 805,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.charge.immovably_fixed\", {zh_monster_arg(\"monster\", *dest_mon)}));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 805,
+      "api": "zh_monster_arg",
+      "anchor": "mpr(zh_message(\"transloc.charge.immovably_fixed\", {zh_monster_arg(\"monster\", *dest_mon)}));",
+      "module": "spells",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 822,
       "api": "mpr",
-      "anchor": "mpr(\"You charge forward with an electric crackle!\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.charge_silence\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 788,
-      "api": "mprf",
-      "anchor": "mprf(\"...but somehow remain%s in the same place.\",",
+      "line": 822,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.charge_silence\"));",
       "module": "spells",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 874,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_ORB, \"You feel the Orb interfering with your translocation!\");",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-transloc.cc",
-      "line": 887,
+      "line": 824,
       "api": "mpr",
-      "anchor": "mpr(\"Oops! There was something there already!\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.charge_crackle\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 936,
+      "line": 824,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.charge_crackle\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 833,
       "api": "mpr",
-      "anchor": "mpr(\"You feel strangely stable.\");",
+      "anchor": "mpr(agent.is_monster() ? zh_message(\"transloc.charge.remains\")",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 943,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_WARN, \"You feel space start to destabilise around you!\");",
+      "line": 833,
+      "api": "zh_message",
+      "anchor": "mpr(agent.is_monster() ? zh_message(\"transloc.charge.remains\")",
       "module": "spells",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 945,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_WARN, \"You feel a distressing malevolence running through your instability!\");",
+      "line": 834,
+      "api": "zh_message",
+      "anchor": ": zh_message(\"transloc.charge.remain\"));",
       "module": "spells",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 947,
+      "line": 919,
       "api": "mpr",
-      "anchor": "mpr(\"You feel strangely unstable.\");",
+      "anchor": "mpr(zh_message(\"shared.log.blink.orb_interference\"), MSGCH_ORB);",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 953,
+      "line": 919,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.blink.orb_interference\"), MSGCH_ORB);",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 932,
       "api": "mpr",
-      "anchor": "mpr(\"You feel the power of the Abyss delaying your translocation!\");",
+      "anchor": "mpr(zh_message(\"shared.log.blink.occupied\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 958,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_ORB, \"You feel the Orb delaying your translocation!\");",
+      "line": 932,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.blink.occupied\"));",
       "module": "spells",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1016,
+      "line": 981,
       "api": "mpr",
-      "anchor": "mpr(\"Your surroundings flicker for a moment.\");",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.stable\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1021,
+      "line": 981,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.stable\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 988,
       "api": "mpr",
-      "anchor": "mpr(\"Your surroundings seem slightly different.\");",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.start_player\"), MSGCH_WARN);",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1026,
+      "line": 988,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.start_player\"), MSGCH_WARN);",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 990,
       "api": "mpr",
-      "anchor": "mpr(\"Your surroundings suddenly seem different.\");",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.start_hostile\"), MSGCH_WARN);",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1043,
+      "line": 990,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.start_hostile\"), MSGCH_WARN);",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 992,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.start_other\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 992,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.start_other\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 998,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.delay_abyss\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 998,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.delay_abyss\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1003,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.delay_orb\"), MSGCH_ORB);",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1003,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.delay_orb\"), MSGCH_ORB);",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1061,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.surroundings_flicker\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1061,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.surroundings_flicker\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1066,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.surroundings_slightly\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1066,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.surroundings_slightly\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1071,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.surroundings_suddenly\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1071,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.surroundings_suddenly\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1088,
       "api": "mpr",
       "anchor": "mpr(reason);",
       "module": "spells",
@@ -41060,7 +41396,7 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1057,
+      "line": 1102,
       "api": "mpr",
       "anchor": "mpr(reason);",
       "module": "spells",
@@ -41068,23 +41404,39 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1083,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_ERROR, \"Controlled teleport interrupted by HUP signal, \"",
+      "line": 1128,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.hup_cancel\"), MSGCH_ERROR);",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1101,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_WARN, \"Even you can't go there right now. Sorry!\");",
+      "line": 1128,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.hup_cancel\"), MSGCH_ERROR);",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1145,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.wizard_blocked\"), MSGCH_WARN);",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1125,
+      "line": 1145,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.teleport.wizard_blocked\"), MSGCH_WARN);",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1169,
       "api": "mpr",
       "anchor": "mpr(reason);",
       "module": "spells",
@@ -41092,87 +41444,175 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1230,
-      "api": "mprf",
-      "anchor": "mprf(\"You are hurled through space towards %s monster%s!\",",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-transloc.cc",
-      "line": 1251,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_WARN, \"%s tunnels through space-time and arrives with you!\",",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-transloc.cc",
-      "line": 1376,
-      "api": "mprf",
-      "anchor": "mprf(\"You create a dimensional link between your ranged weaponry and %s.\",",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-transloc.cc",
-      "line": 1445,
+      "line": 1274,
       "api": "mpr",
-      "anchor": "mpr(\"You can't see anything to attack.\");",
+      "anchor": "mpr(_transloc_pull_message(mons_near_target));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1447,
+      "line": 1293,
       "api": "mpr",
-      "anchor": "mpr(\"You can't see anything you can safely attack.\");",
+      "anchor": "mpr(zh_message(\"transloc.teleport.source_arrives\",",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1469,
-      "api": "mprf",
-      "anchor": "mprf(\"Space folds impossibly around %s blade!\", agent.name(DESC_ITS).c_str());",
+      "line": 1293,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.teleport.source_arrives\",",
       "module": "spells",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1471,
+      "line": 1294,
+      "api": "zh_monster_arg",
+      "anchor": "{zh_monster_arg(\"monster\", *source)}), MSGCH_WARN);",
+      "module": "spells",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1418,
       "api": "mpr",
-      "anchor": "mpr(\"Space momentarily warps into an impossible shape!\");",
+      "anchor": "mpr(zh_message(\"transloc.ranged_link.created\", {zh_monster_arg(\"monster\", *target)}));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1541,
+      "line": 1418,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.ranged_link.created\", {zh_monster_arg(\"monster\", *target)}));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1418,
+      "api": "zh_monster_arg",
+      "anchor": "mpr(zh_message(\"transloc.ranged_link.created\", {zh_monster_arg(\"monster\", *target)}));",
+      "module": "spells",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1486,
       "api": "mpr",
-      "anchor": "mpr(\"You don't see anything to apport there.\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.no_attack_target\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1549,
+      "line": 1486,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.no_attack_target\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1488,
       "api": "mpr",
-      "anchor": "mpr(\"You cannot apport that!\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.no_safe_attack_target\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1616,
+      "line": 1488,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.no_safe_attack_target\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1510,
       "api": "mpr",
-      "anchor": "mpr(\"Not with that terrain in the way!\");",
+      "anchor": "mpr(zh_message(\"transloc.manifold.blade\", {zh_actor_arg(\"actor\", &agent, DESC_ITS)}));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1624,
+      "line": 1510,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.manifold.blade\", {zh_actor_arg(\"actor\", &agent, DESC_ITS)}));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1512,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.warp\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1512,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.warp\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1582,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.no_apport_target\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1582,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.no_apport_target\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1590,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.cannot_apport\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1590,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.cannot_apport\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1657,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.terrain_blocked\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1657,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.terrain_blocked\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1665,
       "api": "mprf",
       "anchor": "mprf(\"Yoink! You pull the item%s towards yourself.\",",
       "module": "spells",
@@ -41180,119 +41620,231 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1647,
-      "api": "mprf",
-      "anchor": "mprf(MSGCH_ORB, \"A magic seal in the Gauntlet prevents you from \"",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-transloc.cc",
-      "line": 1655,
+      "line": 1688,
       "api": "mpr",
-      "anchor": "mpr(\"That's out of range!\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.gauntlet_seal\"), MSGCH_ORB);",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1661,
+      "line": 1688,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.gauntlet_seal\"), MSGCH_ORB);",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1695,
       "api": "mpr",
-      "anchor": "mpr(\"You can't create a passage there!\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.out_of_range\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1696,
+      "line": 1695,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.out_of_range\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1701,
       "api": "mpr",
-      "anchor": "mpr(\"You cannot create a passage on the other side of the \"",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.passage_blocked\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1702,
+      "line": 1701,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.passage_blocked\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1736,
       "api": "mpr",
-      "anchor": "mpr(\"Creating a passage of Golubria requires sufficient empty \"",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.passage_other_side_wall\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1718,
+      "line": 1736,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.passage_other_side_wall\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1741,
       "api": "mpr",
-      "anchor": "mpr(\"Something buggy happened.\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.passage_space\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1753,
+      "line": 1741,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.passage_space\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1756,
       "api": "mpr",
-      "anchor": "mpr(\"The air shimmers briefly around you.\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.bug\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1825,
+      "line": 1756,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.bug\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1791,
       "api": "mpr",
-      "anchor": "mpr(\"You rattle the tambourine.\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.air_shimmers\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1827,
-      "api": "mprf",
-      "anchor": "mprf(\"Waves of gravity draw inward%s%s.\",",
+      "line": 1791,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.air_shimmers\"));",
       "module": "spells",
-      "classification": "callsite-review-required"
+      "classification": "typed-producer"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 1855,
-      "api": "mprf",
-      "anchor": "mprf(\"%s is pinned by gravity.\", mon->name(DESC_THE).c_str());",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-transloc.cc",
-      "line": 1920,
-      "api": "mprf",
-      "anchor": "mprf(\"%s %s suddenly forward!\",",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-transloc.cc",
-      "line": 1960,
-      "api": "mprf",
-      "anchor": "mprf(\"%s is attracted toward you.\", mon.name(DESC_THE).c_str());",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-transloc.cc",
-      "line": 2019,
+      "line": 1863,
       "api": "mpr",
-      "anchor": "mpr(\"You speak a word of chaos!\");",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.tambourine\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 2053,
+      "line": 1863,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.tambourine\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1865,
       "api": "mpr",
-      "anchor": "mpr(\"You see nothing there to target!\");",
+      "anchor": "mpr(_transloc_gravity_message(mons, env.grid(where)));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 2066,
+      "line": 1887,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"transloc.gravitas.pinned\", {zh_monster_arg(\"monster\", *mon)}));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1887,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.gravitas.pinned\", {zh_monster_arg(\"monster\", *mon)}));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1887,
+      "api": "zh_monster_arg",
+      "anchor": "mpr(zh_message(\"transloc.gravitas.pinned\", {zh_monster_arg(\"monster\", *mon)}));",
+      "module": "spells",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1952,
+      "api": "mpr",
+      "anchor": "mpr(_transloc_beckon_message(beckoned));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1990,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"transloc.gravity.attracted\", {zh_monster_arg(\"monster\", mon)}));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1990,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"transloc.gravity.attracted\", {zh_monster_arg(\"monster\", mon)}));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 1990,
+      "api": "zh_monster_arg",
+      "anchor": "mpr(zh_message(\"transloc.gravity.attracted\", {zh_monster_arg(\"monster\", mon)}));",
+      "module": "spells",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 2049,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.chaos_word\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 2049,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.chaos_word\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 2083,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.no_target\"));",
+      "module": "spells",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 2083,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.no_target\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 2096,
       "api": "mprf",
       "anchor": "mprf(\"You cannot blinkbolt away from %s!\",",
       "module": "spells",
@@ -41300,7 +41852,7 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 2074,
+      "line": 2104,
       "api": "mprf",
       "anchor": "mprf(\"You cannot blinkbolt closer to %s!\",",
       "module": "spells",
@@ -41308,31 +41860,31 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 2245,
-      "api": "mprf",
-      "anchor": "mprf(\"Space begins to contract around you, but something blocks your path.\");",
+      "line": 2275,
+      "api": "mpr",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.space_blocked\"));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 2250,
-      "api": "mprf",
-      "anchor": "mprf(\"Space contracts around you and %s and then re-expands violently!\",",
+      "line": 2275,
+      "api": "zh_message",
+      "anchor": "mpr(zh_message(\"shared.log.transloc.space_blocked\"));",
+      "module": "spells",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "spl-transloc.cc",
+      "line": 2280,
+      "api": "mpr",
+      "anchor": "mpr(_transloc_contract_message(mons));",
       "module": "spells",
       "classification": "callsite-review-required"
     },
     {
       "file": "spl-transloc.cc",
-      "line": 2252,
-      "api": "make_stringf",
-      "anchor": ": make_stringf(\"%s other creatures\",",
-      "module": "spells",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "spl-transloc.cc",
-      "line": 2381,
+      "line": 2408,
       "api": "mprf",
       "anchor": "mprf(\"Gravity reorients to the %s!\", dir_msg.c_str());",
       "module": "spells",
@@ -41340,7 +41892,7 @@
     },
     {
       "file": "spl-transloc.cc",
-      "line": 2560,
+      "line": 2587,
       "api": "mprf",
       "anchor": "mprf(\"You pounce on %s with bestial fury!\", targ->name(DESC_THE).c_str());",
       "module": "spells",
@@ -43476,7 +44028,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 121,
+      "line": 122,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"Your %s %s melded.\",",
       "module": "character",
@@ -43484,7 +44036,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 236,
+      "line": 237,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"You %s %s\",",
       "module": "character",
@@ -43492,7 +44044,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 249,
+      "line": 250,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"You turn into %s\", get_transform_description().c_str());",
       "module": "character",
@@ -43500,7 +44052,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 404,
+      "line": 405,
       "api": "make_stringf",
       "anchor": "return make_stringf(\" (%s)\", brand_type_name(brand, true));",
       "module": "character",
@@ -43508,7 +44060,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 617,
+      "line": 618,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"You %s overflowing with transmutational energy.\",",
       "module": "character",
@@ -43516,7 +44068,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 645,
+      "line": 646,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"You %s blades growing out of your body.\",",
       "module": "character",
@@ -43524,7 +44076,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 721,
+      "line": 722,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"Stone %s\", hand.c_str());",
       "module": "character",
@@ -43532,7 +44084,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 767,
+      "line": 768,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"a fearsome %s!\",",
       "module": "character",
@@ -43540,7 +44092,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 994,
+      "line": 995,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"Storm %s\", hand.c_str());",
       "module": "character",
@@ -43548,7 +44100,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1073,
+      "line": 1074,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"vessel of slaughter (+%d%% damage done)\", boost);",
       "module": "character",
@@ -43556,7 +44108,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1151,
+      "line": 1152,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"Your body %s made of elemental water.\",",
       "module": "character",
@@ -43564,7 +44116,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1278,
+      "line": 1279,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"You %s a mane of long, stinging tendrils on your head.\",",
       "module": "character",
@@ -43572,7 +44124,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1317,
+      "line": 1318,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"You %s %s for %s.\",",
       "module": "character",
@@ -43580,7 +44132,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1331,
+      "line": 1332,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"Your %s turn%s into%s wriggling electric eel%s!\",",
       "module": "character",
@@ -43588,7 +44140,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1344,
+      "line": 1345,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"Your %s revert%s to %s normal form.\",",
       "module": "character",
@@ -43596,7 +44148,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1371,
+      "line": 1372,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"Dense mycelia sprout from your %s and %s.\",",
       "module": "character",
@@ -43604,7 +44156,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1381,
+      "line": 1382,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"Your mycelia shrivel away.\");",
       "module": "character",
@@ -43612,7 +44164,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1386,
+      "line": 1387,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"Your %s %s a mass of colorful fungus.\",",
       "module": "character",
@@ -43620,7 +44172,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1775,
+      "line": 1776,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"%s right now would cause you to %s!\",",
       "module": "character",
@@ -43628,7 +44180,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1801,
+      "line": 1802,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"%s right now would shatter %s!\",",
       "module": "character",
@@ -43636,23 +44188,47 @@
     },
     {
       "file": "transform.cc",
-      "line": 1885,
+      "line": 1891,
       "api": "mpr",
-      "anchor": "mpr(reason);",
+      "anchor": "mpr(ZhMessage{\"\", reason.canonical, reason.localized});",
       "module": "character",
       "classification": "callsite-review-required"
     },
     {
       "file": "transform.cc",
-      "line": 1895,
-      "api": "mprf",
-      "anchor": "mprf(\"Transforming right now would cause you to %s!\",",
+      "line": 1901,
+      "api": "mpr",
+      "anchor": "mpr(feat == DNGN_DEEP_WATER",
       "module": "character",
       "classification": "callsite-review-required"
     },
     {
       "file": "transform.cc",
-      "line": 1922,
+      "line": 1902,
+      "api": "zh_message",
+      "anchor": "? zh_message(\"shared.log.transform.drown\")",
+      "module": "character",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "transform.cc",
+      "line": 1903,
+      "api": "zh_message",
+      "anchor": ": zh_message(\"shared.log.transform.burn\"));",
+      "module": "character",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "transform.cc",
+      "line": 1909,
+      "api": "zh_message",
+      "anchor": "if (!yesno(zh_message(\"shared.prompt.transform.lower_max_hp\"), true, 'n'))",
+      "module": "character",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "transform.cc",
+      "line": 1928,
       "api": "mprf",
       "anchor": "mprf(\"%s goes dull and lifeless in your grasp.\",",
       "module": "character",
@@ -43660,7 +44236,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1927,
+      "line": 1933,
       "api": "mprf",
       "anchor": "mprf(\"%s softly glows with a divine radiance!\",",
       "module": "character",
@@ -43668,7 +44244,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1939,
+      "line": 1945,
       "api": "mpr",
       "anchor": "mpr(\"Your roots penetrate the ground.\");",
       "module": "character",
@@ -43676,7 +44252,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1943,
+      "line": 1949,
       "api": "mpr",
       "anchor": "mpr(\"You feel strangely stable.\");",
       "module": "character",
@@ -43684,7 +44260,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 1968,
+      "line": 1974,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"Gozag's golden gift will leave your new mouth \"",
       "module": "character",
@@ -43692,7 +44268,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2022,
+      "line": 2028,
       "api": "mpr",
       "anchor": "mpr(get_form(which_trans)->transform_message());",
       "module": "character",
@@ -43700,7 +44276,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2038,
+      "line": 2044,
       "api": "mpr",
       "anchor": "mpr(\"Your mandibles meld away.\");",
       "module": "character",
@@ -43708,7 +44284,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2117,
+      "line": 2123,
       "api": "make_stringf",
       "anchor": "make_stringf(\"gaining the %s transformation\",",
       "module": "character",
@@ -43716,7 +44292,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2215,
+      "line": 2221,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DURATION, \"%s\", message.c_str());",
       "module": "character",
@@ -43724,7 +44300,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2248,
+      "line": 2254,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DURATION, \"Your tiny sun winks out.\");",
       "module": "character",
@@ -43732,7 +44308,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2283,
+      "line": 2289,
       "api": "mprf",
       "anchor": "mprf(\"%s falls away%s!\", item->name(DESC_YOUR).c_str(),",
       "module": "character",
@@ -43740,7 +44316,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2317,
+      "line": 2323,
       "api": "make_stringf",
       "anchor": "make_stringf(\"losing the %s form\",",
       "module": "character",
@@ -43748,7 +44324,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2391,
+      "line": 2397,
       "api": "mpr",
       "anchor": "mpr(\"Your legs become a tail as you dive into the water.\");",
       "module": "character",
@@ -43756,7 +44332,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2394,
+      "line": 2400,
       "api": "mpr",
       "anchor": "mpr(\"...but don't expect to remain undetected.\");",
       "module": "character",
@@ -43764,7 +44340,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2528,
+      "line": 2534,
       "api": "mpr",
       "anchor": "mpr(msg);",
       "module": "character",
@@ -43772,7 +44348,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2544,
+      "line": 2550,
       "api": "mpr",
       "anchor": "mpr(msg);",
       "module": "character",
@@ -43780,7 +44356,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2567,
+      "line": 2573,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DURATION, first_time ? \"A tiny sun coalesces beside you.\"",
       "module": "character",
@@ -43788,7 +44364,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2601,
+      "line": 2607,
       "api": "mprf",
       "anchor": "mprf(\"Your maw growls hungrily at the sight of %s.\", mon->name(DESC_THE).c_str());",
       "module": "character",
@@ -43796,7 +44372,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2606,
+      "line": 2612,
       "api": "mprf",
       "anchor": "mprf(\"Your maw growls hungrily at the sight of %s, but you resist your urges.\",",
       "module": "character",
@@ -43804,7 +44380,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2625,
+      "line": 2631,
       "api": "mprf",
       "anchor": "mprf(\"%s loses %s in your eye%s.\",",
       "module": "character",
@@ -43812,7 +44388,7 @@
     },
     {
       "file": "transform.cc",
-      "line": 2633,
+      "line": 2639,
       "api": "mprf",
       "anchor": "mprf(\"%s is briefly mesmerised by your gaze.\", mon.name(DESC_THE).c_str());",
       "module": "character",

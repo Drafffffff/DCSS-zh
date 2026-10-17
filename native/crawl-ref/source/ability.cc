@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "ability.h"
 
@@ -2207,11 +2208,11 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
                 mpr("You must recover your energy before scattering into bats again.");
             return false;
         }
-        const string reason = cant_transform_reason(transformation::bat_swarm);
-        if (!reason.empty())
+        const ZhArg reason = cant_transform_display_reason(transformation::bat_swarm);
+        if (!reason.canonical.empty())
         {
             if (!quiet)
-                mpr(reason);
+                mpr(ZhMessage{"", reason.canonical, reason.localized});
             return false;
         }
         return true;
@@ -2266,12 +2267,12 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         // fallthrough
     case ABIL_BLINKBOLT:
     {
-        const string no_tele_reason = you.no_tele_reason(true);
-        if (no_tele_reason.empty())
+        const ZhArg no_tele_reason = you.no_tele_display_reason(true);
+        if (no_tele_reason.canonical.empty())
             return true;
 
         if (!quiet)
-             mpr(no_tele_reason);
+             mpr(ZhMessage{"", no_tele_reason.canonical, no_tele_reason.localized});
         return false;
     }
 

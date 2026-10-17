@@ -67,6 +67,8 @@ item_source=(Path(__file__).resolve().parents[1]/'native/crawl-ref/source/item-p
 talisman_names=dict(re.findall(r'case TALISMAN_([A-Z_]+):\s*return "([^"]+)";',item_source))
 for kind,name in talisman_names.items():
     cases['talisman-'+kind.lower()]='l&wiz\r%level:1 pre_id '+name+'\rgid'
+from qa_restriction_scenes import RESTRICTION_SCENES, RESTRICTION_EXPECTED
+cases.update(RESTRICTION_SCENES)
 results=[]
 for scene in a.scenes.split(','):
     with tempfile.TemporaryDirectory(prefix='dcss-copy-'+scene+'-') as folder:
@@ -87,7 +89,7 @@ for scene in a.scenes.split(','):
         rng_setup='for i=1,8 do crawl.random2(100) end; ' if scene.startswith('talisman-') else ''
         rc.write_text('language=zh\nshow_more=false\nsave_dir='+str(state/'saves')+
             '\nmorgue_dir='+str(state/'morgue')+'\n{\nlocal sent=false\nfunction ready()\n'+
-            'if not sent then sent=true; '+rng_setup+'crawl.sendkeys('+json.dumps(cases[scene]).replace('\\u001b','\\027')+'); end\nend\n}\n')
+            'if not sent then sent=true; '+rng_setup+'crawl.sendkeys('+json.dumps(cases[scene]).replace('\\u001b','\\027').replace('\\u0004','\\004')+'); end\nend\n}\n')
         pid,fd=pty.fork()
         if pid==0:
             os.chdir(a.data)
@@ -101,13 +103,18 @@ for scene in a.scenes.split(','):
                  'DCSS_ZH_TRACE':str((dst/'legacy.jsonl').resolve())}
             os.execve(str(a.binary),[str(a.binary),'-dir',str(state),'-rc',str(rc),'-name',a.name],env)
         fcntl.ioctl(fd,termios.TIOCSWINSZ,struct.pack('HHHH',52,140,0,0))
-        transcript=bytearray();end=time.monotonic()+(a.startup_timeout if scene.startswith('hints-') else 5)
+        transcript=bytearray();end=time.monotonic()+(a.startup_timeout if scene.startswith('hints-') or scene in RESTRICTION_EXPECTED else 5)
         while time.monotonic()<end:
             if select.select([fd],[],[],.1)[0]:
                 try:chunk=os.read(fd,65536)
                 except OSError:break
                 if not chunk:break
                 transcript.extend(chunk)
+            if scene in RESTRICTION_EXPECTED:
+                trace=dst/'ids.tsv'
+                if trace.exists() and all(identity+'\t' in trace.read_text() for identity in RESTRICTION_EXPECTED[scene]):
+                    time.sleep(.3)
+                    break
             if scene.startswith('hints-'):
                 trace=dst/'boundaries.tsv'
                 ids=dst/'ids.tsv'
@@ -170,6 +177,7 @@ expected={
     'monster-detail':{'monster.hit_chance'},
 }
 
+expected.update(RESTRICTION_EXPECTED)
 for result in results:
     if result['scene'].startswith('hints-'):
         assert 'detail.item.hints\tenter' in result['boundaries'], (result['scene'], 'hint producer not reached')

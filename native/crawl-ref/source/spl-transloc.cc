@@ -4,6 +4,9 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
+#include "zh-display-name.h"
+#include "zh-localization.h"
 
 #include "spl-transloc.h"
 
@@ -69,6 +72,48 @@
  *
  * @param origin    The player's previous location.
  */
+// Complete messages are selected before actor names or numeric fields are filled.
+static ZhMessage _transloc_pull_message(int count)
+{
+    return count > 1 ? zh_message("transloc.teleport.follow.monsters")
+                     : zh_message("transloc.teleport.follow.monster");
+}
+
+static ZhMessage _transloc_gravity_message(const monster *mon, dungeon_feature_type feat)
+{
+    if (mon)
+        return zh_message("transloc.gravitas.around_monster", {zh_monster_arg("monster", *mon)});
+    if (feat_is_solid(feat))
+    {
+        string plain, english;
+        {
+            ZhTranslationPause canonical;
+            plain = feature_description(feat, NUM_TRAPS, "", DESC_PLAIN);
+            english = feature_description(feat, NUM_TRAPS, "", DESC_THE);
+        }
+        ZhArg terrain = zh_glossary_name("terrain", "terrain", plain);
+        terrain.canonical = english;
+        return zh_message("transloc.gravitas.around_terrain", {terrain});
+    }
+    return zh_message("transloc.gravitas.inward");
+}
+
+static ZhMessage _transloc_beckon_message(const actor &mon)
+{
+    const ZhArg name = zh_actor_arg("monster", &mon);
+    return mon.conj_verb("hurl") == "hurls"
+        ? zh_message("transloc.beckon.singular", {name})
+        : zh_message("transloc.beckon.plural", {name});
+}
+
+static ZhMessage _transloc_contract_message(const vector<monster *> &mons)
+{
+    if (mons.size() == 1)
+        return zh_message("transloc.piledriver.one", {zh_monster_arg("monster", *mons[0])});
+    return zh_message("transloc.piledriver.many",
+        {zh_text("count_word", number_in_words(mons.size()), to_string(mons.size()))});
+}
+
 static void _place_tloc_cloud(const coord_def &origin)
 {
     place_cloud(CLOUD_TLOC_ENERGY, origin, 1 + random2(3), &you);
@@ -141,7 +186,7 @@ void uncontrolled_blink(bool override_stasis, int max_distance)
     if (!random_near_space(&you, you.pos(), target, false, max_distance)
         && !random_near_space(&you, you.pos(), target, true, max_distance))
     {
-        mpr("You feel jittery for a moment.");
+        mpr(zh_message("shared.log.blink.no_landing"));
         return;
     }
 
@@ -166,7 +211,7 @@ spret spider_jump()
     if (!random_near_space(&you, you.pos(), target, false, you.current_vision)
         && !random_near_space(&you, you.pos(), target, true, you.current_vision))
     {
-        mpr("You jump in place.");
+        mpr(zh_message("shared.log.transloc.jump_in_place"));
         return spret::success;
     }
 
@@ -199,7 +244,7 @@ spret spider_jump()
 
     you.stop_being_constricted(false, "jump");
 
-    mpr("You jump through the air!");
+    mpr(zh_message("shared.log.transloc.jump_air"));
     place_cloud(CLOUD_DUST, you.pos(), 2 + random2(3), &you);
     you.move_to(target, MV_DELIBERATE);
     you.increase_duration(DUR_BLINK_COOLDOWN, random_range(2, 5));
@@ -337,14 +382,14 @@ void wizard_blink()
     if (!in_bounds(beam.target))
     {
         clear_messages();
-        mpr("Please don't blink into the map border.");
+        mpr(zh_message("shared.log.transloc.blink_map_border"));
         return wizard_blink();
     }
 
     if (monster_at(beam.target))
     {
         clear_messages();
-        mpr("Please don't try to blink into monsters.");
+        mpr(zh_message("shared.log.transloc.blink_monsters"));
         return wizard_blink();
     }
 
@@ -461,7 +506,7 @@ spret frog_hop(bool fail, dist *target)
 
         if (grid_distance(you.pos(), target->target) > hop_range)
         {
-            mpr("That's out of range!"); // ! targeting
+            mpr(zh_message("shared.log.transloc.out_of_range")); // ! targeting
             continue;
         }
         break;
@@ -475,7 +520,7 @@ spret frog_hop(bool fail, dist *target)
     // invisible monster that the targeter didn't know to avoid, or similar
     if (target->target.origin())
     {
-        mpr("You tried to hop, but there was no room to land!");
+        mpr(zh_message("shared.log.transloc.hop_no_room"));
         // TODO: what to do here?
         return spret::success; // of a sort
     }
@@ -484,7 +529,7 @@ spret frog_hop(bool fail, dist *target)
     you.move_to(target->target, MV_DELIBERATE);
     crawl_state.cancel_cmd_again();
     crawl_state.cancel_cmd_repeat();
-    mpr("Boing!");
+    mpr(zh_message("shared.log.transloc.boing"));
     you.increase_duration(DUR_NO_HOP, 12 + random2(13));
 
     return spret::success; // TODO
@@ -691,7 +736,7 @@ static bool _displace_charge_blocker(actor& agent, coord_def pos)
             && blocker->blink_to(targ, true))
         {
             if (blocker->is_player())
-                mpr("You are hurled out of the way!");
+                mpr(zh_message("shared.log.transloc.hurled_away"));
 
             continue;
         }
@@ -757,7 +802,7 @@ spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target
     if (invalid_dest)
     {
         if (agent.is_player())
-            mprf("%s is immovably fixed there.", dest_mon->name(DESC_THE).c_str());
+            mpr(zh_message("transloc.charge.immovably_fixed", {zh_monster_arg("monster", *dest_mon)}));
         return spret::success;
     }
 
@@ -774,9 +819,9 @@ spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target
 
         // Monster cast messages are handled through monspell.txt
         if (silenced(dest_pos))
-            mpr("You charge forward in eerie silence!");
+            mpr(zh_message("shared.log.transloc.charge_silence"));
         else
-            mpr("You charge forward with an electric crackle!");
+            mpr(zh_message("shared.log.transloc.charge_crackle"));
     }
 
     // Trying to clear space at our destination by moving actors away from it.
@@ -785,8 +830,8 @@ spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target
     {
         if (agent.is_player() || (agent.is_monster() && you.can_see(agent)))
         {
-            mprf("...but somehow remain%s in the same place.",
-                                                agent.is_monster() ? "s" : "");
+            mpr(agent.is_monster() ? zh_message("transloc.charge.remains")
+                                   : zh_message("transloc.charge.remain"));
         }
 
         return spret::success;
@@ -871,7 +916,7 @@ spret controlled_blink(bool safe_cancel, dist *target)
         if (!_find_cblink_target(*target, safe_cancel, "blink", &tgt))
             return spret::abort;
         target->target = _fuzz_blink_destination(target->target);
-        mprf(MSGCH_ORB, "You feel the Orb interfering with your translocation!");
+        mpr(zh_message("shared.log.blink.orb_interference"), MSGCH_ORB);
     }
     else
     {
@@ -884,7 +929,7 @@ spret controlled_blink(bool safe_cancel, dist *target)
     // invisible monster that the targeter didn't know to avoid
     if (monster_at(target->target))
     {
-        mpr("Oops! There was something there already!");
+        mpr(zh_message("shared.log.blink.occupied"));
         uncontrolled_blink();
         return spret::success; // of a sort
     }
@@ -933,29 +978,29 @@ void you_teleport(bool is_hostile, mid_t teleportitis_source)
         canned_msg(MSG_STRANGE_STASIS);
     else if (you.duration[DUR_TELEPORT])
     {
-        mpr("You feel strangely stable.");
+        mpr(zh_message("shared.log.teleport.stable"));
         you.duration[DUR_TELEPORT] = 0;
         you.props.erase(TELEPORTITIS_SOURCE);
     }
     else
     {
         if (teleportitis_source == MID_PLAYER)
-            mprf(MSGCH_WARN, "You feel space start to destabilise around you!");
+            mpr(zh_message("shared.log.teleport.start_player"), MSGCH_WARN);
         else if (is_hostile)
-            mprf(MSGCH_WARN, "You feel a distressing malevolence running through your instability!");
+            mpr(zh_message("shared.log.teleport.start_hostile"), MSGCH_WARN);
         else
-            mpr("You feel strangely unstable.");
+            mpr(zh_message("shared.log.teleport.start_other"));
 
         int teleport_delay = 3 + random2(3);
 
         if (player_in_branch(BRANCH_ABYSS))
         {
-            mpr("You feel the power of the Abyss delaying your translocation!");
+            mpr(zh_message("shared.log.teleport.delay_abyss"));
             teleport_delay += 5 + random2(10);
         }
         else if (orb_limits_translocation())
         {
-            mprf(MSGCH_ORB, "You feel the Orb delaying your translocation!");
+            mpr(zh_message("shared.log.teleport.delay_orb"), MSGCH_ORB);
             teleport_delay += 5 + random2(5);
         }
 
@@ -1013,17 +1058,17 @@ static bool _real_teleport_cleanup(coord_def oldpos, coord_def newpos, bool quie
     if (newpos == oldpos)
     {
         if (!quiet)
-            mpr("Your surroundings flicker for a moment.");
+            mpr(zh_message("shared.log.teleport.surroundings_flicker"));
     }
     else if (you.see_cell(newpos))
     {
         if (!quiet)
-            mpr("Your surroundings seem slightly different.");
+            mpr(zh_message("shared.log.teleport.surroundings_slightly"));
     }
     else
     {
         if (!quiet)
-            mpr("Your surroundings suddenly seem different.");
+            mpr(zh_message("shared.log.teleport.surroundings_suddenly"));
         large_change = true;
     }
 
@@ -1080,8 +1125,7 @@ static bool _teleport_player(bool wizard_tele, string reason="")
             // location, so cancel the teleport.
             if (crawl_state.seen_hups)
             {
-                mprf(MSGCH_ERROR, "Controlled teleport interrupted by HUP signal, "
-                                  "cancelling teleport.");
+                mpr(zh_message("shared.log.teleport.hup_cancel"), MSGCH_ERROR);
                 return false;
             }
 
@@ -1098,7 +1142,7 @@ static bool _teleport_player(bool wizard_tele, string reason="")
 
         if (cell_vetoes_teleport(pos, true, wizard_tele))
         {
-            mprf(MSGCH_WARN, "Even you can't go there right now. Sorry!");
+            mpr(zh_message("shared.log.teleport.wizard_blocked"), MSGCH_WARN);
             return false;
         }
         else
@@ -1227,9 +1271,7 @@ bool hostile_teleport_player(monster* source)
                 break;
         }
 
-        mprf("You are hurled through space towards %s monster%s!",
-                mons_near_target > 1 ? "some" : "a",
-                mons_near_target > 1 ? "s" : "");
+        mpr(_transloc_pull_message(mons_near_target));
 
         large_change = _real_teleport_cleanup(oldpos, newpos, true);
         crawl_state.potential_pursuers.clear();
@@ -1248,8 +1290,8 @@ bool hostile_teleport_player(monster* source)
             _place_tloc_cloud(source->pos());
             source->move_to(source_newpos, MV_DELIBERATE | MV_TRANSLOCATION, true);
             source->target = you.pos();
-            mprf(MSGCH_WARN, "%s tunnels through space-time and arrives with you!",
-                 source->name(DESC_THE).c_str());
+            mpr(zh_message("transloc.teleport.source_arrives",
+                {zh_monster_arg("monster", *source)}), MSGCH_WARN);
             source->finalise_movement();
         }
     }
@@ -1373,8 +1415,7 @@ spret cast_dimensional_bullseye(int pow, monster *target, bool fail)
             old_targ->del_ench(ENCH_BULLSEYE_TARGET);
     }
 
-    mprf("You create a dimensional link between your ranged weaponry and %s.",
-         target->name(DESC_THE).c_str());
+    mpr(zh_message("transloc.ranged_link.created", {zh_monster_arg("monster", *target)}));
 
     // So we can automatically end the status if the target dies or becomes
     // friendly
@@ -1442,9 +1483,9 @@ spret cast_manifold_assault(actor& agent, int pow, bool fail, bool real,
         if (agent.is_player() && !katana_defender)
         {
             if (real && !found_unsafe_target)
-                mpr("You can't see anything to attack.");
+                mpr(zh_message("shared.log.transloc.no_attack_target"));
             else if (real && found_unsafe_target)
-                mpr("You can't see anything you can safely attack.");
+                mpr(zh_message("shared.log.transloc.no_safe_attack_target"));
         }
         return spret::abort;
     }
@@ -1466,9 +1507,9 @@ spret cast_manifold_assault(actor& agent, int pow, bool fail, bool real,
     if ((agent.is_player() || you.can_see(agent)) && !katana_defender)
     {
         if (weapon && is_unrandom_artefact(*weapon, UNRAND_AUTUMN_KATANA))
-            mprf("Space folds impossibly around %s blade!", agent.name(DESC_ITS).c_str());
+            mpr(zh_message("transloc.manifold.blade", {zh_actor_arg("actor", &agent, DESC_ITS)}));
         else if (!(agent.is_monster() && agent.as_monster()->has_ench(ENCH_PARADOX_TOUCHED)))
-            mpr("Space momentarily warps into an impossible shape!");
+            mpr(zh_message("shared.log.transloc.warp"));
     }
 
     shuffle_array(targets);
@@ -1538,7 +1579,7 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
     const int item_idx = you.visible_igrd(where);
     if (item_idx == NON_ITEM || !in_bounds(where))
     {
-        mpr("You don't see anything to apport there.");
+        mpr(zh_message("shared.log.transloc.no_apport_target"));
         return spret::abort;
     }
 
@@ -1546,7 +1587,7 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
 
     if (item_is_stationary(item))
     {
-        mpr("You cannot apport that!");
+        mpr(zh_message("shared.log.transloc.cannot_apport"));
         return spret::abort;
     }
 
@@ -1613,7 +1654,7 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
         if (location_on_path == dist)
         {
             // we've checked every position in beam.path_taken within max_dist
-            mpr("Not with that terrain in the way!");
+            mpr(zh_message("shared.log.transloc.terrain_blocked"));
             return spret::success; // of a sort
         }
         new_spot = beam.path_taken[location_on_path];
@@ -1644,21 +1685,20 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
 {
     if (player_in_branch(BRANCH_GAUNTLET))
     {
-        mprf(MSGCH_ORB, "A magic seal in the Gauntlet prevents you from "
-                "opening a passage!");
+        mpr(zh_message("shared.log.transloc.gauntlet_seal"), MSGCH_ORB);
         return spret::abort;
     }
 
     if (grid_distance(where, you.pos())
         > spell_range(SPELL_GOLUBRIAS_PASSAGE, &you, pow))
     {
-        mpr("That's out of range!");
+        mpr(zh_message("shared.log.transloc.out_of_range"));
         return spret::abort;
     }
 
     if (cell_is_solid(where))
     {
-        mpr("You can't create a passage there!");
+        mpr(zh_message("shared.log.transloc.passage_blocked"));
         return spret::abort;
     }
 
@@ -1693,14 +1733,12 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
     {
         if (you.trans_wall_blocking(randomized_where))
         {
-            mpr("You cannot create a passage on the other side of the "
-                "transparent wall.");
+            mpr(zh_message("shared.log.transloc.passage_other_side_wall"));
         }
         else
         {
             // XXX: bleh, dumb message
-            mpr("Creating a passage of Golubria requires sufficient empty "
-                "space.");
+            mpr(zh_message("shared.log.transloc.passage_space"));
         }
 
         return spret::abort;
@@ -1715,7 +1753,7 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
     trap_def *trap2 = trap_at(randomized_here);
     if (!trap || !trap2)
     {
-        mpr("Something buggy happened.");
+        mpr(zh_message("shared.log.transloc.bug"));
         return spret::abort;
     }
 
@@ -1750,7 +1788,7 @@ spret cast_dispersal(int pow, bool fail)
             return _disperse_monster(mon, pow);
         }, you.pos(), radius))
     {
-        mpr("The air shimmers briefly around you.");
+        mpr(zh_message("shared.log.transloc.air_shimmers"));
     }
     return spret::success;
 }
@@ -1822,15 +1860,9 @@ spret cast_gravitas(int pow, const coord_def& where, bool fail)
     const int radius = gravitas_radius(pow);
 
     // XXX: If this is ever usable from elsewhere than the item, change this.
-    mpr("You rattle the tambourine.");
+    mpr(zh_message("shared.log.transloc.tambourine"));
 
-    mprf("Waves of gravity draw inward%s%s.",
-         mons || feat_is_solid(env.grid(where)) ? " around " : "",
-         mons ? mons->name(DESC_THE).c_str() :
-                feat_is_solid(env.grid(where)) ? feature_description(env.grid(where),
-                                                                     NUM_TRAPS, "",
-                                                                     DESC_THE)
-                                                                    .c_str() : "");
+    mpr(_transloc_gravity_message(mons, env.grid(where)));
 
     draw_ring_animation(where, radius, LIGHTMAGENTA);
     pull_monsters_inward(where, radius);
@@ -1852,7 +1884,7 @@ spret cast_gravitas(int pow, const coord_def& where, bool fail)
             dmg = mon->apply_ac(dmg);
 
             if (you.can_see(*mon))
-                mprf("%s is pinned by gravity.", mon->name(DESC_THE).c_str());
+                mpr(zh_message("transloc.gravitas.pinned", {zh_monster_arg("monster", *mon)}));
             mon->hurt(&you, dmg);
             mon->add_ench(mon_enchant(ENCH_BOUND, &you, dur));
             behaviour_event(mon, ME_WHACK, &you, you.pos());
@@ -1917,9 +1949,7 @@ bool beckon(actor &beckoned, const bolt &path)
     if (!beckoned.move_to(dest, MV_TRANSLOCATION, true))
         return false;
 
-    mprf("%s %s suddenly forward!",
-         beckoned.name(DESC_THE).c_str(),
-         beckoned.conj_verb("hurl").c_str());
+    mpr(_transloc_beckon_message(beckoned));
 
     beckoned.finalise_movement();
 
@@ -1957,7 +1987,7 @@ void attract_monster(monster &mon, int max_move)
     if (!mon.move_to(ray.pos(), MV_TRANSLOCATION, true))
         return;
 
-    mprf("%s is attracted toward you.", mon.name(DESC_THE).c_str());
+    mpr(zh_message("transloc.gravity.attracted", {zh_monster_arg("monster", mon)}));
 
     _place_tloc_cloud(old_pos);
     _place_tloc_cloud(ray.pos());
@@ -2016,7 +2046,7 @@ spret word_of_chaos(int pow, bool fail)
     fail_check();
     shuffle_array(targets);
 
-    mpr("You speak a word of chaos!");
+    mpr(zh_message("shared.log.transloc.chaos_word"));
     for (auto mons : targets)
     {
         if (mons->no_tele())
@@ -2050,7 +2080,7 @@ spret blinkbolt(int power, bolt &beam, bool fail)
     monster* mons = monster_at(beam.target);
     if (!mons || !you.can_see(*mons))
     {
-        mpr("You see nothing there to target!");
+        mpr(zh_message("shared.log.transloc.no_target"));
         return spret::abort;
     }
 
@@ -2242,15 +2272,12 @@ spret cast_piledriver(const coord_def& target, int pow, bool fail)
     // There must be something invisible blocking all possible paths, so 'fail'.
     if (length == 0)
     {
-        mprf("Space begins to contract around you, but something blocks your path.");
+        mpr(zh_message("shared.log.transloc.space_blocked"));
         return spret::success;
     }
 
     mons = _get_monster_line(target, true);
-    mprf("Space contracts around you and %s and then re-expands violently!",
-            mons.size() == 1 ? mons[0]->name(DESC_THE).c_str()
-                             : make_stringf("%s other creatures",
-                                    number_in_words(mons.size()).c_str()).c_str());
+    mpr(_transloc_contract_message(mons));
 
     // Animate the player and their victim flying forward together
     bolt anim;

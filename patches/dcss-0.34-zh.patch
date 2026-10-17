@@ -6191,6 +6191,49 @@ index 3ea0533..abbc39d 100644
  ability.o \
  abyss.o \
  acquire.o \
+diff --git a/crawl-ref/source/ability.cc b/crawl-ref/source/ability.cc
+index 3e2d594..11566c8 100644
+--- a/crawl-ref/source/ability.cc
++++ b/crawl-ref/source/ability.cc
+@@ -4,6 +4,7 @@
+ **/
+ 
+ #include "AppHdr.h"
++#include "zh-message.h"
+ 
+ #include "ability.h"
+ 
+@@ -2207,11 +2208,11 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
+                 mpr("You must recover your energy before scattering into bats again.");
+             return false;
+         }
+-        const string reason = cant_transform_reason(transformation::bat_swarm);
+-        if (!reason.empty())
++        const ZhArg reason = cant_transform_display_reason(transformation::bat_swarm);
++        if (!reason.canonical.empty())
+         {
+             if (!quiet)
+-                mpr(reason);
++                mpr(ZhMessage{"", reason.canonical, reason.localized});
+             return false;
+         }
+         return true;
+@@ -2266,12 +2267,12 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
+         // fallthrough
+     case ABIL_BLINKBOLT:
+     {
+-        const string no_tele_reason = you.no_tele_reason(true);
+-        if (no_tele_reason.empty())
++        const ZhArg no_tele_reason = you.no_tele_display_reason(true);
++        if (no_tele_reason.canonical.empty())
+             return true;
+ 
+         if (!quiet)
+-             mpr(no_tele_reason);
++             mpr(ZhMessage{"", no_tele_reason.canonical, no_tele_reason.localized});
+         return false;
+     }
+ 
 diff --git a/crawl-ref/source/attack.cc b/crawl-ref/source/attack.cc
 index 9964e4e..976bd45 100644
 --- a/crawl-ref/source/attack.cc
@@ -50975,7 +51018,7 @@ index 05963d8..3edcc20 100644
                                                  item_descriptions.begin(),
                                                  item_descriptions.end());
 diff --git a/crawl-ref/source/evoke.cc b/crawl-ref/source/evoke.cc
-index f64efe4..e072913 100644
+index f64efe4..916dd0a 100644
 --- a/crawl-ref/source/evoke.cc
 +++ b/crawl-ref/source/evoke.cc
 @@ -6,6 +6,7 @@
@@ -51009,7 +51052,7 @@ index f64efe4..e072913 100644
  
      // historically allowed under confusion/berserk, but why?
      if (item->is_type(OBJ_MISCELLANY, MISC_ZIGGURAT))
-@@ -1013,43 +1014,44 @@ string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
+@@ -1013,43 +1014,46 @@ string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
          // override sac artifice for zigfigs, including a general check
          // TODO: zigfig has some terrain/level constraints that aren't handled
          // here
@@ -51023,12 +51066,16 @@ index f64efe4..e072913 100644
 -            return "you are already filled with unstable energy.";
 +            return zh_message_arg("reason", "item.reason.use.flux_already");
  
-         const string form_unreason = cant_transform_reason(transformation::flux, false, temp);
-         if (!form_unreason.empty())
+-        const string form_unreason = cant_transform_reason(transformation::flux, false, temp);
+-        if (!form_unreason.empty())
 -            return lowercase_first(form_unreason);
 -        return "";
-+            return {"reason", ZhArgType::Text, lowercase_first(form_unreason),
-+                    lowercase_first(form_unreason), false};
++        ZhArg form_unreason = cant_transform_display_reason(transformation::flux, false, temp);
++        if (!form_unreason.canonical.empty())
++        {
++            form_unreason.canonical = lowercase_first(form_unreason.canonical);
++            return form_unreason;
++        }
 +        return {"reason", ZhArgType::Text, "", "", true};
      }
  
@@ -51064,7 +51111,7 @@ index f64efe4..e072913 100644
      }
  
      if (temp
-@@ -1057,17 +1059,23 @@ string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
+@@ -1057,17 +1061,23 @@ string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
          && item->sub_type == MISC_HORN_OF_GERYON
          && you.is_silenced())
      {
@@ -51092,7 +51139,7 @@ index f64efe4..e072913 100644
  }
  
  bool item_currently_evokable(const item_def *item)
-@@ -1351,28 +1359,37 @@ string evoke_damage_string(const item_def& item)
+@@ -1351,28 +1361,37 @@ string evoke_damage_string(const item_def& item)
          return "";
  }
  
@@ -52310,7 +52357,7 @@ index 9f18733..bb38a30 100644
  
  // FIXME: With the new targeting system, the hints for interesting monsters
 diff --git a/crawl-ref/source/item-name.cc b/crawl-ref/source/item-name.cc
-index 54258d5..8a72177 100644
+index 54258d5..c5fc92a 100644
 --- a/crawl-ref/source/item-name.cc
 +++ b/crawl-ref/source/item-name.cc
 @@ -6,6 +6,7 @@
@@ -52436,7 +52483,7 @@ index 54258d5..8a72177 100644
              // XX code duplication with you.no_tele_reason
              if (you.stasis())
 -                return you.no_tele_reason(item->sub_type == SCR_BLINKING);
-+                return _unmigrated_item_reason(you.no_tele_reason(item->sub_type == SCR_BLINKING));
++                return you.no_tele_display_reason(item->sub_type == SCR_BLINKING);
              break;
          default:
              break;
@@ -52474,7 +52521,7 @@ index 54258d5..8a72177 100644
          case SCR_TELEPORTATION:
              // note: stasis handled separately above
 -            return you.no_tele_reason(item->sub_type == SCR_BLINKING);
-+            return _unmigrated_item_reason(you.no_tele_reason(item->sub_type == SCR_BLINKING));
++            return you.no_tele_display_reason(item->sub_type == SCR_BLINKING);
  
          case SCR_AMNESIA:
              if (you.spell_no == 0)
@@ -52601,6 +52648,48 @@ index a3befdb..41e60dc 100644
 +struct ZhArg;
 +ZhArg cannot_read_item_display_reason(const item_def *item=nullptr, bool temp=true, bool ident=false);
 +ZhArg cannot_drink_item_display_reason(const item_def *item=nullptr, bool temp=true, bool use_check=false, bool ident=false);
+diff --git a/crawl-ref/source/item-use.cc b/crawl-ref/source/item-use.cc
+index 91be1fe..cf366ac 100644
+--- a/crawl-ref/source/item-use.cc
++++ b/crawl-ref/source/item-use.cc
+@@ -4,6 +4,7 @@
+ **/
+ 
+ #include "AppHdr.h"
++#include "zh-message.h"
+ 
+ #include "item-use.h"
+ 
+@@ -2979,11 +2980,11 @@ bool read(item_def* scroll, dist *target)
+     {
+     case SCR_BLINKING:
+     {
+-        const string reason = you.no_tele_reason(true);
+-        if (!reason.empty())
++        const ZhArg reason = you.no_tele_display_reason(true);
++        if (!reason.canonical.empty())
+         {
+             mpr(pre_succ_msg);
+-            mpr(reason);
++            mpr(ZhMessage{"", reason.canonical, reason.localized});
+             break;
+         }
+ 
+@@ -3008,11 +3009,11 @@ bool read(item_def* scroll, dist *target)
+     {
+         // you_teleport already handles much of this, but this allows a more
+         // robust message for unidentified tele scrolls read with -tele
+-        const string reason = you.no_tele_reason();
+-        if (!reason.empty())
++        const ZhArg reason = you.no_tele_display_reason();
++        if (!reason.canonical.empty())
+         {
+             mpr(pre_succ_msg);
+-            mpr(reason);
++            mpr(ZhMessage{"", reason.canonical, reason.localized});
+             break;
+         }
+ 
 diff --git a/crawl-ref/source/items.cc b/crawl-ref/source/items.cc
 index 5d6b98f..d2820f0 100644
 --- a/crawl-ref/source/items.cc
@@ -54363,10 +54452,10 @@ index 58c1101..2eeafaf 100644
  #if TAG_MAJOR_VERSION == 34
          const bool etheric = you.unrand_equipped(UNRAND_ETHERIC_CAGE);
          const int mp_regen = player_mp_regen() //round up
-diff --git a/crawl-ref/source/player.cc b/crawl-ref/source/player.cc
-index 982b651..85450fb 100644
---- a/crawl-ref/source/player.cc
-+++ b/crawl-ref/source/player.cc
+diff --git a/crawl-ref/source/player-act.cc b/crawl-ref/source/player-act.cc
+index d0fd758..2924cec 100644
+--- a/crawl-ref/source/player-act.cc
++++ b/crawl-ref/source/player-act.cc
 @@ -4,6 +4,7 @@
  **/
  
@@ -54375,7 +54464,100 @@ index 982b651..85450fb 100644
  
  #include "player.h"
  
-@@ -107,7 +108,7 @@ static void _pruneify()
+@@ -670,25 +671,25 @@ bool player::go_berserk(bool intentional, bool potion)
+     if (crawl_state.game_is_hints())
+         Hints.hints_berserk_counter++;
+ 
+-    mpr("A red film seems to cover your vision as you go berserk!");
++    mpr(zh_message("shared.log.berserk.red_vision"));
+ 
+     if (you.duration[DUR_FINESSE] > 0)
+     {
+         you.duration[DUR_FINESSE] = 0; // Totally incompatible.
+-        mpr("Your finesse ends abruptly.");
++        mpr(zh_message("shared.log.berserk.finesse_ends"));
+     }
+ 
+     if (you.duration[DUR_AFRAID] > 0)
+     {
+         you.clear_fearmongers();
+         you.duration[DUR_AFRAID] = 0; // Too angry to be scared.
+-        mpr("Your anger overwhelms your terror!");
++        mpr(zh_message("shared.log.berserk.anger_overcomes_fear"));
+     }
+ 
+     if (!_god_prevents_berserk_haste(intentional))
+-        mpr("You feel yourself moving faster!");
++        mpr(zh_message("shared.log.berserk.faster"));
+ 
+-    mpr("You feel mighty!");
++    mpr(zh_message("shared.log.berserk.mighty"));
+ 
+     int dur = (20 + random2avg(19,2)) / 2;
+     if (potion && you.has_mutation(MUT_EFFICIENT_METABOLISM))
+@@ -717,35 +718,37 @@ bool player::can_go_berserk() const
+ }
+ 
+ bool player::can_go_berserk(bool intentional, bool potion, bool quiet,
+-                            string *reason, bool temp) const
++                            string *reason, bool temp, ZhArg *display) const
+ {
+     const bool verbose = (intentional || potion) && !quiet;
+-    string msg;
++    ZhArg msg{"reason", ZhArgType::Text, "", "", true};
+     bool success = false;
+ 
+     if (berserk() && temp)
+-        msg = "You're already berserk!";
++        msg = zh_message_arg("reason", "item.reason.drink.already_berserk");
+     else if (duration[DUR_BERSERK_COOLDOWN] && temp)
+-        msg = "You're still recovering from your berserk rage.";
++        msg = zh_message_arg("reason", "item.reason.drink.berserk_recovering");
+     else if (duration[DUR_DEATHS_DOOR] && temp)
+-        msg = "You can't enter a blood rage from death's door.";
++        msg = zh_message_arg("reason", "item.reason.drink.death_door_blood_rage");
+     else if (beheld() && !you.unrand_equipped(UNRAND_DEMON_AXE) && temp)
+-        msg = "You are too mesmerised to rage.";
++        msg = zh_message_arg("reason", "item.reason.drink.mesmerised_rage");
+     else if (!intentional && !potion && clarity() && temp)
+-        msg = "You're too calm and focused to rage.";
++        msg = zh_message_arg("reason", "item.reason.drink.too_calm_rage");
+     else if (is_lifeless_undead(temp))
+-        msg = "You cannot raise a blood rage in your lifeless body.";
++        msg = zh_message_arg("reason", "item.reason.drink.undead_blood_rage");
+     else if (stasis())
+-        msg = "Your stasis prevents you from going berserk.";
++        msg = zh_message_arg("reason", "item.reason.drink.stasis_rage");
+     else
+         success = true;
+ 
+     if (!success)
+     {
+         if (verbose)
+-            mpr(msg);
++            mpr(ZhMessage{"", msg.canonical, msg.localized});
+         if (reason)
+-            *reason = msg;
++            *reason = msg.canonical;
++        if (display)
++            *display = msg;
+     }
+     return success;
+ }
+diff --git a/crawl-ref/source/player.cc b/crawl-ref/source/player.cc
+index 982b651..5831852 100644
+--- a/crawl-ref/source/player.cc
++++ b/crawl-ref/source/player.cc
+@@ -4,6 +4,8 @@
+ **/
+ 
+ #include "AppHdr.h"
++#include "zh-message.h"
++#include "zh-display-name.h"
+ 
+ #include "player.h"
+ 
+@@ -107,7 +109,7 @@ static void _pruneify()
      if (!you.may_pruneify())
          return;
  
@@ -54384,7 +54566,7 @@ index 982b651..85450fb 100644
      did_god_conduct(DID_CHAOS, 10);
  }
  
-@@ -248,7 +249,7 @@ static bool _check_moveto_dangerous(const coord_def& p, const string& msg)
+@@ -248,7 +250,7 @@ static bool _check_moveto_dangerous(const coord_def& p, const string& msg)
      else if (species::likes_water(you.species) && feat_is_water(env.grid(p)))
      {
          // player normally likes water, but is in a form that doesn't
@@ -54393,7 +54575,7 @@ index 982b651..85450fb 100644
      }
      else
          canned_msg(MSG_UNTHINKING_ACT);
-@@ -442,7 +443,7 @@ bool swap_check(monster* mons, coord_def &loc, bool quiet)
+@@ -442,7 +444,7 @@ bool swap_check(monster* mons, coord_def &loc, bool quiet)
          || mons->type == MONS_BLAZEHEART_CORE)
      {
          if (!quiet)
@@ -54402,7 +54584,7 @@ index 982b651..85450fb 100644
          return false;
      }
  
-@@ -561,11 +562,11 @@ static void _enter_water(dungeon_feature_type old_feat,
+@@ -561,11 +563,11 @@ static void _enter_water(dungeon_feature_type old_feat,
  
      if (you.slow_in_water())
      {
@@ -54417,7 +54599,7 @@ index 982b651..85450fb 100644
  }
  
  static bool _valid_entanglement_target(const monster& mon, bool check_no_tele)
-@@ -761,7 +762,7 @@ void player::finalise_movement(const actor* /*to_blame*/)
+@@ -761,7 +763,7 @@ void player::finalise_movement(const actor* /*to_blame*/)
             redraw_armour_class = true;
             wield_change = true;
             if (!was_slimy)
@@ -54426,7 +54608,7 @@ index 982b651..85450fb 100644
         }
      }
  
-@@ -2529,7 +2530,7 @@ static void _handle_hp_drain(int exp)
+@@ -2529,7 +2531,7 @@ static void _handle_hp_drain(int exp)
      calc_hp();
  
      if (drain_removed)
@@ -54435,7 +54617,7 @@ index 982b651..85450fb 100644
  }
  
  static void _handle_breath_recharge(int exp)
-@@ -2553,7 +2554,7 @@ static void _handle_breath_recharge(int exp)
+@@ -2553,7 +2555,7 @@ static void _handle_breath_recharge(int exp)
      {
          you.props.erase(DRACONIAN_BREATH_RECHARGE_KEY);
          gain_draconian_breath_uses(1);
@@ -54444,7 +54626,7 @@ index 982b651..85450fb 100644
      }
  }
  
-@@ -2568,7 +2569,7 @@ static void _handle_cacophony_recharge(int exp)
+@@ -2568,7 +2570,7 @@ static void _handle_cacophony_recharge(int exp)
      if (you.props[CACOPHONY_XP_KEY].get_int() <= 0)
      {
          you.props.erase(CACOPHONY_XP_KEY);
@@ -54453,7 +54635,7 @@ index 982b651..85450fb 100644
      }
  }
  
-@@ -2586,7 +2587,7 @@ static void _handle_batform_recharge(int exp)
+@@ -2586,7 +2588,7 @@ static void _handle_batform_recharge(int exp)
      if (you.props[BATFORM_XP_KEY].get_int() <= 0)
      {
          you.props.erase(BATFORM_XP_KEY);
@@ -54462,7 +54644,7 @@ index 982b651..85450fb 100644
      }
  }
  
-@@ -2604,7 +2605,7 @@ static void _handle_watery_grave_recharge(int exp)
+@@ -2604,7 +2606,7 @@ static void _handle_watery_grave_recharge(int exp)
      if (you.props[WATERY_GRAVE_XP_KEY].get_int() <= 0)
      {
          you.props.erase(WATERY_GRAVE_XP_KEY);
@@ -54471,7 +54653,7 @@ index 982b651..85450fb 100644
      }
  }
  
-@@ -2620,7 +2621,7 @@ static void _handle_banes(int exp)
+@@ -2620,7 +2622,7 @@ static void _handle_banes(int exp)
          you.attribute[ATTR_DOOM] -= div_rand_round(loss, 60);
          if (you.attribute[ATTR_DOOM] <= 0)
          {
@@ -54480,7 +54662,7 @@ index 982b651..85450fb 100644
              you.attribute[ATTR_DOOM] = 0;
          }
  
-@@ -2751,7 +2752,7 @@ static bool _felid_extra_life()
+@@ -2751,7 +2753,7 @@ static bool _felid_extra_life()
          && you.lives < 2)
      {
          you.lives++;
@@ -54489,7 +54671,7 @@ index 982b651..85450fb 100644
          you.attribute[ATTR_LIFE_GAINED] = you.max_level;
          // Should play the 1UP sound from SMB...
          return true;
-@@ -2893,8 +2894,7 @@ static void _gain_innate_spells()
+@@ -2893,8 +2895,7 @@ static void _gain_innate_spells()
                                       oldspell);
                  if (oldindex != end(you.spells))
                  {
@@ -54499,7 +54681,7 @@ index 982b651..85450fb 100644
                      del_spell_from_memory(oldspell);
                      spell_vec[j].get_int() = SPELL_NO_SPELL;
                      break;
-@@ -2944,7 +2944,7 @@ static void _revenant_spell_gift()
+@@ -2944,7 +2945,7 @@ static void _revenant_spell_gift()
      // spells. Hey, it's probably not literally impossible.
      if (gift_possibilities.empty())
      {
@@ -54508,7 +54690,7 @@ index 982b651..85450fb 100644
          return;
      }
  
-@@ -3007,8 +3007,7 @@ void level_change(bool skip_attribute_increase)
+@@ -3007,8 +3008,7 @@ void level_change(bool skip_attribute_increase)
  
          if (new_exp <= you.max_level)
          {
@@ -54518,7 +54700,7 @@ index 982b651..85450fb 100644
  
              // No more prompts for this XL past this point.
  
-@@ -3021,14 +3020,12 @@ void level_change(bool skip_attribute_increase)
+@@ -3021,14 +3021,12 @@ void level_change(bool skip_attribute_increase)
              update_screen();
  
              if (new_exp == 27)
@@ -54536,7 +54718,7 @@ index 982b651..85450fb 100644
              }
  
              const bool manual_stat_level = you.has_mutation(MUT_DIVINE_ATTRS)
-@@ -3062,7 +3059,7 @@ void level_change(bool skip_attribute_increase)
+@@ -3062,7 +3060,7 @@ void level_change(bool skip_attribute_increase)
              case SP_NAGA:
                  if (!(you.experience_level % 3))
                  {
@@ -54545,7 +54727,7 @@ index 982b651..85450fb 100644
                      you.redraw_armour_class = true;
                  }
                  break;
-@@ -3156,8 +3153,7 @@ void level_change(bool skip_attribute_increase)
+@@ -3156,8 +3154,7 @@ void level_change(bool skip_attribute_increase)
                          {
                              if (you.experience_level == level)
                              {
@@ -54555,7 +54737,7 @@ index 982b651..85450fb 100644
                                  mark_milestone("monstrous", "discovered their "
                                                 "monstrous ancestry!");
                                  take_note(Note(NOTE_MESSAGE, 0, 0,
-@@ -3180,8 +3176,7 @@ void level_change(bool skip_attribute_increase)
+@@ -3180,8 +3177,7 @@ void level_change(bool skip_attribute_increase)
                      {
                          if (!gave_message)
                          {
@@ -54565,7 +54747,7 @@ index 982b651..85450fb 100644
  
                              gave_message = true;
                          }
-@@ -3204,8 +3199,7 @@ void level_change(bool skip_attribute_increase)
+@@ -3204,8 +3200,7 @@ void level_change(bool skip_attribute_increase)
  
                      case COGLIN_GIZMO_XL:
                      {
@@ -54575,7 +54757,7 @@ index 982b651..85450fb 100644
                          mprf("(press <w>%c</w> on the <w>%s</w>bility menu to create your gizmo)",
                                  get_talent(ABIL_INVENT_GIZMO).hotkey,
                                  command_to_string(CMD_USE_ABILITY).c_str());
-@@ -3233,7 +3227,7 @@ void level_change(bool skip_attribute_increase)
+@@ -3233,7 +3228,7 @@ void level_change(bool skip_attribute_increase)
  
          if (species::is_draconian(you.species) && !(you.experience_level % 3))
          {
@@ -54584,7 +54766,7 @@ index 982b651..85450fb 100644
              you.redraw_armour_class = true;
          }
          if (!updated_maxhp)
-@@ -3565,14 +3559,14 @@ void display_char_status()
+@@ -3565,14 +3560,14 @@ void display_char_status()
      if (halo_size >= 0)
      {
          if (halo_size > 5)
@@ -54603,7 +54785,7 @@ index 982b651..85450fb 100644
  
      status_info inf;
      for (unsigned i = 0; i <= STATUS_LAST_STATUS; ++i)
-@@ -3895,7 +3889,7 @@ void flush_mp()
+@@ -3895,7 +3890,7 @@ void flush_mp()
          && you.magic_points < you.max_magic_points
                                * Options.magic_point_warning / 100)
      {
@@ -54612,7 +54794,7 @@ index 982b651..85450fb 100644
      }
  
      take_note(Note(NOTE_MP_CHANGE, you.magic_points, you.max_magic_points));
-@@ -3908,7 +3902,7 @@ void flush_hp()
+@@ -3908,7 +3903,7 @@ void flush_hp()
          && you.hp <= (you.hp_max * Options.hp_warning) / 100)
      {
          flash_view_delay(UA_HP, RED, 50);
@@ -54621,7 +54803,7 @@ index 982b651..85450fb 100644
          dungeon_events.fire_event(DET_HP_WARNING);
      }
      you.redraw_hit_points = true;
-@@ -3984,7 +3978,7 @@ bool enough_hp(int minimum, bool suppress_msg, bool abort_macros)
+@@ -3984,7 +3979,7 @@ bool enough_hp(int minimum, bool suppress_msg, bool abort_macros)
      if (you.duration[DUR_DEATHS_DOOR])
      {
          if (!suppress_msg)
@@ -54630,7 +54812,7 @@ index 982b651..85450fb 100644
  
          if (abort_macros)
          {
-@@ -3998,7 +3992,7 @@ bool enough_hp(int minimum, bool suppress_msg, bool abort_macros)
+@@ -3998,7 +3993,7 @@ bool enough_hp(int minimum, bool suppress_msg, bool abort_macros)
      if (you.hp < minimum + 1)
      {
          if (!suppress_msg)
@@ -54639,7 +54821,7 @@ index 982b651..85450fb 100644
  
          if (abort_macros)
          {
-@@ -4023,9 +4017,9 @@ bool enough_mp(int minimum, bool suppress_msg, bool abort_macros)
+@@ -4023,9 +4018,9 @@ bool enough_mp(int minimum, bool suppress_msg, bool abort_macros)
          if (!suppress_msg)
          {
              if (get_real_mp(true) < minimum)
@@ -54651,7 +54833,7 @@ index 982b651..85450fb 100644
          }
          if (abort_macros)
          {
-@@ -4399,19 +4393,17 @@ void contaminate_player(int change, bool controlled, bool msg)
+@@ -4399,19 +4394,17 @@ void contaminate_player(int change, bool controlled, bool msg)
      {
          if (!player_harmful_contamination() && was_glowing)
          {
@@ -54674,7 +54856,7 @@ index 982b651..85450fb 100644
  
      if (you.magic_contamination > 0)
          learned_something_new(HINT_GLOWING);
-@@ -4453,14 +4445,14 @@ bool confuse_player(int amount, bool quiet, bool force)
+@@ -4453,14 +4446,14 @@ bool confuse_player(int amount, bool quiet, bool force)
      if (!force && you.clarity())
      {
          if (!quiet)
@@ -54691,7 +54873,7 @@ index 982b651..85450fb 100644
          return false;
      }
  
-@@ -4495,7 +4487,7 @@ bool poison_player(int amount, string source, string source_aux, bool force)
+@@ -4495,7 +4488,7 @@ bool poison_player(int amount, string source, string source_aux, bool force)
  
      if (you.duration[DUR_DIVINE_STAMINA] > 0)
      {
@@ -54700,7 +54882,7 @@ index 982b651..85450fb 100644
          return false;
      }
  
-@@ -4522,7 +4514,7 @@ bool poison_player(int amount, string source, string source_aux, bool force)
+@@ -4522,7 +4515,7 @@ bool poison_player(int amount, string source, string source_aux, bool force)
      if (you.duration[DUR_POISONING] > old_value)
      {
          if (poison_is_lethal() && !was_fatal)
@@ -54709,7 +54891,7 @@ index 982b651..85450fb 100644
          else
          {
              mprf(MSGCH_WARN, "You are %spoisoned.",
-@@ -4686,7 +4678,7 @@ void reduce_player_poison(int amount)
+@@ -4686,7 +4679,7 @@ void reduce_player_poison(int amount)
          you.duration[DUR_POISONING] = 0;
          you.props.erase(POISONER_KEY);
          you.props.erase(POISON_AUX_KEY);
@@ -54718,7 +54900,7 @@ index 982b651..85450fb 100644
      }
  
      you.redraw_hit_points = true;
-@@ -4789,7 +4781,7 @@ bool miasma_player(actor *who, string source_aux)
+@@ -4789,7 +4782,7 @@ bool miasma_player(actor *who, string source_aux)
  
      if (you.duration[DUR_DIVINE_STAMINA] > 0)
      {
@@ -54727,7 +54909,7 @@ index 982b651..85450fb 100644
          return false;
      }
  
-@@ -4855,7 +4847,7 @@ void dec_sticky_flame_player(int delay)
+@@ -4855,7 +4848,7 @@ void dec_sticky_flame_player(int delay)
  
      if (feat_is_water(env.grid(you.pos())))
      {
@@ -54736,7 +54918,7 @@ index 982b651..85450fb 100644
          end_sticky_flame_player();
          return;
      }
-@@ -4878,7 +4870,7 @@ void dec_sticky_flame_player(int delay)
+@@ -4878,7 +4871,7 @@ void dec_sticky_flame_player(int delay)
  
      if (you.duration[DUR_STICKY_FLAME == 0])
      {
@@ -54745,7 +54927,7 @@ index 982b651..85450fb 100644
          end_sticky_flame_player();
      }
  }
-@@ -4900,11 +4892,11 @@ void shake_off_sticky_flame()
+@@ -4900,11 +4893,11 @@ void shake_off_sticky_flame()
      // (20 aut is picked fairly arbitrarily to include even most slowed actions)
      if (dur <= 20)
      {
@@ -54759,7 +54941,7 @@ index 982b651..85450fb 100644
  }
  
  // End the sticky flame status entirely
-@@ -4921,9 +4913,9 @@ void silence_player(int turns)
+@@ -4921,9 +4914,9 @@ void silence_player(int turns)
      ASSERT(!crawl_state.game_is_arena());
  
      if (you.duration[DUR_SILENCE])
@@ -54771,7 +54953,7 @@ index 982b651..85450fb 100644
  
      you.increase_duration(DUR_SILENCE, turns, 30);
  
-@@ -4942,7 +4934,7 @@ bool slow_player(int turns)
+@@ -4942,7 +4935,7 @@ bool slow_player(int turns)
  
      if (you.stasis())
      {
@@ -54780,7 +54962,7 @@ index 982b651..85450fb 100644
          return false;
      }
  
-@@ -4952,13 +4944,13 @@ bool slow_player(int turns)
+@@ -4952,13 +4945,13 @@ bool slow_player(int turns)
      int threshold = haste_mul(100);
  
      if (you.duration[DUR_SLOW] >= threshold * BASELINE_DELAY)
@@ -54797,7 +54979,7 @@ index 982b651..85450fb 100644
  
          you.increase_duration(DUR_SLOW, turns, threshold);
          learned_something_new(HINT_YOU_ENCHANTED);
-@@ -4991,7 +4983,7 @@ void dec_slow_player(int delay)
+@@ -4991,7 +4984,7 @@ void dec_slow_player(int delay)
      {
          you.duration[DUR_SLOW] = 0;
          if (!have_stat_zero())
@@ -54806,7 +54988,7 @@ index 982b651..85450fb 100644
      }
  }
  
-@@ -5007,13 +4999,13 @@ void barb_player(int turns, int pow)
+@@ -5007,13 +5000,13 @@ void barb_player(int turns, int pow)
  
      if (!you.duration[DUR_BARBS])
      {
@@ -54822,7 +55004,7 @@ index 982b651..85450fb 100644
          you.increase_duration(DUR_BARBS, turns, max_turns);
          you.attribute[ATTR_BARBS_POW] =
              min(max_pow, you.attribute[ATTR_BARBS_POW]++);
-@@ -5039,9 +5031,9 @@ void blind_player(int amount, colour_t flavour_colour)
+@@ -5039,9 +5032,9 @@ void blind_player(int amount, colour_t flavour_colour)
      {
          you.props[BLIND_COLOUR_KEY] = flavour_colour;
          if (current > 0)
@@ -54834,7 +55016,7 @@ index 982b651..85450fb 100644
          learned_something_new(HINT_YOU_ENCHANTED);
          xom_is_stimulated((you.duration[DUR_BLIND] - current) / BASELINE_DELAY);
      }
-@@ -5070,7 +5062,7 @@ void dec_berserk_recovery_player(int delay)
+@@ -5070,7 +5063,7 @@ void dec_berserk_recovery_player(int delay)
  
      if (you.duration[DUR_BERSERK_COOLDOWN] <= BASELINE_DELAY)
      {
@@ -54843,7 +55025,7 @@ index 982b651..85450fb 100644
          you.duration[DUR_BERSERK_COOLDOWN] = 0;
      }
  }
-@@ -5084,7 +5076,7 @@ bool haste_player(int turns, bool rageext)
+@@ -5084,7 +5077,7 @@ bool haste_player(int turns, bool rageext)
  
      if (you.stasis())
      {
@@ -54852,7 +55034,7 @@ index 982b651..85450fb 100644
          return false;
      }
      else if (have_passive(passive_t::no_haste))
-@@ -5099,11 +5091,11 @@ bool haste_player(int turns, bool rageext)
+@@ -5099,11 +5092,11 @@ bool haste_player(int turns, bool rageext)
      const int threshold = 80;
  
      if (!you.duration[DUR_HASTE])
@@ -54867,7 +55049,7 @@ index 982b651..85450fb 100644
  
      you.increase_duration(DUR_HASTE, turns, threshold);
  
-@@ -5125,7 +5117,7 @@ void dec_haste_player(int delay)
+@@ -5125,7 +5118,7 @@ void dec_haste_player(int delay)
          // message if we cross the threshold
          if (old_dur > threshold && you.duration[DUR_HASTE] <= threshold)
          {
@@ -54876,7 +55058,7 @@ index 982b651..85450fb 100644
              if (coinflip())
                  you.duration[DUR_HASTE] -= BASELINE_DELAY;
          }
-@@ -5133,7 +5125,7 @@ void dec_haste_player(int delay)
+@@ -5133,7 +5126,7 @@ void dec_haste_player(int delay)
      else if (you.duration[DUR_HASTE] <= BASELINE_DELAY)
      {
          if (!you.duration[DUR_BERSERK])
@@ -54885,7 +55067,7 @@ index 982b651..85450fb 100644
          you.duration[DUR_HASTE] = 0;
      }
  }
-@@ -5179,7 +5171,7 @@ void dec_ambrosia_player(int delay)
+@@ -5179,7 +5172,7 @@ void dec_ambrosia_player(int delay)
      inc_mp(you.scale_potion_mp_healing(mp_restoration));
  
      if (!you.duration[DUR_AMBROSIA])
@@ -54894,7 +55076,7 @@ index 982b651..85450fb 100644
  }
  
  void dec_channel_player(int delay)
-@@ -5196,7 +5188,7 @@ void dec_channel_player(int delay)
+@@ -5196,7 +5189,7 @@ void dec_channel_player(int delay)
      inc_mp(mp_restoration);
  
      if (!you.duration[DUR_CHANNEL_ENERGY])
@@ -54903,7 +55085,7 @@ index 982b651..85450fb 100644
  }
  
  void dec_frozen_ramparts(int delay)
-@@ -5210,7 +5202,7 @@ void dec_frozen_ramparts(int delay)
+@@ -5210,7 +5203,7 @@ void dec_frozen_ramparts(int delay)
      if (!you.duration[DUR_FROZEN_RAMPARTS])
      {
          end_frozen_ramparts();
@@ -54912,7 +55094,91 @@ index 982b651..85450fb 100644
      }
  }
  
-@@ -5321,13 +5313,13 @@ void float_player()
+@@ -5231,66 +5224,67 @@ void apply_rampage_heal(int distance_moved)
+     you.props[RAMPAGE_HEAL_KEY] = min(RAMPAGE_HEAL_MAX, heal + distance_moved);
+ }
+ 
+-bool invis_allowed(bool quiet, string *fail_reason, bool temp)
++bool invis_allowed(bool quiet, string *fail_reason, bool temp, ZhArg *display)
+ {
+-    string msg;
++    ZhArg msg{"reason", ZhArgType::Text, "", "", true};
+     bool success = true;
+ 
+     if (you.backlit(true, false))
+     {
+-        msg = "Your body glows too brightly to become invisible.";
++        msg = zh_message_arg("reason", "item.reason.invisibility.backlit");
+         success = false;
+     }
+     else if (you.haloed() && you.halo_radius() != -1)
+     {
+-        vector<string> sources;
++        vector<ZhArg> sources;
+ 
+         if (temp && you.unrand_equipped(UNRAND_EOS))
+-            sources.push_back("weapon");
++            sources.push_back(zh_message_arg("source", "player.invisibility.source.weapon"));
+ 
+         if (temp && you.unrand_equipped(UNRAND_VAINGLORY))
+-            sources.push_back("crown");
++            sources.push_back(zh_message_arg("source", "player.invisibility.source.crown"));
+ 
+         if (temp && you.wearing_ego(OBJ_ARMOUR, SPARM_LIGHT))
+-            sources.push_back("armour");
++            sources.push_back(zh_message_arg("source", "player.invisibility.source.armour"));
+ 
+         if (temp && you.props.exists(WU_JIAN_HEAVENLY_STORM_KEY)
+             || you.religion == GOD_SHINING_ONE) // non-temp
+         {
+-            sources.push_back("divine halo");
++            sources.push_back(zh_message_arg("source", "player.invisibility.source.divine_halo"));
+         }
+ 
+         if (sources.empty())
+             success = true;
+         else
+         {
+-            msg = "Your " + comma_separated_line(sources.begin(), sources.end())
+-                  + " glow" + (sources.size() == 1 ? "s" : "")
+-                  + " too brightly for you to become invisible.";
++            msg = zh_message_arg("reason", "item.reason.invisibility.halo",
++                {zh_message_list("sources", sources),
++                 zh_text("s", sources.size() == 1 ? "s" : "", "")});
+             success = false;
+         }
+     }
+     else if (you.backlit(true, temp))
+     {
+-        msg = "You are backlit; invisibility will do you no good right now";
++        msg = zh_message_arg("reason", "item.reason.invisibility.backlit_current");
+         if (quiet)
+             success = false;
+-        else if (!quiet && !yesno((msg + "; use anyway?").c_str(), false, 'n'))
++        else if (!quiet && !yesno(zh_message("player.invisibility.backlit.confirm"), false, 'n'))
+         {
+             // XX this shouldn't be here. Currently used only for evoke invis.
+             canned_msg(MSG_OK);
+             success = false;
+             quiet = true; // since we just said something
+         }
+-        msg += ".";
+     }
+ 
+     if (!success)
+     {
+         if (fail_reason)
+-            *fail_reason = msg;
++            *fail_reason = msg.canonical;
++        if (display)
++            *display = msg;
+         if (!quiet)
+-            mpr(msg);
++            mpr(ZhMessage{"", msg.canonical, msg.localized});
+     }
+     return success;
+ }
+@@ -5321,13 +5315,13 @@ void float_player()
  {
      if (you.fishtail)
      {
@@ -54929,7 +55195,7 @@ index 982b651..85450fb 100644
  }
  
  void fly_player(int pow, bool already_flying)
-@@ -5384,7 +5376,7 @@ bool land_player(bool quiet)
+@@ -5384,7 +5378,7 @@ bool land_player(bool quiet)
      }
  
      if (!quiet)
@@ -54938,7 +55204,7 @@ index 982b651..85450fb 100644
  
      // Re-enter the terrain.
      // Interrupt travel, but not other delays.
-@@ -5961,14 +5953,14 @@ void player::banish(const actor* /*agent*/, const string &who, bool force)
+@@ -5961,14 +5955,14 @@ void player::banish(const actor* /*agent*/, const string &who, bool force)
  
      if (elapsed_time <= attribute[ATTR_BANISHMENT_IMMUNITY])
      {
@@ -54955,7 +55221,107 @@ index 982b651..85450fb 100644
          return;
      }
  
-@@ -7451,7 +7443,7 @@ void player::paralyse(const actor *who, int str, string source)
+@@ -7146,70 +7140,59 @@ int player_willpower(bool temp)
+  * @return              Why the player is prevented from teleporting, if they
+  *                      are; else, the empty string.
+  */
+-string player::no_tele_reason(bool blinking, bool temp) const
++ZhArg player::no_tele_display_reason(bool blinking, bool temp) const
+ {
+     if (stasis())
+-        return "Your stasis prevents you from teleporting.";
+-
++        return zh_message_arg("reason", "player.no_tele.stasis");
+     if (!blinking)
+     {
+         if (crawl_state.game_is_sprint())
+-            return "Long-range teleportation is disallowed in Dungeon Sprint.";
++            return zh_message_arg("reason", "player.no_tele.sprint");
+         else if (player_in_branch(BRANCH_GAUNTLET))
+-        {
+-            return "A magic seal in the Gauntlet prevents long-range "
+-                "teleports.";
+-        }
++            return zh_message_arg("reason", "player.no_tele.gauntlet");
+     }
+-
+-    vector<string> problems;
+-
++    vector<ZhArg> problems;
+     if (temp && duration[DUR_DIMENSION_ANCHOR])
+-        problems.emplace_back("locked down by a dimension anchor");
+-
++        problems.push_back(zh_message_arg("reason", "player.no_tele.anchor"));
+     if (temp && form == transformation::tree)
+-        problems.emplace_back("held in place by your roots");
+-
++        problems.push_back(zh_message_arg("reason", "player.no_tele.roots"));
+     vector<const item_def *> notele_items;
+     if (has_notele_item(&notele_items))
+     {
+-        vector<string> worn_notele;
+-        bool found_nonartefact = false;
+-
++        vector<ZhArg> worn_notele;
++        // Preserve the engine's original summary category and count threshold.
++        const bool found_nonartefact = false;
+         for (const auto item : notele_items)
+         {
+             if (item->base_type == OBJ_WEAPONS)
+-            {
+-                problems.push_back(make_stringf("wielding %s",
+-                                                item->name(DESC_A).c_str()));
+-            }
++                problems.push_back(zh_message_arg("reason", "player.no_tele.wielded",
++                    {zh_item_arg("item", *item, DESC_A)}));
+             else
+-                worn_notele.push_back(item->name(DESC_A));
++                worn_notele.push_back(zh_item_arg("item", *item, DESC_A));
+         }
+-
+         if (worn_notele.size() > static_cast<size_t>(problems.empty() ? 3 : 1))
+         {
+-            problems.push_back(
+-                make_stringf("wearing %s %s preventing teleportation",
+-                             number_in_words(worn_notele.size()).c_str(),
+-                             found_nonartefact ? "items": "artefacts"));
++            const ZhArg count = zh_text("count_word", number_in_words(worn_notele.size()),
++                                       to_string(worn_notele.size()));
++            problems.push_back(found_nonartefact
++                ? zh_message_arg("reason", "player.no_tele.worn_many_items", {count})
++                : zh_message_arg("reason", "player.no_tele.worn_many_artefacts", {count}));
+         }
+         else if (!worn_notele.empty())
+-        {
+-            problems.push_back(
+-                make_stringf("wearing %s",
+-                             comma_separated_line(worn_notele.begin(),
+-                                                  worn_notele.end()).c_str()));
+-        }
++            problems.push_back(zh_message_arg("reason", "player.no_tele.worn_list",
++                {zh_message_list("items", worn_notele)}));
+     }
+-
+     if (problems.empty())
+-        return ""; // no problem
++        return {"reason", ZhArgType::Text, "", "", true};
++    const ZhArg reasons = zh_message_list("reasons", problems);
++    return blinking
++        ? zh_message_arg("reason", "player.no_tele.blink", {reasons})
++        : zh_message_arg("reason", "player.no_tele.teleport", {reasons});
++}
+ 
+-    return make_stringf("You cannot %s because you are %s.",
+-                        blinking ? "blink" : "teleport",
+-                        comma_separated_line(problems.begin(),
+-                                             problems.end()).c_str());
++string player::no_tele_reason(bool blinking, bool temp) const
++{
++    return no_tele_display_reason(blinking, temp).canonical;
+ }
+ 
+ /**
+@@ -7451,7 +7434,7 @@ void player::paralyse(const actor *who, int str, string source)
  
      if (stasis())
      {
@@ -54964,7 +55330,7 @@ index 982b651..85450fb 100644
          return;
      }
  
-@@ -7459,13 +7451,13 @@ void player::paralyse(const actor *who, int str, string source)
+@@ -7459,13 +7442,13 @@ void player::paralyse(const actor *who, int str, string source)
      if (who && who != &you
          && (duration[DUR_PARALYSIS] || duration[DUR_STUN_IMMUNITY]))
      {
@@ -54980,7 +55346,7 @@ index 982b651..85450fb 100644
      _pruneify();
  
      you.duration[DUR_PARALYSIS] = str * BASELINE_DELAY + 5;
-@@ -7503,7 +7495,7 @@ void player::petrify(const actor *who, bool force)
+@@ -7503,7 +7486,7 @@ void player::petrify(const actor *who, bool force)
  
      if (duration[DUR_DIVINE_STAMINA] > 0)
      {
@@ -54989,7 +55355,7 @@ index 982b651..85450fb 100644
          return;
      }
  
-@@ -7520,7 +7512,7 @@ void player::petrify(const actor *who, bool force)
+@@ -7520,7 +7503,7 @@ void player::petrify(const actor *who, bool force)
          props.erase(DISABLED_BY_KEY);
  
      redraw_evasion = true;
@@ -54998,7 +55364,7 @@ index 982b651..85450fb 100644
  }
  
  bool player::fully_petrify(bool /*quiet*/)
-@@ -7529,7 +7521,7 @@ bool player::fully_petrify(bool /*quiet*/)
+@@ -7529,7 +7512,7 @@ bool player::fully_petrify(bool /*quiet*/)
                          + random2(4 * BASELINE_DELAY);
      redraw_armour_class = true;
      redraw_evasion = true;
@@ -55007,7 +55373,7 @@ index 982b651..85450fb 100644
      _pruneify();
  
      stop_delay(true, true);
-@@ -7542,12 +7534,12 @@ bool player::vex(const actor* who, int dur, string source, string special_msg)
+@@ -7542,12 +7525,12 @@ bool player::vex(const actor* who, int dur, string source, string special_msg)
  {
      if (you.clarity())
      {
@@ -55022,7 +55388,7 @@ index 982b651..85450fb 100644
          return false;
      }
      else if (you.duration[DUR_VEXED])
-@@ -7556,7 +7548,7 @@ bool player::vex(const actor* who, int dur, string source, string special_msg)
+@@ -7556,7 +7539,7 @@ bool player::vex(const actor* who, int dur, string source, string special_msg)
      if (!special_msg.empty())
          mprf(MSGCH_WARN, "You %s", special_msg.c_str());
      else
@@ -55031,7 +55397,7 @@ index 982b651..85450fb 100644
      you.duration[DUR_VEXED] = dur * BASELINE_DELAY;
  
      const bool use_actor_name = source.empty() && who != nullptr;
-@@ -7766,11 +7758,11 @@ bool player::sicken(int amount)
+@@ -7766,11 +7749,11 @@ bool player::sicken(int amount)
  
      if (duration[DUR_DIVINE_STAMINA] > 0)
      {
@@ -55045,7 +55411,7 @@ index 982b651..85450fb 100644
      increase_duration(DUR_SICKNESS, amount, 210);
  
      return true;
-@@ -7872,12 +7864,12 @@ void player::backlight()
+@@ -7872,12 +7855,12 @@ void player::backlight()
      if (!duration[DUR_INVIS])
      {
          if (duration[DUR_CORONA])
@@ -55061,7 +55427,7 @@ index 982b651..85450fb 100644
  
      increase_duration(DUR_CORONA, random_range(15, 35), 250);
  }
-@@ -8037,7 +8029,7 @@ bool player::doom(int amount)
+@@ -8037,7 +8020,7 @@ bool player::doom(int amount)
      if (you.attribute[ATTR_DOOM] >= 100)
      {
          you.attribute[ATTR_DOOM] = 0;
@@ -55070,7 +55436,7 @@ index 982b651..85450fb 100644
          add_bane();
          return true;
      }
-@@ -8115,7 +8107,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
+@@ -8115,7 +8098,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
  
      if (duration[DUR_STUN_IMMUNITY])
      {
@@ -55079,7 +55445,7 @@ index 982b651..85450fb 100644
          return;
      }
  
-@@ -8123,7 +8115,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
+@@ -8123,7 +8106,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
          || duration[DUR_PETRIFIED]
          || duration[DUR_PETRIFYING])
      {
@@ -55088,7 +55454,7 @@ index 982b651..85450fb 100644
          return;
      }
  
-@@ -8132,7 +8124,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
+@@ -8132,7 +8115,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
      else
          props.erase(DISABLED_BY_KEY);
  
@@ -55097,7 +55463,7 @@ index 982b651..85450fb 100644
      _pruneify();
  
      stop_directly_constricting_all();
-@@ -8152,7 +8144,7 @@ void player::wake_up(bool break_sleep, bool break_daze)
+@@ -8152,7 +8135,7 @@ void player::wake_up(bool break_sleep, bool break_daze)
      {
          duration[DUR_SLEEP] = 0;
          give_stun_immunity(random_range(3, 5));
@@ -55106,7 +55472,7 @@ index 982b651..85450fb 100644
          flash_view(UA_MONSTER, BLACK);
          redraw_armour_class = true;
          redraw_evasion = true;
-@@ -8162,7 +8154,7 @@ void player::wake_up(bool break_sleep, bool break_daze)
+@@ -8162,7 +8145,7 @@ void player::wake_up(bool break_sleep, bool break_daze)
      {
          duration[DUR_DAZED] = 0;
          give_stun_immunity(1);
@@ -55115,7 +55481,7 @@ index 982b651..85450fb 100644
      }
  }
  
-@@ -8199,13 +8191,12 @@ bool player::do_shaft()
+@@ -8199,13 +8182,12 @@ bool player::do_shaft()
      }
      if (you.species == SP_FORMICID)
      {
@@ -55131,7 +55497,7 @@ index 982b651..85450fb 100644
          return false;
      }
  
-@@ -8219,7 +8210,7 @@ bool player::can_do_shaft_ability(bool quiet) const
+@@ -8219,7 +8201,7 @@ bool player::can_do_shaft_ability(bool quiet) const
      if (form_changes_anatomy())
      {
          if (!quiet)
@@ -55140,7 +55506,7 @@ index 982b651..85450fb 100644
          return false;
      }
  
-@@ -8233,7 +8224,7 @@ bool player::can_do_shaft_ability(bool quiet) const
+@@ -8233,7 +8215,7 @@ bool player::can_do_shaft_ability(bool quiet) const
      if (you.cannot_move())
      {
          if (!quiet)
@@ -55149,7 +55515,7 @@ index 982b651..85450fb 100644
          return false;
      }
  
-@@ -8242,14 +8233,14 @@ bool player::can_do_shaft_ability(bool quiet) const
+@@ -8242,14 +8224,14 @@ bool player::can_do_shaft_ability(bool quiet) const
          if (!is_valid_shaft_level(false))
          {
              if (!quiet)
@@ -55166,7 +55532,7 @@ index 982b651..85450fb 100644
          return false;
      }
  
-@@ -8262,7 +8253,7 @@ bool player::do_shaft_ability()
+@@ -8262,7 +8244,7 @@ bool player::do_shaft_ability()
  {
      if (can_do_shaft_ability(true))
      {
@@ -55175,7 +55541,7 @@ index 982b651..85450fb 100644
          down_stairs(DNGN_TRAP_SHAFT, true);
          return true;
      }
-@@ -8406,12 +8397,12 @@ void player::sentinel_mark(bool trap)
+@@ -8406,12 +8388,12 @@ void player::sentinel_mark(bool trap)
      flash_tile(you.pos(), YELLOW, 120, TILE_BOLT_SENTINEL_MARK);
      if (duration[DUR_SENTINEL_MARK])
      {
@@ -55190,7 +55556,7 @@ index 982b651..85450fb 100644
          increase_duration(DUR_SENTINEL_MARK, trap ? random_range(25, 40)
                                                    : random_range(35, 60),
                            250);
-@@ -8463,9 +8454,9 @@ bool player::made_nervous_by(const monster *mons)
+@@ -8463,9 +8445,9 @@ bool player::made_nervous_by(const monster *mons)
  void player::weaken(const actor */*attacker*/, int pow)
  {
      if (!duration[DUR_WEAK])
@@ -55202,7 +55568,7 @@ index 982b651..85450fb 100644
  
      increase_duration(DUR_WEAK, pow + random2(pow + 3), 50);
  }
-@@ -8473,9 +8464,9 @@ void player::weaken(const actor */*attacker*/, int pow)
+@@ -8473,9 +8455,9 @@ void player::weaken(const actor */*attacker*/, int pow)
  void player::diminish(const actor */*attacker*/, int pow)
  {
      if (!duration[DUR_DIMINISHED_SPELLS])
@@ -55214,7 +55580,7 @@ index 982b651..85450fb 100644
  
      increase_duration(DUR_DIMINISHED_SPELLS, pow + random2(pow + 3), 50);
  }
-@@ -8485,7 +8476,7 @@ bool player::strip_willpower(actor */*attacker*/, int dur, bool quiet)
+@@ -8485,7 +8467,7 @@ bool player::strip_willpower(actor */*attacker*/, int dur, bool quiet)
      // Only prints a message when you gain this status for the first time,
      // replicating old behavior. Should this change?
      if (!quiet && !you.duration[DUR_LOWERED_WL])
@@ -55223,7 +55589,7 @@ index 982b651..85450fb 100644
  
      you.increase_duration(DUR_LOWERED_WL, dur, 40);
  
-@@ -8498,7 +8489,7 @@ bool player::drain_magic(actor */*attacker*/, int pow)
+@@ -8498,7 +8480,7 @@ bool player::drain_magic(actor */*attacker*/, int pow)
      if (!amount)
          return false;
  
@@ -55232,7 +55598,7 @@ index 982b651..85450fb 100644
      drain_mp(amount);
      return true;
  }
-@@ -8517,9 +8508,9 @@ void player::vitrify(const actor* /*attacker*/, int dur, bool quiet)
+@@ -8517,9 +8499,9 @@ void player::vitrify(const actor* /*attacker*/, int dur, bool quiet)
      if (!quiet)
      {
          if (!you.duration[DUR_VITRIFIED])
@@ -55244,7 +55610,7 @@ index 982b651..85450fb 100644
      }
  
      you.increase_duration(DUR_VITRIFIED, dur, 50);
-@@ -8723,15 +8714,15 @@ void print_potion_heal_message()
+@@ -8723,15 +8705,15 @@ void print_potion_heal_message()
                   you.body_armour()->name(DESC_THE, false, false, false).c_str());
          }
          else if (you.has_mutation(MUT_DOUBLE_POTION_HEAL))
@@ -55264,7 +55630,7 @@ index 982b651..85450fb 100644
  }
  
  bool player::can_potion_heal(bool temp)
-@@ -9201,7 +9192,7 @@ int player::inaccuracy() const
+@@ -9201,7 +9183,7 @@ int player::inaccuracy() const
  void player_end_berserk()
  {
      if (!you.duration[DUR_PARALYSIS] && !you.petrified())
@@ -55273,7 +55639,7 @@ index 982b651..85450fb 100644
  
      you.berserk_penalty = 0;
  
-@@ -9244,7 +9235,7 @@ void activate_sanguine_armour()
+@@ -9244,7 +9226,7 @@ void activate_sanguine_armour()
      you.duration[DUR_SANGUINE_ARMOUR] = random_range(60, 100);
      if (!was_active)
      {
@@ -55282,7 +55648,7 @@ index 982b651..85450fb 100644
          you.redraw_armour_class = true;
      }
  }
-@@ -9256,7 +9247,7 @@ void activate_sanguine_armour()
+@@ -9256,7 +9238,7 @@ void activate_sanguine_armour()
  void refresh_weapon_protection()
  {
      if (!you.duration[DUR_SPWPN_PROTECTION])
@@ -55291,7 +55657,7 @@ index 982b651..85450fb 100644
  
      you.increase_duration(DUR_SPWPN_PROTECTION, 3 + random2(2), 5);
      you.redraw_armour_class = true;
-@@ -9364,7 +9355,7 @@ void trickster_trigger(const monster& victim, enchant_type ench)
+@@ -9364,7 +9346,7 @@ void trickster_trigger(const monster& victim, enchant_type ench)
      if (!you.props.exists(TRICKSTER_POW_KEY))
      {
          you.props[TRICKSTER_POW_KEY].get_int() = 0;
@@ -55300,8 +55666,47 @@ index 982b651..85450fb 100644
      }
  
      // Start the bonus off at meaningful level, but give less for each effect
+diff --git a/crawl-ref/source/player.h b/crawl-ref/source/player.h
+index 7e5f8ce..ae12627 100644
+--- a/crawl-ref/source/player.h
++++ b/crawl-ref/source/player.h
+@@ -11,6 +11,8 @@
+ #include <memory>
+ #include <vector>
+ 
++struct ZhArg;
++
+ #include "actor.h"
+ #include "attribute-type.h"
+ #include "bane-type.h"
+@@ -767,7 +769,7 @@ public:
+     bool can_go_berserk() const override;
+     bool can_go_berserk(bool intentional, bool potion = false,
+                         bool quiet = false, string *reason = nullptr,
+-                        bool temp = true) const;
++                        bool temp = true, ZhArg *display = nullptr) const;
+     bool go_berserk(bool intentional, bool potion = false) override;
+     bool berserk() const override;
+     bool can_mutate() const override;
+@@ -861,6 +863,7 @@ public:
+     int willpower() const override;
+     bool no_tele(bool blink = false, bool temp = true) const override;
+     string no_tele_reason(bool blink = false, bool temp = true) const;
++    ZhArg no_tele_display_reason(bool blink = false, bool temp = true) const;
+     int slaying(bool throwing = false, bool random = true) const override;
+     bool antimagic_susceptible() const override;
+ 
+@@ -1284,7 +1287,7 @@ int trickster_bonus();
+ int enkindle_max_charges();
+ void maybe_harvest_memory(const monster& victim);
+ bool invis_allowed(bool quiet = false, string *fail_reason = nullptr,
+-                                                        bool temp = true);
++                   bool temp = true, ZhArg *display = nullptr);
+ bool flight_allowed(bool quiet = false, string *fail_reason = nullptr);
+ void fly_player(int pow, bool already_flying = false);
+ void float_player();
 diff --git a/crawl-ref/source/potion.cc b/crawl-ref/source/potion.cc
-index 9f5e4af..e79938e 100644
+index 9f5e4af..943a267 100644
 --- a/crawl-ref/source/potion.cc
 +++ b/crawl-ref/source/potion.cc
 @@ -6,6 +6,7 @@
@@ -55455,7 +55860,7 @@ index 9f5e4af..e79938e 100644
              return false;
          }
  
-@@ -528,7 +537,7 @@ public:
+@@ -528,10 +537,10 @@ public:
          return true;
      }
  
@@ -55463,7 +55868,11 @@ index 9f5e4af..e79938e 100644
 +    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
      {
          // quaffing invis
-         return invis_allowed(true, reason, temp);
+-        return invis_allowed(true, reason, temp);
++        return invis_allowed(true, reason, temp, display);
+     }
+ };
+ 
 @@ -597,12 +606,12 @@ public:
          static PotionMagic inst; return inst;
      }
@@ -55488,15 +55897,18 @@ index 9f5e4af..e79938e 100644
              return false;
          }
          return true;
-@@ -652,7 +661,7 @@ public:
+@@ -652,9 +661,9 @@ public:
          static PotionBerserk inst; return inst;
      }
  
 -    bool can_quaff(string *reason = nullptr, bool temp = true) const override
 +    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
      {
-         return you.can_go_berserk(true, true, true, reason, temp);
+-        return you.can_go_berserk(true, true, true, reason, temp);
++        return you.can_go_berserk(true, true, true, reason, temp, display);
      }
+ 
+     bool effect(bool was_known = true, int = 40, bool is_potion = true) const override
 @@ -692,15 +701,20 @@ public:
   *               to mutate
   * @returns true if the player is able to mutate right now, otherwise false.
@@ -55521,16 +55933,30 @@ index 9f5e4af..e79938e 100644
      }
      return false;
  }
-@@ -736,7 +750,7 @@ public:
+@@ -736,15 +750,17 @@ public:
          static PotionLignify inst; return inst;
      }
  
 -    bool can_quaff(string *reason = nullptr, bool temp = true) const override
 +    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
      {
-         const string treason = cant_transform_reason(transformation::tree,
-                                                      false, temp);
-@@ -807,9 +821,9 @@ public:
+-        const string treason = cant_transform_reason(transformation::tree,
+-                                                     false, temp);
+-        if (treason.empty())
++        const ZhArg treason = cant_transform_display_reason(transformation::tree,
++                                                               false, temp);
++        if (display)
++            *display = treason;
++        if (treason.canonical.empty())
+             return true;
+ 
+         if (reason)
+-            *reason = treason;
++            *reason = treason.canonical;
+         return false;
+     }
+ 
+@@ -807,9 +823,9 @@ public:
          static PotionMutation inst; return inst;
      }
  
@@ -57837,6 +58263,501 @@ index 3b1756b..9048e53 100644
  string spell_noise_string(spell_type spell, int chop_wiz_display_width = 0);
  
  void spell_skills(spell_type spell, set<skill_type> &skills);
+diff --git a/crawl-ref/source/spl-transloc.cc b/crawl-ref/source/spl-transloc.cc
+index b3694e5..9d6c601 100644
+--- a/crawl-ref/source/spl-transloc.cc
++++ b/crawl-ref/source/spl-transloc.cc
+@@ -4,6 +4,9 @@
+ **/
+ 
+ #include "AppHdr.h"
++#include "zh-message.h"
++#include "zh-display-name.h"
++#include "zh-localization.h"
+ 
+ #include "spl-transloc.h"
+ 
+@@ -69,6 +72,48 @@
+  *
+  * @param origin    The player's previous location.
+  */
++// Complete messages are selected before actor names or numeric fields are filled.
++static ZhMessage _transloc_pull_message(int count)
++{
++    return count > 1 ? zh_message("transloc.teleport.follow.monsters")
++                     : zh_message("transloc.teleport.follow.monster");
++}
++
++static ZhMessage _transloc_gravity_message(const monster *mon, dungeon_feature_type feat)
++{
++    if (mon)
++        return zh_message("transloc.gravitas.around_monster", {zh_monster_arg("monster", *mon)});
++    if (feat_is_solid(feat))
++    {
++        string plain, english;
++        {
++            ZhTranslationPause canonical;
++            plain = feature_description(feat, NUM_TRAPS, "", DESC_PLAIN);
++            english = feature_description(feat, NUM_TRAPS, "", DESC_THE);
++        }
++        ZhArg terrain = zh_glossary_name("terrain", "terrain", plain);
++        terrain.canonical = english;
++        return zh_message("transloc.gravitas.around_terrain", {terrain});
++    }
++    return zh_message("transloc.gravitas.inward");
++}
++
++static ZhMessage _transloc_beckon_message(const actor &mon)
++{
++    const ZhArg name = zh_actor_arg("monster", &mon);
++    return mon.conj_verb("hurl") == "hurls"
++        ? zh_message("transloc.beckon.singular", {name})
++        : zh_message("transloc.beckon.plural", {name});
++}
++
++static ZhMessage _transloc_contract_message(const vector<monster *> &mons)
++{
++    if (mons.size() == 1)
++        return zh_message("transloc.piledriver.one", {zh_monster_arg("monster", *mons[0])});
++    return zh_message("transloc.piledriver.many",
++        {zh_text("count_word", number_in_words(mons.size()), to_string(mons.size()))});
++}
++
+ static void _place_tloc_cloud(const coord_def &origin)
+ {
+     place_cloud(CLOUD_TLOC_ENERGY, origin, 1 + random2(3), &you);
+@@ -141,7 +186,7 @@ void uncontrolled_blink(bool override_stasis, int max_distance)
+     if (!random_near_space(&you, you.pos(), target, false, max_distance)
+         && !random_near_space(&you, you.pos(), target, true, max_distance))
+     {
+-        mpr("You feel jittery for a moment.");
++        mpr(zh_message("shared.log.blink.no_landing"));
+         return;
+     }
+ 
+@@ -166,7 +211,7 @@ spret spider_jump()
+     if (!random_near_space(&you, you.pos(), target, false, you.current_vision)
+         && !random_near_space(&you, you.pos(), target, true, you.current_vision))
+     {
+-        mpr("You jump in place.");
++        mpr(zh_message("shared.log.transloc.jump_in_place"));
+         return spret::success;
+     }
+ 
+@@ -199,7 +244,7 @@ spret spider_jump()
+ 
+     you.stop_being_constricted(false, "jump");
+ 
+-    mpr("You jump through the air!");
++    mpr(zh_message("shared.log.transloc.jump_air"));
+     place_cloud(CLOUD_DUST, you.pos(), 2 + random2(3), &you);
+     you.move_to(target, MV_DELIBERATE);
+     you.increase_duration(DUR_BLINK_COOLDOWN, random_range(2, 5));
+@@ -337,14 +382,14 @@ void wizard_blink()
+     if (!in_bounds(beam.target))
+     {
+         clear_messages();
+-        mpr("Please don't blink into the map border.");
++        mpr(zh_message("shared.log.transloc.blink_map_border"));
+         return wizard_blink();
+     }
+ 
+     if (monster_at(beam.target))
+     {
+         clear_messages();
+-        mpr("Please don't try to blink into monsters.");
++        mpr(zh_message("shared.log.transloc.blink_monsters"));
+         return wizard_blink();
+     }
+ 
+@@ -461,7 +506,7 @@ spret frog_hop(bool fail, dist *target)
+ 
+         if (grid_distance(you.pos(), target->target) > hop_range)
+         {
+-            mpr("That's out of range!"); // ! targeting
++            mpr(zh_message("shared.log.transloc.out_of_range")); // ! targeting
+             continue;
+         }
+         break;
+@@ -475,7 +520,7 @@ spret frog_hop(bool fail, dist *target)
+     // invisible monster that the targeter didn't know to avoid, or similar
+     if (target->target.origin())
+     {
+-        mpr("You tried to hop, but there was no room to land!");
++        mpr(zh_message("shared.log.transloc.hop_no_room"));
+         // TODO: what to do here?
+         return spret::success; // of a sort
+     }
+@@ -484,7 +529,7 @@ spret frog_hop(bool fail, dist *target)
+     you.move_to(target->target, MV_DELIBERATE);
+     crawl_state.cancel_cmd_again();
+     crawl_state.cancel_cmd_repeat();
+-    mpr("Boing!");
++    mpr(zh_message("shared.log.transloc.boing"));
+     you.increase_duration(DUR_NO_HOP, 12 + random2(13));
+ 
+     return spret::success; // TODO
+@@ -691,7 +736,7 @@ static bool _displace_charge_blocker(actor& agent, coord_def pos)
+             && blocker->blink_to(targ, true))
+         {
+             if (blocker->is_player())
+-                mpr("You are hurled out of the way!");
++                mpr(zh_message("shared.log.transloc.hurled_away"));
+ 
+             continue;
+         }
+@@ -757,7 +802,7 @@ spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target
+     if (invalid_dest)
+     {
+         if (agent.is_player())
+-            mprf("%s is immovably fixed there.", dest_mon->name(DESC_THE).c_str());
++            mpr(zh_message("transloc.charge.immovably_fixed", {zh_monster_arg("monster", *dest_mon)}));
+         return spret::success;
+     }
+ 
+@@ -774,9 +819,9 @@ spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target
+ 
+         // Monster cast messages are handled through monspell.txt
+         if (silenced(dest_pos))
+-            mpr("You charge forward in eerie silence!");
++            mpr(zh_message("shared.log.transloc.charge_silence"));
+         else
+-            mpr("You charge forward with an electric crackle!");
++            mpr(zh_message("shared.log.transloc.charge_crackle"));
+     }
+ 
+     // Trying to clear space at our destination by moving actors away from it.
+@@ -785,8 +830,8 @@ spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target
+     {
+         if (agent.is_player() || (agent.is_monster() && you.can_see(agent)))
+         {
+-            mprf("...but somehow remain%s in the same place.",
+-                                                agent.is_monster() ? "s" : "");
++            mpr(agent.is_monster() ? zh_message("transloc.charge.remains")
++                                   : zh_message("transloc.charge.remain"));
+         }
+ 
+         return spret::success;
+@@ -871,7 +916,7 @@ spret controlled_blink(bool safe_cancel, dist *target)
+         if (!_find_cblink_target(*target, safe_cancel, "blink", &tgt))
+             return spret::abort;
+         target->target = _fuzz_blink_destination(target->target);
+-        mprf(MSGCH_ORB, "You feel the Orb interfering with your translocation!");
++        mpr(zh_message("shared.log.blink.orb_interference"), MSGCH_ORB);
+     }
+     else
+     {
+@@ -884,7 +929,7 @@ spret controlled_blink(bool safe_cancel, dist *target)
+     // invisible monster that the targeter didn't know to avoid
+     if (monster_at(target->target))
+     {
+-        mpr("Oops! There was something there already!");
++        mpr(zh_message("shared.log.blink.occupied"));
+         uncontrolled_blink();
+         return spret::success; // of a sort
+     }
+@@ -933,29 +978,29 @@ void you_teleport(bool is_hostile, mid_t teleportitis_source)
+         canned_msg(MSG_STRANGE_STASIS);
+     else if (you.duration[DUR_TELEPORT])
+     {
+-        mpr("You feel strangely stable.");
++        mpr(zh_message("shared.log.teleport.stable"));
+         you.duration[DUR_TELEPORT] = 0;
+         you.props.erase(TELEPORTITIS_SOURCE);
+     }
+     else
+     {
+         if (teleportitis_source == MID_PLAYER)
+-            mprf(MSGCH_WARN, "You feel space start to destabilise around you!");
++            mpr(zh_message("shared.log.teleport.start_player"), MSGCH_WARN);
+         else if (is_hostile)
+-            mprf(MSGCH_WARN, "You feel a distressing malevolence running through your instability!");
++            mpr(zh_message("shared.log.teleport.start_hostile"), MSGCH_WARN);
+         else
+-            mpr("You feel strangely unstable.");
++            mpr(zh_message("shared.log.teleport.start_other"));
+ 
+         int teleport_delay = 3 + random2(3);
+ 
+         if (player_in_branch(BRANCH_ABYSS))
+         {
+-            mpr("You feel the power of the Abyss delaying your translocation!");
++            mpr(zh_message("shared.log.teleport.delay_abyss"));
+             teleport_delay += 5 + random2(10);
+         }
+         else if (orb_limits_translocation())
+         {
+-            mprf(MSGCH_ORB, "You feel the Orb delaying your translocation!");
++            mpr(zh_message("shared.log.teleport.delay_orb"), MSGCH_ORB);
+             teleport_delay += 5 + random2(5);
+         }
+ 
+@@ -1013,17 +1058,17 @@ static bool _real_teleport_cleanup(coord_def oldpos, coord_def newpos, bool quie
+     if (newpos == oldpos)
+     {
+         if (!quiet)
+-            mpr("Your surroundings flicker for a moment.");
++            mpr(zh_message("shared.log.teleport.surroundings_flicker"));
+     }
+     else if (you.see_cell(newpos))
+     {
+         if (!quiet)
+-            mpr("Your surroundings seem slightly different.");
++            mpr(zh_message("shared.log.teleport.surroundings_slightly"));
+     }
+     else
+     {
+         if (!quiet)
+-            mpr("Your surroundings suddenly seem different.");
++            mpr(zh_message("shared.log.teleport.surroundings_suddenly"));
+         large_change = true;
+     }
+ 
+@@ -1080,8 +1125,7 @@ static bool _teleport_player(bool wizard_tele, string reason="")
+             // location, so cancel the teleport.
+             if (crawl_state.seen_hups)
+             {
+-                mprf(MSGCH_ERROR, "Controlled teleport interrupted by HUP signal, "
+-                                  "cancelling teleport.");
++                mpr(zh_message("shared.log.teleport.hup_cancel"), MSGCH_ERROR);
+                 return false;
+             }
+ 
+@@ -1098,7 +1142,7 @@ static bool _teleport_player(bool wizard_tele, string reason="")
+ 
+         if (cell_vetoes_teleport(pos, true, wizard_tele))
+         {
+-            mprf(MSGCH_WARN, "Even you can't go there right now. Sorry!");
++            mpr(zh_message("shared.log.teleport.wizard_blocked"), MSGCH_WARN);
+             return false;
+         }
+         else
+@@ -1227,9 +1271,7 @@ bool hostile_teleport_player(monster* source)
+                 break;
+         }
+ 
+-        mprf("You are hurled through space towards %s monster%s!",
+-                mons_near_target > 1 ? "some" : "a",
+-                mons_near_target > 1 ? "s" : "");
++        mpr(_transloc_pull_message(mons_near_target));
+ 
+         large_change = _real_teleport_cleanup(oldpos, newpos, true);
+         crawl_state.potential_pursuers.clear();
+@@ -1248,8 +1290,8 @@ bool hostile_teleport_player(monster* source)
+             _place_tloc_cloud(source->pos());
+             source->move_to(source_newpos, MV_DELIBERATE | MV_TRANSLOCATION, true);
+             source->target = you.pos();
+-            mprf(MSGCH_WARN, "%s tunnels through space-time and arrives with you!",
+-                 source->name(DESC_THE).c_str());
++            mpr(zh_message("transloc.teleport.source_arrives",
++                {zh_monster_arg("monster", *source)}), MSGCH_WARN);
+             source->finalise_movement();
+         }
+     }
+@@ -1373,8 +1415,7 @@ spret cast_dimensional_bullseye(int pow, monster *target, bool fail)
+             old_targ->del_ench(ENCH_BULLSEYE_TARGET);
+     }
+ 
+-    mprf("You create a dimensional link between your ranged weaponry and %s.",
+-         target->name(DESC_THE).c_str());
++    mpr(zh_message("transloc.ranged_link.created", {zh_monster_arg("monster", *target)}));
+ 
+     // So we can automatically end the status if the target dies or becomes
+     // friendly
+@@ -1442,9 +1483,9 @@ spret cast_manifold_assault(actor& agent, int pow, bool fail, bool real,
+         if (agent.is_player() && !katana_defender)
+         {
+             if (real && !found_unsafe_target)
+-                mpr("You can't see anything to attack.");
++                mpr(zh_message("shared.log.transloc.no_attack_target"));
+             else if (real && found_unsafe_target)
+-                mpr("You can't see anything you can safely attack.");
++                mpr(zh_message("shared.log.transloc.no_safe_attack_target"));
+         }
+         return spret::abort;
+     }
+@@ -1466,9 +1507,9 @@ spret cast_manifold_assault(actor& agent, int pow, bool fail, bool real,
+     if ((agent.is_player() || you.can_see(agent)) && !katana_defender)
+     {
+         if (weapon && is_unrandom_artefact(*weapon, UNRAND_AUTUMN_KATANA))
+-            mprf("Space folds impossibly around %s blade!", agent.name(DESC_ITS).c_str());
++            mpr(zh_message("transloc.manifold.blade", {zh_actor_arg("actor", &agent, DESC_ITS)}));
+         else if (!(agent.is_monster() && agent.as_monster()->has_ench(ENCH_PARADOX_TOUCHED)))
+-            mpr("Space momentarily warps into an impossible shape!");
++            mpr(zh_message("shared.log.transloc.warp"));
+     }
+ 
+     shuffle_array(targets);
+@@ -1538,7 +1579,7 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
+     const int item_idx = you.visible_igrd(where);
+     if (item_idx == NON_ITEM || !in_bounds(where))
+     {
+-        mpr("You don't see anything to apport there.");
++        mpr(zh_message("shared.log.transloc.no_apport_target"));
+         return spret::abort;
+     }
+ 
+@@ -1546,7 +1587,7 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
+ 
+     if (item_is_stationary(item))
+     {
+-        mpr("You cannot apport that!");
++        mpr(zh_message("shared.log.transloc.cannot_apport"));
+         return spret::abort;
+     }
+ 
+@@ -1613,7 +1654,7 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
+         if (location_on_path == dist)
+         {
+             // we've checked every position in beam.path_taken within max_dist
+-            mpr("Not with that terrain in the way!");
++            mpr(zh_message("shared.log.transloc.terrain_blocked"));
+             return spret::success; // of a sort
+         }
+         new_spot = beam.path_taken[location_on_path];
+@@ -1644,21 +1685,20 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
+ {
+     if (player_in_branch(BRANCH_GAUNTLET))
+     {
+-        mprf(MSGCH_ORB, "A magic seal in the Gauntlet prevents you from "
+-                "opening a passage!");
++        mpr(zh_message("shared.log.transloc.gauntlet_seal"), MSGCH_ORB);
+         return spret::abort;
+     }
+ 
+     if (grid_distance(where, you.pos())
+         > spell_range(SPELL_GOLUBRIAS_PASSAGE, &you, pow))
+     {
+-        mpr("That's out of range!");
++        mpr(zh_message("shared.log.transloc.out_of_range"));
+         return spret::abort;
+     }
+ 
+     if (cell_is_solid(where))
+     {
+-        mpr("You can't create a passage there!");
++        mpr(zh_message("shared.log.transloc.passage_blocked"));
+         return spret::abort;
+     }
+ 
+@@ -1693,14 +1733,12 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
+     {
+         if (you.trans_wall_blocking(randomized_where))
+         {
+-            mpr("You cannot create a passage on the other side of the "
+-                "transparent wall.");
++            mpr(zh_message("shared.log.transloc.passage_other_side_wall"));
+         }
+         else
+         {
+             // XXX: bleh, dumb message
+-            mpr("Creating a passage of Golubria requires sufficient empty "
+-                "space.");
++            mpr(zh_message("shared.log.transloc.passage_space"));
+         }
+ 
+         return spret::abort;
+@@ -1715,7 +1753,7 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
+     trap_def *trap2 = trap_at(randomized_here);
+     if (!trap || !trap2)
+     {
+-        mpr("Something buggy happened.");
++        mpr(zh_message("shared.log.transloc.bug"));
+         return spret::abort;
+     }
+ 
+@@ -1750,7 +1788,7 @@ spret cast_dispersal(int pow, bool fail)
+             return _disperse_monster(mon, pow);
+         }, you.pos(), radius))
+     {
+-        mpr("The air shimmers briefly around you.");
++        mpr(zh_message("shared.log.transloc.air_shimmers"));
+     }
+     return spret::success;
+ }
+@@ -1822,15 +1860,9 @@ spret cast_gravitas(int pow, const coord_def& where, bool fail)
+     const int radius = gravitas_radius(pow);
+ 
+     // XXX: If this is ever usable from elsewhere than the item, change this.
+-    mpr("You rattle the tambourine.");
++    mpr(zh_message("shared.log.transloc.tambourine"));
+ 
+-    mprf("Waves of gravity draw inward%s%s.",
+-         mons || feat_is_solid(env.grid(where)) ? " around " : "",
+-         mons ? mons->name(DESC_THE).c_str() :
+-                feat_is_solid(env.grid(where)) ? feature_description(env.grid(where),
+-                                                                     NUM_TRAPS, "",
+-                                                                     DESC_THE)
+-                                                                    .c_str() : "");
++    mpr(_transloc_gravity_message(mons, env.grid(where)));
+ 
+     draw_ring_animation(where, radius, LIGHTMAGENTA);
+     pull_monsters_inward(where, radius);
+@@ -1852,7 +1884,7 @@ spret cast_gravitas(int pow, const coord_def& where, bool fail)
+             dmg = mon->apply_ac(dmg);
+ 
+             if (you.can_see(*mon))
+-                mprf("%s is pinned by gravity.", mon->name(DESC_THE).c_str());
++                mpr(zh_message("transloc.gravitas.pinned", {zh_monster_arg("monster", *mon)}));
+             mon->hurt(&you, dmg);
+             mon->add_ench(mon_enchant(ENCH_BOUND, &you, dur));
+             behaviour_event(mon, ME_WHACK, &you, you.pos());
+@@ -1917,9 +1949,7 @@ bool beckon(actor &beckoned, const bolt &path)
+     if (!beckoned.move_to(dest, MV_TRANSLOCATION, true))
+         return false;
+ 
+-    mprf("%s %s suddenly forward!",
+-         beckoned.name(DESC_THE).c_str(),
+-         beckoned.conj_verb("hurl").c_str());
++    mpr(_transloc_beckon_message(beckoned));
+ 
+     beckoned.finalise_movement();
+ 
+@@ -1957,7 +1987,7 @@ void attract_monster(monster &mon, int max_move)
+     if (!mon.move_to(ray.pos(), MV_TRANSLOCATION, true))
+         return;
+ 
+-    mprf("%s is attracted toward you.", mon.name(DESC_THE).c_str());
++    mpr(zh_message("transloc.gravity.attracted", {zh_monster_arg("monster", mon)}));
+ 
+     _place_tloc_cloud(old_pos);
+     _place_tloc_cloud(ray.pos());
+@@ -2016,7 +2046,7 @@ spret word_of_chaos(int pow, bool fail)
+     fail_check();
+     shuffle_array(targets);
+ 
+-    mpr("You speak a word of chaos!");
++    mpr(zh_message("shared.log.transloc.chaos_word"));
+     for (auto mons : targets)
+     {
+         if (mons->no_tele())
+@@ -2050,7 +2080,7 @@ spret blinkbolt(int power, bolt &beam, bool fail)
+     monster* mons = monster_at(beam.target);
+     if (!mons || !you.can_see(*mons))
+     {
+-        mpr("You see nothing there to target!");
++        mpr(zh_message("shared.log.transloc.no_target"));
+         return spret::abort;
+     }
+ 
+@@ -2242,15 +2272,12 @@ spret cast_piledriver(const coord_def& target, int pow, bool fail)
+     // There must be something invisible blocking all possible paths, so 'fail'.
+     if (length == 0)
+     {
+-        mprf("Space begins to contract around you, but something blocks your path.");
++        mpr(zh_message("shared.log.transloc.space_blocked"));
+         return spret::success;
+     }
+ 
+     mons = _get_monster_line(target, true);
+-    mprf("Space contracts around you and %s and then re-expands violently!",
+-            mons.size() == 1 ? mons[0]->name(DESC_THE).c_str()
+-                             : make_stringf("%s other creatures",
+-                                    number_in_words(mons.size()).c_str()).c_str());
++    mpr(_transloc_contract_message(mons));
+ 
+     // Animate the player and their victim flying forward together
+     bolt anim;
 diff --git a/crawl-ref/source/stringutil.cc b/crawl-ref/source/stringutil.cc
 index 137085a..6154a1d 100644
 --- a/crawl-ref/source/stringutil.cc
@@ -58641,10 +59562,18 @@ index f2bead5..58742ab 100644
      unsigned int m_tooltip_timer_id = 0;
  
 diff --git a/crawl-ref/source/transform.cc b/crawl-ref/source/transform.cc
-index 6088e7d..737bafc 100644
+index 6088e7d..aec1cd6 100644
 --- a/crawl-ref/source/transform.cc
 +++ b/crawl-ref/source/transform.cc
-@@ -128,6 +128,13 @@ string Form::melding_description(bool itemized) const
+@@ -4,6 +4,7 @@
+ **/
+ 
+ #include "AppHdr.h"
++#include "zh-message.h"
+ 
+ #include "transform.h"
+ 
+@@ -128,6 +129,13 @@ string Form::melding_description(bool itemized) const
          return "";
      }
  
@@ -58658,7 +59587,7 @@ index 6088e7d..737bafc 100644
      if (blocked_slots == EQF_ALL)
          tags.emplace_back("All Equipment");
      else if (blocked_slots == EQF_PHYSICAL)
-@@ -142,7 +149,7 @@ string Form::melding_description(bool itemized) const
+@@ -142,7 +150,7 @@ string Form::melding_description(bool itemized) const
          }
      }
  
@@ -58667,8 +59596,86 @@ index 6088e7d..737bafc 100644
  }
  
  static const FormAttackVerbs DEFAULT_VERBS = FormAttackVerbs(nullptr, nullptr,
+@@ -1829,29 +1837,34 @@ bool lifeless_prevents_form(transformation which_trans)
+ /**
+  * Is the player unable to enter the given form? If so, why?
+  */
+-string cant_transform_reason(transformation which_trans,
++ZhArg cant_transform_display_reason(transformation which_trans,
+                              bool involuntary, bool temp)
+ {
+     if (!involuntary && you.has_mutation(MUT_NO_FORMS))
+-        return "You have sacrificed the ability to change form!";
++        return zh_message_arg("reason", "item.reason.transform.permanent");
+ 
+     // the undead cannot enter most forms.
+     if (lifeless_prevents_form(which_trans))
+-        return "Your unliving flesh cannot be transformed in this way.";
++        return zh_message_arg("reason", "item.reason.transform.undead");
+ 
+     if (SP_GARGOYLE == you.species && which_trans == transformation::statue)
+-        return "You're already a statue.";
++        return zh_message_arg("reason", "item.reason.transform.gargoyle");
+ 
+     if (!temp)
+-        return "";
++        return {"reason", ZhArgType::Text, "", "", true};
+ 
+     if (you.transform_uncancellable && which_trans != transformation::slaughter)
+-        return "You are stuck in your current form!";
++        return zh_message_arg("reason", "item.reason.transform.stuck");
+ 
+     if (which_trans == transformation::death && you.duration[DUR_DEATHS_DOOR])
+-        return "You cannot mock death while in death's door.";
++        return zh_message_arg("reason", "item.reason.transform.death_door");
+ 
+-    return "";
++    return {"reason", ZhArgType::Text, "", "", true};
++}
++
++string cant_transform_reason(transformation which_trans, bool involuntary, bool temp)
++{
++    return cant_transform_display_reason(which_trans, involuntary, temp).canonical;
+ }
+ 
+ bool check_transform_into(transformation which_trans, bool involuntary,
+@@ -1871,11 +1884,11 @@ bool check_transform_into(transformation which_trans, bool involuntary,
+         return false;
+     }
+ 
+-    const string reason = cant_transform_reason(which_trans, involuntary, true);
+-    if (!reason.empty())
++    const ZhArg reason = cant_transform_display_reason(which_trans, involuntary, true);
++    if (!reason.canonical.empty())
+     {
+         if (!involuntary)
+-            mpr(reason);
++            mpr(ZhMessage{"", reason.canonical, reason.localized});
+         return false;
+     }
+ 
+@@ -1885,15 +1898,15 @@ bool check_transform_into(transformation which_trans, bool involuntary,
+     const auto feat = env.grid(you.pos());
+     if (!involuntary && feat_dangerous_for_form(which_trans, feat, talisman))
+     {
+-        mprf("Transforming right now would cause you to %s!",
+-             feat == DNGN_DEEP_WATER ? "drown" : "burn");
++        mpr(feat == DNGN_DEEP_WATER
++            ? zh_message("shared.log.transform.drown")
++            : zh_message("shared.log.transform.burn"));
+         return false;
+     }
+ 
+     if (!involuntary && get_form(which_trans)->mult_hp(100) < 90)
+     {
+-        if (!yesno("This transformation would significantly lower your maximum hit points. "
+-                  "Transform anyway?", true, 'n'))
++        if (!yesno(zh_message("shared.prompt.transform.lower_max_hp"), true, 'n'))
+         {
+             return false;
+         }
 diff --git a/crawl-ref/source/transform.h b/crawl-ref/source/transform.h
-index a28ab47..04783e4 100644
+index a28ab47..9c7401c 100644
 --- a/crawl-ref/source/transform.h
 +++ b/crawl-ref/source/transform.h
 @@ -168,6 +168,7 @@ public:
@@ -58679,6 +59686,15 @@ index a28ab47..04783e4 100644
  
      virtual vector<pair<string, string>> get_fakemuts() const;
      virtual vector<pair<string, string>> get_bad_fakemuts() const;
+@@ -337,6 +338,8 @@ bool feat_dangerous_for_form(transformation which_trans,
+                              const item_def* talisman = nullptr);
+ bool transforming_is_unsafe(transformation which_trans);
+ 
++ZhArg cant_transform_display_reason(transformation which_trans,
++                                    bool involuntary = false, bool temp = true);
+ string cant_transform_reason(transformation which_trans, bool involuntary = false,
+                              bool temp = true);
+ bool check_transform_into(transformation which_trans, bool involuntary = false,
 diff --git a/crawl-ref/source/ui.cc b/crawl-ref/source/ui.cc
 index 744b710..6bec025 100644
 --- a/crawl-ref/source/ui.cc
@@ -113780,10 +114796,10 @@ index 0000000..fca52fb
 +};
 diff --git a/crawl-ref/source/zh-message-catalog.inc b/crawl-ref/source/zh-message-catalog.inc
 new file mode 100644
-index 0000000..35912c2
+index 0000000..307c181
 --- /dev/null
 +++ b/crawl-ref/source/zh-message-catalog.inc
-@@ -0,0 +1,2932 @@
+@@ -0,0 +1,3065 @@
 +// Generated from Luna-reviewed message IDs. Do not edit.
 +static const ZhDefinition zh_definitions[] = {
 +    {"artifact.jewel.01", "It sustains your strength, intelligence and dexterity.", "它能维持你的力量、智力和敏捷。", ""},
@@ -115277,6 +116293,22 @@ index 0000000..35912c2
 +    {"place.branch.zot", "the Realm of Zot", "佐特", ""},
 +    {"place.display.level", "Level {depth} of {branch}", "{branch}第{depth}层", "depth:integer;branch:name"},
 +    {"place.display.named", "{branch}", "{branch}", "branch:name"},
++    {"player.invisibility.backlit.confirm", "You are backlit; invisibility will do you no good right now; use anyway?", "你正被背光照亮，隐形目前对你无用；仍要使用吗？", ""},
++    {"player.invisibility.source.armour", "armour", "护甲", ""},
++    {"player.invisibility.source.crown", "crown", "王冠", ""},
++    {"player.invisibility.source.divine_halo", "divine halo", "神圣光环", ""},
++    {"player.invisibility.source.weapon", "weapon", "武器", ""},
++    {"player.no_tele.anchor", "locked down by a dimension anchor", "被次元锚定住", ""},
++    {"player.no_tele.blink", "You cannot blink because you are {reasons}.", "你无法闪现，因为{reasons}。", "reasons:text"},
++    {"player.no_tele.gauntlet", "A magic seal in the Gauntlet prevents long-range teleports.", "险关中的魔法封印阻止了长距离传送。", ""},
++    {"player.no_tele.roots", "held in place by your roots", "被你的根系固定在原地", ""},
++    {"player.no_tele.sprint", "Long-range teleportation is disallowed in Dungeon Sprint.", "在地牢冲刺模式中不允许长距离传送。", ""},
++    {"player.no_tele.stasis", "Your stasis prevents you from teleporting.", "你的停滞状态阻止你传送。", ""},
++    {"player.no_tele.teleport", "You cannot teleport because you are {reasons}.", "你无法传送，因为{reasons}。", "reasons:text"},
++    {"player.no_tele.wielded", "wielding {item}", "手持{item}", "item:name"},
++    {"player.no_tele.worn_list", "wearing {items}", "穿戴{items}", "items:text"},
++    {"player.no_tele.worn_many_artefacts", "wearing {count_word} artefacts preventing teleportation", "穿戴的神器（{count_word}）阻止你传送", "count_word:text"},
++    {"player.no_tele.worn_many_items", "wearing {count_word} items preventing teleportation", "穿戴的物品（{count_word}）阻止你传送", "count_word:text"},
 +    {"prompt.answer.yn", "<lightred>[Y]es or [N]o only, please.</lightred>", "<lightred>请只输入[Y]是或[N]否。</lightred>", ""},
 +    {"prompt.answer.yn_upper", "<lightred>Uppercase [Y]es or [N]o only, please.</lightred>", "<lightred>请只使用大写字母：[Y]是或[N]否。</lightred>", ""},
 +    {"prompt.answer.yna", "<lightred>[Y]es, [N]o, or [A]lways only, please.</lightred>", "<lightred>请只输入[Y]是、[N]否或[A]总是。</lightred>", ""},
@@ -115298,6 +116330,54 @@ index 0000000..35912c2
 +    {"quiver.prompt.confirm_quiver", "Really quiver {action}?", "确定将{action}设为箭袋动作吗？", "action:name"},
 +    {"quiver.ui.empty_long", "Nothing quivered", "没有设定箭袋动作", ""},
 +    {"quiver.ui.empty_short", "Empty", "空", ""},
++    {"shared.log.berserk.anger_overcomes_fear", "Your anger overwhelms your terror!", "你的怒火压过了恐惧！", ""},
++    {"shared.log.berserk.faster", "You feel yourself moving faster!", "你感觉自己的动作变快了！", ""},
++    {"shared.log.berserk.finesse_ends", "Your finesse ends abruptly.", "你的灵巧戛然而止。", ""},
++    {"shared.log.berserk.mighty", "You feel mighty!", "你感觉自己变得强大了！", ""},
++    {"shared.log.berserk.red_vision", "A red film seems to cover your vision as you go berserk!", "狂暴时，一层红色薄膜似乎覆盖了你的视野！", ""},
++    {"shared.log.blink.no_landing", "You feel jittery for a moment.", "你感到一阵颤抖。", ""},
++    {"shared.log.blink.occupied", "Oops! There was something there already!", "糟了！那里已经有东西了！", ""},
++    {"shared.log.blink.orb_interference", "You feel the Orb interfering with your translocation!", "你感觉到宝珠在干扰你的传送！", ""},
++    {"shared.log.teleport.delay_abyss", "You feel the power of the Abyss delaying your translocation!", "你感觉到深渊的力量正在延迟你的传送！", ""},
++    {"shared.log.teleport.delay_orb", "You feel the Orb delaying your translocation!", "你感觉到宝珠正在延迟你的传送！", ""},
++    {"shared.log.teleport.hup_cancel", "Controlled teleport interrupted by HUP signal, cancelling teleport.", "受 HUP 信号中断，受控传送已取消。", ""},
++    {"shared.log.teleport.stable", "You feel strangely stable.", "你感到莫名地稳定。", ""},
++    {"shared.log.teleport.start_hostile", "You feel a distressing malevolence running through your instability!", "一股令人不安的恶意在你的不稳定状态中涌动！", ""},
++    {"shared.log.teleport.start_other", "You feel strangely unstable.", "你感到莫名地不稳定。", ""},
++    {"shared.log.teleport.start_player", "You feel space start to destabilise around you!", "你感觉到周围的空间开始变得不稳定！", ""},
++    {"shared.log.teleport.surroundings_flicker", "Your surroundings flicker for a moment.", "你周围的环境闪烁了一瞬。", ""},
++    {"shared.log.teleport.surroundings_slightly", "Your surroundings seem slightly different.", "你周围的环境似乎略有不同。", ""},
++    {"shared.log.teleport.surroundings_suddenly", "Your surroundings suddenly seem different.", "你周围的环境突然变得不同。", ""},
++    {"shared.log.teleport.wizard_blocked", "Even you can't go there right now. Sorry!", "就连你现在也去不了那里，抱歉！", ""},
++    {"shared.log.transform.burn", "Transforming right now would cause you to burn!", "现在变形会让你被烧伤！", ""},
++    {"shared.log.transform.drown", "Transforming right now would cause you to drown!", "现在变形会让你溺水！", ""},
++    {"shared.log.transloc.air_shimmers", "The air shimmers briefly around you.", "你周围的空气短暂地闪烁。", ""},
++    {"shared.log.transloc.blink_map_border", "Please don't blink into the map border.", "请勿闪现到地图边界之外。", ""},
++    {"shared.log.transloc.blink_monsters", "Please don't try to blink into monsters.", "请勿尝试闪现到怪物身上。", ""},
++    {"shared.log.transloc.boing", "Boing!", "砰！", ""},
++    {"shared.log.transloc.bug", "Something buggy happened.", "发生了异常情况。", ""},
++    {"shared.log.transloc.cannot_apport", "You cannot apport that!", "你无法摄取那个东西！", ""},
++    {"shared.log.transloc.chaos_word", "You speak a word of chaos!", "你说出一个混沌之词！", ""},
++    {"shared.log.transloc.charge_crackle", "You charge forward with an electric crackle!", "你伴随着电流噼啪声向前冲锋！", ""},
++    {"shared.log.transloc.charge_silence", "You charge forward in eerie silence!", "你在诡异的寂静中向前冲锋！", ""},
++    {"shared.log.transloc.gauntlet_seal", "A magic seal in the Gauntlet prevents you from opening a passage!", "险关中的魔法封印阻止你打开通道！", ""},
++    {"shared.log.transloc.hop_no_room", "You tried to hop, but there was no room to land!", "你尝试跃行，但没有落脚的空间！", ""},
++    {"shared.log.transloc.hurled_away", "You are hurled out of the way!", "你被猛地撞开了！", ""},
++    {"shared.log.transloc.jump_air", "You jump through the air!", "你跃向空中！", ""},
++    {"shared.log.transloc.jump_in_place", "You jump in place.", "你原地跳了一下！", ""},
++    {"shared.log.transloc.no_apport_target", "You don't see anything to apport there.", "你看不到那里有什么可摄取的东西。", ""},
++    {"shared.log.transloc.no_attack_target", "You can't see anything to attack.", "你看不到任何可攻击的目标。", ""},
++    {"shared.log.transloc.no_safe_attack_target", "You can't see anything you can safely attack.", "你看不到任何可以安全攻击的目标。", ""},
++    {"shared.log.transloc.no_target", "You see nothing there to target!", "你看不到那里有什么可选为目标的东西！", ""},
++    {"shared.log.transloc.out_of_range", "That's out of range!", "超出范围！", ""},
++    {"shared.log.transloc.passage_blocked", "You can't create a passage there!", "你无法在那里创建通道！", ""},
++    {"shared.log.transloc.passage_other_side_wall", "You cannot create a passage on the other side of the transparent wall.", "你无法在透明墙的另一侧创建通道。", ""},
++    {"shared.log.transloc.passage_space", "Creating a passage of Golubria requires sufficient empty space.", "戈卢布里亚通道需要足够的空地才能创建。", ""},
++    {"shared.log.transloc.space_blocked", "Space begins to contract around you, but something blocks your path.", "空间开始在你周围收缩，但有什么东西挡住了去路。", ""},
++    {"shared.log.transloc.tambourine", "You rattle the tambourine.", "你摇响了铃鼓。", ""},
++    {"shared.log.transloc.terrain_blocked", "Not with that terrain in the way!", "地形挡住了去路，无法这么做！", ""},
++    {"shared.log.transloc.warp", "Space momentarily warps into an impossible shape!", "空间瞬间扭曲成不可能的形状！", ""},
++    {"shared.prompt.transform.lower_max_hp", "This transformation would significantly lower your maximum hit points. Transform anyway?", "这种变形会大幅降低你的最大生命值。仍要变形吗？", ""},
 +    {"shop.balance", "You have {gold} gold pieces.", "你有{gold}枚金币。", "gold:integer"},
 +    {"shop.balance.voucher", "You have {gold} gold pieces and a voucher.", "你有{gold}枚金币和一张商店券。", "gold:integer"},
 +    {"shop.complete.delete_error", "ERROR: Unable to delete thing from shopping list!", "错误：无法从购物清单中删除该条目！", ""},
@@ -116127,6 +117207,23 @@ index 0000000..35912c2
 +    {"target_wielding_hit_chance", "{target}, wielding {weapon} ({chance}% to hit)", "{target}，手持{weapon}（命中率{chance}%）", "target:name;weapon:text;chance:integer"},
 +    {"training_target_reached", "Training target {level}.{fraction} for {skill} reached!", "{skill}的训练目标{level}.{fraction}级已达成！", "level:integer;fraction:integer;skill:name"},
 +    {"transform_continue", "You continue transforming.", "你继续变形。", ""},
++    {"transloc.beckon.plural", "{monster} hurl suddenly forward!", "{monster}突然被猛地拽向前方！", "monster:name"},
++    {"transloc.beckon.singular", "{monster} hurls suddenly forward!", "{monster}突然被猛地拽向前方！", "monster:name"},
++    {"transloc.charge.immovably_fixed", "{monster} is immovably fixed there.", "{monster}被牢牢固定在原地。", "monster:name"},
++    {"transloc.charge.remain", "...but somehow remain in the same place.", "……但不知为何仍停留在原地。", ""},
++    {"transloc.charge.remains", "...but somehow remains in the same place.", "……但不知为何仍停留在原地。", ""},
++    {"transloc.gravitas.around_monster", "Waves of gravity draw inward around {monster}.", "重力波在{monster}周围向内涌动。", "monster:name"},
++    {"transloc.gravitas.around_terrain", "Waves of gravity draw inward around {terrain}.", "重力波在{terrain}周围向内涌动。", "terrain:name"},
++    {"transloc.gravitas.inward", "Waves of gravity draw inward.", "重力波向内涌动。", ""},
++    {"transloc.gravitas.pinned", "{monster} is pinned by gravity.", "{monster}被重力束缚住。", "monster:name"},
++    {"transloc.gravity.attracted", "{monster} is attracted toward you.", "{monster}被吸引向你。", "monster:name"},
++    {"transloc.manifold.blade", "Space folds impossibly around {actor} blade!", "空间在{actor}刀刃周围以不可能的方式折叠！", "actor:name"},
++    {"transloc.piledriver.many", "Space contracts around you and {count_word} other creatures and then re-expands violently!", "空间在你和{count_word}只其他生物周围收缩，随后猛烈地重新扩张！", "count_word:text"},
++    {"transloc.piledriver.one", "Space contracts around you and {monster} and then re-expands violently!", "空间在你和{monster}周围收缩，随后猛烈地重新扩张！", "monster:name"},
++    {"transloc.ranged_link.created", "You create a dimensional link between your ranged weaponry and {monster}.", "你在自己的远程武器与{monster}之间建立了维度链接。", "monster:name"},
++    {"transloc.teleport.follow.monster", "You are hurled through space towards a monster!", "你被抛过空间，朝一只怪物飞去。", ""},
++    {"transloc.teleport.follow.monsters", "You are hurled through space towards some monsters!", "你被抛过空间，朝一些怪物飞去。", ""},
++    {"transloc.teleport.source_arrives", "{monster} tunnels through space-time and arrives with you!", "{monster}穿越时空隧道，与你一同抵达！", "monster:name"},
 +    {"untransform_continue", "You continue untransforming.", "你继续解除变形。", ""},
 +    {"weapon_imprint_start", "You begin to imprint {weapon} upon your paragon.", "你开始将{weapon}印刻于你的典范之上。", "weapon:name"},
 +};
@@ -116714,14 +117811,66 @@ index 0000000..35912c2
 +    {"detail.spell.fixed", "\nYou currently have no enchantments that could be removed by this.\n", "spell.monster.no_enchantments.fixed"},
 +    {"detail.spell.fixed", "This spell has no description. Casting it may therefore be unwise. Instead, go fix it.", "spell.no_description.debug.fixed"},
 +    {"detail.spell.fixed", "This spell has no description. Casting it may therefore be unwise. Please file a bug report.", "spell.no_description.fixed"},
++    {"player.invisibility.source", "armour", "player.invisibility.source.armour"},
++    {"player.invisibility.source", "crown", "player.invisibility.source.crown"},
++    {"player.invisibility.source", "divine halo", "player.invisibility.source.divine_halo"},
++    {"player.invisibility.source", "weapon", "player.invisibility.source.weapon"},
++    {"shared.restriction.logs", "A magic seal in the Gauntlet prevents you from opening a passage!", "shared.log.transloc.gauntlet_seal"},
++    {"shared.restriction.logs", "A red film seems to cover your vision as you go berserk!", "shared.log.berserk.red_vision"},
++    {"shared.restriction.logs", "Boing!", "shared.log.transloc.boing"},
++    {"shared.restriction.logs", "Controlled teleport interrupted by HUP signal, cancelling teleport.", "shared.log.teleport.hup_cancel"},
++    {"shared.restriction.logs", "Creating a passage of Golubria requires sufficient empty space.", "shared.log.transloc.passage_space"},
++    {"shared.restriction.logs", "Even you can't go there right now. Sorry!", "shared.log.teleport.wizard_blocked"},
++    {"shared.restriction.logs", "Not with that terrain in the way!", "shared.log.transloc.terrain_blocked"},
++    {"shared.restriction.logs", "Oops! There was something there already!", "shared.log.blink.occupied"},
++    {"shared.restriction.logs", "Please don't blink into the map border.", "shared.log.transloc.blink_map_border"},
++    {"shared.restriction.logs", "Please don't try to blink into monsters.", "shared.log.transloc.blink_monsters"},
++    {"shared.restriction.logs", "Something buggy happened.", "shared.log.transloc.bug"},
++    {"shared.restriction.logs", "Space begins to contract around you, but something blocks your path.", "shared.log.transloc.space_blocked"},
++    {"shared.restriction.logs", "Space momentarily warps into an impossible shape!", "shared.log.transloc.warp"},
++    {"shared.restriction.logs", "That's out of range!", "shared.log.transloc.out_of_range"},
++    {"shared.restriction.logs", "The air shimmers briefly around you.", "shared.log.transloc.air_shimmers"},
++    {"shared.restriction.logs", "This transformation would significantly lower your maximum hit points. Transform anyway?", "shared.prompt.transform.lower_max_hp"},
++    {"shared.restriction.logs", "Transforming right now would cause you to burn!", "shared.log.transform.burn"},
++    {"shared.restriction.logs", "Transforming right now would cause you to drown!", "shared.log.transform.drown"},
++    {"shared.restriction.logs", "You are hurled out of the way!", "shared.log.transloc.hurled_away"},
++    {"shared.restriction.logs", "You can't create a passage there!", "shared.log.transloc.passage_blocked"},
++    {"shared.restriction.logs", "You can't see anything to attack.", "shared.log.transloc.no_attack_target"},
++    {"shared.restriction.logs", "You can't see anything you can safely attack.", "shared.log.transloc.no_safe_attack_target"},
++    {"shared.restriction.logs", "You cannot apport that!", "shared.log.transloc.cannot_apport"},
++    {"shared.restriction.logs", "You cannot create a passage on the other side of the transparent wall.", "shared.log.transloc.passage_other_side_wall"},
++    {"shared.restriction.logs", "You charge forward in eerie silence!", "shared.log.transloc.charge_silence"},
++    {"shared.restriction.logs", "You charge forward with an electric crackle!", "shared.log.transloc.charge_crackle"},
++    {"shared.restriction.logs", "You don't see anything to apport there.", "shared.log.transloc.no_apport_target"},
++    {"shared.restriction.logs", "You feel a distressing malevolence running through your instability!", "shared.log.teleport.start_hostile"},
++    {"shared.restriction.logs", "You feel jittery for a moment.", "shared.log.blink.no_landing"},
++    {"shared.restriction.logs", "You feel mighty!", "shared.log.berserk.mighty"},
++    {"shared.restriction.logs", "You feel space start to destabilise around you!", "shared.log.teleport.start_player"},
++    {"shared.restriction.logs", "You feel strangely stable.", "shared.log.teleport.stable"},
++    {"shared.restriction.logs", "You feel strangely unstable.", "shared.log.teleport.start_other"},
++    {"shared.restriction.logs", "You feel the Orb delaying your translocation!", "shared.log.teleport.delay_orb"},
++    {"shared.restriction.logs", "You feel the Orb interfering with your translocation!", "shared.log.blink.orb_interference"},
++    {"shared.restriction.logs", "You feel the power of the Abyss delaying your translocation!", "shared.log.teleport.delay_abyss"},
++    {"shared.restriction.logs", "You feel yourself moving faster!", "shared.log.berserk.faster"},
++    {"shared.restriction.logs", "You jump in place.", "shared.log.transloc.jump_in_place"},
++    {"shared.restriction.logs", "You jump through the air!", "shared.log.transloc.jump_air"},
++    {"shared.restriction.logs", "You rattle the tambourine.", "shared.log.transloc.tambourine"},
++    {"shared.restriction.logs", "You see nothing there to target!", "shared.log.transloc.no_target"},
++    {"shared.restriction.logs", "You speak a word of chaos!", "shared.log.transloc.chaos_word"},
++    {"shared.restriction.logs", "You tried to hop, but there was no room to land!", "shared.log.transloc.hop_no_room"},
++    {"shared.restriction.logs", "Your anger overwhelms your terror!", "shared.log.berserk.anger_overcomes_fear"},
++    {"shared.restriction.logs", "Your finesse ends abruptly.", "shared.log.berserk.finesse_ends"},
++    {"shared.restriction.logs", "Your surroundings flicker for a moment.", "shared.log.teleport.surroundings_flicker"},
++    {"shared.restriction.logs", "Your surroundings seem slightly different.", "shared.log.teleport.surroundings_slightly"},
++    {"shared.restriction.logs", "Your surroundings suddenly seem different.", "shared.log.teleport.surroundings_suddenly"},
 +    {nullptr, nullptr, nullptr}
 +};
 diff --git a/crawl-ref/source/zh-message.cc b/crawl-ref/source/zh-message.cc
 new file mode 100644
-index 0000000..562894d
+index 0000000..3a64219
 --- /dev/null
 +++ b/crawl-ref/source/zh-message.cc
-@@ -0,0 +1,231 @@
+@@ -0,0 +1,247 @@
 +#ifndef ZH_STANDALONE
 +#include "AppHdr.h"
 +#endif
@@ -116953,15 +118102,32 @@ index 0000000..562894d
 +        [](const ZhArg &arg) { return arg.supported; });
 +    return {key, ZhArgType::Text, value.canonical, value.localized, supported};
 +}
++
++ZhArg zh_message_list(const std::string &key, const std::vector<ZhArg> &items) {
++    ZhArg result{key, ZhArgType::Text, "", "", true};
++    for (size_t i = 0; i < items.size(); ++i) {
++        if (i) {
++            result.canonical += i + 1 == items.size() ? " and " : ", ";
++            result.localized += i + 1 == items.size() ? "及" : "、";
++        }
++        result.canonical += items[i].canonical;
++        result.localized += items[i].localized;
++        result.supported = result.supported && items[i].supported;
++    }
++    if (!result.supported)
++        result.localized = result.canonical;
++    return result;
++}
 diff --git a/crawl-ref/source/zh-message.h b/crawl-ref/source/zh-message.h
 new file mode 100644
-index 0000000..48832d1
+index 0000000..6c0e0ea
 --- /dev/null
 +++ b/crawl-ref/source/zh-message.h
-@@ -0,0 +1,49 @@
+@@ -0,0 +1,52 @@
 +#pragma once
 +#include <initializer_list>
 +#include <string>
++#include <vector>
 +
 +enum class ZhArgType { Text, Name, Integer, Number, Key, Colour, KeyMarkup };
 +struct ZhArg {
@@ -116994,6 +118160,8 @@ index 0000000..48832d1
 +                     const std::string &canonical = "");
 +ZhArg zh_message_arg(const std::string &key, const std::string &id,
 +                     std::initializer_list<ZhArg> args = {});
++// Structured semantic lists retain English grammar and child support.
++ZhArg zh_message_list(const std::string &key, const std::vector<ZhArg> &items);
 +// Exact whole entries only. Intended for semantic enum labels and base names;
 +// never call this with an assembled sentence or an internal identifier.
 +std::string zh_lookup_exact(const std::string &text);

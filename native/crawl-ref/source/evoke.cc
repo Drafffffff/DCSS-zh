@@ -1022,10 +1022,12 @@ ZhArg cannot_evoke_item_display_reason(const item_def *item, bool temp, bool ide
         if (you.form == transformation::flux && temp)
             return zh_message_arg("reason", "item.reason.use.flux_already");
 
-        const string form_unreason = cant_transform_reason(transformation::flux, false, temp);
-        if (!form_unreason.empty())
-            return {"reason", ZhArgType::Text, lowercase_first(form_unreason),
-                    lowercase_first(form_unreason), false};
+        ZhArg form_unreason = cant_transform_display_reason(transformation::flux, false, temp);
+        if (!form_unreason.canonical.empty())
+        {
+            form_unreason.canonical = lowercase_first(form_unreason.canonical);
+            return form_unreason;
+        }
         return {"reason", ZhArgType::Text, "", "", true};
     }
 

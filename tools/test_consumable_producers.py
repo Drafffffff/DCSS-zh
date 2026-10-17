@@ -64,6 +64,7 @@ struct Player {
  bool berserk()const{return rage;}bool confused()const{return conf;}bool is_silenced()const{return silent||duration[DUR_FLOODED];}int pos()const{return 0;}
  bool has_mutation(int m)const{auto i=mutations.find(m);return i!=mutations.end()&&i->second;}bool allies_forbidden()const{return allies;}bool stasis()const{return stasis_flag;}
  string no_tele_reason(bool)const{return stasis_flag?"You cannot teleport right now.":"";}
+ ZhArg no_tele_display_reason(bool b)const{auto s=no_tele_reason(b);return {"reason",ZhArgType::Text,s,s,s.empty()};}
  bool can_drink(bool t)const{return drink_perm&&(!t||drink_temp);}bool can_potion_heal(bool t)const{return heal_perm&&(!t||heal_temp);}bool unrand_equipped(int)const{return folly;}bool can_safely_mutate(bool t)const{return mutable_perm&&(!t||mutable_temp);}
 }you;
 struct {int level_state=0;}env;
@@ -82,6 +83,7 @@ code+=r'''
 bool removed=false,known_empty=false,ally_only=false,xp_evoker=false;int charges=1;string transform_reason;
 string lowercase_first(string s){if(!s.empty())s[0]=tolower(s[0]);return s;}
 string cant_transform_reason(int,bool,bool){return transform_reason;}
+ZhArg cant_transform_display_reason(int,bool,bool){return {"reason",ZhArgType::Text,transform_reason,transform_reason,transform_reason.empty()};}
 bool item_type_removed(int,int){return removed;}bool is_known_empty_wand(const item_def&){return known_empty;}bool _evoke_ally_only(const item_def&,bool){return ally_only;}bool is_xp_evoker(const item_def&){return xp_evoker;}int evoker_charges(int){return charges;}
 string sub_type_string(const item_def&i,bool){return i.name(DESC_DBNAME);}
 '''

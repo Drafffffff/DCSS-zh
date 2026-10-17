@@ -1,0 +1,238 @@
+{
+  "native_commit": "aa75645d4ec4357e329085e0c27c94c66b2e9c53",
+  "builds": {
+    "output/macos/crawl-tiles": {
+      "passed": true,
+      "sha256": "6d46f956319972875176a9fa2c1e6692b3a17916a2864550d212382e3fc81df8"
+    },
+    "output/macos/crawl-console": {
+      "passed": true,
+      "sha256": "c18edfd5b31535bc70069c8e8a7124669bfd00b6a7fb5f94e2e8402ab5ad58ff"
+    },
+    "output/linux/crawl-tiles": {
+      "passed": true,
+      "sha256": "9498c1ffdaf26a7ce001c4a8a051cbb747c80ce8f276cc36a58bb42ee32d3d82"
+    },
+    "output/linux/crawl-console": {
+      "passed": true,
+      "sha256": "fc6d0c4261ad1fca3827fd7922f9b499abc378e867728f0d159664748d47578e"
+    }
+  },
+  "tests_each_platform": {
+    "shared_restrictions": 18670,
+    "transloc_entity_logs": 244,
+    "fixed_log_bindings": 46,
+    "message_schema_oracles": 946,
+    "consumable_producers": 6417
+  },
+  "catalog_new_ids": 81,
+  "new_ids_all_bound": true,
+  "catalog_total_ids": 2424,
+  "literal_bound_ids_all_batches": 764,
+  "remaining_legacy_hook_candidates": 53,
+  "screenshots": {
+    "macos-teleport-anchor.png": [
+      4718592,
+      4292935744
+    ],
+    "bazzite-restriction-teleport-anchor-4k.png": [
+      3840,
+      2160
+    ],
+    "bazzite-skills-help-4k.png": [
+      3840,
+      2160
+    ],
+    "bazzite-log-berserk-4k.png": [
+      3840,
+      2160
+    ],
+    "bazzite-restriction-transform-roots-4k.png": [
+      3840,
+      2160
+    ],
+    "bazzite-hints-potion-4k.png": [
+      3840,
+      2160
+    ],
+    "bazzite-restriction-berserk-4k.png": [
+      3840,
+      2160
+    ],
+    "bazzite-restriction-invisibility-4k.png": [
+      3840,
+      2160
+    ],
+    "bazzite-teleport-anchor-4k.png": [
+      3840,
+      2160
+    ],
+    "macos-roots.png": [
+      4718592,
+      4292935744
+    ],
+    "bazzite-hints-scroll-4k.png": [
+      3840,
+      2160
+    ]
+  },
+  "macos": {
+    "source_fixture_unchanged": true,
+    "scenes": [
+      {
+        "scene": "restriction-teleport-anchor",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "restriction-invisibility",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "restriction-berserk",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "restriction-transform-roots",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "log-berserk",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "skills-help",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "hints-potion",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "hints-scroll",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      }
+    ]
+  },
+  "linux_console": {
+    "source_fixture_unchanged": true,
+    "scenes": [
+      {
+        "scene": "restriction-teleport-anchor",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "restriction-invisibility",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "restriction-berserk",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "restriction-transform-roots",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "log-berserk",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "skills-help",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "hints-potion",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "hints-scroll",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      }
+    ]
+  },
+  "linux_4k": {
+    "source_fixture_unchanged": true,
+    "scenes": [
+      {
+        "scene": "skills-help",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "hints-scroll",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "hints-potion",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "restriction-teleport-anchor",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "restriction-invisibility",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "restriction-berserk",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "restriction-transform-roots",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      },
+      {
+        "scene": "log-berserk",
+        "running_at_capture": true,
+        "missing": [],
+        "names": []
+      }
+    ]
+  }
+}

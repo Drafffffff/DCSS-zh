@@ -3149,7 +3149,7 @@ ZhArg cannot_read_item_display_reason(const item_def *item, bool temp, bool iden
         case SCR_TELEPORTATION:
             // XX code duplication with you.no_tele_reason
             if (you.stasis())
-                return _unmigrated_item_reason(you.no_tele_reason(item->sub_type == SCR_BLINKING));
+                return you.no_tele_display_reason(item->sub_type == SCR_BLINKING);
             break;
         default:
             break;
@@ -3183,7 +3183,7 @@ ZhArg cannot_read_item_display_reason(const item_def *item, bool temp, bool iden
         case SCR_BLINKING:
         case SCR_TELEPORTATION:
             // note: stasis handled separately above
-            return _unmigrated_item_reason(you.no_tele_reason(item->sub_type == SCR_BLINKING));
+            return you.no_tele_display_reason(item->sub_type == SCR_BLINKING);
 
         case SCR_AMNESIA:
             if (you.spell_no == 0)

@@ -1,0 +1,997 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "player.no_tele.blink",
+      "context": "玩家瞬移限制：完整原因句",
+      "en": "You cannot blink because you are {reasons}.",
+      "zh": "你无法闪现，因为{reasons}。",
+      "params": {
+        "reasons": "text"
+      },
+      "source": {
+        "file": "player.cc",
+        "anchor": "player::no_tele_reason; final wrapper; blinking=True"
+      }
+    },
+    {
+      "id": "player.no_tele.teleport",
+      "context": "玩家瞬移限制：完整原因句",
+      "en": "You cannot teleport because you are {reasons}.",
+      "zh": "你无法传送，因为{reasons}。",
+      "params": {
+        "reasons": "text"
+      },
+      "source": {
+        "file": "player.cc",
+        "anchor": "player::no_tele_reason; final wrapper; blinking=False"
+      }
+    },
+    {
+      "id": "player.no_tele.anchor",
+      "context": "玩家瞬移限制原因：次元锚",
+      "en": "locked down by a dimension anchor",
+      "zh": "被次元锚定住",
+      "params": {},
+      "source": {
+        "file": "player.cc",
+        "anchor": "player::no_tele_reason; DUR_DIMENSION_ANCHOR"
+      }
+    },
+    {
+      "id": "player.no_tele.roots",
+      "context": "玩家瞬移限制原因：树形态根系",
+      "en": "held in place by your roots",
+      "zh": "被你的根系固定在原地",
+      "params": {},
+      "source": {
+        "file": "player.cc",
+        "anchor": "player::no_tele_reason; tree form"
+      }
+    },
+    {
+      "id": "player.no_tele.wielded",
+      "context": "玩家瞬移限制原因：手持物品",
+      "en": "wielding {item}",
+      "zh": "手持{item}",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "player.cc",
+        "anchor": "player::no_tele_reason; OBJ_WEAPONS item->name(DESC_A)"
+      }
+    },
+    {
+      "id": "player.no_tele.worn_list",
+      "context": "玩家瞬移限制原因：穿戴物品列表",
+      "en": "wearing {items}",
+      "zh": "穿戴{items}",
+      "params": {
+        "items": "text"
+      },
+      "source": {
+        "file": "player.cc",
+        "anchor": "player::no_tele_reason; comma_separated_line(worn_notele)"
+      }
+    },
+    {
+      "id": "player.no_tele.worn_many_items",
+      "context": "玩家瞬移限制：穿戴普通物品数量超过阈值",
+      "en": "wearing {count_word} items preventing teleportation",
+      "zh": "穿戴的物品（{count_word}）阻止你传送",
+      "params": {
+        "count_word": "text"
+      },
+      "source": {
+        "file": "player.cc",
+        "anchor": "player::no_tele_reason; worn_notele.size() threshold; kind=items"
+      }
+    },
+    {
+      "id": "player.no_tele.worn_many_artefacts",
+      "context": "玩家瞬移限制：穿戴神器数量超过阈值",
+      "en": "wearing {count_word} artefacts preventing teleportation",
+      "zh": "穿戴的神器（{count_word}）阻止你传送",
+      "params": {
+        "count_word": "text"
+      },
+      "source": {
+        "file": "player.cc",
+        "anchor": "player::no_tele_reason; worn_notele.size() threshold; kind=artefacts"
+      }
+    },
+    {
+      "id": "player.no_tele.stasis",
+      "context": "玩家瞬移限制：停滞",
+      "en": "Your stasis prevents you from teleporting.",
+      "zh": "你的停滞状态阻止你传送。",
+      "params": {},
+      "source": {
+        "file": "player.cc",
+        "anchor": "player::no_tele_reason; stasis"
+      }
+    },
+    {
+      "id": "player.no_tele.sprint",
+      "context": "玩家长距离传送限制：地牢冲刺",
+      "en": "Long-range teleportation is disallowed in Dungeon Sprint.",
+      "zh": "在地牢冲刺模式中不允许长距离传送。",
+      "params": {},
+      "source": {
+        "file": "player.cc",
+        "anchor": "player::no_tele_reason; game_is_sprint"
+      }
+    },
+    {
+      "id": "player.no_tele.gauntlet",
+      "context": "玩家长距离传送限制：险关封印",
+      "en": "A magic seal in the Gauntlet prevents long-range teleports.",
+      "zh": "险关中的魔法封印阻止了长距离传送。",
+      "params": {},
+      "source": {
+        "file": "player.cc",
+        "anchor": "player::no_tele_reason; BRANCH_GAUNTLET"
+      }
+    },
+    {
+      "id": "player.invisibility.backlit.confirm",
+      "context": "隐形确认：背光时仍确认使用",
+      "en": "You are backlit; invisibility will do you no good right now; use anyway?",
+      "zh": "你正被背光照亮，隐形目前对你无用；仍要使用吗？",
+      "params": {},
+      "source": {
+        "file": "player.cc",
+        "anchor": "invis_allowed; non-quiet yesno prompt"
+      }
+    },
+    {
+      "id": "shared.log.blink.no_landing",
+      "context": "瞬移与传送操作日志",
+      "en": "You feel jittery for a moment.",
+      "zh": "你感到一阵颤抖。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "uncontrolled_blink; no random landing square"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.blink.orb_interference",
+      "context": "瞬移与传送操作日志",
+      "en": "You feel the Orb interfering with your translocation!",
+      "zh": "你感觉到宝珠在干扰你的传送！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "controlled_blink; orb fuzz"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.blink.occupied",
+      "context": "瞬移与传送操作日志",
+      "en": "Oops! There was something there already!",
+      "zh": "糟了！那里已经有东西了！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "controlled_blink; unexpected monster at target"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.teleport.stable",
+      "context": "瞬移与传送操作日志",
+      "en": "You feel strangely stable.",
+      "zh": "你感到莫名地稳定。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "you_teleport; existing teleport canceled"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.teleport.start_player",
+      "context": "瞬移与传送操作日志",
+      "en": "You feel space start to destabilise around you!",
+      "zh": "你感觉到周围的空间开始变得不稳定！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "you_teleport; teleportitis_source == MID_PLAYER"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.teleport.start_hostile",
+      "context": "瞬移与传送操作日志",
+      "en": "You feel a distressing malevolence running through your instability!",
+      "zh": "一股令人不安的恶意在你的不稳定状态中涌动！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "you_teleport; is_hostile"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.teleport.start_other",
+      "context": "瞬移与传送操作日志",
+      "en": "You feel strangely unstable.",
+      "zh": "你感到莫名地不稳定。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "you_teleport; ordinary source"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.teleport.delay_abyss",
+      "context": "瞬移与传送操作日志",
+      "en": "You feel the power of the Abyss delaying your translocation!",
+      "zh": "你感觉到深渊的力量正在延迟你的传送！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "you_teleport; Abyss delay"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.teleport.delay_orb",
+      "context": "瞬移与传送操作日志",
+      "en": "You feel the Orb delaying your translocation!",
+      "zh": "你感觉到宝珠正在延迟你的传送！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "you_teleport; Orb delay"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.teleport.surroundings_flicker",
+      "context": "瞬移与传送操作日志",
+      "en": "Your surroundings flicker for a moment.",
+      "zh": "你周围的环境闪烁了一瞬。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_real_teleport_cleanup; newpos == oldpos"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.teleport.surroundings_slightly",
+      "context": "瞬移与传送操作日志",
+      "en": "Your surroundings seem slightly different.",
+      "zh": "你周围的环境似乎略有不同。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_real_teleport_cleanup; visible destination"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.teleport.surroundings_suddenly",
+      "context": "瞬移与传送操作日志",
+      "en": "Your surroundings suddenly seem different.",
+      "zh": "你周围的环境突然变得不同。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_real_teleport_cleanup; unseen destination"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.teleport.hup_cancel",
+      "context": "瞬移与传送操作日志",
+      "en": "Controlled teleport interrupted by HUP signal, cancelling teleport.",
+      "zh": "受 HUP 信号中断，受控传送已取消。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_teleport_player; seen_hups wizard branch"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.teleport.wizard_blocked",
+      "context": "瞬移与传送操作日志",
+      "en": "Even you can't go there right now. Sorry!",
+      "zh": "就连你现在也去不了那里，抱歉！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_teleport_player; wizard destination veto"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.berserk.red_vision",
+      "context": "狂暴操作日志",
+      "en": "A red film seems to cover your vision as you go berserk!",
+      "zh": "狂暴时，一层红色薄膜似乎覆盖了你的视野！",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "go_berserk; success"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.berserk.finesse_ends",
+      "context": "狂暴操作日志",
+      "en": "Your finesse ends abruptly.",
+      "zh": "你的灵巧戛然而止。",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "go_berserk; clears finesse"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.berserk.anger_overcomes_fear",
+      "context": "狂暴操作日志",
+      "en": "Your anger overwhelms your terror!",
+      "zh": "你的怒火压过了恐惧！",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "go_berserk; clears fear"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.berserk.faster",
+      "context": "狂暴操作日志",
+      "en": "You feel yourself moving faster!",
+      "zh": "你感觉自己的动作变快了！",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "go_berserk; haste allowed"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.berserk.mighty",
+      "context": "狂暴操作日志",
+      "en": "You feel mighty!",
+      "zh": "你感觉自己变得强大了！",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "go_berserk; success status"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transform.drown",
+      "context": "变形失败与确认",
+      "en": "Transforming right now would cause you to drown!",
+      "zh": "现在变形会让你溺水！",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "check_transform_into; deep water"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transform.burn",
+      "context": "变形失败与确认",
+      "en": "Transforming right now would cause you to burn!",
+      "zh": "现在变形会让你被烧伤！",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "check_transform_into; other dangerous terrain"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.prompt.transform.lower_max_hp",
+      "context": "变形失败与确认",
+      "en": "This transformation would significantly lower your maximum hit points. Transform anyway?",
+      "zh": "这种变形会大幅降低你的最大生命值。仍要变形吗？",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "check_transform_into; reduced max HP confirmation"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "player.invisibility.source.weapon",
+      "context": "隐形受限光源名称",
+      "en": "weapon",
+      "zh": "武器",
+      "params": {},
+      "source": {
+        "file": "player.cc",
+        "anchor": "invis_allowed; halo source vector element"
+      },
+      "source_context": "player.invisibility.source"
+    },
+    {
+      "id": "player.invisibility.source.crown",
+      "context": "隐形受限光源名称",
+      "en": "crown",
+      "zh": "王冠",
+      "params": {},
+      "source": {
+        "file": "player.cc",
+        "anchor": "invis_allowed; halo source vector element"
+      },
+      "source_context": "player.invisibility.source"
+    },
+    {
+      "id": "player.invisibility.source.armour",
+      "context": "隐形受限光源名称",
+      "en": "armour",
+      "zh": "护甲",
+      "params": {},
+      "source": {
+        "file": "player.cc",
+        "anchor": "invis_allowed; halo source vector element"
+      },
+      "source_context": "player.invisibility.source"
+    },
+    {
+      "id": "player.invisibility.source.divine_halo",
+      "context": "隐形受限光源名称",
+      "en": "divine halo",
+      "zh": "神圣光环",
+      "params": {},
+      "source": {
+        "file": "player.cc",
+        "anchor": "invis_allowed; halo source vector element"
+      },
+      "source_context": "player.invisibility.source"
+    },
+    {
+      "id": "shared.log.transloc.jump_in_place",
+      "context": "瞬移相关固定操作日志",
+      "en": "You jump in place.",
+      "zh": "你原地跳了一下！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "spider_jump; no eligible destination"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.jump_air",
+      "context": "瞬移相关固定操作日志",
+      "en": "You jump through the air!",
+      "zh": "你跃向空中！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "spider_jump; successful jump"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.blink_map_border",
+      "context": "瞬移相关固定操作日志",
+      "en": "Please don't blink into the map border.",
+      "zh": "请勿闪现到地图边界之外。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; map border; blink target validation"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.blink_monsters",
+      "context": "瞬移相关固定操作日志",
+      "en": "Please don't try to blink into monsters.",
+      "zh": "请勿尝试闪现到怪物身上。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; monster target validation"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.out_of_range",
+      "context": "瞬移相关固定操作日志",
+      "en": "That's out of range!",
+      "zh": "超出范围！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "hop/cast_golubrias_passage; out of range"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.hop_no_room",
+      "context": "瞬移相关固定操作日志",
+      "en": "You tried to hop, but there was no room to land!",
+      "zh": "你尝试跃行，但没有落脚的空间！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "hop; no landing space"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.boing",
+      "context": "瞬移相关固定操作日志",
+      "en": "Boing!",
+      "zh": "砰！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "hop; failed/short hop"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.hurled_away",
+      "context": "瞬移相关固定操作日志",
+      "en": "You are hurled out of the way!",
+      "zh": "你被猛地撞开了！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "spatial_vortex movement; player displaced"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.charge_silence",
+      "context": "瞬移相关固定操作日志",
+      "en": "You charge forward in eerie silence!",
+      "zh": "你在诡异的寂静中向前冲锋！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "dimensional charge; silence branch"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.charge_crackle",
+      "context": "瞬移相关固定操作日志",
+      "en": "You charge forward with an electric crackle!",
+      "zh": "你伴随着电流噼啪声向前冲锋！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "dimensional charge; electric branch"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.warp",
+      "context": "瞬移相关固定操作日志",
+      "en": "Space momentarily warps into an impossible shape!",
+      "zh": "空间瞬间扭曲成不可能的形状！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "spatial distortion; no visible actor"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.no_attack_target",
+      "context": "瞬移相关固定操作日志",
+      "en": "You can't see anything to attack.",
+      "zh": "你看不到任何可攻击的目标。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "blinkbolt; no visible target"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.no_safe_attack_target",
+      "context": "瞬移相关固定操作日志",
+      "en": "You can't see anything you can safely attack.",
+      "zh": "你看不到任何可以安全攻击的目标。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "blinkbolt; no safe target"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.no_apport_target",
+      "context": "瞬移相关固定操作日志",
+      "en": "You don't see anything to apport there.",
+      "zh": "你看不到那里有什么可摄取的东西。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "apportation; no target"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.cannot_apport",
+      "context": "瞬移相关固定操作日志",
+      "en": "You cannot apport that!",
+      "zh": "你无法摄取那个东西！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "apportation; target cannot be apported"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.terrain_blocked",
+      "context": "瞬移相关固定操作日志",
+      "en": "Not with that terrain in the way!",
+      "zh": "地形挡住了去路，无法这么做！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "passage creation; terrain prevents passage"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.passage_blocked",
+      "context": "瞬移相关固定操作日志",
+      "en": "You can't create a passage there!",
+      "zh": "你无法在那里创建通道！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_golubrias_passage; solid target cell"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.passage_other_side_wall",
+      "context": "瞬移相关固定操作日志",
+      "en": "You cannot create a passage on the other side of the transparent wall.",
+      "zh": "你无法在透明墙的另一侧创建通道。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_golubrias_passage; transparent wall"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.passage_space",
+      "context": "瞬移相关固定操作日志",
+      "en": "Creating a passage of Golubria requires sufficient empty space.",
+      "zh": "戈卢布里亚通道需要足够的空地才能创建。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_golubrias_passage; insufficient empty space"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.bug",
+      "context": "瞬移相关固定操作日志",
+      "en": "Something buggy happened.",
+      "zh": "发生了异常情况。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "translocation helper; unexpected condition"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.air_shimmers",
+      "context": "瞬移相关固定操作日志",
+      "en": "The air shimmers briefly around you.",
+      "zh": "你周围的空气短暂地闪烁。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "translocation visual/status message"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.tambourine",
+      "context": "瞬移相关固定操作日志",
+      "en": "You rattle the tambourine.",
+      "zh": "你摇响了铃鼓。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "gravity effect; player message"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.chaos_word",
+      "context": "瞬移相关固定操作日志",
+      "en": "You speak a word of chaos!",
+      "zh": "你说出一个混沌之词！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "chaos translocation effect"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.no_target",
+      "context": "瞬移相关固定操作日志",
+      "en": "You see nothing there to target!",
+      "zh": "你看不到那里有什么可选为目标的东西！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "targeted translocation; no target"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.space_blocked",
+      "context": "瞬移相关固定操作日志",
+      "en": "Space begins to contract around you, but something blocks your path.",
+      "zh": "空间开始在你周围收缩，但有什么东西挡住了去路。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "piledriver; no path"
+      },
+      "source_context": "shared.restriction.logs"
+    },
+    {
+      "id": "shared.log.transloc.gauntlet_seal",
+      "context": "瞬移相关固定操作日志",
+      "en": "A magic seal in the Gauntlet prevents you from opening a passage!",
+      "zh": "险关中的魔法封印阻止你打开通道！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_golubrias_passage; BRANCH_GAUNTLET; MSGCH_ORB"
+      },
+      "source_context": "shared.restriction.logs"
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "player.invisibility.backlit.confirm",
+      "args": {},
+      "canonical": "You are backlit; invisibility will do you no good right now; use anyway?",
+      "zh": "你正被背光照亮，隐形目前对你无用；仍要使用吗？"
+    },
+    {
+      "id": "shared.log.teleport.surroundings_slightly",
+      "args": {},
+      "canonical": "Your surroundings seem slightly different.",
+      "zh": "你周围的环境似乎略有不同。"
+    },
+    {
+      "id": "shared.log.teleport.surroundings_suddenly",
+      "args": {},
+      "canonical": "Your surroundings suddenly seem different.",
+      "zh": "你周围的环境突然变得不同。"
+    },
+    {
+      "id": "shared.log.berserk.anger_overcomes_fear",
+      "args": {},
+      "canonical": "Your anger overwhelms your terror!",
+      "zh": "你的怒火压过了恐惧！"
+    },
+    {
+      "id": "shared.log.transform.drown",
+      "args": {},
+      "canonical": "Transforming right now would cause you to drown!",
+      "zh": "现在变形会让你溺水！"
+    },
+    {
+      "id": "player.no_tele.blink",
+      "args": {
+        "reasons": {
+          "type": "text",
+          "canonical": "locked down by a dimension anchor",
+          "localized": "被次元锚定住"
+        }
+      },
+      "canonical": "You cannot blink because you are locked down by a dimension anchor.",
+      "zh": "你无法闪现，因为被次元锚定住。"
+    },
+    {
+      "id": "player.no_tele.teleport",
+      "args": {
+        "reasons": {
+          "type": "text",
+          "canonical": "held in place by your roots, wielding a +0 quarterstaff, wearing a ring of teleportation",
+          "localized": "被你的根系固定在原地、手持+0四分杖及穿戴传送戒指"
+        }
+      },
+      "canonical": "You cannot teleport because you are held in place by your roots, wielding a +0 quarterstaff, wearing a ring of teleportation.",
+      "zh": "你无法传送，因为被你的根系固定在原地、手持+0四分杖及穿戴传送戒指。"
+    },
+    {
+      "id": "player.no_tele.worn_many_artefacts",
+      "args": {
+        "count_word": {
+          "type": "text",
+          "canonical": "four",
+          "localized": "四件"
+        }
+      },
+      "canonical": "wearing four artefacts preventing teleportation",
+      "zh": "穿戴的神器（四件）阻止你传送"
+    },
+    {
+      "id": "shared.log.transloc.jump_in_place",
+      "args": {},
+      "canonical": "You jump in place.",
+      "zh": "你原地跳了一下！"
+    },
+    {
+      "id": "shared.log.transloc.jump_air",
+      "args": {},
+      "canonical": "You jump through the air!",
+      "zh": "你跃向空中！"
+    },
+    {
+      "id": "shared.log.transloc.blink_map_border",
+      "args": {},
+      "canonical": "Please don't blink into the map border.",
+      "zh": "请勿闪现到地图边界之外。"
+    },
+    {
+      "id": "shared.log.transloc.blink_monsters",
+      "args": {},
+      "canonical": "Please don't try to blink into monsters.",
+      "zh": "请勿尝试闪现到怪物身上。"
+    },
+    {
+      "id": "shared.log.transloc.out_of_range",
+      "args": {},
+      "canonical": "That's out of range!",
+      "zh": "超出范围！"
+    },
+    {
+      "id": "shared.log.transloc.hop_no_room",
+      "args": {},
+      "canonical": "You tried to hop, but there was no room to land!",
+      "zh": "你尝试跃行，但没有落脚的空间！"
+    },
+    {
+      "id": "shared.log.transloc.boing",
+      "args": {},
+      "canonical": "Boing!",
+      "zh": "砰！"
+    },
+    {
+      "id": "shared.log.transloc.hurled_away",
+      "args": {},
+      "canonical": "You are hurled out of the way!",
+      "zh": "你被猛地撞开了！"
+    },
+    {
+      "id": "shared.log.transloc.charge_silence",
+      "args": {},
+      "canonical": "You charge forward in eerie silence!",
+      "zh": "你在诡异的寂静中向前冲锋！"
+    },
+    {
+      "id": "shared.log.transloc.charge_crackle",
+      "args": {},
+      "canonical": "You charge forward with an electric crackle!",
+      "zh": "你伴随着电流噼啪声向前冲锋！"
+    },
+    {
+      "id": "shared.log.transloc.warp",
+      "args": {},
+      "canonical": "Space momentarily warps into an impossible shape!",
+      "zh": "空间瞬间扭曲成不可能的形状！"
+    },
+    {
+      "id": "shared.log.transloc.no_attack_target",
+      "args": {},
+      "canonical": "You can't see anything to attack.",
+      "zh": "你看不到任何可攻击的目标。"
+    },
+    {
+      "id": "shared.log.transloc.no_safe_attack_target",
+      "args": {},
+      "canonical": "You can't see anything you can safely attack.",
+      "zh": "你看不到任何可以安全攻击的目标。"
+    },
+    {
+      "id": "shared.log.transloc.no_apport_target",
+      "args": {},
+      "canonical": "You don't see anything to apport there.",
+      "zh": "你看不到那里有什么可摄取的东西。"
+    },
+    {
+      "id": "shared.log.transloc.cannot_apport",
+      "args": {},
+      "canonical": "You cannot apport that!",
+      "zh": "你无法摄取那个东西！"
+    },
+    {
+      "id": "shared.log.transloc.terrain_blocked",
+      "args": {},
+      "canonical": "Not with that terrain in the way!",
+      "zh": "地形挡住了去路，无法这么做！"
+    },
+    {
+      "id": "shared.log.transloc.passage_blocked",
+      "args": {},
+      "canonical": "You can't create a passage there!",
+      "zh": "你无法在那里创建通道！"
+    },
+    {
+      "id": "shared.log.transloc.passage_other_side_wall",
+      "args": {},
+      "canonical": "You cannot create a passage on the other side of the transparent wall.",
+      "zh": "你无法在透明墙的另一侧创建通道。"
+    },
+    {
+      "id": "shared.log.transloc.passage_space",
+      "args": {},
+      "canonical": "Creating a passage of Golubria requires sufficient empty space.",
+      "zh": "戈卢布里亚通道需要足够的空地才能创建。"
+    },
+    {
+      "id": "shared.log.transloc.bug",
+      "args": {},
+      "canonical": "Something buggy happened.",
+      "zh": "发生了异常情况。"
+    },
+    {
+      "id": "shared.log.transloc.air_shimmers",
+      "args": {},
+      "canonical": "The air shimmers briefly around you.",
+      "zh": "你周围的空气短暂地闪烁。"
+    },
+    {
+      "id": "shared.log.transloc.tambourine",
+      "args": {},
+      "canonical": "You rattle the tambourine.",
+      "zh": "你摇响了铃鼓。"
+    },
+    {
+      "id": "shared.log.transloc.chaos_word",
+      "args": {},
+      "canonical": "You speak a word of chaos!",
+      "zh": "你说出一个混沌之词！"
+    },
+    {
+      "id": "shared.log.transloc.no_target",
+      "args": {},
+      "canonical": "You see nothing there to target!",
+      "zh": "你看不到那里有什么可选为目标的东西！"
+    },
+    {
+      "id": "shared.log.transloc.space_blocked",
+      "args": {},
+      "canonical": "Space begins to contract around you, but something blocks your path.",
+      "zh": "空间开始在你周围收缩，但有什么东西挡住了去路。"
+    },
+    {
+      "id": "shared.log.transloc.gauntlet_seal",
+      "args": {},
+      "canonical": "A magic seal in the Gauntlet prevents you from opening a passage!",
+      "zh": "险关中的魔法封印阻止你打开通道！"
+    }
+  ]
+}

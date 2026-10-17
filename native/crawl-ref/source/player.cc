@@ -5,6 +5,7 @@
 
 #include "AppHdr.h"
 #include "zh-message.h"
+#include "zh-display-name.h"
 
 #include "player.h"
 
@@ -5223,66 +5224,67 @@ void apply_rampage_heal(int distance_moved)
     you.props[RAMPAGE_HEAL_KEY] = min(RAMPAGE_HEAL_MAX, heal + distance_moved);
 }
 
-bool invis_allowed(bool quiet, string *fail_reason, bool temp)
+bool invis_allowed(bool quiet, string *fail_reason, bool temp, ZhArg *display)
 {
-    string msg;
+    ZhArg msg{"reason", ZhArgType::Text, "", "", true};
     bool success = true;
 
     if (you.backlit(true, false))
     {
-        msg = "Your body glows too brightly to become invisible.";
+        msg = zh_message_arg("reason", "item.reason.invisibility.backlit");
         success = false;
     }
     else if (you.haloed() && you.halo_radius() != -1)
     {
-        vector<string> sources;
+        vector<ZhArg> sources;
 
         if (temp && you.unrand_equipped(UNRAND_EOS))
-            sources.push_back("weapon");
+            sources.push_back(zh_message_arg("source", "player.invisibility.source.weapon"));
 
         if (temp && you.unrand_equipped(UNRAND_VAINGLORY))
-            sources.push_back("crown");
+            sources.push_back(zh_message_arg("source", "player.invisibility.source.crown"));
 
         if (temp && you.wearing_ego(OBJ_ARMOUR, SPARM_LIGHT))
-            sources.push_back("armour");
+            sources.push_back(zh_message_arg("source", "player.invisibility.source.armour"));
 
         if (temp && you.props.exists(WU_JIAN_HEAVENLY_STORM_KEY)
             || you.religion == GOD_SHINING_ONE) // non-temp
         {
-            sources.push_back("divine halo");
+            sources.push_back(zh_message_arg("source", "player.invisibility.source.divine_halo"));
         }
 
         if (sources.empty())
             success = true;
         else
         {
-            msg = "Your " + comma_separated_line(sources.begin(), sources.end())
-                  + " glow" + (sources.size() == 1 ? "s" : "")
-                  + " too brightly for you to become invisible.";
+            msg = zh_message_arg("reason", "item.reason.invisibility.halo",
+                {zh_message_list("sources", sources),
+                 zh_text("s", sources.size() == 1 ? "s" : "", "")});
             success = false;
         }
     }
     else if (you.backlit(true, temp))
     {
-        msg = "You are backlit; invisibility will do you no good right now";
+        msg = zh_message_arg("reason", "item.reason.invisibility.backlit_current");
         if (quiet)
             success = false;
-        else if (!quiet && !yesno((msg + "; use anyway?").c_str(), false, 'n'))
+        else if (!quiet && !yesno(zh_message("player.invisibility.backlit.confirm"), false, 'n'))
         {
             // XX this shouldn't be here. Currently used only for evoke invis.
             canned_msg(MSG_OK);
             success = false;
             quiet = true; // since we just said something
         }
-        msg += ".";
     }
 
     if (!success)
     {
         if (fail_reason)
-            *fail_reason = msg;
+            *fail_reason = msg.canonical;
+        if (display)
+            *display = msg;
         if (!quiet)
-            mpr(msg);
+            mpr(ZhMessage{"", msg.canonical, msg.localized});
     }
     return success;
 }
@@ -7138,70 +7140,59 @@ int player_willpower(bool temp)
  * @return              Why the player is prevented from teleporting, if they
  *                      are; else, the empty string.
  */
-string player::no_tele_reason(bool blinking, bool temp) const
+ZhArg player::no_tele_display_reason(bool blinking, bool temp) const
 {
     if (stasis())
-        return "Your stasis prevents you from teleporting.";
-
+        return zh_message_arg("reason", "player.no_tele.stasis");
     if (!blinking)
     {
         if (crawl_state.game_is_sprint())
-            return "Long-range teleportation is disallowed in Dungeon Sprint.";
+            return zh_message_arg("reason", "player.no_tele.sprint");
         else if (player_in_branch(BRANCH_GAUNTLET))
-        {
-            return "A magic seal in the Gauntlet prevents long-range "
-                "teleports.";
-        }
+            return zh_message_arg("reason", "player.no_tele.gauntlet");
     }
-
-    vector<string> problems;
-
+    vector<ZhArg> problems;
     if (temp && duration[DUR_DIMENSION_ANCHOR])
-        problems.emplace_back("locked down by a dimension anchor");
-
+        problems.push_back(zh_message_arg("reason", "player.no_tele.anchor"));
     if (temp && form == transformation::tree)
-        problems.emplace_back("held in place by your roots");
-
+        problems.push_back(zh_message_arg("reason", "player.no_tele.roots"));
     vector<const item_def *> notele_items;
     if (has_notele_item(&notele_items))
     {
-        vector<string> worn_notele;
-        bool found_nonartefact = false;
-
+        vector<ZhArg> worn_notele;
+        // Preserve the engine's original summary category and count threshold.
+        const bool found_nonartefact = false;
         for (const auto item : notele_items)
         {
             if (item->base_type == OBJ_WEAPONS)
-            {
-                problems.push_back(make_stringf("wielding %s",
-                                                item->name(DESC_A).c_str()));
-            }
+                problems.push_back(zh_message_arg("reason", "player.no_tele.wielded",
+                    {zh_item_arg("item", *item, DESC_A)}));
             else
-                worn_notele.push_back(item->name(DESC_A));
+                worn_notele.push_back(zh_item_arg("item", *item, DESC_A));
         }
-
         if (worn_notele.size() > static_cast<size_t>(problems.empty() ? 3 : 1))
         {
-            problems.push_back(
-                make_stringf("wearing %s %s preventing teleportation",
-                             number_in_words(worn_notele.size()).c_str(),
-                             found_nonartefact ? "items": "artefacts"));
+            const ZhArg count = zh_text("count_word", number_in_words(worn_notele.size()),
+                                       to_string(worn_notele.size()));
+            problems.push_back(found_nonartefact
+                ? zh_message_arg("reason", "player.no_tele.worn_many_items", {count})
+                : zh_message_arg("reason", "player.no_tele.worn_many_artefacts", {count}));
         }
         else if (!worn_notele.empty())
-        {
-            problems.push_back(
-                make_stringf("wearing %s",
-                             comma_separated_line(worn_notele.begin(),
-                                                  worn_notele.end()).c_str()));
-        }
+            problems.push_back(zh_message_arg("reason", "player.no_tele.worn_list",
+                {zh_message_list("items", worn_notele)}));
     }
-
     if (problems.empty())
-        return ""; // no problem
+        return {"reason", ZhArgType::Text, "", "", true};
+    const ZhArg reasons = zh_message_list("reasons", problems);
+    return blinking
+        ? zh_message_arg("reason", "player.no_tele.blink", {reasons})
+        : zh_message_arg("reason", "player.no_tele.teleport", {reasons});
+}
 
-    return make_stringf("You cannot %s because you are %s.",
-                        blinking ? "blink" : "teleport",
-                        comma_separated_line(problems.begin(),
-                                             problems.end()).c_str());
+string player::no_tele_reason(bool blinking, bool temp) const
+{
+    return no_tele_display_reason(blinking, temp).canonical;
 }
 
 /**

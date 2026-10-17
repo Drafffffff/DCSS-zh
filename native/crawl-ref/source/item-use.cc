@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "item-use.h"
 
@@ -2979,11 +2980,11 @@ bool read(item_def* scroll, dist *target)
     {
     case SCR_BLINKING:
     {
-        const string reason = you.no_tele_reason(true);
-        if (!reason.empty())
+        const ZhArg reason = you.no_tele_display_reason(true);
+        if (!reason.canonical.empty())
         {
             mpr(pre_succ_msg);
-            mpr(reason);
+            mpr(ZhMessage{"", reason.canonical, reason.localized});
             break;
         }
 
@@ -3008,11 +3009,11 @@ bool read(item_def* scroll, dist *target)
     {
         // you_teleport already handles much of this, but this allows a more
         // robust message for unidentified tele scrolls read with -tele
-        const string reason = you.no_tele_reason();
-        if (!reason.empty())
+        const ZhArg reason = you.no_tele_display_reason();
+        if (!reason.canonical.empty())
         {
             mpr(pre_succ_msg);
-            mpr(reason);
+            mpr(ZhMessage{"", reason.canonical, reason.localized});
             break;
         }
 
