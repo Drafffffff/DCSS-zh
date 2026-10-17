@@ -1,0 +1,63 @@
+{
+  "native_commit": "d915a27abe70506726e7d9bfcd481b0cf806eac2",
+  "platforms": {
+    "macos": {
+      "arch": "arm64",
+      "console_build": true,
+      "tiles_build": true,
+      "console_copy_scenes": 6,
+      "gui_dimensions": [
+        1747,
+        1112
+      ],
+      "gui_scenes": [
+        "miscast-multiple",
+        "skills-help",
+        "pickup-tutorial"
+      ]
+    },
+    "bazzite": {
+      "arch": "x86_64",
+      "console_build": true,
+      "tiles_build": true,
+      "console_copy_scenes": 6,
+      "gui_dimensions": [
+        3840,
+        2160
+      ],
+      "gui_scenes": [
+        "miscast-single",
+        "miscast-multiple",
+        "target-notification",
+        "transform-cycle",
+        "skills-help",
+        "pickup-tutorial"
+      ]
+    }
+  },
+  "tests": {
+    "miscast_combinations": 30720,
+    "range_semantics": 5,
+    "target_notifications": 102,
+    "transform_and_markup": 1197,
+    "named_oracles": 1355,
+    "spell_talisman_regression": 42493,
+    "shared_restrictions_regression": 18670,
+    "skill_layout": 106,
+    "text_grid": 347
+  },
+  "source_saves_unchanged": true,
+  "translation_review_model": "gpt-6-luna",
+  "catalog_ids": 2758,
+  "catalog_delta": 211,
+  "coverage_percentage": null,
+  "general_word_fallback_removed": true,
+  "remaining": [
+    "5 external target reason producers",
+    "sphinx speech database",
+    "other database tutorials",
+    "retired appendage/hydra",
+    "complex artefact names",
+    "remaining dynamic logs and targeting spell/quiver labels"
+  ]
+}

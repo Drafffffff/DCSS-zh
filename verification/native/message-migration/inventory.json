@@ -1,47 +1,74 @@
 {
-  "defined_ids": 2547,
-  "direct_literal_bound_ids": 886,
+  "defined_ids": 2758,
+  "direct_literal_bound_ids": 992,
   "bindings": {
-    "log.attack.fixed.41e7310eb263": [
+    "log.attack.fixed.2c6590a994e1": [
       "attack.cc"
     ],
     "log.combat.drain_vigour": [
       "attack.cc"
     ],
-    "log.attack.fixed.2c6590a994e1": [
+    "log.attack.fixed.41e7310eb263": [
       "attack.cc"
     ],
-    "log.delay.fixed.f03c61cf90cb": [
+    "log.delay.fixed.2719740e7076": [
       "delay.cc"
     ],
     "talisman.delay.keep_transforming": [
       "delay.cc"
     ],
-    "log.delay.fixed.2028adf4bd74": [
+    "log.delay.fixed.1a7d90a94a28": [
       "delay.cc"
     ],
-    "log.delay.fixed.cda37b09bd6c": [
+    "log.delay.fixed.3eb4e1c5dca1": [
       "delay.cc"
     ],
-    "log.delay.fixed.6bbc231ddad8": [
+    "equip_finish": [
+      "delay.cc"
+    ],
+    "log.delay.fixed.c0b24353fab2": [
+      "delay.cc"
+    ],
+    "log.delay.fixed.6ff9f87b44ae": [
+      "delay.cc"
+    ],
+    "log.delay.fixed.1958b88bd811": [
+      "delay.cc"
+    ],
+    "log.delay.fixed.8c8b2c5c3fe0": [
+      "delay.cc"
+    ],
+    "log.delay.fixed.4986a1322940": [
+      "delay.cc"
+    ],
+    "log.delay.fixed.81a36fb8685a": [
+      "delay.cc"
+    ],
+    "log.delay.fixed.94d14d14b2db": [
+      "delay.cc"
+    ],
+    "log.delay.fixed.d9fcc097f296": [
+      "delay.cc"
+    ],
+    "log.delay.fixed.06d463587db4": [
       "delay.cc"
     ],
     "log.delay.fixed.c8feee978c02": [
       "delay.cc"
     ],
+    "log.delay.fixed.ae0b3d8e0830": [
+      "delay.cc"
+    ],
+    "log.delay.fixed.61eda2682482": [
+      "delay.cc"
+    ],
+    "equip.stop": [
+      "delay.cc"
+    ],
+    "log.delay.fixed.cda37b09bd6c": [
+      "delay.cc"
+    ],
     "equip_start": [
-      "delay.cc"
-    ],
-    "equip_continue": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.beb409c29e7c": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.66bc840b0831": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.6ff9f87b44ae": [
       "delay.cc"
     ],
     "log.delay.fixed.47c93cdb1e21": [
@@ -50,109 +77,467 @@
     "log.delay.fixed.282c5871d332": [
       "delay.cc"
     ],
-    "log.delay.fixed.d8a80c867b15": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.c0b24353fab2": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.d9fcc097f296": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.94d14d14b2db": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.4986a1322940": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.2ffc5a0df028": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.3eb4e1c5dca1": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.8c8b2c5c3fe0": [
+    "log.delay.fixed.f03c61cf90cb": [
       "delay.cc"
     ],
     "log.delay.fixed.3a760cca1145": [
       "delay.cc"
     ],
-    "equip.stop": [
-      "delay.cc"
-    ],
     "log.delay.fixed.fe318d92d093": [
       "delay.cc"
     ],
-    "equip_finish": [
+    "log.delay.fixed.2028adf4bd74": [
       "delay.cc"
     ],
-    "log.delay.fixed.1958b88bd811": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.81a36fb8685a": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.06d463587db4": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.1a7d90a94a28": [
-      "delay.cc"
-    ],
-    "log.delay.fixed.2719740e7076": [
+    "log.delay.fixed.beb409c29e7c": [
       "delay.cc"
     ],
     "log.delay.fixed.8376fc32ce30": [
       "delay.cc"
     ],
+    "log.delay.fixed.6bbc231ddad8": [
+      "delay.cc"
+    ],
+    "equip_continue": [
+      "delay.cc"
+    ],
+    "log.delay.fixed.66bc840b0831": [
+      "delay.cc"
+    ],
     "log.delay.fixed.0302433d8eb5": [
       "delay.cc"
     ],
-    "log.delay.fixed.61eda2682482": [
+    "log.delay.fixed.2ffc5a0df028": [
       "delay.cc"
     ],
-    "log.delay.fixed.ae0b3d8e0830": [
+    "log.delay.fixed.d8a80c867b15": [
       "delay.cc"
-    ],
-    "spellset.book.label": [
-      "describe-spells.cc"
-    ],
-    "spellset.effect.mp": [
-      "describe-spells.cc"
-    ],
-    "spellset.spell.row": [
-      "describe-spells.cc"
-    ],
-    "spellset.header.wizard": [
-      "describe-spells.cc"
     ],
     "spell.book.terse.row": [
-      "describe-spells.cc"
-    ],
-    "spellset.effect.immune": [
       "describe-spells.cc"
     ],
     "spellset.table.row": [
       "describe-spells.cc"
     ],
-    "spellset.ability.vulnerability": [
+    "spellset.book.label": [
       "describe-spells.cc"
     ],
-    "spellset.table.header": [
+    "spellset.spell.row": [
       "describe-spells.cc"
     ],
     "spellset.header.ability": [
       "describe-spells.cc"
     ],
+    "spellset.header.wizard": [
+      "describe-spells.cc"
+    ],
+    "spellset.effect.mp": [
+      "describe-spells.cc"
+    ],
     "spell.book.terse.list": [
+      "describe-spells.cc"
+    ],
+    "spellset.ability.vulnerability": [
       "describe-spells.cc"
     ],
     "spellset.header.wand": [
       "describe-spells.cc"
     ],
+    "spellset.table.header": [
+      "describe-spells.cc"
+    ],
+    "spellset.effect.immune": [
+      "describe-spells.cc"
+    ],
+    "monster.targeted_by_one": [
+      "describe.cc"
+    ],
+    "item.action.wear_jewellery": [
+      "describe.cc"
+    ],
+    "item.jewellery.reflection_effect": [
+      "describe.cc"
+    ],
+    "spell.miscast.effect.horror": [
+      "describe.cc"
+    ],
+    "monster.attack.cleaves": [
+      "describe.cc"
+    ],
+    "monster.detail.curse": [
+      "describe.cc"
+    ],
+    "artifact.property.resistance": [
+      "describe.cc"
+    ],
+    "item.wand.noise": [
+      "describe.cc"
+    ],
+    "item.weapon.base_stats": [
+      "describe.cc"
+    ],
+    "spell.stats.accuracy": [
+      "describe.cc"
+    ],
+    "monster.draconian.desc.black": [
+      "describe.cc"
+    ],
+    "item.weapon.category": [
+      "describe.cc"
+    ],
+    "item.curse.skills_list": [
+      "describe.cc"
+    ],
+    "spell.player.cannot_memorise_reason": [
+      "describe.cc"
+    ],
+    "target.hit_chance.verbose": [
+      "describe.cc"
+    ],
+    "item.consumable.rarity.scroll.buggy": [
+      "describe.cc"
+    ],
+    "monster.draconian.desc.pale": [
+      "describe.cc"
+    ],
+    "item.weapon.too_large": [
+      "describe.cc"
+    ],
+    "item.potion.cancellation": [
+      "describe.cc"
+    ],
+    "item.talisman.form_english_fallback": [
+      "describe.cc"
+    ],
+    "spell.player.battlesphere_fires": [
+      "describe.cc"
+    ],
+    "monster.attack.counted_label": [
+      "describe.cc"
+    ],
+    "item.action.pickup": [
+      "describe.cc"
+    ],
+    "monster.draconian.desc.purple": [
+      "describe.cc"
+    ],
+    "artifact.property.numeric": [
+      "describe.cc"
+    ],
+    "spell.monster.summon_cap": [
+      "describe.cc"
+    ],
+    "item.consumable.rarity.potion.buggy": [
+      "describe.cc"
+    ],
+    "monster.detail.hints_fallback": [
+      "describe.cc"
+    ],
+    "spell.player.useless_reason": [
+      "describe.cc"
+    ],
+    "spell.player.grave_claw": [
+      "describe.cc"
+    ],
+    "spell.miscast.flavor.electric": [
+      "describe.cc"
+    ],
+    "item.weapon.hand_use": [
+      "describe.cc"
+    ],
+    "item.armour.base_rating": [
+      "describe.cc"
+    ],
+    "item.weapon.stabbing": [
+      "describe.cc"
+    ],
+    "spell.player.servitor_inactive": [
+      "describe.cc"
+    ],
+    "monster.detail.summoned_status": [
+      "describe.cc"
+    ],
+    "item.equipment.spell_fail_trivial": [
+      "describe.cc"
+    ],
+    "monster.detail.powerful_curse": [
+      "describe.cc"
+    ],
+    "item.consumable.rarity.potion.rare": [
+      "describe.cc"
+    ],
+    "spell.monster.cancellation": [
+      "describe.cc"
+    ],
+    "monster.hit_chance_plural": [
+      "describe.cc"
+    ],
+    "monster.draconian.scales.pale": [
+      "describe.cc"
+    ],
     "item.skill.current": [
       "describe.cc"
     ],
+    "item.action.map_goto": [
+      "describe.cc"
+    ],
+    "item.evoker.noise": [
+      "describe.cc"
+    ],
+    "detail.tabs.quote": [
+      "describe.cc"
+    ],
     "item.consumable.rarity.scroll.common": [
+      "describe.cc"
+    ],
+    "monster.notice_chance_plural": [
+      "describe.cc"
+    ],
+    "monster.hit_chance": [
+      "describe.cc"
+    ],
+    "item.weapon.study_staff": [
+      "describe.cc"
+    ],
+    "item.consumable.rarity.potion.very_rare": [
+      "describe.cc"
+    ],
+    "spell.monster.range": [
+      "describe.cc"
+    ],
+    "monster.detail.illusion": [
+      "describe.cc"
+    ],
+    "spell.player.battlesphere_inactive": [
+      "describe.cc"
+    ],
+    "spell.player.paragon_weapon": [
+      "describe.cc"
+    ],
+    "spell.stats.range.not_applicable": [
+      "describe.cc"
+    ],
+    "detail.skill.god.dislikes_training": [
+      "describe.cc"
+    ],
+    "item.useless.reading_no_effect": [
+      "describe.cc"
+    ],
+    "item.jewellery.stat_effect": [
+      "describe.cc"
+    ],
+    "item.consumable.rarity.potion.very_common": [
+      "describe.cc"
+    ],
+    "monster.detail.hide": [
+      "describe.cc"
+    ],
+    "spell.miscast.effect.anchors": [
+      "describe.cc"
+    ],
+    "spell.player.servitor_imbued_if": [
+      "describe.cc"
+    ],
+    "monster.attack.each": [
+      "describe.cc"
+    ],
+    "spell.monster.living_spell": [
+      "describe.cc"
+    ],
+    "target.hit_chance.verbose_blind": [
+      "describe.cc"
+    ],
+    "item.action.inscribe": [
+      "describe.cc"
+    ],
+    "item.weapon.hands_missing": [
+      "describe.cc"
+    ],
+    "monster.attack.damage_range": [
+      "describe.cc"
+    ],
+    "detail.skill.defence.dodging": [
+      "describe.cc"
+    ],
+    "item.action.wear_armour": [
+      "describe.cc"
+    ],
+    "spell.miscast.flavor.cold": [
+      "describe.cc"
+    ],
+    "monster.detail.struck_die": [
+      "describe.cc"
+    ],
+    "item.consumable.rarity.scroll.very_rare": [
+      "describe.cc"
+    ],
+    "monster.attack.brand_sundering": [
+      "describe.cc"
+    ],
+    "monster.draconian.scales.green": [
+      "describe.cc"
+    ],
+    "monster.notice_chance": [
+      "describe.cc"
+    ],
+    "spell.stats.noise": [
+      "describe.cc"
+    ],
+    "spell.miscast.effect.poisons": [
+      "describe.cc"
+    ],
+    "spell.miscast.effect.list.more": [
+      "describe.cc"
+    ],
+    "monster.attack.silver_damage": [
+      "describe.cc"
+    ],
+    "spell.player.servitor_casts": [
+      "describe.cc"
+    ],
+    "target.hit_chance": [
+      "describe.cc"
+    ],
+    "monster.attack.reaches_semicolon": [
+      "describe.cc"
+    ],
+    "item.jewellery.slaying_effect": [
+      "describe.cc"
+    ],
+    "item.useless.evoke": [
+      "describe.cc"
+    ],
+    "spell.reason.no_hostiles": [
+      "describe.cc",
+      "spl-util.cc"
+    ],
+    "item.weapon.armour_slow.full": [
+      "describe.cc"
+    ],
+    "item.potion.lignify_ac": [
+      "describe.cc"
+    ],
+    "item.projectile.destroy_chance": [
+      "describe.cc"
+    ],
+    "item.actions.list.two": [
+      "describe.cc"
+    ],
+    "monster.attack.flavour_max": [
+      "describe.cc"
+    ],
+    "item.weapon.reach": [
+      "describe.cc"
+    ],
+    "skill.target.training_current": [
+      "describe.cc"
+    ],
+    "item.weapon.attack_delay_and_minimum": [
+      "describe.cc"
+    ],
+    "spell.miscast.flavor.irresistible": [
+      "describe.cc"
+    ],
+    "monster.attack.drain_max": [
+      "describe.cc"
+    ],
+    "item.useless.current_default": [
+      "describe.cc"
+    ],
+    "item.skill.current_with_target": [
+      "describe.cc"
+    ],
+    "monster.draconian.desc.white": [
+      "describe.cc"
+    ],
+    "monster.attack.throw_label": [
+      "describe.cc"
+    ],
+    "item.useless.drinking_impossible": [
+      "describe.cc"
+    ],
+    "monster.draconian.scales.red": [
+      "describe.cc"
+    ],
+    "item.weapon.axes": [
+      "describe.cc"
+    ],
+    "monster.draconian.desc.red": [
+      "describe.cc"
+    ],
+    "monster.attack.curare_damage": [
+      "describe.cc"
+    ],
+    "item.weapon.max_enchantment": [
+      "describe.cc"
+    ],
+    "item.useless.reading_impossible": [
+      "describe.cc"
+    ],
+    "item.actions.select_spell": [
+      "describe.cc"
+    ],
+    "item.curse.skills_english_fallback": [
+      "describe.cc"
+    ],
+    "item.action.read": [
+      "describe.cc"
+    ],
+    "skill.target.training_max": [
+      "describe.cc"
+    ],
+    "monster.draconian.desc.yellow": [
+      "describe.cc"
+    ],
+    "artifact.property.willpower": [
+      "describe.cc"
+    ],
+    "item.god.disapproval": [
+      "describe.cc"
+    ],
+    "spell.stats.power": [
+      "describe.cc"
+    ],
+    "spell.player.god_opinion": [
+      "describe.cc"
+    ],
+    "item.action.skill_target": [
+      "describe.cc"
+    ],
+    "item.weapon.damage_rating": [
+      "describe.cc"
+    ],
+    "item.projectile.stats_and_minimum_delay": [
+      "describe.cc"
+    ],
+    "monster.attack.modified_damage": [
+      "describe.cc"
+    ],
+    "spell.miscast.flavor.list.final": [
+      "describe.cc"
+    ],
+    "monster.detail.program_bug": [
+      "describe.cc"
+    ],
+    "monster.draconian.scales.grey": [
+      "describe.cc"
+    ],
+    "monster.detail.shooting_star_damage": [
+      "describe.cc"
+    ],
+    "item.actions.list.one": [
+      "describe.cc"
+    ],
+    "spell.player.summon_cap": [
+      "describe.cc"
+    ],
+    "item.action.adjust": [
+      "describe.cc"
+    ],
+    "item.armour.max_enchantment": [
+      "describe.cc"
+    ],
+    "artifact.property.stealth": [
       "describe.cc"
     ],
     "spell.level": [
@@ -161,732 +546,408 @@
     "item.location.offlevel": [
       "describe.cc"
     ],
-    "spell.player.servitor_casts": [
-      "describe.cc"
-    ],
-    "monster.notice_chance_plural": [
-      "describe.cc"
-    ],
-    "spell.stats.school": [
-      "describe.cc"
-    ],
-    "monster.notice_chance": [
-      "describe.cc"
-    ],
-    "monster.attack.label": [
-      "describe.cc"
-    ],
-    "item.action.remove_jewellery": [
-      "describe.cc"
-    ],
-    "monster.detail.illusion": [
-      "describe.cc"
-    ],
-    "monster.attack.separator": [
-      "describe.cc"
-    ],
-    "monster.attack.modified_damage": [
-      "describe.cc"
-    ],
-    "monster.attack.from_afar": [
-      "describe.cc"
-    ],
-    "item.jewellery.slaying_effect": [
-      "describe.cc"
-    ],
-    "spell.monster.immune.fixed": [
-      "describe.cc"
-    ],
-    "spell.player.battlesphere_inactive": [
-      "describe.cc"
-    ],
-    "monster.detail.curse": [
-      "describe.cc"
-    ],
-    "item.weapon.category": [
-      "describe.cc"
-    ],
-    "monster.attack.cleaves": [
-      "describe.cc"
-    ],
-    "item.god.disapproval": [
-      "describe.cc"
-    ],
-    "spell.stats.noise": [
-      "describe.cc"
-    ],
-    "item.consumable.rarity.scroll.uncommon": [
-      "describe.cc"
-    ],
-    "item.action.read": [
-      "describe.cc"
-    ],
-    "item.stat.change": [
-      "describe.cc"
-    ],
-    "detail.skill.invocations.based_on": [
-      "describe.cc"
-    ],
-    "monster.attack.damage_range": [
-      "describe.cc"
-    ],
-    "item.action.unwield": [
-      "describe.cc"
-    ],
-    "monster.attack.reaches_semicolon": [
-      "describe.cc"
-    ],
-    "monster.draconian.desc.white": [
-      "describe.cc"
-    ],
-    "item.weapon.armour_slow_slightly": [
-      "describe.cc"
-    ],
-    "item.useless.drinking_impossible": [
-      "describe.cc"
-    ],
-    "skill.target.training_current": [
-      "describe.cc"
-    ],
-    "item.consumable.rarity.potion.very_common": [
-      "describe.cc"
-    ],
-    "item.useless.drinking_no_effect": [
-      "describe.cc"
-    ],
-    "monster.attack.drain_max": [
-      "describe.cc"
-    ],
-    "item.evoker.noise": [
-      "describe.cc"
-    ],
-    "item.talisman.form.mutations_suppressed": [
-      "describe.cc"
-    ],
-    "item.action.drop": [
-      "describe.cc"
-    ],
-    "monster.attack.counted_label": [
-      "describe.cc"
-    ],
-    "item.jewellery.stat_effect": [
-      "describe.cc"
-    ],
-    "item.armour.warlock_mirror_reflect": [
-      "describe.cc"
-    ],
-    "artifact.property.angry": [
-      "describe.cc"
-    ],
-    "item.wand.damage": [
-      "describe.cc"
-    ],
-    "target.hit_chance.distance": [
-      "describe.cc"
-    ],
-    "item.actions.select_spell": [
-      "describe.cc"
-    ],
-    "item.weapon.armour_slow.full": [
-      "describe.cc"
-    ],
-    "spell.player.irradiate.fixed": [
-      "describe.cc"
-    ],
-    "monster.detail.stairs": [
-      "describe.cc"
-    ],
-    "item.weapon.current_attack_delay": [
-      "describe.cc"
-    ],
-    "monster.draconian.scales.grey": [
-      "describe.cc"
-    ],
-    "detail.tabs.quote": [
-      "describe.cc"
-    ],
-    "spell.stats.power": [
-      "describe.cc"
-    ],
-    "item.weapon.stabbing": [
-      "describe.cc"
-    ],
-    "spell.monster.range": [
-      "describe.cc"
-    ],
-    "skill.target.training_max": [
-      "describe.cc"
-    ],
-    "item.consumable.rarity.scroll.very_rare": [
-      "describe.cc"
-    ],
-    "item.talisman.form.meld_line": [
-      "describe.cc"
-    ],
-    "item.useless.permanent": [
-      "describe.cc"
-    ],
-    "item.ziggurat.glow": [
-      "describe.cc"
-    ],
-    "target.hit_chance": [
-      "describe.cc"
-    ],
-    "spell.miscast_contamination": [
-      "describe.cc"
-    ],
-    "detail.skill.defence.shields": [
-      "describe.cc"
-    ],
-    "monster.hit_chance": [
-      "describe.cc"
-    ],
-    "spell.player.paragon_weapon": [
-      "describe.cc"
-    ],
-    "spell.player.no_visible_hostiles": [
-      "describe.cc"
-    ],
-    "monster.attack.curare_damage": [
-      "describe.cc"
-    ],
-    "item.action.inscribe": [
-      "describe.cc"
-    ],
-    "monster.draconian.scales.black": [
-      "describe.cc"
-    ],
-    "monster.attack.flavour_max": [
-      "describe.cc"
-    ],
-    "spell.player.servitor_inactive": [
-      "describe.cc"
-    ],
-    "spell.player.enkindled.fixed": [
-      "describe.cc"
-    ],
-    "item.armour.max_enchantment": [
-      "describe.cc"
-    ],
-    "monster.detail.withering": [
-      "describe.cc"
-    ],
-    "artifact.property.resistance": [
-      "describe.cc"
-    ],
-    "monster.detail.struck_crumble": [
-      "describe.cc"
-    ],
-    "monster.detail.shooting_star_damage": [
-      "describe.cc"
-    ],
-    "artifact.property.willpower": [
-      "describe.cc"
-    ],
-    "monster.detail.pan_lord": [
-      "describe.cc"
-    ],
-    "monster.attack.if_damage_dealt": [
-      "describe.cc"
-    ],
-    "monster.draconian.desc.green": [
-      "describe.cc"
-    ],
-    "monster.targeted_by_one": [
-      "describe.cc"
-    ],
-    "item.talisman.form_english_fallback": [
-      "describe.cc"
-    ],
-    "monster.draconian.desc.yellow": [
-      "describe.cc"
-    ],
-    "item.weapon.study_staff": [
+    "monster.attack.very_far": [
       "describe.cc"
     ],
     "item.consumable.rarity.potion.common": [
       "describe.cc"
     ],
-    "item.armour.base_rating": [
-      "describe.cc"
-    ],
-    "item.consumable.rarity.potion.rare": [
-      "describe.cc"
-    ],
-    "item.wand.noise": [
-      "describe.cc"
-    ],
-    "monster.attack.each": [
-      "describe.cc"
-    ],
-    "item.consumable.rarity.scroll.buggy": [
-      "describe.cc"
-    ],
-    "item.armour.shield_ratings": [
-      "describe.cc"
-    ],
-    "item.projectile.stats_and_minimum_delay": [
-      "describe.cc"
-    ],
-    "item.action.evoke": [
-      "describe.cc"
-    ],
-    "item.consumable.rarity.potion.uncommon": [
-      "describe.cc"
-    ],
-    "spell.player.battlesphere_fires": [
-      "describe.cc"
-    ],
-    "monster.detail.ghost": [
-      "describe.cc"
-    ],
-    "monster.attack.silver_damage": [
-      "describe.cc"
-    ],
-    "spell.player.cannot_memorise_reason": [
-      "describe.cc"
-    ],
-    "monster.attack.throw_label": [
-      "describe.cc"
-    ],
-    "item.potion.cancellation": [
-      "describe.cc"
-    ],
-    "monster.spell.range_period": [
-      "describe.cc"
-    ],
-    "item.evoker.charges": [
-      "describe.cc"
-    ],
-    "item.action.skill_target": [
-      "describe.cc"
-    ],
-    "item.equipment.preview.switch": [
-      "describe.cc"
-    ],
-    "item.action.pickup": [
-      "describe.cc"
-    ],
-    "item.weapon.reach": [
-      "describe.cc"
-    ],
-    "artifact.property.numeric": [
-      "describe.cc"
-    ],
-    "item.weapon.axes": [
-      "describe.cc"
-    ],
-    "item.action.quaff": [
-      "describe.cc"
-    ],
-    "monster.draconian.desc.black": [
-      "describe.cc"
-    ],
-    "artifact.property.stealth": [
-      "describe.cc"
-    ],
-    "item.curse.skills_list": [
-      "describe.cc"
-    ],
-    "detail.english_fallback": [
-      "describe.cc"
-    ],
-    "spell.player.grave_claw": [
-      "describe.cc"
-    ],
-    "spell.monster.living_spell": [
-      "describe.cc"
-    ],
-    "spell.monster.cancellation": [
-      "describe.cc"
-    ],
-    "item.action.adjust": [
-      "describe.cc"
-    ],
-    "spell.player.cannot_cast_reason": [
-      "describe.cc"
-    ],
-    "item.actions.list.one": [
-      "describe.cc"
-    ],
-    "monster.detail.powerful_curse": [
-      "describe.cc"
-    ],
-    "spell.player.summon_cap": [
-      "describe.cc"
-    ],
-    "spell.stats.fail": [
-      "describe.cc"
-    ],
-    "monster.draconian.scales.green": [
-      "describe.cc"
-    ],
-    "item.weapon.max_enchantment": [
-      "describe.cc"
-    ],
-    "item.action.remove_armour": [
-      "describe.cc"
-    ],
-    "monster.detail.program_bug": [
-      "describe.cc"
-    ],
-    "item.detail.menu_colouring_prefixes": [
-      "describe.cc"
-    ],
-    "item.consumable.rarity.potion.very_rare": [
-      "describe.cc"
-    ],
-    "item.weapon.too_large": [
-      "describe.cc"
-    ],
-    "monster.detail.struck_die": [
-      "describe.cc"
-    ],
-    "item.weapon.base_stats": [
-      "describe.cc"
-    ],
-    "item.weapon.quadrumanous_hand_use": [
+    "item.stat.change": [
       "describe.cc"
     ],
     "item.talisman.form.class_line": [
       "describe.cc"
     ],
-    "item.actions.list.two": [
-      "describe.cc"
-    ],
-    "monster.spell.help": [
-      "describe.cc"
-    ],
-    "monster.detail.foxfire_damage": [
-      "describe.cc"
-    ],
-    "item.weapon.dmg_rating": [
-      "describe.cc"
-    ],
-    "item.weapon.valour_beam": [
-      "describe.cc"
-    ],
-    "spell.player.servitor_imbued_if": [
-      "describe.cc"
-    ],
-    "item.action.wield": [
-      "describe.cc"
-    ],
-    "item.projectile.destroy_chance": [
-      "describe.cc"
-    ],
-    "item.weapon.hand_use": [
-      "describe.cc"
-    ],
-    "item.consumable.rarity.scroll.rare": [
-      "describe.cc"
-    ],
-    "item.useless.reading_impossible": [
-      "describe.cc"
-    ],
-    "spell.player.useless_reason": [
-      "describe.cc"
-    ],
-    "item.useless.current_default": [
-      "describe.cc"
-    ],
-    "detail.skill.god.dislikes_training": [
-      "describe.cc"
-    ],
-    "monster.draconian.desc.red": [
-      "describe.cc"
-    ],
-    "spell.monster.summon_cap": [
-      "describe.cc"
-    ],
-    "spell.stats.range": [
-      "describe.cc"
-    ],
-    "detail.skill.defence.dodging": [
-      "describe.cc"
-    ],
-    "monster.draconian.scales.red": [
-      "describe.cc"
-    ],
-    "skill.target.training_complete": [
-      "describe.cc"
-    ],
-    "item.armour.shield_cumbersome": [
-      "describe.cc"
-    ],
-    "item.action.quiver": [
-      "describe.cc"
-    ],
-    "item.consumable.rarity.potion.buggy": [
-      "describe.cc"
-    ],
-    "spell.monster.will_chance": [
-      "describe.cc"
-    ],
-    "item.equipment.spell_fail_trivial": [
-      "describe.cc"
-    ],
-    "item.action.wear_armour": [
-      "describe.cc"
-    ],
-    "item.action.map_goto": [
-      "describe.cc"
-    ],
-    "monster.draconian.desc.purple": [
-      "describe.cc"
-    ],
-    "item.useless.reading_no_effect": [
-      "describe.cc"
-    ],
-    "monster.draconian.desc.grey": [
-      "describe.cc"
-    ],
-    "item.action.wear_jewellery": [
-      "describe.cc"
-    ],
-    "item.weapon.damage_rating": [
-      "describe.cc"
-    ],
-    "monster.attack.brand_sundering": [
-      "describe.cc"
-    ],
-    "spell.stats.damage": [
-      "describe.cc"
-    ],
-    "item.weapon.hands_missing": [
-      "describe.cc"
-    ],
-    "item.weapon.attack_delay_and_minimum": [
-      "describe.cc"
-    ],
-    "monster.draconian.scales.white": [
-      "describe.cc"
-    ],
-    "item.actions.list.many": [
-      "describe.cc"
-    ],
-    "item.skill.current_with_target": [
-      "describe.cc"
-    ],
-    "monster.detail.no_reward": [
-      "describe.cc"
-    ],
-    "detail.tabs.description": [
-      "describe.cc"
-    ],
-    "target.hit_chance.verbose_blind": [
-      "describe.cc"
-    ],
-    "spell.player.casting_useless": [
-      "describe.cc"
-    ],
-    "spell.reason.no_hostiles": [
-      "describe.cc",
-      "spl-util.cc"
-    ],
-    "item.curse.skills.fixed": [
-      "describe.cc"
-    ],
-    "spell.player.god_opinion": [
-      "describe.cc"
-    ],
-    "detail.skill.invocations.unaffected": [
-      "describe.cc"
-    ],
-    "item.curse.skills_english_fallback": [
-      "describe.cc"
-    ],
-    "monster.attack.very_far": [
-      "describe.cc"
-    ],
-    "detail.skill.defence.armour": [
-      "describe.cc"
-    ],
-    "spell.player.servitor_imbued.fixed": [
-      "describe.cc"
-    ],
-    "monster.hit_chance_plural": [
+    "detail.skill.invocations.based_on": [
       "describe.cc"
     ],
     "item.equipment.preview.remove": [
       "describe.cc"
     ],
-    "monster.draconian.scales.yellow": [
+    "item.action.quiver_after_quaff": [
       "describe.cc"
     ],
-    "monster.detail.melting": [
+    "monster.attack.separator": [
       "describe.cc"
     ],
-    "monster.targeting_foe": [
-      "describe.cc"
-    ],
-    "monster.attack.brand_only": [
-      "describe.cc"
-    ],
-    "monster.spell.range_warning": [
-      "describe.cc"
-    ],
-    "item.consumable.rarity.scroll.very_common": [
-      "describe.cc"
-    ],
-    "monster.detail.summoned_status": [
+    "spell.stats.fail": [
       "describe.cc"
     ],
     "monster.detail.spooky": [
       "describe.cc"
     ],
-    "item.detail.stash_search_prefixes": [
+    "item.action.quaff": [
       "describe.cc"
     ],
-    "spell.stats.accuracy": [
+    "spell.miscast.flavor.draining": [
       "describe.cc"
     ],
-    "monster.detail.hints_fallback": [
+    "item.action.drop": [
+      "describe.cc"
+    ],
+    "item.curse.skills.fixed": [
+      "describe.cc"
+    ],
+    "monster.draconian.desc.grey": [
+      "describe.cc"
+    ],
+    "monster.attack.from_afar": [
+      "describe.cc"
+    ],
+    "item.action.evoke": [
+      "describe.cc"
+    ],
+    "detail.tabs.description": [
       "describe.cc"
     ],
     "detail.skill.invocations.forlorn": [
       "describe.cc"
     ],
-    "item.evoker.damage": [
+    "spell.player.no_visible_hostiles": [
       "describe.cc"
     ],
-    "monster.draconian.desc.pale": [
+    "spell.miscast_contamination": [
       "describe.cc"
     ],
-    "item.jewellery.reflection_effect": [
+    "monster.detail.withering": [
       "describe.cc"
     ],
-    "monster.attack.reaches": [
-      "describe.cc"
-    ],
-    "monster.draconian.scales.pale": [
-      "describe.cc"
-    ],
-    "target.hit_chance.verbose": [
-      "describe.cc"
-    ],
-    "monster.detail.hide": [
-      "describe.cc"
-    ],
-    "item.equipment.preview_stat": [
-      "describe.cc"
-    ],
-    "monster.targeted_by_many": [
-      "describe.cc"
-    ],
-    "item.potion.lignify_ac": [
-      "describe.cc"
-    ],
-    "monster.attack.brand_damage": [
-      "describe.cc"
-    ],
-    "item.action.quiver_after_quaff": [
-      "describe.cc"
-    ],
-    "monster.draconian.scales.purple": [
-      "describe.cc"
-    ],
-    "monster.detail.crumbling": [
-      "describe.cc"
-    ],
-    "item.useless.evoke": [
-      "describe.cc"
-    ],
-    "item.armour.current_missile_slow": [
+    "monster.detail.no_reward": [
       "describe.cc"
     ],
     "item.equipment.spell_fail_change": [
       "describe.cc"
     ],
-    "log.directn.fixed.e2e06dfdfa15": [
-      "directn.cc"
+    "item.weapon.current_attack_delay": [
+      "describe.cc"
     ],
-    "log.directn.fixed.dee8959d944c": [
-      "directn.cc"
+    "monster.draconian.scales.yellow": [
+      "describe.cc"
     ],
-    "log.directn.fixed.3dc8b040abab": [
-      "directn.cc"
+    "spell.miscast.damage_clause": [
+      "describe.cc"
+    ],
+    "artifact.property.angry": [
+      "describe.cc"
+    ],
+    "item.equipment.preview.switch": [
+      "describe.cc"
+    ],
+    "item.action.remove_jewellery": [
+      "describe.cc"
+    ],
+    "item.actions.list.many": [
+      "describe.cc"
+    ],
+    "monster.attack.brand_only": [
+      "describe.cc"
+    ],
+    "monster.targeting_foe": [
+      "describe.cc"
+    ],
+    "monster.spell.range_warning": [
+      "describe.cc"
+    ],
+    "monster.attack.label": [
+      "describe.cc"
+    ],
+    "spell.stats.school": [
+      "describe.cc"
+    ],
+    "monster.detail.ghost": [
+      "describe.cc"
+    ],
+    "item.weapon.valour_beam": [
+      "describe.cc"
+    ],
+    "item.detail.menu_colouring_prefixes": [
+      "describe.cc"
+    ],
+    "item.weapon.quadrumanous_hand_use": [
+      "describe.cc"
+    ],
+    "spell.player.servitor_imbued.fixed": [
+      "describe.cc"
+    ],
+    "monster.detail.crumbling": [
+      "describe.cc"
+    ],
+    "skill.target.training_complete": [
+      "describe.cc"
+    ],
+    "spell.player.enkindled.fixed": [
+      "describe.cc"
+    ],
+    "spell.stats.range": [
+      "describe.cc"
+    ],
+    "monster.draconian.desc.green": [
+      "describe.cc"
+    ],
+    "item.consumable.rarity.scroll.rare": [
+      "describe.cc"
+    ],
+    "item.action.quiver": [
+      "describe.cc"
+    ],
+    "spell.miscast.flavor.list.more": [
+      "describe.cc"
+    ],
+    "item.action.wield": [
+      "describe.cc"
+    ],
+    "item.talisman.form.meld_line": [
+      "describe.cc"
+    ],
+    "monster.draconian.scales.purple": [
+      "describe.cc"
+    ],
+    "item.useless.drinking_no_effect": [
+      "describe.cc"
+    ],
+    "spell.monster.immune.fixed": [
+      "describe.cc"
+    ],
+    "spell.miscast.parent.single": [
+      "describe.cc"
+    ],
+    "item.weapon.dmg_rating": [
+      "describe.cc"
+    ],
+    "monster.detail.melting": [
+      "describe.cc"
+    ],
+    "detail.skill.invocations.unaffected": [
+      "describe.cc"
+    ],
+    "detail.skill.defence.armour": [
+      "describe.cc"
+    ],
+    "item.consumable.rarity.potion.uncommon": [
+      "describe.cc"
+    ],
+    "monster.spell.range_period": [
+      "describe.cc"
+    ],
+    "monster.detail.struck_crumble": [
+      "describe.cc"
+    ],
+    "item.weapon.armour_slow_slightly": [
+      "describe.cc"
+    ],
+    "spell.player.irradiate.fixed": [
+      "describe.cc"
+    ],
+    "item.wand.damage": [
+      "describe.cc"
+    ],
+    "monster.attack.brand_damage": [
+      "describe.cc"
+    ],
+    "item.evoker.charges": [
+      "describe.cc"
+    ],
+    "item.armour.current_missile_slow": [
+      "describe.cc"
+    ],
+    "monster.targeted_by_many": [
+      "describe.cc"
+    ],
+    "item.equipment.preview_stat": [
+      "describe.cc"
+    ],
+    "item.action.unwield": [
+      "describe.cc"
+    ],
+    "spell.player.cannot_cast_reason": [
+      "describe.cc"
+    ],
+    "monster.spell.help": [
+      "describe.cc"
+    ],
+    "spell.miscast.effect.slows": [
+      "describe.cc"
+    ],
+    "item.talisman.form.mutations_suppressed": [
+      "describe.cc"
+    ],
+    "monster.detail.pan_lord": [
+      "describe.cc"
+    ],
+    "monster.draconian.scales.white": [
+      "describe.cc"
+    ],
+    "item.useless.permanent": [
+      "describe.cc"
+    ],
+    "item.detail.stash_search_prefixes": [
+      "describe.cc"
+    ],
+    "detail.english_fallback": [
+      "describe.cc"
+    ],
+    "item.ziggurat.glow": [
+      "describe.cc"
+    ],
+    "spell.miscast.effect.list.final": [
+      "describe.cc"
+    ],
+    "spell.player.casting_useless": [
+      "describe.cc"
+    ],
+    "detail.skill.defence.shields": [
+      "describe.cc"
+    ],
+    "monster.detail.stairs": [
+      "describe.cc"
+    ],
+    "item.action.remove_armour": [
+      "describe.cc"
+    ],
+    "monster.draconian.scales.black": [
+      "describe.cc"
+    ],
+    "spell.miscast.parent.multiple": [
+      "describe.cc"
+    ],
+    "spell.miscast.effect.corrodes": [
+      "describe.cc"
+    ],
+    "spell.miscast.flavor.fragmentation": [
+      "describe.cc"
+    ],
+    "spell.monster.will_chance": [
+      "describe.cc"
+    ],
+    "spell.miscast.flavor.fire": [
+      "describe.cc"
+    ],
+    "monster.attack.if_damage_dealt": [
+      "describe.cc"
+    ],
+    "item.armour.warlock_mirror_reflect": [
+      "describe.cc"
+    ],
+    "item.evoker.damage": [
+      "describe.cc"
+    ],
+    "item.armour.shield_ratings": [
+      "describe.cc"
+    ],
+    "target.hit_chance.distance": [
+      "describe.cc"
+    ],
+    "monster.attack.reaches": [
+      "describe.cc"
+    ],
+    "item.consumable.rarity.scroll.uncommon": [
+      "describe.cc"
+    ],
+    "monster.detail.foxfire_damage": [
+      "describe.cc"
+    ],
+    "item.consumable.rarity.scroll.very_common": [
+      "describe.cc"
+    ],
+    "item.armour.shield_cumbersome": [
+      "describe.cc"
+    ],
+    "spell.stats.damage": [
+      "describe.cc"
     ],
     "log.directn.fixed.d981b534da0c": [
-      "directn.cc"
-    ],
-    "log.directn.fixed.0f9f90374e10": [
-      "directn.cc"
-    ],
-    "log.directn.fixed.0636deeaa119": [
-      "directn.cc"
-    ],
-    "log.directn.fixed.a4b8dca9fa69": [
-      "directn.cc"
-    ],
-    "log.directn.fixed.1648eda141e7": [
-      "directn.cc"
-    ],
-    "log.directn.fixed.d0eb01836559": [
-      "directn.cc"
-    ],
-    "log.directn.fixed.d78f2801d65a": [
-      "directn.cc"
-    ],
-    "log.directn.fixed.354f9b635564": [
-      "directn.cc"
-    ],
-    "log.directn.fixed.97d957ab6ef7": [
-      "directn.cc"
-    ],
-    "log.directn.fixed.259d47e25ef1": [
-      "directn.cc"
-    ],
-    "log.directn.fixed.ebdf36ec18e9": [
-      "directn.cc"
-    ],
-    "log.directn.fixed.89c4beed12e3": [
-      "directn.cc"
-    ],
-    "log.directn.fixed.c75e332c4eb6": [
-      "directn.cc"
-    ],
-    "log.directn.fixed.7b2b961607d8": [
       "directn.cc"
     ],
     "log.directn.fixed.03844ec9825b": [
       "directn.cc"
     ],
-    "item.reason.use.allies_forbidden": [
-      "evoke.cc"
+    "log.directn.fixed.354f9b635564": [
+      "directn.cc"
     ],
-    "item.reason.use.no_charges": [
-      "evoke.cc"
+    "log.directn.fixed.1648eda141e7": [
+      "directn.cc"
     ],
-    "item.reason.use.still_air": [
-      "evoke.cc",
-      "item-name.cc"
+    "log.directn.fixed.259d47e25ef1": [
+      "directn.cc"
+    ],
+    "log.directn.fixed.97d957ab6ef7": [
+      "directn.cc"
+    ],
+    "log.directn.fixed.0636deeaa119": [
+      "directn.cc"
+    ],
+    "log.directn.fixed.89c4beed12e3": [
+      "directn.cc"
+    ],
+    "log.directn.fixed.ebdf36ec18e9": [
+      "directn.cc"
+    ],
+    "target.reason.out_of_range": [
+      "directn.cc",
+      "target.cc"
+    ],
+    "log.directn.fixed.3dc8b040abab": [
+      "directn.cc"
+    ],
+    "log.directn.fixed.d78f2801d65a": [
+      "directn.cc"
+    ],
+    "log.directn.fixed.dee8959d944c": [
+      "directn.cc"
+    ],
+    "log.directn.fixed.0f9f90374e10": [
+      "directn.cc"
+    ],
+    "log.directn.fixed.c75e332c4eb6": [
+      "directn.cc"
+    ],
+    "log.directn.fixed.d0eb01836559": [
+      "directn.cc"
+    ],
+    "log.directn.fixed.a4b8dca9fa69": [
+      "directn.cc"
+    ],
+    "log.directn.fixed.7b2b961607d8": [
+      "directn.cc"
+    ],
+    "log.directn.fixed.e2e06dfdfa15": [
+      "directn.cc"
     ],
     "item.reason.use.item_removed": [
       "evoke.cc"
     ],
-    "item.reason.use.berserk": [
-      "evoke.cc",
-      "item-name.cc"
+    "item.reason.use.allies_forbidden": [
+      "evoke.cc"
     ],
-    "item.reason.use.horn_silenced": [
+    "item.reason.use.flux_already": [
+      "evoke.cc"
+    ],
+    "item.reason.use.wrong_evoke": [
       "evoke.cc"
     ],
     "item.reason.use.confused": [
       "evoke.cc",
       "item-name.cc"
     ],
+    "item.reason.use.still_air": [
+      "evoke.cc",
+      "item-name.cc"
+    ],
+    "item.reason.use.horn_silenced": [
+      "evoke.cc"
+    ],
     "item.reason.use.no_artifice": [
       "evoke.cc"
     ],
-    "item.reason.use.wrong_evoke": [
+    "item.reason.use.no_charges": [
       "evoke.cc"
     ],
     "item.reason.use.inert_evoker": [
       "evoke.cc"
     ],
-    "item.reason.use.flux_already": [
-      "evoke.cc"
+    "item.reason.use.berserk": [
+      "evoke.cc",
+      "item-name.cc"
     ],
     "item.curse.skills.empty": [
       "god-abil.cc"
@@ -894,232 +955,238 @@
     "item.curse.skills.entry": [
       "god-abil.cc"
     ],
-    "item.hints.jewellery.resistance": [
-      "hints.cc"
-    ],
-    "item.hints.target_mode.fire": [
-      "hints.cc"
-    ],
-    "item.hints.staff.school": [
-      "hints.cc"
-    ],
-    "item.hints.weapon.training_gap": [
-      "hints.cc"
-    ],
-    "item.hints.tiles.avatar_right_click": [
-      "hints.cc"
-    ],
-    "item.hints.armour.barding_restriction": [
-      "hints.cc"
-    ],
-    "item.hints.misc.evocation": [
-      "hints.cc"
-    ],
-    "item.hints.armour.horns_helmet": [
-      "hints.cc"
-    ],
-    "item.hints.missile.throwable": [
-      "hints.cc"
-    ],
-    "item.hints.jewellery.wear_remove": [
-      "hints.cc"
-    ],
-    "item.hints.wand.use": [
-      "hints.cc"
-    ],
-    "item.hints.tiles.armour_click": [
-      "hints.cc"
-    ],
-    "item.hints.weapon.unwielded": [
-      "hints.cc"
-    ],
-    "item.hints.wand.tiles.windowed": [
-      "hints.cc"
-    ],
-    "item.hints.armour.wear_remove": [
-      "hints.cc"
-    ],
-    "item.hints.book.manual": [
-      "hints.cc"
-    ],
-    "item.hints.scroll.use": [
-      "hints.cc"
-    ],
-    "item.hints.potion.use": [
+    "item.hints.armour.resistance": [
       "hints.cc"
     ],
     "item.hints.weapon.artefact.resistance": [
       "hints.cc"
     ],
-    "item.hints.staff.resistance": [
-      "hints.cc"
-    ],
-    "item.hints.tiles.jewellery_click": [
-      "hints.cc"
-    ],
-    "item.hints.weapon.ranged.wielded": [
-      "hints.cc"
-    ],
-    "item.hints.tiles.scroll_click": [
-      "hints.cc"
-    ],
-    "item.hints.book.spellbook": [
-      "hints.cc"
-    ],
-    "item.hints.corpse.use": [
-      "hints.cc"
-    ],
-    "item.hints.armour.unidentified_special": [
+    "item.hints.tiles.avatar_right_click": [
       "hints.cc"
     ],
     "item.hints.ability.prerequisite.equipped": [
       "hints.cc"
     ],
-    "item.hints.armour.resistance": [
-      "hints.cc"
-    ],
-    "item.hints.jewellery.type.amulet": [
-      "hints.cc"
-    ],
-    "item.hints.staff.trog": [
-      "hints.cc"
-    ],
-    "item.hints.jewellery.ability": [
-      "hints.cc"
-    ],
-    "item.hints.armour.ranger_offhand": [
-      "hints.cc"
-    ],
-    "item.hints.wand.tiles.web": [
+    "item.hints.weapon.unwielded": [
       "hints.cc"
     ],
     "item.hints.armour.ability": [
       "hints.cc"
     ],
-    "item.hints.ability.prerequisite.weapon": [
+    "item.hints.jewellery.type.amulet": [
       "hints.cc"
     ],
-    "item.hints.weapon.melee.wielded": [
+    "item.hints.book.spellbook": [
       "hints.cc"
     ],
-    "item.hints.ability.prerequisite.armour": [
+    "item.hints.staff.resistance": [
       "hints.cc"
     ],
-    "item.hints.ability.prerequisite.bug": [
-      "hints.cc"
-    ],
-    "item.hints.tiles.potion_click": [
-      "hints.cc"
-    ],
-    "item.hints.jewellery.type.ring": [
-      "hints.cc"
-    ],
-    "item.hints.armour.magic_shield": [
-      "hints.cc"
-    ],
-    "item.hints.weapon.artefact.ability": [
-      "hints.cc"
-    ],
-    "item.hints.weapon.ranged.wielded.tile": [
+    "item.hints.armour.barding_restriction": [
       "hints.cc"
     ],
     "item.hints.target_mode.spell": [
       "hints.cc"
     ],
-    "item.hints.armour.magic_encumbrance": [
+    "item.hints.weapon.melee.wielded": [
+      "hints.cc"
+    ],
+    "item.hints.wand.tiles.web": [
+      "hints.cc"
+    ],
+    "item.hints.misc.evocation": [
       "hints.cc"
     ],
     "item.hints.wand.tiles.fullscreen": [
       "hints.cc"
     ],
+    "item.hints.armour.wear_remove": [
+      "hints.cc"
+    ],
+    "item.hints.armour.horns_helmet": [
+      "hints.cc"
+    ],
+    "item.hints.armour.magic_encumbrance": [
+      "hints.cc"
+    ],
+    "item.hints.corpse.use": [
+      "hints.cc"
+    ],
+    "item.hints.ability.prerequisite.armour": [
+      "hints.cc"
+    ],
+    "item.hints.jewellery.type.ring": [
+      "hints.cc"
+    ],
+    "item.hints.jewellery.ability": [
+      "hints.cc"
+    ],
+    "item.hints.tiles.scroll_click": [
+      "hints.cc"
+    ],
+    "item.hints.weapon.training_gap": [
+      "hints.cc"
+    ],
+    "item.hints.tiles.jewellery_click": [
+      "hints.cc"
+    ],
+    "item.hints.armour.ranger_offhand": [
+      "hints.cc"
+    ],
+    "item.hints.target_mode.fire": [
+      "hints.cc"
+    ],
+    "item.hints.scroll.use": [
+      "hints.cc"
+    ],
+    "item.hints.wand.use": [
+      "hints.cc"
+    ],
+    "item.hints.armour.unidentified_special": [
+      "hints.cc"
+    ],
+    "item.hints.staff.trog": [
+      "hints.cc"
+    ],
+    "item.hints.jewellery.resistance": [
+      "hints.cc"
+    ],
+    "item.hints.ability.prerequisite.weapon": [
+      "hints.cc"
+    ],
+    "hints.pickup.first_object": [
+      "hints.cc"
+    ],
+    "item.hints.jewellery.wear_remove": [
+      "hints.cc"
+    ],
+    "item.hints.potion.use": [
+      "hints.cc"
+    ],
+    "item.hints.tiles.potion_click": [
+      "hints.cc"
+    ],
+    "item.hints.weapon.ranged.wielded.tile": [
+      "hints.cc"
+    ],
+    "item.hints.missile.throwable": [
+      "hints.cc"
+    ],
     "item.hints.ability.prerequisite.jewellery": [
       "hints.cc"
     ],
-    "item.reason.use.trog_memory": [
-      "item-name.cc"
+    "item.hints.armour.magic_shield": [
+      "hints.cc"
     ],
-    "item.reason.selectable.unidentified": [
-      "item-name.cc"
+    "item.hints.book.manual": [
+      "hints.cc"
     ],
-    "item.reason.use.renounce_drink": [
-      "item-name.cc"
+    "item.hints.wand.tiles.windowed": [
+      "hints.cc"
     ],
-    "item.reason.use.unmappable": [
-      "item-name.cc"
+    "item.hints.staff.school": [
+      "hints.cc"
     ],
-    "item.reason.use.no_forgetting": [
-      "item-name.cc"
+    "item.hints.weapon.artefact.ability": [
+      "hints.cc"
     ],
-    "item.reason.use.wrong_item": [
-      "item-name.cc"
+    "item.hints.ability.prerequisite.bug": [
+      "hints.cc"
     ],
-    "item.reason.use.no_control_memory": [
-      "item-name.cc"
+    "item.hints.tiles.armour_click": [
+      "hints.cc"
     ],
-    "item.reason.use.no_scrolls": [
-      "item-name.cc"
-    ],
-    "item.reason.use.no_armour_enchant": [
-      "item-name.cc"
-    ],
-    "item.reason.use.nothing_to_identify": [
-      "item-name.cc"
-    ],
-    "item.reason.selectable.brandable_weapon": [
-      "item-name.cc"
-    ],
-    "item.reason.use.not_drink": [
-      "item-name.cc"
-    ],
-    "item.reason.use.no_need_identification": [
-      "item-name.cc"
-    ],
-    "item.reason.selectable.enchantable_armour": [
-      "item-name.cc"
-    ],
-    "item.reason.selectable.enchantable_weapon": [
-      "item-name.cc"
-    ],
-    "item.reason.use.unable_to_breathe": [
-      "item-name.cc"
-    ],
-    "item.reason.use.wrong_drink": [
-      "item-name.cc"
-    ],
-    "item.reason.use.cocytus_cold": [
-      "item-name.cc"
-    ],
-    "item.reason.use.no_weapon_enhance": [
-      "item-name.cc"
-    ],
-    "item.reason.use.drink_state": [
-      "item-name.cc"
+    "item.hints.weapon.ranged.wielded": [
+      "hints.cc"
     ],
     "item.reason.use.no_summons": [
-      "item-name.cc"
-    ],
-    "item.reason.use.renounce_scrolls": [
-      "item-name.cc"
-    ],
-    "item.reason.use.silenced": [
       "item-name.cc"
     ],
     "item.reason.use.geh_smog": [
       "item-name.cc"
     ],
-    "talisman.reason.loveless": [
-      "item-use.cc"
+    "item.reason.use.unmappable": [
+      "item-name.cc"
     ],
-    "talisman.protean.transforms": [
+    "item.reason.selectable.enchantable_weapon": [
+      "item-name.cc"
+    ],
+    "item.reason.use.renounce_scrolls": [
+      "item-name.cc"
+    ],
+    "item.reason.use.cocytus_cold": [
+      "item-name.cc"
+    ],
+    "item.reason.use.silenced": [
+      "item-name.cc"
+    ],
+    "item.reason.use.no_forgetting": [
+      "item-name.cc"
+    ],
+    "item.reason.use.no_armour_enchant": [
+      "item-name.cc"
+    ],
+    "item.reason.use.trog_memory": [
+      "item-name.cc"
+    ],
+    "item.reason.selectable.enchantable_armour": [
+      "item-name.cc"
+    ],
+    "item.reason.use.wrong_drink": [
+      "item-name.cc"
+    ],
+    "item.reason.use.unable_to_breathe": [
+      "item-name.cc"
+    ],
+    "item.reason.selectable.unidentified": [
+      "item-name.cc"
+    ],
+    "item.reason.selectable.brandable_weapon": [
+      "item-name.cc"
+    ],
+    "item.reason.use.drink_state": [
+      "item-name.cc"
+    ],
+    "item.reason.use.wrong_item": [
+      "item-name.cc"
+    ],
+    "item.reason.use.not_drink": [
+      "item-name.cc"
+    ],
+    "item.reason.use.no_control_memory": [
+      "item-name.cc"
+    ],
+    "item.reason.use.renounce_drink": [
+      "item-name.cc"
+    ],
+    "item.reason.use.no_scrolls": [
+      "item-name.cc"
+    ],
+    "item.reason.use.nothing_to_identify": [
+      "item-name.cc"
+    ],
+    "item.reason.use.no_weapon_enhance": [
+      "item-name.cc"
+    ],
+    "item.reason.use.no_need_identification": [
+      "item-name.cc"
+    ],
+    "talisman.reason.unstable": [
       "item-use.cc"
     ],
     "talisman.confirm.begin_transform": [
       "item-use.cc"
     ],
+    "talisman.reason.loveless": [
+      "item-use.cc"
+    ],
     "talisman.reason.okawaru_allies": [
       "item-use.cc"
     ],
-    "talisman.reason.unstable": [
+    "talisman.reason.leave_form": [
+      "item-use.cc"
+    ],
+    "talisman.protean.transforms": [
       "item-use.cc"
     ],
     "talisman.reason.unusable_skill": [
@@ -1128,37 +1195,34 @@
     "talisman.reason.cannot_carry": [
       "item-use.cc"
     ],
-    "talisman.reason.leave_form": [
-      "item-use.cc"
-    ],
-    "item.origin.shop_purchase": [
+    "item.origin.genie_draw": [
       "items.cc"
     ],
     "item.origin.wizard_created": [
       "items.cc"
     ],
-    "item.origin.genie_draw": [
-      "items.cc"
-    ],
-    "item.origin.dancing_weapon": [
-      "items.cc"
-    ],
-    "item.origin.taken_from_monster": [
+    "item.origin.invented": [
       "items.cc"
     ],
     "item.origin.found_place": [
       "items.cc"
     ],
-    "item.origin.invented": [
-      "items.cc"
-    ],
-    "item.origin.english_fallback": [
+    "item.origin.dancing_weapon": [
       "items.cc"
     ],
     "item.origin.god_gift": [
       "items.cc"
     ],
+    "item.origin.shop_purchase": [
+      "items.cc"
+    ],
     "item.origin.acquirement": [
+      "items.cc"
+    ],
+    "item.origin.taken_from_monster": [
+      "items.cc"
+    ],
+    "item.origin.english_fallback": [
       "items.cc"
     ],
     "skill.lookup.keyhelp.position": [
@@ -1173,85 +1237,82 @@
     "skill.lookup.no_matches": [
       "lookup-help.cc"
     ],
-    "log.melee_attack.fixed.03be19f616a1": [
-      "melee-attack.cc"
-    ],
-    "log.melee_attack.fixed.0e54236b8a39": [
-      "melee-attack.cc"
-    ],
-    "log.combat.no_damage": [
-      "melee-attack.cc"
-    ],
-    "log.melee_attack.fixed.b6b736605d87": [
-      "melee-attack.cc"
-    ],
-    "log.melee_attack.fixed.bbb9888a3cf8": [
-      "melee-attack.cc"
-    ],
-    "log.melee_attack.fixed.28c52e8f3317": [
-      "melee-attack.cc"
-    ],
-    "log.combat.poison": [
-      "melee-attack.cc"
-    ],
-    "log.combat.block": [
-      "melee-attack.cc"
-    ],
-    "log.melee_attack.fixed.25e22731dbab": [
-      "melee-attack.cc"
-    ],
-    "log.combat.wound": [
-      "melee-attack.cc"
-    ],
-    "log.melee_attack.fixed.b2fd20d703be": [
-      "melee-attack.cc"
-    ],
-    "log.melee_attack.fixed.dc6556bd9b9c": [
-      "melee-attack.cc"
-    ],
-    "log.combat.player_hit": [
-      "melee-attack.cc"
-    ],
-    "log.melee_attack.fixed.001c6164d000": [
-      "melee-attack.cc"
-    ],
-    "log.melee_attack.fixed.09bea8318f6f": [
-      "melee-attack.cc"
-    ],
-    "log.combat.rebuke_block": [
-      "melee-attack.cc"
-    ],
-    "log.combat.monster_hit": [
-      "melee-attack.cc"
-    ],
     "log.melee_attack.fixed.cd6a7fb22c99": [
-      "melee-attack.cc"
-    ],
-    "log.melee_attack.fixed.60d4748ad6be": [
-      "melee-attack.cc"
-    ],
-    "log.melee_attack.fixed.be120892087e": [
-      "melee-attack.cc"
-    ],
-    "log.combat.monster_miss": [
-      "melee-attack.cc"
-    ],
-    "log.melee_attack.fixed.47b79a4ff692": [
-      "melee-attack.cc"
-    ],
-    "log.combat.player_miss": [
       "melee-attack.cc"
     ],
     "log.melee_attack.fixed.195a9aaaaf3a": [
       "melee-attack.cc"
     ],
+    "log.melee_attack.fixed.b6b736605d87": [
+      "melee-attack.cc"
+    ],
+    "log.melee_attack.fixed.dc6556bd9b9c": [
+      "melee-attack.cc"
+    ],
+    "log.combat.block": [
+      "melee-attack.cc"
+    ],
+    "log.combat.poison": [
+      "melee-attack.cc"
+    ],
+    "log.melee_attack.fixed.03be19f616a1": [
+      "melee-attack.cc"
+    ],
+    "log.melee_attack.fixed.be120892087e": [
+      "melee-attack.cc"
+    ],
+    "log.melee_attack.fixed.09bea8318f6f": [
+      "melee-attack.cc"
+    ],
+    "log.melee_attack.fixed.bbb9888a3cf8": [
+      "melee-attack.cc"
+    ],
+    "log.melee_attack.fixed.0e54236b8a39": [
+      "melee-attack.cc"
+    ],
+    "log.combat.monster_miss": [
+      "melee-attack.cc"
+    ],
+    "log.combat.player_miss": [
+      "melee-attack.cc"
+    ],
+    "log.combat.player_hit": [
+      "melee-attack.cc"
+    ],
+    "log.melee_attack.fixed.b2fd20d703be": [
+      "melee-attack.cc"
+    ],
+    "log.combat.wound": [
+      "melee-attack.cc"
+    ],
+    "log.melee_attack.fixed.60d4748ad6be": [
+      "melee-attack.cc"
+    ],
+    "log.combat.no_damage": [
+      "melee-attack.cc"
+    ],
+    "log.combat.monster_hit": [
+      "melee-attack.cc"
+    ],
+    "log.melee_attack.fixed.25e22731dbab": [
+      "melee-attack.cc"
+    ],
     "log.melee_attack.fixed.b448f24dc9da": [
       "melee-attack.cc"
     ],
-    "hud.experience.max": [
-      "output.cc"
+    "log.melee_attack.fixed.47b79a4ff692": [
+      "melee-attack.cc"
     ],
-    "hud.label.place": [
+    "log.melee_attack.fixed.28c52e8f3317": [
+      "melee-attack.cc"
+    ],
+    "log.combat.rebuke_block": [
+      "melee-attack.cc"
+    ],
+    "log.melee_attack.fixed.001c6164d000": [
+      "melee-attack.cc"
+    ],
+    "hud.experience.max": [
       "output.cc"
     ],
     "hud.experience.progress": [
@@ -1260,37 +1321,34 @@
     "hud.noise.silenced": [
       "output.cc"
     ],
-    "hud.place.branch": [
-      "output.cc"
-    ],
     "hud.label.noise": [
       "output.cc"
     ],
     "hud.place.depth": [
       "output.cc"
     ],
-    "item.reason.drink.stasis_rage": [
-      "player-act.cc"
+    "hud.label.place": [
+      "output.cc"
     ],
-    "shared.log.berserk.finesse_ends": [
-      "player-act.cc"
-    ],
-    "shared.log.berserk.mighty": [
-      "player-act.cc"
-    ],
-    "item.reason.drink.berserk_recovering": [
-      "player-act.cc"
-    ],
-    "item.reason.drink.death_door_blood_rage": [
-      "player-act.cc"
+    "hud.place.branch": [
+      "output.cc"
     ],
     "item.reason.drink.undead_blood_rage": [
+      "player-act.cc"
+    ],
+    "item.reason.drink.too_calm_rage": [
       "player-act.cc"
     ],
     "shared.log.berserk.faster": [
       "player-act.cc"
     ],
+    "shared.log.berserk.finesse_ends": [
+      "player-act.cc"
+    ],
     "shared.log.berserk.red_vision": [
+      "player-act.cc"
+    ],
+    "item.reason.drink.death_door_blood_rage": [
       "player-act.cc"
     ],
     "item.reason.drink.already_berserk": [
@@ -1299,340 +1357,295 @@
     "item.reason.drink.mesmerised_rage": [
       "player-act.cc"
     ],
-    "item.reason.drink.too_calm_rage": [
-      "player-act.cc"
-    ],
     "shared.log.berserk.anger_overcomes_fear": [
       "player-act.cc"
     ],
-    "log.player.fixed.65ebd6ac4614": [
+    "item.reason.drink.berserk_recovering": [
+      "player-act.cc"
+    ],
+    "shared.log.berserk.mighty": [
+      "player-act.cc"
+    ],
+    "item.reason.drink.stasis_rage": [
+      "player-act.cc"
+    ],
+    "log.player.fixed.a0b504e77b01": [
       "player.cc"
     ],
-    "log.player.fixed.0cd12539e354": [
-      "player.cc"
-    ],
-    "log.player.fixed.427c94948754": [
-      "player.cc"
-    ],
-    "log.player.fixed.d2bdfb3f43a3": [
-      "player.cc"
-    ],
-    "log.player.fixed.b211f2b56e24": [
-      "player.cc"
-    ],
-    "log.player.fixed.a685b7f79723": [
-      "player.cc"
-    ],
-    "log.player.fixed.b6473254722c": [
-      "player.cc"
-    ],
-    "log.player.fixed.07caac949a5d": [
-      "player.cc"
-    ],
-    "log.player.fixed.f48806eab7eb": [
-      "player.cc"
-    ],
-    "log.player.fixed.790cca5ed0b1": [
-      "player.cc"
-    ],
-    "log.player.fixed.c44abc792b3b": [
-      "player.cc"
-    ],
-    "log.player.fixed.c059a1601a4f": [
-      "player.cc"
-    ],
-    "log.player.fixed.72d50f6145da": [
-      "player.cc"
-    ],
-    "log.player.fixed.ed5e93024041": [
-      "player.cc"
-    ],
-    "log.player.fixed.df40fe94f2bb": [
+    "log.player.fixed.e901e61d6069": [
       "player.cc"
     ],
     "log.player.fixed.b66971b3da07": [
       "player.cc"
     ],
-    "log.player.fixed.5754027073ba": [
-      "player.cc"
-    ],
-    "log.player.fixed.c071f78462fb": [
-      "player.cc"
-    ],
-    "log.player.fixed.f054beca32fb": [
-      "player.cc"
-    ],
-    "log.player.fixed.1b5d3ef4f9c8": [
-      "player.cc"
-    ],
-    "log.player.fixed.4227ac222fe6": [
-      "player.cc"
-    ],
-    "log.player.fixed.7d5c9b530085": [
-      "player.cc"
-    ],
-    "log.player.fixed.02013454d0bf": [
-      "player.cc"
-    ],
-    "log.player.fixed.829884916256": [
-      "player.cc"
-    ],
-    "log.player.fixed.85a5ea676a5d": [
-      "player.cc"
-    ],
-    "log.player.fixed.0b2082fc5426": [
-      "player.cc"
-    ],
-    "log.player.fixed.a7466ffde2b9": [
-      "player.cc"
-    ],
-    "player.no_tele.anchor": [
-      "player.cc"
-    ],
-    "log.player.fixed.6f60f7135c65": [
-      "player.cc"
-    ],
-    "log.player.fixed.e3434c787b90": [
-      "player.cc"
-    ],
-    "log.player.fixed.b07fe3081ab6": [
-      "player.cc"
-    ],
-    "log.player.fixed.afbf4620fc0b": [
-      "player.cc"
-    ],
-    "item.reason.invisibility.halo": [
-      "player.cc"
-    ],
-    "log.player.fixed.317958edac42": [
-      "player.cc"
-    ],
-    "log.player.fixed.78c808411fdb": [
-      "player.cc"
-    ],
-    "log.player.fixed.09f0da825ecd": [
-      "player.cc"
-    ],
-    "log.player.fixed.84e4013d58c6": [
-      "player.cc"
-    ],
-    "player.invisibility.source.armour": [
-      "player.cc"
-    ],
-    "log.player.fixed.6e285643cc04": [
-      "player.cc"
-    ],
-    "log.player.fixed.7d49fd6b4439": [
-      "player.cc"
-    ],
-    "log.player.fixed.b7f20a7bcd10": [
-      "player.cc"
-    ],
-    "log.player.fixed.6e96344ef2c2": [
-      "player.cc"
-    ],
-    "log.player.fixed.6dd7dec7fc6a": [
-      "player.cc"
-    ],
-    "log.player.fixed.f6b38629d93a": [
-      "player.cc"
-    ],
-    "log.player.fixed.064bc0f60dfa": [
-      "player.cc"
-    ],
-    "log.player.fixed.b6b736605d87": [
-      "player.cc"
-    ],
-    "log.player.fixed.ad735ad09cb1": [
-      "player.cc"
-    ],
-    "log.player.fixed.43a8620b49ce": [
-      "player.cc"
-    ],
-    "player.no_tele.wielded": [
-      "player.cc"
-    ],
-    "log.player.fixed.a9dc5ba96673": [
-      "player.cc"
-    ],
-    "log.player.fixed.15990630ec92": [
-      "player.cc"
-    ],
-    "player.no_tele.blink": [
-      "player.cc"
-    ],
-    "log.player.fixed.4c0163e9fee0": [
-      "player.cc"
-    ],
-    "log.player.fixed.4d13b70c64f6": [
-      "player.cc"
-    ],
-    "log.player.fixed.e72c34c856ac": [
-      "player.cc"
-    ],
-    "log.player.fixed.14ef56476046": [
-      "player.cc"
-    ],
-    "log.player.fixed.b70c560b0221": [
-      "player.cc"
-    ],
-    "log.player.fixed.3401e9a52695": [
-      "player.cc"
-    ],
-    "log.player.fixed.922f812c9a91": [
-      "player.cc"
-    ],
-    "log.player.fixed.96d8f0cf3116": [
-      "player.cc"
-    ],
-    "log.player.fixed.ac1dadc8b841": [
-      "player.cc"
-    ],
-    "log.player.fixed.5b96bc17f132": [
-      "player.cc"
-    ],
-    "log.player.fixed.8d8a97fee7bb": [
-      "player.cc"
-    ],
-    "log.player.fixed.c4921e335753": [
-      "player.cc"
-    ],
-    "player.invisibility.backlit.confirm": [
-      "player.cc"
-    ],
-    "log.player.fixed.eeb1764e5e81": [
-      "player.cc"
-    ],
-    "log.player.fixed.fe2c5b3915e7": [
-      "player.cc"
-    ],
-    "log.player.fixed.b2c8685edc86": [
-      "player.cc"
-    ],
-    "log.player.fixed.1be18fb61d1a": [
-      "player.cc"
-    ],
-    "log.player.fixed.803b80d78507": [
-      "player.cc"
-    ],
-    "player.no_tele.stasis": [
-      "player.cc"
-    ],
-    "player.no_tele.gauntlet": [
-      "player.cc"
-    ],
-    "log.player.fixed.42f15c1f1050": [
-      "player.cc"
-    ],
-    "log.player.fixed.7411d8dc9ec5": [
-      "player.cc"
-    ],
-    "log.player.fixed.f31b4003079f": [
-      "player.cc"
-    ],
-    "log.player.fixed.a0b504e77b01": [
-      "player.cc"
-    ],
-    "player.no_tele.worn_many_artefacts": [
-      "player.cc"
-    ],
-    "log.player.fixed.4df385894366": [
-      "player.cc"
-    ],
-    "log.player.fixed.54de1620950f": [
-      "player.cc"
-    ],
-    "level_final": [
-      "player.cc"
-    ],
-    "log.player.fixed.5d95aa318143": [
-      "player.cc"
-    ],
-    "log.player.fixed.3008880f42d6": [
-      "player.cc"
-    ],
-    "log.player.fixed.57ff2a662ac7": [
-      "player.cc"
-    ],
-    "log.player.fixed.f2e9693d0527": [
+    "log.player.fixed.d2bdfb3f43a3": [
       "player.cc"
     ],
     "log.player.fixed.ef49406b77e0": [
       "player.cc"
     ],
-    "log.player.fixed.c94de1b52d24": [
+    "log.player.fixed.78c808411fdb": [
       "player.cc"
     ],
-    "player.no_tele.roots": [
-      "player.cc"
-    ],
-    "log.player.fixed.0b7e31772b95": [
-      "player.cc"
-    ],
-    "log.player.fixed.bde17ebff2fb": [
-      "player.cc"
-    ],
-    "log.player.fixed.9ff260957d19": [
-      "player.cc"
-    ],
-    "log.player.fixed.d14285701180": [
-      "player.cc"
-    ],
-    "log.player.fixed.ad3746104ea7": [
-      "player.cc"
-    ],
-    "log.player.fixed.80f6250477fa": [
-      "player.cc"
-    ],
-    "log.player.fixed.52a856e4e5eb": [
-      "player.cc"
-    ],
-    "log.player.fixed.7529b9550152": [
-      "player.cc"
-    ],
-    "log.player.fixed.66eff7d065ce": [
-      "player.cc"
-    ],
-    "player.no_tele.sprint": [
-      "player.cc"
-    ],
-    "player.no_tele.teleport": [
-      "player.cc"
-    ],
-    "log.player.fixed.c77d1f3354da": [
-      "player.cc"
-    ],
-    "player.invisibility.source.crown": [
-      "player.cc"
-    ],
-    "log.player.fixed.fa1ced711fcf": [
+    "log.player.fixed.e17e096be55f": [
       "player.cc"
     ],
     "log.player.fixed.fbbe6b7544e6": [
       "player.cc"
     ],
-    "log.player.fixed.8aa532b40db2": [
+    "log.player.fixed.9ff260957d19": [
       "player.cc"
     ],
-    "log.player.fixed.9f1b9c45a39d": [
+    "log.player.fixed.c4921e335753": [
       "player.cc"
     ],
-    "item.reason.invisibility.backlit": [
+    "log.player.fixed.65ebd6ac4614": [
       "player.cc"
     ],
-    "player.invisibility.source.weapon": [
+    "log.player.fixed.09f0da825ecd": [
       "player.cc"
     ],
-    "log.player.fixed.80a76d3b0472": [
+    "player.invisibility.backlit.confirm": [
+      "player.cc"
+    ],
+    "player.no_tele.sprint": [
+      "player.cc"
+    ],
+    "log.player.fixed.43a8620b49ce": [
+      "player.cc"
+    ],
+    "log.player.fixed.ecde9946f021": [
       "player.cc"
     ],
     "log.player.fixed.d27ae14a3f17": [
       "player.cc"
     ],
-    "item.reason.invisibility.backlit_current": [
+    "log.player.fixed.0cd12539e354": [
+      "player.cc"
+    ],
+    "level_highest": [
+      "player.cc"
+    ],
+    "log.player.fixed.c77d1f3354da": [
+      "player.cc"
+    ],
+    "log.player.fixed.2da6e3eca155": [
+      "player.cc"
+    ],
+    "log.player.fixed.6e285643cc04": [
+      "player.cc"
+    ],
+    "log.player.fixed.ed5e93024041": [
+      "player.cc"
+    ],
+    "log.player.fixed.4c0163e9fee0": [
+      "player.cc"
+    ],
+    "log.player.fixed.6f60f7135c65": [
+      "player.cc"
+    ],
+    "player.no_tele.gauntlet": [
+      "player.cc"
+    ],
+    "log.player.fixed.bde17ebff2fb": [
+      "player.cc"
+    ],
+    "log.player.fixed.b211f2b56e24": [
+      "player.cc"
+    ],
+    "log.player.fixed.42f15c1f1050": [
+      "player.cc"
+    ],
+    "log.player.fixed.b7f20a7bcd10": [
+      "player.cc"
+    ],
+    "log.player.fixed.72d50f6145da": [
+      "player.cc"
+    ],
+    "log.player.fixed.846b34a08211": [
+      "player.cc"
+    ],
+    "log.player.fixed.54de1620950f": [
+      "player.cc"
+    ],
+    "log.player.fixed.14ef56476046": [
+      "player.cc"
+    ],
+    "log.player.fixed.f31b4003079f": [
+      "player.cc"
+    ],
+    "log.player.fixed.6e96344ef2c2": [
+      "player.cc"
+    ],
+    "log.player.fixed.f054beca32fb": [
+      "player.cc"
+    ],
+    "log.player.fixed.84e4013d58c6": [
+      "player.cc"
+    ],
+    "log.player.fixed.0b7e31772b95": [
+      "player.cc"
+    ],
+    "player.no_tele.worn_many_items": [
+      "player.cc"
+    ],
+    "log.player.fixed.b70c560b0221": [
+      "player.cc"
+    ],
+    "player.no_tele.worn_many_artefacts": [
+      "player.cc"
+    ],
+    "log.player.fixed.80a76d3b0472": [
+      "player.cc"
+    ],
+    "player.no_tele.anchor": [
+      "player.cc"
+    ],
+    "log.player.fixed.b07fe3081ab6": [
+      "player.cc"
+    ],
+    "log.player.fixed.ea953d9458f9": [
+      "player.cc"
+    ],
+    "log.player.fixed.618daf161a37": [
+      "player.cc"
+    ],
+    "log.player.fixed.317958edac42": [
+      "player.cc"
+    ],
+    "log.player.fixed.b2c8685edc86": [
+      "player.cc"
+    ],
+    "level_welcome_back": [
+      "player.cc"
+    ],
+    "log.player.fixed.9f1b9c45a39d": [
+      "player.cc"
+    ],
+    "player.no_tele.roots": [
+      "player.cc"
+    ],
+    "log.player.fixed.57ff2a662ac7": [
+      "player.cc"
+    ],
+    "log.player.fixed.5b96bc17f132": [
+      "player.cc"
+    ],
+    "log.player.fixed.553d2b23a231": [
+      "player.cc"
+    ],
+    "player.invisibility.source.armour": [
+      "player.cc"
+    ],
+    "log.player.fixed.5754027073ba": [
+      "player.cc"
+    ],
+    "log.player.fixed.d14285701180": [
+      "player.cc"
+    ],
+    "player.no_tele.stasis": [
+      "player.cc"
+    ],
+    "log.player.fixed.a685b7f79723": [
+      "player.cc"
+    ],
+    "log.player.fixed.e9afebcbc29f": [
+      "player.cc"
+    ],
+    "log.player.fixed.c059a1601a4f": [
       "player.cc"
     ],
     "log.player.fixed.5d19ee3ad29e": [
+      "player.cc"
+    ],
+    "log.player.fixed.c8c5405f3ce9": [
+      "player.cc"
+    ],
+    "log.player.fixed.6dd7dec7fc6a": [
+      "player.cc"
+    ],
+    "log.player.fixed.c94de1b52d24": [
+      "player.cc"
+    ],
+    "player.no_tele.blink": [
+      "player.cc"
+    ],
+    "log.player.fixed.eeb1764e5e81": [
+      "player.cc"
+    ],
+    "log.player.fixed.80f6250477fa": [
+      "player.cc"
+    ],
+    "log.player.fixed.07caac949a5d": [
+      "player.cc"
+    ],
+    "log.player.fixed.1be18fb61d1a": [
+      "player.cc"
+    ],
+    "log.player.fixed.52a856e4e5eb": [
+      "player.cc"
+    ],
+    "player.invisibility.source.weapon": [
+      "player.cc"
+    ],
+    "log.player.fixed.afbf4620fc0b": [
+      "player.cc"
+    ],
+    "log.player.fixed.b6473254722c": [
+      "player.cc"
+    ],
+    "log.player.fixed.f0a0a5118b22": [
+      "player.cc"
+    ],
+    "log.player.fixed.3401e9a52695": [
+      "player.cc"
+    ],
+    "log.player.fixed.7411d8dc9ec5": [
+      "player.cc"
+    ],
+    "log.player.fixed.f6b38629d93a": [
+      "player.cc"
+    ],
+    "log.player.fixed.a7466ffde2b9": [
+      "player.cc"
+    ],
+    "log.player.fixed.7d5c9b530085": [
+      "player.cc"
+    ],
+    "log.player.fixed.fa1ced711fcf": [
+      "player.cc"
+    ],
+    "log.player.fixed.02013454d0bf": [
+      "player.cc"
+    ],
+    "log.player.fixed.1b5d3ef4f9c8": [
+      "player.cc"
+    ],
+    "log.player.fixed.4df385894366": [
+      "player.cc"
+    ],
+    "log.player.fixed.df40fe94f2bb": [
+      "player.cc"
+    ],
+    "log.player.fixed.8d8a97fee7bb": [
+      "player.cc"
+    ],
+    "log.player.fixed.3008880f42d6": [
+      "player.cc"
+    ],
+    "player.no_tele.worn_list": [
+      "player.cc"
+    ],
+    "log.player.fixed.803b80d78507": [
+      "player.cc"
+    ],
+    "log.player.fixed.636523da6016": [
+      "player.cc"
+    ],
+    "player.no_tele.wielded": [
+      "player.cc"
+    ],
+    "level_final": [
       "player.cc"
     ],
     "log.player.fixed.5163b219aa32": [
@@ -1641,730 +1654,532 @@
     "log.player.fixed.a138df415c24": [
       "player.cc"
     ],
+    "player.no_tele.teleport": [
+      "player.cc"
+    ],
+    "log.player.fixed.0b2082fc5426": [
+      "player.cc"
+    ],
     "log.player.fixed.93544939e336": [
       "player.cc"
     ],
-    "log.player.fixed.2d2edc83a41a": [
-      "player.cc"
-    ],
-    "player.no_tele.worn_many_items": [
-      "player.cc"
-    ],
-    "log.player.fixed.c8c5405f3ce9": [
-      "player.cc"
-    ],
-    "log.player.fixed.2da6e3eca155": [
-      "player.cc"
-    ],
-    "player.invisibility.source.divine_halo": [
-      "player.cc"
-    ],
-    "log.player.fixed.ecde9946f021": [
-      "player.cc"
-    ],
-    "level_highest": [
-      "player.cc"
-    ],
-    "log.player.fixed.ea953d9458f9": [
-      "player.cc"
-    ],
-    "log.player.fixed.e901e61d6069": [
-      "player.cc"
-    ],
-    "log.player.fixed.618daf161a37": [
-      "player.cc"
-    ],
-    "player.no_tele.worn_list": [
-      "player.cc"
-    ],
-    "log.player.fixed.e9afebcbc29f": [
-      "player.cc"
-    ],
-    "log.player.fixed.553d2b23a231": [
-      "player.cc"
-    ],
-    "log.player.fixed.f97fa7815eba": [
-      "player.cc"
-    ],
-    "level_welcome_back": [
+    "log.player.fixed.c071f78462fb": [
       "player.cc"
     ],
     "log.player.fixed.a931f64997c0": [
       "player.cc"
     ],
-    "log.player.fixed.846b34a08211": [
+    "log.player.fixed.15990630ec92": [
       "player.cc"
     ],
-    "level_reached": [
+    "log.player.fixed.f2e9693d0527": [
       "player.cc"
     ],
-    "log.player.fixed.e17e096be55f": [
+    "log.player.fixed.a9dc5ba96673": [
       "player.cc"
     ],
-    "log.player.fixed.f0a0a5118b22": [
+    "item.reason.invisibility.backlit": [
+      "player.cc"
+    ],
+    "log.player.fixed.ad3746104ea7": [
+      "player.cc"
+    ],
+    "log.player.fixed.e72c34c856ac": [
+      "player.cc"
+    ],
+    "player.invisibility.source.crown": [
+      "player.cc"
+    ],
+    "log.player.fixed.790cca5ed0b1": [
+      "player.cc"
+    ],
+    "log.player.fixed.5d95aa318143": [
+      "player.cc"
+    ],
+    "log.player.fixed.85a5ea676a5d": [
+      "player.cc"
+    ],
+    "log.player.fixed.96d8f0cf3116": [
+      "player.cc"
+    ],
+    "player.invisibility.source.divine_halo": [
+      "player.cc"
+    ],
+    "log.player.fixed.829884916256": [
+      "player.cc"
+    ],
+    "item.reason.invisibility.backlit_current": [
       "player.cc"
     ],
     "log.player.fixed.bbd446d809fb": [
       "player.cc"
     ],
-    "log.player.fixed.636523da6016": [
+    "log.player.fixed.8aa532b40db2": [
       "player.cc"
     ],
-    "item.reason.drink.cannot_heal_potions": [
-      "potion.cc"
+    "log.player.fixed.2d2edc83a41a": [
+      "player.cc"
+    ],
+    "level_reached": [
+      "player.cc"
+    ],
+    "log.player.fixed.064bc0f60dfa": [
+      "player.cc"
+    ],
+    "log.player.fixed.f48806eab7eb": [
+      "player.cc"
+    ],
+    "log.player.fixed.66eff7d065ce": [
+      "player.cc"
+    ],
+    "log.player.fixed.922f812c9a91": [
+      "player.cc"
+    ],
+    "log.player.fixed.427c94948754": [
+      "player.cc"
+    ],
+    "log.player.fixed.b6b736605d87": [
+      "player.cc"
+    ],
+    "log.player.fixed.4d13b70c64f6": [
+      "player.cc"
+    ],
+    "log.player.fixed.e3434c787b90": [
+      "player.cc"
+    ],
+    "log.player.fixed.c44abc792b3b": [
+      "player.cc"
+    ],
+    "log.player.fixed.4227ac222fe6": [
+      "player.cc"
+    ],
+    "log.player.fixed.7529b9550152": [
+      "player.cc"
+    ],
+    "log.player.fixed.ad735ad09cb1": [
+      "player.cc"
+    ],
+    "log.player.fixed.7d49fd6b4439": [
+      "player.cc"
+    ],
+    "log.player.fixed.ac1dadc8b841": [
+      "player.cc"
+    ],
+    "log.player.fixed.f97fa7815eba": [
+      "player.cc"
+    ],
+    "item.reason.invisibility.halo": [
+      "player.cc"
+    ],
+    "log.player.fixed.fe2c5b3915e7": [
+      "player.cc"
     ],
     "item.reason.drink.cannot_mutate_currently": [
       "potion.cc"
     ],
-    "item.reason.drink.cannot_currently_heal": [
-      "potion.cc"
-    ],
-    "item.reason.drink.trog_no_spellcasting": [
-      "potion.cc"
-    ],
-    "item.reason.drink.cannot_mutate_permanently": [
-      "potion.cc"
-    ],
-    "item.reason.drink.heal_deaths_door": [
-      "potion.cc"
-    ],
-    "item.reason.drink.no_ailments": [
+    "item.reason.drink.cannot_heal_potions": [
       "potion.cc"
     ],
     "item.reason.drink.no_magic_restore": [
       "potion.cc"
     ],
-    "item.reason.drink.health_full": [
-      "potion.cc"
-    ],
-    "item.reason.drink.brilliance_active": [
-      "potion.cc"
-    ],
-    "item.reason.drink.chei_no_haste": [
-      "potion.cc"
-    ],
-    "item.reason.drink.nothing_to_cancel": [
+    "item.reason.drink.no_ailments": [
       "potion.cc"
     ],
     "item.reason.drink.magic_full": [
       "potion.cc"
     ],
+    "item.reason.drink.heal_deaths_door": [
+      "potion.cc"
+    ],
+    "item.reason.drink.nothing_to_cancel": [
+      "potion.cc"
+    ],
     "item.reason.drink.haste_stasis": [
       "potion.cc"
     ],
-    "prompt.continue": [
-      "prompt.cc"
+    "item.reason.drink.chei_no_haste": [
+      "potion.cc"
     ],
-    "prompt.choice.always": [
-      "prompt.cc"
+    "item.reason.drink.brilliance_active": [
+      "potion.cc"
     ],
-    "prompt.answer.yn": [
-      "prompt.cc"
+    "item.reason.drink.health_full": [
+      "potion.cc"
     ],
-    "prompt.error.title": [
-      "prompt.cc"
+    "item.reason.drink.cannot_mutate_permanently": [
+      "potion.cc"
     ],
-    "prompt.choice.yes": [
-      "prompt.cc"
+    "item.reason.drink.trog_no_spellcasting": [
+      "potion.cc"
     ],
-    "prompt.choice.no": [
-      "prompt.cc"
+    "item.reason.drink.cannot_currently_heal": [
+      "potion.cc"
     ],
-    "prompt.choice.bugs": [
-      "prompt.cc"
-    ],
-    "prompt.enter_default": [
+    "prompt.answer.yna_upper": [
       "prompt.cc"
     ],
     "prompt.answer.yn_upper": [
       "prompt.cc"
     ],
+    "prompt.continue": [
+      "prompt.cc"
+    ],
+    "prompt.choice.yes": [
+      "prompt.cc"
+    ],
+    "prompt.answer.yn": [
+      "prompt.cc"
+    ],
+    "prompt.choice.always": [
+      "prompt.cc"
+    ],
+    "prompt.enter_default": [
+      "prompt.cc"
+    ],
+    "prompt.choice.bugs": [
+      "prompt.cc"
+    ],
+    "prompt.choice.no": [
+      "prompt.cc"
+    ],
+    "prompt.error.title": [
+      "prompt.cc"
+    ],
     "prompt.answer.yna": [
       "prompt.cc"
     ],
-    "prompt.answer.yna_upper": [
-      "prompt.cc"
-    ],
-    "log.quiver.fixed.f41b93943185": [
-      "quiver.cc"
-    ],
-    "log.quiver.fixed.df9264af4818": [
-      "quiver.cc"
-    ],
-    "log.quiver.fixed.9407bd01a4e0": [
-      "quiver.cc"
-    ],
-    "log.quiver.fixed.1a5179633fbd": [
-      "quiver.cc"
-    ],
-    "log.quiver.fixed.f0c8efe09afe": [
-      "quiver.cc"
-    ],
     "log.quiver.fixed.ffae51a08912": [
-      "quiver.cc"
-    ],
-    "log.quiver.fixed.7df9d7641b32": [
-      "quiver.cc"
-    ],
-    "log.quiver.fixed.89927b47a2e7": [
-      "quiver.cc"
-    ],
-    "log.quiver.fixed.1074683161dc": [
-      "quiver.cc"
-    ],
-    "log.quiver.fixed.ca609a6e55e1": [
       "quiver.cc"
     ],
     "log.quiver.fixed.205abeaf1832": [
       "quiver.cc"
     ],
+    "log.quiver.fixed.df9264af4818": [
+      "quiver.cc"
+    ],
     "log.quiver.fixed.4b1e92859bf3": [
+      "quiver.cc"
+    ],
+    "log.quiver.fixed.ca609a6e55e1": [
+      "quiver.cc"
+    ],
+    "log.quiver.fixed.1074683161dc": [
+      "quiver.cc"
+    ],
+    "log.quiver.fixed.7df9d7641b32": [
+      "quiver.cc"
+    ],
+    "log.quiver.fixed.f41b93943185": [
       "quiver.cc"
     ],
     "log.quiver.fixed.6ee7d04d31b5": [
       "quiver.cc"
     ],
-    "shop.complete.purchase_voucher": [
-      "shopping.cc"
+    "log.quiver.fixed.89927b47a2e7": [
+      "quiver.cc"
     ],
-    "shop.display.name": [
-      "shopping.cc"
+    "log.quiver.fixed.f0c8efe09afe": [
+      "quiver.cc"
     ],
-    "shop.help.voucher_purchase": [
-      "shopping.cc"
+    "log.quiver.fixed.1a5179633fbd": [
+      "quiver.cc"
     ],
-    "log.shopping.fixed.3334ec72908c": [
-      "shopping.cc"
+    "log.quiver.fixed.9407bd01a4e0": [
+      "quiver.cc"
     ],
-    "shop.balance": [
-      "shopping.cc"
-    ],
-    "shop.complete.delete_error": [
+    "log.shopping.fixed.886bc8ea4e66": [
       "shopping.cc"
     ],
     "shop.help.sort": [
       "shopping.cc"
     ],
-    "shopping_list.enough_gold": [
-      "shopping.cc"
-    ],
-    "shopping_list.remove.prompt": [
-      "shopping.cc"
-    ],
-    "prompt.okay": [
-      "shopping.cc"
-    ],
-    "shopping_list.replace.prompt": [
-      "shopping.cc"
-    ],
-    "shopping_list.error.already": [
+    "shopping_list.remove.log": [
       "shopping.cc"
     ],
     "shop.purchase.confirm": [
       "shopping.cc"
     ],
+    "log.shopping.fixed.3334ec72908c": [
+      "shopping.cc"
+    ],
     "shopping_list.help.exit": [
-      "shopping.cc"
-    ],
-    "shop.welcome": [
-      "shopping.cc"
-    ],
-    "shop_gold_shortfall": [
-      "shopping.cc"
-    ],
-    "shop_gold_after_purchase": [
       "shopping.cc"
     ],
     "shop.complete.portal_fee": [
       "shopping.cc"
     ],
-    "shopping_list.title": [
-      "shopping.cc"
-    ],
     "shop.balance.voucher": [
       "shopping.cc"
     ],
-    "shopping_list.remove.log": [
+    "shopping_list.replace.prompt": [
       "shopping.cc"
     ],
-    "shop.complete.travel_prompt": [
+    "shop.help.voucher_purchase": [
       "shopping.cc"
     ],
-    "shop_thanks": [
+    "shop_gold_after_purchase": [
       "shopping.cc"
     ],
-    "shop.purchase.insufficient": [
+    "prompt.okay": [
       "shopping.cc"
     ],
-    "log.shopping.fixed.886bc8ea4e66": [
+    "shop_gold_shortfall": [
       "shopping.cc"
     ],
-    "log.shopping.fixed.077bcc3ff753": [
-      "shopping.cc"
-    ],
-    "shopping_list.error.missing": [
-      "shopping.cc"
-    ],
-    "shop.help.outside": [
-      "shopping.cc"
-    ],
-    "shopping_list.entry": [
+    "shop.balance": [
       "shopping.cc"
     ],
     "shop_closed": [
       "shopping.cc"
     ],
-    "skill.menu.title.progress": [
-      "skill-menu.cc"
+    "shopping_list.remove.prompt": [
+      "shopping.cc"
     ],
-    "skill.menu.title.skill": [
-      "skill-menu.cc"
+    "shopping_list.entry": [
+      "shopping.cc"
     ],
-    "skill.menu.switch_help.training": [
-      "skill-menu.cc"
+    "shop_thanks": [
+      "shopping.cc"
     ],
-    "skill.menu.switch_help.targets": [
-      "skill-menu.cc"
+    "shopping_list.title": [
+      "shopping.cc"
     ],
-    "skill.menu.help.simple_training": [
-      "skill-menu.cc"
+    "shop.purchase.insufficient": [
+      "shopping.cc"
     ],
-    "skill.menu.default.experience": [
-      "skill-menu.cc"
+    "log.shopping.fixed.077bcc3ff753": [
+      "shopping.cc"
     ],
-    "skill.menu.title.new_level": [
-      "skill-menu.cc"
+    "shopping_list.error.already": [
+      "shopping.cc"
     ],
-    "skill.menu.target_prompt": [
-      "skill-menu.cc"
+    "shop.complete.delete_error": [
+      "shopping.cc"
     ],
-    "skill.menu.help.overview": [
-      "skill-menu.cc"
+    "shop.display.name": [
+      "shopping.cc"
     ],
-    "skill.menu.switch_help.practice": [
-      "skill-menu.cc"
+    "shop.complete.travel_prompt": [
+      "shopping.cc"
     ],
-    "skill.menu.help.simple_cost": [
-      "skill-menu.cc"
+    "shop.complete.purchase_voucher": [
+      "shopping.cc"
     ],
-    "skill.menu.title.target": [
-      "skill-menu.cc"
+    "shopping_list.error.missing": [
+      "shopping.cc"
     ],
-    "skill.menu.entry_name": [
-      "skill-menu.cc"
+    "shop.welcome": [
+      "shopping.cc"
     ],
-    "skill.menu.switch_help.progress": [
-      "skill-menu.cc"
+    "shop.help.outside": [
+      "shopping.cc"
     ],
-    "skill.menu.error.target_limit": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.default.manual": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.button.az": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.button.back": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.button.help_highlighted": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.button.help_simple": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.help.simple_descriptions": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.default.aptitude": [
-      "skill-menu.cc"
+    "shopping_list.enough_gold": [
+      "shopping.cc"
     ],
     "skill.menu.enhanced": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.button.set_target": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.reduced": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.switch_help.cost_manual": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.button.set_target_az": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.switch_help.cost": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.help.general": [
-      "skill-menu.cc"
-    ],
-    "log.skill_menu.fixed.029f1275a89a": [
       "skill-menu.cc"
     ],
     "skill.menu.title.level": [
       "skill-menu.cc"
     ],
-    "skill.menu.button.clear_selected": [
+    "skill.menu.default.experience": [
       "skill-menu.cc"
     ],
-    "skill.menu.button.clear_all": [
+    "skill.menu.button.back": [
       "skill-menu.cc"
     ],
-    "skill.menu.switch": [
+    "skill.menu.target_prompt": [
       "skill-menu.cc"
     ],
-    "skill.menu.switch_help.focus": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.switch_help.manual": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.title.cost": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.switch_help.auto": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.help.experience": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.button.help": [
-      "skill-menu.cc"
-    ],
-    "skill.menu.error.no_training": [
+    "skill.menu.help.general": [
       "skill-menu.cc"
     ],
     "skill.menu.help.simple_targets": [
       "skill-menu.cc"
     ],
+    "skill.menu.help.simple_training": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.switch_help.training": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.switch_help.cost": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.entry_name": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.title.cost": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.switch_help.targets": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.switch_help.auto": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.button.help_highlighted": [
+      "skill-menu.cc"
+    ],
     "skill.menu.title.points": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.reduced": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.switch": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.help.simple_cost": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.title.progress": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.error.target_limit": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.help.overview": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.title.skill": [
+      "skill-menu.cc"
+    ],
+    "log.skill_menu.fixed.029f1275a89a": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.default.aptitude": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.switch_help.cost_manual": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.button.clear_selected": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.switch_help.practice": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.button.help": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.help.simple_descriptions": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.title.target": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.button.az": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.title.new_level": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.switch_help.focus": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.switch_help.progress": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.button.help_simple": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.switch_help.manual": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.default.manual": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.error.no_training": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.button.clear_all": [
       "skill-menu.cc"
     ],
     "skill.menu.title.train": [
       "skill-menu.cc"
     ],
-    "skill_level_decrease": [
-      "skills.cc"
+    "skill.menu.help.experience": [
+      "skill-menu.cc"
     ],
-    "log.skills.fixed.3b3a59b8e0c3": [
+    "skill.menu.button.set_target": [
+      "skill-menu.cc"
+    ],
+    "skill.menu.button.set_target_az": [
+      "skill-menu.cc"
+    ],
+    "log.skills.fixed.3a0893d8aa08": [
       "skills.cc"
     ],
     "skill_multi_loss": [
       "skills.cc"
     ],
-    "skill_multi_gain": [
-      "skills.cc"
-    ],
-    "log.skills.fixed.c6143895635f": [
-      "skills.cc"
-    ],
-    "base_training_target_reached": [
-      "skills.cc"
-    ],
     "log.skills.fixed.68e32636a160": [
+      "skills.cc"
+    ],
+    "skill_level_decrease": [
       "skills.cc"
     ],
     "skill_mastered": [
       "skills.cc"
     ],
-    "training_target_reached": [
+    "skill_multi_gain": [
+      "skills.cc"
+    ],
+    "base_training_target_reached": [
       "skills.cc"
     ],
     "skill_level_increase": [
       "skills.cc"
     ],
-    "log.skills.fixed.3a0893d8aa08": [
+    "log.skills.fixed.c6143895635f": [
+      "skills.cc"
+    ],
+    "log.skills.fixed.3b3a59b8e0c3": [
+      "skills.cc"
+    ],
+    "training_target_reached": [
       "skills.cc"
     ],
     "spell.noise.display.wizard": [
       "spl-cast.cc"
     ],
-    "shared.log.teleport.surroundings_suddenly": [
-      "spl-transloc.cc"
-    ],
-    "transloc.gravitas.pinned": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.teleport.start_other": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.blink.orb_interference": [
-      "spl-transloc.cc"
-    ],
-    "transloc.gavotte.east": [
-      "spl-transloc.cc"
-    ],
-    "transloc.charge.remains": [
-      "spl-transloc.cc"
-    ],
-    "transloc.charge.reason.stationary": [
-      "spl-transloc.cc"
-    ],
-    "transloc.target.hop.solid": [
-      "spl-transloc.cc"
-    ],
-    "transloc.target.hop.cancel": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.blink.no_landing": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.boing": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.no_apport_target": [
+    "transloc.gavotte.south": [
       "spl-transloc.cc"
     ],
     "shared.log.transloc.charge_crackle": [
       "spl-transloc.cc"
     ],
-    "transloc.apport.many": [
-      "spl-transloc.cc"
-    ],
-    "transloc.target.blink.solid": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.passage_space": [
-      "spl-transloc.cc"
-    ],
     "transloc.charge.reason.fearmonger": [
-      "spl-transloc.cc"
-    ],
-    "transloc.gavotte.north": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.space_blocked": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.hurled_away": [
-      "spl-transloc.cc"
-    ],
-    "transloc.piledriver.many": [
-      "spl-transloc.cc"
-    ],
-    "transloc.target.hop.where": [
-      "spl-transloc.cc"
-    ],
-    "transloc.target.blink.occupied": [
-      "spl-transloc.cc"
-    ],
-    "transloc.piledriver.one": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.teleport.start_player": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.no_attack_target": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.air_shimmers": [
-      "spl-transloc.cc"
-    ],
-    "transloc.gravitas.inward": [
-      "spl-transloc.cc"
-    ],
-    "transloc.target.blink.where": [
-      "spl-transloc.cc"
-    ],
-    "transloc.gavotte.west": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.hop_no_room": [
-      "spl-transloc.cc"
-    ],
-    "transloc.charge.reason.out_of_range": [
-      "spl-transloc.cc"
-    ],
-    "transloc.gavotte.south": [
-      "spl-transloc.cc"
-    ],
-    "transloc.blinkbolt.away": [
-      "spl-transloc.cc"
-    ],
-    "transloc.gavotte.northwest": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.bug": [
-      "spl-transloc.cc"
-    ],
-    "transloc.charge.reason.ally": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.blink.occupied": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.blink_map_border": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.teleport.delay_orb": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.blink_monsters": [
-      "spl-transloc.cc"
-    ],
-    "transloc.charge.remain": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.no_target": [
-      "spl-transloc.cc"
-    ],
-    "transloc.gravitas.around_monster": [
-      "spl-transloc.cc"
-    ],
-    "transloc.charge.reason.none": [
-      "spl-transloc.cc"
-    ],
-    "transloc.chaos.confirm": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.teleport.start_hostile": [
-      "spl-transloc.cc"
-    ],
-    "transloc.charge.reason.blocked": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.teleport.wizard_blocked": [
-      "spl-transloc.cc"
-    ],
-    "transloc.gavotte.northeast": [
-      "spl-transloc.cc"
-    ],
-    "transloc.target.blink.cancel": [
-      "spl-transloc.cc"
-    ],
-    "transloc.target.hop.occupied": [
-      "spl-transloc.cc"
-    ],
-    "transloc.teleport.follow.monster": [
-      "spl-transloc.cc"
-    ],
-    "transloc.teleport.source_arrives": [
-      "spl-transloc.cc"
-    ],
-    "transloc.bestial.pounce": [
-      "spl-transloc.cc"
-    ],
-    "transloc.target.hop.away": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.jump_air": [
-      "spl-transloc.cc"
-    ],
-    "transloc.gavotte.unknown": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.charge_silence": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.cannot_apport": [
-      "spl-transloc.cc"
-    ],
-    "transloc.charge.reason.beholder": [
       "spl-transloc.cc"
     ],
     "shared.log.transloc.passage_blocked": [
       "spl-transloc.cc"
     ],
-    "shared.log.teleport.hup_cancel": [
+    "transloc.chaos.confirm": [
       "spl-transloc.cc"
     ],
-    "transloc.target.blink.hup": [
+    "transloc.gavotte.west": [
       "spl-transloc.cc"
     ],
-    "transloc.target.hop.hup": [
-      "spl-transloc.cc"
-    ],
-    "transloc.charge.reason.unseen": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.teleport.delay_abyss": [
-      "spl-transloc.cc"
-    ],
-    "transloc.gavotte.southeast": [
-      "spl-transloc.cc"
-    ],
-    "transloc.beckon.singular": [
-      "spl-transloc.cc"
-    ],
-    "transloc.charge.reason.many": [
-      "spl-transloc.cc"
-    ],
-    "transloc.blinkbolt.closer": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.teleport.surroundings_slightly": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.jump_in_place": [
-      "spl-transloc.cc"
-    ],
-    "transloc.charge.immovably_fixed": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.terrain_blocked": [
-      "spl-transloc.cc"
-    ],
-    "transloc.ranged_link.created": [
-      "spl-transloc.cc"
-    ],
-    "transloc.charge.reason.self": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.tambourine": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.teleport.stable": [
-      "spl-transloc.cc"
-    ],
-    "transloc.gravitas.around_terrain": [
-      "spl-transloc.cc"
-    ],
-    "transloc.gravity.attracted": [
-      "spl-transloc.cc"
-    ],
-    "transloc.target.blink.away": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.no_safe_attack_target": [
-      "spl-transloc.cc"
-    ],
-    "transloc.target.hop.closer": [
-      "spl-transloc.cc"
-    ],
-    "transloc.target.blink.closer": [
-      "spl-transloc.cc"
-    ],
-    "transloc.beckon.plural": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.gauntlet_seal": [
-      "spl-transloc.cc"
-    ],
-    "transloc.teleport.follow.monsters": [
-      "spl-transloc.cc"
-    ],
-    "transloc.charge.reason.terrain_blocked": [
-      "spl-transloc.cc"
-    ],
-    "shared.log.transloc.chaos_word": [
-      "spl-transloc.cc"
-    ],
-    "transloc.manifold.blade": [
-      "spl-transloc.cc"
-    ],
-    "transloc.apport.one": [
+    "transloc.charge.reason.blocked": [
       "spl-transloc.cc"
     ],
     "transloc.gavotte.southwest": [
       "spl-transloc.cc"
     ],
-    "shared.log.transloc.passage_other_side_wall": [
+    "transloc.teleport.follow.monsters": [
       "spl-transloc.cc"
     ],
-    "shared.log.teleport.surroundings_flicker": [
+    "transloc.charge.reason.out_of_range": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.space_blocked": [
+      "spl-transloc.cc"
+    ],
+    "transloc.gravitas.around_terrain": [
       "spl-transloc.cc"
     ],
     "transloc.charge.reason.adjacent": [
@@ -2373,95 +2188,260 @@
     "shared.log.transloc.warp": [
       "spl-transloc.cc"
     ],
-    "shared.log.transloc.out_of_range": [
+    "shared.log.transloc.terrain_blocked": [
+      "spl-transloc.cc"
+    ],
+    "transloc.charge.reason.self": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.no_safe_attack_target": [
+      "spl-transloc.cc"
+    ],
+    "transloc.target.blink.occupied": [
       "spl-transloc.cc"
     ],
     "transloc.charge.reason.target": [
       "spl-transloc.cc"
     ],
-    "spell.reason.too_dead": [
-      "spl-util.cc"
+    "shared.log.teleport.delay_abyss": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.school_forbidden": [
-      "spl-util.cc"
+    "shared.log.transloc.blink_monsters": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.winds_calm": [
-      "spl-util.cc"
+    "transloc.charge.reason.stationary": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.cannot_move_now": [
-      "spl-util.cc"
+    "shared.log.teleport.delay_orb": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.crocodile_survival": [
-      "spl-util.cc"
+    "shared.log.teleport.start_other": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.dead_hp_payment": [
-      "spl-util.cc"
+    "shared.log.teleport.surroundings_suddenly": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.wait_mortar": [
-      "spl-util.cc"
+    "transloc.target.hop.hup": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.stasis_teleport": [
-      "spl-util.cc"
+    "shared.log.transloc.hop_no_room": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.momentum_move": [
-      "spl-util.cc"
+    "shared.log.teleport.hup_cancel": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.reaping": [
-      "spl-util.cc"
+    "transloc.apport.one": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.no_blood": [
-      "spl-util.cc"
+    "transloc.target.hop.cancel": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.no_spike_walls": [
-      "spl-util.cc"
+    "transloc.target.blink.cancel": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.no_armour_soul": [
-      "spl-util.cc"
+    "shared.log.transloc.charge_silence": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.open_space_forest": [
-      "spl-util.cc"
+    "transloc.gavotte.east": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.already_effect": [
-      "spl-util.cc"
+    "transloc.charge.remains": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.magic_health_inextricable": [
-      "spl-util.cc"
+    "transloc.beckon.singular": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.death_door_cooldown": [
-      "spl-util.cc"
+    "shared.log.transloc.tambourine": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.low_experience": [
-      "spl-util.cc"
+    "transloc.blinkbolt.away": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.blink_unstable": [
-      "spl-util.cc"
+    "transloc.target.blink.hup": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.one_forest": [
-      "spl-util.cc"
+    "transloc.gravity.attracted": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.more_ramparts": [
-      "spl-util.cc"
+    "transloc.charge.reason.beholder": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.still_air": [
-      "spl-util.cc"
+    "shared.log.transloc.blink_map_border": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.summons_no_answer": [
-      "spl-util.cc"
+    "transloc.target.hop.solid": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.ring_flames_melts_ice": [
-      "spl-util.cc"
+    "shared.log.transloc.passage_other_side_wall": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.too_confused": [
-      "spl-util.cc"
+    "transloc.bestial.pounce": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.no_body_armour": [
-      "spl-util.cc"
+    "shared.log.blink.occupied": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.no_launch_target": [
-      "spl-util.cc"
+    "transloc.manifold.blade": [
+      "spl-transloc.cc"
     ],
-    "spell.reason.insufficient_magic": [
-      "spl-util.cc"
+    "shared.log.teleport.start_hostile": [
+      "spl-transloc.cc"
+    ],
+    "transloc.target.hop.where": [
+      "spl-transloc.cc"
+    ],
+    "transloc.target.blink.away": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.gauntlet_seal": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.air_shimmers": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.bug": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.teleport.surroundings_flicker": [
+      "spl-transloc.cc"
+    ],
+    "transloc.teleport.follow.monster": [
+      "spl-transloc.cc"
+    ],
+    "transloc.gravitas.inward": [
+      "spl-transloc.cc"
+    ],
+    "transloc.target.blink.solid": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.teleport.stable": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.blink.orb_interference": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.passage_space": [
+      "spl-transloc.cc"
+    ],
+    "transloc.charge.reason.unseen": [
+      "spl-transloc.cc"
+    ],
+    "transloc.target.blink.closer": [
+      "spl-transloc.cc"
+    ],
+    "transloc.charge.remain": [
+      "spl-transloc.cc"
+    ],
+    "transloc.target.hop.occupied": [
+      "spl-transloc.cc"
+    ],
+    "transloc.gavotte.unknown": [
+      "spl-transloc.cc"
+    ],
+    "transloc.charge.immovably_fixed": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.teleport.start_player": [
+      "spl-transloc.cc"
+    ],
+    "transloc.teleport.source_arrives": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.jump_air": [
+      "spl-transloc.cc"
+    ],
+    "transloc.charge.reason.terrain_blocked": [
+      "spl-transloc.cc"
+    ],
+    "transloc.gavotte.northwest": [
+      "spl-transloc.cc"
+    ],
+    "transloc.ranged_link.created": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.blink.no_landing": [
+      "spl-transloc.cc"
+    ],
+    "transloc.piledriver.many": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.boing": [
+      "spl-transloc.cc"
+    ],
+    "transloc.beckon.plural": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.no_apport_target": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.no_target": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.teleport.wizard_blocked": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.no_attack_target": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.teleport.surroundings_slightly": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.jump_in_place": [
+      "spl-transloc.cc"
+    ],
+    "transloc.target.hop.away": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.cannot_apport": [
+      "spl-transloc.cc"
+    ],
+    "transloc.charge.reason.many": [
+      "spl-transloc.cc"
+    ],
+    "transloc.gravitas.pinned": [
+      "spl-transloc.cc"
+    ],
+    "transloc.target.blink.where": [
+      "spl-transloc.cc"
+    ],
+    "transloc.piledriver.one": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.hurled_away": [
+      "spl-transloc.cc"
+    ],
+    "transloc.gavotte.north": [
+      "spl-transloc.cc"
+    ],
+    "transloc.blinkbolt.closer": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.chaos_word": [
+      "spl-transloc.cc"
+    ],
+    "transloc.charge.reason.none": [
+      "spl-transloc.cc"
+    ],
+    "transloc.gavotte.southeast": [
+      "spl-transloc.cc"
+    ],
+    "shared.log.transloc.out_of_range": [
+      "spl-transloc.cc"
+    ],
+    "transloc.gravitas.around_monster": [
+      "spl-transloc.cc"
+    ],
+    "transloc.apport.many": [
+      "spl-transloc.cc"
+    ],
+    "transloc.charge.reason.ally": [
+      "spl-transloc.cc"
+    ],
+    "transloc.target.hop.closer": [
+      "spl-transloc.cc"
+    ],
+    "transloc.gavotte.northeast": [
+      "spl-transloc.cc"
     ],
     "spell.reason.no_sigil_space": [
       "spl-util.cc"
@@ -2469,104 +2449,338 @@
     "spell.reason.launch_move": [
       "spl-util.cc"
     ],
-    "spell.reason.more_bogs": [
-      "spl-util.cc"
-    ],
-    "spell.reason.one_malign_gateway": [
-      "spl-util.cc"
-    ],
-    "spell.reason.vision_short": [
-      "spl-util.cc"
-    ],
-    "spell.reason.lack_resilience": [
-      "spl-util.cc"
-    ],
-    "spell.reason.fortress_charging": [
-      "spl-util.cc"
-    ],
-    "spell.reason.off_level": [
-      "spl-util.cc"
-    ],
-    "spell.reason.paragon_deployed": [
-      "spl-util.cc"
-    ],
-    "spell.reason.held_from_wall": [
-      "spl-util.cc"
-    ],
-    "spell.reason.already_fast": [
-      "spl-util.cc"
-    ],
-    "spell.reason.imprint_weapon": [
-      "spl-util.cc"
-    ],
-    "spell.reason.insufficient_health": [
-      "spl-util.cc"
-    ],
-    "spell.reason.harvest_souls": [
-      "spl-util.cc"
-    ],
-    "spell.reason.powerful_in_form": [
-      "spl-util.cc"
-    ],
-    "spell.reason.stasis_swiftness": [
-      "spl-util.cc"
-    ],
-    "spell.reason.already_channeling": [
-      "spl-util.cc"
-    ],
-    "spell.reason.familiar_injured": [
-      "spl-util.cc"
-    ],
-    "spell.reason.cannot_move": [
-      "spl-util.cc"
-    ],
-    "spell.reason.no_sawblade_room": [
-      "spl-util.cc"
-    ],
-    "spell.reason.summons_no_obedience": [
-      "spl-util.cc"
-    ],
-    "spell.reason.gauntlet_seal": [
-      "spl-util.cc"
-    ],
-    "spell.reason.dragon_call_cooldown": [
-      "spl-util.cc"
-    ],
-    "spell.reason.without_hands": [
-      "spl-util.cc"
-    ],
-    "spell.reason.magic_reserves_full": [
-      "spl-util.cc"
-    ],
-    "spell.reason.healed_further": [
-      "spl-util.cc"
-    ],
-    "spell.reason.launch_stasis": [
-      "spl-util.cc"
-    ],
-    "spell.reason.no_passable_walls": [
-      "spl-util.cc"
-    ],
     "spell.reason.death_door_active": [
       "spl-util.cc"
     ],
-    "spell.reason.barrage_active": [
-      "spl-util.cc"
-    ],
-    "spell.reason.gold_corpses": [
+    "spell.reason.no_launch_target": [
       "spl-util.cc"
     ],
     "spell.reason.open_space_gateway": [
       "spl-util.cc"
     ],
-    "spell.reason.gravity_unstable": [
+    "spell.reason.insufficient_health": [
+      "spl-util.cc"
+    ],
+    "spell.reason.launch_stasis": [
+      "spl-util.cc"
+    ],
+    "spell.reason.harvest_souls": [
+      "spl-util.cc"
+    ],
+    "spell.reason.one_malign_gateway": [
+      "spl-util.cc"
+    ],
+    "spell.reason.summons_no_answer": [
+      "spl-util.cc"
+    ],
+    "spell.reason.cannot_move": [
+      "spl-util.cc"
+    ],
+    "spell.reason.death_door_cooldown": [
+      "spl-util.cc"
+    ],
+    "spell.reason.no_blood": [
+      "spl-util.cc"
+    ],
+    "spell.reason.dragon_call_cooldown": [
+      "spl-util.cc"
+    ],
+    "spell.reason.dead_hp_payment": [
+      "spl-util.cc"
+    ],
+    "spell.reason.no_body_armour": [
+      "spl-util.cc"
+    ],
+    "spell.reason.no_armour_soul": [
+      "spl-util.cc"
+    ],
+    "spell.reason.paragon_deployed": [
+      "spl-util.cc"
+    ],
+    "spell.reason.healed_further": [
+      "spl-util.cc"
+    ],
+    "spell.reason.still_air": [
+      "spl-util.cc"
+    ],
+    "spell.reason.barrage_active": [
+      "spl-util.cc"
+    ],
+    "spell.reason.insufficient_magic": [
+      "spl-util.cc"
+    ],
+    "spell.reason.no_spike_walls": [
+      "spl-util.cc"
+    ],
+    "spell.reason.lack_resilience": [
+      "spl-util.cc"
+    ],
+    "spell.reason.winds_calm": [
+      "spl-util.cc"
+    ],
+    "spell.reason.familiar_injured": [
+      "spl-util.cc"
+    ],
+    "spell.reason.held_from_wall": [
+      "spl-util.cc"
+    ],
+    "spell.reason.gauntlet_seal": [
+      "spl-util.cc"
+    ],
+    "spell.reason.crocodile_survival": [
+      "spl-util.cc"
+    ],
+    "spell.reason.powerful_in_form": [
+      "spl-util.cc"
+    ],
+    "spell.reason.open_space_forest": [
+      "spl-util.cc"
+    ],
+    "spell.reason.no_passable_walls": [
+      "spl-util.cc"
+    ],
+    "spell.reason.no_sawblade_room": [
+      "spl-util.cc"
+    ],
+    "spell.reason.imprint_weapon": [
+      "spl-util.cc"
+    ],
+    "spell.reason.one_forest": [
+      "spl-util.cc"
+    ],
+    "spell.reason.without_hands": [
+      "spl-util.cc"
+    ],
+    "spell.reason.ground_solid": [
+      "spl-util.cc"
+    ],
+    "spell.reason.too_dead": [
+      "spl-util.cc"
+    ],
+    "spell.reason.too_confused": [
+      "spl-util.cc"
+    ],
+    "spell.reason.ring_flames_melts_ice": [
+      "spl-util.cc"
+    ],
+    "spell.reason.stasis_teleport": [
+      "spl-util.cc"
+    ],
+    "spell.reason.already_effect": [
+      "spl-util.cc"
+    ],
+    "spell.reason.more_ramparts": [
+      "spl-util.cc"
+    ],
+    "spell.reason.cannot_move_now": [
+      "spl-util.cc"
+    ],
+    "spell.reason.fortress_charging": [
+      "spl-util.cc"
+    ],
+    "spell.reason.blink_unstable": [
+      "spl-util.cc"
+    ],
+    "spell.reason.momentum_move": [
+      "spl-util.cc"
+    ],
+    "spell.reason.already_fast": [
       "spl-util.cc"
     ],
     "spell.reason.pet_crocodile_here": [
       "spl-util.cc"
     ],
-    "spell.reason.ground_solid": [
+    "spell.reason.low_experience": [
       "spl-util.cc"
+    ],
+    "spell.reason.reaping": [
+      "spl-util.cc"
+    ],
+    "spell.reason.magic_reserves_full": [
+      "spl-util.cc"
+    ],
+    "spell.reason.gravity_unstable": [
+      "spl-util.cc"
+    ],
+    "spell.reason.gold_corpses": [
+      "spl-util.cc"
+    ],
+    "spell.reason.stasis_swiftness": [
+      "spl-util.cc"
+    ],
+    "spell.reason.wait_mortar": [
+      "spl-util.cc"
+    ],
+    "spell.reason.vision_short": [
+      "spl-util.cc"
+    ],
+    "spell.reason.school_forbidden": [
+      "spl-util.cc"
+    ],
+    "spell.reason.off_level": [
+      "spl-util.cc"
+    ],
+    "spell.reason.summons_no_obedience": [
+      "spl-util.cc"
+    ],
+    "spell.reason.more_bogs": [
+      "spl-util.cc"
+    ],
+    "spell.reason.magic_health_inextricable": [
+      "spl-util.cc"
+    ],
+    "spell.reason.already_channeling": [
+      "spl-util.cc"
+    ],
+    "target.reason.you_cannot_affect_that": [
+      "target.cc"
+    ],
+    "target.reason.you_can_only_target_your_own_forgecraft_constructs": [
+      "target.cc"
+    ],
+    "target.reason.you_cannot_see_anything_there": [
+      "target.cc"
+    ],
+    "target.reason.you_cannot_see_that_place": [
+      "target.cc"
+    ],
+    "target.reason.your_weapon_cannot_reach_that_far": [
+      "target.cc"
+    ],
+    "target.reason.you_cannot_bind_the_soul_of_an_ally": [
+      "target.cc"
+    ],
+    "target.reason.the_effect_is_blocked": [
+      "target.cc"
+    ],
+    "target.reason.you_cannot_grow_anything_here": [
+      "target.cc"
+    ],
+    "target.reason.you_cannot_target_a_construct_which_is_already": [
+      "target.cc"
+    ],
+    "target.reason.transference.self": [
+      "target.cc"
+    ],
+    "target.reason.please_select_a_direction_to_dig": [
+      "target.cc"
+    ],
+    "target.reason.their_shadow_is_too_faded_to_take_hold": [
+      "target.cc"
+    ],
+    "target.reason.you_cannot_conjure_a_boulder_there": [
+      "target.cc"
+    ],
+    "target.reason.you_cannot_transfer_that": [
+      "target.cc"
+    ],
+    "target.reason.that_cannot_be_teleported": [
+      "target.cc"
+    ],
+    "target.reason.transference.ancestor": [
+      "target.cc"
+    ],
+    "target.reason.unravelling.no_effects": [
+      "target.cc"
+    ],
+    "target.reason.you_cannot_bind_the_soul_of_a_summoned": [
+      "target.cc"
+    ],
+    "target.reason.there_is_nothing_to_be_tempered_there": [
+      "target.cc"
+    ],
+    "target.reason.you_see_nothing_there_you_can_launch": [
+      "target.cc"
+    ],
+    "target.reason.you_can_only_putrefy_natural_creatures": [
+      "target.cc"
+    ],
+    "target.reason.you_can_only_roll_a_boulder_in_a": [
+      "target.cc"
+    ],
+    "target.reason.gravity_is_already_pointing_downward": [
+      "target.cc"
+    ],
+    "target.reason.you_are_unable_to_grasp_such_an_alien": [
+      "target.cc"
+    ],
+    "target.reason.there_is_something_in_the_way": [
+      "target.cc"
+    ],
+    "target.reason.digging_in_that_direction_will_not_affect_any": [
+      "target.cc"
+    ],
+    "target.reason.you_cannot_get_through": [
+      "target.cc"
+    ],
+    "target.reason.you_cannot_putrefy_a_friendly_monster": [
+      "target.cc"
+    ],
+    "target.reason.they_have_no_useful_spells_to_cast_right": [
+      "target.cc"
+    ],
+    "target.reason.your_paragon_could_not_survive_being_deployed_there": [
+      "target.cc"
+    ],
+    "target.reason.wall": [
+      "target.cc"
+    ],
+    "target.reason.there_is_a_thick_headed_creature_in_the": [
+      "target.cc"
+    ],
+    "target.reason.you_can_see_nowhere_safe_to_land_near": [
+      "target.cc"
+    ],
+    "target.reason.that_does_not_possess_a_soul_you_can": [
+      "target.cc"
+    ],
+    "target.reason.you_cannot_place_harmful_clouds_in_a_sanctuary": [
+      "target.cc"
+    ],
+    "target.reason.poisonous_vapours.immune": [
+      "target.cc"
+    ],
+    "target.reason.you_do_not_see_a_valid_target_there": [
+      "target.cc"
+    ],
+    "target.reason.you_can_only_reorient_gravity_in_a_cardinal": [
+      "target.cc"
+    ],
+    "target.reason.unravelling.cannot_harm": [
+      "target.cc"
+    ],
+    "target.reason.there_is_already_a_cloud_there": [
+      "target.cc"
+    ],
+    "target.reason.you_cannot_conjure_a_boulder_in_an_occupied": [
+      "target.cc"
+    ],
+    "target.reason.you_must_target_an_enemy_who_is_afraid": [
+      "target.cc"
+    ],
+    "target.reason.this_is_not_wounded_badly_enough": [
+      "target.cc"
+    ],
+    "target.reason.a_summoned_shadow_is_too_ephemeral_to_take": [
+      "target.cc"
+    ],
+    "target.reason.their_soul_is_too_badly_injured": [
+      "target.cc"
+    ],
+    "skill.tile.error.distributed": [
+      "tilereg-skl.cc"
+    ],
+    "skill.tile.action.disable": [
+      "tilereg-skl.cc"
+    ],
+    "skill.tile.action.enable": [
+      "tilereg-skl.cc"
+    ],
+    "skill.tile.action.describe": [
+      "tilereg-skl.cc"
+    ],
+    "skill.tile.action.wizard": [
+      "tilereg-skl.cc"
     ],
     "skill.tile.tab.manage": [
       "tilereg-skl.cc"
@@ -2577,55 +2791,154 @@
     "skill.tile.tag": [
       "tilereg-skl.cc"
     ],
-    "skill.tile.action.enable": [
-      "tilereg-skl.cc"
-    ],
-    "skill.tile.error.distributed": [
-      "tilereg-skl.cc"
-    ],
     "skill.tile.error.maxed": [
       "tilereg-skl.cc"
     ],
-    "skill.tile.action.disable": [
-      "tilereg-skl.cc"
-    ],
-    "skill.tile.action.wizard": [
-      "tilereg-skl.cc"
-    ],
-    "skill.tile.action.describe": [
-      "tilereg-skl.cc"
-    ],
-    "talisman.unsafe.transform.shatter": [
-      "transform.cc"
-    ],
-    "item.reason.transform.stuck": [
-      "transform.cc"
-    ],
-    "talisman.unsafe.untransform.shatter": [
-      "transform.cc"
-    ],
-    "talisman.unsafe.untransform.burn": [
-      "transform.cc"
-    ],
-    "talisman.unsafe.untransform.drown": [
-      "transform.cc"
-    ],
-    "item.reason.transform.gargoyle": [
-      "transform.cc"
-    ],
-    "shared.log.transform.burn": [
+    "transform.log.holy_glow": [
       "transform.cc"
     ],
     "talisman.unsafe.transform.burn": [
       "transform.cc"
     ],
+    "transform.enter.pig": [
+      "transform.cc"
+    ],
+    "transform.log.maw_resist": [
+      "transform.cc"
+    ],
+    "transform.enter.storm": [
+      "transform.cc"
+    ],
+    "transform.enter.shadow": [
+      "transform.cc"
+    ],
+    "transform.enter.vampire": [
+      "transform.cc"
+    ],
+    "talisman.unsafe.untransform.shatter": [
+      "transform.cc"
+    ],
+    "transform.enter.spider": [
+      "transform.cc"
+    ],
+    "transform.enter.statue": [
+      "transform.cc"
+    ],
+    "transform.enter.bat": [
+      "transform.cc"
+    ],
+    "transform.log.vampire_gaze": [
+      "transform.cc"
+    ],
+    "talisman.unsafe.transform.shatter": [
+      "transform.cc"
+    ],
+    "transform.log.vampire_loses_eyes": [
+      "transform.cc"
+    ],
+    "transform.enter.tree": [
+      "transform.cc"
+    ],
+    "transform.log.vampire_loses_eye": [
+      "transform.cc"
+    ],
+    "transform.enter.porcupine": [
+      "transform.cc"
+    ],
     "item.reason.transform.death_door": [
+      "transform.cc"
+    ],
+    "transform.log.gear_falls_curse": [
+      "transform.cc"
+    ],
+    "transform.enter.walking_scroll": [
+      "transform.cc"
+    ],
+    "transform.enter.eel_hands.single": [
+      "transform.cc"
+    ],
+    "transform.enter.eel_hands.plural": [
+      "transform.cc"
+    ],
+    "transform.enter.sphinx": [
+      "transform.cc"
+    ],
+    "transform.enter.werewolf": [
+      "transform.cc"
+    ],
+    "transform.enter.jelly": [
+      "transform.cc"
+    ],
+    "transform.enter.none": [
+      "transform.cc"
+    ],
+    "transform.enter.slaughter": [
+      "transform.cc"
+    ],
+    "transform.leave.eel_hands.single": [
+      "transform.cc"
+    ],
+    "shared.log.transform.burn": [
+      "transform.cc"
+    ],
+    "transform.enter.wisp": [
+      "transform.cc"
+    ],
+    "transform.log.maw_hungry": [
+      "transform.cc"
+    ],
+    "shared.log.transform.drown": [
+      "transform.cc"
+    ],
+    "transform.leave.eel_hands.plural": [
+      "transform.cc"
+    ],
+    "item.reason.transform.gargoyle": [
+      "transform.cc"
+    ],
+    "transform.log.gear_falls": [
+      "transform.cc"
+    ],
+    "transform.enter.hive": [
       "transform.cc"
     ],
     "item.reason.transform.permanent": [
       "transform.cc"
     ],
-    "item.reason.transform.undead": [
+    "transform.enter.dragon_species": [
+      "transform.cc"
+    ],
+    "transform.enter.maw": [
+      "transform.cc"
+    ],
+    "item.reason.transform.stuck": [
+      "transform.cc"
+    ],
+    "transform.enter.fungus": [
+      "transform.cc"
+    ],
+    "talisman.unsafe.untransform.drown": [
+      "transform.cc"
+    ],
+    "transform.enter.bat_swarm": [
+      "transform.cc"
+    ],
+    "transform.enter.sun_scarab": [
+      "transform.cc"
+    ],
+    "transform.enter.fortress_crab": [
+      "transform.cc"
+    ],
+    "transform.enter.serpent": [
+      "transform.cc"
+    ],
+    "talisman.unsafe.untransform.burn": [
+      "transform.cc"
+    ],
+    "transform.enter.spore": [
+      "transform.cc"
+    ],
+    "transform.enter.rime_yak": [
       "transform.cc"
     ],
     "talisman.unsafe.transform.drown": [
@@ -2634,8 +2947,20 @@
     "shared.prompt.transform.lower_max_hp": [
       "transform.cc"
     ],
-    "shared.log.transform.drown": [
+    "transform.log.holy_dull": [
       "transform.cc"
+    ],
+    "transform.enter.dragon": [
+      "transform.cc"
+    ],
+    "item.reason.transform.undead": [
+      "transform.cc"
+    ],
+    "item.miscellany.display.charges": [
+      "zh-display-name.cc"
+    ],
+    "item.miscellany.display.ziggurat_progress": [
+      "zh-display-name.cc"
     ],
     "item.book.display.parchment": [
       "zh-display-name.cc"
@@ -2643,25 +2968,19 @@
     "place.display.level": [
       "zh-display-name.cc"
     ],
-    "item.miscellany.display.charges": [
-      "zh-display-name.cc"
-    ],
     "item.miscellany.display.inert": [
-      "zh-display-name.cc"
-    ],
-    "item.book.display.manual": [
-      "zh-display-name.cc"
-    ],
-    "place.display.named": [
       "zh-display-name.cc"
     ],
     "item.wand.display.charges": [
       "zh-display-name.cc"
     ],
-    "item.miscellany.display.ziggurat_progress": [
+    "item.miscellany.display.evoker_plus": [
       "zh-display-name.cc"
     ],
-    "item.miscellany.display.evoker_plus": [
+    "place.display.named": [
+      "zh-display-name.cc"
+    ],
+    "item.book.display.manual": [
       "zh-display-name.cc"
     ]
   },
@@ -2712,7 +3031,7 @@
     "god-passive.cc": 13,
     "god-prayer.cc": 5,
     "god-wrath.cc": 9,
-    "hints.cc": 12,
+    "hints.cc": 14,
     "hiscores.cc": 1,
     "initfile.cc": 33,
     "invent.cc": 4,
@@ -2807,7 +3126,7 @@
     "tilesdl.cc": 2,
     "tileweb.cc": 1,
     "timed-effects.cc": 17,
-    "transform.cc": 20,
+    "transform.cc": 13,
     "traps.cc": 53,
     "travel.cc": 40,
     "view.cc": 3,
@@ -2849,6 +3168,9 @@
     ]
   },
   "source_literal_context_bindings": {
+    "transform.log": [
+      "transform.cc"
+    ],
     "detail.artifact.property": [
       "describe.cc"
     ],

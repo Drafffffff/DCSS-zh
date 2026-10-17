@@ -1,5 +1,12 @@
 """Real wizard setup and UI input, only for replay scripts' copied saves."""
 RESTRICTION_SCENES = {
+ 'transform-cycle': 'l&wiz\r%level:1 pre_id quill talisman\rgPc.....Pc.....',
+
+ 'miscast-single': 'l&wiz\r!Fire Storm\ryIa',
+ 'miscast-multiple': 'l&wiz\r!Malign Gateway\ryIa',
+ 'target-notification': 'l&wiz\r!Magic Dart\ryZay' + 'l'*12,
+ 'pickup-tutorial': 'l&wiz\r%pre_id stone q:1\r.ll',
+
  'flow-talisman-protean-ready': 'l&wiz\rSShapeshifting\r6\r&%level:1 pre_id protean talisman\rgPcY.....',
  'spell-reason-confused': 'l&wiz\r!Magic Dart\ry&\x04conf\r1000\rIa',
  'flow-talisman-protean': 'l&wiz\r%level:1 pre_id protean talisman\rgPc',
@@ -12,6 +19,13 @@ RESTRICTION_SCENES = {
  'log-berserk': 'l&wiz\r%pre_id potion of berserk rage\rg qB',
 }
 RESTRICTION_EXPECTED = {
+ 'transform-cycle': {'transform.log.sharp_quills_grow_all_over_your_body','transform.log.your_quills_recede_back_into_your_body'},
+
+ 'miscast-single': {'spell.miscast.parent.single'},
+ 'miscast-multiple': {'spell.miscast.parent.multiple'},
+ 'target-notification': {'target.reason.you_cannot_see_that_place'},
+ 'pickup-tutorial': {'hints.pickup.first_object'},
+
  'flow-talisman-protean-ready': {'talisman.protean.transforms','log.delay.fixed.c8feee978c02'},
  'spell-reason-confused': {'spell.reason.too_confused','spell.player.casting_useless'},
  'flow-talisman-protean': {'talisman.reason.unstable'},

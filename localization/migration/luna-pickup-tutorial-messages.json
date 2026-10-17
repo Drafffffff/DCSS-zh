@@ -1,0 +1,26 @@
+{
+  "model": "gpt-6-luna",
+  "purpose": "Complete pickup tutorial message catalog with structural markup preserved.",
+  "messages": [
+    {
+      "id": "hints.pickup.first_object",
+      "context": "拾取教程：首次发现物品的完整提示",
+      "source_context": "hints.pickup",
+      "en": "That <console>$1 </console>is an item. If you move there and press <input>$cmd[CMD_PICKUP]</input><localtiles>, or <input>left-click</input> on it in your inventory</localtiles>, you will pick it up.<console> Generally, items are shown by non-letter symbols like <w>%?!\"=()[</w>.</console> Some objects<tiles>, marked with a green frame,</tiles> will be picked up automatically.\n\nOnce it is in your inventory, you can drop it again with <localtiles>a <input>Shift-left-click</input>. Whenever you <input>right-click</input> on an item</localtiles><console><input>$cmd[CMD_DROP]</input>. Any time you look at an item in your inventory (<input>$cmd[CMD_DISPLAY_INVENTORY]</input>)</console>, you can read about its properties and its description.\n",
+      "zh": "那边<console>$1 </console>是一个物品。移动到它旁边并按下 <input>$cmd[CMD_PICKUP]</input><localtiles>，或者在背包中对它<input>单击鼠标左键</input></localtiles>，即可拾取。<console>通常，物品会以非字母符号显示，例如 <w>%?!\"=()[</w>。</console>有些物品<tiles>会以绿色边框标出，</tiles>并自动拾取。\n\n物品进入背包后，你可以用<localtiles><input>Shift-鼠标左键</input>再次将它丢下。每当你<input>对物品单击鼠标右键</input></localtiles><console><input>$cmd[CMD_DROP]</input>。查看背包中的物品时（<input>$cmd[CMD_DISPLAY_INVENTORY]</input>）</console>，你可以阅读它的属性和说明。\n",
+      "params": {},
+      "source": {
+        "file": "dat/descript/hints.txt",
+        "anchor": "HINT_SEEN_FIRST_OBJECT; full complete hint template; $1 glyph is replaced after language selection"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "hints.pickup.first_object",
+      "args": {},
+      "canonical": "That <console>$1 </console>is an item. If you move there and press <input>$cmd[CMD_PICKUP]</input><localtiles>, or <input>left-click</input> on it in your inventory</localtiles>, you will pick it up.<console> Generally, items are shown by non-letter symbols like <w>%?!\"=()[</w>.</console> Some objects<tiles>, marked with a green frame,</tiles> will be picked up automatically.\n\nOnce it is in your inventory, you can drop it again with <localtiles>a <input>Shift-left-click</input>. Whenever you <input>right-click</input> on an item</localtiles><console><input>$cmd[CMD_DROP]</input>. Any time you look at an item in your inventory (<input>$cmd[CMD_DISPLAY_INVENTORY]</input>)</console>, you can read about its properties and its description.\n",
+      "zh": "那边<console>$1 </console>是一个物品。移动到它旁边并按下 <input>$cmd[CMD_PICKUP]</input><localtiles>，或者在背包中对它<input>单击鼠标左键</input></localtiles>，即可拾取。<console>通常，物品会以非字母符号显示，例如 <w>%?!\"=()[</w>。</console>有些物品<tiles>会以绿色边框标出，</tiles>并自动拾取。\n\n物品进入背包后，你可以用<localtiles><input>Shift-鼠标左键</input>再次将它丢下。每当你<input>对物品单击鼠标右键</input></localtiles><console><input>$cmd[CMD_DROP]</input>。查看背包中的物品时（<input>$cmd[CMD_DISPLAY_INVENTORY]</input>）</console>，你可以阅读它的属性和说明。\n"
+    }
+  ]
+}

@@ -1,0 +1,2644 @@
+{
+  "model": "gpt-6-luna",
+  "purpose": "Complete fixed and dynamic transform logs and form announcements.",
+  "messages": [
+    {
+      "id": "transform.enter.none",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into your old self.",
+      "zh": "你恢复了原来的形态。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.spider",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into an agile web-spinner.",
+      "zh": "你变成一只敏捷的织网蜘蛛。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.statue",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a living statue of rough stone.",
+      "zh": "你变成一尊粗石塑成的活雕像。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.serpent",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into an enormous two-headed serpent.",
+      "zh": "你变成一条庞大的双头巨蛇。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.dragon",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a fearsome dragon!",
+      "zh": "你变成一条威风凛凛的龙！",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.bat",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a bat.",
+      "zh": "你变成一只蝙蝠。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.pig",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a filthy swine.",
+      "zh": "你变成一头肮脏的猪。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.tree",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a tree.",
+      "zh": "你变成一棵树。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.wisp",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into an insubstantial wisp.",
+      "zh": "你变成一个虚无缥缈的幽灵。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.jelly",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a lump of jelly.",
+      "zh": "你变成一团果冻。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.fungus",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a sentient fungus.",
+      "zh": "你变成一株有知觉的真菌。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.shadow",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a swirling mass of dark shadows.",
+      "zh": "你变成一团旋卷的暗影。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.storm",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a lightning-filled tempest!",
+      "zh": "你变成一场充满闪电的风暴！",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.maw",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a creature with a mouth for a stomach.",
+      "zh": "你变成一个以嘴为胃的生物。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.slaughter",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a vessel of demonic slaughter.",
+      "zh": "你变成一个恶魔屠戮的容器。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.vampire",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a living vampire.",
+      "zh": "你变成一个活生生的吸血鬼。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.bat_swarm",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a swarm of vampire bats.",
+      "zh": "你变成一群吸血蝙蝠。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.rime_yak",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into an ice-encrusted yak.",
+      "zh": "你变成一头覆着冰霜的牦牛。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.hive",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a living hive.",
+      "zh": "你变成一个活体蜂巢。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.sphinx",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a cunning sphinx.",
+      "zh": "你变成一只狡黠的狮身人面像。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.werewolf",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a ferocious werewolf.",
+      "zh": "你变成一头凶猛的狼人。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.walking_scroll",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a walking scroll.",
+      "zh": "你变成一卷会走路的卷轴。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.fortress_crab",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a heavily-armoured crab.",
+      "zh": "你变成一只身披重甲的螃蟹。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.enter.sun_scarab",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a gleaming scarab beetle.",
+      "zh": "你变成一只熠熠生辉的圣甲虫。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message selected by transformation enum; complete form announcement"
+      }
+    },
+    {
+      "id": "transform.log.your_transformation_has_ended",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your transformation has ended.",
+      "zh": "你的变形结束了。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.your_body_destabilises",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your body destabilises.",
+      "zh": "你的身体开始变得不稳定。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.your_body_stabilises_again",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your body stabilises again.",
+      "zh": "你的身体重新稳定下来。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.blades_grow_out_of_your_body",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Blades grow out of your body!",
+      "zh": "刀刃从你的身体中长出！",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.your_blades_shrink_back_into_your_body_and_disappear",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your blades shrink back into your body and disappear.",
+      "zh": "你的刀刃缩回体内，消失不见。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.you_inwardly_fear_your_resemblance_to_a_lawn_ornament",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "You inwardly fear your resemblance to a lawn ornament.",
+      "zh": "你心里担忧自己活像一件草坪装饰。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.you_revert_to_your_normal_fleshy_form",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "You revert to your normal fleshy form.",
+      "zh": "你恢复了原来的血肉之躯。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.your_flesh_twists_and_warps_into_a_mockery_of_life",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your flesh twists and warps into a mockery of life!",
+      "zh": "你的血肉扭曲变形，化作生命的拙劣仿品！",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.you_feel_yourself_come_back_to_life",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "You feel yourself come back to life.",
+      "zh": "你感到自己重新焕发生机。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.you_feel_less_batty",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "You feel less batty.",
+      "zh": "你感觉不再那么像蝙蝠了。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.you_feel_less_porcine",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "You feel less porcine.",
+      "zh": "你感觉不再那么像猪了。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.you_feel_less_wooden",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "You feel less wooden.",
+      "zh": "你感觉不再那么像树木了。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.you_condense_into_your_normal_self",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "You condense into your normal self.",
+      "zh": "你凝聚回原来的形态。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.you_stop_sporulating",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "You stop sporulating.",
+      "zh": "你停止散播孢子。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.you_feel_less_shadowy",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "You feel less shadowy.",
+      "zh": "你感觉不再那么像影子了。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.you_emerge_from_the_shadows",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "You emerge from the shadows.",
+      "zh": "你从暗影中显现出来。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.sharp_quills_grow_all_over_your_body",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Sharp quills grow all over your body.",
+      "zh": "你的全身长出尖锐的硬刺。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.your_quills_recede_back_into_your_body",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your quills recede back into your body.",
+      "zh": "你的硬刺缩回体内。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.makhleb_calls_their_payment_due",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Makhleb calls their payment due...",
+      "zh": "玛克雷布来索要报酬了……",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.your_body_transforms_into_elemental_water",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your body transforms into elemental water.",
+      "zh": "你的身体变成了水元素。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.your_body_returns_to_its_normal_shape_and_substance",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your body returns to its normal shape and substance.",
+      "zh": "你的身体恢复了原来的形状与质地。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.a_mane_of_stinging_tendrils_grows_from_your_head",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "A mane of stinging tendrils grows from your head.",
+      "zh": "一丛带刺的卷须从你的头上长出。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.your_tendrils_shrivel_away",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your tendrils shrivel away.",
+      "zh": "你的卷须枯萎消失。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.your_mycelia_shrivel_away",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your mycelia shrivel away.",
+      "zh": "你的菌丝枯萎消失。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.your_roots_penetrate_the_ground",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your roots penetrate the ground.",
+      "zh": "你的根系扎入地面。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.you_feel_strangely_stable",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "You feel strangely stable.",
+      "zh": "你感到一种奇异的稳定。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.gozag_s_golden_gift_will_leave_your_new_mouth_with_nothing_to_eat",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Gozag's golden gift will leave your new mouth with nothing to eat.",
+      "zh": "哥萨戈的黄金恩赐会让你的新嘴无物可食。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.your_mandibles_meld_away",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your mandibles meld away.",
+      "zh": "你的颚足融化消失。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.your_tiny_sun_winks_out",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your tiny sun winks out.",
+      "zh": "你的小太阳熄灭了。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.your_legs_become_a_tail_as_you_dive_into_the_water",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "Your legs become a tail as you dive into the water.",
+      "zh": "你潜入水中时，双腿变成了一条尾巴。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.but_don_t_expect_to_remain_undetected",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "...but don't expect to remain undetected.",
+      "zh": "……但别指望还能隐匿行踪。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.a_tiny_sun_coalesces_beside_you",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "A tiny sun coalesces beside you.",
+      "zh": "一颗小太阳在你身旁凝聚成形。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.log.you_reconstitute_your_solar_ember",
+      "context": "变形日志：完整固定提示",
+      "source_context": "transform.log",
+      "en": "You reconstitute your solar ember.",
+      "zh": "你重新凝聚出自己的太阳余烬。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "_transform_log fixed literal"
+      }
+    },
+    {
+      "id": "transform.enter.dragon_species",
+      "context": "变形日志：完整动态提示",
+      "en": "You turn into a fearsome {monster}!",
+      "zh": "你变成威风凛凛的{monster}！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.enter.eel_hands.single",
+      "context": "变形日志：完整动态提示",
+      "en": "Your {parts} turns into a wriggling electric eel!",
+      "zh": "你的{parts}变成了一条扭动的电鳗！",
+      "params": {
+        "parts": "text"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.enter.eel_hands.plural",
+      "context": "变形日志：完整动态提示",
+      "en": "Your {parts} turn into a pair of wriggling electric eels!",
+      "zh": "你的{parts}变成了一对扭动的电鳗！",
+      "params": {
+        "parts": "text"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.leave.eel_hands.single",
+      "context": "变形日志：完整动态提示",
+      "en": "Your {parts} reverts to its normal form.",
+      "zh": "你的{parts}恢复了原形。",
+      "params": {
+        "parts": "text"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.leave.eel_hands.plural",
+      "context": "变形日志：完整动态提示",
+      "en": "Your {parts} revert to their normal form.",
+      "zh": "你的{parts}恢复了原形。",
+      "params": {
+        "parts": "text"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.enter.spore",
+      "context": "变形日志：完整动态提示",
+      "en": "Dense mycelia sprout from your {arms} and {feet}.",
+      "zh": "浓密的菌丝从你的{arms}和{feet}上长出。",
+      "params": {
+        "arms": "text",
+        "feet": "text"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.log.holy_dull",
+      "context": "变形日志：完整动态提示",
+      "en": "{item} goes dull and lifeless in your grasp.",
+      "zh": "{item}在你手中变得黯淡无光。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.log.holy_glow",
+      "context": "变形日志：完整动态提示",
+      "en": "{item} softly glows with a divine radiance!",
+      "zh": "{item}柔和地散发着神圣的光辉！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.log.gear_falls",
+      "context": "变形日志：完整动态提示",
+      "en": "{item} falls away!",
+      "zh": "{item}脱落了！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.log.gear_falls_curse",
+      "context": "变形日志：完整动态提示",
+      "en": "{item} falls away, shattering the curse!",
+      "zh": "{item}脱落了，诅咒也随之破除！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.log.maw_hungry",
+      "context": "变形日志：完整动态提示",
+      "en": "Your maw growls hungrily at the sight of {monster}.",
+      "zh": "看到{monster}，你的巨口饥肠辘辘地咆哮起来。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.log.maw_resist",
+      "context": "变形日志：完整动态提示",
+      "en": "Your maw growls hungrily at the sight of {monster}, but you resist your urges.",
+      "zh": "看到{monster}，你的巨口饥肠辘辘地咆哮起来，但你克制住了冲动。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.log.vampire_loses_eye",
+      "context": "变形日志：完整动态提示",
+      "en": "{monster} loses {reflexive} in your eye.",
+      "zh": "{monster}{reflexive}在你眼前失去意识。",
+      "params": {
+        "monster": "name",
+        "reflexive": "text"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.log.vampire_loses_eyes",
+      "context": "变形日志：完整动态提示",
+      "en": "{monster} loses {reflexive} in your eyes.",
+      "zh": "{monster}{reflexive}在你眼前失去意识。",
+      "params": {
+        "monster": "name",
+        "reflexive": "text"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.log.vampire_gaze",
+      "context": "变形日志：完整动态提示",
+      "en": "{monster} is briefly mesmerised by your gaze.",
+      "zh": "{monster}短暂地被你的凝视迷住了。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "complete dynamic transform log template"
+      }
+    },
+    {
+      "id": "transform.bodypart.a_hand",
+      "context": "变形日志：身体部位语义名称",
+      "en": "a hand",
+      "zh": "一只手",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.hands",
+      "context": "变形日志：身体部位语义名称",
+      "en": "hands",
+      "zh": "手",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.a_paw",
+      "context": "变形日志：身体部位语义名称",
+      "en": "a paw",
+      "zh": "一只爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.paws",
+      "context": "变形日志：身体部位语义名称",
+      "en": "paws",
+      "zh": "爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.a_claw",
+      "context": "变形日志：身体部位语义名称",
+      "en": "a claw",
+      "zh": "一只利爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.claws",
+      "context": "变形日志：身体部位语义名称",
+      "en": "claws",
+      "zh": "利爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.a_tentacle",
+      "context": "变形日志：身体部位语义名称",
+      "en": "a tentacle",
+      "zh": "一根触手",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.tentacles",
+      "context": "变形日志：身体部位语义名称",
+      "en": "tentacles",
+      "zh": "触手",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.a_grasper",
+      "context": "变形日志：身体部位语义名称",
+      "en": "a grasper",
+      "zh": "一个抓握器",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.graspers",
+      "context": "变形日志：身体部位语义名称",
+      "en": "graspers",
+      "zh": "抓握器",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.a_tendril",
+      "context": "变形日志：身体部位语义名称",
+      "en": "a tendril",
+      "zh": "一根卷须",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.tendrils",
+      "context": "变形日志：身体部位语义名称",
+      "en": "tendrils",
+      "zh": "卷须",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.a_fist",
+      "context": "变形日志：身体部位语义名称",
+      "en": "a fist",
+      "zh": "一只拳头",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.fists",
+      "context": "变形日志：身体部位语义名称",
+      "en": "fists",
+      "zh": "拳头",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.a_front_paw",
+      "context": "变形日志：身体部位语义名称",
+      "en": "a front paw",
+      "zh": "一只前爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.front_paws",
+      "context": "变形日志：身体部位语义名称",
+      "en": "front paws",
+      "zh": "前爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.a_front_claw",
+      "context": "变形日志：身体部位语义名称",
+      "en": "a front claw",
+      "zh": "一只前爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.front_claws",
+      "context": "变形日志：身体部位语义名称",
+      "en": "front claws",
+      "zh": "前爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.a_front_tentacle",
+      "context": "变形日志：身体部位语义名称",
+      "en": "a front tentacle",
+      "zh": "一根前方触手",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.front_tentacles",
+      "context": "变形日志：身体部位语义名称",
+      "en": "front tentacles",
+      "zh": "前方触手",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.a_main_tentacle",
+      "context": "变形日志：身体部位语义名称",
+      "en": "a main tentacle",
+      "zh": "一根主触手",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.main_tentacles",
+      "context": "变形日志：身体部位语义名称",
+      "en": "main tentacles",
+      "zh": "主触手",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.arm",
+      "context": "变形日志：身体部位语义名称",
+      "en": "arm",
+      "zh": "手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.arms",
+      "context": "变形日志：身体部位语义名称",
+      "en": "arms",
+      "zh": "手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.scaled_arm",
+      "context": "变形日志：身体部位语义名称",
+      "en": "scaled arm",
+      "zh": "覆鳞手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.scaled_arms",
+      "context": "变形日志：身体部位语义名称",
+      "en": "scaled arms",
+      "zh": "覆鳞手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.furry_arm",
+      "context": "变形日志：身体部位语义名称",
+      "en": "furry arm",
+      "zh": "毛茸茸的手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.furry_arms",
+      "context": "变形日志：身体部位语义名称",
+      "en": "furry arms",
+      "zh": "毛茸茸的手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.feathered_arm",
+      "context": "变形日志：身体部位语义名称",
+      "en": "feathered arm",
+      "zh": "覆羽手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.feathered_arms",
+      "context": "变形日志：身体部位语义名称",
+      "en": "feathered arms",
+      "zh": "覆羽手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.bandage_wrapped_arm",
+      "context": "变形日志：身体部位语义名称",
+      "en": "bandage-wrapped arm",
+      "zh": "缠满绷带的手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.bandage_wrapped_arms",
+      "context": "变形日志：身体部位语义名称",
+      "en": "bandage-wrapped arms",
+      "zh": "缠满绷带的手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.stony_arm",
+      "context": "变形日志：身体部位语义名称",
+      "en": "stony arm",
+      "zh": "石质手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.stony_arms",
+      "context": "变形日志：身体部位语义名称",
+      "en": "stony arms",
+      "zh": "石质手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.ectoplasmic_arm",
+      "context": "变形日志：身体部位语义名称",
+      "en": "ectoplasmic arm",
+      "zh": "灵质手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.ectoplasmic_arms",
+      "context": "变形日志：身体部位语义名称",
+      "en": "ectoplasmic arms",
+      "zh": "灵质手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.bony_arm",
+      "context": "变形日志：身体部位语义名称",
+      "en": "bony arm",
+      "zh": "骨质手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.bony_arms",
+      "context": "变形日志：身体部位语义名称",
+      "en": "bony arms",
+      "zh": "骨质手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.fossilised_arm",
+      "context": "变形日志：身体部位语义名称",
+      "en": "fossilised arm",
+      "zh": "石化手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.fossilised_arms",
+      "context": "变形日志：身体部位语义名称",
+      "en": "fossilised arms",
+      "zh": "石化手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.fleshy_arm",
+      "context": "变形日志：身体部位语义名称",
+      "en": "fleshy arm",
+      "zh": "血肉手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.fleshy_arms",
+      "context": "变形日志：身体部位语义名称",
+      "en": "fleshy arms",
+      "zh": "血肉手臂",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.foot",
+      "context": "变形日志：身体部位语义名称",
+      "en": "foot",
+      "zh": "脚",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.feet",
+      "context": "变形日志：身体部位语义名称",
+      "en": "feet",
+      "zh": "双脚",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.hoof",
+      "context": "变形日志：身体部位语义名称",
+      "en": "hoof",
+      "zh": "蹄",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.hooves",
+      "context": "变形日志：身体部位语义名称",
+      "en": "hooves",
+      "zh": "蹄",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.talon",
+      "context": "变形日志：身体部位语义名称",
+      "en": "talon",
+      "zh": "利爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.talons",
+      "context": "变形日志：身体部位语义名称",
+      "en": "talons",
+      "zh": "利爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.underbelly",
+      "context": "变形日志：身体部位语义名称",
+      "en": "underbelly",
+      "zh": "腹部",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.tail",
+      "context": "变形日志：身体部位语义名称",
+      "en": "tail",
+      "zh": "尾巴",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.tails",
+      "context": "变形日志：身体部位语义名称",
+      "en": "tails",
+      "zh": "尾巴",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.paw",
+      "context": "变形日志：身体部位语义名称",
+      "en": "paw",
+      "zh": "爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.front_trotter",
+      "context": "变形日志：身体部位语义名称",
+      "en": "front trotter",
+      "zh": "前蹄",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.front_trotters",
+      "context": "变形日志：身体部位语义名称",
+      "en": "front trotters",
+      "zh": "前蹄",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.root",
+      "context": "变形日志：身体部位语义名称",
+      "en": "root",
+      "zh": "根须",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.roots",
+      "context": "变形日志：身体部位语义名称",
+      "en": "roots",
+      "zh": "根须",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.branch",
+      "context": "变形日志：身体部位语义名称",
+      "en": "branch",
+      "zh": "枝条",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.branches",
+      "context": "变形日志：身体部位语义名称",
+      "en": "branches",
+      "zh": "枝条",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.flesh",
+      "context": "变形日志：身体部位语义名称",
+      "en": "flesh",
+      "zh": "血肉",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.wood",
+      "context": "变形日志：身体部位语义名称",
+      "en": "wood",
+      "zh": "木质",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.hypha",
+      "context": "变形日志：身体部位语义名称",
+      "en": "hypha",
+      "zh": "菌丝",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.hyphae",
+      "context": "变形日志：身体部位语义名称",
+      "en": "hyphae",
+      "zh": "菌丝",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.foreclaw",
+      "context": "变形日志：身体部位语义名称",
+      "en": "foreclaw",
+      "zh": "前爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.foreclaws",
+      "context": "变形日志：身体部位语义名称",
+      "en": "foreclaws",
+      "zh": "前爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.front_leg",
+      "context": "变形日志：身体部位语义名称",
+      "en": "front leg",
+      "zh": "前腿",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.front_legs",
+      "context": "变形日志：身体部位语义名称",
+      "en": "front legs",
+      "zh": "前腿",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.forepaw",
+      "context": "变形日志：身体部位语义名称",
+      "en": "forepaw",
+      "zh": "前爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.forepaws",
+      "context": "变形日志：身体部位语义名称",
+      "en": "forepaws",
+      "zh": "前爪",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.front_pincers",
+      "context": "变形日志：身体部位语义名称",
+      "en": "front pincers",
+      "zh": "前螯",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.coils",
+      "context": "变形日志：身体部位语义名称",
+      "en": "coils",
+      "zh": "盘绕的身体",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.eel_hand",
+      "context": "变形日志：身体部位语义名称",
+      "en": "eel hand",
+      "zh": "鳗鱼手",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.bodypart.eel_hands",
+      "context": "变形日志：身体部位语义名称",
+      "en": "eel hands",
+      "zh": "鳗鱼手",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "base_hand_name/arm_name/foot_name exact supported part phrase"
+      }
+    },
+    {
+      "id": "transform.enter.porcupine",
+      "context": "变形日志：进入指定形态的完整提示",
+      "en": "You turn into a spiny porcupine.",
+      "zh": "你变成一只浑身长刺的豪猪。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "Form::transform_display_message; transformation::porcupine (tag 34)"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "transform.enter.none",
+      "args": {},
+      "canonical": "You turn into your old self.",
+      "zh": "你恢复了原来的形态。"
+    },
+    {
+      "id": "transform.enter.spider",
+      "args": {},
+      "canonical": "You turn into an agile web-spinner.",
+      "zh": "你变成一只敏捷的织网蜘蛛。"
+    },
+    {
+      "id": "transform.enter.statue",
+      "args": {},
+      "canonical": "You turn into a living statue of rough stone.",
+      "zh": "你变成一尊粗石塑成的活雕像。"
+    },
+    {
+      "id": "transform.enter.serpent",
+      "args": {},
+      "canonical": "You turn into an enormous two-headed serpent.",
+      "zh": "你变成一条庞大的双头巨蛇。"
+    },
+    {
+      "id": "transform.enter.dragon",
+      "args": {},
+      "canonical": "You turn into a fearsome dragon!",
+      "zh": "你变成一条威风凛凛的龙！"
+    },
+    {
+      "id": "transform.enter.bat",
+      "args": {},
+      "canonical": "You turn into a bat.",
+      "zh": "你变成一只蝙蝠。"
+    },
+    {
+      "id": "transform.enter.pig",
+      "args": {},
+      "canonical": "You turn into a filthy swine.",
+      "zh": "你变成一头肮脏的猪。"
+    },
+    {
+      "id": "transform.enter.tree",
+      "args": {},
+      "canonical": "You turn into a tree.",
+      "zh": "你变成一棵树。"
+    },
+    {
+      "id": "transform.enter.wisp",
+      "args": {},
+      "canonical": "You turn into an insubstantial wisp.",
+      "zh": "你变成一个虚无缥缈的幽灵。"
+    },
+    {
+      "id": "transform.enter.jelly",
+      "args": {},
+      "canonical": "You turn into a lump of jelly.",
+      "zh": "你变成一团果冻。"
+    },
+    {
+      "id": "transform.enter.fungus",
+      "args": {},
+      "canonical": "You turn into a sentient fungus.",
+      "zh": "你变成一株有知觉的真菌。"
+    },
+    {
+      "id": "transform.enter.shadow",
+      "args": {},
+      "canonical": "You turn into a swirling mass of dark shadows.",
+      "zh": "你变成一团旋卷的暗影。"
+    },
+    {
+      "id": "transform.enter.storm",
+      "args": {},
+      "canonical": "You turn into a lightning-filled tempest!",
+      "zh": "你变成一场充满闪电的风暴！"
+    },
+    {
+      "id": "transform.enter.maw",
+      "args": {},
+      "canonical": "You turn into a creature with a mouth for a stomach.",
+      "zh": "你变成一个以嘴为胃的生物。"
+    },
+    {
+      "id": "transform.enter.slaughter",
+      "args": {},
+      "canonical": "You turn into a vessel of demonic slaughter.",
+      "zh": "你变成一个恶魔屠戮的容器。"
+    },
+    {
+      "id": "transform.enter.vampire",
+      "args": {},
+      "canonical": "You turn into a living vampire.",
+      "zh": "你变成一个活生生的吸血鬼。"
+    },
+    {
+      "id": "transform.enter.bat_swarm",
+      "args": {},
+      "canonical": "You turn into a swarm of vampire bats.",
+      "zh": "你变成一群吸血蝙蝠。"
+    },
+    {
+      "id": "transform.enter.rime_yak",
+      "args": {},
+      "canonical": "You turn into an ice-encrusted yak.",
+      "zh": "你变成一头覆着冰霜的牦牛。"
+    },
+    {
+      "id": "transform.enter.hive",
+      "args": {},
+      "canonical": "You turn into a living hive.",
+      "zh": "你变成一个活体蜂巢。"
+    },
+    {
+      "id": "transform.enter.sphinx",
+      "args": {},
+      "canonical": "You turn into a cunning sphinx.",
+      "zh": "你变成一只狡黠的狮身人面像。"
+    },
+    {
+      "id": "transform.enter.werewolf",
+      "args": {},
+      "canonical": "You turn into a ferocious werewolf.",
+      "zh": "你变成一头凶猛的狼人。"
+    },
+    {
+      "id": "transform.enter.walking_scroll",
+      "args": {},
+      "canonical": "You turn into a walking scroll.",
+      "zh": "你变成一卷会走路的卷轴。"
+    },
+    {
+      "id": "transform.enter.fortress_crab",
+      "args": {},
+      "canonical": "You turn into a heavily-armoured crab.",
+      "zh": "你变成一只身披重甲的螃蟹。"
+    },
+    {
+      "id": "transform.enter.sun_scarab",
+      "args": {},
+      "canonical": "You turn into a gleaming scarab beetle.",
+      "zh": "你变成一只熠熠生辉的圣甲虫。"
+    },
+    {
+      "id": "transform.log.your_transformation_has_ended",
+      "args": {},
+      "canonical": "Your transformation has ended.",
+      "zh": "你的变形结束了。"
+    },
+    {
+      "id": "transform.log.your_body_destabilises",
+      "args": {},
+      "canonical": "Your body destabilises.",
+      "zh": "你的身体开始变得不稳定。"
+    },
+    {
+      "id": "transform.log.your_body_stabilises_again",
+      "args": {},
+      "canonical": "Your body stabilises again.",
+      "zh": "你的身体重新稳定下来。"
+    },
+    {
+      "id": "transform.log.blades_grow_out_of_your_body",
+      "args": {},
+      "canonical": "Blades grow out of your body!",
+      "zh": "刀刃从你的身体中长出！"
+    },
+    {
+      "id": "transform.log.your_blades_shrink_back_into_your_body_and_disappear",
+      "args": {},
+      "canonical": "Your blades shrink back into your body and disappear.",
+      "zh": "你的刀刃缩回体内，消失不见。"
+    },
+    {
+      "id": "transform.log.you_inwardly_fear_your_resemblance_to_a_lawn_ornament",
+      "args": {},
+      "canonical": "You inwardly fear your resemblance to a lawn ornament.",
+      "zh": "你心里担忧自己活像一件草坪装饰。"
+    },
+    {
+      "id": "transform.log.you_revert_to_your_normal_fleshy_form",
+      "args": {},
+      "canonical": "You revert to your normal fleshy form.",
+      "zh": "你恢复了原来的血肉之躯。"
+    },
+    {
+      "id": "transform.log.your_flesh_twists_and_warps_into_a_mockery_of_life",
+      "args": {},
+      "canonical": "Your flesh twists and warps into a mockery of life!",
+      "zh": "你的血肉扭曲变形，化作生命的拙劣仿品！"
+    },
+    {
+      "id": "transform.log.you_feel_yourself_come_back_to_life",
+      "args": {},
+      "canonical": "You feel yourself come back to life.",
+      "zh": "你感到自己重新焕发生机。"
+    },
+    {
+      "id": "transform.log.you_feel_less_batty",
+      "args": {},
+      "canonical": "You feel less batty.",
+      "zh": "你感觉不再那么像蝙蝠了。"
+    },
+    {
+      "id": "transform.log.you_feel_less_porcine",
+      "args": {},
+      "canonical": "You feel less porcine.",
+      "zh": "你感觉不再那么像猪了。"
+    },
+    {
+      "id": "transform.log.you_feel_less_wooden",
+      "args": {},
+      "canonical": "You feel less wooden.",
+      "zh": "你感觉不再那么像树木了。"
+    },
+    {
+      "id": "transform.log.you_condense_into_your_normal_self",
+      "args": {},
+      "canonical": "You condense into your normal self.",
+      "zh": "你凝聚回原来的形态。"
+    },
+    {
+      "id": "transform.log.you_stop_sporulating",
+      "args": {},
+      "canonical": "You stop sporulating.",
+      "zh": "你停止散播孢子。"
+    },
+    {
+      "id": "transform.log.you_feel_less_shadowy",
+      "args": {},
+      "canonical": "You feel less shadowy.",
+      "zh": "你感觉不再那么像影子了。"
+    },
+    {
+      "id": "transform.log.you_emerge_from_the_shadows",
+      "args": {},
+      "canonical": "You emerge from the shadows.",
+      "zh": "你从暗影中显现出来。"
+    },
+    {
+      "id": "transform.log.sharp_quills_grow_all_over_your_body",
+      "args": {},
+      "canonical": "Sharp quills grow all over your body.",
+      "zh": "你的全身长出尖锐的硬刺。"
+    },
+    {
+      "id": "transform.log.your_quills_recede_back_into_your_body",
+      "args": {},
+      "canonical": "Your quills recede back into your body.",
+      "zh": "你的硬刺缩回体内。"
+    },
+    {
+      "id": "transform.log.makhleb_calls_their_payment_due",
+      "args": {},
+      "canonical": "Makhleb calls their payment due...",
+      "zh": "玛克雷布来索要报酬了……"
+    },
+    {
+      "id": "transform.log.your_body_transforms_into_elemental_water",
+      "args": {},
+      "canonical": "Your body transforms into elemental water.",
+      "zh": "你的身体变成了水元素。"
+    },
+    {
+      "id": "transform.log.your_body_returns_to_its_normal_shape_and_substance",
+      "args": {},
+      "canonical": "Your body returns to its normal shape and substance.",
+      "zh": "你的身体恢复了原来的形状与质地。"
+    },
+    {
+      "id": "transform.log.a_mane_of_stinging_tendrils_grows_from_your_head",
+      "args": {},
+      "canonical": "A mane of stinging tendrils grows from your head.",
+      "zh": "一丛带刺的卷须从你的头上长出。"
+    },
+    {
+      "id": "transform.log.your_tendrils_shrivel_away",
+      "args": {},
+      "canonical": "Your tendrils shrivel away.",
+      "zh": "你的卷须枯萎消失。"
+    },
+    {
+      "id": "transform.log.your_mycelia_shrivel_away",
+      "args": {},
+      "canonical": "Your mycelia shrivel away.",
+      "zh": "你的菌丝枯萎消失。"
+    },
+    {
+      "id": "transform.log.your_roots_penetrate_the_ground",
+      "args": {},
+      "canonical": "Your roots penetrate the ground.",
+      "zh": "你的根系扎入地面。"
+    },
+    {
+      "id": "transform.log.you_feel_strangely_stable",
+      "args": {},
+      "canonical": "You feel strangely stable.",
+      "zh": "你感到一种奇异的稳定。"
+    },
+    {
+      "id": "transform.log.gozag_s_golden_gift_will_leave_your_new_mouth_with_nothing_to_eat",
+      "args": {},
+      "canonical": "Gozag's golden gift will leave your new mouth with nothing to eat.",
+      "zh": "哥萨戈的黄金恩赐会让你的新嘴无物可食。"
+    },
+    {
+      "id": "transform.log.your_mandibles_meld_away",
+      "args": {},
+      "canonical": "Your mandibles meld away.",
+      "zh": "你的颚足融化消失。"
+    },
+    {
+      "id": "transform.log.your_tiny_sun_winks_out",
+      "args": {},
+      "canonical": "Your tiny sun winks out.",
+      "zh": "你的小太阳熄灭了。"
+    },
+    {
+      "id": "transform.log.your_legs_become_a_tail_as_you_dive_into_the_water",
+      "args": {},
+      "canonical": "Your legs become a tail as you dive into the water.",
+      "zh": "你潜入水中时，双腿变成了一条尾巴。"
+    },
+    {
+      "id": "transform.log.but_don_t_expect_to_remain_undetected",
+      "args": {},
+      "canonical": "...but don't expect to remain undetected.",
+      "zh": "……但别指望还能隐匿行踪。"
+    },
+    {
+      "id": "transform.log.a_tiny_sun_coalesces_beside_you",
+      "args": {},
+      "canonical": "A tiny sun coalesces beside you.",
+      "zh": "一颗小太阳在你身旁凝聚成形。"
+    },
+    {
+      "id": "transform.log.you_reconstitute_your_solar_ember",
+      "args": {},
+      "canonical": "You reconstitute your solar ember.",
+      "zh": "你重新凝聚出自己的太阳余烬。"
+    },
+    {
+      "id": "transform.enter.dragon_species",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "red draconian",
+          "localized": "红色龙人"
+        }
+      },
+      "canonical": "You turn into a fearsome red draconian!",
+      "zh": "你变成威风凛凛的红色龙人！"
+    },
+    {
+      "id": "transform.enter.eel_hands.single",
+      "args": {
+        "parts": {
+          "type": "text",
+          "canonical": "arm",
+          "localized": "手臂"
+        }
+      },
+      "canonical": "Your arm turns into a wriggling electric eel!",
+      "zh": "你的手臂变成了一条扭动的电鳗！"
+    },
+    {
+      "id": "transform.enter.eel_hands.plural",
+      "args": {
+        "parts": {
+          "type": "text",
+          "canonical": "arms",
+          "localized": "手臂"
+        }
+      },
+      "canonical": "Your arms turn into a pair of wriggling electric eels!",
+      "zh": "你的手臂变成了一对扭动的电鳗！"
+    },
+    {
+      "id": "transform.leave.eel_hands.single",
+      "args": {
+        "parts": {
+          "type": "text",
+          "canonical": "arm",
+          "localized": "手臂"
+        }
+      },
+      "canonical": "Your arm reverts to its normal form.",
+      "zh": "你的手臂恢复了原形。"
+    },
+    {
+      "id": "transform.leave.eel_hands.plural",
+      "args": {
+        "parts": {
+          "type": "text",
+          "canonical": "arms",
+          "localized": "手臂"
+        }
+      },
+      "canonical": "Your arms revert to their normal form.",
+      "zh": "你的手臂恢复了原形。"
+    },
+    {
+      "id": "transform.enter.spore",
+      "args": {
+        "arms": {
+          "type": "text",
+          "canonical": "arms",
+          "localized": "手臂"
+        },
+        "feet": {
+          "type": "text",
+          "canonical": "feet",
+          "localized": "双足"
+        }
+      },
+      "canonical": "Dense mycelia sprout from your arms and feet.",
+      "zh": "浓密的菌丝从你的手臂和双足上长出。"
+    },
+    {
+      "id": "transform.log.holy_dull",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "Your long sword",
+          "localized": "你的长剑"
+        }
+      },
+      "canonical": "Your long sword goes dull and lifeless in your grasp.",
+      "zh": "你的长剑在你手中变得黯淡无光。"
+    },
+    {
+      "id": "transform.log.holy_glow",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "Your long sword",
+          "localized": "你的长剑"
+        }
+      },
+      "canonical": "Your long sword softly glows with a divine radiance!",
+      "zh": "你的长剑柔和地散发着神圣的光辉！"
+    },
+    {
+      "id": "transform.log.gear_falls",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "Your armour",
+          "localized": "你的护甲"
+        }
+      },
+      "canonical": "Your armour falls away!",
+      "zh": "你的护甲脱落了！"
+    },
+    {
+      "id": "transform.log.gear_falls_curse",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "Your armour",
+          "localized": "你的护甲"
+        }
+      },
+      "canonical": "Your armour falls away, shattering the curse!",
+      "zh": "你的护甲脱落了，诅咒也随之破除！"
+    },
+    {
+      "id": "transform.log.maw_hungry",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "Your maw growls hungrily at the sight of the orc.",
+      "zh": "看到兽人，你的巨口饥肠辘辘地咆哮起来。"
+    },
+    {
+      "id": "transform.log.maw_resist",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "Your maw growls hungrily at the sight of the orc, but you resist your urges.",
+      "zh": "看到兽人，你的巨口饥肠辘辘地咆哮起来，但你克制住了冲动。"
+    },
+    {
+      "id": "transform.log.vampire_loses_eye",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        },
+        "reflexive": {
+          "type": "text",
+          "canonical": "itself",
+          "localized": ""
+        }
+      },
+      "canonical": "the orc loses itself in your eye.",
+      "zh": "兽人在你眼前失去意识。"
+    },
+    {
+      "id": "transform.log.vampire_loses_eyes",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        },
+        "reflexive": {
+          "type": "text",
+          "canonical": "itself",
+          "localized": ""
+        }
+      },
+      "canonical": "the orc loses itself in your eyes.",
+      "zh": "兽人在你眼前失去意识。"
+    },
+    {
+      "id": "transform.log.vampire_gaze",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "the orc is briefly mesmerised by your gaze.",
+      "zh": "兽人短暂地被你的凝视迷住了。"
+    },
+    {
+      "id": "transform.bodypart.a_hand",
+      "args": {},
+      "canonical": "a hand",
+      "zh": "一只手"
+    },
+    {
+      "id": "transform.bodypart.hands",
+      "args": {},
+      "canonical": "hands",
+      "zh": "手"
+    },
+    {
+      "id": "transform.bodypart.a_paw",
+      "args": {},
+      "canonical": "a paw",
+      "zh": "一只爪"
+    },
+    {
+      "id": "transform.bodypart.paws",
+      "args": {},
+      "canonical": "paws",
+      "zh": "爪"
+    },
+    {
+      "id": "transform.bodypart.a_claw",
+      "args": {},
+      "canonical": "a claw",
+      "zh": "一只利爪"
+    },
+    {
+      "id": "transform.bodypart.claws",
+      "args": {},
+      "canonical": "claws",
+      "zh": "利爪"
+    },
+    {
+      "id": "transform.bodypart.a_tentacle",
+      "args": {},
+      "canonical": "a tentacle",
+      "zh": "一根触手"
+    },
+    {
+      "id": "transform.bodypart.tentacles",
+      "args": {},
+      "canonical": "tentacles",
+      "zh": "触手"
+    },
+    {
+      "id": "transform.bodypart.a_grasper",
+      "args": {},
+      "canonical": "a grasper",
+      "zh": "一个抓握器"
+    },
+    {
+      "id": "transform.bodypart.graspers",
+      "args": {},
+      "canonical": "graspers",
+      "zh": "抓握器"
+    },
+    {
+      "id": "transform.bodypart.a_tendril",
+      "args": {},
+      "canonical": "a tendril",
+      "zh": "一根卷须"
+    },
+    {
+      "id": "transform.bodypart.tendrils",
+      "args": {},
+      "canonical": "tendrils",
+      "zh": "卷须"
+    },
+    {
+      "id": "transform.bodypart.a_fist",
+      "args": {},
+      "canonical": "a fist",
+      "zh": "一只拳头"
+    },
+    {
+      "id": "transform.bodypart.fists",
+      "args": {},
+      "canonical": "fists",
+      "zh": "拳头"
+    },
+    {
+      "id": "transform.bodypart.a_front_paw",
+      "args": {},
+      "canonical": "a front paw",
+      "zh": "一只前爪"
+    },
+    {
+      "id": "transform.bodypart.front_paws",
+      "args": {},
+      "canonical": "front paws",
+      "zh": "前爪"
+    },
+    {
+      "id": "transform.bodypart.a_front_claw",
+      "args": {},
+      "canonical": "a front claw",
+      "zh": "一只前爪"
+    },
+    {
+      "id": "transform.bodypart.front_claws",
+      "args": {},
+      "canonical": "front claws",
+      "zh": "前爪"
+    },
+    {
+      "id": "transform.bodypart.a_front_tentacle",
+      "args": {},
+      "canonical": "a front tentacle",
+      "zh": "一根前方触手"
+    },
+    {
+      "id": "transform.bodypart.front_tentacles",
+      "args": {},
+      "canonical": "front tentacles",
+      "zh": "前方触手"
+    },
+    {
+      "id": "transform.bodypart.a_main_tentacle",
+      "args": {},
+      "canonical": "a main tentacle",
+      "zh": "一根主触手"
+    },
+    {
+      "id": "transform.bodypart.main_tentacles",
+      "args": {},
+      "canonical": "main tentacles",
+      "zh": "主触手"
+    },
+    {
+      "id": "transform.bodypart.arm",
+      "args": {},
+      "canonical": "arm",
+      "zh": "手臂"
+    },
+    {
+      "id": "transform.bodypart.arms",
+      "args": {},
+      "canonical": "arms",
+      "zh": "手臂"
+    },
+    {
+      "id": "transform.bodypart.scaled_arm",
+      "args": {},
+      "canonical": "scaled arm",
+      "zh": "覆鳞手臂"
+    },
+    {
+      "id": "transform.bodypart.scaled_arms",
+      "args": {},
+      "canonical": "scaled arms",
+      "zh": "覆鳞手臂"
+    },
+    {
+      "id": "transform.bodypart.furry_arm",
+      "args": {},
+      "canonical": "furry arm",
+      "zh": "毛茸茸的手臂"
+    },
+    {
+      "id": "transform.bodypart.furry_arms",
+      "args": {},
+      "canonical": "furry arms",
+      "zh": "毛茸茸的手臂"
+    },
+    {
+      "id": "transform.bodypart.feathered_arm",
+      "args": {},
+      "canonical": "feathered arm",
+      "zh": "覆羽手臂"
+    },
+    {
+      "id": "transform.bodypart.feathered_arms",
+      "args": {},
+      "canonical": "feathered arms",
+      "zh": "覆羽手臂"
+    },
+    {
+      "id": "transform.bodypart.bandage_wrapped_arm",
+      "args": {},
+      "canonical": "bandage-wrapped arm",
+      "zh": "缠满绷带的手臂"
+    },
+    {
+      "id": "transform.bodypart.bandage_wrapped_arms",
+      "args": {},
+      "canonical": "bandage-wrapped arms",
+      "zh": "缠满绷带的手臂"
+    },
+    {
+      "id": "transform.bodypart.stony_arm",
+      "args": {},
+      "canonical": "stony arm",
+      "zh": "石质手臂"
+    },
+    {
+      "id": "transform.bodypart.stony_arms",
+      "args": {},
+      "canonical": "stony arms",
+      "zh": "石质手臂"
+    },
+    {
+      "id": "transform.bodypart.ectoplasmic_arm",
+      "args": {},
+      "canonical": "ectoplasmic arm",
+      "zh": "灵质手臂"
+    },
+    {
+      "id": "transform.bodypart.ectoplasmic_arms",
+      "args": {},
+      "canonical": "ectoplasmic arms",
+      "zh": "灵质手臂"
+    },
+    {
+      "id": "transform.bodypart.bony_arm",
+      "args": {},
+      "canonical": "bony arm",
+      "zh": "骨质手臂"
+    },
+    {
+      "id": "transform.bodypart.bony_arms",
+      "args": {},
+      "canonical": "bony arms",
+      "zh": "骨质手臂"
+    },
+    {
+      "id": "transform.bodypart.fossilised_arm",
+      "args": {},
+      "canonical": "fossilised arm",
+      "zh": "石化手臂"
+    },
+    {
+      "id": "transform.bodypart.fossilised_arms",
+      "args": {},
+      "canonical": "fossilised arms",
+      "zh": "石化手臂"
+    },
+    {
+      "id": "transform.bodypart.fleshy_arm",
+      "args": {},
+      "canonical": "fleshy arm",
+      "zh": "血肉手臂"
+    },
+    {
+      "id": "transform.bodypart.fleshy_arms",
+      "args": {},
+      "canonical": "fleshy arms",
+      "zh": "血肉手臂"
+    },
+    {
+      "id": "transform.bodypart.foot",
+      "args": {},
+      "canonical": "foot",
+      "zh": "脚"
+    },
+    {
+      "id": "transform.bodypart.feet",
+      "args": {},
+      "canonical": "feet",
+      "zh": "双脚"
+    },
+    {
+      "id": "transform.bodypart.hoof",
+      "args": {},
+      "canonical": "hoof",
+      "zh": "蹄"
+    },
+    {
+      "id": "transform.bodypart.hooves",
+      "args": {},
+      "canonical": "hooves",
+      "zh": "蹄"
+    },
+    {
+      "id": "transform.bodypart.talon",
+      "args": {},
+      "canonical": "talon",
+      "zh": "利爪"
+    },
+    {
+      "id": "transform.bodypart.talons",
+      "args": {},
+      "canonical": "talons",
+      "zh": "利爪"
+    },
+    {
+      "id": "transform.bodypart.underbelly",
+      "args": {},
+      "canonical": "underbelly",
+      "zh": "腹部"
+    },
+    {
+      "id": "transform.bodypart.tail",
+      "args": {},
+      "canonical": "tail",
+      "zh": "尾巴"
+    },
+    {
+      "id": "transform.bodypart.tails",
+      "args": {},
+      "canonical": "tails",
+      "zh": "尾巴"
+    },
+    {
+      "id": "transform.bodypart.paw",
+      "args": {},
+      "canonical": "paw",
+      "zh": "爪"
+    },
+    {
+      "id": "transform.bodypart.front_trotter",
+      "args": {},
+      "canonical": "front trotter",
+      "zh": "前蹄"
+    },
+    {
+      "id": "transform.bodypart.front_trotters",
+      "args": {},
+      "canonical": "front trotters",
+      "zh": "前蹄"
+    },
+    {
+      "id": "transform.bodypart.root",
+      "args": {},
+      "canonical": "root",
+      "zh": "根须"
+    },
+    {
+      "id": "transform.bodypart.roots",
+      "args": {},
+      "canonical": "roots",
+      "zh": "根须"
+    },
+    {
+      "id": "transform.bodypart.branch",
+      "args": {},
+      "canonical": "branch",
+      "zh": "枝条"
+    },
+    {
+      "id": "transform.bodypart.branches",
+      "args": {},
+      "canonical": "branches",
+      "zh": "枝条"
+    },
+    {
+      "id": "transform.bodypart.flesh",
+      "args": {},
+      "canonical": "flesh",
+      "zh": "血肉"
+    },
+    {
+      "id": "transform.bodypart.wood",
+      "args": {},
+      "canonical": "wood",
+      "zh": "木质"
+    },
+    {
+      "id": "transform.bodypart.hypha",
+      "args": {},
+      "canonical": "hypha",
+      "zh": "菌丝"
+    },
+    {
+      "id": "transform.bodypart.hyphae",
+      "args": {},
+      "canonical": "hyphae",
+      "zh": "菌丝"
+    },
+    {
+      "id": "transform.bodypart.foreclaw",
+      "args": {},
+      "canonical": "foreclaw",
+      "zh": "前爪"
+    },
+    {
+      "id": "transform.bodypart.foreclaws",
+      "args": {},
+      "canonical": "foreclaws",
+      "zh": "前爪"
+    },
+    {
+      "id": "transform.bodypart.front_leg",
+      "args": {},
+      "canonical": "front leg",
+      "zh": "前腿"
+    },
+    {
+      "id": "transform.bodypart.front_legs",
+      "args": {},
+      "canonical": "front legs",
+      "zh": "前腿"
+    },
+    {
+      "id": "transform.bodypart.forepaw",
+      "args": {},
+      "canonical": "forepaw",
+      "zh": "前爪"
+    },
+    {
+      "id": "transform.bodypart.forepaws",
+      "args": {},
+      "canonical": "forepaws",
+      "zh": "前爪"
+    },
+    {
+      "id": "transform.bodypart.front_pincers",
+      "args": {},
+      "canonical": "front pincers",
+      "zh": "前螯"
+    },
+    {
+      "id": "transform.bodypart.coils",
+      "args": {},
+      "canonical": "coils",
+      "zh": "盘绕的身体"
+    },
+    {
+      "id": "transform.bodypart.eel_hand",
+      "args": {},
+      "canonical": "eel hand",
+      "zh": "鳗鱼手"
+    },
+    {
+      "id": "transform.bodypart.eel_hands",
+      "args": {},
+      "canonical": "eel hands",
+      "zh": "鳗鱼手"
+    },
+    {
+      "id": "transform.enter.porcupine",
+      "args": {},
+      "canonical": "You turn into a spiny porcupine.",
+      "zh": "你变成一只浑身长刺的豪猪。"
+    }
+  ]
+}

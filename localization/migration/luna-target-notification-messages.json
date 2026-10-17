@@ -1,0 +1,870 @@
+{
+  "model": "gpt-6-luna",
+  "purpose": "Complete fixed and semantic dynamic target failure reasons.",
+  "messages": [
+    {
+      "id": "target.reason.there_is_something_in_the_way",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "There's something in the way.",
+      "zh": "有东西挡住了去路。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_cannot_see_that_place",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You cannot see that place.",
+      "zh": "你看不见那个位置。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.out_of_range",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "Out of range.",
+      "zh": "超出射程。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.please_select_a_direction_to_dig",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "Please select a direction to dig.",
+      "zh": "请选择挖掘方向。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.digging_in_that_direction_will_not_affect_any",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "Digging in that direction won't affect any walls.",
+      "zh": "朝那个方向挖掘不会影响任何墙壁。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_cannot_transfer_that",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You can't transfer that.",
+      "zh": "你不能传送那个目标。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_cannot_affect_that",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You cannot affect that.",
+      "zh": "你无法影响那个目标。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_cannot_get_through",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You can't get through.",
+      "zh": "你无法通过那里。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.your_weapon_cannot_reach_that_far",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "Your weapon can't reach that far!",
+      "zh": "你的武器够不到那么远！",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.there_is_already_a_cloud_there",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "There's already a cloud there.",
+      "zh": "那里已经有一团云了。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_cannot_place_harmful_clouds_in_a_sanctuary",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You can't place harmful clouds in a sanctuary.",
+      "zh": "你不能在圣所内放置有害云雾。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.the_effect_is_blocked",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "The effect is blocked.",
+      "zh": "效果被阻挡了。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_cannot_grow_anything_here",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You cannot grow anything here.",
+      "zh": "你无法在这里催生任何东西。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.there_is_a_thick_headed_creature_in_the",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "There's a thick-headed creature in the way.",
+      "zh": "有个脑袋特别硬的生物挡住了去路。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_can_only_roll_a_boulder_in_a",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You can only roll a boulder in a compass direction.",
+      "zh": "你只能沿罗盘方向滚动巨石。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_cannot_conjure_a_boulder_there",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You cannot conjure a boulder there.",
+      "zh": "你无法在那里召唤巨石。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_cannot_conjure_a_boulder_in_an_occupied",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You cannot conjure a boulder in an occupied space.",
+      "zh": "你无法在被占据的位置召唤巨石。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_cannot_see_anything_there",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You can't see anything there.",
+      "zh": "那里什么也看不见。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_cannot_bind_the_soul_of_an_ally",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You cannot bind the soul of an ally.",
+      "zh": "你无法束缚盟友的灵魂。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_are_unable_to_grasp_such_an_alien",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You are unable to grasp such an alien soul.",
+      "zh": "你无法把握如此陌生的灵魂。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_cannot_bind_the_soul_of_a_summoned",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You cannot bind the soul of a summoned being.",
+      "zh": "你无法束缚被召唤生物的灵魂。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.that_does_not_possess_a_soul_you_can",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "That does not possess a soul you can bind.",
+      "zh": "那个目标没有可供你束缚的灵魂。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.their_soul_is_too_badly_injured",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "Their soul is too badly injured.",
+      "zh": "它的灵魂伤得太重了。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.gravity_is_already_pointing_downward",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "Gravity is already pointing downward.",
+      "zh": "重力已经朝下。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_can_only_reorient_gravity_in_a_cardinal",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You can only reorient gravity in a cardinal direction.",
+      "zh": "你只能沿四个基本方向重新调整重力。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_do_not_see_a_valid_target_there",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You don't see a valid target there.",
+      "zh": "那里没有有效目标。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.their_shadow_is_too_faded_to_take_hold",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "Their shadow is too faded to take hold of.",
+      "zh": "它的影子太淡，无法抓住。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.a_summoned_shadow_is_too_ephemeral_to_take",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "A summoned shadow is too ephemeral to take hold of.",
+      "zh": "被召唤的影子太虚幻，无法抓住。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.they_have_no_useful_spells_to_cast_right",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "They have no useful spells to cast right now.",
+      "zh": "它们现在没有可用的法术。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_cannot_putrefy_a_friendly_monster",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You cannot putrefy a friendly monster.",
+      "zh": "你不能使友方怪物腐烂。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_can_only_putrefy_natural_creatures",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You can only putrefy natural creatures.",
+      "zh": "你只能使自然生物腐烂。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.this_is_not_wounded_badly_enough",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "This isn't wounded badly enough.",
+      "zh": "它伤得还不够重。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.there_is_nothing_to_be_tempered_there",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "There's nothing to be tempered there.",
+      "zh": "那里没有可锻造的东西。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_cannot_target_a_construct_which_is_already",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You cannot target a construct which is already augmented.",
+      "zh": "你不能指定已经强化的构装体为目标。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_can_only_target_your_own_forgecraft_constructs",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You can only target your own Forgecraft constructs.",
+      "zh": "你只能指定自己的锻造术构装体为目标。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_see_nothing_there_you_can_launch",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You see nothing there you can launch.",
+      "zh": "那里没有可供你发射的东西。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.that_cannot_be_teleported",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "That cannot be teleported.",
+      "zh": "那个目标无法被传送。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_can_see_nowhere_safe_to_land_near",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You can see nowhere safe to land near that.",
+      "zh": "你看不出它附近有哪里可以安全着陆。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.you_must_target_an_enemy_who_is_afraid",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "You must target an enemy who is afraid.",
+      "zh": "你必须指定一个心怀恐惧的敌人为目标。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.your_paragon_could_not_survive_being_deployed_there",
+      "context": "目标选择失败理由：完整提示",
+      "source_context": "target.reason",
+      "en": "Your paragon could not survive being deployed there.",
+      "zh": "你的典范部署在那里后将无法存活。",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "notify_fail fixed literal; canonical source wording preserved"
+      }
+    },
+    {
+      "id": "target.reason.wall",
+      "context": "目标选择失败理由：完整动态提示",
+      "en": "There is {wall} there.",
+      "zh": "那里有{wall}。",
+      "params": {
+        "wall": "name"
+      },
+      "source": {
+        "file": "target.cc",
+        "anchor": "dynamic notify_fail; complete semantic reason"
+      }
+    },
+    {
+      "id": "target.reason.unravelling.no_effects",
+      "context": "目标选择失败理由：完整动态提示",
+      "en": "{monster} has no magical effects to unravel.",
+      "zh": "{monster}没有可供瓦解的魔法效果。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "target.cc",
+        "anchor": "dynamic notify_fail; complete semantic reason"
+      }
+    },
+    {
+      "id": "target.reason.unravelling.cannot_harm",
+      "context": "目标选择失败理由：完整动态提示",
+      "en": "You cannot do harm to {monster}",
+      "zh": "你无法伤害{monster}",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "target.cc",
+        "anchor": "dynamic notify_fail; complete semantic reason"
+      }
+    },
+    {
+      "id": "target.reason.poisonous_vapours.immune",
+      "context": "目标选择失败理由：完整动态提示",
+      "en": "{monster} cannot be affected by poisonous vapours.",
+      "zh": "{monster}不会受到毒雾影响。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "target.cc",
+        "anchor": "dynamic notify_fail; complete semantic reason"
+      }
+    },
+    {
+      "id": "target.reason.transference.self",
+      "context": "目标选择失败理由：完整动态提示",
+      "en": "itself",
+      "zh": "自身",
+      "params": {},
+      "source": {
+        "file": "target.cc",
+        "anchor": "dynamic notify_fail; complete semantic reason"
+      }
+    },
+    {
+      "id": "target.reason.transference.ancestor",
+      "context": "目标选择失败理由：完整动态提示",
+      "en": "You can't transfer your ancestor with {self}.",
+      "zh": "你不能用{self}传送你的先祖。",
+      "params": {
+        "self": "text"
+      },
+      "source": {
+        "file": "target.cc",
+        "anchor": "dynamic notify_fail; complete semantic reason"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "target.reason.there_is_something_in_the_way",
+      "args": {},
+      "canonical": "There's something in the way.",
+      "zh": "有东西挡住了去路。"
+    },
+    {
+      "id": "target.reason.you_cannot_see_that_place",
+      "args": {},
+      "canonical": "You cannot see that place.",
+      "zh": "你看不见那个位置。"
+    },
+    {
+      "id": "target.reason.out_of_range",
+      "args": {},
+      "canonical": "Out of range.",
+      "zh": "超出射程。"
+    },
+    {
+      "id": "target.reason.please_select_a_direction_to_dig",
+      "args": {},
+      "canonical": "Please select a direction to dig.",
+      "zh": "请选择挖掘方向。"
+    },
+    {
+      "id": "target.reason.digging_in_that_direction_will_not_affect_any",
+      "args": {},
+      "canonical": "Digging in that direction won't affect any walls.",
+      "zh": "朝那个方向挖掘不会影响任何墙壁。"
+    },
+    {
+      "id": "target.reason.you_cannot_transfer_that",
+      "args": {},
+      "canonical": "You can't transfer that.",
+      "zh": "你不能传送那个目标。"
+    },
+    {
+      "id": "target.reason.you_cannot_affect_that",
+      "args": {},
+      "canonical": "You cannot affect that.",
+      "zh": "你无法影响那个目标。"
+    },
+    {
+      "id": "target.reason.you_cannot_get_through",
+      "args": {},
+      "canonical": "You can't get through.",
+      "zh": "你无法通过那里。"
+    },
+    {
+      "id": "target.reason.your_weapon_cannot_reach_that_far",
+      "args": {},
+      "canonical": "Your weapon can't reach that far!",
+      "zh": "你的武器够不到那么远！"
+    },
+    {
+      "id": "target.reason.there_is_already_a_cloud_there",
+      "args": {},
+      "canonical": "There's already a cloud there.",
+      "zh": "那里已经有一团云了。"
+    },
+    {
+      "id": "target.reason.you_cannot_place_harmful_clouds_in_a_sanctuary",
+      "args": {},
+      "canonical": "You can't place harmful clouds in a sanctuary.",
+      "zh": "你不能在圣所内放置有害云雾。"
+    },
+    {
+      "id": "target.reason.the_effect_is_blocked",
+      "args": {},
+      "canonical": "The effect is blocked.",
+      "zh": "效果被阻挡了。"
+    },
+    {
+      "id": "target.reason.you_cannot_grow_anything_here",
+      "args": {},
+      "canonical": "You cannot grow anything here.",
+      "zh": "你无法在这里催生任何东西。"
+    },
+    {
+      "id": "target.reason.there_is_a_thick_headed_creature_in_the",
+      "args": {},
+      "canonical": "There's a thick-headed creature in the way.",
+      "zh": "有个脑袋特别硬的生物挡住了去路。"
+    },
+    {
+      "id": "target.reason.you_can_only_roll_a_boulder_in_a",
+      "args": {},
+      "canonical": "You can only roll a boulder in a compass direction.",
+      "zh": "你只能沿罗盘方向滚动巨石。"
+    },
+    {
+      "id": "target.reason.you_cannot_conjure_a_boulder_there",
+      "args": {},
+      "canonical": "You cannot conjure a boulder there.",
+      "zh": "你无法在那里召唤巨石。"
+    },
+    {
+      "id": "target.reason.you_cannot_conjure_a_boulder_in_an_occupied",
+      "args": {},
+      "canonical": "You cannot conjure a boulder in an occupied space.",
+      "zh": "你无法在被占据的位置召唤巨石。"
+    },
+    {
+      "id": "target.reason.you_cannot_see_anything_there",
+      "args": {},
+      "canonical": "You can't see anything there.",
+      "zh": "那里什么也看不见。"
+    },
+    {
+      "id": "target.reason.you_cannot_bind_the_soul_of_an_ally",
+      "args": {},
+      "canonical": "You cannot bind the soul of an ally.",
+      "zh": "你无法束缚盟友的灵魂。"
+    },
+    {
+      "id": "target.reason.you_are_unable_to_grasp_such_an_alien",
+      "args": {},
+      "canonical": "You are unable to grasp such an alien soul.",
+      "zh": "你无法把握如此陌生的灵魂。"
+    },
+    {
+      "id": "target.reason.you_cannot_bind_the_soul_of_a_summoned",
+      "args": {},
+      "canonical": "You cannot bind the soul of a summoned being.",
+      "zh": "你无法束缚被召唤生物的灵魂。"
+    },
+    {
+      "id": "target.reason.that_does_not_possess_a_soul_you_can",
+      "args": {},
+      "canonical": "That does not possess a soul you can bind.",
+      "zh": "那个目标没有可供你束缚的灵魂。"
+    },
+    {
+      "id": "target.reason.their_soul_is_too_badly_injured",
+      "args": {},
+      "canonical": "Their soul is too badly injured.",
+      "zh": "它的灵魂伤得太重了。"
+    },
+    {
+      "id": "target.reason.gravity_is_already_pointing_downward",
+      "args": {},
+      "canonical": "Gravity is already pointing downward.",
+      "zh": "重力已经朝下。"
+    },
+    {
+      "id": "target.reason.you_can_only_reorient_gravity_in_a_cardinal",
+      "args": {},
+      "canonical": "You can only reorient gravity in a cardinal direction.",
+      "zh": "你只能沿四个基本方向重新调整重力。"
+    },
+    {
+      "id": "target.reason.you_do_not_see_a_valid_target_there",
+      "args": {},
+      "canonical": "You don't see a valid target there.",
+      "zh": "那里没有有效目标。"
+    },
+    {
+      "id": "target.reason.their_shadow_is_too_faded_to_take_hold",
+      "args": {},
+      "canonical": "Their shadow is too faded to take hold of.",
+      "zh": "它的影子太淡，无法抓住。"
+    },
+    {
+      "id": "target.reason.a_summoned_shadow_is_too_ephemeral_to_take",
+      "args": {},
+      "canonical": "A summoned shadow is too ephemeral to take hold of.",
+      "zh": "被召唤的影子太虚幻，无法抓住。"
+    },
+    {
+      "id": "target.reason.they_have_no_useful_spells_to_cast_right",
+      "args": {},
+      "canonical": "They have no useful spells to cast right now.",
+      "zh": "它们现在没有可用的法术。"
+    },
+    {
+      "id": "target.reason.you_cannot_putrefy_a_friendly_monster",
+      "args": {},
+      "canonical": "You cannot putrefy a friendly monster.",
+      "zh": "你不能使友方怪物腐烂。"
+    },
+    {
+      "id": "target.reason.you_can_only_putrefy_natural_creatures",
+      "args": {},
+      "canonical": "You can only putrefy natural creatures.",
+      "zh": "你只能使自然生物腐烂。"
+    },
+    {
+      "id": "target.reason.this_is_not_wounded_badly_enough",
+      "args": {},
+      "canonical": "This isn't wounded badly enough.",
+      "zh": "它伤得还不够重。"
+    },
+    {
+      "id": "target.reason.there_is_nothing_to_be_tempered_there",
+      "args": {},
+      "canonical": "There's nothing to be tempered there.",
+      "zh": "那里没有可锻造的东西。"
+    },
+    {
+      "id": "target.reason.you_cannot_target_a_construct_which_is_already",
+      "args": {},
+      "canonical": "You cannot target a construct which is already augmented.",
+      "zh": "你不能指定已经强化的构装体为目标。"
+    },
+    {
+      "id": "target.reason.you_can_only_target_your_own_forgecraft_constructs",
+      "args": {},
+      "canonical": "You can only target your own Forgecraft constructs.",
+      "zh": "你只能指定自己的锻造术构装体为目标。"
+    },
+    {
+      "id": "target.reason.you_see_nothing_there_you_can_launch",
+      "args": {},
+      "canonical": "You see nothing there you can launch.",
+      "zh": "那里没有可供你发射的东西。"
+    },
+    {
+      "id": "target.reason.that_cannot_be_teleported",
+      "args": {},
+      "canonical": "That cannot be teleported.",
+      "zh": "那个目标无法被传送。"
+    },
+    {
+      "id": "target.reason.you_can_see_nowhere_safe_to_land_near",
+      "args": {},
+      "canonical": "You can see nowhere safe to land near that.",
+      "zh": "你看不出它附近有哪里可以安全着陆。"
+    },
+    {
+      "id": "target.reason.you_must_target_an_enemy_who_is_afraid",
+      "args": {},
+      "canonical": "You must target an enemy who is afraid.",
+      "zh": "你必须指定一个心怀恐惧的敌人为目标。"
+    },
+    {
+      "id": "target.reason.your_paragon_could_not_survive_being_deployed_there",
+      "args": {},
+      "canonical": "Your paragon could not survive being deployed there.",
+      "zh": "你的典范部署在那里后将无法存活。"
+    },
+    {
+      "id": "target.reason.wall",
+      "args": {
+        "wall": {
+          "type": "name",
+          "canonical": "a wall",
+          "localized": "一堵墙"
+        }
+      },
+      "canonical": "There is a wall there.",
+      "zh": "那里有一堵墙。"
+    },
+    {
+      "id": "target.reason.unravelling.no_effects",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "一只兽人"
+        }
+      },
+      "canonical": "an orc has no magical effects to unravel.",
+      "zh": "一只兽人没有可供瓦解的魔法效果。"
+    },
+    {
+      "id": "target.reason.unravelling.cannot_harm",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "一只兽人"
+        }
+      },
+      "canonical": "You cannot do harm to an orc",
+      "zh": "你无法伤害一只兽人"
+    },
+    {
+      "id": "target.reason.poisonous_vapours.immune",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "一只兽人"
+        }
+      },
+      "canonical": "an orc cannot be affected by poisonous vapours.",
+      "zh": "一只兽人不会受到毒雾影响。"
+    },
+    {
+      "id": "target.reason.transference.self",
+      "args": {},
+      "canonical": "itself",
+      "zh": "自身"
+    },
+    {
+      "id": "target.reason.transference.ancestor",
+      "args": {
+        "self": {
+          "type": "text",
+          "canonical": "itself",
+          "localized": "自身"
+        }
+      },
+      "canonical": "You can't transfer your ancestor with itself.",
+      "zh": "你不能用自身传送你的先祖。"
+    }
+  ]
+}

@@ -1744,8 +1744,10 @@ void direction_chooser::print_target_description(bool &did_cloud) const
 
     if (!in_range(target()))
     {
-        mprf(MSGCH_EXAMINE_FILTER, "%s",
-             hitfunc ? hitfunc->why_not.c_str() : "Out of range.");
+        if (hitfunc)
+            mpr(hitfunc->failure_message(), MSGCH_EXAMINE_FILTER);
+        else
+            mpr(zh_message("target.reason.out_of_range"), MSGCH_EXAMINE_FILTER);
     }
 }
 

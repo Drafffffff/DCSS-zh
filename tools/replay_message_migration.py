@@ -74,7 +74,7 @@ try:
     time.sleep(.5)
     subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-f','x11grab','-draw_mouse','0','-i',':96','-frames:v','1',str(base/'level-history.png')],env=env,check=True)
    read=lambda f:(tmp/f).read_text() if (tmp/f).exists() else ''
-   results.append({'scene':name,'keys':keys,'running_at_capture':running,'scene_reached':reached,'id_trace':read('ids.tsv').splitlines(),'boundaries':read('boundaries.tsv').splitlines(),'missing':read('missing.tsv').splitlines(),'values':read('values.tsv').splitlines(),'names':read('names.tsv').splitlines(),'legacy':read('legacy.jsonl').splitlines(),'lua_error':any(e in read('run.log') for e in ('Lua error','Legacy translation reached migrated boundary','Missing localization source:','terminate called', 'terminating due to', 'Invalid localization parameter', 'Invalid localization key', 'Lua 错误'))})
+   results.append({'scene':name,'keys':keys,'running_at_capture':running,'scene_reached':reached,'id_trace':read('ids.tsv').splitlines(),'boundaries':read('boundaries.tsv').splitlines(),'missing':read('missing.tsv').splitlines(),'values':read('values.tsv').splitlines(),'names':read('names.tsv').splitlines(),'legacy':read('legacy.jsonl').splitlines(),'lua_error':any(e in read('run.log') for e in ('Lua error','Legacy translation reached migrated boundary','Missing localization source:','terminate called', 'terminating due to', 'Invalid localization parameter', 'Invalid localization key', 'Lua 错误', 'unterminated <input>', '未终止的 <input>'))})
    if running:
     p.terminate()
     try:p.wait(timeout=5)

@@ -6,6 +6,8 @@ ROOT=Path(__file__).resolve().parents[1]
 LOC=ROOT/'localization/migration'; SRC=ROOT/'native/crawl-ref/source'
 TYPES={'text':'Text','name':'Name','integer':'Integer','number':'Number','key':'Key','colour':'Colour','key_markup':'KeyMarkup'}
 PLACE=re.compile(r'\{([a-z][a-z0-9_]*)\}')
+# Literal bracket glyphs in styled examples must not consume later key tokens.
+SHORTCUT=re.compile(r'\[[^\]\n<>]*\]|\((?:[A-Za-z=]|[A-Za-z]/[A-Za-z])\)')
 def compile_catalog():
     messages={}
     for path in sorted(LOC.glob('luna-*-messages.json')):
@@ -29,7 +31,7 @@ def compile_catalog():
                 assert not re.search(r'[{}]',PLACE.sub('',slots)),(identity,language)
             tags=lambda s:sorted(re.findall(r'</?[a-z][^>]*>',s))
             assert tags(entry['en'])==tags(entry['zh']),(identity,'colour/style tags')
-            shortcuts=lambda s:sorted(re.findall(r'\[[^\]\n]*\]|\((?:[A-Za-z=]|[A-Za-z]/[A-Za-z])\)',s))
+            shortcuts=lambda s:sorted(SHORTCUT.findall(s))
             assert shortcuts(entry['en'])==shortcuts(entry['zh']),(identity,'literal shortcut tokens')
             messages[identity]=entry
     for path in sorted(LOC.glob('luna-*-messages.json')):

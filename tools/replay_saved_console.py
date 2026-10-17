@@ -140,7 +140,7 @@ for scene in a.scenes.split(','):
         result={'scene':scene,'running_at_capture':running,'early_exit_status':None if running else status[1],'ids':read('ids.tsv'),
                 'boundaries':read('boundaries.tsv'),'missing':read('missing.tsv'),'names':read('names.tsv'),'values':read('values.tsv'),
                 'runtime_error':any(s in text for s in ('Legacy translation reached migrated boundary',
-                    'Missing localization source:', 'ASSERT(', 'Lua error', 'terminate called', 'terminating due to', 'Invalid localization parameter', 'Invalid localization key', 'Lua 错误'))}
+                    'Missing localization source:', 'ASSERT(', 'Lua error', 'terminate called', 'terminating due to', 'Invalid localization parameter', 'Invalid localization key', 'Lua 错误', 'unterminated <input>', '未终止的 <input>'))}
         results.append(result)
 unchanged=before==hashes()
 report={'source_fixture_unchanged':unchanged,'scenes':results}

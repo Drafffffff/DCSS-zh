@@ -6,11 +6,14 @@
 #include "AppHdr.h"
 #include "zh-message.h"
 #include "zh-display-name.h"
+#include "zh-localization.h"
 
 #include "transform.h"
 
 #include <cstdio>
 #include <cstring>
+#include <cstdlib>
+#include <fstream>
 
 #include "ability.h"
 #include "artefact.h"
@@ -51,6 +54,27 @@
 #include "timed-effects.h"
 #include "traps.h"
 #include "xom.h"
+
+// Fixed source literals select complete translations before any parameters.
+static ZhMessage _transform_untranslated(const string &canonical)
+{
+    if (!canonical.empty() && zh_language_enabled())
+    {
+        const char *path = std::getenv("DCSS_ZH_ID_MISSING");
+        if (path && *path)
+        {
+            std::ofstream out(path, std::ios::app);
+            out << "transform.enter.retired\tunsupported retired form\t"
+                << canonical << "\n";
+        }
+    }
+    return {"", canonical, canonical};
+}
+
+static ZhMessage _transform_log(const char *source)
+{
+    return {"transform.log", source, zh_source("transform.log", source)};
+}
 
 // List of valid monsters newly seen this turn for a sphinx to tell a riddle to.
 vector<monster*> riddle_targs;
@@ -171,7 +195,7 @@ static const form_entry &_find_form_entry(transformation form)
 }
 
 Form::Form(const form_entry &fe)
-    : short_name(fe.short_name), wiz_name(fe.wiz_name),
+    : message_form(fe.tran), short_name(fe.short_name), wiz_name(fe.wiz_name),
       min_skill(fe.min_skill), max_skill(fe.max_skill),
       hp_skill_penalty_mult(fe.hp_skill_penalty_mult),
       str_mod(fe.str_mod), dex_mod(fe.dex_mod), base_move_speed(fe.move_speed),
@@ -248,7 +272,80 @@ string Form::get_description(bool past_tense) const
  */
 string Form::transform_message() const
 {
-    return make_stringf("You turn into %s", get_transform_description().c_str());
+    return transform_display_message().canonical;
+}
+
+string Form::get_untransform_message() const
+{
+    return untransform_display_message().canonical;
+}
+
+ZhMessage Form::transform_display_message() const
+{
+    if (message_form == transformation::dragon && species::is_draconian(you.species))
+        return zh_message("transform.enter.dragon_species",
+            {zh_monster_type_arg("monster", get_equivalent_mons())});
+    switch (message_form)
+    {
+    case transformation::none:
+        return zh_message("transform.enter.none");
+    case transformation::spider:
+        return zh_message("transform.enter.spider");
+    case transformation::statue:
+        return zh_message("transform.enter.statue");
+    case transformation::serpent:
+        return zh_message("transform.enter.serpent");
+    case transformation::dragon:
+        return zh_message("transform.enter.dragon");
+    case transformation::bat:
+        return zh_message("transform.enter.bat");
+    case transformation::pig:
+        return zh_message("transform.enter.pig");
+    case transformation::tree:
+        return zh_message("transform.enter.tree");
+#if TAG_MAJOR_VERSION == 34
+    case transformation::porcupine:
+        return zh_message("transform.enter.porcupine");
+#endif
+    case transformation::wisp:
+        return zh_message("transform.enter.wisp");
+    case transformation::jelly:
+        return zh_message("transform.enter.jelly");
+    case transformation::fungus:
+        return zh_message("transform.enter.fungus");
+#if TAG_MAJOR_VERSION == 34
+    case transformation::shadow:
+        return zh_message("transform.enter.shadow");
+#endif
+    case transformation::storm:
+        return zh_message("transform.enter.storm");
+    case transformation::maw:
+        return zh_message("transform.enter.maw");
+    case transformation::slaughter:
+        return zh_message("transform.enter.slaughter");
+    case transformation::vampire:
+        return zh_message("transform.enter.vampire");
+    case transformation::bat_swarm:
+        return zh_message("transform.enter.bat_swarm");
+    case transformation::rime_yak:
+        return zh_message("transform.enter.rime_yak");
+    case transformation::hive:
+        return zh_message("transform.enter.hive");
+    case transformation::sphinx:
+        return zh_message("transform.enter.sphinx");
+    case transformation::werewolf:
+        return zh_message("transform.enter.werewolf");
+    case transformation::walking_scroll:
+        return zh_message("transform.enter.walking_scroll");
+    case transformation::fortress_crab:
+        return zh_message("transform.enter.fortress_crab");
+    case transformation::sun_scarab:
+        return zh_message("transform.enter.sun_scarab");
+    default:
+        // Retired save-only forms have no player-initiated entry path.
+        return _transform_untranslated(make_stringf("You turn into %s",
+            get_transform_description().c_str()));
+    }
 }
 
 /**
@@ -256,9 +353,9 @@ string Form::transform_message() const
  *
  * @return "Your transform has ended."
  */
-string Form::get_untransform_message() const
+ZhMessage Form::untransform_display_message() const
 {
-    return "Your transformation has ended.";
+    return _transform_log("Your transformation has ended.");
 }
 
 int Form::raw_scaling_value(const FormScaling &sc, int level) const
@@ -620,14 +717,14 @@ public:
                             past_tense ? "were" : "are");
     }
 
-    string transform_message() const override
+    ZhMessage transform_display_message() const override
     {
-        return "Your body destabilises.";
+        return _transform_log("Your body destabilises.");
     }
 
-    string get_untransform_message() const override
+    ZhMessage untransform_display_message() const override
     {
-        return "Your body stabilises again.";
+        return _transform_log("Your body stabilises again.");
     }
 };
 
@@ -651,17 +748,17 @@ public:
     /**
      * Get a message for transforming into this form.
      */
-    string transform_message() const override
+    ZhMessage transform_display_message() const override
     {
-        return "Blades grow out of your body!";
+        return _transform_log("Blades grow out of your body!");
     }
 
     /**
      * Get a message for untransforming from this form.
      */
-    string get_untransform_message() const override
+    ZhMessage untransform_display_message() const override
     {
-        return "Your blades shrink back into your body and disappear.";
+        return _transform_log("Your blades shrink back into your body and disappear.");
     }
 
     int get_aux_damage(bool random, int skill) const override
@@ -687,13 +784,13 @@ public:
     /**
      * Get a message for transforming into this form.
      */
-    string transform_message() const override
+    ZhMessage transform_display_message() const override
     {
 #if TAG_MAJOR_VERSION == 34
         if (you.species == SP_DEEP_DWARF && one_chance_in(10))
-            return "You inwardly fear your resemblance to a lawn ornament.";
+            return _transform_log("You inwardly fear your resemblance to a lawn ornament.");
 #endif
-        return Form::transform_message();
+        return Form::transform_display_message();
     }
 
     /**
@@ -708,9 +805,9 @@ public:
     /**
      * Get a message for untransforming from this form.
      */
-    string get_untransform_message() const override
+    ZhMessage untransform_display_message() const override
     {
-        return "You revert to your normal fleshy form.";
+        return _transform_log("You revert to your normal fleshy form.");
     }
 
     /**
@@ -843,17 +940,17 @@ public:
     /**
      * Get a message for transforming into this form.
      */
-    string transform_message() const override
+    ZhMessage transform_display_message() const override
     {
-        return "Your flesh twists and warps into a mockery of life!";
+        return _transform_log("Your flesh twists and warps into a mockery of life!");
     }
 
     /**
      * Get a message for untransforming from this form.
      */
-    string get_untransform_message() const override
+    ZhMessage untransform_display_message() const override
     {
-        return "You feel yourself come back to life.";
+        return _transform_log("You feel yourself come back to life.");
     }
 
     int will_bonus() const override { return WL_PIP; }
@@ -867,7 +964,7 @@ private:
 public:
     static const FormBat &instance() { static FormBat inst; return inst; }
 
-    string get_untransform_message() const override { return "You feel less batty."; }
+    ZhMessage untransform_display_message() const override { return _transform_log("You feel less batty."); }
 };
 
 class FormPig : public Form
@@ -877,7 +974,7 @@ private:
     DISALLOW_COPY_AND_ASSIGN(FormPig);
 public:
     static const FormPig &instance() { static FormPig inst; return inst; }
-    string get_untransform_message() const override { return "You feel less porcine."; }
+    ZhMessage untransform_display_message() const override { return _transform_log("You feel less porcine."); }
 };
 
 #if TAG_MAJOR_VERSION == 34
@@ -906,7 +1003,7 @@ public:
     /**
      * Get a message for untransforming from this form.
      */
-    string get_untransform_message() const override { return "You feel less wooden."; }
+    ZhMessage untransform_display_message() const override { return _transform_log("You feel less wooden."); }
 };
 
 #if TAG_MAJOR_VERSION == 34
@@ -931,7 +1028,7 @@ private:
     DISALLOW_COPY_AND_ASSIGN(FormWisp);
 public:
     static const FormWisp &instance() { static FormWisp inst; return inst; }
-    string get_untransform_message() const override { return "You condense into your normal self."; }
+    ZhMessage untransform_display_message() const override { return _transform_log("You condense into your normal self."); }
 };
 
 class FormJelly : public Form
@@ -954,7 +1051,7 @@ public:
     /**
      * Get a message for untransforming from this form.
      */
-    string get_untransform_message() const override { return "You stop sporulating."; }
+    ZhMessage untransform_display_message() const override { return _transform_log("You stop sporulating."); }
 };
 
 #if TAG_MAJOR_VERSION == 34
@@ -969,11 +1066,11 @@ public:
     /**
      * Get a message for untransforming from this form.
      */
-    string get_untransform_message() const override
+    ZhMessage untransform_display_message() const override
     {
         if (you.invisible())
-            return "You feel less shadowy.";
-        return "You emerge from the shadows.";
+            return _transform_log("You feel less shadowy.");
+        return _transform_log("You emerge from the shadows.");
     }
 };
 #endif
@@ -1005,14 +1102,14 @@ private:
 public:
     static const FormQuill &instance() { static FormQuill inst; return inst; }
 
-    string transform_message() const override
+    ZhMessage transform_display_message() const override
     {
-        return "Sharp quills grow all over your body.";
+        return _transform_log("Sharp quills grow all over your body.");
     }
 
-    string get_untransform_message() const override
+    ZhMessage untransform_display_message() const override
     {
-        return "Your quills recede back into your body.";
+        return _transform_log("Your quills recede back into your body.");
     }
 };
 
@@ -1061,9 +1158,9 @@ public:
     /**
      * Get a message for untransforming from this form.
      */
-    string get_untransform_message() const override
+    ZhMessage untransform_display_message() const override
     {
-        return "Makhleb calls their payment due...";
+        return _transform_log("Makhleb calls their payment due...");
     }
 
     /**
@@ -1154,14 +1251,14 @@ public:
                             past_tense ? "was" : "is");
     }
 
-    string transform_message() const override
+    ZhMessage transform_display_message() const override
     {
-        return "Your body transforms into elemental water.";
+        return _transform_log("Your body transforms into elemental water.");
     }
 
-    string get_untransform_message() const override
+    ZhMessage untransform_display_message() const override
     {
-        return "Your body returns to its normal shape and substance.";
+        return _transform_log("Your body returns to its normal shape and substance.");
     }
 };
 
@@ -1265,14 +1362,14 @@ FormMedusa() : Form(transformation::medusa) { }
 public:
     static const FormMedusa &instance() { static FormMedusa inst; return inst; }
 
-    string transform_message() const override
+    ZhMessage transform_display_message() const override
     {
-        return "A mane of stinging tendrils grows from your head.";
+        return _transform_log("A mane of stinging tendrils grows from your head.");
     }
 
-    string get_untransform_message() const override
+    ZhMessage untransform_display_message() const override
     {
-        return "Your tendrils shrivel away.";
+        return _transform_log("Your tendrils shrivel away.");
     }
 
     string get_description(bool past_tense) const override
@@ -1325,27 +1422,27 @@ public:
     /**
      * Get a message for transforming into this form.
      */
-    string transform_message() const override
+    ZhMessage transform_display_message() const override
     {
         const bool singular = you.arm_count() == 1;
 
-        // XXX: a little ugly
-        return make_stringf("Your %s turn%s into%s wriggling electric eel%s!",
-                            hand_transform_parts().c_str(), singular ? "s" : "",
-                            singular ? " a" : " a pair of", singular ? "" : "s");
+        return zh_message(singular ? "transform.enter.eel_hands.single"
+                                   : "transform.enter.eel_hands.plural",
+            {zh_word_arg("parts", "transform.bodypart.",
+                hand_transform_parts(), ZhArgType::Text)});
     }
 
     /**
      * Get a message for untransforming from this form.
      */
-    string get_untransform_message() const override
+    ZhMessage untransform_display_message() const override
     {
         const bool singular = you.arm_count() == 1;
 
-        // XXX: a little ugly
-        return make_stringf("Your %s revert%s to %s normal form.",
-                            hand_transform_parts().c_str(), singular ? "s" : "",
-                            singular ? "its" : "their");
+        return zh_message(singular ? "transform.leave.eel_hands.single"
+                                   : "transform.leave.eel_hands.plural",
+            {zh_word_arg("parts", "transform.bodypart.",
+                hand_transform_parts(), ZhArgType::Text)});
     }
 
     /**
@@ -1368,19 +1465,21 @@ public:
     /**
      * Get a message for transforming into this form.
      */
-    string transform_message() const override
+    ZhMessage transform_display_message() const override
     {
-        return make_stringf("Dense mycelia sprout from your %s and %s.",
-                            you.arm_name(false).c_str(),
-                            you.foot_name(true).c_str());
+        return zh_message("transform.enter.spore",
+            {zh_word_arg("arms", "transform.bodypart.",
+                you.arm_name(false), ZhArgType::Text),
+             zh_word_arg("feet", "transform.bodypart.",
+                you.foot_name(true), ZhArgType::Text)});
     }
 
     /**
      * Get a message for untransforming from this form.
      */
-    string get_untransform_message() const override
+    ZhMessage untransform_display_message() const override
     {
-        return make_stringf("Your mycelia shrivel away.");
+        return _transform_log("Your mycelia shrivel away.");
     }
 
     string get_description(bool past_tense) const override
@@ -1929,13 +2028,16 @@ static void _print_death_brand_changes(item_def *weapon, bool entering_death)
     }
     if (entering_death)
     {
-        mprf("%s goes dull and lifeless in your grasp.",
-             weapon->name(DESC_YOUR).c_str());
+        mpr(zh_message("transform.log.holy_dull",
+            {zh_item_arg("item", *weapon, DESC_YOUR)}));
     }
     else
     {
-        mprf("%s softly glows with a divine radiance!",
-             uppercase_first(weapon->name(DESC_YOUR)).c_str());
+        ZhArg item = zh_item_arg("item", *weapon, DESC_YOUR);
+        item.canonical = uppercase_first(item.canonical);
+        if (!item.supported)
+            item.localized = item.canonical;
+        mpr(zh_message("transform.log.holy_glow", {item}));
     }
 }
 
@@ -1946,11 +2048,11 @@ static void _on_enter_form(transformation which_trans)
     switch (which_trans)
     {
     case transformation::tree:
-        mpr("Your roots penetrate the ground.");
+        mpr(_transform_log("Your roots penetrate the ground."));
         if (you.duration[DUR_TELEPORT])
         {
             you.duration[DUR_TELEPORT] = 0;
-            mpr("You feel strangely stable.");
+            mpr(_transform_log("You feel strangely stable."));
         }
         you.duration[DUR_FLIGHT] = 0;
         break;
@@ -1975,8 +2077,8 @@ static void _on_enter_form(transformation which_trans)
     case transformation::maw:
         if (have_passive(passive_t::goldify_corpses))
         {
-            mprf(MSGCH_WARN, "Gozag's golden gift will leave your new mouth "
-                             "with nothing to eat.");
+            mpr(_transform_log("Gozag's golden gift will leave your new mouth "
+                               "with nothing to eat."), MSGCH_WARN);
         }
         break;
 
@@ -2029,7 +2131,7 @@ static void _enter_form(int dur, transformation which_trans, bool using_talisman
     if (!(you.form == transformation::vampire || you.form == transformation::bat_swarm)
          && !(which_trans == transformation::vampire || which_trans == transformation::bat_swarm))
     {
-        mpr(get_form(which_trans)->transform_message());
+        mpr(get_form(which_trans)->transform_display_message());
     }
 
     // If we're wielding a two-hander, shift it into the crab two-hander slot
@@ -2045,7 +2147,7 @@ static void _enter_form(int dur, transformation which_trans, bool using_talisman
 
     if (you.digging && form_changes_anatomy(which_trans))
     {
-        mpr("Your mandibles meld away.");
+        mpr(_transform_log("Your mandibles meld away."));
         you.digging = false;
     }
 
@@ -2220,9 +2322,9 @@ void untransform(bool skip_move, bool scale_hp, bool preserve_equipment,
     if (!form_can_wield(old_form))
         you.received_weapon_warning = false;
 
-    const string message = get_form(old_form)->get_untransform_message();
-    if (!message.empty())
-        mprf(MSGCH_DURATION, "%s", message.c_str());
+    const ZhMessage message = get_form(old_form)->untransform_display_message();
+    if (!message.canonical.empty())
+        mpr(message, MSGCH_DURATION);
 
     set_form(transformation::none, 0, scale_hp);
 
@@ -2255,7 +2357,7 @@ void untransform(bool skip_move, bool scale_hp, bool preserve_equipment,
         if (monster* ember = get_solar_ember())
         {
             monster_die(*ember, KILL_RESET, NON_MONSTER);
-            mprf(MSGCH_DURATION, "Your tiny sun winks out.");
+            mpr(_transform_log("Your tiny sun winks out."), MSGCH_DURATION);
         }
     }
     else if (old_form == transformation::rime_yak)
@@ -2290,8 +2392,9 @@ void untransform(bool skip_move, bool scale_hp, bool preserve_equipment,
     {
         for (item_def* item : forced_remove)
         {
-            mprf("%s falls away%s!", item->name(DESC_YOUR).c_str(),
-                    item->cursed() ? ", shattering the curse!" : "");
+            mpr(zh_message(item->cursed() ? "transform.log.gear_falls_curse"
+                                          : "transform.log.gear_falls",
+                {zh_item_arg("item", *item, DESC_YOUR)}));
 
             unequip_item(*item, false);
         }
@@ -2398,10 +2501,10 @@ void merfolk_start_swimming()
     if (you.fishtail)
         return;
 
-    mpr("Your legs become a tail as you dive into the water.");
+    mpr(_transform_log("Your legs become a tail as you dive into the water."));
 
     if (you.invisible())
-        mpr("...but don't expect to remain undetected.");
+        mpr(_transform_log("...but don't expect to remain undetected."));
 
     you.fishtail = true;
     you.redraw_evasion = true;
@@ -2574,8 +2677,9 @@ void sun_scarab_spawn_ember(bool first_time)
     if (monster* mon = create_monster(mg))
     {
         you.props[SOLAR_EMBER_MID_KEY].get_int() = mon->mid;
-        mprf(MSGCH_DURATION, first_time ? "A tiny sun coalesces beside you."
-                                        : "You reconstitute your solar ember.");
+        mpr(first_time ? _transform_log("A tiny sun coalesces beside you.")
+                       : _transform_log("You reconstitute your solar ember."),
+            MSGCH_DURATION);
         you.props.erase(SOLAR_EMBER_REVIVAL_KEY);
     }
 }
@@ -2608,13 +2712,14 @@ bool maw_hunger_check(monster* mon)
     {
         if (!you.clarity())
         {
-            mprf("Your maw growls hungrily at the sight of %s.", mon->name(DESC_THE).c_str());
+            mpr(zh_message("transform.log.maw_hungry",
+                {zh_monster_arg("monster", *mon, DESC_THE)}));
             you.add_beholder(*mon, true, random_range(6, 10));
         }
         else
         {
-            mprf("Your maw growls hungrily at the sight of %s, but you resist your urges.",
-                 mon->name(DESC_THE).c_str());
+            mpr(zh_message("transform.log.maw_resist",
+                {zh_monster_arg("monster", *mon, DESC_THE)}));
         }
 
         noisy(you.shout_volume(), you.pos(), MID_PLAYER);
@@ -2632,15 +2737,17 @@ bool vampire_mesmerism_check(monster& mon)
     {
         if (mon.check_willpower(&you, get_form()->get_effect_chance()) <= 0)
         {
-            mprf("%s loses %s in your eye%s.",
-                    mon.name(DESC_THE).c_str(),
-                    mon.pronoun(PRONOUN_REFLEXIVE).c_str(),
-                    you.has_mutation(MUT_MISSING_EYE) ? "" : "s");
+            mpr(zh_message(you.has_mutation(MUT_MISSING_EYE)
+                    ? "transform.log.vampire_loses_eye"
+                    : "transform.log.vampire_loses_eyes",
+                {zh_monster_arg("monster", mon, DESC_THE),
+                 zh_text("reflexive", mon.pronoun(PRONOUN_REFLEXIVE), "")}));
             mon.daze(random_range(3, 5));
         }
         else
         {
-            mprf("%s is briefly mesmerised by your gaze.", mon.name(DESC_THE).c_str());
+            mpr(zh_message("transform.log.vampire_gaze",
+                {zh_monster_arg("monster", mon, DESC_THE)}));
             // This works even if called during the stealth check, whereas a 1-turn daze
             // would wear off with no effect and produce extra messages on top of that.
             mon.speed_increment -= 10;

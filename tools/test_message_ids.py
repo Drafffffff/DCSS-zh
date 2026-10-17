@@ -2,7 +2,9 @@
 """Exercise typed rendering and independent Luna oracles; inspect real call sites."""
 import json,subprocess,tempfile
 from pathlib import Path
-from compile_message_ids import ROOT,SRC,LOC,compile_catalog
+from compile_message_ids import ROOT,SRC,LOC,SHORTCUT,compile_catalog
+assert SHORTCUT.findall('<w>%?!"=()[</w> text <input>$cmd[CMD_DROP]</input>') == ['[CMD_DROP]']
+assert SHORTCUT.findall('[a-z] (y/n) [Esc]') == ['[a-z]', '(y/n)', '[Esc]']
 messages=compile_catalog();q=lambda s:json.dumps(s,ensure_ascii=False).replace('?', r'\?')
 types={'text':'Text','name':'Name','integer':'Integer','number':'Number','key':'Key','colour':'Colour','key_markup':'KeyMarkup'}
 code='''#include "zh-message.h"

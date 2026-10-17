@@ -55,10 +55,12 @@ public:
     bool xl_based; // if false, scale on Shapeshifting skill
 };
 
+struct ZhMessage;
 struct form_entry; // defined in form-data.h (private)
 class Form
 {
 private:
+    const transformation message_form;
     Form() = delete;
     DISALLOW_COPY_AND_ASSIGN(Form);
     Form(const form_entry &fe);
@@ -106,8 +108,10 @@ public:
     virtual string get_transform_description() const { return description; }
 
     virtual string get_description(bool past_tense = false) const;
-    virtual string transform_message() const;
-    virtual string get_untransform_message() const;
+    string transform_message() const;
+    string get_untransform_message() const;
+    virtual ZhMessage transform_display_message() const;
+    virtual ZhMessage untransform_display_message() const;
 
     virtual int res_fire() const;
     virtual int res_cold() const;

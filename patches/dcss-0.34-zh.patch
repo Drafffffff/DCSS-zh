@@ -46948,7 +46948,7 @@ index a4a1a95..20747cf 100644
 +              localized, supported}}).display();
  }
 diff --git a/crawl-ref/source/describe.cc b/crawl-ref/source/describe.cc
-index 0a381e1..0ebdbfd 100644
+index 0a381e1..d804f78 100644
 --- a/crawl-ref/source/describe.cc
 +++ b/crawl-ref/source/describe.cc
 @@ -4,6 +4,9 @@
@@ -47712,9 +47712,7 @@ index 0a381e1..0ebdbfd 100644
  }
  
 -static string _describe_point_change(float points)
-+static ZhArg _describe_point_diff_arg(const string &key, int original,
-+                                     int changed, int scale = 100)
- {
+-{
 -    string point_diff_description;
 -
 -    point_diff_description += make_stringf("%s by %.1f",
@@ -47726,7 +47724,9 @@ index 0a381e1..0ebdbfd 100644
 -
 -static string _describe_point_diff(int original,
 -                                   int changed, int scale = 100)
--{
++static ZhArg _describe_point_diff_arg(const string &key, int original,
++                                     int changed, int scale = 100)
+ {
 -    string description;
 -
      if (original == changed)
@@ -48191,10 +48191,10 @@ index 0a381e1..0ebdbfd 100644
  
      if (curses.empty())
 -        return "\nIt has a curse placed upon it.";
--
--    ostringstream desc;
 +        return "\n" + zh_source("detail.item.fixed", "It has a curse placed upon it.");
  
+-    ostringstream desc;
+-
 -    desc << "\nIt has a curse which improves the following skills:\n";
 -    desc << comma_separated_fn(curses.begin(), curses.end(), desc_curse_skills,
 -                               ".\n", ".\n") << ".";
@@ -48814,7 +48814,20 @@ index 0a381e1..0ebdbfd 100644
              else
                  text->set_text(fs_desc.trim());
  #ifdef USE_TILE_WEB
-@@ -4211,13 +4550,33 @@ void inscribe_item(item_def &item)
+@@ -4208,16 +4547,46 @@ void inscribe_item(item_def &item)
+  *
+  * @param spell     The spell in question.
+  */
++static ZhArg _spell_range_display_arg(spell_type spell)
++{
++    // Select the semantic absence at the producer; numeric range notation is
++    // language-independent. Never parse the final English range string.
++    if (spell_range(spell, &you, -1, true) <= 0)
++        return zh_message_arg("range", "spell.stats.range.not_applicable");
++    const string range = spell_range_string(spell);
++    return zh_text("range", range, range);
++}
++
  static string _player_spell_stats(const spell_type spell)
  {
      string description;
@@ -48855,7 +48868,7 @@ index 0a381e1..0ebdbfd 100644
  
      if (!crawl_state.need_save
          || (get_spell_flags(spell) & spflag::monster))
-@@ -4239,37 +4598,56 @@ static string _player_spell_stats(const spell_type spell)
+@@ -4239,37 +4608,55 @@ static string _player_spell_stats(const spell_type spell)
      }
      else
          failure = failure_rate_to_string(raw_spell_fail(spell));
@@ -48915,11 +48928,10 @@ index 0a381e1..0ebdbfd 100644
 +            zh_text("accuracy", accuracy, accuracy)}).display();
 +    }
 +
-+    const string range = spell_range_string(spell);
 +    description += zh_message("spell.stats.range", {
 +        zh_text("indent", string(max(0, padding - 5), ' '),
 +                string(max(0, padding - 5), ' ')),
-+        zh_text("range", range, range)}).display();
++        _spell_range_display_arg(spell)}).display();
 +    const ZhArg noise_arg = spell_noise_display_arg("noise", spell);
 +    description += zh_message("spell.stats.noise", {
 +        zh_text("indent", string(max(0, padding - 5), ' '),
@@ -48928,7 +48940,7 @@ index 0a381e1..0ebdbfd 100644
      description += "\n";
      return description;
  }
-@@ -4296,26 +4674,32 @@ static string _get_skill_defense_change(skill_type skill)
+@@ -4296,26 +4683,32 @@ static string _get_skill_defense_change(skill_type skill)
      const float ev_diff = (float)(new_ev - cur_ev) / 100.0;
      const float sh_diff = (float)(new_sh - cur_sh) / 100.0;
  
@@ -48972,7 +48984,7 @@ index 0a381e1..0ebdbfd 100644
      }
  
      return "";
-@@ -4323,16 +4707,17 @@ static string _get_skill_defense_change(skill_type skill)
+@@ -4323,16 +4716,17 @@ static string _get_skill_defense_change(skill_type skill)
  
  string get_skill_description(skill_type skill, bool need_title)
  {
@@ -48992,7 +49004,7 @@ index 0a381e1..0ebdbfd 100644
  
      if ((skill == SK_ARMOUR || skill == SK_DODGING || skill == SK_SHIELDS)
          && you.skills[skill] < MAX_SKILL_LEVEL && !is_useless_skill(skill))
-@@ -4343,29 +4728,36 @@ string get_skill_description(skill_type skill, bool need_title)
+@@ -4343,29 +4737,36 @@ string get_skill_description(skill_type skill, bool need_title)
      {
          if (you.has_mutation(MUT_FORLORN))
          {
@@ -49041,7 +49053,119 @@ index 0a381e1..0ebdbfd 100644
      }
  
      return result;
-@@ -4468,116 +4860,136 @@ static string _player_spell_desc(spell_type spell)
+@@ -4405,48 +4806,71 @@ int hex_chance(const spell_type spell, const monster_info* mi, bool is_wand)
+  *
+  * @param spell
+  */
+-static string _miscast_damage_string(spell_type spell)
+-{
+-    const map <spschool, string> damage_flavor = {
+-        { spschool::conjuration, "irresistible" },
+-        { spschool::necromancy, "draining" },
+-        { spschool::fire, "fire" },
+-        { spschool::ice, "cold" },
+-        { spschool::air, "electric" },
+-        { spschool::earth, "fragmentation" },
+-    };
++// Compose semantic alternatives before choosing the complete parent sentence.
++// Separators are reviewed templates; no assembled English is reverse matched.
++static ZhArg _miscast_list_arg(const string &key, const vector<ZhArg> &parts,
++                               const string &more_id, const string &final_id)
++{
++    if (parts.empty())
++        return {key, ZhArgType::Text, "", "", true};
++    ZhArg result = parts.front();
++    result.key = "items";
++    for (size_t i = 1; i < parts.size(); ++i)
++    {
++        const bool last = i + 1 == parts.size();
++        ZhArg next = parts[i];
++        next.key = last ? "last" : "next";
++        result = zh_message_arg("items", last ? final_id : more_id, {result, next});
++    }
++    result.key = key;
++    return result;
++}
+ 
+-    const map <spschool, string> special_flavor = {
+-        { spschool::summoning, "summons a nameless horror" },
+-        { spschool::translocation, "anchors you in place" },
+-        { spschool::hexes, "slows you" },
+-        { spschool::alchemy, "poisons you" },
+-        { spschool::forgecraft, "corrodes you" },
++static vector<ZhArg> _miscast_effect_args(spell_type spell)
++{
++    const map<spschool, string> damage_ids = {
++        { spschool::conjuration, "spell.miscast.flavor.irresistible" },
++        { spschool::necromancy, "spell.miscast.flavor.draining" },
++        { spschool::fire, "spell.miscast.flavor.fire" },
++        { spschool::ice, "spell.miscast.flavor.cold" },
++        { spschool::air, "spell.miscast.flavor.electric" },
++        { spschool::earth, "spell.miscast.flavor.fragmentation" },
+     };
+-
+-    spschools_type disciplines = get_spell_disciplines(spell);
+-    vector <string> descs;
+-
+-    for (const auto &flav : special_flavor)
+-        if (disciplines & flav.first)
+-            descs.push_back(flav.second);
+-
+-    int dam = max_miscast_damage(spell);
+-    vector <string> dam_flavors;
+-    for (const auto &flav : damage_flavor)
+-        if (disciplines & flav.first)
+-            dam_flavors.push_back(flav.second);
+-
+-    if (!dam_flavors.empty())
+-    {
+-        descs.push_back(make_stringf("deals up to %d %s damage", dam,
+-                                     comma_separated_line(dam_flavors.begin(),
+-                                                         dam_flavors.end(),
+-                                                         " or ").c_str()));
+-    }
+-
+-    return (descs.size() > 1 ? "either " : "")
+-         + comma_separated_line(descs.begin(), descs.end(), " or ", "; ");
++    const map<spschool, string> effect_ids = {
++        { spschool::summoning, "spell.miscast.effect.horror" },
++        { spschool::translocation, "spell.miscast.effect.anchors" },
++        { spschool::hexes, "spell.miscast.effect.slows" },
++        { spschool::alchemy, "spell.miscast.effect.poisons" },
++        { spschool::forgecraft, "spell.miscast.effect.corrodes" },
++    };
++    const spschools_type disciplines = get_spell_disciplines(spell);
++    vector<ZhArg> effects;
++    for (const auto &effect : effect_ids)
++        if (disciplines & effect.first)
++            effects.push_back(zh_message_arg("effect", effect.second));
++    vector<ZhArg> flavours;
++    for (const auto &flavour : damage_ids)
++        if (disciplines & flavour.first)
++            flavours.push_back(zh_message_arg("flavour", flavour.second));
++    if (!flavours.empty())
++        effects.push_back(zh_message_arg("effect", "spell.miscast.damage_clause", {
++            zh_integer("damage", max_miscast_damage(spell)),
++            _miscast_list_arg("flavours", flavours,
++                "spell.miscast.flavor.list.more", "spell.miscast.flavor.list.final")}));
++    return effects;
++}
++
++static ZhMessage _miscast_composition_message(spell_type spell)
++{
++    if (fail_severity(spell) == 0)
++        return zh_message("spell.miscast_contamination", {
++            ZhArg{"additional", ZhArgType::Text, "", "", true}});
++    const vector<ZhArg> effects = _miscast_effect_args(spell);
++    const bool multiple = effects.size() > 1;
++    return zh_message(multiple ? "spell.miscast.parent.multiple"
++                               : "spell.miscast.parent.single", {
++        _miscast_list_arg(multiple ? "effects" : "effect", effects,
++            "spell.miscast.effect.list.more", "spell.miscast.effect.list.final")});
+ }
+ 
+ /**
+@@ -4468,116 +4892,131 @@ static string _player_spell_desc(spell_type spell)
  
      ostringstream description;
  
@@ -49049,12 +49173,7 @@ index 0a381e1..0ebdbfd 100644
 -                << (fail_severity(spell) ?
 -                    " and also " + _miscast_damage_string(spell) : "")
 -                << ".\n";
-+    const bool has_miscast_effect = fail_severity(spell) != 0;
-+    const string additional = has_miscast_effect
-+        ? " and also " + _miscast_damage_string(spell) : "";
-+    description << zh_message("spell.miscast_contamination", {
-+        ZhArg{"additional", ZhArgType::Text, additional, additional,
-+              !has_miscast_effect}}).display();
++    description << _miscast_composition_message(spell).display();
  
      if (spell == SPELL_BATTLESPHERE)
      {
@@ -49231,7 +49350,7 @@ index 0a381e1..0ebdbfd 100644
      }
  
      return description.str();
-@@ -4612,19 +5024,19 @@ static void _get_spell_description(const spell_type spell,
+@@ -4612,19 +5051,19 @@ static void _get_spell_description(const spell_type spell,
  {
      description.reserve(500);
  
@@ -49257,7 +49376,7 @@ index 0a381e1..0ebdbfd 100644
  #endif
      }
  
-@@ -4633,21 +5045,25 @@ static void _get_spell_description(const spell_type spell,
+@@ -4633,21 +5072,25 @@ static void _get_spell_description(const spell_type spell,
          if (spell == SPELL_CONJURE_LIVING_SPELLS)
          {
              const spell_type living_spell = living_spell_type_for(mon_owner->type);
@@ -49291,7 +49410,7 @@ index 0a381e1..0ebdbfd 100644
  
          }
  
-@@ -4657,20 +5073,21 @@ static void _get_spell_description(const spell_type spell,
+@@ -4657,20 +5100,21 @@ static void _get_spell_description(const spell_type spell,
                                  || spell == SPELL_FLASHING_BALESTRA
                                  || spell == SPELL_BECKONING_GALE ? 3 : 0);
  
@@ -49319,7 +49438,7 @@ index 0a381e1..0ebdbfd 100644
              }
          }
  
-@@ -4680,11 +5097,18 @@ static void _get_spell_description(const spell_type spell,
+@@ -4680,11 +5124,18 @@ static void _get_spell_description(const spell_type spell,
          const int limit = summons_limit(spell, false);
          if (limit)
          {
@@ -49343,7 +49462,7 @@ index 0a381e1..0ebdbfd 100644
          }
  
          // only display this if the player exists (not in the main menu)
-@@ -4704,20 +5128,21 @@ static void _get_spell_description(const spell_type spell,
+@@ -4704,20 +5155,21 @@ static void _get_spell_description(const spell_type spell,
              if (you.wizard)
                  wiz_info += make_stringf(" (pow %d)", _mon_hex_pow(spell, mon_owner, is_wand));
  #endif
@@ -49373,7 +49492,7 @@ index 0a381e1..0ebdbfd 100644
      if (!quote.empty())
          description += "_________________\n\n<darkgrey>" + quote + "</darkgrey>";
  }
-@@ -4750,6 +5175,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
+@@ -4750,6 +5202,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
                      const item_def* item)
  {
      UNUSED(item);
@@ -49381,7 +49500,7 @@ index 0a381e1..0ebdbfd 100644
  
      string desc;
      _get_spell_description(spell, mon_owner, desc);
-@@ -4766,11 +5192,11 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
+@@ -4766,11 +5219,11 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
      title_hbox->add_child(std::move(spell_icon));
  #endif
  
@@ -49395,7 +49514,7 @@ index 0a381e1..0ebdbfd 100644
      title->set_margin_for_sdl(0, 0, 0, 10);
      title_hbox->add_child(std::move(title));
  
-@@ -4781,7 +5207,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
+@@ -4781,7 +5234,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
  
      auto scroller = make_shared<Scroller>();
      auto text = make_shared<Text>();
@@ -49404,7 +49523,7 @@ index 0a381e1..0ebdbfd 100644
      text->set_wrap_text(true);
      scroller->set_child(std::move(text));
      vbox->add_child(scroller);
-@@ -4948,50 +5374,46 @@ static string _describe_draconian(const monster_info& mi)
+@@ -4948,50 +5401,46 @@ static string _describe_draconian(const monster_info& mi)
  
      if (subsp != mi.type)
      {
@@ -49471,7 +49590,7 @@ index 0a381e1..0ebdbfd 100644
          break;
      default:
          break;
-@@ -5029,16 +5451,16 @@ static const char* _get_resist_name(mon_resist_flags res_type)
+@@ -5029,16 +5478,16 @@ static const char* _get_resist_name(mon_resist_flags res_type)
      }
  }
  
@@ -49494,7 +49613,7 @@ index 0a381e1..0ebdbfd 100644
      }
  }
  
-@@ -5105,7 +5527,15 @@ static string _flavour_base_desc(attack_flavour flavour)
+@@ -5105,7 +5554,15 @@ static string _flavour_base_desc(attack_flavour flavour)
  
      const string* desc = map_find(base_descs, flavour);
      ASSERT(desc);
@@ -49511,7 +49630,7 @@ index 0a381e1..0ebdbfd 100644
  }
  
  struct mon_attack_info
-@@ -5161,7 +5591,8 @@ static mon_attack_info _atk_info(const monster_info& mi, int i)
+@@ -5161,7 +5618,8 @@ static mon_attack_info _atk_info(const monster_info& mi, int i)
  static string _brand_damage_string(const monster_info &mi, brand_type brand,
                                     int dam, int wpn_base_dmg = 0)
  {
@@ -49521,7 +49640,7 @@ index 0a381e1..0ebdbfd 100644
      int brand_dam;
      // Only include damaging brands
      // Heavy is included in base damage calculations instead
-@@ -5199,16 +5630,18 @@ static string _brand_damage_string(const monster_info &mi, brand_type brand,
+@@ -5199,16 +5657,18 @@ static string _brand_damage_string(const monster_info &mi, brand_type brand,
              brand_dam = 4;
              break;
          case SPWPN_SUNDERING:
@@ -49543,7 +49662,7 @@ index 0a381e1..0ebdbfd 100644
  }
  
  // Max damage from a magical staff with a given amount of staff & evo skill
-@@ -5240,9 +5673,9 @@ static string _monster_staff_damage_string(const monster_info &mi,
+@@ -5240,9 +5700,9 @@ static string _monster_staff_damage_string(const monster_info &mi,
                             : staff == STAFF_ALCHEMY       ? "poison"
                             /*staff == STAFF_CONJURATION*/ : "conj";
  
@@ -49556,7 +49675,7 @@ index 0a381e1..0ebdbfd 100644
  }
  
  struct mon_attack_desc_info
-@@ -5323,21 +5756,24 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
+@@ -5323,21 +5783,24 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
                                       int attk_mult)
  {
      if (!desc.empty())
@@ -49588,7 +49707,7 @@ index 0a381e1..0ebdbfd 100644
      }
  
      if (di.flavour_without_dam
-@@ -5346,16 +5782,17 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
+@@ -5346,16 +5809,17 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
          && !flavour_has_mobility(attack.flavour)
          && !(attack.flavour == AF_REACH_CLEAVE_UGLY))
      {
@@ -49612,7 +49731,7 @@ index 0a381e1..0ebdbfd 100644
      }
  }
  
-@@ -5374,23 +5811,42 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5374,23 +5838,42 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
  
      if (weapon_multihits(wpn))
          attk_mult *= weapon_hits_per_swing(*wpn);
@@ -49662,7 +49781,7 @@ index 0a381e1..0ebdbfd 100644
  
      // Part 2: The "Max Damage" column
      // Display the max damage from the attack (including any weapon)
-@@ -5440,12 +5896,13 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5440,12 +5923,13 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
  
      string dam_str;
      if (dam != real_dam)
@@ -49678,7 +49797,7 @@ index 0a381e1..0ebdbfd 100644
  
      string brand_str;
      if (wpn)
-@@ -5464,11 +5921,11 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5464,11 +5948,11 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
      else if (di.special_flavour != SPWPN_NORMAL)
          brand_str = _brand_damage_string(mi, di.special_flavour, real_dam);
  
@@ -49694,7 +49813,7 @@ index 0a381e1..0ebdbfd 100644
  
      // Part 3: The "Bonus" column
      // Describe any additional effects from a monster's attack flavour
-@@ -5495,10 +5952,10 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5495,10 +5979,10 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
      }
      // ...except Nessos' ranged attacks apply venom as a special effect
      else if (mi.type == MONS_NESSOS)
@@ -49707,7 +49826,7 @@ index 0a381e1..0ebdbfd 100644
  }
  
  // Get all the info required to form an attacks table row for the monster's
-@@ -5510,41 +5967,47 @@ static void _attacks_table_row_throwing(const monster_info &mi,
+@@ -5510,41 +5994,47 @@ static void _attacks_table_row_throwing(const monster_info &mi,
      if (!quiv || quiv->base_type != OBJ_MISSILES)
          return;
  
@@ -49770,7 +49889,7 @@ index 0a381e1..0ebdbfd 100644
          default:
              break;
          }
-@@ -5565,21 +6028,39 @@ static void _attacks_table_row_throwing(const monster_info &mi,
+@@ -5565,21 +6055,39 @@ static void _attacks_table_row_throwing(const monster_info &mi,
              string dmg_msg;
              int silver_dam = max(dam / 3,
                                   silver_damages_victim(&you, dam, dmg_msg));
@@ -49813,7 +49932,7 @@ index 0a381e1..0ebdbfd 100644
      // Hopefully enough width for every possibility
      di.damage_width    = min(di.damage_width, (size_t) 31);
      di.bonus_width     = min(di.bonus_width, 69 - di.damage_width);
-@@ -5594,14 +6075,12 @@ static void _build_table_of_attacks(mon_attack_desc_info &di,
+@@ -5594,14 +6102,12 @@ static void _build_table_of_attacks(mon_attack_desc_info &di,
      // Note: columns are separated by (a minimum of) 2 spaces
  
      // First, the table header
@@ -49831,7 +49950,7 @@ index 0a381e1..0ebdbfd 100644
      }
      result << "\n";
  
-@@ -5707,36 +6186,32 @@ static string _monster_spells_description(const monster_info& mi, bool mark_spel
+@@ -5707,36 +6213,32 @@ static string _monster_spells_description(const monster_info& mi, bool mark_spel
      if (mark_spells)
          description += SPELL_LIST_END;
  
@@ -49882,7 +50001,7 @@ index 0a381e1..0ebdbfd 100644
  }
  
  static void _describe_aux_hit_chance(ostringstream &result, vector<string>& auxes, int chance)
-@@ -5826,23 +6301,36 @@ void describe_hit_chance(int hit_chance, ostringstream &result, const item_def *
+@@ -5826,23 +6328,36 @@ void describe_hit_chance(int hit_chance, ostringstream &result, const item_def *
      if (verbose)
          result << "about ";
  
@@ -49933,7 +50052,7 @@ index 0a381e1..0ebdbfd 100644
      }
  }
  
-@@ -5905,9 +6393,13 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
+@@ -5905,9 +6420,13 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
      const int beat_sh_chance = mon_beat_sh_pct(shield_bypass, scaled_sh);
  
      const int hit_chance = beat_ev_chance * beat_sh_chance / 100;
@@ -49950,7 +50069,7 @@ index 0a381e1..0ebdbfd 100644
  }
  
  /**
-@@ -6060,6 +6552,10 @@ static string _monster_current_target_description(const monster_info &mi)
+@@ -6060,6 +6579,10 @@ static string _monster_current_target_description(const monster_info &mi)
  
      const char* pronoun = mi.pronoun(PRONOUN_SUBJECTIVE);
      const bool plural = mi.pronoun_plurality();
@@ -49961,7 +50080,7 @@ index 0a381e1..0ebdbfd 100644
  
      ostringstream result;
      if (mi.is(MB_ALLY_TARGET))
-@@ -6067,28 +6563,41 @@ static string _monster_current_target_description(const monster_info &mi)
+@@ -6067,28 +6590,41 @@ static string _monster_current_target_description(const monster_info &mi)
          auto allies = find_allies_targeting(*m);
          if (allies.size() == 1)
          {
@@ -50015,7 +50134,7 @@ index 0a381e1..0ebdbfd 100644
      }
  
      return result.str();
-@@ -6101,6 +6610,38 @@ struct TableCell
+@@ -6101,6 +6637,38 @@ struct TableCell
      colour_t colour;
  };
  
@@ -50054,7 +50173,7 @@ index 0a381e1..0ebdbfd 100644
  // TODO: This is similar to column_composer. Deduplicate?
  class TablePrinter
  {
-@@ -6127,7 +6668,7 @@ public:
+@@ -6127,7 +6695,7 @@ public:
      {
          if (fixed_column_num > 0 && (int)rows[rows.size() - 1].size() >= fixed_column_num)
              AddRow();
@@ -50063,7 +50182,7 @@ index 0a381e1..0ebdbfd 100644
      }
  
      int NumCells() const
-@@ -6146,7 +6687,7 @@ public:
+@@ -6146,7 +6714,7 @@ public:
          {
              for (size_t col = 0; col < rows[row].size(); ++col)
              {
@@ -50072,7 +50191,7 @@ index 0a381e1..0ebdbfd 100644
                  if (col == labels_lengths_by_col.size())
                      labels_lengths_by_col.push_back(label_len);
                  else
-@@ -6158,23 +6699,37 @@ public:
+@@ -6158,23 +6726,37 @@ public:
  
          for (const auto &row : rows)
          {
@@ -50121,7 +50240,7 @@ index 0a381e1..0ebdbfd 100644
          }
      }
  };
-@@ -6294,10 +6849,12 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+@@ -6294,10 +6876,12 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
  
      // Less important common properties. Arguably should be lower down.
      const size_type sz = mi.body_size();
@@ -50137,7 +50256,7 @@ index 0a381e1..0ebdbfd 100644
      pr.AddRow();
      if (mi.threat != MTHRT_UNDEF && !mons_class_is_peripheral(mi.type))
          pr.AddCell("Threat", _get_threat_desc(mi.threat));
-@@ -6305,9 +6862,10 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+@@ -6305,9 +6889,10 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
          pr.AddCell(); // ensure alignment
      pr.AddCell("Class", uppercase_first(holi).c_str());
      pr.AddCell("Size", size_desc.c_str());
@@ -50150,7 +50269,7 @@ index 0a381e1..0ebdbfd 100644
      else if (mons_class_fast_regen(mi.type) || mi.is(MB_REGENERATION))
          pr.AddCell("Regen", make_stringf("%d/turn", mi.regen_rate(1)));
                                          // (Wait, what's a 'turn'?)
-@@ -6621,6 +7179,29 @@ static string _desc_shooting_star_dam(const monster_info &mi)
+@@ -6621,6 +7206,29 @@ static string _desc_shooting_star_dam(const monster_info &mi)
      return make_stringf("%dd%d", beam.damage.num, beam.damage.size);
  }
  
@@ -50180,7 +50299,7 @@ index 0a381e1..0ebdbfd 100644
  // Fetches the monster's database description and reads it into inf.
  void get_monster_db_desc(const monster_info& mi, describe_info &inf,
                           bool &has_stat_desc, bool mark_spells)
-@@ -6646,10 +7227,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6646,10 +7254,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      // Don't get description for player ghosts.
      if (mi.type != MONS_PLAYER_GHOST && mi.type != MONS_PLAYER_ILLUSION)
@@ -50196,7 +50315,7 @@ index 0a381e1..0ebdbfd 100644
  
      string symbol;
      symbol += get_monster_data(mi.type)->basechar;
-@@ -6660,10 +7244,10 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6660,10 +7271,10 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      if (!mons_is_unique(mi.type))
      {
          string symbol_prefix = "__" + symbol + "_prefix";
@@ -50209,7 +50328,7 @@ index 0a381e1..0ebdbfd 100644
      }
  
      if (!inf.quote.empty() && !quote2.empty())
-@@ -6697,18 +7281,31 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6697,18 +7308,31 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      }
  
      case MONS_PLAYER_GHOST:
@@ -50245,7 +50364,7 @@ index 0a381e1..0ebdbfd 100644
  
      case MONS_MUTANT_BEAST:
          // vault renames get their own descriptions
-@@ -6718,30 +7315,45 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6718,30 +7342,45 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      case MONS_BLOCK_OF_ICE:
          if (mi.is(MB_SLOWLY_DYING))
@@ -50297,7 +50416,7 @@ index 0a381e1..0ebdbfd 100644
  
      default:
          break;
-@@ -6750,13 +7362,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6750,13 +7389,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      if (mons_class_is_fragile(mi.type))
      {
          if (mi.is(MB_CRUMBLING))
@@ -50315,7 +50434,7 @@ index 0a381e1..0ebdbfd 100644
      }
  
      if (!mons_is_unique(mi.type))
-@@ -6765,21 +7377,26 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6765,21 +7404,26 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
          symbol_suffix += symbol;
          symbol_suffix += "_suffix";
  
@@ -50349,7 +50468,7 @@ index 0a381e1..0ebdbfd 100644
      }
  
      // Get information on resistances, speed, etc.
-@@ -6793,7 +7410,8 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6793,7 +7437,8 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      bool did_stair_use = false;
      if (!mons_class_can_use_stairs(mi.type))
      {
@@ -50359,7 +50478,7 @@ index 0a381e1..0ebdbfd 100644
          did_stair_use = true;
      }
  
-@@ -6803,42 +7421,70 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6803,42 +7448,70 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      if (mi.is(MB_SUMMONED))
      {
@@ -50447,7 +50566,7 @@ index 0a381e1..0ebdbfd 100644
      }
  
      if (!inf.quote.empty())
-@@ -6958,11 +7604,19 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
+@@ -6958,11 +7631,19 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
      for (string& tag : descriptors)
      {
          const string key = make_stringf("%s monstatus", tag.c_str());
@@ -50469,7 +50588,7 @@ index 0a381e1..0ebdbfd 100644
  
          // Wordwrap and indent slightly.
          linebreak_string(lookup, 77);
-@@ -6971,11 +7625,12 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
+@@ -6971,11 +7652,12 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
          out << "   " << lookup << "\n\n";
      }
  
@@ -50483,7 +50602,7 @@ index 0a381e1..0ebdbfd 100644
      bool has_stat_desc = false;
      describe_info inf;
      formatted_string desc;
-@@ -7000,7 +7655,7 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7000,7 +7682,7 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  #endif
  
      auto title = make_shared<Text>();
@@ -50492,7 +50611,7 @@ index 0a381e1..0ebdbfd 100644
      title->set_margin_for_sdl(0, 0, 0, 10);
      title_hbox->add_child(std::move(title));
  
-@@ -7009,24 +7664,34 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7009,24 +7691,34 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
      title_hbox->set_margin_for_sdl(0, 0, 20, 0);
      vbox->add_child(std::move(title_hbox));
  
@@ -50533,7 +50652,7 @@ index 0a381e1..0ebdbfd 100644
      const formatted_string status_desc = _get_monster_status_descriptions(mi);
  
  
-@@ -7037,9 +7702,9 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7037,9 +7729,9 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  
      const string mores[3] =
      {
@@ -50546,7 +50665,7 @@ index 0a381e1..0ebdbfd 100644
      };
  
      const formatted_string *content[3] = { &desc, &status_desc, &quote };
-@@ -7061,14 +7726,14 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7061,14 +7753,14 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  
          string more = make_stringf("%s%s%s", mores[i].c_str(),
              !status_desc.empty()
@@ -50564,7 +50683,7 @@ index 0a381e1..0ebdbfd 100644
      }
  
      more_sw->set_margin_for_sdl(20, 0, 0, 0);
-@@ -7279,11 +7944,14 @@ string get_ghost_description(const monster_info &mi, bool concise)
+@@ -7279,11 +7971,14 @@ string get_ghost_description(const monster_info &mi, bool concise)
  
  void describe_skill(skill_type skill)
  {
@@ -50581,7 +50700,7 @@ index 0a381e1..0ebdbfd 100644
  }
  
  #ifdef USE_TILE_LOCAL // only used in tiles
-@@ -7472,7 +8140,85 @@ static void _desc_form_val(TablePrinter& pr, string label, int val)
+@@ -7472,7 +8167,85 @@ static void _desc_form_val(TablePrinter& pr, string label, int val)
      pr.AddCell(label, make_stringf("%+d", val).c_str(), val < 0 ? RED : LIGHTGREY);
  }
  
@@ -50668,7 +50787,7 @@ index 0a381e1..0ebdbfd 100644
  {
      const Form* form = get_form(form_type);
  
-@@ -7540,53 +8286,31 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7540,53 +8313,31 @@ static string _describe_talisman_form(transformation form_type)
          _maybe_populate_form_table(items, bind(&Form::get_effect_chance, form, placeholders::_1), "Daze Power", skill, 0, false, false);
      }
  
@@ -50737,7 +50856,7 @@ index 0a381e1..0ebdbfd 100644
  
      _desc_form_val(pr, "Str", form->str_mod);
      _desc_form_val(pr, "Dex", form->dex_mod);
-@@ -7628,7 +8352,7 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7628,7 +8379,7 @@ static string _describe_talisman_form(transformation form_type)
      else if (form_type == transformation::sphinx)
      {
          if (!you.has_mutation(MUT_NO_ARMOUR))
@@ -50746,7 +50865,7 @@ index 0a381e1..0ebdbfd 100644
          pr.AddCell("Will", "+");
      }
      else if (form_type == transformation::werewolf)
-@@ -7652,10 +8376,22 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7652,10 +8403,22 @@ static string _describe_talisman_form(transformation form_type)
          pr.Print(description);
      }
  
@@ -50773,7 +50892,7 @@ index 0a381e1..0ebdbfd 100644
  
      // Mutation suppression info
      vector<string> changes;
-@@ -7672,16 +8408,41 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7672,16 +8435,41 @@ static string _describe_talisman_form(transformation form_type)
  
      if (!changes.empty())
      {
@@ -50835,7 +50954,7 @@ index f2aea63..87aef9d 100644
  
  const char* get_size_adj(const size_type size, bool ignore_medium = false);
 diff --git a/crawl-ref/source/directn.cc b/crawl-ref/source/directn.cc
-index 05963d8..5200f2f 100644
+index 05963d8..ce0f531 100644
 --- a/crawl-ref/source/directn.cc
 +++ b/crawl-ref/source/directn.cc
 @@ -4,8 +4,10 @@
@@ -50946,7 +51065,20 @@ index 05963d8..5200f2f 100644
  }
  
  void direction_chooser::print_target_description(bool &did_cloud) const
-@@ -2012,7 +2023,7 @@ void direction_chooser::toggle_beam()
+@@ -1733,8 +1744,10 @@ void direction_chooser::print_target_description(bool &did_cloud) const
+ 
+     if (!in_range(target()))
+     {
+-        mprf(MSGCH_EXAMINE_FILTER, "%s",
+-             hitfunc ? hitfunc->why_not.c_str() : "Out of range.");
++        if (hitfunc)
++            mpr(hitfunc->failure_message(), MSGCH_EXAMINE_FILTER);
++        else
++            mpr(zh_message("target.reason.out_of_range"), MSGCH_EXAMINE_FILTER);
+     }
+ }
+ 
+@@ -2012,7 +2025,7 @@ void direction_chooser::toggle_beam()
  {
      if (!needs_path)
      {
@@ -50955,7 +51087,7 @@ index 05963d8..5200f2f 100644
          return;
      }
  
-@@ -2042,7 +2053,7 @@ void direction_chooser::handle_movement_key(command_type key_command,
+@@ -2042,7 +2055,7 @@ void direction_chooser::handle_movement_key(command_type key_command,
          if (unshifted)
              set_target(target() + delta);
          else if (!allow_shift_dir)
@@ -50964,7 +51096,7 @@ index 05963d8..5200f2f 100644
          else
              *loop_done = select_compass_direction(delta);
      }
-@@ -2151,7 +2162,7 @@ void direction_chooser::handle_wizard_command(command_type key_command,
+@@ -2151,7 +2164,7 @@ void direction_chooser::handle_wizard_command(command_type key_command,
  
      case CMD_TARGET_WIZARD_HURT_MONSTER:
          m->hit_points = 1;
@@ -50973,7 +51105,7 @@ index 05963d8..5200f2f 100644
          flush_prev_message();
          break;
  
-@@ -2287,7 +2298,7 @@ void direction_chooser::full_describe()
+@@ -2287,7 +2300,7 @@ void direction_chooser::full_describe()
  
      if (list_mons.empty() && list_items.empty() && list_features.empty())
      {
@@ -50982,7 +51114,7 @@ index 05963d8..5200f2f 100644
          flush_prev_message();
          return;
      }
-@@ -2338,7 +2349,7 @@ bool direction_chooser::process_command(command_type command)
+@@ -2338,7 +2351,7 @@ bool direction_chooser::process_command(command_type command)
              break;
  
          if (!is_map_persistent())
@@ -50991,7 +51123,7 @@ index 05963d8..5200f2f 100644
          else
          {
              const bool was_excluded = is_exclude_root(target());
-@@ -2346,11 +2357,11 @@ bool direction_chooser::process_command(command_type command)
+@@ -2346,11 +2359,11 @@ bool direction_chooser::process_command(command_type command)
              need_viewport_redraw   = true;
              const bool is_excluded = is_exclude_root(target());
              if (!was_excluded && is_excluded)
@@ -51006,7 +51138,7 @@ index 05963d8..5200f2f 100644
          }
  
          need_cursor_redraw = true;
-@@ -2450,6 +2461,10 @@ public:
+@@ -2450,6 +2463,10 @@ public:
  
      void _render() override
      {
@@ -51017,7 +51149,7 @@ index 05963d8..5200f2f 100644
          if (crawl_state.invisible_targeting)
              return;
  
-@@ -2875,7 +2890,7 @@ static void _extend_move_to_edge(dist &moves)
+@@ -2875,7 +2892,7 @@ static void _extend_move_to_edge(dist &moves)
  // cache and noted in the Dungeon (O)verview, names the stair.
  static void _describe_oos_square(const coord_def& where)
  {
@@ -51026,7 +51158,7 @@ index 05963d8..5200f2f 100644
  
      if (!in_bounds(where) || !env.map_knowledge(where).seen())
      {
-@@ -2995,7 +3010,7 @@ void describe_floor()
+@@ -2995,7 +3012,7 @@ void describe_floor()
  
      mprf(channel, "%s%s here.", prefix, feat.c_str());
      if (grid == DNGN_ENTER_GAUNTLET)
@@ -51035,7 +51167,7 @@ index 05963d8..5200f2f 100644
      else if (feat_is_fountain(grid) || feat_is_food(grid))
          _walk_on_decor(grid);
  }
-@@ -3581,6 +3596,11 @@ string get_monster_equipment_desc(const monster_info& mi,
+@@ -3581,6 +3598,11 @@ string get_monster_equipment_desc(const monster_info& mi,
          item_descriptions.push_back(carried_desc);
      }
  
@@ -51724,7 +51856,7 @@ index c9704ed..d41e3b0 100644
  string curse_name(const CrawlStoreValue& curse);
  const vector<skill_type>& curse_skills(const CrawlStoreValue& curse);
 diff --git a/crawl-ref/source/hints.cc b/crawl-ref/source/hints.cc
-index 9f18733..bb38a30 100644
+index 9f18733..1490166 100644
 --- a/crawl-ref/source/hints.cc
 +++ b/crawl-ref/source/hints.cc
 @@ -6,6 +6,9 @@
@@ -51737,7 +51869,75 @@ index 9f18733..bb38a30 100644
  
  #include <cstring>
  #include <sstream>
-@@ -1973,67 +1976,80 @@ string hints_memorise_info()
+@@ -472,6 +475,25 @@ void hints_new_turn()
+         learned_something_new(HINT_RETREAT_CASTER);
+ }
+ 
++// Tutorial markup is control structure, processed only after selecting the
++// whole translated template. The canonical and localized versions are kept
++// together through output; the old renderer must not reinterpret either.
++static string _prepare_pickup_hint(string text, const string &glyph)
++{
++    _replace_static_tags(text);
++    text = untag_tiles_console(text);
++    text = replace_all(text, "$1", glyph);
++    return replace_all(text, "\n\n", "\n");
++}
++
++static ZhMessage _pickup_hint_message(const string &glyph)
++{
++    ZhMessage message = zh_message("hints.pickup.first_object");
++    message.canonical = _prepare_pickup_hint(message.canonical, glyph);
++    message.localized = _prepare_pickup_hint(message.localized, glyph);
++    return message;
++}
++
+ /**
+  * Look up and return a hint message from the database.
+  * @param arg1 A string that can be inserted into the hint message.
+@@ -479,6 +501,8 @@ void hints_new_turn()
+  */
+ static string _get_hint(string key, const string& arg1 = "", const string& arg2 = "")
+ {
++    if (key == "HINT_SEEN_FIRST_OBJECT")
++        return _pickup_hint_message(arg1).display();
+     string text = getHintString(key);
+     if (text.empty())
+         mprf(MSGCH_ERROR, "Error, no hint for '%s'.", key.c_str());
+@@ -502,6 +526,21 @@ static string _get_hint(string key, const string& arg1 = "", const string& arg2
+  */
+ void print_hint(string key, const string& arg1, const string& arg2)
+ {
++    if (key == "HINT_SEEN_FIRST_OBJECT")
++    {
++        const ZhMessage message = _pickup_hint_message(arg1);
++        // Keep canonical English in message history as well as selected Chinese.
++        // If reviewed paragraph counts differ, output the whole envelope.
++        const vector<string> canonical = split_string("\n", message.canonical);
++        const vector<string> localized = split_string("\n", message.localized);
++        if (canonical.size() != localized.size())
++            mpr(message, MSGCH_TUTORIAL);
++        else
++            for (size_t i = 0; i < canonical.size(); ++i)
++                mpr(ZhMessage{message.id, canonical[i], localized[i]}, MSGCH_TUTORIAL);
++        stop_running();
++        return;
++    }
+     string text = _get_hint(key, arg1, arg2);
+ 
+     // "\n" preserves indented parts and paragraphs
+@@ -955,7 +994,9 @@ void hints_first_item(const item_def &item)
+ #ifdef USE_TILE
+     const coord_def gc = item.pos;
+     tiles.place_cursor(CURSOR_TUTORIAL, gc);
+-    tiles.add_text_tag(TAG_TUTORIAL, item.name(DESC_A), gc);
++    const ZhArg display_name = zh_item_arg("item", item, DESC_A);
++    tiles.add_text_tag(TAG_TUTORIAL,
++        zh_language_enabled() ? display_name.localized : display_name.canonical, gc);
+ #endif
+ 
+     print_hint("HINT_SEEN_FIRST_OBJECT",
+@@ -1973,67 +2014,80 @@ string hints_memorise_info()
      return text.str();
  }
  
@@ -51869,7 +52069,7 @@ index 9f18733..bb38a30 100644
  }
  
  // num_old_talents describes the number of activatable abilities you had
-@@ -2056,350 +2072,216 @@ void check_item_hint(const item_def &item, unsigned int num_old_talents)
+@@ -2056,350 +2110,216 @@ void check_item_hint(const item_def &item, unsigned int num_old_talents)
  // special effects, etc.
  string hints_describe_item(const item_def &item)
  {
@@ -52001,14 +52201,6 @@ index 9f18733..bb38a30 100644
 -            bool wearable = true;
 -            if (you.get_innate_mutation_level(MUT_HORNS) > 0
 -                && is_hard_helmet(item))
--            {
--                ostr << "Because of your horns you cannot wear helmets. "
--                        "(Press <w>%</w> to see a list of your mutations and "
--                        "innate abilities.)";
--                cmd.push_back(CMD_DISPLAY_MUTATIONS);
--                wearable = false;
--            }
--            else if (item.sub_type == ARM_BARDING)
 +            emit("item.hints.weapon.unwielded", {
 +                _item_hint_key("wield_key", CMD_WIELD_WEAPON),
 +                _item_hint_key("swap_key", CMD_WEAPON_SWAP),
@@ -52020,7 +52212,10 @@ index 9f18733..bb38a30 100644
 +                best = SK_UNARMED_COMBAT;
 +            if (you.skills[current] + 2 < you.skills[best])
              {
--                ostr << "Only nagas and armataurs can wear barding.";
+-                ostr << "Because of your horns you cannot wear helmets. "
+-                        "(Press <w>%</w> to see a list of your mutations and "
+-                        "innate abilities.)";
+-                cmd.push_back(CMD_DISPLAY_MUTATIONS);
 -                wearable = false;
 +                ostr << "\n";
 +                emit("item.hints.weapon.training_gap", {
@@ -52028,6 +52223,11 @@ index 9f18733..bb38a30 100644
 +                    zh_glossary_name("weapon_skill", "skill.name", skill_name(current)),
 +                    _item_hint_key("skills_key", CMD_DISPLAY_SKILLS)});
              }
+-            else if (item.sub_type == ARM_BARDING)
+-            {
+-                ostr << "Only nagas and armataurs can wear barding.";
+-                wearable = false;
+-            }
 -            else
 -            {
 -                ostr << "You can wear pieces of armour with <w>%</w> and take "
@@ -52188,16 +52388,16 @@ index 9f18733..bb38a30 100644
 -            if (!tiles.is_fullscreen())
 -              ostr << "Ctrl + Shift keys";
 -            else
--#endif
--              ostr << "Alt key";
 +        if (!tiles.is_fullscreen())
 +            emit("item.hints.wand.tiles.windowed");
 +        else
  #endif
+-              ostr << "Alt key";
++            emit("item.hints.wand.tiles.fullscreen");
+ #endif
 -            ostr << "</w> and pick the wand from the menu, or 2) "
 -                    "<w>left mouse click</w> on the wand tile and then "
 -                    "<w>left mouse click</w> on your target.";
-+            emit("item.hints.wand.tiles.fullscreen");
  #endif
 -            Hints.hints_events[HINT_SEEN_WAND] = false;
 -            break;
@@ -52206,7 +52406,7 @@ index 9f18733..bb38a30 100644
 -            ostr << "Press <w>%</w> to read this scroll"
 -#ifdef USE_TILE
 -                    "or simply click on it with your <w>left mouse button</w>"
- #endif
+-#endif
 -                    ".";
 -            cmd.push_back(CMD_READ);
 -
@@ -60013,6 +60213,594 @@ index 137085a..6154a1d 100644
      if (padding <= 0)
          return s;
      string str = s;
+diff --git a/crawl-ref/source/target.cc b/crawl-ref/source/target.cc
+index 3fe1f8e..132841b 100644
+--- a/crawl-ref/source/target.cc
++++ b/crawl-ref/source/target.cc
+@@ -3,6 +3,8 @@
+ #include "target.h"
+ 
+ #include <cmath>
++#include <cstdlib>
++#include <fstream>
+ #include <utility> // swap
+ 
+ #include "cloud.h"
+@@ -30,14 +32,47 @@
+ #include "spl-transloc.h"
+ #include "stringutil.h"
+ #include "terrain.h"
++#include "zh-display-name.h"
+ 
+-#define notify_fail(x) (why_not = (x), false)
++bool targeter::notify_fail(const ZhArg &reason)
++{
++    why_not = reason.canonical;
++    display_failure = reason;
++    return false;
++}
++
++bool targeter::notify_fail(const string &canonical)
++{
++    // Unmigrated external producers remain complete English sentences.
++    return notify_fail(ZhArg{"reason", ZhArgType::Text, canonical, canonical, false});
++}
++
++ZhMessage targeter::failure_message() const
++{
++    // External producers have no message ID yet. Report only when their reason
++    // is actually displayed, rather than during speculative target probing.
++    if (!display_failure.supported && display_failure.message_id.empty()
++        && !why_not.empty())
++    {
++        const char *path = std::getenv("DCSS_ZH_ID_MISSING");
++        if (path && *path)
++        {
++            std::ofstream out(path, std::ios::app);
++            out << "target.reason.external_unmigrated\tunsupported external producer\t"
++                << why_not << "\n";
++        }
++    }
++    return {display_failure.message_id, why_not,
++            display_failure.supported ? display_failure.localized : why_not};
++}
+ 
+-static string _wallmsg(coord_def c)
++static ZhArg _wallmsg(coord_def c)
+ {
+     ASSERT(map_bounds(c)); // there'd be an information leak
+     const char *wall = feat_type_name(env.grid(c));
+-    return "There is " + article_a(wall) + " there.";
++    ZhArg name = zh_glossary_name("wall", "terrain", wall);
++    name.canonical = article_a(wall);
++    return zh_message_arg("reason", "target.reason.wall", {name});
+ }
+ 
+ bool targeter::set_aim(coord_def a)
+@@ -145,9 +180,10 @@ bool targeter_charge::valid_aim(coord_def a)
+ {
+     string msg;
+ 
+-    coord_def landing = get_electric_charge_landing_spot(*agent, a, &msg);
++    ZhArg reason;
++    coord_def landing = get_electric_charge_landing_spot(*agent, a, &msg, &reason);
+     if (landing.origin())
+-        return notify_fail(msg);
++        return notify_fail(reason);
+ 
+     return true;
+ }
+@@ -272,11 +308,11 @@ bool targeter_beam::valid_aim(coord_def a)
+             !cell_see_cell(origin, a, LOS_NO_TRANS))
+     {
+         if (agent->see_cell(a))
+-            return notify_fail("There's something in the way.");
+-        return notify_fail("You cannot see that place.");
++            return notify_fail(zh_message_arg("reason", "target.reason.there_is_something_in_the_way"));
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_see_that_place"));
+     }
+     if ((origin - a).rdist() > range)
+-        return notify_fail("Out of range.");
++        return notify_fail(zh_message_arg("reason", "target.reason.out_of_range"));
+     return true;
+ }
+ 
+@@ -428,22 +464,22 @@ bool targeter_smite::valid_aim(coord_def a)
+     {
+         // Scrying/glass/tree/grate.
+         if (agent && agent->see_cell(a))
+-            return notify_fail("There's something in the way.");
++            return notify_fail(zh_message_arg("reason", "target.reason.there_is_something_in_the_way"));
+         else if (agent && agent->is_player())
+-            return notify_fail("You cannot see that place.");
++            return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_see_that_place"));
+         // When aiming something from a different actor's perspective
+         else
+-            return notify_fail("Out of range.");
++            return notify_fail(zh_message_arg("reason", "target.reason.out_of_range"));
+     }
+     if ((origin - a).rdist() > range)
+-        return notify_fail("Out of range.");
++        return notify_fail(zh_message_arg("reason", "target.reason.out_of_range"));
+     if (!can_affect_walls() && cell_is_solid(a) && !anyone_there(a))
+         return notify_fail(_wallmsg(a));
+     if (!can_target_monsters && monster_at(a) && you.can_see(*monster_at(a))
+         // XXX: To let Paragon Tempest be cast without moving the Paragon.
+         && monster_at(a) != agent)
+     {
+-        return notify_fail("There's something in the way.");
++        return notify_fail(zh_message_arg("reason", "target.reason.there_is_something_in_the_way"));
+     }
+     return true;
+ }
+@@ -521,7 +557,10 @@ targeter_walljump::targeter_walljump() :
+ 
+ bool targeter_walljump::valid_aim(coord_def a)
+ {
+-    return wu_jian_can_wall_jump(a, why_not);
++    string reason;
++    const bool valid = wu_jian_can_wall_jump(a, reason);
++    notify_fail(reason); // The original producer also clears why_not on success.
++    return valid;
+ }
+ 
+ aff_type targeter_walljump::is_affected(coord_def loc)
+@@ -551,7 +590,7 @@ bool targeter_passwall::valid_aim(coord_def a)
+ {
+     // Don't allow casting with 0 LOS
+     if (!you.see_cell(a))
+-        return notify_fail("You cannot see that place.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_see_that_place"));
+     passwall_path tmp_path(you, a - you.pos(), range);
+     string failmsg;
+     tmp_path.is_valid(&failmsg);
+@@ -602,9 +641,9 @@ targeter_dig::targeter_dig(int max_range) :
+ bool targeter_dig::valid_aim(coord_def a)
+ {
+     if (a == origin)
+-        return notify_fail("Please select a direction to dig.");
++        return notify_fail(zh_message_arg("reason", "target.reason.please_select_a_direction_to_dig"));
+     if ((origin - a).rdist() > range || !in_bounds(a))
+-        return notify_fail("Out of range.");
++        return notify_fail(zh_message_arg("reason", "target.reason.out_of_range"));
+     int possible_squares_affected;
+     if (aim_test_cache.count(a))
+         possible_squares_affected = aim_test_cache[a];
+@@ -624,7 +663,7 @@ bool targeter_dig::valid_aim(coord_def a)
+         aim_test_cache[a] = possible_squares_affected;
+     }
+     if (possible_squares_affected == 0)
+-        return notify_fail("Digging in that direction won't affect any walls.");
++        return notify_fail(zh_message_arg("reason", "target.reason.digging_in_that_direction_will_not_affect_any"));
+     else if (possible_squares_affected < 0)
+         return false;
+     else
+@@ -693,13 +732,14 @@ bool targeter_transference::valid_aim(coord_def a)
+     {
+         if (mons_is_hepliaklqana_ancestor(victim->type))
+         {
+-            return notify_fail("You can't transfer your ancestor with "
+-                               + victim->pronoun(PRONOUN_REFLEXIVE) + ".");
++            ZhArg self = zh_message_arg("self", "target.reason.transference.self");
++            self.canonical = victim->pronoun(PRONOUN_REFLEXIVE);
++            return notify_fail(zh_message_arg("reason", "target.reason.transference.ancestor", {self}));
+         }
+         if (mons_is_tentacle_or_tentacle_segment(victim->type)
+             || victim->is_stationary())
+         {
+-            return notify_fail("You can't transfer that.");
++            return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_transfer_that"));
+         }
+     }
+     return true;
+@@ -798,14 +838,15 @@ bool targeter_unravelling::valid_aim(coord_def a)
+     const monster* mons = monster_at(a);
+     if (mons && you.can_see(*mons) && !_unravelling_explodes_at(a))
+     {
+-        return notify_fail(mons->name(DESC_THE) + " has no magical effects to "
+-                           "unravel.");
++        return notify_fail(zh_message_arg("reason", "target.reason.unravelling.no_effects",
++                                          {zh_monster_arg("monster", *mons)}));
+     }
+ 
+     if (mons && you.can_see(*mons) && _unravelling_explodes_at(a)
+         && !could_harm(&you, mons))
+     {
+-        return notify_fail("You cannot do harm to " + mons->name(DESC_THE));
++        return notify_fail(zh_message_arg("reason", "target.reason.unravelling.cannot_harm",
++                                          {zh_monster_arg("monster", *mons)}));
+     }
+ 
+     return true;
+@@ -878,8 +919,8 @@ bool targeter_airstrike::valid_aim(coord_def a)
+     if (a != origin && !cell_see_cell(origin, a, LOS_NO_TRANS))
+     {
+         if (you.see_cell(a))
+-            return notify_fail("There's something in the way.");
+-        return notify_fail("You cannot see that place.");
++            return notify_fail(zh_message_arg("reason", "target.reason.there_is_something_in_the_way"));
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_see_that_place"));
+     }
+     return true;
+ }
+@@ -922,7 +963,7 @@ bool targeter_fragment::valid_aim(coord_def a)
+     bolt tempbeam;
+     bool temp;
+     if (!setup_fragmentation_beam(tempbeam, pow, agent, a, true, nullptr, temp))
+-        return notify_fail("You cannot affect that.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_affect_that"));
+     return true;
+ }
+ 
+@@ -967,14 +1008,14 @@ targeter_reach::targeter_reach(const actor* act, int ran) :
+ bool targeter_reach::valid_aim(coord_def a)
+ {
+     if (!cell_see_cell(origin, a, LOS_DEFAULT))
+-        return notify_fail("You cannot see that place.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_see_that_place"));
+     if (!agent->see_cell_no_trans(a))
+-        return notify_fail("You can't get through.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_get_through"));
+ 
+     int dist = (origin - a).rdist();
+ 
+     if (dist > range)
+-        return notify_fail("Your weapon can't reach that far!");
++        return notify_fail(zh_message_arg("reason", "target.reason.your_weapon_cannot_reach_that_far"));
+ 
+     return true;
+ }
+@@ -1011,7 +1052,7 @@ bool targeter_cleave::valid_aim(coord_def a)
+ {
+     const coord_def delta = a - origin;
+     if (delta.rdist() > range)
+-        return notify_fail("Your weapon can't reach that far!");
++        return notify_fail(zh_message_arg("reason", "target.reason.your_weapon_cannot_reach_that_far"));
+     if (range == 2)
+     {
+         const coord_def first_middle(origin + delta / 2);
+@@ -1019,7 +1060,7 @@ bool targeter_cleave::valid_aim(coord_def a)
+         if (!feat_is_reachable_past(env.grid(first_middle))
+              && !feat_is_reachable_past(env.grid(second_middle)))
+         {
+-            return notify_fail("There's something in the way.");
++            return notify_fail(zh_message_arg("reason", "target.reason.there_is_something_in_the_way"));
+         }
+     }
+     return true;
+@@ -1072,7 +1113,7 @@ static bool _cloudable(coord_def loc, cloud_type ctype, const actor *agent)
+ bool targeter_cloud::valid_aim(coord_def a)
+ {
+     if (agent && (origin - a).rdist() > range)
+-        return notify_fail("Out of range.");
++        return notify_fail(zh_message_arg("reason", "target.reason.out_of_range"));
+     if (!map_bounds(a)
+         || agent
+            && origin != a
+@@ -1080,8 +1121,8 @@ bool targeter_cloud::valid_aim(coord_def a)
+     {
+         // Scrying/glass/tree/grate.
+         if (agent && agent->see_cell(a))
+-            return notify_fail("There's something in the way.");
+-        return notify_fail("You cannot see that place.");
++            return notify_fail(zh_message_arg("reason", "target.reason.there_is_something_in_the_way"));
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_see_that_place"));
+     }
+     if (cell_is_solid(a))
+         return notify_fail(_wallmsg(a));
+@@ -1089,11 +1130,10 @@ bool targeter_cloud::valid_aim(coord_def a)
+     {
+         const cloud_struct *cloud = cloud_at(a);
+         if (cloud && !cloud_is_stronger(ctype, *cloud))
+-            return notify_fail("There's already a cloud there.");
++            return notify_fail(zh_message_arg("reason", "target.reason.there_is_already_a_cloud_there"));
+         else if (is_sanctuary(a) && !is_harmless_cloud(ctype))
+         {
+-            return notify_fail("You can't place harmful clouds in a "
+-                               "sanctuary.");
++            return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_place_harmful_clouds_in_a_sanctuary"));
+         }
+         ASSERT(_cloudable(a, ctype, agent));
+     }
+@@ -1222,12 +1262,12 @@ targeter_radius::targeter_radius(const actor *act, los_type _los,
+ bool targeter_radius::valid_aim(coord_def a)
+ {
+     if ((a - origin).rdist() > range_max || (a - origin).rdist() < range_min)
+-        return notify_fail("Out of range.");
++        return notify_fail(zh_message_arg("reason", "target.reason.out_of_range"));
+     // If this message ever becomes used, please improve it. I did not
+     // bother adding complexity just for monsters and "hit allies" prompts
+     // which don't need it.
+     if (!is_affected(a))
+-        return notify_fail("The effect is blocked.");
++        return notify_fail(zh_message_arg("reason", "target.reason.the_effect_is_blocked"));
+     return true;
+ }
+ 
+@@ -1326,11 +1366,11 @@ bool targeter_thunderbolt::valid_aim(coord_def a)
+     {
+         // Scrying/glass/tree/grate.
+         if (agent->see_cell(a))
+-            return notify_fail("There's something in the way.");
+-        return notify_fail("You cannot see that place.");
++            return notify_fail(zh_message_arg("reason", "target.reason.there_is_something_in_the_way"));
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_see_that_place"));
+     }
+     if ((origin - a).rdist() > range)
+-        return notify_fail("Out of range.");
++        return notify_fail(zh_message_arg("reason", "target.reason.out_of_range"));
+     return true;
+ }
+ 
+@@ -1458,11 +1498,11 @@ bool targeter_cone::valid_aim(coord_def a)
+     {
+         // Scrying/glass/tree/grate.
+         if (agent->see_cell(a))
+-            return notify_fail("There's something in the way.");
+-        return notify_fail("You cannot see that place.");
++            return notify_fail(zh_message_arg("reason", "target.reason.there_is_something_in_the_way"));
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_see_that_place"));
+     }
+     if ((origin - a).rdist() > range)
+-        return notify_fail("Out of range.");
++        return notify_fail(zh_message_arg("reason", "target.reason.out_of_range"));
+     return true;
+ }
+ 
+@@ -1666,12 +1706,12 @@ bool targeter_overgrow::valid_aim(coord_def a)
+     if (a != origin && !cell_see_cell(origin, a, LOS_NO_TRANS))
+     {
+         if (agent && agent->see_cell(a))
+-            return notify_fail("There's something in the way.");
+-        return notify_fail("You cannot see that place.");
++            return notify_fail(zh_message_arg("reason", "target.reason.there_is_something_in_the_way"));
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_see_that_place"));
+     }
+ 
+     if (!overgrow_affects_pos(a))
+-        return notify_fail("You cannot grow anything here.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_grow_anything_here"));
+ 
+     return true;
+ }
+@@ -1750,7 +1790,7 @@ targeter_scorch::targeter_scorch(const actor &a, int _range, bool affect_invis)
+ bool targeter_scorch::valid_aim(coord_def a)
+ {
+     if ((a - origin).rdist() > range)
+-        return notify_fail("Out of range.");
++        return notify_fail(zh_message_arg("reason", "target.reason.out_of_range"));
+     return true;
+ }
+ 
+@@ -1988,8 +2028,8 @@ bool targeter_poisonous_vapours::valid_aim(coord_def a)
+     const monster_info *mon = env.map_knowledge(a).monsterinfo();
+     if (mon && !affects_monster(*mon))
+     {
+-        return notify_fail(mon->full_name(DESC_THE) + " cannot be affected by "
+-                           "poisonous vapours.");
++        return notify_fail(zh_message_arg("reason", "target.reason.poisonous_vapours.immune",
++                                          {zh_monster_info_arg("monster", *mon)}));
+     }
+ 
+     return true;
+@@ -2061,24 +2101,24 @@ bool targeter_boulder::valid_aim(coord_def a)
+         return false;
+ 
+     if (a == agent->pos())
+-        return notify_fail("There's a thick-headed creature in the way.");
++        return notify_fail(zh_message_arg("reason", "target.reason.there_is_a_thick_headed_creature_in_the"));
+ 
+     const coord_def delta = a - agent->pos();
+     if (delta.x && delta.y && abs(delta.x) != abs(delta.y))
+-        return notify_fail("You can only roll a boulder in a compass direction.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_can_only_roll_a_boulder_in_a"));
+ 
+     ray_def ray;
+     if (!find_ray(agent->pos(), a, ray, opc_solid))
+-        return notify_fail("There's something in the way.");
++        return notify_fail(zh_message_arg("reason", "target.reason.there_is_something_in_the_way"));
+     if (!ray.advance())
+-        return notify_fail("You cannot conjure a boulder there.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_conjure_a_boulder_there"));
+ 
+     const coord_def start = ray.pos();
+     actor* act = actor_at(start);
+     if (feat_is_solid(env.grid(start)) || (act && you.can_see(*act)))
+-        return notify_fail("You cannot conjure a boulder in an occupied space.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_conjure_a_boulder_in_an_occupied"));
+     if (env.grid(start) == DNGN_LAVA)
+-        return notify_fail("You cannot conjure a boulder there.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_conjure_a_boulder_there"));
+ 
+     return true;
+ }
+@@ -2152,22 +2192,22 @@ bool targeter_bind_soul::valid_aim(coord_def a)
+ 
+     monster* targ = monster_at(a);
+     if (!targ || !agent->can_see(*targ))
+-        return notify_fail("You can't see anything there.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_see_anything_there"));
+ 
+     if (!yred_can_bind_soul(targ))
+     {
+         if (targ->friendly())
+-            return notify_fail("You cannot bind the soul of an ally.");
++            return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_bind_the_soul_of_an_ally"));
+         else if (targ->type == MONS_PANDEMONIUM_LORD)
+-            return notify_fail("You are unable to grasp such an alien soul.");
++            return notify_fail(zh_message_arg("reason", "target.reason.you_are_unable_to_grasp_such_an_alien"));
+         else if (targ->is_summoned())
+-            return notify_fail("You cannot bind the soul of a summoned being.");
++            return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_bind_the_soul_of_a_summoned"));
+         else
+-            return notify_fail("That does not possess a soul you can bind.");
++            return notify_fail(zh_message_arg("reason", "target.reason.that_does_not_possess_a_soul_you_can"));
+     }
+ 
+     if (mons_get_damage_level(*targ) > MDAM_LIGHTLY_DAMAGED)
+-        return notify_fail("Their soul is too badly injured.");
++        return notify_fail(zh_message_arg("reason", "target.reason.their_soul_is_too_badly_injured"));
+ 
+     return true;
+ }
+@@ -2318,12 +2358,12 @@ bool targeter_gavotte::valid_aim(coord_def a)
+         return false;
+ 
+     if (a == agent->pos())
+-        return notify_fail("Gravity is already pointing downward.");
++        return notify_fail(zh_message_arg("reason", "target.reason.gravity_is_already_pointing_downward"));
+ 
+     // make sure it's a true cardinal
+     const coord_def delta = a - agent->pos();
+     if (delta.x && delta.y && abs(delta.x) != abs(delta.y))
+-        return notify_fail("You can only reorient gravity in a cardinal direction.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_can_only_reorient_gravity_in_a_cardinal"));
+ 
+     return true;
+ }
+@@ -2352,7 +2392,7 @@ bool targeter_magnavolt::valid_aim(coord_def a)
+         return false;
+ 
+     if (!monster_at(a) || !you.can_see(*monster_at(a)))
+-        return notify_fail("You don't see a valid target there.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_do_not_see_a_valid_target_there"));
+ 
+     return true;
+ }
+@@ -2418,7 +2458,7 @@ bool targeter_mortar::can_affect_walls()
+ bool targeter_mortar::valid_aim(coord_def a)
+ {
+     if (!in_bounds(a))
+-        return notify_fail("Out of range.");
++        return notify_fail(zh_message_arg("reason", "target.reason.out_of_range"));
+     else
+         return targeter_beam::valid_aim(a);
+ }
+@@ -2491,13 +2531,13 @@ bool targeter_marionette::valid_aim(coord_def a)
+         return notify_fail("");
+ 
+     if (mons->has_ench(ENCH_SHADOWLESS))
+-        return notify_fail("Their shadow is too faded to take hold of.");
++        return notify_fail(zh_message_arg("reason", "target.reason.their_shadow_is_too_faded_to_take_hold"));
+ 
+     if (mons->is_summoned() && !mons->is_illusion())
+-        return notify_fail("A summoned shadow is too ephemeral to take hold of.");
++        return notify_fail(zh_message_arg("reason", "target.reason.a_summoned_shadow_is_too_ephemeral_to_take"));
+ 
+     if (mons->props[DITHMENOS_MARIONETTE_SPELLS_KEY].get_int() <= 0)
+-        return notify_fail("They have no useful spells to cast right now.");
++        return notify_fail(zh_message_arg("reason", "target.reason.they_have_no_useful_spells_to_cast_right"));
+ 
+     return true;
+ }
+@@ -2517,13 +2557,13 @@ bool targeter_putrefaction::valid_aim(coord_def a)
+         return false;
+ 
+     if (mons_aligned(&you, mon))
+-        return notify_fail("You cannot putrefy a friendly monster.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_putrefy_a_friendly_monster"));
+ 
+     if (!(mon->holiness() & MH_NATURAL))
+-        return notify_fail("You can only putrefy natural creatures.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_can_only_putrefy_natural_creatures"));
+ 
+     if (mons_get_damage_level(*mon) < MDAM_HEAVILY_DAMAGED)
+-        return notify_fail("This isn't wounded badly enough.");
++        return notify_fail(zh_message_arg("reason", "target.reason.this_is_not_wounded_badly_enough"));
+ 
+     return true;
+ }
+@@ -2638,13 +2678,13 @@ bool targeter_tempering::valid_aim(coord_def a)
+ 
+     monster* mons = monster_at(a);
+     if (!mons || !you.can_see(*mons) || !mons->friendly())
+-        return notify_fail("There's nothing to be tempered there.");
++        return notify_fail(zh_message_arg("reason", "target.reason.there_is_nothing_to_be_tempered_there"));
+ 
+     if (mons->has_ench(ENCH_TEMPERED))
+-        return notify_fail("You cannot target a construct which is already augmented.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_cannot_target_a_construct_which_is_already"));
+ 
+     if (!is_valid_tempering_target(*mons, *agent))
+-        return notify_fail("You can only target your own Forgecraft constructs.");
++        return notify_fail(zh_message_arg("reason", "target.reason.you_can_only_target_your_own_forgecraft_constructs"));
+ 
+     return true;
+ }
+@@ -2691,7 +2731,7 @@ bool targeter_piledriver::valid_aim(coord_def a)
+             if (piledriver_lengths[i] > 0)
+                 return true;
+             else
+-                return notify_fail("You see nothing there you can launch.");
++                return notify_fail(zh_message_arg("reason", "target.reason.you_see_nothing_there_you_can_launch"));
+         }
+     }
+ 
+@@ -2740,7 +2780,7 @@ bool targeter_teleport_other::valid_aim(coord_def a)
+         return false;
+ 
+     if (mi->is(MB_NO_TELE))
+-        return notify_fail("That cannot be teleported.");
++        return notify_fail(zh_message_arg("reason", "target.reason.that_cannot_be_teleported"));
+ 
+     if (mi->willpower() == WILL_INVULN)
+         return false;
+@@ -2803,13 +2843,13 @@ bool targeter_bestial_takedown::valid_aim(coord_def a)
+         if (!mon->friendly() && mon->has_ench(ENCH_FEAR) && you.can_see(*mon))
+         {
+             if (get_bestial_landing_spots(a).empty())
+-                return notify_fail("You can see nowhere safe to land near that.");
++                return notify_fail(zh_message_arg("reason", "target.reason.you_can_see_nowhere_safe_to_land_near"));
+             else
+                 return true;
+         }
+     }
+ 
+-    return notify_fail("You must target an enemy who is afraid.");
++    return notify_fail(zh_message_arg("reason", "target.reason.you_must_target_an_enemy_who_is_afraid"));
+ }
+ 
+ bool targeter_bestial_takedown::set_aim(coord_def a)
+@@ -2845,7 +2885,7 @@ bool targeter_paragon_deploy::valid_aim(coord_def a)
+         return false;
+ 
+     if (!monster_habitable_grid(MONS_PLATINUM_PARAGON, a))
+-        return notify_fail("Your paragon could not survive being deployed there.");
++        return notify_fail(zh_message_arg("reason", "target.reason.your_paragon_could_not_survive_being_deployed_there"));
+ 
+     return true;
+ }
+diff --git a/crawl-ref/source/target.h b/crawl-ref/source/target.h
+index e0ee711..cc893c9 100644
+--- a/crawl-ref/source/target.h
++++ b/crawl-ref/source/target.h
+@@ -5,6 +5,7 @@
+ #include "beam.h"
+ #include "coordit.h"
+ #include "los-type.h"
++#include "zh-message.h"
+ 
+ using std::vector;
+ 
+@@ -48,6 +49,8 @@ public:
+     coord_def aim;
+     const actor* agent;
+     string why_not;
++    // UI reason is selected at the producer; why_not stays canonical for engine callers.
++    ZhMessage failure_message() const;
+     bool obeys_mesmerise; // whether the rendering of ranges should take into account mesmerise effects
+ 
+     virtual bool set_aim(coord_def a);
+@@ -63,6 +66,9 @@ public:
+ 
+     targeting_iterator affected_iterator(aff_type threshold = AFF_YES);
+ protected:
++    bool notify_fail(const ZhArg &reason);
++    bool notify_fail(const string &canonical);
++    ZhArg display_failure;
+     bool anyone_there(coord_def loc);
+ };
+ 
 diff --git a/crawl-ref/source/tilereg-doll.cc b/crawl-ref/source/tilereg-doll.cc
 index 3b412f1..dd09eb1 100644
 --- a/crawl-ref/source/tilereg-doll.cc
@@ -60804,19 +61592,55 @@ index f2bead5..58742ab 100644
      unsigned int m_tooltip_timer_id = 0;
  
 diff --git a/crawl-ref/source/transform.cc b/crawl-ref/source/transform.cc
-index 6088e7d..f66afca 100644
+index 6088e7d..fb34333 100644
 --- a/crawl-ref/source/transform.cc
 +++ b/crawl-ref/source/transform.cc
-@@ -4,6 +4,8 @@
+@@ -4,11 +4,16 @@
  **/
  
  #include "AppHdr.h"
 +#include "zh-message.h"
 +#include "zh-display-name.h"
++#include "zh-localization.h"
  
  #include "transform.h"
  
-@@ -128,6 +130,13 @@ string Form::melding_description(bool itemized) const
+ #include <cstdio>
+ #include <cstring>
++#include <cstdlib>
++#include <fstream>
+ 
+ #include "ability.h"
+ #include "artefact.h"
+@@ -50,6 +55,27 @@
+ #include "traps.h"
+ #include "xom.h"
+ 
++// Fixed source literals select complete translations before any parameters.
++static ZhMessage _transform_untranslated(const string &canonical)
++{
++    if (!canonical.empty() && zh_language_enabled())
++    {
++        const char *path = std::getenv("DCSS_ZH_ID_MISSING");
++        if (path && *path)
++        {
++            std::ofstream out(path, std::ios::app);
++            out << "transform.enter.retired\tunsupported retired form\t"
++                << canonical << "\n";
++        }
++    }
++    return {"", canonical, canonical};
++}
++
++static ZhMessage _transform_log(const char *source)
++{
++    return {"transform.log", source, zh_source("transform.log", source)};
++}
++
+ // List of valid monsters newly seen this turn for a sphinx to tell a riddle to.
+ vector<monster*> riddle_targs;
+ 
+@@ -128,6 +154,13 @@ string Form::melding_description(bool itemized) const
          return "";
      }
  
@@ -60830,7 +61654,7 @@ index 6088e7d..f66afca 100644
      if (blocked_slots == EQF_ALL)
          tags.emplace_back("All Equipment");
      else if (blocked_slots == EQF_PHYSICAL)
-@@ -142,7 +151,7 @@ string Form::melding_description(bool itemized) const
+@@ -142,7 +175,7 @@ string Form::melding_description(bool itemized) const
          }
      }
  
@@ -60839,7 +61663,397 @@ index 6088e7d..f66afca 100644
  }
  
  static const FormAttackVerbs DEFAULT_VERBS = FormAttackVerbs(nullptr, nullptr,
-@@ -1765,9 +1774,12 @@ bool transforming_is_unsafe(transformation which_trans)
+@@ -162,7 +195,7 @@ static const form_entry &_find_form_entry(transformation form)
+ }
+ 
+ Form::Form(const form_entry &fe)
+-    : short_name(fe.short_name), wiz_name(fe.wiz_name),
++    : message_form(fe.tran), short_name(fe.short_name), wiz_name(fe.wiz_name),
+       min_skill(fe.min_skill), max_skill(fe.max_skill),
+       hp_skill_penalty_mult(fe.hp_skill_penalty_mult),
+       str_mod(fe.str_mod), dex_mod(fe.dex_mod), base_move_speed(fe.move_speed),
+@@ -239,7 +272,80 @@ string Form::get_description(bool past_tense) const
+  */
+ string Form::transform_message() const
+ {
+-    return make_stringf("You turn into %s", get_transform_description().c_str());
++    return transform_display_message().canonical;
++}
++
++string Form::get_untransform_message() const
++{
++    return untransform_display_message().canonical;
++}
++
++ZhMessage Form::transform_display_message() const
++{
++    if (message_form == transformation::dragon && species::is_draconian(you.species))
++        return zh_message("transform.enter.dragon_species",
++            {zh_monster_type_arg("monster", get_equivalent_mons())});
++    switch (message_form)
++    {
++    case transformation::none:
++        return zh_message("transform.enter.none");
++    case transformation::spider:
++        return zh_message("transform.enter.spider");
++    case transformation::statue:
++        return zh_message("transform.enter.statue");
++    case transformation::serpent:
++        return zh_message("transform.enter.serpent");
++    case transformation::dragon:
++        return zh_message("transform.enter.dragon");
++    case transformation::bat:
++        return zh_message("transform.enter.bat");
++    case transformation::pig:
++        return zh_message("transform.enter.pig");
++    case transformation::tree:
++        return zh_message("transform.enter.tree");
++#if TAG_MAJOR_VERSION == 34
++    case transformation::porcupine:
++        return zh_message("transform.enter.porcupine");
++#endif
++    case transformation::wisp:
++        return zh_message("transform.enter.wisp");
++    case transformation::jelly:
++        return zh_message("transform.enter.jelly");
++    case transformation::fungus:
++        return zh_message("transform.enter.fungus");
++#if TAG_MAJOR_VERSION == 34
++    case transformation::shadow:
++        return zh_message("transform.enter.shadow");
++#endif
++    case transformation::storm:
++        return zh_message("transform.enter.storm");
++    case transformation::maw:
++        return zh_message("transform.enter.maw");
++    case transformation::slaughter:
++        return zh_message("transform.enter.slaughter");
++    case transformation::vampire:
++        return zh_message("transform.enter.vampire");
++    case transformation::bat_swarm:
++        return zh_message("transform.enter.bat_swarm");
++    case transformation::rime_yak:
++        return zh_message("transform.enter.rime_yak");
++    case transformation::hive:
++        return zh_message("transform.enter.hive");
++    case transformation::sphinx:
++        return zh_message("transform.enter.sphinx");
++    case transformation::werewolf:
++        return zh_message("transform.enter.werewolf");
++    case transformation::walking_scroll:
++        return zh_message("transform.enter.walking_scroll");
++    case transformation::fortress_crab:
++        return zh_message("transform.enter.fortress_crab");
++    case transformation::sun_scarab:
++        return zh_message("transform.enter.sun_scarab");
++    default:
++        // Retired save-only forms have no player-initiated entry path.
++        return _transform_untranslated(make_stringf("You turn into %s",
++            get_transform_description().c_str()));
++    }
+ }
+ 
+ /**
+@@ -247,9 +353,9 @@ string Form::transform_message() const
+  *
+  * @return "Your transform has ended."
+  */
+-string Form::get_untransform_message() const
++ZhMessage Form::untransform_display_message() const
+ {
+-    return "Your transformation has ended.";
++    return _transform_log("Your transformation has ended.");
+ }
+ 
+ int Form::raw_scaling_value(const FormScaling &sc, int level) const
+@@ -611,14 +717,14 @@ public:
+                             past_tense ? "were" : "are");
+     }
+ 
+-    string transform_message() const override
++    ZhMessage transform_display_message() const override
+     {
+-        return "Your body destabilises.";
++        return _transform_log("Your body destabilises.");
+     }
+ 
+-    string get_untransform_message() const override
++    ZhMessage untransform_display_message() const override
+     {
+-        return "Your body stabilises again.";
++        return _transform_log("Your body stabilises again.");
+     }
+ };
+ 
+@@ -642,17 +748,17 @@ public:
+     /**
+      * Get a message for transforming into this form.
+      */
+-    string transform_message() const override
++    ZhMessage transform_display_message() const override
+     {
+-        return "Blades grow out of your body!";
++        return _transform_log("Blades grow out of your body!");
+     }
+ 
+     /**
+      * Get a message for untransforming from this form.
+      */
+-    string get_untransform_message() const override
++    ZhMessage untransform_display_message() const override
+     {
+-        return "Your blades shrink back into your body and disappear.";
++        return _transform_log("Your blades shrink back into your body and disappear.");
+     }
+ 
+     int get_aux_damage(bool random, int skill) const override
+@@ -678,13 +784,13 @@ public:
+     /**
+      * Get a message for transforming into this form.
+      */
+-    string transform_message() const override
++    ZhMessage transform_display_message() const override
+     {
+ #if TAG_MAJOR_VERSION == 34
+         if (you.species == SP_DEEP_DWARF && one_chance_in(10))
+-            return "You inwardly fear your resemblance to a lawn ornament.";
++            return _transform_log("You inwardly fear your resemblance to a lawn ornament.");
+ #endif
+-        return Form::transform_message();
++        return Form::transform_display_message();
+     }
+ 
+     /**
+@@ -699,9 +805,9 @@ public:
+     /**
+      * Get a message for untransforming from this form.
+      */
+-    string get_untransform_message() const override
++    ZhMessage untransform_display_message() const override
+     {
+-        return "You revert to your normal fleshy form.";
++        return _transform_log("You revert to your normal fleshy form.");
+     }
+ 
+     /**
+@@ -834,17 +940,17 @@ public:
+     /**
+      * Get a message for transforming into this form.
+      */
+-    string transform_message() const override
++    ZhMessage transform_display_message() const override
+     {
+-        return "Your flesh twists and warps into a mockery of life!";
++        return _transform_log("Your flesh twists and warps into a mockery of life!");
+     }
+ 
+     /**
+      * Get a message for untransforming from this form.
+      */
+-    string get_untransform_message() const override
++    ZhMessage untransform_display_message() const override
+     {
+-        return "You feel yourself come back to life.";
++        return _transform_log("You feel yourself come back to life.");
+     }
+ 
+     int will_bonus() const override { return WL_PIP; }
+@@ -858,7 +964,7 @@ private:
+ public:
+     static const FormBat &instance() { static FormBat inst; return inst; }
+ 
+-    string get_untransform_message() const override { return "You feel less batty."; }
++    ZhMessage untransform_display_message() const override { return _transform_log("You feel less batty."); }
+ };
+ 
+ class FormPig : public Form
+@@ -868,7 +974,7 @@ private:
+     DISALLOW_COPY_AND_ASSIGN(FormPig);
+ public:
+     static const FormPig &instance() { static FormPig inst; return inst; }
+-    string get_untransform_message() const override { return "You feel less porcine."; }
++    ZhMessage untransform_display_message() const override { return _transform_log("You feel less porcine."); }
+ };
+ 
+ #if TAG_MAJOR_VERSION == 34
+@@ -897,7 +1003,7 @@ public:
+     /**
+      * Get a message for untransforming from this form.
+      */
+-    string get_untransform_message() const override { return "You feel less wooden."; }
++    ZhMessage untransform_display_message() const override { return _transform_log("You feel less wooden."); }
+ };
+ 
+ #if TAG_MAJOR_VERSION == 34
+@@ -922,7 +1028,7 @@ private:
+     DISALLOW_COPY_AND_ASSIGN(FormWisp);
+ public:
+     static const FormWisp &instance() { static FormWisp inst; return inst; }
+-    string get_untransform_message() const override { return "You condense into your normal self."; }
++    ZhMessage untransform_display_message() const override { return _transform_log("You condense into your normal self."); }
+ };
+ 
+ class FormJelly : public Form
+@@ -945,7 +1051,7 @@ public:
+     /**
+      * Get a message for untransforming from this form.
+      */
+-    string get_untransform_message() const override { return "You stop sporulating."; }
++    ZhMessage untransform_display_message() const override { return _transform_log("You stop sporulating."); }
+ };
+ 
+ #if TAG_MAJOR_VERSION == 34
+@@ -960,11 +1066,11 @@ public:
+     /**
+      * Get a message for untransforming from this form.
+      */
+-    string get_untransform_message() const override
++    ZhMessage untransform_display_message() const override
+     {
+         if (you.invisible())
+-            return "You feel less shadowy.";
+-        return "You emerge from the shadows.";
++            return _transform_log("You feel less shadowy.");
++        return _transform_log("You emerge from the shadows.");
+     }
+ };
+ #endif
+@@ -996,14 +1102,14 @@ private:
+ public:
+     static const FormQuill &instance() { static FormQuill inst; return inst; }
+ 
+-    string transform_message() const override
++    ZhMessage transform_display_message() const override
+     {
+-        return "Sharp quills grow all over your body.";
++        return _transform_log("Sharp quills grow all over your body.");
+     }
+ 
+-    string get_untransform_message() const override
++    ZhMessage untransform_display_message() const override
+     {
+-        return "Your quills recede back into your body.";
++        return _transform_log("Your quills recede back into your body.");
+     }
+ };
+ 
+@@ -1052,9 +1158,9 @@ public:
+     /**
+      * Get a message for untransforming from this form.
+      */
+-    string get_untransform_message() const override
++    ZhMessage untransform_display_message() const override
+     {
+-        return "Makhleb calls their payment due...";
++        return _transform_log("Makhleb calls their payment due...");
+     }
+ 
+     /**
+@@ -1145,14 +1251,14 @@ public:
+                             past_tense ? "was" : "is");
+     }
+ 
+-    string transform_message() const override
++    ZhMessage transform_display_message() const override
+     {
+-        return "Your body transforms into elemental water.";
++        return _transform_log("Your body transforms into elemental water.");
+     }
+ 
+-    string get_untransform_message() const override
++    ZhMessage untransform_display_message() const override
+     {
+-        return "Your body returns to its normal shape and substance.";
++        return _transform_log("Your body returns to its normal shape and substance.");
+     }
+ };
+ 
+@@ -1256,14 +1362,14 @@ FormMedusa() : Form(transformation::medusa) { }
+ public:
+     static const FormMedusa &instance() { static FormMedusa inst; return inst; }
+ 
+-    string transform_message() const override
++    ZhMessage transform_display_message() const override
+     {
+-        return "A mane of stinging tendrils grows from your head.";
++        return _transform_log("A mane of stinging tendrils grows from your head.");
+     }
+ 
+-    string get_untransform_message() const override
++    ZhMessage untransform_display_message() const override
+     {
+-        return "Your tendrils shrivel away.";
++        return _transform_log("Your tendrils shrivel away.");
+     }
+ 
+     string get_description(bool past_tense) const override
+@@ -1316,27 +1422,27 @@ public:
+     /**
+      * Get a message for transforming into this form.
+      */
+-    string transform_message() const override
++    ZhMessage transform_display_message() const override
+     {
+         const bool singular = you.arm_count() == 1;
+ 
+-        // XXX: a little ugly
+-        return make_stringf("Your %s turn%s into%s wriggling electric eel%s!",
+-                            hand_transform_parts().c_str(), singular ? "s" : "",
+-                            singular ? " a" : " a pair of", singular ? "" : "s");
++        return zh_message(singular ? "transform.enter.eel_hands.single"
++                                   : "transform.enter.eel_hands.plural",
++            {zh_word_arg("parts", "transform.bodypart.",
++                hand_transform_parts(), ZhArgType::Text)});
+     }
+ 
+     /**
+      * Get a message for untransforming from this form.
+      */
+-    string get_untransform_message() const override
++    ZhMessage untransform_display_message() const override
+     {
+         const bool singular = you.arm_count() == 1;
+ 
+-        // XXX: a little ugly
+-        return make_stringf("Your %s revert%s to %s normal form.",
+-                            hand_transform_parts().c_str(), singular ? "s" : "",
+-                            singular ? "its" : "their");
++        return zh_message(singular ? "transform.leave.eel_hands.single"
++                                   : "transform.leave.eel_hands.plural",
++            {zh_word_arg("parts", "transform.bodypart.",
++                hand_transform_parts(), ZhArgType::Text)});
+     }
+ 
+     /**
+@@ -1359,19 +1465,21 @@ public:
+     /**
+      * Get a message for transforming into this form.
+      */
+-    string transform_message() const override
++    ZhMessage transform_display_message() const override
+     {
+-        return make_stringf("Dense mycelia sprout from your %s and %s.",
+-                            you.arm_name(false).c_str(),
+-                            you.foot_name(true).c_str());
++        return zh_message("transform.enter.spore",
++            {zh_word_arg("arms", "transform.bodypart.",
++                you.arm_name(false), ZhArgType::Text),
++             zh_word_arg("feet", "transform.bodypart.",
++                you.foot_name(true), ZhArgType::Text)});
+     }
+ 
+     /**
+      * Get a message for untransforming from this form.
+      */
+-    string get_untransform_message() const override
++    ZhMessage untransform_display_message() const override
+     {
+-        return make_stringf("Your mycelia shrivel away.");
++        return _transform_log("Your mycelia shrivel away.");
+     }
+ 
+     string get_description(bool past_tense) const override
+@@ -1765,9 +1873,12 @@ bool transforming_is_unsafe(transformation which_trans)
  {
      if (feat_dangerous_for_form(which_trans, env.grid(you.pos())))
      {
@@ -60855,7 +62069,7 @@ index 6088e7d..f66afca 100644
          return true;
      }
  
-@@ -1791,9 +1803,9 @@ bool transforming_is_unsafe(transformation which_trans)
+@@ -1791,9 +1902,9 @@ bool transforming_is_unsafe(transformation which_trans)
          if (item->cursed()
              || (is_artefact(*item) && artefact_property(*item, ARTP_FRAGILE)))
          {
@@ -60868,7 +62082,7 @@ index 6088e7d..f66afca 100644
              return true;
          }
      }
-@@ -1829,29 +1841,34 @@ bool lifeless_prevents_form(transformation which_trans)
+@@ -1829,29 +1940,34 @@ bool lifeless_prevents_form(transformation which_trans)
  /**
   * Is the player unable to enter the given form? If so, why?
   */
@@ -60911,7 +62125,7 @@ index 6088e7d..f66afca 100644
  }
  
  bool check_transform_into(transformation which_trans, bool involuntary,
-@@ -1871,11 +1888,11 @@ bool check_transform_into(transformation which_trans, bool involuntary,
+@@ -1871,11 +1987,11 @@ bool check_transform_into(transformation which_trans, bool involuntary,
          return false;
      }
  
@@ -60926,7 +62140,7 @@ index 6088e7d..f66afca 100644
          return false;
      }
  
-@@ -1885,15 +1902,15 @@ bool check_transform_into(transformation which_trans, bool involuntary,
+@@ -1885,15 +2001,15 @@ bool check_transform_into(transformation which_trans, bool involuntary,
      const auto feat = env.grid(you.pos());
      if (!involuntary && feat_dangerous_for_form(which_trans, feat, talisman))
      {
@@ -60946,11 +62160,201 @@ index 6088e7d..f66afca 100644
          {
              return false;
          }
+@@ -1912,13 +2028,16 @@ static void _print_death_brand_changes(item_def *weapon, bool entering_death)
+     }
+     if (entering_death)
+     {
+-        mprf("%s goes dull and lifeless in your grasp.",
+-             weapon->name(DESC_YOUR).c_str());
++        mpr(zh_message("transform.log.holy_dull",
++            {zh_item_arg("item", *weapon, DESC_YOUR)}));
+     }
+     else
+     {
+-        mprf("%s softly glows with a divine radiance!",
+-             uppercase_first(weapon->name(DESC_YOUR)).c_str());
++        ZhArg item = zh_item_arg("item", *weapon, DESC_YOUR);
++        item.canonical = uppercase_first(item.canonical);
++        if (!item.supported)
++            item.localized = item.canonical;
++        mpr(zh_message("transform.log.holy_glow", {item}));
+     }
+ }
+ 
+@@ -1929,11 +2048,11 @@ static void _on_enter_form(transformation which_trans)
+     switch (which_trans)
+     {
+     case transformation::tree:
+-        mpr("Your roots penetrate the ground.");
++        mpr(_transform_log("Your roots penetrate the ground."));
+         if (you.duration[DUR_TELEPORT])
+         {
+             you.duration[DUR_TELEPORT] = 0;
+-            mpr("You feel strangely stable.");
++            mpr(_transform_log("You feel strangely stable."));
+         }
+         you.duration[DUR_FLIGHT] = 0;
+         break;
+@@ -1958,8 +2077,8 @@ static void _on_enter_form(transformation which_trans)
+     case transformation::maw:
+         if (have_passive(passive_t::goldify_corpses))
+         {
+-            mprf(MSGCH_WARN, "Gozag's golden gift will leave your new mouth "
+-                             "with nothing to eat.");
++            mpr(_transform_log("Gozag's golden gift will leave your new mouth "
++                               "with nothing to eat."), MSGCH_WARN);
+         }
+         break;
+ 
+@@ -2012,7 +2131,7 @@ static void _enter_form(int dur, transformation which_trans, bool using_talisman
+     if (!(you.form == transformation::vampire || you.form == transformation::bat_swarm)
+          && !(which_trans == transformation::vampire || which_trans == transformation::bat_swarm))
+     {
+-        mpr(get_form(which_trans)->transform_message());
++        mpr(get_form(which_trans)->transform_display_message());
+     }
+ 
+     // If we're wielding a two-hander, shift it into the crab two-hander slot
+@@ -2028,7 +2147,7 @@ static void _enter_form(int dur, transformation which_trans, bool using_talisman
+ 
+     if (you.digging && form_changes_anatomy(which_trans))
+     {
+-        mpr("Your mandibles meld away.");
++        mpr(_transform_log("Your mandibles meld away."));
+         you.digging = false;
+     }
+ 
+@@ -2203,9 +2322,9 @@ void untransform(bool skip_move, bool scale_hp, bool preserve_equipment,
+     if (!form_can_wield(old_form))
+         you.received_weapon_warning = false;
+ 
+-    const string message = get_form(old_form)->get_untransform_message();
+-    if (!message.empty())
+-        mprf(MSGCH_DURATION, "%s", message.c_str());
++    const ZhMessage message = get_form(old_form)->untransform_display_message();
++    if (!message.canonical.empty())
++        mpr(message, MSGCH_DURATION);
+ 
+     set_form(transformation::none, 0, scale_hp);
+ 
+@@ -2238,7 +2357,7 @@ void untransform(bool skip_move, bool scale_hp, bool preserve_equipment,
+         if (monster* ember = get_solar_ember())
+         {
+             monster_die(*ember, KILL_RESET, NON_MONSTER);
+-            mprf(MSGCH_DURATION, "Your tiny sun winks out.");
++            mpr(_transform_log("Your tiny sun winks out."), MSGCH_DURATION);
+         }
+     }
+     else if (old_form == transformation::rime_yak)
+@@ -2273,8 +2392,9 @@ void untransform(bool skip_move, bool scale_hp, bool preserve_equipment,
+     {
+         for (item_def* item : forced_remove)
+         {
+-            mprf("%s falls away%s!", item->name(DESC_YOUR).c_str(),
+-                    item->cursed() ? ", shattering the curse!" : "");
++            mpr(zh_message(item->cursed() ? "transform.log.gear_falls_curse"
++                                          : "transform.log.gear_falls",
++                {zh_item_arg("item", *item, DESC_YOUR)}));
+ 
+             unequip_item(*item, false);
+         }
+@@ -2381,10 +2501,10 @@ void merfolk_start_swimming()
+     if (you.fishtail)
+         return;
+ 
+-    mpr("Your legs become a tail as you dive into the water.");
++    mpr(_transform_log("Your legs become a tail as you dive into the water."));
+ 
+     if (you.invisible())
+-        mpr("...but don't expect to remain undetected.");
++        mpr(_transform_log("...but don't expect to remain undetected."));
+ 
+     you.fishtail = true;
+     you.redraw_evasion = true;
+@@ -2557,8 +2677,9 @@ void sun_scarab_spawn_ember(bool first_time)
+     if (monster* mon = create_monster(mg))
+     {
+         you.props[SOLAR_EMBER_MID_KEY].get_int() = mon->mid;
+-        mprf(MSGCH_DURATION, first_time ? "A tiny sun coalesces beside you."
+-                                        : "You reconstitute your solar ember.");
++        mpr(first_time ? _transform_log("A tiny sun coalesces beside you.")
++                       : _transform_log("You reconstitute your solar ember."),
++            MSGCH_DURATION);
+         you.props.erase(SOLAR_EMBER_REVIVAL_KEY);
+     }
+ }
+@@ -2591,13 +2712,14 @@ bool maw_hunger_check(monster* mon)
+     {
+         if (!you.clarity())
+         {
+-            mprf("Your maw growls hungrily at the sight of %s.", mon->name(DESC_THE).c_str());
++            mpr(zh_message("transform.log.maw_hungry",
++                {zh_monster_arg("monster", *mon, DESC_THE)}));
+             you.add_beholder(*mon, true, random_range(6, 10));
+         }
+         else
+         {
+-            mprf("Your maw growls hungrily at the sight of %s, but you resist your urges.",
+-                 mon->name(DESC_THE).c_str());
++            mpr(zh_message("transform.log.maw_resist",
++                {zh_monster_arg("monster", *mon, DESC_THE)}));
+         }
+ 
+         noisy(you.shout_volume(), you.pos(), MID_PLAYER);
+@@ -2615,15 +2737,17 @@ bool vampire_mesmerism_check(monster& mon)
+     {
+         if (mon.check_willpower(&you, get_form()->get_effect_chance()) <= 0)
+         {
+-            mprf("%s loses %s in your eye%s.",
+-                    mon.name(DESC_THE).c_str(),
+-                    mon.pronoun(PRONOUN_REFLEXIVE).c_str(),
+-                    you.has_mutation(MUT_MISSING_EYE) ? "" : "s");
++            mpr(zh_message(you.has_mutation(MUT_MISSING_EYE)
++                    ? "transform.log.vampire_loses_eye"
++                    : "transform.log.vampire_loses_eyes",
++                {zh_monster_arg("monster", mon, DESC_THE),
++                 zh_text("reflexive", mon.pronoun(PRONOUN_REFLEXIVE), "")}));
+             mon.daze(random_range(3, 5));
+         }
+         else
+         {
+-            mprf("%s is briefly mesmerised by your gaze.", mon.name(DESC_THE).c_str());
++            mpr(zh_message("transform.log.vampire_gaze",
++                {zh_monster_arg("monster", mon, DESC_THE)}));
+             // This works even if called during the stealth check, whereas a 1-turn daze
+             // would wear off with no effect and produce extra messages on top of that.
+             mon.speed_increment -= 10;
 diff --git a/crawl-ref/source/transform.h b/crawl-ref/source/transform.h
-index a28ab47..9c7401c 100644
+index a28ab47..ea6cdde 100644
 --- a/crawl-ref/source/transform.h
 +++ b/crawl-ref/source/transform.h
-@@ -168,6 +168,7 @@ public:
+@@ -55,10 +55,12 @@ public:
+     bool xl_based; // if false, scale on Shapeshifting skill
+ };
+ 
++struct ZhMessage;
+ struct form_entry; // defined in form-data.h (private)
+ class Form
+ {
+ private:
++    const transformation message_form;
+     Form() = delete;
+     DISALLOW_COPY_AND_ASSIGN(Form);
+     Form(const form_entry &fe);
+@@ -106,8 +108,10 @@ public:
+     virtual string get_transform_description() const { return description; }
+ 
+     virtual string get_description(bool past_tense = false) const;
+-    virtual string transform_message() const;
+-    virtual string get_untransform_message() const;
++    string transform_message() const;
++    string get_untransform_message() const;
++    virtual ZhMessage transform_display_message() const;
++    virtual ZhMessage untransform_display_message() const;
+ 
+     virtual int res_fire() const;
+     virtual int res_cold() const;
+@@ -168,6 +172,7 @@ public:
  
      string player_prayer_action() const;
      string melding_description(bool itemized) const;
@@ -60958,7 +62362,7 @@ index a28ab47..9c7401c 100644
  
      virtual vector<pair<string, string>> get_fakemuts() const;
      virtual vector<pair<string, string>> get_bad_fakemuts() const;
-@@ -337,6 +338,8 @@ bool feat_dangerous_for_form(transformation which_trans,
+@@ -337,6 +342,8 @@ bool feat_dangerous_for_form(transformation which_trans,
                               const item_def* talisman = nullptr);
  bool transforming_is_unsafe(transformation which_trans);
  
@@ -116068,10 +117472,10 @@ index 0000000..fca52fb
 +};
 diff --git a/crawl-ref/source/zh-message-catalog.inc b/crawl-ref/source/zh-message-catalog.inc
 new file mode 100644
-index 0000000..54f6b33
+index 0000000..7f0818a
 --- /dev/null
 +++ b/crawl-ref/source/zh-message-catalog.inc
-@@ -0,0 +1,3188 @@
+@@ -0,0 +1,3474 @@
 +// Generated from Luna-reviewed message IDs. Do not edit.
 +static const ZhDefinition zh_definitions[] = {
 +    {"artifact.jewel.01", "It sustains your strength, intelligence and dexterity.", "它能维持你的力量、智力和敏捷。", ""},
@@ -116332,6 +117736,7 @@ index 0000000..54f6b33
 +    {"form.table.uc_base_dmg", "UC Base Dmg", "拳脚基础伤害", ""},
 +    {"form.table.watery_grave_dmg", "Watery Grave Dmg", "水墓伤害", ""},
 +    {"form.value.yes", "Yes", "是", ""},
++    {"hints.pickup.first_object", "That <console>$1 </console>is an item. If you move there and press <input>$cmd[CMD_PICKUP]</input><localtiles>, or <input>left-click</input> on it in your inventory</localtiles>, you will pick it up.<console> Generally, items are shown by non-letter symbols like <w>%\?!\"=()[</w>.</console> Some objects<tiles>, marked with a green frame,</tiles> will be picked up automatically.\n\nOnce it is in your inventory, you can drop it again with <localtiles>a <input>Shift-left-click</input>. Whenever you <input>right-click</input> on an item</localtiles><console><input>$cmd[CMD_DROP]</input>. Any time you look at an item in your inventory (<input>$cmd[CMD_DISPLAY_INVENTORY]</input>)</console>, you can read about its properties and its description.\n", "那边<console>$1 </console>是一个物品。移动到它旁边并按下 <input>$cmd[CMD_PICKUP]</input><localtiles>，或者在背包中对它<input>单击鼠标左键</input></localtiles>，即可拾取。<console>通常，物品会以非字母符号显示，例如 <w>%\?!\"=()[</w>。</console>有些物品<tiles>会以绿色边框标出，</tiles>并自动拾取。\n\n物品进入背包后，你可以用<localtiles><input>Shift-鼠标左键</input>再次将它丢下。每当你<input>对物品单击鼠标右键</input></localtiles><console><input>$cmd[CMD_DROP]</input>。查看背包中的物品时（<input>$cmd[CMD_DISPLAY_INVENTORY]</input>）</console>，你可以阅读它的属性和说明。\n", ""},
 +    {"hud.branch.abyss", "Abyss", "深渊", ""},
 +    {"hud.branch.arena", "Arena", "竞技场", ""},
 +    {"hud.branch.bailey", "Bailey", "庭院", ""},
@@ -117861,6 +119266,24 @@ index 0000000..54f6b33
 +    {"spell.fail_rate", "        Fail: {fail_percent}% <darkgrey>({reference_percent}%)</darkgrey>", "        失败率：{fail_percent}% <darkgrey>（{reference_percent}%）</darkgrey>", "fail_percent:integer;reference_percent:integer"},
 +    {"spell.god_opinion", "{god} {opinion} the use of this spell.\n", "{god}{opinion}此法术。\n", "god:name;opinion:text"},
 +    {"spell.level", "\nLevel: {spell_level}", "\n法术等级：{spell_level}", "spell_level:integer"},
++    {"spell.miscast.damage_clause", "deals up to {damage} {flavours} damage", "最多造成{damage}点{flavours}伤害", "damage:integer;flavours:text"},
++    {"spell.miscast.effect.anchors", "anchors you in place", "将你锚定在原地", ""},
++    {"spell.miscast.effect.corrodes", "corrodes you", "使你腐蚀", ""},
++    {"spell.miscast.effect.horror", "summons a nameless horror", "召唤无名恐怖", ""},
++    {"spell.miscast.effect.list.final", "{items} or {last}", "{items}或{last}", "items:text;last:text"},
++    {"spell.miscast.effect.list.more", "{items}; {next}", "{items}；{next}", "items:text;next:text"},
++    {"spell.miscast.effect.poisons", "poisons you", "使你中毒", ""},
++    {"spell.miscast.effect.slows", "slows you", "使你迟缓", ""},
++    {"spell.miscast.flavor.cold", "cold", "寒冷", ""},
++    {"spell.miscast.flavor.draining", "draining", "汲取生命的", ""},
++    {"spell.miscast.flavor.electric", "electric", "电击", ""},
++    {"spell.miscast.flavor.fire", "fire", "火焰", ""},
++    {"spell.miscast.flavor.fragmentation", "fragmentation", "碎裂", ""},
++    {"spell.miscast.flavor.irresistible", "irresistible", "无视抗性的", ""},
++    {"spell.miscast.flavor.list.final", "{items} or {last}", "{items}或{last}", "items:text;last:text"},
++    {"spell.miscast.flavor.list.more", "{items}, {next}", "{items}、{next}", "items:text;next:text"},
++    {"spell.miscast.parent.multiple", "Miscasting this spell causes magic contamination and also either {effects}.\n", "施放此法术失败会造成魔法污染，此外还会出现以下后果之一：{effects}。\n", "effects:text"},
++    {"spell.miscast.parent.single", "Miscasting this spell causes magic contamination and also {effect}.\n", "施放此法术失败会造成魔法污染，此外还会{effect}。\n", "effect:text"},
 +    {"spell.miscast_contamination", "Miscasting this spell causes magic contamination{additional}.\n", "施法失败会造成魔法污染{additional}。\n", "additional:text"},
 +    {"spell.monster.cancellation", "\nIf you are struck by this, you will no longer be {state}.\n", "\n如果你被此法术击中，将不再处于{state}状态。\n", "state:text"},
 +    {"spell.monster.immune.fixed", "You cannot be affected by this spell right now. {suffix}\n", "你目前不会受到此法术影响。{suffix}\n", "suffix:text"},
@@ -118496,6 +119919,7 @@ index 0000000..54f6b33
 +    {"spell.stats.noise", "\n{indent}Noise: {noise}", "\n{indent}噪声：{noise}", "indent:text;noise:name"},
 +    {"spell.stats.power", "\n\n{indent}Power: {power}", "\n\n{indent}威力：{power}", "indent:text;power:text"},
 +    {"spell.stats.range", "\n{indent}Range: {range}", "\n{indent}射程：{range}", "indent:text;range:text"},
++    {"spell.stats.range.not_applicable", "N/A", "不适用", ""},
 +    {"spell.stats.school", "        School{s}: {schools}", "        学派{s}：{schools}", "s:text;schools:text"},
 +    {"spell.summon_cap", "You can sustain at most {count} {creature}{plural} summoned by this spell.\n", "此法术最多可维持{count}个{creature}召唤物{plural}。", "count:text;creature:text;plural:text"},
 +    {"spell_servitor_imbue_start", "You begin to imbue your servitor with knowledge of {spell}.", "你开始将{spell}的知识灌输给你的仆从。", "spell:name"},
@@ -118548,6 +119972,52 @@ index 0000000..54f6b33
 +    {"target.hit_chance.distance", "{hit_percent}% to hit at this distance", "当前距离命中率{hit_percent}%", "hit_percent:integer"},
 +    {"target.hit_chance.verbose", "about {hit_percent}% to hit with {weapon}", "命中率约为{hit_percent}%（使用{weapon}）", "hit_percent:integer;weapon:name"},
 +    {"target.hit_chance.verbose_blind", "about {hit_percent}% to hit with {weapon} (while you are blinded and from distance {range})", "命中率约为{hit_percent}%（使用{weapon}；失明时距离为{range}格）", "hit_percent:integer;weapon:name;range:integer"},
++    {"target.reason.a_summoned_shadow_is_too_ephemeral_to_take", "A summoned shadow is too ephemeral to take hold of.", "被召唤的影子太虚幻，无法抓住。", ""},
++    {"target.reason.digging_in_that_direction_will_not_affect_any", "Digging in that direction won't affect any walls.", "朝那个方向挖掘不会影响任何墙壁。", ""},
++    {"target.reason.gravity_is_already_pointing_downward", "Gravity is already pointing downward.", "重力已经朝下。", ""},
++    {"target.reason.out_of_range", "Out of range.", "超出射程。", ""},
++    {"target.reason.please_select_a_direction_to_dig", "Please select a direction to dig.", "请选择挖掘方向。", ""},
++    {"target.reason.poisonous_vapours.immune", "{monster} cannot be affected by poisonous vapours.", "{monster}不会受到毒雾影响。", "monster:name"},
++    {"target.reason.that_cannot_be_teleported", "That cannot be teleported.", "那个目标无法被传送。", ""},
++    {"target.reason.that_does_not_possess_a_soul_you_can", "That does not possess a soul you can bind.", "那个目标没有可供你束缚的灵魂。", ""},
++    {"target.reason.the_effect_is_blocked", "The effect is blocked.", "效果被阻挡了。", ""},
++    {"target.reason.their_shadow_is_too_faded_to_take_hold", "Their shadow is too faded to take hold of.", "它的影子太淡，无法抓住。", ""},
++    {"target.reason.their_soul_is_too_badly_injured", "Their soul is too badly injured.", "它的灵魂伤得太重了。", ""},
++    {"target.reason.there_is_a_thick_headed_creature_in_the", "There's a thick-headed creature in the way.", "有个脑袋特别硬的生物挡住了去路。", ""},
++    {"target.reason.there_is_already_a_cloud_there", "There's already a cloud there.", "那里已经有一团云了。", ""},
++    {"target.reason.there_is_nothing_to_be_tempered_there", "There's nothing to be tempered there.", "那里没有可锻造的东西。", ""},
++    {"target.reason.there_is_something_in_the_way", "There's something in the way.", "有东西挡住了去路。", ""},
++    {"target.reason.they_have_no_useful_spells_to_cast_right", "They have no useful spells to cast right now.", "它们现在没有可用的法术。", ""},
++    {"target.reason.this_is_not_wounded_badly_enough", "This isn't wounded badly enough.", "它伤得还不够重。", ""},
++    {"target.reason.transference.ancestor", "You can't transfer your ancestor with {self}.", "你不能用{self}传送你的先祖。", "self:text"},
++    {"target.reason.transference.self", "itself", "自身", ""},
++    {"target.reason.unravelling.cannot_harm", "You cannot do harm to {monster}", "你无法伤害{monster}", "monster:name"},
++    {"target.reason.unravelling.no_effects", "{monster} has no magical effects to unravel.", "{monster}没有可供瓦解的魔法效果。", "monster:name"},
++    {"target.reason.wall", "There is {wall} there.", "那里有{wall}。", "wall:name"},
++    {"target.reason.you_are_unable_to_grasp_such_an_alien", "You are unable to grasp such an alien soul.", "你无法把握如此陌生的灵魂。", ""},
++    {"target.reason.you_can_only_putrefy_natural_creatures", "You can only putrefy natural creatures.", "你只能使自然生物腐烂。", ""},
++    {"target.reason.you_can_only_reorient_gravity_in_a_cardinal", "You can only reorient gravity in a cardinal direction.", "你只能沿四个基本方向重新调整重力。", ""},
++    {"target.reason.you_can_only_roll_a_boulder_in_a", "You can only roll a boulder in a compass direction.", "你只能沿罗盘方向滚动巨石。", ""},
++    {"target.reason.you_can_only_target_your_own_forgecraft_constructs", "You can only target your own Forgecraft constructs.", "你只能指定自己的锻造术构装体为目标。", ""},
++    {"target.reason.you_can_see_nowhere_safe_to_land_near", "You can see nowhere safe to land near that.", "你看不出它附近有哪里可以安全着陆。", ""},
++    {"target.reason.you_cannot_affect_that", "You cannot affect that.", "你无法影响那个目标。", ""},
++    {"target.reason.you_cannot_bind_the_soul_of_a_summoned", "You cannot bind the soul of a summoned being.", "你无法束缚被召唤生物的灵魂。", ""},
++    {"target.reason.you_cannot_bind_the_soul_of_an_ally", "You cannot bind the soul of an ally.", "你无法束缚盟友的灵魂。", ""},
++    {"target.reason.you_cannot_conjure_a_boulder_in_an_occupied", "You cannot conjure a boulder in an occupied space.", "你无法在被占据的位置召唤巨石。", ""},
++    {"target.reason.you_cannot_conjure_a_boulder_there", "You cannot conjure a boulder there.", "你无法在那里召唤巨石。", ""},
++    {"target.reason.you_cannot_get_through", "You can't get through.", "你无法通过那里。", ""},
++    {"target.reason.you_cannot_grow_anything_here", "You cannot grow anything here.", "你无法在这里催生任何东西。", ""},
++    {"target.reason.you_cannot_place_harmful_clouds_in_a_sanctuary", "You can't place harmful clouds in a sanctuary.", "你不能在圣所内放置有害云雾。", ""},
++    {"target.reason.you_cannot_putrefy_a_friendly_monster", "You cannot putrefy a friendly monster.", "你不能使友方怪物腐烂。", ""},
++    {"target.reason.you_cannot_see_anything_there", "You can't see anything there.", "那里什么也看不见。", ""},
++    {"target.reason.you_cannot_see_that_place", "You cannot see that place.", "你看不见那个位置。", ""},
++    {"target.reason.you_cannot_target_a_construct_which_is_already", "You cannot target a construct which is already augmented.", "你不能指定已经强化的构装体为目标。", ""},
++    {"target.reason.you_cannot_transfer_that", "You can't transfer that.", "你不能传送那个目标。", ""},
++    {"target.reason.you_do_not_see_a_valid_target_there", "You don't see a valid target there.", "那里没有有效目标。", ""},
++    {"target.reason.you_must_target_an_enemy_who_is_afraid", "You must target an enemy who is afraid.", "你必须指定一个心怀恐惧的敌人为目标。", ""},
++    {"target.reason.you_see_nothing_there_you_can_launch", "You see nothing there you can launch.", "那里没有可供你发射的东西。", ""},
++    {"target.reason.your_paragon_could_not_survive_being_deployed_there", "Your paragon could not survive being deployed there.", "你的典范部署在那里后将无法存活。", ""},
++    {"target.reason.your_weapon_cannot_reach_that_far", "Your weapon can't reach that far!", "你的武器够不到那么远！", ""},
 +    {"target_action_key", "Press: \? - help, <w>{key}</w> - select action", "按键：\? - 帮助，<w>{key}</w> - 选择动作", "key:key"},
 +    {"target_aim_description", "Aim: <lightgrey>{target}</lightgrey>", "瞄准：<lightgrey>{target}</lightgrey>", "target:text"},
 +    {"target_aim_prefix", "Aim", "瞄准", ""},
@@ -118559,6 +120029,151 @@ index 0000000..54f6b33
 +    {"target_straight_line", "Shift-Dir - straight line", "Shift+方向键 - 沿直线瞄准", ""},
 +    {"target_wielding_hit_chance", "{target}, wielding {weapon} ({chance}% to hit)", "{target}，手持{weapon}（命中率{chance}%）", "target:name;weapon:text;chance:integer"},
 +    {"training_target_reached", "Training target {level}.{fraction} for {skill} reached!", "{skill}的训练目标{level}.{fraction}级已达成！", "level:integer;fraction:integer;skill:name"},
++    {"transform.bodypart.a_claw", "a claw", "一只利爪", ""},
++    {"transform.bodypart.a_fist", "a fist", "一只拳头", ""},
++    {"transform.bodypart.a_front_claw", "a front claw", "一只前爪", ""},
++    {"transform.bodypart.a_front_paw", "a front paw", "一只前爪", ""},
++    {"transform.bodypart.a_front_tentacle", "a front tentacle", "一根前方触手", ""},
++    {"transform.bodypart.a_grasper", "a grasper", "一个抓握器", ""},
++    {"transform.bodypart.a_hand", "a hand", "一只手", ""},
++    {"transform.bodypart.a_main_tentacle", "a main tentacle", "一根主触手", ""},
++    {"transform.bodypart.a_paw", "a paw", "一只爪", ""},
++    {"transform.bodypart.a_tendril", "a tendril", "一根卷须", ""},
++    {"transform.bodypart.a_tentacle", "a tentacle", "一根触手", ""},
++    {"transform.bodypart.arm", "arm", "手臂", ""},
++    {"transform.bodypart.arms", "arms", "手臂", ""},
++    {"transform.bodypart.bandage_wrapped_arm", "bandage-wrapped arm", "缠满绷带的手臂", ""},
++    {"transform.bodypart.bandage_wrapped_arms", "bandage-wrapped arms", "缠满绷带的手臂", ""},
++    {"transform.bodypart.bony_arm", "bony arm", "骨质手臂", ""},
++    {"transform.bodypart.bony_arms", "bony arms", "骨质手臂", ""},
++    {"transform.bodypart.branch", "branch", "枝条", ""},
++    {"transform.bodypart.branches", "branches", "枝条", ""},
++    {"transform.bodypart.claws", "claws", "利爪", ""},
++    {"transform.bodypart.coils", "coils", "盘绕的身体", ""},
++    {"transform.bodypart.ectoplasmic_arm", "ectoplasmic arm", "灵质手臂", ""},
++    {"transform.bodypart.ectoplasmic_arms", "ectoplasmic arms", "灵质手臂", ""},
++    {"transform.bodypart.eel_hand", "eel hand", "鳗鱼手", ""},
++    {"transform.bodypart.eel_hands", "eel hands", "鳗鱼手", ""},
++    {"transform.bodypart.feathered_arm", "feathered arm", "覆羽手臂", ""},
++    {"transform.bodypart.feathered_arms", "feathered arms", "覆羽手臂", ""},
++    {"transform.bodypart.feet", "feet", "双脚", ""},
++    {"transform.bodypart.fists", "fists", "拳头", ""},
++    {"transform.bodypart.flesh", "flesh", "血肉", ""},
++    {"transform.bodypart.fleshy_arm", "fleshy arm", "血肉手臂", ""},
++    {"transform.bodypart.fleshy_arms", "fleshy arms", "血肉手臂", ""},
++    {"transform.bodypart.foot", "foot", "脚", ""},
++    {"transform.bodypart.foreclaw", "foreclaw", "前爪", ""},
++    {"transform.bodypart.foreclaws", "foreclaws", "前爪", ""},
++    {"transform.bodypart.forepaw", "forepaw", "前爪", ""},
++    {"transform.bodypart.forepaws", "forepaws", "前爪", ""},
++    {"transform.bodypart.fossilised_arm", "fossilised arm", "石化手臂", ""},
++    {"transform.bodypart.fossilised_arms", "fossilised arms", "石化手臂", ""},
++    {"transform.bodypart.front_claws", "front claws", "前爪", ""},
++    {"transform.bodypart.front_leg", "front leg", "前腿", ""},
++    {"transform.bodypart.front_legs", "front legs", "前腿", ""},
++    {"transform.bodypart.front_paws", "front paws", "前爪", ""},
++    {"transform.bodypart.front_pincers", "front pincers", "前螯", ""},
++    {"transform.bodypart.front_tentacles", "front tentacles", "前方触手", ""},
++    {"transform.bodypart.front_trotter", "front trotter", "前蹄", ""},
++    {"transform.bodypart.front_trotters", "front trotters", "前蹄", ""},
++    {"transform.bodypart.furry_arm", "furry arm", "毛茸茸的手臂", ""},
++    {"transform.bodypart.furry_arms", "furry arms", "毛茸茸的手臂", ""},
++    {"transform.bodypart.graspers", "graspers", "抓握器", ""},
++    {"transform.bodypart.hands", "hands", "手", ""},
++    {"transform.bodypart.hoof", "hoof", "蹄", ""},
++    {"transform.bodypart.hooves", "hooves", "蹄", ""},
++    {"transform.bodypart.hypha", "hypha", "菌丝", ""},
++    {"transform.bodypart.hyphae", "hyphae", "菌丝", ""},
++    {"transform.bodypart.main_tentacles", "main tentacles", "主触手", ""},
++    {"transform.bodypart.paw", "paw", "爪", ""},
++    {"transform.bodypart.paws", "paws", "爪", ""},
++    {"transform.bodypart.root", "root", "根须", ""},
++    {"transform.bodypart.roots", "roots", "根须", ""},
++    {"transform.bodypart.scaled_arm", "scaled arm", "覆鳞手臂", ""},
++    {"transform.bodypart.scaled_arms", "scaled arms", "覆鳞手臂", ""},
++    {"transform.bodypart.stony_arm", "stony arm", "石质手臂", ""},
++    {"transform.bodypart.stony_arms", "stony arms", "石质手臂", ""},
++    {"transform.bodypart.tail", "tail", "尾巴", ""},
++    {"transform.bodypart.tails", "tails", "尾巴", ""},
++    {"transform.bodypart.talon", "talon", "利爪", ""},
++    {"transform.bodypart.talons", "talons", "利爪", ""},
++    {"transform.bodypart.tendrils", "tendrils", "卷须", ""},
++    {"transform.bodypart.tentacles", "tentacles", "触手", ""},
++    {"transform.bodypart.underbelly", "underbelly", "腹部", ""},
++    {"transform.bodypart.wood", "wood", "木质", ""},
++    {"transform.enter.bat", "You turn into a bat.", "你变成一只蝙蝠。", ""},
++    {"transform.enter.bat_swarm", "You turn into a swarm of vampire bats.", "你变成一群吸血蝙蝠。", ""},
++    {"transform.enter.dragon", "You turn into a fearsome dragon!", "你变成一条威风凛凛的龙！", ""},
++    {"transform.enter.dragon_species", "You turn into a fearsome {monster}!", "你变成威风凛凛的{monster}！", "monster:name"},
++    {"transform.enter.eel_hands.plural", "Your {parts} turn into a pair of wriggling electric eels!", "你的{parts}变成了一对扭动的电鳗！", "parts:text"},
++    {"transform.enter.eel_hands.single", "Your {parts} turns into a wriggling electric eel!", "你的{parts}变成了一条扭动的电鳗！", "parts:text"},
++    {"transform.enter.fortress_crab", "You turn into a heavily-armoured crab.", "你变成一只身披重甲的螃蟹。", ""},
++    {"transform.enter.fungus", "You turn into a sentient fungus.", "你变成一株有知觉的真菌。", ""},
++    {"transform.enter.hive", "You turn into a living hive.", "你变成一个活体蜂巢。", ""},
++    {"transform.enter.jelly", "You turn into a lump of jelly.", "你变成一团果冻。", ""},
++    {"transform.enter.maw", "You turn into a creature with a mouth for a stomach.", "你变成一个以嘴为胃的生物。", ""},
++    {"transform.enter.none", "You turn into your old self.", "你恢复了原来的形态。", ""},
++    {"transform.enter.pig", "You turn into a filthy swine.", "你变成一头肮脏的猪。", ""},
++    {"transform.enter.porcupine", "You turn into a spiny porcupine.", "你变成一只浑身长刺的豪猪。", ""},
++    {"transform.enter.rime_yak", "You turn into an ice-encrusted yak.", "你变成一头覆着冰霜的牦牛。", ""},
++    {"transform.enter.serpent", "You turn into an enormous two-headed serpent.", "你变成一条庞大的双头巨蛇。", ""},
++    {"transform.enter.shadow", "You turn into a swirling mass of dark shadows.", "你变成一团旋卷的暗影。", ""},
++    {"transform.enter.slaughter", "You turn into a vessel of demonic slaughter.", "你变成一个恶魔屠戮的容器。", ""},
++    {"transform.enter.sphinx", "You turn into a cunning sphinx.", "你变成一只狡黠的狮身人面像。", ""},
++    {"transform.enter.spider", "You turn into an agile web-spinner.", "你变成一只敏捷的织网蜘蛛。", ""},
++    {"transform.enter.spore", "Dense mycelia sprout from your {arms} and {feet}.", "浓密的菌丝从你的{arms}和{feet}上长出。", "arms:text;feet:text"},
++    {"transform.enter.statue", "You turn into a living statue of rough stone.", "你变成一尊粗石塑成的活雕像。", ""},
++    {"transform.enter.storm", "You turn into a lightning-filled tempest!", "你变成一场充满闪电的风暴！", ""},
++    {"transform.enter.sun_scarab", "You turn into a gleaming scarab beetle.", "你变成一只熠熠生辉的圣甲虫。", ""},
++    {"transform.enter.tree", "You turn into a tree.", "你变成一棵树。", ""},
++    {"transform.enter.vampire", "You turn into a living vampire.", "你变成一个活生生的吸血鬼。", ""},
++    {"transform.enter.walking_scroll", "You turn into a walking scroll.", "你变成一卷会走路的卷轴。", ""},
++    {"transform.enter.werewolf", "You turn into a ferocious werewolf.", "你变成一头凶猛的狼人。", ""},
++    {"transform.enter.wisp", "You turn into an insubstantial wisp.", "你变成一个虚无缥缈的幽灵。", ""},
++    {"transform.leave.eel_hands.plural", "Your {parts} revert to their normal form.", "你的{parts}恢复了原形。", "parts:text"},
++    {"transform.leave.eel_hands.single", "Your {parts} reverts to its normal form.", "你的{parts}恢复了原形。", "parts:text"},
++    {"transform.log.a_mane_of_stinging_tendrils_grows_from_your_head", "A mane of stinging tendrils grows from your head.", "一丛带刺的卷须从你的头上长出。", ""},
++    {"transform.log.a_tiny_sun_coalesces_beside_you", "A tiny sun coalesces beside you.", "一颗小太阳在你身旁凝聚成形。", ""},
++    {"transform.log.blades_grow_out_of_your_body", "Blades grow out of your body!", "刀刃从你的身体中长出！", ""},
++    {"transform.log.but_don_t_expect_to_remain_undetected", "...but don't expect to remain undetected.", "……但别指望还能隐匿行踪。", ""},
++    {"transform.log.gear_falls", "{item} falls away!", "{item}脱落了！", "item:name"},
++    {"transform.log.gear_falls_curse", "{item} falls away, shattering the curse!", "{item}脱落了，诅咒也随之破除！", "item:name"},
++    {"transform.log.gozag_s_golden_gift_will_leave_your_new_mouth_with_nothing_to_eat", "Gozag's golden gift will leave your new mouth with nothing to eat.", "哥萨戈的黄金恩赐会让你的新嘴无物可食。", ""},
++    {"transform.log.holy_dull", "{item} goes dull and lifeless in your grasp.", "{item}在你手中变得黯淡无光。", "item:name"},
++    {"transform.log.holy_glow", "{item} softly glows with a divine radiance!", "{item}柔和地散发着神圣的光辉！", "item:name"},
++    {"transform.log.makhleb_calls_their_payment_due", "Makhleb calls their payment due...", "玛克雷布来索要报酬了……", ""},
++    {"transform.log.maw_hungry", "Your maw growls hungrily at the sight of {monster}.", "看到{monster}，你的巨口饥肠辘辘地咆哮起来。", "monster:name"},
++    {"transform.log.maw_resist", "Your maw growls hungrily at the sight of {monster}, but you resist your urges.", "看到{monster}，你的巨口饥肠辘辘地咆哮起来，但你克制住了冲动。", "monster:name"},
++    {"transform.log.sharp_quills_grow_all_over_your_body", "Sharp quills grow all over your body.", "你的全身长出尖锐的硬刺。", ""},
++    {"transform.log.vampire_gaze", "{monster} is briefly mesmerised by your gaze.", "{monster}短暂地被你的凝视迷住了。", "monster:name"},
++    {"transform.log.vampire_loses_eye", "{monster} loses {reflexive} in your eye.", "{monster}{reflexive}在你眼前失去意识。", "monster:name;reflexive:text"},
++    {"transform.log.vampire_loses_eyes", "{monster} loses {reflexive} in your eyes.", "{monster}{reflexive}在你眼前失去意识。", "monster:name;reflexive:text"},
++    {"transform.log.you_condense_into_your_normal_self", "You condense into your normal self.", "你凝聚回原来的形态。", ""},
++    {"transform.log.you_emerge_from_the_shadows", "You emerge from the shadows.", "你从暗影中显现出来。", ""},
++    {"transform.log.you_feel_less_batty", "You feel less batty.", "你感觉不再那么像蝙蝠了。", ""},
++    {"transform.log.you_feel_less_porcine", "You feel less porcine.", "你感觉不再那么像猪了。", ""},
++    {"transform.log.you_feel_less_shadowy", "You feel less shadowy.", "你感觉不再那么像影子了。", ""},
++    {"transform.log.you_feel_less_wooden", "You feel less wooden.", "你感觉不再那么像树木了。", ""},
++    {"transform.log.you_feel_strangely_stable", "You feel strangely stable.", "你感到一种奇异的稳定。", ""},
++    {"transform.log.you_feel_yourself_come_back_to_life", "You feel yourself come back to life.", "你感到自己重新焕发生机。", ""},
++    {"transform.log.you_inwardly_fear_your_resemblance_to_a_lawn_ornament", "You inwardly fear your resemblance to a lawn ornament.", "你心里担忧自己活像一件草坪装饰。", ""},
++    {"transform.log.you_reconstitute_your_solar_ember", "You reconstitute your solar ember.", "你重新凝聚出自己的太阳余烬。", ""},
++    {"transform.log.you_revert_to_your_normal_fleshy_form", "You revert to your normal fleshy form.", "你恢复了原来的血肉之躯。", ""},
++    {"transform.log.you_stop_sporulating", "You stop sporulating.", "你停止散播孢子。", ""},
++    {"transform.log.your_blades_shrink_back_into_your_body_and_disappear", "Your blades shrink back into your body and disappear.", "你的刀刃缩回体内，消失不见。", ""},
++    {"transform.log.your_body_destabilises", "Your body destabilises.", "你的身体开始变得不稳定。", ""},
++    {"transform.log.your_body_returns_to_its_normal_shape_and_substance", "Your body returns to its normal shape and substance.", "你的身体恢复了原来的形状与质地。", ""},
++    {"transform.log.your_body_stabilises_again", "Your body stabilises again.", "你的身体重新稳定下来。", ""},
++    {"transform.log.your_body_transforms_into_elemental_water", "Your body transforms into elemental water.", "你的身体变成了水元素。", ""},
++    {"transform.log.your_flesh_twists_and_warps_into_a_mockery_of_life", "Your flesh twists and warps into a mockery of life!", "你的血肉扭曲变形，化作生命的拙劣仿品！", ""},
++    {"transform.log.your_legs_become_a_tail_as_you_dive_into_the_water", "Your legs become a tail as you dive into the water.", "你潜入水中时，双腿变成了一条尾巴。", ""},
++    {"transform.log.your_mandibles_meld_away", "Your mandibles meld away.", "你的颚足融化消失。", ""},
++    {"transform.log.your_mycelia_shrivel_away", "Your mycelia shrivel away.", "你的菌丝枯萎消失。", ""},
++    {"transform.log.your_quills_recede_back_into_your_body", "Your quills recede back into your body.", "你的硬刺缩回体内。", ""},
++    {"transform.log.your_roots_penetrate_the_ground", "Your roots penetrate the ground.", "你的根系扎入地面。", ""},
++    {"transform.log.your_tendrils_shrivel_away", "Your tendrils shrivel away.", "你的卷须枯萎消失。", ""},
++    {"transform.log.your_tiny_sun_winks_out", "Your tiny sun winks out.", "你的小太阳熄灭了。", ""},
++    {"transform.log.your_transformation_has_ended", "Your transformation has ended.", "你的变形结束了。", ""},
 +    {"transform_continue", "You continue transforming.", "你继续变形。", ""},
 +    {"transloc.apport.many", "Yoink! You pull the items towards yourself.", "嗖！你将这些物品拉向自己！", ""},
 +    {"transloc.apport.one", "Yoink! You pull the item towards yourself.", "嗖！你将物品拉向自己！", ""},
@@ -119206,6 +120821,7 @@ index 0000000..54f6b33
 +    {"detail.spell.fixed", "\nYou currently have no enchantments that could be removed by this.\n", "spell.monster.no_enchantments.fixed"},
 +    {"detail.spell.fixed", "This spell has no description. Casting it may therefore be unwise. Instead, go fix it.", "spell.no_description.debug.fixed"},
 +    {"detail.spell.fixed", "This spell has no description. Casting it may therefore be unwise. Please file a bug report.", "spell.no_description.fixed"},
++    {"hints.pickup", "That <console>$1 </console>is an item. If you move there and press <input>$cmd[CMD_PICKUP]</input><localtiles>, or <input>left-click</input> on it in your inventory</localtiles>, you will pick it up.<console> Generally, items are shown by non-letter symbols like <w>%\?!\"=()[</w>.</console> Some objects<tiles>, marked with a green frame,</tiles> will be picked up automatically.\n\nOnce it is in your inventory, you can drop it again with <localtiles>a <input>Shift-left-click</input>. Whenever you <input>right-click</input> on an item</localtiles><console><input>$cmd[CMD_DROP]</input>. Any time you look at an item in your inventory (<input>$cmd[CMD_DISPLAY_INVENTORY]</input>)</console>, you can read about its properties and its description.\n", "hints.pickup.first_object"},
 +    {"player.invisibility.source", "armour", "player.invisibility.source.armour"},
 +    {"player.invisibility.source", "crown", "player.invisibility.source.crown"},
 +    {"player.invisibility.source", "divine halo", "player.invisibility.source.divine_halo"},
@@ -119258,6 +120874,80 @@ index 0000000..54f6b33
 +    {"shared.restriction.logs", "Your surroundings flicker for a moment.", "shared.log.teleport.surroundings_flicker"},
 +    {"shared.restriction.logs", "Your surroundings seem slightly different.", "shared.log.teleport.surroundings_slightly"},
 +    {"shared.restriction.logs", "Your surroundings suddenly seem different.", "shared.log.teleport.surroundings_suddenly"},
++    {"spell.stats.range", "N/A", "spell.stats.range.not_applicable"},
++    {"target.reason", "A summoned shadow is too ephemeral to take hold of.", "target.reason.a_summoned_shadow_is_too_ephemeral_to_take"},
++    {"target.reason", "Digging in that direction won't affect any walls.", "target.reason.digging_in_that_direction_will_not_affect_any"},
++    {"target.reason", "Gravity is already pointing downward.", "target.reason.gravity_is_already_pointing_downward"},
++    {"target.reason", "Out of range.", "target.reason.out_of_range"},
++    {"target.reason", "Please select a direction to dig.", "target.reason.please_select_a_direction_to_dig"},
++    {"target.reason", "That cannot be teleported.", "target.reason.that_cannot_be_teleported"},
++    {"target.reason", "That does not possess a soul you can bind.", "target.reason.that_does_not_possess_a_soul_you_can"},
++    {"target.reason", "The effect is blocked.", "target.reason.the_effect_is_blocked"},
++    {"target.reason", "Their shadow is too faded to take hold of.", "target.reason.their_shadow_is_too_faded_to_take_hold"},
++    {"target.reason", "Their soul is too badly injured.", "target.reason.their_soul_is_too_badly_injured"},
++    {"target.reason", "There's a thick-headed creature in the way.", "target.reason.there_is_a_thick_headed_creature_in_the"},
++    {"target.reason", "There's already a cloud there.", "target.reason.there_is_already_a_cloud_there"},
++    {"target.reason", "There's nothing to be tempered there.", "target.reason.there_is_nothing_to_be_tempered_there"},
++    {"target.reason", "There's something in the way.", "target.reason.there_is_something_in_the_way"},
++    {"target.reason", "They have no useful spells to cast right now.", "target.reason.they_have_no_useful_spells_to_cast_right"},
++    {"target.reason", "This isn't wounded badly enough.", "target.reason.this_is_not_wounded_badly_enough"},
++    {"target.reason", "You are unable to grasp such an alien soul.", "target.reason.you_are_unable_to_grasp_such_an_alien"},
++    {"target.reason", "You can only putrefy natural creatures.", "target.reason.you_can_only_putrefy_natural_creatures"},
++    {"target.reason", "You can only reorient gravity in a cardinal direction.", "target.reason.you_can_only_reorient_gravity_in_a_cardinal"},
++    {"target.reason", "You can only roll a boulder in a compass direction.", "target.reason.you_can_only_roll_a_boulder_in_a"},
++    {"target.reason", "You can only target your own Forgecraft constructs.", "target.reason.you_can_only_target_your_own_forgecraft_constructs"},
++    {"target.reason", "You can see nowhere safe to land near that.", "target.reason.you_can_see_nowhere_safe_to_land_near"},
++    {"target.reason", "You can't get through.", "target.reason.you_cannot_get_through"},
++    {"target.reason", "You can't place harmful clouds in a sanctuary.", "target.reason.you_cannot_place_harmful_clouds_in_a_sanctuary"},
++    {"target.reason", "You can't see anything there.", "target.reason.you_cannot_see_anything_there"},
++    {"target.reason", "You can't transfer that.", "target.reason.you_cannot_transfer_that"},
++    {"target.reason", "You cannot affect that.", "target.reason.you_cannot_affect_that"},
++    {"target.reason", "You cannot bind the soul of a summoned being.", "target.reason.you_cannot_bind_the_soul_of_a_summoned"},
++    {"target.reason", "You cannot bind the soul of an ally.", "target.reason.you_cannot_bind_the_soul_of_an_ally"},
++    {"target.reason", "You cannot conjure a boulder in an occupied space.", "target.reason.you_cannot_conjure_a_boulder_in_an_occupied"},
++    {"target.reason", "You cannot conjure a boulder there.", "target.reason.you_cannot_conjure_a_boulder_there"},
++    {"target.reason", "You cannot grow anything here.", "target.reason.you_cannot_grow_anything_here"},
++    {"target.reason", "You cannot putrefy a friendly monster.", "target.reason.you_cannot_putrefy_a_friendly_monster"},
++    {"target.reason", "You cannot see that place.", "target.reason.you_cannot_see_that_place"},
++    {"target.reason", "You cannot target a construct which is already augmented.", "target.reason.you_cannot_target_a_construct_which_is_already"},
++    {"target.reason", "You don't see a valid target there.", "target.reason.you_do_not_see_a_valid_target_there"},
++    {"target.reason", "You must target an enemy who is afraid.", "target.reason.you_must_target_an_enemy_who_is_afraid"},
++    {"target.reason", "You see nothing there you can launch.", "target.reason.you_see_nothing_there_you_can_launch"},
++    {"target.reason", "Your paragon could not survive being deployed there.", "target.reason.your_paragon_could_not_survive_being_deployed_there"},
++    {"target.reason", "Your weapon can't reach that far!", "target.reason.your_weapon_cannot_reach_that_far"},
++    {"transform.log", "...but don't expect to remain undetected.", "transform.log.but_don_t_expect_to_remain_undetected"},
++    {"transform.log", "A mane of stinging tendrils grows from your head.", "transform.log.a_mane_of_stinging_tendrils_grows_from_your_head"},
++    {"transform.log", "A tiny sun coalesces beside you.", "transform.log.a_tiny_sun_coalesces_beside_you"},
++    {"transform.log", "Blades grow out of your body!", "transform.log.blades_grow_out_of_your_body"},
++    {"transform.log", "Gozag's golden gift will leave your new mouth with nothing to eat.", "transform.log.gozag_s_golden_gift_will_leave_your_new_mouth_with_nothing_to_eat"},
++    {"transform.log", "Makhleb calls their payment due...", "transform.log.makhleb_calls_their_payment_due"},
++    {"transform.log", "Sharp quills grow all over your body.", "transform.log.sharp_quills_grow_all_over_your_body"},
++    {"transform.log", "You condense into your normal self.", "transform.log.you_condense_into_your_normal_self"},
++    {"transform.log", "You emerge from the shadows.", "transform.log.you_emerge_from_the_shadows"},
++    {"transform.log", "You feel less batty.", "transform.log.you_feel_less_batty"},
++    {"transform.log", "You feel less porcine.", "transform.log.you_feel_less_porcine"},
++    {"transform.log", "You feel less shadowy.", "transform.log.you_feel_less_shadowy"},
++    {"transform.log", "You feel less wooden.", "transform.log.you_feel_less_wooden"},
++    {"transform.log", "You feel strangely stable.", "transform.log.you_feel_strangely_stable"},
++    {"transform.log", "You feel yourself come back to life.", "transform.log.you_feel_yourself_come_back_to_life"},
++    {"transform.log", "You inwardly fear your resemblance to a lawn ornament.", "transform.log.you_inwardly_fear_your_resemblance_to_a_lawn_ornament"},
++    {"transform.log", "You reconstitute your solar ember.", "transform.log.you_reconstitute_your_solar_ember"},
++    {"transform.log", "You revert to your normal fleshy form.", "transform.log.you_revert_to_your_normal_fleshy_form"},
++    {"transform.log", "You stop sporulating.", "transform.log.you_stop_sporulating"},
++    {"transform.log", "Your blades shrink back into your body and disappear.", "transform.log.your_blades_shrink_back_into_your_body_and_disappear"},
++    {"transform.log", "Your body destabilises.", "transform.log.your_body_destabilises"},
++    {"transform.log", "Your body returns to its normal shape and substance.", "transform.log.your_body_returns_to_its_normal_shape_and_substance"},
++    {"transform.log", "Your body stabilises again.", "transform.log.your_body_stabilises_again"},
++    {"transform.log", "Your body transforms into elemental water.", "transform.log.your_body_transforms_into_elemental_water"},
++    {"transform.log", "Your flesh twists and warps into a mockery of life!", "transform.log.your_flesh_twists_and_warps_into_a_mockery_of_life"},
++    {"transform.log", "Your legs become a tail as you dive into the water.", "transform.log.your_legs_become_a_tail_as_you_dive_into_the_water"},
++    {"transform.log", "Your mandibles meld away.", "transform.log.your_mandibles_meld_away"},
++    {"transform.log", "Your mycelia shrivel away.", "transform.log.your_mycelia_shrivel_away"},
++    {"transform.log", "Your quills recede back into your body.", "transform.log.your_quills_recede_back_into_your_body"},
++    {"transform.log", "Your roots penetrate the ground.", "transform.log.your_roots_penetrate_the_ground"},
++    {"transform.log", "Your tendrils shrivel away.", "transform.log.your_tendrils_shrivel_away"},
++    {"transform.log", "Your tiny sun winks out.", "transform.log.your_tiny_sun_winks_out"},
++    {"transform.log", "Your transformation has ended.", "transform.log.your_transformation_has_ended"},
 +    {nullptr, nullptr, nullptr}
 +};
 diff --git a/crawl-ref/source/zh-message.cc b/crawl-ref/source/zh-message.cc

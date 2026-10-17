@@ -5,6 +5,7 @@
 #include "beam.h"
 #include "coordit.h"
 #include "los-type.h"
+#include "zh-message.h"
 
 using std::vector;
 
@@ -48,6 +49,8 @@ public:
     coord_def aim;
     const actor* agent;
     string why_not;
+    // UI reason is selected at the producer; why_not stays canonical for engine callers.
+    ZhMessage failure_message() const;
     bool obeys_mesmerise; // whether the rendering of ranges should take into account mesmerise effects
 
     virtual bool set_aim(coord_def a);
@@ -63,6 +66,9 @@ public:
 
     targeting_iterator affected_iterator(aff_type threshold = AFF_YES);
 protected:
+    bool notify_fail(const ZhArg &reason);
+    bool notify_fail(const string &canonical);
+    ZhArg display_failure;
     bool anyone_there(coord_def loc);
 };
 

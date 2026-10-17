@@ -1,0 +1,415 @@
+{
+  "model": "gpt-6-luna",
+  "purpose": "Complete localized composition for spell miscast consequences.",
+  "messages": [
+    {
+      "id": "spell.stats.range.not_applicable",
+      "context": "法术详情：无适用射程",
+      "source_context": "spell.stats.range",
+      "en": "N/A",
+      "zh": "不适用",
+      "params": {},
+      "source": {"file": "spl-cast.cc", "anchor": "spell_range_string; no applicable range fallback"}
+    },
+    {
+      "id": "spell.miscast.flavor.list.more",
+      "context": "法术详情：施法失败伤害属性列表的中间连接",
+      "en": "{items}, {next}",
+      "zh": "{items}、{next}",
+      "params": {
+        "items": "text",
+        "next": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; comma_separated_line damage flavors, non-final separator"
+      }
+    },
+    {
+      "id": "spell.miscast.flavor.list.final",
+      "context": "法术详情：施法失败伤害属性列表的末项连接",
+      "en": "{items} or {last}",
+      "zh": "{items}或{last}",
+      "params": {
+        "items": "text",
+        "last": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; comma_separated_line damage flavors, final separator"
+      }
+    },
+    {
+      "id": "spell.miscast.effect.list.more",
+      "context": "法术详情：施法失败效果列表的中间连接",
+      "en": "{items}; {next}",
+      "zh": "{items}；{next}",
+      "params": {
+        "items": "text",
+        "next": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; comma_separated_line effects, semicolon separator"
+      }
+    },
+    {
+      "id": "spell.miscast.effect.list.final",
+      "context": "法术详情：施法失败效果列表的末项连接",
+      "en": "{items} or {last}",
+      "zh": "{items}或{last}",
+      "params": {
+        "items": "text",
+        "last": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; comma_separated_line effects, final separator"
+      }
+    },
+    {
+      "id": "spell.miscast.parent.single",
+      "context": "法术详情：单项施法失败后果完整句",
+      "en": "Miscasting this spell causes magic contamination and also {effect}.\n",
+      "zh": "施放此法术失败会造成魔法污染，此外还会{effect}。\n",
+      "params": {
+        "effect": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_player_spell_desc; complete contamination sentence with one miscast consequence"
+      }
+    },
+    {
+      "id": "spell.miscast.parent.multiple",
+      "context": "法术详情：多项施法失败后果完整句",
+      "en": "Miscasting this spell causes magic contamination and also either {effects}.\n",
+      "zh": "施放此法术失败会造成魔法污染，此外还会出现以下后果之一：{effects}。\n",
+      "params": {
+        "effects": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_player_spell_desc; complete contamination sentence with either/or miscast consequences"
+      }
+    },
+    {
+      "id": "spell.miscast.flavor.irresistible",
+      "context": "法术详情：施法失败效果成分",
+      "en": "irresistible",
+      "zh": "无视抗性的",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.flavor.draining",
+      "context": "法术详情：施法失败效果成分",
+      "en": "draining",
+      "zh": "汲取生命的",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.flavor.fire",
+      "context": "法术详情：施法失败效果成分",
+      "en": "fire",
+      "zh": "火焰",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.flavor.cold",
+      "context": "法术详情：施法失败效果成分",
+      "en": "cold",
+      "zh": "寒冷",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.flavor.electric",
+      "context": "法术详情：施法失败效果成分",
+      "en": "electric",
+      "zh": "电击",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.flavor.fragmentation",
+      "context": "法术详情：施法失败效果成分",
+      "en": "fragmentation",
+      "zh": "碎裂",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.effect.horror",
+      "context": "法术详情：施法失败效果成分",
+      "en": "summons a nameless horror",
+      "zh": "召唤无名恐怖",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.effect.anchors",
+      "context": "法术详情：施法失败效果成分",
+      "en": "anchors you in place",
+      "zh": "将你锚定在原地",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.effect.slows",
+      "context": "法术详情：施法失败效果成分",
+      "en": "slows you",
+      "zh": "使你迟缓",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.effect.poisons",
+      "context": "法术详情：施法失败效果成分",
+      "en": "poisons you",
+      "zh": "使你中毒",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.effect.corrodes",
+      "context": "法术详情：施法失败效果成分",
+      "en": "corrodes you",
+      "zh": "使你腐蚀",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.damage_clause",
+      "context": "法术详情：施法失败伤害描述",
+      "en": "deals up to {damage} {flavours} damage",
+      "zh": "最多造成{damage}点{flavours}伤害",
+      "params": {
+        "damage": "integer",
+        "flavours": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; formatted clause; flavours must be assembled from supported flavor atoms with Chinese grammar"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "spell.stats.range.not_applicable",
+      "args": {},
+      "canonical": "N/A",
+      "zh": "不适用"
+    },
+    {
+      "id": "spell.miscast.flavor.list.more",
+      "args": {
+        "items": {
+          "type": "text",
+          "canonical": "fire",
+          "localized": "火焰"
+        },
+        "next": {
+          "type": "text",
+          "canonical": "cold",
+          "localized": "寒冷"
+        }
+      },
+      "canonical": "fire, cold",
+      "zh": "火焰、寒冷"
+    },
+    {
+      "id": "spell.miscast.flavor.list.final",
+      "args": {
+        "items": {
+          "type": "text",
+          "canonical": "fire, cold",
+          "localized": "火焰、寒冷"
+        },
+        "last": {
+          "type": "text",
+          "canonical": "electric",
+          "localized": "电击"
+        }
+      },
+      "canonical": "fire, cold or electric",
+      "zh": "火焰、寒冷或电击"
+    },
+    {
+      "id": "spell.miscast.effect.list.more",
+      "args": {
+        "items": {
+          "type": "text",
+          "canonical": "slows you",
+          "localized": "使你迟缓"
+        },
+        "next": {
+          "type": "text",
+          "canonical": "poisons you",
+          "localized": "使你中毒"
+        }
+      },
+      "canonical": "slows you; poisons you",
+      "zh": "使你迟缓；使你中毒"
+    },
+    {
+      "id": "spell.miscast.effect.list.final",
+      "args": {
+        "items": {
+          "type": "text",
+          "canonical": "slows you; poisons you",
+          "localized": "使你迟缓；使你中毒"
+        },
+        "last": {
+          "type": "text",
+          "canonical": "corrodes you",
+          "localized": "使你腐蚀"
+        }
+      },
+      "canonical": "slows you; poisons you or corrodes you",
+      "zh": "使你迟缓；使你中毒或使你腐蚀"
+    },
+    {
+      "id": "spell.miscast.parent.single",
+      "args": {
+        "effect": {
+          "type": "text",
+          "canonical": "slows you",
+          "localized": "使你迟缓"
+        }
+      },
+      "canonical": "Miscasting this spell causes magic contamination and also slows you.\n",
+      "zh": "施放此法术失败会造成魔法污染，此外还会使你迟缓。\n"
+    },
+    {
+      "id": "spell.miscast.parent.multiple",
+      "args": {
+        "effects": {
+          "type": "text",
+          "canonical": "slows you or deals up to 12 fire damage",
+          "localized": "使你迟缓或最多造成12点火焰伤害"
+        }
+      },
+      "canonical": "Miscasting this spell causes magic contamination and also either slows you or deals up to 12 fire damage.\n",
+      "zh": "施放此法术失败会造成魔法污染，此外还会出现以下后果之一：使你迟缓或最多造成12点火焰伤害。\n"
+    },
+    {
+      "id": "spell.miscast.damage_clause",
+      "args": {
+        "damage": {
+          "type": "integer",
+          "canonical": "12",
+          "localized": "12"
+        },
+        "flavours": {
+          "type": "text",
+          "canonical": "fire or cold",
+          "localized": "火焰或寒冷"
+        }
+      },
+      "canonical": "deals up to 12 fire or cold damage",
+      "zh": "最多造成12点火焰或寒冷伤害"
+    },
+    {
+      "id": "spell.miscast.effect.horror",
+      "args": {},
+      "canonical": "summons a nameless horror",
+      "zh": "召唤无名恐怖"
+    },
+    {
+      "id": "spell.miscast.flavor.irresistible",
+      "args": {},
+      "canonical": "irresistible",
+      "zh": "无视抗性的"
+    },
+    {
+      "id": "spell.miscast.flavor.draining",
+      "args": {},
+      "canonical": "draining",
+      "zh": "汲取生命的"
+    },
+    {
+      "id": "spell.miscast.flavor.fire",
+      "args": {},
+      "canonical": "fire",
+      "zh": "火焰"
+    },
+    {
+      "id": "spell.miscast.flavor.cold",
+      "args": {},
+      "canonical": "cold",
+      "zh": "寒冷"
+    },
+    {
+      "id": "spell.miscast.flavor.electric",
+      "args": {},
+      "canonical": "electric",
+      "zh": "电击"
+    },
+    {
+      "id": "spell.miscast.flavor.fragmentation",
+      "args": {},
+      "canonical": "fragmentation",
+      "zh": "碎裂"
+    },
+    {
+      "id": "spell.miscast.effect.anchors",
+      "args": {},
+      "canonical": "anchors you in place",
+      "zh": "将你锚定在原地"
+    },
+    {
+      "id": "spell.miscast.effect.slows",
+      "args": {},
+      "canonical": "slows you",
+      "zh": "使你迟缓"
+    },
+    {
+      "id": "spell.miscast.effect.poisons",
+      "args": {},
+      "canonical": "poisons you",
+      "zh": "使你中毒"
+    },
+    {
+      "id": "spell.miscast.effect.corrodes",
+      "args": {},
+      "canonical": "corrodes you",
+      "zh": "使你腐蚀"
+    }
+  ]
+}

@@ -475,6 +475,25 @@ void hints_new_turn()
         learned_something_new(HINT_RETREAT_CASTER);
 }
 
+// Tutorial markup is control structure, processed only after selecting the
+// whole translated template. The canonical and localized versions are kept
+// together through output; the old renderer must not reinterpret either.
+static string _prepare_pickup_hint(string text, const string &glyph)
+{
+    _replace_static_tags(text);
+    text = untag_tiles_console(text);
+    text = replace_all(text, "$1", glyph);
+    return replace_all(text, "\n\n", "\n");
+}
+
+static ZhMessage _pickup_hint_message(const string &glyph)
+{
+    ZhMessage message = zh_message("hints.pickup.first_object");
+    message.canonical = _prepare_pickup_hint(message.canonical, glyph);
+    message.localized = _prepare_pickup_hint(message.localized, glyph);
+    return message;
+}
+
 /**
  * Look up and return a hint message from the database.
  * @param arg1 A string that can be inserted into the hint message.
@@ -482,6 +501,8 @@ void hints_new_turn()
  */
 static string _get_hint(string key, const string& arg1 = "", const string& arg2 = "")
 {
+    if (key == "HINT_SEEN_FIRST_OBJECT")
+        return _pickup_hint_message(arg1).display();
     string text = getHintString(key);
     if (text.empty())
         mprf(MSGCH_ERROR, "Error, no hint for '%s'.", key.c_str());
@@ -505,6 +526,21 @@ static string _get_hint(string key, const string& arg1 = "", const string& arg2 
  */
 void print_hint(string key, const string& arg1, const string& arg2)
 {
+    if (key == "HINT_SEEN_FIRST_OBJECT")
+    {
+        const ZhMessage message = _pickup_hint_message(arg1);
+        // Keep canonical English in message history as well as selected Chinese.
+        // If reviewed paragraph counts differ, output the whole envelope.
+        const vector<string> canonical = split_string("\n", message.canonical);
+        const vector<string> localized = split_string("\n", message.localized);
+        if (canonical.size() != localized.size())
+            mpr(message, MSGCH_TUTORIAL);
+        else
+            for (size_t i = 0; i < canonical.size(); ++i)
+                mpr(ZhMessage{message.id, canonical[i], localized[i]}, MSGCH_TUTORIAL);
+        stop_running();
+        return;
+    }
     string text = _get_hint(key, arg1, arg2);
 
     // "\n" preserves indented parts and paragraphs
@@ -958,7 +994,9 @@ void hints_first_item(const item_def &item)
 #ifdef USE_TILE
     const coord_def gc = item.pos;
     tiles.place_cursor(CURSOR_TUTORIAL, gc);
-    tiles.add_text_tag(TAG_TUTORIAL, item.name(DESC_A), gc);
+    const ZhArg display_name = zh_item_arg("item", item, DESC_A);
+    tiles.add_text_tag(TAG_TUTORIAL,
+        zh_language_enabled() ? display_name.localized : display_name.canonical, gc);
 #endif
 
     print_hint("HINT_SEEN_FIRST_OBJECT",

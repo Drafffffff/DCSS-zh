@@ -4547,6 +4547,16 @@ void inscribe_item(item_def &item)
  *
  * @param spell     The spell in question.
  */
+static ZhArg _spell_range_display_arg(spell_type spell)
+{
+    // Select the semantic absence at the producer; numeric range notation is
+    // language-independent. Never parse the final English range string.
+    if (spell_range(spell, &you, -1, true) <= 0)
+        return zh_message_arg("range", "spell.stats.range.not_applicable");
+    const string range = spell_range_string(spell);
+    return zh_text("range", range, range);
+}
+
 static string _player_spell_stats(const spell_type spell)
 {
     string description;
@@ -4638,11 +4648,10 @@ static string _player_spell_stats(const spell_type spell)
             zh_text("accuracy", accuracy, accuracy)}).display();
     }
 
-    const string range = spell_range_string(spell);
     description += zh_message("spell.stats.range", {
         zh_text("indent", string(max(0, padding - 5), ' '),
                 string(max(0, padding - 5), ' ')),
-        zh_text("range", range, range)}).display();
+        _spell_range_display_arg(spell)}).display();
     const ZhArg noise_arg = spell_noise_display_arg("noise", spell);
     description += zh_message("spell.stats.noise", {
         zh_text("indent", string(max(0, padding - 5), ' '),
@@ -4797,48 +4806,71 @@ int hex_chance(const spell_type spell, const monster_info* mi, bool is_wand)
  *
  * @param spell
  */
-static string _miscast_damage_string(spell_type spell)
+// Compose semantic alternatives before choosing the complete parent sentence.
+// Separators are reviewed templates; no assembled English is reverse matched.
+static ZhArg _miscast_list_arg(const string &key, const vector<ZhArg> &parts,
+                               const string &more_id, const string &final_id)
 {
-    const map <spschool, string> damage_flavor = {
-        { spschool::conjuration, "irresistible" },
-        { spschool::necromancy, "draining" },
-        { spschool::fire, "fire" },
-        { spschool::ice, "cold" },
-        { spschool::air, "electric" },
-        { spschool::earth, "fragmentation" },
-    };
-
-    const map <spschool, string> special_flavor = {
-        { spschool::summoning, "summons a nameless horror" },
-        { spschool::translocation, "anchors you in place" },
-        { spschool::hexes, "slows you" },
-        { spschool::alchemy, "poisons you" },
-        { spschool::forgecraft, "corrodes you" },
-    };
-
-    spschools_type disciplines = get_spell_disciplines(spell);
-    vector <string> descs;
-
-    for (const auto &flav : special_flavor)
-        if (disciplines & flav.first)
-            descs.push_back(flav.second);
-
-    int dam = max_miscast_damage(spell);
-    vector <string> dam_flavors;
-    for (const auto &flav : damage_flavor)
-        if (disciplines & flav.first)
-            dam_flavors.push_back(flav.second);
-
-    if (!dam_flavors.empty())
+    if (parts.empty())
+        return {key, ZhArgType::Text, "", "", true};
+    ZhArg result = parts.front();
+    result.key = "items";
+    for (size_t i = 1; i < parts.size(); ++i)
     {
-        descs.push_back(make_stringf("deals up to %d %s damage", dam,
-                                     comma_separated_line(dam_flavors.begin(),
-                                                         dam_flavors.end(),
-                                                         " or ").c_str()));
+        const bool last = i + 1 == parts.size();
+        ZhArg next = parts[i];
+        next.key = last ? "last" : "next";
+        result = zh_message_arg("items", last ? final_id : more_id, {result, next});
     }
+    result.key = key;
+    return result;
+}
 
-    return (descs.size() > 1 ? "either " : "")
-         + comma_separated_line(descs.begin(), descs.end(), " or ", "; ");
+static vector<ZhArg> _miscast_effect_args(spell_type spell)
+{
+    const map<spschool, string> damage_ids = {
+        { spschool::conjuration, "spell.miscast.flavor.irresistible" },
+        { spschool::necromancy, "spell.miscast.flavor.draining" },
+        { spschool::fire, "spell.miscast.flavor.fire" },
+        { spschool::ice, "spell.miscast.flavor.cold" },
+        { spschool::air, "spell.miscast.flavor.electric" },
+        { spschool::earth, "spell.miscast.flavor.fragmentation" },
+    };
+    const map<spschool, string> effect_ids = {
+        { spschool::summoning, "spell.miscast.effect.horror" },
+        { spschool::translocation, "spell.miscast.effect.anchors" },
+        { spschool::hexes, "spell.miscast.effect.slows" },
+        { spschool::alchemy, "spell.miscast.effect.poisons" },
+        { spschool::forgecraft, "spell.miscast.effect.corrodes" },
+    };
+    const spschools_type disciplines = get_spell_disciplines(spell);
+    vector<ZhArg> effects;
+    for (const auto &effect : effect_ids)
+        if (disciplines & effect.first)
+            effects.push_back(zh_message_arg("effect", effect.second));
+    vector<ZhArg> flavours;
+    for (const auto &flavour : damage_ids)
+        if (disciplines & flavour.first)
+            flavours.push_back(zh_message_arg("flavour", flavour.second));
+    if (!flavours.empty())
+        effects.push_back(zh_message_arg("effect", "spell.miscast.damage_clause", {
+            zh_integer("damage", max_miscast_damage(spell)),
+            _miscast_list_arg("flavours", flavours,
+                "spell.miscast.flavor.list.more", "spell.miscast.flavor.list.final")}));
+    return effects;
+}
+
+static ZhMessage _miscast_composition_message(spell_type spell)
+{
+    if (fail_severity(spell) == 0)
+        return zh_message("spell.miscast_contamination", {
+            ZhArg{"additional", ZhArgType::Text, "", "", true}});
+    const vector<ZhArg> effects = _miscast_effect_args(spell);
+    const bool multiple = effects.size() > 1;
+    return zh_message(multiple ? "spell.miscast.parent.multiple"
+                               : "spell.miscast.parent.single", {
+        _miscast_list_arg(multiple ? "effects" : "effect", effects,
+            "spell.miscast.effect.list.more", "spell.miscast.effect.list.final")});
 }
 
 /**
@@ -4860,12 +4892,7 @@ static string _player_spell_desc(spell_type spell)
 
     ostringstream description;
 
-    const bool has_miscast_effect = fail_severity(spell) != 0;
-    const string additional = has_miscast_effect
-        ? " and also " + _miscast_damage_string(spell) : "";
-    description << zh_message("spell.miscast_contamination", {
-        ZhArg{"additional", ZhArgType::Text, additional, additional,
-              !has_miscast_effect}}).display();
+    description << _miscast_composition_message(spell).display();
 
     if (spell == SPELL_BATTLESPHERE)
     {
