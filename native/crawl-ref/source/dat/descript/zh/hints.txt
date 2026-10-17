@@ -527,9 +527,7 @@ HINT_YOU_POISON
 %%%%
 HINT_MULTI_PICKUP
 
-这里的物品很多。你可以从菜单里选择要拾取什么：
-按 <w>$cmd[CMD_PICKUP]</w><localtiles>，或<w>点击</w>玩家纸娃娃</localtiles>进入拾取菜单。
-要离开菜单，用 <w>Enter</w> 确认你的选择即可。
+这里有很多物品。按<w>$cmd[CMD_PICKUP]</w><localtiles>，或<w>点击</w>角色所在格</localtiles>，打开拾取菜单选择要拿的物品。选好后按<w>Enter</w>确认。
 %%%%
 %%%%
 HINT_FULL_INVENTORY

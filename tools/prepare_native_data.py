@@ -5,6 +5,7 @@ import json
 import re
 from collections import Counter
 from dcss_parse import keyed_entries
+from native_catalog import review_files
 ROOT=Path(__file__).resolve().parents[1]
 DAT=ROOT/'native/crawl-ref/source/dat'
 n=0
@@ -25,10 +26,9 @@ print('Merged data entries:',n)
 
 # Reviewed prose overrides are source-checked so upstream edits cannot silently
 # inherit a translation for an obsolete paragraph.
-review = ROOT/'localization/luna-data-review-20261017.json'
-if review.exists():
-    grouped = {}
-    for entry in json.loads(review.read_text())['data_entries']:
+grouped = {}
+for review in review_files():
+    for entry in json.loads(review.read_text()).get('data_entries', []):
         source = dict(keyed_entries((DAT/entry['kind']/entry['file']).read_text()))
         body = '\n'.join(line for line in source[entry['key']].splitlines()
                          if not line.startswith('#')).strip()
@@ -37,6 +37,7 @@ if review.exists():
             assert Counter(re.findall(pattern, entry['en'])) == Counter(re.findall(pattern, entry['zh'])), entry['key']
         target = DAT/entry['kind']/'zh'/entry['file']
         grouped.setdefault(target, {})[entry['key']] = entry['zh']
+if grouped:
     for target, overrides in grouped.items():
         text = target.read_text()
         assert set(overrides) <= {key for key, body in keyed_entries(text)}
@@ -49,3 +50,6 @@ if review.exists():
                 blocks[i] = blocks[i][:start]+key+'\n\n'+overrides[key]+'\n'
         target.write_text(''.join(blocks))
     print('Applied reviewed prose:', sum(map(len, grouped.values())))
+
+from prepare_native_docs import prepare_docs
+prepare_docs()

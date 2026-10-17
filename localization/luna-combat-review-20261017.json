@@ -1,0 +1,180 @@
+{
+  "entries": [
+    {
+      "en": "%s block the %s.",
+      "zh": "%s挡下了%s。",
+      "context": "ranged-attack.cc::handle_phase_blocked; player or plural defender conjugation, ordinary non-reflecting block; actor then projectile.",
+      "reason": "Source-expanded form with the reachable plural/base verb, avoiding the unsafe generic template whose only fixed anchor was 'the'."
+    },
+    {
+      "en": "%s block the %s with %s %s... and reflect it back!",
+      "zh": "%s挡下%s，借助%s%s……并将其反射回来！",
+      "context": "ranged-attack.cc::handle_phase_blocked; player or plural defender, visible reflecting shield; arguments actor, projectile, possessive pronoun, shield name.",
+      "reason": "Source-expanded form with the reachable plural/base conjugations; preserves all four printf arguments in source order."
+    },
+    {
+      "en": "%s blocks the %s with an invisible shield... and reflects it back!",
+      "zh": "%s挡下%s，借助无形护盾……并将其反射回来！",
+      "context": "ranged-attack.cc::handle_phase_blocked; singular defender, observable reflection without a visible reflecting shield; actor then projectile.",
+      "reason": "Covers the invisible-shield runtime punctuation branch with fixed singular action verbs."
+    },
+    {
+      "en": "%s block the %s with an invisible shield... and reflect it back!",
+      "zh": "%s挡下%s，借助无形护盾……并将其反射回来！",
+      "context": "ranged-attack.cc::handle_phase_blocked; player or plural defender, observable reflection without a visible reflecting shield; actor then projectile.",
+      "reason": "Covers the invisible-shield branch with fixed plural/base action verbs."
+    },
+    {
+      "en": "The %s is repelled.",
+      "zh": "%s被排斥开了。",
+      "context": "ranged-attack.cc::handle_phase_dodged and beam.cc player dodge handling; %s is the projectile/beam name.",
+      "reason": "Translates the complete projectile repulsion message rather than relying on an English sentence around a translated name."
+    },
+    {
+      "en": "The %s%s misses %s.",
+      "zh": "%s%s未命中%s。",
+      "context": "ranged-attack.cc::handle_phase_dodged; projectile, optional evasion-margin adverb, defender name.",
+      "reason": "Captures the ranged-specific complete sentence and preserves the optional adverb between projectile and miss verb."
+    },
+    {
+      "en": "%s blocks the %s with %s %s... and reflects it back!",
+      "zh": "%s挡下%s，所用的是%s%s……并将其反射回来！",
+      "context": "beam.cc::attempt_block; four arguments are monster name, beam name, possessive pronoun, shield name. Runtime order must be retained.",
+      "reason": "Keeps the source argument order (actor, projectile, possessive, shield) while phrasing the result naturally; all four captures remain in order."
+    },
+    {
+      "en": "The %s reflects off an invisible shield around %s!",
+      "zh": "%s被%s周围的无形护盾反射回来！",
+      "context": "beam.cc::attempt_block; %s values are beam name and monster name with its definite article.",
+      "reason": "Translates the full visible reflection message and preserves both dynamic names."
+    },
+    {
+      "en": "%s blocks the %s.",
+      "zh": "%s挡下了%s。",
+      "context": "beam.cc::attempt_block; monster name and beam name.",
+      "reason": "Complete non-reflecting monster shield block message, with argument order preserved."
+    },
+    {
+      "en": "%s fire resistance burns away.",
+      "zh": "%s火焰抗性消失了。",
+      "context": "beam.cc:5266 fire-resistance removal; %s comes from mon->name(DESC_ITS), which can already contain an English possessive phrase such as \"The rat's\".",
+      "reason": "Avoids appending another 的 after the source argument's possessive ending; the completed source line is covered by the explicit possessive-form entry below."
+    },
+    {
+      "en": "The %s misses %s.",
+      "zh": "%s未命中%s。",
+      "context": "beam.cc::affect_monster, ordinary beam miss; arguments are beam name and monster name(DESC_THE), assembled through msg::stream.",
+      "reason": "This source-stream sentence is assembled from English fragments in the catalog. Adding its complete form prevents the beam name and verb from remaining in English."
+    },
+    {
+      "en": "%s appears confused.",
+      "zh": "%s显得困惑。",
+      "context": "beam.cc monster enchantment application; simple_monster_message prepends the monster's runtime name to this suffix.",
+      "reason": "Supplies a complete dynamic status sentence for the monster confusion event."
+    },
+    {
+      "en": "%s is paralysed.",
+      "zh": "%s陷入麻痹。",
+      "context": "beam.cc monster paralysis effect; simple_monster_message prepends the monster's runtime name to this suffix.",
+      "reason": "Supplies a complete dynamic status sentence for the monster paralysis event."
+    },
+    {
+      "en": "%s's fire resistance burns away.",
+      "zh": "%s的火焰抗性消失了。",
+      "context": "Full runtime expansion of beam.cc:5266 when mon->name(DESC_ITS) returns an English possessive such as \"The rat's\"; this normalized template instead captures the monster's base name before the possessive.",
+      "reason": "Translates the actual completed event without leaving the captured English possessive suffix in the output. The source printf template itself passes a possessive phrase as %s, so runtime matching needs a rootgrammar possessive rule or an equivalent source-aware expansion."
+    },
+    {
+      "en": "The %s barely misses %s.",
+      "zh": "%s险些未命中%s。",
+      "context": "ranged-attack.cc:224 plus attack.cc::evasion_margin_adverb; expanded sentence for the reachable \" barely\" adverb.",
+      "reason": "Consumes the adverb in the complete sentence so its leading English space does not leak into the Chinese output."
+    },
+    {
+      "en": "The %s closely misses %s.",
+      "zh": "%s险些未命中%s。",
+      "context": "ranged-attack.cc:224 plus attack.cc::evasion_margin_adverb; expanded sentence for the reachable \" closely\" adverb.",
+      "reason": "Consumes the adverb in the complete sentence so its leading English space does not leak into the Chinese output."
+    },
+    {
+      "en": "The %s completely misses %s.",
+      "zh": "%s完全未命中%s。",
+      "context": "ranged-attack.cc:224 plus attack.cc::evasion_margin_adverb; expanded sentence for the reachable \" completely\" adverb.",
+      "reason": "Consumes the adverb in the complete sentence so its leading English space does not leak into the Chinese output."
+    }
+  ],
+  "test_cases": [
+    {
+      "en": "The arrow hits the worm but does no damage.",
+      "zh": "箭击中了蠕虫，但没有造成伤害。"
+    },
+    {
+      "en": "The stone hits the rat.",
+      "zh": "石头击中老鼠."
+    },
+    {
+      "en": "The arrow misses the rat.",
+      "zh": "箭未命中老鼠。"
+    },
+    {
+      "en": "The arrow barely misses the worm.",
+      "zh": "箭险些未命中蠕虫。"
+    },
+    {
+      "en": "The arrow is repelled.",
+      "zh": "箭被排斥开了。"
+    },
+    {
+      "en": "Snorg blocks the arrow with his shield... and reflects it back!",
+      "zh": "斯诺格挡下箭，所用的是他的盾……并将其反射回来！"
+    },
+    {
+      "en": "You block the arrow with your shield... and reflect it back!",
+      "zh": "你挡下箭，借助你的盾……并将其反射回来！"
+    },
+    {
+      "en": "The rat blocks the arrow with an invisible shield... and reflects it back!",
+      "zh": "老鼠挡下箭，借助无形护盾……并将其反射回来！"
+    },
+    {
+      "en": "The arrow reflects off an invisible shield around the wyvern!",
+      "zh": "箭被双足飞龙周围的无形护盾反射回来！"
+    },
+    {
+      "en": "The rat appears confused.",
+      "zh": "老鼠显得困惑。"
+    },
+    {
+      "en": "The wyvern is paralysed.",
+      "zh": "双足飞龙陷入麻痹。"
+    },
+    {
+      "en": "The rat's fire resistance burns away.",
+      "zh": "老鼠的火焰抗性消失了。"
+    },
+    {
+      "en": "You encounter a rat.",
+      "zh": "你遭遇老鼠。"
+    },
+    {
+      "en": "The rat bites you",
+      "zh": "老鼠咬你"
+    },
+    {
+      "en": "The rat bites you.",
+      "zh": "老鼠咬你."
+    },
+    {
+      "en": "The wyvern is nearby!",
+      "zh": "附近有双足飞龙！"
+    },
+    {
+      "en": "There is an open door, spattered with blood here.",
+      "zh": "这里有一扇敞开的门，溅满鲜血。"
+    },
+    {
+      "en": "Found three staircases leading out of the dungeon.",
+      "zh": "发现三处通往地下城外的楼梯。"
+    }
+  ]
+}

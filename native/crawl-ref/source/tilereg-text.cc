@@ -65,41 +65,33 @@ TextRegion::~TextRegion()
 void TextRegion::addstr(const char *buffer)
 {
     char32_t buf2[1024], c;
-
-    int j = 0;
-
-    int clen;
-    do
+    int used = 0;
+    int bytes;
+    while ((bytes = utf8towc(&c, buffer)))
     {
-        buffer += clen = utf8towc(&c, buffer);
-        bool newline = false;
-
+        buffer += bytes;
         if (c == '\r')
             continue;
-
         if (c == '\n')
         {
-            c = 0;
-            newline = true;
+            if (used)
+                addstr_aux(buf2, used);
+            used = 0;
+            print_x = cx_ofs;
+            print_y++;
+            if (print_y - cy_ofs == my)
+                scroll();
+            continue;
         }
-        buf2[j] = c;
-        j++;
-
-        if (c == 0 || j == ARRAYSZ(buf2))
+        buf2[used++] = c;
+        if (used == ARRAYSZ(buf2))
         {
-            if (j-1 != 0)
-                addstr_aux(buf2, j - 1); // draw it
-            if (newline)
-            {
-                print_x = cx_ofs;
-                print_y++;
-                j = 0;
-
-                if (print_y - cy_ofs == my)
-                    scroll();
-            }
+            addstr_aux(buf2, used);
+            used = 0;
         }
-    } while (clen);
+    }
+    if (used)
+        addstr_aux(buf2, used);
     if (cursor_flag)
         cgotoxy(print_x+1, print_y+1);
 }
@@ -122,10 +114,13 @@ void TextRegion::addstr_aux(const char32_t *buffer, int len)
             continue;
         if (x >= 0 && x + columns <= mx)
         {
+            // Clear both edges of every old wide glyph intersected by this
+            // write, including one whose lead sits at the new glyph's tail.
             if (x > 0 && cbuf[adrs+x] == 0)
                 cbuf[adrs+x-1] = ' ';
-            if (x + 1 < mx && wcwidth(cbuf[adrs+x]) == 2)
-                cbuf[adrs+x+1] = ' ';
+            const int last = x + columns - 1;
+            if (last + 1 < mx && wcwidth(cbuf[adrs+last]) == 2)
+                cbuf[adrs+last+1] = ' ';
             cbuf[adrs+x] = buffer[i];
             abuf[adrs+x] = text_col;
             for (int extra = 1; extra < columns; ++extra)

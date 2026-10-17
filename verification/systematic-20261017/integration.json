@@ -1,0 +1,96 @@
+{
+  "coverage": {
+    "candidates": 34233,
+    "received": 34233,
+    "translated_valid": 24003,
+    "rejected": 0,
+    "whitespace_restored": 164,
+    "missing": 0,
+    "default_model": "cc-switch-deep-seek/deepseek-flash",
+    "translation_models": {
+      "cc-switch-teamo-router/deepseek-flash": 21218,
+      "cc-switch-deep-seek/deepseek-flash": 11967,
+      "gpt-6-luna": 1048
+    }
+  },
+  "missing_cjk_glyphs": [],
+  "catalog_regressions": 1248,
+  "composed_template_regressions": 30,
+  "grid_chunk_table_regressions": 344,
+  "review_models": [
+    "gpt-6-luna"
+  ],
+  "reviews": {
+    "luna-combat-review-20261017.json": {
+      "entries": 17,
+      "test_cases": 18,
+      "data_entries": 0
+    },
+    "luna-menu-review-20261017.json": {
+      "entries": 156,
+      "test_cases": 18,
+      "data_entries": 0
+    },
+    "luna-targeting-review-20261017.json": {
+      "entries": 45,
+      "test_cases": 9,
+      "data_entries": 0
+    },
+    "luna-data-review-20261017.json": {
+      "entries": 0,
+      "test_cases": 0,
+      "data_entries": 92
+    },
+    "luna-review-20261017.json": {
+      "entries": 187,
+      "test_cases": 0,
+      "data_entries": 0
+    },
+    "luna-systematic-review-20261017.json": {
+      "entries": 652,
+      "test_cases": 0,
+      "data_entries": 5
+    }
+  },
+  "documents": {
+    "crawl_manual.txt": {
+      "source_sha256": "4e9fd82dd363d32e72298edc66e49227581ce68b734be7de90309f845140c1d3",
+      "translated_sha256": "b633396b7f39997b52fe844b483e4916c44ced55e0bf477334b48745a7290031",
+      "characters": 48745,
+      "navigation_keys": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ]
+    },
+    "quickstart.txt": {
+      "source_sha256": "eb29701c283ceb11c81b9c49147f2489417e056e0109955540f8ba77a5164fd0",
+      "translated_sha256": "2831b0d8b7f7c9d4a948f107a3dd8970690ef4c80dc8c8e07282de4bfef309d8",
+      "characters": 2348,
+      "navigation_keys": []
+    },
+    "tiles_help.txt": {
+      "source_sha256": "3a58aa97d21334974388d7c3660e64ec7e543f349169a3e5722021c8db189f6a",
+      "translated_sha256": "7b0370b222dab38952b4d565f6fd17ae097814664bc82432c26e24fb9c7d80f6",
+      "characters": 2496,
+      "navigation_keys": []
+    }
+  }
+}

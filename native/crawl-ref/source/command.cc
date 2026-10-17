@@ -1328,35 +1328,59 @@ static int _get_help_section(int section, formatted_string &header_out, formatte
 {
     static map<int, int> hotkeys;
     static map<int, formatted_string> page_text;
+    static bool loaded_chinese = false;
     static map<int, string> headers = {
         {'*', "Manual"}, {'%', "Aptitudes"}, {'^', "Quickstart"},
         {'~', "Macros"}, {'&', "Options"}, {'t', "Tiles"},
         {'?', "Key help"}
     };
 
+    const bool chinese = zh_language_enabled();
+    if (loaded_chinese != chinese)
+    {
+        hotkeys.clear();
+        page_text.clear();
+        loaded_chinese = chinese;
+    }
     if (!page_text.size())
     {
         for (int i = 0; help_files[i].name != nullptr; ++i)
         {
             formatted_string text;
             bool next_is_hotkey = false;
-            char buf[200];
             string fname = canonicalise_file_separator(help_files[i].name);
-            FILE* fp = fopen_u(datafile_path(fname, false).c_str(), "r");
+            string path;
+            if (chinese)
+                path = datafile_path("zh/" + fname, false);
+            if (path.empty())
+                path = datafile_path(fname, false);
+            FILE* fp = fopen_u(path.c_str(), "r");
             ASSERTM(fp, "Failed to open '%s'!", fname.c_str());
-            while (fgets(buf, sizeof buf, fp))
+            // Read complete UTF-8 lines. Byte-sized fgets chunks can cut a
+            // Chinese character before formatted_string sees the text.
+            while (true)
             {
-                text += string(buf);
-                if (next_is_hotkey && (isaupper(buf[0]) || isadigit(buf[0])))
+                string line;
+                int c;
+                while ((c = fgetc(fp)) != EOF)
                 {
-                    int hotkey = tolower_safe(buf[0]);
+                    line += static_cast<char>(c);
+                    if (c == '\n')
+                        break;
+                }
+                if (line.empty())
+                    break;
+                text += line;
+                if (next_is_hotkey && (isaupper(line[0]) || isadigit(line[0])))
+                {
+                    int hotkey = tolower_safe(line[0]);
                     hotkeys[hotkey] = count_occurrences(text.tostring(), "\n");
                 }
 
                 next_is_hotkey =
-                    strstr(buf, "------------------------------------------"
-                                        "------------------------------") == buf;
+                    line.compare(0, 72, string(72, '-')) == 0;
             }
+            fclose(fp);
             trim_string_right(text.ops.back().text);
             page_text[help_files[i].hotkey] = text;
         }

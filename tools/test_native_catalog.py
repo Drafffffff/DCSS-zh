@@ -2,14 +2,16 @@
 """Exercise actual C++ translator: templates, markup, fallback, suspension, language toggle."""
 import json,re,subprocess,tempfile,time
 from pathlib import Path
-from native_catalog import ROOT,SRC,LOC,PRINTF,formats,tags
+from native_catalog import ROOT,SRC,LOC,PRINTF,formats,tags,reviewed_entries,review_files
 entries=json.loads((LOC/'source.json').read_text())
 for path in sorted(LOC.glob('source-*.json')): entries+=json.loads(path.read_text())
 raw={}
 for f in sorted((LOC/'pi').glob('*batch-*.json')): raw.update(json.loads(f.read_text())['translations'])
+review_entries = reviewed_entries()
+review_targets = {entry['en']: entry['zh'] for entry in review_entries}
 pairs=[]
 for e in entries:
-    en=e['en']; zh=raw.get(e['id'])
+    en=e['en']; zh=review_targets.get(en,raw.get(e['id']))
     if zh is not None: zh=re.match(r'^\s*',en)[0]+zh.strip()+re.search(r'\s*$',en)[0]
     if zh and en!=zh and formats(en)==formats(zh) and tags(en)==tags(zh) and re.search('[\u3400-\u9fff]',zh): pairs.append((en,zh))
 # Only assert known strings present in the generated catalog.
@@ -27,7 +29,7 @@ for s,t in pairs:
 # make accidental capture changes visible.
 item_cases=0
 for entry in json.loads((LOC/'source-zzzzzzzz-itemlines.json').read_text()):
-    en=entry['en']; zh=raw[entry['id']]
+    en=entry['en']; zh=review_targets.get(en,raw[entry['id']])
     if en.startswith(("This weapon's minimum attack delay", '    At ', 'Damage rating:')): continue # reviewed templates below
     if '<' in en or not formats(en) or any(t!='%d' for t in formats(en)): continue
     def expanded(text):
@@ -36,9 +38,6 @@ for entry in json.loads((LOC/'source-zzzzzzzz-itemlines.json').read_text()):
     tests.append((expanded(en),expanded(zh)));item_cases+=1
 
 # Screenshot regressions: reviewed full sentences, including level/floor context.
-review = json.loads((LOC/'luna-review-20261017.json').read_text())
-review_entries = review['entries']
-review_targets = {entry['en']: entry['zh'] for entry in review_entries}
 for entry in review_entries:
     en, zh = entry['en'], entry['zh']
     zh = re.match(r'^\s*',en)[0]+zh.strip()+re.search(r'\s*$',en)[0]
@@ -65,10 +64,16 @@ for entry in review_entries:
     if '<white>' in src:
         tests.append((re.sub(r'</?white>', '', src), dst))
 
+# Luna supplies full runtime sentences as independent oracles. They are not
+# inserted into the catalog: the engine must assemble/translate each case.
+for review_file in review_files():
+    for case in json.loads(review_file.read_text()).get('test_cases', []):
+        tests.append((case['en'], case['zh']))
+
 assert len(tests)>=100
 enc=lambda s:json.dumps(s,ensure_ascii=False)
-code='#include "zh-localization.h"\n#include <cassert>\n#include <cstdlib>\n#include <iostream>\nint main() { setenv("DCSS_LANG","zh",1);\n'
-for s,t in tests: code+='if (zh_translate('+enc(s)+') != '+enc(t)+') { std::cerr << '+enc(s+' => ')+ ' << zh_translate('+enc(s)+') << std::endl; return 1; }\n'
+code='#include "zh-localization.h"\n#include <cassert>\n#include <cstdlib>\n#include <iostream>\nint main() { int failures=0; setenv("DCSS_LANG","zh",1);\n'
+for s,t in tests: code+='if (zh_translate('+enc(s)+') != '+enc(t)+') { std::cerr << '+enc(s+' => ')+ ' << zh_translate('+enc(s)+') << std::endl; ++failures; }\n'
 # Native mutation menu entries contain a selector before the colour run.
 for en in ("You have very sharp teeth.", "You have an uncanny knack for detecting items."):
     zh=next(t for candidate,t in pairs if candidate==en)
@@ -90,7 +95,7 @@ for en,zh in pairs:
     if formats(en)==['%s'] and len(en.split('%s')[0])>=4 and en.split('%s')[-1].strip() and '<' not in en and '\n' not in en:
         src='XQZ_VJKT ['+en.replace('%s','ZYBQ')+'] UVQP'
         dst='XQZ_VJKT ['+zh.replace('%s','ZYBQ')+'] UVQP'
-        code+='assert(zh_translate('+enc(src)+') == '+enc(dst)+');\n'
+        code+='if (zh_translate('+enc(src)+') != '+enc(dst)+') { std::cerr << '+enc(src+' => ')+ ' << zh_translate('+enc(src)+') << '+enc(' EXPECTED '+dst)+' << std::endl; ++failures; }\n'
         fragment_cases+=1
     if fragment_cases==30:break
 # Real message_line joins must retain independently translated sentence boundaries.
@@ -98,6 +103,36 @@ for separator in ('<lightgrey> </lightgrey>', '<lightgrey>; </lightgrey>'):
     first = '<lightgrey>You hit the rat.'
     second = '<lightgrey>You shoot an arrow.'
     code += 'assert(zh_translate('+enc(first+separator+second)+') == zh_translate('+enc(first)+') + '+enc(separator)+' + zh_translate('+enc(second)+'));\n'
+
+# Colour names passed through printf belong to markup, not translated prose.
+# Exercise the real shopping format in every stock/key colour combination.
+shop_source = ' <%s>%c %c </%s><%s>%4d gold   %s%s</%s>'
+shop_target = dict(pairs)[shop_source]
+for key_colour in ('red','lightred','lightgreen','lightcyan'):
+    for item_colour in ('yellow','lightgrey','white','lightblue'):
+        values = [key_colour,'a','-',key_colour,item_colour,'  54','ZYBQ','',item_colour]
+        def render_template(text):
+            it=iter(values)
+            return PRINTF.sub(lambda m: '%' if m.group()=='%%' else next(it),text)
+        src,dst=render_template(shop_source),render_template(shop_target)
+        code += 'assert(zh_translate('+enc(src)+') == '+enc(dst)+');\n'
+        code += 'assert(zh_translate(zh_translate('+enc(src)+')) == '+enc(dst)+');\n'
+
+# Large histories must not exhaust the recursion budget. Alternate the two
+# real separators, colours, punctuation and message types as storage does.
+code += r'''{
+ const std::string messages[] = {"<lightgrey>You hit the rat.", "<red>You bludgeon the rat!",
+  "<lightgrey>You kill the rat!", "<white>You shoot an arrow.", "You have reached level 5!"};
+ const std::string separators[] = {"<lightgrey> </lightgrey>", "<lightgrey>; </lightgrey>"};
+ for(int count : {1,2,12,13,24,64}) {
+  std::string source, expected;
+  for(int i=0;i<count;i++) {
+   if(i) {source+=separators[i%2];expected+=separators[i%2];}
+   source+=messages[i%5];expected+=zh_translate(messages[i%5]);
+  }
+  assert(zh_translate(source)==expected);
+ }
+}'''
 
 for colour in ('white','black','yellow','lightgrey'):
     tag='<'+colour+'>'
@@ -146,7 +181,7 @@ setenv("DCSS_LANG","en",1);
 '''
 code+='assert(zh_translate('+enc(tests[0][0])+') == '+enc(tests[0][0])+');\n'
 code+='setenv("DCSS_LANG","zh",1); for (int i=0;i<100;i++) zh_translate(std::string(2048,\'x\'));\n'
-code+='std::cout << "PASS: '+str(len(tests))+' catalog/template cases, '+str(fragment_cases)+' composed template cases, canonical colour tags, compound item names, fallback, pause, English mode, long input\\n"; }\n'
+code+='if (failures) return 1; std::cout << "PASS: '+str(len(tests))+' catalog/template cases, '+str(fragment_cases)+' composed template cases, canonical colour tags, compound item names, fallback, pause, English mode, long input\\n"; }\n'
 with tempfile.TemporaryDirectory() as td:
     p=Path(td);(p/'test.cc').write_text(code)
     subprocess.run(['c++','-std=c++11','-O2','-DZH_STANDALONE','-I'+str(SRC),str(SRC/'zh-localization.cc'),str(p/'test.cc'),'-o',str(p/'test')],check=True)

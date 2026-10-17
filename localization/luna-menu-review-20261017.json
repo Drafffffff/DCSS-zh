@@ -1,0 +1,1014 @@
+{
+  "entries": [
+    {
+      "en": "You continue %s %s.",
+      "zh": "你继续%s %s。",
+      "context": "delay.h:238-240, 274-276; emitted on every tick of EquipOnDelay and EquipOffDelay. Argument 1 is get_verb() (e.g. “putting on”, “wielding”, “removing”), argument 2 is the full equipped item name.",
+      "reason": "Preserves both dynamic arguments and the space separating the action phrase from the item name; this is the repeated in-progress line seen during multi-turn equipment changes."
+    },
+    {
+      "en": "Thank you for shopping at %s!",
+      "zh": "感谢你光顾%s！",
+      "context": "shopping.cc:1577; emitted after a successful purchase, with shopname as the complete shop name.",
+      "reason": "Translates the post-purchase shop message while retaining the dynamic shop name."
+    },
+    {
+      "en": "You can access your shopping list by pressing '$'.",
+      "zh": "按“$”键可查看购物清单。",
+      "context": "shopping.cc:1579,2324; emitted when the player has shopping-list items remaining after leaving a shop or accessing the list.",
+      "reason": "Makes the displayed keyboard instruction natural Chinese and preserves the literal key."
+    },
+    {
+      "en": "Your shopping list is now empty.",
+      "zh": "你的购物清单现在为空。",
+      "context": "shopping.cc:2549; emitted after removing the last item from the shopping list.",
+      "reason": "Clear confirmation that the list no longer contains entries."
+    },
+    {
+      "en": "You can't wear anything.",
+      "zh": "你无法穿戴任何护具。",
+      "context": "item-use.cc:910; prompt when MUT_NO_ARMOUR prevents wearing armour.",
+      "reason": "“anything” here means armour, as shown by the guard and call path."
+    },
+    {
+      "en": "You can't remove your %s, sorry.",
+      "zh": "抱歉，你无法脱下%s。",
+      "context": "item-use.cc:913; emitted for MUT_NO_ARMOUR when removing armour. %s is species::skin_name(you.species), the body covering that cannot be removed.",
+      "reason": "Names the obstructing body covering and retains the single dynamic species-name argument."
+    },
+    {
+      "en": "You can't %s anything in your present form.",
+      "zh": "你目前的形态无法%s任何护具。",
+      "context": "item-use.cc:921; form_can_wear() rejection. %s is exactly “wear” or “remove” according to the requested armour action.",
+      "reason": "Clarifies the subject as armour and retains the action argument in place."
+    },
+    {
+      "en": "You can't %s jewellery%s.",
+      "zh": "你无法%s珠宝%s。",
+      "context": "item-use.cc:979; rejection when an uncancellable transformation prevents using either ring or amulet slot. First argument is “wear” or “remove”; second is empty or “ in your present form”.",
+      "reason": "Translates both dynamic fragments while preserving their order and count."
+    },
+    {
+      "en": "Welcome to %s's Weapon Shoppe! What would you like to do?",
+      "zh": "欢迎光临%s的武器小店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Weapon' and _shop_type_suffix() == 'Shoppe'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Weapon Boutique! What would you like to do?",
+      "zh": "欢迎光临%s的武器精品店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Weapon' and _shop_type_suffix() == 'Boutique'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Weapon Emporium! What would you like to do?",
+      "zh": "欢迎光临%s的武器大商场！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Weapon' and _shop_type_suffix() == 'Emporium'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Weapon Shop! What would you like to do?",
+      "zh": "欢迎光临%s的武器商店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Weapon' and _shop_type_suffix() == 'Shop'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Armour Shoppe! What would you like to do?",
+      "zh": "欢迎光临%s的护甲小店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Armour' and _shop_type_suffix() == 'Shoppe'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Armour Boutique! What would you like to do?",
+      "zh": "欢迎光临%s的护甲精品店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Armour' and _shop_type_suffix() == 'Boutique'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Armour Emporium! What would you like to do?",
+      "zh": "欢迎光临%s的护甲大商场！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Armour' and _shop_type_suffix() == 'Emporium'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Armour Shop! What would you like to do?",
+      "zh": "欢迎光临%s的护甲商店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Armour' and _shop_type_suffix() == 'Shop'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Antique Weapon Shoppe! What would you like to do?",
+      "zh": "欢迎光临%s的古董武器小店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Antique Weapon' and _shop_type_suffix() == 'Shoppe'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Antique Weapon Boutique! What would you like to do?",
+      "zh": "欢迎光临%s的古董武器精品店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Antique Weapon' and _shop_type_suffix() == 'Boutique'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Antique Weapon Emporium! What would you like to do?",
+      "zh": "欢迎光临%s的古董武器大商场！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Antique Weapon' and _shop_type_suffix() == 'Emporium'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Antique Weapon Shop! What would you like to do?",
+      "zh": "欢迎光临%s的古董武器商店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Antique Weapon' and _shop_type_suffix() == 'Shop'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Antique Armour Shoppe! What would you like to do?",
+      "zh": "欢迎光临%s的古董护甲小店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Antique Armour' and _shop_type_suffix() == 'Shoppe'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Antique Armour Boutique! What would you like to do?",
+      "zh": "欢迎光临%s的古董护甲精品店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Antique Armour' and _shop_type_suffix() == 'Boutique'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Antique Armour Emporium! What would you like to do?",
+      "zh": "欢迎光临%s的古董护甲大商场！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Antique Armour' and _shop_type_suffix() == 'Emporium'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Antique Armour Shop! What would you like to do?",
+      "zh": "欢迎光临%s的古董护甲商店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Antique Armour' and _shop_type_suffix() == 'Shop'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Jewellery Shoppe! What would you like to do?",
+      "zh": "欢迎光临%s的首饰小店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Jewellery' and _shop_type_suffix() == 'Shoppe'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Jewellery Boutique! What would you like to do?",
+      "zh": "欢迎光临%s的首饰精品店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Jewellery' and _shop_type_suffix() == 'Boutique'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Jewellery Emporium! What would you like to do?",
+      "zh": "欢迎光临%s的首饰大商场！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Jewellery' and _shop_type_suffix() == 'Emporium'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Jewellery Shop! What would you like to do?",
+      "zh": "欢迎光临%s的首饰商店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Jewellery' and _shop_type_suffix() == 'Shop'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Book Shoppe! What would you like to do?",
+      "zh": "欢迎光临%s的书籍小店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Book' and _shop_type_suffix() == 'Shoppe'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Book Boutique! What would you like to do?",
+      "zh": "欢迎光临%s的书籍精品店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Book' and _shop_type_suffix() == 'Boutique'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Book Emporium! What would you like to do?",
+      "zh": "欢迎光临%s的书籍大商场！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Book' and _shop_type_suffix() == 'Emporium'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Book Shop! What would you like to do?",
+      "zh": "欢迎光临%s的书籍商店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Book' and _shop_type_suffix() == 'Shop'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Magic Scroll Shoppe! What would you like to do?",
+      "zh": "欢迎光临%s的魔法卷轴小店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Magic Scroll' and _shop_type_suffix() == 'Shoppe'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Magic Scroll Boutique! What would you like to do?",
+      "zh": "欢迎光临%s的魔法卷轴精品店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Magic Scroll' and _shop_type_suffix() == 'Boutique'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Magic Scroll Emporium! What would you like to do?",
+      "zh": "欢迎光临%s的魔法卷轴大商场！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Magic Scroll' and _shop_type_suffix() == 'Emporium'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Magic Scroll Shop! What would you like to do?",
+      "zh": "欢迎光临%s的魔法卷轴商店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Magic Scroll' and _shop_type_suffix() == 'Shop'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Gadget Shoppe! What would you like to do?",
+      "zh": "欢迎光临%s的装置小店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Gadget' and _shop_type_suffix() == 'Shoppe'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Gadget Boutique! What would you like to do?",
+      "zh": "欢迎光临%s的装置精品店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Gadget' and _shop_type_suffix() == 'Boutique'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Gadget Emporium! What would you like to do?",
+      "zh": "欢迎光临%s的装置大商场！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Gadget' and _shop_type_suffix() == 'Emporium'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Gadget Shop! What would you like to do?",
+      "zh": "欢迎光临%s的装置商店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Gadget' and _shop_type_suffix() == 'Shop'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Removed Food Shoppe! What would you like to do?",
+      "zh": "欢迎光临%s的已移除食物小店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Removed Food' and _shop_type_suffix() == 'Shoppe'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Removed Food Boutique! What would you like to do?",
+      "zh": "欢迎光临%s的已移除食物精品店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Removed Food' and _shop_type_suffix() == 'Boutique'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Removed Food Emporium! What would you like to do?",
+      "zh": "欢迎光临%s的已移除食物大商场！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Removed Food' and _shop_type_suffix() == 'Emporium'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Removed Food Shop! What would you like to do?",
+      "zh": "欢迎光临%s的已移除食物商店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Removed Food' and _shop_type_suffix() == 'Shop'. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type and suffix; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Assorted Antiques! What would you like to do?",
+      "zh": "欢迎光临%s的各类古董！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Assorted Antiques'; this type has no generated suffix. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's Distillery! What would you like to do?",
+      "zh": "欢迎光临%s的蒸馏室！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'Distillery'; this type has no generated suffix. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type; preserves one printf capture in source order."
+    },
+    {
+      "en": "Welcome to %s's General Store! What would you like to do?",
+      "zh": "欢迎光临%s的杂货店！需要买些什么？",
+      "context": "shopping.cc:1611-1695; expanded shop_name() form for shop_type_name() == 'General Store'; this type has no generated suffix. %s captures the keeper name before the source apostrophe-s.",
+      "reason": "Separates the captured keeper name from the source possessive suffix and translates the shop type; preserves one printf capture in source order."
+    },
+    {
+      "en": "<yellow>You have %d gold pieces. After the purchase, you will have %d gold pieces.</yellow>",
+      "zh": "<yellow>你有%d枚金币，购买后还会有%d枚金币。</yellow>",
+      "context": "shopping.cc:1126-1158; complete shop top-line with purchase balance. First %d is you.gold, second is you.gold - total_cost; source plural suffixes are expanded to their actual singular/plural wording.",
+      "reason": "Translates the full composed balance line so the English plural s cannot leak after the amount; preserves both integer arguments in order."
+    },
+    {
+      "en": "<yellow>You have %d gold pieces. After the purchase, you will have %d gold piece.</yellow>",
+      "zh": "<yellow>你有%d枚金币，购买后还会有%d枚金币。</yellow>",
+      "context": "shopping.cc:1126-1158; complete shop top-line with purchase balance. First %d is you.gold, second is you.gold - total_cost; source plural suffixes are expanded to their actual singular/plural wording.",
+      "reason": "Translates the full composed balance line so the English plural s cannot leak after the amount; preserves both integer arguments in order."
+    },
+    {
+      "en": "<yellow>You have %d gold piece. After the purchase, you will have %d gold pieces.</yellow>",
+      "zh": "<yellow>你有%d枚金币，购买后还会有%d枚金币。</yellow>",
+      "context": "shopping.cc:1126-1158; complete shop top-line with purchase balance. First %d is you.gold, second is you.gold - total_cost; source plural suffixes are expanded to their actual singular/plural wording.",
+      "reason": "Translates the full composed balance line so the English plural s cannot leak after the amount; preserves both integer arguments in order."
+    },
+    {
+      "en": "<yellow>You have %d gold piece. After the purchase, you will have %d gold piece.</yellow>",
+      "zh": "<yellow>你有%d枚金币，购买后还会有%d枚金币。</yellow>",
+      "context": "shopping.cc:1126-1158; complete shop top-line with purchase balance. First %d is you.gold, second is you.gold - total_cost; source plural suffixes are expanded to their actual singular/plural wording.",
+      "reason": "Translates the full composed balance line so the English plural s cannot leak after the amount; preserves both integer arguments in order."
+    },
+    {
+      "en": "\n[<w>/</w>] sort (type)%s  %s",
+      "zh": "\n[<w>/</w>] 按类型排序%s  %s",
+      "context": "shopping.cc:943-950,1192-1198; expanded shopping_order_names value 'type'; remaining captures are the exact width-padding string and current action description.",
+      "reason": "Translates the complete visible sort label while retaining the padding and action captures and the literal <w> key markup."
+    },
+    {
+      "en": "\n[<w>/</w>] sort (price)%s  %s",
+      "zh": "\n[<w>/</w>] 按价格排序%s  %s",
+      "context": "shopping.cc:943-950,1192-1198; expanded shopping_order_names value 'price'; remaining captures are the exact width-padding string and current action description.",
+      "reason": "Translates the complete visible sort label while retaining the padding and action captures and the literal <w> key markup."
+    },
+    {
+      "en": "\n[<w>/</w>] sort (name)%s  %s",
+      "zh": "\n[<w>/</w>] 按名称排序%s  %s",
+      "context": "shopping.cc:943-950,1192-1198; expanded shopping_order_names value 'name'; remaining captures are the exact width-padding string and current action description.",
+      "reason": "Translates the complete visible sort label while retaining the padding and action captures and the literal <w> key markup."
+    },
+    {
+      "en": "There is an entrance to %s's Weapon Shoppe here.",
+      "zh": "这里有通往%s的武器小店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Weapon' and generated suffix 'Shoppe'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Weapon Boutique here.",
+      "zh": "这里有通往%s的武器精品店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Weapon' and generated suffix 'Boutique'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Weapon Emporium here.",
+      "zh": "这里有通往%s的武器大商场入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Weapon' and generated suffix 'Emporium'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Weapon Shop here.",
+      "zh": "这里有通往%s的武器商店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Weapon' and generated suffix 'Shop'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Armour Shoppe here.",
+      "zh": "这里有通往%s的护甲小店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Armour' and generated suffix 'Shoppe'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Armour Boutique here.",
+      "zh": "这里有通往%s的护甲精品店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Armour' and generated suffix 'Boutique'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Armour Emporium here.",
+      "zh": "这里有通往%s的护甲大商场入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Armour' and generated suffix 'Emporium'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Armour Shop here.",
+      "zh": "这里有通往%s的护甲商店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Armour' and generated suffix 'Shop'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Antique Weapon Shoppe here.",
+      "zh": "这里有通往%s的古董武器小店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Antique Weapon' and generated suffix 'Shoppe'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Antique Weapon Boutique here.",
+      "zh": "这里有通往%s的古董武器精品店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Antique Weapon' and generated suffix 'Boutique'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Antique Weapon Emporium here.",
+      "zh": "这里有通往%s的古董武器大商场入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Antique Weapon' and generated suffix 'Emporium'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Antique Weapon Shop here.",
+      "zh": "这里有通往%s的古董武器商店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Antique Weapon' and generated suffix 'Shop'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Antique Armour Shoppe here.",
+      "zh": "这里有通往%s的古董护甲小店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Antique Armour' and generated suffix 'Shoppe'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Antique Armour Boutique here.",
+      "zh": "这里有通往%s的古董护甲精品店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Antique Armour' and generated suffix 'Boutique'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Antique Armour Emporium here.",
+      "zh": "这里有通往%s的古董护甲大商场入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Antique Armour' and generated suffix 'Emporium'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Antique Armour Shop here.",
+      "zh": "这里有通往%s的古董护甲商店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Antique Armour' and generated suffix 'Shop'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Jewellery Shoppe here.",
+      "zh": "这里有通往%s的首饰小店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Jewellery' and generated suffix 'Shoppe'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Jewellery Boutique here.",
+      "zh": "这里有通往%s的首饰精品店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Jewellery' and generated suffix 'Boutique'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Jewellery Emporium here.",
+      "zh": "这里有通往%s的首饰大商场入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Jewellery' and generated suffix 'Emporium'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Jewellery Shop here.",
+      "zh": "这里有通往%s的首饰商店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Jewellery' and generated suffix 'Shop'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Book Shoppe here.",
+      "zh": "这里有通往%s的书籍小店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Book' and generated suffix 'Shoppe'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Book Boutique here.",
+      "zh": "这里有通往%s的书籍精品店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Book' and generated suffix 'Boutique'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Book Emporium here.",
+      "zh": "这里有通往%s的书籍大商场入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Book' and generated suffix 'Emporium'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Book Shop here.",
+      "zh": "这里有通往%s的书籍商店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Book' and generated suffix 'Shop'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Magic Scroll Shoppe here.",
+      "zh": "这里有通往%s的魔法卷轴小店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Magic Scroll' and generated suffix 'Shoppe'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Magic Scroll Boutique here.",
+      "zh": "这里有通往%s的魔法卷轴精品店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Magic Scroll' and generated suffix 'Boutique'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Magic Scroll Emporium here.",
+      "zh": "这里有通往%s的魔法卷轴大商场入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Magic Scroll' and generated suffix 'Emporium'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Magic Scroll Shop here.",
+      "zh": "这里有通往%s的魔法卷轴商店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Magic Scroll' and generated suffix 'Shop'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Gadget Shoppe here.",
+      "zh": "这里有通往%s的装置小店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Gadget' and generated suffix 'Shoppe'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Gadget Boutique here.",
+      "zh": "这里有通往%s的装置精品店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Gadget' and generated suffix 'Boutique'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Gadget Emporium here.",
+      "zh": "这里有通往%s的装置大商场入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Gadget' and generated suffix 'Emporium'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Gadget Shop here.",
+      "zh": "这里有通往%s的装置商店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Gadget' and generated suffix 'Shop'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Removed Food Shoppe here.",
+      "zh": "这里有通往%s的已移除食物小店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Removed Food' and generated suffix 'Shoppe'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Removed Food Boutique here.",
+      "zh": "这里有通往%s的已移除食物精品店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Removed Food' and generated suffix 'Boutique'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Removed Food Emporium here.",
+      "zh": "这里有通往%s的已移除食物大商场入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Removed Food' and generated suffix 'Emporium'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Removed Food Shop here.",
+      "zh": "这里有通往%s的已移除食物商店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Removed Food' and generated suffix 'Shop'. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Assorted Antiques here.",
+      "zh": "这里有通往%s的各类古董入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Assorted Antiques', which has no generated suffix. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's Distillery here.",
+      "zh": "这里有通往%s的蒸馏室入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'Distillery', which has no generated suffix. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "There is an entrance to %s's General Store here.",
+      "zh": "这里有通往%s的杂货店入口。",
+      "context": "directn.cc:2979-2987,3277-3278; describe_floor() prefixes the shop feature returned by feature_description_at(), which returns shop_name(); expanded shop_name() for type 'General Store', which has no generated suffix. %s is the keeper name.",
+      "reason": "Translates the complete shop entrance description, separating the keeper name from the possessive suffix and shop type; preserves the one owner capture."
+    },
+    {
+      "en": "<yellow>You have %d gold piece.</yellow>",
+      "zh": "<yellow>你有%d枚金币。</yellow>",
+      "context": "shopping.cc:1126; completed balance line after plural and voucher optionals expand. %d is current gold.",
+      "reason": "Translates the actual completed balance so the English plural suffix is never exposed."
+    },
+    {
+      "en": "<yellow>You have %d gold piece and a voucher.</yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。</yellow>",
+      "context": "shopping.cc:1126; completed balance line after plural and voucher optionals expand. %d is current gold.",
+      "reason": "Translates the actual completed balance so the English plural suffix is never exposed."
+    },
+    {
+      "en": "<yellow>You have %d gold pieces.</yellow>",
+      "zh": "<yellow>你有%d枚金币。</yellow>",
+      "context": "shopping.cc:1126; completed balance line after plural and voucher optionals expand. %d is current gold.",
+      "reason": "Translates the actual completed balance so the English plural suffix is never exposed."
+    },
+    {
+      "en": "<yellow>You have %d gold pieces and a voucher.</yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。</yellow>",
+      "context": "shopping.cc:1126; completed balance line after plural and voucher optionals expand. %d is current gold.",
+      "reason": "Translates the actual completed balance so the English plural suffix is never exposed."
+    },
+    {
+      "en": "<yellow>You have %d gold piece and a voucher.<lightred> Purchasing will use your shop voucher and %d gold piece.</lightred></yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。<lightred>购买将使用代金券和%d枚金币。</lightred></yellow>",
+      "context": "shopping.cc:1126-1140; complete voucher-assisted purchase balance. First %d is current gold; second is gold spent after the voucher. Plural branches are expanded.",
+      "reason": "Covers the lightred inline branch as one translated runtime sentence, preserving both amounts and markup."
+    },
+    {
+      "en": "<yellow>You have %d gold piece and a voucher.<lightred> Purchasing will use your shop voucher and %d gold pieces.</lightred></yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。<lightred>购买将使用代金券和%d枚金币。</lightred></yellow>",
+      "context": "shopping.cc:1126-1140; complete voucher-assisted purchase balance. First %d is current gold; second is gold spent after the voucher. Plural branches are expanded.",
+      "reason": "Covers the lightred inline branch as one translated runtime sentence, preserving both amounts and markup."
+    },
+    {
+      "en": "<yellow>You have %d gold pieces and a voucher.<lightred> Purchasing will use your shop voucher and %d gold piece.</lightred></yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。<lightred>购买将使用代金券和%d枚金币。</lightred></yellow>",
+      "context": "shopping.cc:1126-1140; complete voucher-assisted purchase balance. First %d is current gold; second is gold spent after the voucher. Plural branches are expanded.",
+      "reason": "Covers the lightred inline branch as one translated runtime sentence, preserving both amounts and markup."
+    },
+    {
+      "en": "<yellow>You have %d gold pieces and a voucher.<lightred> Purchasing will use your shop voucher and %d gold pieces.</lightred></yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。<lightred>购买将使用代金券和%d枚金币。</lightred></yellow>",
+      "context": "shopping.cc:1126-1140; complete voucher-assisted purchase balance. First %d is current gold; second is gold spent after the voucher. Plural branches are expanded.",
+      "reason": "Covers the lightred inline branch as one translated runtime sentence, preserving both amounts and markup."
+    },
+    {
+      "en": "<yellow>You have %d gold piece.<lightred> You are short %d gold piece for the purchase.</lightred></yellow>",
+      "zh": "<yellow>你有%d枚金币。<lightred>购买还差%d枚金币。</lightred></yellow>",
+      "context": "shopping.cc:1126-1152; complete insufficient-funds line. First %d is current gold, second is shortfall; current balance may include a voucher.",
+      "reason": "Translates both independently pluralized amounts and the lightred span in the complete visible line."
+    },
+    {
+      "en": "<yellow>You have %d gold piece.<lightred> You are short %d gold pieces for the purchase.</lightred></yellow>",
+      "zh": "<yellow>你有%d枚金币。<lightred>购买还差%d枚金币。</lightred></yellow>",
+      "context": "shopping.cc:1126-1152; complete insufficient-funds line. First %d is current gold, second is shortfall; current balance may include a voucher.",
+      "reason": "Translates both independently pluralized amounts and the lightred span in the complete visible line."
+    },
+    {
+      "en": "<yellow>You have %d gold piece and a voucher.<lightred> You are short %d gold piece for the purchase.</lightred></yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。<lightred>购买还差%d枚金币。</lightred></yellow>",
+      "context": "shopping.cc:1126-1152; complete insufficient-funds line. First %d is current gold, second is shortfall; current balance may include a voucher.",
+      "reason": "Translates both independently pluralized amounts and the lightred span in the complete visible line."
+    },
+    {
+      "en": "<yellow>You have %d gold piece and a voucher.<lightred> You are short %d gold pieces for the purchase.</lightred></yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。<lightred>购买还差%d枚金币。</lightred></yellow>",
+      "context": "shopping.cc:1126-1152; complete insufficient-funds line. First %d is current gold, second is shortfall; current balance may include a voucher.",
+      "reason": "Translates both independently pluralized amounts and the lightred span in the complete visible line."
+    },
+    {
+      "en": "<yellow>You have %d gold pieces.<lightred> You are short %d gold piece for the purchase.</lightred></yellow>",
+      "zh": "<yellow>你有%d枚金币。<lightred>购买还差%d枚金币。</lightred></yellow>",
+      "context": "shopping.cc:1126-1152; complete insufficient-funds line. First %d is current gold, second is shortfall; current balance may include a voucher.",
+      "reason": "Translates both independently pluralized amounts and the lightred span in the complete visible line."
+    },
+    {
+      "en": "<yellow>You have %d gold pieces.<lightred> You are short %d gold pieces for the purchase.</lightred></yellow>",
+      "zh": "<yellow>你有%d枚金币。<lightred>购买还差%d枚金币。</lightred></yellow>",
+      "context": "shopping.cc:1126-1152; complete insufficient-funds line. First %d is current gold, second is shortfall; current balance may include a voucher.",
+      "reason": "Translates both independently pluralized amounts and the lightred span in the complete visible line."
+    },
+    {
+      "en": "<yellow>You have %d gold pieces and a voucher.<lightred> You are short %d gold piece for the purchase.</lightred></yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。<lightred>购买还差%d枚金币。</lightred></yellow>",
+      "context": "shopping.cc:1126-1152; complete insufficient-funds line. First %d is current gold, second is shortfall; current balance may include a voucher.",
+      "reason": "Translates both independently pluralized amounts and the lightred span in the complete visible line."
+    },
+    {
+      "en": "<yellow>You have %d gold pieces and a voucher.<lightred> You are short %d gold pieces for the purchase.</lightred></yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。<lightred>购买还差%d枚金币。</lightred></yellow>",
+      "context": "shopping.cc:1126-1152; complete insufficient-funds line. First %d is current gold, second is shortfall; current balance may include a voucher.",
+      "reason": "Translates both independently pluralized amounts and the lightred span in the complete visible line."
+    },
+    {
+      "en": "<yellow>You have %d gold piece and a voucher. After the purchase, you will have %d gold piece.</yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。购买后还会有%d枚金币。</yellow>",
+      "context": "shopping.cc:1126,1156-1158; complete after-purchase line with a voucher. %d captures current and resulting balances in source order.",
+      "reason": "Translates the composed sentence rather than exposing either English plural suffix."
+    },
+    {
+      "en": "<yellow>You have %d gold piece and a voucher. After the purchase, you will have %d gold pieces.</yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。购买后还会有%d枚金币。</yellow>",
+      "context": "shopping.cc:1126,1156-1158; complete after-purchase line with a voucher. %d captures current and resulting balances in source order.",
+      "reason": "Translates the composed sentence rather than exposing either English plural suffix."
+    },
+    {
+      "en": "<yellow>You have %d gold pieces and a voucher. After the purchase, you will have %d gold piece.</yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。购买后还会有%d枚金币。</yellow>",
+      "context": "shopping.cc:1126,1156-1158; complete after-purchase line with a voucher. %d captures current and resulting balances in source order.",
+      "reason": "Translates the composed sentence rather than exposing either English plural suffix."
+    },
+    {
+      "en": "<yellow>You have %d gold pieces and a voucher. After the purchase, you will have %d gold pieces.</yellow>",
+      "zh": "<yellow>你有%d枚金币，另有一张商店代金券。购买后还会有%d枚金币。</yellow>",
+      "context": "shopping.cc:1126,1156-1158; complete after-purchase line with a voucher. %d captures current and resulting balances in source order.",
+      "reason": "Translates the composed sentence rather than exposing either English plural suffix."
+    },
+    {
+      "en": "You now have %d gold piece.",
+      "zh": "你现在有%d枚金币。",
+      "context": "items.cc:1749; completed gold-pickup message when the optional gain clause is empty.",
+      "reason": "Translates the current balance without leaking the English plural marker."
+    },
+    {
+      "en": "You now have %d gold piece (gained %d).",
+      "zh": "你现在有%d枚金币（获得%d枚）。",
+      "context": "items.cc:1745-1749; complete gold-pickup message when quant differs from you.gold. First %d is current balance; second is amount gained.",
+      "reason": "Preserves both numeric captures in order and translates the optional gain clause."
+    },
+    {
+      "en": "You now have %d gold pieces.",
+      "zh": "你现在有%d枚金币。",
+      "context": "items.cc:1749; completed gold-pickup message when the optional gain clause is empty.",
+      "reason": "Translates the current balance without leaking the English plural marker."
+    },
+    {
+      "en": "You now have %d gold pieces (gained %d).",
+      "zh": "你现在有%d枚金币（获得%d枚）。",
+      "context": "items.cc:1745-1749; complete gold-pickup message when quant differs from you.gold. First %d is current balance; second is amount gained.",
+      "reason": "Preserves both numeric captures in order and translates the optional gain clause."
+    },
+    {
+      "en": "Thank you for shopping at %s's Weapon Shoppe!",
+      "zh": "感谢光顾%s的武器小店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Weapon Boutique!",
+      "zh": "感谢光顾%s的武器精品店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Weapon Emporium!",
+      "zh": "感谢光顾%s的武器大商场！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Weapon Shop!",
+      "zh": "感谢光顾%s的武器商店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Armour Shoppe!",
+      "zh": "感谢光顾%s的护甲小店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Armour Boutique!",
+      "zh": "感谢光顾%s的护甲精品店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Armour Emporium!",
+      "zh": "感谢光顾%s的护甲大商场！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Armour Shop!",
+      "zh": "感谢光顾%s的护甲商店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Antique Weapon Shoppe!",
+      "zh": "感谢光顾%s的古董武器小店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Antique Weapon Boutique!",
+      "zh": "感谢光顾%s的古董武器精品店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Antique Weapon Emporium!",
+      "zh": "感谢光顾%s的古董武器大商场！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Antique Weapon Shop!",
+      "zh": "感谢光顾%s的古董武器商店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Antique Armour Shoppe!",
+      "zh": "感谢光顾%s的古董护甲小店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Antique Armour Boutique!",
+      "zh": "感谢光顾%s的古董护甲精品店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Antique Armour Emporium!",
+      "zh": "感谢光顾%s的古董护甲大商场！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Antique Armour Shop!",
+      "zh": "感谢光顾%s的古董护甲商店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Jewellery Shoppe!",
+      "zh": "感谢光顾%s的首饰小店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Jewellery Boutique!",
+      "zh": "感谢光顾%s的首饰精品店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Jewellery Emporium!",
+      "zh": "感谢光顾%s的首饰大商场！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Jewellery Shop!",
+      "zh": "感谢光顾%s的首饰商店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Book Shoppe!",
+      "zh": "感谢光顾%s的书籍小店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Book Boutique!",
+      "zh": "感谢光顾%s的书籍精品店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Book Emporium!",
+      "zh": "感谢光顾%s的书籍大商场！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Book Shop!",
+      "zh": "感谢光顾%s的书籍商店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Magic Scroll Shoppe!",
+      "zh": "感谢光顾%s的魔法卷轴小店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Magic Scroll Boutique!",
+      "zh": "感谢光顾%s的魔法卷轴精品店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Magic Scroll Emporium!",
+      "zh": "感谢光顾%s的魔法卷轴大商场！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Magic Scroll Shop!",
+      "zh": "感谢光顾%s的魔法卷轴商店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Gadget Shoppe!",
+      "zh": "感谢光顾%s的装置小店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Gadget Boutique!",
+      "zh": "感谢光顾%s的装置精品店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Gadget Emporium!",
+      "zh": "感谢光顾%s的装置大商场！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Gadget Shop!",
+      "zh": "感谢光顾%s的装置商店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Removed Food Shoppe!",
+      "zh": "感谢光顾%s的已移除食物小店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Removed Food Boutique!",
+      "zh": "感谢光顾%s的已移除食物精品店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Removed Food Emporium!",
+      "zh": "感谢光顾%s的已移除食物大商场！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Removed Food Shop!",
+      "zh": "感谢光顾%s的已移除食物商店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop_type_name() + generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Assorted Antiques!",
+      "zh": "感谢光顾%s的各类古董！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop type, with no generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's Distillery!",
+      "zh": "感谢光顾%s的蒸馏室！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop type, with no generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    },
+    {
+      "en": "Thank you for shopping at %s's General Store!",
+      "zh": "感谢光顾%s的杂货店！",
+      "context": "shopping.cc:1540,1577; shop_name() expands to keeper apostrophe-s + shop type, with no generated suffix; %s captures keeper name.",
+      "reason": "Separates and translates the shop name parts while preserving the keeper capture."
+    }
+  ],
+  "test_cases": [
+    {
+      "en": "You continue putting on your amulet of faith.\nYou continue putting on your amulet of faith.\nYou continue putting on your amulet of faith.\nYou continue putting on your amulet of faith.\nYou continue putting on your amulet of faith.\n",
+      "zh": "你继续佩戴信仰护符。\n你继续佩戴信仰护符。\n你继续佩戴信仰护符。\n你继续佩戴信仰护符。\n你继续佩戴信仰护符。\n"
+    },
+    {
+      "en": "You continue putting on your amulet of reflection.",
+      "zh": "你继续佩戴反射护身符。"
+    },
+    {
+      "en": "You finish putting on your amulet of faith.",
+      "zh": "你已佩戴信仰护符。"
+    },
+    {
+      "en": "Welcome to Utarac's General Store! What would you like to do?",
+      "zh": "欢迎光临Utarac的杂货店！需要买些什么？"
+    },
+    {
+      "en": "Really walk onto that pressure plate?",
+      "zh": "真的要走到那压力板上吗？"
+    },
+    {
+      "en": "Really fly into that Zot trap?",
+      "zh": "真的要飞进那个佐特陷阱吗？"
+    },
+    {
+      "en": "<lightgreen>Purchase items for 125 gold? y (y/N)</lightgreen>\n",
+      "zh": "<lightgreen>购买物品，共125金币？y（y/N）</lightgreen>\n"
+    },
+    {
+      "en": "<lightgreen>Purchase items in shopping list for 240 gold? This will use your shop voucher. Y (Y/N)</lightgreen>\n",
+      "zh": "<lightgreen>购买（购物清单）中的物品，共240金币？将使用商店代金券。 Y（Y/N）</lightgreen>\n"
+    },
+    {
+      "en": "Welcome to O'Neil's Antique Weapon Emporium! What would you like to do?",
+      "zh": "欢迎光临O'Neil的古董武器大商场！需要买些什么？"
+    },
+    {
+      "en": "Welcome to Mara's Jewellery Boutique! What would you like to do?",
+      "zh": "欢迎光临玛拉的首饰精品店！需要买些什么？"
+    },
+    {
+      "en": "<yellow>You have 260 gold pieces. After the purchase, you will have 134 gold pieces.</yellow>",
+      "zh": "<yellow>你有260枚金币，购买后还会有134枚金币。</yellow>"
+    },
+    {
+      "en": "There is an entrance to Utarac's General Store here.",
+      "zh": "这里有通往Utarac的杂货店入口。"
+    },
+    {
+      "en": "<yellow>You have 1 gold piece and a voucher.</yellow>",
+      "zh": "<yellow>你有1枚金币，另有一张商店代金券。</yellow>"
+    },
+    {
+      "en": "<yellow>You have 257 gold pieces and a voucher.<lightred> Purchasing will use your shop voucher and 34 gold pieces.</lightred></yellow>",
+      "zh": "<yellow>你有257枚金币，另有一张商店代金券。<lightred>购买将使用代金券和34枚金币。</lightred></yellow>"
+    },
+    {
+      "en": "<yellow>You have 2 gold pieces.<lightred> You are short 5 gold pieces for the purchase.</lightred></yellow>",
+      "zh": "<yellow>你有2枚金币。<lightred>购买还差5枚金币。</lightred></yellow>"
+    },
+    {
+      "en": "<yellow>You have 1 gold piece and a voucher. After the purchase, you will have 1 gold piece.</yellow>",
+      "zh": "<yellow>你有1枚金币，另有一张商店代金券。购买后还会有1枚金币。</yellow>"
+    },
+    {
+      "en": "You now have 260 gold pieces (gained 15).",
+      "zh": "你现在有260枚金币（获得15枚）。"
+    },
+    {
+      "en": "Thank you for shopping at O'Neil's Antique Weapon Emporium!",
+      "zh": "感谢光顾O'Neil的古董武器大商场！"
+    }
+  ]
+}

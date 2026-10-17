@@ -6175,23 +6175,37 @@ public:
 
         for (const auto &row : rows)
         {
+            vector<vector<string>> cells;
+            size_t line_count = 1;
             for (size_t col = 0; col < row.size(); ++col)
             {
                 const TableCell &cell = row[col];
-                if (cell.label.empty())  // padding
+                vector<string> lines;
+                if (!cell.label.empty())
                 {
-                    result << string(cell_len, ' ');
-                    continue;
+                    const int label_len = min(labels_lengths_by_col[col],
+                                              max(0, cell_len - 3));
+                    string body = padded_str(cell.label, label_len, true)
+                                  + ": " + cell.value;
+                    // Long translated labels and large values must stay in
+                    // their column. Wrap rather than overwrite the next cell
+                    // or discard the value at the panel's right edge.
+                    while (!body.empty())
+                        lines.push_back(wordwrap_line(body, cell_len, false, false));
                 }
-
-                const int label_len = labels_lengths_by_col[col];
-                const string label = padded_str(cell.label, label_len, true);
-                const string body = make_stringf("%s: %s",
-                                                 label.c_str(),
-                                                 cell.value.c_str());
-                result << colourize_str(padded_str(body, cell_len), cell.colour);
+                line_count = max(line_count, lines.size());
+                cells.push_back(lines);
             }
-            result << "\n";
+            for (size_t line = 0; line < line_count; ++line)
+            {
+                for (size_t col = 0; col < row.size(); ++col)
+                {
+                    const auto &lines = cells[col];
+                    const string text = line < lines.size() ? lines[line] : "";
+                    result << colourize_str(padded_str(text, cell_len), row[col].colour);
+                }
+                result << "\n";
+            }
         }
     }
 };

@@ -1,0 +1,312 @@
+{
+  "entries": [
+    {
+      "en": "Press: ? - help",
+      "zh": "按键：? - 帮助",
+      "context": "directn.cc::direction_chooser::print_key_hints; base targeting prompt, before context-specific key hints are appended.",
+      "reason": "Retains the help key and makes the prompt label natural Chinese."
+    },
+    {
+      "en": "Press: ? - help, %s - select action",
+      "zh": "按键：? - 帮助，%s - 选择动作",
+      "context": "Full runtime prompt for a firing context with one suitable action: directn.cc::print_key_hints combines its help prefix with quiver.cc::action_cycler::fire_key_hints. The %s captures the configured select-action key.",
+      "reason": "Translates the complete prompt shape, preserving the key capture exactly."
+    },
+    {
+      "en": "Press: ? - help, %s - select action, %s or %s - cycle",
+      "zh": "按键：? - 帮助，%s - 选择动作，按 %s 或 %s 切换动作",
+      "context": "Full runtime prompt for a firing context with multiple suitable actions: directn.cc::print_key_hints combines the help prefix with quiver.cc::action_cycler::fire_key_hints. Captures are select-action, cycle-backward, cycle-forward keys.",
+      "reason": "Makes clear that cycling switches the firing or throwing action; keeps all key captures in source order."
+    },
+    {
+      "en": "Press: ? - help, <w>%s</w> - select action, <w>%s</w> or <w>%s</w> - cycle",
+      "zh": "按键：? - 帮助，<w>%s</w> - 选择动作，按 <w>%s</w> 或 <w>%s</w> 切换动作",
+      "context": "Tagged full runtime prompt variant, with key highlighting retained around each key capture after action_cycler command insertion.",
+      "reason": "Preserves source color tags and the three key captures while translating the complete cycling hint."
+    },
+    {
+      "en": "Press: ? - help, <w>%s</w> - select action",
+      "zh": "按键：? - 帮助，<w>%s</w> - 选择动作",
+      "context": "Tagged full runtime prompt variant when there is only one suitable firing action.",
+      "reason": "Preserves the highlight around the action key and translates the complete single-action hint."
+    },
+    {
+      "en": "Shift-Dir - straight line",
+      "zh": "Shift+方向 - 沿直线瞄准",
+      "context": "directn.cc::direction_chooser::print_key_hints, DIR_NONE branch; appears for targeted ranged selection when a straight-line direction is available.",
+      "reason": "Names the targeting effect clearly while keeping Shift and direction as control hints."
+    },
+    {
+      "en": "Dir - look around, f - activate",
+      "zh": "方向键 - 环顾，f - 激活",
+      "context": "directn.cc::direction_chooser::print_key_hints, untargeted behaviour branch.",
+      "reason": "Covers the non-targeted chooser hint branch and retains the activation key."
+    },
+    {
+      "en": "Dir - move target",
+      "zh": "方向键 - 移动目标",
+      "context": "directn.cc::direction_chooser::print_key_hints, DIR_TARGET and DIR_ENFORCE_RANGE branches.",
+      "reason": "Uses concise Chinese for the two targeted movement branches."
+    },
+    {
+      "en": "Aim",
+      "zh": "瞄准",
+      "context": "directn.cc::print_target_monster_description and print_target_object_description default target prefix; behavior may override the prefix or use Look.",
+      "reason": "Uses the established targeting label."
+    },
+    {
+      "en": "Look",
+      "zh": "查看",
+      "context": "directn.cc::print_target_monster_description when behaviour is untargeted.",
+      "reason": "Distinguishes examining a cell from aiming at it."
+    },
+    {
+      "en": "Aim: <lightgrey>%s</lightgrey>",
+      "zh": "瞄准：<lightgrey>%s</lightgrey>",
+      "context": "directn.cc::print_target_monster_description wraps the complete cell_monster_description result; the value may contain equipment, cell effects, monster status, and a ranged hit estimate.",
+      "reason": "Translates the whole runtime wrapper while preserving the display tag and its single complete-description argument."
+    },
+    {
+      "en": "%d%% to hit",
+      "zh": "命中率%d%%",
+      "context": "Complete printf-style runtime form for the ranged hit percentage shown in the targeting description; %d is the integer estimate and %% is the literal percent sign.",
+      "reason": "Uses Chinese word order while preserving printf argument semantics and escaping the literal percent."
+    },
+    {
+      "en": "%d%% to hit at this distance",
+      "zh": "当前距离命中率%d%%",
+      "context": "Complete printf-style runtime form for the blind-target distance-qualified hit estimate; %d is the integer estimate and %% is the literal percent sign.",
+      "reason": "Keeps the distance qualification and preserves printf argument semantics."
+    },
+    {
+      "en": "%s, wielding %s (%d%% to hit)",
+      "zh": "%s，手持%s（命中率%d%%）",
+      "context": "Generic complete runtime target-description structure: monster name, equipment description, and ranged hit estimate, composed by directn.cc::cell_monster_description and throw.cc::fire_target_behaviour::get_monster_desc.",
+      "reason": "Uses natural Chinese word order while preserving printf argument order; existing name and item localization supplies the argument values."
+    },
+    {
+      "en": "%s, wielding %s (%s, %d%% to hit)",
+      "zh": "%s，手持%s（%s，命中率%d%%）",
+      "context": "Generic expanded target structure when cell_monster_description includes one additional cell or monster descriptor, such as a cloud effect, before the ranged hit estimate.",
+      "reason": "Accounts for the source's optional descriptor slot while keeping all four arguments in source order."
+    },
+    {
+      "en": "%s, wielding %s (%s, %d%% to hit at this distance)",
+      "zh": "%s，手持%s（%s，当前距离命中率%d%%）",
+      "context": "Generic distance-qualified target structure with an additional cell or monster descriptor; used when describe_hit_chance appends its distance qualifier.",
+      "reason": "Retains the optional descriptor and the distance qualifier in natural Chinese, preserving all four arguments."
+    },
+    {
+      "en": "%s, wielding %s (%d%% to hit at this distance)",
+      "zh": "%s，手持%s（当前距离命中率%d%%）",
+      "context": "Generic distance-qualified target structure without an additional cell or monster descriptor, as constructed by directn.cc and throw.cc.",
+      "reason": "Covers the distance variant without a status/cloud argument and preserves the source argument order."
+    },
+    {
+      "en": " is almost destroyed.",
+      "zh": "几乎被摧毁。",
+      "context": "mon-util.cc::get_damage_level_string for damaged monsters at MDAM_ALMOST_DEAD, assembled by mon-death.cc::print_wounds.",
+      "reason": "Translates the complete fixed wound-level suffix; the monster name is prepended by simple_monster_message."
+    },
+    {
+      "en": " is almost dead.",
+      "zh": "濒死。",
+      "context": "mon-util.cc::get_damage_level_string for non-damaged holiness at MDAM_ALMOST_DEAD, assembled by mon-death.cc::print_wounds.",
+      "reason": "Translates the complete fixed wound-level suffix; the monster name is prepended by simple_monster_message."
+    },
+    {
+      "en": " is severely damaged.",
+      "zh": "伤势极重。",
+      "context": "mon-util.cc::get_damage_level_string at MDAM_SEVERELY_DAMAGED for holiness counted as damaged.",
+      "reason": "Translates this fixed damage level as a complete suffix without a generic adjective placeholder."
+    },
+    {
+      "en": " is severely wounded.",
+      "zh": "伤势严重。",
+      "context": "mon-util.cc::get_damage_level_string at MDAM_SEVERELY_DAMAGED; mon-death.cc::print_wounds prepends the monster name and appends punctuation.",
+      "reason": "Removes the awkward literal copula in the reported runtime and keeps the complete fixed severity phrase."
+    },
+    {
+      "en": " is heavily damaged.",
+      "zh": "伤势很重。",
+      "context": "mon-util.cc::get_damage_level_string at MDAM_HEAVILY_DAMAGED for holiness counted as damaged.",
+      "reason": "Translates this fixed damage level as a complete suffix."
+    },
+    {
+      "en": " is heavily wounded.",
+      "zh": "伤势较重。",
+      "context": "mon-util.cc::get_damage_level_string at MDAM_HEAVILY_DAMAGED for ordinary wounded monsters.",
+      "reason": "Translates this fixed severity phrase without a generic copula template."
+    },
+    {
+      "en": " is moderately damaged.",
+      "zh": "受伤中等。",
+      "context": "mon-util.cc::get_damage_level_string at MDAM_MODERATELY_DAMAGED for holiness counted as damaged.",
+      "reason": "Translates this fixed damage level as a complete suffix."
+    },
+    {
+      "en": " is moderately wounded.",
+      "zh": "伤势中等。",
+      "context": "mon-util.cc::get_damage_level_string at MDAM_MODERATELY_DAMAGED for ordinary wounded monsters.",
+      "reason": "Translates this fixed severity phrase as a complete suffix."
+    },
+    {
+      "en": " is lightly damaged.",
+      "zh": "受伤较轻。",
+      "context": "mon-util.cc::get_damage_level_string at MDAM_LIGHTLY_DAMAGED for holiness counted as damaged.",
+      "reason": "Translates this fixed damage level as a complete suffix."
+    },
+    {
+      "en": " is lightly wounded.",
+      "zh": "伤势较轻。",
+      "context": "mon-util.cc::get_damage_level_string at MDAM_LIGHTLY_DAMAGED for ordinary wounded monsters.",
+      "reason": "Translates this fixed severity phrase as a complete suffix."
+    },
+    {
+      "en": " is not damaged.",
+      "zh": "没有受损。",
+      "context": "mon-util.cc::get_damage_level_string default/MDAM_OKAY branch for holiness counted as damaged.",
+      "reason": "Covers the final fixed branch in the source severity formatter."
+    },
+    {
+      "en": " is not wounded.",
+      "zh": "没有受伤。",
+      "context": "mon-util.cc::get_damage_level_string default/MDAM_OKAY branch for ordinary wounded holiness.",
+      "reason": "Covers the final fixed branch in the source severity formatter."
+    },
+    {
+      "en": "%s is almost destroyed.",
+      "zh": "%s几乎被摧毁。",
+      "context": "Complete runtime sentence from mon-death.cc::print_wounds for the damaged-holiness MDAM_ALMOST_DEAD branch; %s is the monster's DESC_THE name.",
+      "reason": "Translates the whole sentence and avoids retaining the source prefix's leading space."
+    },
+    {
+      "en": "%s is almost dead.",
+      "zh": "%s濒死。",
+      "context": "Complete runtime sentence from mon-death.cc::print_wounds for the ordinary-holiness MDAM_ALMOST_DEAD branch; %s is the monster's DESC_THE name.",
+      "reason": "Translates the whole sentence and preserves the actor capture."
+    },
+    {
+      "en": "%s is severely damaged.",
+      "zh": "%s伤势极重。",
+      "context": "Complete runtime sentence from mon-death.cc::print_wounds for MDAM_SEVERELY_DAMAGED holiness counted as damaged.",
+      "reason": "Keeps the actor first and removes the awkward Chinese copula."
+    },
+    {
+      "en": "%s is severely wounded.",
+      "zh": "%s伤势严重。",
+      "context": "Complete runtime sentence emitted by mon-death.cc::print_wounds; %s is the monster's DESC_THE name, such as “The gnoll”.",
+      "reason": "Matches the entire source sentence and emits a natural result without an inserted space after the actor."
+    },
+    {
+      "en": "%s is heavily damaged.",
+      "zh": "%s伤势很重。",
+      "context": "Complete runtime sentence from mon-death.cc::print_wounds for MDAM_HEAVILY_DAMAGED holiness counted as damaged.",
+      "reason": "Preserves actor order and translates the whole fixed severity sentence."
+    },
+    {
+      "en": "%s is heavily wounded.",
+      "zh": "%s伤势较重。",
+      "context": "Complete runtime sentence from mon-death.cc::print_wounds for ordinary holiness at MDAM_HEAVILY_DAMAGED.",
+      "reason": "Preserves actor order and translates the whole fixed severity sentence."
+    },
+    {
+      "en": "%s is moderately damaged.",
+      "zh": "%s受伤中等。",
+      "context": "Complete runtime sentence from mon-death.cc::print_wounds for MDAM_MODERATELY_DAMAGED holiness counted as damaged.",
+      "reason": "Preserves actor order and translates the whole fixed severity sentence."
+    },
+    {
+      "en": "%s is moderately wounded.",
+      "zh": "%s伤势中等。",
+      "context": "Complete runtime sentence from mon-death.cc::print_wounds for ordinary holiness at MDAM_MODERATELY_DAMAGED.",
+      "reason": "Preserves actor order and translates the whole fixed severity sentence."
+    },
+    {
+      "en": "%s is lightly damaged.",
+      "zh": "%s受伤较轻。",
+      "context": "Complete runtime sentence from mon-death.cc::print_wounds for MDAM_LIGHTLY_DAMAGED holiness counted as damaged.",
+      "reason": "Preserves actor order and translates the whole fixed severity sentence."
+    },
+    {
+      "en": "%s is lightly wounded.",
+      "zh": "%s伤势较轻。",
+      "context": "Complete runtime sentence from mon-death.cc::print_wounds for ordinary holiness at MDAM_LIGHTLY_DAMAGED.",
+      "reason": "Preserves actor order and translates the whole fixed severity sentence."
+    },
+    {
+      "en": "%s is not damaged.",
+      "zh": "%s没有受损。",
+      "context": "Complete runtime sentence for the damage formatter's MDAM_OKAY damaged-holiness branch.",
+      "reason": "Includes the actor and avoids a leading-space fragment translation."
+    },
+    {
+      "en": "%s is not wounded.",
+      "zh": "%s没有受伤。",
+      "context": "Complete runtime sentence for the damage formatter's MDAM_OKAY ordinary-holiness branch.",
+      "reason": "Includes the actor and avoids a leading-space fragment translation."
+    },
+    {
+      "en": "%s hits %s with %s.",
+      "zh": "%s击中%s，使用%s。",
+      "context": "melee-attack.cc::announce_hit rendered monster attack shape; captures actor, target, and article-prefixed weapon description in that source order.",
+      "reason": "Translates the complete weapon-hit statement and avoids the literal fragment “with” becoming “带有”."
+    },
+    {
+      "en": "%s hits %s with %s!",
+      "zh": "%s击中%s，使用%s!",
+      "context": "melee-attack.cc::announce_hit complete weapon-hit form when attack-strength punctuation is an exclamation mark; arguments remain actor, target, weapon.",
+      "reason": "Keeps the full attack meaning and source punctuation while preserving actor/target/weapon order."
+    },
+    {
+      "en": "%s hits %s with %s!!",
+      "zh": "%s击中%s，使用%s!!",
+      "context": "melee-attack.cc::announce_hit complete weapon-hit form when attack-strength punctuation is two exclamation marks; arguments remain actor, target, weapon.",
+      "reason": "Preserves the source's stronger attack punctuation and all three argument positions."
+    },
+    {
+      "en": "%s hits %s with %s!!!",
+      "zh": "%s击中%s，使用%s!!!",
+      "context": "melee-attack.cc::announce_hit complete weapon-hit form when attack-strength punctuation is three exclamation marks; arguments remain actor, target, weapon.",
+      "reason": "Preserves the source's strongest attack punctuation and all three argument positions."
+    }
+  ],
+  "test_cases": [
+    {
+      "en": "Press: ? - help, <w>Q</w> - select action, <w>(</w> or <w>)</w> - cycle\nShift-Dir - straight line",
+      "zh": "按键：? - 帮助，<w>Q</w> - 选择动作，按 <w>(</w> 或 <w>)</w> 切换动作\nShift+方向 - 沿直线瞄准"
+    },
+    {
+      "en": "Aim: <lightgrey>a gnoll, wielding a +0 spear (58% to hit)</lightgrey>",
+      "zh": "瞄准：<lightgrey>豺狼人，手持一个+0 矛（命中率58%）</lightgrey>"
+    },
+    {
+      "en": "Aim: <lightgrey>a gnoll, wielding a +0 spear (poison gas, 58% to hit)</lightgrey>",
+      "zh": "瞄准：<lightgrey>豺狼人，手持一个+0 矛（毒气，命中率58%）</lightgrey>"
+    },
+    {
+      "en": "Aim: <lightgrey>a gnoll, wielding a +0 spear (58% to hit at this distance)</lightgrey>",
+      "zh": "瞄准：<lightgrey>豺狼人，手持一个+0 矛（当前距离命中率58%）</lightgrey>"
+    },
+    {
+      "en": "The gnoll is severely wounded.",
+      "zh": "豺狼人伤势严重。"
+    },
+    {
+      "en": "The gnoll hits you with a +0 flail.",
+      "zh": "豺狼人击中你，使用一个+0 连枷。"
+    },
+    {
+      "en": "The gnoll hits you with a +0 flail!",
+      "zh": "豺狼人击中你，使用一个+0 连枷!"
+    },
+    {
+      "en": "The gnoll hits you with a +5 flail!",
+      "zh": "豺狼人击中你，使用一个+5 连枷!"
+    },
+    {
+      "en": "The gnoll hits you with a -2 flail.",
+      "zh": "豺狼人击中你，使用一个-2 连枷。"
+    }
+  ]
+}

@@ -253,6 +253,7 @@ namespace quiver
         string key_hint = no_other_items
                             ? ", <w>%</w> - select action"
                             : ", <w>%</w> - select action, <w>%</w> or <w>%</w> - cycle";
+        key_hint = zh_translate(key_hint);
         insert_commands(key_hint,
                         { CMD_TARGET_SELECT_ACTION,
                           CMD_TARGET_CYCLE_QUIVER_BACKWARD,

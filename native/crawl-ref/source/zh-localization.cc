@@ -21,6 +21,7 @@ struct Pattern {
     std::string anchor;
     std::vector<std::string> pieces, source;
     std::vector<char> types;
+    std::vector<bool> structural;
     size_t weight;
     bool article, reviewed;
 };
@@ -113,6 +114,7 @@ struct Catalog {
                 std::string anchor, source_piece;
                 std::vector<std::string> source;
                 std::vector<char> types;
+                std::vector<bool> structural;
                 size_t at = 0, weight = 0, captures = 0;
                 bool safe = true;
                 for (std::sregex_iterator i(en.begin(), en.end(), printf_token), end; i != end; ++i) {
@@ -128,6 +130,12 @@ struct Catalog {
                         ++captures;
                         source.push_back(source_piece); source_piece.clear();
                         types.push_back(kind);
+                        // printf may supply a colour name inside a tag. It is
+                        // parser syntax, even though "red" is also prose.
+                        const auto opening = en.rfind('<', m.position());
+                        const auto closing = en.rfind('>', m.position());
+                        structural.push_back(opening != std::string::npos
+                            && (closing == std::string::npos || opening > closing));
                     }
                     at = m.position() + m.length();
                 }
@@ -150,10 +158,17 @@ struct Catalog {
                     || en == "It is %s." || en == "He is %s.\n" || en == "He is %s."
                     || en == "She is %s.\n" || en == "She is %s."
                     || en == "They are %s.\n" || en == "They are %s.");
+                // Reviewed, verb-specific templates may start with a name
+                // capture ("%s bites %s%s"). Keep their fixed verb as an
+                // anchor while rejecting unbounded wrappers such as "%s %s".
+                const bool reviewed_phrase = reviewed && weight >= 4
+                    && std::count_if(anchor.begin(), anchor.end(), [](unsigned char c) {
+                        return std::isalpha(c);
+                    }) >= 3 && anchor != " the " && anchor != " and ";
                 const bool numeric = std::find(types.begin(), types.end(), 's') == types.end()
                     && weight >= 2 && !anchor.empty();
                 if (!safe || captures == 0 || captures > 12
-                    || (!article && !composition && !numeric && !combat && !property_sentence
+                    || (!article && !composition && !numeric && !combat && !property_sentence && !reviewed_phrase
                         && (weight < 8 || anchor.size() < 4))) continue;
                 std::vector<std::string> pieces;
                 std::string piece;
@@ -167,7 +182,7 @@ struct Catalog {
                 piece += zh.substr(at);
                 pieces.push_back(piece);
                 if (pieces.size() != captures + 1) continue;
-                patterns.push_back({anchor, pieces, source, types, weight, article, reviewed});
+                patterns.push_back({anchor, pieces, source, types, structural, weight, article, reviewed});
             }
         }
         std::stable_sort(patterns.begin(), patterns.end(), [](const Pattern &a, const Pattern &b) {
@@ -224,6 +239,23 @@ struct Catalog {
     }
     std::string lookup_capture(const std::string &s, char kind, int depth) {
         auto localized = lookup(s, depth);
+        // A greedy noun capture can include the sentence's final punctuation.
+        // Retry only unresolved English articles, preserving the original marks.
+        if (kind == 's' && s.find('\n') == std::string::npos) {
+            for (const auto *article : {"a ", "an ", "the ", "The "}) {
+                if (s.compare(0, std::strlen(article), article) != 0
+                    || localized.compare(0, std::strlen(article), article) != 0)
+                    continue;
+                const auto end = s.find_last_not_of(".!?");
+                if (end != std::string::npos && end + 1 < s.size()) {
+                    const auto noun = s.substr(0, end + 1);
+                    const auto translated = lookup(noun, depth);
+                    if (translated != noun)
+                        localized = translated + s.substr(end + 1);
+                }
+                break;
+            }
+        }
         if (kind == 's' && localized != s && localized.find('\n') == std::string::npos) {
             const auto first = localized.find_first_not_of(" \t");
             const auto last = localized.find_last_not_of(" \t");
@@ -262,13 +294,23 @@ struct Catalog {
         // message_line::full_text joins separate stored messages with these
         // markers. Keep their sentence boundaries before matching printf
         // captures, which otherwise swallow several combat messages at once.
-        for (const std::string separator : {"<lightgrey> </lightgrey>",
-                                            "<lightgrey>; </lightgrey>"}) {
-            const auto at = s.find(separator);
-            if (at != std::string::npos)
-                return lookup(s.substr(0, at), depth+1) + separator
-                    + lookup(s.substr(at+separator.size()), depth+1);
+        const std::string separators[] = {"<lightgrey> </lightgrey>",
+                                          "<lightgrey>; </lightgrey>"};
+        size_t begin = 0;
+        std::string joined;
+        while (begin < s.size()) {
+            size_t next = std::string::npos;
+            const std::string *separator = nullptr;
+            for (const auto &candidate : separators) {
+                const auto at = s.find(candidate, begin);
+                if (at < next) { next = at; separator = &candidate; }
+            }
+            if (!separator) break;
+            joined += lookup(s.substr(begin, next-begin), depth+1) + *separator;
+            begin = next + separator->size();
         }
+        if (begin)
+            return joined + lookup(s.substr(begin), depth+1);
         // These values are literal input-parser tokens, not prose. Preserve
         // them after the localized heading, including on subsequent renders.
         for (const auto &prefix : technical_prefixes) {
@@ -294,19 +336,30 @@ struct Catalog {
                 std::vector<std::string> captures;
                 int fuel = 256;
                 if (!match_pattern(p, s, 0, 0, captures, fuel)) continue;
+                if (p.reviewed && p.source.front().empty() && !captures.empty()) {
+                    // A leading actor capture must not swallow an enclosing
+                    // paragraph, menu selector or bracketed description.
+                    // Let the complete inner sentence/fragment match instead.
+                    static const std::regex actor_markup("</?[a-z][a-z0-9_: -]*>");
+                    const auto actor = std::regex_replace(captures.front(), actor_markup, "");
+                    if (actor.find_first_of("\n[]{}.!?:;") != std::string::npos) continue;
+                }
                 if (p.article) {
                     // Articles describe names, not whole sentences/paragraphs.
                     // Otherwise "The %s" steals a composed help paragraph
                     // before its complete lines can match the catalog.
                     if (captures[0].find_first_of("\n.!?") != std::string::npos) continue;
                     const auto start = captures[0].find_first_not_of(" \t");
-                    if (start == std::string::npos || captures[0][start] == '-'
+                    if (start == std::string::npos
+                        || (captures[0][start] == '-'
+                            && (start + 1 == captures[0].size()
+                                || !std::isdigit(static_cast<unsigned char>(captures[0][start+1]))))
                         || captures[0][start] == ')' || captures[0][start] == ':') continue;
                     if (lookup(captures[0], depth+1) == captures[0]) continue;
                 }
                 result = p.pieces[0];
                 for (size_t j = 0; j < captures.size(); ++j)
-                    result += lookup_capture(captures[j], p.types[j], depth + 1) + p.pieces[j+1];
+                    result += (p.structural[j] ? captures[j] : lookup_capture(captures[j], p.types[j], depth + 1)) + p.pieces[j+1];
                 break;
             }
         }
@@ -377,7 +430,7 @@ struct Catalog {
                         result += lookup(pending, depth+1); pending.clear();
                         result += p->pieces[0];
                         for (size_t j = 0; j < captures.size(); ++j)
-                            result += lookup_capture(captures[j], p->types[j], depth+1) + p->pieces[j+1];
+                            result += (p->structural[j] ? captures[j] : lookup_capture(captures[j], p->types[j], depth+1)) + p->pieces[j+1];
                         at = end; matched = true; any_fragment = true; break;
                     }
                 }
@@ -446,6 +499,7 @@ bool enabled() {
 #endif
 }
 }
+bool zh_language_enabled() { return enabled(); }
 std::string zh_translate(const std::string &text) {
     if (!enabled() || text.empty()) return text;
     static Catalog catalog;

@@ -438,7 +438,7 @@ tutorial5 altar
 %%%%
 tutorial5 religion
 
-按<input>$cmd[CMD_DISPLAY_RELIGION]</input><localtiles>，或点击<w>命令栏</w>中的信仰按钮，也可以对角色图块按住 Shift 再<input>右键点击</input></localtiles>，查看当前信仰状态。和之前一样，按<input>!</input><localtiles>或<input>右键点击</input></localtiles>可阅读神祇的详细介绍。
+按<input>$cmd[CMD_DISPLAY_RELIGION]</input>查看当前信仰状况。<localtiles>也可以点击命令面板中的<w>宗教</w>按钮，或对角色所在格按<input>Shift+右键点击</input>。</localtiles>再次按<input>!</input><localtiles>或<input>右键点击</input></localtiles>可查看神祇的详细介绍。
 %%%%
 tutorial5 piety_on_kill
 
@@ -465,21 +465,21 @@ tutorial5 tutorial_end
 tutorial5 exit
 
 :nowrap
-<white>教程 5 总结：信仰</white>
+<white>教程 5 小结：信仰</white>
 
-<yellow>信仰命令</yellow>
-  <input>$cmd[CMD_GO_DOWNSTAIRS]</input>  在祭坛祈祷并皈依神祇
-  <input>$cmd[CMD_USE_ABILITY]</input>  使用神祇能力
-  <input>$cmd[CMD_DISPLAY_RELIGION]</input>  查看信仰状态<localtiles>
-  对角色图块<input>右键点击</input>也能打开信仰界面。</localtiles>
+<yellow>宗教指令</yellow>
+  <input>$cmd[CMD_GO_DOWNSTAIRS]</input>  在祭坛前祈祷并加入神祇
+  <input>$cmd[CMD_USE_ABILITY]</input>  使用神术、天生或可启动能力
+  <input>$cmd[CMD_DISPLAY_RELIGION]</input>  查看信仰状况<localtiles>
+  也可以在角色所在格上<input>单击鼠标右键</input>打开宗教界面。</localtiles>
 
 <yellow>休息</yellow>
   <input>$cmd[CMD_WAIT]</input>  等待一回合
-  <input>$cmd[CMD_REST]</input>  最多休息 100 回合
+  <input>$cmd[CMD_REST]</input>  最多等待并休息 100 回合
 
-<yellow>其他命令</yellow>
+<yellow>其他指令</yellow>
   <input>$cmd[CMD_DISPLAY_OVERMAP]</input> 查看地牢概览
-  <input>$cmd[CMD_DISPLAY_COMMANDS]/</input>  搜索描述数据库
+  <input>$cmd[CMD_DISPLAY_COMMANDS]/</input>  搜索说明数据库
 %%%%
 
 %%%%

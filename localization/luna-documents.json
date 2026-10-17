@@ -1,0 +1,44 @@
+{
+  "model": "gpt-6-luna",
+  "review_date": "2026-10-17",
+  "documents": [
+    {
+      "source": "native/crawl-ref/docs/crawl_manual.txt",
+      "source_sha256": "4e9fd82dd363d32e72298edc66e49227581ce68b734be7de90309f845140c1d3",
+      "translations": [
+        {
+          "path": "localization/manual-zh-part-a.txt",
+          "sha256": "866ff04b6f7b246976e80c06d5b51e6059dd68ef70d513713d90d32c52da201f"
+        },
+        {
+          "path": "localization/manual-zh-part-b.txt",
+          "sha256": "e82f74f6bc47f911fcf85959be8b96a75a145767d0e9c48dbb54c9cc6260a50a"
+        },
+        {
+          "path": "localization/manual-zh-part-c.txt",
+          "sha256": "2f431b85719af7e2eb242ffa969d21bc2a2b25011e0e5d13df50284c11d206a4"
+        }
+      ]
+    },
+    {
+      "source": "native/crawl-ref/docs/quickstart.txt",
+      "source_sha256": "eb29701c283ceb11c81b9c49147f2489417e056e0109955540f8ba77a5164fd0",
+      "translations": [
+        {
+          "path": "localization/quickstart-zh.txt",
+          "sha256": "112368b4425f4bba05bc494fbb17783ef2f51f8e41e03037d948c7a12523a324"
+        }
+      ]
+    },
+    {
+      "source": "native/crawl-ref/docs/tiles_help.txt",
+      "source_sha256": "3a58aa97d21334974388d7c3660e64ec7e543f349169a3e5722021c8db189f6a",
+      "translations": [
+        {
+          "path": "localization/tiles-help-zh.txt",
+          "sha256": "6d7492bb568369fa732cd91319aacc705efd264f7d89b35266d20f24973ced4c"
+        }
+      ]
+    }
+  ]
+}
