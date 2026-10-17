@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "god-wrath.h"
 
@@ -380,13 +381,13 @@ static bool _cheibriados_retribution()
     {
         if (you.hp >= (you.hp_max * 3 / 4))
         {
-            mprf(MSGCH_DANGER, "You lose track of time!");
+            mpr(zh_message("character.fixed.10132313bf50"), MSGCH_DANGER);
             you.put_to_sleep(nullptr, random_range(5, 10) * BASELINE_DELAY);
             dec_penance(god, 1);
         }
         else
         {
-            mprf(MSGCH_DANGER, "The world leaves you behind!");
+            mpr(zh_message("character.fixed.a387d1582a18"), MSGCH_DANGER);
             dec_haste_player(10000);
             slow_player(81 + random2(10));
         }
@@ -673,7 +674,7 @@ static bool _kikubaaqudgha_retribution()
         int doom_pow = random_range(35, 50);
 
         if (!(you.attribute[ATTR_DOOM] + doom_pow >= 100))
-            mprf(MSGCH_DANGER, "Your doom draws closer.");
+            mpr(zh_message("character.fixed.b2fd20d703be"), MSGCH_DANGER);
 
         you.doom(doom_pow);
     }
@@ -1353,7 +1354,7 @@ static bool _dithmenos_retribution()
 
         if (coinflip())
         {
-            mpr("You feel lethargic.");
+            mpr(zh_message("character.fixed.11fcdd028aa7"));
             you.increase_duration(DUR_SLOW, random_range(10, 20), 100);
         }
 
@@ -1821,13 +1822,13 @@ bool divine_retribution(god_type god, bool no_bonus, bool force)
         {
             if (!you.confused())
             {
-                mprf(MSGCH_WARN, "The divine experience confuses you!");
+                mpr(zh_message("character.fixed.eae232c32707"), MSGCH_WARN);
                 confuse_player(5 + random2(3));
             }
         }
         else
         {
-            mprf(MSGCH_WARN, "The divine experience drains your vigour!");
+            mpr(zh_message("character.fixed.090cf510089e"), MSGCH_WARN);
             slow_player(10 + random2(5));
         }
     }

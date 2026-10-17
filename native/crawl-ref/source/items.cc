@@ -908,12 +908,40 @@ string item_message(vector<const item_def *> const &items)
     return join_strings(colour_names.begin(), colour_names.end(), "; ");
 }
 
+// The canonical string API remains available to non-display consumers. This
+// snapshot carries semantic item names, while glyphs and their colour markup
+// are immutable UI structure rather than English text.
+ZhArg item_message_display_arg(const string &key,
+                               const vector<const item_def *> &items)
+{
+    if (static_cast<int>(items.size()) >= Options.item_stack_summary_minimum)
+    {
+        const string glyphs = item_message(items);
+        return {key, ZhArgType::Text, glyphs, glyphs, true};
+    }
+
+    ZhArg result{key, ZhArgType::Text, "", "", true};
+    for (const item_def *item : items)
+    {
+        if (!result.canonical.empty())
+        {
+            result.canonical += "; ";
+            result.localized += "；";
+        }
+        const ZhArg name = zh_item_menu_arg("item", *item, DESC_A);
+        result.canonical += name.canonical;
+        result.localized += name.localized;
+        result.supported = result.supported && name.supported;
+    }
+    if (!result.supported)
+        result.localized = result.canonical;
+    return result;
+}
+
 void item_check()
 {
     describe_floor();
     origin_set(you.pos());
-
-    ostream& strm = msg::streams(MSGCH_FLOOR_ITEMS);
 
     auto items = const_item_list_on_square(you.visible_igrd(you.pos()));
 
@@ -924,22 +952,23 @@ void item_check()
     if (items.size() == 1)
     {
         const item_def& it(*items[0]);
-        string name = menu_colour_item_name(it, DESC_A);
-        strm << "You see here " << name << '.' << endl;
+        mpr(zh_message("sol61.item.floor.single",
+            {zh_item_menu_arg("item", it, DESC_A)}), MSGCH_FLOOR_ITEMS);
         return;
     }
 
-    string desc_string = item_message(items);
+    const ZhArg summary = item_message_display_arg("items", items);
     // Stack summary case
     if (static_cast<int>(items.size()) >= Options.item_stack_summary_minimum)
-        mprf_nojoin(MSGCH_FLOOR_ITEMS, "Items here: %s.", desc_string.c_str());
+        mpr_nojoin(MSGCH_FLOOR_ITEMS,
+            zh_message("sol61.item.floor.summary", {summary}));
     else if (items.size() <= msgwin_lines() - 1)
     {
-        mpr_nojoin(MSGCH_FLOOR_ITEMS, "Things that are here:");
-        mprf_nocap("%s", desc_string.c_str());
+        mpr_nojoin(MSGCH_FLOOR_ITEMS, zh_message("sol61.item.floor.heading"));
+        mpr_nocap(zh_message("sol61.item.floor.list", {summary}));
     }
     else
-        strm << "There are many items here." << endl;
+        mpr(zh_message("sol61.item.floor.many"), MSGCH_FLOOR_ITEMS);
 
     if (items.size() > 2 && crawl_state.game_is_hints_tutorial())
     {
@@ -5026,7 +5055,8 @@ static void _identify_last_item(item_def &item)
     const string class_name = item.base_type == OBJ_JEWELLERY ?
                                     item_base_name(item) :
                                     item_class_name(item.base_type, true);
-    mprf("You have identified the last %s.", class_name.c_str());
+    mpr(zh_message("sol61.item.identify.last",
+        {zh_word_arg("class", "sol61.item.class.", class_name)}));
 
     if (in_inventory(item))
     {
@@ -5107,6 +5137,28 @@ string get_weapon_name(const item_def &item, bool full_name)
     return it_name + " \"" + name + "\"";
 }
 
+// Nicknames are generated proper-name data and stay byte-for-byte intact.
+// An item snapshot excludes inscriptions just like get_weapon_name().
+static ZhArg _weapon_display_name_arg(const item_def &item, bool full_name)
+{
+    if (!is_artefact(item) && !full_name)
+    {
+        const string nickname = item.props[WEAPON_NAME_KEY].get_string();
+        return {"weapon", ZhArgType::Name, nickname, nickname, true};
+    }
+    item_def snapshot = item;
+    snapshot.inscription.clear();
+    ZhArg weapon = zh_item_arg("weapon", snapshot, DESC_YOUR);
+    if (!is_artefact(item))
+    {
+        const string nickname = item.props[WEAPON_NAME_KEY].get_string();
+        weapon = zh_message_arg("weapon", "sol61.item.weapon.named", {
+            weapon, {"nickname", ZhArgType::Name, nickname, nickname, true}});
+        weapon.type = ZhArgType::Name;
+    }
+    return weapon;
+}
+
 void maybe_name_weapon(item_def &item, bool silent)
 {
     const bool has_own_name = is_artefact(item);
@@ -5119,19 +5171,15 @@ void maybe_name_weapon(item_def &item, bool silent)
     if (silent)
         return;
 
-    string full_name = get_weapon_name(item, true);
-
-    // TODO: variant messages? (in the database?)
-    mprf("You welcome %s%s into your grasp.", full_name.c_str(),
-         new_name ? "" : " back");
+    mpr(zh_message(new_name ? "sol61.item.weapon.welcome"
+                           : "sol61.item.weapon.welcome_back",
+        {_weapon_display_name_arg(item, true)}));
 }
 
 void say_farewell_to_weapon(const item_def &item)
 {
-    string name = get_weapon_name(item, false);
-
-    // TODO: variant messages? (in the database?)
-    mprf("You whisper farewell to %s.", name.c_str());
+    mpr(zh_message("sol61.item.weapon.farewell",
+        {_weapon_display_name_arg(item, false)}));
 }
 
 // Returns whether an additional copy of a given item in the player's inventory

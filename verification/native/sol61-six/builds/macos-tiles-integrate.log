@@ -1,0 +1,15 @@
+fatal: No tags can describe 'c2df0d82370388ebb1d3704156a20eb2f2f731b8'.
+Try --always, or create some tags.
+/Library/Developer/CommandLineTools/usr/bin/make -C rltiles all ARCH=arm64-apple-darwin25.6.0 NO_PKGCONFIG= TILES=y
+    PYTHON config.h
+    PYTHON rltilesstatus-icon-sizes.h
+    GEN compflag.h
+    GEN build.h
+    CXX zh-message.o
+    CXX version.o
+    CXX delay.o
+    LINK crawl
+ld: warning: building for macOS-11.0, but linking with dylib '/opt/homebrew/opt/sdl2_mixer/lib/libSDL2_mixer-2.0.0.dylib' which was built for newer version 26.0
+ld: warning: building for macOS-11.0, but linking with dylib '/opt/homebrew/opt/sdl2_image/lib/libSDL2_image-2.0.0.dylib' which was built for newer version 26.0
+ld: warning: building for macOS-11.0, but linking with dylib '/opt/homebrew/opt/sdl2-compat/lib/libSDL2-2.0.0.dylib' which was built for newer version 26.0
+ld: warning: building for macOS-11.0, but linking with dylib '/opt/homebrew/opt/freetype/lib/libfreetype.6.dylib' which was built for newer version 26.0

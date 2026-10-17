@@ -1,0 +1,684 @@
+{
+  "model": "gpt-6.1-sol",
+  "reviewer_model": "gpt-6.1-sol",
+  "messages": [
+    {
+      "id": "sol61.combat.deaths_door.defy",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You stand defiantly in death's doorway!",
+      "zh": "你傲然挺立在死亡之门前！",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "You stand defiantly in death's doorway!",
+        "line": 38
+      }
+    },
+    {
+      "id": "sol61.combat.ice.thicken",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "Your icy armour thickens.",
+      "zh": "你的冰甲变厚了。",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "Your icy armour thickens.",
+        "line": 65
+      }
+    },
+    {
+      "id": "sol61.combat.ice.cover",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "A film of ice covers your body!",
+      "zh": "一层薄冰覆盖了你的身体！",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "A film of ice covers your body!",
+        "line": 67
+      }
+    },
+    {
+      "id": "sol61.combat.fire.refresh",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "Your cloak of flame flares fiercely!",
+      "zh": "你的烈焰披风猛烈燃烧！",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "Your cloak of flame flares fiercely!",
+        "line": 79
+      }
+    },
+    {
+      "id": "sol61.combat.fire.ice",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "A sizzling cloak of flame settles atop your icy armour.",
+      "zh": "一件嘶嘶作响的烈焰披风覆在你的冰甲上。",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "A sizzling cloak of flame settles atop your icy armour.",
+        "line": 82
+      }
+    },
+    {
+      "id": "sol61.combat.fire.cover",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "A protective cloak of flame settles atop you.",
+      "zh": "一件护身的烈焰披风覆在你身上。",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "A protective cloak of flame settles atop you.",
+        "line": 87
+      }
+    },
+    {
+      "id": "sol61.combat.revivify.heal",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "Your body is healed in an amazingly painful way.",
+      "zh": "你的身体以极其痛苦的方式痊愈了。",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "Your body is healed in an amazingly painful way.",
+        "line": 96
+      }
+    },
+    {
+      "id": "sol61.combat.fugue.refresh",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You release your grip on the fallen and begin the cycle anew!",
+      "zh": "你松开对亡者的掌控，重新开始这一轮循环！",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "You release your grip on the fallen and begin the cycle anew!",
+        "line": 176
+      }
+    },
+    {
+      "id": "sol61.combat.fugue.call",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You call out to the remnants of the fallen!",
+      "zh": "你向亡者的残魂发出呼唤！",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "You call out to the remnants of the fallen!",
+        "line": 178
+      }
+    },
+    {
+      "id": "sol61.combat.fugue.wail",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "The fallen lash out in pain!",
+      "zh": "亡者在痛苦中发起猛攻！",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "The fallen lash out in pain!",
+        "line": 205
+      }
+    },
+    {
+      "id": "sol61.combat.silence",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "A profound silence engulfs you.",
+      "zh": "深沉的寂静笼罩着你。",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "A profound silence engulfs you.",
+        "line": 229
+      }
+    },
+    {
+      "id": "sol61.combat.liquefy",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "The ground around you becomes liquefied!",
+      "zh": "你周围的地面液化了！",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "The ground around you becomes liquefied!",
+        "line": 251
+      }
+    },
+    {
+      "id": "sol61.combat.jinx.no_target",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "There is nobody nearby that the sprites are interested in.",
+      "zh": "附近没有精怪感兴趣的目标。",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "There is nobody nearby that the sprites are interested in.",
+        "line": 277
+      }
+    },
+    {
+      "id": "sol61.combat.catalyst",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You ready an explosive catalyst.",
+      "zh": "你备好了一份爆炸催化剂。",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "You ready an explosive catalyst.",
+        "line": 317
+      }
+    },
+    {
+      "id": "sol61.combat.deaths_door.hourglass",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You seem to hear sand running through an hourglass...",
+      "zh": "你仿佛听见沙粒流过沙漏的声音……",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "You seem to hear sand running through an hourglass...",
+        "line": 39
+      }
+    },
+    {
+      "id": "sol61.combat.ice.melt",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "Your icy armour melts away.",
+      "zh": "你的冰甲融化了。",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "Your icy armour melts away.",
+        "line": 55
+      }
+    },
+    {
+      "id": "sol61.combat.revivify.release",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "Your life is in your own hands once again.",
+      "zh": "你的生命再次掌握在自己手中。",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "Your life is in your own hands once again.",
+        "line": 104
+      }
+    },
+    {
+      "id": "sol61.combat.jinx.more",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You beckon more vexing sprites to accompany your attacks.",
+      "zh": "你招来更多恼人的精怪协助你攻击。",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "cast_jinxbite",
+        "line": 284
+      }
+    },
+    {
+      "id": "sol61.combat.jinx.some",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You beckon some vexing sprites to accompany your attacks.",
+      "zh": "你招来一些恼人的精怪协助你攻击。",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "cast_jinxbite",
+        "line": 284
+      }
+    },
+    {
+      "id": "sol61.combat.jinx.will",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You feel your willpower being sapped.",
+      "zh": "你感到意志正被削弱。",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "cast_jinxbite",
+        "line": 291
+      }
+    },
+    {
+      "id": "sol61.combat.swift",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You feel quick.",
+      "zh": "你感到身手敏捷。",
+      "params": {},
+      "source": {
+        "file": "spl-selfench.cc",
+        "anchor": "cast_swiftness",
+        "line": 119
+      }
+    },
+    {
+      "id": "sol61.combat.blood.death_door",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You can't draw power from your own body while in death's door.",
+      "zh": "身处死亡之门时，你无法从自己体内汲取力量。",
+      "params": {},
+      "source": {
+        "file": "spl-other.cc",
+        "anchor": "You can't draw power from your own body while in death's door.",
+        "line": 37
+      }
+    },
+    {
+      "id": "sol61.combat.blood.bloodless",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "Your body is bloodless.",
+      "zh": "你的身体没有血液。",
+      "params": {},
+      "source": {
+        "file": "spl-other.cc",
+        "anchor": "Your body is bloodless.",
+        "line": 39
+      }
+    },
+    {
+      "id": "sol61.combat.blood.fail",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "Your attempt to draw power from your own body fails.",
+      "zh": "你试图从自己体内汲取力量，却失败了。",
+      "params": {},
+      "source": {
+        "file": "spl-other.cc",
+        "anchor": "Your attempt to draw power from your own body fails.",
+        "line": 41
+      }
+    },
+    {
+      "id": "sol61.combat.blood.success",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You draw magical energy from your own body!",
+      "zh": "你从自己体内汲取魔力！",
+      "params": {},
+      "source": {
+        "file": "spl-other.cc",
+        "anchor": "You draw magical energy from your own body!",
+        "line": 63
+      }
+    },
+    {
+      "id": "sol61.combat.death_channel",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "Malign forces permeate your being, awaiting release.",
+      "zh": "邪恶力量渗透你的全身，等待释放。",
+      "params": {},
+      "source": {
+        "file": "spl-other.cc",
+        "anchor": "Malign forces permeate your being, awaiting release.",
+        "line": 74
+      }
+    },
+    {
+      "id": "sol61.combat.animate.refresh",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You dismiss your zombies and call upon the dead to rise afresh.",
+      "zh": "你遣散僵尸，再次呼唤亡者起身。",
+      "params": {},
+      "source": {
+        "file": "spl-other.cc",
+        "anchor": "You dismiss your zombies and call upon the dead to rise afresh.",
+        "line": 109
+      }
+    },
+    {
+      "id": "sol61.combat.animate.call",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You call upon the dead to rise.",
+      "zh": "你呼唤亡者起身。",
+      "params": {},
+      "source": {
+        "file": "spl-other.cc",
+        "anchor": "You call upon the dead to rise.",
+        "line": 111
+      }
+    },
+    {
+      "id": "sol61.combat.cactus",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "A prickly colossus appears in a rush of desert wind.",
+      "zh": "一阵沙漠狂风卷来，一个浑身尖刺的巨人现身了。",
+      "params": {},
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "A prickly colossus appears in a rush of desert wind.",
+        "line": 311
+      }
+    },
+    {
+      "id": "sol61.combat.armour.none",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You aren't wearing any armour!",
+      "zh": "你没有穿戴任何护甲！",
+      "params": {},
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "You aren't wearing any armour!",
+        "line": 326
+      }
+    },
+    {
+      "id": "sol61.combat.ice_beast",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "A chill wind blows around you.",
+      "zh": "一阵寒风吹过你的身边。",
+      "params": {},
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "A chill wind blows around you.",
+        "line": 376
+      }
+    },
+    {
+      "id": "sol61.combat.viper",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "A mana viper appears with a sibilant hiss.",
+      "zh": "一条魔力蝰蛇嘶嘶作响地现身了。",
+      "params": {},
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "A mana viper appears with a sibilant hiss.",
+        "line": 694
+      }
+    },
+    {
+      "id": "sol61.combat.dog.call",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You call for your canine familiar and it appears with a howl!",
+      "zh": "你呼唤犬类使魔，它长嚎着现身了！",
+      "params": {},
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "You call for your canine familiar and it appears with a howl!",
+        "line": 273
+      }
+    },
+    {
+      "id": "sol61.combat.dog.distant",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "Your familiar is too far away to imbue with magic.",
+      "zh": "你的使魔离得太远，无法为其灌注魔力。",
+      "params": {},
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "Your familiar is too far away to imbue with magic.",
+        "line": 248
+      }
+    },
+    {
+      "id": "sol61.combat.dog.imbue",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You imbue your familiar with magical energy and its fangs glint viciously.",
+      "zh": "你为使魔灌注魔力，它的獠牙闪起凶光。",
+      "params": {},
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "cast_call_canine_familiar",
+        "line": 281
+      }
+    },
+    {
+      "id": "sol61.combat.mammal",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "{monster} appears in a puff of smoke.",
+      "zh": "{monster}从一团烟雾中现身。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "mammal",
+        "line": 212
+      }
+    },
+    {
+      "id": "sol61.combat.armour.echo",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You draw out an echo of {armour}.",
+      "zh": "你从{armour}中唤出一个回响。",
+      "params": {
+        "armour": "name"
+      },
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "armour.echo",
+        "line": 353
+      }
+    },
+    {
+      "id": "sol61.combat.hydra",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "{monster} appears.",
+      "zh": "{monster}现身了。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "hydra",
+        "line": 483
+      }
+    },
+    {
+      "id": "sol61.combat.sphinx.pair",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "A pair of sphinxes answers {caster} call!",
+      "zh": "一对斯芬克斯响应了{caster}召唤！",
+      "params": {
+        "caster": "name"
+      },
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "sphinx.pair",
+        "line": 452
+      }
+    },
+    {
+      "id": "sol61.combat.sphinx.single",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "{monster} answers {caster} call!",
+      "zh": "{monster}响应了{caster}召唤！",
+      "params": {
+        "monster": "name",
+        "caster": "name"
+      },
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "sphinx.single",
+        "line": 457
+      }
+    },
+    {
+      "id": "sol61.combat.nothing",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "Nothing appears to happen.",
+      "zh": "似乎什么也没发生。",
+      "params": {},
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "selected summoning entrypoints; MSG_NOTHING_HAPPENS",
+        "line": 215
+      }
+    },
+    {
+      "id": "sol61.combat.summon.space",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "There is no available space!",
+      "zh": "没有可用的空间！",
+      "params": {},
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "player_summon_check MSG_NO_AVAILABLE_SPACE",
+        "line": 177
+      }
+    },
+    {
+      "id": "sol61.combat.blast.existing",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "There's already a cloud here!",
+      "zh": "这里已经有一团云雾了！",
+      "params": {},
+      "source": {
+        "file": "spl-clouds.cc",
+        "anchor": "There's already a cloud here!",
+        "line": 65
+      }
+    },
+    {
+      "id": "sol61.combat.blast.create",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "A cloud of volatile blastmotes flares up around you! Run!",
+      "zh": "一团不稳定的爆裂微粒在你周围腾起！快跑！",
+      "params": {},
+      "source": {
+        "file": "spl-clouds.cc",
+        "anchor": "A cloud of volatile blastmotes flares up around you! Run!",
+        "line": 77
+      }
+    },
+    {
+      "id": "sol61.combat.poison.create",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "The air fills with toxic fumes!",
+      "zh": "毒雾弥漫在空气中！",
+      "params": {},
+      "source": {
+        "file": "spl-clouds.cc",
+        "anchor": "The air fills with toxic fumes!",
+        "line": 217
+      }
+    },
+    {
+      "id": "sol61.combat.poison.space",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "There's no open space to fill with poison.",
+      "zh": "没有可以填充毒雾的空地。",
+      "params": {},
+      "source": {
+        "file": "spl-clouds.cc",
+        "anchor": "There's no open space to fill with poison.",
+        "line": 222
+      }
+    },
+    {
+      "id": "sol61.combat.putrefaction",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "Rot billows forth from {target} wounds!",
+      "zh": "腐气从{target}伤口中滚滚涌出！",
+      "params": {
+        "target": "name"
+      },
+      "source": {
+        "file": "spl-clouds.cc",
+        "anchor": "cast_putrefaction",
+        "line": 53
+      }
+    },
+    {
+      "id": "sol61.combat.stab.catch",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You catch {target} completely off-guard!",
+      "zh": "你打了{target}一个措手不及！",
+      "params": {
+        "target": "name"
+      },
+      "source": {
+        "file": "attack.cc",
+        "anchor": "attack::stab_message",
+        "line": 757
+      }
+    },
+    {
+      "id": "sol61.combat.stab.behind.strike",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You strike {target} from behind!",
+      "zh": "你从背后突袭了{target}！",
+      "params": {
+        "target": "name"
+      },
+      "source": {
+        "file": "attack.cc",
+        "anchor": "attack::stab_message",
+        "line": 763
+      }
+    },
+    {
+      "id": "sol61.combat.stab.behind.pounce",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You pounce on {target} from behind!",
+      "zh": "你从背后扑向{target}！",
+      "params": {
+        "target": "name"
+      },
+      "source": {
+        "file": "attack.cc",
+        "anchor": "attack::stab_message",
+        "line": 762
+      }
+    },
+    {
+      "id": "sol61.combat.stab.unaware",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "You pounce on the unaware {target}!",
+      "zh": "你扑向毫无防备的{target}！",
+      "params": {
+        "target": "name"
+      },
+      "source": {
+        "file": "attack.cc",
+        "anchor": "attack::stab_message",
+        "line": 770
+      }
+    },
+    {
+      "id": "sol61.combat.stab.defend",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "{target} fails to defend {self}.",
+      "zh": "{target}未能保护{self}。",
+      "params": {
+        "target": "name",
+        "self": "text"
+      },
+      "source": {
+        "file": "attack.cc",
+        "anchor": "attack::stab_message",
+        "line": 773
+      }
+    },
+    {
+      "id": "sol61.combat.menagerie.player",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "{caster} summon {monster}!",
+      "zh": "{caster}召唤了{monster}！",
+      "params": {
+        "caster": "name",
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "menagerie",
+        "line": 412
+      }
+    },
+    {
+      "id": "sol61.combat.menagerie.monster",
+      "context": "战斗/法术生产点完整模板；GPT-6.1-Sol翻译及审校",
+      "en": "{caster} summons {monster}!",
+      "zh": "{caster}召唤了{monster}！",
+      "params": {
+        "caster": "name",
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-summoning.cc",
+        "anchor": "menagerie",
+        "line": 412
+      }
+    }
+  ]
+}

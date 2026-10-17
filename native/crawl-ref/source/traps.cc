@@ -54,14 +54,15 @@
 #include "travel.h"
 #include "view.h"
 #include "xom.h"
+#include "zh-message.h"
 
-static string _net_immune_reason()
+static ZhMessage _net_immune_reason()
 {
     if (you.unrand_equipped(UNRAND_SLICK_SLIPPERS))
-        return "You slip through the net.";
+        return zh_message("world.trap.net.immune.slippers");
     else if (you.is_insubstantial() || you.is_amorphous())
-        return "The net passes straight through you.";
-    return "";
+        return zh_message("world.trap.net.immune.body");
+    return {};
 }
 
 bool trap_def::active() const
@@ -171,7 +172,7 @@ bool trap_def::is_safe(actor* act) const
     if (type == TRAP_GOLUBRIA || type == TRAP_SHAFT)
         return true;
 
-    if (type == TRAP_NET && !_net_immune_reason().empty())
+    if (type == TRAP_NET && !_net_immune_reason().canonical.empty())
         return true;
 
     // Let players specify traps as safe via lua.
@@ -617,7 +618,7 @@ void trap_def::trigger(actor& triggerer)
                 triggered = true;
 
                 if (!simple_monster_message(*m, " drops a net on you."))
-                    mpr("Something launches a net on you.");
+                    mpr(zh_message("world.trap.net.unseen"));
             }
         }
 
@@ -625,18 +626,18 @@ void trap_def::trigger(actor& triggerer)
             break;
 
         if (you_trigger)
-            mpr("You trigger a net trap.");
+            mpr(zh_message("world.trap.net.trigger"));
 
         if (random2avg(2 * you.evasion(), 2) > 18 + env.absdepth0 / 2)
         {
-            mpr("You avoid being caught in a net.");
+            mpr(zh_message("world.trap.net.avoid"));
             break;
         }
 
         if (!you.trap_in_net(false))
         {
-            const string reason = _net_immune_reason();
-            if (!reason.empty())
+            const ZhMessage reason = _net_immune_reason();
+            if (!reason.canonical.empty())
                 mpr(reason);
             break;
         }
@@ -663,7 +664,7 @@ void trap_def::trigger(actor& triggerer)
         if (you_trigger)
         {
             if (one_chance_in(3))
-                mpr("You pick your way through the web.");
+                mpr(zh_message("world.trap.web.avoid"));
             else if (you.trap_in_web())
             {
                 if (ammo_qty == 1)
@@ -1231,7 +1232,7 @@ bool player::trap_in_web()
     you.redraw_evasion      = true;
     quiver::set_needs_redraw();
 
-    mpr("You are caught in a web!");
+    mpr(zh_message("world.trap.web.caught"));
 
     return true;
 }
@@ -1249,7 +1250,7 @@ bool monster::trap_in_web()
 
 bool player::trap_in_net(bool real, bool quiet)
 {
-    if (!_net_immune_reason().empty() || caught())
+    if (!_net_immune_reason().canonical.empty() || caught())
         return false;
 
     you.attribute[ATTR_HELD] = NET_STARTING_DURABILITY;
@@ -1259,7 +1260,7 @@ bool player::trap_in_net(bool real, bool quiet)
     quiver::set_needs_redraw();
 
     if (!quiet)
-        mpr("You become entangled in the net!");
+        mpr(zh_message("world.trap.net.caught"));
 
     stop_running();
     stop_delay(true); // even stair delays
@@ -1317,12 +1318,12 @@ void player::struggle_against_net()
         // Roll a chance to escape the web.
         if (x_chance_in_y(3, 10))
         {
-            mpr("You struggle to detach yourself from the web.");
+            mpr(zh_message("world.trap.web.struggle"));
             return;
         }
         else
         {
-            mpr("You disentangle yourself.");
+            mpr(zh_message("world.trap.web.escape"));
             stop_being_caught();
             return;
         }
@@ -1332,15 +1333,16 @@ void player::struggle_against_net()
     const int damage = random_range(1, 4);
     if (damage >= you.attribute[ATTR_HELD])
     {
-        mprf("You %s the net and break free!", damage > 3 ? "shred" : "rip");
+        mpr(zh_message(damage > 3 ? "world.trap.net.escape.shred"
+                                  : "world.trap.net.escape.rip"));
         stop_being_caught();
         return;
     }
 
     if (damage > 3)
-        mpr("You tear a large gash into the net.");
+        mpr(zh_message("world.trap.net.gash"));
     else
-        mpr("You struggle against the net.");
+        mpr(zh_message("world.trap.net.struggle"));
 
     you.attribute[ATTR_HELD] -= damage;
 }

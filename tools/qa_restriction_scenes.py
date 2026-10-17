@@ -209,3 +209,30 @@ RESTRICTION_FOLLOWUPS['item-wear'] = {'trigger':'要继续脱下衣物吗', 'key
 
 RESTRICTION_SCENES['item-inventory'] = 'i'
 RESTRICTION_EXPECTED['item-inventory'] = {'operation.inventory.category.subtitle.go_to_first'}
+
+# Six-agent batch: complete production templates, independent copied fixtures.
+RESTRICTION_SCENES.update({
+ 'sol61-combat-swiftness': 'l&wiz\rzSwiftness\r',
+ 'sol61-world-invalid-stairs': 'l&wiz\r\x1bh<',
+ 'sol61-ability-menu': 'l&wiz\r\x1ba',
+ 'sol61-conduct-kill': 'l&wiz\rmrat hp:1 generate_awake\r'+'\t'*12,
+})
+RESTRICTION_EXPECTED.update({
+ 'sol61-combat-swiftness': {'sol61.combat.swift'},
+ 'sol61-world-invalid-stairs': {'world.stairs.invalid.up'},
+ 'sol61-ability-menu': {'character.ability.menu.hints','character.ability.menu.row'},
+ 'sol61-conduct-kill': {'character.conduct.kill.accepted'},
+})
+RESTRICTION_FOLLOWUPS['sol61-conduct-kill']={'trigger':'要用手持武器攻击它','keys':' '+'\t'*12}
+RESTRICTION_SCENES.update({
+ 'sol61-unidentified-scroll': 'l&wiz\r%scroll of teleportation\rg',
+ 'sol61-corpse-floor': 'l&wiz\r%dart slug corpse\rhl',
+ 'sol61-floor-collection': 'l&wiz\r%pre_id stone q:3\r&%pre_id javelin q:2\rhl',
+ 'sol61-doll': 'l~-',
+})
+RESTRICTION_EXPECTED.update({
+ 'sol61-unidentified-scroll': {'sol61.name.scroll.labelled','operation.pickup.item_name'},
+ 'sol61-corpse-floor': {'sol61.item.floor.single','sol61.name.corpse.single'},
+ 'sol61-floor-collection': {'sol61.item.floor.heading','sol61.item.floor.list'},
+ 'sol61-doll': {'sol61.ui.doll.title','sol61.ui.doll.index','sol61.ui.doll.mode'},
+})

@@ -7,6 +7,7 @@
 
 #include <vector>
 
+#include "zh-message.h"
 #include "god-type.h"
 #include "mon-inv-type.h"
 #include "item-prop.h"
@@ -94,6 +95,8 @@ void destroy_item(int dest, bool never_created = false);
 void lose_item_stack(const coord_def& where);
 
 string item_message(vector<const item_def *> const &items);
+ZhArg item_message_display_arg(const string &key,
+                               const vector<const item_def *> &items);
 void item_check();
 void identify_item(item_def& item);
 void request_autopickup(bool do_pickup = true);

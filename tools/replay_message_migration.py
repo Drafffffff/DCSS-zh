@@ -97,6 +97,12 @@ try:
      if name == 'item-wear': keys += ['W','b','period','period','period','period','period']
      subprocess.run(['xdotool','key','--delay','200']+keys,env=env,check=True)
      trap_followup+=1
+    if (name == 'sol61-conduct-kill' and trap_followup < 2
+            and ids and time.monotonic()-started >= 12 + 6*trap_followup and not ready):
+     # The copied hints fixture may discard queued attacks at first encounter.
+     # Resume only this isolated X display and repeat normal autofight input.
+     subprocess.run(['xdotool','key','--delay','150','space','Escape']+['Tab']*12,env=env,check=True)
+     trap_followup+=1
     if (name.startswith(('shout-','speech-')) and trap_followup < 2
             and ids and time.monotonic()-started >= 12+12*trap_followup and not ready):
      # A forced first-encounter more screen discards the queued look command.
@@ -109,6 +115,10 @@ try:
     if ready:
      reached=True
      subprocess.run(['xdotool','mousemove','3839','2159'],env=env,check=True)
+     if name=='sol61-conduct-kill':
+      # Autofight may leave repeated no-target lines below the kill. Show
+      # actual message history so the accepted ID is visibly reviewable.
+      subprocess.run(['xdotool','key','ctrl+p'],env=env,check=True)
      if name=='encounter-first-tiles':
       # ID binding precedes the forced encounter --more-- screen. Show the
       # actual tutorial text before capturing its line wrapping.

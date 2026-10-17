@@ -1,0 +1,163 @@
+{
+  "model": "gpt-6.1-sol",
+  "reviewer_model": "gpt-6.1-sol",
+  "messages": [
+    {
+      "id": "sol61.name.scroll.labelled",
+      "context": "按物品可见外观、尸体来源或怪物颜色枚举选择完整名称模板；GPT-6.1-Sol翻译并独立审校。label为原样专名；颜色仅为物种形容词。",
+      "en": "scroll labelled {label}",
+      "zh": "标签为“{label}”的卷轴",
+      "params": {
+        "label": "name"
+      },
+      "source": {
+        "file": "zh-display-name.cc",
+        "anchor": "translated_item_name"
+      }
+    },
+    {
+      "id": "sol61.name.corpse.body",
+      "context": "按物品可见外观、尸体来源或怪物颜色枚举选择完整名称模板；GPT-6.1-Sol翻译并独立审校。label为原样专名；颜色仅为物种形容词。",
+      "en": "{species} corpse",
+      "zh": "{species}尸体",
+      "params": {
+        "species": "name"
+      },
+      "source": {
+        "file": "zh-display-name.cc",
+        "anchor": "translated_item_name"
+      }
+    },
+    {
+      "id": "sol61.name.corpse.skeleton",
+      "context": "按物品可见外观、尸体来源或怪物颜色枚举选择完整名称模板；GPT-6.1-Sol翻译并独立审校。label为原样专名；颜色仅为物种形容词。",
+      "en": "{species} skeleton",
+      "zh": "{species}骸骨",
+      "params": {
+        "species": "name"
+      },
+      "source": {
+        "file": "zh-display-name.cc",
+        "anchor": "translated_item_name"
+      }
+    },
+    {
+      "id": "sol61.name.ugly.red",
+      "context": "按物品可见外观、尸体来源或怪物颜色枚举选择完整名称模板；GPT-6.1-Sol翻译并独立审校。label为原样专名；颜色仅为物种形容词。",
+      "en": "red {species}",
+      "zh": "红色{species}",
+      "params": {
+        "species": "name"
+      },
+      "source": {
+        "file": "zh-display-name.cc",
+        "anchor": "_monster_visible_species_arg"
+      }
+    },
+    {
+      "id": "sol61.name.ugly.brown",
+      "context": "按物品可见外观、尸体来源或怪物颜色枚举选择完整名称模板；GPT-6.1-Sol翻译并独立审校。label为原样专名；颜色仅为物种形容词。",
+      "en": "brown {species}",
+      "zh": "褐色{species}",
+      "params": {
+        "species": "name"
+      },
+      "source": {
+        "file": "zh-display-name.cc",
+        "anchor": "_monster_visible_species_arg"
+      }
+    },
+    {
+      "id": "sol61.name.ugly.green",
+      "context": "按物品可见外观、尸体来源或怪物颜色枚举选择完整名称模板；GPT-6.1-Sol翻译并独立审校。label为原样专名；颜色仅为物种形容词。",
+      "en": "green {species}",
+      "zh": "绿色{species}",
+      "params": {
+        "species": "name"
+      },
+      "source": {
+        "file": "zh-display-name.cc",
+        "anchor": "_monster_visible_species_arg"
+      }
+    },
+    {
+      "id": "sol61.name.ugly.cyan",
+      "context": "按物品可见外观、尸体来源或怪物颜色枚举选择完整名称模板；GPT-6.1-Sol翻译并独立审校。label为原样专名；颜色仅为物种形容词。",
+      "en": "cyan {species}",
+      "zh": "青色{species}",
+      "params": {
+        "species": "name"
+      },
+      "source": {
+        "file": "zh-display-name.cc",
+        "anchor": "_monster_visible_species_arg"
+      }
+    },
+    {
+      "id": "sol61.name.ugly.purple",
+      "context": "按物品可见外观、尸体来源或怪物颜色枚举选择完整名称模板；GPT-6.1-Sol翻译并独立审校。label为原样专名；颜色仅为物种形容词。",
+      "en": "purple {species}",
+      "zh": "紫色{species}",
+      "params": {
+        "species": "name"
+      },
+      "source": {
+        "file": "zh-display-name.cc",
+        "anchor": "_monster_visible_species_arg"
+      }
+    },
+    {
+      "id": "sol61.name.ugly.white",
+      "context": "按物品可见外观、尸体来源或怪物颜色枚举选择完整名称模板；GPT-6.1-Sol翻译并独立审校。label为原样专名；颜色仅为物种形容词。",
+      "en": "white {species}",
+      "zh": "白色{species}",
+      "params": {
+        "species": "name"
+      },
+      "source": {
+        "file": "zh-display-name.cc",
+        "anchor": "_monster_visible_species_arg"
+      }
+    },
+    {
+      "id": "sol61.name.corpse.single",
+      "context": "尸体/骸骨不定冠词和数量的完整量词模板；GPT-6.1-Sol翻译并独立审校。",
+      "en": "a {name}",
+      "zh": "一具{name}",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "zh-display-name.cc",
+        "anchor": "translated_item_name"
+      }
+    },
+    {
+      "id": "sol61.name.corpse.quantity",
+      "context": "尸体/骸骨不定冠词和数量的完整量词模板；GPT-6.1-Sol翻译并独立审校。",
+      "en": "{count} {name}",
+      "zh": "{count}具{name}",
+      "params": {
+        "count": "integer",
+        "name": "name"
+      },
+      "source": {
+        "file": "zh-display-name.cc",
+        "anchor": "translated_item_name"
+      }
+    },
+    {
+      "id": "sol61.name.monster.helpless",
+      "context": "由monster_info的HELPLESS_KEY布尔属性选择完整形容词模板；复用已审校helpless术语“无助的”，保留其他物种/头数/颜色及未知限定词回退；GPT-6.1-Sol翻译并独立审校。",
+      "en": "helpless {species}",
+      "zh": "无助的{species}",
+      "params": {
+        "species": "name"
+      },
+      "source": {
+        "file": "zh-display-name.cc",
+        "anchor": "_monster_visible_species_arg"
+      }
+    }
+  ]
+}

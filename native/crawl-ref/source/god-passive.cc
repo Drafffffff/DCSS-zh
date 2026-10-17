@@ -1,4 +1,5 @@
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "god-passive.h"
 
@@ -379,7 +380,7 @@ void jiyva_eat_offlevel_items()
                 dprf("Eating %s on %s",
                      si->name(DESC_PLAIN).c_str(), lid.describe().c_str());
 
-                mpr("You hear a distant slurping noise.");
+                mpr(zh_message("character.fixed.dba1d7510ef2"));
                 item_was_destroyed(*si);
                 destroy_item(si.index());
             }
@@ -770,7 +771,8 @@ void qazlal_element_adapt(beam_type flavour, int strength)
 
     beam_type what = BEAM_NONE;
     duration_type dur = NUM_DURATIONS;
-    string descript = "";
+    const char *message_new = nullptr;
+    const char *message_renewed = nullptr;
     switch (get_beam_resist_type(flavour))
     {
         case BEAM_FIRE:
@@ -778,22 +780,26 @@ void qazlal_element_adapt(beam_type flavour, int strength)
         case BEAM_STEAM:
             what = BEAM_FIRE;
             dur = DUR_QAZLAL_FIRE_RES;
-            descript = "fire";
+            message_new = "character.qazlal.adapt.fire.new";
+            message_renewed = "character.qazlal.adapt.fire.renewed";
             break;
         case BEAM_COLD:
             what = BEAM_COLD;
             dur = DUR_QAZLAL_COLD_RES;
-            descript = "cold";
+            message_new = "character.qazlal.adapt.cold.new";
+            message_renewed = "character.qazlal.adapt.cold.renewed";
             break;
         case BEAM_ELECTRICITY:
             what = BEAM_ELECTRICITY;
             dur = DUR_QAZLAL_ELEC_RES;
-            descript = "electricity";
+            message_new = "character.qazlal.adapt.elec.new";
+            message_renewed = "character.qazlal.adapt.elec.renewed";
             break;
         case BEAM_MISSILE:
             what = BEAM_MISSILE;
             dur = DUR_QAZLAL_AC;
-            descript = "physical attacks";
+            message_new = "character.qazlal.adapt.physical.new";
+            message_renewed = "character.qazlal.adapt.physical.renewed";
             break;
         default:
             return;
@@ -801,31 +807,30 @@ void qazlal_element_adapt(beam_type flavour, int strength)
 
     if (what != BEAM_FIRE && you.duration[DUR_QAZLAL_FIRE_RES])
     {
-        mprf(MSGCH_DURATION, "Your resistance to fire fades away.");
+        mpr(zh_message("character.fixed.c2ca863e8af0"), MSGCH_DURATION);
         you.duration[DUR_QAZLAL_FIRE_RES] = 0;
     }
 
     if (what != BEAM_COLD && you.duration[DUR_QAZLAL_COLD_RES])
     {
-        mprf(MSGCH_DURATION, "Your resistance to cold fades away.");
+        mpr(zh_message("character.fixed.73252e8e1538"), MSGCH_DURATION);
         you.duration[DUR_QAZLAL_COLD_RES] = 0;
     }
 
     if (what != BEAM_ELECTRICITY && you.duration[DUR_QAZLAL_ELEC_RES])
     {
-        mprf(MSGCH_DURATION, "Your resistance to electricity fades away.");
+        mpr(zh_message("character.fixed.13dde23789af"), MSGCH_DURATION);
         you.duration[DUR_QAZLAL_ELEC_RES] = 0;
     }
 
     if (what != BEAM_MISSILE && you.duration[DUR_QAZLAL_AC])
     {
-        mprf(MSGCH_DURATION, "Your resistance to physical damage fades away.");
+        mpr(zh_message("character.fixed.5b40caeb87ea"), MSGCH_DURATION);
         you.duration[DUR_QAZLAL_AC] = 0;
         you.redraw_armour_class = true;
     }
 
-    mprf(MSGCH_GOD, "You feel %sprotected from %s.",
-         you.duration[dur] > 0 ? "more " : "", descript.c_str());
+    mpr(zh_message(you.duration[dur] > 0 ? message_renewed : message_new), MSGCH_GOD);
 
     // was scaled by 10 * strength. But the strength parameter is used so inconsistently that
     // it seems like a constant would be better, based on the typical value of 2.
@@ -1862,7 +1867,7 @@ void wu_jian_trigger_serpents_lash(bool wall_jump)
     if (you.attribute[ATTR_SERPENTS_LASH] == 0)
     {
         you.increase_duration(DUR_EXHAUSTED, 12 + random2(5));
-        mpr("Your supernatural speed expires.");
+        mpr(zh_message("character.fixed.b0b6c10ebaa0"));
     }
 }
 
@@ -1906,7 +1911,7 @@ void wu_jian_end_heavenly_storm()
     you.duration[DUR_HEAVENLY_STORM] = 0;
     you.redraw_evasion = true;
     invalidate_agrid(true);
-    mprf(MSGCH_GOD, "The heavenly storm settles.");
+    mpr(zh_message("character.fixed.106a24b75a35"), MSGCH_GOD);
 }
 
 bool wu_jian_has_momentum(wu_jian_attack_type attack_type)
@@ -2348,7 +2353,7 @@ void makhleb_execution_activate()
 {
     string talk = getSpeakString("Makhleb executioner chatter");
     mprf(MSGCH_TALK, "<lightred>%s</lightred>", talk.c_str());
-    mprf(MSGCH_DURATION, "A whirlwind of blades manifests around you!");
+    mpr(zh_message("character.fixed.667a71e35b04"), MSGCH_DURATION);
 
     you.duration[DUR_EXECUTION] = random_range(50, 70);
 #ifdef USE_TILE

@@ -754,26 +754,24 @@ void attack::stab_message()
     case 4:     // confused/fleeing/distracted
         if (!one_chance_in(3))
         {
-            mprf("You catch %s completely off-guard!",
-                  defender->name(DESC_THE).c_str());
+            mpr(zh_message("sol61.combat.stab.catch", {zh_actor_arg("target", defender)}));
         }
         else
         {
-            mprf("You %s %s from behind!",
-                  you.has_mutation(MUT_PAWS) ? "pounce on" : "strike",
-                  defender->name(DESC_THE).c_str());
+            mpr(zh_message(you.has_mutation(MUT_PAWS)
+                ? "sol61.combat.stab.behind.pounce"
+                : "sol61.combat.stab.behind.strike",
+                {zh_actor_arg("target", defender)}));
         }
         break;
     case 1:
         if (you.has_mutation(MUT_PAWS) && coinflip())
         {
-            mprf("You pounce on the unaware %s!",
-                 defender->name(DESC_PLAIN).c_str());
+            mpr(zh_message("sol61.combat.stab.unaware", {zh_actor_arg("target", defender, DESC_PLAIN)}));
             break;
         }
-        mprf("%s fails to defend %s.",
-              defender->name(DESC_THE).c_str(),
-              defender->pronoun(PRONOUN_REFLEXIVE).c_str());
+        mpr(zh_message("sol61.combat.stab.defend", {zh_actor_arg("target", defender),
+            zh_text("self", defender->pronoun(PRONOUN_REFLEXIVE), "自身")}));
         break;
     }
 

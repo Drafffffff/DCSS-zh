@@ -22,6 +22,8 @@
 #include "items.h"
 #include "level-state-type.h"
 #include "message.h"
+#include "zh-message.h"
+#include "zh-display-name.h"
 #include "mon-behv.h" // ME_WHACK
 #include "ouch.h"
 #include "random-pick.h"
@@ -48,7 +50,8 @@ spret cast_putrefaction(monster* target, int pow, bool fail)
     env.markers.add(marker);
     env.markers.clear_need_activate();
 
-    mprf("Rot billows forth from %s wounds!", target->name(DESC_ITS).c_str());
+    mpr(zh_message("sol61.combat.putrefaction", {
+        zh_monster_arg("target", *target, DESC_ITS)}));
 
     drain_player(75 - div_rand_round(pow * 4, 10), true, true);
 
@@ -59,7 +62,7 @@ spret kindle_blastmotes(int pow, bool fail)
 {
     if (cloud_at(you.pos()))
     {
-        mpr("There's already a cloud here!");
+        mpr(zh_message("sol61.combat.blast.existing"));
         return spret::abort;
     }
 
@@ -71,7 +74,7 @@ spret kindle_blastmotes(int pow, bool fail)
     // Longish duration to support setting up silly traps.
     you.props[BLASTMOTE_IMMUNE_KEY] = true;
     place_cloud(CLOUD_BLASTMOTES, you.pos(), random_range(20, 30), &you);
-    mpr("A cloud of volatile blastmotes flares up around you! Run!");
+    mpr(zh_message("sol61.combat.blast.create"));
 
     return spret::success;
 }
@@ -211,14 +214,14 @@ spret scroll_of_poison(bool scroll_unknown)
 
     if (created > 0)
     {
-        mpr("The air fills with toxic fumes!");
+        mpr(zh_message("sol61.combat.poison.create"));
         return spret::success;
     }
     if (!scroll_unknown && !unknown_unseen)
     {
-        mpr("There's no open space to fill with poison.");
+        mpr(zh_message("sol61.combat.poison.space"));
         return spret::abort;
     }
-    canned_msg(MSG_NOTHING_HAPPENS);
+    mpr(zh_message("sol61.combat.nothing"));
     return spret::fail;
 }

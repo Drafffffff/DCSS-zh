@@ -1,0 +1,4273 @@
+{
+  "model": "gpt-6.1-sol",
+  "baseline": "cc710081cd3f163eabf78c65b9144e040ef30aa8",
+  "status": "partial module; producer package verified standalone; full build and replay pending parent",
+  "message_ids": [
+    "sol61.combat.deaths_door.defy",
+    "sol61.combat.ice.thicken",
+    "sol61.combat.ice.cover",
+    "sol61.combat.fire.refresh",
+    "sol61.combat.fire.ice",
+    "sol61.combat.fire.cover",
+    "sol61.combat.revivify.heal",
+    "sol61.combat.fugue.refresh",
+    "sol61.combat.fugue.call",
+    "sol61.combat.fugue.wail",
+    "sol61.combat.silence",
+    "sol61.combat.liquefy",
+    "sol61.combat.jinx.no_target",
+    "sol61.combat.catalyst",
+    "sol61.combat.deaths_door.hourglass",
+    "sol61.combat.ice.melt",
+    "sol61.combat.revivify.release",
+    "sol61.combat.jinx.more",
+    "sol61.combat.jinx.some",
+    "sol61.combat.jinx.will",
+    "sol61.combat.swift",
+    "sol61.combat.blood.death_door",
+    "sol61.combat.blood.bloodless",
+    "sol61.combat.blood.fail",
+    "sol61.combat.blood.success",
+    "sol61.combat.death_channel",
+    "sol61.combat.animate.refresh",
+    "sol61.combat.animate.call",
+    "sol61.combat.cactus",
+    "sol61.combat.armour.none",
+    "sol61.combat.ice_beast",
+    "sol61.combat.viper",
+    "sol61.combat.dog.call",
+    "sol61.combat.dog.distant",
+    "sol61.combat.dog.imbue",
+    "sol61.combat.mammal",
+    "sol61.combat.armour.echo",
+    "sol61.combat.hydra",
+    "sol61.combat.sphinx.pair",
+    "sol61.combat.sphinx.single",
+    "sol61.combat.nothing",
+    "sol61.combat.summon.space",
+    "sol61.combat.blast.existing",
+    "sol61.combat.blast.create",
+    "sol61.combat.poison.create",
+    "sol61.combat.poison.space",
+    "sol61.combat.putrefaction",
+    "sol61.combat.stab.catch",
+    "sol61.combat.stab.behind.strike",
+    "sol61.combat.stab.behind.pounce",
+    "sol61.combat.stab.unaware",
+    "sol61.combat.stab.defend",
+    "sol61.combat.menagerie.player",
+    "sol61.combat.menagerie.monster"
+  ],
+  "changed_source_files": [
+    "spl-selfench.cc",
+    "spl-other.cc",
+    "spl-summoning.cc",
+    "spl-clouds.cc",
+    "attack.cc"
+  ],
+  "extracted_production_functions": {
+    "spl-selfench.cc": [
+      "spret cast_deaths_door(",
+      "void remove_ice_armour(",
+      "spret ice_armour(",
+      "void fiery_armour(",
+      "spret cast_revivification(",
+      "spret cast_swiftness(",
+      "spret cast_fugue_of_the_fallen(",
+      "void do_fugue_wail(",
+      "spret cast_silence(",
+      "spret cast_liquefaction(",
+      "bool jinxbite_targets_available(",
+      "spret cast_jinxbite(",
+      "spret cast_detonation_catalyst("
+    ],
+    "spl-other.cc": [
+      "spret cast_sublimation_of_blood(",
+      "spret cast_death_channel(",
+      "static bool _dismiss_dead(",
+      "spret cast_animate_dead("
+    ],
+    "spl-summoning.cc": [
+      "bool player_summon_check(const vector<monster_type>&",
+      "bool player_summon_check(monster_type type,",
+      "spret cast_summon_small_mammal(",
+      "spret cast_call_canine_familiar(",
+      "spret cast_summon_cactus(",
+      "spret cast_awaken_armour(",
+      "spret cast_summon_ice_beast(",
+      "spret cast_monstrous_menagerie(",
+      "spret cast_sphinx_sisters(",
+      "spret cast_summon_hydra(",
+      "spret cast_summon_mana_viper("
+    ],
+    "spl-clouds.cc": [
+      "spret cast_putrefaction(",
+      "spret kindle_blastmotes(",
+      "spret scroll_of_poison("
+    ],
+    "attack.cc": [
+      "void attack::stab_message("
+    ]
+  },
+  "case_count": 174768,
+  "test": "python3 tools/test_sol61_combat_spells.py",
+  "catalog_policy": "Private temporary catalog; no generated source writes",
+  "remaining_call_candidates": {
+    "attack.cc": [
+      {
+        "line": 1247,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_GAIN_HEALTH);"
+      },
+      {
+        "line": 1252,
+        "call": "mprf",
+        "source": "mprf(\"%s draws strength from your wounds!\",\n                         attacker->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1257,
+        "call": "mprf",
+        "source": "mprf(\"%s is healed.\",\n                         attacker->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1325,
+        "call": "mprf",
+        "source": "mprf(\"%s is completely immune to your confusing touch!\",\n                     mon->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1358,
+        "call": "mprf",
+        "source": "mprf(\"%s becomes entangled by vines.\", defender->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1385,
+        "call": "mpr",
+        "source": "mpr(special_damage_message);"
+      },
+      {
+        "line": 1635,
+        "call": "mprf",
+        "source": "mprf(\"Your paragon deflects %s attack away from you.\",\n                    attacker->name(DESC_ITS).c_str());"
+      }
+    ],
+    "melee-attack.cc": [
+      {
+        "line": 310,
+        "call": "mprf",
+        "source": "mprf(\"%s strikes at %s from the darkness!\",\n                 attacker->name(DESC_THE, true).c_str(),\n                 defender->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 420,
+        "call": "mprf",
+        "source": "mprf(\"%s is struck blind by the light of your shield.\",\n                    attacker->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 637,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*defender->as_monster(), \" is struck blind.\");"
+      },
+      {
+        "line": 670,
+        "call": "mprf",
+        "source": "mprf(\"You knock %s out of %s grip!\",\n                wpn->name(DESC_THE).c_str(),\n                defender->name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 698,
+        "call": "mprf",
+        "source": "mprf(\"You sink your fangs into %s and drink %s %s.\",\n                    mon->name(DESC_THE, true).c_str(),\n                    mon->pronoun(PRONOUN_POSSESSIVE).c_str(),\n                    mon->blood_name().c_str());"
+      },
+      {
+        "line": 705,
+        "call": "mprf",
+        "source": "mprf(\"You sink your fangs into %s and drain %s dry!\",\n                    mon->name(DESC_THE, true).c_str(),\n                    mon->pronoun(PRONOUN_OBJECTIVE).c_str());"
+      },
+      {
+        "line": 720,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_GAIN_HEALTH);"
+      },
+      {
+        "line": 744,
+        "call": "mprf",
+        "source": "mprf(\"%s crush%s %s against the %s%s\",\n                        attacker->name(DESC_THE).c_str(),\n                        attacker->is_monster() ? \"es\" : \"\",\n                        defender->name(DESC_THE).c_str(),\n                        feat_is_wall(env.grid(back)) ? \"wall\"\n                                                    : raw_feature_description(back).c_str(),\n                        attack_strength_punctuation(special_damage).c_str());"
+      },
+      {
+        "line": 778,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(m, msg.c_str());"
+      },
+      {
+        "line": 792,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(m, \" begins to glow.\");"
+      },
+      {
+        "line": 794,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(m, \" glows dangerously bright.\");"
+      },
+      {
+        "line": 825,
+        "call": "mprf",
+        "source": "mprf(\"%s orb emits a pulse of dizzying energy.\", defender->name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 879,
+        "call": "mprf",
+        "source": "mprf(\"Mushrooms sprout behind %s.\", mon.name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1046,
+        "call": "mprf",
+        "source": "mprf(\"%s and strikes %s%s\",\n                 airstrike_intensity_display(spaces, dummy).c_str(),\n                 defender->name(DESC_THE).c_str(),\n                 attack_strength_punctuation(special_damage).c_str());"
+      },
+      {
+        "line": 1072,
+        "call": "mprf",
+        "source": "mprf(\"%s is engulfed in spores.\", defender->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1159,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(m, \" decays.\");"
+      },
+      {
+        "line": 1168,
+        "call": "mprf",
+        "source": "mprf(\"your slimy shroud breaks as it bends %s attack away%s\",\n                     atk_name(DESC_ITS).c_str(),\n                     attack_strength_punctuation(damage_done).c_str());"
+      },
+      {
+        "line": 1229,
+        "call": "mprf",
+        "source": "mprf(\"You devour %s%s!\",\n         size_delta <= 0 ? \"\" :\n         size_delta <= 1 ? \"half of \" :\n                           \"a chunk of \",\n         victim.name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1238,
+        "call": "mprf",
+        "source": "mprf(\"It tastes like %s.\",\n             mons_type_name(mons_genus(victim.type), DESC_PLAIN).c_str());"
+      },
+      {
+        "line": 1292,
+        "call": "mprf",
+        "source": "mprf(\"You spit out %s as %s %s & %s in your maw!\",\n             defender.name(DESC_THE).c_str(),\n             defender.pronoun(PRONOUN_SUBJECTIVE).c_str(),\n             conjugate_verb(\"twist\", defender.pronoun_plurality()).c_str(),\n             conjugate_verb(\"change\", defender.pronoun_plurality()).c_str());"
+      },
+      {
+        "line": 1343,
+        "call": "mprf",
+        "source": "mprf(\"%s freezes in fear!\", mi->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1888,
+        "call": "mprf",
+        "source": "mprf(\"You attempt to attack %s, but flinch away in fear!\",\n             defender->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1968,
+        "call": "mprf",
+        "source": "mprf(\"%s %s flashes viciously!\", attacker->name(DESC_ITS).c_str(),\n                                         weapon->name(DESC_PLAIN).c_str());"
+      },
+      {
+        "line": 2612,
+        "call": "mprf",
+        "source": "mprf(\"Your %s misses %s.\", aux_attack.c_str(),\n         defender->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 2730,
+        "call": "mprf",
+        "source": "mprf(\"You %s %s%s.\",\n                    aux_verb.c_str(),\n                    defender->name(DESC_THE).c_str(),\n                    you.can_see(*defender) ? \", but do no damage\" : \"\");"
+      },
+      {
+        "line": 2758,
+        "call": "mprf",
+        "source": "mprf(\"You sap %s willpower!\",\n                         defender->as_monster()->pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 2770,
+        "call": "mprf",
+        "source": "mprf(\"You drain %s %s.\",\n                     defender->as_monster()->pronoun(PRONOUN_POSSESSIVE).c_str(),\n                     spell_user ? \"magic\" : \"power\");"
+      },
+      {
+        "line": 2813,
+        "call": "mprf",
+        "source": "mprf(\"%s %s %s%s%s\",\n         atk == UNAT_MEDUSA_STINGER ? \"Your tendrils\" : \"You\",\n         aux_verb.c_str(),\n         defender->name(DESC_THE).c_str(),\n         debug_damage_number().c_str(),\n         attack_strength_punctuation(damage_done).c_str());"
+      },
+      {
+        "line": 3198,
+        "call": "mprf",
+        "source": "mprf(\"%s fire resistance is stripped away!\",\n             def_name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 3268,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*defender->as_monster(), \" grows two more!\");"
+      },
+      {
+        "line": 3382,
+        "call": "mprf",
+        "source": "mprf(\"%s %s %s last head off!\",\n                 atk_name(DESC_THE).c_str(),\n                 attacker->conj_verb(verb).c_str(),\n                 apostrophise(defender_name(true)).c_str());"
+      },
+      {
+        "line": 3402,
+        "call": "mprf",
+        "source": "mprf(\"%s %s one of %s heads off!\",\n             atk_name(DESC_THE).c_str(),\n             attacker->conj_verb(verb).c_str(),\n             apostrophise(defender_name(true)).c_str());"
+      },
+      {
+        "line": 3432,
+        "call": "mpr",
+        "source": "mpr(you.hands_act(\"burn\", \"!\"));"
+      },
+      {
+        "line": 3435,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*attacker->as_monster(),\n                               \" is burned by acid!\");"
+      },
+      {
+        "line": 3549,
+        "call": "mpr",
+        "source": "mpr(staff_message(staff, dam));"
+      },
+      {
+        "line": 3998,
+        "call": "mprf",
+        "source": "mprf(\"%s %s engulfed in flames%s\",\n                 defender_name(false).c_str(),\n                 defender->conj_verb(\"are\").c_str(),\n                 attack_strength_punctuation(special_damage).c_str());"
+      },
+      {
+        "line": 4018,
+        "call": "mprf",
+        "source": "mprf(\"%s %s %s%s\",\n                 atk_name(DESC_THE).c_str(),\n                 attacker->conj_verb(\"freeze\").c_str(),\n                 defender_name(true).c_str(),\n                 attack_strength_punctuation(special_damage).c_str());"
+      },
+      {
+        "line": 4039,
+        "call": "mprf",
+        "source": "mprf(\"%s %s %s%s\",\n                 atk_name(DESC_THE).c_str(),\n                 attacker->conj_verb(\"shock\").c_str(),\n                 defender_name(true).c_str(),\n                 attack_strength_punctuation(special_damage).c_str());"
+      },
+      {
+        "line": 4071,
+        "call": "mprf",
+        "source": "mprf(\"%s %s vitality from %s injuries!\",\n                         atk_name(DESC_THE).c_str(),\n                         attacker->conj_verb(\"draw\").c_str(),\n                         def_name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 4104,
+        "call": "mprf",
+        "source": "mprf(\"%s %s engulfed in a cloud of dizzying spores!\",\n                     defender->name(DESC_THE).c_str(),\n                     defender->conj_verb(\"are\").c_str());"
+      },
+      {
+        "line": 4114,
+        "call": "mprf",
+        "source": "mprf(\"%s %s afflicted by dizzying energies!\",\n                     defender->name(DESC_THE).c_str(),\n                     defender->conj_verb(\"are\").c_str());"
+      },
+      {
+        "line": 4137,
+        "call": "mprf",
+        "source": "mprf(\"%s %s skewered by barbed spikes.\",\n                     defender->name(DESC_THE).c_str(),\n                     defender->conj_verb(\"are\").c_str());"
+      },
+      {
+        "line": 4215,
+        "call": "mprf",
+        "source": "mprf(\"%s %s %s!\",\n                 atk_name(DESC_THE).c_str(),\n                 attacker->conj_verb(\"infuriate\").c_str(),\n                 defender_name(true).c_str());"
+      },
+      {
+        "line": 4242,
+        "call": "mprf",
+        "source": "mprf(\"%s %s %s%s\",\n                 atk_name(DESC_THE).c_str(),\n                 attacker->conj_verb(\"sear\").c_str(),\n                 defender_name(true).c_str(),\n                 attack_strength_punctuation(special_damage).c_str());"
+      },
+      {
+        "line": 4260,
+        "call": "mprf",
+        "source": "mprf(\"%s %s %s%s\",\n                 atk_name(DESC_THE).c_str(),\n                 attacker->conj_verb(\"sear\").c_str(),\n                 defender_name(true).c_str(),\n                 attack_strength_punctuation(special_damage).c_str());"
+      },
+      {
+        "line": 4287,
+        "call": "mprf",
+        "source": "mprf(\"%s drains %s %s.\",\n                     attacker->name(DESC_THE).c_str(),\n                     defender->pronoun(PRONOUN_POSSESSIVE).c_str(),\n                     spell_user ? \"magic\" : \"power\");"
+      },
+      {
+        "line": 4299,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*attacker->as_monster(),\n                                       spell_user\n                                       ? \" looks very invigorated.\"\n                                       : \" looks invigorated.\");"
+      },
+      {
+        "line": 4323,
+        "call": "mprf",
+        "source": "mprf(\"%s %s %s.\",\n                 atk_name(DESC_THE).c_str(),\n                 attacker->conj_verb(\"grab\").c_str(),\n                 defender_name(true).c_str());"
+      },
+      {
+        "line": 4353,
+        "call": "mprf",
+        "source": "mprf(\"%s %s %s!\",\n                    atk_name(DESC_THE).c_str(),\n                    attacker->conj_verb(\"burn\").c_str(),\n                    defender_name(true).c_str());"
+      },
+      {
+        "line": 4390,
+        "call": "mprf",
+        "source": "mprf(\"%s %s %s%s\",\n                    atk_name(DESC_THE).c_str(),\n                    attacker->conj_verb(\"drown\").c_str(),\n                    defender_name(true).c_str(),\n                    attack_strength_punctuation(special_damage).c_str());"
+      },
+      {
+        "line": 4437,
+        "call": "mprf",
+        "source": "mprf(\"Faint brimstone surges around %s!\",\n                    defender_name(true).c_str());"
+      },
+      {
+        "line": 4459,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" enters a blood-rage!\");"
+      },
+      {
+        "line": 4464,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" tastes blood and grows stronger!\");"
+      },
+      {
+        "line": 4478,
+        "call": "mprf",
+        "source": "mprf(\"%s %s engulfed in a cloud of soporific spores!\",\n                     defender->name(DESC_THE).c_str(),\n                     defender->conj_verb(\"are\").c_str());"
+      },
+      {
+        "line": 4516,
+        "call": "mprf",
+        "source": "mprf(MSGCH_DANGER, \"You %s!\",\n                            initial ? \"start to liquefy\" : \"liquefy further\");"
+      },
+      {
+        "line": 4527,
+        "call": "mprf",
+        "source": "mprf(\"%s vents fumes.\", attacker->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 4572,
+        "call": "mprf",
+        "source": "mprf(\"%s and strikes %s%s\",\n                 airstrike_intensity_display(spaces, generic).c_str(),\n                 defender->name(DESC_THE).c_str(),\n                 attack_strength_punctuation(special_damage).c_str());"
+      },
+      {
+        "line": 4628,
+        "call": "mpr",
+        "source": "mpr(special_damage_message);"
+      },
+      {
+        "line": 4662,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is burned by your cloak of flames.\");"
+      },
+      {
+        "line": 4695,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is very cold.\");"
+      },
+      {
+        "line": 4722,
+        "call": "mprf",
+        "source": "mprf(\"The eyeballs on your body gaze at %s.\",\n                 mon->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 4742,
+        "call": "mprf",
+        "source": "mprf(\"Your tendrils lash around %s %s and pull it to the ground!\",\n                 apostrophise(mon->name(DESC_THE)).c_str(),\n                 mons_wpn->name(DESC_PLAIN).c_str());"
+      },
+      {
+        "line": 4769,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*attacker->as_monster(),\n                                    \" is struck by your spines.\");"
+      },
+      {
+        "line": 4782,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*attacker->as_monster(),\n                                       \" is struck by your quills.\");"
+      },
+      {
+        "line": 4811,
+        "call": "mprf",
+        "source": "mprf(\"%s %s struck by %s %s.\", attacker->name(DESC_THE).c_str(),\n                     attacker->conj_verb(\"are\").c_str(),\n                     defender->name(DESC_ITS).c_str(),\n                     defender->type == MONS_BRIAR_PATCH ? \"thorns\"\n                                                        : \"spines\");"
+      },
+      {
+        "line": 4849,
+        "call": "mprf",
+        "source": "mprf(\"%s is seared by the foul flame within you%s\",\n                 attacker->name(DESC_THE).c_str(),\n                 attack_strength_punctuation(dmg).c_str());"
+      },
+      {
+        "line": 4904,
+        "call": "mpr",
+        "source": "mpr(msg);"
+      },
+      {
+        "line": 4917,
+        "call": "mprf",
+        "source": "mprf(\"%s riposte%s.\", defender->name(DESC_THE).c_str(),\n             defender->is_player() ? \"\" : \"s\");"
+      },
+      {
+        "line": 5004,
+        "call": "mprf",
+        "source": "mprf(\"%s %s held in place!\",\n                     defender_name(false).c_str(),\n                     defender->conj_verb(\"are\").c_str());"
+      },
+      {
+        "line": 5010,
+        "call": "mprf",
+        "source": "mprf(\"%s %s %s ground!\",\n                     defender_name(false).c_str(),\n                     defender->conj_verb(\"hold\").c_str(),\n                     defender->pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 5027,
+        "call": "mprf",
+        "source": "mprf(\"%s %s backwards!\",\n             defender_name(false).c_str(),\n             defender->conj_verb(verb).c_str());"
+      },
+      {
+        "line": 5080,
+        "call": "mprf",
+        "source": "mprf(\"%s drags %s backwards!\",\n             attacker->name(DESC_THE).c_str(),\n             defender_name(true).c_str());"
+      },
+      {
+        "line": 5487,
+        "call": "mprf",
+        "source": "mprf(\"You rip the existence from %s to re-knit yourself!\", targ_name.c_str());"
+      }
+    ],
+    "ranged-attack.cc": [
+      {
+        "line": 188,
+        "call": "mprf",
+        "source": "mprf(\"%s %s the %s%s\",\n             defender_name(false).c_str(),\n             defender->conj_verb(\"block\").c_str(),\n             proj_name.c_str(),\n             punctuation.c_str());"
+      },
+      {
+        "line": 211,
+        "call": "mprf",
+        "source": "mprf(\"The %s is repelled.\", proj_name.c_str());"
+      },
+      {
+        "line": 224,
+        "call": "mprf",
+        "source": "mprf(\"The %s%s misses %s.\",\n             proj_name.c_str(),\n             evasion_margin_adverb().c_str(),\n             defender_name(false).c_str());"
+      },
+      {
+        "line": 246,
+        "call": "mprf",
+        "source": "mprf(\"Your attached jelly eats the %s!\", proj_name.c_str());"
+      },
+      {
+        "line": 248,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_GAIN_HEALTH);"
+      },
+      {
+        "line": 302,
+        "call": "mprf",
+        "source": "mprf(\"The %s %s %s%s but does no damage.\",\n                    proj_name.c_str(),\n                    attack_verb.c_str(),\n                    defender->name(DESC_THE).c_str(),\n                    mulch_bonus() ? \" and shatters,\" : \"\");"
+      },
+      {
+        "line": 529,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*defender->as_monster(),\n                                       \" is unaffected.\");"
+      },
+      {
+        "line": 533,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_UNAFFECTED);"
+      },
+      {
+        "line": 567,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*defender->as_monster(), \" resists.\");"
+      },
+      {
+        "line": 569,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_RESIST);"
+      },
+      {
+        "line": 671,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_STRANGE_STASIS);"
+      },
+      {
+        "line": 692,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_STRANGE_STASIS);"
+      },
+      {
+        "line": 694,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*defender->as_monster(), \" is unaffected.\");"
+      },
+      {
+        "line": 700,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"You become untethered in space!\");"
+      },
+      {
+        "line": 710,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*dmon, \" becomes untethered in space!\");"
+      },
+      {
+        "line": 760,
+        "call": "mpr",
+        "source": "mpr(special_damage_message);"
+      },
+      {
+        "line": 802,
+        "call": "mprf",
+        "source": "mprf(\"The %s %s %s%s%s%s\",\n         proj_name.c_str(),\n         attack_verb.c_str(),\n         defender_name(false).c_str(),\n         mulch_bonus() ? \" and shatters for extra damage\" : \"\",\n         debug_damage_number().c_str(),\n         attack_strength_punctuation(damage_done).c_str());"
+      }
+    ],
+    "beam.cc": [
+      {
+        "line": 128,
+        "call": "mpr",
+        "source": "mpr(m);"
+      },
+      {
+        "line": 231,
+        "call": "mpr",
+        "source": "mpr(msg);"
+      },
+      {
+        "line": 324,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_OK);"
+      },
+      {
+        "line": 666,
+        "call": "mprf",
+        "source": "mprf(\"%s appears from out of thin air!\",\n                 article_a(name, false).c_str());"
+      },
+      {
+        "line": 869,
+        "call": "mprf",
+        "source": "mprf(MSGCH_SOUND, \"You hear a grinding noise.\");"
+      },
+      {
+        "line": 883,
+        "call": "mpr",
+        "source": "mpr(\"The damaged grate falls apart.\");"
+      },
+      {
+        "line": 893,
+        "call": "mprf",
+        "source": "mprf(\"%s %s shatters into small pieces.\",\n                 agent() && agent()->is_player() ? \"The\" : \"Some\",\n                 wall.c_str());"
+      },
+      {
+        "line": 997,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*plasm, \" begins to grow on the wall!\", false, MSGCH_PLAIN, 0, DESC_A);"
+      },
+      {
+        "line": 1404,
+        "call": "mprf",
+        "source": "mprf(\"%s appears from out of your range of vision.\",\n                 article_a(name, false).c_str());"
+      },
+      {
+        "line": 1465,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1505,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" completely resists.\");"
+      },
+      {
+        "line": 1510,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" resists.\");"
+      },
+      {
+        "line": 1515,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" melts!\");"
+      },
+      {
+        "line": 1519,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is on fire!\");"
+      },
+      {
+        "line": 1522,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is burned terribly!\");"
+      },
+      {
+        "line": 1524,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is scalded terribly!\");"
+      },
+      {
+        "line": 1531,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is doused terribly!\");"
+      },
+      {
+        "line": 1539,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" completely resists.\");"
+      },
+      {
+        "line": 1544,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" resists.\");"
+      },
+      {
+        "line": 1549,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is chilled terribly!\");"
+      },
+      {
+        "line": 1560,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" completely resists.\");"
+      },
+      {
+        "line": 1565,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" resists.\");"
+      },
+      {
+        "line": 1570,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is electrocuted!\");"
+      },
+      {
+        "line": 1580,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" completely resists.\");"
+      },
+      {
+        "line": 1592,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" completely resists.\");"
+      },
+      {
+        "line": 1622,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" partially resists.\");"
+      },
+      {
+        "line": 1654,
+        "call": "mprf",
+        "source": "mprf(\"The mercury splashes!\");"
+      },
+      {
+        "line": 1671,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" completely resists.\");"
+      },
+      {
+        "line": 1684,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" resists.\");"
+      },
+      {
+        "line": 1686,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is drained terribly!\");"
+      },
+      {
+        "line": 1702,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" completely resists.\");"
+      },
+      {
+        "line": 1726,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, hurted == 0 ? \" completely resists.\" :\n                                    hurted < original ? \" resists.\" :\n                                    \" writhes in agony!\");"
+      },
+      {
+        "line": 1740,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" partially resists.\");"
+      },
+      {
+        "line": 1745,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is chilled terribly!\");"
+      },
+      {
+        "line": 1755,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" partially resists.\");"
+      },
+      {
+        "line": 1762,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" melts!\");"
+      },
+      {
+        "line": 1767,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is burned terribly!\");"
+      },
+      {
+        "line": 1776,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" completely resists.\");"
+      },
+      {
+        "line": 1786,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" completely resists.\");"
+      },
+      {
+        "line": 1812,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" completely resists.\");"
+      },
+      {
+        "line": 1836,
+        "call": "mprf",
+        "source": "mprf(\"The bolas passes through %s!\",\n                      mons->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1843,
+        "call": "mprf",
+        "source": "mprf(\"The bolas warps around %s and binds %s in place!\",\n                     mons->name(DESC_THE).c_str(),\n                     mons->pronoun(PRONOUN_OBJECTIVE).c_str());"
+      },
+      {
+        "line": 1886,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is unaffected.\"))\n                *did_msg = true;"
+      },
+      {
+        "line": 1894,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is unaffected.\"))\n                *did_msg = true;"
+      },
+      {
+        "line": 1904,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is unaffected.\"))\n                *did_msg = true;"
+      },
+      {
+        "line": 1917,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons,\n                mons->resist_margin_phrase(res_margin).c_str()))\n        {\n            *did_msg = true;"
+      },
+      {
+        "line": 1970,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(**mi, msg))\n                did_msg = true;"
+      },
+      {
+        "line": 1982,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1996,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" becomes paralysed!\"))\n    {\n        obvious_effect = true;"
+      },
+      {
+        "line": 2016,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" begins to petrify.\");"
+      },
+      {
+        "line": 2031,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" struggles to breathe.\");"
+      },
+      {
+        "line": 2036,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, mons->has_ench(ENCH_SLOW)\n                                         ? \" seems to be slow for longer.\"\n                                         : \" seems to slow down.\");"
+      },
+      {
+        "line": 2073,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, msg);"
+      },
+      {
+        "line": 2121,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is covered in liquid fire!\");"
+      },
+      {
+        "line": 2136,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_RESIST);"
+      },
+      {
+        "line": 2143,
+        "call": "mpr",
+        "source": "mpr(\"You have difficulty breathing.\");"
+      },
+      {
+        "line": 2318,
+        "call": "mprf",
+        "source": "mprf(\"%s life force is offered up.\", victim->name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 2332,
+        "call": "mprf",
+        "source": "mprf(\"%s %s healed.\", ai->name(DESC_THE).c_str(),\n                                      ai->conj_verb(\"are\").c_str());"
+      },
+      {
+        "line": 2346,
+        "call": "mprf",
+        "source": "mprf(\"%s %s life force from %s%s\",\n             agent.name(DESC_THE).c_str(),\n             agent.conj_verb(\"draw\").c_str(),\n             victim.name(DESC_THE).c_str(),\n             attack_strength_punctuation(damage).c_str());"
+      },
+      {
+        "line": 2365,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*agent.as_monster(), \" is healed by the life force!\");"
+      },
+      {
+        "line": 2375,
+        "call": "mprf",
+        "source": "mprf(\"You feel life coursing into your body%s\",\n                 attack_strength_punctuation(hp_gain).c_str());"
+      },
+      {
+        "line": 2638,
+        "call": "mpr",
+        "source": "mpr(\"Your projectile teleports!\");"
+      },
+      {
+        "line": 2660,
+        "call": "mpr",
+        "source": "mpr(\"The wave splashes down.\");"
+      },
+      {
+        "line": 2662,
+        "call": "mpr",
+        "source": "mpr(\"You hear a splash.\");"
+      },
+      {
+        "line": 2725,
+        "call": "mpr",
+        "source": "mpr(\"The mud splashes down.\");"
+      },
+      {
+        "line": 3005,
+        "call": "mprf",
+        "source": "mprf(MSGCH_SOUND, \"You hear a sizzling sound!\");"
+      },
+      {
+        "line": 3565,
+        "call": "mprf",
+        "source": "mprf(\"Your %s blocks the %s... and reflects it back!\",\n                            shield->name(DESC_PLAIN).c_str(),\n                            refl_name.c_str());"
+      },
+      {
+        "line": 3571,
+        "call": "mprf",
+        "source": "mprf(\"You block the %s... and reflect it back!\",\n                            refl_name.c_str());"
+      },
+      {
+        "line": 3578,
+        "call": "mprf",
+        "source": "mprf(\"You block the %s.\", name.c_str());"
+      },
+      {
+        "line": 3610,
+        "call": "mprf",
+        "source": "mprf(\"The %s is repelled.\", name.c_str());"
+      },
+      {
+        "line": 3615,
+        "call": "mprf",
+        "source": "mprf(\"The %s misses you.\", name.c_str());"
+      },
+      {
+        "line": 3640,
+        "call": "mprf",
+        "source": "mprf(\"Something tries to affect you, but you %s.\",\n                     you.willpower() == WILL_INVULN ? \"are unaffected\"\n                                                   : \"resist\");"
+      },
+      {
+        "line": 3649,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_UNAFFECTED);"
+      },
+      {
+        "line": 3654,
+        "call": "mprf",
+        "source": "mprf(\"You%s\", you.resist_margin_phrase(margin).c_str());"
+      },
+      {
+        "line": 3665,
+        "call": "mprf",
+        "source": "mprf(\"Your will lashes out at %s%s\",\n                     mon->name(DESC_THE).c_str(),\n                     attack_strength_punctuation(dam).c_str());"
+      },
+      {
+        "line": 3712,
+        "call": "mpr",
+        "source": "mpr(\"Strange energies course through your body.\");"
+      },
+      {
+        "line": 3805,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"Your will is overpowered!\");"
+      },
+      {
+        "line": 3813,
+        "call": "mpr",
+        "source": "mpr(\"This spell isn't strong enough to banish yourself.\");"
+      },
+      {
+        "line": 3828,
+        "call": "mpr",
+        "source": "mpr(\"Pain shoots through your body!\");"
+      },
+      {
+        "line": 3833,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_UNAFFECTED);"
+      },
+      {
+        "line": 3845,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_UNAFFECTED);"
+      },
+      {
+        "line": 3849,
+        "call": "mpr",
+        "source": "mpr(\"You convulse!\");"
+      },
+      {
+        "line": 3859,
+        "call": "mpr",
+        "source": "mpr(\"Your mind is blasted!\");"
+      },
+      {
+        "line": 3878,
+        "call": "mpr",
+        "source": "mpr(\"You feel a momentary urge to oink.\");"
+      },
+      {
+        "line": 3897,
+        "call": "mprf",
+        "source": "mprf(\"You feel %sfirmly anchored in space.\",\n             you.duration[DUR_DIMENSION_ANCHOR] ? \"more \" : \"\");"
+      },
+      {
+        "line": 3903,
+        "call": "mpr",
+        "source": "mpr(\"Your teleport is interrupted.\");"
+      },
+      {
+        "line": 3933,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_UNAFFECTED);"
+      },
+      {
+        "line": 3964,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_UNAFFECTED);"
+      },
+      {
+        "line": 3972,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_UNAFFECTED);"
+      },
+      {
+        "line": 3976,
+        "call": "mpr",
+        "source": "mpr(\"You feel yourself grow more vulnerable to poison.\");"
+      },
+      {
+        "line": 3994,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"Your magic feels %stainted.\",\n             you.duration[DUR_SAP_MAGIC] ? \"more \" : \"\");"
+      },
+      {
+        "line": 4027,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_UNAFFECTED);"
+      },
+      {
+        "line": 4033,
+        "call": "mpr",
+        "source": "mpr(\"You feel an ill-omen....\");"
+      },
+      {
+        "line": 4043,
+        "call": "mpr",
+        "source": "mpr(\"Your body is warped painfully!\");"
+      },
+      {
+        "line": 4053,
+        "call": "mpr",
+        "source": "mpr(\"Software bugs nibble your toes!\");"
+      },
+      {
+        "line": 4119,
+        "call": "mpr",
+        "source": "mpr(\"You feel your light-headedness will last longer.\");"
+      },
+      {
+        "line": 4121,
+        "call": "mpr",
+        "source": "mpr(\"You feel light-headed.\");"
+      },
+      {
+        "line": 4135,
+        "call": "mpr",
+        "source": "mpr(\"You feel your inability to drink will last longer.\");"
+      },
+      {
+        "line": 4137,
+        "call": "mpr",
+        "source": "mpr(\"You feel unable to drink.\");"
+      },
+      {
+        "line": 4155,
+        "call": "mpr",
+        "source": "mpr(\"You feel your silence will last longer.\");"
+      },
+      {
+        "line": 4157,
+        "call": "mpr",
+        "source": "mpr(\"An unnatural silence engulfs you.\");"
+      },
+      {
+        "line": 4174,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons,\n                        \" looks more vulnerable to fire.\");"
+      },
+      {
+        "line": 4183,
+        "call": "mpr",
+        "source": "mpr(\"You feel your vulnerability to fire will last \"\n                        \"longer.\");"
+      },
+      {
+        "line": 4187,
+        "call": "mpr",
+        "source": "mpr(\"Cherry-coloured flames burn away your fire \"\n                        \"resistance!\");"
+      },
+      {
+        "line": 4300,
+        "call": "mprf",
+        "source": "mprf(\"The %s %s %s!\", name.c_str(), hit_verb.c_str(),\n                you.hp > 0 ? \"you\" : \"your lifeless body\");"
+      },
+      {
+        "line": 4349,
+        "call": "mprf",
+        "source": "mprf(\"The %s %s %s%s%s%s\", name.c_str(), hit_verb.c_str(),\n             you.hp > 0 ? \"you\" : \"your lifeless body\",\n             real_flavour != BEAM_CHAOS ? \"\"\n                    : make_stringf(\" with %s\", _beam_type_name(flavour).c_str()).c_str(),\n             final_dam || damage.num == 0 ? \"\" : \" but does no damage\",\n             attack_strength_punctuation(final_dam).c_str());"
+      },
+      {
+        "line": 4428,
+        "call": "mpr",
+        "source": "mpr(\"You are skewered in place!\");"
+      },
+      {
+        "line": 4498,
+        "call": "mprf",
+        "source": "mprf(\"%s!\", effect.desc);"
+      },
+      {
+        "line": 4513,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"You are encased in ice.\");"
+      },
+      {
+        "line": 4522,
+        "call": "mpr",
+        "source": "mpr(\"A part of your body evaporates into steam!\");"
+      },
+      {
+        "line": 4953,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon,\n                                   mon->resist_margin_phrase(res_margin).c_str()))\n            {\n                msg_generated = true;"
+      },
+      {
+        "line": 4964,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is unaffected.\"))\n                msg_generated = true;"
+      },
+      {
+        "line": 5099,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mon, \" shatters and turns to gold!\");"
+      },
+      {
+        "line": 5101,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mon, \" is frozen into a solid block of ice!\");"
+      },
+      {
+        "line": 5254,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is flash-frozen.\");"
+      },
+      {
+        "line": 5266,
+        "call": "mprf",
+        "source": "mprf(\"%s fire resistance burns away.\",\n                mon->name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 5284,
+        "call": "mprf",
+        "source": "mprf(\"%s!\", effect.desc);"
+      },
+      {
+        "line": 5293,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is paralysed.\");"
+      },
+      {
+        "line": 5304,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is blinded.\");"
+      },
+      {
+        "line": 5315,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is empowered.\");"
+      },
+      {
+        "line": 5320,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is pinned in place!\");"
+      },
+      {
+        "line": 5419,
+        "call": "mprf",
+        "source": "mprf(\"%s %s yanked forward by the %s.\", act->name(DESC_THE).c_str(),\n             act->conj_verb(\"are\").c_str(), name.c_str());"
+      },
+      {
+        "line": 5454,
+        "call": "mprf",
+        "source": "mprf(\"%s blocks the %s with %s %s... and reflects it back!\",\n                     mon->name(DESC_THE).c_str(),\n                     name.c_str(),\n                     mon->pronoun(PRONOUN_POSSESSIVE).c_str(),\n                     shield->name(DESC_PLAIN).c_str());"
+      },
+      {
+        "line": 5462,
+        "call": "mprf",
+        "source": "mprf(\"The %s reflects off an invisible shield around %s!\",\n                     name.c_str(),\n                     mon->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 5468,
+        "call": "mprf",
+        "source": "mprf(\"The %s bounces off of thin air!\", name.c_str());"
+      },
+      {
+        "line": 5474,
+        "call": "mprf",
+        "source": "mprf(\"%s blocks the %s.\",\n             mon->name(DESC_THE).c_str(), name.c_str());"
+      },
+      {
+        "line": 5537,
+        "call": "mprf",
+        "source": "mprf(MSGCH_GOD, GOD_JIYVA,\n                 \"%s absorbs the %s as it strikes your slime.\",\n                 god_speaker(GOD_JIYVA).c_str(), !name.empty() ? name.c_str()\n                 : _beam_type_name(flavour).c_str());"
+      },
+      {
+        "line": 5555,
+        "call": "mprf",
+        "source": "mprf(\"The %s passes through %s.\", name.c_str(), mon->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 5593,
+        "call": "mprf",
+        "source": "mprf(\"The %s %s %s.\", name.c_str(), hit_verb.c_str(),\n                     mon->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 5597,
+        "call": "mprf",
+        "source": "mprf(MSGCH_SOUND, \"%s\", hit_noise_msg.c_str());"
+      },
+      {
+        "line": 5685,
+        "call": "msg::stream",
+        "source": "msg::stream << mon->name(DESC_THE) << \" \"\n                            << \"repels the \" << name\n                            << '!' << endl;"
+      },
+      {
+        "line": 5691,
+        "call": "msg::stream",
+        "source": "msg::stream << \"The \" << name << \" misses \"\n                            << mon->name(DESC_THE) << '.' << endl;"
+      },
+      {
+        "line": 5729,
+        "call": "mprf",
+        "source": "mprf(\"The %s %s %s%s%s%s\",\n                name.c_str(),\n                hit_verb.c_str(),\n                mon->name(DESC_THE).c_str(),\n                real_flavour != BEAM_CHAOS ? \"\"\n                    : make_stringf(\" with %s\", _beam_type_name(flavour).c_str()).c_str(),\n                postac ? \"\" : \" but does no damage\",\n                attack_strength_punctuation(final).c_str());"
+      },
+      {
+        "line": 5740,
+        "call": "mprf",
+        "source": "mprf(MSGCH_SOUND, \"%s\", hit_noise_msg.c_str());"
+      },
+      {
+        "line": 6097,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*) here, since it checks\n        // for visibility of the monster (and it's now invisible).\n        // - bwr\n        mprf(\"%s %s%s\",\n             monster_name.c_str(),\n             how.c_str(),\n             is_visible ? \" for a moment.\"\n                        : \"!\");"
+      },
+      {
+        "line": 6100,
+        "call": "mprf",
+        "source": "mprf(\"%s %s%s\",\n             monster_name.c_str(),\n             how.c_str(),\n             is_visible ? \" for a moment.\"\n                        : \"!\");"
+      },
+      {
+        "line": 6209,
+        "call": "mprf",
+        "source": "mprf(\"%s is dispelled%s\",\n                 mon->name(DESC_THE).c_str(),\n                 attack_strength_punctuation(dam).c_str());"
+      },
+      {
+        "line": 6238,
+        "call": "mprf",
+        "source": "mprf(\"%s writhes in agony%s\",\n                 mon->name(DESC_THE).c_str(),\n                 attack_strength_punctuation(dam).c_str());"
+      },
+      {
+        "line": 6271,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is cursed with the promise of agony.\");"
+      },
+      {
+        "line": 6283,
+        "call": "mprf",
+        "source": "mprf(\"%s is blasted smooth%s\",\n                     mon->name(DESC_THE).c_str(),\n                     attack_strength_punctuation(dam).c_str());"
+      },
+      {
+        "line": 6288,
+        "call": "mprf",
+        "source": "mprf(\"%s mind%s blasted%s\",\n                     mon->name(DESC_ITS).c_str(),\n                     plural ? \"s are\" : \" is\",\n                     attack_strength_punctuation(dam).c_str());"
+      },
+      {
+        "line": 6302,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" looks drowsy...\"))\n                obvious_effect = true;"
+      },
+      {
+        "line": 6340,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" seems to speed up.\"))\n            {\n                obvious_effect = true;"
+      },
+      {
+        "line": 6352,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" seems to grow stronger.\"))\n                obvious_effect = true;"
+      },
+      {
+        "line": 6361,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" surges with doubled vitality!\"))\n                obvious_effect = true;"
+      },
+      {
+        "line": 6395,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" wounds heal themselves!\", true))\n                    obvious_effect = true;"
+      },
+      {
+        "line": 6398,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is healed somewhat.\"))\n                obvious_effect = true;"
+      },
+      {
+        "line": 6443,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" appears confused.\"))\n                obvious_effect = true;"
+      },
+      {
+        "line": 6454,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" falls asleep!\"))\n            obvious_effect = true;"
+      },
+      {
+        "line": 6481,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is charmed!\"))\n                obvious_effect = true;"
+      },
+      {
+        "line": 6499,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is charmed.\"))\n            obvious_effect = true;"
+      },
+      {
+        "line": 6537,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon,\n                                       (mon->body_size(PSIZE_BODY) > SIZE_LARGE)\n                                        ? \" is filled with an intense inner flame!\"\n                                        : \" is filled with an inner flame.\"))\n            {\n                obvious_effect = true;"
+      },
+      {
+        "line": 6552,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is firmly anchored in space.\"))\n                obvious_effect = true;"
+      },
+      {
+        "line": 6589,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is unaffected.\");"
+      },
+      {
+        "line": 6599,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon,\n                                       \" grows more vulnerable to poison.\"))\n            {\n                obvious_effect = true;"
+      },
+      {
+        "line": 6612,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" suddenly seems more agile.\"))\n                obvious_effect = true;"
+      },
+      {
+        "line": 6623,
+        "call": "mprf",
+        "source": "mprf(\"%s seems less certain of %s magic.\",\n                     mon->name(DESC_THE).c_str(), mon->pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 6644,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" suddenly seems more resistant.\"))\n                obvious_effect = true;"
+      },
+      {
+        "line": 6655,
+        "call": "mprf",
+        "source": "mprf(\"The magic binding %s to this plane unravels!\",\n                 mon->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 6669,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is infested!\"))\n            obvious_effect = true;"
+      },
+      {
+        "line": 6696,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" venom grows more potent.\", true))\n                obvious_effect = true;"
+      },
+      {
+        "line": 6709,
+        "call": "mprf",
+        "source": "mprf(\"A stygian plague fills %s body.\",\n                 apostrophise(mon->name(DESC_THE)).c_str());"
+      },
+      {
+        "line": 6728,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" body is warped painfully!\", true);"
+      },
+      {
+        "line": 6911,
+        "call": "mpr",
+        "source": "mpr(seeMsg);"
+      },
+      {
+        "line": 6917,
+        "call": "mprf",
+        "source": "mprf(MSGCH_SOUND, \"%s\", hearMsg.c_str());"
+      },
+      {
+        "line": 6994,
+        "call": "mprf",
+        "source": "mprf(MSGCH_GOD, \"By Zin's power, the %s is contained.\",\n                 name.c_str());"
+      },
+      {
+        "line": 7050,
+        "call": "mprf",
+        "source": "mprf(MSGCH_SOUND, \"%s\", explode_noise_msg.c_str());"
+      },
+      {
+        "line": 7883,
+        "call": "mpr",
+        "source": "mpr(tracer.blocked_message);"
+      },
+      {
+        "line": 7925,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_OK);"
+      },
+      {
+        "line": 7960,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_OK);"
+      }
+    ],
+    "spl-cast.cc": [
+      {
+        "line": 109,
+        "call": "mpr",
+        "source": "mpr(_surge_power_message(enhanced));"
+      },
+      {
+        "line": 765,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NO_SPELLS);"
+      },
+      {
+        "line": 784,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_PRESENT_FORM);"
+      },
+      {
+        "line": 791,
+        "call": "mpr",
+        "source": "mpr(\"You are unable to access your magic!\");"
+      },
+      {
+        "line": 799,
+        "call": "mpr",
+        "source": "mpr(\"Something interferes with your magic!\");"
+      },
+      {
+        "line": 806,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_TOO_BERSERK);"
+      },
+      {
+        "line": 813,
+        "call": "mpr",
+        "source": "mpr(\"You're too confused to cast spells.\");"
+      },
+      {
+        "line": 821,
+        "call": "mprf",
+        "source": "mprf(\"You cannot cast spells while %s!\", player_silenced_reason());"
+      },
+      {
+        "line": 865,
+        "call": "mpr",
+        "source": "mpr(\"Magical energy flows into your mind!\");"
+      },
+      {
+        "line": 867,
+        "call": "mprf",
+        "source": "mprf(\"Magical energy flows from %s into your mind!\",\n                 describe_monsters_condensed(targs).c_str());"
+      },
+      {
+        "line": 873,
+        "call": "mpr",
+        "source": "mpr(\"Magical energy flows into your mind!\");"
+      },
+      {
+        "line": 894,
+        "call": "mprf",
+        "source": "mprf(MSGCH_TALK, \"%s\", msg.c_str());"
+      },
+      {
+        "line": 941,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NO_SPELLS);"
+      },
+      {
+        "line": 962,
+        "call": "mprf",
+        "source": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());"
+      },
+      {
+        "line": 1044,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_OK);"
+      },
+      {
+        "line": 1101,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_OK);"
+      },
+      {
+        "line": 1204,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"You lose access to your magic!\");"
+      },
+      {
+        "line": 1219,
+        "call": "mpr",
+        "source": "mpr(\"Couldn't try casting monster spell because you're \"\n            \"on top of a monster.\");"
+      },
+      {
+        "line": 1227,
+        "call": "mpr",
+        "source": "mpr(\"Couldn't try casting monster spell because there is \"\n            \"no empty monster slot.\");"
+      },
+      {
+        "line": 1232,
+        "call": "mpr",
+        "source": "mpr(\"Invalid player spell, attempting to cast it as monster spell.\");"
+      },
+      {
+        "line": 1304,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_OK);"
+      },
+      {
+        "line": 1329,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_OK);"
+      },
+      {
+        "line": 2394,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_UNTHINKING_ACT);"
+      },
+      {
+        "line": 2524,
+        "call": "mpr",
+        "source": "mpr(_casting_spell_log(\"spell.cast.miscast\", spell));"
+      },
+      {
+        "line": 2548,
+        "call": "mprf",
+        "source": "mprf(MSGCH_ERROR, \"Spell '%s' is not a player castable spell.\",\n                 spell_title(spell));"
+      },
+      {
+        "line": 2552,
+        "call": "mprf",
+        "source": "mprf(MSGCH_ERROR, \"Invalid spell!\");"
+      },
+      {
+        "line": 2945,
+        "call": "mpr",
+        "source": "mpr(breath_message[spell].c_str());"
+      },
+      {
+        "line": 2970,
+        "call": "mprf",
+        "source": "mprf(\"Sorry, the spell '%s' is gone!\", spell_title(spell));"
+      },
+      {
+        "line": 3540,
+        "call": "mpr",
+        "source": "mpr(\"Malevolent energies surge around you.\");"
+      },
+      {
+        "line": 3589,
+        "call": "mpr",
+        "source": "mpr(reminder);"
+      },
+      {
+        "line": 3620,
+        "call": "mpr",
+        "source": "mpr(_casting_spell_log(\"spell.channel.insufficient_magic\", spell));"
+      },
+      {
+        "line": 3644,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"Attempting to channel buggy spell: %s\", spell_title(spell));"
+      }
+    ],
+    "spl-damage.cc": [
+      {
+        "line": 123,
+        "call": "mpr",
+        "source": "mpr(\"That is beyond the maximum range.\");"
+      },
+      {
+        "line": 130,
+        "call": "mprf",
+        "source": "mprf(\"You can't place the storm on %s.\", article_a(feat).c_str());"
+      },
+      {
+        "line": 180,
+        "call": "mpr",
+        "source": "mpr(\"You call forth a pillar of damnation!\");"
+      },
+      {
+        "line": 307,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 313,
+        "call": "mprf",
+        "source": "mprf(\"Lightning arcs from %s %s!\",\n             apostrophise(caster.name(DESC_PLAIN)).c_str(),\n             caster.hand_name(true).c_str());"
+      },
+      {
+        "line": 453,
+        "call": "mprf",
+        "source": "mprf(\"The %s grounds out.\", beam.name.c_str());"
+      },
+      {
+        "line": 461,
+        "call": "mpr",
+        "source": "mpr(\"A swirling arc of seething chaos appears!\");"
+      },
+      {
+        "line": 465,
+        "call": "mprf",
+        "source": "mprf(\"The %s arcs out of your line of sight!\", beam.name.c_str());"
+      },
+      {
+        "line": 467,
+        "call": "mprf",
+        "source": "mprf(\"The %s suddenly appears!\", beam.name.c_str());"
+      },
+      {
+        "line": 771,
+        "call": "mpr",
+        "source": "mpr(player_msg);"
+      },
+      {
+        "line": 777,
+        "call": "mpr",
+        "source": "mpr(global_msg);"
+      },
+      {
+        "line": 779,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, mons_vis_msg);"
+      },
+      {
+        "line": 781,
+        "call": "mpr",
+        "source": "mpr(mons_invis_msg);"
+      },
+      {
+        "line": 874,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_CLOSE_ENOUGH);"
+      },
+      {
+        "line": 882,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_OK);"
+      },
+      {
+        "line": 900,
+        "call": "mprf",
+        "source": "mprf(\"You freeze %s%s%s\",\n         mons->name(DESC_THE).c_str(),\n         hurted ? \"\" : \" but do no damage\",\n         attack_strength_punctuation(hurted).c_str());"
+      },
+      {
+        "line": 969,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_UNTHINKING_ACT);"
+      },
+      {
+        "line": 977,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_SPELL_FIZZLES);"
+      },
+      {
+        "line": 1002,
+        "call": "mprf",
+        "source": "mprf(\"%s and strikes %s%s%s\",\n         airstrike_intensity_display(empty_space, tile).c_str(),\n         mons->name(DESC_THE).c_str(),\n         hurted ? \"\" : \" but does no damage\",\n         attack_strength_punctuation(hurted).c_str());"
+      },
+      {
+        "line": 1041,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_UNTHINKING_ACT);"
+      },
+      {
+        "line": 1063,
+        "call": "mpr",
+        "source": "mpr(\"The momentum dissipates harmlessly.\");"
+      },
+      {
+        "line": 1182,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1188,
+        "call": "mpr",
+        "source": "mpr(\"Bitter cold erupts, blasting rock from the ceiling!\");"
+      },
+      {
+        "line": 1469,
+        "call": "mpr",
+        "source": "mpr(\"You can't deconstruct that!\");"
+      },
+      {
+        "line": 1543,
+        "call": "mprf",
+        "source": "mprf(\"The %s shatters!\", what);"
+      },
+      {
+        "line": 1548,
+        "call": "mprf",
+        "source": "mprf(\"You shatter%s\", attack_strength_punctuation(dam).c_str());"
+      },
+      {
+        "line": 1565,
+        "call": "mprf",
+        "source": "mprf(\"%s shatters%s\", mon->name(DESC_THE).c_str(),\n                 attack_strength_punctuation(dam).c_str());"
+      },
+      {
+        "line": 1685,
+        "call": "mpr",
+        "source": "mpr(\"A door shatters!\");"
+      },
+      {
+        "line": 1687,
+        "call": "mpr",
+        "source": "mpr(\"An iron grate is ripped into pieces!\");"
+      },
+      {
+        "line": 1723,
+        "call": "mpr",
+        "source": "mpr(\"The dungeon shakes!\");"
+      },
+      {
+        "line": 1727,
+        "call": "mprf",
+        "source": "mprf(MSGCH_SOUND, \"The dungeon rumbles!\");"
+      },
+      {
+        "line": 1744,
+        "call": "mprf",
+        "source": "mprf(MSGCH_SOUND, \"Ka-crash!\");"
+      },
+      {
+        "line": 1760,
+        "call": "mprf",
+        "source": "mprf(damage > 15 ? \"You shudder from the earth-shattering force%s\"\n                        : \"You shudder%s\",\n             attack_strength_punctuation(damage).c_str());"
+      },
+      {
+        "line": 1781,
+        "call": "mprf",
+        "source": "mprf(\"The dungeon shakes around %s!\",\n                 caster->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1787,
+        "call": "mprf",
+        "source": "mprf(MSGCH_SOUND, \"The dungeon rumbles around %s!\",\n                 caster->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1822,
+        "call": "mprf",
+        "source": "mprf(MSGCH_SOUND, \"Ka-crash!\");"
+      },
+      {
+        "line": 1875,
+        "call": "mpr",
+        "source": "mpr(message);"
+      },
+      {
+        "line": 1877,
+        "call": "mpr",
+        "source": "mpr(\"There is a shattering impact!\");"
+      },
+      {
+        "line": 1912,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1919,
+        "call": "mprf",
+        "source": "mprf(\"Flames lash %s%s.\", targ->name(DESC_THE).c_str(),\n         post_ac_dam ? \"\" : \" but do no damage\");"
+      },
+      {
+        "line": 1958,
+        "call": "mprf",
+        "source": "mprf(\"%s fire resistance burns away.\",\n                    mon->name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 1965,
+        "call": "mprf",
+        "source": "mprf(MSGCH_DANGER, \"Your fire resistance burns away!\");"
+      },
+      {
+        "line": 2020,
+        "call": "mprf",
+        "source": "mprf(\"%s %s blasted with magical radiation%s\",\n             act->name(DESC_THE).c_str(),\n             conjugate_verb(\"are\", hitting_player).c_str(),\n             attack_strength_punctuation(dam).c_str());"
+      },
+      {
+        "line": 2066,
+        "call": "mpr",
+        "source": "mpr(\"You erupt in a fountain of uncontrolled magic!\");"
+      },
+      {
+        "line": 2069,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*caster.as_monster(),\n                               \" erupts in a fountain of uncontrolled magic!\");"
+      },
+      {
+        "line": 2258,
+        "call": "mprf",
+        "source": "mprf(\"%s seems to burn from within%s\",\n             mon->name(DESC_THE).c_str(),\n             attack_strength_punctuation(damage).c_str());"
+      },
+      {
+        "line": 2318,
+        "call": "mpr",
+        "source": "mpr(\"You feel like your blood is boiling!\");"
+      },
+      {
+        "line": 2320,
+        "call": "mpr",
+        "source": "mpr(\"The poison in your system burns terribly!\");"
+      },
+      {
+        "line": 2322,
+        "call": "mpr",
+        "source": "mpr(\"The poison in your system burns!\");"
+      },
+      {
+        "line": 2330,
+        "call": "mprf",
+        "source": "mprf(MSGCH_RECOVERY, \"You are no longer poisoned.\");"
+      },
+      {
+        "line": 2471,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_OK);"
+      },
+      {
+        "line": 2479,
+        "call": "mprf",
+        "source": "mprf(\"%s %s the poison in %s surroundings!\", agent->name(DESC_THE).c_str(),\n         agent->conj_verb(\"ignite\").c_str(),\n         agent->pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 2562,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 2566,
+        "call": "mpr",
+        "source": "mpr(\"The air bursts into flame!\");"
+      },
+      {
+        "line": 2672,
+        "call": "mprf",
+        "source": "mprf(\"You are struck by an arc of lightning%s\",\n                attack_strength_punctuation(damage).c_str());"
+      },
+      {
+        "line": 2690,
+        "call": "mprf",
+        "source": "mprf(\"%s is struck by an arc of lightning%s\",\n                    mons->name(DESC_THE).c_str(),\n                    attack_strength_punctuation(damage).c_str());"
+      },
+      {
+        "line": 2714,
+        "call": "mpr",
+        "source": "mpr(\"The lightning grounds out.\");"
+      },
+      {
+        "line": 2785,
+        "call": "mpr",
+        "source": "mpr(\"The air crackles with electrical energy.\");"
+      },
+      {
+        "line": 2789,
+        "call": "mprf",
+        "source": "mprf(\"%s blue arc%s ground%s harmlessly.\",\n                plural ? \"Some\" : \"A\",\n                plural ? \"s\" : \"\",\n                plural ? \" themselves\" : \"s itself\");"
+      },
+      {
+        "line": 2915,
+        "call": "mprf",
+        "source": "mprf(\"You are struck by an electric surge%s\",\n                attack_strength_punctuation(post_resist_dam).c_str());"
+      },
+      {
+        "line": 2920,
+        "call": "mprf",
+        "source": "mprf(\"%s is struck by an electric surge%s\",\n                    mon->name(DESC_THE).c_str(),\n                    attack_strength_punctuation(post_resist_dam).c_str());"
+      },
+      {
+        "line": 2973,
+        "call": "mpr",
+        "source": "mpr(\"Electricity surges outward!\");"
+      },
+      {
+        "line": 2976,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*agent.as_monster(),\n                               \" emits a burst of electricity!\");"
+      },
+      {
+        "line": 3005,
+        "call": "mprf",
+        "source": "mprf(\"Your %s violently discharge electricity!\", you.hand_name(true).c_str());"
+      },
+      {
+        "line": 3183,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 3193,
+        "call": "mpr",
+        "source": "mpr(\"You reach out to the water around you and turn it against your foes!\");"
+      },
+      {
+        "line": 3243,
+        "call": "mpr",
+        "source": "mpr(\"You exhale a blast of multi-hued devastation!\");"
+      },
+      {
+        "line": 3413,
+        "call": "mprf",
+        "source": "mprf(ch, \"%s\", msg.c_str());"
+      },
+      {
+        "line": 3477,
+        "call": "mpr",
+        "source": "mpr(msg);"
+      },
+      {
+        "line": 3523,
+        "call": "mpr",
+        "source": "mpr(\"You begin to radiate toxic energy.\");"
+      },
+      {
+        "line": 3525,
+        "call": "mpr",
+        "source": "mpr(\"Your toxic radiance grows in intensity.\");"
+      },
+      {
+        "line": 3539,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon_agent,\n                               \" begins to radiate toxic energy.\");"
+      },
+      {
+        "line": 3651,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_UNTHINKING_ACT);"
+      },
+      {
+        "line": 3659,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_OK);"
+      },
+      {
+        "line": 3667,
+        "call": "mprf",
+        "source": "mprf(\"%s %s no magical effects to unravel.\",\n             victim->name(DESC_THE).c_str(),\n             victim->conj_verb(\"have\").c_str());"
+      },
+      {
+        "line": 3680,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_OK);"
+      },
+      {
+        "line": 3691,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_SPELL_FIZZLES);"
+      },
+      {
+        "line": 3732,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_UNTHINKING_ACT);"
+      },
+      {
+        "line": 3777,
+        "call": "mprf",
+        "source": "mprf(\"Poisonous fumes billow around %s!\", act->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 3779,
+        "call": "mpr",
+        "source": "mpr(\"Poisonous fumes billow in the air!\");"
+      },
+      {
+        "line": 3859,
+        "call": "mpr",
+        "source": "mpr(\"Your wave of flame reaches its maximum intensity and dissipates.\");"
+      },
+      {
+        "line": 3892,
+        "call": "mprf",
+        "source": "mprf(\"You focus your ray upon %s.\", targ->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 3946,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*agent.as_monster(), \" stops channelling.\");"
+      },
+      {
+        "line": 3965,
+        "call": "mpr",
+        "source": "mpr(\"You finish channelling your searing ray.\");"
+      },
+      {
+        "line": 3976,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" finishes channelling their searing ray.\");"
+      },
+      {
+        "line": 4032,
+        "call": "mprf",
+        "source": "mprf(\"%s %s a mighty blast of ice!\",\n             caster->name(DESC_THE).c_str(),\n             caster->conj_verb(\"conjure\").c_str());"
+      },
+      {
+        "line": 4213,
+        "call": "mprf",
+        "source": "mprf(\"A giggling sprite leaps out and %s\",\n                _get_jinxsprite_message(*mons).c_str());"
+      },
+      {
+        "line": 4334,
+        "call": "mpr",
+        "source": "mpr(\"A cannonade of hail descends around you!\");"
+      },
+      {
+        "line": 4383,
+        "call": "mpr",
+        "source": "mpr(\"You erupt in a blast of force!\");"
+      },
+      {
+        "line": 4458,
+        "call": "mprf",
+        "source": "mprf(\"You fester in the toxic bog%s\",\n                attack_strength_punctuation(final_damage).c_str());"
+      },
+      {
+        "line": 4464,
+        "call": "mprf",
+        "source": "mprf(\"%s festers in the toxic bog%s\",\n                mons->name(DESC_THE).c_str(),\n                attack_strength_punctuation(final_damage).c_str());"
+      },
+      {
+        "line": 4472,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_PARTIALLY_RESIST);"
+      },
+      {
+        "line": 4526,
+        "call": "mpr",
+        "source": "mpr(\"There are no walls around you to affect.\");"
+      },
+      {
+        "line": 4543,
+        "call": "mpr",
+        "source": "mpr(\"The walls around you are covered in ice.\");"
+      },
+      {
+        "line": 4625,
+        "call": "mpr",
+        "source": "mpr(\"You can't see anything to vaporise!\");"
+      },
+      {
+        "line": 4635,
+        "call": "mpr",
+        "source": "mpr(\"You begin accumulating electric charge.\");"
+      },
+      {
+        "line": 4651,
+        "call": "mpr",
+        "source": "mpr(\"Your charge dissipates without a target.\");"
+      },
+      {
+        "line": 4666,
+        "call": "mprf",
+        "source": "mprf(\"A cloud of jellies burst out of %s as the current\"\n             \" ripples through it%s\", mon->name(DESC_THE).c_str(), attack_punctuation.c_str());"
+      },
+      {
+        "line": 4671,
+        "call": "mprf",
+        "source": "mprf(\"The electricity discharges through %s%s\", mon->name(DESC_THE).c_str(), attack_punctuation.c_str());"
+      },
+      {
+        "line": 4679,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" vaporises and condenses as gold!\");"
+      },
+      {
+        "line": 4682,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" vaporises in an electric haze!\");"
+      },
+      {
+        "line": 4707,
+        "call": "mpr",
+        "source": "mpr(\"You feel charge building up...\");"
+      },
+      {
+        "line": 4741,
+        "call": "mpr",
+        "source": "mpr(\"There are no places for you to create a bog.\");"
+      },
+      {
+        "line": 4757,
+        "call": "mpr",
+        "source": "mpr(\"You spew toxic sludge!\");"
+      },
+      {
+        "line": 4788,
+        "call": "mprf",
+        "source": "mprf(\"%s barrels into %s%s\",\n                    boulder.name(DESC_THE).c_str(),\n                    victim.name(DESC_THE).c_str(),\n                    attack_strength_punctuation(dam).c_str());"
+      },
+      {
+        "line": 4881,
+        "call": "mprf",
+        "source": "mprf(\"Magnetic shrapnel attaches itself to %s.\", mon->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 4886,
+        "call": "mpr",
+        "source": "mpr(\"Electricity arcs towards the magnetite!\");"
+      },
+      {
+        "line": 4910,
+        "call": "mpr",
+        "source": "mpr(\"You conjure up an array of volatile reagents!\");"
+      },
+      {
+        "line": 5066,
+        "call": "mpr",
+        "source": "mpr(\"Your magical reserves are too exhausted to conjure more reagents.\");"
+      },
+      {
+        "line": 5074,
+        "call": "mpr",
+        "source": "mpr(\"Flasks of reagents rain from above!\");"
+      },
+      {
+        "line": 5147,
+        "call": "mprf",
+        "source": "mprf(MSGCH_DURATION, \"Your rain of reagents ends.\");"
+      },
+      {
+        "line": 5164,
+        "call": "mpr",
+        "source": "mpr(\"You unleash the spiteful dead!\");"
+      },
+      {
+        "line": 5183,
+        "call": "mprf",
+        "source": "mprf(MSGCH_DURATION, \"The last of your harvested death is exhausted.\");"
+      },
+      {
+        "line": 5208,
+        "call": "mprf",
+        "source": "mprf(MSGCH_DURATION, \"You have harvested as much death for \"\n                                 \"Grave Claw as you can hold at once.\");"
+      },
+      {
+        "line": 5213,
+        "call": "mprf",
+        "source": "mprf(MSGCH_DURATION, \"You have harvested enough death to cast \"\n                                 \"Grave Claw an additional time.\");"
+      },
+      {
+        "line": 5227,
+        "call": "mprf",
+        "source": "mprf(\"You steady yourself in place and focus your resilience into a mighty blast.\");"
+      },
+      {
+        "line": 5252,
+        "call": "mprf",
+        "source": "mprf(MSGCH_DURATION, \"You unleash %s concussive blast!\", desc.c_str());"
+      }
+    ],
+    "spl-summoning.cc": [
+      {
+        "line": 518,
+        "call": "mpr",
+        "source": "mpr(\"You call out to the draconic realm, and the dragon horde roars back!\");"
+      },
+      {
+        "line": 560,
+        "call": "mpr",
+        "source": "mpr(\"A dragon tries to answer your call, but you don't have enough \"\n                \"magical power!\");"
+      },
+      {
+        "line": 573,
+        "call": "mpr",
+        "source": "mpr(\"A dragon arrives to answer your call!\");"
+      },
+      {
+        "line": 672,
+        "call": "mpr",
+        "source": "mpr(\"A dragon appears.\");"
+      },
+      {
+        "line": 678,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 817,
+        "call": "mpr",
+        "source": "mpr(\"You are momentarily dazzled by a brilliant light.\");"
+      },
+      {
+        "line": 842,
+        "call": "mpr",
+        "source": "mpr(\"You can't see a target there!\");"
+      },
+      {
+        "line": 885,
+        "call": "mprf",
+        "source": "mprf(\"%s %s %s.\",\n             apostrophise(target->name(DESC_THE)).c_str(),\n             hand.c_str(), conjugate_verb(\"twitch\", plural).c_str());"
+      },
+      {
+        "line": 899,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*(monster*)target,\n                                   \" is already dancing.\");"
+      },
+      {
+        "line": 904,
+        "call": "mprf",
+        "source": "mprf(\"%s vibrate%s crazily for a second.\",\n                 wpn->name(DESC_THE).c_str(),\n                 wpn->quantity > 1 ? \"\" : \"s\");"
+      },
+      {
+        "line": 940,
+        "call": "mprf",
+        "source": "mprf(\"%s twitches for a moment.\", wpn->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 948,
+        "call": "mprf",
+        "source": "mprf(\"%s dances into the air!\", wpn->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1030,
+        "call": "mpr",
+        "source": "mpr(\"You create some ball lightning!\");"
+      },
+      {
+        "line": 1032,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1064,
+        "call": "mpr",
+        "source": "mpr(\"An electric hum fills the air.\");"
+      },
+      {
+        "line": 1066,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1086,
+        "call": "mpr",
+        "source": "mpr(\"You bind the heart of a blast furnace in slag iron.\");"
+      },
+      {
+        "line": 1092,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1114,
+        "call": "mpr",
+        "source": "mpr(\"A tiny devil pulls itself out of the air.\");"
+      },
+      {
+        "line": 1119,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1143,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1151,
+        "call": "mpr",
+        "source": "mpr(\"Somewhere, a butterfly flaps its wings.\");"
+      },
+      {
+        "line": 1153,
+        "call": "mpr",
+        "source": "mpr(\"You hear the flapping of tiny wings.\");"
+      },
+      {
+        "line": 1193,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1203,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NO_AVAILABLE_SPACE);"
+      },
+      {
+        "line": 1211,
+        "call": "mpr",
+        "source": "mpr(\"Wisps of shadow whirl around you...\");"
+      },
+      {
+        "line": 1254,
+        "call": "mpr",
+        "source": "mpr(\"The shadows disperse without effect.\");"
+      },
+      {
+        "line": 1371,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"The dungeon shakes, a horrible noise fills the air, \"\n                     \"and a portal to some otherworldly place is opened!\");"
+      },
+      {
+        "line": 1421,
+        "call": "mpr",
+        "source": "mpr(getMiscString(\"summon_horrible_things\"));"
+      },
+      {
+        "line": 1452,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1454,
+        "call": "mpr",
+        "source": "mpr(\"You open a gateway and unleash terrible monstrosities upon the world.\");"
+      },
+      {
+        "line": 1553,
+        "call": "mpr",
+        "source": "mpr(\"A forested plane collides here with a resounding crunch!\");"
+      },
+      {
+        "line": 1598,
+        "call": "mpr",
+        "source": "mpr(\"An evil force gathers, but it quickly dissipates.\");"
+      },
+      {
+        "line": 1603,
+        "call": "mpr",
+        "source": "mpr(\"You cannot haunt those who bear you no hostility.\");"
+      },
+      {
+        "line": 1635,
+        "call": "mpr",
+        "source": "mpr(friendly ? \"Insubstantial figures form in the air.\"\n                     : \"You sense hostile presences.\");"
+      },
+      {
+        "line": 1640,
+        "call": "mpr",
+        "source": "mpr(friendly ? \"An insubstantial figure forms in the air.\"\n                     : \"You sense a hostile presence.\");"
+      },
+      {
+        "line": 1645,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1667,
+        "call": "mpr",
+        "source": "mpr(\"You call forth a shade to shield your allies.\");"
+      },
+      {
+        "line": 1670,
+        "call": "mprf",
+        "source": "mprf(\"%s calls forth a shade to shield themselves.\",\n                 caster->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1677,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1789,
+        "call": "mprf",
+        "source": "mprf(\"%s %s a servant imbued with %s destructive magic!\",\n             caster->name(DESC_THE).c_str(),\n             caster->conj_verb(\"forge\").c_str(),\n             caster->pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 1795,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*servitor, \" appears!\");"
+      },
+      {
+        "line": 1823,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1900,
+        "call": "mpr",
+        "source": "mpr(\"You recall your battlesphere and imbue it with additional\"\n                \" charge.\");"
+      },
+      {
+        "line": 1904,
+        "call": "mpr",
+        "source": "mpr(\"You imbue your battlesphere with additional charge.\");"
+      },
+      {
+        "line": 1932,
+        "call": "mpr",
+        "source": "mpr(\"You conjure a globe of magical energy.\");"
+      },
+      {
+        "line": 1937,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*agent->as_monster(),\n                                           \" conjures a globe of magical energy!\");"
+      },
+      {
+        "line": 1941,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*battlesphere, \" appears!\");"
+      },
+      {
+        "line": 1951,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 1975,
+        "call": "mpr",
+        "source": "mpr(\"Your battlesphere expends the last of its energy\"\n                        \" and dissipates.\");"
+      },
+      {
+        "line": 1979,
+        "call": "mpr",
+        "source": "mpr(\"Your battlesphere wavers and loses cohesion.\");"
+      },
+      {
+        "line": 1982,
+        "call": "mpr",
+        "source": "mpr(\"You feel your bond with your battlesphere wane.\");"
+      },
+      {
+        "line": 1985,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" dissipates.\");"
+      },
+      {
+        "line": 2059,
+        "call": "mprf",
+        "source": "mprf(\"%s fires at %s!\", battlesphere->name(DESC_THE).c_str(),\n                                actor_at(beam.target)->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 2193,
+        "call": "mpr",
+        "source": "mpr(\"That's too far away.\");"
+      },
+      {
+        "line": 2200,
+        "call": "mpr",
+        "source": "mpr(\"You can't conjure that within a solid object!\");"
+      },
+      {
+        "line": 2210,
+        "call": "mpr",
+        "source": "mpr(\"You can't place the prism on a creature.\");"
+      },
+      {
+        "line": 2222,
+        "call": "mprf",
+        "source": "mprf(\"%s %s.\", victim->name(DESC_THE).c_str(),\n                               victim->conj_verb(\"twitch\").c_str());"
+      },
+      {
+        "line": 2226,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_GHOSTLY_OUTLINE);"
+      },
+      {
+        "line": 2251,
+        "call": "mprf",
+        "source": "mprf(\"%s %s a prism of %s energy!\",\n                 caster->name(DESC_THE).c_str(),\n                 caster->conj_verb(\"conjure\").c_str(),\n                 is_shadow ? \"shadowy\" : \"explosive\");"
+      },
+      {
+        "line": 2258,
+        "call": "mprf",
+        "source": "mprf(\"A prism of %s energy appears from nowhere!\",\n                 is_shadow ? \"shadowy\" : \"explosive\");"
+      },
+      {
+        "line": 2272,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 2336,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" disappears.\");"
+      },
+      {
+        "line": 2438,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_SOMETHING_IN_WAY);"
+      },
+      {
+        "line": 2445,
+        "call": "mpr",
+        "source": "mpr(\"You call forth a plague of scarabs!\");"
+      },
+      {
+        "line": 2675,
+        "call": "mpr",
+        "source": "mpr(\"A briar patch grows up from the ground.\");"
+      },
+      {
+        "line": 2706,
+        "call": "mpr",
+        "source": "mpr(\"Something you can't see blocks your briars from growing!\");"
+      },
+      {
+        "line": 2718,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 2730,
+        "call": "mprf",
+        "source": "mprf(\"Something unseen blocks growth in %s.\", what.c_str());"
+      },
+      {
+        "line": 2747,
+        "call": "mprf",
+        "source": "mprf(\"%s is torn apart as %s grows in its place.\", what.c_str(),\n                plant->name(DESC_A).c_str());"
+      },
+      {
+        "line": 2752,
+        "call": "mprf",
+        "source": "mprf(\"%s falls apart, but nothing grows.\", what.c_str());"
+      },
+      {
+        "line": 2783,
+        "call": "mpr",
+        "source": "mpr(\"That's too far away.\");"
+      },
+      {
+        "line": 2789,
+        "call": "mpr",
+        "source": "mpr(\"You can't grow a ballistomycete there.\");"
+      },
+      {
+        "line": 2798,
+        "call": "mpr",
+        "source": "mpr(\"That space is already occupied.\");"
+      },
+      {
+        "line": 2805,
+        "call": "mpr",
+        "source": "mpr(\"Something you can't see occupies that space!\");"
+      },
+      {
+        "line": 2819,
+        "call": "mpr",
+        "source": "mpr(\"A ballistomycete grows from the ground.\");"
+      },
+      {
+        "line": 2821,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 2830,
+        "call": "mpr",
+        "source": "mpr(\"That's too far away.\");"
+      },
+      {
+        "line": 2836,
+        "call": "mpr",
+        "source": "mpr(\"You can't grow an oklob plant there.\");"
+      },
+      {
+        "line": 2845,
+        "call": "mpr",
+        "source": "mpr(\"That space is already occupied.\");"
+      },
+      {
+        "line": 2852,
+        "call": "mpr",
+        "source": "mpr(\"Something you can't see is occupying that space!\");"
+      },
+      {
+        "line": 2866,
+        "call": "mpr",
+        "source": "mpr(\"An oklob plant grows from the ground.\");"
+      },
+      {
+        "line": 2868,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 2879,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NO_AVAILABLE_SPACE);"
+      },
+      {
+        "line": 2980,
+        "call": "mpr",
+        "source": "mpr(\"There is not enough space to conjure foxfire!\");"
+      },
+      {
+        "line": 2999,
+        "call": "mprf",
+        "source": "mprf(\"%s conjure%s some %s!\",\n             agent.name(DESC_THE).c_str(),\n             agent.is_monster() ? \"s\" : \"\",\n             marshlight ? \"marshlight\" : \"foxfire\");"
+      },
+      {
+        "line": 3005,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 3027,
+        "call": "mpr",
+        "source": "mpr(\"Flames leap up around you!\");"
+      },
+      {
+        "line": 3032,
+        "call": "mpr",
+        "source": "mpr(\"There's no space to create foxfire here.\");"
+      },
+      {
+        "line": 3035,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 3091,
+        "call": "mprf",
+        "source": "mprf(\"Another %s is drawn to the feast!\", spawn->name(DESC_PLAIN).c_str());"
+      },
+      {
+        "line": 3129,
+        "call": "mprf",
+        "source": "mprf(\"%s %s %s!\",\n             agent.name(DESC_THE).c_str(),\n             agent.conj_verb(\"summon\").c_str(),\n             created > 1 ? \"spiders\" : \"a spider\");"
+      },
+      {
+        "line": 3150,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_SOMETHING_IN_WAY);"
+      },
+      {
+        "line": 3158,
+        "call": "mpr",
+        "source": "mpr(\"Something unseen is already there!\");"
+      },
+      {
+        "line": 3181,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 3192,
+        "call": "mprf",
+        "source": "mprf(\"%s send%s a boulder barrelling forward!\",\n            agent.name(DESC_THE).c_str(), agent.is_player() ? \"\" : \"s\");"
+      },
+      {
+        "line": 3226,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_UNTHINKING_ACT);"
+      },
+      {
+        "line": 3234,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_CLOSE_ENOUGH);"
+      },
+      {
+        "line": 3342,
+        "call": "mprf",
+        "source": "mprf(\"%s sculpt%s a pair of cannons out of ice!\",\n             agent.name(DESC_THE).c_str(),\n             agent.is_player() ? \"\"  : \"s\");"
+      },
+      {
+        "line": 3348,
+        "call": "mprf",
+        "source": "mprf(\"%s sculpt%s a cannon out of ice!\",\n             agent.name(DESC_THE).c_str(),\n             agent.is_player() ? \"\"  : \"s\");"
+      },
+      {
+        "line": 3353,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 3401,
+        "call": "mprf",
+        "source": "mprf(\"%s is in the way!\", mon->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 3406,
+        "call": "mpr",
+        "source": "mpr(\"There's no room!\");"
+      },
+      {
+        "line": 3417,
+        "call": "mpr",
+        "source": "mpr(\"Something prevents your mortar from forming!\");"
+      },
+      {
+        "line": 3466,
+        "call": "mpr",
+        "source": "mpr(\"Something prevents your mortar from forming!\");"
+      },
+      {
+        "line": 3478,
+        "call": "mprf",
+        "source": "mprf(\"With a deafening crack, the ground splits apart in the path of %s \"\n        \"chthonic artillery!\", agent.name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 3498,
+        "call": "mprf",
+        "source": "mprf(\"A fragment of %s is already outside their body!\",\n                    victim.name(DESC_THE).c_str());"
+      },
+      {
+        "line": 3517,
+        "call": "mprf",
+        "source": "mprf(\"A fragment of %s soul is dislodged from %s body.\",\n                    victim.name(DESC_ITS).c_str(),\n                    victim.pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 3537,
+        "call": "mpr",
+        "source": "mpr(\"There's no room for the soul wisp to form!\");"
+      },
+      {
+        "line": 3540,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 3579,
+        "call": "mpr",
+        "source": "mpr(\"You continue winding your clockwork bee...\");"
+      },
+      {
+        "line": 3611,
+        "call": "mprf",
+        "source": "mprf(\"Without a target, your clockwork bee falls to the ground.\");"
+      },
+      {
+        "line": 3624,
+        "call": "mprf",
+        "source": "mprf(\"Without a target and with nowhere to land, your clockwork \"\n                     \"bee falls apart in a shower of cogs and coils.\");"
+      },
+      {
+        "line": 3660,
+        "call": "mprf",
+        "source": "mprf(\"With a metallic buzz, %s clockwork bee launches itself at %s.\",\n                 agent.name(DESC_ITS).c_str(),\n                 targ->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 3670,
+        "call": "mpr",
+        "source": "mpr(\"Your bee fails to deploy!\");"
+      },
+      {
+        "line": 3681,
+        "call": "mpr",
+        "source": "mpr(\"You see nothing there to target.\");"
+      },
+      {
+        "line": 3686,
+        "call": "mpr",
+        "source": "mpr(\"Your bee can only target hostiles.\");"
+      },
+      {
+        "line": 3692,
+        "call": "mprf",
+        "source": "mprf(\"You lock target on %s and prepare to deploy your bee.\", targ->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 3701,
+        "call": "mprf",
+        "source": "mprf(\"Your existing bee falls apart.\");"
+      },
+      {
+        "line": 3713,
+        "call": "mprf",
+        "source": "mprf(\"%s clockwork bee winds down and falls to the ground.\",\n             bee.summoner == MID_PLAYER ? \"Your\" : \"The\");"
+      },
+      {
+        "line": 3743,
+        "call": "mpr",
+        "source": "mpr(\"If you tried to rewind gears in your present state, you'd only break them.\");"
+      },
+      {
+        "line": 3754,
+        "call": "mpr",
+        "source": "mpr(\"You need a visible target to rewind your bee! \"\n                \"(Use ctrl+direction or * direction to deconstruct it instead.)\");"
+      },
+      {
+        "line": 3764,
+        "call": "mpr",
+        "source": "mpr(\"You lack sufficient magical power to recharge your bee.\");"
+      },
+      {
+        "line": 3771,
+        "call": "mprf",
+        "source": "mprf(\"%s wind%s %s clockwork bee back up and it locks its sights upon %s!\",\n         agent.name(DESC_THE).c_str(),\n         agent.is_player() ? \"\" : \"s\",\n         agent.pronoun(PRONOUN_POSSESSIVE).c_str(),\n         targ->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 3804,
+        "call": "mprf",
+        "source": "mprf(\"%s clockwork bee locks its sights upon %s.\",\n                agent ? agent->pronoun(PRONOUN_POSSESSIVE).c_str() : \"Someone's\",\n                targ->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 3867,
+        "call": "mpr",
+        "source": "mpr(\"You try to forge sawblades, but something it already there!\");"
+      },
+      {
+        "line": 3891,
+        "call": "mpr",
+        "source": "mpr(\"You forge a whirling saw of razor-sharp crystal.\");"
+      },
+      {
+        "line": 3893,
+        "call": "mpr",
+        "source": "mpr(\"You forge whirling saws of razor-sharp crystal.\");"
+      },
+      {
+        "line": 4012,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 4018,
+        "call": "mprf",
+        "source": "mprf(\"A crocodile bursts forth beneath %s and grabs %s in its jaws!\",\n                agent.name(DESC_THE).c_str(),\n                victim->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 4041,
+        "call": "mprf",
+        "source": "mprf(\"%s dismount%s %s crocodile.\",\n             agent.name(DESC_THE).c_str(),\n             agent.is_player() ? \"\" : \"s\",\n             agent.pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 4110,
+        "call": "mprf",
+        "source": "mprf(\"Your paragon expends all of its energy in an overwhelming flurry of blows!\");"
+      },
+      {
+        "line": 4164,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 4168,
+        "call": "mpr",
+        "source": "mpr(\"You craft a gleaming metal champion and it leaps into the fray!\");"
+      },
+      {
+        "line": 4234,
+        "call": "mpr",
+        "source": "mpr(\"Your paragon attacks with you!\");"
+      },
+      {
+        "line": 4267,
+        "call": "mprf",
+        "source": "mprf(MSGCH_DURATION, \"Your paragon has reached its maximum power!\");"
+      },
+      {
+        "line": 4269,
+        "call": "mprf",
+        "source": "mprf(MSGCH_DURATION, \"Your paragon is now ready to unleash a masterful attack.\");"
+      },
+      {
+        "line": 4295,
+        "call": "mpr",
+        "source": "mpr(\"A lumbering aparatus takes shape within a cloud of fumes.\");"
+      },
+      {
+        "line": 4300,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 4309,
+        "call": "mpr",
+        "source": "mpr(\"The potion freezes solid before it can reach you!\");"
+      },
+      {
+        "line": 4314,
+        "call": "mpr",
+        "source": "mpr(\"You sigh wistfully at the memory of the taste.\");"
+      },
+      {
+        "line": 4342,
+        "call": "mprf",
+        "source": "mprf(\"Mmmm... tastes like %s.\", potion_type_name(potion));"
+      },
+      {
+        "line": 4352,
+        "call": "mprf",
+        "source": "mprf(\"You extract %smagical energy from the potion.\",\n                 amu > 1 ? \"even more \" : \"\");"
+      },
+      {
+        "line": 4390,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, \" finishes brewing potions and dispenses them!\",\n                            false, MSGCH_MONSTER_SPELL);"
+      },
+      {
+        "line": 4398,
+        "call": "mpr",
+        "source": "mpr(\"But you're too far away!\");"
+      },
+      {
+        "line": 4415,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, \" collapses with a clattering noise.\", false,\n                           MSGCH_MONSTER_DAMAGE, MDAM_DEAD);"
+      },
+      {
+        "line": 4438,
+        "call": "mprf",
+        "source": "mprf(\"%s construct%s an explosive harbinger and set it loose.\",\n                 agent.name(DESC_THE).c_str(), agent.is_player() ? \"\" : \"s\");"
+      },
+      {
+        "line": 4446,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 4464,
+        "call": "mprf",
+        "source": "mprf(\"%s deploys a bomblet.\", original.name(DESC_THE).c_str());"
+      },
+      {
+        "line": 4509,
+        "call": "mprf",
+        "source": "mprf(\"%s command%s %s explosives to detonate!\",\n                agent.name(DESC_THE).c_str(),\n                agent.is_player() ? \"\" : \"s\",\n                agent.pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 4644,
+        "call": "mprf",
+        "source": "mprf(\"You construct a shell of ice in front of yourself.\");"
+      },
+      {
+        "line": 4646,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 4690,
+        "call": "mpr",
+        "source": "mpr(\"A rock-encrusted egg appears nearby and begins to stir.\");"
+      },
+      {
+        "line": 4698,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 4719,
+        "call": "mpr",
+        "source": "mpr(\"You forge a skittering defender to stand by your side.\");"
+      },
+      {
+        "line": 4724,
+        "call": "mprf",
+        "source": "mprf(\"%s forges a skittering defender to stand by %s side.\",\n                 agent.name(DESC_THE).c_str(), agent.pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 4730,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 4760,
+        "call": "mpr",
+        "source": "mpr(\"You condense your magic into a crackling blade!\");"
+      },
+      {
+        "line": 4766,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      }
+    ],
+    "spl-selfench.cc": [
+      {
+        "line": 130,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NO_SPELLS);"
+      },
+      {
+        "line": 161,
+        "call": "mpr",
+        "source": "mpr(pre_msg);"
+      },
+      {
+        "line": 300,
+        "call": "msg::stream",
+        "source": "msg::stream << you.hands_act(\"begin\", \"to glow \")\n                << (you.duration[DUR_CONFUSING_TOUCH] ? \"brighter\" : \"red\")\n                << \".\" << endl;"
+      }
+    ],
+    "spl-other.cc": [
+      {
+        "line": 156,
+        "call": "mpr",
+        "source": "mpr(\"Nothing appears to have answered your call.\");"
+      },
+      {
+        "line": 203,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is recalled.\");"
+      },
+      {
+        "line": 462,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" looks rather confused.\");"
+      },
+      {
+        "line": 481,
+        "call": "mpr",
+        "source": "mpr(\"You attempt to intoxicate your foes!\");"
+      },
+      {
+        "line": 489,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"The world spins around you!\");"
+      },
+      {
+        "line": 538,
+        "call": "mpr",
+        "source": "mpr(\"There was nowhere nearby to inscribe sigils!\");"
+      },
+      {
+        "line": 589,
+        "call": "mpr",
+        "source": "mpr(\"You inscribe a pair of binding sigils.\");"
+      },
+      {
+        "line": 591,
+        "call": "mpr",
+        "source": "mpr(\"You inscribe a binding sigil.\");"
+      },
+      {
+        "line": 601,
+        "call": "mpr",
+        "source": "mpr(\"You slip past the binding sigil.\");"
+      },
+      {
+        "line": 604,
+        "call": "mprf",
+        "source": "mprf(\"%s cannot be bound by the sigil due to %s high momentum!\",\n                actor.name(DESC_THE).c_str(), actor.pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 612,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"You move over the binding sigil and are bound in place!\");"
+      },
+      {
+        "line": 627,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*m,\n            \" moves over the binding sigil and is bound in place!\",\n            false, MSGCH_FRIEND_SPELL);"
+      },
+      {
+        "line": 677,
+        "call": "mpr",
+        "source": "mpr(\"You shape a spike launcher from a nearby wall.\");"
+      },
+      {
+        "line": 747,
+        "call": "mpr",
+        "source": "mpr(\"Your spike launcher falls apart as you grow too distant to \"\n            \"maintain it.\");"
+      },
+      {
+        "line": 797,
+        "call": "mpr",
+        "source": "mpr(\"Your spike launcher falls apart.\");"
+      }
+    ],
+    "spl-clouds.cc": [
+      {
+        "line": 192,
+        "call": "mpr",
+        "source": "mpr(\"Blessed fire suddenly surrounds you!\");"
+      },
+      {
+        "line": 194,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*defender->as_monster(),\n                                   \" is surrounded by blessed fire!\");"
+      }
+    ],
+    "mon-cast.cc": [
+      {
+        "line": 320,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(caster, \" is healed.\");"
+      },
+      {
+        "line": 383,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(caster, msg.c_str(), false, MSGCH_MONSTER_SPELL);"
+      },
+      {
+        "line": 402,
+        "call": "mprf",
+        "source": "mprf(\"%s liquefies the ground around %s!\",\n                     caster.name(DESC_THE).c_str(),\n                     caster.pronoun(PRONOUN_REFLEXIVE).c_str());"
+      },
+      {
+        "line": 523,
+        "call": "mpr",
+        "source": "mpr(\"Mutagenic energy flows into you.\");"
+      },
+      {
+        "line": 579,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 747,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 783,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"Failed to place prism at (%d, %d)\", beam.target.x, beam.target.y);"
+      },
+      {
+        "line": 833,
+        "call": "mprf",
+        "source": "mprf(\"%s is pinned to %s own shadow.\",\n                         targs[i]->name(DESC_THE).c_str(),\n                         targs[i]->pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 846,
+        "call": "mprf",
+        "source": "mprf(\"%s draws nearby shadows into %s.\",\n                    caster.name(DESC_THE).c_str(),\n                    caster.pronoun(PRONOUN_REFLEXIVE).c_str());"
+      },
+      {
+        "line": 890,
+        "call": "mprf",
+        "source": "mprf(\"%s shreds %s%s\", caster.name(DESC_THE).c_str(),\n                        victim->name(DESC_THE).c_str(),\n                        final ? attack_strength_punctuation(final).c_str()\n                                : \", but does no damage.\");"
+      },
+      {
+        "line": 965,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(caster, \" begins winding a clockwork bee!\");"
+      },
+      {
+        "line": 1015,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"You feel a dangerous fate closing in on you...\");"
+      },
+      {
+        "line": 1077,
+        "call": "mprf",
+        "source": "mprf(MSGCH_DURATION, \"You feel very mighty all of a sudden.\");"
+      },
+      {
+        "line": 1086,
+        "call": "mprf",
+        "source": "mprf(MSGCH_DURATION, !you.duration[DUR_INVIS]\n                                    ? \"You fade into invisibility!\"\n                                    : \"You fade further into invisibility.\");"
+      },
+      {
+        "line": 1389,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, msg.c_str(), false, MSGCH_MONSTER_SPELL);"
+      },
+      {
+        "line": 1403,
+        "call": "mprf",
+        "source": "mprf(\"%s smites you!\", _god_name(god).c_str());"
+      },
+      {
+        "line": 1405,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*foe->as_monster(), \" is smitten.\");"
+      },
+      {
+        "line": 1425,
+        "call": "mpr",
+        "source": "mpr(\"Something gnaws heavily on your mind!\");"
+      },
+      {
+        "line": 1429,
+        "call": "mpr",
+        "source": "mpr(\"Something gnaws on your mind!\");"
+      },
+      {
+        "line": 1438,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*foe->as_monster(), \" mind is heavily gnawed upon.\", true);"
+      },
+      {
+        "line": 1441,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*foe->as_monster(), \" mind is gnawed upon.\", true);"
+      },
+      {
+        "line": 1453,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"You feel your power leaking away.\");"
+      },
+      {
+        "line": 1486,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*m_foe, \" is drained!\");"
+      },
+      {
+        "line": 1537,
+        "call": "mprf",
+        "source": "mprf(\"A beckoning whirlwind drags %s forward!\",\n            foe->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1542,
+        "call": "mprf",
+        "source": "mprf(\"A beckoning whirlwind swirls around %s.\",\n            foe->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1600,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*targ, \" wounds begin to rapidly close.\", true);"
+      },
+      {
+        "line": 1617,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*caster, \" allies begin to heal rapidly.\", true);"
+      },
+      {
+        "line": 1665,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" stumbles on the uneven ground.\");"
+      },
+      {
+        "line": 1788,
+        "call": "mprf",
+        "source": "mprf(\"Stolen life floods into %s!\", caster.name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1790,
+        "call": "mpr",
+        "source": "mpr(\"Stolen life floods into an unseen void!\");"
+      },
+      {
+        "line": 2915,
+        "call": "mprf",
+        "source": "mprf(channel, \"%s goes into a battle-frenzy!\",\n                seen_affected[0]->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 2920,
+        "call": "mprf",
+        "source": "mprf(channel, \"%s picks up the pace!\",\n                seen_affected[0]->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 2945,
+        "call": "mprf",
+        "source": "mprf(channel, \"%s %s go into a battle-frenzy!\",\n            chief.friendly() ? \"Your\" : \"The\", ally_desc.c_str());"
+      },
+      {
+        "line": 2950,
+        "call": "mprf",
+        "source": "mprf(channel, \"%s %s pick up the pace!\",\n            chief.friendly() ? \"Your\" : \"The\", ally_desc.c_str());"
+      },
+      {
+        "line": 3146,
+        "call": "mprf",
+        "source": "mprf(\"Chaos surges forth from %s of flesh, awakening new unlife!\",\n             seen_affected == 1 ? \"the pile\" : \"piles\");"
+      },
+      {
+        "line": 3204,
+        "call": "mprf",
+        "source": "mprf(\"%s corrupts the dungeon around %s!\",\n         mons.name(DESC_THE).c_str(), mons.pronoun(PRONOUN_OBJECTIVE).c_str());"
+      },
+      {
+        "line": 3565,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_SPELL, \"%s activates a sealing rune.\",\n                (warden->visible_to(&you) ? warden->name(DESC_THE, true).c_str()\n                                          : \"Someone\"));"
+      },
+      {
+        "line": 3569,
+        "call": "mpr",
+        "source": "mpr(\"The doors slam shut!\");"
+      },
+      {
+        "line": 3571,
+        "call": "mpr",
+        "source": "mpr(\"A door slams shut!\");"
+      },
+      {
+        "line": 3574,
+        "call": "mpr",
+        "source": "mpr(\"You are pushed out of the doorway!\");"
+      },
+      {
+        "line": 3899,
+        "call": "mprf",
+        "source": "mprf(\"%s calls on %s to defend %s!\",\n                mon->name(DESC_THE).c_str(),\n                targ->name(DESC_THE).c_str(),\n                mon->pronoun(PRONOUN_OBJECTIVE).c_str());"
+      },
+      {
+        "line": 3905,
+        "call": "mprf",
+        "source": "mprf(\"%s goads %s on!\", mon->name(DESC_THE).c_str(),\n                 targ->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 4038,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is recalled.\");"
+      },
+      {
+        "line": 4040,
+        "call": "mprf",
+        "source": "mprf(\"%s is recalled away.\", mon->name(DESC_THE, true).c_str());"
+      },
+      {
+        "line": 4089,
+        "call": "mpr",
+        "source": "mpr(\"Sorry, this spell isn't supported for dummies!\");"
+      },
+      {
+        "line": 4154,
+        "call": "mpr",
+        "source": "mpr(\"Vines fly forth from the trees!\");"
+      },
+      {
+        "line": 4346,
+        "call": "mpr",
+        "source": "mpr(\"Thorny briars emerge from the ground!\");"
+      },
+      {
+        "line": 4507,
+        "call": "mprf",
+        "source": "mprf(\"%s spells are empowered by the prayer of brilliance!\",\n                    mi->name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 4617,
+        "call": "mprf",
+        "source": "mprf(\"%s animating energy erupts into ghostly fire!\",\n             apostrophise(victim->name(DESC_THE)).c_str());"
+      },
+      {
+        "line": 4767,
+        "call": "mprf",
+        "source": "mprf(\"%s collapses into a mass of ice!\", victim->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 5260,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, message.c_str(), false, MSGCH_GOD);"
+      },
+      {
+        "line": 5293,
+        "call": "mprf",
+        "source": "mprf(MSGCH_GOD, \"You redirect %s's attack!\",\n                     mons->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 5344,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" falters for a moment.\");"
+      },
+      {
+        "line": 5489,
+        "call": "mprf",
+        "source": "mprf(MSGCH_GOD, \"Zin's power protects your fellow warrior from evil magic!\");"
+      },
+      {
+        "line": 5499,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*target, \" shudders.\");"
+      },
+      {
+        "line": 5511,
+        "call": "mpr",
+        "source": "mpr(\"Send 'em back where they came from!\");"
+      },
+      {
+        "line": 5851,
+        "call": "mprf",
+        "source": "mprf(\"%s %s frozen%s\", target->name(DESC_THE).c_str(),\n                              target->conj_verb(\"are\").c_str(),\n                              attack_strength_punctuation(damage).c_str());"
+      },
+      {
+        "line": 6046,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_UNAFFECTED);"
+      },
+      {
+        "line": 6048,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*ai->as_monster(), \" is unaffected.\");"
+      },
+      {
+        "line": 6061,
+        "call": "mprf",
+        "source": "mprf(\"%s%s\", ai->name(DESC_THE).c_str(), ai->resist_margin_phrase(resist).c_str());"
+      },
+      {
+        "line": 6073,
+        "call": "mprf",
+        "source": "mprf(\"%s trance deepens.\", mons->name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 6075,
+        "call": "mprf",
+        "source": "mprf(\"%s is mesmerised by %s!\", mons->name(DESC_THE).c_str(), agent.name(DESC_THE).c_str());"
+      },
+      {
+        "line": 6108,
+        "call": "mprf",
+        "source": "mprf(ch, \"%s attempts to bespell %s!\", mons.name(DESC_THE).c_str(), targ_msg.c_str());"
+      },
+      {
+        "line": 6114,
+        "call": "mprf",
+        "source": "mprf(ch, \"%s draws you further into %s thrall.\",\n                mons.name(DESC_THE).c_str(),\n                mons.pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 6147,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" radiates an aura of fear!\");"
+      },
+      {
+        "line": 6149,
+        "call": "mpr",
+        "source": "mpr(\"An aura of fear fills the air!\");"
+      },
+      {
+        "line": 6164,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_UNAFFECTED);"
+      },
+      {
+        "line": 6172,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_UNAFFECTED);"
+      },
+      {
+        "line": 6174,
+        "call": "mprf",
+        "source": "mprf(\"You%s\", you.resist_margin_phrase(res_margin).c_str());"
+      },
+      {
+        "line": 6211,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(**mi,\n                mi->resist_margin_phrase(res_margin).c_str());"
+      },
+      {
+        "line": 6221,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(**mi, \" looks frightened!\");"
+      },
+      {
+        "line": 6249,
+        "call": "mprf",
+        "source": "mprf(\"You%s\", you.resist_margin_phrase(willpower).c_str());"
+      },
+      {
+        "line": 6276,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(**mi,\n                    mi->resist_margin_phrase(res_margin).c_str());"
+      },
+      {
+        "line": 6380,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*ally, \" blinks into view!\");"
+      },
+      {
+        "line": 6553,
+        "call": "mprf",
+        "source": "mprf(mons->wont_attack() ? MSGCH_FRIEND_ENCHANT\n                                     : MSGCH_MONSTER_ENCHANT,\n                 \"%s\", msg.c_str());"
+      },
+      {
+        "line": 6648,
+        "call": "mprf",
+        "source": "mprf(\"Terrible wounds spread across more of %s body!\",\n                 defender.name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 6653,
+        "call": "mprf",
+        "source": "mprf(\"Terrible wounds open up all over %s body!\",\n                 defender.name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 6753,
+        "call": "mprf",
+        "source": "mprf(\"A blast of power from the earth%s strikes %s!\",\n             constructs_desc.c_str(),\n             target->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 6784,
+        "call": "mprf",
+        "source": "mprf(mons->wont_attack() ? MSGCH_FRIEND_ENCHANT\n                 : MSGCH_MONSTER_ENCHANT, \"%s\", msg.c_str());"
+      },
+      {
+        "line": 6837,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_SPELL,\n                 \"Motes of dream dust float from an unseen source.%s\",\n                 drowsy);"
+      },
+      {
+        "line": 6842,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_SPELL, \"%s%s\", message.c_str(), drowsy);"
+      },
+      {
+        "line": 6856,
+        "call": "mprf",
+        "source": "mprf(chan, \"Motes of dream dust float from an unseen source.\");"
+      },
+      {
+        "line": 6857,
+        "call": "mprf",
+        "source": "mprf(\"%s is unaffected.\", foe_name.c_str());"
+      },
+      {
+        "line": 6861,
+        "call": "mprf",
+        "source": "mprf(chan,\n             \"As motes of dream dust float from an unseen source, %s falls asleep.\",\n             foe_name.c_str());"
+      },
+      {
+        "line": 6870,
+        "call": "mprf",
+        "source": "mprf(chan,\n             \"As the sheep sparkle%s and sway%s, %s falls asleep.\",\n             pluralize,\n             pluralize,\n             foe_name.c_str());"
+      },
+      {
+        "line": 6878,
+        "call": "mprf",
+        "source": "mprf(chan,\n         \"The dream sheep attempt%s to lull %s to sleep.\",\n         pluralize,\n         foe_name.c_str());"
+      },
+      {
+        "line": 6882,
+        "call": "mprf",
+        "source": "mprf(\"%s is unaffected.\", foe_name.c_str());"
+      },
+      {
+        "line": 7039,
+        "call": "mprf",
+        "source": "mprf(\"A freezing vortex appears %s%s%s!\",\n             flying ? \"around \" : \"and lifts \",\n             mons->name(DESC_THE).c_str(),\n             flying ? \"\" : \" up!\");"
+      },
+      {
+        "line": 7045,
+        "call": "mpr",
+        "source": "mpr(\"A freezing vortex appears out of thin air!\");"
+      },
+      {
+        "line": 7128,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is empowered.\");"
+      },
+      {
+        "line": 7211,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_SPELL, \"%s arms its allies with %s.\", caster.name(DESC_THE).c_str(),\n                                    pluralise(wpn.name(DESC_PLAIN, false, true)).c_str());"
+      },
+      {
+        "line": 7434,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon,\n                    mon->resist_margin_phrase(res_margin).c_str());"
+      },
+      {
+        "line": 7439,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mon, \" is compelled to serve!\");"
+      },
+      {
+        "line": 7447,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_YOU_RESIST);"
+      },
+      {
+        "line": 7651,
+        "call": "mprf",
+        "source": "mprf(\"The water %s and strikes %s%s\",\n                        foe->airborne() ? \"rises up\" : \"swirls\",\n                        foe->name(DESC_THE).c_str(),\n                        attack_strength_punctuation(damage_taken).c_str());"
+      },
+      {
+        "line": 7685,
+        "call": "mprf",
+        "source": "mprf(\"%s and strikes %s%s%s\",\n                 airstrike_intensity_display(empty_space, tile).c_str(),\n                 foe->name(DESC_THE).c_str(),\n                 spell_cast == SPELL_SLEETSTRIKE ? \" with frigid sleet\" : \"\",\n                 attack_strength_punctuation(damage_taken).c_str());"
+      },
+      {
+        "line": 7703,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"You are encased in ice.\");"
+      },
+      {
+        "line": 7710,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*monfoe, \" is flash-frozen.\");"
+      },
+      {
+        "line": 7728,
+        "call": "mpr",
+        "source": "mpr(\"The long-dead rise up around you.\");"
+      },
+      {
+        "line": 7730,
+        "call": "mprf",
+        "source": "mprf(\"The long-dead rise up around %s.\", foe->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 7743,
+        "call": "mpr",
+        "source": "mpr(\"You feel haunted.\");"
+      },
+      {
+        "line": 7745,
+        "call": "mpr",
+        "source": "mpr(\"You sense an evil presence.\");"
+      },
+      {
+        "line": 7766,
+        "call": "mprf",
+        "source": "mprf(\"%s%s\",\n                     foe->name(DESC_THE).c_str(),\n                     foe->resist_margin_phrase(res_margin).c_str());"
+      },
+      {
+        "line": 7779,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is healed.\");"
+      },
+      {
+        "line": 7784,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is healed.\");"
+      },
+      {
+        "line": 7794,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" movement is quickened by the wind!\", true);"
+      },
+      {
+        "line": 7800,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" surroundings become eerily quiet.\", true);"
+      },
+      {
+        "line": 7810,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*\n                    mons,\n                    \" sings a water chant to call the tide!\"))\n            {\n                flash_view_delay(UA_MONSTER, ETC_WATER, 300);"
+      },
+      {
+        "line": 7825,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*\n            mons,\n            \" squirts a massive cloud of ink into the water!\");"
+      },
+      {
+        "line": 7885,
+        "call": "mprf",
+        "source": "mprf(\"%s shimmers and seems to become %s!\",\n                 mons->name(DESC_THE).c_str(),\n                 number_in_words(n_wanted + 1).c_str());"
+      },
+      {
+        "line": 8225,
+        "call": "mprf",
+        "source": "mprf(\"%s commands the forest to attack, but nothing happens.\",\n                     mons->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 8256,
+        "call": "mpr",
+        "source": "mpr(\"An electric hum fills the air.\");"
+      },
+      {
+        "line": 8295,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons,\n            make_stringf(\" begins to accept %s allies' injuries.\",\n                         mons->pronoun(PRONOUN_POSSESSIVE).c_str()).c_str());"
+      },
+      {
+        "line": 8333,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" radiates an aura of cold.\");"
+      },
+      {
+        "line": 8335,
+        "call": "mpr",
+        "source": "mpr(\"A wave of cold passes over you.\");"
+      },
+      {
+        "line": 8424,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*targ, \" shimmers and seems to become two!\");"
+      },
+      {
+        "line": 8481,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_NOTHING_HAPPENS);"
+      },
+      {
+        "line": 8502,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" begins deflecting missiles!\");"
+      },
+      {
+        "line": 8515,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" channels a blast of cleansing flame!\");"
+      },
+      {
+        "line": 8552,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" binds the souls of nearby monsters.\");"
+      },
+      {
+        "line": 8623,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" launches a sporangium.\");"
+      },
+      {
+        "line": 8630,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons,\n                \" curls into a ball and begins rolling!\");"
+      },
+      {
+        "line": 9297,
+        "call": "mprf",
+        "source": "mprf(\"%s throws %s %s!\",\n             (thrower_seen ? thrower.name(DESC_THE).c_str() : \"Something\"),\n             (throwee_seen ? throwee.name(DESC_THE, true).c_str() : \"something\"),\n             destination.c_str());"
+      },
+      {
+        "line": 9370,
+        "call": "mprf",
+        "source": "mprf(\"%s unleashes a %s howl, %s\",\n         mon.name(DESC_THE).c_str(),\n         silenced(mon.pos()) ? \"silent\" : \"terrible\",\n         effect.c_str());"
+      },
+      {
+        "line": 9407,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, song_desc.c_str(), false, spl);"
+      },
+      {
+        "line": 9411,
+        "call": "mprf",
+        "source": "mprf(MSGCH_SOUND, \"You hear %s.\",\n                          already_mesmerised ? \"a luring song\" :\n                          coinflip()         ? \"a haunting song\"\n                                             : \"an eerie melody\");"
+      }
+    ],
+    "mon-death.cc": [
+      {
+        "line": 253,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"Error, exp for monster with no damage: %s\",\n             mons->name(DESC_PLAIN, true).c_str());"
+      },
+      {
+        "line": 311,
+        "call": "mpr",
+        "source": "mpr(\"You feel a bit more experienced.\");"
+      },
+      {
+        "line": 408,
+        "call": "mprf",
+        "source": "mprf(\"%s %s intact enough to wear.\",\n             item.name(DESC_THE).c_str(),\n             mons_genus(mtyp) == MONS_DRAGON ? \"are\"  // scales are\n                                             : \"is\");"
+      },
+      {
+        "line": 436,
+        "call": "mprf",
+        "source": "mprf(\"%s bone magically twists into %s.\",\n             mons_type_name(mtyp, DESC_A).c_str(),\n             item.name(DESC_A).c_str());"
+      },
+      {
+        "line": 785,
+        "call": "mprf",
+        "source": "mprf(\"%s rises to serve you!\", mons->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 845,
+        "call": "mprf",
+        "source": "mprf(MSGCH_DIAGNOSTICS, \"Death convert attempt on %s, HD: %d, \"\n         \"your xl: %d\",\n         mons.name(DESC_PLAIN).c_str(),\n         mons.get_hit_dice(),\n         you.experience_level);"
+      },
+      {
+        "line": 938,
+        "call": "mprf",
+        "source": "mprf(\"%s attempts to avoid another deathblow, but is too exhausted to transform.\",\n                blorkula.name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1001,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(blorkula, \" attempts to avoid the deathblow, but fails!\");"
+      },
+      {
+        "line": 1007,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_SPELL,\n            \"%s avoids the killing blow by scattering into a rainbow of bats!\",\n            blorkula.name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1102,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_SPELL, \"%s\", msg.c_str());"
+      },
+      {
+        "line": 1355,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" binds the souls of nearby monsters.\");"
+      },
+      {
+        "line": 1380,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, (prefix + msg).c_str(), need_possessive, MSGCH_MONSTER_TIMEOUT);"
+      },
+      {
+        "line": 1600,
+        "call": "mpr",
+        "source": "mpr(fail_msg);"
+      },
+      {
+        "line": 1636,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_SPELL, \"With its final breath, %s offers up its power \"\n                                  \"to the beasts of the wild!\",\n                                  mons->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1652,
+        "call": "mprf",
+        "source": "mprf(\"%s %s healed.\", beasts[i]->name(DESC_THE).c_str(),\n                                  beasts[i]->conj_verb(\"are\").c_str());"
+      },
+      {
+        "line": 1659,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*beasts[i], \" seems to grow more fierce.\");"
+      },
+      {
+        "line": 1699,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_WARNING, \"For just a moment, %s begins to \"\n                                    \"look like %s, then it explodes!\",\n                                    mons->name(DESC_THE).c_str(),\n                                    mons_type_name(target, DESC_A).c_str());"
+      },
+      {
+        "line": 1768,
+        "call": "mprf",
+        "source": "mprf(MSGCH_FRIEND_SPELL,\n                 \"%s wails in agony as it relives its own death.\",\n                 mons.name(DESC_YOUR).c_str());"
+      },
+      {
+        "line": 1774,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_SPELL,\n                 \"%s wails in agony as it relives its own death.\",\n                 mons.name(DESC_THE).c_str());"
+      },
+      {
+        "line": 1856,
+        "call": "mpr",
+        "source": "mpr(\"You feel as though you may have cheated fate.\");"
+      },
+      {
+        "line": 1914,
+        "call": "mpr",
+        "source": "mpr(\"You feel an ambush drawing close....\");"
+      },
+      {
+        "line": 1916,
+        "call": "mpr",
+        "source": "mpr(\"You feel as though you may have cheated fate.\");"
+      },
+      {
+        "line": 2199,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, message.c_str(), true);"
+      },
+      {
+        "line": 2217,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, message.c_str());"
+      },
+      {
+        "line": 2244,
+        "call": "mprf",
+        "source": "mprf(MSGCH_ERROR,\n                 \"Lua death function for monster '%s' didn't load: %s\",\n                 mons.full_name(DESC_PLAIN).c_str(),\n                 dlua.error.c_str());"
+      },
+      {
+        "line": 2335,
+        "call": "mprf",
+        "source": "mprf(\"You siphon power from %s's fading %s.\",\n                  mons.name(DESC_THE).c_str(),\n                  mons.has_ench(ENCH_POISON) && mons.has_ench(ENCH_DRAINED) ?\n                  \"poison and negative energy\" : (mons.has_ench(ENCH_POISON) ?\n                  \"poison\" : \"negative energy\"));"
+      },
+      {
+        "line": 2344,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_GAIN_HEALTH);"
+      },
+      {
+        "line": 2350,
+        "call": "canned_msg",
+        "source": "canned_msg(MSG_GAIN_MAGIC);"
+      },
+      {
+        "line": 2375,
+        "call": "mprf",
+        "source": "mprf(MSGCH_GOD, you.religion,\n                 \"You feel the power of %s in you as your rage grows.\",\n                 uppercase_first(god_name(you.religion)).c_str());"
+      },
+      {
+        "line": 2383,
+        "call": "mpr",
+        "source": "mpr(\"The necklace of Bloodlust glows a violent red.\");"
+      },
+      {
+        "line": 2389,
+        "call": "mpr",
+        "source": "mpr(\"You feel the ancient rage of your axe.\");"
+      },
+      {
+        "line": 2409,
+        "call": "mpr",
+        "source": "mpr(\"The wailing of the fallen reaches a fever pitch!\");"
+      },
+      {
+        "line": 2478,
+        "call": "mprf",
+        "source": "mprf(\"%s allies are healed!\", mons.name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 2669,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, \" returns to where it belongs.\");"
+      },
+      {
+        "line": 2679,
+        "call": "mprf",
+        "source": "mprf(MSGCH_RECOVERY, \"You feel your strength returning.\");"
+      },
+      {
+        "line": 2718,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"%s falls apart, revealing its core!\",\n                 mons.name(DESC_YOUR).c_str());"
+      },
+      {
+        "line": 2742,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, \" falls apart and the last of its fire\"\n                                         \" goes out.\");"
+      },
+      {
+        "line": 2795,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_DAMAGE, MDAM_DEAD, \"You feel your sun fade away.\");"
+      },
+      {
+        "line": 2803,
+        "call": "mprf",
+        "source": "mprf(MSGCH_DURATION, \"Your magic returns to you!\");"
+      },
+      {
+        "line": 2832,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"%s broadcasts a psychic alarm as it %s.\",\n                    mons.name(DESC_THE).c_str(),\n                    (was_banished || !real_death) ? \"disappears\" : \"dies\");"
+      },
+      {
+        "line": 2837,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"You feel something broadcast a psychic alarm.\");"
+      },
+      {
+        "line": 2862,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_DAMAGE, MDAM_DEAD,\n                 \"Tendrils of ice devour %s body!\", mons.name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 2881,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, \" detonates feebly.\",\n                                   false, MSGCH_MONSTER_DAMAGE, MDAM_DEAD);"
+      },
+      {
+        "line": 2890,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, \" vaporises!\",\n                                   false, MSGCH_MONSTER_DAMAGE, MDAM_DEAD);"
+      },
+      {
+        "line": 2901,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, \" is driven back to you.\", false,\n                                MSGCH_MONSTER_DAMAGE, MDAM_DEAD);"
+      },
+      {
+        "line": 2916,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, \" returns to the armoury!\",\n                                        false, MSGCH_MONSTER_DAMAGE, MDAM_DEAD);"
+      },
+      {
+        "line": 2944,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons,\n                                       \" turns to gold and falls from the air.\",\n                                       false, MSGCH_MONSTER_DAMAGE, MDAM_DEAD);"
+      },
+      {
+        "line": 2951,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons,\n                                       \" briefly glints gold and then vanishes.\",\n                                       false, MSGCH_MONSTER_DAMAGE, MDAM_DEAD);"
+      },
+      {
+        "line": 2961,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, \" falls from the air.\",\n                                       false, MSGCH_MONSTER_DAMAGE, MDAM_DEAD);"
+      },
+      {
+        "line": 2987,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_DAMAGE, MDAM_DEAD, silenced(mons.pos()) ?\n                    \"The tentacle is hauled back through the portal!\" :\n                    \"With a roar, the tentacle is hauled back through the portal!\");"
+      },
+      {
+        "line": 3025,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_DAMAGE, MDAM_DEAD, \"%s is %s!\",\n                         mons.name(DESC_THE).c_str(),\n                         exploded   ? \"blown up\" :\n                         destroyed  ? \"destroyed\"\n                                    : \"killed\");"
+      },
+      {
+        "line": 3033,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_DAMAGE, MDAM_DEAD, \"You %s %s!\",\n                         exploded  ? \"blow up\" :\n                         destroyed ? \"destroy\"\n                                   : \"kill\",\n                         mons.name(DESC_THE).c_str());"
+      },
+      {
+        "line": 3053,
+        "call": "mpr",
+        "source": "mpr(\"That felt strangely unrewarding.\");"
+      },
+      {
+        "line": 3084,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, msg, false, MSGCH_MONSTER_DAMAGE,\n                                       MDAM_DEAD);"
+      },
+      {
+        "line": 3121,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, msg, false, MSGCH_MONSTER_DAMAGE,\n                                        MDAM_DEAD);"
+      },
+      {
+        "line": 3236,
+        "call": "mprf",
+        "source": "mprf(\"A nearby %s perishes wretchedly.\", mons.name(DESC_PLAIN, false).c_str());"
+      },
+      {
+        "line": 3239,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_TIMEOUT, \"A nearby %s withers and dies.\",\n                         mons.name(DESC_PLAIN, false).c_str());"
+      },
+      {
+        "line": 3248,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(mons, msg.c_str(), false, MSGCH_MONSTER_TIMEOUT);"
+      },
+      {
+        "line": 3363,
+        "call": "mprf",
+        "source": "mprf(MSGCH_ORB, \"A wave of disorienting energy ripples outward as you feel the reach of Zot diminish.\");"
+      },
+      {
+        "line": 3384,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_TIMEOUT, \"%s is cast back into %s original reality.\",\n                            mi->name(DESC_THE).c_str(), mi->pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 3404,
+        "call": "mpr",
+        "source": "mpr(\"The kraken's tentacles disappear.\");"
+      },
+      {
+        "line": 3406,
+        "call": "mpr",
+        "source": "mpr(\"The starspawn's tentacles wither and die.\");"
+      },
+      {
+        "line": 3453,
+        "call": "mprf",
+        "source": "mprf(\"Plague seeps from the dead %s.\", mons.name(DESC_PLAIN).c_str());"
+      },
+      {
+        "line": 3618,
+        "call": "mprf",
+        "source": "mprf(\"%s has departed this plane of existence.\",\n                     hepliaklqana_ally_name().c_str());"
+      },
+      {
+        "line": 3679,
+        "call": "mprf",
+        "source": "mprf(\"The terrible wounds on %s body vanish.\",\n                 act->name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 3814,
+        "call": "mprf",
+        "source": "mprf(\"%s falls into the %s!\",\n             mons->name(DESC_THE).c_str(),\n             grid == DNGN_LAVA ? \"lava\" : \"water\");"
+      },
+      {
+        "line": 3822,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" is incinerated.\", false,\n                               MSGCH_MONSTER_DAMAGE, MDAM_DEAD);"
+      },
+      {
+        "line": 3827,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" drowns.\", false,\n                               MSGCH_MONSTER_DAMAGE, MDAM_DEAD);"
+      },
+      {
+        "line": 3832,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" sinks to the bottom.\", false,\n                               MSGCH_MONSTER_DAMAGE, MDAM_DEAD);"
+      },
+      {
+        "line": 3837,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" falls apart.\", false,\n                               MSGCH_MONSTER_DAMAGE, MDAM_DEAD);"
+      },
+      {
+        "line": 4214,
+        "call": "mpr",
+        "source": "mpr(death_message);"
+      },
+      {
+        "line": 4263,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" seems to find hidden reserves of power!\");"
+      },
+      {
+        "line": 4288,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" likewise turns neutral.\");"
+      },
+      {
+        "line": 4317,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" gets angry again!\");"
+      }
+    ],
+    "mon-abil.cc": [
+      {
+        "line": 98,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*boris, \" is empowered by the presence of the orb!\");"
+      },
+      {
+        "line": 142,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(ugly, msg);"
+      },
+      {
+        "line": 272,
+        "call": "mprf",
+        "source": "mprf(\"%s separates from %s.\", new_slime->name(DESC_A).c_str(),\n                                          thing->name(DESC_A).c_str());"
+      },
+      {
+        "line": 276,
+        "call": "mprf",
+        "source": "mprf(\"%s splits.\", thing->name(DESC_A).c_str());"
+      },
+      {
+        "line": 383,
+        "call": "mprf",
+        "source": "mprf(\"Two slime creatures merge to form %s.\",\n                 merge_to->name(DESC_A).c_str());"
+      },
+      {
+        "line": 389,
+        "call": "mprf",
+        "source": "mprf(\"Something merges into %s, and it vanishes!\",\n                 old_name.c_str());"
+      },
+      {
+        "line": 398,
+        "call": "mprf",
+        "source": "mprf(\"%s merges with something you can't see.\",\n             initial_slime->name(DESC_A).c_str());"
+      },
+      {
+        "line": 636,
+        "call": "mprf",
+        "source": "mprf(\"A slime creature is ejected from %s body as it begins to warp and change.\",\n                 slymdra.name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 641,
+        "call": "mprf",
+        "source": "mprf(\"%d slime creatures are ejected from %s body as it begins to warp and change.\",\n                 count, slymdra.name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 711,
+        "call": "mprf",
+        "source": "mprf(target->as_monster()->friendly() ? MSGCH_FRIEND_SPELL\n                                                  : MSGCH_MONSTER_SPELL,\n                 \"%s writhes in pain as voices assail %s mind.\",\n                 target->name(DESC_THE).c_str(),\n                 target->pronoun(PRONOUN_POSSESSIVE).c_str());"
+      },
+      {
+        "line": 719,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_SPELL, \"%s\", message);"
+      },
+      {
+        "line": 867,
+        "call": "mprf",
+        "source": "mprf(\"%s sacrifices itself to reknit %s!\",\n                     mi->name(DESC_THE).c_str(),\n                     revivee_name.c_str());"
+      },
+      {
+        "line": 873,
+        "call": "mprf",
+        "source": "mprf(\"%s assumes the form of %s%s!\",\n                     mi->name(DESC_THE).c_str(),\n                     revivee_name.c_str(),\n                     (mi->is_summoned() ? \" and becomes anchored to this\"\n                      \" world\" : \"\"));"
+      },
+      {
+        "line": 916,
+        "call": "mprf",
+        "source": "mprf(\"Jet-black ravens fly out from beneath %s foliage!\",\n                 mons.name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 921,
+        "call": "mprf",
+        "source": "mprf(\"Angry insects surge out from beneath %s foliage!\",\n                mons.name(DESC_ITS).c_str());"
+      },
+      {
+        "line": 997,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" cracks slightly.\");"
+      },
+      {
+        "line": 1002,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" shakes eagerly.\");"
+      },
+      {
+        "line": 1008,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" hatches with a roar like a landslide!\",\n                                false, MSGCH_MONSTER_SPELL);"
+      },
+      {
+        "line": 1079,
+        "call": "mprf",
+        "source": "mprf(\"%s absorbs %d nearby slime creatures and %s.\",\n                        mons->name(DESC_THE).c_str(), did_merge, head_msg.c_str());"
+      },
+      {
+        "line": 1084,
+        "call": "mprf",
+        "source": "mprf(\"%s absorbs a nearby slime creature and %s.\",\n                        mons->name(DESC_THE).c_str(), head_msg.c_str());"
+      },
+      {
+        "line": 1293,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" flows with the water.\");"
+      },
+      {
+        "line": 1317,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*mons, \" flows through the trees.\");"
+      },
+      {
+        "line": 1479,
+        "call": "mprf",
+        "source": "mprf(MSGCH_MONSTER_SPELL, \"%s ignites a memory of %s%s.\",\n                nobody.name(DESC_THE).c_str(),\n                comma_separated_line(spell_names.begin(), spell_names.end()).c_str(),\n                was_injured ? \" to re-knit themselves\" : \"\");"
+      },
+      {
+        "line": 1549,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*ember, \" glows brighter.\");"
+      },
+      {
+        "line": 1564,
+        "call": "simple_monster_message",
+        "source": "simple_monster_message(*ember, \" blazes with a fierce heat.\", false, MSGCH_FRIEND_SPELL);"
+      },
+      {
+        "line": 1576,
+        "call": "mprf",
+        "source": "mprf(\"The solar flare engulfs %s%s.\", mon->name(DESC_THE).c_str(),\n                damage_done ? \"\" : \" but does no damage\");"
+      },
+      {
+        "line": 1639,
+        "call": "mprf",
+        "source": "mprf(MSGCH_WARN, \"You feel the power of Zot begin to gather its forces!\");"
+      }
+    ]
+  },
+  "external_dependencies": [
+    "fight.cc::stop_summoning_reason/stop_summoning_prompt: aura danger confirmation remains external and not counted complete",
+    "Full native build / Linux milestone / real gameplay replay performed by root; not performed in this subtask",
+    "Semantic name implementations are existing shared APIs; standalone tests replace name/world queries only"
+  ],
+  "remaining_candidate_counts": {
+    "attack.cc": 7,
+    "melee-attack.cc": 73,
+    "ranged-attack.cc": 17,
+    "beam.cc": 170,
+    "spl-cast.cc": 32,
+    "spl-damage.cc": 117,
+    "spl-summoning.cc": 159,
+    "spl-selfench.cc": 3,
+    "spl-other.cc": 15,
+    "spl-clouds.cc": 2,
+    "mon-cast.cc": 126,
+    "mon-death.cc": 74,
+    "mon-abil.cc": 27
+  }
+}

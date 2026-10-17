@@ -1,0 +1,252 @@
+Crash caused by signal #15: Terminated
+
+Version: Dungeon Crawl Stone Soup 0.34.1
+Platform: unix
+Bits: 64
+Game mode: hints
+Tiles: no
+
+Seed: 1234, deterministic pregen: 1
+Command line: /var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console -dir /tmp/dcss-copy-sol61-unidentified-scroll-6r1qn7dg -rc /tmp/dcss-copy-sol61-unidentified-scroll-6r1qn7dg/init.txt -name ZhSmoke
+
+RC options:
+restart_after_game = maybe
+
+
+Crash caused by signal #15: Terminated
+
+Obtained 19 stack frames.
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z17write_stack_traceP8_IO_FILE+0x25) [0x66f2b5]: write_stack_trace(_IO_FILE*)
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z13do_crash_dumpv+0x3c9) [0x67eee9]: do_crash_dump()
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z20crash_signal_handleri+0x1bd) [0x66f8bd]: crash_signal_handler(int)
+/usr/lib64/libc.so.6(+0x19fb0) [0x7f80b0a21fb0]: 
+/usr/lib64/libc.so.6(+0x6f56c) [0x7f80b0a7756c]: 
+/usr/lib64/libc.so.6(+0x6f594) [0x7f80b0a77594]: 
+/usr/lib64/libc.so.6(read+0x1e) [0x7f80b0af149e]: 
+/usr/lib64/libncursesw.so.6(_nc_wgetch+0x32c) [0x7f80b1034d0c]: 
+/usr/lib64/libncursesw.so.6(wget_wch+0xda) [0x7f80b104ffea]: 
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console() [0xe8e3d1]
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z8getch_ckv+0x20) [0xe8fbf0]: getch_ck()
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console() [0x992e85]
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z25getch_with_command_macrosv+0x268) [0x9965c8]: getch_with_command_macros()
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console() [0xe9d3fc]
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console() [0xe9dd05]
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(main+0x15f) [0x56692f]: 
+/usr/lib64/libc.so.6(+0x3681) [0x7f80b0a0b681]: 
+/usr/lib64/libc.so.6(__libc_start_main+0x88) [0x7f80b0a0b798]: 
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_start+0x25) [0x5671f5]: 
+
+Trying to run gdb.
+GNU gdb (Fedora Linux) 17.2-4.fc44
+Copyright (C) 2025 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word".
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <ima:enforcing>
+  <https://debuginfod.fedoraproject.org/>
+  <ima:ignore>
+Enable debuginfod for this session? (y or [n]) [answered N; input not from terminal]
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib64/libthread_db.so.1".
+0x00007f80b0a7756e in __internal_syscall_cancel () from /usr/lib64/libc.so.6
+#0  0x00007f80b0a7756e in __internal_syscall_cancel () from /usr/lib64/libc.so.6
+No symbol table info available.
+#1  0x00007f80b0a77594 in __syscall_cancel () from /usr/lib64/libc.so.6
+No symbol table info available.
+#2  0x00007f80b0ae710f in wait4 () from /usr/lib64/libc.so.6
+No symbol table info available.
+#3  0x000000000066f59b in call_gdb(_IO_FILE*) ()
+No symbol table info available.
+#4  0x000000000067eefe in do_crash_dump() ()
+No symbol table info available.
+#5  0x000000000066f8bd in crash_signal_handler(int) ()
+No symbol table info available.
+#6  <signal handler called>
+No symbol table info available.
+#7  0x00007f80b0a7756c in __internal_syscall_cancel () from /usr/lib64/libc.so.6
+No symbol table info available.
+#8  0x00007f80b0a77594 in __syscall_cancel () from /usr/lib64/libc.so.6
+No symbol table info available.
+#9  0x00007f80b0af149e in read () from /usr/lib64/libc.so.6
+No symbol table info available.
+#10 0x00007f80b1034d0c in _nc_wgetch () from /usr/lib64/libncursesw.so.6
+No symbol table info available.
+#11 0x00007f80b104ffea in wget_wch () from /usr/lib64/libncursesw.so.6
+No symbol table info available.
+#12 0x0000000000e8e3d1 in _curses_fetch_pending_key(bool) ()
+No symbol table info available.
+#13 0x0000000000e8fbf0 in getch_ck() ()
+No symbol table info available.
+#14 0x0000000000992e85 in _getch_mul() ()
+No symbol table info available.
+#15 0x00000000009965c8 in getch_with_command_macros() ()
+No symbol table info available.
+#16 0x0000000000e9d3fc in _input() ()
+No symbol table info available.
+#17 0x0000000000e9dd05 in _launch_game() ()
+No symbol table info available.
+#18 0x000000000056692f in main ()
+No symbol table info available.
+[Inferior 1 (process 880271) detached]
+
+Compilation info:
+<<<<<<<<<<<
+Compiled with GCC 15.3.1 20260722 (Red Hat 15.3.1-1)
+Build platform: x86_64-redhat-linux
+Platform: x86_64-redhat-linux
+CFLAGS: -O2 -pipe -Wall -Wformat-security -Wundef -Wextra -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-type-limits -Wno-uninitialized -Wno-array-bounds -Wmissing-declarations -Wredundant-decls -Wno-parentheses -Wwrite-strings -Wshadow -pedantic -Wuninitialized -Iutil -I. -isystem contrib/install/x86_64-redhat-linux/include -DWIZARD -DASSERTS -DCLUA_BINDINGS -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600
+LDFLAGS: -rdynamic -O2
+>>>>>>>>>>>
+
+Place info:
+branch = 0, depth = 1
+
+Level id: D:1
+Level build method = random_map_for_place, level layout type  = rooms, absdepth0 = 0
+Level vaults:
+    minmay_arrival_solitary_statue
+    layout_basic
+    hangedman_decor_slide_cut
+
+Markers:
+<<<<<<<<<<<<<<<<<<<<<<
+Marker #0, type 0 at (55, 33): feature (stone_stairs_up_i)
+>>>>>>>>>>>>>>>>>>>>>>
+
+Messages:
+<<<<<<<<<<<<<<<<<<<<<<
+Welcome, ZhSmoke the Mountain Dwarf Berserker.
+特洛戈说：杀光他们！
+Press ? for a list of commands and other information.
+Found a staircase leading out of the dungeon.
+You feel better.
+ZH_CANONICAL_HISTORY_OK
+Unknown command. (For a list of commands type ??.)
+Save game and exit? 
+Welcome back, ZhSmoke the Mountain Dwarf Berserker.
+特洛戈说：杀光他们！
+Press ? for a list of commands and other information.
+WARNING: ABOUT TO ENTER WIZARD MODE!
+If you continue, your game will not be scored!
+Do you really want to enter wizard mode? (Confirm with "wiz".) 
+Enter Wizard Command (? - help): 
+Enter name of item (or ITEM spec): 
+你捡到了你的第一张卷轴（“?”）。 按r就能阅读它。
+一旦你通过鉴定卷轴或亲自阅读鉴定了一张卷轴，你就能自动认出所有同类型的其他卷轴
+； 这意味着，有时候仅仅为了鉴定而读卷轴也是值得的。
+C - a scroll labelled PUOLAE QYLIXU
+
+>>>>>>>>>>>>>>>>>>>>>>
+
+Version history:
+Game started: 0.34.1
+
+Game state:
+
+mouse_enabled: 0, waiting_for_command: 1, terminal_resized: 0
+io_inited: 1, need_save: 1, saving_game: 0, updating_scores: 0:
+seen_hups: 0, map_stat_gen: 0, type: 5, arena_suspended: 0
+
+prev_cmd = CMD_PICKUP
+repeat_cmd = CMD_NO_CMD
+
+Player:
+{{{{{{{{{{{
+Name:    [ZhSmoke]
+Species: Mountain Dwarf
+Job:     Berserker
+
+HP: 19/19; mods: 0/0
+MP: 1/1; mod: 0
+Stats: 19 7 9
+Position: (55, 33), god: Trog (10), turn_is_over: 0, banished: 0
+Standing on/in/over feature: staircase leading out of the dungeon
+
+Skills (mode: auto)
+Name            | can_currently_train | train | training | level | points | progress
+Fighting        |          X          |   1   |    39    |    3  |    301 | 49/168
+Short Blades    |          X          |   1   |     0    |    0  |      0 | 0/70
+Long Blades     |          X          |   1   |     0    |    0  |      0 | 0/59
+Axes            |          X          |   1   |    39    |    3  |    301 | 89/141
+Maces & Flails  |          X          |   1   |     0    |    0  |      0 | 0/35
+Polearms        |          X          |   1   |     0    |    0  |      0 | 0/50
+Staves          |          X          |   1   |     0    |    0  |      0 | 0/42
+Ranged Weapons  |          X          |   1   |     0    |    0  |      0 | 0/70
+Throwing        |          X          |   1   |     0    |    0  |      0 | 0/70
+Armour          |          X          |   1   |    11    |    2  |    151 | 25/126
+Dodging         |          X          |   1   |    11    |    1  |    151 | 67/168
+Stealth         |          X          |   1   |     0    |    0  |      0 | 0/70
+Shields         |          X          |   1   |     0    |    0  |      0 | 0/42
+Unarmed Combat  |          X          |   1   |     0    |    0  |      0 | 0/50
+Spellcasting    |          X          |   0   |     0    |    0  |      0 | 0/70
+Conjurations    |          X          |   0   |     0    |    0  |      0 | 0/59
+Hexes           |          X          |   0   |     0    |    0  |      0 | 0/50
+Summonings      |          X          |   0   |     0    |    0  |      0 | 0/70
+Necromancy      |          X          |   0   |     0    |    0  |      0 | 0/42
+Translocations  |          X          |   0   |     0    |    0  |      0 | 0/70
+Forgecraft      |          X          |   0   |     0    |    0  |      0 | 0/35
+Fire Magic      |          X          |   0   |     0    |    0  |      0 | 0/35
+Ice Magic       |          X          |   0   |     0    |    0  |      0 | 0/59
+Air Magic       |          X          |   0   |     0    |    0  |      0 | 0/84
+Earth Magic     |          X          |   0   |     0    |    0  |      0 | 0/42
+Alchemy         |          X          |   0   |     0    |    0  |      0 | 0/70
+Invocations     |          X          |   1   |     0    |    0  |      0 | 0/29
+Evocations      |          X          |   1   |     0    |    0  |      0 | 0/42
+Shapeshifting   |          X          |   1   |     0    |    0  |      0 | 0/70
+
+Spell bugs:
+
+Durations:
+
+Attributes:
+    #49: 29
+
+Mutations:
+    runic magic: 1 (innate)
+    artefact enchanting: 1 (innate)
+
+Inventory bugs:
+
+Equipment:
+    eq slot #1, inv slot #0: +0 hand axe
+    eq slot #3, inv slot #1: +0 animal skin
+
+}}}}}}}}}}}
+
+
+Screenshot:
+#######
+#.....#
++.....#
+#..ß.@#
++.....#
+#.....#
+##+#+##
+
+dlua errors:
+
+clua stack:
+
+dlua stack:
+
+Lua persistent data:
+<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>
+
+Lua marker contents:
+<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>

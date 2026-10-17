@@ -504,6 +504,21 @@ void god_power::display(bool gaining, const char* fmt) const
         god_speaks(you.religion, make_stringf(fmt, str).c_str());
 }
 
+static void _religion_god_log(const char *id, god_type god)
+{
+    // Complete templates contain no speech-protocol substitutions. Capture the
+    // same canonical speaker used by simple_god_message before localization.
+    mpr(zh_message(id,
+        {zh_glossary_name("god", "character.god.name", god_speaker(god))}),
+        MSGCH_GOD, god);
+}
+
+static void _god_welcome_message(god_type god, bool returning)
+{
+    _religion_god_log(returning ? "character.conversion.welcome_back"
+                               : "character.conversion.welcome", god);
+}
+
 static void _place_delayed_monsters();
 
 bool is_evil_god(god_type god)
@@ -710,17 +725,17 @@ void dec_penance(god_type god, int val)
             // TSO's halo is once more available.
             if (!had_halo && have_passive(passive_t::halo))
             {
-                mprf(MSGCH_GOD, "Your divine halo returns!");
+                mpr(zh_message("character.fixed.fadd9b4ea3d2"), MSGCH_GOD);
                 invalidate_agrid(true);
             }
             if (!had_umbra && have_passive(passive_t::umbra))
             {
-                mprf(MSGCH_GOD, "Your aura of darkness returns!");
+                mpr(zh_message("character.fixed.8391acb1c813"), MSGCH_GOD);
                 invalidate_agrid(true);
             }
             if (have_passive(passive_t::sinv))
             {
-                mprf(MSGCH_GOD, "Your vision regains its divine sight.");
+                mpr(zh_message("character.fixed.ace5e1ad0b17"), MSGCH_GOD);
                 autotoggle_autopickup(false);
             }
             if (have_passive(passive_t::stat_boost))
@@ -732,7 +747,7 @@ void dec_penance(god_type god, int val)
             }
             if (have_passive(passive_t::storm_shield))
             {
-                mprf(MSGCH_GOD, "A storm instantly forms around you!");
+                mpr(zh_message("character.fixed.66b4f131e655"), MSGCH_GOD);
                 you.redraw_armour_class = true; // also handles shields
             }
             // When you've worked through all your penance, you get
@@ -756,7 +771,7 @@ void dec_penance(god_type god, int val)
         else if (god == GOD_HEPLIAKLQANA)
         {
             calc_hp(); // frailty ends
-            mprf(MSGCH_GOD, god, "Your full life essence returns.");
+            mpr(zh_message("character.fixed.92244506d665"), MSGCH_GOD, god);
         }
     }
     else
@@ -798,7 +813,7 @@ static bool _need_water_walking()
 
 static void _grant_temporary_waterwalk()
 {
-    mpr("Your water-walking will last only until you reach solid ground.");
+    mpr(zh_message("character.fixed.d0bc3e6d8c11"));
     you.props[TEMP_WATERWALK_KEY] = true;
 }
 
@@ -887,12 +902,12 @@ static void _inc_penance(god_type god, int val)
 
         if (had_halo && !have_passive(passive_t::halo))
         {
-            mprf(MSGCH_GOD, god, "Your divine halo fades away.");
+            mpr(zh_message("character.fixed.359ec1fafed1"), MSGCH_GOD, god);
             invalidate_agrid();
         }
         if (had_umbra && !have_passive(passive_t::umbra))
         {
-            mprf(MSGCH_GOD, god, "Your aura of darkness fades away.");
+            mpr(zh_message("character.fixed.6097e6dd4c27"), MSGCH_GOD, god);
             invalidate_agrid();
         }
 
@@ -952,29 +967,27 @@ static void _inc_penance(god_type god, int val)
             // just gained penance.
             if (you.piety() >= piety_breakpoint(0))
             {
-                mprf(MSGCH_GOD, god, "The storm surrounding you dissipates.");
+                mpr(zh_message("character.fixed.0c9f1ba4d523"), MSGCH_GOD, god);
                 you.redraw_armour_class = true;
             }
             if (you.duration[DUR_QAZLAL_FIRE_RES])
             {
-                mprf(MSGCH_DURATION, "Your resistance to fire fades away.");
+                mpr(zh_message("character.fixed.c2ca863e8af0"), MSGCH_DURATION);
                 you.duration[DUR_QAZLAL_FIRE_RES] = 0;
             }
             if (you.duration[DUR_QAZLAL_COLD_RES])
             {
-                mprf(MSGCH_DURATION, "Your resistance to cold fades away.");
+                mpr(zh_message("character.fixed.73252e8e1538"), MSGCH_DURATION);
                 you.duration[DUR_QAZLAL_COLD_RES] = 0;
             }
             if (you.duration[DUR_QAZLAL_ELEC_RES])
             {
-                mprf(MSGCH_DURATION,
-                     "Your resistance to electricity fades away.");
+                mpr(zh_message("character.fixed.13dde23789af"), MSGCH_DURATION);
                 you.duration[DUR_QAZLAL_ELEC_RES] = 0;
             }
             if (you.duration[DUR_QAZLAL_AC])
             {
-                mprf(MSGCH_DURATION,
-                     "Your resistance to physical damage fades away.");
+                mpr(zh_message("character.fixed.5b40caeb87ea"), MSGCH_DURATION);
                 you.duration[DUR_QAZLAL_AC] = 0;
                 you.redraw_armour_class = true;
             }
@@ -1397,7 +1410,7 @@ static bool _give_trog_oka_gift(bool forced)
                 false, you.pos()) != NON_ITEM;
     if (!success)
     {
-        mpr("...but nothing appears.");
+        mpr(zh_message("character.fixed.1345caf6495d"));
         return false;
     }
     switch (gift_type)
@@ -1432,7 +1445,7 @@ static bool _gift_jiyva_gift(bool forced)
             return true;
         }
         else
-            mpr("You feel as though nothing has changed.");
+            mpr(zh_message("character.fixed.04bd04aa7524"));
     }
     return false;
 }
@@ -2299,11 +2312,10 @@ void dock_piety(int piety_loss, int penance, bool no_lecture)
         if (last_piety_lecture != you.num_turns)
         {
             // output guilt message:
-            mprf("You feel%sguilty.",
-                 (piety_loss == 1) ? " a little " :
-                 (piety_loss <  5) ? " " :
-                 (piety_loss < 10) ? " very "
-                                   : " extremely ");
+            mpr(zh_message(piety_loss == 1 ? "character.piety.guilt.little"
+                         : piety_loss < 5 ? "character.piety.guilt.plain"
+                         : piety_loss < 10 ? "character.piety.guilt.very"
+                                          : "character.piety.guilt.extreme"));
         }
 
         last_piety_lecture = you.num_turns;
@@ -2410,9 +2422,9 @@ static void _handle_piety_gain(int old_piety)
                 }
             }
             if (rank == rank_for_passive(passive_t::halo))
-                mprf(MSGCH_GOD, "A divine halo surrounds you!");
+                mpr(zh_message("character.fixed.82672f54b008"), MSGCH_GOD);
             if (rank == rank_for_passive(passive_t::umbra))
-                mprf(MSGCH_GOD, "You are shrouded in an aura of darkness!");
+                mpr(zh_message("character.fixed.6e1ded1f1760"), MSGCH_GOD);
             if (rank == rank_for_passive(passive_t::jelly_regen))
             {
                 simple_god_message(" begins accelerating your health and magic "
@@ -2926,7 +2938,7 @@ void excommunication(bool voluntary, god_type new_god)
     you.wield_change = true;
     quiver::set_needs_redraw();
 
-    mpr("You have lost your religion!");
+    mpr(zh_message("character.fixed.bc8ebb78e2fd"));
     // included in default force_more_message
 
     if (old_god == GOD_BEOGH)
@@ -2939,7 +2951,7 @@ void excommunication(bool voluntary, god_type new_god)
     update_whereis();
 
     if (old_god == GOD_IGNIS)
-        simple_god_message(" blazes with a vengeful fury!", false, old_god);
+        _religion_god_log("character.conversion.ignis_wrath", old_god);
     else if (god_hates_your_god(old_god, new_god))
     {
         simple_god_message(
@@ -2950,12 +2962,12 @@ void excommunication(bool voluntary, god_type new_god)
 
     if (had_halo)
     {
-        mprf(MSGCH_GOD, old_god, "Your divine halo fades away.");
+        mpr(zh_message("character.fixed.359ec1fafed1"), MSGCH_GOD, old_god);
         invalidate_agrid(true);
     }
     if (had_umbra)
     {
-        mprf(MSGCH_GOD, old_god, "Your aura of darkness fades away.");
+        mpr(zh_message("character.fixed.6097e6dd4c27"), MSGCH_GOD, old_god);
         invalidate_agrid(true);
     }
     // You might have lost water walking at a bad time...
@@ -2971,7 +2983,7 @@ void excommunication(bool voluntary, god_type new_god)
     switch (old_god)
     {
     case GOD_KIKUBAAQUDGHA:
-        mprf(MSGCH_GOD, old_god, "You sense decay."); // in the state of Denmark
+        mpr(zh_message("character.fixed.013557bec45d"), MSGCH_GOD, old_god); // in the state of Denmark
         add_daction(DACT_ROT_CORPSES);
         break;
 
@@ -3009,7 +3021,7 @@ void excommunication(bool voluntary, god_type new_god)
 
     case GOD_BEOGH:
         simple_god_message(" voice booms out: Traitor to your kin!", true, old_god);
-        mprf(MSGCH_MONSTER_ENCHANT, "All of your followers decide to abandon you.");
+        mpr(zh_message("character.fixed.a4baa40cbc2c"), MSGCH_MONSTER_ENCHANT);
 
         add_daction(DACT_ALLY_BEOGH);
         remove_all_companions(GOD_BEOGH);
@@ -3070,7 +3082,7 @@ void excommunication(bool voluntary, god_type new_god)
 
         if (query_daction_counter(DACT_ALLY_SLIME))
         {
-            mprf(MSGCH_MONSTER_ENCHANT, "All of your fellow slimes turn on you.");
+            mpr(zh_message("character.fixed.ed6aadbeb37c"), MSGCH_MONSTER_ENCHANT);
             add_daction(DACT_ALLY_SLIME);
         }
 
@@ -3080,7 +3092,7 @@ void excommunication(bool voluntary, god_type new_god)
     case GOD_FEDHAS:
         if (query_daction_counter(DACT_ALLY_PLANT))
         {
-            mprf(MSGCH_MONSTER_ENCHANT, "The plants of the dungeon turn on you.");
+            mpr(zh_message("character.fixed.68c1ff11b922"), MSGCH_MONSTER_ENCHANT);
             add_daction(DACT_ALLY_PLANT);
         }
         break;
@@ -3097,8 +3109,7 @@ void excommunication(bool voluntary, god_type new_god)
     case GOD_GOZAG:
         if (you.attribute[ATTR_GOZAG_SHOPS_CURRENT])
         {
-            mprf(MSGCH_GOD, old_god, "Your funded stores close, unable to pay "
-                                     "their debts without your funds.");
+            mpr(zh_message("character.fixed.42ea98ad41c5"), MSGCH_GOD, old_god);
             you.attribute[ATTR_GOZAG_SHOPS_CURRENT] = 0;
         }
         you.duration[DUR_GOZAG_GOLD_AURA] = 0;
@@ -3114,29 +3125,27 @@ void excommunication(bool voluntary, god_type new_god)
     case GOD_QAZLAL:
         if (old_piety >= piety_breakpoint(0))
         {
-            mprf(MSGCH_GOD, old_god, "Your storm instantly dissipates.");
+            mpr(zh_message("character.fixed.d04a302dd7da"), MSGCH_GOD, old_god);
             you.redraw_armour_class = true;
         }
         if (you.duration[DUR_QAZLAL_FIRE_RES])
         {
-            mprf(MSGCH_DURATION, "Your resistance to fire fades away.");
+            mpr(zh_message("character.fixed.c2ca863e8af0"), MSGCH_DURATION);
             you.duration[DUR_QAZLAL_FIRE_RES] = 0;
         }
         if (you.duration[DUR_QAZLAL_COLD_RES])
         {
-            mprf(MSGCH_DURATION, "Your resistance to cold fades away.");
+            mpr(zh_message("character.fixed.73252e8e1538"), MSGCH_DURATION);
             you.duration[DUR_QAZLAL_COLD_RES] = 0;
         }
         if (you.duration[DUR_QAZLAL_ELEC_RES])
         {
-            mprf(MSGCH_DURATION,
-                 "Your resistance to electricity fades away.");
+            mpr(zh_message("character.fixed.13dde23789af"), MSGCH_DURATION);
             you.duration[DUR_QAZLAL_ELEC_RES] = 0;
         }
         if (you.duration[DUR_QAZLAL_AC])
         {
-            mprf(MSGCH_DURATION,
-                 "Your resistance to physical damage fades away.");
+            mpr(zh_message("character.fixed.5b40caeb87ea"), MSGCH_DURATION);
             you.duration[DUR_QAZLAL_AC] = 0;
             you.redraw_armour_class = true;
         }
@@ -3183,13 +3192,13 @@ void excommunication(bool voluntary, god_type new_god)
         if (you.duration[DUR_FIERY_ARMOUR])
         {
             you.duration[DUR_FIERY_ARMOUR] = 0;
-            mpr("Your cloak of flame burns out.");
+            mpr(zh_message("character.fixed.839fe41732d5"));
             you.redraw_armour_class = true;
         }
         if (you.duration[DUR_RISING_FLAME])
         {
             you.duration[DUR_RISING_FLAME] = 0;
-            mpr("Your rising flame fizzles out.");
+            mpr(zh_message("character.fixed.beaca933f935"));
         }
         break;
 
@@ -3355,7 +3364,7 @@ static void _god_welcome_handle_gear()
     if (!you.has_mutation(MUT_FAITH) && ignore_faith_reason().empty()
         && you.wearing_jewellery(AMU_FAITH))
     {
-        mprf(MSGCH_GOD, "Your amulet flashes!");
+        mpr(zh_message("character.fixed.a3ca6098455d"), MSGCH_GOD);
         flash_view_delay(UA_PLAYER, god_colour(you.religion), 300);
     }
 
@@ -3658,12 +3667,12 @@ static void _join_gozag()
     if (fee > 0)
     {
         ASSERT(you.gold >= fee);
-        mprf(MSGCH_GOD, "You pay a service fee of %d gold.", fee);
+        mpr(zh_message("character.conversion.fee", {zh_integer("gold", fee)}), MSGCH_GOD);
         you.gold -= fee;
         you.attribute[ATTR_GOZAG_GOLD_USED] += fee;
     }
     else
-        simple_god_message(" waives the service fee.");
+        _religion_god_log("character.conversion.fee_waived", you.religion);
 
     // Note relevant powers.
     bool needs_redraw = false;
@@ -3703,7 +3712,7 @@ static void _join_okawaru()
         }
     }
     if (needs_message)
-        mpr("Your summoned allies are dismissed!");
+        mpr(zh_message("character.fixed.6a3b1cd79a2f"));
 }
 
 /// Setup when joining the sacred cult of Ru.
@@ -3744,7 +3753,7 @@ static void _join_zin()
 
     if (you.props.exists(ORCIFICATION_LEVEL_KEY))
     {
-        mprf(MSGCH_GOD, "Zin cleanses your body of Beogh's taint.");
+        mpr(zh_message("character.fixed.29bf0288e331"), MSGCH_GOD);
         you.props.erase(ORCIFICATION_LEVEL_KEY);
     }
 }
@@ -3804,8 +3813,7 @@ static const map<god_type, function<void ()>> on_join = {
     { GOD_BEOGH, update_player_symbol },
     { GOD_CHEIBRIADOS, _join_cheibriados },
     { GOD_FEDHAS, []() {
-        mprf(MSGCH_MONSTER_ENCHANT, "The plants of the dungeon cease their "
-             "hostilities.");
+        mpr(zh_message("character.fixed.8b551977fed3"), MSGCH_MONSTER_ENCHANT);
         if (env.forest_awoken_until)
             for (monster_iterator mi; mi; ++mi)
                 mi->del_ench(ENCH_AWAKEN_FOREST);
@@ -3872,9 +3880,7 @@ void join_religion(god_type which_god)
     set_god_ability_slots();    // remove old god's slots, reserve new god's
 
     // included in default force_more_message
-    simple_god_message(make_stringf(" welcomes you%s!",
-                                    you.worshipped[which_god] ? " back"
-                                                              : "").c_str());
+    _god_welcome_message(which_god, you.worshipped[which_god]);
     update_whereis();
 
     _set_initial_god_piety();
@@ -3944,7 +3950,7 @@ void join_religion(god_type which_god)
 void god_pitch(god_type which_god)
 {
     if (which_god == GOD_BEOGH && env.grid(you.pos()) != DNGN_ALTAR_BEOGH)
-        mpr("You bow before the missionary of Beogh.");
+        mpr(zh_message("character.fixed.2c6f3af00a6a"));
     else
     {
         mprf("You %s the altar of %s.",
@@ -3967,8 +3973,7 @@ void god_pitch(god_type which_god)
     if (!is_good_god(which_god) && you.penance[which_god])
     {
         you.turn_is_over = false;
-        simple_god_message(" refuses to forgive you so easily!", false,
-                           which_god);
+        _religion_god_log("character.conversion.refuse_forgive", which_god);
         return;
     }
 
@@ -3987,44 +3992,38 @@ void print_god_rejection(god_type which_god)
 
     if (which_god == GOD_GOZAG)
     {
-        simple_god_message(" does not accept service from beggars like you!",
-                           false, which_god);
+        _religion_god_log("character.conversion.beggar", which_god);
         const int fee = gozag_service_fee();
         if (you.gold == 0)
         {
-            mprf("The service fee for joining is currently %d gold; you have"
-                 " none.", fee);
+            mpr(zh_message("character.conversion.fee_none", {zh_integer("gold", fee)}));
         }
         else
         {
-            mprf("The service fee for joining is currently %d gold; you only"
-                 " have %d.", fee, you.gold);
+            mpr(zh_message("character.conversion.fee_short",
+                {zh_integer("gold", fee), zh_integer("available", you.gold)}));
         }
         return;
     }
     if (you.get_mutation_level(MUT_NO_LOVE) && _god_rejects_loveless(which_god))
     {
-        simple_god_message(" does not accept worship from the loveless!",
-                           false, which_god);
+        _religion_god_log("character.conversion.loveless", which_god);
         return;
     }
     if (!_transformed_player_can_join_god(which_god))
     {
         if (which_god == GOD_OKAWARU)
         {
-            simple_god_message(" says: You must forswear the aid of any and all "
-                               "before you are fit to worship.", false, which_god);
+            _religion_god_log("character.conversion.forswear", which_god);
         }
         else
         {
-            simple_god_message(" says: How dare you approach in such a loathsome "
-                               "form!", false, which_god);
+            _religion_god_log("character.conversion.loathsome", which_god);
         }
         return;
     }
 
-    simple_god_message(" does not accept worship from those such as you!",
-                       false, which_god);
+    _religion_god_log("character.conversion.reject", which_god);
 }
 
 /** Ask the user for a god by name.
@@ -4994,26 +4993,26 @@ void ostracise_player(int amount)
 {
     if (you.religion == GOD_NO_GOD)
     {
-        mpr("You feel a momentary loss of self-confidence.");
+        mpr(zh_message("character.fixed.5745023f3cc4"));
         return;
     }
     else if (you.religion == GOD_GOZAG)
     {
-        mpr("...but the rich have no need for faith.");
+        mpr(zh_message("character.fixed.bf75385c6b7b"));
         return;
     }
     else if (you.religion == GOD_XOM)
     {
-        mpr("...but you know Xom will still be watching.");
+        mpr(zh_message("character.fixed.44e90af8b43c"));
         return;
     }
     else if (you.attribute[ATTR_OSTRACISM] == MAX_OSTRACISM)
     {
-        mpr("...but the divine are already as distant as possible.");
+        mpr(zh_message("character.fixed.ced446883cfb"));
         return;
     }
 
-    mpr("You feel the divine grow more distant.");
+    mpr(zh_message("character.fixed.e69e7211d5eb"));
 
     // Give a bonus to ostracism first gained, so that we quickly skip past the
     // 'invisible' piety above 6 stars.
@@ -5038,7 +5037,7 @@ void player_change_ostracism(int amount)
     {
         _handle_piety_gain(old_piety);
         if (you.attribute[ATTR_OSTRACISM] == 0)
-            mprf(MSGCH_RECOVERY, "You feel the divine notice you fully once more.");
+            mpr(zh_message("character.fixed.9660e7cc1dd4"), MSGCH_RECOVERY);
     }
 
     // Redraw piety stars, which may have changed.

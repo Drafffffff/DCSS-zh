@@ -185,20 +185,22 @@ static int _skill_text_width(const string &text)
     return width;
 }
 
-static ZhArg _skill_cause_arg(const vector<string> &causes)
+static ZhArg _skill_cause_arg(const vector<ZhArg> &causes)
 {
-    const string canonical = comma_separated_line(causes.begin(), causes.end());
-    string localized;
-    bool supported = true;
-    for (const string &cause : causes)
-    {
-        const ZhArg word = zh_word_arg("cause", "skill.cause.", cause);
-        if (!localized.empty())
-            localized += "、";
-        localized += word.localized;
-        supported = supported && word.supported;
-    }
-    return {"cause", ZhArgType::Text, canonical, localized, supported};
+    // Keep the typed children through the parent sentence. Unknown semantic
+    // causes make the complete sentence fall back and report the missing arg.
+    return zh_message_list("cause", causes);
+}
+
+static ZhArg _skill_power_cause_arg()
+{
+    const string canonical = apostrophise(god_name(you.religion)) + " power";
+    if (you.religion == GOD_ASHENZARI)
+        return zh_message_arg("cause", "skill.cause.ashenzari_power");
+    // bondage_skill_boost currently belongs to Ashenzari. A future passive
+    // provider must supply its own reviewed template instead of matching this
+    // assembled canonical name or silently mixing it into a Chinese sentence.
+    return {"cause", ZhArgType::Text, canonical, canonical, false};
 }
 
 #ifdef USE_TILE_LOCAL
@@ -730,43 +732,51 @@ string SkillMenuSwitch::get_help()
         string result;
         if (skm.is_set(SKMF_ENHANCED))
         {
-            vector<string> causes;
+            vector<ZhArg> causes;
             if (you.duration[DUR_HEROISM])
-                causes.push_back("Heroism");
+                causes.push_back(zh_message_arg("cause",
+                    "skill.cause.heroism"));
 
             if (!you.skill_boost.empty()
                 && have_passive(passive_t::bondage_skill_boost))
             {
-                causes.push_back(apostrophise(god_name(you.religion))
-                                 + " power");
+                causes.push_back(_skill_power_cause_arg());
             }
             if (_any_crosstrained())
-                causes.push_back("cross-training");
+                causes.push_back(zh_message_arg("cause",
+                    "skill.cause.cross_training"));
             if (_hermit_bonus())
-                causes.push_back("the Hermit's pendant");
+                causes.push_back(zh_message_arg("cause",
+                    "skill.cause.hermit_pendant"));
             if (_wildshape_bonus())
-                causes.push_back("wildshape");
+                causes.push_back(zh_message_arg("cause",
+                    "skill.cause.wildshape"));
             if (_charlatan_bonus())
-                causes.push_back("the Charlatan's Orb");
+                causes.push_back(zh_message_arg("cause",
+                    "skill.cause.charlatan_orb"));
             if (you.form == transformation::walking_scroll)
-                causes.push_back("scribal knowledge");
+                causes.push_back(zh_message_arg("cause",
+                    "skill.cause.scribal_knowledge"));
             result = zh_message("skill.menu.enhanced", {
                 _skill_cause_arg(causes)}).display();
         }
 
         if (skm.is_set(SKMF_REDUCED))
         {
-            vector<const char *> causes;
+            vector<ZhArg> causes;
             if (player_under_penance(GOD_ASHENZARI))
-                causes.push_back("Ashenzari's anger");
+                causes.push_back(zh_message_arg("cause",
+                    "skill.cause.ashenzari_anger"));
             if (_hermit_penalty())
-                causes.push_back("the Hermit's pendant");
+                causes.push_back(zh_message_arg("cause",
+                    "skill.cause.hermit_pendant"));
             if (you.has_bane(BANE_DILETTANTE))
-                causes.push_back("the Bane of the Dilettante");
+                causes.push_back(zh_message_arg("cause",
+                    "skill.cause.dilettante_bane"));
             if (!result.empty())
                 result += " ";
             result += zh_message("skill.menu.reduced", {
-                _skill_cause_arg(vector<string>(causes.begin(), causes.end()))}).display();
+                _skill_cause_arg(causes)}).display();
         }
 
         if (!result.empty())

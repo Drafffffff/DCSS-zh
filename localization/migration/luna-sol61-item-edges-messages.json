@@ -1,0 +1,283 @@
+{
+  "model": "gpt-6.1-sol",
+  "reviewer_model": "gpt-6.1-sol",
+  "purpose": "物品边缘流程模板迁移与独立6.1-Sol文案审校；复用已审物品/仆从/白金英杰词汇。",
+  "messages": [
+    {
+      "id": "sol61.item.floor.single",
+      "en": "You see here {item}.",
+      "zh": "这里有{item}。",
+      "params": {
+        "item": "name"
+      },
+      "context": "物品边缘流程；完整源模板，先选语言再填具名参数。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "You see here {item}."
+      }
+    },
+    {
+      "id": "sol61.item.floor.summary",
+      "en": "Items here: {items}.",
+      "zh": "这里的物品：{items}。",
+      "params": {
+        "items": "text"
+      },
+      "context": "物品边缘流程；完整源模板，先选语言再填具名参数。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "Items here: {items}."
+      }
+    },
+    {
+      "id": "sol61.item.floor.heading",
+      "en": "Things that are here:",
+      "zh": "这里有以下物品：",
+      "params": {},
+      "context": "物品边缘流程；完整源模板，先选语言再填具名参数。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "Things that are here:"
+      }
+    },
+    {
+      "id": "sol61.item.floor.list",
+      "en": "{items}",
+      "zh": "{items}",
+      "params": {
+        "items": "text"
+      },
+      "context": "地面物品语义快照列表；preserve source English 仅结构参数由物品命名层生成；分号结构独立。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "{items}"
+      }
+    },
+    {
+      "id": "sol61.item.floor.many",
+      "en": "There are many items here.",
+      "zh": "这里有许多物品。",
+      "params": {},
+      "context": "物品边缘流程；完整源模板，先选语言再填具名参数。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "There are many items here."
+      }
+    },
+    {
+      "id": "sol61.item.identify.last",
+      "en": "You have identified the last {class}.",
+      "zh": "你已鉴定出最后一种{class}。",
+      "params": {
+        "class": "text"
+      },
+      "context": "物品边缘流程；完整源模板，先选语言再填具名参数。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "You have identified the last {class}."
+      }
+    },
+    {
+      "id": "sol61.item.class.wand",
+      "en": "wand",
+      "zh": "魔杖",
+      "params": {},
+      "context": "最后类别鉴定的有限类别名，按物品类别/子类型生成的语义标签。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "wand"
+      }
+    },
+    {
+      "id": "sol61.item.class.staff",
+      "en": "magical staff",
+      "zh": "魔法长杖",
+      "params": {},
+      "context": "最后类别鉴定的有限类别名，按物品类别/子类型生成的语义标签。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "magical staff"
+      }
+    },
+    {
+      "id": "sol61.item.class.potion",
+      "en": "potion",
+      "zh": "药水",
+      "params": {},
+      "context": "最后类别鉴定的有限类别名，按物品类别/子类型生成的语义标签。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "potion"
+      }
+    },
+    {
+      "id": "sol61.item.class.scroll",
+      "en": "scroll",
+      "zh": "卷轴",
+      "params": {},
+      "context": "最后类别鉴定的有限类别名，按物品类别/子类型生成的语义标签。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "scroll"
+      }
+    },
+    {
+      "id": "sol61.item.class.ring",
+      "en": "ring",
+      "zh": "戒指",
+      "params": {},
+      "context": "最后类别鉴定的有限类别名，按物品类别/子类型生成的语义标签。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "ring"
+      }
+    },
+    {
+      "id": "sol61.item.class.amulet",
+      "en": "amulet",
+      "zh": "护身符",
+      "params": {},
+      "context": "最后类别鉴定的有限类别名，按物品类别/子类型生成的语义标签。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "amulet"
+      }
+    },
+    {
+      "id": "sol61.item.weapon.named",
+      "en": "{weapon} \"{nickname}\"",
+      "zh": "{weapon}“{nickname}”",
+      "params": {
+        "weapon": "name",
+        "nickname": "name"
+      },
+      "context": "命名武器；随机生成的昵称是专名数据，preserve source English，保持原始昵称字节及名称状态快照。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "{weapon} \"{nickname}\""
+      }
+    },
+    {
+      "id": "sol61.item.weapon.welcome",
+      "en": "You welcome {weapon} into your grasp.",
+      "zh": "你迎接{weapon}来到你手中。",
+      "params": {
+        "weapon": "name"
+      },
+      "context": "物品边缘流程；完整源模板，先选语言再填具名参数。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "You welcome {weapon} into your grasp."
+      }
+    },
+    {
+      "id": "sol61.item.weapon.welcome_back",
+      "en": "You welcome {weapon} back into your grasp.",
+      "zh": "你迎接{weapon}回到你手中。",
+      "params": {
+        "weapon": "name"
+      },
+      "context": "物品边缘流程；完整源模板，先选语言再填具名参数。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "You welcome {weapon} back into your grasp."
+      }
+    },
+    {
+      "id": "sol61.item.weapon.farewell",
+      "en": "You whisper farewell to {weapon}.",
+      "zh": "你低声向{weapon}道别。",
+      "params": {
+        "weapon": "name"
+      },
+      "context": "物品边缘流程；完整源模板，先选语言再填具名参数。",
+      "source": {
+        "file": "items.cc",
+        "anchor": "You whisper farewell to {weapon}."
+      }
+    },
+    {
+      "id": "sol61.item.delay.imbue",
+      "en": "You begin to imbue your servitor with knowledge of {spell}.",
+      "zh": "你开始向仆从灌注{spell}的知识。",
+      "params": {
+        "spell": "name"
+      },
+      "context": "物品边缘流程；完整源模板，先选语言再填具名参数。",
+      "source": {
+        "file": "delay.cc",
+        "anchor": "You begin to imbue your servitor with knowledge of {spell}."
+      }
+    },
+    {
+      "id": "sol61.item.delay.imprint_start",
+      "en": "You begin to imprint {weapon} upon your paragon.",
+      "zh": "你开始将{weapon}塑印到白金英杰身上。",
+      "params": {
+        "weapon": "name"
+      },
+      "context": "物品边缘流程；完整源模板，先选语言再填具名参数。",
+      "source": {
+        "file": "delay.cc",
+        "anchor": "You begin to imprint {weapon} upon your paragon."
+      }
+    },
+    {
+      "id": "sol61.item.delay.imprint_finish",
+      "en": "You finish imprinting the physical structure of {weapon} upon your paragon.",
+      "zh": "你已将{weapon}的物理结构塑印到白金英杰身上。",
+      "params": {
+        "weapon": "name"
+      },
+      "context": "物品边缘流程；完整源模板，先选语言再填具名参数。",
+      "source": {
+        "file": "delay.cc",
+        "anchor": "You finish imprinting the physical structure of {weapon} upon your paragon."
+      }
+    },
+    {
+      "id": "sol61.item.held.net",
+      "en": "held in a net",
+      "zh": "被网困住",
+      "params": {},
+      "context": "held_status 的有限受困状态；不解析组合句。",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "held in a net"
+      }
+    },
+    {
+      "id": "sol61.item.held.web",
+      "en": "caught in a web",
+      "zh": "被蛛网困住",
+      "params": {},
+      "context": "held_status 的有限受困状态；不解析组合句。",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "caught in a web"
+      }
+    },
+    {
+      "id": "sol61.item.quiver.unseen",
+      "en": "Something you can't see",
+      "zh": "某个你看不见的东西",
+      "params": {},
+      "context": "不可见伸展攻击阻挡者；不访问怪物名称，保留未知信息边界。",
+      "source": {
+        "file": "quiver.cc",
+        "anchor": "Something you can't see"
+      }
+    },
+    {
+      "id": "sol61.item.delay.keep_imbuing",
+      "en": "Keep imbuing your servitor?",
+      "zh": "继续灌注你的仆从吗？",
+      "params": {},
+      "context": "仆从灌注被打断时的typed yesno；规范英文仍交给Lua确认钩子。",
+      "source": {
+        "file": "delay.cc",
+        "anchor": "ImbueDelay::try_interrupt"
+      }
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "native_baseline": "cc710081cd3f163eabf78c65b9144e040ef30aa8",
+  "public_baseline": "dfd66ebd050a7d9212d7962ab5c4dc9d68b8aa60",
+  "requested_model": "gpt-6.1-sol",
+  "concurrency": "root plus three workers; six independent workers in two waves",
+  "acceptance": "Each worker owns source, reviewed templates and real-producer tests. Parent integrates all, builds Mac/Linux Tiles/console and checks copied-save UI. Reports must distinguish audit scope from completed source migration.",
+  "parts": [
+    {
+      "part": "religion-character",
+      "wave": 1,
+      "scope": "religion/god abilities/prayer/passives/wrath/conduct, mutation, ability, player-stats",
+      "status": "specified producer package accepted; four builds and copied-save integration passed; larger module remains partial"
+    },
+    {
+      "part": "combat-spells",
+      "wave": 1,
+      "scope": "attack/melee/ranged/beam, cast/damage/summoning/selfench/other/clouds, monster cast/death/abilities",
+      "status": "specified producer package accepted; four builds and copied-save integration passed; larger module remains partial"
+    },
+    {
+      "part": "world-interaction",
+      "wave": 1,
+      "scope": "movement/stairs/traps/travel/abyss/terrain/exclusion/orb/nearby danger",
+      "status": "specified producer package accepted; four builds and copied-save integration passed; larger module remains partial"
+    },
+    {
+      "part": "item-edges",
+      "wave": 2,
+      "scope": "items/invent/item-use/player-equip/evoke/potion/delay/quiver, remaining specialized item flows",
+      "status": "specified producer package accepted; four builds and copied-save integration passed; larger module remains partial"
+    },
+    {
+      "part": "semantic-details",
+      "wave": 2,
+      "scope": "zh-display-name/describe/describe-spells/mon-info; complex semantic names/details",
+      "status": "specified producer package accepted; four builds and copied-save integration passed; larger module remains partial"
+    },
+    {
+      "part": "ui-help",
+      "wave": 2,
+      "scope": "output/hints/tutorial/command/help/lookups/skill menus, special UI entry points",
+      "status": "specified producer package accepted; four builds and copied-save integration passed; larger module remains partial"
+    }
+  ],
+  "safety": "Only disposable fixture copies and isolated QA display were operated. Exact accepted binaries installed by backup/atomic replace after QA; no player restart, saves/config/assets changed.",
+  "native_commit": "44ae418e12df902d13ca4f92b6ebba0dd8b3db35",
+  "integrated_parent": "c2df0d82370388ebb1d3704156a20eb2f2f731b8",
+  "public_preserved_commit": "c356ab3"
+}

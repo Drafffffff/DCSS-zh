@@ -1,0 +1,654 @@
+{
+  "schema": 1,
+  "model": "gpt-6.1-sol",
+  "reviewer_model": "gpt-6.1-sol",
+  "baseline": "cc710081cd3f163eabf78c65b9144e040ef30aa8",
+  "state": "producer-tested; integrated build/UI verification delegated to parent",
+  "new_message_count": 23,
+  "owned_files": [
+    "items.cc",
+    "invent.cc",
+    "item-use.cc",
+    "player-equip.cc",
+    "evoke.cc",
+    "potion.cc",
+    "delay.cc",
+    "quiver.cc"
+  ],
+  "changed_native_files": [
+    "items.cc",
+    "items.h",
+    "delay.cc",
+    "quiver.cc"
+  ],
+  "migrated_producers": [
+    "item_message_display_arg",
+    "item_check",
+    "_identify_last_item",
+    "_weapon_display_name_arg",
+    "maybe_name_weapon",
+    "say_farewell_to_weapon",
+    "ImbueDelay::try_interrupt",
+    "ImbueDelay::start",
+    "ImprintDelay::start",
+    "ImprintDelay::finish",
+    "quiver::melee_action::trigger (five dynamic feedback branches)"
+  ],
+  "existing_producers_frozen_and_regression_tested": [
+    "item_message",
+    "name_weapon",
+    "get_weapon_name",
+    "ImbueDelay::finish",
+    "ImprintDelay::try_interrupt"
+  ],
+  "test": {
+    "command": "python3 tools/test_sol61_item_edges.py",
+    "result": "PASS",
+    "actual_producer_cases": 123753,
+    "fixture_sha256": "80308aeeb97ac5e63caf67f24edfe068ea7d175619e231016408e2cc5aa156c8",
+    "renderer": "production zh-message.cc in private temp catalog; DCSS_ZH_FORBID_LEGACY=1",
+    "seams": [
+      "world/item storage",
+      "semantic name services (name implementation belongs separate work package)",
+      "message UI/yesno input",
+      "RNG engines with traced deterministic values"
+    ],
+    "assertions": [
+      "canonical output and exact channel/nojoin/cap equality",
+      "item identification/autopick/slot side effects",
+      "weapon nickname RNG/inscriptions/properties",
+      "interrupt return value/was_prompted/confirmation disable/answer",
+      "imprint item and servitor spell state",
+      "melee target/turn/time/death and RNG trace",
+      "unknown name whole-parent fallback and mixed-list fallback",
+      "invisible blocker observable/name access equality",
+      "all five migrated melee feedback branches reached",
+      "English display selection",
+      "glyph sorting/colours/50-item cap unchanged"
+    ]
+  },
+  "remaining_by_file": {
+    "items.cc": [
+      "Orb escape producer has external orb.cc::start_orb_run const char* consumer",
+      "wizard/debug rune/book selection and item diagnostics",
+      "legacy item_message string API remains canonical; external directn parent owned by semantic group",
+      "unknown custom/artefact names depend on semantic name support and retain whole-parent fallback"
+    ],
+    "invent.cc": [
+      "legacy prompt_invent_item(const char*) and arbitrary caller prompt formatting"
+    ],
+    "item-use.cc": [
+      "inscribe_item empty-inventory feedback",
+      "divine-potion intervention through simple_god_message",
+      "scroll noise through noisy string consumer",
+      "Lua errors and buggy-scroll diagnostics",
+      "external spell/status/god consumers are separate scopes"
+    ],
+    "player-equip.cc": [
+      "Zonguldrok hat random DB whisper; requires typed raw database protocol with original lookup/RNG cardinality",
+      "faith loss through simple_god_message",
+      "artefact/custom-name fallback depends on semantic name layer"
+    ],
+    "evoke.cc": [
+      "no source edits this package; prior typed direct logs do not certify external spell/monster/god effects; no remaining direct mpr literal detected by this scan"
+    ],
+    "potion.cc": [
+      "god callbacks for memories and mutation cleansing",
+      "other external mutation/status/god consumers are not certified by direct-potion logs"
+    ],
+    "delay.cc": [
+      "MemoriseDelay::start divine knowledge text consumer",
+      "RunDelay::handle travel interruption",
+      "autotoggle_autopickup command-key warning",
+      "monster_interrupt_message approach/encounter logs",
+      "Lua diagnostics"
+    ],
+    "quiver.cc": [
+      "action::autofight_check resource-depletion feedback",
+      "ranged_action::trigger deconstruction feedback",
+      "Lua errors; arbitrary action/control/canonical APIs not claimed translated"
+    ]
+  },
+  "remaining_callsite_candidates": [
+    {
+      "file": "items.cc",
+      "line": 217,
+      "classification": "diagnostic",
+      "source": "    mprf(MSGCH_WARN, \"Too many items on level, removing some.\");\n\n    // Rules:"
+    },
+    {
+      "file": "items.cc",
+      "line": 514,
+      "classification": "diagnostic",
+      "source": "        mprf(MSGCH_ERROR, \"Item %s claims to be held by monster %s, but \"\n                          \"it isn't in the monster's inventory.\",\n             env.item[dest].name(DESC_PLAIN, false, true).c_str(),"
+    },
+    {
+      "file": "items.cc",
+      "line": 568,
+      "classification": "diagnostic",
+      "source": "    mprf(MSGCH_ERROR, \"BUG WARNING: Problems unlinking item '%s', (%d, %d)!!!\",\n         env.item[dest].name(DESC_PLAIN).c_str(),\n         env.item[dest].pos.x, env.item[dest].pos.y);"
+    },
+    {
+      "file": "items.cc",
+      "line": 620,
+      "classification": "diagnostic",
+      "source": "        mprf(MSGCH_ERROR, \"BUG WARNING: Item didn't seem to be linked at all.\");\n#endif\n}"
+    },
+    {
+      "file": "items.cc",
+      "line": 963,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr_nojoin(MSGCH_FLOOR_ITEMS,\n            zh_message(\"sol61.item.floor.summary\", {summary}));\n    else if (items.size() <= msgwin_lines() - 1)"
+    },
+    {
+      "file": "items.cc",
+      "line": 1139,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(pickup_warning);\n        learned_something_new(HINT_FULL_INVENTORY);\n    }"
+    },
+    {
+      "file": "items.cc",
+      "line": 1630,
+      "classification": "remaining-visible-producer",
+      "source": "            mpr(pickup_warning);\n    }\n    if (you.last_pickup.empty())"
+    },
+    {
+      "file": "items.cc",
+      "line": 2077,
+      "classification": "external-consumer-or-database",
+      "source": "        const string colour = getSpeakString(\"misc_colour\");\n        mpr(zh_message(\"operation.pickup.gem.all\",\n            {zh_word_arg(\"colour\", \"operation.inventory.misc_colour.\", colour)}));"
+    },
+    {
+      "file": "items.cc",
+      "line": 2100,
+      "classification": "external-consumer-or-database",
+      "source": "    start_orb_run(CHAPTER_ESCAPING, \"Now all you have to do is get back out \"\n                                    \"of the dungeon!\");\n"
+    },
+    {
+      "file": "items.cc",
+      "line": 2881,
+      "classification": "remaining-visible-producer",
+      "source": "    if (yesno(prompt, true, 'n', true, false))\n        return true;\n"
+    },
+    {
+      "file": "items.cc",
+      "line": 3270,
+      "classification": "diagnostic",
+      "source": "        mprf(MSGCH_ERROR, \"ch_force_autopickup failed: %s\",\n             clua.error.c_str());\n    }"
+    },
+    {
+      "file": "items.cc",
+      "line": 3546,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(pickup_warning);\n\n    if (did_pickup)"
+    },
+    {
+      "file": "items.cc",
+      "line": 4509,
+      "classification": "diagnostic",
+      "source": "            mprf(channel, \"weird detected item\");\n        return iinfo;\n    }"
+    },
+    {
+      "file": "items.cc",
+      "line": 4514,
+      "classification": "diagnostic",
+      "source": "        mprf(channel, \"undefined item\");\n        return false;\n    }"
+    },
+    {
+      "file": "items.cc",
+      "line": 4523,
+      "classification": "diagnostic",
+      "source": "                mprf(channel, \"weird item subtype and no info\");\n            if (sub_type > max_sub)\n                mprf(channel, \"huge item subtype\");"
+    },
+    {
+      "file": "items.cc",
+      "line": 4525,
+      "classification": "diagnostic",
+      "source": "                mprf(channel, \"huge item subtype\");\n            if (!item_type_has_unidentified(base_type))\n                mprf(channel, \"unided item of a type that can't be\");"
+    },
+    {
+      "file": "items.cc",
+      "line": 4527,
+      "classification": "diagnostic",
+      "source": "                mprf(channel, \"unided item of a type that can't be\");\n            return false;\n        }"
+    },
+    {
+      "file": "items.cc",
+      "line": 4533,
+      "classification": "diagnostic",
+      "source": "        mprf(channel, \"item color invalid\"); // 0 = BLACK and so invisible\n        return false;\n    }"
+    },
+    {
+      "file": "items.cc",
+      "line": 4538,
+      "classification": "diagnostic",
+      "source": "        mprf(channel, \"item has uninitialized rnd\");\n        return false; // no items with uninitialized rnd\n    }"
+    },
+    {
+      "file": "items.cc",
+      "line": 4612,
+      "classification": "wizard-or-debug-menu",
+      "source": "                mprf(MSGCH_PROMPT, \"%s\", line.c_str());\n                line.clear();\n            }"
+    },
+    {
+      "file": "items.cc",
+      "line": 4616,
+      "classification": "wizard-or-debug-menu",
+      "source": "        mprf(MSGCH_PROMPT, \"Which rune (ESC to exit)? \");\n\n        int keyin = toalower(get_ch());"
+    },
+    {
+      "file": "items.cc",
+      "line": 4696,
+      "classification": "wizard-or-debug-menu",
+      "source": "                        mpr(item->name(DESC_DBNAME));\n                    type_wanted = i;\n                    best_index = pos;"
+    },
+    {
+      "file": "items.cc",
+      "line": 4737,
+      "classification": "wizard-or-debug-menu",
+      "source": "                            mprf(\"%s (%s)\", entry->name,\n                                 debug_art_val_str(*item).c_str());\n                        }"
+    },
+    {
+      "file": "items.cc",
+      "line": 4801,
+      "classification": "wizard-or-debug-menu",
+      "source": "                            mpr(item->name(DESC_PLAIN));\n                        special_wanted = i;\n                        best_index = pos;"
+    },
+    {
+      "file": "items.cc",
+      "line": 4823,
+      "classification": "wizard-or-debug-menu",
+      "source": "                mpr(\"Sorry, no books on that skill today.\");\n                item->skill = SK_FIGHTING; // Was probably that anyway.\n            }"
+    },
+    {
+      "file": "items.cc",
+      "line": 4835,
+      "classification": "wizard-or-debug-menu",
+      "source": "                    mpr(\"That parchment doesn't seem to exist.\");\n            }\n        }"
+    },
+    {
+      "file": "invent.cc",
+      "line": 1653,
+      "classification": "legacy-custom-prompt-boundary",
+      "source": "    return yesno(prompt, false, 'n');\n}\n"
+    },
+    {
+      "file": "invent.cc",
+      "line": 1780,
+      "classification": "legacy-custom-prompt-boundary",
+      "source": "        return yesno(prompt, false, 'n');\n    }\n"
+    },
+    {
+      "file": "invent.cc",
+      "line": 1827,
+      "classification": "legacy-custom-prompt-boundary",
+      "source": "        mpr(ZhMessage{\"\", reason.canonical, reason.localized}, MSGCH_PROMPT);\n        return PROMPT_NOTHING;\n    }"
+    },
+    {
+      "file": "invent.cc",
+      "line": 1861,
+      "classification": "legacy-custom-prompt-boundary",
+      "source": "                mprf(MSGCH_PROMPT, \"%s (<w>?</w> for menu, <w>Esc</w> to quit)\", prompt);\n        }\n        else"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 430,
+      "classification": "remaining-visible-producer",
+      "source": "    mpr(ZhMessage{\"\", reason.canonical, reason.localized}, MSGCH_PROMPT);\n    return true;\n}"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 940,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(ZhMessage{\"\", veto_reason.canonical, veto_reason.localized}, MSGCH_PROMPT);\n\n    return ret;"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 1000,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(ZhMessage{\"\", err.canonical, err.localized}, MSGCH_PROMPT);\n        return false;\n    }"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 1263,
+      "classification": "remaining-visible-producer",
+      "source": "        if (!yesno(prompt, false, 'n'))\n        {\n            canned_msg(MSG_OK);"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 1293,
+      "classification": "remaining-visible-producer",
+      "source": "        if (!yesno(warning, true, 'n'))\n        {\n            canned_msg(MSG_OK);"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 1334,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(ZhMessage{\"\", reason.canonical, reason.localized}, MSGCH_PROMPT);\n        return false;\n    }"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 1839,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(\"You don't have anything to inscribe.\");\n        return;\n    }"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 1913,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(ZhMessage{\"\", r.canonical, r.localized});\n        return false;\n    }"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 1933,
+      "classification": "remaining-visible-producer",
+      "source": "        && !yesno(prompt, false, 'n'))\n    {\n        canned_msg(MSG_OK);"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 1949,
+      "classification": "remaining-visible-producer",
+      "source": "            && !yesno(unrand_prompt, false, 'n'))\n        {\n            canned_msg(MSG_OK);"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 1964,
+      "classification": "external-consumer-or-database",
+      "source": "        simple_god_message(\" petitions for your drink to fail.\", false,\n                           GOD_GOZAG);\n        you.turn_is_over = true;"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2263,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(pre_msg);\n\n    return target;"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2276,
+      "classification": "diagnostic",
+      "source": "            mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());\n    }\n    else if (isalpha(letter.c_str()[0]))"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2345,
+      "classification": "diagnostic",
+      "source": "            mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());\n    }\n    else if (isalpha(letter.c_str()[0]))"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2379,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(pre_msg);\n\n    identify_item(item);"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2416,
+      "classification": "diagnostic",
+      "source": "            mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());\n    }\n    else if (isalpha(letter.c_str()[0]))"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2486,
+      "classification": "diagnostic",
+      "source": "            mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());\n    }\n    else if (isalpha(letter.c_str()[0]))"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2506,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(pre_msg);\n\n    const bool success = enchant_armour(*target, false);"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2841,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(ZhMessage{\"\", failure_reason.canonical, failure_reason.localized});\n        return false;\n    }"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2876,
+      "classification": "remaining-visible-producer",
+      "source": "        else if (penance && !yesno(penance_prompt, false, 'n'))\n        {\n            canned_msg(MSG_OK);"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2907,
+      "classification": "remaining-visible-producer",
+      "source": "            && !yesno(unrand_prompt, false, 'n'))\n        {\n            canned_msg(MSG_OK);"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2950,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(pre_succ_msg);\n        // Actual removal of scroll done afterwards. -- bwr\n    }"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2967,
+      "classification": "remaining-visible-producer",
+      "source": "            mpr(pre_succ_msg);\n            mpr(ZhMessage{\"\", reason.canonical, reason.localized});\n            break;"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2968,
+      "classification": "remaining-visible-producer",
+      "source": "            mpr(ZhMessage{\"\", reason.canonical, reason.localized});\n            break;\n        }"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2974,
+      "classification": "remaining-visible-producer",
+      "source": "            mpr(pre_succ_msg);\n\n            run_uncancel(UNC_BLINKING);"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2984,
+      "classification": "remaining-visible-producer",
+      "source": "                mpr(pre_succ_msg); // ordering is iffy but w/e\n        }\n    }"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2996,
+      "classification": "remaining-visible-producer",
+      "source": "            mpr(pre_succ_msg);\n            mpr(ZhMessage{\"\", reason.canonical, reason.localized});\n            break;"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 2997,
+      "classification": "remaining-visible-producer",
+      "source": "            mpr(ZhMessage{\"\", reason.canonical, reason.localized});\n            break;\n        }"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3029,
+      "classification": "external-consumer-or-database",
+      "source": "        noisy(25, you.pos(), \"You hear a loud clanging noise!\");\n        break;\n"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3091,
+      "classification": "remaining-visible-producer",
+      "source": "            mpr(pre_succ_msg);\n        // amusing to Xom, at least\n        bad_effect = result == spret::success && !player_res_poison();"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3100,
+      "classification": "remaining-visible-producer",
+      "source": "            mpr(pre_succ_msg);\n            mpr(zh_message(\"operation.use.scroll.reveal.enchant_weapon\"));\n            // included in default force_more_message (to show it before menu)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3114,
+      "classification": "remaining-visible-producer",
+      "source": "            mpr(pre_succ_msg);\n            mpr(zh_message(\"operation.use.scroll.reveal.brand_weapon\"));\n            // included in default force_more_message (to show it before menu)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3128,
+      "classification": "remaining-visible-producer",
+      "source": "            mpr(pre_succ_msg);\n            mpr(zh_message(\"operation.use.scroll.reveal.identify\"));\n            // included in default force_more_message (to show it before menu)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3144,
+      "classification": "remaining-visible-producer",
+      "source": "            mpr(pre_succ_msg);\n            mpr(zh_message(\"operation.use.scroll.reveal.enchant_armour\"));\n            // included in default force_more_message (to show it before menu)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3179,
+      "classification": "remaining-visible-producer",
+      "source": "            mpr(pre_succ_msg);\n            mpr(zh_message(\"operation.use.scroll.reveal.amnesia\"));\n            // included in default force_more_message (to show it before menu)"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3197,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(\"Read a buggy scroll, please report this.\");\n        break;\n    }"
+    },
+    {
+      "file": "item-use.cc",
+      "line": 3389,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(ZhMessage{\"\", reason.canonical, reason.localized});\n        return false;\n    }"
+    },
+    {
+      "file": "player-equip.cc",
+      "line": 2204,
+      "classification": "external-consumer-or-database",
+      "source": "        if (!getSpeakString(unrand_key).empty())\n            key = unrand_key;\n    }"
+    },
+    {
+      "file": "player-equip.cc",
+      "line": 2208,
+      "classification": "external-consumer-or-database",
+      "source": "    const string msg = \"A voice whispers, \\\"\" + getSpeakString(key) + \"\\\"\";\n        mprf(MSGCH_TALK, \"%s\", msg.c_str());\n}"
+    },
+    {
+      "file": "player-equip.cc",
+      "line": 2209,
+      "classification": "remaining-visible-producer",
+      "source": "        mprf(MSGCH_TALK, \"%s\", msg.c_str());\n}\n"
+    },
+    {
+      "file": "player-equip.cc",
+      "line": 2485,
+      "classification": "external-consumer-or-database",
+      "source": "    simple_god_message(\" seems less interested in you.\");\n\n    const int piety_loss = div_rand_round(you.raw_piety, 3);"
+    },
+    {
+      "file": "evoke.cc",
+      "line": 1088,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(ZhMessage{\"\", err.canonical, err.localized});\n    return err.canonical.empty();\n}"
+    },
+    {
+      "file": "potion.cc",
+      "line": 83,
+      "classification": "remaining-visible-producer",
+      "source": "        mpr(ZhMessage{\"\", reason.canonical, reason.localized});\n        return false;\n    }"
+    },
+    {
+      "file": "potion.cc",
+      "line": 523,
+      "classification": "remaining-visible-producer",
+      "source": "            mpr(ZhMessage{\"\", reason.canonical, reason.localized});\n            return false;\n        }"
+    },
+    {
+      "file": "potion.cc",
+      "line": 563,
+      "classification": "external-consumer-or-database",
+      "source": "            simple_god_message(\" appreciates the memories.\", false,\n                               GOD_HEPLIAKLQANA);\n            reduce_xp_penance(GOD_HEPLIAKLQANA,"
+    },
+    {
+      "file": "potion.cc",
+      "line": 832,
+      "classification": "external-consumer-or-database",
+      "source": "            simple_god_message(\" cleanses your potion of mutation!\");\n        else\n            mpr(zh_message(\"operation.potion.mutation.strange\"));"
+    },
+    {
+      "file": "potion.cc",
+      "line": 870,
+      "classification": "remaining-visible-producer",
+      "source": "                      && !yesno(msg, false, 'n'))\n        {\n            canned_msg(MSG_OK);"
+    },
+    {
+      "file": "delay.cc",
+      "line": 245,
+      "classification": "remaining-visible-producer",
+      "source": "            && !yesno(prompt, false, 0, false))\n        {\n            interrupt = true;"
+    },
+    {
+      "file": "delay.cc",
+      "line": 505,
+      "classification": "external-consumer-or-database",
+      "source": "        simple_god_message(message.c_str());\n    }\n    mpr(zh_message(\"log.delay.fixed.fe318d92d093\"), MSGCH_MULTITURN_ACTION);"
+    },
+    {
+      "file": "delay.cc",
+      "line": 580,
+      "classification": "remaining-visible-producer",
+      "source": "        mprf(\"You're confused, stopping %s.\",\n             you.running.runmode_name().c_str());\n        stop_running();"
+    },
+    {
+      "file": "delay.cc",
+      "line": 970,
+      "classification": "diagnostic",
+      "source": "            mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());\n            stop_delay();\n        }"
+    },
+    {
+      "file": "delay.cc",
+      "line": 1073,
+      "classification": "remaining-visible-producer",
+      "source": "            mprf(MSGCH_WARN,\n                 \"Deactivating autopickup; reactivate with <w>%s</w>.\",\n                 command_to_string(CMD_TOGGLE_AUTOPICKUP).c_str());"
+    },
+    {
+      "file": "delay.cc",
+      "line": 1111,
+      "classification": "remaining-visible-producer",
+      "source": "        mprf(MSGCH_MONSTER_WARNING, \"%s is now too close for your liking.\", mon->name(DESC_THE).c_str());\n    else\n        mprf(MSGCH_MONSTER_WARNING, \"%s comes into view.\", mon->name(DESC_A).c_str());"
+    },
+    {
+      "file": "delay.cc",
+      "line": 1113,
+      "classification": "remaining-visible-producer",
+      "source": "        mprf(MSGCH_MONSTER_WARNING, \"%s comes into view.\", mon->name(DESC_A).c_str());\n}\n"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 124,
+      "classification": "diagnostic",
+      "source": "                mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());\n            return true;\n        }"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 136,
+      "classification": "remaining-visible-producer",
+      "source": "            mprf(\"You are too depleted to draw on your %s recklessly!\",\n                you.has_mutation(MUT_HP_CASTING) ? \"health\" : \"magic\");\n        }"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 438,
+      "classification": "remaining-visible-producer",
+      "source": "                mprf(\"You deconstruct %s.\", mons->name(DESC_THE).c_str());\n                monster_die(*mons, KILL_RESET, NON_MONSTER);\n                you.turn_is_over = true;"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 1784,
+      "classification": "remaining-visible-producer",
+      "source": "                    mpr(ZhMessage{\"\", reason.canonical, reason.localized});\n                }\n                return;"
+    },
+    {
+      "file": "quiver.cc",
+      "line": 3031,
+      "classification": "remaining-visible-producer",
+      "source": "                if (!yesno(prompt.display().c_str(), true, 'n'))\n                    return false;\n            }"
+    }
+  ],
+  "limitations": [
+    "Candidate scan is lexical and includes diagnostics/internal data; counts are not untranslated-message coverage.",
+    "No full native build, SSH, UI replay or commits performed by this subagent.",
+    "No shared catalogs, zh-message, zh-display-name or module-ledger files modified.",
+    "No claim of all eight files complete."
+  ]
+}

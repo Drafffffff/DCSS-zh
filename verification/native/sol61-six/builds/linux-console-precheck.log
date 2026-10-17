@@ -1,0 +1,769 @@
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+make -C rltiles all ARCH=x86_64-redhat-linux NO_PKGCONFIG= TILES=
+make[1]: Entering directory '/work/console-source/source/rltiles'
+make[1]: Leaving directory '/work/console-source/source/rltiles'
+    PYTHON rltilesstatus-icon-sizes.h
+    CXX zh-localization.o
+    CXX zh-message.o
+    GEN compflag.h
+    CXX zh-display-name.o
+    CXX ability.o
+    CXX abyss.o
+    CXX acquire.o
+    CXX act-iter.o
+    CXX actor.o
+    CXX adjust.o
+    CXX areas.o
+    CXX arena.o
+    CXX artefact.o
+    CXX attack.o
+    CXX attitude-change.o
+    CXX beam.o
+    CXX behold.o
+    CXX bloodspatter.o
+    CXX chardump.o
+    CXX cio.o
+    CXX cloud.o
+    CXX clua.o
+    CXX cluautil.o
+    CXX colour.o
+    CXX command.o
+    CXX corpse.o
+    CXX crash.o
+    CXX ctest.o
+    CXX dactions.o
+    CXX database.o
+    CXX dbg-asrt.o
+    CXX dbg-maps.o
+    CXX dbg-objstat.o
+    CXX dbg-scan.o
+    CXX dbg-util.o
+    CXX death-curse.o
+    CXX decks.o
+    CXX delay.o
+    CXX describe.o
+    CXX describe-god.o
+    CXX describe-spells.o
+    CXX dgn-delve.o
+    CXX dgn-height.o
+    CXX dgn-irregular-box.o
+    CXX dgn-layouts.o
+    CXX dgn-overview.o
+    CXX dgn-proclayouts.o
+    CXX dgn-shoals.o
+    CXX dgn-swamp.o
+    CXX directn.o
+    CXX dlua.o
+    CXX dungeon.o
+    CXX end.o
+    CXX evoke.o
+    CXX exclude.o
+    CXX exercise.o
+    CXX fearmonger.o
+    CXX feature.o
+    CXX fight.o
+    CXX files.o
+    CXX fineff.o
+    CXX fprop.o
+    CXX game-options.o
+    CXX ghost.o
+    CXX god-abil.o
+fineff.cc: In member function ‘virtual bool delayed_action_fineff::mergeable(const final_effect&) const’:
+fineff.cc:288:40: warning: unused parameter ‘a’ [-Wunused-parameter]
+  288 |     bool mergeable(const final_effect& a) const override { return false; };
+      |                    ~~~~~~~~~~~~~~~~~~~~^
+    CXX god-blessing.o
+    CXX god-companions.o
+    CXX god-conduct.o
+    CXX god-item.o
+    CXX god-passive.o
+    CXX god-prayer.o
+    CXX god-wrath.o
+    CXX hints.o
+    CXX hiscores.o
+    CXX initfile.o
+    CXX invent.o
+hints.cc: In function ‘std::string hints_describe_item(const item_def&)’:
+hints.cc:2151:69: warning: default argument specified for lambda parameter [-Wc++14-extensions]
+ 2151 |     const auto emit = [&](const string &id, initializer_list<ZhArg> args = {}) {
+      |                                             ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
+    CXX item-use.o
+    CXX item-name.o
+    CXX item-prop.o
+    CXX items.o
+    CXX jobs.o
+    CXX kills.o
+    CXX known-items.o
+    CXX l-colour.o
+    CXX l-crawl.o
+    CXX l-debug.o
+    CXX l-dgn.o
+    CXX l-dgnbld.o
+    CXX l-dgngrd.o
+    CXX l-dgnit.o
+    CXX l-dgnmon.o
+    CXX l-dgntil.o
+    CXX l-feat.o
+    CXX l-global.o
+    CXX l-item.o
+    CXX l-mapgrd.o
+    CXX l-mapmrk.o
+    CXX l-moninf.o
+    CXX l-mons.o
+    CXX l-option.o
+    CXX l-spells.o
+    CXX l-subvault.o
+    CXX l-travel.o
+    CXX l-view.o
+    CXX l-wiz.o
+    CXX l-you.o
+    CXX lang-fake.o
+    CXX lev-pand.o
+    CXX libutil.o
+    CXX lookup-help.o
+    CXX los.o
+    CXX losparam.o
+    CXX luaterp.o
+    CXX macro.o
+    CXX makeitem.o
+    CXX map-knowledge.o
+    CXX mapdef.o
+    CXX mapmark.o
+    CXX maps.o
+    CXX melee-attack.o
+    CXX menu.o
+    CXX message-stream.o
+    CXX message.o
+    CXX misc.o
+    CXX mon-abil.o
+    CXX mon-act.o
+    CXX mon-aura.o
+    CXX mon-behv.o
+    CXX mon-cast.o
+    CXX mon-clone.o
+    CXX mon-death.o
+    CXX mon-ench.o
+    CXX mon-explode.o
+    CXX mon-gear.o
+    CXX mon-info.o
+    CXX mon-movetarget.o
+    CXX mon-pathfind.o
+    CXX mon-pick.o
+    CXX mon-place.o
+    CXX mon-poly.o
+    CXX mon-project.o
+    CXX mon-speak.o
+    CXX mon-tentacle.o
+    CXX mon-transit.o
+    CXX mon-util.o
+    CXX monster.o
+    CXX movement.o
+    CXX mutation.o
+    CXX nearby-danger.o
+    CXX newgame.o
+    CXX ng-init.o
+    CXX ng-init-branches.o
+    CXX ng-input.o
+    CXX ng-setup.o
+    CXX ng-wanderer.o
+    CXX notes.o
+    CXX orb.o
+    CXX ouch.o
+    CXX output.o
+    CXX piety-info.o
+    CXX player-act.o
+    CXX player-equip.o
+    CXX player-notices.o
+    CXX player-reacts.o
+    CXX player-stats.o
+    CXX player.o
+player-reacts.cc: In function ‘void _regenerate_hp_and_mp(int)’:
+player-reacts.cc:1209:15: warning: unused variable ‘old_hp’ [-Wunused-variable]
+ 1209 |     const int old_hp = you.hp;
+      |               ^~~~~~
+player-reacts.cc:1210:15: warning: unused variable ‘old_mp’ [-Wunused-variable]
+ 1210 |     const int old_mp = you.magic_points;
+      |               ^~~~~~
+    CXX potion.o
+    CXX prompt.o
+player-equip.cc: In function ‘int get_player_equip_slot_count(equipment_slot, std::string*, bool, bool, ZhArg*)’:
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:91:13: note: in expansion of macro ‘NO_SLOT’
+   91 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_weapon"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:91:13: note: in expansion of macro ‘NO_SLOT’
+   91 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_weapon"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:99:17: note: in expansion of macro ‘NO_SLOT’
+   99 |                 NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.need_tentacles"))
+      |                 ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:99:17: note: in expansion of macro ‘NO_SLOT’
+   99 |                 NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.need_tentacles"))
+      |                 ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:102:17: note: in expansion of macro ‘NO_SLOT’
+  102 |                 NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.need_hand", {zh_glossary_name("body_part", "body_part", you.hand_name(false))}))
+      |                 ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:102:17: note: in expansion of macro ‘NO_SLOT’
+  102 |                 NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.need_hand", {zh_glossary_name("body_part", "body_part", you.hand_name(false))}))
+      |                 ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:106:13: note: in expansion of macro ‘NO_SLOT’
+  106 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_hold_paws"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:106:13: note: in expansion of macro ‘NO_SLOT’
+  106 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_hold_paws"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:121:13: note: in expansion of macro ‘NO_SLOT’
+  121 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.haunt_large"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:121:13: note: in expansion of macro ‘NO_SLOT’
+  121 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.haunt_large"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:124:13: note: in expansion of macro ‘NO_SLOT’
+  124 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.wings", {zh_word_arg("wing_note", "operation.equipment.value.", you.has_mutation(MUT_BIG_WINGS)
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:124:13: note: in expansion of macro ‘NO_SLOT’
+  124 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.wings", {zh_word_arg("wing_note", "operation.equipment.value.", you.has_mutation(MUT_BIG_WINGS)
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:128:13: note: in expansion of macro ‘NO_SLOT’
+  128 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_armour_slot"));
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:128:13: note: in expansion of macro ‘NO_SLOT’
+  128 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_armour_slot"));
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:139:13: note: in expansion of macro ‘NO_SLOT’
+  139 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_head"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:139:13: note: in expansion of macro ‘NO_SLOT’
+  139 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_head"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:141:13: note: in expansion of macro ‘NO_SLOT’
+  141 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.headgear_too_large"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:141:13: note: in expansion of macro ‘NO_SLOT’
+  141 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.headgear_too_large"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:145:13: note: in expansion of macro ‘NO_SLOT’
+  145 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.horns_headgear"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:145:13: note: in expansion of macro ‘NO_SLOT’
+  145 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.horns_headgear"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:147:13: note: in expansion of macro ‘NO_SLOT’
+  147 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.antennae_headgear"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:147:13: note: in expansion of macro ‘NO_SLOT’
+  147 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.antennae_headgear"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:161:13: note: in expansion of macro ‘NO_SLOT’
+  161 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_hands"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:161:13: note: in expansion of macro ‘NO_SLOT’
+  161 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_hands"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:163:13: note: in expansion of macro ‘NO_SLOT’
+  163 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_size", {zh_word_arg("size_relation", "operation.equipment.value.", "too big"), zh_glossary_name("body_part", "body_part", you.hand_name(true))}))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:163:13: note: in expansion of macro ‘NO_SLOT’
+  163 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_size", {zh_word_arg("size_relation", "operation.equipment.value.", "too big"), zh_glossary_name("body_part", "body_part", you.hand_name(true))}))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:165:13: note: in expansion of macro ‘NO_SLOT’
+  165 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_size", {zh_word_arg("size_relation", "operation.equipment.value.", "too small"), zh_glossary_name("body_part", "body_part", you.hand_name(true))}))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:165:13: note: in expansion of macro ‘NO_SLOT’
+  165 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_size", {zh_word_arg("size_relation", "operation.equipment.value.", "too small"), zh_glossary_name("body_part", "body_part", you.hand_name(true))}))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:167:13: note: in expansion of macro ‘NO_SLOT’
+  167 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_fit", {zh_glossary_name("body_part", "body_part", you.hand_name(true))}))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:167:13: note: in expansion of macro ‘NO_SLOT’
+  167 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_fit", {zh_glossary_name("body_part", "body_part", you.hand_name(true))}))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:169:13: note: in expansion of macro ‘NO_SLOT’
+  169 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.claws_fit", {zh_glossary_name("body_part", "body_part", you.hand_name(true))}))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:169:13: note: in expansion of macro ‘NO_SLOT’
+  169 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.claws_fit", {zh_glossary_name("body_part", "body_part", you.hand_name(true))}))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:171:13: note: in expansion of macro ‘NO_SLOT’
+  171 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.demonic_touch"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:171:13: note: in expansion of macro ‘NO_SLOT’
+  171 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.demonic_touch"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:179:13: note: in expansion of macro ‘NO_SLOT’
+  179 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_feet"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:179:13: note: in expansion of macro ‘NO_SLOT’
+  179 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_feet"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:181:13: note: in expansion of macro ‘NO_SLOT’
+  181 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_size", {zh_word_arg("size_relation", "operation.equipment.value.", "too big"), zh_glossary_name("body_part", "body_part", you.foot_name(true))}))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:181:13: note: in expansion of macro ‘NO_SLOT’
+  181 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_size", {zh_word_arg("size_relation", "operation.equipment.value.", "too big"), zh_glossary_name("body_part", "body_part", you.foot_name(true))}))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:183:13: note: in expansion of macro ‘NO_SLOT’
+  183 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_size", {zh_word_arg("size_relation", "operation.equipment.value.", "too small"), zh_glossary_name("body_part", "body_part", you.foot_name(true))}))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:183:13: note: in expansion of macro ‘NO_SLOT’
+  183 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.limb_size", {zh_word_arg("size_relation", "operation.equipment.value.", "too small"), zh_glossary_name("body_part", "body_part", you.foot_name(true))}))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:185:13: note: in expansion of macro ‘NO_SLOT’
+  185 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_boots"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:185:13: note: in expansion of macro ‘NO_SLOT’
+  185 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_boots"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:187:13: note: in expansion of macro ‘NO_SLOT’
+  187 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.hooves_boots"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:187:13: note: in expansion of macro ‘NO_SLOT’
+  187 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.hooves_boots"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:189:13: note: in expansion of macro ‘NO_SLOT’
+  189 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.talons_boots"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:189:13: note: in expansion of macro ‘NO_SLOT’
+  189 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.talons_boots"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:191:13: note: in expansion of macro ‘NO_SLOT’
+  191 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.floating_feet"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:191:13: note: in expansion of macro ‘NO_SLOT’
+  191 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.floating_feet"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:202:9: note: in expansion of macro ‘NO_SLOT’
+  202 |         NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.cannot_fit"))
+      |         ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:202:9: note: in expansion of macro ‘NO_SLOT’
+  202 |         NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.cannot_fit"))
+      |         ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:211:13: note: in expansion of macro ‘NO_SLOT’
+  211 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_shoulders"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:211:13: note: in expansion of macro ‘NO_SLOT’
+  211 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_shoulders"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:213:13: note: in expansion of macro ‘NO_SLOT’
+  213 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_cloak"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:213:13: note: in expansion of macro ‘NO_SLOT’
+  213 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_cloak"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:215:13: note: in expansion of macro ‘NO_SLOT’
+  215 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.stinger_cloak"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:215:13: note: in expansion of macro ‘NO_SLOT’
+  215 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.stinger_cloak"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:222:13: note: in expansion of macro ‘NO_SLOT’
+  222 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_rings"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:222:13: note: in expansion of macro ‘NO_SLOT’
+  222 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_rings"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:242:13: note: in expansion of macro ‘NO_SLOT’
+  242 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_amulets"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:242:13: note: in expansion of macro ‘NO_SLOT’
+  242 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_amulets"))
+      |             ^~~~~~~
+player-equip.cc:81:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |     ^~
+player-equip.cc:251:13: note: in expansion of macro ‘NO_SLOT’
+  251 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_exoframe"))
+      |             ^~~~~~~
+player-equip.cc:81:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   81 |     if (display_reason) *display_reason = r; return 0; }}
+      |                                              ^~~~~~
+player-equip.cc:251:13: note: in expansion of macro ‘NO_SLOT’
+  251 |             NO_SLOT(zh_message_arg("reason", "operation.equipment.reason.no_exoframe"))
+      |             ^~~~~~~
+player-equip.cc: In function ‘bool can_equip_item(const item_def&, bool, std::string*, ZhArg*)’:
+player-equip.cc:472:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |     ^~
+player-equip.cc:475:9: note: in expansion of macro ‘NO_EQUIP’
+  475 |         NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.not_equipment"))
+      |         ^~~~~~~~
+player-equip.cc:472:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |                                              ^~~~~~
+player-equip.cc:475:9: note: in expansion of macro ‘NO_EQUIP’
+  475 |         NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.not_equipment"))
+      |         ^~~~~~~~
+player-equip.cc:472:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |     ^~
+player-equip.cc:522:17: note: in expansion of macro ‘NO_EQUIP’
+  522 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.size", {zh_word_arg("size_relation", "operation.equipment.value.", (bad_size > 0) ? "large" : "small")}))
+      |                 ^~~~~~~~
+player-equip.cc:472:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |                                              ^~~~~~
+player-equip.cc:522:17: note: in expansion of macro ‘NO_EQUIP’
+  522 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.size", {zh_word_arg("size_relation", "operation.equipment.value.", (bad_size > 0) ? "large" : "small")}))
+      |                 ^~~~~~~~
+player-equip.cc:472:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |     ^~
+player-equip.cc:534:17: note: in expansion of macro ‘NO_EQUIP’
+  534 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.helmet_size", {zh_word_arg("size_relation", "operation.equipment.value.", "small")}))
+      |                 ^~~~~~~~
+player-equip.cc:472:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |                                              ^~~~~~
+player-equip.cc:534:17: note: in expansion of macro ‘NO_EQUIP’
+  534 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.helmet_size", {zh_word_arg("size_relation", "operation.equipment.value.", "small")}))
+      |                 ^~~~~~~~
+player-equip.cc:472:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |     ^~
+player-equip.cc:536:17: note: in expansion of macro ‘NO_EQUIP’
+  536 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.helmet_size", {zh_word_arg("size_relation", "operation.equipment.value.", "large")}))
+      |                 ^~~~~~~~
+player-equip.cc:472:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |                                              ^~~~~~
+player-equip.cc:536:17: note: in expansion of macro ‘NO_EQUIP’
+  536 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.helmet_size", {zh_word_arg("size_relation", "operation.equipment.value.", "large")}))
+      |                 ^~~~~~~~
+player-equip.cc:472:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |     ^~
+player-equip.cc:538:17: note: in expansion of macro ‘NO_EQUIP’
+  538 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.reptilian_head"))
+      |                 ^~~~~~~~
+player-equip.cc:472:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |                                              ^~~~~~
+player-equip.cc:538:17: note: in expansion of macro ‘NO_EQUIP’
+  538 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.reptilian_head"))
+      |                 ^~~~~~~~
+player-equip.cc:472:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |     ^~
+player-equip.cc:540:17: note: in expansion of macro ‘NO_EQUIP’
+  540 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.octopode_helmet"))
+      |                 ^~~~~~~~
+player-equip.cc:472:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |                                              ^~~~~~
+player-equip.cc:540:17: note: in expansion of macro ‘NO_EQUIP’
+  540 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.octopode_helmet"))
+      |                 ^~~~~~~~
+player-equip.cc:472:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |     ^~
+player-equip.cc:542:17: note: in expansion of macro ‘NO_EQUIP’
+  542 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.horns_helmet"))
+      |                 ^~~~~~~~
+player-equip.cc:472:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |                                              ^~~~~~
+player-equip.cc:542:17: note: in expansion of macro ‘NO_EQUIP’
+  542 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.horns_helmet"))
+      |                 ^~~~~~~~
+player-equip.cc:472:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |     ^~
+player-equip.cc:544:17: note: in expansion of macro ‘NO_EQUIP’
+  544 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.antennae_helmet"))
+      |                 ^~~~~~~~
+player-equip.cc:472:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |                                              ^~~~~~
+player-equip.cc:544:17: note: in expansion of macro ‘NO_EQUIP’
+  544 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.antennae_helmet"))
+      |                 ^~~~~~~~
+player-equip.cc:472:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |     ^~
+player-equip.cc:546:17: note: in expansion of macro ‘NO_EQUIP’
+  546 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.beak_helmet"))
+      |                 ^~~~~~~~
+player-equip.cc:472:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |                                              ^~~~~~
+player-equip.cc:546:17: note: in expansion of macro ‘NO_EQUIP’
+  546 |                 NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.beak_helmet"))
+      |                 ^~~~~~~~
+player-equip.cc:472:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |     ^~
+player-equip.cc:555:13: note: in expansion of macro ‘NO_EQUIP’
+  555 |             NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.weapon_size"));
+      |             ^~~~~~~~
+player-equip.cc:472:46: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  472 |     if (display_reason) *display_reason = r; return 0; }
+      |                                              ^~~~~~
+player-equip.cc:555:13: note: in expansion of macro ‘NO_EQUIP’
+  555 |             NO_EQUIP(zh_message_arg("reason", "operation.equipment.reason.weapon_size"));
+      |             ^~~~~~~~
+    CXX quiver.o
+    CXX randbook.o
+    CXX random.o
+    CXX ranged-attack.o
+    CXX religion.o
+    CXX shopping.o
+    CXX shout.o
+    CXX show.o
+    CXX showsymb.o
+    CXX skill-menu.o
+    CXX skills.o
+    CXX sound.o
+    CXX species.o
+shopping.cc: In member function ‘bool ShoppingList::cull_identical_items(const item_def&, int)’:
+shopping.cc:2182:30: warning: declaration of ‘item_en’ shadows a previous local [-Wshadow]
+ 2182 |                 const string item_en = describe_thing(thing, DESC_A);
+      |                              ^~~~~~~
+shopping.cc:2173:26: note: shadowed declaration is here
+ 2173 |             const string item_en = describe_thing(thing, DESC_A);
+      |                          ^~~~~~~
+    CXX spl-book.o
+    CXX spl-cast.o
+    CXX spl-clouds.o
+    CXX spl-damage.o
+    CXX spl-goditem.o
+    CXX spl-miscast.o
+    CXX spl-monench.o
+    CXX spl-other.o
+    CXX spl-selfench.o
+    CXX spl-summoning.o
+    CXX spl-transloc.o
+    CXX spl-util.o
+    CXX spl-vortex.o
+    CXX stairs.o
+    CXX startup.o
+    CXX stash.o
+    CXX state.o
+    CXX status.o
+    CXX store.o
+    CXX stringutil.o
+    CXX tags.o
+    CXX target.o
+    CXX target-compass.o
+    CXX teleport.o
+    CXX terrain.o
+    CXX throw.o
+    CXX timed-effects.o
+    CXX transform.o
+    CXX traps.o
+    CXX travel.o
+    CXX tutorial.o
+    CXX ui.o
+    CXX uncancel.o
+    CXX view.o
+    CXX viewchar.o
+    CXX viewgeom.o
+    CXX viewmap.o
+    CXX wiz-dgn.o
+    CXX wiz-dump.o
+    CXX wiz-fsim.o
+    CXX wiz-item.o
+    CXX wiz-mon.o
+    CXX wiz-you.o
+    CXX wizard.o
+    CXX xom.o
+    CXX tilepick.o
+    CXX tileview.o
+    CXX zot.o
+    CXX libunix.o
+    CXX main.o
+    CXX util/levcomp.tab.o
+    CXX util/levcomp.lex.o
+    GEN build.h
+    CXX version.o
+levcomp.tab.cc: In function ‘int yyparse()’:
+levcomp.tab.cc:2482:37: warning: argument 1 value ‘18446744073709551615’ exceeds maximum object size 9223372036854775807 [-Walloc-size-larger-than=]
+In file included from /usr/include/c++/15/cstdlib:83,
+                 from ./externs.h:11,
+                 from ./AppHdr.h:306,
+                 from levcomp.ypp:4:
+/usr/include/stdlib.h:672:14: note: in a call to allocation function ‘void* malloc(size_t)’ declared here
+  672 | extern void *malloc (size_t __size) __THROW __attribute_malloc__
+      |              ^~~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-null-conversion’ may have been intended to silence earlier diagnostics
+    LINK crawl

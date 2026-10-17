@@ -5,17 +5,17 @@
 | 模块 | 当前边界 | 下一步 / 验收 |
 |---|---|---|
 | 接口与渲染 | 规范英文读取与旧匹配暂停已拆分；Mac自动测试及真实回放通过 | raw绘制不改变语言；Lua/存档仍规范英文；参数/标签/缺失校验通过 |
-| 语义名称 | 物品/怪物/地点已有接口；已鉴定魔杖、普通书籍/手册/羊皮纸、杂项及充能状态按语义字段生成；自定义/神器/未鉴定复杂名仍整名回退 | 枚举/鉴定/数量/装备/专名组合测试；不解析最终英文名称 |
+| 语义名称 | 普通物品/怪物/地点已有语义接口；本轮补未鉴定卷轴外观标签、普通尸体/骨架量词、丑陋之物颜色与HELPLESS_KEY限定；复杂专名/神器/其他未鉴定外观继续整名回退并报告 | 枚举/鉴定/数量/装备/专名组合测试；不解析最终英文名称 |
 | 详情 | 物品/怪物/法术详情已分批接入；本批完成怪物伤势/装备/132枚举状态、状态DB引用展开、教学建议和命中父句/标题/体型/门交互；特殊统计与怪物首遇/固定喊叫由 monster-tutorial-shout-special 接续；幽灵生平/变异兽等仍待后续包 | 数据库正文语言选择、长文本、动作、不同来源/状态逐项核对；禁止旧matcher |
-| 技能 | 主面板/查阅菜单/详情/帮助/tile提示已接入；增强/削弱特殊状态仍待真实分支补验 | 主面板、?/k、条目、详情、帮助、训练/增强/削弱、tile提示全部走新链路 |
+| 技能 | 主面板/查阅菜单/详情/帮助/tile提示已接入；本轮增强/削弱原因改稳定ID列表，并以实际生产函数覆盖全部原因组合；技能帮助与纸娃娃真实布局见sol61-six验收 | 主面板、?/k、条目、详情、帮助、训练/增强/削弱、tile提示全部走新链路 |
 | 商店 | 菜单/确认/余额/购物清单主路径已接入，Mac严格回放通过；罕见命名回退仍登记 | 不同余额/数量/排序/颜色/键位/购买/空清单及名称回退 |
 | HUD | 等级/地点/噪声/武器部分接入；其他字段未迁移 | 统一按字段语义接入；列宽/刷新/长短名/最大值；不能整体跳过旧层审计 |
-| 战斗日志 | 战斗命中/失手及共用限制、反噬组合、变形进出已分批接入；本批施法增强/魔杖增强/误施法、四类引导提醒与终止及魔力不足日志接入；剩余战斗/法术/怪物日志待逐包验收；本批完成怪物首遇/追击/深渊出现/装备及伤势日志，其他怪物业务日志仍待迁移；随机嘲讽/普通怪物对白与行为对白由 monster-random-speech 接续，嵌入Lua及外部业务消费者仍未完成 | 玩家/怪物/武器/状态/数值组合，全部成功失败分支保留英文控制数据 |
-| 装备与物品操作 | 普通拾取/丢弃/穿脱/挥舞/使用主链路、typed理由、药水直接效果及库存分类已分批接入并经存档副本验证；专名武器、最后类别鉴定、集合摘要和跨模块效果消费者仍待后续包 | 穿脱/挥舞/使用/失败/进度/中断完整消息；量词/所有格 |
+| 战斗日志 | 既有战斗命中/失手/限制/目标/施法/怪物事件/随机对白分批接入；本轮补背刺、部分自我强化、血液/亡灵、九类召唤及云雾生产分支；melee/ranged/beam、其余法术与怪物业务日志仍待完整包 | 玩家/怪物/武器/状态/数值组合，全部成功失败分支保留英文控制数据 |
+| 装备与物品操作 | 普通拾取/丢弃/穿脱/挥舞/使用已接入；本轮补最后类别鉴定、地面集合、专名武器问候/告别、Imbue/Imprint延迟与箭袋近战反馈；Orb启动、外部低语、旅行延迟及其他自定义提示仍待迁移 | 穿脱/挥舞/使用/失败/进度/中断完整消息；量词/所有格 |
 | 瞄准、法术、能力、箭袋 | 目标理由、瞄准帮助/顶部/动作、箭袋/法术菜单及风险确认已接入；本批完成目标怪物伤势/装备/状态与全部现有typed效果回调消费者；能力其他菜单和业务日志仍待迁移 | 坐标/距离/法术等级分离；目标名称和无效目标；父视图/箭袋提示也需迁移 |
-| 神祇与角色 | 等级/技能成长部分接入；神祇/变异/状态/能力大量入口待迁移 | 每个实体、状态与等级语义分开；全流程日志/详情/菜单 |
-| 世界与通用界面 | 拾取初见教程已接入；本批完成共用危险地形/云雾/陷阱/排除区/穿墙确认；其他教程、旅行、交互与通用菜单仍待迁移 | 静态/动态生产点完整接入；输入/程序标识不翻译 |
-| 帮助与文档 | 已审校中文手册可复用；入口及标题仍需归一 | 选择正文语言；长文分页/标记/快捷键；无最终英文句匹配 |
+| 神祇与角色 | 本轮迁移祈祷/皈依/献金/敬重等级/逐出与多种能力固定日志、神祇击杀认可、部分变异和属性变化；能力菜单主体typed化；复杂神祇对白/惩戒/能力成本/变异数组及角色页仍有未迁移入口 | 每个实体、状态与等级语义分开；全流程日志/详情/菜单 |
+| 世界与通用界面 | 本轮补楼梯警告/确认/行动、网与蛛网、部分旅行警告/绕路缓存；普通爬楼前置拦截按消费者补全；移动/旅行/陷阱其余分支、深渊/地形/排除区/Orb业务仍待迁移；纸娃娃编辑器17个旧入口归零 | 静态/动态生产点完整接入；输入/程序标识不翻译 |
+| 帮助与文档 | 已有中文手册复用；本轮技能原因链、纸娃娃快捷键与布局完成指定工作包；command等剩余帮助入口和其他教程仍需独立包 | 选择正文语言；长文分页/标记/快捷键；无最终英文句匹配 |
 | 旧历史兼容 | 旧存档英文历史无ID，保留明确兼容边界 | 与新实时消息隔离；不改原存档；不计入新架构迁移完成 |
 
 ## 按项目结构推进的路线
@@ -121,7 +121,73 @@
 验证：`tools/test_item_operations.py`、`tools/test_message_ids.py`、`tools/test_consumable_producers.py`、`tools/test_shared_restrictions.py`、`tools/test_pretranslated_rendering.py`、`tools/replay_saved_console.py`、`tools/replay_message_migration.py`。
 兼容规则：模板在格式化前选择；数量、名字与附魔前状态快照；规范英文 wrapper、随机调用、Lua和存档控制数据保持；颜色和快捷键分参。
 验收记录：[verification/native/item-operations/REPORT.md](../../verification/native/item-operations/REPORT.md)。
-剩余：专名武器问候/告别、最后类别鉴定、Orb逃离启动和地面集合摘要尚待迁移；外部数据库低语及法术/怪物/神祇/状态效果消费者须另包迁移；其他 const char* 自定义物品提示与复杂名称仍保留明确旧边界或整父回退；旅行/仆从灌注/伙伴塑形和箭袋近战反馈尚未完成。
+剩余：专名武器问候/告别、最后类别鉴定、地面集合及Imbue/Imprint/箭袋近战反馈由 sol61-item-edges 接续；Orb逃离启动仍待迁移；外部数据库低语及法术/怪物/神祇/状态效果消费者须另包迁移；其他 const char* 自定义物品提示与复杂名称仍保留明确旧边界或整父回退；旅行及其他跨模块延迟/效果消费者尚未完成。
+
+### sol61-religion-character — verified
+
+所属模块：神祇与角色。
+文件：`religion.cc`、`god-abil.cc`、`god-prayer.cc`、`god-passive.cc`、`god-wrath.cc`、`god-conduct.cc`、`mutation.cc`、`ability.cc`、`player-stats.cc`。
+生产函数：`_ability_menu_cost_arg`、`_talent_menu_message`、`_ability_menu_hints_message`、`_on_kill`。
+显示/业务消费者：`choose_ability_menu`、`_on_kill`。
+验证：`tools/test_sol61_religion_character.py`。
+兼容规则：从基线冻结实际英文生成路径；规范英文/业务副作用/RNG/频道逐项对照；未知语义整父回退并报告。
+验收记录：[verification/native/sol61-six/religion-character/REPORT.md](../../verification/native/sol61-six/religion-character/REPORT.md)。
+剩余：神祇数据库对白及惩戒/能力复杂组合；变异数组、角色详情和其他未迁移分支。
+
+### sol61-combat-spells — verified
+
+所属模块：战斗日志。
+文件：`attack.cc`、`spl-selfench.cc`、`spl-other.cc`、`spl-summoning.cc`、`spl-clouds.cc`。
+生产函数：`_dismiss_dead`、`attack::stab_message`、`cast_animate_dead`、`cast_awaken_armour`、`cast_call_canine_familiar`、`cast_death_channel`、`cast_deaths_door`、`cast_detonation_catalyst`、`cast_fugue_of_the_fallen`、`cast_jinxbite`、`cast_liquefaction`、`cast_monstrous_menagerie`、`cast_putrefaction`、`cast_revivification`、`cast_silence`、`cast_sphinx_sisters`、`cast_sublimation_of_blood`、`cast_summon_cactus`、`cast_summon_hydra`、`cast_summon_ice_beast`、`cast_summon_mana_viper`、`cast_summon_small_mammal`、`cast_swiftness`、`do_fugue_wail`、`fiery_armour`、`ice_armour`、`jinxbite_targets_available`、`kindle_blastmotes`、`player_summon_check`、`remove_ice_armour`、`scroll_of_poison`。
+显示/业务消费者：`attack::stab_message`、`cast_swiftness`、`cast_sublimation_of_blood`、`cast_animate_dead`、`cast_putrefaction`。
+验证：`tools/test_sol61_combat_spells.py`。
+兼容规则：从基线冻结实际英文生成路径；规范英文/业务副作用/RNG/频道逐项对照；未知语义整父回退并报告。
+验收记录：[verification/native/sol61-six/combat-spells/REPORT.md](../../verification/native/sol61-six/combat-spells/REPORT.md)。
+剩余：melee/ranged/beam主体及其余法术；mon-cast/mon-death/mon-abil业务消费者。
+
+### sol61-world-interaction — verified
+
+所属模块：世界与通用界面。
+文件：`stairs.cc`、`traps.cc`、`travel.cc`、`main.cc`。
+生产函数：`_check_stairs`、`_can_take_stairs`、`deviant_route_warning::warn_continue_travel`。
+显示/业务消费者：`_take_stairs`、`trap_def::trigger`、`deviant_route_warning::warn_continue_travel`。
+验证：`tools/test_sol61_world_interaction.py`。
+兼容规则：从基线冻结实际英文生成路径；规范英文/业务副作用/RNG/频道逐项对照；未知语义整父回退并报告。
+验收记录：[verification/native/sol61-six/world-interaction/REPORT.md](../../verification/native/sol61-six/world-interaction/REPORT.md)。
+剩余：movement/abyss/terrain/exclude/orb/nearby-danger其余消息；旅行层级/路线/失败拾取及完整trap trigger。
+
+### sol61-item-edges — verified
+
+所属模块：装备与物品操作。
+文件：`items.cc`、`items.h`、`delay.cc`、`quiver.cc`。
+生产函数：`item_message_display_arg`、`item_check`、`_identify_last_item`、`_weapon_display_name_arg`、`maybe_name_weapon`、`say_farewell_to_weapon`、`ImbueDelay::try_interrupt`、`ImbueDelay::start`、`ImprintDelay::start`、`ImprintDelay::finish`。
+显示/业务消费者：`item_check`、`maybe_name_weapon`、`say_farewell_to_weapon`、`quiver::melee_action::trigger`。
+验证：`tools/test_sol61_item_edges.py`。
+兼容规则：从基线冻结实际英文生成路径；规范英文/业务副作用/RNG/频道逐项对照；未知语义整父回退并报告。
+验收记录：[verification/native/sol61-six/item-edges/REPORT.md](../../verification/native/sol61-six/item-edges/REPORT.md)。
+剩余：Orb启动及外部武器/帽子低语；法术记忆神祇组合、旅行/自动战斗及其他物品提示。
+
+### sol61-semantic-details — verified
+
+所属模块：语义名称。
+文件：`zh-display-name.cc`。
+生产函数：`translated_item_name`、`_monster_visible_species_arg`。
+显示/业务消费者：`zh_item_arg`、`zh_item_quantity_arg`、`zh_item_menu_arg`、`zh_monster_info_arg`。
+验证：`tools/test_sol61_semantic_details.py`。
+兼容规则：从基线冻结实际英文生成路径；规范英文/业务副作用/RNG/频道逐项对照；未知语义整父回退并报告。
+验收记录：[verification/native/sol61-six/semantic-details/REPORT.md](../../verification/native/sol61-six/semantic-details/REPORT.md)。
+剩余：复杂尸体/自定义/神器与其他未鉴定外观；幽灵生平和变异兽详情。
+
+### sol61-ui-help — verified
+
+所属模块：技能、界面与帮助。
+文件：`tilereg-doll.cc`、`skill-menu.cc`。
+生产函数：`doll_part_message`、`doll_index_message`、`doll_mode_message`、`doll_command_text`、`doll_layout`、`_skill_cause_arg`、`_skill_power_cause_arg`。
+显示/业务消费者：`DollEditRegion::render`、`DollEditRegion::run`、`SkillMenuSwitch::get_help`。
+验证：`tools/test_sol61_ui_help.py`。
+兼容规则：从基线冻结实际英文生成路径；规范英文/业务副作用/RNG/频道逐项对照；未知语义整父回退并报告。
+验收记录：[verification/native/sol61-six/ui-help/REPORT.md](../../verification/native/sol61-six/ui-help/REPORT.md)。
+剩余：output角色/概览/状态字段与command帮助入口；其他教程/提示和技能包外特殊分支。
 
 
 ## 公共旧入口
@@ -140,8 +206,8 @@
 - `libgui.cc:99` — `const string localized = zh_translate(buffer);`
 - `libunix.cc:935` — `const string localized = zh_translate(buffer);`
 - `menu.cc:3619` — `vector<string> segs = split_string("\n", zh_translate(s), false, true);`
-- `message.cc:93` — `? (localized.empty() ? zh_translate(text) : localized) : text) + rep;`
-- `message.cc:640` — `if (!presentation) text = zh_translate(text);`
+- `message.cc:103` — `? (localized.empty() ? zh_translate(text) : localized) : text) + rep;`
+- `message.cc:650` — `if (!presentation) text = zh_translate(text);`
 - `output.cc:1477` — `string title = zh_translate(filtered_lang(player_title()));`
 - `output.cc:1499` — `title = trimmed_name + ", " + zh_translate(filtered_lang(player_title(false)));`
 - `output.cc:1521` — `string species = zh_translate(player_species_name());`
@@ -156,23 +222,6 @@
 - `output.cc:2675` — `out += chop_string(zh_translate("MPRegen"), cwidth);`
 - `precision-menu.cc:693` — `m_render_text = m_pretranslated ? m_text : zh_translate(m_text); // editing stays canonical`
 - `precision-menu.cc:977` — `m_font_buf.add(m_pretranslated ? m_text : zh_translate(m_text),`
-- `tilereg-doll.cc:116` — `minimum_cell = max(minimum_cell, (width(zh_translate(label)) + 1) / 2);`
-- `tilereg-doll.cc:119` — `l.left = max(10 * l.cell, width(zh_translate("Doll index %d / %d")) + 6 * static_cast<int>(font->char_width()));`
-- `tilereg-doll.cc:121` — `l.left = max(l.left, width(zh_translate("Doll Mode: %s")) + width(zh_translate(mode)));`
-- `tilereg-doll.cc:121` — `l.left = max(l.left, width(zh_translate("Doll Mode: %s")) + width(zh_translate(mode)));`
-- `tilereg-doll.cc:124` — `category_width = max(category_width, width(zh_translate(category)));`
-- `tilereg-doll.cc:125` — `l.info = category_width + width(" -> : ") + max(width(zh_translate("(show equip)")), width("99999/99999"));`
-- `tilereg-doll.cc:130` — `column_widths[col] = max(column_widths[col], width(col % 2 ? string(row[col]) : zh_translate(row[col])));`
-- `tilereg-doll.cc:229` — `const string label = zh_translate(labels[i]);`
-- `tilereg-doll.cc:288` — `string item_str = zh_translate(doll_categories[m_cat_idx]) + ": "`
-- `tilereg-doll.cc:292` — `: zh_translate(part_name));`
-- `tilereg-doll.cc:298` — `doll_name = make_stringf(zh_translate("Doll index %d / %d").c_str(), m_doll_idx, NUM_MAX_DOLLS - 1);`
-- `tilereg-doll.cc:303` — `doll_name = make_stringf(zh_translate("Doll Mode: %s").c_str(),`
-- `tilereg-doll.cc:304` — `zh_translate(doll_modes[m_mode]).c_str());`
-- `tilereg-doll.cc:321` — `const string category = zh_translate(doll_categories[i]);`
-- `tilereg-doll.cc:322` — `const string value = part == TILEP_SHOW_EQUIP ? zh_translate("(show equip)")`
-- `tilereg-doll.cc:323` — `: !part ? zh_translate("(none)")`
-- `tilereg-doll.cc:336` — `: zh_translate(doll_commands[row][col]), VColour::white,`
 - `zh-localization.cc:479` — `std::string zh_translate(const std::string &text) {`
 
 ## 边界声明
@@ -180,4 +229,4 @@
 规范英文读取使用 ZhTranslationPause；只阻止旧匹配的原样渲染使用 ZhLegacyPause。两种职责不可互换。
 模块完成需覆盖主入口、选择、详情、帮助、悬停、成功/失败反馈及渲染出口；同文件有新接口不代表整个文件完成。
 旧存档没有消息 ID 的历史兼容单列，不能据此保留新实时消息的旧匹配。
-所有新增/修改游戏译文由 Luna 批量审校，主 agent 负责代码。Mac 为主调试平台；Linux 在里程碑验收。
+历史工作包由 Luna 审校；本轮 sol61-six 按用户明确指定，由六个 GPT-6.1-Sol 子 agent 分工翻译、审校与生产函数验证，主 agent 负责公共接口、集成和总验收。Mac 为主调试平台；Linux 在里程碑验收。

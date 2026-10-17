@@ -1,4 +1,5 @@
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "god-conduct.h"
 
@@ -460,6 +461,12 @@ string get_god_dislikes(god_type which_god)
 }
 
 /// A definition of the way in which a god likes a conduct being taken.
+static void _conduct_god_log(const char *id)
+{
+    mpr(zh_message(id, {zh_glossary_name("god", "character.god.name", god_speaker())}),
+        MSGCH_GOD, you.religion);
+}
+
 struct like_response
 {
     /// How to describe this conduct on the god description screen.
@@ -484,6 +491,8 @@ struct like_response
     /// Special-case code for weird likes. May modify piety bonus/denom, or
     /// may have other side effects. If nullptr, doesn't trigger, ofc.
     special_piety_t special;
+    /// Selected by the response factory before any god name is formatted.
+    const char *message_id;
 
     /// Apply this response to a given conduct, severity level, and victim.
     /// @param victim may be null.
@@ -497,7 +506,9 @@ struct like_response
 
         god_acting gdact;
 
-        if (message)
+        if (message_id)
+            _conduct_god_log(message_id);
+        else if (message)
             simple_god_message(message);
 
         // this is all very strange, but replicates legacy behaviour.
@@ -560,7 +571,8 @@ static like_response _on_kill(const char* desc, mon_holy_type holiness,
         18,
         god_is_good ? 0 : 2,
         " accepts your kill.",
-        special
+        special,
+        "character.conduct.kill.accepted"
     };
 }
 
@@ -600,12 +612,10 @@ static like_response okawaru_kill(const char* desc)
 
             if (piety > 3200)
             {
-                mprf(MSGCH_GOD, you.religion,
-                     "<white>%s is honoured by your kill.</white>",
-                     uppercase_first(god_name(you.religion)).c_str());
+                _conduct_god_log("character.conduct.kill.honoured");
             }
             else if (piety > 9) // might still be miniscule
-                simple_god_message(" accepts your kill.");
+                _conduct_god_log("character.conduct.kill.accepted");
         }
     };
 }
@@ -619,9 +629,9 @@ static const like_response _fedhas_kill_living_response()
         nullptr, [] (int &, int &, const monster* victim)
         {
             if (victim && mons_class_can_leave_corpse(mons_species(victim->type)))
-                simple_god_message(" appreciates your contribution to the ecosystem.");
+                _conduct_god_log("character.conduct.kill.ecosystem");
             else
-                simple_god_message(" accepts your kill.");
+                _conduct_god_log("character.conduct.kill.accepted");
         }
     };
 }

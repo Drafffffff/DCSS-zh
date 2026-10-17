@@ -1,0 +1,12 @@
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+make -C rltiles all ARCH=x86_64-redhat-linux NO_PKGCONFIG= TILES=
+make[1]: Entering directory '/work/console-source/source/rltiles'
+make[1]: Leaving directory '/work/console-source/source/rltiles'
+    PYTHON rltilesstatus-icon-sizes.h
+    GEN compflag.h
+    GEN build.h
+    CXX zh-message.o
+    CXX zh-display-name.o
+    CXX version.o
+    LINK crawl

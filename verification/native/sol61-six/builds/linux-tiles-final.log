@@ -1,0 +1,39 @@
+which: no advpng in (/usr/lib64/ccache:/usr/local/bin:/usr/bin)
+which: no pngcrush in (/usr/lib64/ccache:/usr/local/bin:/usr/bin)
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+make -C rltiles all ARCH=x86_64-redhat-linux NO_PKGCONFIG= TILES=y
+make[1]: Entering directory '/work/source/source/rltiles'
+make[1]: Leaving directory '/work/source/source/rltiles'
+    PYTHON rltilesstatus-icon-sizes.h
+    GEN compflag.h
+    GEN build.h
+    CXX zh-message.o
+    CXX zh-display-name.o
+    CXX tilereg-doll.o
+    CXX tilereg-map.o
+    CXX tilereg-mem.o
+    CXX tilereg-mon.o
+    CXX tilereg-skl.o
+    CXX tilereg-spl.o
+    CXX tilereg-tab.o
+    CXX tilesdl.o
+    CXX windowmanager-sdl.o
+    CXX glwrapper-ogl.o
+    CXX fontwrapper-ft.o
+    CXX main.o
+    CXX util/levcomp.tab.o
+    CXX util/levcomp.lex.o
+    CXX version.o
+levcomp.tab.cc: In function ‘int yyparse()’:
+levcomp.tab.cc:2482:37: warning: argument 1 value ‘18446744073709551615’ exceeds maximum object size 9223372036854775807 [-Walloc-size-larger-than=]
+In file included from /usr/include/c++/15/cstdlib:83,
+                 from ./externs.h:11,
+                 from ./AppHdr.h:306,
+                 from levcomp.ypp:4:
+/usr/include/stdlib.h:672:14: note: in a call to allocation function ‘void* malloc(size_t)’ declared here
+  672 | extern void *malloc (size_t __size) __THROW __attribute_malloc__
+      |              ^~~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option ‘-Wno-null-conversion’ may have been intended to silence earlier diagnostics
+    LINK crawl

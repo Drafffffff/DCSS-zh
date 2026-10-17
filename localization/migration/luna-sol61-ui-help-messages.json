@@ -1,0 +1,458 @@
+{
+  "model": "gpt-6.1-sol",
+  "reviewer_model": "gpt-6.1-sol",
+  "review_note": "本组GPT-6.1-Sol按完整视图批量翻译和自审；复用localization/luna-systematic-review-20261017.json已审校的角色外观/造型/部件术语；数字模板语义参数化；技术键名和dolls.txt保留；技能帮助复用skill.cause及skill.menu现有审校模板并检查全部组合。",
+  "messages": [
+    {
+      "id": "sol61.ui.doll.change_parts",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Change parts",
+      "zh": "切换部件",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Change parts"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.confirm_choice",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Confirm choice",
+      "zh": "确认选择",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Confirm choice"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.change_category",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Change category",
+      "zh": "切换部位",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Change category"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.copy",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Copy doll",
+      "zh": "复制外观",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Copy doll"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.change_doll",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Change doll",
+      "zh": "切换造型",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Change doll"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.paste",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Paste copied doll",
+      "zh": "粘贴外观",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Paste copied doll"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.change_mode",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Change doll mode",
+      "zh": "切换外观方案",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Change doll mode"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.randomise",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Randomise doll",
+      "zh": "随机生成外观",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Randomise doll"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.save",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Save menu",
+      "zh": "保存并退出",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Save menu"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.toggle_equip",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Toggle equipment",
+      "zh": "显示/隐藏装备",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Toggle equipment"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.quit",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Quit menu",
+      "zh": "退出编辑器",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Quit menu"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.base",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Base",
+      "zh": "基础造型",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Base"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.shadow",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Shadow",
+      "zh": "阴影",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Shadow"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.halo",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Halo",
+      "zh": "光环",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Halo"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.ench",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Ench",
+      "zh": "附魔光效",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Ench"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.cloak",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Cloak",
+      "zh": "披风",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Cloak"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.boots",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Boots",
+      "zh": "靴子",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Boots"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.legs",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Legs",
+      "zh": "腿部",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Legs"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.body",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Body",
+      "zh": "躯干",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Body"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.gloves",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Gloves",
+      "zh": "手套",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Gloves"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.lhand",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "LHand",
+      "zh": "左手",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "LHand"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.rhandwpn",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "RHandWpn",
+      "zh": "右手武器",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "RHandWpn"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.rhand",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "RHand",
+      "zh": "右手",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "RHand"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.hair",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Hair",
+      "zh": "头发",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Hair"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.beard",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Beard",
+      "zh": "胡须",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Beard"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.helm",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Helm",
+      "zh": "头盔",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Helm"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.drcwing",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "DrcWing",
+      "zh": "龙翼",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "DrcWing"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.current_equipment",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Current Equipment",
+      "zh": "当前装备",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Current Equipment"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.custom_doll",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Custom Doll",
+      "zh": "自定义外观",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Custom Doll"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.job_defaults",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Job Defaults",
+      "zh": "职业默认外观",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Job Defaults"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.custom",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Custom",
+      "zh": "自定义",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Custom"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.default",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Default",
+      "zh": "默认",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Default"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.equip",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Equip",
+      "zh": "装备",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Equip"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.none",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "(none)",
+      "zh": "(无)",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "(none)"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.show_equip",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "(show equip)",
+      "zh": "(显示装备)",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "(show equip)"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.title",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Doll Editor",
+      "zh": "角色外观编辑器",
+      "params": {},
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Doll Editor"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.part_number",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "{part}/{count}",
+      "zh": "{part}/{count}",
+      "params": {
+        "part": "integer",
+        "count": "integer"
+      },
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "{part}/{count}"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.part",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "{category}: {value}",
+      "zh": "{category}：{value}",
+      "params": {
+        "category": "text",
+        "value": "text"
+      },
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "{category}: {value}"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.index",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Doll index {index} / {max}",
+      "zh": "造型 {index} / {max}",
+      "params": {
+        "index": "integer",
+        "max": "integer"
+      },
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Doll index {index} / {max}"
+      }
+    },
+    {
+      "id": "sol61.ui.doll.mode",
+      "context": "纸娃娃编辑器完整视图；按语义槽选择；GPT-6.1-Sol复用现有词库并批量翻译审校；快捷键独立",
+      "en": "Doll Mode: {mode}",
+      "zh": "外观方案：{mode}",
+      "params": {
+        "mode": "text"
+      },
+      "source": {
+        "file": "tilereg-doll.cc",
+        "anchor": "Doll Mode: {mode}"
+      }
+    }
+  ]
+}

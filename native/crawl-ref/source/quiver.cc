@@ -640,7 +640,8 @@ namespace quiver
             if (you.caught())
             {
                 if (target.needs_targeting())
-                    mprf("You cannot attack while %s.", held_status());
+                    mpr(zh_message("quiver.log.cannot_attack_held",
+                        {zh_word_arg("status", "sol61.item.held.", held_status())}));
                 else
                 {
                     // assume that if a target was explicitly supplied, it was
@@ -716,9 +717,9 @@ namespace quiver
             {
                 if (you.confused())
                 {
-                    mprf("You attack %s.",
-                         feature_description_at(target.target,
-                                                false, DESC_THE).c_str());
+                    mpr(zh_message("quiver.log.attack_feature",
+                        {zh_glossary_name("target", "terrain",
+                            feature_description_at(target.target, false, DESC_THE))}));
                     you.time_taken = attack_delay;
                     you.turn_is_over = true;
                     return;
@@ -771,7 +772,8 @@ namespace quiver
                     if (midmons->wont_attack())
                     {
                         // Let's assume friendlies cooperate.
-                        mprf("You fail to reach past %s.", midmons->name(DESC_THE).c_str());
+                        mpr(zh_message("quiver.log.fail_reach_past",
+                            {zh_monster_arg("target", *midmons, DESC_THE)}));
                         you.time_taken = attack_delay;
                         you.turn_is_over = true;
 
@@ -792,9 +794,11 @@ namespace quiver
                     mpr(zh_message("log.quiver.fixed.f41b93943185"));
                 else
                 {
-                    mprf("%s is in the way.",
-                         mons->observable() ? mons->name(DESC_THE).c_str()
-                                            : "Something you can't see");
+                    ZhArg blocker = mons->observable()
+                        ? zh_monster_arg("target", *mons, DESC_THE)
+                        : zh_message_arg("target", "sol61.item.quiver.unseen");
+                    blocker.type = ZhArgType::Name;
+                    mpr(zh_message("quiver.log.in_the_way", {blocker}));
                 }
             }
 
@@ -817,7 +821,8 @@ namespace quiver
             {
                 if (is_valid_tempering_target(*mons, you, true) && !you.confused())
                 {
-                    mprf("You deconstruct %s.", mons->name(DESC_THE).c_str());
+                    mpr(zh_message("quiver.log.deconstruct",
+                        {zh_monster_arg("target", *mons, DESC_THE)}));
                     monster_die(*mons, KILL_RESET, NON_MONSTER);
                     you.turn_is_over = true;
                     return;

@@ -1,0 +1,39 @@
+{
+  "source": "Bazzite Steam screenshots; original files fetched read-only",
+  "screenshots": [
+    "20261018014054_1.jpg",
+    "20261018014113_1.jpg",
+    "20261018014128_1.jpg"
+  ],
+  "issues": [
+    {
+      "id": "ability-menu-legacy",
+      "owner": "religion-character",
+      "evidence": "20261018014054_1.jpg",
+      "observed": "Renounce Religion, None and hints paragraph use legacy English/fragment output",
+      "acceptance": "complete typed menu rows/title/help; canonical ability identifiers retained; 4K visible paragraph and cost fields"
+    },
+    {
+      "id": "god-kill-legacy",
+      "owner": "religion-character",
+      "evidence": "20261018014113_1.jpg",
+      "observed": "Trog accepts your kill. remains English",
+      "acceptance": "complete god-conduct response template; all same factory branches tested; canonical/channel semantics retained"
+    },
+    {
+      "id": "unidentified-scroll-name",
+      "owner": "semantic-details",
+      "evidence": "20261018014128_1.jpg",
+      "observed": "c - a scroll labelled GIOJOT FEUBA whole-name fallback",
+      "acceptance": "semantic appearance name without subtype disclosure; labels preserved; canonical item names unchanged"
+    },
+    {
+      "id": "corpse-name",
+      "owner": "semantic-details/item-edges",
+      "evidence": "20261018014113_1.jpg",
+      "observed": "a dart slug corpse in floor display",
+      "acceptance": "semantic corpse name and typed floor collection consumer; quantity and unknown proper-name fallback tested"
+    }
+  ],
+  "ui_notes": "Images are 3840x2160. HUD and inventory layout also included in final representative checks; no additional displacement inferred solely from screenshots."
+}

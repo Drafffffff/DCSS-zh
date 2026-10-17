@@ -8,7 +8,8 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SRC=ROOT/'native/crawl-ref/source'
 OUT=ROOT/'analysis/message-migration'
-APIS={'zh_message','zh_source','zh_translate','zh_word','zh_word_arg',
+APIS={'zh_message','zh_message_arg','zh_message_list','zh_named_arg','zh_source','zh_translate','zh_word','zh_word_arg',
+      'zh_item_quantity_arg','zh_item_menu_arg','zh_actor_arg',
       'zh_glossary_name','zh_place_arg','zh_monster_type_arg','origin_display_desc','zh_item_arg','zh_monster_arg','zh_monster_info_arg',
       'mpr','mprf','cprintf','CPRINTF','make_stringf','vmake_stringf','getLongDescription','getQuoteString',
       'parse_string','parse_string_raw','parse_string_to_multiple',
@@ -23,11 +24,11 @@ RULES=[('protocol',{'zh-message','zh-localization','database'}),
  ('details',{'describe','describe-spells'}),('skills',{'skill-menu','skills','lookup-help','tilereg-skl'}),
  ('shop',{'shopping'}),('hud',{'output','tilereg-tab','tilereg-grid','tilereg-msg','tilereg-doll'}),
  ('combat',{'attack','melee-attack','ranged-attack','fight','mon-attack','player-hurt'}),
- ('equipment-items',{'delay','player-equip','item-use','item-prop','invent','item-name','items'}),
+ ('equipment-items',{'delay','player-equip','item-use','item-prop','invent','item-name','items','evoke','potion'}),
  ('targeting',{'target','directn','quiver'}),
- ('religion',{'religion','god-abil','god-passive','god-wrath','god-pr','decks'}),
- ('character',{'player','mutation','ability','status','species','jobs','transform'}),
- ('world',{'terrain','travel','traps','stairs','feature','dungeon','map','view','viewchar'}),
+ ('religion',{'religion','god-abil','god-passive','god-wrath','god-prayer','god-conduct','decks'}),
+ ('character',{'player','player-stats','mutation','ability','status','species','jobs','transform'}),
+ ('world',{'movement','terrain','travel','traps','stairs','feature','dungeon','map','view','viewchar','abyss','exclude','orb','nearby-danger'}),
  ('help',{'command','hints','tutorial'})]
 def module(path):
  for name,stems in RULES:
@@ -53,8 +54,8 @@ def scan(path):
     'legacy-hook' if api=='zh_translate' else
     'canonical-read-scope' if api=='ZhTranslationPause' else
     'raw-render-scope' if api=='ZhLegacyPause' else
-    'typed-producer' if api in ('zh_message','zh_source') else
-    'semantic-name' if api in ('zh_item_arg','zh_monster_arg','zh_monster_info_arg','zh_glossary_name','zh_word','zh_word_arg') else
+    'typed-producer' if api in ('zh_message','zh_message_arg','zh_source') else
+    'semantic-name' if api in ('zh_item_arg','zh_item_quantity_arg','zh_item_menu_arg','zh_actor_arg','zh_monster_arg','zh_monster_info_arg','zh_glossary_name','zh_word','zh_word_arg') else
     'boundary-assertion' if api in ('ZhLegacyGuard','ZhLegacyBackground') else
     'callsite-review-required'})
  return rows
@@ -106,7 +107,7 @@ def main():
  '规范英文读取使用 ZhTranslationPause；只阻止旧匹配的原样渲染使用 ZhLegacyPause。两种职责不可互换。',
  '模块完成需覆盖主入口、选择、详情、帮助、悬停、成功/失败反馈及渲染出口；同文件有新接口不代表整个文件完成。',
  '旧存档没有消息 ID 的历史兼容单列，不能据此保留新实时消息的旧匹配。',
- '所有新增/修改游戏译文由 Luna 批量审校，主 agent 负责代码。Mac 为主调试平台；Linux 在里程碑验收。','']
+ manifest.get('text_review_policy', '所有新增/修改游戏译文由 Luna 批量审校，主 agent 负责代码。Mac 为主调试平台；Linux 在里程碑验收。'),'']
  summary='\n'.join(lines)
  if args.check:assert (OUT/'LEDGER.md').read_text()==summary,'Module ledger is stale'
  else:(OUT/'LEDGER.md').write_text(summary)

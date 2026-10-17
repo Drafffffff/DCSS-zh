@@ -16,7 +16,7 @@ def compile_catalog():
     messages={}
     for path in sorted(LOC.glob('luna-*-messages.json')):
         doc=json.loads(path.read_text())
-        assert doc['model'] in ('Luna','gpt-6-luna'),path
+        assert doc['model'] in ('Luna','gpt-6-luna','gpt-6.1-sol'),path
         for entry in doc['messages']:
             identity=entry['id'];assert identity not in messages,identity
             assert re.fullmatch(r'[a-z][a-z0-9_.]*',identity),identity
@@ -51,7 +51,7 @@ def compile_catalog():
                 assert isinstance(value['canonical'],str) and isinstance(value['localized'],str),(identity,key)
                 if value['type'] in ('key','key_markup','colour','integer','number'):
                     assert value['canonical']==value['localized'],(identity,key,'translated structural parameter')
-    out=['// Generated from Luna-reviewed message IDs. Do not edit.','static const ZhDefinition zh_definitions[] = {']
+    out=['// Generated from reviewed source-template message IDs. Do not edit.','static const ZhDefinition zh_definitions[] = {']
     # Escape question marks so C++11 trigraphs (e.g. ??!) never alter canonical text.
     q=lambda s:json.dumps(s,ensure_ascii=False).replace('?', r'\?')
     for key,e in sorted(messages.items()):

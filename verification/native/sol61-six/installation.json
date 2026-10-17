@@ -1,0 +1,48 @@
+{
+  "native_commit": "44ae418e12df902d13ca4f92b6ebba0dd8b3db35",
+  "running_before": [],
+  "backup": "/home/bazzite/Games/dcss-zh/installation-records/sol61-six-20261018-023521",
+  "files": {
+    "crawl-tiles": {
+      "before": "798cd65464bd6dd06064dace80c059ec1f8a376c79f78a0a071bd7550eb9a15b",
+      "after": "59d02f972c19d675766de0ab8a3103255e38a8c346416061d7f7925a2e83fbed",
+      "backup_sha256": "798cd65464bd6dd06064dace80c059ec1f8a376c79f78a0a071bd7550eb9a15b"
+    },
+    "crawl-console": {
+      "before": "89f9a12542b4cebfa15f1df5c75d113acf6151a46f6a4fe9c223f24618759698",
+      "after": "8496913e4493cb713c246416e01d955dc60fe1225c4935b69ff4ae8cdc0dc2e1",
+      "backup_sha256": "89f9a12542b4cebfa15f1df5c75d113acf6151a46f6a4fe9c223f24618759698"
+    }
+  },
+  "save_or_config_changes": false,
+  "steam_restart": false,
+  "running_after": [],
+  "final_installed_files": [
+    {
+      "path": "/home/bazzite/Games/dcss-zh/crawl-tiles",
+      "before_final_reconcile": "282160712d05c6d1df2d0454b670ab05ddf9de5f6ad76ccf90ae160b766bd6f0",
+      "after": "59d02f972c19d675766de0ab8a3103255e38a8c346416061d7f7925a2e83fbed",
+      "backup": "/home/bazzite/Games/dcss-zh/installation-records/sol61-six-20261018-023521/final-reconcile/crawl-tiles"
+    },
+    {
+      "path": "/home/bazzite/Games/dcss-zh/crawl-console",
+      "before_final_reconcile": "8496913e4493cb713c246416e01d955dc60fe1225c4935b69ff4ae8cdc0dc2e1",
+      "after": "8496913e4493cb713c246416e01d955dc60fe1225c4935b69ff4ae8cdc0dc2e1",
+      "backup": "/home/bazzite/Games/dcss-zh/installation-records/sol61-six-20261018-023521/final-reconcile/crawl-console"
+    },
+    {
+      "path": "/home/bazzite/Games/dcss-zh/game/crawl-tiles",
+      "before_final_reconcile": "282160712d05c6d1df2d0454b670ab05ddf9de5f6ad76ccf90ae160b766bd6f0",
+      "after": "59d02f972c19d675766de0ab8a3103255e38a8c346416061d7f7925a2e83fbed",
+      "backup": "/home/bazzite/Games/dcss-zh/installation-records/sol61-six-20261018-023521/final-reconcile/game/crawl-tiles"
+    },
+    {
+      "path": "/home/bazzite/Games/dcss-zh/game/crawl-console",
+      "before_final_reconcile": "8496913e4493cb713c246416e01d955dc60fe1225c4935b69ff4ae8cdc0dc2e1",
+      "after": "8496913e4493cb713c246416e01d955dc60fe1225c4935b69ff4ae8cdc0dc2e1",
+      "backup": "/home/bazzite/Games/dcss-zh/installation-records/sol61-six-20261018-023521/final-reconcile/game/crawl-console"
+    }
+  ],
+  "preserved_external_source_fix": "c2df0d82370388ebb1d3704156a20eb2f2f731b8: typed auxiliary attack names",
+  "note": "An independently built identical-source installation arrived during integration. Preserved its binaries in final-reconcile and installed the exact QA-accepted binaries in all four launch paths. No process restarted; saves/config/assets untouched."
+}

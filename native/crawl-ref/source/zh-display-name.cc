@@ -12,6 +12,7 @@
 #include "invent.h"
 #include "colour.h"
 #include "mon-info.h"
+#include "mon-util.h"
 #include "monster.h"
 #include "place.h"
 #include "skills.h"
@@ -93,7 +94,47 @@ std::string _monster_type_component(monster_type type)
 
 ZhArg _monster_visible_species_arg(const monster_info& info)
 {
+    if (info.props.exists(HELPLESS_KEY))
+    {
+        // Stabbing temporarily sets this bool property. Remove only that
+        // semantic field from a private snapshot, keeping every other name
+        // qualifier and its support guard intact; never strip English words.
+        monster_info unqualified(info);
+        unqualified.props.erase(HELPLESS_KEY);
+        auto name = zh_message_arg("species", "sol61.name.monster.helpless",
+                                  {_monster_visible_species_arg(unqualified)});
+        name.type = ZhArgType::Name;
+        name.canonical = info.common_name(DESC_PLAIN);
+        if (!name.supported) name.localized = name.canonical;
+        return name;
+    }
     const std::string species = _monster_type_component(info.type);
+    if (info.type == MONS_UGLY_THING || info.type == MONS_VERY_UGLY_THING)
+    {
+        // Reject every additional name producer using snapshot semantics.
+        // common_name() is read only for the canonical channel, never matched.
+        const std::string canonical = info.common_name(DESC_PLAIN);
+        if (info.is(MB_NAME_REPLACE) || info.is(MB_NAME_ADJECTIVE)
+            || info.is(MB_NAME_SUFFIX) || info.is(MB_SPECTRALISED)
+            || info.is(MB_VAMPIRE_THRALL) || info.is(MB_SHAPESHIFTER)
+            || info.has_hydra_multi_attack())
+            return {"species", ZhArgType::Name, canonical, canonical, false};
+        // This is the visible adjective, independent of terminal colour tags.
+        const int offset = ugly_thing_colour_offset(info._colour);
+        static const char *ids[] = {
+            "sol61.name.ugly.red", "sol61.name.ugly.brown",
+            "sol61.name.ugly.green", "sol61.name.ugly.cyan",
+            "sol61.name.ugly.purple", "sol61.name.ugly.white"
+        };
+        if (offset < 0 || offset >= 6)
+            return {"species", ZhArgType::Name, canonical, canonical, false};
+        const auto base = zh_glossary_name("species", "monster.name", species);
+        auto name = zh_message_arg("species", ids[offset], {base});
+        name.type = ZhArgType::Name;
+        name.canonical = canonical;
+        if (!name.supported) name.localized = canonical;
+        return name;
+    }
     const bool headed = info.has_hydra_multi_attack()
         && info.type != MONS_SENSED && !mons_class_is_remnant(info.type);
     std::string expected = species;
@@ -277,11 +318,59 @@ std::string translated_item_name(const item_def &item,
     // Unidentified weapon and armour base types are explicitly visible in
     // item-name.cc. Other unidentified classes can conceal their subtype.
     if (!item.is_identified() && item.base_type != OBJ_WEAPONS
-        && item.base_type != OBJ_ARMOUR)
+        && item.base_type != OBJ_ARMOUR && item.base_type != OBJ_SCROLLS
+        && item.base_type != OBJ_CORPSES)
         return fallback();
 
-    const std::string base_en = semantic_item_base(item);
-    std::string base_zh = exact_component(base_en);
+    // Unknown scrolls expose only their generated appearance label. Never ask
+    // semantic_item_base() for their hidden effect, even as a lookup key.
+    const bool labelled_scroll = item.base_type == OBJ_SCROLLS
+                                 && !item.is_identified();
+    const bool corpse = item.base_type == OBJ_CORPSES;
+    const std::string base_en = labelled_scroll || corpse
+                               ? std::string() : semantic_item_base(item);
+    std::string base_zh;
+    if (labelled_scroll)
+    {
+        const std::string label = make_name(item.subtype_rnd, MNAME_SCROLL);
+        const auto name = zh_message_arg("name", "sol61.name.scroll.labelled", {
+            ZhArg("label", ZhArgType::Name, label, label, true)});
+        if (!name.supported)
+            return fallback();
+        base_zh = name.localized;
+    }
+    else if (corpse)
+    {
+        // Named/adjectival corpses encode additional semantics in their props.
+        // Keep those whole until their name modes have reviewed templates.
+        if (is_named_corpse(item)
+            || (mons_is_unique(item.mon_type)
+                && mons_species(item.mon_type) == item.mon_type)
+            || (item.sub_type != CORPSE_BODY && item.sub_type != CORPSE_SKELETON))
+            return fallback();
+        const auto species = zh_monster_type_arg("species", item.mon_type);
+        const auto name = zh_message_arg("name", item.sub_type == CORPSE_BODY
+            ? "sol61.name.corpse.body" : "sol61.name.corpse.skeleton", {species});
+        if (!name.supported)
+            return fallback();
+        base_zh = name.localized;
+        const bool indefinite = desc == DESC_A || desc == DESC_INVENTORY
+                                || desc == DESC_INVENTORY_EQUIP;
+        if (item.quantity > 1 || indefinite)
+        {
+            const auto noun = ZhArg("name", ZhArgType::Name,
+                                     name.canonical, base_zh, true);
+            const auto counted = item.quantity > 1
+                ? zh_message_arg("name", "sol61.name.corpse.quantity",
+                                 {zh_integer("count", item.quantity), noun})
+                : zh_message_arg("name", "sol61.name.corpse.single", {noun});
+            if (!counted.supported)
+                return fallback();
+            base_zh = counted.localized;
+        }
+    }
+    else
+        base_zh = exact_component(base_en);
     // Fixed book titles are stored as lowercase database keys in the reviewed
     // glossary. Normalize only these enum-derived keys, never final names or
     // user/custom/artefact titles.
@@ -388,7 +477,7 @@ std::string translated_item_name(const item_def &item,
                                                         cosmetic_supported);
     if (!cosmetic_supported)
         return fallback();
-    if (item.quantity > 1 && desc != DESC_BASENAME && desc != DESC_DBNAME
+    if (item.quantity > 1 && !corpse && desc != DESC_BASENAME && desc != DESC_DBNAME
         && desc != DESC_QUALNAME)
     {
         const std::string classifier = item_classifier(item);

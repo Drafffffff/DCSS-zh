@@ -19,6 +19,7 @@
 #include "items.h" // stack_iterator
 #include "libutil.h"
 #include "message.h"
+#include "zh-message.h"
 #include "output.h"
 #include "player.h"
 #include "prompt.h"
@@ -34,8 +35,8 @@
 spret cast_deaths_door(int pow, bool fail)
 {
     fail_check();
-    mpr("You stand defiantly in death's doorway!");
-    mprf(MSGCH_SOUND, "You seem to hear sand running through an hourglass...");
+    mpr(zh_message("sol61.combat.deaths_door.defy"));
+    mpr(zh_message("sol61.combat.deaths_door.hourglass"), MSGCH_SOUND);
 
     you.set_duration(DUR_DEATHS_DOOR, 10 + random2avg(13, 3)
                                        + div_rand_round(random2(pow), 10));
@@ -51,7 +52,7 @@ spret cast_deaths_door(int pow, bool fail)
 
 void remove_ice_armour()
 {
-    mprf(MSGCH_DURATION, "Your icy armour melts away.");
+    mpr(zh_message("sol61.combat.ice.melt"), MSGCH_DURATION);
     you.redraw_armour_class = true;
     you.duration[DUR_ICY_ARMOUR] = 0;
 }
@@ -61,9 +62,9 @@ spret ice_armour(int pow, bool fail)
     fail_check();
 
     if (you.duration[DUR_ICY_ARMOUR])
-        mpr("Your icy armour thickens.");
+        mpr(zh_message("sol61.combat.ice.thicken"));
     else
-        mpr("A film of ice covers your body!");
+        mpr(zh_message("sol61.combat.ice.cover"));
 
     you.increase_duration(DUR_ICY_ARMOUR, random_range(40, 50), 50);
     you.props[ICY_ARMOUR_KEY] = pow;
@@ -75,15 +76,15 @@ spret ice_armour(int pow, bool fail)
 void fiery_armour()
 {
     if (you.duration[DUR_FIERY_ARMOUR])
-        mpr("Your cloak of flame flares fiercely!");
+        mpr(zh_message("sol61.combat.fire.refresh"));
     else if (you.duration[DUR_ICY_ARMOUR] || player_icemail_armour_class())
     {
-        mpr("A sizzling cloak of flame settles atop your icy armour.");
+        mpr(zh_message("sol61.combat.fire.ice"));
         // TODO: add corresponding inverse message for casting ozo's etc
         // while DUR_FIERY_ARMOUR is active (maybe..?)
     }
     else
-        mpr("A protective cloak of flame settles atop you.");
+        mpr(zh_message("sol61.combat.fire.cover"));
 
     you.increase_duration(DUR_FIERY_ARMOUR, random_range(110, 140), 1500);
     you.redraw_armour_class = true;
@@ -92,7 +93,7 @@ void fiery_armour()
 spret cast_revivification(int pow, bool fail)
 {
     fail_check();
-    mpr("Your body is healed in an amazingly painful way.");
+    mpr(zh_message("sol61.combat.revivify.heal"));
 
     const int loss = 6 + binomial(9, 8, pow);
     dec_max_hp(loss * you.hp_max / 100);
@@ -100,7 +101,7 @@ spret cast_revivification(int pow, bool fail)
 
     if (you.duration[DUR_DEATHS_DOOR])
     {
-        mprf(MSGCH_DURATION, "Your life is in your own hands once again.");
+        mpr(zh_message("sol61.combat.revivify.release"), MSGCH_DURATION);
         // XXX: better cause name?
         you.paralyse(&you, random_range(2, 5), "breaking free from death's doorway");
         you.duration[DUR_DEATHS_DOOR] = 0;
@@ -112,8 +113,11 @@ spret cast_swiftness(int power, bool fail)
 {
     fail_check();
 
-    you.set_duration(DUR_SWIFTNESS, 12 + random2(power)/2, 30,
-                     "You feel quick.");
+    const int duration = 12 + random2(power)/2;
+    // set_duration clears the old timer before emitting its message.
+    you.duration[DUR_SWIFTNESS] = 0;
+    mpr(zh_message("sol61.combat.swift"));
+    you.increase_duration(DUR_SWIFTNESS, duration, 30);
     you.attribute[ATTR_SWIFTNESS] = you.duration[DUR_SWIFTNESS];
 
     return spret::success;
@@ -169,9 +173,9 @@ spret cast_fugue_of_the_fallen(int pow, bool fail)
     fail_check();
 
     if (you.duration[DUR_FUGUE])
-        mpr("You release your grip on the fallen and begin the cycle anew!");
+        mpr(zh_message("sol61.combat.fugue.refresh"));
     else
-        mpr("You call out to the remnants of the fallen!");
+        mpr(zh_message("sol61.combat.fugue.call"));
 
     you.set_duration(DUR_FUGUE, 25 + random2avg(pow, 2));
 
@@ -198,7 +202,7 @@ void do_fugue_wail(const coord_def pos)
     int pow = calc_spell_power(SPELL_FUGUE_OF_THE_FALLEN);
 
     if (!affected.empty())
-        mpr("The fallen lash out in pain!");
+        mpr(zh_message("sol61.combat.fugue.wail"));
     for (monster *m : affected)
     {
         if (m->alive())
@@ -222,7 +226,7 @@ int silence_max_range(int pow)
 spret cast_silence(int pow, bool fail)
 {
     fail_check();
-    mpr("A profound silence engulfs you.");
+    mpr(zh_message("sol61.combat.silence"));
 
     you.increase_duration(DUR_SILENCE, 20 + div_rand_round(pow,5)
                             + random2avg(div_rand_round(pow,2), 2), 100);
@@ -244,7 +248,7 @@ spret cast_liquefaction(int pow, bool fail)
     flash_view_delay(UA_PLAYER, YELLOW, 80);
     flash_view_delay(UA_PLAYER, BROWN, 140);
 
-    mpr("The ground around you becomes liquefied!");
+    mpr(zh_message("sol61.combat.liquefy"));
 
     you.increase_duration(DUR_LIQUEFYING, 15 + random2avg(pow, 2), 100);
     invalidate_agrid(true);
@@ -270,22 +274,22 @@ spret cast_jinxbite(int pow, bool fail)
 {
     if (!jinxbite_targets_available())
     {
-        mpr("There is nobody nearby that the sprites are interested in.");
+        mpr(zh_message("sol61.combat.jinx.no_target"));
         return spret::abort;
     }
 
     fail_check();
 
-    mprf("You beckon %s vexing sprites to accompany your attacks.",
-         you.duration[DUR_JINXBITE] ? "more" : "some");
+    mpr(zh_message(you.duration[DUR_JINXBITE]
+        ? "sol61.combat.jinx.more" : "sol61.combat.jinx.some"));
 
     const int base_dur = random_range(9, 15);
     const int will_dur = random_range(base_dur, 15) +
                          div_rand_round(spell_power_cap(SPELL_JINXBITE), 4);
 
     you.increase_duration(DUR_JINXBITE, base_dur + div_rand_round(pow, 4), 28);
-    you.increase_duration(DUR_LOWERED_WL, will_dur, 28,
-                          "You feel your willpower being sapped.");
+    mpr(zh_message("sol61.combat.jinx.will"));
+    you.increase_duration(DUR_LOWERED_WL, will_dur, 28);
 
     return spret::success;
 }
@@ -310,7 +314,7 @@ spret cast_detonation_catalyst(bool fail)
 {
     fail_check();
 
-    mpr("You ready an explosive catalyst.");
+    mpr(zh_message("sol61.combat.catalyst"));
 
     // base duration is very low to minimize precasting
     you.set_duration(DUR_DETONATION_CATALYST, random_range(3,5));

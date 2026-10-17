@@ -24,15 +24,19 @@ code=r'''
 #include <vector>
 using namespace std;
 using monster_type=int;using description_level_type=int;
-enum {MONS_HYDRA,MONS_ROYAL_JELLY,MONS_ORC,MONS_SENSED,MONS_REMNANT,MONS_UNKNOWN};
+enum {MONS_HYDRA,MONS_ROYAL_JELLY,MONS_ORC,MONS_SENSED,MONS_REMNANT,MONS_UNKNOWN,MONS_UGLY_THING,MONS_VERY_UGLY_THING};
 enum {DESC_PLAIN,DESC_A,DESC_THE,DESC_YOUR,DESC_ITS,DESC_DBNAME,DESC_NONE,ATT_HOSTILE,ATT_FRIENDLY,MILEV_NAME};
 struct monsterentry{const char*name;};monsterentry monster_data[]={{"hydra"},{"Royal Jelly"},{"orc"},{"sensed monster"},{"remnant"},{"future-unknown-monster"}};
 monsterentry*get_monster_data(int t){return &monster_data[t];}bool mons_is_the(int t){return t==MONS_ROYAL_JELLY;}bool mons_class_is_remnant(int t){return t==MONS_REMNANT;}
 string mons_type_name(int t,int){return string(mons_is_the(t)?"the ":"")+monster_data[t].name;}
 string number_in_words(unsigned n){const char*words[]={"zero","one","two","three","four","five","six","seven","eight","nine","ten"};return n<11?words[n]:to_string(n);}
+enum {MB_NAME_REPLACE,MB_NAME_ADJECTIVE,MB_NAME_SUFFIX,MB_SPECTRALISED,MB_VAMPIRE_THRALL,MB_SHAPESHIFTER};
+const string HELPLESS_KEY="helpless";
+int ugly_thing_colour_offset(int){return 0;}
+struct Props {bool exists(const string&)const{return false;}void erase(const string&) {}};
 vector<string>missing;void audit_name_fallback(const string&domain,const string&name){missing.push_back(domain+":"+name);}
 struct monster;
-struct monster_info{int type=MONS_HYDRA,num_heads=8,attitude=ATT_HOSTILE;bool multi=true,proper=false;string qualifier,proper_text;
+struct monster_info{int type=MONS_HYDRA,num_heads=8,attitude=ATT_HOSTILE,_colour=0;Props props;bool is(int)const{return false;}bool multi=true,proper=false;string qualifier,proper_text;
  monster_info(){}monster_info(const monster*,int);
  bool has_hydra_multi_attack()const{return multi;}bool has_proper_name()const{return proper;}string proper_name(int)const{return proper_text;}
  string common_name(int)const{string name=monster_data[type].name;if(multi&&type!=MONS_SENSED&&type!=MONS_REMNANT)name=(num_heads<11?number_in_words(num_heads):to_string(num_heads))+"-headed "+name;return qualifier+name;}

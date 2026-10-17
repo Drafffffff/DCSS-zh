@@ -25,6 +25,7 @@
 #include "chardump.h"
 #include "cleansing-flame-source-type.h"
 #include "cloud.h"
+#include "colour.h"
 #include "coordit.h"
 #include "database.h"
 #include "decks.h"
@@ -1632,7 +1633,7 @@ static void _print_talent_description(const talent& tal)
 
 void no_ability_msg()
 {
-    mpr("Sorry, you're not good enough to have a special ability.");
+    mpr(zh_message("character.fixed.16ffbfb77fd5"));
 }
 
 // Prompts the user for an ability to use, first checking the lua hook
@@ -1727,7 +1728,7 @@ bool activate_ability()
                 // If we can't, cancel out.
                 if (selected < 0)
                 {
-                    mpr("You can't do that.");
+                    mpr(zh_message("character.fixed.d0eb01836559"));
                     crawl_state.zero_turns_taken();
                     return false;
                 }
@@ -1752,7 +1753,7 @@ static bool _can_hop(bool quiet)
     if (you.duration[DUR_NO_HOP])
     {
         if (!quiet)
-            mpr("Your legs are too worn out to hop.");
+            mpr(zh_message("character.fixed.603e5a856a96"));
         return false;
     }
     return _can_movement_ability(quiet);
@@ -1775,7 +1776,7 @@ static bool _can_rising_flame(bool quiet)
     if (you.duration[DUR_RISING_FLAME])
     {
         if (!quiet)
-            mpr("You're already rising!");
+            mpr(zh_message("character.fixed.76e5fac542f8"));
         return false;
     }
     if (you.where_are_you == BRANCH_DUNGEON && you.depth == 1)
@@ -1785,14 +1786,14 @@ static bool _can_rising_flame(bool quiet)
         else
         {
             if (!quiet)
-                mpr("You can't rise from this level without the Orb!");
+                mpr(zh_message("character.fixed.5d660a1228df"));
             return false;
         }
     }
     if (!level_above().is_valid())
     {
         if (!quiet)
-            mpr("You can't rise from this level!");
+            mpr(zh_message("character.fixed.647d6e4ff38a"));
         return false;
     }
     return true;
@@ -1866,7 +1867,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
     if (testbits(abil.flags, abflag::card) && !deck_cards(ability_deck(abil.ability)))
     {
         if (!quiet)
-            mpr("That deck is empty!");
+            mpr(zh_message("character.fixed.4488b4a2fe57"));
         return false;
     }
 
@@ -1915,9 +1916,9 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
             if (!quiet)
             {
                 if (result == 0)
-                    mpr("There's no appreciative audience!");
+                    mpr(zh_message("character.fixed.24cd3b67da57"));
                 else if (result == -1)
-                    mpr("You are not zealous enough to affect this audience!");
+                    mpr(zh_message("character.fixed.428e0ba9cad1"));
             }
             return false;
         }
@@ -1928,7 +1929,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (env.sanctuary_time)
         {
             if (!quiet)
-                mpr("There's already a sanctuary in place on this level.");
+                mpr(zh_message("character.fixed.bc874c8bf07c"));
             return false;
         }
         return true;
@@ -1937,7 +1938,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (!you.gold)
         {
             if (!quiet)
-                mpr("You have nothing to donate!");
+                mpr(zh_message("character.fixed.c40348c5b7d8"));
             return false;
         }
         return true;
@@ -1946,7 +1947,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (okawaru_duel_active() || player_in_branch(BRANCH_ARENA))
         {
             if (!quiet)
-                mpr("You are already engaged in single combat!");
+                mpr(zh_message("character.fixed.18b9f5640d97"));
             return false;
         }
         return true;
@@ -1956,7 +1957,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (feat_eliminates_items(env.grid(you.pos())))
         {
             if (!quiet)
-                mpr("Any gift you received here would fall and be lost!");
+                mpr(zh_message("character.fixed.913097432e4b"));
             return false;
         }
         return true;
@@ -1971,7 +1972,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.duration[DUR_DEATHS_DOOR])
         {
             if (!quiet)
-                mpr("You can't heal while in death's door.");
+                mpr(zh_message("character.fixed.d80a6572c55a"));
             return false;
         }
         return true;
@@ -1985,7 +1986,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
             && !you.duration[DUR_WEAK])
         {
             if (!quiet)
-                mpr("Nothing ails you!");
+                mpr(zh_message("character.fixed.812cf5f96b77"));
             return false;
         }
         return true;
@@ -1994,7 +1995,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.duration[DUR_DIVINE_VIGOUR])
         {
             if (!quiet)
-                mpr("You have already been granted divine vigour!");
+                mpr(zh_message("character.fixed.f5ad8d9a952f"));
             return false;
         }
         return true;
@@ -2003,7 +2004,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.duration[DUR_OOZEMANCY])
         {
             if (!quiet)
-                mpr("You are already calling forth ooze!");
+                mpr(zh_message("character.fixed.5d2cc59fb22a"));
             return false;
         }
         return true;
@@ -2012,7 +2013,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (!player_in_branch(BRANCH_ABYSS))
         {
             if (!quiet)
-                mpr("You aren't in the Abyss!");
+                mpr(zh_message("character.fixed.7431b0b66adc"));
             return false;
         }
         return true;
@@ -2024,7 +2025,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (player_in_branch(BRANCH_ABYSS))
         {
             if (!quiet)
-                mpr("You're already here!");
+                mpr(zh_message("character.fixed.279cd3cd9ab1"));
             return false;
         }
         return true;
@@ -2047,7 +2048,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (spaces.empty())
         {
             if (!quiet)
-                mpr("There isn't enough space to grow briars here.");
+                mpr(zh_message("character.fixed.148f8492ac03"));
             return false;
         }
         return true;
@@ -2057,7 +2058,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.duration[DUR_EXHAUSTED])
         {
             if (!quiet)
-                mpr("You're too exhausted to draw out your power.");
+                mpr(zh_message("character.fixed.74ee7e4f6eb5"));
             return false;
         }
         if (you.hp == you.hp_max && you.magic_points == you.max_magic_points
@@ -2070,7 +2071,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
             && !you.is_constricted())
         {
             if (!quiet)
-                mpr("You have no need to draw out power.");
+                mpr(zh_message("character.fixed.8fa900b3c4bf"));
             return false;
         }
         return true;
@@ -2079,7 +2080,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.duration[DUR_EXHAUSTED])
         {
             if (!quiet)
-                mpr("You're too exhausted to power leap.");
+                mpr(zh_message("character.fixed.8e794033a999"));
             return false;
         }
         return true;
@@ -2088,7 +2089,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.duration[DUR_EXHAUSTED])
         {
             if (!quiet)
-                mpr("You're too exhausted to unleash your apocalyptic power.");
+                mpr(zh_message("character.fixed.a5621b13a083"));
             return false;
         }
         return true;
@@ -2099,7 +2100,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (clouds.empty())
         {
             if (!quiet)
-                mpr("You can't see any clouds you can empower.");
+                mpr(zh_message("character.fixed.b638b75fba2a"));
             return false;
         }
         return true;
@@ -2117,7 +2118,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (draconian_breath_uses_available() <= 0)
         {
             if (!quiet)
-                mpr("You have exhausted your breath weapon. Slay more foes!");
+                mpr(zh_message("character.fixed.677662cfb002"));
             return false;
         }
         return true;
@@ -2143,13 +2144,13 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.duration[DUR_DEATHS_DOOR])
         {
             if (!quiet)
-                mpr("You can't heal while in death's door.");
+                mpr(zh_message("character.fixed.d80a6572c55a"));
             return false;
         }
         if (get_real_mp(false) < 1)
         {
             if (!quiet)
-                mpr("You don't have enough innate magic capacity.");
+                mpr(zh_message("character.fixed.1af40117dbaa"));
             return false;
         }
         return true;
@@ -2182,19 +2183,19 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.duration[DUR_CACOPHONY])
         {
             if (!quiet)
-                mpr("You are already making a cacophony!");
+                mpr(zh_message("character.fixed.d0d95c453358"));
             return false;
         }
         else if (you.props.exists(CACOPHONY_XP_KEY))
         {
             if (!quiet)
-                mpr("You must recover your energy before unleashing another cacophony.");
+                mpr(zh_message("character.fixed.5e055443c877"));
             return false;
         }
         else if (!you.equipment.get_first_slot_item(SLOT_HAUNTED_AUX))
         {
             if (!quiet)
-                mpr("You aren't haunting any armour at the moment!");
+                mpr(zh_message("character.fixed.1d83f390d4fe"));
             return false;
         }
 
@@ -2205,7 +2206,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.props.exists(BATFORM_XP_KEY))
         {
             if (!quiet)
-                mpr("You must recover your energy before scattering into bats again.");
+                mpr(zh_message("character.fixed.480a754bb5d5"));
             return false;
         }
         const ZhArg reason = cant_transform_display_reason(transformation::bat_swarm);
@@ -2223,14 +2224,14 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.duration[DUR_ENKINDLED])
         {
             if (!quiet)
-                mpr("You are already burning your memories away!");
+                mpr(zh_message("character.fixed.5f97f3b247b4"));
 
             return false;
         }
         else if (you.props[ENKINDLE_CHARGES_KEY].get_int() == 0)
         {
             if (!quiet)
-                mpr("You don't have any memories left to burn.");
+                mpr(zh_message("character.fixed.d7f7e107d279"));
 
             return false;
         }
@@ -2280,7 +2281,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.props.exists(WATERY_GRAVE_XP_KEY))
         {
             if (!quiet)
-                mpr("You must recover your energy before doing this again.");
+                mpr(zh_message("character.fixed.0bffb269332a"));
             return false;
         }
         for (radius_iterator ri(you.pos(), 4, C_SQUARE, LOS_NO_TRANS, false); ri; ++ri)
@@ -2290,7 +2291,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         }
 
         if (!quiet)
-            mpr("There is no water in range!");
+            mpr(zh_message("character.fixed.d5b92d176f6d"));
 
         return false;
 
@@ -2302,7 +2303,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.duration[DUR_INVIS])
         {
             if (!quiet)
-                mpr("You are already invisible!");
+                mpr(zh_message("character.fixed.6431f9138c72"));
             return false;
         }
         return true;
@@ -2320,7 +2321,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.experience_level <= RU_SAC_XP_LEVELS)
         {
             if (!quiet)
-                mpr("You don't have enough experience to sacrifice.");
+                mpr(zh_message("character.fixed.44a166d80322"));
             return false;
         }
         return true;
@@ -2344,13 +2345,13 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.attribute[ATTR_SERPENTS_LASH])
         {
             if (!quiet)
-                mpr("You are already lashing out.");
+                mpr(zh_message("character.fixed.b235f62bdcc6"));
             return false;
         }
         if (you.duration[DUR_EXHAUSTED])
         {
             if (!quiet)
-                mpr("You are too exhausted to lash out.");
+                mpr(zh_message("character.fixed.901c25778121"));
             return false;
         }
         return true;
@@ -2359,7 +2360,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.props.exists(WU_JIAN_HEAVENLY_STORM_KEY))
         {
             if (!quiet)
-                mpr("You are already engulfed in a heavenly storm!");
+                mpr(zh_message("character.fixed.3e981c160380"));
             return false;
         }
         return true;
@@ -2370,7 +2371,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.is_nervous())
         {
             if (!quiet)
-                mpr("You are too terrified to wall jump!");
+                mpr(zh_message("character.fixed.1f7187b3b135"));
             return false;
         }
         if (you.attribute[ATTR_HELD])
@@ -2394,7 +2395,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (!has_targets)
         {
             if (!quiet)
-                mpr("There is nothing to wall jump against here.");
+                mpr(zh_message("character.fixed.8296381c241c"));
             return false;
         }
         return true;
@@ -2420,7 +2421,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (yred_torch_is_raised())
         {
             if (!quiet)
-                mpr("The black torch is already ablaze!");
+                mpr(zh_message("character.fixed.932bbb105da1"));
             return false;
         }
         const string reason = yred_cannot_light_torch_reason();
@@ -2437,13 +2438,13 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (!yred_torch_is_raised())
         {
             if (!quiet)
-                mpr("The black torch is unlit!");
+                mpr(zh_message("character.fixed.12e39c834795"));
             return false;
         }
         if (yred_get_torch_power() < 1)
         {
             if (!quiet)
-                mpr("You must stoke the torch's fire more first.");
+                mpr(zh_message("character.fixed.93077c558d1d"));
             return false;
         }
         return true;
@@ -2452,7 +2453,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.duration[DUR_FATHOMLESS_SHACKLES])
         {
             if (!quiet)
-                mpr("You are already invoking Yredulemnul's grip!");
+                mpr(zh_message("character.fixed.93cb639cd49b"));
             return false;
         }
         return true;
@@ -2461,7 +2462,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (get_num_apostles() == 3)
         {
             if (!quiet)
-                mpr("You already have the maximum number of followers. Dismiss one first.");
+                mpr(zh_message("character.fixed.0512c86ee391"));
             return false;
         }
         return true;
@@ -2470,19 +2471,19 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.duration[DUR_BLOOD_FOR_BLOOD])
         {
             if (!quiet)
-                mpr("You have already called for blood!");
+                mpr(zh_message("character.fixed.574c36c0ede1"));
             return false;
         }
         else if (!you.props.exists(BEOGH_RES_PIETY_NEEDED_KEY))
         {
             if (!quiet)
-                mpr("Your apostles are all alive!");
+                mpr(zh_message("character.fixed.a75a84d72b95"));
             return false;
         }
         else if (!tile_has_valid_bfb_corpse(you.pos()))
         {
             if (!quiet)
-                mpr("You must be standing atop the corpse of a fallen apostle!");
+                mpr(zh_message("character.fixed.1ca4dcffab75"));
             return false;
         }
         return true;
@@ -2515,7 +2516,7 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (you.duration[DUR_PRIMORDIAL_NIGHTFALL])
         {
             if (!quiet)
-                mpr("Night has already fallen.");
+                mpr(zh_message("character.fixed.8119b7b275f4"));
             return false;
         }
         return true;
@@ -2524,13 +2525,13 @@ static bool _check_ability_possible(const ability_def& abil, bool quiet = false)
         if (player_in_branch(BRANCH_CRUCIBLE))
         {
             if (!quiet)
-                mpr("Makhleb denies you. Endure the Crucible first!");
+                mpr(zh_message("character.fixed.fc6a0366d7ab"));
             return false;
         }
         else if (you.form == transformation::slaughter)
         {
             if (!quiet)
-                mpr("You are already a vessel of slaughter!");
+                mpr(zh_message("character.fixed.3ab449350607"));
             return false;
         }
         return true;
@@ -2800,7 +2801,7 @@ static bool _invoke_dragons()
     if (create_monster(mg))
         {
             made_mons = true;
-            mpr("A dragon answers your prayer!");
+            mpr(zh_message("character.fixed.d85368dc8209"));
         }
     return made_mons;
 }
@@ -2966,7 +2967,7 @@ bool activate_talent(const talent& tal, dist *target)
         }
         case spret::fail:
             if (!testbits(abil.flags, abflag::quiet_fail))
-                mpr("You fail to use your ability.");
+                mpr(zh_message("character.fixed.96c1d70c055f"));
             you.turn_is_over = true;
             if (mp_cost)
                 refund_mp(mp_cost);
@@ -3013,7 +3014,7 @@ static bool _evoke_orb_of_dispater(dist *target)
     {
         return false;
     }
-    mpr("You feel the orb feeding on your energy!");
+    mpr(zh_message("character.fixed.63dda2fafb0e"));
     return true;
 }
 
@@ -3080,9 +3081,9 @@ static spret _siphon_essence(bool fail)
     }
 
     if (seen)
-        mpr("You feel stolen life flooding into you!");
+        mpr(zh_message("character.fixed.227445865574"));
     else
-        mpr("You feel stolen life flooding into you from an unseen source!");
+        mpr(zh_message("character.fixed.6ec283b1c56b"));
 
     if (you.hp == you.hp_max)
         return spret::success;
@@ -3189,7 +3190,7 @@ static spret _do_cacophony()
 
     you.duration[DUR_CACOPHONY] = random_range(300, 400);
     you.props[CACOPHONY_XP_KEY] = 150;
-    mpr("You send your armour flying and begin to make an unholy cacophony!");
+    mpr(zh_message("character.fixed.a4b46d595a68"));
 
     return spret::success;
 }
@@ -3229,7 +3230,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
         fail_check();
         if (one_chance_in(4))
         {
-            mpr("Your magical essence is drained by the effort!");
+            mpr(zh_message("character.fixed.d0ba0dc2ae53"));
             rot_mp(1);
         }
         potionlike_effect(POT_HEAL_WOUNDS, 40);
@@ -3240,12 +3241,12 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
         if (!you.digging)
         {
             you.digging = true;
-            mpr("You extend your mandibles.");
+            mpr(zh_message("character.fixed.2386b0fc1142"));
         }
         else
         {
             you.digging = false;
-            mpr("You retract your mandibles.");
+            mpr(zh_message("character.fixed.1a64e263d49b"));
         }
         break;
 
@@ -3421,7 +3422,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
     case ABIL_BAT_SWARM:
     {
         you.props[BATFORM_XP_KEY] = div_rand_round(11000, get_form()->get_effect_size());
-        mpr("You scatter into a swarm of vampire bats!");
+        mpr(zh_message("character.fixed.40b1150a9208"));
         transform(random_range(12, 20), transformation::bat_swarm);
         big_cloud(CLOUD_BATS, &you, you.pos(), 15, 15, 1);
         break;
@@ -3430,7 +3431,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
     case ABIL_ENKINDLE:
     {
         draw_ring_animation(you.pos(), 3, LIGHTCYAN, CYAN, true);
-        mprf(MSGCH_DURATION, "Your flames flare with remembrance!");
+        mpr(zh_message("character.fixed.881855ec15f7"), MSGCH_DURATION);
         you.duration[DUR_ENKINDLED] = (random_range(12, 20)
                                        + (you.props[ENKINDLE_CHARGES_KEY].get_int() * 3))
                                             * BASELINE_DELAY;
@@ -3448,7 +3449,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
                 (recite_type) random2(NUM_RECITE_TYPES); // This is just flavor
             you.attribute[ATTR_RECITE_SEED] = random2(2187); // 3^7
             you.duration[DUR_RECITE] = 3 * BASELINE_DELAY;
-            mpr("You clear your throat and prepare to recite.");
+            mpr(zh_message("character.fixed.35daefbfbfb0"));
         }
         else
         {
@@ -3514,7 +3515,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
 
     case ABIL_KIKU_SIGN_OF_RUIN:
         fail_check();
-        mpr("You invoke the name of Kikubaaqudgha!");
+        mpr(zh_message("character.fixed.dc6412df8f65"));
         cast_sign_of_ruin(you, beam.target,
                           (4 + you.skill_rdiv(SK_NECROMANCY, 4, 7)) * BASELINE_DELAY);
         break;
@@ -3554,7 +3555,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
 
     case ABIL_YRED_FATHOMLESS_SHACKLES:
         fail_check();
-        mprf(MSGCH_DURATION, "You call down Yredelemnul's inexorable grip.");
+        mpr(zh_message("character.fixed.04b6ee4f2a2d"), MSGCH_DURATION);
         // XXX: Some invo formula
         you.duration[DUR_FATHOMLESS_SHACKLES] = random_range(15, 25) * BASELINE_DELAY;
         yred_make_blasphemy();
@@ -3607,7 +3608,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
                  you.hands_act("get", "new energy.").c_str());
         }
         else
-            mprf(MSGCH_DURATION, "You can now deal lightning-fast blows.");
+            mpr(zh_message("character.fixed.444d7ecf0b16"), MSGCH_DURATION);
 
         you.increase_duration(DUR_FINESSE,
                               10 + random2avg(you.skill(SK_INVOCATIONS, 6), 2),
@@ -3640,7 +3641,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
         if (you.has_mutation(MUT_MAKHLEB_MARK_CARNAGE)
             && get_dist_to_nearest_monster() > you.current_vision)
         {
-            mprf("You can't see any nearby targets.");
+            mpr(zh_message("character.fixed.c05e6801b4c7"));
             return spret::abort;
         }
 
@@ -3702,7 +3703,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
 
     case ABIL_SIF_MUNA_CHANNEL_ENERGY:
         fail_check();
-        mpr("You channel some magical energy.");
+        mpr(zh_message("character.fixed.f340606ebc84"));
         you.increase_duration(DUR_CHANNEL_ENERGY,
             4 + random2avg(you.skill_rdiv(SK_INVOCATIONS, 2, 3), 2), 100);
         break;
@@ -3715,7 +3716,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
         fail_check();
         const int pow = min(50, 10 + you.skill_rdiv(SK_INVOCATIONS, 1, 3));
         const int healed = pow + roll_dice(2, pow) - 2;
-        mpr("You are healed.");
+        mpr(zh_message("character.fixed.739e6227b5f1"));
         inc_hp(healed);
         break;
     }
@@ -3759,7 +3760,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
 
         if (beam.target == you.pos())
         {
-            mpr("You cannot banish yourself!");
+            mpr(zh_message("character.fixed.e81bcf988f1d"));
             return spret::abort;
         }
 
@@ -4029,7 +4030,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
         break;
 
     case ABIL_WU_JIAN_SERPENTS_LASH:
-        mprf(MSGCH_GOD, "Your muscles tense, ready for explosive movement...");
+        mpr(zh_message("character.fixed.05f3224f42bc"), MSGCH_GOD);
         you.attribute[ATTR_SERPENTS_LASH] = 2;
         you.redraw_status_lights = true;
         return spret::success;
@@ -4052,7 +4053,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
     case ABIL_IGNIS_RISING_FLAME:
         if (!_can_rising_flame(false))
             return spret::abort;
-        mpr("You begin to rise into the air.");
+        mpr(zh_message("character.fixed.de95f0641f83"));
         // slightly faster than teleport
         you.set_duration(DUR_RISING_FLAME, 2 + random2(3));
         you.one_time_ability_used.set(GOD_IGNIS);
@@ -4107,7 +4108,7 @@ static spret _do_ability(const ability_def& abil, bool fail, dist *target,
     }
 #endif
     case ABIL_NON_ABILITY:
-        mpr("Sorry, you can't do that.");
+        mpr(zh_message("character.fixed.f1bf3bf5572e"));
         break;
 
     default:
@@ -4152,6 +4153,80 @@ static void _finalize_ability_costs(const ability_def& abil, int mp_cost, int hp
         you.turn_is_over = true;
 }
 
+static ZhArg _ability_menu_cost_arg(ability_type ability)
+{
+    const ability_def &abil = get_ability_def(ability);
+    vector<ZhArg> costs;
+    const auto fixed = [&costs](const char *id) {
+        costs.push_back(zh_message_arg("cost", id));
+    };
+    const auto amount = [&costs](const char *id, int value) {
+        costs.push_back(zh_message_arg("cost", id, {zh_integer("amount", value)}));
+    };
+    if (abil.get_mp_cost()) amount("character.ability.cost.mp", abil.get_mp_cost());
+    if (abil.flags & abflag::variable_mp) fixed("character.ability.cost.variable_mp");
+#if TAG_MAJOR_VERSION == 34
+    if (ability == ABIL_HEAL_WOUNDS) amount("character.ability.cost.permanent_mp", get_real_mp(false));
+#endif
+    if (ability == ABIL_CACOPHONY) fixed("character.ability.cost.noise");
+    // These producers carry structured curse/skill, sacrifice or deck data.
+    // Until those children have typed protocols, keep the complete row canonical.
+    bool supported = !(abil.flags & (abflag::sacrifice | abflag::card));
+    if (ability == ABIL_ASHENZARI_CURSE
+        && !you.props[CURSE_KNOWLEDGE_KEY].get_vector().empty()) supported = false;
+    if (abil.get_hp_cost()) amount("character.ability.cost.hp", abil.get_hp_cost());
+    if (abil.piety_cost) costs.push_back(zh_message_arg("cost", "character.ability.cost.piety",
+        {zh_key("pips", abil.piety_pips())}));
+    if (abil.flags & abflag::breath) fixed("character.ability.cost.breath");
+    if (abil.flags & abflag::drac_charges) costs.push_back(zh_message_arg("cost", "character.ability.cost.drac",
+        {zh_integer("available", draconian_breath_uses_available()), zh_integer("maximum", MAX_DRACONIAN_BREATH)}));
+    if (abil.flags & abflag::delay) fixed("character.ability.cost.delay");
+    if (abil.flags & abflag::torment) fixed("character.ability.cost.torment");
+    if (abil.flags & abflag::injury) fixed("character.ability.cost.injury");
+    if (abil.flags & abflag::exhaustion) fixed("character.ability.cost.exhaustion");
+    if (abil.flags & abflag::instant) fixed("character.ability.cost.instant");
+    if (abil.flags & abflag::max_hp_drain
+        && (ability != ABIL_EVOKE_TURN_INVISIBLE || _invis_causes_drain())) fixed("character.ability.cost.drain");
+    if (abil.flags & abflag::curse) fixed("character.ability.cost.curse");
+    if (abil.flags & abflag::gold)
+    {
+        const int gold = get_gold_cost(ability);
+        if (gold) amount("character.ability.cost.gold_amount", gold);
+        else fixed(ability == ABIL_GOZAG_POTION_PETITION ? "character.ability.cost.free" : "character.ability.cost.gold");
+    }
+    if (abil.flags & abflag::torchlight) fixed("character.ability.cost.torch");
+    if (costs.empty()) fixed("character.ability.cost.none");
+    string localized;
+    for (const auto &cost : costs)
+    {
+        if (!localized.empty()) localized += "、";
+        localized += cost.localized;
+        supported = supported && cost.supported;
+    }
+    const string canonical = make_cost_description(ability);
+    return {"cost", ZhArgType::Text, canonical, supported ? localized : canonical, supported};
+}
+
+static ZhMessage _talent_menu_message(const talent &tal)
+{
+    ZhArg name = zh_glossary_name("name", "character.ability.name", ability_name(tal.which));
+    ZhArg cost = _ability_menu_cost_arg(tal.which);
+    name.canonical = chop_string(name.canonical, 32);
+    name.localized = chop_string(name.localized, 32);
+    cost.canonical = chop_string(cost.canonical, 32);
+    cost.localized = chop_string(cost.localized, 32);
+    const string failure = chop_string(failure_rate_to_string(tal.fail), 12);
+    ZhArg fail("failure", ZhArgType::Text, failure, failure, true); // numeric percentage only
+    ZhMessage result = zh_message("character.ability.menu.row", {name, cost, fail}, describe_talent(tal));
+    result.localized = trimmed_string(result.localized);
+    return result;
+}
+
+static ZhMessage _ability_menu_hints_message(const string &colour)
+{
+    return zh_message("character.ability.menu.hints", {zh_colour("colour", colour)});
+}
+
 int choose_ability_menu(const vector<talent>& talents)
 {
     // TODO: refactor this into a proper subclass
@@ -4164,21 +4239,19 @@ int choose_ability_menu(const vector<talent>& talents)
     {
         // Hack like the one in spl-cast.cc:list_spells() to align the title.
         ToggleableMenuEntry* me =
-            new ToggleableMenuEntry("Ability - do what?                  "
-                                    "Cost                            Failure",
-                                    "Ability - describe what?            "
-                                    "Cost                            Failure",
+            new ToggleableMenuEntry(zh_message("character.ability.menu.title_use").display(),
+                                    zh_message("character.ability.menu.title_describe").display(),
                                     MEL_ITEM);
         me->colour = BLUE;
+        me->pretranslated = true;
         abil_menu.set_title(me, true, true);
     }
 #else
-    abil_menu.set_title(
-        new ToggleableMenuEntry("Ability - do what?                  "
-                                "Cost                            Failure",
-                                "Ability - describe what?            "
-                                "Cost                            Failure",
-                                MEL_TITLE), true, true);
+    ToggleableMenuEntry *title = new ToggleableMenuEntry(
+        zh_message("character.ability.menu.title_use").display(),
+        zh_message("character.ability.menu.title_describe").display(), MEL_TITLE);
+    title->pretranslated = true;
+    abil_menu.set_title(title, true, true);
 #endif
     abil_menu.set_tag("ability");
     abil_menu.add_toggle_from_command(CMD_MENU_CYCLE_MODE);
@@ -4191,13 +4264,13 @@ int choose_ability_menu(const vector<talent>& talents)
     {
         // XXX: This could be buggy if you manage to pick up lots and
         // lots of abilities during hints mode.
-        abil_menu.set_more(hints_abilities_info());
+        abil_menu.set_more_pretranslated(_ability_menu_hints_message(
+            colour_to_str(channel_to_colour(MSGCH_TUTORIAL))).display());
     }
     else
     {
-        abil_menu.set_more(formatted_string::parse_string(
-            menu_keyhelp_cmd(CMD_MENU_HELP) + " toggle "
-                       "between ability selection and description."));
+        abil_menu.set_more_pretranslated(zh_message("character.ability.menu.help",
+            {zh_key_markup("key", menu_keyhelp_cmd(CMD_MENU_HELP))}).display());
     }
 
     int numbers[52];
@@ -4214,9 +4287,10 @@ int choose_ability_menu(const vector<talent>& talents)
         else
         {
             ToggleableMenuEntry* me =
-                new ToggleableMenuEntry(describe_talent(talents[i]),
-                                        describe_talent(talents[i]),
+                new ToggleableMenuEntry(_talent_menu_message(talents[i]).display(),
+                                        _talent_menu_message(talents[i]).display(),
                                         MEL_ITEM, 1, talents[i].hotkey);
+            me->pretranslated = true;
             me->data = &numbers[i];
             me->add_tile(tile_def(tileidx_ability(talents[i].which)));
             if (!check_ability_possible(talents[i].which, true))
@@ -4231,20 +4305,24 @@ int choose_ability_menu(const vector<talent>& talents)
     if (found_invocations)
     {
 #ifdef USE_TILE_LOCAL
-        MenuEntry* subtitle = new MenuEntry(" Invocations -    ", MEL_ITEM);
+        MenuEntry* subtitle = new MenuEntry(zh_message("character.ability.menu.invocations").display(), MEL_ITEM);
+        subtitle->pretranslated = true;
         subtitle->colour = BLUE;
         abil_menu.add_entry(subtitle);
 #else
-        abil_menu.add_entry(new MenuEntry(" Invocations -    ", MEL_SUBTITLE));
+        MenuEntry *subtitle = new MenuEntry(zh_message("character.ability.menu.invocations").display(), MEL_SUBTITLE);
+        subtitle->pretranslated = true;
+        abil_menu.add_entry(subtitle);
 #endif
         for (unsigned int i = 0; i < talents.size(); ++i)
         {
             if (talents[i].is_invocation)
             {
                 ToggleableMenuEntry* me =
-                    new ToggleableMenuEntry(describe_talent(talents[i]),
-                                            describe_talent(talents[i]),
+                    new ToggleableMenuEntry(_talent_menu_message(talents[i]).display(),
+                                            _talent_menu_message(talents[i]).display(),
                                             MEL_ITEM, 1, talents[i].hotkey);
+                me->pretranslated = true;
                 me->data = &numbers[i];
                 me->add_tile(tile_def(tileidx_ability(talents[i].which)));
                 if (!check_ability_possible(talents[i].which, true))

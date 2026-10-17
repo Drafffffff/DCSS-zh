@@ -7,7 +7,8 @@
   "local_branch": "dcss-zh/0.34",
   "default_translation_model": "cc-switch-deep-seek/deepseek-flash",
   "initial_translation_model": "cc-switch-teamo-router/deepseek-flash",
-  "localized_commit": "cc710081cd3f163eabf78c65b9144e040ef30aa8",
-  "latest_text_review_model": "gpt-6-luna",
-  "message_architecture": "named-template-at-generation (staged migration)"
+  "localized_commit": "44ae418e12df902d13ca4f92b6ebba0dd8b3db35",
+  "latest_text_review_model": "gpt-6.1-sol",
+  "message_architecture": "named-template-at-generation (staged migration)",
+  "latest_text_review_scope": "sol61-six staged source-template migration; explicitly requested by user"
 }

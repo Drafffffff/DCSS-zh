@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "mutation.h"
 
@@ -1757,6 +1758,29 @@ static const char* _stat_mut_desc(mutation_type mut, bool gain)
     return stat_desc(stat, positive ? SD_INCREASE : SD_DECREASE);
 }
 
+static ZhMessage _stat_mutation_message(mutation_type mut, bool gain)
+{
+    // Select by mutation identity and direction, never by the final English text.
+    const bool positive = (mut == MUT_STRONG || mut == MUT_CLEVER || mut == MUT_AGILE)
+                          ? gain : !gain;
+    const char *id = nullptr;
+    switch (mut)
+    {
+    case MUT_STRONG: case MUT_WEAK:
+        id = positive ? "character.mutation.stat.str_up" : "character.mutation.stat.str_down";
+        break;
+    case MUT_CLEVER: case MUT_DOPEY:
+        id = positive ? "character.mutation.stat.int_up" : "character.mutation.stat.int_down";
+        break;
+    case MUT_AGILE: case MUT_CLUMSY:
+        id = positive ? "character.mutation.stat.dex_up" : "character.mutation.stat.dex_down";
+        break;
+    default:
+        die("invalid stat mutation: %d", mut);
+    }
+    return zh_message(id, {}, make_stringf("You feel %s.", _stat_mut_desc(mut, gain)));
+}
+
 /**
  * Do a resistance check for the given mutation permanence class.
  * Does not include divine intervention!
@@ -1836,7 +1860,7 @@ bool mutate(mutation_type which_mutation, const string &reason, bool failMsg,
         if (!god_gift && _resist_mutation(mutclass, beneficial))
         {
             if (failMsg)
-                mprf(MSGCH_MUTATION, "You feel odd for a moment.");
+                mpr(zh_message("character.fixed.89695ef13b0b"), MSGCH_MUTATION);
             return false;
         }
 
@@ -1859,7 +1883,7 @@ bool mutate(mutation_type which_mutation, const string &reason, bool failMsg,
                 return false;
             // fallthrough to normal mut
         case MUTCLASS_NORMAL:
-            mprf(MSGCH_MUTATION, "Your body decomposes!");
+            mpr(zh_message("character.fixed.c1910575868b"), MSGCH_MUTATION);
             drain_player(30, false, true, true);
             return true;
         case MUTCLASS_INNATE:
@@ -1970,7 +1994,7 @@ bool mutate(mutation_type which_mutation, const string &reason, bool failMsg,
         {
         case MUT_STRONG: case MUT_AGILE:  case MUT_CLEVER:
         case MUT_WEAK:   case MUT_CLUMSY: case MUT_DOPEY:
-            mprf(MSGCH_MUTATION, "You feel %s.", _stat_mut_desc(mutat, true));
+            mpr(_stat_mutation_message(mutat, true), MSGCH_MUTATION);
             gain_msg = false;
             break;
 
@@ -2172,7 +2196,7 @@ bool _delete_single_mutation_level(mutation_type mutat,
     {
     case MUT_STRONG: case MUT_AGILE:  case MUT_CLEVER:
     case MUT_WEAK:   case MUT_CLUMSY: case MUT_DOPEY:
-        mprf(MSGCH_MUTATION, "You feel %s.", _stat_mut_desc(mutat, false));
+        mpr(_stat_mutation_message(mutat, false), MSGCH_MUTATION);
         lose_msg = false;
         break;
 
@@ -2338,7 +2362,7 @@ bool delete_mutation(mutation_type which_mutation, const string &reason,
                     || coinflip()))
             {
                 if (failMsg)
-                    mprf(MSGCH_MUTATION, "You feel rather odd for a moment.");
+                    mpr(zh_message("character.fixed.d7b0bbfcf4bc"), MSGCH_MUTATION);
                 return false;
             }
         }
@@ -3075,8 +3099,9 @@ bool temp_mutation_wanes()
 
     const int num_remove = min(starting_tmuts, random_range(2, 3));
 
-    mprf(MSGCH_DURATION, "You feel the corruption within you wane %s.",
-        (num_remove >= starting_tmuts ? "completely" : "somewhat"));
+    mpr(zh_message(num_remove >= starting_tmuts
+            ? "character.mutation.wane.complete" : "character.mutation.wane.partial"),
+        MSGCH_DURATION);
 
     for (int i = 0; i < num_remove; ++i)
         delete_temp_mutation(); // chooses randomly
@@ -3206,7 +3231,7 @@ void check_demonic_guardian()
         // no more guardians for mutlevel+1 to mutlevel+20 turns
         you.duration[DUR_DEMONIC_GUARDIAN] = 10*(mutlevel + random2(20));
 
-        mpr("A demonic guardian appears!");
+        mpr(zh_message("character.fixed.7cf6a10719f8"));
     }
 }
 
@@ -3475,7 +3500,7 @@ bool add_bane(bane_type bane, string reason, int duration, int mult)
 
         if (candidates.empty())
         {
-            mprf("You are already as afflicted as possible.");
+            mpr(zh_message("character.fixed.ec3041a82cb2"));
             return false;
         }
 

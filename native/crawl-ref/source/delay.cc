@@ -324,7 +324,7 @@ bool ImbueDelay::try_interrupt(bool force)
         // yesno might call this function again, don't double prompt
         was_prompted = true;
         if (!crawl_state.disables[DIS_CONFIRMATIONS]
-            && !yesno("Keep imbuing your servitor?", false, 0, false))
+            && !yesno(zh_message("sol61.item.delay.keep_imbuing"), false, 0, false))
         {
             interrupt = true;
         }
@@ -519,15 +519,15 @@ void ShaftSelfDelay::start()
 
 void ImbueDelay::start()
 {
-    mprf(MSGCH_MULTITURN_ACTION, "You begin to imbue your servitor with "
-         "knowledge of %s.",
-         spell_title(spell));
+    mpr(zh_message("sol61.item.delay.imbue",
+        {zh_glossary_name("spell", "spell", spell_title(spell))}),
+        MSGCH_MULTITURN_ACTION);
 }
 
 void ImprintDelay::start()
 {
-    mprf(MSGCH_MULTITURN_ACTION, "You begin to imprint %s upon your paragon.",
-         wpn.name(DESC_THE).c_str());
+    mpr(zh_message("sol61.item.delay.imprint_start",
+        {zh_item_arg("weapon", wpn, DESC_THE)}), MSGCH_MULTITURN_ACTION);
 }
 
 void TransformDelay::start()
@@ -917,8 +917,8 @@ void ImbueDelay::finish()
 
 void ImprintDelay::finish()
 {
-    mprf("You finish imprinting the physical structure of %s upon your paragon.",
-            wpn.name(DESC_THE).c_str());
+    mpr(zh_message("sol61.item.delay.imprint_finish",
+        {zh_item_arg("weapon", wpn, DESC_THE)}));
     you.props[PARAGON_WEAPON_KEY].get_item() = wpn;
 }
 

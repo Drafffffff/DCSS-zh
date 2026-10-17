@@ -1,0 +1,56 @@
+{
+  "native_baseline": "cc710081cd3f163eabf78c65b9144e040ef30aa8",
+  "build_source_hashes": "source-hashes.json",
+  "built_and_tested": {
+    "macos-tiles": {
+      "sha256": "ba2764ff88fdbc762d475aa35eb68f01a2f3a58ec6b04fadbbdab6efbe1fcf66",
+      "version": [
+        "Crawl version 0.34.1",
+        "Save file version 34.316",
+        "Compiled with Apple LLVM 21.0.0 (clang-2100.1.1.101)",
+        "Build platform: arm64-apple-darwin25.6.0",
+        "Platform: arm64-apple-darwin25.6.0",
+        "CFLAGS: -O2 -pipe -DUSE_TILE -DUSE_TILE_LOCAL -DUSE_SDL -DUSE_GL -DUSE_FT -D_THREAD_SAFE -DUSE_SOUND -Wall -Wformat-security -Wundef -Wextra -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-type-limits -Wno-uninitialized -Wno-array-bounds -Wno-format-zero-length -Wmissing-declarations -Wredundant-decls -Wno-tautological-unsigned-enum-zero-compare -Wno-parentheses -Wwrite-strings -Wshadow -pedantic -Wuninitialized -Iutil -I. -isystem /opt/homebrew/opt/freetype/include/freetype2 -I/opt/homebrew/opt/libpng/include/libpng16 -isystem /opt/homebrew/include -I/opt/homebrew/include/SDL2 -isystem contrib/install/arm64-apple-darwin25.6.0/include -isystem /usr/local/include -DWIZARD -DASSERTS -DPROPORTIONAL_FONT=\"contrib/fonts/DejaVuSans.ttf\" -DMONOSPACED_FONT=\"contrib/fonts/DejaVuSansMono.ttf\" -D_THREAD_SAFE -DCLUA_BINDINGS",
+        "LDFLAGS: -rdynamic -O2 "
+      ]
+    },
+    "macos-console": {
+      "sha256": "8c619a0d858c9d251a126861054ddd9f921c2c4072018d9dffdbabba697f7c9c",
+      "version": [
+        "Crawl version 0.34.1",
+        "Save file version 34.316",
+        "Compiled with Apple LLVM 21.0.0 (clang-2100.1.1.101)",
+        "Build platform: arm64-apple-darwin25.6.0",
+        "Platform: arm64-apple-darwin25.6.0",
+        "CFLAGS: -O2 -pipe -Wall -Wformat-security -Wundef -Wextra -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-type-limits -Wno-uninitialized -Wno-array-bounds -Wno-format-zero-length -Wmissing-declarations -Wredundant-decls -Wno-tautological-unsigned-enum-zero-compare -Wno-parentheses -Wwrite-strings -Wshadow -pedantic -Wuninitialized -Iutil -I. -isystem contrib/install/arm64-apple-darwin25.6.0/include -isystem /usr/local/include -DWIZARD -DASSERTS -DCLUA_BINDINGS -D_DARWIN_C_SOURCE",
+        "LDFLAGS: -rdynamic -O2 "
+      ]
+    },
+    "linux-tiles": {
+      "sha256": "59d02f972c19d675766de0ab8a3103255e38a8c346416061d7f7925a2e83fbed",
+      "version": [
+        "Crawl version 0.34.1",
+        "Save file version 34.316",
+        "Compiled with GCC 15.3.1 20260722 (Red Hat 15.3.1-1)",
+        "Build platform: x86_64-redhat-linux",
+        "Platform: x86_64-redhat-linux",
+        "CFLAGS: -O2 -pipe -DUSE_TILE -DUSE_TILE_LOCAL -DUSE_SDL -DUSE_GL -DUSE_FT -DWITH_GZFILEOP -pthread -D_GNU_SOURCE=1 -D_REENTRANT -DUSE_SOUND -Wall -Wformat-security -Wundef -Wextra -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-type-limits -Wno-uninitialized -Wno-array-bounds -Wmissing-declarations -Wredundant-decls -Wno-parentheses -Wwrite-strings -Wshadow -pedantic -Wuninitialized -Iutil -I. -isystem /usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/sysprof-6 -isystem /usr/include/SDL2 -isystem contrib/install/x86_64-redhat-linux/include -DWIZARD -DASSERTS -DPROPORTIONAL_FONT=\"contrib/fonts/DejaVuSans.ttf\" -DMONOSPACED_FONT=\"contrib/fonts/DejaVuSansMono.ttf\" -D_GNU_SOURCE=1 -D_REENTRANT -DCLUA_BINDINGS",
+        "LDFLAGS: -rdynamic -O2"
+      ]
+    },
+    "linux-console": {
+      "sha256": "8496913e4493cb713c246416e01d955dc60fe1225c4935b69ff4ae8cdc0dc2e1",
+      "version": [
+        "Crawl version 0.34.1",
+        "Save file version 34.316",
+        "Compiled with GCC 15.3.1 20260722 (Red Hat 15.3.1-1)",
+        "Build platform: x86_64-redhat-linux",
+        "Platform: x86_64-redhat-linux",
+        "CFLAGS: -O2 -pipe -Wall -Wformat-security -Wundef -Wextra -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-type-limits -Wno-uninitialized -Wno-array-bounds -Wmissing-declarations -Wredundant-decls -Wno-parentheses -Wwrite-strings -Wshadow -pedantic -Wuninitialized -Iutil -I. -isystem contrib/install/x86_64-redhat-linux/include -DWIZARD -DASSERTS -DCLUA_BINDINGS -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600",
+        "LDFLAGS: -rdynamic -O2"
+      ]
+    }
+  },
+  "steam_installation": "installed exact QA-accepted binaries by backup/atomic replace; four paths; see installation.json",
+  "native_commit": "44ae418e12df902d13ca4f92b6ebba0dd8b3db35"
+}

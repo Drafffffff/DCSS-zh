@@ -79,8 +79,8 @@ macOS 打包脚本会收集第三方运行库的许可证与版本清单；相�
 
 ## 消息模板迁移（进行中）
 
-最新一批按账本迁移普通物品操作主链路：拾取、合并、丢弃、穿脱、挥舞、饮药、读卷轴及魔杖/杂项使用的直接提示。完整模板在参数填入前选择，数量与附魔前名称先快照；装备限制理由直接传递 typed 参数，保留规范英文和内部数据。文案由 Luna 分工审校。Mac/Linux 四种构建、两端各十个存档副本操作场景、Mac 实际菜单与 Bazzite 原生 4K 操作截图通过；详见[本批验收报告](verification/native/item-operations/REPORT.md)。
+最新一批由用户指定的六个 GPT-6.1-Sol 子 agent 分工翻译、审校与测试，按账本迁移神祇/角色、部分战斗法术、世界交互、物品边缘流程、语义名称和界面帮助六类工作包，共新增551条完整模板。修复能力菜单、神祇击杀反馈、未鉴定卷轴外观、尸体量词和结构化 helpless 名称；纸娃娃17处旧入口移除，技能增强/削弱原因改为typed列表，并补齐main普通爬楼前置消费者。Mac/Linux Tiles与控制台四种构建、两端各12个存档副本场景及Bazzite原生4K十二场景通过；已安装Bazzite，未重启玩家进程。详见[六组验收报告](verification/native/sol61-six/REPORT.md)。
 
-迁移沿[项目模块账本](analysis/message-migration/LEDGER.md)记录生产函数、消费者、测试和剩余入口。本批仍未完成专名武器问候/告别、最后类别鉴定、地面集合摘要、外部数据库低语，以及物品使用后进入法术/怪物/神祇/状态模块的其他消息。内嵌 Lua 白话、复杂语义名称、其余教程与动态日志也继续排队，不能称为全面迁移或 100% 汉化。此前[随机对白及引号修复验收](verification/native/random-speech/REPORT.md)保留。
+迁移沿[项目模块账本](analysis/message-migration/LEDGER.md)逐工作包记录生产函数、消费者、测试和余项。本批是部分模块验收：复杂神祇对白/惩戒、更多战斗与怪物日志、旅行/地形/Orb、复杂名称/幽灵生平和其他教程/HUD入口仍未完成。模板数与调用点不作为覆盖率；未知语义整父回退并报告，不使用通用逐词兜底。历史文案审校由Luna完成，本轮明确记录为GPT-6.1-Sol。此前[物品操作验收](verification/native/item-operations/REPORT.md)和[随机对白及引号修复](verification/native/random-speech/REPORT.md)保留。
 
 第一批已建立生成处完整模板、命名类型参数和独立显示名接口，移除通用逐词兜底；Mac 与 Bazzite 构建及存档副本场景已验证。仍有旧渲染入口与未迁移文案，详情见[迁移范围、验证和限制](verification/native/message-migration/REPORT.md)及[架构记录](analysis/message-migration/architecture.md)。

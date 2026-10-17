@@ -66,6 +66,8 @@
 #include "unwind.h"
 #include "view.h"
 #include "zot.h"
+#include "zh-display-name.h"
+#include "zh-message.h"
 
 #define AUTO_REST_STATUS_POS "autorest_status_pos"
 
@@ -185,12 +187,14 @@ bool deviant_route_warning::warn_continue_travel(
         return true;
 
     target = dest;
-    const string prompt = make_stringf("Have to go through %s. Continue?",
-                                       deviant.describe().c_str());
+    ZhArg place = zh_place_arg("place", deviant);
+    // Lua/prompt identity uses the original abbreviated level (e.g. D:3).
+    place.canonical = deviant.describe();
+    const ZhMessage prompt = zh_message("world.travel.confirm.detour", {place});
     // If the user says "Yes, shut up and take me there", we won't ask
     // again for that destination. If the user says "No", we will
     // prompt again.
-    return warned = yesno(prompt.c_str(), true, 'n', true, false);
+    return warned = yesno(prompt, true, 'n', true, false);
 }
 
 static deviant_route_warning _Route_Warning;
@@ -772,7 +776,7 @@ static void _explore_find_target_square()
         const bool unknown_trans = _level_has_unknown_transporters();
         if (!estatus && !unknown_trans)
         {
-            mpr("Done exploring.");
+            mpr(zh_message("world.travel.explore.done"));
             learned_something_new(HINT_DONE_EXPLORE);
         }
         else
@@ -2920,12 +2924,12 @@ static void _start_translevel_travel()
         if (level_target.pos.x == -1 &&
             level_target.id.depth == branches[level_target.id.branch].numlevels)
         {
-            mpr("You're already at the bottom of this branch!");
+            mpr(zh_message("world.travel.reject.bottom"));
             return;
         }
         else if (level_target.pos.x == -1 || level_target.pos == you.pos())
         {
-            mpr("You're already here!");
+            mpr(zh_message("world.travel.reject.here"));
             return;
         }
     }
@@ -2958,15 +2962,15 @@ void start_translevel_travel(const level_pos &pos)
     if (!can_travel_to(pos.id))
     {
         if (!can_travel_interlevel())
-            mpr("Sorry, you can't auto-travel out of here.");
+            mpr(zh_message("world.travel.reject.exit"));
         else
-            mpr("Sorry, I don't know how to get there.");
+            mpr(zh_message("world.travel.reject.route"));
         return;
     }
 
     if (pos.is_valid() && !in_bounds(pos.pos))
     {
-        mpr("Sorry, I don't know how to get there.");
+        mpr(zh_message("world.travel.reject.route"));
         return;
     }
 
@@ -2995,7 +2999,7 @@ void start_translevel_travel(const level_pos &pos)
         {
             if (!_loadlev_populate_stair_distances(pos))
             {
-                mpr("Level memory is imperfect, aborting.");
+                mpr(zh_message("world.travel.reject.memory"));
                 return ;
             }
         }
@@ -3398,7 +3402,7 @@ static bool _find_transtravel_square(const level_pos &target, bool verbose)
         return false;
     if (maybe_traversable)
     {
-        mpr("Sorry, I don't know how to get there.");
+        mpr(zh_message("world.travel.reject.route"));
         return false;
     }
 
@@ -3406,7 +3410,7 @@ static bool _find_transtravel_square(const level_pos &target, bool verbose)
     coord_def closest_alt = _find_closest_adj(target.pos);
     if (closest_alt.origin())
     {
-        mpr("Sorry, I don't know how to traverse that place.");
+        mpr(zh_message("world.travel.reject.traverse"));
         return false;
     }
 
@@ -3461,7 +3465,7 @@ void start_explore(bool grab_items, bool skip_autorest)
     if (!i_feel_safe(true, true))
         return;
 
-    if (should_fear_zot() && !yesno("Really explore while Zot is near?", false, 'n'))
+    if (should_fear_zot() && !yesno(zh_message("world.travel.confirm.zot"), false, 'n'))
     {
         canned_msg(MSG_OK);
         return;
@@ -3481,7 +3485,7 @@ void start_explore(bool grab_items, bool skip_autorest)
 void do_explore_cmd(bool skip_autorest)
 {
     if (you.berserk())
-        mpr("Calm down first, please.");
+        mpr(zh_message("world.travel.reject.berserk"));
     else                        // Start exploring
         start_explore(Options.explore_greedy, skip_autorest);
 }
@@ -4347,7 +4351,7 @@ void TravelCache::delete_waypoint()
     while (get_waypoint_count())
     {
         clear_messages();
-        mpr("Existing waypoints:");
+        mpr(zh_message("world.travel.waypoint.existing"));
         list_waypoints();
         mprf(MSGCH_PROMPT, "Delete which waypoint? (* - delete all, Esc - exit) ");
 
@@ -4375,7 +4379,7 @@ void TravelCache::delete_waypoint()
     }
 
     clear_messages();
-    mpr("All waypoints deleted. Have a nice day!");
+    mpr(zh_message("world.travel.waypoint.deleted"));
 }
 
 void TravelCache::add_waypoint(int x, int y)
@@ -4385,7 +4389,7 @@ void TravelCache::add_waypoint(int x, int y)
     const bool waypoints_exist = get_waypoint_count();
     if (waypoints_exist)
     {
-        mpr("Existing waypoints:");
+        mpr(zh_message("world.travel.waypoint.existing"));
         list_waypoints();
     }
 
@@ -5188,12 +5192,12 @@ void do_interlevel_travel()
     {
         if (you.running.pos == you.pos())
         {
-            mpr("You're already here!");
+            mpr(zh_message("world.travel.reject.here"));
             return;
         }
         else if (!you.running.pos.x || !you.running.pos.y)
         {
-            mpr("Sorry, you can't auto-travel out of here.");
+            mpr(zh_message("world.travel.reject.exit"));
             return;
         }
 

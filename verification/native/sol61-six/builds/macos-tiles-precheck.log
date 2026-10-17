@@ -1,0 +1,17 @@
+fatal: No tags can describe 'cc710081cd3f163eabf78c65b9144e040ef30aa8'.
+Try --always, or create some tags.
+/Library/Developer/CommandLineTools/usr/bin/make -C rltiles all ARCH=arm64-apple-darwin25.6.0 NO_PKGCONFIG= TILES=y
+    PYTHON config.h
+    PYTHON rltilesstatus-icon-sizes.h
+    GEN compflag.h
+    GEN build.h
+    CXX zh-localization.o
+    CXX abyss.o
+    CXX ability.o
+    CXX zh-display-name.o
+ability.cc:4267:13: error: use of undeclared identifier 'colour_to_str'
+ 4267 |             colour_to_str(channel_to_colour(MSGCH_TUTORIAL))).display());
+      |             ^~~~~~~~~~~~~
+1 error generated.
+make: *** [ability.o] Error 1
+make: *** Waiting for unfinished jobs....

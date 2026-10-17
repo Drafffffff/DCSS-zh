@@ -1,0 +1,1026 @@
+{
+  "model": "gpt-6.1-sol",
+  "reviewer_model": "gpt-6.1-sol",
+  "messages": [
+    {
+      "id": "world.stairs.warning.annotation",
+      "en": "Warning, next level annotated: <yellow>{annotation}</yellow>",
+      "zh": "警告，下一层有注释：<yellow>{annotation}</yellow>",
+      "params": {
+        "annotation": "text"
+      },
+      "context": "世界交互；完整业务消息。_annotation_exclusion_warning；保留玩家原始注释及黄色标记",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_annotation_exclusion_warning；保留玩家原始注释及黄色标记"
+      }
+    },
+    {
+      "id": "world.stairs.warning.excluded",
+      "en": "This staircase is marked as excluded!",
+      "zh": "这处楼梯已被标为禁行区！",
+      "params": {},
+      "context": "世界交互；完整业务消息。楼梯排除区警告",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "楼梯排除区警告"
+      }
+    },
+    {
+      "id": "world.stairs.warning.destination_excluded",
+      "en": "This staircase leads to a travel-excluded area!",
+      "zh": "这处楼梯通往自动旅行禁行区！",
+      "params": {},
+      "context": "世界交互；完整业务消息。楼梯排除区警告",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "楼梯排除区警告"
+      }
+    },
+    {
+      "id": "world.stairs.warning.zot",
+      "en": "You have just {turns} turns in {branch} to find a new floor before Zot consumes you.",
+      "zh": "在{branch}中，你只剩{turns}回合寻找新楼层，否则就会被 佐特 吞噬。",
+      "params": {
+        "turns": "integer",
+        "branch": "name"
+      },
+      "context": "世界交互；完整业务消息。_bezotting_warning；回合数和分支名语义参数",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_bezotting_warning；回合数和分支名语义参数"
+      }
+    },
+    {
+      "id": "world.stairs.confirm.enter",
+      "en": "Enter next level anyway?",
+      "zh": "仍要进入下一层吗？",
+      "params": {},
+      "context": "世界交互；完整业务消息。check_next_floor_warning；默认否及活动打断不变",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "check_next_floor_warning；默认否及活动打断不变"
+      }
+    },
+    {
+      "id": "world.stairs.climb.gateway",
+      "en": "The world spins around you as you enter the gateway.",
+      "zh": "你踏入传送门，周围的世界天旋地转。",
+      "params": {},
+      "context": "世界交互；完整业务消息。The world spins around you as you enter the gateway.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "The world spins around you as you enter the gateway."
+      }
+    },
+    {
+      "id": "world.stairs.climb.hatch_up",
+      "en": "A mysterious force pulls you upwards.",
+      "zh": "一股神秘力量将你向上拉去。",
+      "params": {},
+      "context": "世界交互；完整业务消息。A mysterious force pulls you upwards.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "A mysterious force pulls you upwards."
+      }
+    },
+    {
+      "id": "world.stairs.climb.hatch_close",
+      "en": "The hatch slams shut behind you.",
+      "zh": "逃生舱口在你身后猛然关闭。",
+      "params": {},
+      "context": "世界交互；完整业务消息。The hatch slams shut behind you.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "The hatch slams shut behind you."
+      }
+    },
+    {
+      "id": "world.stairs.climb.ooze_up",
+      "en": "You ooze up the stairs.",
+      "zh": "你沿着楼梯蠕动而上。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You ooze up the stairs.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "You ooze up the stairs."
+      }
+    },
+    {
+      "id": "world.stairs.climb.ooze_down",
+      "en": "You slide down the stairs, becoming coated in regenerative ooze.",
+      "zh": "你滑下楼梯，浑身裹满了具有再生之力的黏液。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You slide down the stairs, becoming coated in regenerative ooze.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "You slide down the stairs, becoming coated in regenerative ooze."
+      }
+    },
+    {
+      "id": "world.stairs.climb.hatch_fly",
+      "en": "You fly downwards.",
+      "zh": "你向下飞去。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_climb_message；向下逃生舱口，飞行",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_climb_message；向下逃生舱口，飞行"
+      }
+    },
+    {
+      "id": "world.stairs.climb.hatch_slide",
+      "en": "You slide downwards.",
+      "zh": "你向下滑去。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_climb_message；向下逃生舱口，非飞行",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_climb_message；向下逃生舱口，非飞行"
+      }
+    },
+    {
+      "id": "world.stairs.climb.gate_fly_up",
+      "en": "You fly up through the gate.",
+      "zh": "你向上飞过大门。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_climb_message；方向、飞行及门类型先选完整模板",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_climb_message；方向、飞行及门类型先选完整模板"
+      }
+    },
+    {
+      "id": "world.stairs.climb.gate_fly_down",
+      "en": "You fly down through the gate.",
+      "zh": "你向下飞过大门。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_climb_message；方向、飞行及门类型先选完整模板",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_climb_message；方向、飞行及门类型先选完整模板"
+      }
+    },
+    {
+      "id": "world.stairs.climb.gate_go_up",
+      "en": "You go up through the gate.",
+      "zh": "你向上穿过大门。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_climb_message；方向、飞行及门类型先选完整模板",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_climb_message；方向、飞行及门类型先选完整模板"
+      }
+    },
+    {
+      "id": "world.stairs.climb.gate_go_down",
+      "en": "You go down through the gate.",
+      "zh": "你向下穿过大门。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_climb_message；方向、飞行及门类型先选完整模板",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_climb_message；方向、飞行及门类型先选完整模板"
+      }
+    },
+    {
+      "id": "world.stairs.climb.fly_up",
+      "en": "You fly upwards.",
+      "zh": "你向上飞去。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_climb_message；方向、飞行及门类型先选完整模板",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_climb_message；方向、飞行及门类型先选完整模板"
+      }
+    },
+    {
+      "id": "world.stairs.climb.fly_down",
+      "en": "You fly downwards.",
+      "zh": "你向下飞去。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_climb_message；方向、飞行及门类型先选完整模板",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_climb_message；方向、飞行及门类型先选完整模板"
+      }
+    },
+    {
+      "id": "world.stairs.climb.up",
+      "en": "You climb upwards.",
+      "zh": "你沿楼梯向上攀登。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_climb_message；方向、飞行及门类型先选完整模板",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_climb_message；方向、飞行及门类型先选完整模板"
+      }
+    },
+    {
+      "id": "world.stairs.climb.down",
+      "en": "You climb downwards.",
+      "zh": "你沿楼梯向下走去。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_climb_message；方向、飞行及门类型先选完整模板",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_climb_message；方向、飞行及门类型先选完整模板"
+      }
+    },
+    {
+      "id": "world.stairs.invalid.arch",
+      "en": "There is nothing on the other side of the stone arch.",
+      "zh": "石拱门的另一侧空无一物。",
+      "params": {},
+      "context": "世界交互；完整业务消息。There is nothing on the other side of the stone arch.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "There is nothing on the other side of the stone arch."
+      }
+    },
+    {
+      "id": "world.stairs.invalid.shop",
+      "en": "This shop has been abandoned, nothing of value remains.",
+      "zh": "这家商店已被废弃，里面已没有值钱的东西。",
+      "params": {},
+      "context": "世界交互；完整业务消息。This shop has been abandoned, nothing of value remains.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "This shop has been abandoned, nothing of value remains."
+      }
+    },
+    {
+      "id": "world.stairs.invalid.up",
+      "en": "You can't go up here!",
+      "zh": "这里无法上楼！",
+      "params": {},
+      "context": "世界交互；完整业务消息。You can't go up here!",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "You can't go up here!"
+      }
+    },
+    {
+      "id": "world.stairs.invalid.down",
+      "en": "You can't go down here!",
+      "zh": "这里无法下楼！",
+      "params": {},
+      "context": "世界交互；完整业务消息。You can't go down here!",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "You can't go down here!"
+      }
+    },
+    {
+      "id": "world.stairs.fall.back_stairs",
+      "en": "In your confused state, you trip and fall back down the stairs.",
+      "zh": "你神志不清，脚下一绊，沿楼梯跌了回去。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_check_fall_down_stairs；伤害原因与向上时消耗回合不变",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_check_fall_down_stairs；伤害原因与向上时消耗回合不变"
+      }
+    },
+    {
+      "id": "world.stairs.fall.stairs",
+      "en": "In your confused state, you trip and fall down the stairs.",
+      "zh": "你神志不清，脚下一绊，跌下了楼梯。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_check_fall_down_stairs；伤害原因与向上时消耗回合不变",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_check_fall_down_stairs；伤害原因与向上时消耗回合不变"
+      }
+    },
+    {
+      "id": "world.stairs.fall.back_gate",
+      "en": "In your confused state, you trip and fall back through the gate.",
+      "zh": "你神志不清，脚下一绊，跌回了门的另一边。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_check_fall_down_stairs；伤害原因与向上时消耗回合不变",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_check_fall_down_stairs；伤害原因与向上时消耗回合不变"
+      }
+    },
+    {
+      "id": "world.stairs.fall.gate",
+      "en": "In your confused state, you trip and fall through the gate.",
+      "zh": "你神志不清，脚下一绊，跌过了大门。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_check_fall_down_stairs；伤害原因与向上时消耗回合不变",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_check_fall_down_stairs；伤害原因与向上时消耗回合不变"
+      }
+    },
+    {
+      "id": "world.stairs.shaft.sucked_many",
+      "en": "You are sucked into a shaft and drop {floors} floors!",
+      "zh": "你被吸入竖井，向下坠落了{floors}层！",
+      "params": {
+        "floors": "integer"
+      },
+      "context": "世界交互；完整业务消息。_travel_destination → _shaft_fall_message；层数非等级",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_travel_destination → _shaft_fall_message；层数非等级"
+      }
+    },
+    {
+      "id": "world.stairs.shaft.sucked_one",
+      "en": "You are sucked into a shaft and drop {floors} floor!",
+      "zh": "你被吸入竖井，向下坠落了{floors}层！",
+      "params": {
+        "floors": "integer"
+      },
+      "context": "世界交互；完整业务消息。_travel_destination → _shaft_fall_message；层数非等级",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_travel_destination → _shaft_fall_message；层数非等级"
+      }
+    },
+    {
+      "id": "world.stairs.shaft.fall_many",
+      "en": "You fall into a shaft and drop {floors} floors!",
+      "zh": "你跌入竖井，向下坠落了{floors}层！",
+      "params": {
+        "floors": "integer"
+      },
+      "context": "世界交互；完整业务消息。_travel_destination → _shaft_fall_message；层数非等级",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_travel_destination → _shaft_fall_message；层数非等级"
+      }
+    },
+    {
+      "id": "world.stairs.shaft.fall_one",
+      "en": "You fall into a shaft and drop {floors} floor!",
+      "zh": "你跌入竖井，向下坠落了{floors}层！",
+      "params": {
+        "floors": "integer"
+      },
+      "context": "世界交互；完整业务消息。_travel_destination → _shaft_fall_message；层数非等级",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "_travel_destination → _shaft_fall_message；层数非等级"
+      }
+    },
+    {
+      "id": "world.stairs.shaft.invalid",
+      "en": "The shaft disappears in a puff of logic!",
+      "zh": "竖井在一阵逻辑迷雾中消失了！",
+      "params": {},
+      "context": "世界交互；完整业务消息。The shaft disappears in a puff of logic!",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "The shaft disappears in a puff of logic!"
+      }
+    },
+    {
+      "id": "world.stairs.shaft.same_level",
+      "en": "Strange, the shaft seems to lead back to this level.",
+      "zh": "奇怪，这口竖井似乎又通回了这一层。",
+      "params": {},
+      "context": "世界交互；完整业务消息。Strange, the shaft seems to lead back to this level.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "Strange, the shaft seems to lead back to this level."
+      }
+    },
+    {
+      "id": "world.stairs.shaft.collapse",
+      "en": "The shaft crumbles and collapses.",
+      "zh": "竖井崩塌了。",
+      "params": {},
+      "context": "世界交互；完整业务消息。The shaft crumbles and collapses.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "The shaft crumbles and collapses."
+      }
+    },
+    {
+      "id": "world.stairs.rocket.rise",
+      "en": "With a burst of heat and light, you rocket upward!",
+      "zh": "伴着一阵热浪和强光，你如火箭般冲向上方！",
+      "params": {},
+      "context": "世界交互；完整业务消息。With a burst of heat and light, you rocket upward!",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "With a burst of heat and light, you rocket upward!"
+      }
+    },
+    {
+      "id": "world.stairs.rune.glow",
+      "en": "The lock glows eerily!",
+      "zh": "锁孔发出诡异的光！",
+      "params": {},
+      "context": "世界交互；完整业务消息。The lock glows eerily!",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "The lock glows eerily!"
+      }
+    },
+    {
+      "id": "world.stairs.rune.smoke",
+      "en": "Heavy smoke blows from the lock!",
+      "zh": "浓烟从锁孔中喷出！",
+      "params": {},
+      "context": "世界交互；完整业务消息。Heavy smoke blows from the lock!",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "Heavy smoke blows from the lock!"
+      }
+    },
+    {
+      "id": "world.stairs.rune.open",
+      "en": "The gate opens wide!",
+      "zh": "大门完全敞开了！",
+      "params": {},
+      "context": "世界交互；完整业务消息。The gate opens wide!",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "The gate opens wide!"
+      }
+    },
+    {
+      "id": "world.stairs.rune.open_hiss",
+      "en": "With a soft hiss the gate opens wide!",
+      "zh": "伴着轻轻的嘶声，大门完全敞开了！",
+      "params": {},
+      "context": "世界交互；完整业务消息。With a soft hiss the gate opens wide!",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "With a soft hiss the gate opens wide!"
+      }
+    },
+    {
+      "id": "world.stairs.exit.escaped",
+      "en": "You have escaped!",
+      "zh": "你逃出去了！",
+      "params": {},
+      "context": "世界交互；完整业务消息。You have escaped!",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "You have escaped!"
+      }
+    },
+    {
+      "id": "world.stairs.exit.hell",
+      "en": "Thank you for visiting Hell. Please come again soon.",
+      "zh": "感谢光临地狱，欢迎再次惠顾。",
+      "params": {},
+      "context": "世界交互；完整业务消息。Thank you for visiting Hell. Please come again soon.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "Thank you for visiting Hell. Please come again soon."
+      }
+    },
+    {
+      "id": "world.stairs.exit.gate",
+      "en": "You pass through the gate.",
+      "zh": "你穿过了大门。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You pass through the gate.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "You pass through the gate."
+      }
+    },
+    {
+      "id": "world.stairs.abyss.rune",
+      "en": "The abyssal rune of Zot can be found at this depth.",
+      "zh": "在这一深度可以找到 佐特 的深渊符文。",
+      "params": {},
+      "context": "世界交互；完整业务消息。The abyssal rune of Zot can be found at this depth.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "The abyssal rune of Zot can be found at this depth."
+      }
+    },
+    {
+      "id": "world.stairs.abyss.enter",
+      "en": "You enter the Abyss!",
+      "zh": "你进入了深渊！",
+      "params": {},
+      "context": "世界交互；完整业务消息。You enter the Abyss!",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "You enter the Abyss!"
+      }
+    },
+    {
+      "id": "world.stairs.abyss.return",
+      "en": "To return, you must find a gate leading back.",
+      "zh": "你必须找到回程的传送门才能返回。",
+      "params": {},
+      "context": "世界交互；完整业务消息。To return, you must find a gate leading back.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "To return, you must find a gate leading back."
+      }
+    },
+    {
+      "id": "world.stairs.abyss.kill",
+      "en": "Killing monsters will force the Abyss to allow you passage.",
+      "zh": "击杀怪物可以迫使深渊为你打开通路。",
+      "params": {},
+      "context": "世界交互；完整业务消息。Killing monsters will force the Abyss to allow you passage.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "Killing monsters will force the Abyss to allow you passage."
+      }
+    },
+    {
+      "id": "world.stairs.pan.region",
+      "en": "You pass into a different region of Pandemonium.",
+      "zh": "你进入了潘德莫尼姆的另一片区域。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You pass into a different region of Pandemonium.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "You pass into a different region of Pandemonium."
+      }
+    },
+    {
+      "id": "world.stairs.zot.known",
+      "en": "Zot already knows this place too well. Descend or flee this branch!",
+      "zh": "佐特 对这里已经了如指掌。继续下行，或逃离这个分支！",
+      "params": {},
+      "context": "世界交互；完整业务消息。Zot already knows this place too well. Descend or flee this branch!",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "Zot already knows this place too well. Descend or flee this branch!"
+      }
+    },
+    {
+      "id": "world.stairs.zot.attention",
+      "en": "Zot's attention fixes on you again. Descend or flee this branch!",
+      "zh": "佐特 再次盯上了你。继续下行，或逃离这个分支！",
+      "params": {},
+      "context": "世界交互；完整业务消息。Zot's attention fixes on you again. Descend or flee this branch!",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "Zot's attention fixes on you again. Descend or flee this branch!"
+      }
+    },
+    {
+      "id": "world.stairs.zot.abyss",
+      "en": "Zot has no power in the Abyss.",
+      "zh": "佐特 的力量无法触及深渊。",
+      "params": {},
+      "context": "世界交互；完整业务消息。Zot has no power in the Abyss.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "Zot has no power in the Abyss."
+      }
+    },
+    {
+      "id": "world.stairs.zot.lost",
+      "en": "You feel Zot lose track of you.",
+      "zh": "你感觉 佐特 失去了你的踪迹。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You feel Zot lose track of you.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "You feel Zot lose track of you."
+      }
+    },
+    {
+      "id": "world.stairs.vaults.close",
+      "en": "The door slams shut behind you.",
+      "zh": "大门在你身后猛然关闭。",
+      "params": {},
+      "context": "世界交互；完整业务消息。The door slams shut behind you.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "The door slams shut behind you."
+      }
+    },
+    {
+      "id": "world.stairs.shaft.warning",
+      "en": "Beware, you cannot shaft yourself on this level.",
+      "zh": "注意，你无法在这一层开凿竖井。",
+      "params": {},
+      "context": "世界交互；完整业务消息。Beware, you cannot shaft yourself on this level.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "Beware, you cannot shaft yourself on this level."
+      }
+    },
+    {
+      "id": "world.stairs.shaft.paradox",
+      "en": "The strain on the space-time continuum destroys the shaft!",
+      "zh": "时空连续体承受不住这股扭曲，竖井被摧毁了！",
+      "params": {},
+      "context": "世界交互；完整业务消息。楼层迁移固定反馈",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "楼层迁移固定反馈"
+      }
+    },
+    {
+      "id": "world.stairs.rocket.blocked",
+      "en": "In a burst of heat and light, you rocket briefly upward... but you can't rise from here.",
+      "zh": "伴着一阵热浪和强光，你短暂地向上冲起……但无法从这里升上去。",
+      "params": {},
+      "context": "世界交互；完整业务消息。楼层迁移固定反馈",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "楼层迁移固定反馈"
+      }
+    },
+    {
+      "id": "world.stairs.abyss.deeper",
+      "en": "You plunge deeper into the Abyss.",
+      "zh": "你坠向深渊更深处。",
+      "params": {},
+      "context": "世界交互；完整业务消息。楼层进入/离开反馈；保持消息频道",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "楼层进入/离开反馈；保持消息频道"
+      }
+    },
+    {
+      "id": "world.stairs.depart.cacophony",
+      "en": "Your cacophony subsides as you depart the area.",
+      "zh": "你离开这片区域，刺耳的喧嚣随之平息。",
+      "params": {},
+      "context": "世界交互；完整业务消息。楼层进入/离开反馈；保持消息频道",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "楼层进入/离开反馈；保持消息频道"
+      }
+    },
+    {
+      "id": "world.stairs.teleport.blocked",
+      "en": "The nature of this place prevents you from teleporting.",
+      "zh": "此地的特性使你无法传送。",
+      "params": {},
+      "context": "世界交互；完整业务消息。楼层进入/离开反馈；保持消息频道",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "楼层进入/离开反馈；保持消息频道"
+      }
+    },
+    {
+      "id": "world.stairs.regal.announce",
+      "en": "You announce your regal presence to all who would look upon you.",
+      "zh": "你向所有可能见到你的人宣告了自己的王者驾临。",
+      "params": {},
+      "context": "世界交互；完整业务消息。楼层进入/离开反馈；保持消息频道",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "楼层进入/离开反馈；保持消息频道"
+      }
+    },
+    {
+      "id": "world.stairs.teleport.stable",
+      "en": "You feel stable on this floor.",
+      "zh": "你感觉这一层十分稳定。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You feel stable on this floor.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "You feel stable on this floor."
+      }
+    },
+    {
+      "id": "world.stairs.ziggurat.complete",
+      "en": "You have passed through the Ziggurat. Zot will hunt you nevermore.",
+      "zh": "你已闯过了金字塔。佐特 将不再追猎你。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You have passed through the Ziggurat. Zot will hunt you nevermore.",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "You have passed through the Ziggurat. Zot will hunt you nevermore."
+      }
+    },
+    {
+      "id": "world.stairs.welcome.back",
+      "en": "Welcome back to {branch}!",
+      "zh": "欢迎回到{branch}！",
+      "params": {
+        "branch": "name"
+      },
+      "context": "世界交互；完整业务消息。floor_transition；枚举分支完整名",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "floor_transition；枚举分支完整名"
+      }
+    },
+    {
+      "id": "world.stairs.welcome.first",
+      "en": "Welcome to {branch}!",
+      "zh": "欢迎来到{branch}！",
+      "params": {
+        "branch": "name"
+      },
+      "context": "世界交互；完整业务消息。floor_transition；枚举分支完整名",
+      "source": {
+        "file": "stairs.cc",
+        "anchor": "floor_transition；枚举分支完整名"
+      }
+    },
+    {
+      "id": "world.travel.confirm.detour",
+      "en": "Have to go through {place}. Continue?",
+      "zh": "必须途经{place}。继续吗？",
+      "params": {
+        "place": "text"
+      },
+      "context": "世界交互；完整业务消息。deviant_route_warning::warn_continue_travel；保留英文分支缩写 canonical",
+      "source": {
+        "file": "travel.cc",
+        "anchor": "deviant_route_warning::warn_continue_travel；保留英文分支缩写 canonical"
+      }
+    },
+    {
+      "id": "world.travel.confirm.zot",
+      "en": "Really explore while Zot is near?",
+      "zh": "佐特 已经逼近，仍要探索吗？",
+      "params": {},
+      "context": "世界交互；完整业务消息。start_explore；默认否，否定不启动探索",
+      "source": {
+        "file": "travel.cc",
+        "anchor": "start_explore；默认否，否定不启动探索"
+      }
+    },
+    {
+      "id": "world.travel.explore.done",
+      "en": "Done exploring.",
+      "zh": "探索完毕。",
+      "params": {},
+      "context": "世界交互；完整业务消息。Done exploring.",
+      "source": {
+        "file": "travel.cc",
+        "anchor": "Done exploring."
+      }
+    },
+    {
+      "id": "world.travel.reject.bottom",
+      "en": "You're already at the bottom of this branch!",
+      "zh": "你已经在这个分支的最底层了！",
+      "params": {},
+      "context": "世界交互；完整业务消息。You're already at the bottom of this branch!",
+      "source": {
+        "file": "travel.cc",
+        "anchor": "You're already at the bottom of this branch!"
+      }
+    },
+    {
+      "id": "world.travel.reject.here",
+      "en": "You're already here!",
+      "zh": "你已经在这里了！",
+      "params": {},
+      "context": "世界交互；完整业务消息。You're already here!",
+      "source": {
+        "file": "travel.cc",
+        "anchor": "You're already here!"
+      }
+    },
+    {
+      "id": "world.travel.reject.exit",
+      "en": "Sorry, you can't auto-travel out of here.",
+      "zh": "无法从这里自动旅行出去。",
+      "params": {},
+      "context": "世界交互；完整业务消息。Sorry, you can't auto-travel out of here.",
+      "source": {
+        "file": "travel.cc",
+        "anchor": "Sorry, you can't auto-travel out of here."
+      }
+    },
+    {
+      "id": "world.travel.reject.route",
+      "en": "Sorry, I don't know how to get there.",
+      "zh": "找不到前往那里的路线。",
+      "params": {},
+      "context": "世界交互；完整业务消息。Sorry, I don't know how to get there.",
+      "source": {
+        "file": "travel.cc",
+        "anchor": "Sorry, I don't know how to get there."
+      }
+    },
+    {
+      "id": "world.travel.reject.traverse",
+      "en": "Sorry, I don't know how to traverse that place.",
+      "zh": "找不到穿过那里的路线。",
+      "params": {},
+      "context": "世界交互；完整业务消息。Sorry, I don't know how to traverse that place.",
+      "source": {
+        "file": "travel.cc",
+        "anchor": "Sorry, I don't know how to traverse that place."
+      }
+    },
+    {
+      "id": "world.travel.reject.memory",
+      "en": "Level memory is imperfect, aborting.",
+      "zh": "楼层记忆不完整，已中止。",
+      "params": {},
+      "context": "世界交互；完整业务消息。Level memory is imperfect, aborting.",
+      "source": {
+        "file": "travel.cc",
+        "anchor": "Level memory is imperfect, aborting."
+      }
+    },
+    {
+      "id": "world.travel.reject.berserk",
+      "en": "Calm down first, please.",
+      "zh": "请先冷静下来。",
+      "params": {},
+      "context": "世界交互；完整业务消息。Calm down first, please.",
+      "source": {
+        "file": "travel.cc",
+        "anchor": "Calm down first, please."
+      }
+    },
+    {
+      "id": "world.travel.waypoint.existing",
+      "en": "Existing waypoints:",
+      "zh": "现有路标：",
+      "params": {},
+      "context": "世界交互；完整业务消息。Existing waypoints:",
+      "source": {
+        "file": "travel.cc",
+        "anchor": "Existing waypoints:"
+      }
+    },
+    {
+      "id": "world.travel.waypoint.deleted",
+      "en": "All waypoints deleted. Have a nice day!",
+      "zh": "所有路标已删除。祝你愉快！",
+      "params": {},
+      "context": "世界交互；完整业务消息。All waypoints deleted. Have a nice day!",
+      "source": {
+        "file": "travel.cc",
+        "anchor": "All waypoints deleted. Have a nice day!"
+      }
+    },
+    {
+      "id": "world.trap.net.immune.slippers",
+      "en": "You slip through the net.",
+      "zh": "你从网中滑了出去。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_net_immune_reason；滑溜拖鞋/无实体/无定形免疫",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "_net_immune_reason；滑溜拖鞋/无实体/无定形免疫"
+      }
+    },
+    {
+      "id": "world.trap.net.immune.body",
+      "en": "The net passes straight through you.",
+      "zh": "网径直穿过了你的身体。",
+      "params": {},
+      "context": "世界交互；完整业务消息。_net_immune_reason；滑溜拖鞋/无实体/无定形免疫",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "_net_immune_reason；滑溜拖鞋/无实体/无定形免疫"
+      }
+    },
+    {
+      "id": "world.trap.web.caught",
+      "en": "You are caught in a web!",
+      "zh": "你被蛛网缠住了！",
+      "params": {},
+      "context": "世界交互；完整业务消息。You are caught in a web!",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "You are caught in a web!"
+      }
+    },
+    {
+      "id": "world.trap.net.caught",
+      "en": "You become entangled in the net!",
+      "zh": "你被网缠住了！",
+      "params": {},
+      "context": "世界交互；完整业务消息。You become entangled in the net!",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "You become entangled in the net!"
+      }
+    },
+    {
+      "id": "world.trap.web.struggle",
+      "en": "You struggle to detach yourself from the web.",
+      "zh": "你挣扎着，试图摆脱蛛网。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You struggle to detach yourself from the web.",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "You struggle to detach yourself from the web."
+      }
+    },
+    {
+      "id": "world.trap.web.escape",
+      "en": "You disentangle yourself.",
+      "zh": "你挣脱了蛛网。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You disentangle yourself.",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "You disentangle yourself."
+      }
+    },
+    {
+      "id": "world.trap.net.gash",
+      "en": "You tear a large gash into the net.",
+      "zh": "你在网上撕开了一个大口子。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You tear a large gash into the net.",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "You tear a large gash into the net."
+      }
+    },
+    {
+      "id": "world.trap.net.struggle",
+      "en": "You struggle against the net.",
+      "zh": "你挣扎着，试图挣脱网。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You struggle against the net.",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "You struggle against the net."
+      }
+    },
+    {
+      "id": "world.trap.net.trigger",
+      "en": "You trigger a net trap.",
+      "zh": "你触发了捕网陷阱。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You trigger a net trap.",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "You trigger a net trap."
+      }
+    },
+    {
+      "id": "world.trap.net.avoid",
+      "en": "You avoid being caught in a net.",
+      "zh": "你避开了捕网。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You avoid being caught in a net.",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "You avoid being caught in a net."
+      }
+    },
+    {
+      "id": "world.trap.net.unseen",
+      "en": "Something launches a net on you.",
+      "zh": "不知什么东西向你射来一张网。",
+      "params": {},
+      "context": "世界交互；完整业务消息。Something launches a net on you.",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "Something launches a net on you."
+      }
+    },
+    {
+      "id": "world.trap.web.avoid",
+      "en": "You pick your way through the web.",
+      "zh": "你小心翼翼地穿过蛛网。",
+      "params": {},
+      "context": "世界交互；完整业务消息。You pick your way through the web.",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "You pick your way through the web."
+      }
+    },
+    {
+      "id": "world.trap.net.escape.shred",
+      "en": "You shred the net and break free!",
+      "zh": "你将网撕得粉碎，挣脱出来！",
+      "params": {},
+      "context": "世界交互；完整业务消息。player::struggle_against_net；先掷一次伤害再选完整消息",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "player::struggle_against_net；先掷一次伤害再选完整消息"
+      }
+    },
+    {
+      "id": "world.trap.net.escape.rip",
+      "en": "You rip the net and break free!",
+      "zh": "你撕破网，挣脱出来！",
+      "params": {},
+      "context": "世界交互；完整业务消息。player::struggle_against_net；先掷一次伤害再选完整消息",
+      "source": {
+        "file": "traps.cc",
+        "anchor": "player::struggle_against_net；先掷一次伤害再选完整消息"
+      }
+    },
+    {
+      "id": "world.stairs.invalid.shop_closed",
+      "en": "This shop appears to be closed.",
+      "zh": "这家商店似乎关门了。",
+      "params": {},
+      "context": "世界交互：实际命令入口 _can_take_stairs 在进入 stairs.cc 前拦截已关闭商店；与废弃无值物的商店消息语义不同，保留独立完整原文。",
+      "source": {
+        "file": "main.cc",
+        "anchor": "_can_take_stairs; DNGN_ABANDONED_SHOP wrong-direction branch"
+      }
+    }
+  ]
+}

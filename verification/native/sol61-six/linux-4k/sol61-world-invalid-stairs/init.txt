@@ -1,0 +1,41 @@
+language = zh
+save_dir = /tmp/dcss-sol61-six-4k/sol61-world-invalid-stairs/saves
+morgue_dir = /tmp/dcss-sol61-six-4k/sol61-world-invalid-stairs/morgue
+
+# 3840x2160 native output. Integer tile sizes with nearest-neighbour sampling.
+# 3840x2160 native output. Integer tile sizes with nearest-neighbour sampling.
+# 3840x2160 native output. Integer tile sizes with nearest-neighbour sampling.
+tile_full_screen = true
+tile_window_width = 0
+tile_window_height = 0
+tile_window_ratio = 0
+game_scale = 1
+tile_use_small_layout = false
+tile_filter_scaling = false
+tile_viewport_scale = 1
+tile_cell_pixels = 96
+tile_sidebar_pixels = 64
+tile_font_crt_size = 48
+tile_font_stat_size = 48
+tile_font_msg_size = 36
+tile_font_tip_size = 36
+tile_font_lbl_size = 36
+tile_font_crt_file = /home/bazzite/Games/dcss-zh/game/fonts/DCSSPixelSC-Regular.ttf
+tile_font_stat_file = /home/bazzite/Games/dcss-zh/game/fonts/DCSSPixelSC-Regular.ttf
+tile_font_msg_file = /home/bazzite/Games/dcss-zh/game/fonts/DCSSPixelSC-Regular.ttf
+tile_font_tip_file = /home/bazzite/Games/dcss-zh/game/fonts/DCSSPixelSC-Regular.ttf
+tile_font_lbl_file = /home/bazzite/Games/dcss-zh/game/fonts/DCSSPixelSC-Regular.ttf
+
+tile_font_crt_file=/home/bazzite/Games/dcss-zh/qa-speech/fonts/DCSSPixelSC-Regular.ttf
+tile_font_msg_file=/home/bazzite/Games/dcss-zh/qa-speech/fonts/DCSSPixelSC-Regular.ttf
+tile_font_stat_file=/home/bazzite/Games/dcss-zh/qa-speech/fonts/DCSSPixelSC-Regular.ttf
+tile_font_tip_file=/home/bazzite/Games/dcss-zh/qa-speech/fonts/DCSSPixelSC-Regular.ttf
+tile_font_lbl_file=/home/bazzite/Games/dcss-zh/qa-speech/fonts/DCSSPixelSC-Regular.ttf
+
+show_more=false
+{
+local checked=false
+function ready()
+if not checked then checked=true; crawl.sendkeys("l&wiz\r\027h<"); end
+end
+}

@@ -1,0 +1,59 @@
+{
+  "model": "gpt-6.1-sol",
+  "reviewer_model": "gpt-6.1-sol",
+  "baseline": "cc710081cd3f163eabf78c65b9144e040ef30aa8",
+  "scope": "unidentified scroll appearance; ordinary body/skeleton source; visible ugly-thing colours; structured HELPLESS_KEY qualifier for ordinary/headed/ugly monsters",
+  "status": "production extraction verified; native build and save-copy replay pending parent integration",
+  "templates": 12,
+  "test": {
+    "command": "python3 tools/test_sol61_semantic_details.py",
+    "result": "PASS",
+    "checks": 23215,
+    "item_state_combinations": 6336,
+    "legacy_forbidden": true,
+    "private_catalog": true,
+    "shared_generated_files_written": false,
+    "canonical_oracle": "frozen original zh_item_arg/quantity/menu wrappers and translated_item_name; original item_def::name plus original name_aux prefix, scroll/corpse cases, plural/return tail",
+    "seams": [
+      "unrelated item class services",
+      "make_name deterministic appearance-label API (real generator unchanged)",
+      "monster snapshot common_name/full_name; colour naming and offset functions extracted from frozen production source"
+    ],
+    "classifier_check": "DESC_A/inventory singular body/skeleton use 一具; q>1 use {count}具; PLAIN/THE/YOUR/ITS singular preserve noun/ownership grammar",
+    "helpless_combinations": 3024,
+    "helpless_reproduction": {
+      "canonical": "the helpless rat fails to defend itself.",
+      "localized": "无助的老鼠未能保护自身。",
+      "state_preserved": true
+    },
+    "private_catalog_templates": 14
+  },
+  "screenshots": [
+    {
+      "file": "verification/native/sol61-six/user-screenshots/20261018014128_1.jpg",
+      "canonical": "c - a scroll labelled GIOJOT FEUBA",
+      "localized": "c - 标签为“GIOJOT FEUBA”的卷轴"
+    },
+    {
+      "file": "verification/native/sol61-six/user-screenshots/20261018014113_1.jpg",
+      "canonical": "a dart slug corpse",
+      "localized": "一具飞镖蛞蝓尸体"
+    }
+  ],
+  "fallbacks": [
+    "named/adjectival/suffixed corpses",
+    "unique corpse whose canonical name omits source species",
+    "unreviewed monster species",
+    "unknown corpse subtype",
+    "inscription/custom/artefact/cursed items",
+    "additional ugly-thing name qualifiers except reviewed HELPLESS_KEY, or unknown colour",
+    "unidentified potion/wand/staff/jewellery appearances",
+    "player-ghost biographies and mutant-beast details"
+  ],
+  "files": {
+    "native/crawl-ref/source/zh-display-name.cc": "5fde23998d6a45ca89e7eb44dfc5a3fcf83205a489d5d4c96f8b6dbf5632f733",
+    "localization/migration/luna-sol61-semantic-details-messages.json": "61e5ca972f0f31a30901dd183ed12e966ee99fa8904f6bd2c375e3fe2d7544b3",
+    "tools/test_sol61_semantic_details.py": "0471305fa46776c1c4a95df550884f273b679ad03f58b7fd60a4e8931775260e",
+    "tools/fixtures/sol61-semantic-details-english.json": "5c2c17cedf0cc11c79f70b2e223af0950316a8f05c52ef4c9a97c09a2a45ee9d"
+  }
+}

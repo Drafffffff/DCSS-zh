@@ -1,0 +1,1172 @@
+{
+  "model": "gpt-6.1-sol",
+  "reviewer_model": "gpt-6.1-sol",
+  "baseline": "cc710081cd3f163eabf78c65b9144e040ef30aa8",
+  "scope": "religion-character",
+  "status": "production extraction and isolated catalog tests passed; native/GUI integration owned by root",
+  "message_count": 331,
+  "fixed_template_count": 206,
+  "test": {
+    "command": "python3 tools/test_sol61_religion_character.py",
+    "cases": 16102,
+    "result": "PASS",
+    "catalog": "temporary isolated catalog; shared generated files untouched",
+    "seams": "World effects, input, RNG, piety bookkeeping consumers; production branches and state writes compiled unchanged"
+  },
+  "files": {
+    "religion.cc": {
+      "typed_calls": 64,
+      "raw_call_candidates": 50,
+      "sha256": "4cf2a6cb305fbdd4ee38c1f6b248f61b688b8b3ea11db9d1fc0a515b51fa6ed7"
+    },
+    "god-abil.cc": {
+      "typed_calls": 94,
+      "raw_call_candidates": 98,
+      "sha256": "9f84331ac8546156d55cbef24b08e029bc1b3a5cd80900fd9444d222326f54bb"
+    },
+    "god-prayer.cc": {
+      "typed_calls": 7,
+      "raw_call_candidates": 1,
+      "sha256": "e4cdb5425cc1c3f4d13c289ac3286513e60ce0a8ba56d4b88afdffdae56f91f3"
+    },
+    "god-passive.cc": {
+      "typed_calls": 9,
+      "raw_call_candidates": 6,
+      "sha256": "2a9e1799a886b1d07b1312a4b6b5a39df301b3d07a0be2f5362d387d769d5c94"
+    },
+    "god-wrath.cc": {
+      "typed_calls": 6,
+      "raw_call_candidates": 60,
+      "sha256": "d26dce8c8ff2eefcbc3f4b9a52ad80faf129e15ff1e118d904cf7a335d2e6243"
+    },
+    "god-conduct.cc": {
+      "typed_calls": 7,
+      "raw_call_candidates": 9,
+      "sha256": "5588ac3bdef66b577aa7b5406a90c0697149590a1b16cb29c9fd91f06fbfa1fe"
+    },
+    "mutation.cc": {
+      "typed_calls": 10,
+      "raw_call_candidates": 14,
+      "sha256": "87441a1347970b2b41bd4f000e8bb7d21af07496e563db977fb6e4098dbfb2ac"
+    },
+    "ability.cc": {
+      "typed_calls": 98,
+      "raw_call_candidates": 27,
+      "sha256": "f54533345dc5493b095082d5670138d4ec00c44bcbbe7ae21d72647b0e8de90c"
+    },
+    "player-stats.cc": {
+      "typed_calls": 13,
+      "raw_call_candidates": 2,
+      "sha256": "8191cb08cf439ae130c77e3599ccc1d0edfa61eaaf95ccd44faecf08f5b51499"
+    }
+  },
+  "remaining_call_candidates": {
+    "religion.cc": [
+      {
+        "line": 502,
+        "source": "god_speaks(you.religion, str);"
+      },
+      {
+        "line": 504,
+        "source": "god_speaks(you.religion, make_stringf(fmt, str).c_str());"
+      },
+      {
+        "line": 686,
+        "source": "mprf(MSGCH_DIAGNOSTICS, \"Decreasing penance by %d\", val);"
+      },
+      {
+        "line": 700,
+        "source": "simple_god_message(\", with one final cry of rage, \""
+      },
+      {
+        "line": 707,
+        "source": "simple_god_message("
+      },
+      {
+        "line": 743,
+        "source": "simple_god_message(\" restores the support of your attributes.\");"
+      },
+      {
+        "line": 1183,
+        "source": "simple_god_message(\" deals you some cards!\");"
+      },
+      {
+        "line": 1184,
+        "source": "mprf(MSGCH_GOD, \"You now have %s.\", deck_summary().c_str());"
+      },
+      {
+        "line": 1195,
+        "source": "simple_god_message(\" alters your body.\");"
+      },
+      {
+        "line": 1398,
+        "source": "simple_god_message(\" grants you throwing weapons!\");"
+      },
+      {
+        "line": 1401,
+        "source": "simple_god_message(\" grants you a weapon!\");"
+      },
+      {
+        "line": 1404,
+        "source": "simple_god_message(\" grants you bugs!\");"
+      },
+      {
+        "line": 1497,
+        "source": "simple_god_message(\" grants you a gift!\");"
+      },
+      {
+        "line": 1580,
+        "source": "simple_god_message(\" has no new spells for you at this time.\");"
+      },
+      {
+        "line": 1582,
+        "source": "simple_god_message(\" grants you a gift!\");"
+      },
+      {
+        "line": 1640,
+        "source": "simple_god_message(prompt.c_str());"
+      },
+      {
+        "line": 1816,
+        "source": "mprf(\"%s regains the memory of %s %s.\","
+      },
+      {
+        "line": 1897,
+        "source": "mprf(\"%s remembers more of %s old skill.\","
+      },
+      {
+        "line": 1925,
+        "source": "mprf(\"%s remembers %s %s %s.\","
+      },
+      {
+        "line": 2133,
+        "source": "mprf(MSGCH_DIAGNOSTICS, \"Current number of gifts from this god: %d\","
+      },
+      {
+        "line": 2138,
+        "source": "mprf(MSGCH_DIAGNOSTICS, \"Total number of gifts from this god: %d\","
+      },
+      {
+        "line": 2259,
+        "source": "void god_speaks(god_type god, const char *mesg)"
+      },
+      {
+        "line": 2274,
+        "source": "mprf(MSGCH_GOD, god, \"%s\", do_mon_str_replacements(mesg, fake_mon).c_str());"
+      },
+      {
+        "line": 2331,
+        "source": "god_speaks(you.religion,"
+      },
+      {
+        "line": 2404,
+        "source": "simple_god_message(make_stringf(\" forms a fragment of your life essence\""
+      },
+      {
+        "line": 2430,
+        "source": "simple_god_message(\" begins accelerating your health and magic \""
+      },
+      {
+        "line": 2448,
+        "source": "simple_god_message(\" will now unseal the treasures of the \""
+      },
+      {
+        "line": 2465,
+        "source": "god_speaks(you.religion,"
+      },
+      {
+        "line": 2508,
+        "source": "simple_god_message(msg.c_str());"
+      },
+      {
+        "line": 2546,
+        "source": "mprf(MSGCH_DIAGNOSTICS, \"Piety slowdown due to gift timeout.\");"
+      },
+      {
+        "line": 2703,
+        "source": "simple_god_message(msg.c_str());"
+      },
+      {
+        "line": 2748,
+        "source": "mprf(MSGCH_DIAGNOSTICS,"
+      },
+      {
+        "line": 2853,
+        "source": "mprf(MSGCH_GOD, GOD_ASHENZARI, \"Your curses shatter.\");"
+      },
+      {
+        "line": 2872,
+        "source": "simple_god_message(\" gift of slime is revoked.\", true, GOD_JIYVA);"
+      },
+      {
+        "line": 2957,
+        "source": "simple_god_message("
+      },
+      {
+        "line": 3023,
+        "source": "simple_god_message(\" voice booms out: Traitor to your kin!\", true, old_god);"
+      },
+      {
+        "line": 3051,
+        "source": "mprf(MSGCH_GOD, old_god, \"Your access to %s's decks is revoked.\","
+      },
+      {
+        "line": 3162,
+        "source": "simple_god_message(\" continues to slow your movements.\", false,"
+      },
+      {
+        "line": 3190,
+        "source": "simple_god_message(\" burns away your resistance to fire.\", false,"
+      },
+      {
+        "line": 3254,
+        "source": "mpr((you.backlit() ? glowing_messages : messages)[rank]);"
+      },
+      {
+        "line": 3383,
+        "source": "mprf(MSGCH_GOD, \"%s warns you to remove %s.\","
+      },
+      {
+        "line": 3394,
+        "source": "mprf(MSGCH_GOD, \"%s removes the imprint of %s from your paragon.\","
+      },
+      {
+        "line": 3516,
+        "source": "simple_god_message(make_stringf(\" says: Farewell. Go and %s with %s.\","
+      },
+      {
+        "line": 3573,
+        "source": "simple_god_message(wrath_message.c_str(), false, good_god);"
+      },
+      {
+        "line": 3764,
+        "source": "simple_god_message(\" begins to support your attributes as your \""
+      },
+      {
+        "line": 3773,
+        "source": "mprf(\"Your %s burns with power once more.\", makhleb_mark_name().c_str());"
+      },
+      {
+        "line": 3846,
+        "source": "mprf(\"%s goes dull and lifeless in your grasp.\","
+      },
+      {
+        "line": 3851,
+        "source": "mprf(\"%s glows horrifically with a foul blackness!\","
+      },
+      {
+        "line": 3956,
+        "source": "mprf(\"You %s the altar of %s.\","
+      },
+      {
+        "line": 4889,
+        "source": "god_speaks(mg.god, msg.c_str());"
+      }
+    ],
+    "god-abil.cc": [
+      {
+        "line": 196,
+        "source": "if (!yesno(prompt.c_str(), true, 'n'))"
+      },
+      {
+        "line": 228,
+        "source": "mprf(MSGCH_GOD, \"Your %s shines brightly!\", wpn.name(DESC_QUALNAME).c_str());"
+      },
+      {
+        "line": 230,
+        "source": "simple_god_message(\" booms: Use this gift wisely!\");"
+      },
+      {
+        "line": 287,
+        "source": "mprf(MSGCH_DIAGNOSTICS, \"A donation of $%d amounts to an \""
+      },
+      {
+        "line": 299,
+        "source": "simple_god_message(\" finds your generosity lacking.\");"
+      },
+      {
+        "line": 1256,
+        "source": "simple_god_message(\" grants you divine stamina.\");"
+      },
+      {
+        "line": 1450,
+        "source": "mprf(\"You lift the black torch aloft and begin your conquest of %s in \""
+      },
+      {
+        "line": 1531,
+        "source": "mprf(MSGCH_GOD, \"%s\", msg.c_str());"
+      },
+      {
+        "line": 1791,
+        "source": "mprf(\"%s soul %s.\", whose.c_str(),"
+      },
+      {
+        "line": 1811,
+        "source": "simple_god_message(\" has no more spells that you can make use of!\");"
+      },
+      {
+        "line": 1819,
+        "source": "if (!yesno(msg.c_str(), true, 'n'))"
+      },
+      {
+        "line": 1825,
+        "source": "simple_god_message(\" grants you forbidden knowledge!\");"
+      },
+      {
+        "line": 1876,
+        "source": "mprf(\"%s%s\","
+      },
+      {
+        "line": 1882,
+        "source": "simple_god_message("
+      },
+      {
+        "line": 1958,
+        "source": "if (!yesno(\"There's no one hasty visible. Invoke Slouch anyway?\","
+      },
+      {
+        "line": 2339,
+        "source": "mprf(MSGCH_GOD, \"Ashenzari invites you to partake of a vision\""
+      },
+      {
+        "line": 2345,
+        "source": "mprf(\"Your %s glows black for a moment.\", item.name(DESC_PLAIN).c_str());"
+      },
+      {
+        "line": 2425,
+        "source": "mprf(MSGCH_PROMPT, \"You cannot shatter the curse on %s while it is \""
+      },
+      {
+        "line": 2431,
+        "source": "if (!yesno(make_stringf(\"Really remove and destroy %s?%s\","
+      },
+      {
+        "line": 2447,
+        "source": "mprf(\"You shatter the curse binding %s!\", item.name(DESC_THE).c_str());"
+      },
+      {
+        "line": 2453,
+        "source": "mprf(\"%s falls away from you.\", _item->name(DESC_YOUR).c_str());"
+      },
+      {
+        "line": 2462,
+        "source": "simple_god_message(\" withdraws the vision and curse.\");"
+      },
+      {
+        "line": 2504,
+        "source": "mprf(\"(press <w>%c</w> on the <w>%s</w>bility menu to convert to Beogh)\","
+      },
+      {
+        "line": 2519,
+        "source": "mprf(MSGCH_TALK, \"%s\", getSpeakString(\"orc_priest_apostate\").c_str());"
+      },
+      {
+        "line": 2615,
+        "source": "mprf(\"You place your %s atop %s's lifeless body and utter a vengeful prayer.\","
+      },
+      {
+        "line": 2794,
+        "source": "mprf(\"%s %s%sinvigorated by your prowess.\","
+      },
+      {
+        "line": 2810,
+        "source": "if (!yesno(\"Are you sure you wish to flee a divine trial? This will \""
+      },
+      {
+        "line": 2820,
+        "source": "if (!yesno(\"Your vengeful prayer will end if you leave here.\""
+      },
+      {
+        "line": 2845,
+        "source": "mprf(MSGCH_MUTATION, \"%s\", msg.c_str());"
+      },
+      {
+        "line": 2936,
+        "source": "mprf(\"%s turns %s attention towards your shadow.\","
+      },
+      {
+        "line": 3152,
+        "source": "mprf(\"You grasp %s shadow with your own and put on a performance!\","
+      },
+      {
+        "line": 3213,
+        "source": "mprf(\"%s shadow slips away and your performance ends.\","
+      },
+      {
+        "line": 3288,
+        "source": "mprf(\"You need at least %d gold to purchase potions right now!\","
+      },
+      {
+        "line": 3438,
+        "source": "mprf(\"You currently need %d gold to open negotiations with a \""
+      },
+      {
+        "line": 3634,
+        "source": "mprf(MSGCH_GOD, \"%s invites you to visit %s %s%s%s.\","
+      },
+      {
+        "line": 3782,
+        "source": "mprf(MSGCH_DURATION, \"Your bribe of %s has been exhausted.\","
+      },
+      {
+        "line": 3794,
+        "source": "mprf(\"You need at least %d gold to offer a bribe.\", bribe_amount);"
+      },
+      {
+        "line": 3822,
+        "source": "mprf(\"You can't bribe %s or %s.\", who.c_str(), who2.c_str());"
+      },
+      {
+        "line": 3824,
+        "source": "mprf(\"You can't bribe %s.\", who.c_str());"
+      },
+      {
+        "line": 3848,
+        "source": "if (yesno(prompt.c_str(), true, 'n'))"
+      },
+      {
+        "line": 3867,
+        "source": "mprf(\"You can't bribe %s.\", who.c_str());"
+      },
+      {
+        "line": 3876,
+        "source": "if (prompted || yesno(prompt.c_str(), true, 'n'))"
+      },
+      {
+        "line": 3884,
+        "source": "simple_god_message(msg.c_str());"
+      },
+      {
+        "line": 3968,
+        "source": "mprf(\"There is %s there.\","
+      },
+      {
+        "line": 4068,
+        "source": "mprf(MSGCH_GOD, \"%s\", message.c_str());"
+      },
+      {
+        "line": 4230,
+        "source": "&& !yesno(\"There are friendlies around; are you sure you want to hurt \""
+      },
+      {
+        "line": 4949,
+        "source": "simple_god_message(\" believes you are ready to make a new sacrifice.\");"
+      },
+      {
+        "line": 4988,
+        "source": "mprf(\"Ru asks you to %s.\", message);"
+      },
+      {
+        "line": 4989,
+        "source": "mpr(ru_sacrifice_description(sac));"
+      },
+      {
+        "line": 4990,
+        "source": "if (!yesno(\"Do you really want to make this sacrifice?\","
+      },
+      {
+        "line": 5232,
+        "source": "simple_god_message(\" indicates that your awakening is complete.\");"
+      },
+      {
+        "line": 5256,
+        "source": "!yesno(\"Do you really want to reject the sacrifices Ru is offering?\","
+      },
+      {
+        "line": 5265,
+        "source": "simple_god_message(\" will take longer to evaluate your readiness.\");"
+      },
+      {
+        "line": 5348,
+        "source": "mprf(MSGCH_GOD, \"You focus your inner power and drain %s's magic in \""
+      },
+      {
+        "line": 5354,
+        "source": "mprf(MSGCH_GOD, \"You focus your inner power and paralyse %s in retribution!\","
+      },
+      {
+        "line": 5360,
+        "source": "mprf(MSGCH_GOD, \"You focus your inner power and slow %s in retribution!\","
+      },
+      {
+        "line": 5366,
+        "source": "mprf(MSGCH_GOD, \"You focus your inner power and blind %s in retribution!\","
+      },
+      {
+        "line": 5372,
+        "source": "mprf(MSGCH_GOD, \"You focus your inner power and illuminate %s in retribution!\","
+      },
+      {
+        "line": 5460,
+        "source": "mpr(\"Cancelling leap due to HUP.\");"
+      },
+      {
+        "line": 5474,
+        "source": "mprf(\"You cannot leap away from %s!\","
+      },
+      {
+        "line": 5483,
+        "source": "mprf(\"You cannot leap closer to %s!\","
+      },
+      {
+        "line": 5659,
+        "source": "if (!yesno(\"There are no visible enemies. Unleash your apocalypse anyway?\","
+      },
+      {
+        "line": 5712,
+        "source": "&& !yesno(\"There are friendlies around, \""
+      },
+      {
+        "line": 5772,
+        "source": "mpr(\"Cancelling line pass due to HUP.\");"
+      },
+      {
+        "line": 5783,
+        "source": "mprf(\"You cannot move away from %s!\","
+      },
+      {
+        "line": 5792,
+        "source": "mprf(\"You cannot move closer to %s!\","
+      },
+      {
+        "line": 5887,
+        "source": "mpr(\"Cancelling grand finale due to HUP.\");"
+      },
+      {
+        "line": 5912,
+        "source": "mprf(\"You cannot occupy %s.\", article_a(feat_type_name(env.grid(beam.target))).c_str());"
+      },
+      {
+        "line": 5941,
+        "source": "mprf(\"%s explodes violently into a cloud of jellies%s\","
+      },
+      {
+        "line": 5946,
+        "source": "mprf(\"%s explodes violently%s\", mons->name(DESC_THE, false).c_str(), attack_punctuation.c_str());"
+      },
+      {
+        "line": 6001,
+        "source": "if (!yesno(make_stringf(\"Are you sure you want to remember your ancestor \""
+      },
+      {
+        "line": 6020,
+        "source": "god_speaks(you.religion, \"It is so.\");"
+      },
+      {
+        "line": 6050,
+        "source": "mprf(\"%s is not nearby!\", hepliaklqana_ally_name().c_str());"
+      },
+      {
+        "line": 6056,
+        "source": "simple_god_message(make_stringf(\" grants %s healing and protection!\","
+      },
+      {
+        "line": 6137,
+        "source": "mprf(\"%s is not nearby!\", hepliaklqana_ally_name().c_str());"
+      },
+      {
+        "line": 6151,
+        "source": "&& !yesno(\"You can't see anything there. Try transferring anyway?\","
+      },
+      {
+        "line": 6160,
+        "source": "mprf(\"You can't transfer your ancestor with %s.\","
+      },
+      {
+        "line": 6182,
+        "source": "mprf(\"%s can't be transferred there.\", victim->name(DESC_THE).c_str());"
+      },
+      {
+        "line": 6206,
+        "source": "mprf(\"%s swap%s with %s!\","
+      },
+      {
+        "line": 6250,
+        "source": "mprf(\"Yes, %s is definitely a better name.\", new_name.c_str());"
+      },
+      {
+        "line": 6268,
+        "source": "mprf(MSGCH_PROMPT,"
+      },
+      {
+        "line": 6300,
+        "source": "mprf(\"%s was always %s, you're pretty sure.\","
+      },
+      {
+        "line": 6478,
+        "source": "mprf(\"You cannot wall jump while caught in a %s.\","
+      },
+      {
+        "line": 6507,
+        "source": "mpr(\"Cancelling wall jump due to HUP.\");"
+      },
+      {
+        "line": 6582,
+        "source": "mprf(\"You challenge %s to single combat, but %s is merely a clone!\","
+      },
+      {
+        "line": 6598,
+        "source": "mprf(\"You enter into single combat with %s!\","
+      },
+      {
+        "line": 6636,
+        "source": "mprf(MSGCH_DURATION, \"%s\", you.hands_act(\"slow\", \"down.\").c_str());"
+      },
+      {
+        "line": 6683,
+        "source": "simple_god_message(kicked_out ? \" casts you out from the arena!\""
+      },
+      {
+        "line": 7051,
+        "source": "mprf(\"%s appears in a burst of %s!\", demon->name(DESC_A).c_str(),"
+      },
+      {
+        "line": 7058,
+        "source": "mprf(\"%s answers its master's command!\","
+      },
+      {
+        "line": 7063,
+        "source": "mprf(\"%s answers the call of your %s!\","
+      },
+      {
+        "line": 7089,
+        "source": "mprf(MSGCH_WARN, \"A traitorous %s dares provoke your wrath!\","
+      },
+      {
+        "line": 7094,
+        "source": "mprf(MSGCH_WARN, \"A jealous %s pursues it!\","
+      },
+      {
+        "line": 7099,
+        "source": "mprf(MSGCH_WARN, \"A rebellious %s escapes with it!\","
+      },
+      {
+        "line": 7111,
+        "source": "if (!yesno(prompt.c_str(), true, 'n'))"
+      },
+      {
+        "line": 7117,
+        "source": "mprf(\"You utter a prayer to Makhleb and carve the %s into yourself.\","
+      },
+      {
+        "line": 7347,
+        "source": "simple_god_message(\" says: Flay and bleed and purify yourself, if you wish\""
+      },
+      {
+        "line": 7403,
+        "source": "simple_god_message(\" acknowledges your contrition and permits you to\""
+      }
+    ],
+    "god-prayer.cc": [
+      {
+        "line": 212,
+        "source": "simple_god_message(\" ignores your late donation.\");"
+      }
+    ],
+    "god-passive.cc": [
+      {
+        "line": 1974,
+        "source": "mprf(\"You lunge%s at %s%s.\","
+      },
+      {
+        "line": 2033,
+        "source": "mprf(\"You spin and attack %s%s%s.\","
+      },
+      {
+        "line": 2129,
+        "source": "mprf(\"You %sattack %s from above%s.\","
+      },
+      {
+        "line": 2216,
+        "source": "simple_god_message(\" prepares the audience for your solo!\");"
+      },
+      {
+        "line": 2257,
+        "source": "simple_god_message(\" links your audience in an emotional bond!\");"
+      },
+      {
+        "line": 2355,
+        "source": "mprf(MSGCH_TALK, \"<lightred>%s</lightred>\", talk.c_str());"
+      }
+    ],
+    "god-wrath.cc": [
+      {
+        "line": 223,
+        "source": "simple_god_message(\" sends the divine host to punish you for your evil \""
+      },
+      {
+        "line": 228,
+        "source": "simple_god_message(\" divine host fails to appear.\","
+      },
+      {
+        "line": 238,
+        "source": "simple_god_message(\" booms out: Take the path of righteousness! REPENT!\","
+      },
+      {
+        "line": 248,
+        "source": "god_speaks(GOD_SHINING_ONE,"
+      },
+      {
+        "line": 291,
+        "source": "simple_god_message(\" draws some chaos from your body!\", false, god);"
+      },
+      {
+        "line": 309,
+        "source": "simple_god_message(\" rids your body of chaos!\", false, god);"
+      },
+      {
+        "line": 330,
+        "source": "simple_god_message(\" recites the Axioms of Law to you!\", false, god);"
+      },
+      {
+        "line": 356,
+        "source": "simple_god_message(\" booms out: Turn to the light! REPENT!\", false, god);"
+      },
+      {
+        "line": 397,
+        "source": "simple_god_message(\" strikes the hour, and time shudders.\", false, god);"
+      },
+      {
+        "line": 433,
+        "source": "simple_god_message(\" does not welcome meddling.\");"
+      },
+      {
+        "line": 444,
+        "source": "simple_god_message(message ? message : \" rains destruction down upon you!\","
+      },
+      {
+        "line": 546,
+        "source": "simple_god_message(\" has no time to deal with you just now.\", false,"
+      },
+      {
+        "line": 626,
+        "source": "simple_god_message(summoned > 1 ? \" sends minions to punish you.\" :"
+      },
+      {
+        "line": 631,
+        "source": "simple_god_message(\" minions fail to arrive.\", true, GOD_MAKHLEB);"
+      },
+      {
+        "line": 656,
+        "source": "god_speaks(god, coinflip() ? \"You hear Kikubaaqudgha cackling.\""
+      },
+      {
+        "line": 699,
+        "source": "simple_god_message(count > 1 ? \" sends servants to punish you.\" :"
+      },
+      {
+        "line": 704,
+        "source": "simple_god_message(\" servants fail to arrive.\", true, god);"
+      },
+      {
+        "line": 708,
+        "source": "simple_god_message(\" binds you in chains!\", false, god);"
+      },
+      {
+        "line": 724,
+        "source": "simple_god_message(\" tears away your strength and self-control!\", false, god);"
+      },
+      {
+        "line": 761,
+        "source": "simple_god_message(count > 1 ? \" sends monsters to punish you.\" :"
+      },
+      {
+        "line": 828,
+        "source": "simple_god_message(msg.str().c_str(), false, god);"
+      },
+      {
+        "line": 859,
+        "source": "simple_god_message("
+      },
+      {
+        "line": 880,
+        "source": "simple_god_message(\" sends forces against you!\", false, god);"
+      },
+      {
+        "line": 882,
+        "source": "simple_god_message(\" forces are busy with other wars.\", true, god);"
+      },
+      {
+        "line": 892,
+        "source": "simple_god_message(\" wrath finds you.\", true, god);"
+      },
+      {
+        "line": 938,
+        "source": "simple_god_message(\" wrath scatters you!\", true, god);"
+      },
+      {
+        "line": 944,
+        "source": "simple_god_message(\" draws you home!\", false, god);"
+      },
+      {
+        "line": 1004,
+        "source": "simple_god_message(\" sends minions to punish you.\", false, god);"
+      },
+      {
+        "line": 1006,
+        "source": "simple_god_message(\" minions fail to arrive.\", true, god);"
+      },
+      {
+        "line": 1093,
+        "source": "simple_god_message(\" has no time to deal with you just now.\", false,"
+      },
+      {
+        "line": 1101,
+        "source": "simple_god_message(\" has no time to deal with you just now.\", false,"
+      },
+      {
+        "line": 1117,
+        "source": "simple_god_message(\" makes you draw from the deck of Punishment.\", false,"
+      },
+      {
+        "line": 1129,
+        "source": "god_speaks(god, \"You feel Jiyva alter your body.\");"
+      },
+      {
+        "line": 1142,
+        "source": "god_speaks(god, \"Mutagenic energy floods into your body!\");"
+      },
+      {
+        "line": 1177,
+        "source": "god_speaks(god, success ? \"Some slimes ooze up out of the ground!\""
+      },
+      {
+        "line": 1207,
+        "source": "god_speaks(GOD_FEDHAS, \"Fedhas booms out: Become one with the cycle of life!\");"
+      },
+      {
+        "line": 1279,
+        "source": "god_speaks(god, \"Plants grow around you in an ominous manner.\");"
+      },
+      {
+        "line": 1351,
+        "source": "simple_god_message(count ? \" weaves the shadows around you into monsters.\""
+      },
+      {
+        "line": 1370,
+        "source": "simple_god_message(shadow ? \" turns your shadow against you.\""
+      },
+      {
+        "line": 1380,
+        "source": "god_speaks(god, \"You feel overwhelmed by the shadows around you.\");"
+      },
+      {
+        "line": 1385,
+        "source": "simple_god_message(\" tears the darkness away from you.\", false, god);"
+      },
+      {
+        "line": 1436,
+        "source": "simple_god_message(\" incites the elements against you!\", false,"
+      },
+      {
+        "line": 1441,
+        "source": "simple_god_message(\" fails to incite the elements against you.\", false,"
+      },
+      {
+        "line": 1451,
+        "source": "simple_god_message(\" strips away your elemental protection.\", false, GOD_QAZLAL);"
+      },
+      {
+        "line": 1467,
+        "source": "mprf(MSGCH_WARN, \"Your %s grows more durable.\", bane_name(bane).c_str());"
+      },
+      {
+        "line": 1485,
+        "source": "simple_god_message(\" causes a mighty clap of thunder!\", false,"
+      },
+      {
+        "line": 1574,
+        "source": "simple_god_message(\" divine weapons fail to arrive.\", true, god);"
+      },
+      {
+        "line": 1591,
+        "source": "god_speaks(god, msg.c_str());"
+      },
+      {
+        "line": 1594,
+        "source": "simple_god_message(\" divine wrath fails to arrive.\", true, god);"
+      },
+      {
+        "line": 1604,
+        "source": "simple_god_message(\" burns the ground from beneath your feet!\", false,"
+      },
+      {
+        "line": 1674,
+        "source": "simple_god_message(make_stringf(\" anoints %s as %s of \""
+      },
+      {
+        "line": 1680,
+        "source": "mprf(\"%s %s shrouded in protective flame, covering ground quickly, and attacking fiercely!\","
+      },
+      {
+        "line": 1722,
+        "source": "simple_god_message(make_stringf(\" drives %s into a dance frenzy!\","
+      },
+      {
+        "line": 1734,
+        "source": "simple_god_message(\" booms out: Time for someone else to take a \""
+      },
+      {
+        "line": 1743,
+        "source": "simple_god_message(\" booms out: Revellers, it's time to dance!\","
+      },
+      {
+        "line": 1807,
+        "source": "mprf(MSGCH_DIAGNOSTICS, \"No retribution defined for %s.\","
+      },
+      {
+        "line": 1849,
+        "source": "god_speaks(GOD_SHINING_ONE, message);"
+      },
+      {
+        "line": 1851,
+        "source": "simple_god_message(\" blasts you with cleansing flame!\", false,"
+      },
+      {
+        "line": 1884,
+        "source": "god_speaks(god, message);"
+      },
+      {
+        "line": 1891,
+        "source": "simple_god_message(\" smites you!\", false, god);"
+      }
+    ],
+    "god-conduct.cc": [
+      {
+        "line": 184,
+        "source": "simple_god_message(forgiveness_message);"
+      },
+      {
+        "line": 196,
+        "source": "simple_god_message(\" is not enthusiastic about the \""
+      },
+      {
+        "line": 203,
+        "source": "simple_god_message(\" does not appreciate the extra \""
+      },
+      {
+        "line": 210,
+        "source": "simple_god_message(message);"
+      },
+      {
+        "line": 512,
+        "source": "simple_god_message(message);"
+      },
+      {
+        "line": 655,
+        "source": "mprf(MSGCH_GOD, \"With your torch unlit, %s soul goes wasted...\","
+      },
+      {
+        "line": 661,
+        "source": "mprf(MSGCH_GOD, \"%s %ssoul becomes fuel for the torch.\","
+      },
+      {
+        "line": 857,
+        "source": "simple_god_message(\" thoroughly appreciates the change of pace.\");"
+      },
+      {
+        "line": 861,
+        "source": "simple_god_message(\" appreciates the change of pace.\");"
+      }
+    ],
+    "mutation.cc": [
+      {
+        "line": 1383,
+        "source": "mprf(\"You can no longer %s %s!\","
+      },
+      {
+        "line": 1391,
+        "source": "mprf(\"%s is forced from your body%s!\","
+      },
+      {
+        "line": 1397,
+        "source": "mprf(\"%s falls away%s!\", item->name(DESC_YOUR).c_str(),"
+      },
+      {
+        "line": 1523,
+        "source": "simple_god_message(msg.c_str());"
+      },
+      {
+        "line": 1871,
+        "source": "simple_god_message(\" protects your body from mutation!\");"
+      },
+      {
+        "line": 1945,
+        "source": "mprf(MSGCH_MUTATION, \"Your %s mutation feels more permanent.\","
+      },
+      {
+        "line": 2004,
+        "source": "mprf(MSGCH_MUTATION, \"%s\","
+      },
+      {
+        "line": 2017,
+        "source": "mprf(MSGCH_MUTATION, \"%s\","
+      },
+      {
+        "line": 2042,
+        "source": "mprf(MSGCH_MUTATION, \"%s\", mdef.gain[cur_base_level - 1]);"
+      },
+      {
+        "line": 2255,
+        "source": "mprf(MSGCH_MUTATION, \"%s\", mdef.lose[you.mutation[mutat]]);"
+      },
+      {
+        "line": 2446,
+        "source": "mprf(MSGCH_ERROR, \"Found no temp mutations, clearing.\");"
+      },
+      {
+        "line": 3515,
+        "source": "mprf(MSGCH_WARN, \"You are stricken with the %s.\", bane_name(bane).c_str());"
+      },
+      {
+        "line": 3517,
+        "source": "mprf(MSGCH_WARN, \"Your %s grows stronger.\", bane_name(bane).c_str());"
+      },
+      {
+        "line": 3532,
+        "source": "mprf(MSGCH_RECOVERY, \"The %s upon you is lifted.\", bane_name(bane).c_str());"
+      }
+    ],
+    "ability.cc": [
+      {
+        "line": 1659,
+        "source": "mprf(MSGCH_ERROR, \"Lua error: %s\", clua.error.c_str());"
+      },
+      {
+        "line": 1747,
+        "source": "mpr(reason);"
+      },
+      {
+        "line": 1846,
+        "source": "mprf(\"You cannot call out to %s while %s.\","
+      },
+      {
+        "line": 1854,
+        "source": "mprf(\"You cannot speak a word of chaos while %s.\", player_silenced_reason());"
+      },
+      {
+        "line": 1885,
+        "source": "if (!yesno(prompt.c_str(), false, 'n'))"
+      },
+      {
+        "line": 2171,
+        "source": "mprf(\"In %d experience levels, you will have learned enough to \""
+      },
+      {
+        "line": 2216,
+        "source": "mpr(ZhMessage{\"\", reason.canonical, reason.localized});"
+      },
+      {
+        "line": 2276,
+        "source": "mpr(ZhMessage{\"\", no_tele_reason.canonical, no_tele_reason.localized});"
+      },
+      {
+        "line": 2337,
+        "source": "mprf(\"%s is still trapped in memory!\","
+      },
+      {
+        "line": 2381,
+        "source": "mprf(\"You cannot wall jump while caught in a %s.\","
+      },
+      {
+        "line": 2431,
+        "source": "mpr(reason.c_str());"
+      },
+      {
+        "line": 2497,
+        "source": "mpr(reason.c_str());"
+      },
+      {
+        "line": 2509,
+        "source": "mpr(reason.c_str());"
+      },
+      {
+        "line": 3052,
+        "source": "&& !yesno(\"There are no victims visible. Siphon anyway?\", true, 'n'))"
+      },
+      {
+        "line": 3262,
+        "source": "if (yesno(\"Are you sure you want to shaft yourself?\", true, 'n'))"
+      },
+      {
+        "line": 3321,
+        "source": "mprf(MSGCH_WARN, \"%s forbids using such a weapon!\","
+      },
+      {
+        "line": 3507,
+        "source": "simple_god_message(\" will bless one of your weapons.\");"
+      },
+      {
+        "line": 3524,
+        "source": "simple_god_message(\" will bloody one of your weapons with pain.\");"
+      },
+      {
+        "line": 3572,
+        "source": "mprf(\"You attempt to bind %s soul, but %s is merely a clone!\","
+      },
+      {
+        "line": 3584,
+        "source": "mprf(\"You wrap your dark will around %s soul!\","
+      },
+      {
+        "line": 3591,
+        "source": "mprf(MSGCH_DURATION, you.duration[DUR_HEROISM]"
+      },
+      {
+        "line": 3607,
+        "source": "mprf(MSGCH_DURATION, \"%s\","
+      },
+      {
+        "line": 3791,
+        "source": "simple_god_message(\" will brand one of your weapons with the \""
+      },
+      {
+        "line": 3879,
+        "source": "mprf(MSGCH_DURATION, \"A thick mucus forms on %s.\", msg.c_str());"
+      },
+      {
+        "line": 4063,
+        "source": "if (yesno(\"Really renounce your faith, foregoing its fabulous benefits?\","
+      },
+      {
+        "line": 4065,
+        "source": "&& yesno(\"Are you sure?\", false, 'n'))"
+      },
+      {
+        "line": 4106,
+        "source": "mprf(\"Now building '%s'\", dungeon_feature_name(feat));"
+      }
+    ],
+    "player-stats.cc": [
+      {
+        "line": 84,
+        "source": "mpr(stat_gain_message, MSGCH_INTRINSIC_GAIN);"
+      },
+      {
+        "line": 415,
+        "source": "mprf(MSGCH_ERROR, \"Bad stat: %d\", stat);"
+      }
+    ]
+  },
+  "limitations": [
+    "Not a module-wide completion claim; raw-call inventory contains diagnostics/canonical APIs as well as remaining player messages.",
+    "General mutation_def gain/lose level arrays and body-part substitutions remain outside this batch.",
+    "Canonical ability details / costs / names APIs retain English; display-only menu path is new.",
+    "Complex curse, sacrifice and card costs intentionally force a complete canonical talent row; unsupported ability/god names also force whole-parent fallback.",
+    "god_power::display and external god_speaks database protocol, follower/ancestor logs, dynamic god-wrath/conduct messages beyond kill response remain.",
+    "god_prayer_reaction remains canonical for chardump.",
+    "Native full build, saved-game screenshots and Linux validation must be run by root."
+  ],
+  "title_alignment": {
+    "change": "Replace ambiguous-width double em dash by fullwidth colon in both Chinese ability menu titles; no canonical change",
+    "columns": {
+      "cost": 36,
+      "failure": 68
+    },
+    "prefix_widths": {
+      "title_indent": 1,
+      "talent_hotkey": 5
+    },
+    "tests": "Production utf8towc/strwidth/chop_string extracted from unicode.cc; both title modes assert equal display columns with actual menu prefixes"
+  }
+}

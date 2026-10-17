@@ -48,6 +48,16 @@ void mpr(const ZhMessage &message, msg_channel_type channel, int param)
     _mpr(message.canonical, channel, param, false, true, message.localized);
 }
 
+void mpr_nojoin(msg_channel_type channel, const ZhMessage &message)
+{
+    _mpr(message.canonical, channel, 0, true, true, message.localized);
+}
+
+void mpr_nocap(const ZhMessage &message, msg_channel_type channel, int param)
+{
+    _mpr(message.canonical, channel, param, false, false, message.localized);
+}
+
 void mpr_nojoin(msg_channel_type channel, string text)
 {
     _mpr(text, channel, 0, true);

@@ -34,11 +34,11 @@ spret cast_sublimation_of_blood(int pow, bool fail)
     bool success = false;
 
     if (you.duration[DUR_DEATHS_DOOR])
-        mpr("You can't draw power from your own body while in death's door.");
+        mpr(zh_message("sol61.combat.blood.death_door"));
     else if (!you.has_blood())
-        mpr("Your body is bloodless.");
+        mpr(zh_message("sol61.combat.blood.bloodless"));
     else if (!enough_hp(2, true))
-        mpr("Your attempt to draw power from your own body fails.");
+        mpr(zh_message("sol61.combat.blood.fail"));
     else
     {
         // Take at most 90% of currhp.
@@ -60,9 +60,9 @@ spret cast_sublimation_of_blood(int pow, bool fail)
                 break;
         }
         if (success)
-            mpr("You draw magical energy from your own body!");
+            mpr(zh_message("sol61.combat.blood.success"));
         else
-            mpr("Your attempt to draw power from your own body fails.");
+            mpr(zh_message("sol61.combat.blood.fail"));
     }
 
     return success ? spret::success : spret::abort;
@@ -71,7 +71,7 @@ spret cast_sublimation_of_blood(int pow, bool fail)
 spret cast_death_channel(int pow, god_type god, bool fail)
 {
     fail_check();
-    mpr("Malign forces permeate your being, awaiting release.");
+    mpr(zh_message("sol61.combat.death_channel"));
 
     you.increase_duration(DUR_DEATH_CHANNEL,
                           30 + random2(1 + div_rand_round(2 * pow, 3)), 200);
@@ -106,9 +106,9 @@ spret cast_animate_dead(int pow, bool fail)
     fail_check();
 
     if (_dismiss_dead())
-        mpr("You dismiss your zombies and call upon the dead to rise afresh.");
+        mpr(zh_message("sol61.combat.animate.refresh"));
     else
-        mpr("You call upon the dead to rise.");
+        mpr(zh_message("sol61.combat.animate.call"));
 
     you.increase_duration(DUR_ANIMATE_DEAD, 20 + random2(1 + pow), 100);
     you.props[ANIMATE_DEAD_POWER_KEY] = pow;

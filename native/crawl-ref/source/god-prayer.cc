@@ -1,4 +1,5 @@
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "god-prayer.h"
 
@@ -51,19 +52,22 @@ string god_prayer_reaction()
 
 static bool _prompt_ecu_worship(const vector<god_type> &gods)
 {
-    vector<string> god_name_list;
+    vector<ZhArg> god_name_list;
     for (size_t i = 0; i < gods.size(); ++i)
     {
-        god_name_list.push_back(make_stringf("(%c) %s", char('a' + i),
-                                             god_name(gods[i]).c_str()));
+        god_name_list.push_back(zh_message_arg("choice", "character.prayer.god_choice",
+            {zh_key("key", string(1, char('a' + i))),
+             zh_glossary_name("god", "character.god.name", god_name(gods[i]))}));
     }
-    const string god_names = comma_separated_line(god_name_list.begin(),
-                                                  god_name_list.end(), " or ");
+    ZhArg god_names = zh_message_list("gods", god_name_list);
+    vector<string> canonical_names;
+    for (const auto &choice : god_name_list)
+        canonical_names.push_back(choice.canonical);
+    god_names.canonical = comma_separated_line(canonical_names.begin(),
+                                             canonical_names.end(), " or ");
     // This should be a proper menu, but I absolutely cannot be bothered with
     // webtiles menu code.
-    mprf(MSGCH_PROMPT, "This altar belongs to %s, but you can't tell which.\n"
-         "Press the corresponding letter to learn more about a god, "
-         "or press enter to convert or escape to cancel.", god_names.c_str());
+    mpr(zh_message("character.prayer.ecumenical", {god_names}), MSGCH_PROMPT);
     while (true) {
         flush_prev_message();
         int ch = getch_ck();
@@ -96,9 +100,9 @@ static bool _pray_ecumenical_altar()
         return false;
     }
     if (!you_worship(GOD_NO_GOD)
-        && !yesno(make_stringf("Really abandon %s for an unknown god?",
-                               god_name(you.religion).c_str()).c_str(),
-                               false, 'n'))
+        && !yesno(zh_message("character.prayer.abandon_unknown",
+                  {zh_glossary_name("god", "character.god.name", god_name(you.religion))}),
+                  false, 'n'))
     {
         canned_msg(MSG_OK);
         return false;
@@ -118,8 +122,8 @@ static bool _pray_ecumenical_altar()
             return true;
         }
 
-        mprf(MSGCH_GOD, "%s accepts your prayer!",
-                        god_name(altar_god).c_str());
+        mpr(zh_message("character.prayer.accepted",
+            {zh_glossary_name("god", "character.god.name", god_name(altar_god))}), MSGCH_GOD);
         if (you_worship(altar_god))
             return true;
         join_religion(altar_god);
@@ -149,7 +153,7 @@ void try_god_conversion(god_type god)
 
     if (you.has_mutation(MUT_FORLORN))
     {
-        mpr("A being of your status worships no god.");
+        mpr(zh_message("character.fixed.85be993e27e4"));
         return;
     }
 
@@ -170,9 +174,9 @@ void try_god_conversion(god_type god)
     else
     {
         // Already worshipping this god - just print a message.
-        mprf(MSGCH_GOD, "You offer a %sprayer to %s.",
-             you.cannot_speak() ? "silent " : "",
-             god_name(god).c_str());
+        mpr(zh_message(you.cannot_speak()
+                ? "character.prayer.offer_silent" : "character.prayer.offer",
+            {zh_glossary_name("god", "character.god.name", god_name(god))}), MSGCH_GOD);
     }
 }
 
@@ -200,7 +204,7 @@ int zin_tithe(const item_def& item, int quant, bool converting)
         }
         taken = tithe;
         you.attribute[ATTR_DONATIONS] += tithe;
-        mprf("You pay a tithe of %d gold.", tithe);
+        mpr(zh_message("character.prayer.tithe", {zh_integer("gold", tithe)}));
 
         if (item.tithe_state == TS_NO_PIETY) // seen before worshipping Zin
         {

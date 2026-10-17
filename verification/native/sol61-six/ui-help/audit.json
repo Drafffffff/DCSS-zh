@@ -1,0 +1,82 @@
+{
+  "scope": "complete doll-editor view plus enhanced/reduced skill help cause chain; audit existing HUD/help boundaries only",
+  "status": "producer-tests-passed; parent build and copied-save 4K UI pending",
+  "model": "gpt-6.1-sol",
+  "reviewer_model": "gpt-6.1-sol",
+  "native_baseline": "cc710081cd3f163eabf78c65b9144e040ef30aa8",
+  "new_message_count": 40,
+  "doll_legacy_calls_before": 17,
+  "doll_legacy_calls_after": 0,
+  "tests": {
+    "doll_render_scenarios": 576,
+    "doll_save_scenarios": 16,
+    "skill_help_branch_cases": 147456,
+    "hud_field_cases": 160,
+    "font_metrics": [
+      [
+        8,
+        16
+      ],
+      [
+        12,
+        24
+      ],
+      [
+        24,
+        40
+      ],
+      [
+        32,
+        56
+      ]
+    ],
+    "wrap_widths": [
+      20,
+      78,
+      100,
+      158
+    ],
+    "raw_parser_regression_cases": 30,
+    "commands": [
+      "python3 tools/test_sol61_ui_help.py",
+      "python3 tools/test_skill_menu_layout.py",
+      "python3 tools/test_pretranslated_rendering.py",
+      "python3 tools/test_hud_layout.py",
+      "git -C native diff --check -- crawl-ref/source/tilereg-doll.cc crawl-ref/source/skill-menu.cc"
+    ],
+    "result": "PASS"
+  },
+  "private_temporary_catalog": true,
+  "shared_catalog_generated": false,
+  "full_build_performed": false,
+  "ui_performed": false,
+  "source_saves_written": false,
+  "remaining_explicit_legacy_calls": {
+    "output.cc": 12,
+    "command.cc": 4
+  },
+  "fallbacks": [
+    {
+      "parent_id": "skill.menu.enhanced",
+      "case": "future non-Ashenzari bondage passive provider",
+      "behaviour": "complete canonical sentence, missing-parameter report verified"
+    },
+    {
+      "parent_id": "hud.place.depth",
+      "case": "unknown branch semantic name",
+      "behaviour": "complete canonical field, missing-parameter report verified"
+    }
+  ],
+  "sha256": {
+    "native/crawl-ref/source/tilereg-doll.cc": "e8fe052e0ef8bfb62ad55b678ae700cb48a1e2e1c7e7619084281c2f879165f4",
+    "native/crawl-ref/source/skill-menu.cc": "1dd6103853b838859ab6bed7fe171f2e5de28af2a151cd7f7451c20185a8d99d",
+    "localization/migration/luna-sol61-ui-help-messages.json": "c686bae803210ae9a6630f5c05646e6876bd1d18b709517ec51cf8fb2687f113",
+    "tools/test_sol61_ui_help.py": "5f25db1fa59a2410a80fcdf37ce200d9ae03180d6b49f9049debcc2054330f3b",
+    "tools/fixtures/sol61-ui-help-english.json": "29308783f6469bf0e2445bea91b76331bced0108c24c6360b1441944d8c24414"
+  },
+  "dependencies": [
+    "Parent must generate final shared catalog from all six work packages",
+    "Parent Mac/Linux Tiles/console build and copied-save 4K screenshots",
+    "No claim of completion for output.cc, hints.cc, tutorial.cc, command.cc, lookup-help.cc or all skill-menu.cc"
+  ]
+}

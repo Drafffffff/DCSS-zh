@@ -1,4 +1,5 @@
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "player-stats.h"
 
@@ -77,25 +78,24 @@ bool attribute_increase()
 
     const int statgain = you.has_mutation(MUT_DIVINE_ATTRS) ? 4 : 2;
 
-    const string stat_gain_message = make_stringf("Your experience leads to a%s "
-                                                  "increase in your attributes!",
-                                                  (statgain > 2) ?
-                                                  " dramatic" : "n");
+    const ZhMessage stat_gain_message = zh_message(statgain > 2
+        ? "character.stats.experience_dramatic" : "character.stats.experience");
     crawl_state.stat_gain_prompt = true;
-    mprf(MSGCH_INTRINSIC_GAIN, "%s", stat_gain_message.c_str());
+    mpr(stat_gain_message, MSGCH_INTRINSIC_GAIN);
     learned_something_new(HINT_CHOOSE_STAT);
     if (innate_stat(STAT_STR) != you.strength()
         || innate_stat(STAT_INT) != you.intel()
         || innate_stat(STAT_DEX) != you.dex())
     {
-        mprf(MSGCH_PROMPT, "Your base attributes are Str %d, Int %d, Dex %d.",
-             innate_stat(STAT_STR),
-             innate_stat(STAT_INT),
-             innate_stat(STAT_DEX));
+        mpr(zh_message("character.stats.base",
+            {zh_integer("str", innate_stat(STAT_STR)),
+             zh_integer("int", innate_stat(STAT_INT)),
+             zh_integer("dex", innate_stat(STAT_DEX))}), MSGCH_PROMPT);
     }
-    mprf(MSGCH_PROMPT, need_caps
-        ? "Increase (S)trength, (I)ntelligence, or (D)exterity? "
-        : "Increase (s)trength, (i)ntelligence, or (d)exterity? ");
+    mpr(zh_message("character.stats.choose",
+        {zh_key("str", need_caps ? "S" : "s"),
+         zh_key("int", need_caps ? "I" : "i"),
+         zh_key("dex", need_caps ? "D" : "d")}), MSGCH_PROMPT);
     mouse_control mc(MOUSE_MODE_PROMPT);
 
     bool tried_lua = false;
@@ -152,7 +152,7 @@ bool attribute_increase()
         case 's':
         case 'i':
         case 'd':
-            mprf(MSGCH_PROMPT, "Uppercase letters only, please.");
+            mpr(zh_message("character.fixed.7661209f7ace"), MSGCH_PROMPT);
             break;
         }
     }
@@ -170,6 +170,28 @@ const char* stat_desc(stat_type stat, stat_desc_type desc)
     return descs[stat][desc];
 }
 
+static ZhMessage _stat_change_message(stat_type stat, bool positive)
+{
+    const char *ids[NUM_STATS][2] = {
+        {"character.mutation.stat.str_down", "character.mutation.stat.str_up"},
+        {"character.mutation.stat.int_down", "character.mutation.stat.int_up"},
+        {"character.mutation.stat.dex_down", "character.mutation.stat.dex_up"}
+    };
+    ASSERT_RANGE(stat, 0, NUM_STATS);
+    return zh_message(ids[stat][positive ? 1 : 0]);
+}
+
+static ZhArg _stat_name_arg(stat_type stat)
+{
+    switch (stat)
+    {
+    case STAT_STR: return zh_message_arg("stat", "character.stats.name.str");
+    case STAT_INT: return zh_message_arg("stat", "character.stats.name.int");
+    case STAT_DEX: return zh_message_arg("stat", "character.stats.name.dex");
+    default: return zh_text("stat", stat_desc(stat, SD_NAME), stat_desc(stat, SD_NAME));
+    }
+}
+
 void modify_stat(stat_type which_stat, int amount, bool suppress_msg)
 {
     ASSERT(!crawl_state.game_is_arena());
@@ -183,9 +205,8 @@ void modify_stat(stat_type which_stat, int amount, bool suppress_msg)
 
     if (!suppress_msg)
     {
-        mprf((amount > 0) ? MSGCH_INTRINSIC_GAIN : MSGCH_WARN,
-             "You feel %s.",
-             stat_desc(which_stat, (amount > 0) ? SD_INCREASE : SD_DECREASE));
+        mpr(_stat_change_message(which_stat, amount > 0),
+            amount > 0 ? MSGCH_INTRINSIC_GAIN : MSGCH_WARN);
     }
 
     you.base_stats[which_stat] += amount;
@@ -206,9 +227,8 @@ void notify_stat_change(stat_type which_stat, int amount, bool suppress_msg)
 
     if (!suppress_msg)
     {
-        mprf((amount > 0) ? MSGCH_INTRINSIC_GAIN : MSGCH_WARN,
-             "You feel %s.",
-             stat_desc(which_stat, (amount > 0) ? SD_INCREASE : SD_DECREASE));
+        mpr(_stat_change_message(which_stat, amount > 0),
+            amount > 0 ? MSGCH_INTRINSIC_GAIN : MSGCH_WARN);
     }
 
     _handle_stat_change(which_stat);
@@ -407,14 +427,13 @@ static void _handle_stat_change(stat_type stat)
     if (val <= 0 && !was_zero)
     {
         // Notify the player and make the penalty explicit.
-        mprf(MSGCH_WARN, "You have lost all your %s. It will be difficult to act "
-                         "quickly in this state!", stat_desc(stat, SD_NAME));
+        mpr(zh_message("character.stats.zero", {_stat_name_arg(stat)}), MSGCH_WARN);
 
         you.attribute[ATTR_STAT_ZERO] |= 1 << (int)stat;
     }
     else if (was_zero && val > 0)
     {
-        mprf(MSGCH_RECOVERY, "You have recovered your %s.", stat_desc(stat, SD_NAME));
+        mpr(zh_message("character.stats.recovered", {_stat_name_arg(stat)}), MSGCH_RECOVERY);
         you.attribute[ATTR_STAT_ZERO] &= ~(1 << (int)stat);
     }
 

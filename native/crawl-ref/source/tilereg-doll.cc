@@ -12,7 +12,7 @@
 #include "tilefont.h"
 #include "tilepick-p.h"
 #include "ui.h"
-#include "zh-localization.h"
+#include "zh-message.h"
 
 using namespace ui;
 
@@ -83,21 +83,68 @@ static int _get_next_part(int cat, int part, int inc)
 
 namespace
 {
-const char *doll_commands[][4] = {
-    { "Change parts", "←/→", "Confirm choice", "Enter" },
-    { "Change category", "↑/↓", "Copy doll", "Ctrl-C" },
-    { "Change doll", "0-9, Shift+←/→", "Paste copied doll", "Ctrl-V" },
-    { "Change doll mode", "m", "Randomise doll", "Ctrl-R" },
-    { "Save menu", "Esc, Ctrl-S", "Toggle equipment", "*" },
-    { "Quit menu", "q, Ctrl-Q", "", "" },
+// IDs are selected by semantic slot, never by the finished English label.
+const char *doll_command_ids[][2] = {
+    { "sol61.ui.doll.change_parts", "sol61.ui.doll.confirm_choice" },
+    { "sol61.ui.doll.change_category", "sol61.ui.doll.copy" },
+    { "sol61.ui.doll.change_doll", "sol61.ui.doll.paste" },
+    { "sol61.ui.doll.change_mode", "sol61.ui.doll.randomise" },
+    { "sol61.ui.doll.save", "sol61.ui.doll.toggle_equip" },
+    { "sol61.ui.doll.quit", nullptr },
 };
-const char *doll_categories[TILEP_PART_MAX] = {
-    "Base", "Shadow", "Halo", "Ench", "Cloak", "Boots", "Legs", "Body",
-    "Gloves", "LHand", "RHandWpn", "RHand", "Hair", "Beard", "Helm", "DrcWing"
+// Key bindings are immutable display structure, separate from labels.
+const char *doll_keys[][2] = {
+    { "←/→", "Enter" }, { "↑/↓", "Ctrl-C" },
+    { "0-9, Shift+←/→", "Ctrl-V" }, { "m", "Ctrl-R" },
+    { "Esc, Ctrl-S", "*" }, { "q, Ctrl-Q", "" },
 };
-const char *doll_modes[TILEP_MODE_MAX] = {
-    "Current Equipment", "Custom Doll", "Job Defaults"
+const char *doll_category_ids[TILEP_PART_MAX] = {
+    "sol61.ui.doll.base", "sol61.ui.doll.shadow", "sol61.ui.doll.halo",
+    "sol61.ui.doll.ench", "sol61.ui.doll.cloak", "sol61.ui.doll.boots",
+    "sol61.ui.doll.legs", "sol61.ui.doll.body", "sol61.ui.doll.gloves",
+    "sol61.ui.doll.lhand", "sol61.ui.doll.rhandwpn", "sol61.ui.doll.rhand",
+    "sol61.ui.doll.hair", "sol61.ui.doll.beard", "sol61.ui.doll.helm",
+    "sol61.ui.doll.drcwing"
 };
+const char *doll_mode_ids[TILEP_MODE_MAX] = {
+    "sol61.ui.doll.current_equipment", "sol61.ui.doll.custom_doll",
+    "sol61.ui.doll.job_defaults"
+};
+const char *doll_preview_ids[] = {
+    "sol61.ui.doll.custom", "sol61.ui.doll.default", "sol61.ui.doll.equip"
+};
+string doll_command_text(int row, int col)
+{
+    if (col % 2)
+        return zh_key("key", doll_keys[row][col / 2]).canonical;
+    const char *id = doll_command_ids[row][col / 2];
+    return id ? zh_message(id).display() : "";
+}
+ZhArg doll_part_value(int category, int part)
+{
+    if (part == TILEP_SHOW_EQUIP || !part)
+        return zh_message_arg("value", part == TILEP_SHOW_EQUIP
+            ? "sol61.ui.doll.show_equip" : "sol61.ui.doll.none");
+    return zh_message_arg("value", "sol61.ui.doll.part_number", {
+        zh_integer("part", part - tile_player_part_start[category] + 1),
+        zh_integer("count", tile_player_part_count[category])});
+}
+ZhMessage doll_part_message(int category, int part)
+{
+    return zh_message("sol61.ui.doll.part", {
+        zh_message_arg("category", doll_category_ids[category]),
+        doll_part_value(category, part)});
+}
+ZhMessage doll_index_message(int index)
+{
+    return zh_message("sol61.ui.doll.index", {
+        zh_integer("index", index), zh_integer("max", NUM_MAX_DOLLS - 1)});
+}
+ZhMessage doll_mode_message(tile_doll_mode mode)
+{
+    return zh_message("sol61.ui.doll.mode", {
+        zh_message_arg("mode", doll_mode_ids[mode])});
+}
 struct DollLayout
 {
     int cell, line, gap, left, info, footer, width, height;
@@ -112,22 +159,34 @@ DollLayout doll_layout(FontWrapper *font)
     l.line = font->char_height() + 4;
     l.gap = max(12, l.line);
     int minimum_cell = font->char_height() * 3 / 2;
-    for (const char *label : { "Custom", "Default", "Equip" })
-        minimum_cell = max(minimum_cell, (width(zh_translate(label)) + 1) / 2);
+    for (const char *id : doll_preview_ids)
+        minimum_cell = max(minimum_cell,
+                           (width(zh_message(id).display()) + 1) / 2);
     // Tile transforms always use an integer multiple of the original 32px.
     l.cell = max(32, (minimum_cell + 31) / 32 * 32);
-    l.left = max(10 * l.cell, width(zh_translate("Doll index %d / %d")) + 6 * static_cast<int>(font->char_width()));
-    for (const char *mode : doll_modes)
-        l.left = max(l.left, width(zh_translate("Doll Mode: %s")) + width(zh_translate(mode)));
-    int category_width = 0;
-    for (const char *category : doll_categories)
-        category_width = max(category_width, width(zh_translate(category)));
-    l.info = category_width + width(" -> : ") + max(width(zh_translate("(show equip)")), width("99999/99999"));
+    l.left = max(10 * l.cell,
+                 width(doll_index_message(NUM_MAX_DOLLS - 1).display()));
+    for (int mode = 0; mode < TILEP_MODE_MAX; ++mode)
+        l.left = max(l.left,
+                     width(doll_mode_message(tile_doll_mode(mode)).display()));
+    // Measure the complete strings that render() draws, including punctuation
+    // and all value variants. No printf placeholders or translated fragments.
+    l.info = 0;
+    for (int cat = 0; cat < TILEP_PART_MAX; ++cat)
+        for (int part : {0, static_cast<int>(TILEP_SHOW_EQUIP),
+                        static_cast<int>(tile_player_part_start[cat]
+                                         + tile_player_part_count[cat] - 1)})
+        {
+            const int part_width = width(doll_part_message(cat, part).display());
+            l.left = max(l.left, part_width);
+            l.info = max(l.info, max(width("-> "), width("   ")) + part_width);
+        }
     l.footer = max(7 * l.cell + 4 * l.line, TILEP_PART_MAX * l.line) + l.gap;
     int column_widths[4] = {};
-    for (const auto &row : doll_commands)
+    for (int row = 0; row < 6; ++row)
         for (int col = 0; col < 4; ++col)
-            column_widths[col] = max(column_widths[col], width(col % 2 ? string(row[col]) : zh_translate(row[col])));
+            column_widths[col] = max(column_widths[col],
+                                     width(doll_command_text(row, col)));
     int command_width = 0;
     for (int col = 0; col < 4; ++col)
     {
@@ -223,10 +282,9 @@ void DollEditRegion::render()
     m_shape_buf.add(left_gutter + 5, edit_doll_line, left_gutter + 6, edit_doll_line + 1, grey);
     m_shape_buf.add(left_gutter + 7, edit_doll_line, left_gutter + 8, edit_doll_line + 1, grey);
     {
-        const char *labels[] = { "Custom", "Default", "Equip" };
         for (int i = 0; i < 3; ++i)
         {
-            const string label = zh_translate(labels[i]);
+            const string label = zh_message(doll_preview_ids[i]).display();
             const float label_x = (left_gutter + 3.5f + 2 * i) * cell
                                 - m_font->string_width(label.c_str()) / 2.0f;
             m_font_buf.add(label, VColour::white, label_x,
@@ -273,10 +331,7 @@ void DollEditRegion::render()
 
     m_cur_buf.draw();
 
-    // Add text.
-    const char *part_name = "(none)";
-    if (m_part_idx == TILEP_SHOW_EQUIP)
-        part_name = "(show equip)";
+    // Add text from the same producers used by doll_layout().
 
 
     {
@@ -285,23 +340,17 @@ void DollEditRegion::render()
         glmanager->set_transform(trans, scale);
     }
 
-    string item_str = zh_translate(doll_categories[m_cat_idx]) + ": "
-                    + (m_part_idx && m_part_idx != TILEP_SHOW_EQUIP
-                       ? make_stringf("%d/%d", static_cast<int>(m_part_idx - tile_player_part_start[m_cat_idx] + 1),
-                                      tile_player_part_count[m_cat_idx])
-                       : zh_translate(part_name));
+    const string item_str = doll_part_message(m_cat_idx, m_part_idx).display();
     float item_name_x = left_gutter * static_cast<float>(cell);
     float item_name_y = (item_line + 1) * static_cast<float>(cell);
     m_font_buf.add(item_str, VColour::white, item_name_x, item_name_y);
 
-    string doll_name;
-    doll_name = make_stringf(zh_translate("Doll index %d / %d").c_str(), m_doll_idx, NUM_MAX_DOLLS - 1);
+    string doll_name = doll_index_message(m_doll_idx).display();
     float doll_name_x = left_gutter * static_cast<float>(cell);
     float doll_name_y = (doll_line + 1) * static_cast<float>(cell);
     m_font_buf.add(doll_name, VColour::white, doll_name_x, doll_name_y);
 
-    doll_name = make_stringf(zh_translate("Doll Mode: %s").c_str(),
-                             zh_translate(doll_modes[m_mode]).c_str());
+    doll_name = doll_mode_message(m_mode).display();
     doll_name_y += layout.line * 2.0f;
     m_font_buf.add(doll_name, VColour::white, doll_name_x, doll_name_y);
 
@@ -313,17 +362,8 @@ void DollEditRegion::render()
     for (int i = 0 ; i < TILEP_PART_MAX; i++)
     {
         int part = m_dolls[m_doll_idx].parts[i];
-        int disp = part;
-        if (disp)
-            disp = disp - tile_player_part_start[i] + 1;
-        int maxp = tile_player_part_count[i];
-
-        const string category = zh_translate(doll_categories[i]);
-        const string value = part == TILEP_SHOW_EQUIP ? zh_translate("(show equip)")
-                           : !part ? zh_translate("(none)")
-                           : make_stringf("%d/%d", disp, maxp);
         const string prefix = m_cat_idx == i ? "-> " : "   ";
-        info_str = prefix + category + ": " + value;
+        info_str = prefix + doll_part_message(i, part).display();
         m_font_buf.add(info_str, VColour::white, info_x, info_y);
         info_y += layout.line;
     }
@@ -332,8 +372,7 @@ void DollEditRegion::render()
     // neither a reliable pixel width nor suitable for full-width CJK glyphs.
     for (int row = 0; row < 6; ++row)
         for (int col = 0; col < 4; ++col)
-            m_font_buf.add(col % 2 ? string(doll_commands[row][col])
-                                       : zh_translate(doll_commands[row][col]), VColour::white,
+            m_font_buf.add(doll_command_text(row, col), VColour::white,
                            layout.command_x[col], layout.footer + row * layout.line);
 
     m_font_buf.draw();
@@ -409,7 +448,8 @@ void DollEditRegion::run()
 
     auto vbox = make_shared<Box>(Widget::VERT);
     vbox->set_cross_alignment(Widget::CENTER);
-    auto title = make_shared<Text>(formatted_string("Doll Editor", YELLOW));
+    auto title = make_shared<Text>(formatted_string::parse_string_raw(
+        zh_message("sol61.ui.doll.title").display(), YELLOW));
     title->set_margin_for_sdl(0, 0, 20, 0);
     vbox->add_child(std::move(title));
     vbox->add_child(doll_ui);

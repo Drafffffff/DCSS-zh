@@ -270,11 +270,11 @@ bool zin_donate_gold()
 {
     if (you.gold == 0)
     {
-        mpr("You have nothing to donate!");
+        mpr(zh_message("character.fixed.c40348c5b7d8"));
         return false;
     }
 
-    if (!yesno("Do you wish to donate half of your money?", true, 'n'))
+    if (!yesno(zh_message("character.zin.donate.confirm"), true, 'n'))
     {
         canned_msg(MSG_OK);
         return false;
@@ -310,24 +310,23 @@ bool zin_donate_gold()
     if (player_under_penance())
     {
         if (estimated_piety >= you.penance[GOD_ZIN])
-            mpr("You feel that you will soon be absolved of all your sins.");
+            mpr(zh_message("character.fixed.42c604825d90"));
         else
-            mpr("You feel that your burden of sins will soon be lighter.");
+            mpr(zh_message("character.fixed.af156baf7c6b"));
     }
     else
     {
-        string result = "You feel that " + god_name(GOD_ZIN) + " will soon be ";
-        result +=
-            (estimated_piety >= piety_breakpoint(5)) ? "exalted by your worship" :
-            (estimated_piety >= piety_breakpoint(4)) ? "extremely pleased with you" :
-            (estimated_piety >= piety_breakpoint(3)) ? "greatly pleased with you" :
-            (estimated_piety >= piety_breakpoint(2)) ? "most pleased with you" :
-            (estimated_piety >= piety_breakpoint(1)) ? "pleased with you" :
-            (estimated_piety >= piety_breakpoint(0)) ? "aware of your devotion"
-                                                     : "noncommittal";
-        result += (donation >= 30 && you.raw_piety < piety_breakpoint(5)) ? "!" : ".";
-
-        mpr(result);
+        const char *rank =
+            estimated_piety >= piety_breakpoint(5) ? "exalted" :
+            estimated_piety >= piety_breakpoint(4) ? "extremely" :
+            estimated_piety >= piety_breakpoint(3) ? "greatly" :
+            estimated_piety >= piety_breakpoint(2) ? "most" :
+            estimated_piety >= piety_breakpoint(1) ? "pleased" :
+            estimated_piety >= piety_breakpoint(0) ? "aware" : "neutral";
+        const bool emphatic = donation >= 30 && you.raw_piety < piety_breakpoint(5);
+        mpr(zh_message(string("character.zin.donate.") + rank
+                       + (emphatic ? ".bang" : ".period"),
+            {zh_glossary_name("god", "character.god.name", god_name(GOD_ZIN))}));
     }
 
     return true;
@@ -769,14 +768,14 @@ bool zin_check_able_to_recite(bool quiet)
     if (you.duration[DUR_RECITE])
     {
         if (!quiet)
-            mpr("Finish your current sermon first, please.");
+            mpr(zh_message("character.fixed.301115013e79"));
         return false;
     }
 
     if (you.duration[DUR_RECITE_COOLDOWN])
     {
         if (!quiet)
-            mpr("You're not ready to recite again yet.");
+            mpr(zh_message("character.fixed.110b5fb9e160"));
         return false;
     }
 
@@ -1271,7 +1270,7 @@ bool zin_vitalisation()
 
 void zin_remove_divine_stamina()
 {
-    mprf(MSGCH_DURATION, "Your divine stamina fades away.");
+    mpr(zh_message("character.fixed.0292b4f56af4"), MSGCH_DURATION);
     notify_stat_change(STAT_STR, -you.attribute[ATTR_DIVINE_STAMINA], true);
     notify_stat_change(STAT_INT, -you.attribute[ATTR_DIVINE_STAMINA], true);
     notify_stat_change(STAT_DEX, -you.attribute[ATTR_DIVINE_STAMINA], true);
@@ -1284,19 +1283,19 @@ spret zin_imprison(const coord_def& target, bool fail)
     monster* mons = monster_at(target);
     if (mons == nullptr || !you.can_see(*mons))
     {
-        mpr("You can see no monster there to imprison!");
+        mpr(zh_message("character.fixed.781918dcf3eb"));
         return spret::abort;
     }
 
     if (mons->is_peripheral())
     {
-        mpr("You cannot imprison that!");
+        mpr(zh_message("character.fixed.936532a3d531"));
         return spret::abort;
     }
 
     if (mons->friendly() || mons->good_neutral())
     {
-        mpr("You cannot imprison a law-abiding creature!");
+        mpr(zh_message("character.fixed.94992046fa7d"));
         return spret::abort;
     }
 
@@ -1311,9 +1310,9 @@ void zin_sanctuary()
 
     // Yes, shamelessly stolen from NetHack...
     if (!silenced(you.pos())) // How did you manage that?
-        mprf(MSGCH_SOUND, "You hear a choir sing!");
+        mpr(zh_message("character.fixed.52c9ae30bf02"), MSGCH_SOUND);
     else
-        mpr("You are suddenly bathed in radiance!");
+        mpr(zh_message("character.fixed.458fba868da2"));
 
     flash_view(UA_PLAYER, WHITE);
     // Allow extra time for the flash to linger.
@@ -1327,9 +1326,9 @@ void zin_sanctuary()
 void tso_divine_shield()
 {
     if (!you.duration[DUR_DIVINE_SHIELD])
-        mpr("A divine shield manifests in front of you!");
+        mpr(zh_message("character.fixed.ab8f7fd5fcf9"));
     else
-        mpr("Your divine shield is renewed.");
+        mpr(zh_message("character.fixed.26bf5045e0e9"));
 
     const int charges = 3 + you.skill_rdiv(SK_INVOCATIONS, 2, 5);
     you.duration[DUR_DIVINE_SHIELD] = max(you.duration[DUR_DIVINE_SHIELD], charges);
@@ -1339,14 +1338,14 @@ void tso_expend_divine_shield_charge()
 {
     if (you.duration[DUR_DIVINE_SHIELD] && --you.duration[DUR_DIVINE_SHIELD] <= 0)
     {
-        mprf(MSGCH_DURATION, "Your divine shield fades away.");
+        mpr(zh_message("character.fixed.3ec88825cba9"), MSGCH_DURATION);
         you.duration[DUR_DIVINE_SHIELD] = 0;
     }
 }
 
 void elyvilon_purification()
 {
-    mpr("You feel purified!");
+    mpr(zh_message("character.fixed.01e51f69f007"));
 
     you.duration[DUR_SICKNESS] = 0;
     you.duration[DUR_POISONING] = 0;
@@ -1363,8 +1362,8 @@ void elyvilon_divine_vigour()
     if (you.duration[DUR_DIVINE_VIGOUR])
         return;
 
-    mprf("%s grants you divine vigour.",
-         god_name(GOD_ELYVILON).c_str());
+    mpr(zh_message("character.elyvilon.vigour",
+        {zh_glossary_name("god", "character.god.name", god_name(GOD_ELYVILON))}));
 
     const int vigour_amt = 1 + you.skill_rdiv(SK_INVOCATIONS, 1, 3);
     const int old_hp_max = you.hp_max;
@@ -1386,7 +1385,7 @@ void elyvilon_divine_vigour()
 
 void elyvilon_remove_divine_vigour()
 {
-    mprf(MSGCH_DURATION, "Your divine vigour fades away.");
+    mpr(zh_message("character.fixed.0e5c2131b6c8"), MSGCH_DURATION);
     you.duration[DUR_DIVINE_VIGOUR] = 0;
     you.attribute[ATTR_DIVINE_VIGOUR] = 0;
     calc_hp();
@@ -1408,13 +1407,13 @@ void trog_do_trogs_hand(int pow)
     you.increase_duration(DUR_TROGS_HAND,
                           5 + roll_dice(2, pow / 3 + 1), 100,
                           "Your skin crawls.");
-    mprf(MSGCH_DURATION, "You feel strong-willed.");
+    mpr(zh_message("character.fixed.b82c607bd66d"), MSGCH_DURATION);
 }
 
 void trog_remove_trogs_hand()
 {
-    mprf(MSGCH_DURATION, "Your skin stops crawling.");
-    mprf(MSGCH_DURATION, "You feel less strong-willed.");
+    mpr(zh_message("character.fixed.181a70ba60b0"), MSGCH_DURATION);
+    mpr(zh_message("character.fixed.0fccd20562d9"), MSGCH_DURATION);
     you.duration[DUR_TROGS_HAND] = 0;
 }
 
@@ -1488,7 +1487,7 @@ bool yred_light_the_torch()
     }
 
     if (aid)
-        mpr("Yredelemnul sends servants to aid you!");
+        mpr(zh_message("character.fixed.3d6439b142d4"));
 
     return true;
 }
@@ -1573,7 +1572,7 @@ void yred_feed_torch(const monster* mons)
         return;
 
     // Gain one torchlight charge for each unique killed
-    mprf(MSGCH_GOD, "The black torch howls with new intensity!");
+    mpr(zh_message("character.fixed.8c7e9fed6af9"), MSGCH_GOD);
     you.props[YRED_TORCH_POWER_KEY].get_int() += 1;
 }
 
@@ -1863,7 +1862,7 @@ bool fedhas_passthrough(const monster_info* target)
 
 void cheibriados_time_bend(int pow)
 {
-    mpr("The flow of time bends around you.");
+    mpr(zh_message("character.fixed.2590ee6e824d"));
 
     for (adjacent_iterator ai(you.pos()); ai; ++ai)
     {
@@ -1969,7 +1968,7 @@ spret cheibriados_slouch(bool fail)
 
     fail_check();
 
-    mpr("You can feel time thicken for a moment.");
+    mpr(zh_message("character.fixed.824884ad8967"));
     dprf("your speed is %d", player_movement_speed());
 
     apply_area_visible(_slouch_monsters, you.pos());
@@ -2018,7 +2017,7 @@ void cheibriados_temporal_distortion()
 
     _cleanup_time_steps();
 
-    mpr("You warp the flow of time around you!");
+    mpr(zh_message("character.fixed.39912ad7d25f"));
 }
 
 static coord_def _find_displace_space(const monster* mon, coord_def start_pos)
@@ -2067,7 +2066,7 @@ static void _cheibriados_displace_monster(monster* mon)
 
 void cheibriados_time_step(int pow)
 {
-    mpr("You step out of the flow of time.");
+    mpr(zh_message("character.fixed.cfe282a7d18d"));
     flash_view(UA_PLAYER, LIGHTBLUE);
 
     // Simulate 100 turns of 'real' time passing (so poison and other timed
@@ -2132,7 +2131,7 @@ void cheibriados_time_step(int pow)
     }
 
     flash_view(UA_PLAYER, 0);
-    mpr("You return to the normal time flow.");
+    mpr(zh_message("character.fixed.1c5885411a11"));
 }
 
 struct curse_data
@@ -2383,7 +2382,7 @@ bool ashenzari_curse_item()
 
     if (!item_is_selected(item, OSEL_CURSABLE))
     {
-        mprf(MSGCH_PROMPT, "You cannot curse that!");
+        mpr(zh_message("character.fixed.124f4e470559"), MSGCH_PROMPT);
         return false;
     }
 
@@ -2417,7 +2416,7 @@ bool ashenzari_uncurse_item()
 
     if (!item_is_selected(item, OSEL_CURSED_WORN))
     {
-        mprf(MSGCH_PROMPT, "You cannot uncurse and destroy that!");
+        mpr(zh_message("character.fixed.91f792eba722"), MSGCH_PROMPT);
         return false;
     }
 
@@ -2559,9 +2558,9 @@ void spare_beogh_convert()
     you.heal(random_range(10, 20));
     you.duration[DUR_CONF] = 0;
 
-    mpr("The priest grants you succour and welcomes you into the fold.");
+    mpr(zh_message("character.fixed.213d9729ec0a"));
     if (witnesses.size() > 1)
-        mpr("The other orcs roar their approval!");
+        mpr(zh_message("character.fixed.fd21347bd298"));
 
     for (auto wit : witnesses)
     {
@@ -2743,8 +2742,7 @@ void beogh_blood_for_blood_tick(int delay)
 
 void beogh_end_blood_for_blood()
 {
-    mprf(MSGCH_DURATION,
-         "You reach the end of your prayer and your brethren are recalled.");
+    mpr(zh_message("character.fixed.1f82b30440b7"), MSGCH_DURATION);
     for (monster_iterator mi; mi; ++mi)
     {
         if (mons_is_blood_for_blood_orc(**mi))
@@ -2812,7 +2810,7 @@ bool beogh_cancel_leaving_floor()
         if (!yesno("Are you sure you wish to flee a divine trial? This will "
                    "place you under penance!", false, 'n'))
         {
-            mpr("Beogh appreciates your bravery.");
+            mpr(zh_message("character.fixed.812be82b107c"));
             return true;
         }
     }
@@ -2837,7 +2835,7 @@ void beogh_increase_orcification()
     if (you.props.exists(ORCIFICATION_LEVEL_KEY))
     {
         you.props[ORCIFICATION_LEVEL_KEY] = 2;
-        mprf(MSGCH_MUTATION, "Your orcish features manifest fully.");
+        mpr(zh_message("character.fixed.9063c680a89f"), MSGCH_MUTATION);
         return;
     }
 
@@ -2891,7 +2889,7 @@ spret dithmenos_shadowslip(bool fail)
 
     const coord_def shadow_pos = shadow->pos();
 
-    mpr("You swap places with your shadow and weave the vestiges of your form into it.");
+    mpr(zh_message("character.fixed.c25ab0d22c06"));
 
     shadow->move_to(you.pos(), MV_ALLOW_OVERLAP | MV_TRANSLOCATION, true);
     you.move_to(shadow_pos, MV_ALLOW_OVERLAP | MV_TRANSLOCATION, true);
@@ -2960,7 +2958,7 @@ spret dithmenos_nightfall(bool fail)
 {
     fail_check();
 
-    mpr("The world around you is engulfed in lightless night!");
+    mpr(zh_message("character.fixed.a0fc255564ae"));
 
     const int dur = (random_range(16, 24) + you.skill_rdiv(SK_INVOCATIONS, 2, 3))
                         * BASELINE_DELAY;
@@ -3207,7 +3205,7 @@ spret dithmenos_marionette(monster& target, bool fail)
 
     if (!target.alive())
     {
-        mpr("Your performance comes to an abrupt end.");
+        mpr(zh_message("character.fixed.d4a10a412ae5"));
         return spret::success;
     }
 
@@ -3376,14 +3374,14 @@ bool gozag_potion_petition()
             line += comma_separated_line(pot_names.begin(), pot_names.end());
             mpr_nojoin(MSGCH_PLAIN, line);
         }
-        mprf(MSGCH_PROMPT, "Purchase which effect?");
+        mpr(zh_message("character.fixed.cdd2dbb8cc2a"), MSGCH_PROMPT);
         keyin = toalower(get_ch()) - 'a';
         if (keyin < 0 || keyin > GOZAG_MAX_POTIONS - 1)
             continue;
 
         if (you.gold < prices[keyin])
         {
-            mpr("You don't have enough gold for that!");
+            mpr(zh_message("character.fixed.569b269edf75"));
             more();
             continue;
         }
@@ -3445,13 +3443,13 @@ bool gozag_setup_call_merchant(bool quiet)
     if (!is_connected_branch(level_id::current().branch))
     {
         if (!quiet)
-            mpr("No merchants are willing to come to this location.");
+            mpr(zh_message("character.fixed.010186a44b74"));
         return false;
     }
     if (env.grid(you.pos()) != DNGN_FLOOR)
     {
         if (!quiet)
-            mpr("You need to be standing on open floor to call a merchant.");
+            mpr(zh_message("character.fixed.c6ecfb75157e"));
         return false;
     }
 
@@ -3567,14 +3565,14 @@ static int _gozag_choose_shop()
     for (int i = 0; i < GOZAG_MAX_SHOPS; i++)
         mpr_nojoin(MSGCH_PLAIN, _describe_gozag_shop(i).c_str());
 
-    mprf(MSGCH_PROMPT, "Fund which merchant?");
+    mpr(zh_message("character.fixed.8d24b2f3412b"), MSGCH_PROMPT);
     const int shop_index = toalower(get_ch()) - 'a';
     if (shop_index < 0 || shop_index > GOZAG_MAX_SHOPS - 1)
         return _gozag_choose_shop(); // tail recurse
 
     if (you.gold < _gozag_shop_price(shop_index))
     {
-        mpr("You don't have enough gold to fund that merchant!");
+        mpr(zh_message("character.fixed.8c1f708101fd"));
         more();
         return _gozag_choose_shop(); // tail recurse
     }
@@ -4141,7 +4139,7 @@ spret qazlal_elemental_force(bool fail)
     vector<coord_def> targets = find_elemental_targets();
     if (targets.empty())
     {
-        mpr("You can't see any clouds you can empower.");
+        mpr(zh_message("character.fixed.b638b75fba2a"));
         return spret::abort;
     }
 
@@ -4177,7 +4175,7 @@ spret qazlal_elemental_force(bool fail)
     }
 
     if (placed)
-        mprf(MSGCH_GOD, "Clouds arounds you coalesce and take form!");
+        mpr(zh_message("character.fixed.4cff8a7869d7"), MSGCH_GOD);
     else
         canned_msg(MSG_NOTHING_HAPPENS); // can this ever happen?
 
@@ -4224,7 +4222,7 @@ spret qazlal_disaster_area(bool fail)
 
     if (targets.empty())
     {
-        mpr("There isn't enough space here!");
+        mpr(zh_message("character.fixed.a4d9c7d2fc55"));
         return spret::abort;
     }
 
@@ -4238,7 +4236,7 @@ spret qazlal_disaster_area(bool fail)
 
     fail_check();
 
-    mprf(MSGCH_GOD, "Nature churns violently around you!");
+    mpr(zh_message("character.fixed.a5c0e9fd90e4"), MSGCH_GOD);
 
     // TODO: should count get a cap proportional to targets.size()?
     int count = max(1, min((int)targets.size(),
@@ -5379,15 +5377,15 @@ void ru_do_retribution(monster* mons, int damage)
 
 void ru_draw_out_power()
 {
-    mpr("You are restored by drawing out deep reserves of power within.");
+    mpr(zh_message("character.fixed.0f8ce70a269e"));
 
     //Escape nets and webs
     if (you.caught())
     {
         if (you.caught_by() == CAUGHT_WEB)
-            mpr("You burst free from the webs!");
+            mpr(zh_message("character.fixed.176fe73bdddf"));
         else
-            mpr("You burst free from the net!");
+            mpr(zh_message("character.fixed.9f00105bdcbc"));
         you.stop_being_caught();
     }
 
@@ -5435,7 +5433,7 @@ bool ru_power_leap()
     }
     if (you.is_nervous())
     {
-        mpr("You are too terrified to leap around!");
+        mpr(zh_message("character.fixed.fb77328c8702"));
         return false;
     }
 
@@ -5491,20 +5489,20 @@ bool ru_power_leap()
         if (mons && you.can_see(*mons))
         {
             clear_messages();
-            mpr("You can't leap on top of the monster!");
+            mpr(zh_message("character.fixed.81753ab93000"));
             continue;
         }
 
         if (env.grid(beam.target) == DNGN_OPEN_SEA)
         {
             clear_messages();
-            mpr("You can't leap into the sea!");
+            mpr(zh_message("character.fixed.04df868b5614"));
             continue;
         }
         else if (env.grid(beam.target) == DNGN_LAVA_SEA)
         {
             clear_messages();
-            mpr("You can't leap into the sea of lava!");
+            mpr(zh_message("character.fixed.dee9618ec422"));
             continue;
         }
         else if (!check_moveto(beam.target, "leap", false))
@@ -5533,7 +5531,7 @@ bool ru_power_leap()
     if (cell_is_solid(beam.target) || monster_at(beam.target))
     {
         // XXX: try to jump somewhere nearby?
-        mpr("Something unexpectedly blocks you, preventing you from leaping!");
+        mpr(zh_message("character.fixed.a8c2a617868c"));
         return true;
     }
 
@@ -5665,7 +5663,7 @@ bool ru_apocalypse()
             return false;
         }
     }
-    mpr("You reveal the great annihilating truth to your foes!");
+    mpr(zh_message("character.fixed.1ee3f99b3b5d"));
     noisy(30, you.pos());
     apply_area_visible(_apply_apocalypse, you.pos());
     drain_player(100, false, true);
@@ -5719,8 +5717,7 @@ bool uskayaw_stomp()
         return false;
     }
 
-    mpr("You stomp with the beat, sending a shockwave through the revellers "
-            "around you!");
+    mpr(zh_message("character.fixed.7af7104ac813"));
     apply_monsters_around_square(_get_stomped, you.pos());
     return true;
 }
@@ -5801,26 +5798,26 @@ bool uskayaw_line_pass()
         if (mons && you.can_see(*mons))
         {
             clear_messages();
-            mpr("You can't stand on top of the monster!");
+            mpr(zh_message("character.fixed.4d9c14de10ff"));
             continue;
         }
 
         if (env.grid(beam.target) == DNGN_OPEN_SEA)
         {
             clear_messages();
-            mpr("You can't line pass into the sea!");
+            mpr(zh_message("character.fixed.88f6ba629f63"));
             continue;
         }
         else if (env.grid(beam.target) == DNGN_LAVA_SEA)
         {
             clear_messages();
-            mpr("You can't line pass into the sea of lava!");
+            mpr(zh_message("character.fixed.c45a1f3ee6e2"));
             continue;
         }
         else if (cell_is_solid(beam.target))
         {
             clear_messages();
-            mpr("You can't walk through walls!");
+            mpr(zh_message("character.fixed.d43cc886228b"));
             continue;
         }
         else if (!check_moveto(beam.target, "line pass", false))
@@ -5845,7 +5842,7 @@ bool uskayaw_line_pass()
     }
 
     if (monster_at(beam.target))
-        mpr("Something unexpectedly blocks you, preventing you from passing!");
+        mpr(zh_message("character.fixed.8b5a0c9a3c80"));
     else
     {
         you.stop_being_constricted(false, "dance");
@@ -5901,7 +5898,7 @@ spret uskayaw_grand_finale(bool fail)
         if (!mons || !you.can_see(*mons))
         {
             clear_messages();
-            mpr("You can't perceive a target there!");
+            mpr(zh_message("character.fixed.516683e3b8c2"));
             continue;
         }
 
@@ -5963,7 +5960,7 @@ spret uskayaw_grand_finale(bool fail)
     if (!mons->alive() && !monster_at(beam.target))
         you.move_to(beam.target, MV_TRANSLOCATION | MV_DELIBERATE);
     else
-        mpr("You spring back to your original position.");
+        mpr(zh_message("character.fixed.646169e17ec5"));
 
     crawl_state.cancel_cmd_again();
     crawl_state.cancel_cmd_repeat();
@@ -5986,7 +5983,7 @@ bool hepliaklqana_choose_ancestor_type(int ancestor_choice)
         && companion_is_elsewhere(hepliaklqana_ancestor()))
     {
         // ugly hack to avoid dealing with upgrading offlevel ancestors
-        mpr("You can't make this choice while your ancestor is elsewhere.");
+        mpr(zh_message("character.fixed.4d946d8f8f93"));
         return false;
     }
 
@@ -6043,7 +6040,7 @@ spret hepliaklqana_idealise(bool fail)
     const mid_t ancestor_mid = hepliaklqana_ancestor();
     if (ancestor_mid == MID_NOBODY)
     {
-        mpr("You have no ancestor to preserve!");
+        mpr(zh_message("character.fixed.39e57c315eb6"));
         return spret::abort;
     }
 
@@ -6171,7 +6168,7 @@ spret hepliaklqana_transference(bool fail)
                      || mons_is_projectile(victim->type));
     if (victim_visible && victim_immovable)
     {
-        mpr("You can't transfer that.");
+        mpr(zh_message("character.fixed.ae0c370400ba"));
         return spret::abort;
     }
 
@@ -6466,13 +6463,13 @@ spret wu_jian_wall_jump_ability()
 
     if (!has_targets)
     {
-        mpr("There is nothing to wall jump against here.");
+        mpr(zh_message("character.fixed.8296381c241c"));
         return spret::abort;
     }
 
     if (you.is_nervous())
     {
-        mpr("You are too terrified to wall jump!");
+        mpr(zh_message("character.fixed.1f7187b3b135"));
         return spret::abort;
     }
 
@@ -6532,7 +6529,7 @@ spret wu_jian_wall_jump_ability()
 
 void wu_jian_heavenly_storm()
 {
-    mprf(MSGCH_GOD, "The air is filled with shimmering golden clouds!");
+    mpr(zh_message("character.fixed.da2587ae6c3d"), MSGCH_GOD);
     wu_jian_sifu_message(" says: The storm will not cease as long as you "
                          "keep fighting, disciple!");
 
@@ -6560,7 +6557,7 @@ spret okawaru_duel(const coord_def& target, bool fail)
     monster* mons = monster_at(target);
     if (!mons || !you.can_see(*mons))
     {
-        mpr("You can see no monster there to duel!");
+        mpr(zh_message("character.fixed.e92a0f9e6c43"));
         return spret::abort;
     }
 
@@ -6569,7 +6566,7 @@ spret okawaru_duel(const coord_def& target, bool fail)
         || mons->wont_attack()
         || mons->type == MONS_BOUNDLESS_TESSERACT)
     {
-        mpr("You cannot duel that!");
+        mpr(zh_message("character.fixed.517f9d426597"));
         return spret::abort;
     }
 
@@ -6592,7 +6589,7 @@ spret okawaru_duel(const coord_def& target, bool fail)
     // to duel a clone that's already invalid to be dueled for other reasons.
     else if (mons->is_summoned())
     {
-        mpr("You cannot duel that!");
+        mpr(zh_message("character.fixed.517f9d426597"));
         return spret::abort;
     }
 
@@ -6623,12 +6620,12 @@ spret okawaru_duel(const coord_def& target, bool fail)
 void okawaru_duel_healing()
 {
     if (you.heal((you.hp_max - you.hp) / 2))
-        mpr("You feel invigorated by the roar of the crowd!");
+        mpr(zh_message("character.fixed.30959b0f43fb"));
 }
 
 void okawaru_remove_heroism()
 {
-    mprf(MSGCH_DURATION, "You feel like a meek peon again.");
+    mpr(zh_message("character.fixed.834cfed3892e"), MSGCH_DURATION);
     you.duration[DUR_HEROISM] = 0;
     you.redraw_evasion      = true;
     you.redraw_armour_class = true;
@@ -6714,7 +6711,7 @@ spret jiyva_oozemancy(bool fail)
 
     if (walls.empty())
     {
-        mpr("There are no walls around you to affect.");
+        mpr(zh_message("character.fixed.afd0c5bb94b7"));
         return spret::abort;
     }
 
@@ -6729,7 +6726,7 @@ spret jiyva_oozemancy(bool fail)
     }
 
     you.increase_duration(DUR_OOZEMANCY, dur);
-    mpr("Slime begins to ooze from the nearby walls!");
+    mpr(zh_message("character.fixed.37a1ce81e0e3"));
 
     return spret::success;
 }
@@ -6853,11 +6850,11 @@ static void _makhleb_atrocity_trigger(int power)
 
     if (targs.empty())
     {
-        mprf("Your accumulated destruction dissipates without a target.");
+        mpr(zh_message("character.fixed.e2d9b65a29d1"));
         return;
     }
 
-    mpr("Your destruction surges wildly!");
+    mpr(zh_message("character.fixed.8fa00f65d43c"));
 
     bolt beam;
     beam.range = you.current_vision;
@@ -7150,7 +7147,7 @@ spret makhleb_infernal_legion(bool fail)
 {
     if (you.duration[DUR_INFERNAL_LEGION])
     {
-        mpr("You are already unleashing the legions of chaos!");
+        mpr(zh_message("character.fixed.da801083adf0"));
         return spret::abort;
     }
 
@@ -7158,7 +7155,7 @@ spret makhleb_infernal_legion(bool fail)
         return spret::abort;
 
     fail_check();
-    mpr("You carve a gateway into yourself and beckon forth the legions of chaos!");
+    mpr(zh_message("character.fixed.423098d2f4c9"));
     bleed_for_makhleb(you);
     you.duration[DUR_INFERNAL_LEGION] = (you.skill_rdiv(SK_INVOCATIONS, 5, 4)
                                             + random_range(10, 20)) * BASELINE_DELAY;
@@ -7197,8 +7194,7 @@ void makhleb_vessel_of_slaughter()
     const int boost = div_rand_round((100 - (you.hp * 100 / you.hp_max)) * 2, 3);
     you.props[MAKHLEB_SLAUGHTER_BOOST_KEY] = boost;
 
-    mpr("You offer yourself as an instrument of Makhleb's will and feel "
-        "overwhelming power flowing through you!");
+    mpr(zh_message("character.fixed.ef9d5213ccfe"));
 
     transform(random_range(70, 110), transformation::slaughter);
     you.transform_uncancellable = true;
@@ -7352,8 +7348,7 @@ void makhleb_enter_crucible_of_flesh(int debt)
                        " to be found worthy of leaving this place!", false,
                        GOD_MAKHLEB);
 
-    mpr("(Slaughtering mortal victims (and sometimes even demons) will "
-        "eventually satisfy Makhleb and create an exit.)");
+    mpr(zh_message("character.fixed.a00b20561afe"));
 
     you.props[MAKHLEB_CRUCIBLE_DEBT_KEY].get_int() = debt;
 }

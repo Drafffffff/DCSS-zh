@@ -1,0 +1,3759 @@
+{
+  "model": "gpt-6.1-sol",
+  "reviewer_model": "gpt-6.1-sol",
+  "purpose": "神祇与角色：固定反馈、祈祷、费用、罪疚等级、属性变异与暂时腐化消退。",
+  "messages": [
+    {
+      "id": "character.fixed.fadd9b4ea3d2",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your divine halo returns!",
+      "zh": "你的神圣光环重新出现！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.8391acb1c813",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your aura of darkness returns!",
+      "zh": "你的黑暗灵气重新出现！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.ace5e1ad0b17",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your vision regains its divine sight.",
+      "zh": "你的神圣视力恢复了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.66b4f131e655",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "A storm instantly forms around you!",
+      "zh": "一场风暴瞬间在你周围形成！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.92244506d665",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your full life essence returns.",
+      "zh": "你的生命精华完全恢复了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.d0bc3e6d8c11",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your water-walking will last only until you reach solid ground.",
+      "zh": "你的水上行走能力只能维持到你踏上坚实地面为止。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.359ec1fafed1",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your divine halo fades away.",
+      "zh": "你的神圣光环消散了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.6097e6dd4c27",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your aura of darkness fades away.",
+      "zh": "你的黑暗灵气消散了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.0c9f1ba4d523",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The storm surrounding you dissipates.",
+      "zh": "环绕你的风暴消散了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.c2ca863e8af0",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your resistance to fire fades away.",
+      "zh": "你的火焰抗性消退了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.73252e8e1538",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your resistance to cold fades away.",
+      "zh": "你的寒冷抗性消退了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.13dde23789af",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your resistance to electricity fades away.",
+      "zh": "你的电击抗性消退了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.5b40caeb87ea",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your resistance to physical damage fades away.",
+      "zh": "你的物理伤害抗性消退了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.1345caf6495d",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "...but nothing appears.",
+      "zh": "……但什么也没有出现。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.04bd04aa7524",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel as though nothing has changed.",
+      "zh": "你觉得似乎什么也没有改变。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.82672f54b008",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "A divine halo surrounds you!",
+      "zh": "一道神圣光环环绕着你！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.6e1ded1f1760",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are shrouded in an aura of darkness!",
+      "zh": "你被黑暗灵气笼罩了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.bc8ebb78e2fd",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You have lost your religion!",
+      "zh": "你失去了信仰！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.013557bec45d",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You sense decay.",
+      "zh": "你感受到了腐朽。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.a4baa40cbc2c",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "All of your followers decide to abandon you.",
+      "zh": "你的所有追随者都决定抛弃你。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.ed6aadbeb37c",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "All of your fellow slimes turn on you.",
+      "zh": "你的所有史莱姆同伴都与你反目。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.68c1ff11b922",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The plants of the dungeon turn on you.",
+      "zh": "地牢中的植物与你反目。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.42ea98ad41c5",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your funded stores close, unable to pay their debts without your funds.",
+      "zh": "你资助的商店失去了你的资金，无法偿还债务，纷纷关门。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.d04a302dd7da",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your storm instantly dissipates.",
+      "zh": "你的风暴瞬间消散了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.839fe41732d5",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your cloak of flame burns out.",
+      "zh": "你的烈焰斗篷熄灭了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.beaca933f935",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your rising flame fizzles out.",
+      "zh": "你升腾的火焰熄灭了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.a3ca6098455d",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your amulet flashes!",
+      "zh": "你的护符闪了一下！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.6a3b1cd79a2f",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your summoned allies are dismissed!",
+      "zh": "你召唤的盟友被遣散了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.29bf0288e331",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Zin cleanses your body of Beogh's taint.",
+      "zh": "辛净化了你体内比奥的污染。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.8b551977fed3",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The plants of the dungeon cease their hostilities.",
+      "zh": "地牢中的植物不再敌视你。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.2c6f3af00a6a",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You bow before the missionary of Beogh.",
+      "zh": "你在比奥的传教士面前躬身行礼。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.5745023f3cc4",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel a momentary loss of self-confidence.",
+      "zh": "你一时失去了自信。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.bf75385c6b7b",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "...but the rich have no need for faith.",
+      "zh": "……但富人无需信仰。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.44e90af8b43c",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "...but you know Xom will still be watching.",
+      "zh": "……但你知道佐姆仍会注视着你。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.ced446883cfb",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "...but the divine are already as distant as possible.",
+      "zh": "……但诸神已经疏远你到了极点。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.e69e7211d5eb",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel the divine grow more distant.",
+      "zh": "你感到诸神更加疏远你了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.9660e7cc1dd4",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel the divine notice you fully once more.",
+      "zh": "你感到诸神再次完全注意到了你。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.c40348c5b7d8",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You have nothing to donate!",
+      "zh": "你没有可以捐献的东西！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.42c604825d90",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel that you will soon be absolved of all your sins.",
+      "zh": "你觉得自己的一切罪过很快就会得到赦免。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.af156baf7c6b",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel that your burden of sins will soon be lighter.",
+      "zh": "你觉得自己的罪孽很快就会减轻。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.301115013e79",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Finish your current sermon first, please.",
+      "zh": "请先完成当前的布道。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.110b5fb9e160",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You're not ready to recite again yet.",
+      "zh": "你还不能再次诵经。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.0292b4f56af4",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your divine stamina fades away.",
+      "zh": "你的神圣耐力消退了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.781918dcf3eb",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can see no monster there to imprison!",
+      "zh": "你看不到那里有可以禁锢的怪物！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.936532a3d531",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You cannot imprison that!",
+      "zh": "你无法禁锢那个目标！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.94992046fa7d",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You cannot imprison a law-abiding creature!",
+      "zh": "你不能禁锢守法的生物！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.52c9ae30bf02",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You hear a choir sing!",
+      "zh": "你听到了唱诗班的歌声！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.458fba868da2",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are suddenly bathed in radiance!",
+      "zh": "你突然沐浴在光辉之中！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.ab8f7fd5fcf9",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "A divine shield manifests in front of you!",
+      "zh": "一面神圣护盾在你面前显现！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.26bf5045e0e9",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your divine shield is renewed.",
+      "zh": "你的神圣护盾焕然一新。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.3ec88825cba9",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your divine shield fades away.",
+      "zh": "你的神圣护盾消散了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.01e51f69f007",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel purified!",
+      "zh": "你感到自己得到了净化！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.0e5c2131b6c8",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your divine vigour fades away.",
+      "zh": "你的神圣活力消退了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.b82c607bd66d",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel strong-willed.",
+      "zh": "你感到意志坚定。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.181a70ba60b0",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your skin stops crawling.",
+      "zh": "你的皮肤不再蠕动。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.0fccd20562d9",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel less strong-willed.",
+      "zh": "你感到意志不再那么坚定。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.3d6439b142d4",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Yredelemnul sends servants to aid you!",
+      "zh": "伊雷德伦努尔派出仆从前来协助你！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.8c7e9fed6af9",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The black torch howls with new intensity!",
+      "zh": "黑色火炬发出更加猛烈的呼啸！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.2590ee6e824d",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The flow of time bends around you.",
+      "zh": "你周围的时间之流发生了弯曲。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.824884ad8967",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can feel time thicken for a moment.",
+      "zh": "你感觉时间一时变得黏稠。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.39912ad7d25f",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You warp the flow of time around you!",
+      "zh": "你扭曲了周围的时间之流！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.cfe282a7d18d",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You step out of the flow of time.",
+      "zh": "你走出了时间之流。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.1c5885411a11",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You return to the normal time flow.",
+      "zh": "你回到了正常的时间之流中。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.124f4e470559",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You cannot curse that!",
+      "zh": "你无法诅咒那件物品！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.91f792eba722",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You cannot uncurse and destroy that!",
+      "zh": "你无法解除并摧毁那件物品上的诅咒！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.213d9729ec0a",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The priest grants you succour and welcomes you into the fold.",
+      "zh": "祭司向你施以援助，并欢迎你加入教会。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.fd21347bd298",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The other orcs roar their approval!",
+      "zh": "其他兽人咆哮着表示赞许！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.1f82b30440b7",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You reach the end of your prayer and your brethren are recalled.",
+      "zh": "你的祈祷结束了，你的同胞被召回。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.812be82b107c",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Beogh appreciates your bravery.",
+      "zh": "比奥赞赏你的勇气。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.9063c680a89f",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your orcish features manifest fully.",
+      "zh": "你的兽人特征完全显现了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.c25ab0d22c06",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You swap places with your shadow and weave the vestiges of your form into it.",
+      "zh": "你与自己的影子交换位置，将身形的残迹编织其中。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.a0fc255564ae",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The world around you is engulfed in lightless night!",
+      "zh": "你周围的世界被无光的黑夜吞没了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.d4a10a412ae5",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your performance comes to an abrupt end.",
+      "zh": "你的表演戛然而止。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.cdd2dbb8cc2a",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Purchase which effect?",
+      "zh": "要购买哪种效果？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.569b269edf75",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You don't have enough gold for that!",
+      "zh": "你的金币不足！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.010186a44b74",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "No merchants are willing to come to this location.",
+      "zh": "没有商人愿意来到这里。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.c6ecfb75157e",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You need to be standing on open floor to call a merchant.",
+      "zh": "你必须站在空旷的地面上才能召来商人。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.8d24b2f3412b",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Fund which merchant?",
+      "zh": "要资助哪位商人？",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.8c1f708101fd",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You don't have enough gold to fund that merchant!",
+      "zh": "你的金币不足以资助那位商人！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.b638b75fba2a",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't see any clouds you can empower.",
+      "zh": "你看不到可以强化的云雾。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.4cff8a7869d7",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Clouds arounds you coalesce and take form!",
+      "zh": "你周围的云雾凝聚成形！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.a4d9c7d2fc55",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "There isn't enough space here!",
+      "zh": "这里没有足够的空间！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.a5c0e9fd90e4",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Nature churns violently around you!",
+      "zh": "你周围的自然之力剧烈翻涌！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.0f8ce70a269e",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are restored by drawing out deep reserves of power within.",
+      "zh": "你汲取体内深藏的力量，恢复了状态。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.176fe73bdddf",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You burst free from the webs!",
+      "zh": "你挣脱了蛛网！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.9f00105bdcbc",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You burst free from the net!",
+      "zh": "你挣脱了罗网！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.fb77328c8702",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are too terrified to leap around!",
+      "zh": "你太恐惧了，无法跳跃！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.81753ab93000",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't leap on top of the monster!",
+      "zh": "你不能跳到怪物身上！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.04df868b5614",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't leap into the sea!",
+      "zh": "你不能跳入大海！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.dee9618ec422",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't leap into the sea of lava!",
+      "zh": "你不能跳入熔岩之海！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.a8c2a617868c",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Something unexpectedly blocks you, preventing you from leaping!",
+      "zh": "有东西意外挡住了你，使你无法跳跃！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.1ee3f99b3b5d",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You reveal the great annihilating truth to your foes!",
+      "zh": "你向敌人揭示了毁灭万物的伟大真理！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.7af7104ac813",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You stomp with the beat, sending a shockwave through the revellers around you!",
+      "zh": "你踏着节拍跺脚，向周围的狂欢者释放出冲击波！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.4d9c14de10ff",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't stand on top of the monster!",
+      "zh": "你不能站到怪物身上！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.88f6ba629f63",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't line pass into the sea!",
+      "zh": "你不能穿行到大海中！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.c45a1f3ee6e2",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't line pass into the sea of lava!",
+      "zh": "你不能穿行到熔岩之海中！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.d43cc886228b",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't walk through walls!",
+      "zh": "你不能穿墙！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.8b5a0c9a3c80",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Something unexpectedly blocks you, preventing you from passing!",
+      "zh": "有东西意外挡住了你，使你无法穿行！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.516683e3b8c2",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't perceive a target there!",
+      "zh": "你无法感知到那里有目标！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.646169e17ec5",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You spring back to your original position.",
+      "zh": "你跃回原来的位置。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.4d946d8f8f93",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't make this choice while your ancestor is elsewhere.",
+      "zh": "先祖不在此处，你无法做出这一选择。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.39e57c315eb6",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You have no ancestor to preserve!",
+      "zh": "你没有可以保留的先祖！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.ae0c370400ba",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't transfer that.",
+      "zh": "你无法转移那个目标。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.8296381c241c",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "There is nothing to wall jump against here.",
+      "zh": "这里没有可供蹬墙跳的墙面。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.1f7187b3b135",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are too terrified to wall jump!",
+      "zh": "你太恐惧了，无法蹬墙跳！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.da2587ae6c3d",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The air is filled with shimmering golden clouds!",
+      "zh": "闪耀的金色云雾弥漫在空中！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.e92a0f9e6c43",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can see no monster there to duel!",
+      "zh": "你看不到那里有可以决斗的怪物！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.517f9d426597",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You cannot duel that!",
+      "zh": "你不能与那个目标决斗！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.30959b0f43fb",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel invigorated by the roar of the crowd!",
+      "zh": "人群的欢呼让你精神振奋！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.834cfed3892e",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel like a meek peon again.",
+      "zh": "你又觉得自己像个卑微的小卒了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.afd0c5bb94b7",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "There are no walls around you to affect.",
+      "zh": "你周围没有可以影响的墙壁。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.37a1ce81e0e3",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Slime begins to ooze from the nearby walls!",
+      "zh": "黏液开始从附近的墙壁中渗出！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.e2d9b65a29d1",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your accumulated destruction dissipates without a target.",
+      "zh": "你积蓄的毁灭之力因没有目标而消散了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.8fa00f65d43c",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your destruction surges wildly!",
+      "zh": "你的毁灭之力狂暴地涌动！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.da801083adf0",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are already unleashing the legions of chaos!",
+      "zh": "你已经在释放混沌军团了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.423098d2f4c9",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You carve a gateway into yourself and beckon forth the legions of chaos!",
+      "zh": "你在自己身上刻出一道门户，召唤混沌军团！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.ef9d5213ccfe",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You offer yourself as an instrument of Makhleb's will and feel overwhelming power flowing through you!",
+      "zh": "你献身成为玛克莱布意志的化身，感到无比强大的力量流遍全身！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.a00b20561afe",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "(Slaughtering mortal victims (and sometimes even demons) will eventually satisfy Makhleb and create an exit.)",
+      "zh": "（屠戮凡人祭品，有时也包括恶魔，最终会使玛克莱布满意，并打开出口。）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.85be993e27e4",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "A being of your status worships no god.",
+      "zh": "像你这样的存在不信奉任何神祇。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-prayer.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.dba1d7510ef2",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You hear a distant slurping noise.",
+      "zh": "你听到远处传来吮吸声。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-passive.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.b0b6c10ebaa0",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your supernatural speed expires.",
+      "zh": "你的超自然速度消退了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-passive.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.106a24b75a35",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The heavenly storm settles.",
+      "zh": "天界风暴平息了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-passive.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.667a71e35b04",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "A whirlwind of blades manifests around you!",
+      "zh": "一道刀刃旋风在你周围显现！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-passive.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.10132313bf50",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You lose track of time!",
+      "zh": "你失去了对时间的感知！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-wrath.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.a387d1582a18",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The world leaves you behind!",
+      "zh": "世界把你抛在了后面！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-wrath.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.b2fd20d703be",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your doom draws closer.",
+      "zh": "你的末日更近了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-wrath.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.11fcdd028aa7",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel lethargic.",
+      "zh": "你感到倦怠。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-wrath.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.eae232c32707",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The divine experience confuses you!",
+      "zh": "神圣的体验令你陷入混乱！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-wrath.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.090cf510089e",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The divine experience drains your vigour!",
+      "zh": "神圣的体验耗尽了你的活力！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/god-wrath.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.89695ef13b0b",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel odd for a moment.",
+      "zh": "你一时感到有些异样。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/mutation.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.c1910575868b",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your body decomposes!",
+      "zh": "你的身体开始腐烂！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/mutation.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.d7b0bbfcf4bc",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel rather odd for a moment.",
+      "zh": "你一时感到颇为异样。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/mutation.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.7cf6a10719f8",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "A demonic guardian appears!",
+      "zh": "一名恶魔守卫出现了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/mutation.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.ec3041a82cb2",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are already as afflicted as possible.",
+      "zh": "你身上的灾厄已经无法再增加了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/mutation.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.16ffbfb77fd5",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Sorry, you're not good enough to have a special ability.",
+      "zh": "抱歉，你还没有获得特殊能力。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.d0eb01836559",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't do that.",
+      "zh": "你无法那样做。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.603e5a856a96",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your legs are too worn out to hop.",
+      "zh": "你的双腿太疲惫了，无法跳跃。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.76e5fac542f8",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You're already rising!",
+      "zh": "你已经在上升了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.5d660a1228df",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't rise from this level without the Orb!",
+      "zh": "没有佐特宝珠，你无法从这一层上升！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.647d6e4ff38a",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't rise from this level!",
+      "zh": "你无法从这一层上升！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.4488b4a2fe57",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "That deck is empty!",
+      "zh": "那副牌已经空了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.24cd3b67da57",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "There's no appreciative audience!",
+      "zh": "这里没有愿意聆听的听众！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.428e0ba9cad1",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are not zealous enough to affect this audience!",
+      "zh": "你的热诚不足以影响这些听众！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.bc874c8bf07c",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "There's already a sanctuary in place on this level.",
+      "zh": "这一层已经有圣域了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.18b9f5640d97",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are already engaged in single combat!",
+      "zh": "你已经在进行一对一决斗了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.913097432e4b",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Any gift you received here would fall and be lost!",
+      "zh": "你在此处获得的任何恩赐都会坠落并丢失！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.d80a6572c55a",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't heal while in death's door.",
+      "zh": "在死亡之门生效时，你无法治疗。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.812cf5f96b77",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Nothing ails you!",
+      "zh": "你没有任何不适！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.f5ad8d9a952f",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You have already been granted divine vigour!",
+      "zh": "你已经获得了神圣活力！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.5d2cc59fb22a",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are already calling forth ooze!",
+      "zh": "你已经在召唤黏液了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.7431b0b66adc",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You aren't in the Abyss!",
+      "zh": "你不在深渊！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.279cd3cd9ab1",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You're already here!",
+      "zh": "你已经在这里了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.148f8492ac03",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "There isn't enough space to grow briars here.",
+      "zh": "这里没有足够的空间生长荆棘。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.74ee7e4f6eb5",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You're too exhausted to draw out your power.",
+      "zh": "你太疲惫了，无法汲取力量。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.8fa900b3c4bf",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You have no need to draw out power.",
+      "zh": "你无需汲取力量。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.8e794033a999",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You're too exhausted to power leap.",
+      "zh": "你太疲惫了，无法强力跃击。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.a5621b13a083",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You're too exhausted to unleash your apocalyptic power.",
+      "zh": "你太疲惫了，无法释放天启之力。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.677662cfb002",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You have exhausted your breath weapon. Slay more foes!",
+      "zh": "你的吐息已耗尽。多杀些敌人吧！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.1af40117dbaa",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You don't have enough innate magic capacity.",
+      "zh": "你的先天魔力容量不足。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.d0d95c453358",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are already making a cacophony!",
+      "zh": "你已经在制造喧嚣了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.5e055443c877",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You must recover your energy before unleashing another cacophony.",
+      "zh": "你必须恢复精力后才能再次释放喧嚣。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.1d83f390d4fe",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You aren't haunting any armour at the moment!",
+      "zh": "你目前没有附身于任何护甲！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.480a754bb5d5",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You must recover your energy before scattering into bats again.",
+      "zh": "你必须恢复精力后才能再次化作蝙蝠群。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.5f97f3b247b4",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are already burning your memories away!",
+      "zh": "你已经在燃烧记忆了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.d7f7e107d279",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You don't have any memories left to burn.",
+      "zh": "你已没有可以燃烧的记忆。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.0bffb269332a",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You must recover your energy before doing this again.",
+      "zh": "你必须恢复精力后才能再次使用。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.d5b92d176f6d",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "There is no water in range!",
+      "zh": "范围内没有水！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.6431f9138c72",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are already invisible!",
+      "zh": "你已经隐形了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.44a166d80322",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You don't have enough experience to sacrifice.",
+      "zh": "你没有足够的经验可供献祭。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.b235f62bdcc6",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are already lashing out.",
+      "zh": "你已经在施展猛击了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.901c25778121",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are too exhausted to lash out.",
+      "zh": "你太疲惫了，无法施展猛击。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.3e981c160380",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are already engulfed in a heavenly storm!",
+      "zh": "你已经被天界风暴笼罩了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.932bbb105da1",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The black torch is already ablaze!",
+      "zh": "黑色火炬已经燃起了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.12e39c834795",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The black torch is unlit!",
+      "zh": "黑色火炬尚未点燃！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.93077c558d1d",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You must stoke the torch's fire more first.",
+      "zh": "你必须先让火炬的火焰燃得更旺。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.93cb639cd49b",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are already invoking Yredulemnul's grip!",
+      "zh": "你已经在召唤伊雷德伦努尔之握了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.0512c86ee391",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You already have the maximum number of followers. Dismiss one first.",
+      "zh": "你的追随者数量已达上限。请先遣散一名。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.574c36c0ede1",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You have already called for blood!",
+      "zh": "你已经发出了鲜血号召！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.a75a84d72b95",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your apostles are all alive!",
+      "zh": "你的使徒们都还活着！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.1ca4dcffab75",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You must be standing atop the corpse of a fallen apostle!",
+      "zh": "你必须站在一位阵亡使徒的尸体上！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.8119b7b275f4",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Night has already fallen.",
+      "zh": "黑夜已经降临了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.fc6a0366d7ab",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Makhleb denies you. Endure the Crucible first!",
+      "zh": "玛克莱布拒绝了你。先熬过熔炉试炼！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.3ab449350607",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are already a vessel of slaughter!",
+      "zh": "你已经是屠戮的容器了！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.d85368dc8209",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "A dragon answers your prayer!",
+      "zh": "一条龙回应了你的祈祷！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.96c1d70c055f",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You fail to use your ability.",
+      "zh": "你未能使出能力。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.63dda2fafb0e",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel the orb feeding on your energy!",
+      "zh": "你感到宝珠在吞噬你的能量！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.227445865574",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel stolen life flooding into you!",
+      "zh": "你感到夺来的生命力涌入体内！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.6ec283b1c56b",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel stolen life flooding into you from an unseen source!",
+      "zh": "你感到夺来的生命力从看不见的来源涌入体内！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.a4b46d595a68",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You send your armour flying and begin to make an unholy cacophony!",
+      "zh": "你让护甲腾空飞起，开始制造亵渎的喧嚣！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.d0ba0dc2ae53",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your magical essence is drained by the effort!",
+      "zh": "这一举动耗损了你的魔法本源！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.2386b0fc1142",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You extend your mandibles.",
+      "zh": "你伸出了大颚。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.1a64e263d49b",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You retract your mandibles.",
+      "zh": "你收回了大颚。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.40b1150a9208",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You scatter into a swarm of vampire bats!",
+      "zh": "你化作一群吸血蝙蝠四散开来！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.881855ec15f7",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your flames flare with remembrance!",
+      "zh": "你的火焰随记忆一同燃起！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.35daefbfbfb0",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You clear your throat and prepare to recite.",
+      "zh": "你清了清嗓子，准备诵经。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.dc6412df8f65",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You invoke the name of Kikubaaqudgha!",
+      "zh": "你呼唤基库巴库德加之名！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.04b6ee4f2a2d",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You call down Yredelemnul's inexorable grip.",
+      "zh": "你召来伊雷德伦努尔不可抗拒之握。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.444d7ecf0b16",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can now deal lightning-fast blows.",
+      "zh": "你现在能够以闪电般的速度出击。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.c05e6801b4c7",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You can't see any nearby targets.",
+      "zh": "你看不到附近有目标。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.f340606ebc84",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You channel some magical energy.",
+      "zh": "你引导了一些魔法能量。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.739e6227b5f1",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You are healed.",
+      "zh": "你得到了治疗。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.e81bcf988f1d",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You cannot banish yourself!",
+      "zh": "你不能放逐自己！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.05f3224f42bc",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Your muscles tense, ready for explosive movement...",
+      "zh": "你的肌肉紧绷，准备爆发行动……",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.de95f0641f83",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You begin to rise into the air.",
+      "zh": "你开始升向空中。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.f1bf3bf5572e",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Sorry, you can't do that.",
+      "zh": "抱歉，你无法那样做。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.fixed.7661209f7ace",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Uppercase letters only, please.",
+      "zh": "请仅使用大写字母。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player-stats.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.prayer.accepted",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "{god} accepts your prayer!",
+      "zh": "{god}接受了你的祈祷！",
+      "params": {
+        "god": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/god-prayer.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.prayer.abandon_unknown",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "Really abandon {god} for an unknown god?",
+      "zh": "真的要抛弃{god}，改信未知的神祇吗？",
+      "params": {
+        "god": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/god-prayer.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.prayer.offer",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You offer a prayer to {god}.",
+      "zh": "你向{god}祈祷。",
+      "params": {
+        "god": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/god-prayer.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.prayer.offer_silent",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You offer a silent prayer to {god}.",
+      "zh": "你向{god}默默祈祷。",
+      "params": {
+        "god": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/god-prayer.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.prayer.tithe",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You pay a tithe of {gold} gold.",
+      "zh": "你缴纳了{gold}枚金币的什一税。",
+      "params": {
+        "gold": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/god-prayer.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.prayer.god_choice",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "({key}) {god}",
+      "zh": "({key}) {god}",
+      "params": {
+        "key": "key",
+        "god": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/god-prayer.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.prayer.ecumenical",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "This altar belongs to {gods}, but you can't tell which.\nPress the corresponding letter to learn more about a god, or press enter to convert or escape to cancel.",
+      "zh": "这座祭坛属于{gods}中的一位，但你无法分辨是哪位。\n按对应字母了解神祇，按回车改信，或按 Esc 取消。",
+      "params": {
+        "gods": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/god-prayer.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.piety.guilt.little",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel a little guilty.",
+      "zh": "你感到有些内疚。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.piety.guilt.plain",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel guilty.",
+      "zh": "你感到内疚。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.piety.guilt.very",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel very guilty.",
+      "zh": "你感到十分内疚。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.piety.guilt.extreme",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel extremely guilty.",
+      "zh": "你感到极度内疚。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.conversion.fee",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You pay a service fee of {gold} gold.",
+      "zh": "你支付了{gold}枚金币的服务费。",
+      "params": {
+        "gold": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.conversion.fee_none",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The service fee for joining is currently {gold} gold; you have none.",
+      "zh": "入教服务费目前为{gold}枚金币；你身无分文。",
+      "params": {
+        "gold": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.conversion.fee_short",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "The service fee for joining is currently {gold} gold; you only have {available}.",
+      "zh": "入教服务费目前为{gold}枚金币；你只有{available}枚。",
+      "params": {
+        "gold": "integer",
+        "available": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.mutation.stat.str_up",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel stronger.",
+      "zh": "你感到更强壮了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/mutation.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.mutation.stat.str_down",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel weaker.",
+      "zh": "你感到更虚弱了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/mutation.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.mutation.stat.int_up",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel clever.",
+      "zh": "你感到聪明了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/mutation.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.mutation.stat.int_down",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel stupid.",
+      "zh": "你感到迟钝了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/mutation.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.mutation.stat.dex_up",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel agile.",
+      "zh": "你感到敏捷了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/mutation.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.mutation.stat.dex_down",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel clumsy.",
+      "zh": "你感到笨拙了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/mutation.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.mutation.wane.partial",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel the corruption within you wane somewhat.",
+      "zh": "你感到体内的腐化消退了一些。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/mutation.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.mutation.wane.complete",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "You feel the corruption within you wane completely.",
+      "zh": "你感到体内的腐化完全消退了。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/mutation.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.elyvilon.vigour",
+      "context": "GPT-6.1-Sol翻译并审校；完整消息在生产分支选择，等级/枚举保持语义独立，结构参数不翻译。",
+      "en": "{god} grants you divine vigour.",
+      "zh": "{god}赐予你神圣活力。",
+      "params": {
+        "god": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "source-selected complete player message"
+      }
+    },
+    {
+      "id": "character.god.name.0",
+      "en": "Zin",
+      "zh": "辛",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.0"
+      }
+    },
+    {
+      "id": "character.god.name.1",
+      "en": "the Shining One",
+      "zh": "光明神",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.1"
+      }
+    },
+    {
+      "id": "character.god.name.2",
+      "en": "Kikubaaqudgha",
+      "zh": "基库巴库德加",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.2"
+      }
+    },
+    {
+      "id": "character.god.name.3",
+      "en": "Yredelemnul",
+      "zh": "伊雷德伦努尔",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.3"
+      }
+    },
+    {
+      "id": "character.god.name.4",
+      "en": "Vehumet",
+      "zh": "维胡梅特",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.4"
+      }
+    },
+    {
+      "id": "character.god.name.5",
+      "en": "Okawaru",
+      "zh": "奥卡瓦鲁",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.5"
+      }
+    },
+    {
+      "id": "character.god.name.6",
+      "en": "Makhleb",
+      "zh": "玛克莱布",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.6"
+      }
+    },
+    {
+      "id": "character.god.name.7",
+      "en": "Sif Muna",
+      "zh": "席夫·穆纳",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.7"
+      }
+    },
+    {
+      "id": "character.god.name.8",
+      "en": "Trog",
+      "zh": "特罗格",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.8"
+      }
+    },
+    {
+      "id": "character.god.name.9",
+      "en": "Nemelex Xobeh",
+      "zh": "内梅莱克斯·佐贝",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.9"
+      }
+    },
+    {
+      "id": "character.god.name.10",
+      "en": "Elyvilon",
+      "zh": "艾利维隆",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.10"
+      }
+    },
+    {
+      "id": "character.god.name.11",
+      "en": "Lugonu",
+      "zh": "卢格努",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.11"
+      }
+    },
+    {
+      "id": "character.god.name.12",
+      "en": "Beogh",
+      "zh": "比奥",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.12"
+      }
+    },
+    {
+      "id": "character.god.name.13",
+      "en": "Fedhas",
+      "zh": "费达斯",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.13"
+      }
+    },
+    {
+      "id": "character.god.name.14",
+      "en": "Cheibriados",
+      "zh": "切布里亚多斯",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.14"
+      }
+    },
+    {
+      "id": "character.god.name.15",
+      "en": "Xom",
+      "zh": "佐姆",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.15"
+      }
+    },
+    {
+      "id": "character.god.name.16",
+      "en": "Ashenzari",
+      "zh": "阿申扎里",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.16"
+      }
+    },
+    {
+      "id": "character.god.name.17",
+      "en": "Dithmenos",
+      "zh": "迪斯梅诺斯",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.17"
+      }
+    },
+    {
+      "id": "character.god.name.18",
+      "en": "Gozag",
+      "zh": "戈扎格",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.18"
+      }
+    },
+    {
+      "id": "character.god.name.19",
+      "en": "Qazlal",
+      "zh": "卡兹拉尔",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.19"
+      }
+    },
+    {
+      "id": "character.god.name.20",
+      "en": "Ru",
+      "zh": "鲁",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.20"
+      }
+    },
+    {
+      "id": "character.god.name.21",
+      "en": "Pakellas",
+      "zh": "帕凯拉斯",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.21"
+      }
+    },
+    {
+      "id": "character.god.name.22",
+      "en": "Uskayaw",
+      "zh": "乌斯卡尤",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.22"
+      }
+    },
+    {
+      "id": "character.god.name.23",
+      "en": "Hepliaklqana",
+      "zh": "赫普利亚克拉纳",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.23"
+      }
+    },
+    {
+      "id": "character.god.name.24",
+      "en": "Wu Jian",
+      "zh": "武坚",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.24"
+      }
+    },
+    {
+      "id": "character.god.name.25",
+      "en": "Ignis",
+      "zh": "伊格尼斯",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.25"
+      }
+    },
+    {
+      "id": "character.god.name.26",
+      "en": "Jiyva",
+      "zh": "吉伊瓦",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.26"
+      }
+    },
+    {
+      "id": "character.god.name.27",
+      "en": "an unknown god",
+      "zh": "未知的神祇",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.27"
+      }
+    },
+    {
+      "id": "character.stats.experience",
+      "en": "Your experience leads to an increase in your attributes!",
+      "zh": "你的历练使你的属性得到了提升！",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/player-stats.cc",
+        "anchor": "character.stats.experience"
+      }
+    },
+    {
+      "id": "character.stats.experience_dramatic",
+      "en": "Your experience leads to a dramatic increase in your attributes!",
+      "zh": "你的历练使你的属性得到了大幅提升！",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/player-stats.cc",
+        "anchor": "character.stats.experience_dramatic"
+      }
+    },
+    {
+      "id": "character.stats.base",
+      "en": "Your base attributes are Str {str}, Int {int}, Dex {dex}.",
+      "zh": "你的基础属性为：力量{str}，智力{int}，敏捷{dex}。",
+      "params": {
+        "str": "integer",
+        "int": "integer",
+        "dex": "integer"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/player-stats.cc",
+        "anchor": "character.stats.base"
+      }
+    },
+    {
+      "id": "character.stats.choose",
+      "en": "Increase ({str})trength, ({int})ntelligence, or ({dex})exterity? ",
+      "zh": "要提升力量({str})、智力({int})还是敏捷({dex})？ ",
+      "params": {
+        "str": "key",
+        "int": "key",
+        "dex": "key"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/player-stats.cc",
+        "anchor": "character.stats.choose"
+      }
+    },
+    {
+      "id": "character.stats.name.str",
+      "en": "strength",
+      "zh": "力量",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/player-stats.cc",
+        "anchor": "character.stats.name.str"
+      }
+    },
+    {
+      "id": "character.stats.name.int",
+      "en": "intelligence",
+      "zh": "智力",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/player-stats.cc",
+        "anchor": "character.stats.name.int"
+      }
+    },
+    {
+      "id": "character.stats.name.dex",
+      "en": "dexterity",
+      "zh": "敏捷",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/player-stats.cc",
+        "anchor": "character.stats.name.dex"
+      }
+    },
+    {
+      "id": "character.stats.zero",
+      "en": "You have lost all your {stat}. It will be difficult to act quickly in this state!",
+      "zh": "你的{stat}已完全丧失。在这种状态下，你将难以迅速行动！",
+      "params": {
+        "stat": "text"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/player-stats.cc",
+        "anchor": "character.stats.zero"
+      }
+    },
+    {
+      "id": "character.stats.recovered",
+      "en": "You have recovered your {stat}.",
+      "zh": "你的{stat}恢复了。",
+      "params": {
+        "stat": "text"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/player-stats.cc",
+        "anchor": "character.stats.recovered"
+      }
+    },
+    {
+      "id": "character.qazlal.adapt.fire.new",
+      "en": "You feel protected from fire.",
+      "zh": "你感到能够抵御火焰了。",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-passive.cc",
+        "anchor": "character.qazlal.adapt.fire.new"
+      }
+    },
+    {
+      "id": "character.qazlal.adapt.fire.renewed",
+      "en": "You feel more protected from fire.",
+      "zh": "你感到更能抵御火焰了。",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-passive.cc",
+        "anchor": "character.qazlal.adapt.fire.renewed"
+      }
+    },
+    {
+      "id": "character.qazlal.adapt.cold.new",
+      "en": "You feel protected from cold.",
+      "zh": "你感到能够抵御寒冷了。",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-passive.cc",
+        "anchor": "character.qazlal.adapt.cold.new"
+      }
+    },
+    {
+      "id": "character.qazlal.adapt.cold.renewed",
+      "en": "You feel more protected from cold.",
+      "zh": "你感到更能抵御寒冷了。",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-passive.cc",
+        "anchor": "character.qazlal.adapt.cold.renewed"
+      }
+    },
+    {
+      "id": "character.qazlal.adapt.elec.new",
+      "en": "You feel protected from electricity.",
+      "zh": "你感到能够抵御电击了。",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-passive.cc",
+        "anchor": "character.qazlal.adapt.elec.new"
+      }
+    },
+    {
+      "id": "character.qazlal.adapt.elec.renewed",
+      "en": "You feel more protected from electricity.",
+      "zh": "你感到更能抵御电击了。",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-passive.cc",
+        "anchor": "character.qazlal.adapt.elec.renewed"
+      }
+    },
+    {
+      "id": "character.qazlal.adapt.physical.new",
+      "en": "You feel protected from physical attacks.",
+      "zh": "你感到能够抵御物理攻击了。",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-passive.cc",
+        "anchor": "character.qazlal.adapt.physical.new"
+      }
+    },
+    {
+      "id": "character.qazlal.adapt.physical.renewed",
+      "en": "You feel more protected from physical attacks.",
+      "zh": "你感到更能抵御物理攻击了。",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-passive.cc",
+        "anchor": "character.qazlal.adapt.physical.renewed"
+      }
+    },
+    {
+      "id": "character.zin.donate.confirm",
+      "en": "Do you wish to donate half of your money?",
+      "zh": "你愿意捐献一半的钱财吗？",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.confirm"
+      }
+    },
+    {
+      "id": "character.zin.donate.neutral.period",
+      "en": "You feel that {god} will soon be noncommittal.",
+      "zh": "你觉得{god}很快就会不置可否。",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.neutral.period"
+      }
+    },
+    {
+      "id": "character.zin.donate.neutral.bang",
+      "en": "You feel that {god} will soon be noncommittal!",
+      "zh": "你觉得{god}很快就会不置可否！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.neutral.bang"
+      }
+    },
+    {
+      "id": "character.zin.donate.aware.period",
+      "en": "You feel that {god} will soon be aware of your devotion.",
+      "zh": "你觉得{god}很快就会注意到你的虔诚。",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.aware.period"
+      }
+    },
+    {
+      "id": "character.zin.donate.aware.bang",
+      "en": "You feel that {god} will soon be aware of your devotion!",
+      "zh": "你觉得{god}很快就会注意到你的虔诚！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.aware.bang"
+      }
+    },
+    {
+      "id": "character.zin.donate.pleased.period",
+      "en": "You feel that {god} will soon be pleased with you.",
+      "zh": "你觉得{god}很快就会对你感到满意。",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.pleased.period"
+      }
+    },
+    {
+      "id": "character.zin.donate.pleased.bang",
+      "en": "You feel that {god} will soon be pleased with you!",
+      "zh": "你觉得{god}很快就会对你感到满意！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.pleased.bang"
+      }
+    },
+    {
+      "id": "character.zin.donate.most.period",
+      "en": "You feel that {god} will soon be most pleased with you.",
+      "zh": "你觉得{god}很快就会对你感到很满意。",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.most.period"
+      }
+    },
+    {
+      "id": "character.zin.donate.most.bang",
+      "en": "You feel that {god} will soon be most pleased with you!",
+      "zh": "你觉得{god}很快就会对你感到很满意！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.most.bang"
+      }
+    },
+    {
+      "id": "character.zin.donate.greatly.period",
+      "en": "You feel that {god} will soon be greatly pleased with you.",
+      "zh": "你觉得{god}很快就会对你感到十分满意。",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.greatly.period"
+      }
+    },
+    {
+      "id": "character.zin.donate.greatly.bang",
+      "en": "You feel that {god} will soon be greatly pleased with you!",
+      "zh": "你觉得{god}很快就会对你感到十分满意！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.greatly.bang"
+      }
+    },
+    {
+      "id": "character.zin.donate.extremely.period",
+      "en": "You feel that {god} will soon be extremely pleased with you.",
+      "zh": "你觉得{god}很快就会对你感到极其满意。",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.extremely.period"
+      }
+    },
+    {
+      "id": "character.zin.donate.extremely.bang",
+      "en": "You feel that {god} will soon be extremely pleased with you!",
+      "zh": "你觉得{god}很快就会对你感到极其满意！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.extremely.bang"
+      }
+    },
+    {
+      "id": "character.zin.donate.exalted.period",
+      "en": "You feel that {god} will soon be exalted by your worship.",
+      "zh": "你觉得{god}很快就会因你的信奉而备受尊崇。",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.exalted.period"
+      }
+    },
+    {
+      "id": "character.zin.donate.exalted.bang",
+      "en": "You feel that {god} will soon be exalted by your worship!",
+      "zh": "你觉得{god}很快就会因你的信奉而备受尊崇！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：按枚举/等级选择完整模板；规范英文和控制参数保持。",
+      "source": {
+        "file": "native/crawl-ref/source/god-abil.cc",
+        "anchor": "character.zin.donate.exalted.bang"
+      }
+    },
+    {
+      "id": "character.god.name.upper_shining",
+      "en": "The Shining One",
+      "zh": "光明神",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：入教/离教完整神祇消息，保留规范英文神祇发言名与频道参数，未知名整句回退。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.upper_shining"
+      }
+    },
+    {
+      "id": "character.god.name.council",
+      "en": "The Council",
+      "zh": "武坚议会",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：入教/离教完整神祇消息，保留规范英文神祇发言名与频道参数，未知名整句回退。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.god.name.council"
+      }
+    },
+    {
+      "id": "character.conversion.welcome",
+      "en": "{god} welcomes you!",
+      "zh": "{god}欢迎你！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：入教/离教完整神祇消息，保留规范英文神祇发言名与频道参数，未知名整句回退。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.conversion.welcome"
+      }
+    },
+    {
+      "id": "character.conversion.welcome_back",
+      "en": "{god} welcomes you back!",
+      "zh": "{god}欢迎你归来！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：入教/离教完整神祇消息，保留规范英文神祇发言名与频道参数，未知名整句回退。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.conversion.welcome_back"
+      }
+    },
+    {
+      "id": "character.conversion.refuse_forgive",
+      "en": "{god} refuses to forgive you so easily!",
+      "zh": "{god}不会如此轻易地原谅你！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：入教/离教完整神祇消息，保留规范英文神祇发言名与频道参数，未知名整句回退。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.conversion.refuse_forgive"
+      }
+    },
+    {
+      "id": "character.conversion.beggar",
+      "en": "{god} does not accept service from beggars like you!",
+      "zh": "{god}不接受像你这样的穷鬼效力！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：入教/离教完整神祇消息，保留规范英文神祇发言名与频道参数，未知名整句回退。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.conversion.beggar"
+      }
+    },
+    {
+      "id": "character.conversion.loveless",
+      "en": "{god} does not accept worship from the loveless!",
+      "zh": "{god}不接受无情者的信奉！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：入教/离教完整神祇消息，保留规范英文神祇发言名与频道参数，未知名整句回退。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.conversion.loveless"
+      }
+    },
+    {
+      "id": "character.conversion.forswear",
+      "en": "{god} says: You must forswear the aid of any and all before you are fit to worship.",
+      "zh": "{god}说道：你必须誓绝一切外来援助，才有资格信奉。",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：入教/离教完整神祇消息，保留规范英文神祇发言名与频道参数，未知名整句回退。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.conversion.forswear"
+      }
+    },
+    {
+      "id": "character.conversion.loathsome",
+      "en": "{god} says: How dare you approach in such a loathsome form!",
+      "zh": "{god}说道：你竟敢以如此可憎的形态前来！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：入教/离教完整神祇消息，保留规范英文神祇发言名与频道参数，未知名整句回退。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.conversion.loathsome"
+      }
+    },
+    {
+      "id": "character.conversion.reject",
+      "en": "{god} does not accept worship from those such as you!",
+      "zh": "{god}不接受像你这样的存在信奉！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：入教/离教完整神祇消息，保留规范英文神祇发言名与频道参数，未知名整句回退。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.conversion.reject"
+      }
+    },
+    {
+      "id": "character.conversion.fee_waived",
+      "en": "{god} waives the service fee.",
+      "zh": "{god}免除了服务费。",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：入教/离教完整神祇消息，保留规范英文神祇发言名与频道参数，未知名整句回退。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.conversion.fee_waived"
+      }
+    },
+    {
+      "id": "character.conversion.ignis_wrath",
+      "en": "{god} blazes with a vengeful fury!",
+      "zh": "{god}燃起了复仇的怒火！",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：入教/离教完整神祇消息，保留规范英文神祇发言名与频道参数，未知名整句回退。",
+      "source": {
+        "file": "native/crawl-ref/source/religion.cc",
+        "anchor": "character.conversion.ignis_wrath"
+      }
+    },
+    {
+      "id": "character.ability.name.renounce",
+      "en": "Renounce Religion",
+      "zh": "放弃信仰",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.name.renounce"
+      }
+    },
+    {
+      "id": "character.ability.menu.row",
+      "en": "{name}{cost}{failure}",
+      "zh": "{name}{cost}{failure}",
+      "params": {
+        "name": "name",
+        "cost": "text",
+        "failure": "text"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.menu.row"
+      }
+    },
+    {
+      "id": "character.ability.cost.none",
+      "en": "None",
+      "zh": "无",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.none"
+      }
+    },
+    {
+      "id": "character.ability.cost.variable_mp",
+      "en": "MP",
+      "zh": "魔力",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.variable_mp"
+      }
+    },
+    {
+      "id": "character.ability.cost.noise",
+      "en": "Noise",
+      "zh": "噪声",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.noise"
+      }
+    },
+    {
+      "id": "character.ability.cost.breath",
+      "en": "Breath",
+      "zh": "吐息",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.breath"
+      }
+    },
+    {
+      "id": "character.ability.cost.delay",
+      "en": "Delay",
+      "zh": "延迟",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.delay"
+      }
+    },
+    {
+      "id": "character.ability.cost.torment",
+      "en": "Torment",
+      "zh": "折磨",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.torment"
+      }
+    },
+    {
+      "id": "character.ability.cost.injury",
+      "en": "Injury",
+      "zh": "受伤",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.injury"
+      }
+    },
+    {
+      "id": "character.ability.cost.exhaustion",
+      "en": "Exhaustion",
+      "zh": "疲惫",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.exhaustion"
+      }
+    },
+    {
+      "id": "character.ability.cost.instant",
+      "en": "Instant",
+      "zh": "瞬发",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.instant"
+      }
+    },
+    {
+      "id": "character.ability.cost.drain",
+      "en": "Drain",
+      "zh": "吸取",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.drain"
+      }
+    },
+    {
+      "id": "character.ability.cost.curse",
+      "en": "Cursed item",
+      "zh": "受诅咒物品",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.curse"
+      }
+    },
+    {
+      "id": "character.ability.cost.free",
+      "en": "Free",
+      "zh": "免费",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.free"
+      }
+    },
+    {
+      "id": "character.ability.cost.gold",
+      "en": "Gold",
+      "zh": "金币",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.gold"
+      }
+    },
+    {
+      "id": "character.ability.cost.torch",
+      "en": "Torchlight",
+      "zh": "炬光",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.torch"
+      }
+    },
+    {
+      "id": "character.ability.cost.mp",
+      "en": "{amount} MP",
+      "zh": "{amount}魔力",
+      "params": {
+        "amount": "integer"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.mp"
+      }
+    },
+    {
+      "id": "character.ability.cost.hp",
+      "en": "{amount} HP",
+      "zh": "{amount}生命",
+      "params": {
+        "amount": "integer"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.hp"
+      }
+    },
+    {
+      "id": "character.ability.cost.gold_amount",
+      "en": "{amount} Gold",
+      "zh": "{amount}金币",
+      "params": {
+        "amount": "integer"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.gold_amount"
+      }
+    },
+    {
+      "id": "character.ability.cost.piety",
+      "en": "Piety{pips}",
+      "zh": "虔诚{pips}",
+      "params": {
+        "pips": "key"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.piety"
+      }
+    },
+    {
+      "id": "character.ability.cost.drac",
+      "en": "{available}/{maximum} uses available",
+      "zh": "剩余{available}/{maximum}次",
+      "params": {
+        "available": "integer",
+        "maximum": "integer"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.drac"
+      }
+    },
+    {
+      "id": "character.ability.cost.permanent_mp",
+      "en": "Permanent MP ({amount} left)",
+      "zh": "永久魔力（剩余{amount}）",
+      "params": {
+        "amount": "integer"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.cost.permanent_mp"
+      }
+    },
+    {
+      "id": "character.ability.menu.help",
+      "en": "{key} toggle between ability selection and description.",
+      "zh": "按{key}切换能力选择与说明。",
+      "params": {
+        "key": "key_markup"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.menu.help"
+      }
+    },
+    {
+      "id": "character.ability.menu.hints",
+      "en": "<{colour}>This screen shows your character's set of talents. You can gain new abilities via certain items, through religion or by way of mutations. Activation of an ability usually comes at a cost, e.g. Magic power. Press '<w>!</w>' or '<w>?</w>' to toggle between ability selection and description.</{colour}>",
+      "zh": "<{colour}>此界面显示你拥有的能力。你可以通过某些物品、信仰或变异获得新能力。使用能力通常需要付出代价，例如消耗魔力。按'<w>!</w>'或'<w>?</w>'切换能力选择与说明。</{colour}>",
+      "params": {
+        "colour": "colour"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.menu.hints"
+      }
+    },
+    {
+      "id": "character.ability.menu.title_use",
+      "en": "Ability - do what?                  Cost                            Failure",
+      "zh": "能力：要做什么？                    代价                            失败率",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.menu.title_use"
+      }
+    },
+    {
+      "id": "character.ability.menu.title_describe",
+      "en": "Ability - describe what?            Cost                            Failure",
+      "zh": "能力：查看哪项？                    代价                            失败率",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.menu.title_describe"
+      }
+    },
+    {
+      "id": "character.ability.menu.invocations",
+      "en": " Invocations -    ",
+      "zh": " 神祇能力 -    ",
+      "params": {},
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/ability.cc",
+        "anchor": "character.ability.menu.invocations"
+      }
+    },
+    {
+      "id": "character.conduct.kill.accepted",
+      "en": "{god} accepts your kill.",
+      "zh": "{god}认可了你的击杀。",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/god-conduct.cc",
+        "anchor": "character.conduct.kill.accepted"
+      }
+    },
+    {
+      "id": "character.conduct.kill.honoured",
+      "en": "<white>{god} is honoured by your kill.</white>",
+      "zh": "<white>你的击杀使{god}倍感荣光。</white>",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/god-conduct.cc",
+        "anchor": "character.conduct.kill.honoured"
+      }
+    },
+    {
+      "id": "character.conduct.kill.ecosystem",
+      "en": "{god} appreciates your contribution to the ecosystem.",
+      "zh": "{god}赞赏你对生态系统的贡献。",
+      "params": {
+        "god": "name"
+      },
+      "context": "GPT-6.1-Sol翻译并审校：用户截图回归；生产语义字段选择完整模板，名称未知整行回退，显示出口pretranslated。",
+      "source": {
+        "file": "native/crawl-ref/source/god-conduct.cc",
+        "anchor": "character.conduct.kill.ecosystem"
+      }
+    }
+  ]
+}

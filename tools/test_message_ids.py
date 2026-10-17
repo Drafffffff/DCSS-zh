@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exercise typed rendering and independent Luna oracles; inspect real call sites."""
+"""Exercise typed rendering and independent reviewed oracles; inspect real call sites."""
 import json,subprocess,tempfile
 from pathlib import Path
 from compile_message_ids import ROOT,SRC,LOC,SHORTCUT,compile_catalog

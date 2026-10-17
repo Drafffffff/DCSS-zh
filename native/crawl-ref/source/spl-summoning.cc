@@ -174,7 +174,7 @@ bool player_summon_check(const vector<monster_type>& types, int max_range,
     // monsters we've been given.
     if (!_can_summon_any_of(types, max_range, exclude_range, pos.origin() ? you.pos() : pos, origin_spell))
     {
-        canned_msg(MSG_NO_AVAILABLE_SPACE);
+        mpr(zh_message("sol61.combat.summon.space"));
         return false;
     }
 
@@ -209,10 +209,10 @@ spret cast_summon_small_mammal(int pow, bool fail)
     if (monster* mons = create_monster(_pal_data(mon, summ_dur(3), SPELL_SUMMON_SMALL_MAMMAL)))
     {
         if (you.can_see(*mons))
-            mprf("%s appears in a puff of smoke.", mons->name(DESC_A).c_str());
+            mpr(zh_message("sol61.combat.mammal", {zh_monster_arg("monster", *mons, DESC_A)}));
     }
     else
-        canned_msg(MSG_NOTHING_HAPPENS);
+        mpr(zh_message("sol61.combat.nothing"));
 
     return spret::success;
 }
@@ -245,7 +245,7 @@ spret cast_call_canine_familiar(int pow, bool fail)
 
     if (old_dog && !you.can_see(*old_dog))
     {
-        mprf(MSGCH_PROMPT, "Your familiar is too far away to imbue with magic.");
+        mpr(zh_message("sol61.combat.dog.distant"), MSGCH_PROMPT);
         return spret::abort;
     }
 
@@ -259,7 +259,7 @@ spret cast_call_canine_familiar(int pow, bool fail)
         monster* dog = create_monster(mg);
         if (!dog)
         {
-            canned_msg(MSG_NOTHING_HAPPENS);
+            mpr(zh_message("sol61.combat.nothing"));
             return spret::success;
         }
 
@@ -270,7 +270,7 @@ spret cast_call_canine_familiar(int pow, bool fail)
         dog->ghost->init_inugami_from_player(pow);
         dog->ghost_demon_init();
 
-        mpr("You call for your canine familiar and it appears with a howl!");
+        mpr(zh_message("sol61.combat.dog.call"));
         you.props[CANINE_FAMILIAR_MID].get_int() = dog->mid;
     }
     // If it's active, instead heal and boost its next attack.
@@ -278,8 +278,7 @@ spret cast_call_canine_familiar(int pow, bool fail)
     {
         // Heal familiar and make its next attack (within the new few turns,
         // so that you don't just prebuff for this) an instant cleave.
-        mpr("You imbue your familiar with magical energy and its fangs glint"
-            " viciously.");
+        mpr(zh_message("sol61.combat.dog.imbue"));
 
         old_dog->heal(random_range(5, 9) + div_rand_round(pow, 5));
         old_dog->del_ench(ENCH_POISON);
@@ -309,11 +308,11 @@ spret cast_summon_cactus(int pow, bool fail)
     if (monster* mons = create_monster(mg))
     {
         if (you.can_see(*mons))
-            mpr("A prickly colossus appears in a rush of desert wind.");
+            mpr(zh_message("sol61.combat.cactus"));
     }
 
     else
-        canned_msg(MSG_NOTHING_HAPPENS);
+        mpr(zh_message("sol61.combat.nothing"));
 
     return spret::success;
 }
@@ -324,7 +323,7 @@ spret cast_awaken_armour(int pow, bool fail)
     if (armour == nullptr)
     {
         // I don't think we can ever reach this line, but let's be safe.
-        mpr("You aren't wearing any armour!");
+        mpr(zh_message("sol61.combat.armour.none"));
         return spret::abort;
     }
 
@@ -334,7 +333,7 @@ spret cast_awaken_armour(int pow, bool fail)
     int mitm_slot = get_mitm_slot(10);
     if (mitm_slot == NON_ITEM)
     {
-        canned_msg(MSG_NOTHING_HAPPENS);
+        mpr(zh_message("sol61.combat.nothing"));
         return spret::abort;
     }
 
@@ -347,11 +346,11 @@ spret cast_awaken_armour(int pow, bool fail)
     monster* spirit = create_monster(mg);
     if (!spirit)
     {
-        canned_msg(MSG_NOTHING_HAPPENS);
+        mpr(zh_message("sol61.combat.nothing"));
         return spret::success;
     }
 
-    mprf("You draw out an echo of %s.", armour->name(DESC_YOUR).c_str());
+    mpr(zh_message("sol61.combat.armour.echo", {zh_item_arg("armour", *armour, DESC_YOUR)}));
 
     item_def &fake_armour = env.item[mitm_slot];
     fake_armour.clear();
@@ -374,9 +373,9 @@ spret cast_summon_ice_beast(int pow, bool fail)
     ice_beast.hd = (3 + div_rand_round(pow, 13));
 
     if (create_monster(ice_beast))
-        mpr("A chill wind blows around you.");
+        mpr(zh_message("sol61.combat.ice_beast"));
     else
-        canned_msg(MSG_NOTHING_HAPPENS);
+        mpr(zh_message("sol61.combat.nothing"));
 
     return spret::success;
 }
@@ -397,18 +396,24 @@ spret cast_monstrous_menagerie(monster* caster, int pow)
     monster* beast = create_monster(mdata);
     if (!beast)
     {
-        canned_msg(MSG_NOTHING_HAPPENS);
+        mpr(zh_message("sol61.combat.nothing"));
         return spret::success;
     }
 
     if (you.can_see(*beast))
     {
-        mprf("%s %s %s!", caster->name(DESC_THE).c_str(),
-                          caster->conj_verb("summon").c_str(),
-                          mons_type_name(type, DESC_A).c_str());
+        auto summoned_name = zh_monster_type_arg("monster", type);
+        // The semantic type API uses a plain canonical name; this sentence
+        // historically includes the type's indefinite article.
+        summoned_name.canonical = mons_type_name(type, DESC_A);
+        if (!summoned_name.supported)
+            summoned_name.localized = summoned_name.canonical;
+        mpr(zh_message(caster->is_player()
+            ? "sol61.combat.menagerie.player" : "sol61.combat.menagerie.monster",
+            {zh_actor_arg("caster", caster), summoned_name}));
     }
     else
-        canned_msg(MSG_NOTHING_HAPPENS);
+        mpr(zh_message("sol61.combat.nothing"));
 
     return spret::success;
 }
@@ -444,17 +449,16 @@ spret cast_sphinx_sisters(const actor& caster, int pow, bool fail)
 
     if (marauder && guardian && you.can_see(*marauder) && you.can_see(*guardian))
     {
-        mprf("A pair of sphinxes answers %s call!",
-                    caster.name(DESC_ITS).c_str());
+        mpr(zh_message("sol61.combat.sphinx.pair", {zh_actor_arg("caster", &caster, DESC_ITS)}));
     }
     else if (marauder && you.can_see(*marauder) || guardian && you.can_see(*guardian))
     {
         const monster* sphinx = marauder ? marauder : guardian;
-        mprf("%s answers %s call!", sphinx->name(DESC_A).c_str(),
-                                    caster.name(DESC_ITS).c_str());
+        mpr(zh_message("sol61.combat.sphinx.single", {zh_monster_arg("monster", *sphinx, DESC_A),
+            zh_actor_arg("caster", &caster, DESC_ITS)}));
     }
     else if (you.can_see(caster))
-        canned_msg(MSG_NOTHING_HAPPENS);
+        mpr(zh_message("sol61.combat.nothing"));
 
     return spret::success;
 }
@@ -476,10 +480,10 @@ spret cast_summon_hydra(actor *caster, int pow, bool fail)
     if (monster *hydra = create_monster(mg))
     {
         if (you.see_cell(hydra->pos()))
-            mprf("%s appears.", hydra->name(DESC_A).c_str());
+            mpr(zh_message("sol61.combat.hydra", {zh_monster_arg("monster", *hydra, DESC_A)}));
     }
     else if (caster->is_player())
-        canned_msg(MSG_NOTHING_HAPPENS);
+        mpr(zh_message("sol61.combat.nothing"));
 
     return spret::success;
 }
@@ -687,9 +691,9 @@ spret cast_summon_mana_viper(int pow, bool fail)
     viper.hd = (7 + div_rand_round(pow, 12));
 
     if (create_monster(viper))
-        mpr("A mana viper appears with a sibilant hiss.");
+        mpr(zh_message("sol61.combat.viper"));
     else
-        canned_msg(MSG_NOTHING_HAPPENS);
+        mpr(zh_message("sol61.combat.nothing"));
 
     return spret::success;
 }
