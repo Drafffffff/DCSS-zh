@@ -12,6 +12,9 @@
 #include "mon-info.h"
 #include "monster.h"
 #include "place.h"
+#include "skills.h"
+#include "spl-util.h"
+#include "stringutil.h"
 #include "zh-localization.h"
 
 #include <cstdlib>
@@ -98,6 +101,9 @@ std::string item_classifier(const item_def &item)
 #endif
         default: return {};
         }
+    case OBJ_WANDS:    return "根";
+    case OBJ_BOOKS:    return "本";
+    case OBJ_MISCELLANY: return "件";
     case OBJ_STAVES:    return "根";
     case OBJ_WEAPONS:   return "把";
     case OBJ_ARMOUR:    return "件";
@@ -122,6 +128,16 @@ std::string semantic_item_base(const item_def &item)
     case OBJ_STAVES:
         return std::string("staff of ")
                + staff_type_name(static_cast<stave_type>(item.sub_type));
+    case OBJ_WANDS:
+        return std::string("wand of ") + sub_type_string(item, true);
+    case OBJ_MISCELLANY:
+        return sub_type_string(item, true);
+    case OBJ_BOOKS:
+        // Manuals and parchments require independently translated skill/spell
+        // names. Never look up their assembled English title.
+        if (item.sub_type == BOOK_MANUAL || item.sub_type == BOOK_PARCHMENT)
+            return {};
+        return sub_type_string(item, true);
     case OBJ_TALISMANS:
         return talisman_type_name(item.sub_type);
     case OBJ_POTIONS:
@@ -215,8 +231,57 @@ std::string translated_item_name(const item_def &item,
 
     const std::string base_en = semantic_item_base(item);
     std::string base_zh = exact_component(base_en);
+    // Fixed book titles are stored as lowercase database keys in the reviewed
+    // glossary. Normalize only these enum-derived keys, never final names or
+    // user/custom/artefact titles.
+    if (base_zh.empty() && item.base_type == OBJ_BOOKS && !base_en.empty())
+        base_zh = exact_component(lowercase_string(base_en));
+    if (item.base_type == OBJ_BOOKS && item.sub_type == BOOK_MANUAL)
+    {
+        const ZhArg skill = zh_glossary_name("skill", "skill.name",
+            skill_name(static_cast<skill_type>(item.plus)));
+        if (!skill.supported)
+            return fallback();
+        base_zh = zh_message("item.book.display.manual", {skill}).localized;
+    }
+    else if (item.base_type == OBJ_BOOKS && item.sub_type == BOOK_PARCHMENT)
+    {
+        if (item.plus == 0)
+            base_zh = exact_component("parchment");
+        else
+        {
+            const ZhArg spell = zh_word_arg("spell", "spell.name.",
+                spell_title(static_cast<spell_type>(item.plus)), ZhArgType::Name);
+            if (!spell.supported)
+                return fallback();
+            base_zh = zh_message("item.book.display.parchment", {spell}).localized;
+        }
+    }
     if (base_zh.empty())
         return fallback();
+
+    if (item.base_type == OBJ_WANDS && item.charges > 0)
+        base_zh = zh_message("item.wand.display.charges", {
+            ZhArg{"name", ZhArgType::Name, base_en, base_zh, true},
+            zh_integer("charges", item.charges)}).localized;
+    else if (item.base_type == OBJ_MISCELLANY)
+    {
+        const auto name = [&]() {
+            return ZhArg{"name", ZhArgType::Name, base_en, base_zh, true};
+        };
+        if (item.sub_type == MISC_ZIGGURAT && you.zigs_completed > 0)
+            base_zh = zh_message("item.miscellany.display.ziggurat_progress", {
+                zh_integer("count", you.zigs_completed), name()}).localized;
+        else if (is_xp_evoker(item) && in_inventory(item))
+            base_zh = zh_message("item.miscellany.display.evoker_plus", {
+                zh_integer("level", evoker_plus(item.sub_type)), name()}).localized;
+        if (is_xp_evoker(item) && !evoker_charges(item.sub_type))
+            base_zh = zh_message("item.miscellany.display.inert", {name()}).localized;
+        else if (is_xp_evoker(item) && evoker_max_charges(item.sub_type) > 1)
+            base_zh = zh_message("item.miscellany.display.charges", {
+                name(), zh_integer("charges", evoker_charges(item.sub_type)),
+                zh_integer("maximum", evoker_max_charges(item.sub_type))}).localized;
+    }
 
     std::string brand_zh;
     if (item.base_type == OBJ_WEAPONS && item.is_identified())

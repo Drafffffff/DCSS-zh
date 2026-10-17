@@ -61,6 +61,12 @@ ZhArg zh_text(const std::string &key,const std::string &canonical,const std::str
     return {key,ZhArgType::Text,canonical,localized,
         canonical != localized || canonical.find_first_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") == std::string::npos};
 }
+ZhArg zh_numeric_notation(const std::string &key, const std::string &notation) {
+    const bool supported = notation.empty()
+        || (notation.find_first_of("0123456789") != std::string::npos
+            && notation.find_first_not_of("0123456789dx+-*/(). %") == std::string::npos);
+    return {key,ZhArgType::Text,notation,notation,supported};
+}
 ZhArg zh_key(const std::string &key,const std::string &value) {
     if (value.find_first_of("<>\n\r")!=std::string::npos) throw std::invalid_argument("Invalid localization key token");
     return {key,ZhArgType::Key,value,value};
@@ -214,4 +220,12 @@ std::string zh_source(const char *context, const char *source_literal)
     if (std::getenv("DCSS_ZH_STRICT_SOURCE"))
         throw std::invalid_argument(std::string("Missing localization source: ") + context);
     return source_literal;
+}
+
+ZhArg zh_message_arg(const std::string &key, const std::string &id,
+                     std::initializer_list<ZhArg> args) {
+    const ZhMessage value = zh_message(id, args);
+    const bool supported = std::all_of(args.begin(), args.end(),
+        [](const ZhArg &arg) { return arg.supported; });
+    return {key, ZhArgType::Text, value.canonical, value.localized, supported};
 }

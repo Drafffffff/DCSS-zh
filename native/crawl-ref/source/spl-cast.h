@@ -16,6 +16,7 @@
 
 using std::vector;
 
+struct ZhArg;
 struct monster_info;
 class dist;
 
@@ -145,6 +146,7 @@ string spell_range_string(spell_type spell);
 string range_string(int range, int maxrange = -1, int minrange = 0);
 string spell_schools_string(spell_type spell);
 string spell_failure_rate_string(spell_type spell, bool terse);
+ZhArg spell_noise_display_arg(const string &key, spell_type spell);
 string spell_noise_string(spell_type spell, int chop_wiz_display_width = 0);
 
 void spell_skills(spell_type spell, set<skill_type> &skills);

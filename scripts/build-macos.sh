@@ -15,6 +15,7 @@ python3 tools/test_translation_boundaries.py
 python3 tools/test_detail_producers.py
 python3 tools/test_curse_details.py
 python3 tools/test_item_hints.py
+python3 tools/test_consumable_producers.py
 python3 tools/test_font_split.py
 mkdir -p output/macos verification/native
 cd native/crawl-ref/source

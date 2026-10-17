@@ -7,6 +7,8 @@
 
 #include "potion-type.h"
 
+struct ZhArg;
+
 class PotionEffect
 {
 private:
@@ -16,7 +18,8 @@ protected:
     PotionEffect(potion_type);
     virtual bool check_known_quaff() const;
 public:
-    virtual bool can_quaff(string *reason = nullptr, bool temp = true) const;
+    virtual bool can_quaff(string *reason = nullptr, bool temp = true,
+                           ZhArg *display = nullptr) const;
 
     /**
      * Elsewhere in the code there are things that can have the effect

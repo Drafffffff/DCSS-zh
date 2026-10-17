@@ -26,6 +26,7 @@ p.add_argument('--saves',required=True,type=Path)
 p.add_argument('--name',default='Awigithro')
 p.add_argument('--out',required=True,type=Path)
 p.add_argument('--scenes',default='weapon-detail,skills,skills-help,monster-detail,shop-selected')
+p.add_argument('--startup-timeout',type=float,default=30,help='Wait for real hints producer completion instead of a fixed loading delay')
 p.add_argument('--require-complete',action='store_true',help='Fail on any missing ID or semantic name in the selected fixtures')
 a=p.parse_args()
 a.binary=a.binary.resolve();a.data=a.data.resolve();a.saves=a.saves.resolve();a.out=a.out.resolve()
@@ -100,13 +101,20 @@ for scene in a.scenes.split(','):
                  'DCSS_ZH_TRACE':str((dst/'legacy.jsonl').resolve())}
             os.execve(str(a.binary),[str(a.binary),'-dir',str(state),'-rc',str(rc),'-name',a.name],env)
         fcntl.ioctl(fd,termios.TIOCSWINSZ,struct.pack('HHHH',52,140,0,0))
-        transcript=bytearray();end=time.monotonic()+5
+        transcript=bytearray();end=time.monotonic()+(a.startup_timeout if scene.startswith('hints-') else 5)
         while time.monotonic()<end:
             if select.select([fd],[],[],.1)[0]:
                 try:chunk=os.read(fd,65536)
                 except OSError:break
                 if not chunk:break
                 transcript.extend(chunk)
+            if scene.startswith('hints-'):
+                trace=dst/'boundaries.tsv'
+                ids=dst/'ids.tsv'
+                if (trace.exists() and 'detail.item.hints\tenter' in trace.read_text()
+                        and ids.exists() and 'item.hints.' in ids.read_text()):
+                    time.sleep(.3)
+                    break
         status=os.waitpid(pid,os.WNOHANG)
         running=status==(0,0)
         if running:

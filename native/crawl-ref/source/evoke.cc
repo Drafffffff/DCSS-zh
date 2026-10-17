@@ -6,6 +6,7 @@
 #include "AppHdr.h"
 
 #include "evoke.h"
+#include "zh-message.h"
 
 #include <algorithm>
 #include <cmath>
@@ -994,18 +995,18 @@ static bool _evoke_ally_only(const item_def &item, bool ident)
     return false;
 }
 
-string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
+ZhArg cannot_evoke_item_display_reason(const item_def *item, bool temp, bool ident)
 {
     // id is not at issue here
     if (temp && you.berserk())
-        return "You are too berserk!";
+        return zh_message_arg("reason", "item.reason.use.berserk");
 
     if (temp && you.confused())
-        return "You are too confused!";
+        return zh_message_arg("reason", "item.reason.use.confused");
 
     // all generic checks passed
     if (!item)
-        return "";
+        return {"reason", ZhArgType::Text, "", "", true};
 
     // historically allowed under confusion/berserk, but why?
     if (item->is_type(OBJ_MISCELLANY, MISC_ZIGGURAT))
@@ -1013,43 +1014,44 @@ string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
         // override sac artifice for zigfigs, including a general check
         // TODO: zigfig has some terrain/level constraints that aren't handled
         // here
-        return "";
+        return {"reason", ZhArgType::Text, "", "", true};
     }
 
     if (item->is_type(OBJ_BAUBLES, BAUBLE_FLUX))
     {
         if (you.form == transformation::flux && temp)
-            return "you are already filled with unstable energy.";
+            return zh_message_arg("reason", "item.reason.use.flux_already");
 
         const string form_unreason = cant_transform_reason(transformation::flux, false, temp);
         if (!form_unreason.empty())
-            return lowercase_first(form_unreason);
-        return "";
+            return {"reason", ZhArgType::Text, lowercase_first(form_unreason),
+                    lowercase_first(form_unreason), false};
+        return {"reason", ZhArgType::Text, "", "", true};
     }
 
     if (you.get_mutation_level(MUT_NO_ARTIFICE))
-        return "You cannot evoke magical items.";
+        return zh_message_arg("reason", "item.reason.use.no_artifice");
 
     // is this really necessary?
     if (item_type_removed(item->base_type, item->sub_type))
-        return "Sorry, this item was removed!";
+        return zh_message_arg("reason", "item.reason.use.item_removed");
     if (item->base_type != OBJ_WANDS && item->base_type != OBJ_MISCELLANY)
-        return "You can't evoke that!";
+        return zh_message_arg("reason", "item.reason.use.wrong_evoke");
 
 #if TAG_MAJOR_VERSION == 34
     if (is_known_empty_wand(*item))
-        return "This wand has no charges.";
+        return zh_message_arg("reason", "item.reason.use.no_charges");
 #endif
 
     if (_evoke_ally_only(*item, ident) && you.allies_forbidden())
-        return "That item cannot be used by those who cannot gain allies!";
+        return zh_message_arg("reason", "item.reason.use.allies_forbidden");
 
     if (temp
         && item->base_type == OBJ_MISCELLANY
         && item->sub_type == MISC_CONDENSER_VANE
         && (env.level_state & LSTATE_STILL_WINDS))
     {
-        return "The air is too still for clouds to form.";
+        return zh_message_arg("reason", "item.reason.use.still_air");
     }
 
     if (temp
@@ -1057,17 +1059,23 @@ string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
         && item->sub_type == MISC_HORN_OF_GERYON
         && you.is_silenced())
     {
-        return "You can't produce a sound!";
+        return zh_message_arg("reason", "item.reason.use.horn_silenced");
     }
 
     if (temp && is_xp_evoker(*item) && evoker_charges(item->sub_type) <= 0)
     {
         // DESC_THE prints "The tin of tremorstones (inert) is presently inert."
-        return make_stringf("The %s is presently inert.",
-                                            item->name(DESC_DBNAME).c_str());
+        return zh_message_arg("reason", "item.reason.use.inert_evoker", {
+            zh_glossary_name("item", "item.miscellany",
+                             sub_type_string(*item, true))});
     }
 
-    return "";
+    return {"reason", ZhArgType::Text, "", "", true};
+}
+
+string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
+{
+    return cannot_evoke_item_display_reason(item, temp, ident).canonical;
 }
 
 bool item_currently_evokable(const item_def *item)
@@ -1351,28 +1359,37 @@ string evoke_damage_string(const item_def& item)
         return "";
 }
 
-string evoke_noise_string(const item_def& item)
+static spell_type _evoke_noise_spell(const item_def &item)
 {
     if (item.base_type == OBJ_WANDS)
+        return spell_in_wand(static_cast<wand_type>(item.sub_type));
+    if (item.base_type == OBJ_MISCELLANY)
     {
-        return spell_noise_string(
-            spell_in_wand(static_cast<wand_type>(item.sub_type)));
+        switch (item.sub_type)
+        {
+        case MISC_PHIAL_OF_FLOODS: return SPELL_PRIMAL_WAVE;
+        case MISC_LIGHTNING_ROD: return SPELL_THUNDERBOLT;
+        case MISC_TIN_OF_TREMORSTONES: return SPELL_TREMORSTONE;
+        case MISC_GRAVITAMBOURINE: return SPELL_GRAVITAS;
+        }
     }
-    else if (item.base_type == OBJ_MISCELLANY)
-    {
-        if (item.sub_type == MISC_PHIAL_OF_FLOODS)
-            return spell_noise_string(SPELL_PRIMAL_WAVE);
-        else if (item.sub_type == MISC_LIGHTNING_ROD)
-            return spell_noise_string(SPELL_THUNDERBOLT);
-        else if (item.sub_type == MISC_TIN_OF_TREMORSTONES)
-            return spell_noise_string(SPELL_TREMORSTONE);
-        else if (item.sub_type == MISC_GRAVITAMBOURINE)
-            return spell_noise_string(SPELL_GRAVITAS);
-        else
-            return "";
-    }
-    else
-        return "";
+    return SPELL_NO_SPELL;
+}
+
+string evoke_noise_string(const item_def &item)
+{
+    const spell_type spell = _evoke_noise_spell(item);
+    return spell == SPELL_NO_SPELL ? "" : spell_noise_string(spell);
+}
+
+ZhArg evoke_noise_display_arg(const string &key, const item_def &item)
+{
+    const spell_type spell = _evoke_noise_spell(item);
+    if (spell == SPELL_NO_SPELL)
+        return {key, ZhArgType::Text, "", "", true};
+    ZhArg value = spell_noise_display_arg(key, spell);
+    value.type = ZhArgType::Text;
+    return value;
 }
 
 dice_def pyromania_damage(bool random, bool max)

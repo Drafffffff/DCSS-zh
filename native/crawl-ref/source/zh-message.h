@@ -22,6 +22,8 @@ ZhArg zh_integer(const std::string &key, long long value);
 ZhArg zh_number(const std::string &key, double value, int precision = 1);
 ZhArg zh_text(const std::string &key, const std::string &canonical,
               const std::string &localized);
+// Mathematical display notation, never an arbitrary English message.
+ZhArg zh_numeric_notation(const std::string &key, const std::string &notation);
 ZhArg zh_key(const std::string &key, const std::string &value);
 // Menu-generated key names with their fixed <w> styling and escaped '<'.
 // This is immutable structure, never an ordinary translatable text argument.
@@ -29,6 +31,8 @@ ZhArg zh_key_markup(const std::string &key, const std::string &value);
 ZhArg zh_colour(const std::string &key, const std::string &value);
 ZhMessage zh_message(const std::string &id, std::initializer_list<ZhArg> args = {},
                      const std::string &canonical = "");
+ZhArg zh_message_arg(const std::string &key, const std::string &id,
+                     std::initializer_list<ZhArg> args = {});
 // Exact whole entries only. Intended for semantic enum labels and base names;
 // never call this with an assembled sentence or an internal identifier.
 std::string zh_lookup_exact(const std::string &text);

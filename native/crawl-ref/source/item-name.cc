@@ -6,6 +6,7 @@
 #include "AppHdr.h"
 
 #include "item-name.h"
+#include "zh-message.h"
 
 #include <cctype>
 #include <cstring>
@@ -3052,35 +3053,50 @@ bool is_dangerous_item(const item_def &item, bool temp)
  * response to print. Otherwise, if they do have such items, return the empty
  * string.
  */
-static string _no_items_reason(object_selector type, bool check_floor = false)
+static ZhArg _unmigrated_item_reason(const string &reason)
 {
-    if (!any_items_of_type(type, -1, check_floor))
-        return no_selectables_message(type);
-    return "";
+    return {"reason", ZhArgType::Text, reason, reason, reason.empty()};
 }
 
-static string _general_cannot_read_reason()
+static ZhArg _no_items_reason(object_selector type, bool check_floor = false)
+{
+    if (!any_items_of_type(type, -1, check_floor))
+    {
+        switch (type)
+        {
+        case OSEL_UNIDENT: return zh_message_arg("reason", "item.reason.selectable.unidentified");
+        case OSEL_ENCHANTABLE_ARMOUR: return zh_message_arg("reason", "item.reason.selectable.enchantable_armour");
+        case OSEL_ENCHANTABLE_WEAPON: return zh_message_arg("reason", "item.reason.selectable.enchantable_weapon");
+        case OSEL_BRANDABLE_WEAPON: return zh_message_arg("reason", "item.reason.selectable.brandable_weapon");
+        default: return _unmigrated_item_reason(no_selectables_message(type));
+        }
+    }
+    return _unmigrated_item_reason("");
+}
+
+static ZhArg _general_cannot_read_reason()
 {
     // general checks
     if (player_in_branch(BRANCH_GEHENNA))
-        return "You cannot see clearly; the smoke and ash is too thick!";
+        return zh_message_arg("reason", "item.reason.use.geh_smog");
 
     if (you.berserk())
-        return "You are too berserk!";
+        return zh_message_arg("reason", "item.reason.use.berserk");
 
     if (you.confused())
-        return "You are too confused!";
+        return zh_message_arg("reason", "item.reason.use.confused");
 
     if (you.duration[DUR_NO_SCROLLS])
-        return "You cannot read scrolls in your current state!";
+        return zh_message_arg("reason", "item.reason.use.no_scrolls");
 
     if (you.is_silenced())
-        return make_stringf("You cannot read scrolls while %s!", player_silenced_reason());
+        return zh_message_arg("reason", silenced(you.pos())
+            ? "item.reason.use.silenced" : "item.reason.use.unable_to_breathe");
 
     if (you.has_mutation(MUT_RENOUNCE_SCROLLS) && you.props.exists(RENOUNCE_SCROLLS_TIMER_KEY))
-        return "You refuse to depend on such disposable conveniences.";
+        return zh_message_arg("reason", "item.reason.use.renounce_scrolls");
 
-    return "";
+    return _unmigrated_item_reason("");
 }
 
 /**
@@ -3088,7 +3104,7 @@ static string _general_cannot_read_reason()
  * reason why. Otherwise (if they are able to read it), returns "", the empty
  * string. If item is nullptr, do only general reading checks.
  */
-string cannot_read_item_reason(const item_def *item, bool temp, bool ident)
+ZhArg cannot_read_item_display_reason(const item_def *item, bool temp, bool ident)
 {
     // convoluted ordering is because the general checks below need to go before
     // the item id check, but non-temp messages go before general checks
@@ -3101,39 +3117,39 @@ string cannot_read_item_reason(const item_def *item, bool temp, bool ident)
         {
         case SCR_AMNESIA:
             if (you.has_mutation(MUT_INNATE_CASTER))
-                return "You don't have control over your spell memory.";
+                return zh_message_arg("reason", "item.reason.use.no_control_memory");
             // XX possibly amnesia should be allowed to work under Trog, despite
             // being marked useless..
             if (you_worship(GOD_TROG))
-                return "Trog doesn't allow you to memorise spells!";
+                return zh_message_arg("reason", "item.reason.use.trog_memory");
             break;
         case SCR_ENCHANT_WEAPON:
         case SCR_BRAND_WEAPON:
             if (you.has_mutation(MUT_NO_GRASPING))
-                return "There's no point in enhancing weapons you can't use!";
+                return zh_message_arg("reason", "item.reason.use.no_weapon_enhance");
             break;
         case SCR_ENCHANT_ARMOUR:
             if (you.has_mutation(MUT_NO_GRASPING))
-                return "There's no point in enchanting armour you can't use!";
+                return zh_message_arg("reason", "item.reason.use.no_armour_enchant");
             break;
 
         case SCR_IDENTIFY:
             if (you.props.exists(IDENTIFIED_ALL_KEY))
-                return "There is nothing left to identify.";
+                return zh_message_arg("reason", "item.reason.use.nothing_to_identify");
             if (have_passive(passive_t::identify_items))
-                return "You have no need of identification.";
+                return zh_message_arg("reason", "item.reason.use.no_need_identification");
             break;
 
         case SCR_SUMMONING:
         case SCR_BUTTERFLIES:
             if (you.allies_forbidden())
-                return "You cannot coerce anything to answer your summons.";
+                return zh_message_arg("reason", "item.reason.use.no_summons");
             break;
         case SCR_BLINKING:
         case SCR_TELEPORTATION:
             // XX code duplication with you.no_tele_reason
             if (you.stasis())
-                return you.no_tele_reason(item->sub_type == SCR_BLINKING);
+                return _unmigrated_item_reason(you.no_tele_reason(item->sub_type == SCR_BLINKING));
             break;
         default:
             break;
@@ -3142,23 +3158,23 @@ string cannot_read_item_reason(const item_def *item, bool temp, bool ident)
 
     if (temp)
     {
-        const string gen = _general_cannot_read_reason();
-        if (gen.size())
+        const ZhArg gen = _general_cannot_read_reason();
+        if (!gen.canonical.empty())
             return gen;
     }
 
     if (!item)
-        return "";
+        return _unmigrated_item_reason("");
 
     // item-specific checks
 
     // still possible to use * at the `r` prompt. (Why do we allow this now?)
     if (item->base_type != OBJ_SCROLLS)
-        return "You can't read that!";
+        return zh_message_arg("reason", "item.reason.use.wrong_item");
 
     // temp uselessness only below this check
     if (!temp || (!ident && !item_type_known(*item)))
-        return "";
+        return _unmigrated_item_reason("");
 
     // don't waste the player's time reading known scrolls in situations where
     // they'd be useless
@@ -3167,12 +3183,12 @@ string cannot_read_item_reason(const item_def *item, bool temp, bool ident)
         case SCR_BLINKING:
         case SCR_TELEPORTATION:
             // note: stasis handled separately above
-            return you.no_tele_reason(item->sub_type == SCR_BLINKING);
+            return _unmigrated_item_reason(you.no_tele_reason(item->sub_type == SCR_BLINKING));
 
         case SCR_AMNESIA:
             if (you.spell_no == 0)
-                return "You have no spells to forget.";
-            return "";
+                return zh_message_arg("reason", "item.reason.use.no_forgetting");
+            return _unmigrated_item_reason("");
 
         case SCR_ENCHANT_ARMOUR:
             return _no_items_reason(OSEL_ENCHANTABLE_ARMOUR, true);
@@ -3189,25 +3205,25 @@ string cannot_read_item_reason(const item_def *item, bool temp, bool ident)
         case SCR_FOG:
         case SCR_POISON:
             if (env.level_state & LSTATE_STILL_WINDS)
-                return "The air is too still for clouds to form.";
-            return "";
+                return zh_message_arg("reason", "item.reason.use.still_air");
+            return _unmigrated_item_reason("");
 
         case SCR_REVELATION:
             if (!is_map_persistent())
-                return "This place cannot be mapped!";
-            return "";
+                return zh_message_arg("reason", "item.reason.use.unmappable");
+            return _unmigrated_item_reason("");
 
         default:
-            return "";
+            return _unmigrated_item_reason("");
     }
 }
 
-string cannot_drink_item_reason(const item_def *item, bool temp,
+ZhArg cannot_drink_item_display_reason(const item_def *item, bool temp,
                                 bool use_check, bool ident)
 {
     // general permanent reasons
     if (!you.can_drink(false))
-        return "You can't drink.";
+        return zh_message_arg("reason", "item.reason.use.not_drink");
 
     const bool valid = item && item->base_type == OBJ_POTIONS
                             && (item->is_identified() || ident);
@@ -3215,44 +3231,45 @@ string cannot_drink_item_reason(const item_def *item, bool temp,
         ? static_cast<potion_type>(item->sub_type)
         : NUM_POTIONS;
     string r;
+    ZhArg display = _unmigrated_item_reason("");
 
     if (valid)
     {
         // For id'd potions, print temp=false message before temp=true messages
-        get_potion_effect(ptyp)->can_quaff(&r, false);
+        get_potion_effect(ptyp)->can_quaff(&r, false, &display);
         if (!r.empty())
-            return r;
+            return display.canonical == r ? display : _unmigrated_item_reason(r);
     }
 
     // general temp reasons
     if (temp)
     {
         if (!you.can_drink(true))
-            return "You cannot drink potions in your current state!";
+            return zh_message_arg("reason", "item.reason.use.drink_state");
 
         if (you.berserk())
-            return "You are too berserk!";
+            return zh_message_arg("reason", "item.reason.use.berserk");
 
         if (you.has_mutation(MUT_RENOUNCE_POTIONS) && you.props.exists(RENOUNCE_POTIONS_TIMER_KEY))
-            return "You refuse to indulge in frivolous drinking.";
+            return zh_message_arg("reason", "item.reason.use.renounce_drink");
 
         if (player_in_branch(BRANCH_COCYTUS))
-            return "It's too cold; everything's frozen solid!";
+            return zh_message_arg("reason", "item.reason.use.cocytus_cold");
     }
 
     if (item && item->base_type != OBJ_POTIONS)
-        return "You can't drink that!";
+        return zh_message_arg("reason", "item.reason.use.wrong_drink");
 
     // !valid now means either no item, or unid'd item.
     if (!temp || !valid)
-        return "";
+        return _unmigrated_item_reason("");
 
     // potion of invis can be used even if temp useless, a warning is printed
     if (use_check && ptyp == POT_INVISIBILITY)
-        return "";
+        return _unmigrated_item_reason("");
 
-    get_potion_effect(ptyp)->can_quaff(&r, true);
-    return r;
+    get_potion_effect(ptyp)->can_quaff(&r, true, &display);
+    return display.canonical == r ? display : _unmigrated_item_reason(r);
 }
 
 /**
@@ -3746,4 +3763,14 @@ string get_corpse_name(const item_def &corpse, monster_flags_t *name_type)
         name_type->flags = corpse.props[CORPSE_NAME_TYPE_KEY].get_int64();
 
     return corpse.props[CORPSE_NAME_KEY].get_string();
+}
+
+string cannot_read_item_reason(const item_def *item, bool temp, bool ident)
+{
+    return cannot_read_item_display_reason(item, temp, ident).canonical;
+}
+
+string cannot_drink_item_reason(const item_def *item, bool temp, bool use_check, bool ident)
+{
+    return cannot_drink_item_display_reason(item, temp, use_check, ident).canonical;
 }

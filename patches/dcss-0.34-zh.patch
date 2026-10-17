@@ -46896,7 +46896,7 @@ index a4a1a95..20747cf 100644
 +              localized, supported}}).display();
  }
 diff --git a/crawl-ref/source/describe.cc b/crawl-ref/source/describe.cc
-index 0a381e1..27491a7 100644
+index 0a381e1..942fa90 100644
 --- a/crawl-ref/source/describe.cc
 +++ b/crawl-ref/source/describe.cc
 @@ -4,6 +4,9 @@
@@ -47660,7 +47660,9 @@ index 0a381e1..27491a7 100644
  }
  
 -static string _describe_point_change(float points)
--{
++static ZhArg _describe_point_diff_arg(const string &key, int original,
++                                     int changed, int scale = 100)
+ {
 -    string point_diff_description;
 -
 -    point_diff_description += make_stringf("%s by %.1f",
@@ -47672,9 +47674,7 @@ index 0a381e1..27491a7 100644
 -
 -static string _describe_point_diff(int original,
 -                                   int changed, int scale = 100)
-+static ZhArg _describe_point_diff_arg(const string &key, int original,
-+                                     int changed, int scale = 100)
- {
+-{
 -    string description;
 -
      if (original == changed)
@@ -48026,7 +48026,50 @@ index 0a381e1..27491a7 100644
  }
  
  string describe_item_rarity(const item_def &item)
-@@ -2456,42 +2696,43 @@ static string _describe_jewellery(const item_def &item, bool verbose)
+@@ -2445,6 +2685,42 @@ string describe_item_rarity(const item_def &item)
+     }
+ }
+ 
++// Select complete sentences from semantic enums. article_a() includes the
++// noun it receives, so it must never be inserted alongside that noun again.
++static string _consumable_rarity_display(const item_def &item)
++{
++    const bool potion = item.base_type == OBJ_POTIONS;
++    const char *id;
++    switch (consumable_rarity(item))
++    {
++    case RARITY_VERY_RARE:
++        id = potion ? "item.consumable.rarity.potion.very_rare"
++                    : "item.consumable.rarity.scroll.very_rare";
++        break;
++    case RARITY_RARE:
++        id = potion ? "item.consumable.rarity.potion.rare"
++                    : "item.consumable.rarity.scroll.rare";
++        break;
++    case RARITY_UNCOMMON:
++        id = potion ? "item.consumable.rarity.potion.uncommon"
++                    : "item.consumable.rarity.scroll.uncommon";
++        break;
++    case RARITY_COMMON:
++        id = potion ? "item.consumable.rarity.potion.common"
++                    : "item.consumable.rarity.scroll.common";
++        break;
++    case RARITY_VERY_COMMON:
++        id = potion ? "item.consumable.rarity.potion.very_common"
++                    : "item.consumable.rarity.scroll.very_common";
++        break;
++    default:
++        id = potion ? "item.consumable.rarity.potion.buggy"
++                    : "item.consumable.rarity.scroll.buggy";
++        break;
++    }
++    return zh_message(id).display();
++}
++
+ static string _describe_jewellery(const item_def &item, bool verbose)
+ {
+     string description;
+@@ -2456,42 +2732,43 @@ static string _describe_jewellery(const item_def &item, bool verbose)
          // Explicit description of ring or amulet power.
          if (item.sub_type == AMU_REFLECTION)
          {
@@ -48085,7 +48128,7 @@ index 0a381e1..27491a7 100644
                  break;
  
              default:
-@@ -2523,20 +2764,37 @@ static string _describe_jewellery(const item_def &item, bool verbose)
+@@ -2523,20 +2800,37 @@ static string _describe_jewellery(const item_def &item, bool verbose)
  static string _describe_item_curse(const item_def &item)
  {
      if (!item.props.exists(CURSE_KNOWLEDGE_KEY))
@@ -48132,7 +48175,7 @@ index 0a381e1..27491a7 100644
  }
  
  static string _describe_gizmo(const item_def &item)
-@@ -2545,30 +2803,30 @@ static string _describe_gizmo(const item_def &item)
+@@ -2545,30 +2839,30 @@ static string _describe_gizmo(const item_def &item)
  
      if (item.brand)
      {
@@ -48173,12 +48216,37 @@ index 0a381e1..27491a7 100644
                  break;
  
              default:
-@@ -2617,12 +2875,13 @@ static void _uselessness_desc(ostringstream &description, const item_def &item)
+@@ -2596,18 +2890,18 @@ static string &_trogsafe_lowercase(string &s)
+     return s;
+ }
+ 
+-static string _cannot_use_reason(const item_def &item, bool temp=true)
++static ZhArg _cannot_use_reason(const item_def &item, bool temp=true)
+ {
+     // right now, description uselessness reasons only work for these four
+     // item types..
+     switch (item.base_type)
+     {
+-    case OBJ_SCROLLS: return cannot_read_item_reason(&item, temp);
+-    case OBJ_POTIONS: return cannot_drink_item_reason(&item, temp);
++    case OBJ_SCROLLS: return cannot_read_item_display_reason(&item, temp);
++    case OBJ_POTIONS: return cannot_drink_item_display_reason(&item, temp);
+     case OBJ_BAUBLES:
+     case OBJ_MISCELLANY:
+-    case OBJ_WANDS:   return cannot_evoke_item_reason(&item, temp);
+-    default: return "";
++    case OBJ_WANDS:   return cannot_evoke_item_display_reason(&item, temp);
++    default: return {"reason", ZhArgType::Text, "", "", true};
+     }
+ }
+ 
+@@ -2617,12 +2911,13 @@ static void _uselessness_desc(ostringstream &description, const item_def &item)
          return;
      if (is_useless_item(item, true))
      {
 -        description << "\n\n"; // always needed for inv descriptions
-         string r;
+-        string r;
++        ZhArg r;
 +        string id;
 +        string item_type;
          if (is_useless_item(item, false))
@@ -48190,7 +48258,7 @@ index 0a381e1..27491a7 100644
              r = _cannot_use_reason(item, false);
          }
          else
-@@ -2630,36 +2889,38 @@ static void _uselessness_desc(ostringstream &description, const item_def &item)
+@@ -2630,36 +2925,39 @@ static void _uselessness_desc(ostringstream &description, const item_def &item)
              switch (item.base_type)
              {
              case OBJ_SCROLLS:
@@ -48231,10 +48299,11 @@ index 0a381e1..27491a7 100644
          }
 -        if (!r.empty())
 -            description << ": " << _trogsafe_lowercase(r);
-+        string reason = r.empty() ? "." : string(": ") + _trogsafe_lowercase(r);
-+        string localized_reason = r.empty() ? "。" : reason;
++        const bool empty = r.canonical.empty();
++        const string reason = empty ? "." : string(": ") + _trogsafe_lowercase(r.canonical);
++        const string localized_reason = empty ? "。" : "：" + r.localized;
 +        ZhArg reason_arg{"reason", ZhArgType::Text, reason, localized_reason,
-+                         r.empty()};
++                         empty || r.supported};
 +        if (item_type.empty())
 +            description << "\n\n" << zh_message(id, {reason_arg}).display();
          else
@@ -48245,7 +48314,7 @@ index 0a381e1..27491a7 100644
      }
  }
  
-@@ -2719,7 +2980,7 @@ string get_item_description(const item_def &item,
+@@ -2719,7 +3017,7 @@ string get_item_description(const item_def &item,
          }
          else if (is_unrandom_artefact(item) && item.is_identified())
          {
@@ -48254,7 +48323,7 @@ index 0a381e1..27491a7 100644
              if (!desc.empty())
              {
                  description << desc;
-@@ -2733,25 +2994,25 @@ string get_item_description(const item_def &item,
+@@ -2733,25 +3031,25 @@ string get_item_description(const item_def &item,
          else if (is_artefact(item) && item.is_identified()
                   && item.base_type == OBJ_JEWELLERY)
          {
@@ -48285,7 +48354,7 @@ index 0a381e1..27491a7 100644
                  else if (item.is_identified())
                  {
                      description << "[ERROR: no desc for item name '" << db_name
-@@ -2759,8 +3020,7 @@ string get_item_description(const item_def &item,
+@@ -2759,8 +3057,7 @@ string get_item_description(const item_def &item,
                  }
                  else
                  {
@@ -48295,7 +48364,7 @@ index 0a381e1..27491a7 100644
                      description << ".\n";
                  }
              }
-@@ -2844,7 +3104,8 @@ string get_item_description(const item_def &item,
+@@ -2844,7 +3141,8 @@ string get_item_description(const item_def &item,
          }
          if (verbose)
          {
@@ -48305,7 +48374,7 @@ index 0a381e1..27491a7 100644
              description << _handedness_string(item);
          }
          break;
-@@ -2853,12 +3114,14 @@ string get_item_description(const item_def &item,
+@@ -2853,12 +3151,14 @@ string get_item_description(const item_def &item,
          if (item.sub_type == MISC_ZIGGURAT && you.zigs_completed)
          {
              const int zigs = you.zigs_completed;
@@ -48326,7 +48395,7 @@ index 0a381e1..27491a7 100644
          }
  
          if (verbose)
-@@ -2871,32 +3134,34 @@ string get_item_description(const item_def &item,
+@@ -2871,32 +3171,34 @@ string get_item_description(const item_def &item,
                  // slightly redundant with uselessness desc..
                  const int charges = evoker_charges(item.sub_type);
                  if (charges > 1)
@@ -48362,17 +48431,17 @@ index 0a381e1..27491a7 100644
                  if (damage_str != "")
 -                    description << "\nDamage: " << damage_str;
 +                    description << zh_message("item.evoker.damage", {
-+                        zh_text("damage", damage_str, damage_str)}).display();
++                        zh_numeric_notation("damage", damage_str)}).display();
  
                  const string noise_str = evoke_noise_string(item);
                  if (noise_str != "")
 -                    description << "\nNoise: " << noise_str;
 +                    description << zh_message("item.evoker.noise", {
-+                        zh_text("noise", noise_str, noise_str)}).display();
++                        evoke_noise_display_arg("noise", item)}).display();
              }
          }
  
-@@ -2917,13 +3182,21 @@ string get_item_description(const item_def &item,
+@@ -2917,13 +3219,12 @@ string get_item_description(const item_def &item,
                      description << "\n\n" + _describe_lignify_ac();
                  else if (item.sub_type == POT_CANCELLATION)
                  {
@@ -48386,56 +48455,38 @@ index 0a381e1..27491a7 100644
 -            description << "\n\nIt is "
 -                        << article_a(describe_item_rarity(item))
 -                        << " potion.";
-+            const string rarity = describe_item_rarity(item);
-+            const string article = article_a(rarity);
-+            const string localized_rarity = zh_lookup_exact(rarity);
-+            const string localized_article = zh_lookup_exact(article);
-+            description << zh_message("item.consumable.rarity", {
-+                ZhArg{"article", ZhArgType::Text, article, localized_article,
-+                      localized_article != article},
-+                ZhArg{"rarity", ZhArgType::Text, rarity, localized_rarity,
-+                      localized_rarity != rarity},
-+                zh_text("kind", "potion", "药水")}).display();
++            description << _consumable_rarity_display(item);
              need_extra_line = false;
          }
          break;
-@@ -2935,11 +3208,13 @@ string get_item_description(const item_def &item,
+@@ -2935,11 +3236,13 @@ string get_item_description(const item_def &item,
  
              const string damage_str = evoke_damage_string(item);
              if (damage_str != "")
 -                description << "\nDamage: " << damage_str;
 +                description << zh_message("item.wand.damage", {
-+                    zh_text("damage", damage_str, damage_str)}).display();
++                    zh_numeric_notation("damage", damage_str)}).display();
  
              const string noise_str = evoke_noise_string(item);
              if (noise_str != "")
 -                description << "\nNoise: " << noise_str;
 +                description << zh_message("item.wand.noise", {
-+                    zh_text("noise", noise_str, noise_str)}).display();
++                    evoke_noise_display_arg("noise", item)}).display();
  
              if (verbose)
                  _uselessness_desc(description, item);
-@@ -2952,9 +3227,16 @@ string get_item_description(const item_def &item,
+@@ -2952,9 +3255,7 @@ string get_item_description(const item_def &item,
              if (verbose)
                  _uselessness_desc(description, item);
  
 -            description << "\n\nIt is "
 -                        << article_a(describe_item_rarity(item))
 -                        << " scroll.";
-+            const string rarity = describe_item_rarity(item);
-+            const string article = article_a(rarity);
-+            const string localized_rarity = zh_lookup_exact(rarity);
-+            const string localized_article = zh_lookup_exact(article);
-+            description << zh_message("item.consumable.rarity", {
-+                ZhArg{"article", ZhArgType::Text, article, localized_article,
-+                      localized_article != article},
-+                ZhArg{"rarity", ZhArgType::Text, rarity, localized_rarity,
-+                      localized_rarity != rarity},
-+                zh_text("kind", "scroll", "卷轴")}).display();
++            description << _consumable_rarity_display(item);
              need_extra_line = false;
          }
          break;
-@@ -3016,21 +3298,21 @@ string get_item_description(const item_def &item,
+@@ -3016,21 +3317,21 @@ string get_item_description(const item_def &item,
                  if (you.has_mutation(MUT_ARTEFACT_ENCHANTING))
                  {
                      if (!item.is_identified())
@@ -48462,7 +48513,7 @@ index 0a381e1..27491a7 100644
                  }
              }
              // Randart jewellery has already displayed this line.
-@@ -3038,29 +3320,33 @@ string get_item_description(const item_def &item,
+@@ -3038,29 +3339,33 @@ string get_item_description(const item_def &item,
              else if (item.base_type != OBJ_JEWELLERY && item.base_type != OBJ_GIZMOS
                       || (item.is_identified() && is_unrandom_artefact(item)))
              {
@@ -48502,7 +48553,7 @@ index 0a381e1..27491a7 100644
      }
  
      return description.str();
-@@ -3418,7 +3704,8 @@ void get_feature_desc(const coord_def &pos, describe_info &inf, bool include_ext
+@@ -3418,7 +3723,8 @@ void get_feature_desc(const coord_def &pos, describe_info &inf, bool include_ext
          && !feat_is_closed_door(feat) && !feat_is_endless(feat))
      {
          if (feat_is_reachable_past(feat))
@@ -48512,7 +48563,7 @@ index 0a381e1..27491a7 100644
          else
              long_desc += "\nSome spells can be cast through it.";
      }
-@@ -3435,7 +3722,8 @@ void get_feature_desc(const coord_def &pos, describe_info &inf, bool include_ext
+@@ -3435,7 +3741,8 @@ void get_feature_desc(const coord_def &pos, describe_info &inf, bool include_ext
              inf.body << (d.title == extra_descs.back().title ? "" : "\n") << d.description;
      }
  
@@ -48522,7 +48573,7 @@ index 0a381e1..27491a7 100644
  }
  
  static bool _do_feat_action(const coord_def &pos, const command_type action)
-@@ -3653,7 +3941,7 @@ void get_item_desc(const item_def &item, describe_info &inf)
+@@ -3653,7 +3960,7 @@ void get_item_desc(const item_def &item, describe_info &inf)
      // so we can actually output these spells if space is scarce.
      const item_description_mode mode = item.has_spells() ? IDM_PLAIN
                                                           : IDM_DEFAULT;
@@ -48531,7 +48582,7 @@ index 0a381e1..27491a7 100644
      if (!in_inventory(item))
          name = uppercase_first(name);
      inf.body << name << get_item_description(item, mode);
-@@ -3753,39 +4041,64 @@ static vector<command_type> _allowed_actions(const item_def& item)
+@@ -3753,39 +4060,64 @@ static vector<command_type> _allowed_actions(const item_def& item)
      return actions;
  }
  
@@ -48627,7 +48678,7 @@ index 0a381e1..27491a7 100644
  }
  
  // Take a key and a list of commands and return the command from the list
-@@ -3971,10 +4284,12 @@ command_type describe_item_popup(const item_def &item,
+@@ -3971,10 +4303,12 @@ command_type describe_item_popup(const item_def &item,
      if (!item.defined())
          return CMD_NO_CMD;
  
@@ -48641,7 +48692,7 @@ index 0a381e1..27491a7 100644
      if (!in_inventory(item))
          name = uppercase_first(name);
  
-@@ -3983,17 +4298,18 @@ command_type describe_item_popup(const item_def &item,
+@@ -3983,17 +4317,18 @@ command_type describe_item_popup(const item_def &item,
      if (loc.is_valid() && loc != level_id::current())
      {
          // should be off-level stash search only
@@ -48664,7 +48715,7 @@ index 0a381e1..27491a7 100644
  
      if (!(crawl_state.game_is_hints_tutorial()
            || quote.empty()))
-@@ -4002,12 +4318,14 @@ command_type describe_item_popup(const item_def &item,
+@@ -4002,12 +4337,14 @@ command_type describe_item_popup(const item_def &item,
      }
  
      if (crawl_state.game_is_hints())
@@ -48680,7 +48731,7 @@ index 0a381e1..27491a7 100644
  
      spellset spells = item_spellset(item);
      formatted_string spells_desc;
-@@ -4040,7 +4358,7 @@ command_type describe_item_popup(const item_def &item,
+@@ -4040,7 +4377,7 @@ command_type describe_item_popup(const item_def &item,
      }
  #endif
  
@@ -48689,7 +48740,7 @@ index 0a381e1..27491a7 100644
      title->set_margin_for_sdl(0, 0, 0, 10);
      title_hbox->add_child(std::move(title));
  
-@@ -4059,8 +4377,10 @@ command_type describe_item_popup(const item_def &item,
+@@ -4059,8 +4396,10 @@ command_type describe_item_popup(const item_def &item,
      if (!actions.empty())
      {
          if (!spells.empty())
@@ -48702,7 +48753,7 @@ index 0a381e1..27491a7 100644
          auto footer = make_shared<Text>();
          footer->set_text(footer_text);
          footer->set_margin_for_crt(1, 0, 0, 0);
-@@ -4101,7 +4421,7 @@ command_type describe_item_popup(const item_def &item,
+@@ -4101,7 +4440,7 @@ command_type describe_item_popup(const item_def &item,
  
              show_spell_success = !show_spell_success;
              if (show_spell_success)
@@ -48711,7 +48762,7 @@ index 0a381e1..27491a7 100644
              else
                  text->set_text(fs_desc.trim());
  #ifdef USE_TILE_WEB
-@@ -4211,13 +4531,33 @@ void inscribe_item(item_def &item)
+@@ -4211,13 +4550,33 @@ void inscribe_item(item_def &item)
  static string _player_spell_stats(const spell_type spell)
  {
      string description;
@@ -48752,7 +48803,7 @@ index 0a381e1..27491a7 100644
  
      if (!crawl_state.need_save
          || (get_spell_flags(spell) & spflag::monster))
-@@ -4239,37 +4579,75 @@ static string _player_spell_stats(const spell_type spell)
+@@ -4239,37 +4598,56 @@ static string _player_spell_stats(const spell_type spell)
      }
      else
          failure = failure_rate_to_string(raw_spell_fail(spell));
@@ -48817,26 +48868,7 @@ index 0a381e1..27491a7 100644
 +        zh_text("indent", string(max(0, padding - 5), ' '),
 +                string(max(0, padding - 5), ' ')),
 +        zh_text("range", range, range)}).display();
-+    const string noise = spell_noise_string(spell);
-+    string noise_rating = noise;
-+    string noise_suffix;
-+    const size_t noise_detail = noise.find(" (");
-+    if (noise_detail != string::npos)
-+    {
-+        noise_rating = noise.substr(0, noise_detail);
-+        noise_suffix = noise.substr(noise_detail);
-+    }
-+    const ZhArg localized_noise = zh_word_arg("noise", "spell.noise.",
-+                                               noise_rating, ZhArgType::Name);
-+    string localized_noise_suffix = noise_suffix;
-+    if (!noise_suffix.empty() && noise_suffix.size() >= 4
-+        && noise_suffix.compare(0, 2, " (") == 0
-+        && noise_suffix.back() == ')')
-+        localized_noise_suffix = "（" + noise_suffix.substr(2,
-+            noise_suffix.size() - 3) + "）";
-+    const ZhArg noise_arg{"noise", ZhArgType::Name, noise,
-+                          localized_noise.localized + localized_noise_suffix,
-+                          localized_noise.supported};
++    const ZhArg noise_arg = spell_noise_display_arg("noise", spell);
 +    description += zh_message("spell.stats.noise", {
 +        zh_text("indent", string(max(0, padding - 5), ' '),
 +                string(max(0, padding - 5), ' ')),
@@ -49784,10 +49816,10 @@ index 0a381e1..27491a7 100644
 +        perception = 100;
      else
 -        result << perception * 100 / stealth;
+-
+-    result << "% chance to notice you each turn.\n";
 +        perception = perception * 100 / stealth;
  
--    result << "% chance to notice you each turn.\n";
--
 -    return result.str();
 +    const bool plural = mi.pronoun_plurality();
 +    const string canonical = uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE)) + " "
@@ -50942,6 +50974,206 @@ index 05963d8..3edcc20 100644
      const string item_description = comma_separated_line(
                                                  item_descriptions.begin(),
                                                  item_descriptions.end());
+diff --git a/crawl-ref/source/evoke.cc b/crawl-ref/source/evoke.cc
+index f64efe4..e072913 100644
+--- a/crawl-ref/source/evoke.cc
++++ b/crawl-ref/source/evoke.cc
+@@ -6,6 +6,7 @@
+ #include "AppHdr.h"
+ 
+ #include "evoke.h"
++#include "zh-message.h"
+ 
+ #include <algorithm>
+ #include <cmath>
+@@ -994,18 +995,18 @@ static bool _evoke_ally_only(const item_def &item, bool ident)
+     return false;
+ }
+ 
+-string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
++ZhArg cannot_evoke_item_display_reason(const item_def *item, bool temp, bool ident)
+ {
+     // id is not at issue here
+     if (temp && you.berserk())
+-        return "You are too berserk!";
++        return zh_message_arg("reason", "item.reason.use.berserk");
+ 
+     if (temp && you.confused())
+-        return "You are too confused!";
++        return zh_message_arg("reason", "item.reason.use.confused");
+ 
+     // all generic checks passed
+     if (!item)
+-        return "";
++        return {"reason", ZhArgType::Text, "", "", true};
+ 
+     // historically allowed under confusion/berserk, but why?
+     if (item->is_type(OBJ_MISCELLANY, MISC_ZIGGURAT))
+@@ -1013,43 +1014,44 @@ string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
+         // override sac artifice for zigfigs, including a general check
+         // TODO: zigfig has some terrain/level constraints that aren't handled
+         // here
+-        return "";
++        return {"reason", ZhArgType::Text, "", "", true};
+     }
+ 
+     if (item->is_type(OBJ_BAUBLES, BAUBLE_FLUX))
+     {
+         if (you.form == transformation::flux && temp)
+-            return "you are already filled with unstable energy.";
++            return zh_message_arg("reason", "item.reason.use.flux_already");
+ 
+         const string form_unreason = cant_transform_reason(transformation::flux, false, temp);
+         if (!form_unreason.empty())
+-            return lowercase_first(form_unreason);
+-        return "";
++            return {"reason", ZhArgType::Text, lowercase_first(form_unreason),
++                    lowercase_first(form_unreason), false};
++        return {"reason", ZhArgType::Text, "", "", true};
+     }
+ 
+     if (you.get_mutation_level(MUT_NO_ARTIFICE))
+-        return "You cannot evoke magical items.";
++        return zh_message_arg("reason", "item.reason.use.no_artifice");
+ 
+     // is this really necessary?
+     if (item_type_removed(item->base_type, item->sub_type))
+-        return "Sorry, this item was removed!";
++        return zh_message_arg("reason", "item.reason.use.item_removed");
+     if (item->base_type != OBJ_WANDS && item->base_type != OBJ_MISCELLANY)
+-        return "You can't evoke that!";
++        return zh_message_arg("reason", "item.reason.use.wrong_evoke");
+ 
+ #if TAG_MAJOR_VERSION == 34
+     if (is_known_empty_wand(*item))
+-        return "This wand has no charges.";
++        return zh_message_arg("reason", "item.reason.use.no_charges");
+ #endif
+ 
+     if (_evoke_ally_only(*item, ident) && you.allies_forbidden())
+-        return "That item cannot be used by those who cannot gain allies!";
++        return zh_message_arg("reason", "item.reason.use.allies_forbidden");
+ 
+     if (temp
+         && item->base_type == OBJ_MISCELLANY
+         && item->sub_type == MISC_CONDENSER_VANE
+         && (env.level_state & LSTATE_STILL_WINDS))
+     {
+-        return "The air is too still for clouds to form.";
++        return zh_message_arg("reason", "item.reason.use.still_air");
+     }
+ 
+     if (temp
+@@ -1057,17 +1059,23 @@ string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
+         && item->sub_type == MISC_HORN_OF_GERYON
+         && you.is_silenced())
+     {
+-        return "You can't produce a sound!";
++        return zh_message_arg("reason", "item.reason.use.horn_silenced");
+     }
+ 
+     if (temp && is_xp_evoker(*item) && evoker_charges(item->sub_type) <= 0)
+     {
+         // DESC_THE prints "The tin of tremorstones (inert) is presently inert."
+-        return make_stringf("The %s is presently inert.",
+-                                            item->name(DESC_DBNAME).c_str());
++        return zh_message_arg("reason", "item.reason.use.inert_evoker", {
++            zh_glossary_name("item", "item.miscellany",
++                             sub_type_string(*item, true))});
+     }
+ 
+-    return "";
++    return {"reason", ZhArgType::Text, "", "", true};
++}
++
++string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
++{
++    return cannot_evoke_item_display_reason(item, temp, ident).canonical;
+ }
+ 
+ bool item_currently_evokable(const item_def *item)
+@@ -1351,28 +1359,37 @@ string evoke_damage_string(const item_def& item)
+         return "";
+ }
+ 
+-string evoke_noise_string(const item_def& item)
++static spell_type _evoke_noise_spell(const item_def &item)
+ {
+     if (item.base_type == OBJ_WANDS)
++        return spell_in_wand(static_cast<wand_type>(item.sub_type));
++    if (item.base_type == OBJ_MISCELLANY)
+     {
+-        return spell_noise_string(
+-            spell_in_wand(static_cast<wand_type>(item.sub_type)));
+-    }
+-    else if (item.base_type == OBJ_MISCELLANY)
+-    {
+-        if (item.sub_type == MISC_PHIAL_OF_FLOODS)
+-            return spell_noise_string(SPELL_PRIMAL_WAVE);
+-        else if (item.sub_type == MISC_LIGHTNING_ROD)
+-            return spell_noise_string(SPELL_THUNDERBOLT);
+-        else if (item.sub_type == MISC_TIN_OF_TREMORSTONES)
+-            return spell_noise_string(SPELL_TREMORSTONE);
+-        else if (item.sub_type == MISC_GRAVITAMBOURINE)
+-            return spell_noise_string(SPELL_GRAVITAS);
+-        else
+-            return "";
++        switch (item.sub_type)
++        {
++        case MISC_PHIAL_OF_FLOODS: return SPELL_PRIMAL_WAVE;
++        case MISC_LIGHTNING_ROD: return SPELL_THUNDERBOLT;
++        case MISC_TIN_OF_TREMORSTONES: return SPELL_TREMORSTONE;
++        case MISC_GRAVITAMBOURINE: return SPELL_GRAVITAS;
++        }
+     }
+-    else
+-        return "";
++    return SPELL_NO_SPELL;
++}
++
++string evoke_noise_string(const item_def &item)
++{
++    const spell_type spell = _evoke_noise_spell(item);
++    return spell == SPELL_NO_SPELL ? "" : spell_noise_string(spell);
++}
++
++ZhArg evoke_noise_display_arg(const string &key, const item_def &item)
++{
++    const spell_type spell = _evoke_noise_spell(item);
++    if (spell == SPELL_NO_SPELL)
++        return {key, ZhArgType::Text, "", "", true};
++    ZhArg value = spell_noise_display_arg(key, spell);
++    value.type = ZhArgType::Text;
++    return value;
+ }
+ 
+ dice_def pyromania_damage(bool random, bool max)
+diff --git a/crawl-ref/source/evoke.h b/crawl-ref/source/evoke.h
+index 23a4088..4e12b89 100644
+--- a/crawl-ref/source/evoke.h
++++ b/crawl-ref/source/evoke.h
+@@ -10,6 +10,7 @@
+ using std::vector;
+ 
+ struct dice_def;
++struct ZhArg;
+ 
+ string manual_skill_names(bool short_text=false);
+ 
+@@ -28,6 +29,7 @@ int tremorstone_count(int pow);
+ 
+ string target_evoke_desc(const monster_info& mi, const item_def& item);
+ string evoke_damage_string(const item_def& item);
++ZhArg evoke_noise_display_arg(const string &key, const item_def &item);
+ string evoke_noise_string(const item_def& item);
+ 
+ dice_def pyromania_damage(bool random = true, bool max = false);
+@@ -36,3 +38,5 @@ int mesmerism_orb_radius(bool max = false);
+ int stardust_orb_max(bool max = false);
+ int stardust_orb_power(int mp_spent, bool max_evo = false);
+ void stardust_orb_trigger(int mp_spent);
++
++ZhArg cannot_evoke_item_display_reason(const item_def *item=nullptr, bool temp=true, bool ident=true);
 diff --git a/crawl-ref/source/fontwrapper-ft.cc b/crawl-ref/source/fontwrapper-ft.cc
 index 0daea2c..dcf1a81 100644
 --- a/crawl-ref/source/fontwrapper-ft.cc
@@ -52077,6 +52309,298 @@ index 9f18733..bb38a30 100644
  }
  
  // FIXME: With the new targeting system, the hints for interesting monsters
+diff --git a/crawl-ref/source/item-name.cc b/crawl-ref/source/item-name.cc
+index 54258d5..8a72177 100644
+--- a/crawl-ref/source/item-name.cc
++++ b/crawl-ref/source/item-name.cc
+@@ -6,6 +6,7 @@
+ #include "AppHdr.h"
+ 
+ #include "item-name.h"
++#include "zh-message.h"
+ 
+ #include <cctype>
+ #include <cstring>
+@@ -3052,35 +3053,50 @@ bool is_dangerous_item(const item_def &item, bool temp)
+  * response to print. Otherwise, if they do have such items, return the empty
+  * string.
+  */
+-static string _no_items_reason(object_selector type, bool check_floor = false)
++static ZhArg _unmigrated_item_reason(const string &reason)
++{
++    return {"reason", ZhArgType::Text, reason, reason, reason.empty()};
++}
++
++static ZhArg _no_items_reason(object_selector type, bool check_floor = false)
+ {
+     if (!any_items_of_type(type, -1, check_floor))
+-        return no_selectables_message(type);
+-    return "";
++    {
++        switch (type)
++        {
++        case OSEL_UNIDENT: return zh_message_arg("reason", "item.reason.selectable.unidentified");
++        case OSEL_ENCHANTABLE_ARMOUR: return zh_message_arg("reason", "item.reason.selectable.enchantable_armour");
++        case OSEL_ENCHANTABLE_WEAPON: return zh_message_arg("reason", "item.reason.selectable.enchantable_weapon");
++        case OSEL_BRANDABLE_WEAPON: return zh_message_arg("reason", "item.reason.selectable.brandable_weapon");
++        default: return _unmigrated_item_reason(no_selectables_message(type));
++        }
++    }
++    return _unmigrated_item_reason("");
+ }
+ 
+-static string _general_cannot_read_reason()
++static ZhArg _general_cannot_read_reason()
+ {
+     // general checks
+     if (player_in_branch(BRANCH_GEHENNA))
+-        return "You cannot see clearly; the smoke and ash is too thick!";
++        return zh_message_arg("reason", "item.reason.use.geh_smog");
+ 
+     if (you.berserk())
+-        return "You are too berserk!";
++        return zh_message_arg("reason", "item.reason.use.berserk");
+ 
+     if (you.confused())
+-        return "You are too confused!";
++        return zh_message_arg("reason", "item.reason.use.confused");
+ 
+     if (you.duration[DUR_NO_SCROLLS])
+-        return "You cannot read scrolls in your current state!";
++        return zh_message_arg("reason", "item.reason.use.no_scrolls");
+ 
+     if (you.is_silenced())
+-        return make_stringf("You cannot read scrolls while %s!", player_silenced_reason());
++        return zh_message_arg("reason", silenced(you.pos())
++            ? "item.reason.use.silenced" : "item.reason.use.unable_to_breathe");
+ 
+     if (you.has_mutation(MUT_RENOUNCE_SCROLLS) && you.props.exists(RENOUNCE_SCROLLS_TIMER_KEY))
+-        return "You refuse to depend on such disposable conveniences.";
++        return zh_message_arg("reason", "item.reason.use.renounce_scrolls");
+ 
+-    return "";
++    return _unmigrated_item_reason("");
+ }
+ 
+ /**
+@@ -3088,7 +3104,7 @@ static string _general_cannot_read_reason()
+  * reason why. Otherwise (if they are able to read it), returns "", the empty
+  * string. If item is nullptr, do only general reading checks.
+  */
+-string cannot_read_item_reason(const item_def *item, bool temp, bool ident)
++ZhArg cannot_read_item_display_reason(const item_def *item, bool temp, bool ident)
+ {
+     // convoluted ordering is because the general checks below need to go before
+     // the item id check, but non-temp messages go before general checks
+@@ -3101,39 +3117,39 @@ string cannot_read_item_reason(const item_def *item, bool temp, bool ident)
+         {
+         case SCR_AMNESIA:
+             if (you.has_mutation(MUT_INNATE_CASTER))
+-                return "You don't have control over your spell memory.";
++                return zh_message_arg("reason", "item.reason.use.no_control_memory");
+             // XX possibly amnesia should be allowed to work under Trog, despite
+             // being marked useless..
+             if (you_worship(GOD_TROG))
+-                return "Trog doesn't allow you to memorise spells!";
++                return zh_message_arg("reason", "item.reason.use.trog_memory");
+             break;
+         case SCR_ENCHANT_WEAPON:
+         case SCR_BRAND_WEAPON:
+             if (you.has_mutation(MUT_NO_GRASPING))
+-                return "There's no point in enhancing weapons you can't use!";
++                return zh_message_arg("reason", "item.reason.use.no_weapon_enhance");
+             break;
+         case SCR_ENCHANT_ARMOUR:
+             if (you.has_mutation(MUT_NO_GRASPING))
+-                return "There's no point in enchanting armour you can't use!";
++                return zh_message_arg("reason", "item.reason.use.no_armour_enchant");
+             break;
+ 
+         case SCR_IDENTIFY:
+             if (you.props.exists(IDENTIFIED_ALL_KEY))
+-                return "There is nothing left to identify.";
++                return zh_message_arg("reason", "item.reason.use.nothing_to_identify");
+             if (have_passive(passive_t::identify_items))
+-                return "You have no need of identification.";
++                return zh_message_arg("reason", "item.reason.use.no_need_identification");
+             break;
+ 
+         case SCR_SUMMONING:
+         case SCR_BUTTERFLIES:
+             if (you.allies_forbidden())
+-                return "You cannot coerce anything to answer your summons.";
++                return zh_message_arg("reason", "item.reason.use.no_summons");
+             break;
+         case SCR_BLINKING:
+         case SCR_TELEPORTATION:
+             // XX code duplication with you.no_tele_reason
+             if (you.stasis())
+-                return you.no_tele_reason(item->sub_type == SCR_BLINKING);
++                return _unmigrated_item_reason(you.no_tele_reason(item->sub_type == SCR_BLINKING));
+             break;
+         default:
+             break;
+@@ -3142,23 +3158,23 @@ string cannot_read_item_reason(const item_def *item, bool temp, bool ident)
+ 
+     if (temp)
+     {
+-        const string gen = _general_cannot_read_reason();
+-        if (gen.size())
++        const ZhArg gen = _general_cannot_read_reason();
++        if (!gen.canonical.empty())
+             return gen;
+     }
+ 
+     if (!item)
+-        return "";
++        return _unmigrated_item_reason("");
+ 
+     // item-specific checks
+ 
+     // still possible to use * at the `r` prompt. (Why do we allow this now?)
+     if (item->base_type != OBJ_SCROLLS)
+-        return "You can't read that!";
++        return zh_message_arg("reason", "item.reason.use.wrong_item");
+ 
+     // temp uselessness only below this check
+     if (!temp || (!ident && !item_type_known(*item)))
+-        return "";
++        return _unmigrated_item_reason("");
+ 
+     // don't waste the player's time reading known scrolls in situations where
+     // they'd be useless
+@@ -3167,12 +3183,12 @@ string cannot_read_item_reason(const item_def *item, bool temp, bool ident)
+         case SCR_BLINKING:
+         case SCR_TELEPORTATION:
+             // note: stasis handled separately above
+-            return you.no_tele_reason(item->sub_type == SCR_BLINKING);
++            return _unmigrated_item_reason(you.no_tele_reason(item->sub_type == SCR_BLINKING));
+ 
+         case SCR_AMNESIA:
+             if (you.spell_no == 0)
+-                return "You have no spells to forget.";
+-            return "";
++                return zh_message_arg("reason", "item.reason.use.no_forgetting");
++            return _unmigrated_item_reason("");
+ 
+         case SCR_ENCHANT_ARMOUR:
+             return _no_items_reason(OSEL_ENCHANTABLE_ARMOUR, true);
+@@ -3189,25 +3205,25 @@ string cannot_read_item_reason(const item_def *item, bool temp, bool ident)
+         case SCR_FOG:
+         case SCR_POISON:
+             if (env.level_state & LSTATE_STILL_WINDS)
+-                return "The air is too still for clouds to form.";
+-            return "";
++                return zh_message_arg("reason", "item.reason.use.still_air");
++            return _unmigrated_item_reason("");
+ 
+         case SCR_REVELATION:
+             if (!is_map_persistent())
+-                return "This place cannot be mapped!";
+-            return "";
++                return zh_message_arg("reason", "item.reason.use.unmappable");
++            return _unmigrated_item_reason("");
+ 
+         default:
+-            return "";
++            return _unmigrated_item_reason("");
+     }
+ }
+ 
+-string cannot_drink_item_reason(const item_def *item, bool temp,
++ZhArg cannot_drink_item_display_reason(const item_def *item, bool temp,
+                                 bool use_check, bool ident)
+ {
+     // general permanent reasons
+     if (!you.can_drink(false))
+-        return "You can't drink.";
++        return zh_message_arg("reason", "item.reason.use.not_drink");
+ 
+     const bool valid = item && item->base_type == OBJ_POTIONS
+                             && (item->is_identified() || ident);
+@@ -3215,44 +3231,45 @@ string cannot_drink_item_reason(const item_def *item, bool temp,
+         ? static_cast<potion_type>(item->sub_type)
+         : NUM_POTIONS;
+     string r;
++    ZhArg display = _unmigrated_item_reason("");
+ 
+     if (valid)
+     {
+         // For id'd potions, print temp=false message before temp=true messages
+-        get_potion_effect(ptyp)->can_quaff(&r, false);
++        get_potion_effect(ptyp)->can_quaff(&r, false, &display);
+         if (!r.empty())
+-            return r;
++            return display.canonical == r ? display : _unmigrated_item_reason(r);
+     }
+ 
+     // general temp reasons
+     if (temp)
+     {
+         if (!you.can_drink(true))
+-            return "You cannot drink potions in your current state!";
++            return zh_message_arg("reason", "item.reason.use.drink_state");
+ 
+         if (you.berserk())
+-            return "You are too berserk!";
++            return zh_message_arg("reason", "item.reason.use.berserk");
+ 
+         if (you.has_mutation(MUT_RENOUNCE_POTIONS) && you.props.exists(RENOUNCE_POTIONS_TIMER_KEY))
+-            return "You refuse to indulge in frivolous drinking.";
++            return zh_message_arg("reason", "item.reason.use.renounce_drink");
+ 
+         if (player_in_branch(BRANCH_COCYTUS))
+-            return "It's too cold; everything's frozen solid!";
++            return zh_message_arg("reason", "item.reason.use.cocytus_cold");
+     }
+ 
+     if (item && item->base_type != OBJ_POTIONS)
+-        return "You can't drink that!";
++        return zh_message_arg("reason", "item.reason.use.wrong_drink");
+ 
+     // !valid now means either no item, or unid'd item.
+     if (!temp || !valid)
+-        return "";
++        return _unmigrated_item_reason("");
+ 
+     // potion of invis can be used even if temp useless, a warning is printed
+     if (use_check && ptyp == POT_INVISIBILITY)
+-        return "";
++        return _unmigrated_item_reason("");
+ 
+-    get_potion_effect(ptyp)->can_quaff(&r, true);
+-    return r;
++    get_potion_effect(ptyp)->can_quaff(&r, true, &display);
++    return display.canonical == r ? display : _unmigrated_item_reason(r);
+ }
+ 
+ /**
+@@ -3747,3 +3764,13 @@ string get_corpse_name(const item_def &corpse, monster_flags_t *name_type)
+ 
+     return corpse.props[CORPSE_NAME_KEY].get_string();
+ }
++
++string cannot_read_item_reason(const item_def *item, bool temp, bool ident)
++{
++    return cannot_read_item_display_reason(item, temp, ident).canonical;
++}
++
++string cannot_drink_item_reason(const item_def *item, bool temp, bool use_check, bool ident)
++{
++    return cannot_drink_item_display_reason(item, temp, use_check, ident).canonical;
++}
+diff --git a/crawl-ref/source/item-name.h b/crawl-ref/source/item-name.h
+index a3befdb..41e60dc 100644
+--- a/crawl-ref/source/item-name.h
++++ b/crawl-ref/source/item-name.h
+@@ -175,3 +175,7 @@ const char* potion_type_name(int potiontype);  //used in xom.cc
+ const char* scroll_type_name(int scrolltype);
+ const char* jewellery_effect_name(int jeweltype, bool terse = false) PURE; //used in l-item.cc
+ const char* gizmo_effect_name(int gizmotype);
++
++struct ZhArg;
++ZhArg cannot_read_item_display_reason(const item_def *item=nullptr, bool temp=true, bool ident=false);
++ZhArg cannot_drink_item_display_reason(const item_def *item=nullptr, bool temp=true, bool use_check=false, bool ident=false);
 diff --git a/crawl-ref/source/items.cc b/crawl-ref/source/items.cc
 index 5d6b98f..d2820f0 100644
 --- a/crawl-ref/source/items.cc
@@ -54776,6 +55300,271 @@ index 982b651..85450fb 100644
      }
  
      // Start the bonus off at meaningful level, but give less for each effect
+diff --git a/crawl-ref/source/potion.cc b/crawl-ref/source/potion.cc
+index 9f5e4af..e79938e 100644
+--- a/crawl-ref/source/potion.cc
++++ b/crawl-ref/source/potion.cc
+@@ -6,6 +6,7 @@
+ #include "AppHdr.h"
+ 
+ #include "potion.h"
++#include "zh-message.h"
+ 
+ #include <cstdio>
+ #include <cstring>
+@@ -51,7 +52,15 @@ PotionEffect::PotionEffect(const potion_type pot)
+     : potion_name(potion_type_name(pot)), kind(pot)
+ { }
+ 
+-bool PotionEffect::can_quaff(string */*reason*/, bool /*temp*/) const
++static string _potion_reason(const char *id, ZhArg *display)
++{
++    const ZhArg value = zh_message_arg("reason", id);
++    if (display)
++        *display = value;
++    return value.canonical;
++}
++
++bool PotionEffect::can_quaff(string */*reason*/, bool /*temp*/, ZhArg */*display*/) const
+ {
+     return true;
+ }
+@@ -87,7 +96,7 @@ public:
+         static PotionCuring inst; return inst;
+     }
+ 
+-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
++    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
+     {
+         // no species that can quaff at all have permanent restrictions for
+         // curing
+@@ -104,7 +113,7 @@ public:
+         if (you.duration[DUR_DEATHS_DOOR])
+         {
+             if (reason)
+-                *reason = "You cannot heal while in death's door.";
++                *reason = _potion_reason("item.reason.drink.heal_deaths_door", display);
+             return false;
+         }
+         if (!you.can_potion_heal(true) || temp && you.hp == you.hp_max)
+@@ -114,7 +123,7 @@ public:
+                 return true;
+ 
+             if (reason)
+-                *reason = "You have no ailments to cure.";
++                *reason = _potion_reason("item.reason.drink.no_ailments", display);
+             return false;
+         }
+         return true;
+@@ -166,7 +175,7 @@ public:
+         static PotionHealWounds inst; return inst;
+     }
+ 
+-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
++    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
+     {
+         // note: equip, i.e. vines, leads to temp uselessness. Should this act
+         // as permauselessness?
+@@ -175,16 +184,16 @@ public:
+             if (reason)
+             {
+                 if (!temp || !you.can_potion_heal(false))
+-                    *reason = "You cannot be healed by potions.";
++                    *reason = _potion_reason("item.reason.drink.cannot_heal_potions", display);
+                 else
+-                    *reason = "You cannot currently be healed by potions.";
++                    *reason = _potion_reason("item.reason.drink.cannot_currently_heal", display);
+             }
+             return false;
+         }
+         if (temp && you.duration[DUR_DEATHS_DOOR])
+         {
+             if (reason)
+-                *reason = "You cannot heal while in death's door.";
++                *reason = _potion_reason("item.reason.drink.heal_deaths_door", display);
+             return false;
+         }
+         if (temp && you.hp == you.hp_max)
+@@ -194,7 +203,7 @@ public:
+                 return true;
+ 
+             if (reason)
+-                *reason = "Your health is already full.";
++                *reason = _potion_reason("item.reason.drink.health_full", display);
+             return false;
+         }
+         return true;
+@@ -236,18 +245,18 @@ public:
+         static PotionHaste inst; return inst;
+     }
+ 
+-    bool can_quaff(string *reason = nullptr, bool /* temp */ = true) const override
++    bool can_quaff(string *reason = nullptr, bool /* temp */ = true, ZhArg *display = nullptr) const override
+     {
+         if (you.stasis())
+         {
+             if (reason)
+-                *reason = "Your stasis prevents you from being hasted.";
++                *reason = _potion_reason("item.reason.drink.haste_stasis", display);
+             return false;
+         }
+         else if (have_passive(passive_t::no_haste))
+         {
+             if (reason)
+-                *reason = "You are protected from being hasted by Cheibriados.";
++                *reason = _potion_reason("item.reason.drink.chei_no_haste", display);
+             return false;
+         }
+         return true;
+@@ -303,20 +312,20 @@ public:
+         static PotionBrilliance inst; return inst;
+     }
+ 
+-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
++    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
+     {
+         if (you_worship(GOD_TROG))
+         {
+             // technically can work under Trog, but it does nothing; so give
+             // an informative message instead.
+             if (reason)
+-                *reason = "Trog doesn't allow you to cast spells!";
++                *reason = _potion_reason("item.reason.drink.trog_no_spellcasting", display);
+             return false;
+         }
+         if (temp && you.unrand_equipped(UNRAND_FOLLY))
+         {
+             if (reason)
+-                *reason = "Your robe already provides the effects of brilliance.";
++                *reason = _potion_reason("item.reason.drink.brilliance_active", display);
+             return false;
+         }
+         return true;
+@@ -399,12 +408,12 @@ public:
+         static PotionCancellation inst; return inst;
+     }
+ 
+-    bool can_quaff(string *reason = nullptr, bool temp=true) const override
++    bool can_quaff(string *reason = nullptr, bool temp=true, ZhArg *display = nullptr) const override
+     {
+         if (temp && !player_is_cancellable())
+         {
+             if (reason)
+-                *reason = "There is nothing to cancel.";
++                *reason = _potion_reason("item.reason.drink.nothing_to_cancel", display);
+             return false;
+         }
+ 
+@@ -528,7 +537,7 @@ public:
+         return true;
+     }
+ 
+-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
++    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
+     {
+         // quaffing invis
+         return invis_allowed(true, reason, temp);
+@@ -597,12 +606,12 @@ public:
+         static PotionMagic inst; return inst;
+     }
+ 
+-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
++    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
+     {
+         if (you.has_mutation(MUT_HP_CASTING) || temp && !you.max_magic_points)
+         {
+             if (reason)
+-                *reason = "You have no magic to restore.";
++                *reason = _potion_reason("item.reason.drink.no_magic_restore", display);
+             return false;
+         }
+         else if (temp && you.magic_points == you.max_magic_points)
+@@ -612,7 +621,7 @@ public:
+                 return true;
+ 
+             if (reason)
+-                *reason = "Your magic is already full.";
++                *reason = _potion_reason("item.reason.drink.magic_full", display);
+             return false;
+         }
+         return true;
+@@ -652,7 +661,7 @@ public:
+         static PotionBerserk inst; return inst;
+     }
+ 
+-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
++    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
+     {
+         return you.can_go_berserk(true, true, true, reason, temp);
+     }
+@@ -692,15 +701,20 @@ public:
+  *               to mutate
+  * @returns true if the player is able to mutate right now, otherwise false.
+  */
+-static bool _can_mutate(string *reason, bool temp)
++static bool _can_mutate(string *reason, bool temp, ZhArg *display)
+ {
+     if (you.can_safely_mutate(temp))
+         return true;
+ 
+     if (reason)
+     {
+-        *reason = make_stringf("You cannot mutate%s.",
+-                               you.can_safely_mutate(false) ? " at present" : "");
++        const bool temporary = you.can_safely_mutate(false);
++        const ZhArg value = zh_message_arg("reason", temporary
++            ? "item.reason.drink.cannot_mutate_currently"
++            : "item.reason.drink.cannot_mutate_permanently");
++        *reason = value.canonical;
++        if (display)
++            *display = value;
+     }
+     return false;
+ }
+@@ -736,7 +750,7 @@ public:
+         static PotionLignify inst; return inst;
+     }
+ 
+-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
++    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
+     {
+         const string treason = cant_transform_reason(transformation::tree,
+                                                      false, temp);
+@@ -807,9 +821,9 @@ public:
+         static PotionMutation inst; return inst;
+     }
+ 
+-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
++    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
+     {
+-        return _can_mutate(reason, temp);
++        return _can_mutate(reason, temp, display);
+     }
+ 
+     bool effect(bool = true, int = 40, bool = true) const override
+diff --git a/crawl-ref/source/potion.h b/crawl-ref/source/potion.h
+index 3e8a111..97b4a62 100644
+--- a/crawl-ref/source/potion.h
++++ b/crawl-ref/source/potion.h
+@@ -7,6 +7,8 @@
+ 
+ #include "potion-type.h"
+ 
++struct ZhArg;
++
+ class PotionEffect
+ {
+ private:
+@@ -16,7 +18,8 @@ protected:
+     PotionEffect(potion_type);
+     virtual bool check_known_quaff() const;
+ public:
+-    virtual bool can_quaff(string *reason = nullptr, bool temp = true) const;
++    virtual bool can_quaff(string *reason = nullptr, bool temp = true,
++                           ZhArg *display = nullptr) const;
+ 
+     /**
+      * Elsewhere in the code there are things that can have the effect
 diff --git a/crawl-ref/source/precision-menu.cc b/crawl-ref/source/precision-menu.cc
 index 457fe13..46d5cc4 100644
 --- a/crawl-ref/source/precision-menu.cc
@@ -56954,6 +57743,100 @@ index dc90d37..d1d4b32 100644
          else if (ranged_target == 0)
              mprf("Clearing the skill training target for %s.", skill_name(sk));
          else
+diff --git a/crawl-ref/source/spl-cast.cc b/crawl-ref/source/spl-cast.cc
+index e840154..7b3ef83 100644
+--- a/crawl-ref/source/spl-cast.cc
++++ b/crawl-ref/source/spl-cast.cc
+@@ -6,6 +6,7 @@
+ #include "AppHdr.h"
+ 
+ #include "spl-cast.h"
++#include "zh-message.h"
+ 
+ #include <iomanip>
+ #include <sstream>
+@@ -3045,7 +3046,7 @@ static string _spell_failure_rate_description(spell_type spell)
+             col, severity_adj, col, col, failure.c_str(), col);
+ }
+ 
+-string spell_noise_string(spell_type spell, int chop_wiz_display_width)
++static int _display_spell_noise(spell_type spell)
+ {
+     const int casting_noise = spell_noise(spell);
+     int effect_noise = spell_effect_noise(spell);
+@@ -3054,8 +3055,11 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+     if (spell == SPELL_POLAR_VORTEX)
+         effect_noise = 15;
+ 
+-    const int noise = max(casting_noise, effect_noise);
++    return max(casting_noise, effect_noise);
++}
+ 
++static const char *_spell_noise_description(int noise)
++{
+     const char* noise_descriptions[] =
+     {
+         "Silent", "Almost silent", "Quiet", "A bit loud", "Loud", "Very loud",
+@@ -3065,8 +3069,14 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+     const int breakpoints[] = { 1, 2, 4, 8, 15, 20, 30 };
+     COMPILE_CHECK(ARRAYSZ(noise_descriptions) == 1 + ARRAYSZ(breakpoints));
+ 
+-    const char* desc = noise_descriptions[breakpoint_rank(noise, breakpoints,
++    return noise_descriptions[breakpoint_rank(noise, breakpoints,
+                                                 ARRAYSZ(breakpoints))];
++}
++
++string spell_noise_string(spell_type spell, int chop_wiz_display_width)
++{
++    const int noise = _display_spell_noise(spell);
++    const char *desc = _spell_noise_description(noise);
+ 
+ #ifdef WIZARD
+     if (you.wizard)
+@@ -3086,6 +3096,23 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+         return desc;
+ }
+ 
++ZhArg spell_noise_display_arg(const string &key, spell_type spell)
++{
++    const int noise = _display_spell_noise(spell);
++    const ZhArg rating = zh_word_arg("rating", "spell.noise.",
++        _spell_noise_description(noise), ZhArgType::Name);
++    const string canonical = spell_noise_string(spell);
++#ifdef WIZARD
++    if (you.wizard)
++    {
++        const ZhMessage value = zh_message("spell.noise.display.wizard", {
++            rating, zh_integer("noise", noise)});
++        return {key, ZhArgType::Name, canonical, value.localized, rating.supported};
++    }
++#endif
++    return {key, ZhArgType::Name, canonical, rating.localized, rating.supported};
++}
++
+ int power_to_barcount(int power)
+ {
+     if (power == -1)
+diff --git a/crawl-ref/source/spl-cast.h b/crawl-ref/source/spl-cast.h
+index 3b1756b..9048e53 100644
+--- a/crawl-ref/source/spl-cast.h
++++ b/crawl-ref/source/spl-cast.h
+@@ -16,6 +16,7 @@
+ 
+ using std::vector;
+ 
++struct ZhArg;
+ struct monster_info;
+ class dist;
+ 
+@@ -145,6 +146,7 @@ string spell_range_string(spell_type spell);
+ string range_string(int range, int maxrange = -1, int minrange = 0);
+ string spell_schools_string(spell_type spell);
+ string spell_failure_rate_string(spell_type spell, bool terse);
++ZhArg spell_noise_display_arg(const string &key, spell_type spell);
+ string spell_noise_string(spell_type spell, int chop_wiz_display_width = 0);
+ 
+ void spell_skills(spell_type spell, set<skill_type> &skills);
 diff --git a/crawl-ref/source/stringutil.cc b/crawl-ref/source/stringutil.cc
 index 137085a..6154a1d 100644
 --- a/crawl-ref/source/stringutil.cc
@@ -111703,10 +112586,10 @@ index 0000000..6f29754
 +    {"attunement", "调谐"},
 diff --git a/crawl-ref/source/zh-display-name.cc b/crawl-ref/source/zh-display-name.cc
 new file mode 100644
-index 0000000..c2126da
+index 0000000..251ef0a
 --- /dev/null
 +++ b/crawl-ref/source/zh-display-name.cc
-@@ -0,0 +1,504 @@
+@@ -0,0 +1,569 @@
 +#include "AppHdr.h"
 +
 +#include "zh-display-name.h"
@@ -111721,6 +112604,9 @@ index 0000000..c2126da
 +#include "mon-info.h"
 +#include "monster.h"
 +#include "place.h"
++#include "skills.h"
++#include "spl-util.h"
++#include "stringutil.h"
 +#include "zh-localization.h"
 +
 +#include <cstdlib>
@@ -111807,6 +112693,9 @@ index 0000000..c2126da
 +#endif
 +        default: return {};
 +        }
++    case OBJ_WANDS:    return "根";
++    case OBJ_BOOKS:    return "本";
++    case OBJ_MISCELLANY: return "件";
 +    case OBJ_STAVES:    return "根";
 +    case OBJ_WEAPONS:   return "把";
 +    case OBJ_ARMOUR:    return "件";
@@ -111831,6 +112720,16 @@ index 0000000..c2126da
 +    case OBJ_STAVES:
 +        return std::string("staff of ")
 +               + staff_type_name(static_cast<stave_type>(item.sub_type));
++    case OBJ_WANDS:
++        return std::string("wand of ") + sub_type_string(item, true);
++    case OBJ_MISCELLANY:
++        return sub_type_string(item, true);
++    case OBJ_BOOKS:
++        // Manuals and parchments require independently translated skill/spell
++        // names. Never look up their assembled English title.
++        if (item.sub_type == BOOK_MANUAL || item.sub_type == BOOK_PARCHMENT)
++            return {};
++        return sub_type_string(item, true);
 +    case OBJ_TALISMANS:
 +        return talisman_type_name(item.sub_type);
 +    case OBJ_POTIONS:
@@ -111924,8 +112823,57 @@ index 0000000..c2126da
 +
 +    const std::string base_en = semantic_item_base(item);
 +    std::string base_zh = exact_component(base_en);
++    // Fixed book titles are stored as lowercase database keys in the reviewed
++    // glossary. Normalize only these enum-derived keys, never final names or
++    // user/custom/artefact titles.
++    if (base_zh.empty() && item.base_type == OBJ_BOOKS && !base_en.empty())
++        base_zh = exact_component(lowercase_string(base_en));
++    if (item.base_type == OBJ_BOOKS && item.sub_type == BOOK_MANUAL)
++    {
++        const ZhArg skill = zh_glossary_name("skill", "skill.name",
++            skill_name(static_cast<skill_type>(item.plus)));
++        if (!skill.supported)
++            return fallback();
++        base_zh = zh_message("item.book.display.manual", {skill}).localized;
++    }
++    else if (item.base_type == OBJ_BOOKS && item.sub_type == BOOK_PARCHMENT)
++    {
++        if (item.plus == 0)
++            base_zh = exact_component("parchment");
++        else
++        {
++            const ZhArg spell = zh_word_arg("spell", "spell.name.",
++                spell_title(static_cast<spell_type>(item.plus)), ZhArgType::Name);
++            if (!spell.supported)
++                return fallback();
++            base_zh = zh_message("item.book.display.parchment", {spell}).localized;
++        }
++    }
 +    if (base_zh.empty())
 +        return fallback();
++
++    if (item.base_type == OBJ_WANDS && item.charges > 0)
++        base_zh = zh_message("item.wand.display.charges", {
++            ZhArg{"name", ZhArgType::Name, base_en, base_zh, true},
++            zh_integer("charges", item.charges)}).localized;
++    else if (item.base_type == OBJ_MISCELLANY)
++    {
++        const auto name = [&]() {
++            return ZhArg{"name", ZhArgType::Name, base_en, base_zh, true};
++        };
++        if (item.sub_type == MISC_ZIGGURAT && you.zigs_completed > 0)
++            base_zh = zh_message("item.miscellany.display.ziggurat_progress", {
++                zh_integer("count", you.zigs_completed), name()}).localized;
++        else if (is_xp_evoker(item) && in_inventory(item))
++            base_zh = zh_message("item.miscellany.display.evoker_plus", {
++                zh_integer("level", evoker_plus(item.sub_type)), name()}).localized;
++        if (is_xp_evoker(item) && !evoker_charges(item.sub_type))
++            base_zh = zh_message("item.miscellany.display.inert", {name()}).localized;
++        else if (is_xp_evoker(item) && evoker_max_charges(item.sub_type) > 1)
++            base_zh = zh_message("item.miscellany.display.charges", {
++                name(), zh_integer("charges", evoker_charges(item.sub_type)),
++                zh_integer("maximum", evoker_max_charges(item.sub_type))}).localized;
++    }
 +
 +    std::string brand_zh;
 +    if (item.base_type == OBJ_WEAPONS && item.is_identified())
@@ -112251,10 +113199,10 @@ index 0000000..bc87447
 +                            description_level_type desc = DESC_A);
 diff --git a/crawl-ref/source/zh-localization.cc b/crawl-ref/source/zh-localization.cc
 new file mode 100644
-index 0000000..3b39652
+index 0000000..fb44a23
 --- /dev/null
 +++ b/crawl-ref/source/zh-localization.cc
-@@ -0,0 +1,521 @@
+@@ -0,0 +1,522 @@
 +#ifndef ZH_STANDALONE
 +#include "AppHdr.h"
 +#include "options.h"
@@ -112263,6 +113211,7 @@ index 0000000..3b39652
 +#include "zh-message.h"
 +#include <algorithm>
 +#include <cstdlib>
++#include <cstring>
 +#include <cctype>
 +#include <fstream>
 +#include <regex>
@@ -112831,10 +113780,10 @@ index 0000000..fca52fb
 +};
 diff --git a/crawl-ref/source/zh-message-catalog.inc b/crawl-ref/source/zh-message-catalog.inc
 new file mode 100644
-index 0000000..2eb0ff1
+index 0000000..35912c2
 --- /dev/null
 +++ b/crawl-ref/source/zh-message-catalog.inc
-@@ -0,0 +1,2844 @@
+@@ -0,0 +1,2932 @@
 +// Generated from Luna-reviewed message IDs. Do not edit.
 +static const ZhDefinition zh_definitions[] = {
 +    {"artifact.jewel.01", "It sustains your strength, intelligence and dexterity.", "它能维持你的力量、智力和敏捷。", ""},
@@ -113288,7 +114237,22 @@ index 0000000..2eb0ff1
 +    {"item.artefact.ancient.fixed", "It is an ancient artefact.", "这是一件远古神器。", ""},
 +    {"item.artefact.enchant_limit.fixed", "Enchanting this artefact any further is beyond even your skills.", "即使是你，也无法再进一步附魔这件神器。", ""},
 +    {"item.artefact.magic_immutable.fixed", "This ancient artefact cannot be changed by magic or mundane means.", "这件远古神器无法通过魔法或凡俗手段改变。", ""},
++    {"item.book.display.manual", "manual of {skill}", "{skill}手册", "skill:name"},
++    {"item.book.display.parchment", "parchment of {spell}", "{spell}羊皮纸", "spell:name"},
++    {"item.book.display.quantity", "{quantity} {name}", "{quantity}本{name}", "quantity:integer;name:name"},
 +    {"item.consumable.rarity", "\n\nIt is {article} {rarity} {kind}.", "\n\n这是一件{article}{rarity}{kind}。", "article:text;rarity:text;kind:text"},
++    {"item.consumable.rarity.potion.buggy", "\n\nIt is a buggy potion.", "\n\n这是一瓶稀有度异常的药水。", ""},
++    {"item.consumable.rarity.potion.common", "\n\nIt is a common potion.", "\n\n这是一瓶常见的药水。", ""},
++    {"item.consumable.rarity.potion.rare", "\n\nIt is a rare potion.", "\n\n这是一瓶罕见的药水。", ""},
++    {"item.consumable.rarity.potion.uncommon", "\n\nIt is an uncommon potion.", "\n\n这是一瓶不常见的药水。", ""},
++    {"item.consumable.rarity.potion.very_common", "\n\nIt is a very common potion.", "\n\n这是一瓶极其常见的药水。", ""},
++    {"item.consumable.rarity.potion.very_rare", "\n\nIt is a very rare potion.", "\n\n这是一瓶极其罕见的药水。", ""},
++    {"item.consumable.rarity.scroll.buggy", "\n\nIt is a buggy scroll.", "\n\n这是一张稀有度异常的卷轴。", ""},
++    {"item.consumable.rarity.scroll.common", "\n\nIt is a common scroll.", "\n\n这是一张常见的卷轴。", ""},
++    {"item.consumable.rarity.scroll.rare", "\n\nIt is a rare scroll.", "\n\n这是一张罕见的卷轴。", ""},
++    {"item.consumable.rarity.scroll.uncommon", "\n\nIt is an uncommon scroll.", "\n\n这是一张不常见的卷轴。", ""},
++    {"item.consumable.rarity.scroll.very_common", "\n\nIt is a very common scroll.", "\n\n这是一张极其常见的卷轴。", ""},
++    {"item.consumable.rarity.scroll.very_rare", "\n\nIt is a very rare scroll.", "\n\n这是一张极其罕见的卷轴。", ""},
 +    {"item.curse.applied.fixed", "It has a curse placed upon it.", "它受到了诅咒。", ""},
 +    {"item.curse.category.beguiling", "Beguiling", "迷惑", ""},
 +    {"item.curse.category.companions", "Companions", "伙伴", ""},
@@ -113388,6 +114352,11 @@ index 0000000..2eb0ff1
 +    {"item.jewellery.slaying_effect", "\n\nIt affects your accuracy and damage with ranged weapons and melee ({amount}).", "\n\n它会影响你使用远程武器和近战武器时的命中与伤害（{amount}）。", "amount:text"},
 +    {"item.jewellery.stat_effect", "\n\nIt affects your {stat} ({amount}).", "\n\n它会影响你的{stat}（{amount}）。", "stat:text;amount:text"},
 +    {"item.location.offlevel", "It can be found on {level}.", "可在{level}找到。", "level:key"},
++    {"item.miscellany.display.charges", "{name} ({charges}/{maximum})", "{name}（{charges}/{maximum}）", "name:name;charges:integer;maximum:integer"},
++    {"item.miscellany.display.evoker_plus", "+{level} {name}", "+{level}{name}", "level:integer;name:name"},
++    {"item.miscellany.display.inert", "{name} (inert)", "{name}（失活）", "name:name"},
++    {"item.miscellany.display.quantity", "{quantity} {name}", "{quantity}件{name}", "quantity:integer;name:name"},
++    {"item.miscellany.display.ziggurat_progress", "+{count} {name}", "+{count}次{name}", "count:integer;name:name"},
 +    {"item.origin.acquirement", "\nYou acquired it {place}.", "\n你在{place}获得了它。", "place:text"},
 +    {"item.origin.dancing_weapon", "\nYou subdued it {place}.", "\n你在{place}制服了它。", "place:text"},
 +    {"item.origin.english_fallback", "\n{origin}", "\n{origin}", "origin:text"},
@@ -113410,6 +114379,71 @@ index 0000000..2eb0ff1
 +    {"item.projectile.always_destroyed.fixed", "\n\nIt is always destroyed on impact.", "\n\n命中后必定损毁。", ""},
 +    {"item.projectile.destroy_chance", "\n\nIt has a 1/{chance} chance to be destroyed on impact.", "\n\n它命中后有1/{chance}的几率损毁。", "chance:integer"},
 +    {"item.projectile.stats_and_minimum_delay", "\n\nBase damage: {damage}  Base attack delay: {base_delay}\nThis projectile's minimum attack delay ({minimum_delay}) is reached at skill level {skill_level}.", "\n\n基础伤害：{damage}  基础攻击延迟：{base_delay}\n该投掷物的最低攻击延迟为{minimum_delay}，在投掷技能{skill_level}级时达到。", "damage:integer;base_delay:number;minimum_delay:number;skill_level:integer"},
++    {"item.reason.drink.already_berserk", "You're already berserk!", "你已经处于狂暴状态！", ""},
++    {"item.reason.drink.berserk_recovering", "You're still recovering from your berserk rage.", "你仍在狂暴后的恢复期。", ""},
++    {"item.reason.drink.brilliance_active", "Your robe already provides the effects of brilliance.", "你的长袍已经赋予你灵光效果。", ""},
++    {"item.reason.drink.cannot_currently_heal", "You cannot currently be healed by potions.", "你目前无法通过药水恢复生命。", ""},
++    {"item.reason.drink.cannot_heal_potions", "You cannot be healed by potions.", "药水无法治疗你。", ""},
++    {"item.reason.drink.cannot_mutate_currently", "You cannot mutate at present.", "你目前无法变异。", ""},
++    {"item.reason.drink.cannot_mutate_permanently", "You cannot mutate.", "你无法变异。", ""},
++    {"item.reason.drink.chei_no_haste", "You are protected from being hasted by Cheibriados.", "切布拉多斯保护你免受急速效果影响。", ""},
++    {"item.reason.drink.death_door_blood_rage", "You can't enter a blood rage from death's door.", "你处于死亡之门状态时无法进入血怒。", ""},
++    {"item.reason.drink.haste_stasis", "Your stasis prevents you from being hasted.", "你的静滞状态阻止你获得急速。", ""},
++    {"item.reason.drink.heal_deaths_door", "You cannot heal while in death's door.", "你处于死亡之门状态时无法恢复生命。", ""},
++    {"item.reason.drink.health_full", "Your health is already full.", "你的生命值已经满了。", ""},
++    {"item.reason.drink.magic_full", "Your magic is already full.", "你的魔力已经满了。", ""},
++    {"item.reason.drink.mesmerised_rage", "You are too mesmerised to rage.", "你被魅惑得无法陷入狂暴。", ""},
++    {"item.reason.drink.no_ailments", "You have no ailments to cure.", "你没有需要治愈的病痛。", ""},
++    {"item.reason.drink.no_magic_restore", "You have no magic to restore.", "你没有可恢复的魔力。", ""},
++    {"item.reason.drink.nothing_to_cancel", "There is nothing to cancel.", "没有可取消的效果。", ""},
++    {"item.reason.drink.stasis_rage", "Your stasis prevents you from going berserk.", "你的静滞状态阻止你陷入狂暴。", ""},
++    {"item.reason.drink.too_calm_rage", "You're too calm and focused to rage.", "你过于冷静专注，无法陷入狂暴。", ""},
++    {"item.reason.drink.trog_no_spellcasting", "Trog doesn't allow you to cast spells!", "特洛格不允许你施法！", ""},
++    {"item.reason.drink.undead_blood_rage", "You cannot raise a blood rage in your lifeless body.", "你这具没有生气的躯体无法激起血怒。", ""},
++    {"item.reason.invisibility.backlit", "Your body glows too brightly to become invisible.", "你的身体过于明亮，无法隐形。", ""},
++    {"item.reason.invisibility.backlit_current", "You are backlit; invisibility will do you no good right now.", "你正被背光照亮，隐形目前对你无用。", ""},
++    {"item.reason.invisibility.halo", "Your {sources} glow{s} too brightly for you to become invisible.", "你的{sources}{s}过于明亮，使你无法隐形。", "sources:text;s:text"},
++    {"item.reason.selectable.brandable_weapon", "You aren't carrying any weapons that can be branded.", "你没有可赋予词缀的武器。", ""},
++    {"item.reason.selectable.enchantable_armour", "You aren't carrying any armour which can be enchanted further.", "你没有可继续附魔的护甲。", ""},
++    {"item.reason.selectable.enchantable_weapon", "You aren't carrying any weapons that can be enchanted.", "你没有可附魔的武器。", ""},
++    {"item.reason.selectable.no_selectable_object", "You aren't carrying any such object.", "你没有携带此类物品。", ""},
++    {"item.reason.selectable.unidentified", "You don't currently have any unidentified items.", "你目前没有未鉴定的物品。", ""},
++    {"item.reason.transform.death_door", "You cannot mock death while in death's door.", "你处于死亡之门状态时无法戏弄死亡。", ""},
++    {"item.reason.transform.gargoyle", "You're already a statue.", "你已经是石像了。", ""},
++    {"item.reason.transform.permanent", "You have sacrificed the ability to change form!", "你已献祭变形能力！", ""},
++    {"item.reason.transform.stuck", "You are stuck in your current form!", "你被困在当前形态中！", ""},
++    {"item.reason.transform.undead", "Your unliving flesh cannot be transformed in this way.", "你这没有生气的躯体无法如此变形。", ""},
++    {"item.reason.use.allies_forbidden", "That item cannot be used by those who cannot gain allies!", "无法获得盟友的角色不能使用此物品！", ""},
++    {"item.reason.use.berserk", "You are too berserk!", "你正处于狂暴状态！", ""},
++    {"item.reason.use.cocytus_cold", "It's too cold; everything's frozen solid!", "这里太冷了，一切都冻成了坚冰！", ""},
++    {"item.reason.use.confused", "You are too confused!", "你困惑得太厉害了！", ""},
++    {"item.reason.use.drink_state", "You cannot drink potions in your current state!", "你当前的状态无法饮用药水！", ""},
++    {"item.reason.use.flux_already", "you are already filled with unstable energy.", "你体内已充满不稳定能量。", ""},
++    {"item.reason.use.geh_smog", "You cannot see clearly; the smoke and ash is too thick!", "烟尘过于浓厚，你看不清楚！", ""},
++    {"item.reason.use.horn_silenced", "You can't produce a sound!", "你无法发出声音！", ""},
++    {"item.reason.use.inert_evoker", "The {item} is presently inert.", "{item}目前处于失活状态。", "item:name"},
++    {"item.reason.use.item_removed", "Sorry, this item was removed!", "抱歉，这件物品已被移除！", ""},
++    {"item.reason.use.no_armour_enchant", "There's no point in enchanting armour you can't use!", "附魔你无法穿戴的护甲毫无意义！", ""},
++    {"item.reason.use.no_artifice", "You cannot evoke magical items.", "你无法启动魔法物品。", ""},
++    {"item.reason.use.no_charges", "This wand has no charges.", "这根魔杖没有充能。", ""},
++    {"item.reason.use.no_control_memory", "You don't have control over your spell memory.", "你无法控制自己的法术记忆。", ""},
++    {"item.reason.use.no_forgetting", "You have no spells to forget.", "你没有可以遗忘的法术。", ""},
++    {"item.reason.use.no_need_identification", "You have no need of identification.", "你不需要鉴定物品。", ""},
++    {"item.reason.use.no_scrolls", "You cannot read scrolls in your current state!", "你当前的状态无法阅读卷轴！", ""},
++    {"item.reason.use.no_summons", "You cannot coerce anything to answer your summons.", "你无法强迫任何存在回应你的召唤。", ""},
++    {"item.reason.use.no_weapon_enhance", "There's no point in enhancing weapons you can't use!", "强化你无法使用的武器毫无意义！", ""},
++    {"item.reason.use.not_drink", "You can't drink.", "你无法饮用药水。", ""},
++    {"item.reason.use.nothing_to_identify", "There is nothing left to identify.", "已经没有未鉴定的物品了。", ""},
++    {"item.reason.use.renounce_drink", "You refuse to indulge in frivolous drinking.", "你拒绝沉溺于无谓的饮酒。", ""},
++    {"item.reason.use.renounce_scrolls", "You refuse to depend on such disposable conveniences.", "你拒绝依赖这种一次性的便利。", ""},
++    {"item.reason.use.silenced", "You cannot read scrolls while silenced!", "你处于沉默状态时无法阅读卷轴！", ""},
++    {"item.reason.use.still_air", "The air is too still for clouds to form.", "空气过于平静，无法形成云雾。", ""},
++    {"item.reason.use.trog_memory", "Trog doesn't allow you to memorise spells!", "特洛格不允许你记忆法术！", ""},
++    {"item.reason.use.unable_to_breathe", "You cannot read scrolls while unable to breathe!", "你无法呼吸时不能阅读卷轴！", ""},
++    {"item.reason.use.unmappable", "This place cannot be mapped!", "此处无法绘制地图！", ""},
++    {"item.reason.use.wrong_drink", "You can't drink that!", "你无法饮用这件物品！", ""},
++    {"item.reason.use.wrong_evoke", "You can't evoke that!", "你无法启动这件物品！", ""},
++    {"item.reason.use.wrong_item", "You can't read that!", "你无法阅读这件物品！", ""},
 +    {"item.removed.fixed", "This item has been removed.", "此物品已被移除。", ""},
 +    {"item.skill.current", "Your {skill_prefix}skill: {padding}{skill_level}", "你的{skill_prefix}技能：{padding}{skill_level}", "skill_prefix:text;padding:text;skill_level:number"},
 +    {"item.skill.current_with_target", "Your {skill_prefix}skill: {padding}{skill_level}; use <white>(s)</white> to set {target_level} as a target for {skill}.", "你的{skill_prefix}技能：{padding}{skill_level}；按<white>(s)</white>将{target_level}设为{skill}目标。", "skill_prefix:text;padding:text;skill_level:number;target_level:number;skill:name"},
@@ -113432,6 +114466,8 @@ index 0000000..2eb0ff1
 +    {"item.useless.reading_impossible", "Reading this right now isn't possible{reason}", "现在无法阅读此卷轴{reason}", "reason:text"},
 +    {"item.useless.reading_no_effect", "Reading this right now will have no effect{reason}", "现在阅读此卷轴不会产生效果{reason}", "reason:text"},
 +    {"item.wand.damage", "\nDamage: {damage}", "\n伤害：{damage}", "damage:text"},
++    {"item.wand.display.charges", "{name} ({charges})", "{name}（{charges}）", "name:name;charges:integer"},
++    {"item.wand.display.quantity", "{quantity} {name}", "{quantity}根{name}", "quantity:integer;name:name"},
 +    {"item.wand.noise", "\nNoise: {noise}", "\n噪声：{noise}", "noise:text"},
 +    {"item.weapon.armour_slow", "{actor} slows your attacks with this weapon by {delay}.", "{actor}使你使用该武器攻击时减慢{delay}。", "actor:text;delay:number"},
 +    {"item.weapon.armour_slow.full", "{actor} slows your attacks with this weapon by {delay}.", "{actor}会使你使用这件武器的攻击速度减慢{delay}。", "actor:name;delay:number"},
@@ -114999,6 +116035,7 @@ index 0000000..2eb0ff1
 +    {"spell.noise.a_bit_loud", "A bit loud", "略响", ""},
 +    {"spell.noise.almost_silent", "Almost silent", "几乎无声", ""},
 +    {"spell.noise.deafening", "Deafening", "震耳欲聋", ""},
++    {"spell.noise.display.wizard", "{rating} ({noise})", "{rating}（{noise}）", "rating:name;noise:integer"},
 +    {"spell.noise.extremely_loud", "Extremely loud", "极其响亮", ""},
 +    {"spell.noise.loud", "Loud", "响亮", ""},
 +    {"spell.noise.quiet", "Quiet", "安静", ""},
@@ -115681,10 +116718,10 @@ index 0000000..2eb0ff1
 +};
 diff --git a/crawl-ref/source/zh-message.cc b/crawl-ref/source/zh-message.cc
 new file mode 100644
-index 0000000..72fd97d
+index 0000000..562894d
 --- /dev/null
 +++ b/crawl-ref/source/zh-message.cc
-@@ -0,0 +1,217 @@
+@@ -0,0 +1,231 @@
 +#ifndef ZH_STANDALONE
 +#include "AppHdr.h"
 +#endif
@@ -115747,6 +116784,12 @@ index 0000000..72fd97d
 +ZhArg zh_text(const std::string &key,const std::string &canonical,const std::string &localized) {
 +    return {key,ZhArgType::Text,canonical,localized,
 +        canonical != localized || canonical.find_first_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") == std::string::npos};
++}
++ZhArg zh_numeric_notation(const std::string &key, const std::string &notation) {
++    const bool supported = notation.empty()
++        || (notation.find_first_of("0123456789") != std::string::npos
++            && notation.find_first_not_of("0123456789dx+-*/(). %") == std::string::npos);
++    return {key,ZhArgType::Text,notation,notation,supported};
 +}
 +ZhArg zh_key(const std::string &key,const std::string &value) {
 +    if (value.find_first_of("<>\n\r")!=std::string::npos) throw std::invalid_argument("Invalid localization key token");
@@ -115902,12 +116945,20 @@ index 0000000..72fd97d
 +        throw std::invalid_argument(std::string("Missing localization source: ") + context);
 +    return source_literal;
 +}
++
++ZhArg zh_message_arg(const std::string &key, const std::string &id,
++                     std::initializer_list<ZhArg> args) {
++    const ZhMessage value = zh_message(id, args);
++    const bool supported = std::all_of(args.begin(), args.end(),
++        [](const ZhArg &arg) { return arg.supported; });
++    return {key, ZhArgType::Text, value.canonical, value.localized, supported};
++}
 diff --git a/crawl-ref/source/zh-message.h b/crawl-ref/source/zh-message.h
 new file mode 100644
-index 0000000..7fd8740
+index 0000000..48832d1
 --- /dev/null
 +++ b/crawl-ref/source/zh-message.h
-@@ -0,0 +1,45 @@
+@@ -0,0 +1,49 @@
 +#pragma once
 +#include <initializer_list>
 +#include <string>
@@ -115932,6 +116983,8 @@ index 0000000..7fd8740
 +ZhArg zh_number(const std::string &key, double value, int precision = 1);
 +ZhArg zh_text(const std::string &key, const std::string &canonical,
 +              const std::string &localized);
++// Mathematical display notation, never an arbitrary English message.
++ZhArg zh_numeric_notation(const std::string &key, const std::string &notation);
 +ZhArg zh_key(const std::string &key, const std::string &value);
 +// Menu-generated key names with their fixed <w> styling and escaped '<'.
 +// This is immutable structure, never an ordinary translatable text argument.
@@ -115939,6 +116992,8 @@ index 0000000..7fd8740
 +ZhArg zh_colour(const std::string &key, const std::string &value);
 +ZhMessage zh_message(const std::string &id, std::initializer_list<ZhArg> args = {},
 +                     const std::string &canonical = "");
++ZhArg zh_message_arg(const std::string &key, const std::string &id,
++                     std::initializer_list<ZhArg> args = {});
 +// Exact whole entries only. Intended for semantic enum labels and base names;
 +// never call this with an assembled sentence or an internal identifier.
 +std::string zh_lookup_exact(const std::string &text);

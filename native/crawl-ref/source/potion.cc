@@ -6,6 +6,7 @@
 #include "AppHdr.h"
 
 #include "potion.h"
+#include "zh-message.h"
 
 #include <cstdio>
 #include <cstring>
@@ -51,7 +52,15 @@ PotionEffect::PotionEffect(const potion_type pot)
     : potion_name(potion_type_name(pot)), kind(pot)
 { }
 
-bool PotionEffect::can_quaff(string */*reason*/, bool /*temp*/) const
+static string _potion_reason(const char *id, ZhArg *display)
+{
+    const ZhArg value = zh_message_arg("reason", id);
+    if (display)
+        *display = value;
+    return value.canonical;
+}
+
+bool PotionEffect::can_quaff(string */*reason*/, bool /*temp*/, ZhArg */*display*/) const
 {
     return true;
 }
@@ -87,7 +96,7 @@ public:
         static PotionCuring inst; return inst;
     }
 
-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
+    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
     {
         // no species that can quaff at all have permanent restrictions for
         // curing
@@ -104,7 +113,7 @@ public:
         if (you.duration[DUR_DEATHS_DOOR])
         {
             if (reason)
-                *reason = "You cannot heal while in death's door.";
+                *reason = _potion_reason("item.reason.drink.heal_deaths_door", display);
             return false;
         }
         if (!you.can_potion_heal(true) || temp && you.hp == you.hp_max)
@@ -114,7 +123,7 @@ public:
                 return true;
 
             if (reason)
-                *reason = "You have no ailments to cure.";
+                *reason = _potion_reason("item.reason.drink.no_ailments", display);
             return false;
         }
         return true;
@@ -166,7 +175,7 @@ public:
         static PotionHealWounds inst; return inst;
     }
 
-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
+    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
     {
         // note: equip, i.e. vines, leads to temp uselessness. Should this act
         // as permauselessness?
@@ -175,16 +184,16 @@ public:
             if (reason)
             {
                 if (!temp || !you.can_potion_heal(false))
-                    *reason = "You cannot be healed by potions.";
+                    *reason = _potion_reason("item.reason.drink.cannot_heal_potions", display);
                 else
-                    *reason = "You cannot currently be healed by potions.";
+                    *reason = _potion_reason("item.reason.drink.cannot_currently_heal", display);
             }
             return false;
         }
         if (temp && you.duration[DUR_DEATHS_DOOR])
         {
             if (reason)
-                *reason = "You cannot heal while in death's door.";
+                *reason = _potion_reason("item.reason.drink.heal_deaths_door", display);
             return false;
         }
         if (temp && you.hp == you.hp_max)
@@ -194,7 +203,7 @@ public:
                 return true;
 
             if (reason)
-                *reason = "Your health is already full.";
+                *reason = _potion_reason("item.reason.drink.health_full", display);
             return false;
         }
         return true;
@@ -236,18 +245,18 @@ public:
         static PotionHaste inst; return inst;
     }
 
-    bool can_quaff(string *reason = nullptr, bool /* temp */ = true) const override
+    bool can_quaff(string *reason = nullptr, bool /* temp */ = true, ZhArg *display = nullptr) const override
     {
         if (you.stasis())
         {
             if (reason)
-                *reason = "Your stasis prevents you from being hasted.";
+                *reason = _potion_reason("item.reason.drink.haste_stasis", display);
             return false;
         }
         else if (have_passive(passive_t::no_haste))
         {
             if (reason)
-                *reason = "You are protected from being hasted by Cheibriados.";
+                *reason = _potion_reason("item.reason.drink.chei_no_haste", display);
             return false;
         }
         return true;
@@ -303,20 +312,20 @@ public:
         static PotionBrilliance inst; return inst;
     }
 
-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
+    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
     {
         if (you_worship(GOD_TROG))
         {
             // technically can work under Trog, but it does nothing; so give
             // an informative message instead.
             if (reason)
-                *reason = "Trog doesn't allow you to cast spells!";
+                *reason = _potion_reason("item.reason.drink.trog_no_spellcasting", display);
             return false;
         }
         if (temp && you.unrand_equipped(UNRAND_FOLLY))
         {
             if (reason)
-                *reason = "Your robe already provides the effects of brilliance.";
+                *reason = _potion_reason("item.reason.drink.brilliance_active", display);
             return false;
         }
         return true;
@@ -399,12 +408,12 @@ public:
         static PotionCancellation inst; return inst;
     }
 
-    bool can_quaff(string *reason = nullptr, bool temp=true) const override
+    bool can_quaff(string *reason = nullptr, bool temp=true, ZhArg *display = nullptr) const override
     {
         if (temp && !player_is_cancellable())
         {
             if (reason)
-                *reason = "There is nothing to cancel.";
+                *reason = _potion_reason("item.reason.drink.nothing_to_cancel", display);
             return false;
         }
 
@@ -528,7 +537,7 @@ public:
         return true;
     }
 
-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
+    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
     {
         // quaffing invis
         return invis_allowed(true, reason, temp);
@@ -597,12 +606,12 @@ public:
         static PotionMagic inst; return inst;
     }
 
-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
+    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
     {
         if (you.has_mutation(MUT_HP_CASTING) || temp && !you.max_magic_points)
         {
             if (reason)
-                *reason = "You have no magic to restore.";
+                *reason = _potion_reason("item.reason.drink.no_magic_restore", display);
             return false;
         }
         else if (temp && you.magic_points == you.max_magic_points)
@@ -612,7 +621,7 @@ public:
                 return true;
 
             if (reason)
-                *reason = "Your magic is already full.";
+                *reason = _potion_reason("item.reason.drink.magic_full", display);
             return false;
         }
         return true;
@@ -652,7 +661,7 @@ public:
         static PotionBerserk inst; return inst;
     }
 
-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
+    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
     {
         return you.can_go_berserk(true, true, true, reason, temp);
     }
@@ -692,15 +701,20 @@ public:
  *               to mutate
  * @returns true if the player is able to mutate right now, otherwise false.
  */
-static bool _can_mutate(string *reason, bool temp)
+static bool _can_mutate(string *reason, bool temp, ZhArg *display)
 {
     if (you.can_safely_mutate(temp))
         return true;
 
     if (reason)
     {
-        *reason = make_stringf("You cannot mutate%s.",
-                               you.can_safely_mutate(false) ? " at present" : "");
+        const bool temporary = you.can_safely_mutate(false);
+        const ZhArg value = zh_message_arg("reason", temporary
+            ? "item.reason.drink.cannot_mutate_currently"
+            : "item.reason.drink.cannot_mutate_permanently");
+        *reason = value.canonical;
+        if (display)
+            *display = value;
     }
     return false;
 }
@@ -736,7 +750,7 @@ public:
         static PotionLignify inst; return inst;
     }
 
-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
+    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
     {
         const string treason = cant_transform_reason(transformation::tree,
                                                      false, temp);
@@ -807,9 +821,9 @@ public:
         static PotionMutation inst; return inst;
     }
 
-    bool can_quaff(string *reason = nullptr, bool temp = true) const override
+    bool can_quaff(string *reason = nullptr, bool temp = true, ZhArg *display = nullptr) const override
     {
-        return _can_mutate(reason, temp);
+        return _can_mutate(reason, temp, display);
     }
 
     bool effect(bool = true, int = 40, bool = true) const override

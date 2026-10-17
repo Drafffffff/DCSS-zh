@@ -15,7 +15,12 @@ cases=[('hud','l'),('hud-wizard','l&wiz\r '),('spell-detail','l&wiz\r!Magic Dart
 # Independent hints-mode fixture; each scene gets its own disposable copy.
 cases += [('hints-armour','ib'),('hints-wand','l&wiz\r%pre_id wand of flame\rgi\t\t\ta'),
           ('hints-missile','l&wiz\r%pre_id javelin\rgic'),
-          ('hints-staff','l&wiz\r%pre_id staff of fire\rgic')]
+          ('hints-staff','l&wiz\r%pre_id staff of fire\rgic'),
+          ('hints-scroll','l&wiz\r%pre_id scroll of identify\rxrva'),
+          ('hints-potion','l&wiz\r%pre_id potion of curing\rxrva'),
+          ('hints-book','l&wiz\r%pre_id book of Flames\rxrva'),
+          ('hints-manual','l&wiz\r%pre_id manual of Axes\rxrva'),
+          ('hints-misc','l&wiz\r%pre_id phial of floods\rxrva')]
 if os.environ.get('DCSS_QA_SCENES'):
  cases=[c for c in cases if c[0] in os.environ['DCSS_QA_SCENES'].split(',')]
 x=subprocess.Popen(['Xvfb',':96','-screen','0','3840x2160x24','-nolisten','tcp'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
@@ -75,7 +80,12 @@ finally:
  assert unchanged,'Original saves changed externally during test'
 expected={
  'hints-armour':{'item.hints.armour.wear_remove'},
- 'hints-wand':{'item.hints.wand.use'},
+ 'hints-wand':{'item.hints.wand.use','item.wand.damage','item.wand.noise'},
+ 'hints-scroll':{'item.hints.scroll.use'},
+ 'hints-potion':{'item.hints.potion.use'},
+ 'hints-book':{'item.hints.book.spellbook'},
+ 'hints-manual':{'item.hints.book.manual'},
+ 'hints-misc':{'item.hints.misc.evocation'},
  'hints-missile':{'item.hints.missile.throwable'},
  'hints-staff':{'item.hints.staff.school'},
  'hud':{'hud.experience.progress','hud.place.depth'},
@@ -100,9 +110,7 @@ for result in results:
  assert expected.get(result['scene'],set()) <= ids,(result['scene'],ids)
  if result['scene'].startswith('hints-'):
   assert not result['missing'],(result['scene'],result['missing'])
-  if result['scene'] != 'hints-wand':
-   assert not result['names'],(result['scene'],result['names'])
-  # Ordinary wand title still has explicit whole-name fallback; record it.
+  assert not result['names'],(result['scene'],result['names'])
  if result['scene'].startswith('skills') or result['scene'] in ('combat','equipment','weapon-detail'):
   assert not result['missing'],(result['scene'],result['missing'])
 for result in results:

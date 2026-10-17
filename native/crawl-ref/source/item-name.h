@@ -175,3 +175,7 @@ const char* potion_type_name(int potiontype);  //used in xom.cc
 const char* scroll_type_name(int scrolltype);
 const char* jewellery_effect_name(int jeweltype, bool terse = false) PURE; //used in l-item.cc
 const char* gizmo_effect_name(int gizmotype);
+
+struct ZhArg;
+ZhArg cannot_read_item_display_reason(const item_def *item=nullptr, bool temp=true, bool ident=false);
+ZhArg cannot_drink_item_display_reason(const item_def *item=nullptr, bool temp=true, bool use_check=false, bool ident=false);

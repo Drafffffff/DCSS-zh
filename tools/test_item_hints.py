@@ -72,16 +72,11 @@ reference=reference.replace('_hints_target_mode','_reference_target').replace('_
 base+=reference+'\n'
 start=source.index('static ZhArg _item_hint_key(');end=source.index('// num_old_talents',start)
 base+=source[start:end]+'\n'+block(source,'string hints_describe_item(')+'\n'
-# Compile the real potion/scroll rarity bindings: a previous Name/Text mismatch
-# crashed actual detail scenes even though catalog self-validation passed.
-rarity_source=(SRC/'describe.cc').read_text()
-rarity_calls=re.findall(r'description << zh_message\("item\.consumable\.rarity", \{.*?\}\)\.display\(\);',rarity_source,re.S)
-assert len(rarity_calls)==2
-base+='\nvoid check_rarity_bindings(){\n'
-base+='string rarity="common",article="a",localized_rarity=zh_lookup_exact(rarity),localized_article=zh_lookup_exact(article);\n'
-for statement in rarity_calls:
- base+='{ostringstream description; '+statement+' assert(!description.str().empty());}\n'
-base+='}\n'
+# Compile the real enum producer, including uncommon's English 'an'.
+base+='enum {RARITY_VERY_RARE,RARITY_RARE,RARITY_UNCOMMON,RARITY_COMMON,RARITY_VERY_COMMON,RARITY_NONE};\n'
+base+='int rarity_value=RARITY_COMMON;int consumable_rarity(const item_def&){return rarity_value;}\n'
+base+=block((SRC/'describe.cc').read_text(),'static string _consumable_rarity_display(')+'\n'
+base+='void check_rarity_bindings(){item_def i;for(int kind:{OBJ_POTIONS,OBJ_SCROLLS}){i.base_type=kind;for(int r=RARITY_VERY_RARE;r<=RARITY_NONE;++r){rarity_value=r;const string zh=_consumable_rarity_display(i);assert(zh.find("It is")==string::npos);{ZhTranslationPause pause;const string en=_consumable_rarity_display(i);assert(en.find("It is ")!=string::npos);assert(en.find("rare rare")==string::npos);if(r==RARITY_UNCOMMON)assert(en.find("an uncommon ")!=string::npos);}}}}\n'
 base+=r'''
 string normalized(string s){s=replace_all(s," forthis "," for this ");return replace_all(s," forthese "," for these ");}
 int checks=0;

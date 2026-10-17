@@ -2685,6 +2685,42 @@ string describe_item_rarity(const item_def &item)
     }
 }
 
+// Select complete sentences from semantic enums. article_a() includes the
+// noun it receives, so it must never be inserted alongside that noun again.
+static string _consumable_rarity_display(const item_def &item)
+{
+    const bool potion = item.base_type == OBJ_POTIONS;
+    const char *id;
+    switch (consumable_rarity(item))
+    {
+    case RARITY_VERY_RARE:
+        id = potion ? "item.consumable.rarity.potion.very_rare"
+                    : "item.consumable.rarity.scroll.very_rare";
+        break;
+    case RARITY_RARE:
+        id = potion ? "item.consumable.rarity.potion.rare"
+                    : "item.consumable.rarity.scroll.rare";
+        break;
+    case RARITY_UNCOMMON:
+        id = potion ? "item.consumable.rarity.potion.uncommon"
+                    : "item.consumable.rarity.scroll.uncommon";
+        break;
+    case RARITY_COMMON:
+        id = potion ? "item.consumable.rarity.potion.common"
+                    : "item.consumable.rarity.scroll.common";
+        break;
+    case RARITY_VERY_COMMON:
+        id = potion ? "item.consumable.rarity.potion.very_common"
+                    : "item.consumable.rarity.scroll.very_common";
+        break;
+    default:
+        id = potion ? "item.consumable.rarity.potion.buggy"
+                    : "item.consumable.rarity.scroll.buggy";
+        break;
+    }
+    return zh_message(id).display();
+}
+
 static string _describe_jewellery(const item_def &item, bool verbose)
 {
     string description;
@@ -2854,18 +2890,18 @@ static string &_trogsafe_lowercase(string &s)
     return s;
 }
 
-static string _cannot_use_reason(const item_def &item, bool temp=true)
+static ZhArg _cannot_use_reason(const item_def &item, bool temp=true)
 {
     // right now, description uselessness reasons only work for these four
     // item types..
     switch (item.base_type)
     {
-    case OBJ_SCROLLS: return cannot_read_item_reason(&item, temp);
-    case OBJ_POTIONS: return cannot_drink_item_reason(&item, temp);
+    case OBJ_SCROLLS: return cannot_read_item_display_reason(&item, temp);
+    case OBJ_POTIONS: return cannot_drink_item_display_reason(&item, temp);
     case OBJ_BAUBLES:
     case OBJ_MISCELLANY:
-    case OBJ_WANDS:   return cannot_evoke_item_reason(&item, temp);
-    default: return "";
+    case OBJ_WANDS:   return cannot_evoke_item_display_reason(&item, temp);
+    default: return {"reason", ZhArgType::Text, "", "", true};
     }
 }
 
@@ -2875,7 +2911,7 @@ static void _uselessness_desc(ostringstream &description, const item_def &item)
         return;
     if (is_useless_item(item, true))
     {
-        string r;
+        ZhArg r;
         string id;
         string item_type;
         if (is_useless_item(item, false))
@@ -2911,10 +2947,11 @@ static void _uselessness_desc(ostringstream &description, const item_def &item)
             }
             r = _cannot_use_reason(item, true);
         }
-        string reason = r.empty() ? "." : string(": ") + _trogsafe_lowercase(r);
-        string localized_reason = r.empty() ? "。" : reason;
+        const bool empty = r.canonical.empty();
+        const string reason = empty ? "." : string(": ") + _trogsafe_lowercase(r.canonical);
+        const string localized_reason = empty ? "。" : "：" + r.localized;
         ZhArg reason_arg{"reason", ZhArgType::Text, reason, localized_reason,
-                         r.empty()};
+                         empty || r.supported};
         if (item_type.empty())
             description << "\n\n" << zh_message(id, {reason_arg}).display();
         else
@@ -3156,12 +3193,12 @@ string get_item_description(const item_def &item,
                 const string damage_str = evoke_damage_string(item);
                 if (damage_str != "")
                     description << zh_message("item.evoker.damage", {
-                        zh_text("damage", damage_str, damage_str)}).display();
+                        zh_numeric_notation("damage", damage_str)}).display();
 
                 const string noise_str = evoke_noise_string(item);
                 if (noise_str != "")
                     description << zh_message("item.evoker.noise", {
-                        zh_text("noise", noise_str, noise_str)}).display();
+                        evoke_noise_display_arg("noise", item)}).display();
             }
         }
 
@@ -3187,16 +3224,7 @@ string get_item_description(const item_def &item,
                         ZhArg{"state", ZhArgType::Text, state, state, false}}).display();
                 }
             }
-            const string rarity = describe_item_rarity(item);
-            const string article = article_a(rarity);
-            const string localized_rarity = zh_lookup_exact(rarity);
-            const string localized_article = zh_lookup_exact(article);
-            description << zh_message("item.consumable.rarity", {
-                ZhArg{"article", ZhArgType::Text, article, localized_article,
-                      localized_article != article},
-                ZhArg{"rarity", ZhArgType::Text, rarity, localized_rarity,
-                      localized_rarity != rarity},
-                zh_text("kind", "potion", "药水")}).display();
+            description << _consumable_rarity_display(item);
             need_extra_line = false;
         }
         break;
@@ -3209,12 +3237,12 @@ string get_item_description(const item_def &item,
             const string damage_str = evoke_damage_string(item);
             if (damage_str != "")
                 description << zh_message("item.wand.damage", {
-                    zh_text("damage", damage_str, damage_str)}).display();
+                    zh_numeric_notation("damage", damage_str)}).display();
 
             const string noise_str = evoke_noise_string(item);
             if (noise_str != "")
                 description << zh_message("item.wand.noise", {
-                    zh_text("noise", noise_str, noise_str)}).display();
+                    evoke_noise_display_arg("noise", item)}).display();
 
             if (verbose)
                 _uselessness_desc(description, item);
@@ -3227,16 +3255,7 @@ string get_item_description(const item_def &item,
             if (verbose)
                 _uselessness_desc(description, item);
 
-            const string rarity = describe_item_rarity(item);
-            const string article = article_a(rarity);
-            const string localized_rarity = zh_lookup_exact(rarity);
-            const string localized_article = zh_lookup_exact(article);
-            description << zh_message("item.consumable.rarity", {
-                ZhArg{"article", ZhArgType::Text, article, localized_article,
-                      localized_article != article},
-                ZhArg{"rarity", ZhArgType::Text, rarity, localized_rarity,
-                      localized_rarity != rarity},
-                zh_text("kind", "scroll", "卷轴")}).display();
+            description << _consumable_rarity_display(item);
             need_extra_line = false;
         }
         break;
@@ -4624,26 +4643,7 @@ static string _player_spell_stats(const spell_type spell)
         zh_text("indent", string(max(0, padding - 5), ' '),
                 string(max(0, padding - 5), ' ')),
         zh_text("range", range, range)}).display();
-    const string noise = spell_noise_string(spell);
-    string noise_rating = noise;
-    string noise_suffix;
-    const size_t noise_detail = noise.find(" (");
-    if (noise_detail != string::npos)
-    {
-        noise_rating = noise.substr(0, noise_detail);
-        noise_suffix = noise.substr(noise_detail);
-    }
-    const ZhArg localized_noise = zh_word_arg("noise", "spell.noise.",
-                                               noise_rating, ZhArgType::Name);
-    string localized_noise_suffix = noise_suffix;
-    if (!noise_suffix.empty() && noise_suffix.size() >= 4
-        && noise_suffix.compare(0, 2, " (") == 0
-        && noise_suffix.back() == ')')
-        localized_noise_suffix = "（" + noise_suffix.substr(2,
-            noise_suffix.size() - 3) + "）";
-    const ZhArg noise_arg{"noise", ZhArgType::Name, noise,
-                          localized_noise.localized + localized_noise_suffix,
-                          localized_noise.supported};
+    const ZhArg noise_arg = spell_noise_display_arg("noise", spell);
     description += zh_message("spell.stats.noise", {
         zh_text("indent", string(max(0, padding - 5), ' '),
                 string(max(0, padding - 5), ' ')),

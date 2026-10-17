@@ -1,0 +1,1202 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "item.reason.use.geh_smog",
+      "context": "物品详情可用性原因：烟尘过于浓厚，你看不清楚",
+      "en": "You cannot see clearly; the smoke and ash is too thick!",
+      "zh": "烟尘过于浓厚，你看不清楚！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "_general_cannot_read_reason; Gehenna"
+      }
+    },
+    {
+      "id": "item.reason.use.berserk",
+      "context": "物品详情可用性原因：你正处于狂暴状态",
+      "en": "You are too berserk!",
+      "zh": "你正处于狂暴状态！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "_general_cannot_read_reason / cannot_drink_item_reason; berserk; same reason is also returned by cannot_drink_item_reason and cannot_evoke_item_reason"
+      }
+    },
+    {
+      "id": "item.reason.use.confused",
+      "context": "物品详情可用性原因：你困惑得太厉害了",
+      "en": "You are too confused!",
+      "zh": "你困惑得太厉害了！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "_general_cannot_read_reason; confused; same reason is also returned by cannot_evoke_item_reason"
+      }
+    },
+    {
+      "id": "item.reason.use.no_scrolls",
+      "context": "物品详情可用性原因：你当前的状态无法阅读卷轴",
+      "en": "You cannot read scrolls in your current state!",
+      "zh": "你当前的状态无法阅读卷轴！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "_general_cannot_read_reason; DUR_NO_SCROLLS"
+      }
+    },
+    {
+      "id": "item.reason.use.renounce_scrolls",
+      "context": "物品详情可用性原因：你拒绝依赖这种一次性的便利",
+      "en": "You refuse to depend on such disposable conveniences.",
+      "zh": "你拒绝依赖这种一次性的便利。",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "_general_cannot_read_reason; renounce scrolls mutation timer"
+      }
+    },
+    {
+      "id": "item.reason.use.no_control_memory",
+      "context": "物品详情可用性原因：你无法控制自己的法术记忆",
+      "en": "You don't have control over your spell memory.",
+      "zh": "你无法控制自己的法术记忆。",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_read_item_reason SCR_AMNESIA; innate caster"
+      }
+    },
+    {
+      "id": "item.reason.use.trog_memory",
+      "context": "物品详情可用性原因：特洛格不允许你记忆法术",
+      "en": "Trog doesn't allow you to memorise spells!",
+      "zh": "特洛格不允许你记忆法术！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_read_item_reason SCR_AMNESIA; Trog worship"
+      }
+    },
+    {
+      "id": "item.reason.use.no_weapon_enhance",
+      "context": "物品详情可用性原因：强化你无法使用的武器毫无意义",
+      "en": "There's no point in enhancing weapons you can't use!",
+      "zh": "强化你无法使用的武器毫无意义！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_read_item_reason SCR_ENCHANT_WEAPON/SCR_BRAND_WEAPON; no grasping"
+      }
+    },
+    {
+      "id": "item.reason.use.no_armour_enchant",
+      "context": "物品详情可用性原因：附魔你无法穿戴的护甲毫无意义",
+      "en": "There's no point in enchanting armour you can't use!",
+      "zh": "附魔你无法穿戴的护甲毫无意义！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_read_item_reason SCR_ENCHANT_ARMOUR; no grasping"
+      }
+    },
+    {
+      "id": "item.reason.use.nothing_to_identify",
+      "context": "物品详情可用性原因：已经没有未鉴定的物品了",
+      "en": "There is nothing left to identify.",
+      "zh": "已经没有未鉴定的物品了。",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_read_item_reason SCR_IDENTIFY; IDENTIFIED_ALL_KEY"
+      }
+    },
+    {
+      "id": "item.reason.use.no_need_identification",
+      "context": "物品详情可用性原因：你不需要鉴定物品",
+      "en": "You have no need of identification.",
+      "zh": "你不需要鉴定物品。",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_read_item_reason SCR_IDENTIFY; identify-items passive"
+      }
+    },
+    {
+      "id": "item.reason.use.wrong_item",
+      "context": "物品详情可用性原因：你无法阅读这件物品",
+      "en": "You can't read that!",
+      "zh": "你无法阅读这件物品！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_read_item_reason; non-scroll item"
+      }
+    },
+    {
+      "id": "item.reason.use.no_forgetting",
+      "context": "物品详情可用性原因：你没有可以遗忘的法术",
+      "en": "You have no spells to forget.",
+      "zh": "你没有可以遗忘的法术。",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_read_item_reason SCR_AMNESIA; spell_no == 0"
+      }
+    },
+    {
+      "id": "item.reason.use.still_air",
+      "context": "物品详情可用性原因：空气过于平静，无法形成云雾",
+      "en": "The air is too still for clouds to form.",
+      "zh": "空气过于平静，无法形成云雾。",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_read_item_reason SCR_FOG/SCR_POISON; still winds; same exact reason is also returned for condenser vane by cannot_evoke_item_reason"
+      }
+    },
+    {
+      "id": "item.reason.use.unmappable",
+      "context": "物品详情可用性原因：此处无法绘制地图",
+      "en": "This place cannot be mapped!",
+      "zh": "此处无法绘制地图！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_read_item_reason SCR_REVELATION; non-persistent map"
+      }
+    },
+    {
+      "id": "item.reason.use.not_drink",
+      "context": "物品详情可用性原因：你无法饮用药水",
+      "en": "You can't drink.",
+      "zh": "你无法饮用药水。",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_drink_item_reason; !you.can_drink(false)"
+      }
+    },
+    {
+      "id": "item.reason.use.drink_state",
+      "context": "物品详情可用性原因：你当前的状态无法饮用药水",
+      "en": "You cannot drink potions in your current state!",
+      "zh": "你当前的状态无法饮用药水！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_drink_item_reason; !you.can_drink(true)"
+      }
+    },
+    {
+      "id": "item.reason.use.renounce_drink",
+      "context": "物品详情可用性原因：你拒绝沉溺于无谓的饮酒",
+      "en": "You refuse to indulge in frivolous drinking.",
+      "zh": "你拒绝沉溺于无谓的饮酒。",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_drink_item_reason; renounce potions timer"
+      }
+    },
+    {
+      "id": "item.reason.use.cocytus_cold",
+      "context": "物品详情可用性原因：这里太冷了，一切都冻成了坚冰",
+      "en": "It's too cold; everything's frozen solid!",
+      "zh": "这里太冷了，一切都冻成了坚冰！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_drink_item_reason; Cocytus"
+      }
+    },
+    {
+      "id": "item.reason.use.wrong_drink",
+      "context": "物品详情可用性原因：你无法饮用这件物品",
+      "en": "You can't drink that!",
+      "zh": "你无法饮用这件物品！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_drink_item_reason; non-potion item"
+      }
+    },
+    {
+      "id": "item.reason.use.no_artifice",
+      "context": "物品详情可用性原因：你无法启动魔法物品",
+      "en": "You cannot evoke magical items.",
+      "zh": "你无法启动魔法物品。",
+      "params": {},
+      "source": {
+        "file": "evoke.cc",
+        "anchor": "cannot_evoke_item_reason / no_selectables_message OSEL_EVOKABLE; no-artifice mutation; identical fixed result also used by no_selectables_message OSEL_EVOKABLE"
+      }
+    },
+    {
+      "id": "item.reason.use.item_removed",
+      "context": "物品详情可用性原因：抱歉，这件物品已被移除",
+      "en": "Sorry, this item was removed!",
+      "zh": "抱歉，这件物品已被移除！",
+      "params": {},
+      "source": {
+        "file": "evoke.cc",
+        "anchor": "cannot_evoke_item_reason; item_type_removed"
+      }
+    },
+    {
+      "id": "item.reason.use.wrong_evoke",
+      "context": "物品详情可用性原因：你无法启动这件物品",
+      "en": "You can't evoke that!",
+      "zh": "你无法启动这件物品！",
+      "params": {},
+      "source": {
+        "file": "evoke.cc",
+        "anchor": "cannot_evoke_item_reason; not wand or miscellany"
+      }
+    },
+    {
+      "id": "item.reason.use.no_charges",
+      "context": "物品详情可用性原因：这根魔杖没有充能",
+      "en": "This wand has no charges.",
+      "zh": "这根魔杖没有充能。",
+      "params": {},
+      "source": {
+        "file": "evoke.cc",
+        "anchor": "cannot_evoke_item_reason; legacy TAG34 known-empty wand"
+      }
+    },
+    {
+      "id": "item.reason.use.allies_forbidden",
+      "context": "物品详情可用性原因：无法获得盟友的角色不能使用此物品",
+      "en": "That item cannot be used by those who cannot gain allies!",
+      "zh": "无法获得盟友的角色不能使用此物品！",
+      "params": {},
+      "source": {
+        "file": "evoke.cc",
+        "anchor": "cannot_evoke_item_reason; ally-only item and allies forbidden"
+      }
+    },
+    {
+      "id": "item.reason.use.horn_silenced",
+      "context": "物品详情可用性原因：你无法发出声音",
+      "en": "You can't produce a sound!",
+      "zh": "你无法发出声音！",
+      "params": {},
+      "source": {
+        "file": "evoke.cc",
+        "anchor": "cannot_evoke_item_reason; Horn of Geryon while silenced"
+      }
+    },
+    {
+      "id": "item.reason.use.inert_evoker",
+      "context": "物品详情可用性原因：唤能器失活",
+      "en": "The {item} is presently inert.",
+      "zh": "{item}目前处于失活状态。",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "evoke.cc",
+        "anchor": "cannot_evoke_item_reason; XP evoker charge count is zero; item.name(DESC_DBNAME)"
+      }
+    },
+    {
+      "id": "item.reason.drink.heal_deaths_door",
+      "context": "物品详情可用性原因：你处于死亡之门状态时无法恢复生命",
+      "en": "You cannot heal while in death's door.",
+      "zh": "你处于死亡之门状态时无法恢复生命。",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "PotionCuring/HealWounds"
+      }
+    },
+    {
+      "id": "item.reason.drink.no_ailments",
+      "context": "物品详情可用性原因：你没有需要治愈的病痛",
+      "en": "You have no ailments to cure.",
+      "zh": "你没有需要治愈的病痛。",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "PotionCuring; no heal need/status ailment"
+      }
+    },
+    {
+      "id": "item.reason.drink.cannot_heal_potions",
+      "context": "物品详情可用性原因：药水无法治疗你",
+      "en": "You cannot be healed by potions.",
+      "zh": "药水无法治疗你。",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "PotionHealWounds; permanent healing prohibition"
+      }
+    },
+    {
+      "id": "item.reason.drink.cannot_currently_heal",
+      "context": "物品详情可用性原因：你目前无法通过药水恢复生命",
+      "en": "You cannot currently be healed by potions.",
+      "zh": "你目前无法通过药水恢复生命。",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "PotionHealWounds; temporary healing prohibition"
+      }
+    },
+    {
+      "id": "item.reason.drink.health_full",
+      "context": "物品详情可用性原因：你的生命值已经满了",
+      "en": "Your health is already full.",
+      "zh": "你的生命值已经满了。",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "PotionHealWounds; HP maximum"
+      }
+    },
+    {
+      "id": "item.reason.drink.haste_stasis",
+      "context": "物品详情可用性原因：你的静滞状态阻止你获得急速",
+      "en": "Your stasis prevents you from being hasted.",
+      "zh": "你的静滞状态阻止你获得急速。",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "PotionHaste; stasis"
+      }
+    },
+    {
+      "id": "item.reason.drink.chei_no_haste",
+      "context": "物品详情可用性原因：切布拉多斯保护你免受急速效果影响",
+      "en": "You are protected from being hasted by Cheibriados.",
+      "zh": "切布拉多斯保护你免受急速效果影响。",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "PotionHaste; no_haste passive"
+      }
+    },
+    {
+      "id": "item.reason.drink.trog_no_spellcasting",
+      "context": "物品详情可用性原因：特洛格不允许你施法",
+      "en": "Trog doesn't allow you to cast spells!",
+      "zh": "特洛格不允许你施法！",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "PotionBrilliance; Trog worship"
+      }
+    },
+    {
+      "id": "item.reason.drink.brilliance_active",
+      "context": "物品详情可用性原因：你的长袍已经赋予你灵光效果",
+      "en": "Your robe already provides the effects of brilliance.",
+      "zh": "你的长袍已经赋予你灵光效果。",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "PotionBrilliance; robe Folly equipped"
+      }
+    },
+    {
+      "id": "item.reason.drink.nothing_to_cancel",
+      "context": "物品详情可用性原因：没有可取消的效果",
+      "en": "There is nothing to cancel.",
+      "zh": "没有可取消的效果。",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "PotionCancellation; no cancellable effects"
+      }
+    },
+    {
+      "id": "item.reason.drink.no_magic_restore",
+      "context": "物品详情可用性原因：你没有可恢复的魔力",
+      "en": "You have no magic to restore.",
+      "zh": "你没有可恢复的魔力。",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "PotionMagic; HP casting or no max MP"
+      }
+    },
+    {
+      "id": "item.reason.drink.magic_full",
+      "context": "物品详情可用性原因：你的魔力已经满了",
+      "en": "Your magic is already full.",
+      "zh": "你的魔力已经满了。",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "PotionMagic; MP maximum"
+      }
+    },
+    {
+      "id": "item.reason.drink.already_berserk",
+      "context": "物品详情可用性原因：你已经处于狂暴状态",
+      "en": "You're already berserk!",
+      "zh": "你已经处于狂暴状态！",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "player::can_go_berserk; already berserk"
+      }
+    },
+    {
+      "id": "item.reason.drink.berserk_recovering",
+      "context": "物品详情可用性原因：你仍在狂暴后的恢复期",
+      "en": "You're still recovering from your berserk rage.",
+      "zh": "你仍在狂暴后的恢复期。",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "player::can_go_berserk; berserk cooldown"
+      }
+    },
+    {
+      "id": "item.reason.drink.death_door_blood_rage",
+      "context": "物品详情可用性原因：你处于死亡之门状态时无法进入血怒",
+      "en": "You can't enter a blood rage from death's door.",
+      "zh": "你处于死亡之门状态时无法进入血怒。",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "player::can_go_berserk; Death’s Door"
+      }
+    },
+    {
+      "id": "item.reason.drink.mesmerised_rage",
+      "context": "物品详情可用性原因：你被魅惑得无法陷入狂暴",
+      "en": "You are too mesmerised to rage.",
+      "zh": "你被魅惑得无法陷入狂暴。",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "player::can_go_berserk; mesmerised"
+      }
+    },
+    {
+      "id": "item.reason.drink.too_calm_rage",
+      "context": "物品详情可用性原因：你过于冷静专注，无法陷入狂暴",
+      "en": "You're too calm and focused to rage.",
+      "zh": "你过于冷静专注，无法陷入狂暴。",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "player::can_go_berserk; clarity"
+      }
+    },
+    {
+      "id": "item.reason.drink.undead_blood_rage",
+      "context": "物品详情可用性原因：你这具没有生气的躯体无法激起血怒",
+      "en": "You cannot raise a blood rage in your lifeless body.",
+      "zh": "你这具没有生气的躯体无法激起血怒。",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "player::can_go_berserk; lifeless undead"
+      }
+    },
+    {
+      "id": "item.reason.drink.stasis_rage",
+      "context": "物品详情可用性原因：你的静滞状态阻止你陷入狂暴",
+      "en": "Your stasis prevents you from going berserk.",
+      "zh": "你的静滞状态阻止你陷入狂暴。",
+      "params": {},
+      "source": {
+        "file": "player-act.cc",
+        "anchor": "player::can_go_berserk; stasis"
+      }
+    },
+    {
+      "id": "item.reason.transform.permanent",
+      "context": "物品详情可用性原因：无法变形",
+      "en": "You have sacrificed the ability to change form!",
+      "zh": "你已献祭变形能力！",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "cant_transform_reason; MUT_NO_FORMS"
+      }
+    },
+    {
+      "id": "item.reason.transform.undead",
+      "context": "物品详情可用性原因：亡灵形态限制",
+      "en": "Your unliving flesh cannot be transformed in this way.",
+      "zh": "你这没有生气的躯体无法如此变形。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "cant_transform_reason; lifeless form restriction"
+      }
+    },
+    {
+      "id": "item.reason.transform.gargoyle",
+      "context": "物品详情可用性原因：已是石像",
+      "en": "You're already a statue.",
+      "zh": "你已经是石像了。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "cant_transform_reason; gargoyle entering statue form"
+      }
+    },
+    {
+      "id": "item.reason.transform.stuck",
+      "context": "物品详情可用性原因：当前形态无法取消",
+      "en": "You are stuck in your current form!",
+      "zh": "你被困在当前形态中！",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "cant_transform_reason; transform_uncancellable"
+      }
+    },
+    {
+      "id": "item.reason.transform.death_door",
+      "context": "物品详情可用性原因：死亡之门阻止变形",
+      "en": "You cannot mock death while in death's door.",
+      "zh": "你处于死亡之门状态时无法戏弄死亡。",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "cant_transform_reason; Death’s Door to death form"
+      }
+    },
+    {
+      "id": "item.reason.invisibility.backlit",
+      "context": "物品详情可用性原因：无法隐形",
+      "en": "Your body glows too brightly to become invisible.",
+      "zh": "你的身体过于明亮，无法隐形。",
+      "params": {},
+      "source": {
+        "file": "player.cc",
+        "anchor": "invis_allowed; backlit permanent"
+      }
+    },
+    {
+      "id": "item.reason.invisibility.halo",
+      "context": "物品详情可用性原因：光环使隐形失效",
+      "en": "Your {sources} glow{s} too brightly for you to become invisible.",
+      "zh": "你的{sources}{s}过于明亮，使你无法隐形。",
+      "params": {
+        "sources": "text",
+        "s": "text"
+      },
+      "source": {
+        "file": "player.cc",
+        "anchor": "invis_allowed; halo sources list, localized source names and singular/plural agreement need structured composition"
+      }
+    },
+    {
+      "id": "item.reason.invisibility.backlit_current",
+      "context": "物品详情可用性原因：背光影响隐形",
+      "en": "You are backlit; invisibility will do you no good right now.",
+      "zh": "你正被背光照亮，隐形目前对你无用。",
+      "params": {},
+      "source": {
+        "file": "player.cc",
+        "anchor": "invis_allowed; temporary backlit"
+      }
+    },
+    {
+      "id": "item.reason.selectable.unidentified",
+      "context": "物品详情可用性原因：缺少可用物品",
+      "en": "You don't currently have any unidentified items.",
+      "zh": "你目前没有未鉴定的物品。",
+      "params": {},
+      "source": {
+        "file": "invent.cc",
+        "anchor": "no_selectables_message; OSEL_UNIDENT"
+      }
+    },
+    {
+      "id": "item.reason.selectable.enchantable_armour",
+      "context": "物品详情可用性原因：缺少可用物品",
+      "en": "You aren't carrying any armour which can be enchanted further.",
+      "zh": "你没有可继续附魔的护甲。",
+      "params": {},
+      "source": {
+        "file": "invent.cc",
+        "anchor": "no_selectables_message; OSEL_ENCHANTABLE_ARMOUR"
+      }
+    },
+    {
+      "id": "item.reason.selectable.enchantable_weapon",
+      "context": "物品详情可用性原因：缺少可用物品",
+      "en": "You aren't carrying any weapons that can be enchanted.",
+      "zh": "你没有可附魔的武器。",
+      "params": {},
+      "source": {
+        "file": "invent.cc",
+        "anchor": "no_selectables_message; OSEL_ENCHANTABLE_WEAPON"
+      }
+    },
+    {
+      "id": "item.reason.selectable.brandable_weapon",
+      "context": "物品详情可用性原因：缺少可用物品",
+      "en": "You aren't carrying any weapons that can be branded.",
+      "zh": "你没有可赋予词缀的武器。",
+      "params": {},
+      "source": {
+        "file": "invent.cc",
+        "anchor": "no_selectables_message; OSEL_BRANDABLE_WEAPON"
+      }
+    },
+    {
+      "id": "item.reason.selectable.no_selectable_object",
+      "context": "物品详情可用性原因：缺少可用物品",
+      "en": "You aren't carrying any such object.",
+      "zh": "你没有携带此类物品。",
+      "params": {},
+      "source": {
+        "file": "invent.cc",
+        "anchor": "no_selectables_message; no_selectables_message default selector"
+      }
+    },
+    {
+      "id": "item.wand.display.charges",
+      "context": "物品名称：魔杖充能数后缀",
+      "en": "{name} ({charges})",
+      "zh": "{name}（{charges}）",
+      "params": {
+        "name": "name",
+        "charges": "integer"
+      },
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "item_def::name OBJ_WANDS; identified, non-database name and charges > 0"
+      }
+    },
+    {
+      "id": "item.book.display.quantity",
+      "context": "物品名称：法术书数量",
+      "en": "{quantity} {name}",
+      "zh": "{quantity}本{name}",
+      "params": {
+        "quantity": "integer",
+        "name": "name"
+      },
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "item_def::name pluralized OBJ_BOOKS; count prefix and name ordered for Chinese"
+      }
+    },
+    {
+      "id": "item.wand.display.quantity",
+      "context": "物品名称：魔杖数量",
+      "en": "{quantity} {name}",
+      "zh": "{quantity}根{name}",
+      "params": {
+        "quantity": "integer",
+        "name": "name"
+      },
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "item_def::name pluralized OBJ_WANDS; count prefix and name ordered for Chinese"
+      }
+    },
+    {
+      "id": "item.miscellany.display.quantity",
+      "context": "物品名称：杂项物品数量",
+      "en": "{quantity} {name}",
+      "zh": "{quantity}件{name}",
+      "params": {
+        "quantity": "integer",
+        "name": "name"
+      },
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "item_def::name pluralized OBJ_MISCELLANY; neutral classifier for varied objects"
+      }
+    },
+    {
+      "id": "item.miscellany.display.ziggurat_progress",
+      "context": "物品名称：锯齿迷宫完成进度",
+      "en": "+{count} {name}",
+      "zh": "+{count}次{name}",
+      "params": {
+        "count": "integer",
+        "name": "name"
+      },
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "item_def::name MISC_ZIGGURAT; zigs_completed progress prefix, not physical item quantity"
+      }
+    },
+    {
+      "id": "item.miscellany.display.evoker_plus",
+      "context": "物品名称：唤能器强化等级",
+      "en": "+{level} {name}",
+      "zh": "+{level}{name}",
+      "params": {
+        "level": "integer",
+        "name": "name"
+      },
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "item_def::name XP evoker inventory item; evoker_plus prefix"
+      }
+    },
+    {
+      "id": "item.miscellany.display.inert",
+      "context": "物品名称：唤能器耗尽状态",
+      "en": "{name} (inert)",
+      "zh": "{name}（失活）",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "item_def::name XP evoker; zero charges"
+      }
+    },
+    {
+      "id": "item.miscellany.display.charges",
+      "context": "物品名称：唤能器充能数",
+      "en": "{name} ({charges}/{maximum})",
+      "zh": "{name}（{charges}/{maximum}）",
+      "params": {
+        "name": "name",
+        "charges": "integer",
+        "maximum": "integer"
+      },
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "item_def::name XP evoker; evoker_max_charges > 1"
+      }
+    },
+    {
+      "id": "spell.noise.display.wizard",
+      "context": "物品详情：法杖噪声数值",
+      "en": "{rating} ({noise})",
+      "zh": "{rating}（{noise}）",
+      "params": {
+        "rating": "name",
+        "noise": "integer"
+      },
+      "source": {
+        "file": "spl-cast.cc",
+        "anchor": "spell_noise_display_arg; WIZARD branch appends numeric _display_spell_noise result in parentheses to localized _spell_noise_description"
+      }
+    },
+    {
+      "id": "item.reason.use.silenced",
+      "context": "物品详情可用性原因：沉默",
+      "en": "You cannot read scrolls while silenced!",
+      "zh": "你处于沉默状态时无法阅读卷轴！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "_general_cannot_read_reason; player_silenced_reason() == silenced"
+      }
+    },
+    {
+      "id": "item.reason.use.unable_to_breathe",
+      "context": "物品详情可用性原因：无法呼吸",
+      "en": "You cannot read scrolls while unable to breathe!",
+      "zh": "你无法呼吸时不能阅读卷轴！",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "_general_cannot_read_reason; player_silenced_reason() == unable to breathe"
+      }
+    },
+    {
+      "id": "item.consumable.rarity.potion.very_rare",
+      "context": "物品详情：极其罕见药水",
+      "en": "\n\nIt is a very rare potion.",
+      "zh": "\n\n这是一瓶极其罕见的药水。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_rarity exact very rare; get_item_description potion branch resolves article_a and selects full fixed message"
+      }
+    },
+    {
+      "id": "item.consumable.rarity.potion.rare",
+      "context": "物品详情：罕见药水",
+      "en": "\n\nIt is a rare potion.",
+      "zh": "\n\n这是一瓶罕见的药水。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_rarity exact rare; get_item_description potion branch resolves article_a and selects full fixed message"
+      }
+    },
+    {
+      "id": "item.consumable.rarity.potion.uncommon",
+      "context": "物品详情：不常见药水",
+      "en": "\n\nIt is an uncommon potion.",
+      "zh": "\n\n这是一瓶不常见的药水。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_rarity exact uncommon; get_item_description potion branch resolves article_a and selects full fixed message"
+      }
+    },
+    {
+      "id": "item.consumable.rarity.potion.common",
+      "context": "物品详情：常见药水",
+      "en": "\n\nIt is a common potion.",
+      "zh": "\n\n这是一瓶常见的药水。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_rarity exact common; get_item_description potion branch resolves article_a and selects full fixed message"
+      }
+    },
+    {
+      "id": "item.consumable.rarity.potion.very_common",
+      "context": "物品详情：极其常见药水",
+      "en": "\n\nIt is a very common potion.",
+      "zh": "\n\n这是一瓶极其常见的药水。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_rarity exact very common; get_item_description potion branch resolves article_a and selects full fixed message"
+      }
+    },
+    {
+      "id": "item.consumable.rarity.potion.buggy",
+      "context": "物品详情：稀有度异常药水",
+      "en": "\n\nIt is a buggy potion.",
+      "zh": "\n\n这是一瓶稀有度异常的药水。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_rarity exact buggy; get_item_description potion branch resolves article_a and selects full fixed message"
+      }
+    },
+    {
+      "id": "item.consumable.rarity.scroll.very_rare",
+      "context": "物品详情：极其罕见卷轴",
+      "en": "\n\nIt is a very rare scroll.",
+      "zh": "\n\n这是一张极其罕见的卷轴。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_rarity exact very rare; get_item_description scroll branch resolves article_a and selects full fixed message"
+      }
+    },
+    {
+      "id": "item.consumable.rarity.scroll.rare",
+      "context": "物品详情：罕见卷轴",
+      "en": "\n\nIt is a rare scroll.",
+      "zh": "\n\n这是一张罕见的卷轴。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_rarity exact rare; get_item_description scroll branch resolves article_a and selects full fixed message"
+      }
+    },
+    {
+      "id": "item.consumable.rarity.scroll.uncommon",
+      "context": "物品详情：不常见卷轴",
+      "en": "\n\nIt is an uncommon scroll.",
+      "zh": "\n\n这是一张不常见的卷轴。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_rarity exact uncommon; get_item_description scroll branch resolves article_a and selects full fixed message"
+      }
+    },
+    {
+      "id": "item.consumable.rarity.scroll.common",
+      "context": "物品详情：常见卷轴",
+      "en": "\n\nIt is a common scroll.",
+      "zh": "\n\n这是一张常见的卷轴。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_rarity exact common; get_item_description scroll branch resolves article_a and selects full fixed message"
+      }
+    },
+    {
+      "id": "item.consumable.rarity.scroll.very_common",
+      "context": "物品详情：极其常见卷轴",
+      "en": "\n\nIt is a very common scroll.",
+      "zh": "\n\n这是一张极其常见的卷轴。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_rarity exact very common; get_item_description scroll branch resolves article_a and selects full fixed message"
+      }
+    },
+    {
+      "id": "item.consumable.rarity.scroll.buggy",
+      "context": "物品详情：稀有度异常卷轴",
+      "en": "\n\nIt is a buggy scroll.",
+      "zh": "\n\n这是一张稀有度异常的卷轴。",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_rarity exact buggy; get_item_description scroll branch resolves article_a and selects full fixed message"
+      }
+    },
+    {
+      "id": "item.reason.use.no_summons",
+      "context": "物品详情可用性原因：禁止召唤",
+      "en": "You cannot coerce anything to answer your summons.",
+      "zh": "你无法强迫任何存在回应你的召唤。",
+      "params": {},
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "cannot_read_item_reason; summoning/butterflies scroll and allies_forbidden"
+      }
+    },
+    {
+      "id": "item.reason.use.flux_already",
+      "context": "物品详情可用性原因：能量已充满",
+      "en": "you are already filled with unstable energy.",
+      "zh": "你体内已充满不稳定能量。",
+      "params": {},
+      "source": {
+        "file": "evoke.cc",
+        "anchor": "cannot_evoke_item_reason; flux bauble while in flux form"
+      }
+    },
+    {
+      "id": "item.reason.drink.cannot_mutate_currently",
+      "context": "物品详情可用性原因：暂时无法变异",
+      "en": "You cannot mutate at present.",
+      "zh": "你目前无法变异。",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "_can_mutate; can_safely_mutate(false) true, current temporary restriction"
+      }
+    },
+    {
+      "id": "item.reason.drink.cannot_mutate_permanently",
+      "context": "物品详情可用性原因：无法变异",
+      "en": "You cannot mutate.",
+      "zh": "你无法变异。",
+      "params": {},
+      "source": {
+        "file": "potion.cc",
+        "anchor": "_can_mutate; can_safely_mutate(false) false"
+      }
+    },
+    {
+      "id": "item.book.display.manual",
+      "context": "物品名称：技能手册",
+      "en": "manual of {skill}",
+      "zh": "{skill}手册",
+      "params": {
+        "skill": "name"
+      },
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "sub_type_string OBJ_BOOKS/BOOK_MANUAL; skill_name(item.plus)"
+      }
+    },
+    {
+      "id": "item.book.display.parchment",
+      "context": "物品名称：法术羊皮纸",
+      "en": "parchment of {spell}",
+      "zh": "{spell}羊皮纸",
+      "params": {
+        "spell": "name"
+      },
+      "source": {
+        "file": "item-name.cc",
+        "anchor": "sub_type_string OBJ_BOOKS/BOOK_PARCHMENT; spell_title(item.plus), plus != 0 and known"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "item.reason.use.berserk",
+      "args": {},
+      "canonical": "You are too berserk!",
+      "zh": "你正处于狂暴状态！"
+    },
+    {
+      "id": "item.reason.drink.heal_deaths_door",
+      "args": {},
+      "canonical": "You cannot heal while in death's door.",
+      "zh": "你处于死亡之门状态时无法恢复生命。"
+    },
+    {
+      "id": "item.reason.transform.permanent",
+      "args": {},
+      "canonical": "You have sacrificed the ability to change form!",
+      "zh": "你已献祭变形能力！"
+    },
+    {
+      "id": "item.wand.display.charges",
+      "args": {
+        "name": {
+          "type": "name",
+          "canonical": "wand of flame",
+          "localized": "火焰魔杖"
+        },
+        "charges": {
+          "type": "integer",
+          "canonical": "4",
+          "localized": "4"
+        }
+      },
+      "canonical": "wand of flame (4)",
+      "zh": "火焰魔杖（4）"
+    },
+    {
+      "id": "item.miscellany.display.charges",
+      "args": {
+        "name": {
+          "type": "name",
+          "canonical": "tin of tremorstones",
+          "localized": "震颤石罐"
+        },
+        "charges": {
+          "type": "integer",
+          "canonical": "1",
+          "localized": "1"
+        },
+        "maximum": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        }
+      },
+      "canonical": "tin of tremorstones (1/3)",
+      "zh": "震颤石罐（1/3）"
+    },
+    {
+      "id": "spell.noise.display.wizard",
+      "args": {
+        "rating": {
+          "type": "name",
+          "canonical": "Loud",
+          "localized": "响亮"
+        },
+        "noise": {
+          "type": "integer",
+          "canonical": "12",
+          "localized": "12"
+        }
+      },
+      "canonical": "Loud (12)",
+      "zh": "响亮（12）"
+    },
+    {
+      "id": "item.reason.use.silenced",
+      "args": {},
+      "canonical": "You cannot read scrolls while silenced!",
+      "zh": "你处于沉默状态时无法阅读卷轴！"
+    },
+    {
+      "id": "item.reason.use.inert_evoker",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "tin of tremorstones",
+          "localized": "震颤石罐"
+        }
+      },
+      "canonical": "The tin of tremorstones is presently inert.",
+      "zh": "震颤石罐目前处于失活状态。"
+    },
+    {
+      "id": "item.consumable.rarity.potion.uncommon",
+      "args": {},
+      "canonical": "\n\nIt is an uncommon potion.",
+      "zh": "\n\n这是一瓶不常见的药水。"
+    },
+    {
+      "id": "item.consumable.rarity.scroll.very_rare",
+      "args": {},
+      "canonical": "\n\nIt is a very rare scroll.",
+      "zh": "\n\n这是一张极其罕见的卷轴。"
+    },
+    {
+      "id": "item.reason.drink.cannot_mutate_currently",
+      "args": {},
+      "canonical": "You cannot mutate at present.",
+      "zh": "你目前无法变异。"
+    },
+    {
+      "id": "item.reason.drink.cannot_mutate_permanently",
+      "args": {},
+      "canonical": "You cannot mutate.",
+      "zh": "你无法变异。"
+    },
+    {
+      "id": "item.book.display.manual",
+      "args": {
+        "skill": {
+          "type": "name",
+          "canonical": "evocations",
+          "localized": "唤能"
+        }
+      },
+      "canonical": "manual of evocations",
+      "zh": "唤能手册"
+    },
+    {
+      "id": "item.book.display.parchment",
+      "args": {
+        "spell": {
+          "type": "name",
+          "canonical": "Magic Dart",
+          "localized": "魔法飞镖"
+        }
+      },
+      "canonical": "parchment of Magic Dart",
+      "zh": "魔法飞镖羊皮纸"
+    },
+    {
+      "id": "item.miscellany.display.ziggurat_progress",
+      "args": {
+        "count": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        },
+        "name": {
+          "type": "name",
+          "canonical": "ziggurat",
+          "localized": "锯齿迷宫"
+        }
+      },
+      "canonical": "+3 ziggurat",
+      "zh": "+3次锯齿迷宫"
+    },
+    {
+      "id": "item.wand.display.quantity",
+      "args": {
+        "quantity": {
+          "type": "integer",
+          "canonical": "1",
+          "localized": "1"
+        },
+        "name": {
+          "type": "name",
+          "canonical": "wand of flame",
+          "localized": "火焰魔杖"
+        }
+      },
+      "canonical": "1 wand of flame",
+      "zh": "1根火焰魔杖"
+    },
+    {
+      "id": "item.book.display.quantity",
+      "args": {
+        "quantity": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        },
+        "name": {
+          "type": "name",
+          "canonical": "books of fire",
+          "localized": "火焰之书"
+        }
+      },
+      "canonical": "3 books of fire",
+      "zh": "3本火焰之书"
+    }
+  ]
+}

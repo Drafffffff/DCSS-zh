@@ -6,6 +6,7 @@
 #include "AppHdr.h"
 
 #include "spl-cast.h"
+#include "zh-message.h"
 
 #include <iomanip>
 #include <sstream>
@@ -3045,7 +3046,7 @@ static string _spell_failure_rate_description(spell_type spell)
             col, severity_adj, col, col, failure.c_str(), col);
 }
 
-string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+static int _display_spell_noise(spell_type spell)
 {
     const int casting_noise = spell_noise(spell);
     int effect_noise = spell_effect_noise(spell);
@@ -3054,8 +3055,11 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
     if (spell == SPELL_POLAR_VORTEX)
         effect_noise = 15;
 
-    const int noise = max(casting_noise, effect_noise);
+    return max(casting_noise, effect_noise);
+}
 
+static const char *_spell_noise_description(int noise)
+{
     const char* noise_descriptions[] =
     {
         "Silent", "Almost silent", "Quiet", "A bit loud", "Loud", "Very loud",
@@ -3065,8 +3069,14 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
     const int breakpoints[] = { 1, 2, 4, 8, 15, 20, 30 };
     COMPILE_CHECK(ARRAYSZ(noise_descriptions) == 1 + ARRAYSZ(breakpoints));
 
-    const char* desc = noise_descriptions[breakpoint_rank(noise, breakpoints,
+    return noise_descriptions[breakpoint_rank(noise, breakpoints,
                                                 ARRAYSZ(breakpoints))];
+}
+
+string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+{
+    const int noise = _display_spell_noise(spell);
+    const char *desc = _spell_noise_description(noise);
 
 #ifdef WIZARD
     if (you.wizard)
@@ -3084,6 +3094,23 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
     else
 #endif
         return desc;
+}
+
+ZhArg spell_noise_display_arg(const string &key, spell_type spell)
+{
+    const int noise = _display_spell_noise(spell);
+    const ZhArg rating = zh_word_arg("rating", "spell.noise.",
+        _spell_noise_description(noise), ZhArgType::Name);
+    const string canonical = spell_noise_string(spell);
+#ifdef WIZARD
+    if (you.wizard)
+    {
+        const ZhMessage value = zh_message("spell.noise.display.wizard", {
+            rating, zh_integer("noise", noise)});
+        return {key, ZhArgType::Name, canonical, value.localized, rating.supported};
+    }
+#endif
+    return {key, ZhArgType::Name, canonical, rating.localized, rating.supported};
 }
 
 int power_to_barcount(int power)

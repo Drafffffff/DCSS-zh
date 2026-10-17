@@ -1,0 +1,215 @@
+{
+  "macos": {
+    "source_fixture_unchanged": true,
+    "scenes": [
+      {
+        "scene": "hints-wand",
+        "running_at_capture": true,
+        "missing": [],
+        "names": [],
+        "runtime_error": false
+      },
+      {
+        "scene": "hints-scroll",
+        "running_at_capture": true,
+        "missing": [],
+        "names": [],
+        "runtime_error": false
+      },
+      {
+        "scene": "hints-potion",
+        "running_at_capture": true,
+        "missing": [],
+        "names": [],
+        "runtime_error": false
+      },
+      {
+        "scene": "hints-book",
+        "running_at_capture": true,
+        "missing": [],
+        "names": [],
+        "runtime_error": false
+      },
+      {
+        "scene": "hints-manual",
+        "running_at_capture": true,
+        "missing": [],
+        "names": [],
+        "runtime_error": false
+      },
+      {
+        "scene": "hints-misc",
+        "running_at_capture": true,
+        "missing": [],
+        "names": [],
+        "runtime_error": false
+      }
+    ]
+  },
+  "bazzite_console": {
+    "source_fixture_unchanged": true,
+    "scenes": [
+      {
+        "scene": "hints-wand",
+        "running_at_capture": true,
+        "missing": [],
+        "names": [],
+        "runtime_error": false
+      },
+      {
+        "scene": "hints-scroll",
+        "running_at_capture": true,
+        "missing": [],
+        "names": [],
+        "runtime_error": false
+      },
+      {
+        "scene": "hints-potion",
+        "running_at_capture": true,
+        "missing": [],
+        "names": [],
+        "runtime_error": false
+      },
+      {
+        "scene": "hints-book",
+        "running_at_capture": true,
+        "missing": [],
+        "names": [],
+        "runtime_error": false
+      },
+      {
+        "scene": "hints-manual",
+        "running_at_capture": true,
+        "missing": [],
+        "names": [],
+        "runtime_error": false
+      },
+      {
+        "scene": "hints-misc",
+        "running_at_capture": true,
+        "missing": [],
+        "names": [],
+        "runtime_error": false
+      }
+    ]
+  },
+  "bazzite_4k": {
+    "source_fixture_unchanged": true,
+    "scenes": [
+      {
+        "scene": "skills-help",
+        "running_at_capture": true,
+        "scene_reached": true,
+        "missing": [],
+        "names": [],
+        "lua_error": false
+      },
+      {
+        "scene": "hints-wand",
+        "running_at_capture": true,
+        "scene_reached": true,
+        "missing": [],
+        "names": [],
+        "lua_error": false
+      },
+      {
+        "scene": "hints-scroll",
+        "running_at_capture": true,
+        "scene_reached": true,
+        "missing": [],
+        "names": [],
+        "lua_error": false
+      },
+      {
+        "scene": "hints-potion",
+        "running_at_capture": true,
+        "scene_reached": true,
+        "missing": [],
+        "names": [],
+        "lua_error": false
+      },
+      {
+        "scene": "hints-book",
+        "running_at_capture": true,
+        "scene_reached": true,
+        "missing": [],
+        "names": [],
+        "lua_error": false
+      },
+      {
+        "scene": "hints-manual",
+        "running_at_capture": true,
+        "scene_reached": true,
+        "missing": [],
+        "names": [],
+        "lua_error": false
+      },
+      {
+        "scene": "hints-misc",
+        "running_at_capture": true,
+        "scene_reached": true,
+        "missing": [],
+        "names": [],
+        "lua_error": false
+      }
+    ]
+  },
+  "screenshots": {
+    "macos-potion.png": [
+      4718592,
+      4292935744
+    ],
+    "bazzite-wand-4k.png": [
+      3840,
+      2160
+    ],
+    "bazzite-skills-help-4k.png": [
+      3840,
+      2160
+    ],
+    "bazzite-book-4k.png": [
+      3840,
+      2160
+    ],
+    "macos-wand.png": [
+      4718592,
+      4292935744
+    ],
+    "bazzite-potion-4k.png": [
+      3840,
+      2160
+    ]
+  },
+  "reviewed_messages": 88,
+  "unbound_reviewed_ids": [
+    "item.reason.drink.already_berserk",
+    "item.reason.drink.berserk_recovering",
+    "item.reason.drink.death_door_blood_rage",
+    "item.reason.drink.mesmerised_rage",
+    "item.reason.drink.too_calm_rage",
+    "item.reason.drink.undead_blood_rage",
+    "item.reason.drink.stasis_rage",
+    "item.reason.transform.permanent",
+    "item.reason.transform.undead",
+    "item.reason.transform.gargoyle",
+    "item.reason.transform.stuck",
+    "item.reason.transform.death_door",
+    "item.reason.invisibility.backlit",
+    "item.reason.invisibility.halo",
+    "item.reason.invisibility.backlit_current",
+    "item.reason.selectable.no_selectable_object",
+    "item.book.display.quantity",
+    "item.wand.display.quantity",
+    "item.miscellany.display.quantity"
+  ],
+  "bound_new_ids": 69,
+  "production_test_cases_per_platform": 6417,
+  "message_validation_checks_per_platform": 843,
+  "old_render_hook_candidates": 53,
+  "binary_sha256": {
+    "output/macos/crawl-console": "5dd66d264e7f8bd8dabdc82956ed32d39078271797e69534f791a40a8aeab482",
+    "output/macos/crawl-tiles": "81c3f2af3a63a8572c964864bd424c1581f83288b0c099d1c382079c36b7b44e",
+    "output/linux/crawl-console": "583aa6c3239236c2a7bccc44c43f249acf7f35faa1b8d7ded59d6a6afdb280e3",
+    "output/linux/crawl-tiles": "9c53415d2b0986b2d52302361fd76a3ef6460978345dc6b53f12da334251f730"
+  }
+}
