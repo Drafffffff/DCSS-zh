@@ -18,6 +18,9 @@ ZhArg zh_monster_info_arg(const std::string &key, const monster_info &info,
                           description_level_type desc = DESC_THE);
 ZhArg zh_item_arg(const std::string &key, const item_def &item,
                   description_level_type desc = DESC_A);
+// Type-derived singular base for tutorial/action grammar, without an article,
+// quantity, enchantment, brand or equipment suffix.
+ZhArg zh_item_base_arg(const std::string &key, const item_def &item);
 ZhArg zh_actor_arg(const std::string &key, const actor *who,
                    description_level_type desc = DESC_THE);
 ZhArg zh_monster_type_arg(const std::string &key, monster_type type);

@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "method": "lexical callsite inventory; not a translation coverage metric",
-  "native_head": "b0ad16b5ca8421ccc1789f4b59bcaa9d84cc07a8",
+  "native_head": "5fa2fbf63e82b61e93a67dc6acd71cca15846fa4",
   "files": {
     "ability.cc": "7c89dd80830688f66c5777b140a22283cae40f0cde6f18f712adf4da3333167f",
     "abyss.cc": "84b56154fb4cfb65c0b25ae8dd465938a2a11bab44cb6b347ff05e24840ce554",
@@ -36,7 +36,7 @@
     "delay.cc": "eb39c5a8b09ea2acfc3d2bf86b33cc606594425259a9804f00a7368faa9a86a5",
     "describe-god.cc": "ff66ede0f211e2257092d8a9ccd59e1029c2254752322e3f405a3d6606d94b35",
     "describe-spells.cc": "866eeaf7d8cf66c5e76bdf9b9c620537d83f4a65b6bf68ee7de737ea4859261a",
-    "describe.cc": "2df6610f2dbebfc8af1814f854980717bfd1d2fdd4d6fee587d5350946ba651f",
+    "describe.cc": "b59466a07d7dc2c2e6ac0087be23b5e1fa2325ae5fe96143f77614f59ac41320",
     "dgl-message.cc": "d10f9140c37430e1933f7e4ceb1f5d0d3398c3173969dca0909720729434713b",
     "dgn-layouts.cc": "dccf23f73f168128c020088d8b608765a0b29cf5eafc1ce640d614941b3000f2",
     "dgn-overview.cc": "1bbb0bbd579def51b5b34c4f7eb6e125015b52771dbaf8e5a0abb9f85571f050",
@@ -52,6 +52,7 @@
     "fight.cc": "1a41571210aec23eafe5aa08f951fc2255391345bb34643e3af3cda393425cb7",
     "files.cc": "e4a194baaf71540e993489ddb287c16d7af78c8658ec768715ee6bcc841311e0",
     "fineff.cc": "0d98bef9f0e89d6d274350a2a580273eac8660d87dfc2c13764f194b41938864",
+    "fontwrapper-ft.cc": "97ceeab52de9423fd57d12526277b71fc8319827330bfffee587f26f8b3cd044",
     "format.cc": "43df4be63db0c0130f23ed11a8f7694359937bf2e928939bbe4de1568cfca1f0",
     "game-options.cc": "03df06df72a0342885c6c54b17e25d559a7b924152df1778343c3462edcfe519",
     "ghost.cc": "7282bb234d121af9e499ba1ed50eb0b32b5bbc794c9a0095e50e1188175bc9d6",
@@ -63,7 +64,7 @@
     "god-passive.cc": "f0781bd0104f69a07847d4289e4439f5989c8d69c381ffac4740ab171dbc3d2f",
     "god-prayer.cc": "9188addfb2fbf5e0254da3f8404e8b49d8dbed9fa08768df85199e2fd8f193a9",
     "god-wrath.cc": "55e025d6f98fc836ac042257bdd74d02ed5a2c25cf9fd27f6c32076c71cf6ee9",
-    "hints.cc": "9d9ded1a4b054f96420d17a600e412829b4bae26c9ac47278bcb250fca670a78",
+    "hints.cc": "2324a8c04c9d52ab87f312ca83a42254f8bd88aaad9bbc0d27b8e4407de4faf7",
     "hiscores.cc": "683130f230bbfb5d2e0edbd57def87232c7aec56bddcbb419521ab722cfc2508",
     "initfile.cc": "d26deb77154390c9074d5ee58a0181d750c42468a1f13eefe1142aa5a59d6e87",
     "invent.cc": "e21fb8bc1ff3856f953c77cb50c28a4188dfd47fe4484b578e2671adbd261aea",
@@ -216,7 +217,7 @@
     "wiz-you.cc": "c5409b718b5615c305dc4b549c6af56e753d7b03ff8767db3d81424a56736f39",
     "wizard.cc": "44f116a452e52ac43677b59ee906368c975ba29556e6d0f05ed081418b065558",
     "xom.cc": "f8569a5334a3b11f0668c482db3fc922289d570d0f1c19cedec3a1bcf8a917e6",
-    "zh-display-name.cc": "d91c9091360484e818b3a7b746c6b18fa1768e1e4e6339ed7d8c124e37f9bb78",
+    "zh-display-name.cc": "850d39e7ae98ba383cf4ed2bd65e6e74544fe2a92077b655450d706850d42be7",
     "zh-localization.cc": "2bb746b1556a932a5524075b3fcae9ccca98fa05bd0d8cf96deffe2d4b62a1cb",
     "zh-message.cc": "2deeea500b1b6e28596468356604ce95a40a87ac25208ca8af96a84b36f22a73",
     "zot.cc": "5ac5d946b32ba5168e2a63813f8bc2662340e7f3016717c696838fca4b9fdea0"
@@ -229,12 +230,12 @@
     },
     {
       "name": "语义名称",
-      "state": "物品/怪物已有专用接口；新增地点及来源怪物类型接口；复杂名称仍有完整回退",
+      "state": "物品/怪物/地点及来源怪物类型已有接口；投掷物按 subtype 选量词、普通已鉴定法杖按类型取名；复杂名称仍整段回退",
       "acceptance": "枚举/鉴定/数量/装备/专名组合测试；不解析最终英文名称"
     },
     {
       "name": "详情",
-      "state": "主边界、正常来源、紧凑法术列表、诅咒技能与护符形态表已迁移；hints及外部失败理由仍待迁移，复杂名称保留明确整段回退",
+      "state": "主边界、来源、紧凑法术列表、诅咒技能、护符形态及物品教学提示全分支已迁移；外部法术理由及复杂名称整段回退仍待处理",
       "acceptance": "数据库正文语言选择、长文本、动作、不同来源/状态逐项核对；禁止旧matcher"
     },
     {
@@ -8499,15 +8500,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4323,
-      "api": "zh_message",
-      "anchor": "desc += \"\\n\\n\" + zh_message(\"item.hints.english_fallback\", {",
-      "module": "details",
-      "classification": "typed-producer"
-    },
-    {
-      "file": "describe.cc",
-      "line": 4330,
+      "line": 4328,
       "api": "parse_string_raw",
       "anchor": "formatted_string fs_desc = formatted_string::parse_string_raw(desc);",
       "module": "details",
@@ -8515,11 +8508,27 @@
     },
     {
       "file": "describe.cc",
-      "line": 4363,
+      "line": 4361,
       "api": "parse_string_raw",
       "anchor": "auto title = make_shared<Text>(formatted_string::parse_string_raw(name));",
       "module": "details",
       "classification": "callsite-review-required"
+    },
+    {
+      "file": "describe.cc",
+      "line": 4380,
+      "api": "parse_string_raw",
+      "anchor": "footer_text += formatted_string::parse_string_raw(",
+      "module": "details",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "describe.cc",
+      "line": 4381,
+      "api": "zh_message",
+      "anchor": "zh_message(\"item.actions.select_spell\").display(), CYAN);",
+      "module": "details",
+      "classification": "typed-producer"
     },
     {
       "file": "describe.cc",
@@ -8531,23 +8540,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4383,
-      "api": "zh_message",
-      "anchor": "zh_message(\"item.actions.select_spell\").display(), CYAN);",
-      "module": "details",
-      "classification": "typed-producer"
-    },
-    {
-      "file": "describe.cc",
-      "line": 4384,
-      "api": "parse_string_raw",
-      "anchor": "footer_text += formatted_string::parse_string_raw(",
-      "module": "details",
-      "classification": "callsite-review-required"
-    },
-    {
-      "file": "describe.cc",
-      "line": 4387,
+      "line": 4385,
       "api": "set_text",
       "anchor": "footer->set_text(footer_text);",
       "module": "details",
@@ -8555,7 +8548,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4426,
+      "line": 4424,
       "api": "set_text",
       "anchor": "text->set_text(formatted_string::parse_string_raw(spell_success));",
       "module": "details",
@@ -8563,7 +8556,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4426,
+      "line": 4424,
       "api": "parse_string_raw",
       "anchor": "text->set_text(formatted_string::parse_string_raw(spell_success));",
       "module": "details",
@@ -8571,7 +8564,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4428,
+      "line": 4426,
       "api": "set_text",
       "anchor": "text->set_text(fs_desc.trim());",
       "module": "details",
@@ -8579,7 +8572,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4536,
+      "line": 4534,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.level\", {",
       "module": "details",
@@ -8587,7 +8580,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4550,
+      "line": 4548,
       "api": "zh_word_arg",
       "anchor": "const ZhArg school_arg = zh_word_arg(\"school\", \"spell.school.\",",
       "module": "details",
@@ -8595,7 +8588,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4559,
+      "line": 4557,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.stats.school\", {",
       "module": "details",
@@ -8603,7 +8596,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4578,
+      "line": 4576,
       "api": "make_stringf",
       "anchor": "failure = make_stringf(\"%d%% <darkgrey>(%d%%)</darkgrey>\",",
       "module": "details",
@@ -8611,7 +8604,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4584,
+      "line": 4582,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.stats.fail\", {",
       "module": "details",
@@ -8619,7 +8612,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4593,
+      "line": 4591,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.stats.power\", {",
       "module": "details",
@@ -8627,7 +8620,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4604,
+      "line": 4602,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.stats.damage\", {",
       "module": "details",
@@ -8635,7 +8628,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4618,
+      "line": 4616,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.stats.accuracy\", {",
       "module": "details",
@@ -8643,7 +8636,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4625,
+      "line": 4623,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.stats.range\", {",
       "module": "details",
@@ -8651,7 +8644,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4638,
+      "line": 4636,
       "api": "zh_word_arg",
       "anchor": "const ZhArg localized_noise = zh_word_arg(\"noise\", \"spell.noise.\",",
       "module": "details",
@@ -8659,7 +8652,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4649,
+      "line": 4647,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.stats.noise\", {",
       "module": "details",
@@ -8667,7 +8660,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4684,
+      "line": 4682,
       "api": "zh_message",
       "anchor": "return \"\\n\" + zh_message(\"detail.skill.defence.armour\", {",
       "module": "details",
@@ -8675,7 +8668,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4687,
+      "line": 4685,
       "api": "make_stringf",
       "anchor": "make_stringf(\"With your current stats and equipment, %s this skill would increase your AC by %.1f and your EV by %.1f.\",",
       "module": "details",
@@ -8683,7 +8676,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4692,
+      "line": 4690,
       "api": "zh_message",
       "anchor": "return \"\\n\" + zh_message(\"detail.skill.defence.dodging\", {",
       "module": "details",
@@ -8691,7 +8684,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4695,
+      "line": 4693,
       "api": "make_stringf",
       "anchor": "make_stringf(\"With your current stats and equipment, %s this skill would increase your EV by %.1f.\",",
       "module": "details",
@@ -8699,7 +8692,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4700,
+      "line": 4698,
       "api": "zh_message",
       "anchor": "return \"\\n\" + zh_message(\"detail.skill.defence.shields\", {",
       "module": "details",
@@ -8707,7 +8700,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4703,
+      "line": 4701,
       "api": "make_stringf",
       "anchor": "make_stringf(\"With your current stats and equipment, %s this skill would increase your SH by %.1f.\",",
       "module": "details",
@@ -8715,7 +8708,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4712,
+      "line": 4710,
       "api": "ZhLegacyGuard",
       "anchor": "ZhLegacyGuard skill_detail_guard(\"detail.skill.producer\");",
       "module": "details",
@@ -8723,7 +8716,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4718,
+      "line": 4716,
       "api": "zh_word",
       "anchor": "result = zh_word(\"skill.name.\", lookup);",
       "module": "details",
@@ -8731,7 +8724,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4733,
+      "line": 4731,
       "api": "zh_message",
       "anchor": "result += \"\\n\" + zh_message(\"detail.skill.invocations.forlorn\").display();",
       "module": "details",
@@ -8739,7 +8732,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4738,
+      "line": 4736,
       "api": "zh_glossary_name",
       "anchor": "const auto god_name_arg = zh_glossary_name(\"god\", \"god.name\", god_name(you.religion));",
       "module": "details",
@@ -8747,7 +8740,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4739,
+      "line": 4737,
       "api": "zh_message",
       "anchor": "result += \"\\n\" + zh_message(\"detail.skill.invocations.unaffected\", {",
       "module": "details",
@@ -8755,7 +8748,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4747,
+      "line": 4745,
       "api": "zh_glossary_name",
       "anchor": "const auto god_name_arg = zh_glossary_name(\"god\", \"god.name\", god_name(you.religion));",
       "module": "details",
@@ -8763,7 +8756,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4749,
+      "line": 4747,
       "api": "zh_glossary_name",
       "anchor": "const auto skill_arg = zh_glossary_name(\"skill\", \"skill.name\", skill_en);",
       "module": "details",
@@ -8771,7 +8764,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4750,
+      "line": 4748,
       "api": "zh_message",
       "anchor": "result += \"\\n\" + zh_message(\"detail.skill.invocations.based_on\", {",
       "module": "details",
@@ -8779,7 +8772,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4759,
+      "line": 4757,
       "api": "zh_glossary_name",
       "anchor": "const auto god_name_arg = zh_glossary_name(\"god\", \"god.name\", god_name(you.religion));",
       "module": "details",
@@ -8787,7 +8780,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4760,
+      "line": 4758,
       "api": "zh_message",
       "anchor": "result += \"\\n\" + zh_message(\"detail.skill.god.dislikes_training\", {",
       "module": "details",
@@ -8795,7 +8788,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4836,
+      "line": 4834,
       "api": "make_stringf",
       "anchor": "descs.push_back(make_stringf(\"deals up to %d %s damage\", dam,",
       "module": "details",
@@ -8803,7 +8796,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4868,
+      "line": 4866,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.miscast_contamination\", {",
       "module": "details",
@@ -8811,7 +8804,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4876,
+      "line": 4874,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.battlesphere_inactive\").display();",
       "module": "details",
@@ -8819,7 +8812,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4886,
+      "line": 4884,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.battlesphere_fires\", {",
       "module": "details",
@@ -8827,7 +8820,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4899,
+      "line": 4897,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.servitor_inactive\").display();",
       "module": "details",
@@ -8835,7 +8828,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4903,
+      "line": 4901,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.servitor_casts\", {",
       "module": "details",
@@ -8843,7 +8836,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4913,
+      "line": 4911,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.paragon_weapon\", {",
       "module": "details",
@@ -8851,7 +8844,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4914,
+      "line": 4912,
       "api": "zh_item_arg",
       "anchor": "zh_item_arg(\"weapon\", weapon, DESC_A)}).display();",
       "module": "details",
@@ -8859,7 +8852,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4920,
+      "line": 4918,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.servitor_imbued.fixed\").display();",
       "module": "details",
@@ -8867,7 +8860,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4922,
+      "line": 4920,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.servitor_imbued_if\").display();",
       "module": "details",
@@ -8875,7 +8868,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4926,
+      "line": 4924,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.irradiate.fixed\").display();",
       "module": "details",
@@ -8883,7 +8876,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4935,
+      "line": 4933,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.summon_cap\", {",
       "module": "details",
@@ -8891,7 +8884,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4947,
+      "line": 4945,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.god_opinion\", {",
       "module": "details",
@@ -8899,7 +8892,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4955,
+      "line": 4953,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.god_opinion\", {",
       "module": "details",
@@ -8907,7 +8900,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4962,
+      "line": 4960,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.enkindled.fixed\").display();",
       "module": "details",
@@ -8915,7 +8908,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4969,
+      "line": 4967,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.cannot_memorise\", {",
       "module": "details",
@@ -8923,7 +8916,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4978,
+      "line": 4976,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.casting_useless\", {",
       "module": "details",
@@ -8931,7 +8924,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4985,
+      "line": 4983,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.no_visible_hostiles\").display();",
       "module": "details",
@@ -8939,7 +8932,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4987,
+      "line": 4985,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.useless_reason\", {",
       "module": "details",
@@ -8947,7 +8940,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 4994,
+      "line": 4992,
       "api": "zh_message",
       "anchor": "description << zh_message(\"spell.player.grave_claw\", {",
       "module": "details",
@@ -8955,7 +8948,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5039,
+      "line": 5037,
       "api": "zh_source",
       "anchor": "description += zh_source(\"detail.spell.fixed\",",
       "module": "details",
@@ -8963,7 +8956,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5055,
+      "line": 5053,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.monster.living_spell\", {",
       "module": "details",
@@ -8971,7 +8964,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5056,
+      "line": 5054,
       "api": "zh_monster_info_arg",
       "anchor": "zh_monster_info_arg(\"actor\", *mon_owner, DESC_A),",
       "module": "details",
@@ -8979,7 +8972,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5065,
+      "line": 5063,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.monster.cancellation\", {",
       "module": "details",
@@ -8987,7 +8980,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5070,
+      "line": 5068,
       "api": "zh_source",
       "anchor": "description += zh_source(\"detail.spell.fixed\",",
       "module": "details",
@@ -8995,7 +8988,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5081,
+      "line": 5079,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.monster.range\", {",
       "module": "details",
@@ -9003,7 +8996,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5089,
+      "line": 5087,
       "api": "zh_source",
       "anchor": "description += zh_source(\"detail.spell.fixed\",",
       "module": "details",
@@ -9011,7 +9004,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5094,
+      "line": 5092,
       "api": "zh_source",
       "anchor": "description += zh_source(\"detail.spell.fixed\",",
       "module": "details",
@@ -9019,7 +9012,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5110,
+      "line": 5108,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.monster.summon_cap\", {",
       "module": "details",
@@ -9027,7 +9020,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5111,
+      "line": 5109,
       "api": "zh_monster_info_arg",
       "anchor": "zh_monster_info_arg(\"actor\", *mon_owner, DESC_THE),",
       "module": "details",
@@ -9035,7 +9028,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5134,
+      "line": 5132,
       "api": "make_stringf",
       "anchor": "wiz_info += make_stringf(\" (pow %d)\", _mon_hex_pow(spell, mon_owner, is_wand));",
       "module": "details",
@@ -9043,7 +9036,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5137,
+      "line": 5135,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.monster.immune.fixed\", {",
       "module": "details",
@@ -9051,7 +9044,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5140,
+      "line": 5138,
       "api": "zh_message",
       "anchor": "description += zh_message(\"spell.monster.will_chance\", {",
       "module": "details",
@@ -9059,7 +9052,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5183,
+      "line": 5181,
       "api": "ZhLegacyGuard",
       "anchor": "ZhLegacyGuard spell_detail_guard(\"detail.spell\");",
       "module": "details",
@@ -9067,7 +9060,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5200,
+      "line": 5198,
       "api": "zh_word",
       "anchor": "string spl_title = zh_word(\"spell.name.\", spell_title(spell));",
       "module": "details",
@@ -9075,7 +9068,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5204,
+      "line": 5202,
       "api": "set_text",
       "anchor": "title->set_text(formatted_string::parse_string_raw(spl_title));",
       "module": "details",
@@ -9083,7 +9076,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5204,
+      "line": 5202,
       "api": "parse_string_raw",
       "anchor": "title->set_text(formatted_string::parse_string_raw(spl_title));",
       "module": "details",
@@ -9091,7 +9084,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5215,
+      "line": 5213,
       "api": "set_text",
       "anchor": "text->set_text(formatted_string::parse_string_raw(desc));",
       "module": "details",
@@ -9099,7 +9092,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5215,
+      "line": 5213,
       "api": "parse_string_raw",
       "anchor": "text->set_text(formatted_string::parse_string_raw(desc));",
       "module": "details",
@@ -9107,7 +9100,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5294,
+      "line": 5292,
       "api": "make_stringf",
       "anchor": "inf.title += make_stringf(\" (level %d/%d)\",",
       "module": "details",
@@ -9115,7 +9108,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5319,
+      "line": 5317,
       "api": "make_stringf",
       "anchor": "const string key = make_stringf(\"%s bane\", bane_name(bane, true).c_str());",
       "module": "details",
@@ -9123,7 +9116,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5320,
+      "line": 5318,
       "api": "getLongDescription",
       "anchor": "string lookup = getLongDescription(key);",
       "module": "details",
@@ -9131,7 +9124,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5350,
+      "line": 5348,
       "api": "make_stringf",
       "anchor": "output << make_stringf(\"\\nThis bane usually lasts a %s time.\\n\", dur_str.c_str());",
       "module": "details",
@@ -9139,7 +9132,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5355,
+      "line": 5353,
       "api": "make_stringf",
       "anchor": "string desc = make_stringf(\"\\n<lightmagenta>\"",
       "module": "details",
@@ -9147,7 +9140,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5384,
+      "line": 5382,
       "api": "zh_message",
       "anchor": "case MONS_BLACK_DRACONIAN:      description += zh_message(\"monster.draconian.scales.black\").display() + \" \";   break;",
       "module": "details",
@@ -9155,7 +9148,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5385,
+      "line": 5383,
       "api": "zh_message",
       "anchor": "case MONS_YELLOW_DRACONIAN:     description += zh_message(\"monster.draconian.scales.yellow\").display() + \" \";  break;",
       "module": "details",
@@ -9163,7 +9156,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5386,
+      "line": 5384,
       "api": "zh_message",
       "anchor": "case MONS_GREEN_DRACONIAN:      description += zh_message(\"monster.draconian.scales.green\").display() + \" \";   break;",
       "module": "details",
@@ -9171,7 +9164,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5387,
+      "line": 5385,
       "api": "zh_message",
       "anchor": "case MONS_PURPLE_DRACONIAN:     description += zh_message(\"monster.draconian.scales.purple\").display() + \" \";  break;",
       "module": "details",
@@ -9179,7 +9172,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5388,
+      "line": 5386,
       "api": "zh_message",
       "anchor": "case MONS_RED_DRACONIAN:        description += zh_message(\"monster.draconian.scales.red\").display() + \" \";     break;",
       "module": "details",
@@ -9187,7 +9180,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5389,
+      "line": 5387,
       "api": "zh_message",
       "anchor": "case MONS_WHITE_DRACONIAN:      description += zh_message(\"monster.draconian.scales.white\").display() + \" \";   break;",
       "module": "details",
@@ -9195,7 +9188,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5390,
+      "line": 5388,
       "api": "zh_message",
       "anchor": "case MONS_GREY_DRACONIAN:       description += zh_message(\"monster.draconian.scales.grey\").display() + \" \";    break;",
       "module": "details",
@@ -9203,7 +9196,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5391,
+      "line": 5389,
       "api": "zh_message",
       "anchor": "case MONS_PALE_DRACONIAN:       description += zh_message(\"monster.draconian.scales.pale\").display() + \" \";    break;",
       "module": "details",
@@ -9211,7 +9204,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5400,
+      "line": 5398,
       "api": "zh_message",
       "anchor": "description += zh_message(\"monster.draconian.desc.black\").display();",
       "module": "details",
@@ -9219,7 +9212,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5403,
+      "line": 5401,
       "api": "zh_message",
       "anchor": "description += zh_message(\"monster.draconian.desc.yellow\").display();",
       "module": "details",
@@ -9227,7 +9220,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5406,
+      "line": 5404,
       "api": "zh_message",
       "anchor": "description += zh_message(\"monster.draconian.desc.green\").display();",
       "module": "details",
@@ -9235,7 +9228,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5409,
+      "line": 5407,
       "api": "zh_message",
       "anchor": "description += zh_message(\"monster.draconian.desc.purple\").display();",
       "module": "details",
@@ -9243,7 +9236,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5412,
+      "line": 5410,
       "api": "zh_message",
       "anchor": "description += zh_message(\"monster.draconian.desc.red\").display();",
       "module": "details",
@@ -9251,7 +9244,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5415,
+      "line": 5413,
       "api": "zh_message",
       "anchor": "description += zh_message(\"monster.draconian.desc.white\").display();",
       "module": "details",
@@ -9259,7 +9252,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5418,
+      "line": 5416,
       "api": "zh_message",
       "anchor": "description += zh_message(\"monster.draconian.desc.grey\").display();",
       "module": "details",
@@ -9267,7 +9260,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5421,
+      "line": 5419,
       "api": "zh_message",
       "anchor": "description += zh_message(\"monster.draconian.desc.pale\").display();",
       "module": "details",
@@ -9275,7 +9268,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5464,
+      "line": 5462,
       "api": "zh_source",
       "anchor": "case MTHRT_TRIVIAL: return zh_source(\"detail.monster.table_value\", \"Minor\");",
       "module": "details",
@@ -9283,7 +9276,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5465,
+      "line": 5463,
       "api": "zh_source",
       "anchor": "case MTHRT_EASY:    return zh_source(\"detail.monster.table_value\", \"Low\");",
       "module": "details",
@@ -9291,7 +9284,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5466,
+      "line": 5464,
       "api": "zh_source",
       "anchor": "case MTHRT_TOUGH:   return zh_source(\"detail.monster.table_value\", \"High\");",
       "module": "details",
@@ -9299,7 +9292,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5467,
+      "line": 5465,
       "api": "zh_source",
       "anchor": "case MTHRT_NASTY:   return zh_source(\"detail.monster.table_value\", \"Lethal\");",
       "module": "details",
@@ -9307,7 +9300,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5468,
+      "line": 5466,
       "api": "zh_source",
       "anchor": "default:            return zh_source(\"detail.monster.table_value\", \"Eggstreme\");",
       "module": "details",
@@ -9315,7 +9308,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5537,
+      "line": 5535,
       "api": "zh_word",
       "anchor": "return zh_word(\"monster.attack.atom.\", *desc);",
       "module": "details",
@@ -9323,7 +9316,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5543,
+      "line": 5541,
       "api": "zh_word_arg",
       "anchor": "return zh_word_arg(key, \"monster.attack.atom.\", text);",
       "module": "details",
@@ -9331,7 +9324,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5638,
+      "line": 5636,
       "api": "zh_message",
       "anchor": "return zh_message(\"monster.attack.brand_sundering\", {",
       "module": "details",
@@ -9339,7 +9332,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5643,
+      "line": 5641,
       "api": "zh_message",
       "anchor": "return zh_message(\"monster.attack.brand_only\", {brand_arg}).display();",
       "module": "details",
@@ -9347,7 +9340,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5648,
+      "line": 5646,
       "api": "zh_message",
       "anchor": "return zh_message(\"monster.attack.brand_damage\", {",
       "module": "details",
@@ -9355,7 +9348,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5681,
+      "line": 5679,
       "api": "zh_message",
       "anchor": "return zh_message(\"monster.attack.brand_damage\", {",
       "module": "details",
@@ -9363,7 +9356,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5764,
+      "line": 5762,
       "api": "zh_message",
       "anchor": "desc += zh_message(\"monster.attack.separator\").display();",
       "module": "details",
@@ -9371,7 +9364,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5769,
+      "line": 5767,
       "api": "zh_message",
       "anchor": "desc += zh_message(\"monster.attack.flavour_max\", {",
       "module": "details",
@@ -9379,7 +9372,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5775,
+      "line": 5773,
       "api": "zh_message",
       "anchor": "desc += zh_message(\"monster.attack.drain_max\", {",
       "module": "details",
@@ -9387,7 +9380,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5779,
+      "line": 5777,
       "api": "zh_message",
       "anchor": "desc += zh_message(\"monster.attack.damage_range\", {",
       "module": "details",
@@ -9395,7 +9388,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5790,
+      "line": 5788,
       "api": "zh_message",
       "anchor": "desc += zh_message(\"monster.attack.if_damage_dealt\").display();",
       "module": "details",
@@ -9403,7 +9396,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5798,
+      "line": 5796,
       "api": "zh_message",
       "anchor": "desc += zh_message(reach_id).display();",
       "module": "details",
@@ -9411,7 +9404,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5799,
+      "line": 5797,
       "api": "zh_message",
       "anchor": "desc += zh_message(flavour == AF_RIFT ? \"monster.attack.very_far\"",
       "module": "details",
@@ -9419,7 +9412,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5835,
+      "line": 5833,
       "api": "zh_item_arg",
       "anchor": "const ZhArg item_arg = zh_item_arg(\"weapon\", *wpn, DESC_PLAIN);",
       "module": "details",
@@ -9427,7 +9420,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5848,
+      "line": 5846,
       "api": "zh_message",
       "anchor": "attk_desc = zh_message(\"monster.attack.counted_label\", {",
       "module": "details",
@@ -9435,7 +9428,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5851,
+      "line": 5849,
       "api": "zh_message",
       "anchor": "attk_desc = zh_message(\"monster.attack.label\",",
       "module": "details",
@@ -9443,7 +9436,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5904,
+      "line": 5902,
       "api": "zh_message",
       "anchor": "dam_str = zh_message(\"monster.attack.modified_damage\", {",
       "module": "details",
@@ -9451,7 +9444,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5907,
+      "line": 5905,
       "api": "make_stringf",
       "anchor": "dam_str = make_stringf(\"%d\", dam);",
       "module": "details",
@@ -9459,7 +9452,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5910,
+      "line": 5908,
       "api": "zh_word",
       "anchor": "dam_str += \" \" + zh_word(\"monster.attack.atom.\", \"fire\");",
       "module": "details",
@@ -9467,7 +9460,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5931,
+      "line": 5929,
       "api": "zh_message",
       "anchor": "final_dam_str += zh_message(\"monster.attack.each\").display();",
       "module": "details",
@@ -9475,7 +9468,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5979,
+      "line": 5977,
       "api": "zh_item_arg",
       "anchor": "const ZhArg thrown_localized = zh_item_arg(\"item\", *quiv,",
       "module": "details",
@@ -9483,7 +9476,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5984,
+      "line": 5982,
       "api": "zh_message",
       "anchor": "const string throw_str = zh_message(\"monster.attack.throw_label\",",
       "module": "details",
@@ -9491,7 +9484,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 5998,
+      "line": 5996,
       "api": "zh_message",
       "anchor": "dam_desc = zh_message(\"monster.attack.curare_damage\", {",
       "module": "details",
@@ -9499,7 +9492,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6036,
+      "line": 6034,
       "api": "zh_message",
       "anchor": "silver_str = zh_message(\"monster.attack.silver_damage\", {",
       "module": "details",
@@ -9507,7 +9500,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6039,
+      "line": 6037,
       "api": "make_stringf",
       "anchor": "dam_desc = make_stringf(\"%d%s\", dam, silver_str.c_str());",
       "module": "details",
@@ -9515,7 +9508,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6052,
+      "line": 6050,
       "api": "zh_source",
       "anchor": "const string attack_header = zh_source(\"detail.monster.attack_table\",",
       "module": "details",
@@ -9523,7 +9516,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6054,
+      "line": 6052,
       "api": "zh_source",
       "anchor": "const string damage_header = zh_source(\"detail.monster.attack_table\",",
       "module": "details",
@@ -9531,7 +9524,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6056,
+      "line": 6054,
       "api": "zh_source",
       "anchor": "const string bonus_header = zh_source(\"detail.monster.attack_table\",",
       "module": "details",
@@ -9539,7 +9532,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6194,
+      "line": 6192,
       "api": "parse_string_raw",
       "anchor": "description += formatted_string::parse_string_raw(",
       "module": "details",
@@ -9547,7 +9540,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6195,
+      "line": 6193,
       "api": "zh_message",
       "anchor": "\"\\n\" + zh_message(\"monster.spell.help\").display());",
       "module": "details",
@@ -9555,7 +9548,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6196,
+      "line": 6194,
       "api": "parse_string_raw",
       "anchor": "description += formatted_string::parse_string_raw(zh_message(",
       "module": "details",
@@ -9563,7 +9556,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6196,
+      "line": 6194,
       "api": "zh_message",
       "anchor": "description += formatted_string::parse_string_raw(zh_message(",
       "module": "details",
@@ -9571,7 +9564,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6217,
+      "line": 6215,
       "api": "zh_message",
       "anchor": "return zh_message(plural ? \"monster.notice_chance_plural\"",
       "module": "details",
@@ -9579,7 +9572,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6312,
+      "line": 6310,
       "api": "zh_message",
       "anchor": "result << zh_message(\"target.hit_chance.distance\", {hit_arg}).display();",
       "module": "details",
@@ -9587,7 +9580,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6314,
+      "line": 6312,
       "api": "zh_message",
       "anchor": "result << zh_message(\"target.hit_chance\", {hit_arg}).display();",
       "module": "details",
@@ -9595,7 +9588,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6322,
+      "line": 6320,
       "api": "zh_item_arg",
       "anchor": "weapon_arg = zh_item_arg(\"weapon\", *weapon, DESC_YOUR);",
       "module": "details",
@@ -9603,7 +9596,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6334,
+      "line": 6332,
       "api": "zh_message",
       "anchor": "result << zh_message(\"target.hit_chance.verbose_blind\", {",
       "module": "details",
@@ -9611,7 +9604,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6337,
+      "line": 6335,
       "api": "zh_message",
       "anchor": "result << zh_message(\"target.hit_chance.verbose\", {",
       "module": "details",
@@ -9619,7 +9612,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6405,
+      "line": 6403,
       "api": "zh_message",
       "anchor": "result << zh_message(plural ? \"monster.hit_chance_plural\"",
       "module": "details",
@@ -9627,7 +9620,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6471,
+      "line": 6469,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"~%d\", pips * scale);",
       "module": "details",
@@ -9635,7 +9628,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6518,
+      "line": 6516,
       "api": "make_stringf",
       "anchor": "return uppercase_first(make_stringf(\"%s can %s water.\\n\",",
       "module": "details",
@@ -9643,7 +9636,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6523,
+      "line": 6521,
       "api": "make_stringf",
       "anchor": "return uppercase_first(make_stringf(\"%s can travel through lava.\\n\",",
       "module": "details",
@@ -9651,7 +9644,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6574,
+      "line": 6572,
       "api": "zh_message",
       "anchor": "result << zh_message(\"monster.targeted_by_one\", {",
       "module": "details",
@@ -9659,7 +9652,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6589,
+      "line": 6587,
       "api": "zh_message",
       "anchor": "result << zh_message(\"monster.targeted_by_many\", {",
       "module": "details",
@@ -9667,7 +9660,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6603,
+      "line": 6601,
       "api": "zh_message",
       "anchor": "result << zh_message(\"monster.targeting_foe\", {",
       "module": "details",
@@ -9675,7 +9668,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6647,
+      "line": 6645,
       "api": "zh_source",
       "anchor": "return zh_source(it->second.first, it->second.second);",
       "module": "details",
@@ -9683,7 +9676,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6862,
+      "line": 6860,
       "api": "zh_source",
       "anchor": "const string holi = zh_source(\"detail.monster.table_value\", holiness_name.c_str());",
       "module": "details",
@@ -9691,7 +9684,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6870,
+      "line": 6868,
       "api": "zh_source",
       "anchor": "pr.AddCell(\"Int\", zh_source(\"detail.monster.table_value\",",
       "module": "details",
@@ -9699,7 +9692,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6873,
+      "line": 6871,
       "api": "zh_source",
       "anchor": "pr.AddCell(\"Regen\", zh_source(\"detail.monster.table_value\", \"None\"));",
       "module": "details",
@@ -9707,7 +9700,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 6875,
+      "line": 6873,
       "api": "make_stringf",
       "anchor": "pr.AddCell(\"Regen\", make_stringf(\"%d/turn\", mi.regen_rate(1)));",
       "module": "details",
@@ -9715,7 +9708,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7177,
+      "line": 7175,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%dd%d\", beam.damage.num, beam.damage.size);",
       "module": "details",
@@ -9723,7 +9716,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7184,
+      "line": 7182,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%dd%d\", beam.damage.num, beam.damage.size);",
       "module": "details",
@@ -9731,7 +9724,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7195,
+      "line": 7193,
       "api": "getLongDescription",
       "anchor": "source = trimmed_string(getLongDescription(key));",
       "module": "details",
@@ -9739,7 +9732,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7197,
+      "line": 7195,
       "api": "zh_source",
       "anchor": "return zh_source(context, source.c_str());",
       "module": "details",
@@ -9747,7 +9740,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7205,
+      "line": 7203,
       "api": "getQuoteString",
       "anchor": "source = trimmed_string(getQuoteString(key));",
       "module": "details",
@@ -9755,7 +9748,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7207,
+      "line": 7205,
       "api": "zh_source",
       "anchor": "return zh_source(\"detail.monster.quote\", source.c_str());",
       "module": "details",
@@ -9763,7 +9756,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7291,
+      "line": 7289,
       "api": "zh_message",
       "anchor": "inf.body << zh_message(\"monster.detail.ghost\", {",
       "module": "details",
@@ -9771,7 +9764,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7294,
+      "line": 7292,
       "api": "zh_message",
       "anchor": "inf.body << zh_message(\"monster.detail.spooky\").display() << \"\\n\";",
       "module": "details",
@@ -9779,7 +9772,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7301,
+      "line": 7299,
       "api": "zh_message",
       "anchor": "inf.body << zh_message(\"monster.detail.illusion\", {",
       "module": "details",
@@ -9787,7 +9780,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7309,
+      "line": 7307,
       "api": "zh_message",
       "anchor": "inf.body << zh_message(\"monster.detail.pan_lord\", {",
       "module": "details",
@@ -9795,7 +9788,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7323,
+      "line": 7321,
       "api": "zh_message",
       "anchor": "inf.body << \"\\n\" << zh_message(\"monster.detail.melting\").display() << \"\\n\";",
       "module": "details",
@@ -9803,7 +9796,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7330,
+      "line": 7328,
       "api": "zh_message",
       "anchor": "inf.body << \"\\n\" << zh_message(\"monster.detail.crumbling\").display() << \"\\n\";",
       "module": "details",
@@ -9811,7 +9804,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7337,
+      "line": 7335,
       "api": "zh_message",
       "anchor": "inf.body << \"\\n\" << zh_message(\"monster.detail.foxfire_damage\", {",
       "module": "details",
@@ -9819,7 +9812,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7346,
+      "line": 7344,
       "api": "zh_message",
       "anchor": "inf.body << \"\\n\" << zh_message(\"monster.detail.shooting_star_damage\", {",
       "module": "details",
@@ -9827,7 +9820,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7357,
+      "line": 7355,
       "api": "zh_message",
       "anchor": "inf.body << zh_message(\"monster.detail.program_bug\", {",
       "module": "details",
@@ -9835,7 +9828,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7370,
+      "line": 7368,
       "api": "zh_message",
       "anchor": "inf.body << \"\\n\" << zh_message(\"monster.detail.crumbling\").display() << \"\\n\";",
       "module": "details",
@@ -9843,7 +9836,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7372,
+      "line": 7370,
       "api": "zh_message",
       "anchor": "inf.body << \"\\n\" << zh_message(\"monster.detail.withering\").display() << \"\\n\";",
       "module": "details",
@@ -9851,7 +9844,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7374,
+      "line": 7372,
       "api": "zh_message",
       "anchor": "inf.body << \"\\n\" << zh_message(\"monster.detail.struck_crumble\").display() << \"\\n\";",
       "module": "details",
@@ -9859,7 +9852,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7376,
+      "line": 7374,
       "api": "zh_message",
       "anchor": "inf.body << \"\\n\" << zh_message(\"monster.detail.struck_die\").display() << \"\\n\";",
       "module": "details",
@@ -9867,7 +9860,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7402,
+      "line": 7400,
       "api": "zh_message",
       "anchor": "inf.body << \"\\n\" << zh_message(curse_power > 10",
       "module": "details",
@@ -9875,7 +9868,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7419,
+      "line": 7417,
       "api": "zh_message",
       "anchor": "inf.body << zh_message(\"monster.detail.stairs\", {}, canonical).display() << \"\\n\";",
       "module": "details",
@@ -9883,7 +9876,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7472,
+      "line": 7470,
       "api": "zh_message",
       "anchor": "inf.body << \"\\n\" << zh_message(\"monster.detail.summoned_status\", {",
       "module": "details",
@@ -9891,7 +9884,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7485,
+      "line": 7483,
       "api": "zh_message",
       "anchor": "inf.body << \"\\n\" << zh_message(\"monster.detail.no_reward\").display();",
       "module": "details",
@@ -9899,7 +9892,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7492,
+      "line": 7490,
       "api": "zh_message",
       "anchor": "inf.body << \"\\n\" << zh_message(\"monster.detail.hide\", {}, canonical).display() << \"\\n\";",
       "module": "details",
@@ -9907,7 +9900,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7507,
+      "line": 7505,
       "api": "make_stringf",
       "anchor": "inf.body << make_stringf(\"\\nPlaced by map: %s\",",
       "module": "details",
@@ -9915,7 +9908,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7611,
+      "line": 7609,
       "api": "make_stringf",
       "anchor": "const string key = make_stringf(\"%s monstatus\", tag.c_str());",
       "module": "details",
@@ -9923,7 +9916,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7620,
+      "line": 7618,
       "api": "zh_source",
       "anchor": "zh_source(\"detail.monster.status_reference\", lookup.c_str());",
       "module": "details",
@@ -9931,7 +9924,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7633,
+      "line": 7631,
       "api": "parse_string_raw",
       "anchor": "return formatted_string::parse_string_raw(out.str());",
       "module": "details",
@@ -9939,7 +9932,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7638,
+      "line": 7636,
       "api": "ZhLegacyGuard",
       "anchor": "ZhLegacyGuard legacy_guard(\"detail.monster\");",
       "module": "details",
@@ -9947,7 +9940,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7663,
+      "line": 7661,
       "api": "set_text",
       "anchor": "title->set_text(formatted_string::parse_string_raw(inf.title));",
       "module": "details",
@@ -9955,7 +9948,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7663,
+      "line": 7661,
       "api": "parse_string_raw",
       "anchor": "title->set_text(formatted_string::parse_string_raw(inf.title));",
       "module": "details",
@@ -9963,7 +9956,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7674,
+      "line": 7672,
       "api": "parse_string_raw",
       "anchor": "desc += formatted_string::parse_string_raw(inf.body.str());",
       "module": "details",
@@ -9971,7 +9964,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7679,
+      "line": 7677,
       "api": "parse_string_raw",
       "anchor": "desc += formatted_string::parse_string_raw(zh_message(",
       "module": "details",
@@ -9979,7 +9972,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7679,
+      "line": 7677,
       "api": "zh_message",
       "anchor": "desc += formatted_string::parse_string_raw(zh_message(",
       "module": "details",
@@ -9987,7 +9980,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7684,
+      "line": 7682,
       "api": "parse_string_raw",
       "anchor": "desc += formatted_string::parse_string_raw(inf.footer);",
       "module": "details",
@@ -9995,7 +9988,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7690,
+      "line": 7688,
       "api": "parse_string_raw",
       "anchor": "desc = formatted_string::parse_string_raw(",
       "module": "details",
@@ -10003,7 +9996,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7695,
+      "line": 7693,
       "api": "parse_string_raw",
       "anchor": "desc = formatted_string::parse_string_raw(raw_desc);",
       "module": "details",
@@ -10011,7 +10004,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7698,
+      "line": 7696,
       "api": "parse_string_raw",
       "anchor": "const formatted_string quote = formatted_string::parse_string_raw(",
       "module": "details",
@@ -10019,7 +10012,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7732,
+      "line": 7730,
       "api": "make_stringf",
       "anchor": "string more = make_stringf(\"%s%s%s\", mores[i].c_str(),",
       "module": "details",
@@ -10027,7 +10020,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7741,
+      "line": 7739,
       "api": "parse_string_raw",
       "anchor": "formatted_string::parse_string_raw(more)));",
       "module": "details",
@@ -10035,7 +10028,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7885,
+      "line": 7883,
       "api": "make_stringf",
       "anchor": "string desc = make_stringf(\"%s %s %s\", rank,",
       "module": "details",
@@ -10043,7 +10036,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7891,
+      "line": 7889,
       "api": "make_stringf",
       "anchor": "desc = make_stringf(\"%s %s%s\",",
       "module": "details",
@@ -10051,7 +10044,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7952,
+      "line": 7950,
       "api": "ZhLegacyGuard",
       "anchor": "ZhLegacyGuard skill_detail_guard(\"detail.skill\");",
       "module": "details",
@@ -10059,7 +10052,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7955,
+      "line": 7953,
       "api": "zh_glossary_name",
       "anchor": "const auto skill_arg = zh_glossary_name(\"skill\", \"skill.name\", skill_en);",
       "module": "details",
@@ -10067,7 +10060,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7970,
+      "line": 7968,
       "api": "getLongDescription",
       "anchor": "string result = getLongDescription(lookup);",
       "module": "details",
@@ -10075,7 +10068,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 7998,
+      "line": 7996,
       "api": "make_stringf",
       "anchor": "return make_stringf(fstring.c_str(), red ? \"<red>\" : \"\",",
       "module": "details",
@@ -10083,7 +10076,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8004,
+      "line": 8002,
       "api": "make_stringf",
       "anchor": "return make_stringf(fstring, red ? \"<red>\" : \"\",",
       "module": "details",
@@ -10091,7 +10084,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8061,
+      "line": 8059,
       "api": "make_stringf",
       "anchor": "labels.push_back(make_stringf(\"%dd%d%s\", data[0].num, data[0].size, suffix.c_str()));",
       "module": "details",
@@ -10099,7 +10092,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8062,
+      "line": 8060,
       "api": "make_stringf",
       "anchor": "labels.push_back(make_stringf(\"%dd%d%s\", data[1].num, data[1].size, suffix.c_str()));",
       "module": "details",
@@ -10107,7 +10100,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8063,
+      "line": 8061,
       "api": "make_stringf",
       "anchor": "labels.push_back(make_stringf(\"%dd%d%s\", data[2].num, data[2].size, suffix.c_str()));",
       "module": "details",
@@ -10115,7 +10108,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8080,
+      "line": 8078,
       "api": "make_stringf",
       "anchor": "labels.push_back(make_stringf(\"(%d-%d)d%d\", data[0][0].num, data[0][1].num, data[0][0].size));",
       "module": "details",
@@ -10123,7 +10116,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8081,
+      "line": 8079,
       "api": "make_stringf",
       "anchor": "labels.push_back(make_stringf(\"(%d-%d)d%d\", data[1][0].num, data[1][1].num, data[1][0].size));",
       "module": "details",
@@ -10131,7 +10124,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8082,
+      "line": 8080,
       "api": "make_stringf",
       "anchor": "labels.push_back(make_stringf(\"(%d-%d)d%d\", data[2][0].num, data[2][1].num, data[2][0].size));",
       "module": "details",
@@ -10139,7 +10132,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8145,
+      "line": 8143,
       "api": "make_stringf",
       "anchor": "pr.AddCell(label, make_stringf(\"%+d\", val).c_str(), val < 0 ? RED : LIGHTGREY);",
       "module": "details",
@@ -10147,7 +10140,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8150,
+      "line": 8148,
       "api": "zh_word_arg",
       "anchor": "const ZhArg atom = zh_word_arg(\"value\", domain, source, ZhArgType::Name);",
       "module": "details",
@@ -10155,7 +10148,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8162,
+      "line": 8160,
       "api": "parse_string_raw",
       "anchor": "formatted_string::parse_string_raw(row[col]).width() + 2));",
       "module": "details",
@@ -10163,7 +10156,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8180,
+      "line": 8178,
       "api": "parse_string_to_multiple_raw",
       "anchor": "formatted_string::parse_string_to_multiple_raw(text, cells[col],",
       "module": "details",
@@ -10171,7 +10164,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8211,
+      "line": 8209,
       "api": "zh_word_arg",
       "anchor": "const ZhArg atom = zh_word_arg(\"holiness\", \"monster.table.\",",
       "module": "details",
@@ -10179,7 +10172,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8239,
+      "line": 8237,
       "api": "make_stringf",
       "anchor": "const string skill_string = make_stringf(\"%d.%d\", shapeshifting / 10, shapeshifting % 10);",
       "module": "details",
@@ -10187,7 +10180,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8240,
+      "line": 8238,
       "api": "make_stringf",
       "anchor": "const string cur_skill = (shapeshifting < 10*form->min_skill ? make_stringf(\"<red>%s</red>\", skill_string.c_str())",
       "module": "details",
@@ -10195,7 +10188,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8241,
+      "line": 8239,
       "api": "make_stringf",
       "anchor": ": (shapeshifting >= 10*form->max_skill ? make_stringf(\"[%d]\", form->max_skill)",
       "module": "details",
@@ -10203,7 +10196,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8309,
+      "line": 8307,
       "api": "zh_message",
       "anchor": "description << \"\\n\" << zh_message(\"item.talisman.form.class_line\",",
       "module": "details",
@@ -10211,7 +10204,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8360,
+      "line": 8358,
       "api": "zh_source",
       "anchor": "pr.AddCell(\"Barding\", zh_source(\"detail.form.table_value\", \"Yes\"));",
       "module": "details",
@@ -10219,7 +10212,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8395,
+      "line": 8393,
       "api": "zh_message",
       "anchor": "description << \"\\n\" << zh_message(\"item.talisman.form.meld_line\", {",
       "module": "details",
@@ -10227,7 +10220,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8423,
+      "line": 8421,
       "api": "zh_message",
       "anchor": "description << \"\\n\" << zh_message(\"item.talisman.form.mutations_suppressed\", {",
       "module": "details",
@@ -10235,7 +10228,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8434,
+      "line": 8432,
       "api": "ZhLegacyGuard",
       "anchor": "const ZhLegacyGuard boundary(\"detail.form\");",
       "module": "details",
@@ -10243,7 +10236,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8447,
+      "line": 8445,
       "api": "zh_message",
       "anchor": "return zh_message(\"item.talisman.form_english_fallback\", {",
       "module": "details",
@@ -10251,7 +10244,7 @@
     },
     {
       "file": "describe.cc",
-      "line": 8497,
+      "line": 8495,
       "api": "make_stringf",
       "anchor": "= make_stringf(\"\\nClouds of this kind an adventurer makes will vanish\"",
       "module": "details",
@@ -12486,6 +12479,22 @@
       "line": 1788,
       "api": "mpr",
       "anchor": "mpr(\"You consecrate your suffering and invoke the rites of blood!\");",
+      "module": "other-review-required",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "fontwrapper-ft.cc",
+      "line": 658,
+      "api": "parse_string_raw",
+      "anchor": "ret += formatted_string::parse_string_raw(\"\\n\");",
+      "module": "other-review-required",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "fontwrapper-ft.cc",
+      "line": 682,
+      "api": "parse_string_raw",
+      "anchor": "ret += formatted_string::parse_string_raw(\"..\");",
       "module": "other-review-required",
       "classification": "callsite-review-required"
     },
@@ -15075,7 +15084,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 156,
+      "line": 159,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%c - %s %s %s\",",
       "module": "help",
@@ -15083,7 +15092,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 176,
+      "line": 179,
       "api": "parse_string",
       "anchor": "auto prompt_ui = make_shared<Text>(formatted_string::parse_string(prompt));",
       "module": "help",
@@ -15091,7 +15100,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 190,
+      "line": 193,
       "api": "set_text",
       "anchor": "label->set_text(_print_hints_menu(static_cast<hints_types>(i)));",
       "module": "help",
@@ -15099,7 +15108,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 404,
+      "line": 407,
       "api": "parse_string",
       "anchor": "auto prompt_ui = make_shared<Text>(formatted_string::parse_string(text));",
       "module": "help",
@@ -15107,7 +15116,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 484,
+      "line": 487,
       "api": "mprf",
       "anchor": "mprf(MSGCH_ERROR, \"Error, no hint for '%s'.\", key.c_str());",
       "module": "help",
@@ -15115,7 +15124,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 509,
+      "line": 512,
       "api": "mprf",
       "anchor": "mprf(MSGCH_TUTORIAL, \"%s\", chunk.c_str());",
       "module": "help",
@@ -15123,7 +15132,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 570,
+      "line": 573,
       "api": "make_stringf",
       "anchor": "print_hint(make_stringf(\"death random %d\", hint));",
       "module": "help",
@@ -15131,7 +15140,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 572,
+      "line": 575,
       "api": "mprf",
       "anchor": "mprf(MSGCH_TUTORIAL, \"%s\", untag_tiles_console(text).c_str());",
       "module": "help",
@@ -15139,7 +15148,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 575,
+      "line": 578,
       "api": "mprf",
       "anchor": "mprf(MSGCH_TUTORIAL, \"See you next game!\");",
       "module": "help",
@@ -15147,7 +15156,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 597,
+      "line": 600,
       "api": "make_stringf",
       "anchor": "print_hint(make_stringf(\"finished random %d\", random2(4)));",
       "module": "help",
@@ -15155,7 +15164,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 682,
+      "line": 685,
       "api": "mprf",
       "anchor": "mprf(MSGCH_TUTORIAL, \"%s\", untag_tiles_console(text).c_str());",
       "module": "help",
@@ -15163,7 +15172,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 758,
+      "line": 761,
       "api": "mprf",
       "anchor": "mprf(MSGCH_TUTORIAL, \"%s\", get_skill_description(skill).c_str());",
       "module": "help",
@@ -15171,7 +15180,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 895,
+      "line": 898,
       "api": "mprf",
       "anchor": "mprf(MSGCH_TUTORIAL, \"%s\", text.c_str());",
       "module": "help",
@@ -15179,7 +15188,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 919,
+      "line": 922,
       "api": "mprf",
       "anchor": "mprf(MSGCH_TUTORIAL, \"%s\", untag_tiles_console(text).c_str());",
       "module": "help",
@@ -15187,7 +15196,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 928,
+      "line": 931,
       "api": "mprf",
       "anchor": "mprf(MSGCH_TUTORIAL, \"%s\", untag_tiles_console(text).c_str());",
       "module": "help",
@@ -15195,7 +15204,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 1793,
+      "line": 1796,
       "api": "mprf",
       "anchor": "mprf(MSGCH_TUTORIAL, \"%s\", output.c_str());",
       "module": "help",
@@ -15203,7 +15212,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 1813,
+      "line": 1816,
       "api": "parse_string",
       "anchor": "return formatted_string::parse_string(text.str());",
       "module": "help",
@@ -15211,7 +15220,63 @@
     },
     {
       "file": "hints.cc",
-      "line": 2851,
+      "line": 1992,
+      "api": "zh_message",
+      "anchor": "const ZhMessage message = zh_message(id, args);",
+      "module": "help",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "hints.cc",
+      "line": 2075,
+      "api": "ZhLegacyGuard",
+      "anchor": "const ZhLegacyGuard boundary(\"detail.item.hints\");",
+      "module": "help",
+      "classification": "boundary-assertion"
+    },
+    {
+      "file": "hints.cc",
+      "line": 2080,
+      "api": "zh_message",
+      "anchor": "ostr << zh_message(id, args).display();",
+      "module": "help",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "hints.cc",
+      "line": 2117,
+      "api": "zh_glossary_name",
+      "anchor": "zh_glossary_name(\"best_skill\", \"skill.name\", skill_name(best)),",
+      "module": "help",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "hints.cc",
+      "line": 2118,
+      "api": "zh_glossary_name",
+      "anchor": "zh_glossary_name(\"weapon_skill\", \"skill.name\", skill_name(current)),",
+      "module": "help",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "hints.cc",
+      "line": 2136,
+      "api": "zh_item_arg",
+      "anchor": "emit(\"item.hints.missile.throwable\", {zh_item_arg(\"item_name\", item, DESC_YOUR),",
+      "module": "help",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "hints.cc",
+      "line": 2271,
+      "api": "zh_glossary_name",
+      "anchor": "zh_glossary_name(\"god\", \"god.name\", god_name(GOD_TROG, false)),",
+      "module": "help",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "hints.cc",
+      "line": 2733,
       "api": "mprf",
       "anchor": "return mprf(MSGCH_ERROR, \"Error, no message for '%s'.\", key);",
       "module": "help",
@@ -15219,7 +15284,7 @@
     },
     {
       "file": "hints.cc",
-      "line": 2864,
+      "line": 2746,
       "api": "mprf",
       "anchor": "mprf(MSGCH_TUTORIAL, \"%s\", chunk.c_str());",
       "module": "help",
@@ -47899,7 +47964,7 @@
     },
     {
       "file": "zh-display-name.cc",
-      "line": 317,
+      "line": 339,
       "api": "zh_place_arg",
       "anchor": "ZhArg zh_place_arg(const std::string &key, const level_id &place)",
       "module": "names",
@@ -47907,7 +47972,7 @@
     },
     {
       "file": "zh-display-name.cc",
-      "line": 320,
+      "line": 342,
       "api": "zh_word_arg",
       "anchor": "const ZhArg branch = zh_word_arg(\"branch\", \"place.branch.\",",
       "module": "names",
@@ -47915,7 +47980,7 @@
     },
     {
       "file": "zh-display-name.cc",
-      "line": 323,
+      "line": 345,
       "api": "zh_message",
       "anchor": "? zh_message(\"place.display.named\", {branch})",
       "module": "names",
@@ -47923,7 +47988,7 @@
     },
     {
       "file": "zh-display-name.cc",
-      "line": 324,
+      "line": 346,
       "api": "zh_message",
       "anchor": ": zh_message(\"place.display.level\",",
       "module": "names",
@@ -47931,7 +47996,15 @@
     },
     {
       "file": "zh-display-name.cc",
-      "line": 330,
+      "line": 360,
+      "api": "zh_glossary_name",
+      "anchor": "return zh_glossary_name(key, \"item.base\", canonical);",
+      "module": "names",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "zh-display-name.cc",
+      "line": 363,
       "api": "zh_monster_type_arg",
       "anchor": "ZhArg zh_monster_type_arg(const std::string &key, monster_type type)",
       "module": "names",
@@ -47939,7 +48012,7 @@
     },
     {
       "file": "zh-display-name.cc",
-      "line": 332,
+      "line": 365,
       "api": "zh_glossary_name",
       "anchor": "return zh_glossary_name(key, \"monster.name\", mons_type_name(type, DESC_PLAIN));",
       "module": "names",
@@ -47947,7 +48020,7 @@
     },
     {
       "file": "zh-display-name.cc",
-      "line": 335,
+      "line": 368,
       "api": "zh_monster_arg",
       "anchor": "ZhArg zh_monster_arg(const std::string &key, const monster &mon,",
       "module": "names",
@@ -47955,7 +48028,7 @@
     },
     {
       "file": "zh-display-name.cc",
-      "line": 394,
+      "line": 427,
       "api": "zh_monster_info_arg",
       "anchor": "ZhArg zh_monster_info_arg(const std::string &key, const monster_info &info,",
       "module": "names",
@@ -47963,7 +48036,7 @@
     },
     {
       "file": "zh-display-name.cc",
-      "line": 427,
+      "line": 460,
       "api": "zh_item_arg",
       "anchor": "ZhArg zh_item_arg(const std::string &key, const item_def &item,",
       "module": "names",
@@ -47971,7 +48044,7 @@
     },
     {
       "file": "zh-display-name.cc",
-      "line": 454,
+      "line": 487,
       "api": "zh_monster_arg",
       "anchor": "return zh_monster_arg(key, *mon, desc);",
       "module": "names",
@@ -47979,7 +48052,7 @@
     },
     {
       "file": "zh-display-name.cc",
-      "line": 463,
+      "line": 496,
       "api": "zh_monster_arg",
       "anchor": "const ZhArg arg = zh_monster_arg(\"name\", mon, desc);",
       "module": "names",
@@ -47987,7 +48060,7 @@
     },
     {
       "file": "zh-display-name.cc",
-      "line": 469,
+      "line": 502,
       "api": "zh_item_arg",
       "anchor": "const ZhArg arg = zh_item_arg(\"name\", item, desc);",
       "module": "names",

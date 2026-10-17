@@ -12,6 +12,10 @@ def hashes():
  return {str(p.relative_to(save_source)):hashlib.sha256(p.read_bytes()).hexdigest() for p in save_source.rglob('*') if p.is_file()}
 before=hashes();results=[]
 cases=[('hud','l'),('hud-wizard','l&wiz\r '),('spell-detail','l&wiz\r!Magic Dart\ryIa'),('armour-detail','ia'),('shop-examine','l&wiz\r$1000\r&\\a>!a'),('shop-selected','l&wiz\r$1000\r&\\a>a'),('level-five','l&wiz\rl5\r'),('combat','l&wiz\rmrat\r'+ '\t'*12),('equipment','l&wiz\riTaWa.....'),('weapon-detail','ib'),('skills','m'),('skills-help','m?'),('skills-description','m?a'),('skills-enhanced','m_'),('skills-general-help','m??'),('shop-confirm','l&wiz\r$1000\r&\\a>a\r'),('shop-purchased','l&wiz\r$1000\r&\\a>a\ry'),('shop-list','l&wiz\r$1000\r&\\a>a$\x1b$'),('monster-detail','llgllllllx+v'),('manual-long','?k')]
+# Independent hints-mode fixture; each scene gets its own disposable copy.
+cases += [('hints-armour','ib'),('hints-wand','l&wiz\r%pre_id wand of flame\rgi\t\t\ta'),
+          ('hints-missile','l&wiz\r%pre_id javelin\rgic'),
+          ('hints-staff','l&wiz\r%pre_id staff of fire\rgic')]
 if os.environ.get('DCSS_QA_SCENES'):
  cases=[c for c in cases if c[0] in os.environ['DCSS_QA_SCENES'].split(',')]
 x=subprocess.Popen(['Xvfb',':96','-screen','0','3840x2160x24','-nolisten','tcp'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
@@ -35,7 +39,8 @@ try:
    deadline=time.monotonic()+90
    reached=False
    while p.poll() is None and time.monotonic()<deadline:
-    wanted = ('hud.' if name.startswith('hud') else
+    wanted = ('detail.item.hints' if name.startswith('hints-') else
+              'hud.' if name.startswith('hud') else
               'skill.menu' if name.startswith('skills') else
               'detail.spell' if name=='spell-detail' else
               'detail.item' if name in ('weapon-detail','armour-detail','shop-examine') else
@@ -69,6 +74,10 @@ finally:
  (base/'results.json').write_text(json.dumps({'original_saves_unchanged':unchanged,'scenes':results},ensure_ascii=False,indent=2)+'\n')
  assert unchanged,'Original saves changed externally during test'
 expected={
+ 'hints-armour':{'item.hints.armour.wear_remove'},
+ 'hints-wand':{'item.hints.wand.use'},
+ 'hints-missile':{'item.hints.missile.throwable'},
+ 'hints-staff':{'item.hints.staff.school'},
  'hud':{'hud.experience.progress','hud.place.depth'},
  'hud-wizard':{'hud.experience.progress','hud.place.depth'},
  'skills':{'skill.menu.entry_name'},
@@ -89,6 +98,11 @@ for result in results:
  assert result['scene_reached'] and result['running_at_capture'] and not result['lua_error'],result['scene']
  ids={line.split('\t')[0] for line in result['id_trace']}
  assert expected.get(result['scene'],set()) <= ids,(result['scene'],ids)
+ if result['scene'].startswith('hints-'):
+  assert not result['missing'],(result['scene'],result['missing'])
+  if result['scene'] != 'hints-wand':
+   assert not result['names'],(result['scene'],result['names'])
+  # Ordinary wand title still has explicit whole-name fallback; record it.
  if result['scene'].startswith('skills') or result['scene'] in ('combat','equipment','weapon-detail'):
   assert not result['missing'],(result['scene'],result['missing'])
 for result in results:

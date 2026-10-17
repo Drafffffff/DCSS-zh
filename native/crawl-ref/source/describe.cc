@@ -3194,7 +3194,7 @@ string get_item_description(const item_def &item,
             description << zh_message("item.consumable.rarity", {
                 ZhArg{"article", ZhArgType::Text, article, localized_article,
                       localized_article != article},
-                ZhArg{"rarity", ZhArgType::Name, rarity, localized_rarity,
+                ZhArg{"rarity", ZhArgType::Text, rarity, localized_rarity,
                       localized_rarity != rarity},
                 zh_text("kind", "potion", "药水")}).display();
             need_extra_line = false;
@@ -3234,7 +3234,7 @@ string get_item_description(const item_def &item,
             description << zh_message("item.consumable.rarity", {
                 ZhArg{"article", ZhArgType::Text, article, localized_article,
                       localized_article != article},
-                ZhArg{"rarity", ZhArgType::Name, rarity, localized_rarity,
+                ZhArg{"rarity", ZhArgType::Text, rarity, localized_rarity,
                       localized_rarity != rarity},
                 zh_text("kind", "scroll", "卷轴")}).display();
             need_extra_line = false;
@@ -4319,9 +4319,7 @@ command_type describe_item_popup(const item_def &item,
 
     if (crawl_state.game_is_hints())
     {
-        const string hints = hints_describe_item(item);
-        desc += "\n\n" + zh_message("item.hints.english_fallback", {
-            ZhArg{"text", ZhArgType::Text, hints, hints, false}}).display();
+        desc += "\n\n" + hints_describe_item(item);
     }
 
     if (fixup_desc)

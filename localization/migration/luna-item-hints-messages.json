@@ -1,0 +1,1340 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "item.hints.target_mode.fire",
+      "context": "Hints target mode helper：远程攻击瞄准后的继续操作",
+      "en": "then be taken to target mode with the nearest monster or previous target already targeted. You can also cycle through all hostile monsters in sight with <w>+</w> or <w>-</w>. Once you're aiming at the correct monster, simply hit <w>f</w>, <w>Enter</w> or <w>.</w> to shoot at it. If you miss, {repeat_key} fires at the same target again.",
+      "zh": "随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。你也可以按<w>+</w>或<w>-</w>循环切换视野内的敌对怪物。瞄准正确的怪物后，按<w>f</w>、<w>Enter</w>或<w>.</w>即可射击。若未命中，按{repeat_key}可再次向同一目标射击。",
+      "params": {
+        "repeat_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "_hints_target_mode(false); CMD_FIRE repeat command inserted into %f"
+      }
+    },
+    {
+      "id": "item.hints.target_mode.spell",
+      "context": "Hints target mode helper：攻击法术瞄准后的继续操作",
+      "en": "then be taken to target mode with the nearest monster or previous target already targeted. You can also cycle through all hostile monsters in sight with <w>+</w> or <w>-</w>. Once you're aiming at the correct monster, simply hit <w>f</w>, <w>Enter</w> or <w>.</w> to shoot at it. If you miss, {repeat_key} fires at the same target again.",
+      "zh": "随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。你也可以按<w>+</w>或<w>-</w>循环切换视野内的敌对怪物。瞄准正确的怪物后，按<w>f</w>、<w>Enter</w>或<w>.</w>即可施放。若未命中，按{repeat_key}可再次向同一目标施法。",
+      "params": {
+        "repeat_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "_hints_target_mode(true); CMD_CAST_SPELL repeat command inserted into %ap"
+      }
+    },
+    {
+      "id": "item.hints.ability.prerequisite.weapon",
+      "context": "Hints ability helper：未装备物品的装备前置动作",
+      "en": "To do this, first {equip_key}ield it, then enter the ability menu with {ability_key}, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+      "zh": "要发动能力，先按{equip_key}挥舞该武器，再按{ability_key}打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。",
+      "params": {
+        "equip_key": "key_markup",
+        "ability_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "_hints_abilities; !item_is_equipped, CMD_WIELD_WEAPON, then CMD_USE_ABILITY"
+      }
+    },
+    {
+      "id": "item.hints.ability.prerequisite.armour",
+      "context": "Hints ability helper：未装备物品的装备前置动作",
+      "en": "To do this, first {equip_key}ear it, then enter the ability menu with {ability_key}, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+      "zh": "要发动能力，先按{equip_key}穿上该护甲，再按{ability_key}打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。",
+      "params": {
+        "equip_key": "key_markup",
+        "ability_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "_hints_abilities; !item_is_equipped, CMD_WEAR_ARMOUR, then CMD_USE_ABILITY"
+      }
+    },
+    {
+      "id": "item.hints.ability.prerequisite.jewellery",
+      "context": "Hints ability helper：未装备物品的装备前置动作",
+      "en": "To do this, first {equip_key}ut it on, then enter the ability menu with {ability_key}, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+      "zh": "要发动能力，先按{equip_key}戴上该饰品，再按{ability_key}打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。",
+      "params": {
+        "equip_key": "key_markup",
+        "ability_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "_hints_abilities; !item_is_equipped, CMD_WEAR_JEWELLERY, then CMD_USE_ABILITY"
+      }
+    },
+    {
+      "id": "item.hints.ability.prerequisite.equipped",
+      "context": "Hints ability helper：已装备物品直接打开能力菜单",
+      "en": "To do this, enter the ability menu with {ability_key}, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+      "zh": "要发动能力，按{ability_key}打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。",
+      "params": {
+        "ability_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "_hints_abilities; item_is_equipped=true, then CMD_USE_ABILITY"
+      }
+    },
+    {
+      "id": "item.hints.ability.prerequisite.bug",
+      "context": "Hints ability helper：不应触发能力提示的物品诊断分支",
+      "en": "To do this, <r>(BUG! this item shouldn't give an ability)</r>, then enter the ability menu with {ability_key}, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+      "zh": "要发动能力，<r>（错误：此物品不应提供能力）</r>，再按{ability_key}打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。",
+      "params": {
+        "ability_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "_hints_abilities; unequipped item base_type outside weapons/armour/jewellery default BUG branch"
+      }
+    },
+    {
+      "id": "item.hints.throw.singular.slot",
+      "context": "Hints throw helper：投掷/发射物品的目标流程",
+      "en": "To do this, press {fire_key} to fire, then <w>{item_slot}</w> for this {item_name}. You'll {target_suffix}",
+      "zh": "要这样做，按{fire_key}射击，然后按<w>{item_slot}</w>选择该{item_name}。{target_suffix}",
+      "params": {
+        "fire_key": "key_markup",
+        "item_slot": "key",
+        "item_name": "name",
+        "target_suffix": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "_hints_throw_stuff; item.slot is nonzero; slot key and singular/plural quantity branch"
+      }
+    },
+    {
+      "id": "item.hints.throw.singular.no_slot",
+      "context": "Hints throw helper：投掷/发射物品的目标流程",
+      "en": "To do this, press {fire_key} to fire, then select this {item_name}. You'll {target_suffix}",
+      "zh": "要这样做，按{fire_key}射击，然后选择该{item_name}。{target_suffix}",
+      "params": {
+        "fire_key": "key_markup",
+        "item_name": "name",
+        "target_suffix": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "_hints_throw_stuff; item.slot is zero; select branch and singular/plural quantity branch"
+      }
+    },
+    {
+      "id": "item.hints.throw.plural.slot",
+      "context": "Hints throw helper：投掷/发射物品的目标流程",
+      "en": "To do this, press {fire_key} to fire, then <w>{item_slot}</w> for these {item_name}s. You'll {target_suffix}",
+      "zh": "要这样做，按{fire_key}射击，然后按<w>{item_slot}</w>选择这些{item_name}。{target_suffix}",
+      "params": {
+        "fire_key": "key_markup",
+        "item_slot": "key",
+        "item_name": "name",
+        "target_suffix": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "_hints_throw_stuff; item.slot is nonzero; slot key and singular/plural quantity branch"
+      }
+    },
+    {
+      "id": "item.hints.throw.plural.no_slot",
+      "context": "Hints throw helper：投掷/发射物品的目标流程",
+      "en": "To do this, press {fire_key} to fire, then select these {item_name}s. You'll {target_suffix}",
+      "zh": "要这样做，按{fire_key}射击，然后选择这些{item_name}。{target_suffix}",
+      "params": {
+        "fire_key": "key_markup",
+        "item_name": "name",
+        "target_suffix": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "_hints_throw_stuff; item.slot is zero; select branch and singular/plural quantity branch"
+      }
+    },
+    {
+      "id": "item.hints.weapon.artefact.ability",
+      "context": "Hints：已鉴定且提供能力的神器武器",
+      "en": "When wielded, some weapons (such as this one) offer certain abilities you can activate. {ability_hint}",
+      "zh": "某些武器（例如这件）挥舞后会提供可发动的能力。{ability_hint}",
+      "params": {
+        "ability_hint": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_WEAPONS; is_artefact && identified && gives_ability; append _hints_abilities(item)"
+      }
+    },
+    {
+      "id": "item.hints.weapon.artefact.resistance",
+      "context": "Hints：已鉴定且提供抗性的神器武器 tile_control 复用固定子句 item.hints.tiles.avatar_right_click。",
+      "en": "This weapon offers its wearer protection from certain damage sources. For an overview of your resistances (among other things) press {resists_key}{tile_control}.",
+      "zh": "这把武器能保护持有者免受某些伤害来源影响。按{resists_key}{tile_control}可查看抗性等信息。",
+      "params": {
+        "resists_key": "key_markup",
+        "tile_control": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_WEAPONS; is_artefact && identified && gives_resistance; tile_control only USE_TILE adds right-click alternative"
+      }
+    },
+    {
+      "id": "item.hints.weapon.unwielded",
+      "context": "Hints：尚未装备的武器基本操作",
+      "en": "You can wield this weapon with {wield_key}, or use {swap_key} to switch between the weapons in slot a and b. (Use {adjust_key} to adjust item slots.)",
+      "zh": "按{wield_key}可挥舞这把武器，按{swap_key}可切换 a、b 栏中的武器。（按{adjust_key}可调整物品栏位。）",
+      "params": {
+        "wield_key": "key_markup",
+        "swap_key": "key_markup",
+        "adjust_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_WEAPONS; !item_is_equipped; CMD_WIELD_WEAPON/CMD_WEAPON_SWAP/CMD_ADJUST_INVENTORY"
+      }
+    },
+    {
+      "id": "item.hints.weapon.training_gap",
+      "context": "Hints：当前武器技能比最佳训练技能低至少3个技能点",
+      "en": "However, you've been training in <w>{best_skill}</w> for a while, so maybe you should continue training that rather than <w>{weapon_skill}</w>. (Press {skills_key} to see the skill management screen for the actual numbers.)",
+      "zh": "不过，你已经训练<w>{best_skill}</w>一段时间了；或许应继续训练它，而不是<w>{weapon_skill}</w>。（按{skills_key}可在技能管理界面查看具体数值。）",
+      "params": {
+        "best_skill": "name",
+        "weapon_skill": "name",
+        "skills_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_WEAPONS; skills[curr_wpskill]+2 < skills[best_wpskill], after best skill resolution"
+      }
+    },
+    {
+      "id": "item.hints.weapon.ranged.wielded",
+      "context": "Hints：已装备远程武器的键盘操作",
+      "en": "To attack a monster, press {attack_key}. You'll {target_suffix}",
+      "zh": "要攻击怪物，按{attack_key}。{target_suffix}",
+      "params": {
+        "attack_key": "key_markup",
+        "target_suffix": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_WEAPONS; equipped and is_range_weapon; CMD_PRIMARY_ATTACK then _hints_target_mode(false)"
+      }
+    },
+    {
+      "id": "item.hints.weapon.ranged.wielded.tile",
+      "context": "Hints：已装备远程武器的鼠标操作（Tiles）",
+      "en": "To attack a monster, <w>left mouse click</w> on the monster.\n\nTo fire a ranged weapon using the keyboard, press {attack_key}. You'll {target_suffix}",
+      "zh": "要攻击怪物，<w>用鼠标左键点击</w>怪物。\n\n要用键盘发射远程武器，按{attack_key}。{target_suffix}",
+      "params": {
+        "attack_key": "key_markup",
+        "target_suffix": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_WEAPONS; equipped, ranged and USE_TILE"
+      }
+    },
+    {
+      "id": "item.hints.weapon.melee.wielded",
+      "context": "Hints：已装备近战武器的攻击操作",
+      "en": "To attack a monster, you can simply walk into it.",
+      "zh": "要攻击怪物，只需走向它。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_WEAPONS; equipped and not is_range_weapon"
+      }
+    },
+    {
+      "id": "item.hints.missile.throwable",
+      "context": "Hints：可投掷弹药说明",
+      "en": "{item_name} can be {fire_key}ired without the use of a launcher. {throw_hint}",
+      "zh": "{item_name}无需发射器即可按{fire_key}发射。{throw_hint}",
+      "params": {
+        "item_name": "name",
+        "fire_key": "key_markup",
+        "throw_hint": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_MISSILES; is_throwable(&you,item); item.name(DESC_YOUR), CMD_FIRE and _hints_throw_stuff"
+      }
+    },
+    {
+      "id": "item.hints.armour.horns_helmet",
+      "context": "Hints：有角角色不能佩戴硬头盔",
+      "en": "Because of your horns you cannot wear helmets. (Press {mutations_key} to see a list of your mutations and innate abilities.)",
+      "zh": "因为你长有角，无法佩戴头盔。（按{mutations_key}可查看突变和先天能力列表。）",
+      "params": {
+        "mutations_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_ARMOUR; horns mutation level > 0 && is_hard_helmet; CMD_DISPLAY_MUTATIONS; wearable=false"
+      }
+    },
+    {
+      "id": "item.hints.armour.barding_restriction",
+      "context": "Hints：非娜迦/半人马兽不能穿戴马铠",
+      "en": "Only nagas and armataurs can wear barding.",
+      "zh": "只有娜迦和半人马兽可以穿戴马铠。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_ARMOUR; item.sub_type == ARM_BARDING; wearable=false"
+      }
+    },
+    {
+      "id": "item.hints.armour.wear_remove",
+      "context": "Hints：普通护甲穿脱说明 tile_alternative 复用 item.hints.tiles.armour_click。",
+      "en": "You can wear pieces of armour with {wear_key} and take them off again with {remove_key}{tile_alternative}.",
+      "zh": "按{wear_key}可穿戴护甲，按{remove_key}可脱下{tile_alternative}。",
+      "params": {
+        "wear_key": "key_markup",
+        "remove_key": "key_markup",
+        "tile_alternative": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_ARMOUR; ordinary wearable branch; CMD_WEAR_ARMOUR/CMD_REMOVE_ARMOUR; tile_alternative only USE_TILE"
+      }
+    },
+    {
+      "id": "item.hints.armour.magic_encumbrance",
+      "context": "Hints：法师开局重甲施法警告",
+      "en": "Note that body armour with a high encumbrance rating may hinder your ability to cast spells. Light armour such as robes and leather armour will be generally safe for any aspiring spellcaster.",
+      "zh": "注意，负重等级较高的躯干护甲可能妨碍施法。长袍、皮甲等轻甲通常不会影响有志施法者。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_ARMOUR; HINT_MAGIC_CHAR, body armour, !is_effectively_light_armour"
+      }
+    },
+    {
+      "id": "item.hints.armour.magic_shield",
+      "context": "Hints：法师开局盾牌施法警告",
+      "en": "Note that shields will hinder your ability to cast spells, until you've gained enough Shields skill to remove the penalty.",
+      "zh": "注意，在盾牌技能足以消除惩罚前，盾牌会妨碍你施法。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_ARMOUR; HINT_MAGIC_CHAR && is_shield"
+      }
+    },
+    {
+      "id": "item.hints.armour.ranger_offhand",
+      "context": "Hints：游侠开局副手远程武器警告",
+      "en": "Note that many ranged weapons are two handed and so cannot be used with an offhand item.",
+      "zh": "注意，许多远程武器需要双手使用，因此无法与副手物品同时装备。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_ARMOUR; HINT_RANGER_CHAR && is_offhand(item)"
+      }
+    },
+    {
+      "id": "item.hints.armour.unidentified_special",
+      "context": "Hints：未鉴定且描述异常的武器/护甲提示",
+      "en": "Weapons and armour that have unusual descriptions like this are much more likely to be of higher enchantment or have special properties, good or bad.",
+      "zh": "描述异常的武器和护甲更有可能具有较高的附魔等级或特殊属性，无论好坏。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_ARMOUR; !identified && (artefact || get_equip_desc != ISFLAG_NO_DESC)"
+      }
+    },
+    {
+      "id": "item.hints.armour.resistance",
+      "context": "Hints：可穿戴护甲提供抗性提示 tile_control 复用固定子句 item.hints.tiles.avatar_right_click。",
+      "en": "This armour offers its wearer protection from certain sources. For an overview of your resistances (among other things) press {resists_key}{tile_control}.",
+      "zh": "这件护甲能保护穿戴者免受某些伤害来源影响。按{resists_key}{tile_control}可查看抗性等信息。",
+      "params": {
+        "resists_key": "key_markup",
+        "tile_control": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_ARMOUR; wearable && gives_resistance; tile_control only USE_TILE"
+      }
+    },
+    {
+      "id": "item.hints.armour.ability",
+      "context": "Hints：可穿戴护甲提供能力提示",
+      "en": "When worn, some types of armour (such as this one) offer certain {ability_key}bilities you can activate. {ability_hint}",
+      "zh": "某些护甲（例如这件）穿戴后会提供可发动的能力（按{ability_key}进入能力菜单）。{ability_hint}",
+      "params": {
+        "ability_key": "key_markup",
+        "ability_hint": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_ARMOUR; wearable && gives_ability; CMD_USE_ABILITY and _hints_abilities"
+      }
+    },
+    {
+      "id": "item.hints.wand.use",
+      "context": "Hints：魔杖通用发动方法",
+      "en": "The magic within can be unleashed by evoking ({evoke_key}) it.",
+      "zh": "按{evoke_key}即可发动魔杖中的魔力。",
+      "params": {
+        "evoke_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_WANDS; CMD_EVOKE"
+      }
+    },
+    {
+      "id": "item.hints.wand.tiles.web",
+      "context": "Hints：Web Tiles 魔杖鼠标发动说明",
+      "en": "Alternatively, you can 1) <w>left mouse click</w> on the monster you wish to target (or your player character to target yourself) while pressing the <w>Ctrl + Shift keys</w> and pick the wand from the menu, or 2) <w>left mouse click</w> on the wand tile and then <w>left mouse click</w> on your target.",
+      "zh": "也可以：1）按住<w>Ctrl + Shift</w>并<w>用鼠标左键点击</w>目标怪物（若要以自己为目标，则点击角色），再从菜单中选择魔杖；或 2）先<w>用鼠标左键点击</w>魔杖图标，再<w>用鼠标左键点击</w>目标。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_WANDS; USE_TILE && USE_TILE_WEB"
+      }
+    },
+    {
+      "id": "item.hints.wand.tiles.fullscreen",
+      "context": "Hints：全屏 Tiles 魔杖鼠标发动说明",
+      "en": "Alternatively, you can 1) <w>left mouse click</w> on the monster you wish to target (or your player character to target yourself) while pressing the <w>Alt key</w> and pick the wand from the menu, or 2) <w>left mouse click</w> on the wand tile and then <w>left mouse click</w> on your target.",
+      "zh": "也可以：1）按住<w>Alt</w>并<w>用鼠标左键点击</w>目标怪物（若要以自己为目标，则点击角色），再从菜单中选择魔杖；或 2）先<w>用鼠标左键点击</w>魔杖图标，再<w>用鼠标左键点击</w>目标。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_WANDS; USE_TILE, non-web fullscreen or non-UNIX local branch"
+      }
+    },
+    {
+      "id": "item.hints.wand.tiles.windowed",
+      "context": "Hints：窗口化本地 Tiles 魔杖鼠标发动说明",
+      "en": "Alternatively, you can 1) <w>left mouse click</w> on the monster you wish to target (or your player character to target yourself) while pressing the <w>Ctrl + Shift keys</w> and pick the wand from the menu, or 2) <w>left mouse click</w> on the wand tile and then <w>left mouse click</w> on your target.",
+      "zh": "也可以：1）按住<w>Ctrl + Shift</w>并<w>用鼠标左键点击</w>目标怪物（若要以自己为目标，则点击角色），再从菜单中选择魔杖；或 2）先<w>用鼠标左键点击</w>魔杖图标，再<w>用鼠标左键点击</w>目标。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_WANDS; USE_TILE && UNIX && USE_TILE_LOCAL && !tiles.is_fullscreen()"
+      }
+    },
+    {
+      "id": "item.hints.scroll.use",
+      "context": "Hints：卷轴阅读操作 tile_click 复用 item.hints.tiles.scroll_click。",
+      "en": "Press {read_key} to read this scroll{tile_click}.",
+      "zh": "按{read_key}阅读这张卷轴{tile_click}。",
+      "params": {
+        "read_key": "key_markup",
+        "tile_click": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_SCROLLS; CMD_READ; tile_click only USE_TILE"
+      }
+    },
+    {
+      "id": "item.hints.jewellery.wear_remove",
+      "context": "Hints：饰品穿脱操作 tile_alternative 复用 item.hints.tiles.jewellery_click。",
+      "en": "Jewellery can be {wear_key}ut on or {remove_key}emoved again{tile_alternative}.",
+      "zh": "按{wear_key}可戴上饰品，按{remove_key}可取下{tile_alternative}。",
+      "params": {
+        "wear_key": "key_markup",
+        "remove_key": "key_markup",
+        "tile_alternative": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_JEWELLERY; CMD_WEAR_JEWELLERY/CMD_REMOVE_JEWELLERY; tile alternative only USE_TILE"
+      }
+    },
+    {
+      "id": "item.hints.jewellery.resistance",
+      "context": "Hints：戒指/护符抗性说明 jewellery_type 从 item.hints.jewellery.type.ring 或 .amulet 原子取词。",
+      "en": "This {jewellery_type} offers its wearer protection from certain sources. For an overview of your resistances (among other things) press {resists_key}{tile_control}.",
+      "zh": "这枚{jewellery_type}能保护佩戴者免受某些伤害来源影响。按{resists_key}{tile_control}可查看抗性等信息。",
+      "params": {
+        "jewellery_type": "name",
+        "resists_key": "key_markup",
+        "tile_control": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_JEWELLERY; gives_resistance; ring when subtype < NUM_RINGS, otherwise amulet"
+      }
+    },
+    {
+      "id": "item.hints.jewellery.ability",
+      "context": "Hints：饰品能力说明",
+      "en": "When worn, some types of jewellery (such as this one) offer certain {ability_key}bilities you can activate. {ability_hint}",
+      "zh": "某些饰品（例如这件）戴上后会提供可发动的能力（按{ability_key}进入能力菜单）。{ability_hint}",
+      "params": {
+        "ability_key": "key_markup",
+        "ability_hint": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_JEWELLERY; gives_ability; CMD_USE_ABILITY and _hints_abilities"
+      }
+    },
+    {
+      "id": "item.hints.potion.use",
+      "context": "Hints：药水饮用操作 tile_click 复用 item.hints.tiles.potion_click。",
+      "en": "Press {quaff_key} to quaff this potion{tile_click}.",
+      "zh": "按{quaff_key}饮用这瓶药水{tile_click}。",
+      "params": {
+        "quaff_key": "key_markup",
+        "tile_click": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_POTIONS; CMD_QUAFF; tile click only USE_TILE"
+      }
+    },
+    {
+      "id": "item.hints.book.manual",
+      "context": "Hints：技能手册说明",
+      "en": "A manual can greatly help you in training a skill. After you pick one up, the skill in question will be trained more efficiently and will level up faster until you exhaust the manual's contents.",
+      "zh": "技能手册能显著帮助你训练技能。拾取后，对应技能的训练效率会提高、升级也会更快，直到手册内容耗尽。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_BOOKS; item.sub_type == BOOK_MANUAL; CMD_READ"
+      }
+    },
+    {
+      "id": "item.hints.book.spellbook",
+      "context": "Hints：法术书说明",
+      "en": "You can pick up a spellbook to add its spells to your spell library. (View your spell library with {memorise_key}.)",
+      "zh": "拾取法术书即可将其中的法术加入法术库。（按{memorise_key}查看法术库。）",
+      "params": {
+        "memorise_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_BOOKS; non-BOOK_MANUAL; CMD_MEMORISE_SPELL"
+      }
+    },
+    {
+      "id": "item.hints.corpse.use",
+      "context": "Hints：尸体和骨骼用途说明",
+      "en": "Skeletons and corpses can be used as components for certain necromantic spells. Apart from that, they are largely useless.",
+      "zh": "骨骼和尸体可作为某些死灵法术的材料。除此之外，它们基本没有用处。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_CORPSES"
+      }
+    },
+    {
+      "id": "item.hints.staff.school",
+      "context": "Hints：法杖强化相关学派说明",
+      "en": "This staff can enhance your spellcasting, making spells of its related spell school more powerful.",
+      "zh": "这根法杖可以强化你的施法能力，使相关法术学派的法术更强。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_STAVES; unconditional text"
+      }
+    },
+    {
+      "id": "item.hints.staff.resistance",
+      "context": "Hints：法杖抗性说明 tile_control 复用固定子句 item.hints.tiles.avatar_right_click。",
+      "en": "It also offers its wielder protection from certain sources. For an overview of your resistances (among other things) press {resists_key}{tile_control}.",
+      "zh": "它还能保护持有者免受某些伤害来源影响。按{resists_key}{tile_control}可查看抗性等信息。",
+      "params": {
+        "resists_key": "key_markup",
+        "tile_control": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_STAVES; gives_resistance; tile_control only USE_TILE"
+      }
+    },
+    {
+      "id": "item.hints.staff.trog",
+      "context": "Hints：信奉托格时法杖提示",
+      "en": "Seeing how {god} frowns upon the use of magic, this staff will be of little use to you and you might just as well {drop_key}rop it now.",
+      "zh": "既然{god}不喜欢使用魔法，这根法杖对你用处不大，不如现在就按{drop_key}丢掉。",
+      "params": {
+        "god": "name",
+        "drop_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_STAVES; !gives_resistance && you_worship(GOD_TROG); god_name(GOD_TROG,false), CMD_DROP"
+      }
+    },
+    {
+      "id": "item.hints.misc.evocation",
+      "context": "Hints：杂项物品发动说明",
+      "en": "Miscellaneous items sometimes harbour magical powers that can be harnessed by e{evoke_key}oking the item.",
+      "zh": "杂项物品有时蕴藏魔力，可按{evoke_key}发动。",
+      "params": {
+        "evoke_key": "key_markup"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_MISCELLANY; CMD_EVOKE"
+      }
+    },
+    {
+      "id": "item.hints.tiles.avatar_right_click",
+      "context": "Hints：Tiles 头像右键查看角色概况的可选子句",
+      "en": " or click on your avatar with the <w>right mouse button</w>",
+      "zh": "，或<w>用鼠标右键点击</w>角色头像",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item resistance paragraphs; USE_TILE literal"
+      }
+    },
+    {
+      "id": "item.hints.tiles.armour_click",
+      "context": "Hints：Tiles 点击护甲图标穿脱的可选子句",
+      "en": ", or, alternatively, simply click on their tiles to perform either action",
+      "zh": "，或者直接点击护甲图标执行对应操作",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_ARMOUR wear/remove USE_TILE literal"
+      }
+    },
+    {
+      "id": "item.hints.tiles.jewellery_click",
+      "context": "Hints：Tiles 点击物品栏饰品穿脱的可选子句",
+      "en": ", though in Tiles, either can be done by clicking on the item in your inventory",
+      "zh": "，在 Tiles 中，也可以点击物品栏里的饰品完成穿脱",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_JEWELLERY wear/remove USE_TILE literal"
+      }
+    },
+    {
+      "id": "item.hints.tiles.scroll_click",
+      "context": "Hints：Tiles 点击卷轴的可选子句",
+      "en": "or simply click on it with your <w>left mouse button</w>",
+      "zh": "，或<w>用鼠标左键点击</w>卷轴",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_SCROLLS USE_TILE literal; source concatenation has no separator before or"
+      }
+    },
+    {
+      "id": "item.hints.tiles.potion_click",
+      "context": "Hints：Tiles 点击药水的可选子句",
+      "en": "or simply click on it with your <w>left mouse button</w>",
+      "zh": "，或<w>用鼠标左键点击</w>药水",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_POTIONS USE_TILE literal; source concatenation has no separator before or"
+      }
+    },
+    {
+      "id": "item.hints.jewellery.type.ring",
+      "context": "Hints：抗性提示中的首饰类别原子",
+      "en": "ring",
+      "zh": "戒指",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_JEWELLERY; item.sub_type < NUM_RINGS"
+      }
+    },
+    {
+      "id": "item.hints.jewellery.type.amulet",
+      "context": "Hints：抗性提示中的首饰类别原子",
+      "en": "amulet",
+      "zh": "护身符",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/hints.cc",
+        "anchor": "hints_describe_item OBJ_JEWELLERY; item.sub_type >= NUM_RINGS"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "item.hints.target_mode.fire",
+      "args": {
+        "repeat_key": {
+          "type": "key_markup",
+          "canonical": "<w>f</w>",
+          "localized": "<w>f</w>"
+        }
+      },
+      "canonical": "then be taken to target mode with the nearest monster or previous target already targeted. You can also cycle through all hostile monsters in sight with <w>+</w> or <w>-</w>. Once you're aiming at the correct monster, simply hit <w>f</w>, <w>Enter</w> or <w>.</w> to shoot at it. If you miss, <w>f</w> fires at the same target again.",
+      "zh": "随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。你也可以按<w>+</w>或<w>-</w>循环切换视野内的敌对怪物。瞄准正确的怪物后，按<w>f</w>、<w>Enter</w>或<w>.</w>即可射击。若未命中，按<w>f</w>可再次向同一目标射击。"
+    },
+    {
+      "id": "item.hints.ability.prerequisite.weapon",
+      "args": {
+        "equip_key": {
+          "type": "key_markup",
+          "canonical": "<w>w</w>",
+          "localized": "<w>w</w>"
+        },
+        "ability_key": {
+          "type": "key_markup",
+          "canonical": "<w>a</w>",
+          "localized": "<w>a</w>"
+        }
+      },
+      "canonical": "To do this, first <w>w</w>ield it, then enter the ability menu with <w>a</w>, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+      "zh": "要发动能力，先按<w>w</w>挥舞该武器，再按<w>a</w>打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。"
+    },
+    {
+      "id": "item.hints.throw.plural.slot",
+      "args": {
+        "fire_key": {
+          "type": "key_markup",
+          "canonical": "<w>f</w>",
+          "localized": "<w>f</w>"
+        },
+        "item_slot": {
+          "type": "key",
+          "canonical": "d",
+          "localized": "d"
+        },
+        "item_name": {
+          "type": "name",
+          "canonical": "javelin",
+          "localized": "标枪"
+        },
+        "target_suffix": {
+          "type": "text",
+          "canonical": "then be taken to target mode.",
+          "localized": "随后进入瞄准模式。"
+        }
+      },
+      "canonical": "To do this, press <w>f</w> to fire, then <w>d</w> for these javelins. You'll then be taken to target mode.",
+      "zh": "要这样做，按<w>f</w>射击，然后按<w>d</w>选择这些标枪。随后进入瞄准模式。"
+    },
+    {
+      "id": "item.hints.armour.magic_encumbrance",
+      "args": {},
+      "canonical": "Note that body armour with a high encumbrance rating may hinder your ability to cast spells. Light armour such as robes and leather armour will be generally safe for any aspiring spellcaster.",
+      "zh": "注意，负重等级较高的躯干护甲可能妨碍施法。长袍、皮甲等轻甲通常不会影响有志施法者。"
+    },
+    {
+      "id": "item.hints.jewellery.resistance",
+      "args": {
+        "jewellery_type": {
+          "type": "name",
+          "canonical": "ring",
+          "localized": "戒指"
+        },
+        "resists_key": {
+          "type": "key_markup",
+          "canonical": "<w>%</w>",
+          "localized": "<w>%</w>"
+        },
+        "tile_control": {
+          "type": "text",
+          "canonical": "",
+          "localized": "，或<w>用鼠标右键点击</w>角色头像"
+        }
+      },
+      "canonical": "This ring offers its wearer protection from certain sources. For an overview of your resistances (among other things) press <w>%</w>.",
+      "zh": "这枚戒指能保护佩戴者免受某些伤害来源影响。按<w>%</w>，或<w>用鼠标右键点击</w>角色头像可查看抗性等信息。"
+    },
+    {
+      "id": "item.hints.wand.tiles.web",
+      "args": {},
+      "canonical": "Alternatively, you can 1) <w>left mouse click</w> on the monster you wish to target (or your player character to target yourself) while pressing the <w>Ctrl + Shift keys</w> and pick the wand from the menu, or 2) <w>left mouse click</w> on the wand tile and then <w>left mouse click</w> on your target.",
+      "zh": "也可以：1）按住<w>Ctrl + Shift</w>并<w>用鼠标左键点击</w>目标怪物（若要以自己为目标，则点击角色），再从菜单中选择魔杖；或 2）先<w>用鼠标左键点击</w>魔杖图标，再<w>用鼠标左键点击</w>目标。"
+    },
+    {
+      "id": "item.hints.book.manual",
+      "args": {},
+      "canonical": "A manual can greatly help you in training a skill. After you pick one up, the skill in question will be trained more efficiently and will level up faster until you exhaust the manual's contents.",
+      "zh": "技能手册能显著帮助你训练技能。拾取后，对应技能的训练效率会提高、升级也会更快，直到手册内容耗尽。"
+    },
+    {
+      "id": "item.hints.staff.trog",
+      "args": {
+        "god": {
+          "type": "name",
+          "canonical": "Trog",
+          "localized": "托格"
+        },
+        "drop_key": {
+          "type": "key_markup",
+          "canonical": "<w>d</w>",
+          "localized": "<w>d</w>"
+        }
+      },
+      "canonical": "Seeing how Trog frowns upon the use of magic, this staff will be of little use to you and you might just as well <w>d</w>rop it now.",
+      "zh": "既然托格不喜欢使用魔法，这根法杖对你用处不大，不如现在就按<w>d</w>丢掉。"
+    },
+    {
+      "id": "item.hints.weapon.training_gap",
+      "args": {
+        "best_skill": {
+          "type": "name",
+          "canonical": "Long Blades",
+          "localized": "长刃"
+        },
+        "weapon_skill": {
+          "type": "name",
+          "canonical": "Axes",
+          "localized": "斧术"
+        },
+        "skills_key": {
+          "type": "key_markup",
+          "canonical": "<w>m</w>",
+          "localized": "<w>m</w>"
+        }
+      },
+      "canonical": "However, you've been training in <w>Long Blades</w> for a while, so maybe you should continue training that rather than <w>Axes</w>. (Press <w>m</w> to see the skill management screen for the actual numbers.)",
+      "zh": "不过，你已经训练<w>长刃</w>一段时间了；或许应继续训练它，而不是<w>斧术</w>。（按<w>m</w>可在技能管理界面查看具体数值。）"
+    },
+    {
+      "id": "item.hints.armour.horns_helmet",
+      "args": {
+        "mutations_key": {
+          "type": "key_markup",
+          "canonical": "<w>A</w>",
+          "localized": "<w>A</w>"
+        }
+      },
+      "canonical": "Because of your horns you cannot wear helmets. (Press <w>A</w> to see a list of your mutations and innate abilities.)",
+      "zh": "因为你长有角，无法佩戴头盔。（按<w>A</w>可查看突变和先天能力列表。）"
+    },
+    {
+      "id": "item.hints.potion.use",
+      "args": {
+        "quaff_key": {
+          "type": "key_markup",
+          "canonical": "<w>q</w>",
+          "localized": "<w>q</w>"
+        },
+        "tile_click": {
+          "type": "text",
+          "canonical": "or simply click on it with your <w>left mouse button</w>",
+          "localized": "，或<w>用鼠标左键点击</w>药水"
+        }
+      },
+      "canonical": "Press <w>q</w> to quaff this potionor simply click on it with your <w>left mouse button</w>.",
+      "zh": "按<w>q</w>饮用这瓶药水，或<w>用鼠标左键点击</w>药水。"
+    },
+    {
+      "id": "item.hints.target_mode.spell",
+      "args": {
+        "repeat_key": {
+          "type": "key_markup",
+          "canonical": "<w>z</w>",
+          "localized": "<w>z</w>"
+        }
+      },
+      "canonical": "then be taken to target mode with the nearest monster or previous target already targeted. You can also cycle through all hostile monsters in sight with <w>+</w> or <w>-</w>. Once you're aiming at the correct monster, simply hit <w>f</w>, <w>Enter</w> or <w>.</w> to shoot at it. If you miss, <w>z</w> fires at the same target again.",
+      "zh": "随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。你也可以按<w>+</w>或<w>-</w>循环切换视野内的敌对怪物。瞄准正确的怪物后，按<w>f</w>、<w>Enter</w>或<w>.</w>即可施放。若未命中，按<w>z</w>可再次向同一目标施法。"
+    },
+    {
+      "id": "item.hints.ability.prerequisite.armour",
+      "args": {
+        "equip_key": {
+          "type": "key_markup",
+          "canonical": "<w>w</w>",
+          "localized": "<w>w</w>"
+        },
+        "ability_key": {
+          "type": "key_markup",
+          "canonical": "<w>a</w>",
+          "localized": "<w>a</w>"
+        }
+      },
+      "canonical": "To do this, first <w>w</w>ear it, then enter the ability menu with <w>a</w>, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+      "zh": "要发动能力，先按<w>w</w>穿上该护甲，再按<w>a</w>打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。"
+    },
+    {
+      "id": "item.hints.ability.prerequisite.jewellery",
+      "args": {
+        "equip_key": {
+          "type": "key_markup",
+          "canonical": "<w>w</w>",
+          "localized": "<w>w</w>"
+        },
+        "ability_key": {
+          "type": "key_markup",
+          "canonical": "<w>a</w>",
+          "localized": "<w>a</w>"
+        }
+      },
+      "canonical": "To do this, first <w>w</w>ut it on, then enter the ability menu with <w>a</w>, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+      "zh": "要发动能力，先按<w>w</w>戴上该饰品，再按<w>a</w>打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。"
+    },
+    {
+      "id": "item.hints.ability.prerequisite.equipped",
+      "args": {
+        "ability_key": {
+          "type": "key_markup",
+          "canonical": "<w>a</w>",
+          "localized": "<w>a</w>"
+        }
+      },
+      "canonical": "To do this, enter the ability menu with <w>a</w>, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+      "zh": "要发动能力，按<w>a</w>打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。"
+    },
+    {
+      "id": "item.hints.ability.prerequisite.bug",
+      "args": {
+        "ability_key": {
+          "type": "key_markup",
+          "canonical": "<w>a</w>",
+          "localized": "<w>a</w>"
+        }
+      },
+      "canonical": "To do this, <r>(BUG! this item shouldn't give an ability)</r>, then enter the ability menu with <w>a</w>, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+      "zh": "要发动能力，<r>（错误：此物品不应提供能力）</r>，再按<w>a</w>打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。"
+    },
+    {
+      "id": "item.hints.throw.singular.slot",
+      "args": {
+        "fire_key": {
+          "type": "key_markup",
+          "canonical": "<w>f</w>",
+          "localized": "<w>f</w>"
+        },
+        "item_slot": {
+          "type": "key",
+          "canonical": "d",
+          "localized": "d"
+        },
+        "item_name": {
+          "type": "name",
+          "canonical": "javelin",
+          "localized": "标枪"
+        },
+        "target_suffix": {
+          "type": "text",
+          "canonical": "then be taken to target mode with the nearest monster or previous target already targeted.",
+          "localized": "随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。"
+        }
+      },
+      "canonical": "To do this, press <w>f</w> to fire, then <w>d</w> for this javelin. You'll then be taken to target mode with the nearest monster or previous target already targeted.",
+      "zh": "要这样做，按<w>f</w>射击，然后按<w>d</w>选择该标枪。随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。"
+    },
+    {
+      "id": "item.hints.throw.singular.no_slot",
+      "args": {
+        "fire_key": {
+          "type": "key_markup",
+          "canonical": "<w>f</w>",
+          "localized": "<w>f</w>"
+        },
+        "item_name": {
+          "type": "name",
+          "canonical": "javelin",
+          "localized": "标枪"
+        },
+        "target_suffix": {
+          "type": "text",
+          "canonical": "then be taken to target mode with the nearest monster or previous target already targeted.",
+          "localized": "随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。"
+        }
+      },
+      "canonical": "To do this, press <w>f</w> to fire, then select this javelin. You'll then be taken to target mode with the nearest monster or previous target already targeted.",
+      "zh": "要这样做，按<w>f</w>射击，然后选择该标枪。随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。"
+    },
+    {
+      "id": "item.hints.throw.plural.no_slot",
+      "args": {
+        "fire_key": {
+          "type": "key_markup",
+          "canonical": "<w>f</w>",
+          "localized": "<w>f</w>"
+        },
+        "item_name": {
+          "type": "name",
+          "canonical": "javelin",
+          "localized": "标枪"
+        },
+        "target_suffix": {
+          "type": "text",
+          "canonical": "then be taken to target mode with the nearest monster or previous target already targeted.",
+          "localized": "随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。"
+        }
+      },
+      "canonical": "To do this, press <w>f</w> to fire, then select these javelins. You'll then be taken to target mode with the nearest monster or previous target already targeted.",
+      "zh": "要这样做，按<w>f</w>射击，然后选择这些标枪。随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。"
+    },
+    {
+      "id": "item.hints.weapon.artefact.ability",
+      "args": {
+        "ability_hint": {
+          "type": "text",
+          "canonical": "To do this, enter the ability menu with <w>a</w>, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+          "localized": "要发动能力，按<w>a</w>打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。"
+        }
+      },
+      "canonical": "When wielded, some weapons (such as this one) offer certain abilities you can activate. To do this, enter the ability menu with <w>a</w>, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+      "zh": "某些武器（例如这件）挥舞后会提供可发动的能力。要发动能力，按<w>a</w>打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。"
+    },
+    {
+      "id": "item.hints.weapon.artefact.resistance",
+      "args": {
+        "resists_key": {
+          "type": "key_markup",
+          "canonical": "<w>%</w>",
+          "localized": "<w>%</w>"
+        },
+        "tile_control": {
+          "type": "text",
+          "canonical": " or click on your avatar with the <w>right mouse button</w>",
+          "localized": "，或<w>用鼠标右键点击</w>角色头像"
+        }
+      },
+      "canonical": "This weapon offers its wearer protection from certain damage sources. For an overview of your resistances (among other things) press <w>%</w> or click on your avatar with the <w>right mouse button</w>.",
+      "zh": "这把武器能保护持有者免受某些伤害来源影响。按<w>%</w>，或<w>用鼠标右键点击</w>角色头像可查看抗性等信息。"
+    },
+    {
+      "id": "item.hints.weapon.unwielded",
+      "args": {
+        "wield_key": {
+          "type": "key_markup",
+          "canonical": "<w>w</w>",
+          "localized": "<w>w</w>"
+        },
+        "swap_key": {
+          "type": "key_markup",
+          "canonical": "<w>'</w>",
+          "localized": "<w>'</w>"
+        },
+        "adjust_key": {
+          "type": "key_markup",
+          "canonical": "<w>=i</w>",
+          "localized": "<w>=i</w>"
+        }
+      },
+      "canonical": "You can wield this weapon with <w>w</w>, or use <w>'</w> to switch between the weapons in slot a and b. (Use <w>=i</w> to adjust item slots.)",
+      "zh": "按<w>w</w>可挥舞这把武器，按<w>'</w>可切换 a、b 栏中的武器。（按<w>=i</w>可调整物品栏位。）"
+    },
+    {
+      "id": "item.hints.weapon.ranged.wielded",
+      "args": {
+        "attack_key": {
+          "type": "key_markup",
+          "canonical": "<w>v</w>",
+          "localized": "<w>v</w>"
+        },
+        "target_suffix": {
+          "type": "text",
+          "canonical": "then be taken to target mode with the nearest monster or previous target already targeted.",
+          "localized": "随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。"
+        }
+      },
+      "canonical": "To attack a monster, press <w>v</w>. You'll then be taken to target mode with the nearest monster or previous target already targeted.",
+      "zh": "要攻击怪物，按<w>v</w>。随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。"
+    },
+    {
+      "id": "item.hints.weapon.ranged.wielded.tile",
+      "args": {
+        "attack_key": {
+          "type": "key_markup",
+          "canonical": "<w>v</w>",
+          "localized": "<w>v</w>"
+        },
+        "target_suffix": {
+          "type": "text",
+          "canonical": "then be taken to target mode with the nearest monster or previous target already targeted.",
+          "localized": "随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。"
+        }
+      },
+      "canonical": "To attack a monster, <w>left mouse click</w> on the monster.\n\nTo fire a ranged weapon using the keyboard, press <w>v</w>. You'll then be taken to target mode with the nearest monster or previous target already targeted.",
+      "zh": "要攻击怪物，<w>用鼠标左键点击</w>怪物。\n\n要用键盘发射远程武器，按<w>v</w>。随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。"
+    },
+    {
+      "id": "item.hints.weapon.melee.wielded",
+      "args": {},
+      "canonical": "To attack a monster, you can simply walk into it.",
+      "zh": "要攻击怪物，只需走向它。"
+    },
+    {
+      "id": "item.hints.missile.throwable",
+      "args": {
+        "item_name": {
+          "type": "name",
+          "canonical": "your javelin",
+          "localized": "你的标枪"
+        },
+        "fire_key": {
+          "type": "key_markup",
+          "canonical": "<w>f</w>",
+          "localized": "<w>f</w>"
+        },
+        "throw_hint": {
+          "type": "text",
+          "canonical": "sample",
+          "localized": "示例"
+        }
+      },
+      "canonical": "your javelin can be <w>f</w>ired without the use of a launcher. sample",
+      "zh": "你的标枪无需发射器即可按<w>f</w>发射。示例"
+    },
+    {
+      "id": "item.hints.armour.barding_restriction",
+      "args": {},
+      "canonical": "Only nagas and armataurs can wear barding.",
+      "zh": "只有娜迦和半人马兽可以穿戴马铠。"
+    },
+    {
+      "id": "item.hints.armour.wear_remove",
+      "args": {
+        "wear_key": {
+          "type": "key_markup",
+          "canonical": "<w>W</w>",
+          "localized": "<w>W</w>"
+        },
+        "remove_key": {
+          "type": "key_markup",
+          "canonical": "<w>T</w>",
+          "localized": "<w>T</w>"
+        },
+        "tile_alternative": {
+          "type": "text",
+          "canonical": ", or, alternatively, simply click on their tiles to perform either action",
+          "localized": "，或者直接点击护甲图标执行对应操作"
+        }
+      },
+      "canonical": "You can wear pieces of armour with <w>W</w> and take them off again with <w>T</w>, or, alternatively, simply click on their tiles to perform either action.",
+      "zh": "按<w>W</w>可穿戴护甲，按<w>T</w>可脱下，或者直接点击护甲图标执行对应操作。"
+    },
+    {
+      "id": "item.hints.armour.magic_shield",
+      "args": {},
+      "canonical": "Note that shields will hinder your ability to cast spells, until you've gained enough Shields skill to remove the penalty.",
+      "zh": "注意，在盾牌技能足以消除惩罚前，盾牌会妨碍你施法。"
+    },
+    {
+      "id": "item.hints.armour.ranger_offhand",
+      "args": {},
+      "canonical": "Note that many ranged weapons are two handed and so cannot be used with an offhand item.",
+      "zh": "注意，许多远程武器需要双手使用，因此无法与副手物品同时装备。"
+    },
+    {
+      "id": "item.hints.armour.unidentified_special",
+      "args": {},
+      "canonical": "Weapons and armour that have unusual descriptions like this are much more likely to be of higher enchantment or have special properties, good or bad.",
+      "zh": "描述异常的武器和护甲更有可能具有较高的附魔等级或特殊属性，无论好坏。"
+    },
+    {
+      "id": "item.hints.armour.resistance",
+      "args": {
+        "resists_key": {
+          "type": "key_markup",
+          "canonical": "<w>%</w>",
+          "localized": "<w>%</w>"
+        },
+        "tile_control": {
+          "type": "text",
+          "canonical": " or click on your avatar with the <w>right mouse button</w>",
+          "localized": "，或<w>用鼠标右键点击</w>角色头像"
+        }
+      },
+      "canonical": "This armour offers its wearer protection from certain sources. For an overview of your resistances (among other things) press <w>%</w> or click on your avatar with the <w>right mouse button</w>.",
+      "zh": "这件护甲能保护穿戴者免受某些伤害来源影响。按<w>%</w>，或<w>用鼠标右键点击</w>角色头像可查看抗性等信息。"
+    },
+    {
+      "id": "item.hints.armour.ability",
+      "args": {
+        "ability_key": {
+          "type": "key_markup",
+          "canonical": "<w>a</w>",
+          "localized": "<w>a</w>"
+        },
+        "ability_hint": {
+          "type": "text",
+          "canonical": "To do this, enter the ability menu with <w>a</w>, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+          "localized": "要发动能力，按<w>a</w>打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。"
+        }
+      },
+      "canonical": "When worn, some types of armour (such as this one) offer certain <w>a</w>bilities you can activate. To do this, enter the ability menu with <w>a</w>, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+      "zh": "某些护甲（例如这件）穿戴后会提供可发动的能力（按<w>a</w>进入能力菜单）。要发动能力，按<w>a</w>打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。"
+    },
+    {
+      "id": "item.hints.wand.use",
+      "args": {
+        "evoke_key": {
+          "type": "key_markup",
+          "canonical": "<w>V</w>",
+          "localized": "<w>V</w>"
+        }
+      },
+      "canonical": "The magic within can be unleashed by evoking (<w>V</w>) it.",
+      "zh": "按<w>V</w>即可发动魔杖中的魔力。"
+    },
+    {
+      "id": "item.hints.wand.tiles.fullscreen",
+      "args": {},
+      "canonical": "Alternatively, you can 1) <w>left mouse click</w> on the monster you wish to target (or your player character to target yourself) while pressing the <w>Alt key</w> and pick the wand from the menu, or 2) <w>left mouse click</w> on the wand tile and then <w>left mouse click</w> on your target.",
+      "zh": "也可以：1）按住<w>Alt</w>并<w>用鼠标左键点击</w>目标怪物（若要以自己为目标，则点击角色），再从菜单中选择魔杖；或 2）先<w>用鼠标左键点击</w>魔杖图标，再<w>用鼠标左键点击</w>目标。"
+    },
+    {
+      "id": "item.hints.wand.tiles.windowed",
+      "args": {},
+      "canonical": "Alternatively, you can 1) <w>left mouse click</w> on the monster you wish to target (or your player character to target yourself) while pressing the <w>Ctrl + Shift keys</w> and pick the wand from the menu, or 2) <w>left mouse click</w> on the wand tile and then <w>left mouse click</w> on your target.",
+      "zh": "也可以：1）按住<w>Ctrl + Shift</w>并<w>用鼠标左键点击</w>目标怪物（若要以自己为目标，则点击角色），再从菜单中选择魔杖；或 2）先<w>用鼠标左键点击</w>魔杖图标，再<w>用鼠标左键点击</w>目标。"
+    },
+    {
+      "id": "item.hints.scroll.use",
+      "args": {
+        "read_key": {
+          "type": "key_markup",
+          "canonical": "<w>r</w>",
+          "localized": "<w>r</w>"
+        },
+        "tile_click": {
+          "type": "text",
+          "canonical": "or simply click on it with your <w>left mouse button</w>",
+          "localized": "，或<w>用鼠标左键点击</w>卷轴"
+        }
+      },
+      "canonical": "Press <w>r</w> to read this scrollor simply click on it with your <w>left mouse button</w>.",
+      "zh": "按<w>r</w>阅读这张卷轴，或<w>用鼠标左键点击</w>卷轴。"
+    },
+    {
+      "id": "item.hints.jewellery.wear_remove",
+      "args": {
+        "wear_key": {
+          "type": "key_markup",
+          "canonical": "<w>P</w>",
+          "localized": "<w>P</w>"
+        },
+        "remove_key": {
+          "type": "key_markup",
+          "canonical": "<w>R</w>",
+          "localized": "<w>R</w>"
+        },
+        "tile_alternative": {
+          "type": "text",
+          "canonical": ", though in Tiles, either can be done by clicking on the item in your inventory",
+          "localized": "，在 Tiles 中，也可以点击物品栏里的饰品完成穿脱"
+        }
+      },
+      "canonical": "Jewellery can be <w>P</w>ut on or <w>R</w>emoved again, though in Tiles, either can be done by clicking on the item in your inventory.",
+      "zh": "按<w>P</w>可戴上饰品，按<w>R</w>可取下，在 Tiles 中，也可以点击物品栏里的饰品完成穿脱。"
+    },
+    {
+      "id": "item.hints.jewellery.ability",
+      "args": {
+        "ability_key": {
+          "type": "key_markup",
+          "canonical": "<w>a</w>",
+          "localized": "<w>a</w>"
+        },
+        "ability_hint": {
+          "type": "text",
+          "canonical": "To do this, enter the ability menu with <w>a</w>, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+          "localized": "要发动能力，按<w>a</w>打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。"
+        }
+      },
+      "canonical": "When worn, some types of jewellery (such as this one) offer certain <w>a</w>bilities you can activate. To do this, enter the ability menu with <w>a</w>, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.",
+      "zh": "某些饰品（例如这件）戴上后会提供可发动的能力（按<w>a</w>进入能力菜单）。要发动能力，按<w>a</w>打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。"
+    },
+    {
+      "id": "item.hints.book.spellbook",
+      "args": {
+        "memorise_key": {
+          "type": "key_markup",
+          "canonical": "<w>M</w>",
+          "localized": "<w>M</w>"
+        }
+      },
+      "canonical": "You can pick up a spellbook to add its spells to your spell library. (View your spell library with <w>M</w>.)",
+      "zh": "拾取法术书即可将其中的法术加入法术库。（按<w>M</w>查看法术库。）"
+    },
+    {
+      "id": "item.hints.corpse.use",
+      "args": {},
+      "canonical": "Skeletons and corpses can be used as components for certain necromantic spells. Apart from that, they are largely useless.",
+      "zh": "骨骼和尸体可作为某些死灵法术的材料。除此之外，它们基本没有用处。"
+    },
+    {
+      "id": "item.hints.staff.school",
+      "args": {},
+      "canonical": "This staff can enhance your spellcasting, making spells of its related spell school more powerful.",
+      "zh": "这根法杖可以强化你的施法能力，使相关法术学派的法术更强。"
+    },
+    {
+      "id": "item.hints.staff.resistance",
+      "args": {
+        "resists_key": {
+          "type": "key_markup",
+          "canonical": "<w>%</w>",
+          "localized": "<w>%</w>"
+        },
+        "tile_control": {
+          "type": "text",
+          "canonical": " or click on your avatar with the <w>right mouse button</w>",
+          "localized": "，或<w>用鼠标右键点击</w>角色头像"
+        }
+      },
+      "canonical": "It also offers its wielder protection from certain sources. For an overview of your resistances (among other things) press <w>%</w> or click on your avatar with the <w>right mouse button</w>.",
+      "zh": "它还能保护持有者免受某些伤害来源影响。按<w>%</w>，或<w>用鼠标右键点击</w>角色头像可查看抗性等信息。"
+    },
+    {
+      "id": "item.hints.misc.evocation",
+      "args": {
+        "evoke_key": {
+          "type": "key_markup",
+          "canonical": "<w>V</w>",
+          "localized": "<w>V</w>"
+        }
+      },
+      "canonical": "Miscellaneous items sometimes harbour magical powers that can be harnessed by e<w>V</w>oking the item.",
+      "zh": "杂项物品有时蕴藏魔力，可按<w>V</w>发动。"
+    },
+    {
+      "id": "item.hints.tiles.avatar_right_click",
+      "args": {},
+      "canonical": " or click on your avatar with the <w>right mouse button</w>",
+      "zh": "，或<w>用鼠标右键点击</w>角色头像"
+    },
+    {
+      "id": "item.hints.tiles.armour_click",
+      "args": {},
+      "canonical": ", or, alternatively, simply click on their tiles to perform either action",
+      "zh": "，或者直接点击护甲图标执行对应操作"
+    },
+    {
+      "id": "item.hints.tiles.jewellery_click",
+      "args": {},
+      "canonical": ", though in Tiles, either can be done by clicking on the item in your inventory",
+      "zh": "，在 Tiles 中，也可以点击物品栏里的饰品完成穿脱"
+    },
+    {
+      "id": "item.hints.tiles.scroll_click",
+      "args": {},
+      "canonical": "or simply click on it with your <w>left mouse button</w>",
+      "zh": "，或<w>用鼠标左键点击</w>卷轴"
+    },
+    {
+      "id": "item.hints.tiles.potion_click",
+      "args": {},
+      "canonical": "or simply click on it with your <w>left mouse button</w>",
+      "zh": "，或<w>用鼠标左键点击</w>药水"
+    },
+    {
+      "id": "item.hints.jewellery.type.ring",
+      "args": {},
+      "canonical": "ring",
+      "zh": "戒指"
+    },
+    {
+      "id": "item.hints.jewellery.type.amulet",
+      "args": {},
+      "canonical": "amulet",
+      "zh": "护身符"
+    }
+  ]
+}

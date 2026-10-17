@@ -3,7 +3,7 @@
 import argparse,fcntl,json,os,pty,re,select,signal,struct,tempfile,termios,time
 from pathlib import Path
 p=argparse.ArgumentParser();p.add_argument('binary');p.add_argument('--data',required=True);p.add_argument('--out',required=True)
-p.add_argument('--fixture-out',type=Path);p.add_argument('--locale',default='en_US.UTF-8');p.add_argument('--extended',action='store_true');p.add_argument('--species',default='Mi');p.add_argument('--background',default='Be');a=p.parse_args()
+p.add_argument('--fixture-out',type=Path);p.add_argument('--locale',default='en_US.UTF-8');p.add_argument('--extended',action='store_true');p.add_argument('--species',default='Mi');p.add_argument('--background',default='Be');p.add_argument('--game-type',choices=['normal','hints'],default='normal');a=p.parse_args()
 a.binary=str(Path(a.binary).resolve())
 out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
 trace=out.resolve()/'trace.jsonl'
@@ -15,6 +15,7 @@ with tempfile.TemporaryDirectory(prefix='dcss-zh-smoke-') as td:
     if not docs.exists(): docs=Path(a.data).resolve().parent/'docs'
     (state/'docs').symlink_to(docs,target_is_directory=True)
     rc=state/'init.txt';rc.write_text(f'''language = zh
+type = {a.game_type}
 save_dir = {state}/saves
 morgue_dir = {state}/morgue
 show_more = false

@@ -76,10 +76,29 @@ std::string possessive_suffix()
     return "的";
 }
 
-std::string item_classifier(object_class_type type)
+std::string item_classifier(const item_def &item)
 {
-    switch (type)
+    switch (item.base_type)
     {
+    case OBJ_MISSILES:
+        switch (item.sub_type)
+        {
+        case MI_DART:
+        case MI_BOOMERANG: return "枚";
+        case MI_JAVELIN: return "支";
+        case MI_STONE:
+        case MI_LARGE_ROCK: return "块";
+        case MI_THROWING_NET: return "张";
+#if TAG_MAJOR_VERSION == 34
+        case MI_NEEDLE:
+        case MI_SLUG: return "枚";
+        case MI_ARROW:
+        case MI_BOLT: return "支";
+        case MI_SLING_BULLET: return "颗";
+#endif
+        default: return {};
+        }
+    case OBJ_STAVES:    return "根";
     case OBJ_WEAPONS:   return "把";
     case OBJ_ARMOUR:    return "件";
     case OBJ_POTIONS:   return "瓶";
@@ -100,6 +119,9 @@ std::string semantic_item_base(const item_def &item)
         return item_base_name(item.base_type, item.sub_type);
     case OBJ_MISSILES:
         return missile_name(static_cast<missile_type>(item.sub_type));
+    case OBJ_STAVES:
+        return std::string("staff of ")
+               + staff_type_name(static_cast<stave_type>(item.sub_type));
     case OBJ_TALISMANS:
         return talisman_type_name(item.sub_type);
     case OBJ_POTIONS:
@@ -253,7 +275,7 @@ std::string translated_item_name(const item_def &item,
     if (item.quantity > 1 && desc != DESC_BASENAME && desc != DESC_DBNAME
         && desc != DESC_QUALNAME)
     {
-        const std::string classifier = item_classifier(item.base_type);
+        const std::string classifier = item_classifier(item);
         if (classifier.empty())
             return fallback();
         result += std::to_string(item.quantity) + classifier;
@@ -325,6 +347,17 @@ ZhArg zh_place_arg(const std::string &key, const level_id &place)
                      {branch, zh_integer("depth", place.depth)});
     return {key, ZhArgType::Text, canonical, location.localized,
             branch.supported};
+}
+
+ZhArg zh_item_base_arg(const std::string &key, const item_def &item)
+{
+    const std::string canonical = item_base_name(item);
+    if (item.props.exists(ITEM_NAME_KEY))
+    {
+        audit_name_fallback("item.base", canonical);
+        return {key, ZhArgType::Name, canonical, canonical, false};
+    }
+    return zh_glossary_name(key, "item.base", canonical);
 }
 
 ZhArg zh_monster_type_arg(const std::string &key, monster_type type)

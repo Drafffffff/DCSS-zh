@@ -41,6 +41,26 @@ cases={'skill-lookup':'?/k','skill-lookup-detail':'?/ka','hud':'l','hud-wizard':
        'shop-purchased':'l&wiz\r$1000\r&\\a>a\ry',
        'shop-list':'l&wiz\r$1000\r&\\a>a$\x1b$',
        'skills-description':'m?a','skills-enhanced':'m_','skills-general-help':'m??'}
+# These scenes use the separately created hints-mode fixture, never a normal
+# player's save with a forced game-type override.
+cases.update({'hints-weapon':'ia','hints-armour':'ib',
+ 'hints-weapon-unwielded':'l&wiz\r%pre_id whip\rxrva',
+ 'hints-wand':'l&wiz\r%pre_id wand of flame\rxrva',
+ 'hints-missile':'l&wiz\r%pre_id javelin\rgic',
+ 'hints-jewellery':'l&wiz\r%pre_id ring of protection\rxrva',
+ 'hints-scroll':'l&wiz\r%pre_id scroll of identify\rxrva',
+ 'hints-potion':'l&wiz\r%pre_id potion of curing\rxrva',
+ 'hints-staff':'l&wiz\r%pre_id staff of fire\rgic',
+ 'hints-book':'l&wiz\r%pre_id book of Flames\rxrva',
+ 'hints-manual':'l&wiz\r%pre_id manual of Axes\rxrva',
+ 'hints-misc':'l&wiz\r%pre_id phial of floods\rxrva'})
+# Cover every current ordinary staff identity and missile classifier through
+# actual item generation (quantity fixed rather than trusting RNG stacks).
+for label in ('air','alchemy','cold','conjuration','necromancy','earth','fire'):
+    cases['hints-staff-'+label]='l&wiz\r%pre_id staff of '+label+'\rgic'
+for label in ('dart','javelin','stone','large rock','throwing net','boomerang'):
+    for qty in (1,3):
+        cases['hints-missile-'+label.replace(' ','-')+'-'+str(qty)]='l&wiz\r%pre_id '+label+' q:'+str(qty)+'\rgic'
 # Every current talisman subtype, each on a fresh disposable save copy.
 item_source=(Path(__file__).resolve().parents[1]/'native/crawl-ref/source/item-prop.cc').read_text()
 talisman_names=dict(re.findall(r'case TALISMAN_([A-Z_]+):\s*return "([^"]+)";',item_source))
@@ -113,6 +133,18 @@ assert all(r['running_at_capture'] and not r['runtime_error'] for r in results),
 if a.require_complete:
     assert all(not r['missing'] and not r['names'] for r in results),[(r['scene'],r['missing'],r['names']) for r in results if r['missing'] or r['names']]
 expected={
+ 'hints-weapon':{'item.hints.weapon.melee.wielded'},
+ 'hints-armour':{'item.hints.armour.wear_remove'},
+ 'hints-weapon-unwielded':{'item.hints.weapon.unwielded'},
+ 'hints-wand':{'item.hints.wand.use'},
+ 'hints-missile':{'item.hints.missile.throwable'},
+ 'hints-jewellery':{'item.hints.jewellery.wear_remove'},
+ 'hints-scroll':{'item.hints.scroll.use'},
+ 'hints-potion':{'item.hints.potion.use'},
+ 'hints-staff':{'item.hints.staff.school'},
+ 'hints-book':{'item.hints.book.spellbook'},
+ 'hints-manual':{'item.hints.book.manual'},
+ 'hints-misc':{'item.hints.misc.evocation'},
  'skill-lookup':{'skill.lookup.prompt'},
  'skill-lookup-detail':{'skill.lookup.prompt'},
  'hud':{'hud.experience.progress','hud.place.depth'},
@@ -131,9 +163,15 @@ expected={
 }
 
 for result in results:
+    if result['scene'].startswith('hints-'):
+        assert 'detail.item.hints\tenter' in result['boundaries'], (result['scene'], 'hint producer not reached')
     if result['scene'].startswith('talisman-') and result['scene']!='talisman-protean':
         assert 'detail.form\tenter' in result['boundaries'], (result['scene'], 'form producer not reached')
     ids={line.split('\t')[0] for line in result['ids']}
+    if result['scene'].startswith('hints-staff-'):
+        assert 'item.hints.staff.school' in ids,result['scene']
+    if result['scene'].startswith('hints-missile-'):
+        assert 'item.hints.missile.throwable' in ids,result['scene']
     assert expected.get(result['scene'],set()) <= ids,(result['scene'],ids)
     if result['scene'].startswith(('skills','skill-lookup')):
         assert not result['missing'],(result['scene'],result['missing'])

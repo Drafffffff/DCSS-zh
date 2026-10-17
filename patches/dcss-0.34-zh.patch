@@ -46896,7 +46896,7 @@ index a4a1a95..20747cf 100644
 +              localized, supported}}).display();
  }
 diff --git a/crawl-ref/source/describe.cc b/crawl-ref/source/describe.cc
-index 0a381e1..720da67 100644
+index 0a381e1..27491a7 100644
 --- a/crawl-ref/source/describe.cc
 +++ b/crawl-ref/source/describe.cc
 @@ -4,6 +4,9 @@
@@ -48393,7 +48393,7 @@ index 0a381e1..720da67 100644
 +            description << zh_message("item.consumable.rarity", {
 +                ZhArg{"article", ZhArgType::Text, article, localized_article,
 +                      localized_article != article},
-+                ZhArg{"rarity", ZhArgType::Name, rarity, localized_rarity,
++                ZhArg{"rarity", ZhArgType::Text, rarity, localized_rarity,
 +                      localized_rarity != rarity},
 +                zh_text("kind", "potion", "药水")}).display();
              need_extra_line = false;
@@ -48429,7 +48429,7 @@ index 0a381e1..720da67 100644
 +            description << zh_message("item.consumable.rarity", {
 +                ZhArg{"article", ZhArgType::Text, article, localized_article,
 +                      localized_article != article},
-+                ZhArg{"rarity", ZhArgType::Name, rarity, localized_rarity,
++                ZhArg{"rarity", ZhArgType::Text, rarity, localized_rarity,
 +                      localized_rarity != rarity},
 +                zh_text("kind", "scroll", "卷轴")}).display();
              need_extra_line = false;
@@ -48664,15 +48664,12 @@ index 0a381e1..720da67 100644
  
      if (!(crawl_state.game_is_hints_tutorial()
            || quote.empty()))
-@@ -4002,12 +4318,16 @@ command_type describe_item_popup(const item_def &item,
+@@ -4002,12 +4318,14 @@ command_type describe_item_popup(const item_def &item,
      }
  
      if (crawl_state.game_is_hints())
--        desc += "\n\n" + hints_describe_item(item);
 +    {
-+        const string hints = hints_describe_item(item);
-+        desc += "\n\n" + zh_message("item.hints.english_fallback", {
-+            ZhArg{"text", ZhArgType::Text, hints, hints, false}}).display();
+         desc += "\n\n" + hints_describe_item(item);
 +    }
  
      if (fixup_desc)
@@ -48683,7 +48680,7 @@ index 0a381e1..720da67 100644
  
      spellset spells = item_spellset(item);
      formatted_string spells_desc;
-@@ -4040,7 +4360,7 @@ command_type describe_item_popup(const item_def &item,
+@@ -4040,7 +4358,7 @@ command_type describe_item_popup(const item_def &item,
      }
  #endif
  
@@ -48692,7 +48689,7 @@ index 0a381e1..720da67 100644
      title->set_margin_for_sdl(0, 0, 0, 10);
      title_hbox->add_child(std::move(title));
  
-@@ -4059,8 +4379,10 @@ command_type describe_item_popup(const item_def &item,
+@@ -4059,8 +4377,10 @@ command_type describe_item_popup(const item_def &item,
      if (!actions.empty())
      {
          if (!spells.empty())
@@ -48705,7 +48702,7 @@ index 0a381e1..720da67 100644
          auto footer = make_shared<Text>();
          footer->set_text(footer_text);
          footer->set_margin_for_crt(1, 0, 0, 0);
-@@ -4101,7 +4423,7 @@ command_type describe_item_popup(const item_def &item,
+@@ -4101,7 +4421,7 @@ command_type describe_item_popup(const item_def &item,
  
              show_spell_success = !show_spell_success;
              if (show_spell_success)
@@ -48714,7 +48711,7 @@ index 0a381e1..720da67 100644
              else
                  text->set_text(fs_desc.trim());
  #ifdef USE_TILE_WEB
-@@ -4211,13 +4533,33 @@ void inscribe_item(item_def &item)
+@@ -4211,13 +4531,33 @@ void inscribe_item(item_def &item)
  static string _player_spell_stats(const spell_type spell)
  {
      string description;
@@ -48755,7 +48752,7 @@ index 0a381e1..720da67 100644
  
      if (!crawl_state.need_save
          || (get_spell_flags(spell) & spflag::monster))
-@@ -4239,37 +4581,75 @@ static string _player_spell_stats(const spell_type spell)
+@@ -4239,37 +4579,75 @@ static string _player_spell_stats(const spell_type spell)
      }
      else
          failure = failure_rate_to_string(raw_spell_fail(spell));
@@ -48847,7 +48844,7 @@ index 0a381e1..720da67 100644
      description += "\n";
      return description;
  }
-@@ -4296,26 +4676,32 @@ static string _get_skill_defense_change(skill_type skill)
+@@ -4296,26 +4674,32 @@ static string _get_skill_defense_change(skill_type skill)
      const float ev_diff = (float)(new_ev - cur_ev) / 100.0;
      const float sh_diff = (float)(new_sh - cur_sh) / 100.0;
  
@@ -48891,7 +48888,7 @@ index 0a381e1..720da67 100644
      }
  
      return "";
-@@ -4323,16 +4709,17 @@ static string _get_skill_defense_change(skill_type skill)
+@@ -4323,16 +4707,17 @@ static string _get_skill_defense_change(skill_type skill)
  
  string get_skill_description(skill_type skill, bool need_title)
  {
@@ -48911,7 +48908,7 @@ index 0a381e1..720da67 100644
  
      if ((skill == SK_ARMOUR || skill == SK_DODGING || skill == SK_SHIELDS)
          && you.skills[skill] < MAX_SKILL_LEVEL && !is_useless_skill(skill))
-@@ -4343,29 +4730,36 @@ string get_skill_description(skill_type skill, bool need_title)
+@@ -4343,29 +4728,36 @@ string get_skill_description(skill_type skill, bool need_title)
      {
          if (you.has_mutation(MUT_FORLORN))
          {
@@ -48960,7 +48957,7 @@ index 0a381e1..720da67 100644
      }
  
      return result;
-@@ -4468,116 +4862,139 @@ static string _player_spell_desc(spell_type spell)
+@@ -4468,116 +4860,139 @@ static string _player_spell_desc(spell_type spell)
  
      ostringstream description;
  
@@ -49151,7 +49148,7 @@ index 0a381e1..720da67 100644
      }
  
      return description.str();
-@@ -4612,19 +5029,19 @@ static void _get_spell_description(const spell_type spell,
+@@ -4612,19 +5027,19 @@ static void _get_spell_description(const spell_type spell,
  {
      description.reserve(500);
  
@@ -49177,7 +49174,7 @@ index 0a381e1..720da67 100644
  #endif
      }
  
-@@ -4633,21 +5050,25 @@ static void _get_spell_description(const spell_type spell,
+@@ -4633,21 +5048,25 @@ static void _get_spell_description(const spell_type spell,
          if (spell == SPELL_CONJURE_LIVING_SPELLS)
          {
              const spell_type living_spell = living_spell_type_for(mon_owner->type);
@@ -49211,7 +49208,7 @@ index 0a381e1..720da67 100644
  
          }
  
-@@ -4657,20 +5078,21 @@ static void _get_spell_description(const spell_type spell,
+@@ -4657,20 +5076,21 @@ static void _get_spell_description(const spell_type spell,
                                  || spell == SPELL_FLASHING_BALESTRA
                                  || spell == SPELL_BECKONING_GALE ? 3 : 0);
  
@@ -49239,7 +49236,7 @@ index 0a381e1..720da67 100644
              }
          }
  
-@@ -4680,11 +5102,18 @@ static void _get_spell_description(const spell_type spell,
+@@ -4680,11 +5100,18 @@ static void _get_spell_description(const spell_type spell,
          const int limit = summons_limit(spell, false);
          if (limit)
          {
@@ -49263,7 +49260,7 @@ index 0a381e1..720da67 100644
          }
  
          // only display this if the player exists (not in the main menu)
-@@ -4704,20 +5133,21 @@ static void _get_spell_description(const spell_type spell,
+@@ -4704,20 +5131,21 @@ static void _get_spell_description(const spell_type spell,
              if (you.wizard)
                  wiz_info += make_stringf(" (pow %d)", _mon_hex_pow(spell, mon_owner, is_wand));
  #endif
@@ -49293,7 +49290,7 @@ index 0a381e1..720da67 100644
      if (!quote.empty())
          description += "_________________\n\n<darkgrey>" + quote + "</darkgrey>";
  }
-@@ -4750,6 +5180,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
+@@ -4750,6 +5178,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
                      const item_def* item)
  {
      UNUSED(item);
@@ -49301,7 +49298,7 @@ index 0a381e1..720da67 100644
  
      string desc;
      _get_spell_description(spell, mon_owner, desc);
-@@ -4766,11 +5197,11 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
+@@ -4766,11 +5195,11 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
      title_hbox->add_child(std::move(spell_icon));
  #endif
  
@@ -49315,7 +49312,7 @@ index 0a381e1..720da67 100644
      title->set_margin_for_sdl(0, 0, 0, 10);
      title_hbox->add_child(std::move(title));
  
-@@ -4781,7 +5212,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
+@@ -4781,7 +5210,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
  
      auto scroller = make_shared<Scroller>();
      auto text = make_shared<Text>();
@@ -49324,7 +49321,7 @@ index 0a381e1..720da67 100644
      text->set_wrap_text(true);
      scroller->set_child(std::move(text));
      vbox->add_child(scroller);
-@@ -4948,50 +5379,46 @@ static string _describe_draconian(const monster_info& mi)
+@@ -4948,50 +5377,46 @@ static string _describe_draconian(const monster_info& mi)
  
      if (subsp != mi.type)
      {
@@ -49391,7 +49388,7 @@ index 0a381e1..720da67 100644
          break;
      default:
          break;
-@@ -5029,16 +5456,16 @@ static const char* _get_resist_name(mon_resist_flags res_type)
+@@ -5029,16 +5454,16 @@ static const char* _get_resist_name(mon_resist_flags res_type)
      }
  }
  
@@ -49414,7 +49411,7 @@ index 0a381e1..720da67 100644
      }
  }
  
-@@ -5105,7 +5532,15 @@ static string _flavour_base_desc(attack_flavour flavour)
+@@ -5105,7 +5530,15 @@ static string _flavour_base_desc(attack_flavour flavour)
  
      const string* desc = map_find(base_descs, flavour);
      ASSERT(desc);
@@ -49431,7 +49428,7 @@ index 0a381e1..720da67 100644
  }
  
  struct mon_attack_info
-@@ -5161,7 +5596,8 @@ static mon_attack_info _atk_info(const monster_info& mi, int i)
+@@ -5161,7 +5594,8 @@ static mon_attack_info _atk_info(const monster_info& mi, int i)
  static string _brand_damage_string(const monster_info &mi, brand_type brand,
                                     int dam, int wpn_base_dmg = 0)
  {
@@ -49441,7 +49438,7 @@ index 0a381e1..720da67 100644
      int brand_dam;
      // Only include damaging brands
      // Heavy is included in base damage calculations instead
-@@ -5199,16 +5635,18 @@ static string _brand_damage_string(const monster_info &mi, brand_type brand,
+@@ -5199,16 +5633,18 @@ static string _brand_damage_string(const monster_info &mi, brand_type brand,
              brand_dam = 4;
              break;
          case SPWPN_SUNDERING:
@@ -49463,7 +49460,7 @@ index 0a381e1..720da67 100644
  }
  
  // Max damage from a magical staff with a given amount of staff & evo skill
-@@ -5240,9 +5678,9 @@ static string _monster_staff_damage_string(const monster_info &mi,
+@@ -5240,9 +5676,9 @@ static string _monster_staff_damage_string(const monster_info &mi,
                             : staff == STAFF_ALCHEMY       ? "poison"
                             /*staff == STAFF_CONJURATION*/ : "conj";
  
@@ -49476,7 +49473,7 @@ index 0a381e1..720da67 100644
  }
  
  struct mon_attack_desc_info
-@@ -5323,21 +5761,24 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
+@@ -5323,21 +5759,24 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
                                       int attk_mult)
  {
      if (!desc.empty())
@@ -49508,7 +49505,7 @@ index 0a381e1..720da67 100644
      }
  
      if (di.flavour_without_dam
-@@ -5346,16 +5787,17 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
+@@ -5346,16 +5785,17 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
          && !flavour_has_mobility(attack.flavour)
          && !(attack.flavour == AF_REACH_CLEAVE_UGLY))
      {
@@ -49532,7 +49529,7 @@ index 0a381e1..720da67 100644
      }
  }
  
-@@ -5374,23 +5816,42 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5374,23 +5814,42 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
  
      if (weapon_multihits(wpn))
          attk_mult *= weapon_hits_per_swing(*wpn);
@@ -49582,7 +49579,7 @@ index 0a381e1..720da67 100644
  
      // Part 2: The "Max Damage" column
      // Display the max damage from the attack (including any weapon)
-@@ -5440,12 +5901,13 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5440,12 +5899,13 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
  
      string dam_str;
      if (dam != real_dam)
@@ -49598,7 +49595,7 @@ index 0a381e1..720da67 100644
  
      string brand_str;
      if (wpn)
-@@ -5464,11 +5926,11 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5464,11 +5924,11 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
      else if (di.special_flavour != SPWPN_NORMAL)
          brand_str = _brand_damage_string(mi, di.special_flavour, real_dam);
  
@@ -49614,7 +49611,7 @@ index 0a381e1..720da67 100644
  
      // Part 3: The "Bonus" column
      // Describe any additional effects from a monster's attack flavour
-@@ -5495,10 +5957,10 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5495,10 +5955,10 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
      }
      // ...except Nessos' ranged attacks apply venom as a special effect
      else if (mi.type == MONS_NESSOS)
@@ -49627,7 +49624,7 @@ index 0a381e1..720da67 100644
  }
  
  // Get all the info required to form an attacks table row for the monster's
-@@ -5510,41 +5972,47 @@ static void _attacks_table_row_throwing(const monster_info &mi,
+@@ -5510,41 +5970,47 @@ static void _attacks_table_row_throwing(const monster_info &mi,
      if (!quiv || quiv->base_type != OBJ_MISSILES)
          return;
  
@@ -49690,7 +49687,7 @@ index 0a381e1..720da67 100644
          default:
              break;
          }
-@@ -5565,21 +6033,39 @@ static void _attacks_table_row_throwing(const monster_info &mi,
+@@ -5565,21 +6031,39 @@ static void _attacks_table_row_throwing(const monster_info &mi,
              string dmg_msg;
              int silver_dam = max(dam / 3,
                                   silver_damages_victim(&you, dam, dmg_msg));
@@ -49733,7 +49730,7 @@ index 0a381e1..720da67 100644
      // Hopefully enough width for every possibility
      di.damage_width    = min(di.damage_width, (size_t) 31);
      di.bonus_width     = min(di.bonus_width, 69 - di.damage_width);
-@@ -5594,14 +6080,12 @@ static void _build_table_of_attacks(mon_attack_desc_info &di,
+@@ -5594,14 +6078,12 @@ static void _build_table_of_attacks(mon_attack_desc_info &di,
      // Note: columns are separated by (a minimum of) 2 spaces
  
      // First, the table header
@@ -49751,7 +49748,7 @@ index 0a381e1..720da67 100644
      }
      result << "\n";
  
-@@ -5707,36 +6191,32 @@ static string _monster_spells_description(const monster_info& mi, bool mark_spel
+@@ -5707,36 +6189,32 @@ static string _monster_spells_description(const monster_info& mi, bool mark_spel
      if (mark_spells)
          description += SPELL_LIST_END;
  
@@ -49802,7 +49799,7 @@ index 0a381e1..720da67 100644
  }
  
  static void _describe_aux_hit_chance(ostringstream &result, vector<string>& auxes, int chance)
-@@ -5826,23 +6306,36 @@ void describe_hit_chance(int hit_chance, ostringstream &result, const item_def *
+@@ -5826,23 +6304,36 @@ void describe_hit_chance(int hit_chance, ostringstream &result, const item_def *
      if (verbose)
          result << "about ";
  
@@ -49853,7 +49850,7 @@ index 0a381e1..720da67 100644
      }
  }
  
-@@ -5905,9 +6398,13 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
+@@ -5905,9 +6396,13 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
      const int beat_sh_chance = mon_beat_sh_pct(shield_bypass, scaled_sh);
  
      const int hit_chance = beat_ev_chance * beat_sh_chance / 100;
@@ -49870,7 +49867,7 @@ index 0a381e1..720da67 100644
  }
  
  /**
-@@ -6060,6 +6557,10 @@ static string _monster_current_target_description(const monster_info &mi)
+@@ -6060,6 +6555,10 @@ static string _monster_current_target_description(const monster_info &mi)
  
      const char* pronoun = mi.pronoun(PRONOUN_SUBJECTIVE);
      const bool plural = mi.pronoun_plurality();
@@ -49881,7 +49878,7 @@ index 0a381e1..720da67 100644
  
      ostringstream result;
      if (mi.is(MB_ALLY_TARGET))
-@@ -6067,28 +6568,41 @@ static string _monster_current_target_description(const monster_info &mi)
+@@ -6067,28 +6566,41 @@ static string _monster_current_target_description(const monster_info &mi)
          auto allies = find_allies_targeting(*m);
          if (allies.size() == 1)
          {
@@ -49935,7 +49932,7 @@ index 0a381e1..720da67 100644
      }
  
      return result.str();
-@@ -6101,6 +6615,38 @@ struct TableCell
+@@ -6101,6 +6613,38 @@ struct TableCell
      colour_t colour;
  };
  
@@ -49974,7 +49971,7 @@ index 0a381e1..720da67 100644
  // TODO: This is similar to column_composer. Deduplicate?
  class TablePrinter
  {
-@@ -6127,7 +6673,7 @@ public:
+@@ -6127,7 +6671,7 @@ public:
      {
          if (fixed_column_num > 0 && (int)rows[rows.size() - 1].size() >= fixed_column_num)
              AddRow();
@@ -49983,7 +49980,7 @@ index 0a381e1..720da67 100644
      }
  
      int NumCells() const
-@@ -6146,7 +6692,7 @@ public:
+@@ -6146,7 +6690,7 @@ public:
          {
              for (size_t col = 0; col < rows[row].size(); ++col)
              {
@@ -49992,7 +49989,7 @@ index 0a381e1..720da67 100644
                  if (col == labels_lengths_by_col.size())
                      labels_lengths_by_col.push_back(label_len);
                  else
-@@ -6158,23 +6704,37 @@ public:
+@@ -6158,23 +6702,37 @@ public:
  
          for (const auto &row : rows)
          {
@@ -50041,7 +50038,7 @@ index 0a381e1..720da67 100644
          }
      }
  };
-@@ -6294,10 +6854,12 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+@@ -6294,10 +6852,12 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
  
      // Less important common properties. Arguably should be lower down.
      const size_type sz = mi.body_size();
@@ -50057,7 +50054,7 @@ index 0a381e1..720da67 100644
      pr.AddRow();
      if (mi.threat != MTHRT_UNDEF && !mons_class_is_peripheral(mi.type))
          pr.AddCell("Threat", _get_threat_desc(mi.threat));
-@@ -6305,9 +6867,10 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+@@ -6305,9 +6865,10 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
          pr.AddCell(); // ensure alignment
      pr.AddCell("Class", uppercase_first(holi).c_str());
      pr.AddCell("Size", size_desc.c_str());
@@ -50070,7 +50067,7 @@ index 0a381e1..720da67 100644
      else if (mons_class_fast_regen(mi.type) || mi.is(MB_REGENERATION))
          pr.AddCell("Regen", make_stringf("%d/turn", mi.regen_rate(1)));
                                          // (Wait, what's a 'turn'?)
-@@ -6621,6 +7184,29 @@ static string _desc_shooting_star_dam(const monster_info &mi)
+@@ -6621,6 +7182,29 @@ static string _desc_shooting_star_dam(const monster_info &mi)
      return make_stringf("%dd%d", beam.damage.num, beam.damage.size);
  }
  
@@ -50100,7 +50097,7 @@ index 0a381e1..720da67 100644
  // Fetches the monster's database description and reads it into inf.
  void get_monster_db_desc(const monster_info& mi, describe_info &inf,
                           bool &has_stat_desc, bool mark_spells)
-@@ -6646,10 +7232,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6646,10 +7230,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      // Don't get description for player ghosts.
      if (mi.type != MONS_PLAYER_GHOST && mi.type != MONS_PLAYER_ILLUSION)
@@ -50116,7 +50113,7 @@ index 0a381e1..720da67 100644
  
      string symbol;
      symbol += get_monster_data(mi.type)->basechar;
-@@ -6660,10 +7249,10 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6660,10 +7247,10 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      if (!mons_is_unique(mi.type))
      {
          string symbol_prefix = "__" + symbol + "_prefix";
@@ -50129,7 +50126,7 @@ index 0a381e1..720da67 100644
      }
  
      if (!inf.quote.empty() && !quote2.empty())
-@@ -6697,18 +7286,31 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6697,18 +7284,31 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      }
  
      case MONS_PLAYER_GHOST:
@@ -50165,7 +50162,7 @@ index 0a381e1..720da67 100644
  
      case MONS_MUTANT_BEAST:
          // vault renames get their own descriptions
-@@ -6718,30 +7320,45 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6718,30 +7318,45 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      case MONS_BLOCK_OF_ICE:
          if (mi.is(MB_SLOWLY_DYING))
@@ -50217,7 +50214,7 @@ index 0a381e1..720da67 100644
  
      default:
          break;
-@@ -6750,13 +7367,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6750,13 +7365,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      if (mons_class_is_fragile(mi.type))
      {
          if (mi.is(MB_CRUMBLING))
@@ -50235,7 +50232,7 @@ index 0a381e1..720da67 100644
      }
  
      if (!mons_is_unique(mi.type))
-@@ -6765,21 +7382,26 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6765,21 +7380,26 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
          symbol_suffix += symbol;
          symbol_suffix += "_suffix";
  
@@ -50269,7 +50266,7 @@ index 0a381e1..720da67 100644
      }
  
      // Get information on resistances, speed, etc.
-@@ -6793,7 +7415,8 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6793,7 +7413,8 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      bool did_stair_use = false;
      if (!mons_class_can_use_stairs(mi.type))
      {
@@ -50279,7 +50276,7 @@ index 0a381e1..720da67 100644
          did_stair_use = true;
      }
  
-@@ -6803,42 +7426,70 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6803,42 +7424,70 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      if (mi.is(MB_SUMMONED))
      {
@@ -50367,7 +50364,7 @@ index 0a381e1..720da67 100644
      }
  
      if (!inf.quote.empty())
-@@ -6958,11 +7609,19 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
+@@ -6958,11 +7607,19 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
      for (string& tag : descriptors)
      {
          const string key = make_stringf("%s monstatus", tag.c_str());
@@ -50389,7 +50386,7 @@ index 0a381e1..720da67 100644
  
          // Wordwrap and indent slightly.
          linebreak_string(lookup, 77);
-@@ -6971,11 +7630,12 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
+@@ -6971,11 +7628,12 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
          out << "   " << lookup << "\n\n";
      }
  
@@ -50403,7 +50400,7 @@ index 0a381e1..720da67 100644
      bool has_stat_desc = false;
      describe_info inf;
      formatted_string desc;
-@@ -7000,7 +7660,7 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7000,7 +7658,7 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  #endif
  
      auto title = make_shared<Text>();
@@ -50412,7 +50409,7 @@ index 0a381e1..720da67 100644
      title->set_margin_for_sdl(0, 0, 0, 10);
      title_hbox->add_child(std::move(title));
  
-@@ -7009,24 +7669,34 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7009,24 +7667,34 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
      title_hbox->set_margin_for_sdl(0, 0, 20, 0);
      vbox->add_child(std::move(title_hbox));
  
@@ -50453,7 +50450,7 @@ index 0a381e1..720da67 100644
      const formatted_string status_desc = _get_monster_status_descriptions(mi);
  
  
-@@ -7037,9 +7707,9 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7037,9 +7705,9 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  
      const string mores[3] =
      {
@@ -50466,7 +50463,7 @@ index 0a381e1..720da67 100644
      };
  
      const formatted_string *content[3] = { &desc, &status_desc, &quote };
-@@ -7061,14 +7731,14 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7061,14 +7729,14 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  
          string more = make_stringf("%s%s%s", mores[i].c_str(),
              !status_desc.empty()
@@ -50484,7 +50481,7 @@ index 0a381e1..720da67 100644
      }
  
      more_sw->set_margin_for_sdl(20, 0, 0, 0);
-@@ -7279,11 +7949,14 @@ string get_ghost_description(const monster_info &mi, bool concise)
+@@ -7279,11 +7947,14 @@ string get_ghost_description(const monster_info &mi, bool concise)
  
  void describe_skill(skill_type skill)
  {
@@ -50501,7 +50498,7 @@ index 0a381e1..720da67 100644
  }
  
  #ifdef USE_TILE_LOCAL // only used in tiles
-@@ -7472,7 +8145,85 @@ static void _desc_form_val(TablePrinter& pr, string label, int val)
+@@ -7472,7 +8143,85 @@ static void _desc_form_val(TablePrinter& pr, string label, int val)
      pr.AddCell(label, make_stringf("%+d", val).c_str(), val < 0 ? RED : LIGHTGREY);
  }
  
@@ -50588,7 +50585,7 @@ index 0a381e1..720da67 100644
  {
      const Form* form = get_form(form_type);
  
-@@ -7540,53 +8291,31 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7540,53 +8289,31 @@ static string _describe_talisman_form(transformation form_type)
          _maybe_populate_form_table(items, bind(&Form::get_effect_chance, form, placeholders::_1), "Daze Power", skill, 0, false, false);
      }
  
@@ -50657,7 +50654,7 @@ index 0a381e1..720da67 100644
  
      _desc_form_val(pr, "Str", form->str_mod);
      _desc_form_val(pr, "Dex", form->dex_mod);
-@@ -7628,7 +8357,7 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7628,7 +8355,7 @@ static string _describe_talisman_form(transformation form_type)
      else if (form_type == transformation::sphinx)
      {
          if (!you.has_mutation(MUT_NO_ARMOUR))
@@ -50666,7 +50663,7 @@ index 0a381e1..720da67 100644
          pr.AddCell("Will", "+");
      }
      else if (form_type == transformation::werewolf)
-@@ -7652,10 +8381,22 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7652,10 +8379,22 @@ static string _describe_talisman_form(transformation form_type)
          pr.Print(description);
      }
  
@@ -50693,7 +50690,7 @@ index 0a381e1..720da67 100644
  
      // Mutation suppression info
      vector<string> changes;
-@@ -7672,16 +8413,41 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7672,16 +8411,41 @@ static string _describe_talisman_form(transformation form_type)
  
      if (!changes.empty())
      {
@@ -50946,7 +50943,7 @@ index 05963d8..3edcc20 100644
                                                  item_descriptions.begin(),
                                                  item_descriptions.end());
 diff --git a/crawl-ref/source/fontwrapper-ft.cc b/crawl-ref/source/fontwrapper-ft.cc
-index 0daea2c..bcdb359 100644
+index 0daea2c..dcf1a81 100644
 --- a/crawl-ref/source/fontwrapper-ft.cc
 +++ b/crawl-ref/source/fontwrapper-ft.cc
 @@ -22,10 +22,12 @@
@@ -51068,7 +51065,38 @@ index 0daea2c..bcdb359 100644
  
              // See if we need to flush prematurely.
              if (n_subst == MAX_GLYPHS - 1)
-@@ -661,27 +694,20 @@ void FTFontWrapper::render_tooltip(unsigned int px, unsigned int py,
+@@ -614,6 +647,21 @@ formatted_string FTFontWrapper::split(const formatted_string &str,
+             }
+         }
+ 
++        // A translated line need not contain ASCII spaces. Split at the
++        // measured glyph boundary without deleting that glyph or its style.
++        if (space_idx == -1 && line_end > 0 && num_lines + 1 < max_lines)
++        {
++            const size_t offset = line - &base[0];
++            const size_t cut = offset + line_end;
++            const formatted_string remainder = ret.substr_bytes(cut, base.size() - cut);
++            ret = ret.substr_bytes(0, cut);
++            ret += formatted_string::parse_string_raw("\n");
++            ret += remainder;
++            base.insert(cut, 1, '\n');
++            line = &base[offset];
++            space_idx = line_end;
++        }
++
+         if (++num_lines >= max_lines || space_idx == -1)
+         {
+             line_end = min(line_end, nl);
+@@ -631,7 +679,7 @@ formatted_string FTFontWrapper::split(const formatted_string &str,
+             }
+ 
+             ret = ret.chop_bytes(&line[ellipses] - &base[0]);
+-            ret += "..";
++            ret += formatted_string::parse_string_raw("..");
+             return ret;
+         }
+         else if (space_idx != nl)
+@@ -661,27 +709,20 @@ void FTFontWrapper::render_tooltip(unsigned int px, unsigned int py,
                                    const coord_def &max_pos)
  {
      int outline = 7;
@@ -51106,7 +51134,7 @@ index 0daea2c..bcdb359 100644
  
      const VColour border_colour(125, 98, 60);
      const VColour bg_colour(4, 2, 4);
-@@ -689,7 +715,7 @@ void FTFontWrapper::render_tooltip(unsigned int px, unsigned int py,
+@@ -689,7 +730,7 @@ void FTFontWrapper::render_tooltip(unsigned int px, unsigned int py,
      outline -= 2;
      _draw_box(tx-outline, ty-outline, wx+2*outline, wy+2*outline, bg_colour);
  
@@ -51115,7 +51143,7 @@ index 0daea2c..bcdb359 100644
  }
  
  /**
-@@ -720,12 +746,14 @@ void FTFontWrapper::render_string(unsigned int px, unsigned int py,
+@@ -720,12 +761,14 @@ void FTFontWrapper::render_string(unsigned int px, unsigned int py,
  void FTFontWrapper::render_hover_string(unsigned int px, unsigned int py,
                                    const formatted_string &text)
  {
@@ -51123,19 +51151,20 @@ index 0daea2c..bcdb359 100644
 -    const int wy = string_height(text);
 -    const int ty = py - wy;
 -    const int tx = px - wx / 2;
+-
+-    render_string(tx, ty, text);
 +    const coord_def screen = tiles.window_size();
 +    const formatted_string fitted = split(text, max(1, screen.x), max(1, screen.y));
 +    const int wx = string_width(fitted);
 +    const int wy = string_height(fitted);
 +    const int ty = max(0, min(static_cast<int>(py) - wy, screen.y - wy));
 +    const int tx = max(0, min(static_cast<int>(px) - wx / 2, screen.x - wx));
- 
--    render_string(tx, ty, text);
++
 +    render_string(tx, ty, fitted);
  }
  
  /**
-@@ -952,7 +980,7 @@ unsigned int FTFontWrapper::char_height(bool logical) const
+@@ -952,7 +995,7 @@ unsigned int FTFontWrapper::char_height(bool logical) const
   */
  unsigned int FTFontWrapper::max_width(int length, bool logical) const
  {
@@ -51370,6 +51399,684 @@ index c9704ed..d41e3b0 100644
  string curse_abbr(const CrawlStoreValue& curse);
  string curse_name(const CrawlStoreValue& curse);
  const vector<skill_type>& curse_skills(const CrawlStoreValue& curse);
+diff --git a/crawl-ref/source/hints.cc b/crawl-ref/source/hints.cc
+index 9f18733..bb38a30 100644
+--- a/crawl-ref/source/hints.cc
++++ b/crawl-ref/source/hints.cc
+@@ -6,6 +6,9 @@
+ #include "AppHdr.h"
+ 
+ #include "hints.h"
++#include "zh-message.h"
++#include "zh-display-name.h"
++#include "zh-localization.h"
+ 
+ #include <cstring>
+ #include <sstream>
+@@ -1973,67 +1976,80 @@ string hints_memorise_info()
+     return text.str();
+ }
+ 
+-static string _hints_abilities(const item_def& item)
++// Resolve command mappings before template filling: translated word order must
++// never change which command a placeholder refers to.
++static ZhArg _item_hint_key(const char *key, command_type command,
++                            const char *suffix = "")
+ {
+-    string str = "To do this, ";
++    string value = string("<w>%") + suffix + "</w>";
++    insert_commands(value, {command});
++    return zh_key_markup(key, value);
++}
+ 
+-    vector<command_type> cmd;
+-    if (!item_is_equipped(item))
+-    {
+-        switch (item.base_type)
+-        {
+-        case OBJ_WEAPONS:
+-            str += "first <w>%</w>ield it";
+-            cmd.push_back(CMD_WIELD_WEAPON);
+-            break;
+-        case OBJ_ARMOUR:
+-            str += "first <w>%</w>ear it";
+-            cmd.push_back(CMD_WEAR_ARMOUR);
+-            break;
+-        case OBJ_JEWELLERY:
+-            str += "first <w>%</w>ut it on";
+-            cmd.push_back(CMD_WEAR_JEWELLERY);
+-            break;
+-        default:
+-            str += "<r>(BUG! this item shouldn't give an ability)</r>";
+-            break;
+-        }
+-        str += ", then ";
+-    }
+-    str += "enter the ability menu with <w>%</w>, and then "
+-           "choose the corresponding ability. Note that such an attempt of "
+-           "activation, especially by the untrained, is likely to fail.";
+-    cmd.push_back(CMD_USE_ABILITY);
++static ZhArg _item_hint_message(const char *key, const string &id,
++                                initializer_list<ZhArg> args = {})
++{
++    const ZhMessage message = zh_message(id, args);
++    bool supported = true;
++    for (const ZhArg &arg : args)
++        supported = supported && arg.supported;
++    return {key, ZhArgType::Text, message.canonical, message.localized, supported};
++}
+ 
+-    insert_commands(str, cmd);
+-    return str;
++static ZhArg _item_hint_optional(const char *key, const char *id)
++{
++#ifdef USE_TILE
++    return _item_hint_message(key, id);
++#else
++    (void)id;
++    return {key, ZhArgType::Text, "", "", true};
++#endif
+ }
+ 
+-static string _hints_throw_stuff(const item_def &item)
++static ZhArg _item_hint_target(bool spells = false)
+ {
+-    string result;
++    return _item_hint_message("target_suffix", spells
++        ? "item.hints.target_mode.spell" : "item.hints.target_mode.fire", {
++        _item_hint_key("repeat_key", spells ? CMD_CAST_SPELL : CMD_FIRE,
++                       spells ? "ap" : "f")});
++}
+ 
+-    result  = "To do this, press <w>%</w> to fire, then ";
+-    if (item.slot)
+-    {
+-        result += "<w>";
+-        result += item.slot;
+-        result += "</w> for";
+-    }
+-    else
++static ZhArg _item_hint_abilities(const item_def &item)
++{
++    const ZhArg ability = _item_hint_key("ability_key", CMD_USE_ABILITY);
++    if (item_is_equipped(item))
++        return _item_hint_message("ability_hint",
++                                 "item.hints.ability.prerequisite.equipped", {ability});
++    switch (item.base_type)
+     {
+-        // you don't have this/these stuff(s) at present
+-        result += "select ";
++    case OBJ_WEAPONS:
++        return _item_hint_message("ability_hint", "item.hints.ability.prerequisite.weapon",
++            {_item_hint_key("equip_key", CMD_WIELD_WEAPON), ability});
++    case OBJ_ARMOUR:
++        return _item_hint_message("ability_hint", "item.hints.ability.prerequisite.armour",
++            {_item_hint_key("equip_key", CMD_WEAR_ARMOUR), ability});
++    case OBJ_JEWELLERY:
++        return _item_hint_message("ability_hint", "item.hints.ability.prerequisite.jewellery",
++            {_item_hint_key("equip_key", CMD_WEAR_JEWELLERY), ability});
++    default:
++        return _item_hint_message("ability_hint",
++                                 "item.hints.ability.prerequisite.bug", {ability});
+     }
+-    result += (item.quantity > 1 ? "these" : "this");
+-    result += " ";
+-    result += item_base_name(item);
+-    result += (item.quantity > 1? "s" : "");
+-    result += ". You'll ";
+-    result += _hints_target_mode();
++}
+ 
+-    insert_commands(result, { CMD_FIRE });
+-    return result;
++static ZhArg _item_hint_throw(const item_def &item)
++{
++    const string id = string("item.hints.throw.")
++        + (item.quantity > 1 ? "plural." : "singular.")
++        + (item.slot ? "slot" : "no_slot");
++    const ZhArg fire = _item_hint_key("fire_key", CMD_FIRE);
++    // This is a type-derived singular base name, not an English sentence.
++    const ZhArg name = zh_item_base_arg("item_name", item);
++    const ZhArg target = _item_hint_target();
++    if (item.slot)
++        return _item_hint_message("throw_hint", id,
++            {fire, zh_key("item_slot", string(1, item.slot)), name, target});
++    return _item_hint_message("throw_hint", id, {fire, name, target});
+ }
+ 
+ // num_old_talents describes the number of activatable abilities you had
+@@ -2056,350 +2072,216 @@ void check_item_hint(const item_def &item, unsigned int num_old_talents)
+ // special effects, etc.
+ string hints_describe_item(const item_def &item)
+ {
++    const ZhLegacyGuard boundary("detail.item.hints");
+     ostringstream ostr;
+-    ostr << "<" << colour_to_str(channel_to_colour(MSGCH_TUTORIAL)) << ">";
+-    vector<command_type> cmd;
+-
++    const string colour = colour_to_str(channel_to_colour(MSGCH_TUTORIAL));
++    ostr << "<" << colour << ">";
++    const auto emit = [&](const string &id, initializer_list<ZhArg> args = {}) {
++        ostr << zh_message(id, args).display();
++    };
++    const auto resistance = [&](const string &id) {
++        emit(id, {_item_hint_key("resists_key", CMD_RESISTS_SCREEN),
++            _item_hint_optional("tile_control", "item.hints.tiles.avatar_right_click")});
++    };
+     switch (item.base_type)
+     {
+-        case OBJ_WEAPONS:
++    case OBJ_WEAPONS:
++        if (is_artefact(item) && item.is_identified())
+         {
+-            if (is_artefact(item) && item.is_identified())
+-            {
+-                if (gives_ability(item))
+-                {
+-                    // You can activate it.
+-                    ostr << "When wielded, some weapons (such as this one) "
+-                            "offer certain abilities you can activate. ";
+-                    ostr << _hints_abilities(item);
+-                    break;
+-                }
+-                else if (gives_resistance(item))
+-                {
+-                    // It grants a resistance.
+-                    ostr << "\nThis weapon offers its wearer protection from "
+-                            "certain damage sources. For an overview of your "
+-                            "resistances (among other things) press <w>%</w>"
+-#ifdef USE_TILE
+-                            " or click on your avatar with the <w>right mouse "
+-                            "button</w>"
+-#endif
+-                            ".";
+-                    cmd.push_back(CMD_RESISTS_SCREEN);
+-                    break;
+-                }
+-                else
+-                    return "";
+-            }
+-
+-            if (!item_is_equipped(item))
+-            {
+-                ostr << "You can wield this weapon with <w>%</w>, or use "
+-                        "<w>%</w> to switch between the weapons in slot "
+-                        "a and b. (Use <w>%i</w> to adjust item slots.)";
+-                cmd.push_back(CMD_WIELD_WEAPON);
+-                cmd.push_back(CMD_WEAPON_SWAP);
+-                cmd.push_back(CMD_ADJUST_INVENTORY);
+-
+-                // Weapon skill used by this weapon and the best weapon skill.
+-                skill_type curr_wpskill = item_attack_skill(item);
+-                skill_type best_wpskill;
+-
+-                // Maybe this is a launching weapon?
+-                if (is_range_weapon(item))
+-                    best_wpskill = SK_THROWING;
+-                else
+-                    best_wpskill = best_skill(SK_SHORT_BLADES, SK_STAVES);
+-
+-                // Maybe unarmed is better.
+-                if (you.skills[SK_UNARMED_COMBAT] > you.skills[best_wpskill])
+-                    best_wpskill = SK_UNARMED_COMBAT;
+-
+-                if (you.skills[curr_wpskill] + 2 < you.skills[best_wpskill])
+-                {
+-                    ostr << "\nHowever, you've been training in <w>"
+-                         << skill_name(best_wpskill)
+-                         << "</w> for a while, so maybe you should "
+-                            "continue training that rather than <w>"
+-                         << skill_name(curr_wpskill)
+-                         << "</w>. (Press <w>%</w> to see the skill "
+-                            "management screen for the actual numbers.)";
+-
+-                    cmd.push_back(CMD_DISPLAY_SKILLS);
+-                }
+-            }
+-            else // wielded weapon
++            if (gives_ability(item))
++                emit("item.hints.weapon.artefact.ability", {_item_hint_abilities(item)});
++            else if (gives_resistance(item))
+             {
+-                if (is_range_weapon(item))
+-                {
+-                    ostr << "To attack a monster, ";
+-#ifdef USE_TILE
+-                    ostr << "<w>left mouse click</w> on the monster.\n\n";
+-                    ostr << "To fire a ranged weapon using the keyboard, ";
+-#endif
+-                    ostr << "press <w>%</w>. You'll ";
+-                    ostr << _hints_target_mode();
+-                    cmd.push_back(CMD_PRIMARY_ATTACK);
+-                }
+-                else
+-                    ostr << "To attack a monster, you can simply walk into it.";
++                ostr << "\n";
++                resistance("item.hints.weapon.artefact.resistance");
+             }
+-
+-            Hints.hints_events[HINT_SEEN_WEAPON] = false;
++            else
++                return "";
+             break;
+         }
+-        case OBJ_MISSILES:
+-            if (is_throwable(&you, item))
+-            {
+-                ostr << item.name(DESC_YOUR)
+-                     << " can be <w>%</w>ired without the use of a launcher. ";
+-                ostr << _hints_throw_stuff(item);
+-                cmd.push_back(CMD_FIRE);
+-            }
+-            Hints.hints_events[HINT_SEEN_MISSILES] = false;
+-            break;
+-
+-        case OBJ_ARMOUR:
++        if (!item_is_equipped(item))
+         {
+-            bool wearable = true;
+-            if (you.get_innate_mutation_level(MUT_HORNS) > 0
+-                && is_hard_helmet(item))
+-            {
+-                ostr << "Because of your horns you cannot wear helmets. "
+-                        "(Press <w>%</w> to see a list of your mutations and "
+-                        "innate abilities.)";
+-                cmd.push_back(CMD_DISPLAY_MUTATIONS);
+-                wearable = false;
+-            }
+-            else if (item.sub_type == ARM_BARDING)
++            emit("item.hints.weapon.unwielded", {
++                _item_hint_key("wield_key", CMD_WIELD_WEAPON),
++                _item_hint_key("swap_key", CMD_WEAPON_SWAP),
++                _item_hint_key("adjust_key", CMD_ADJUST_INVENTORY, "i")});
++            const skill_type current = item_attack_skill(item);
++            skill_type best = is_range_weapon(item) ? SK_THROWING
++                : best_skill(SK_SHORT_BLADES, SK_STAVES);
++            if (you.skills[SK_UNARMED_COMBAT] > you.skills[best])
++                best = SK_UNARMED_COMBAT;
++            if (you.skills[current] + 2 < you.skills[best])
+             {
+-                ostr << "Only nagas and armataurs can wear barding.";
+-                wearable = false;
++                ostr << "\n";
++                emit("item.hints.weapon.training_gap", {
++                    zh_glossary_name("best_skill", "skill.name", skill_name(best)),
++                    zh_glossary_name("weapon_skill", "skill.name", skill_name(current)),
++                    _item_hint_key("skills_key", CMD_DISPLAY_SKILLS)});
+             }
+-            else
+-            {
+-                ostr << "You can wear pieces of armour with <w>%</w> and take "
+-                        "them off again with <w>%</w>"
++        }
++        else if (is_range_weapon(item))
++            emit(
+ #ifdef USE_TILE
+-                        ", or, alternatively, simply click on their tiles to "
+-                        "perform either action"
++                "item.hints.weapon.ranged.wielded.tile",
++#else
++                "item.hints.weapon.ranged.wielded",
+ #endif
+-                        ".";
+-                cmd.push_back(CMD_WEAR_ARMOUR);
+-                cmd.push_back(CMD_REMOVE_ARMOUR);
+-            }
+-
+-            if (Hints.hints_type == HINT_MAGIC_CHAR
+-                && get_armour_slot(item) == SLOT_BODY_ARMOUR
+-                && !is_effectively_light_armour(&item))
+-            {
+-                ostr << "\nNote that body armour with a high encumbrance "
+-                        "rating may hinder your ability to cast spells. Light "
+-                        "armour such as robes and leather armour will be "
+-                        "generally safe for any aspiring spellcaster.";
+-            }
+-            else if (Hints.hints_type == HINT_MAGIC_CHAR
+-                     && is_shield(item))
+-            {
+-                ostr << "\nNote that shields will hinder your ability to "
+-                        "cast spells, until you've gained enough Shields "
+-                        "skill to remove the penalty.";
+-            }
+-            else if (Hints.hints_type == HINT_RANGER_CHAR
+-                     && is_offhand(item))
+-            {
+-                ostr << "\nNote that many ranged weapons are two handed and so "
+-                        "cannot be used with an offhand item.";
+-            }
+-
+-            if (!item.is_identified()
+-                && (is_artefact(item)
+-                    || get_equip_desc(item) != ISFLAG_NO_DESC))
++                {_item_hint_key("attack_key", CMD_PRIMARY_ATTACK), _item_hint_target()});
++        else
++            emit("item.hints.weapon.melee.wielded");
++        Hints.hints_events[HINT_SEEN_WEAPON] = false;
++        break;
++    case OBJ_MISSILES:
++        if (is_throwable(&you, item))
++            emit("item.hints.missile.throwable", {zh_item_arg("item_name", item, DESC_YOUR),
++                _item_hint_key("fire_key", CMD_FIRE), _item_hint_throw(item)});
++        Hints.hints_events[HINT_SEEN_MISSILES] = false;
++        break;
++    case OBJ_ARMOUR:
++    {
++        bool wearable = true;
++        if (you.get_innate_mutation_level(MUT_HORNS) > 0 && is_hard_helmet(item))
++        {
++            emit("item.hints.armour.horns_helmet",
++                 {_item_hint_key("mutations_key", CMD_DISPLAY_MUTATIONS)});
++            wearable = false;
++        }
++        else if (item.sub_type == ARM_BARDING)
++        {
++            emit("item.hints.armour.barding_restriction");
++            wearable = false;
++        }
++        else
++            emit("item.hints.armour.wear_remove", {
++                _item_hint_key("wear_key", CMD_WEAR_ARMOUR),
++                _item_hint_key("remove_key", CMD_REMOVE_ARMOUR),
++                _item_hint_optional("tile_alternative", "item.hints.tiles.armour_click")});
++        if (Hints.hints_type == HINT_MAGIC_CHAR
++            && get_armour_slot(item) == SLOT_BODY_ARMOUR
++            && !is_effectively_light_armour(&item))
++        {
++            ostr << "\n";
++            emit("item.hints.armour.magic_encumbrance");
++        }
++        else if (Hints.hints_type == HINT_MAGIC_CHAR && is_shield(item))
++        {
++            ostr << "\n";
++            emit("item.hints.armour.magic_shield");
++        }
++        else if (Hints.hints_type == HINT_RANGER_CHAR && is_offhand(item))
++        {
++            ostr << "\n";
++            emit("item.hints.armour.ranger_offhand");
++        }
++        if (!item.is_identified()
++            && (is_artefact(item) || get_equip_desc(item) != ISFLAG_NO_DESC))
++        {
++            ostr << "\n\n";
++            emit("item.hints.armour.unidentified_special");
++        }
++        if (wearable)
++        {
++            if (gives_resistance(item))
+             {
+-                ostr << "\n\nWeapons and armour that have unusual descriptions "
+-                     << "like this are much more likely to be of higher "
+-                     << "enchantment or have special properties, good or bad.";
++                ostr << "\n\n";
++                resistance("item.hints.armour.resistance");
+             }
+-            if (wearable)
++            if (gives_ability(item))
+             {
+-                if (gives_resistance(item))
+-                {
+-                    ostr << "\n\nThis armour offers its wearer protection from "
+-                            "certain sources. For an overview of your"
+-                            " resistances (among other things) press <w>%</w>"
+-#ifdef USE_TILE
+-                            " or click on your avatar with the <w>right mouse "
+-                            "button</w>"
+-#endif
+-                            ".";
+-                    cmd.push_back(CMD_RESISTS_SCREEN);
+-                }
+-                if (gives_ability(item))
+-                {
+-                    ostr << "\n\nWhen worn, some types of armour (such as "
+-                            "this one) offer certain <w>%</w>bilities you can "
+-                            "activate. ";
+-                    ostr << _hints_abilities(item);
+-                    cmd.push_back(CMD_USE_ABILITY);
+-                }
++                ostr << "\n\n";
++                emit("item.hints.armour.ability", {
++                    _item_hint_key("ability_key", CMD_USE_ABILITY), _item_hint_abilities(item)});
+             }
+-            Hints.hints_events[HINT_SEEN_ARMOUR] = false;
+-            break;
+         }
+-        case OBJ_WANDS:
+-            ostr << "The magic within can be unleashed by evoking "
+-                    "(<w>%</w>) it.";
+-            cmd.push_back(CMD_EVOKE);
++        Hints.hints_events[HINT_SEEN_ARMOUR] = false;
++        break;
++    }
++    case OBJ_WANDS:
++        emit("item.hints.wand.use", {_item_hint_key("evoke_key", CMD_EVOKE)});
+ #ifdef USE_TILE
+-            ostr << " Alternatively, you can 1) <w>left mouse click</w> on "
+-                    "the monster you wish to target (or your player character "
+-                    "to target yourself) while pressing the <w>";
++        ostr << " ";
+ #ifdef USE_TILE_WEB
+-            ostr << "Ctrl + Shift keys";
++        emit("item.hints.wand.tiles.web");
+ #else
+ #if defined(UNIX) && defined(USE_TILE_LOCAL)
+-            if (!tiles.is_fullscreen())
+-              ostr << "Ctrl + Shift keys";
+-            else
+-#endif
+-              ostr << "Alt key";
++        if (!tiles.is_fullscreen())
++            emit("item.hints.wand.tiles.windowed");
++        else
+ #endif
+-            ostr << "</w> and pick the wand from the menu, or 2) "
+-                    "<w>left mouse click</w> on the wand tile and then "
+-                    "<w>left mouse click</w> on your target.";
++            emit("item.hints.wand.tiles.fullscreen");
+ #endif
+-            Hints.hints_events[HINT_SEEN_WAND] = false;
+-            break;
+-
+-        case OBJ_SCROLLS:
+-            ostr << "Press <w>%</w> to read this scroll"
+-#ifdef USE_TILE
+-                    "or simply click on it with your <w>left mouse button</w>"
+ #endif
+-                    ".";
+-            cmd.push_back(CMD_READ);
+-
+-            Hints.hints_events[HINT_SEEN_SCROLL] = false;
+-            break;
+-
+-        case OBJ_JEWELLERY:
++        Hints.hints_events[HINT_SEEN_WAND] = false;
++        break;
++    case OBJ_SCROLLS:
++        emit("item.hints.scroll.use", {_item_hint_key("read_key", CMD_READ),
++            _item_hint_optional("tile_click", "item.hints.tiles.scroll_click")});
++        Hints.hints_events[HINT_SEEN_SCROLL] = false;
++        break;
++    case OBJ_JEWELLERY:
++        emit("item.hints.jewellery.wear_remove", {
++            _item_hint_key("wear_key", CMD_WEAR_JEWELLERY),
++            _item_hint_key("remove_key", CMD_REMOVE_JEWELLERY),
++            _item_hint_optional("tile_alternative", "item.hints.tiles.jewellery_click")});
++        if (gives_resistance(item))
+         {
+-            ostr << "Jewellery can be <w>%</w>ut on or <w>%</w>emoved "
+-                    "again"
+-#ifdef USE_TILE
+-                    ", though in Tiles, either can be done by clicking on the "
+-                    "item in your inventory"
+-#endif
+-                    ".";
+-            cmd.push_back(CMD_WEAR_JEWELLERY);
+-            cmd.push_back(CMD_REMOVE_JEWELLERY);
+-
+-            if (gives_resistance(item))
+-            {
+-                ostr << "\n\nThis "
+-                     << (item.sub_type < NUM_RINGS ? "ring" : "amulet")
+-                     << " offers its wearer protection "
+-                        "from certain sources. For an overview of your "
+-                        "resistances (among other things) press <w>%</w>"
+-#ifdef USE_TILE
+-                        " or click on your avatar with the <w>right mouse "
+-                        "button</w>"
+-#endif
+-                        ".";
+-                cmd.push_back(CMD_RESISTS_SCREEN);
+-            }
+-            if (gives_ability(item))
+-            {
+-                ostr << "\n\nWhen worn, some types of jewellery (such as this "
+-                        "one) offer certain <w>%</w>bilities you can activate. ";
+-                cmd.push_back(CMD_USE_ABILITY);
+-                ostr << _hints_abilities(item);
+-            }
+-            Hints.hints_events[HINT_SEEN_JEWELLERY] = false;
+-            break;
++            ostr << "\n\n";
++            ZhArg type = _item_hint_message("jewellery_type", item.sub_type < NUM_RINGS
++                ? "item.hints.jewellery.type.ring" : "item.hints.jewellery.type.amulet");
++            type.type = ZhArgType::Name;
++            emit("item.hints.jewellery.resistance", {type,
++                _item_hint_key("resists_key", CMD_RESISTS_SCREEN),
++                _item_hint_optional("tile_control", "item.hints.tiles.avatar_right_click")});
+         }
+-        case OBJ_POTIONS:
+-            ostr << "Press <w>%</w> to quaff this potion"
+-#ifdef USE_TILE
+-                    "or simply click on it with your <w>left mouse button</w>"
+-#endif
+-                    ".";
+-            cmd.push_back(CMD_QUAFF);
+-            Hints.hints_events[HINT_SEEN_POTION] = false;
+-            break;
+-
+-        case OBJ_BOOKS:
+-            if (item.sub_type == BOOK_MANUAL)
+-            {
+-                ostr << "A manual can greatly help you in training a skill. "
+-                        "After you pick one up, the skill in question will be "
+-                        "trained more efficiently and will level up faster "
+-                        "until you exhaust the manual's contents.";
+-                cmd.push_back(CMD_READ);
+-            }
+-            else // It's a spellbook!
+-            {
+-                ostr << "\nYou can pick up a spellbook to add its spells to "
+-                        "your spell library. (View your spell library with "
+-                        "<w>%</w>.)";
+-                cmd.push_back(CMD_MEMORISE_SPELL);
+-            }
++        if (gives_ability(item))
++        {
++            ostr << "\n\n";
++            emit("item.hints.jewellery.ability", {
++                _item_hint_key("ability_key", CMD_USE_ABILITY), _item_hint_abilities(item)});
++        }
++        Hints.hints_events[HINT_SEEN_JEWELLERY] = false;
++        break;
++    case OBJ_POTIONS:
++        emit("item.hints.potion.use", {_item_hint_key("quaff_key", CMD_QUAFF),
++            _item_hint_optional("tile_click", "item.hints.tiles.potion_click")});
++        Hints.hints_events[HINT_SEEN_POTION] = false;
++        break;
++    case OBJ_BOOKS:
++        if (item.sub_type == BOOK_MANUAL)
++            emit("item.hints.book.manual");
++        else
++        {
+             ostr << "\n";
+-            Hints.hints_events[HINT_SEEN_SPBOOK] = false;
+-            break;
+-
+-        case OBJ_CORPSES:
+-            ostr << "Skeletons and corpses can be used as components for "
+-                    "certain necromantic spells. Apart from that, they are "
+-                    "largely useless.";
+-            break;
+-
+-       case OBJ_STAVES:
+-            ostr << "This staff can enhance your spellcasting, making spells "
+-                    "of its related spell school more powerful.";
+-
+-            if (gives_resistance(item))
+-            {
+-                ostr << "It also offers its wielder protection from "
+-                        "certain sources. For an overview of your "
+-                        "resistances (among other things) press <w>%</w>"
+-#ifdef USE_TILE
+-                        " or click on your avatar with the <w>right mouse "
+-                        "button</w>"
+-#endif
+-                        ".";
+-
+-                cmd.push_back(CMD_RESISTS_SCREEN);
+-            }
+-            else if (you_worship(GOD_TROG))
+-            {
+-                ostr << "\n\nSeeing how "
+-                     << god_name(GOD_TROG, false)
+-                     << " frowns upon the use of magic, this staff will be "
+-                        "of little use to you and you might just as well "
+-                        "<w>%</w>rop it now.";
+-                cmd.push_back(CMD_DROP);
+-            }
+-            Hints.hints_events[HINT_SEEN_STAFF] = false;
+-            break;
+-
+-        case OBJ_MISCELLANY:
+-            ostr << "Miscellaneous items sometimes harbour magical powers "
+-                    "that can be harnessed by e<w>%</w>oking the item.";
+-            cmd.push_back(CMD_EVOKE);
+-
+-            Hints.hints_events[HINT_SEEN_MISC] = false;
+-            break;
+-
+-        default:
+-            return "";
++            emit("item.hints.book.spellbook", {_item_hint_key("memorise_key", CMD_MEMORISE_SPELL)});
++        }
++        ostr << "\n";
++        Hints.hints_events[HINT_SEEN_SPBOOK] = false;
++        break;
++    case OBJ_CORPSES:
++        emit("item.hints.corpse.use");
++        break;
++    case OBJ_STAVES:
++        emit("item.hints.staff.school");
++        if (gives_resistance(item))
++            resistance("item.hints.staff.resistance");
++        else if (you_worship(GOD_TROG))
++        {
++            ostr << "\n\n";
++            emit("item.hints.staff.trog", {
++                zh_glossary_name("god", "god.name", god_name(GOD_TROG, false)),
++                _item_hint_key("drop_key", CMD_DROP)});
++        }
++        Hints.hints_events[HINT_SEEN_STAFF] = false;
++        break;
++    case OBJ_MISCELLANY:
++        emit("item.hints.misc.evocation", {_item_hint_key("evoke_key", CMD_EVOKE)});
++        Hints.hints_events[HINT_SEEN_MISC] = false;
++        break;
++    default:
++        return "";
+     }
+-
+-    ostr << "</" << colour_to_str(channel_to_colour(MSGCH_TUTORIAL)) << ">";
+-    string broken = ostr.str();
+-    if (!cmd.empty())
+-        insert_commands(broken, cmd);
+-    return broken;
++    ostr << "</" << colour << ">";
++    return ostr.str();
+ }
+ 
+ // FIXME: With the new targeting system, the hints for interesting monsters
 diff --git a/crawl-ref/source/items.cc b/crawl-ref/source/items.cc
 index 5d6b98f..d2820f0 100644
 --- a/crawl-ref/source/items.cc
@@ -110996,10 +111703,10 @@ index 0000000..6f29754
 +    {"attunement", "调谐"},
 diff --git a/crawl-ref/source/zh-display-name.cc b/crawl-ref/source/zh-display-name.cc
 new file mode 100644
-index 0000000..5516c97
+index 0000000..c2126da
 --- /dev/null
 +++ b/crawl-ref/source/zh-display-name.cc
-@@ -0,0 +1,471 @@
+@@ -0,0 +1,504 @@
 +#include "AppHdr.h"
 +
 +#include "zh-display-name.h"
@@ -111078,10 +111785,29 @@ index 0000000..5516c97
 +    return "的";
 +}
 +
-+std::string item_classifier(object_class_type type)
++std::string item_classifier(const item_def &item)
 +{
-+    switch (type)
++    switch (item.base_type)
 +    {
++    case OBJ_MISSILES:
++        switch (item.sub_type)
++        {
++        case MI_DART:
++        case MI_BOOMERANG: return "枚";
++        case MI_JAVELIN: return "支";
++        case MI_STONE:
++        case MI_LARGE_ROCK: return "块";
++        case MI_THROWING_NET: return "张";
++#if TAG_MAJOR_VERSION == 34
++        case MI_NEEDLE:
++        case MI_SLUG: return "枚";
++        case MI_ARROW:
++        case MI_BOLT: return "支";
++        case MI_SLING_BULLET: return "颗";
++#endif
++        default: return {};
++        }
++    case OBJ_STAVES:    return "根";
 +    case OBJ_WEAPONS:   return "把";
 +    case OBJ_ARMOUR:    return "件";
 +    case OBJ_POTIONS:   return "瓶";
@@ -111102,6 +111828,9 @@ index 0000000..5516c97
 +        return item_base_name(item.base_type, item.sub_type);
 +    case OBJ_MISSILES:
 +        return missile_name(static_cast<missile_type>(item.sub_type));
++    case OBJ_STAVES:
++        return std::string("staff of ")
++               + staff_type_name(static_cast<stave_type>(item.sub_type));
 +    case OBJ_TALISMANS:
 +        return talisman_type_name(item.sub_type);
 +    case OBJ_POTIONS:
@@ -111255,7 +111984,7 @@ index 0000000..5516c97
 +    if (item.quantity > 1 && desc != DESC_BASENAME && desc != DESC_DBNAME
 +        && desc != DESC_QUALNAME)
 +    {
-+        const std::string classifier = item_classifier(item.base_type);
++        const std::string classifier = item_classifier(item);
 +        if (classifier.empty())
 +            return fallback();
 +        result += std::to_string(item.quantity) + classifier;
@@ -111327,6 +112056,17 @@ index 0000000..5516c97
 +                     {branch, zh_integer("depth", place.depth)});
 +    return {key, ZhArgType::Text, canonical, location.localized,
 +            branch.supported};
++}
++
++ZhArg zh_item_base_arg(const std::string &key, const item_def &item)
++{
++    const std::string canonical = item_base_name(item);
++    if (item.props.exists(ITEM_NAME_KEY))
++    {
++        audit_name_fallback("item.base", canonical);
++        return {key, ZhArgType::Name, canonical, canonical, false};
++    }
++    return zh_glossary_name(key, "item.base", canonical);
 +}
 +
 +ZhArg zh_monster_type_arg(const std::string &key, monster_type type)
@@ -111473,10 +112213,10 @@ index 0000000..5516c97
 +}
 diff --git a/crawl-ref/source/zh-display-name.h b/crawl-ref/source/zh-display-name.h
 new file mode 100644
-index 0000000..4738d7e
+index 0000000..bc87447
 --- /dev/null
 +++ b/crawl-ref/source/zh-display-name.h
-@@ -0,0 +1,29 @@
+@@ -0,0 +1,32 @@
 +#pragma once
 +
 +#include <string>
@@ -111497,6 +112237,9 @@ index 0000000..4738d7e
 +                          description_level_type desc = DESC_THE);
 +ZhArg zh_item_arg(const std::string &key, const item_def &item,
 +                  description_level_type desc = DESC_A);
++// Type-derived singular base for tutorial/action grammar, without an article,
++// quantity, enchantment, brand or equipment suffix.
++ZhArg zh_item_base_arg(const std::string &key, const item_def &item);
 +ZhArg zh_actor_arg(const std::string &key, const actor *who,
 +                   description_level_type desc = DESC_THE);
 +ZhArg zh_monster_type_arg(const std::string &key, monster_type type);
@@ -112088,10 +112831,10 @@ index 0000000..fca52fb
 +};
 diff --git a/crawl-ref/source/zh-message-catalog.inc b/crawl-ref/source/zh-message-catalog.inc
 new file mode 100644
-index 0000000..02b5ffe
+index 0000000..2eb0ff1
 --- /dev/null
 +++ b/crawl-ref/source/zh-message-catalog.inc
-@@ -0,0 +1,2793 @@
+@@ -0,0 +1,2844 @@
 +// Generated from Luna-reviewed message IDs. Do not edit.
 +static const ZhDefinition zh_definitions[] = {
 +    {"artifact.jewel.01", "It sustains your strength, intelligence and dexterity.", "它能维持你的力量、智力和敏捷。", ""},
@@ -112589,7 +113332,58 @@ index 0000000..02b5ffe
 +    {"item.gizmo.revguard.fixed", "Your AC increases as you Rev (up to +5) and while fully Revved, your attacks may disarm enemies.", "随着转速提高，你的护甲等级最多增加+5；转速达到最高时，攻击还可能缴械敌人。", ""},
 +    {"item.gizmo.spellmotor.fixed", "Your spells cost less MP as you Rev up. Whenever you cast a spell, you make a melee attack against a random enemy in range.", "随着你提高转速，施法消耗的魔力会减少。每次施法时，你还会对射程内的一名随机敌人发动近战攻击。", ""},
 +    {"item.god.disapproval", "\n\n{god} disapproves of the use of such an item.", "\n\n{god}不赞成使用此物品。", "god:name"},
++    {"item.hints.ability.prerequisite.armour", "To do this, first {equip_key}ear it, then enter the ability menu with {ability_key}, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.", "要发动能力，先按{equip_key}穿上该护甲，再按{ability_key}打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。", "equip_key:key_markup;ability_key:key_markup"},
++    {"item.hints.ability.prerequisite.bug", "To do this, <r>(BUG! this item shouldn't give an ability)</r>, then enter the ability menu with {ability_key}, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.", "要发动能力，<r>（错误：此物品不应提供能力）</r>，再按{ability_key}打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。", "ability_key:key_markup"},
++    {"item.hints.ability.prerequisite.equipped", "To do this, enter the ability menu with {ability_key}, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.", "要发动能力，按{ability_key}打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。", "ability_key:key_markup"},
++    {"item.hints.ability.prerequisite.jewellery", "To do this, first {equip_key}ut it on, then enter the ability menu with {ability_key}, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.", "要发动能力，先按{equip_key}戴上该饰品，再按{ability_key}打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。", "equip_key:key_markup;ability_key:key_markup"},
++    {"item.hints.ability.prerequisite.weapon", "To do this, first {equip_key}ield it, then enter the ability menu with {ability_key}, and then choose the corresponding ability. Note that such an attempt of activation, especially by the untrained, is likely to fail.", "要发动能力，先按{equip_key}挥舞该武器，再按{ability_key}打开能力菜单并选择相应能力。请注意，尝试发动能力很可能失败，尤其是尚未熟练时。", "equip_key:key_markup;ability_key:key_markup"},
++    {"item.hints.armour.ability", "When worn, some types of armour (such as this one) offer certain {ability_key}bilities you can activate. {ability_hint}", "某些护甲（例如这件）穿戴后会提供可发动的能力（按{ability_key}进入能力菜单）。{ability_hint}", "ability_key:key_markup;ability_hint:text"},
++    {"item.hints.armour.barding_restriction", "Only nagas and armataurs can wear barding.", "只有娜迦和半人马兽可以穿戴马铠。", ""},
++    {"item.hints.armour.horns_helmet", "Because of your horns you cannot wear helmets. (Press {mutations_key} to see a list of your mutations and innate abilities.)", "因为你长有角，无法佩戴头盔。（按{mutations_key}可查看突变和先天能力列表。）", "mutations_key:key_markup"},
++    {"item.hints.armour.magic_encumbrance", "Note that body armour with a high encumbrance rating may hinder your ability to cast spells. Light armour such as robes and leather armour will be generally safe for any aspiring spellcaster.", "注意，负重等级较高的躯干护甲可能妨碍施法。长袍、皮甲等轻甲通常不会影响有志施法者。", ""},
++    {"item.hints.armour.magic_shield", "Note that shields will hinder your ability to cast spells, until you've gained enough Shields skill to remove the penalty.", "注意，在盾牌技能足以消除惩罚前，盾牌会妨碍你施法。", ""},
++    {"item.hints.armour.ranger_offhand", "Note that many ranged weapons are two handed and so cannot be used with an offhand item.", "注意，许多远程武器需要双手使用，因此无法与副手物品同时装备。", ""},
++    {"item.hints.armour.resistance", "This armour offers its wearer protection from certain sources. For an overview of your resistances (among other things) press {resists_key}{tile_control}.", "这件护甲能保护穿戴者免受某些伤害来源影响。按{resists_key}{tile_control}可查看抗性等信息。", "resists_key:key_markup;tile_control:text"},
++    {"item.hints.armour.unidentified_special", "Weapons and armour that have unusual descriptions like this are much more likely to be of higher enchantment or have special properties, good or bad.", "描述异常的武器和护甲更有可能具有较高的附魔等级或特殊属性，无论好坏。", ""},
++    {"item.hints.armour.wear_remove", "You can wear pieces of armour with {wear_key} and take them off again with {remove_key}{tile_alternative}.", "按{wear_key}可穿戴护甲，按{remove_key}可脱下{tile_alternative}。", "wear_key:key_markup;remove_key:key_markup;tile_alternative:text"},
++    {"item.hints.book.manual", "A manual can greatly help you in training a skill. After you pick one up, the skill in question will be trained more efficiently and will level up faster until you exhaust the manual's contents.", "技能手册能显著帮助你训练技能。拾取后，对应技能的训练效率会提高、升级也会更快，直到手册内容耗尽。", ""},
++    {"item.hints.book.spellbook", "You can pick up a spellbook to add its spells to your spell library. (View your spell library with {memorise_key}.)", "拾取法术书即可将其中的法术加入法术库。（按{memorise_key}查看法术库。）", "memorise_key:key_markup"},
++    {"item.hints.corpse.use", "Skeletons and corpses can be used as components for certain necromantic spells. Apart from that, they are largely useless.", "骨骼和尸体可作为某些死灵法术的材料。除此之外，它们基本没有用处。", ""},
 +    {"item.hints.english_fallback", "{text}", "{text}", "text:text"},
++    {"item.hints.jewellery.ability", "When worn, some types of jewellery (such as this one) offer certain {ability_key}bilities you can activate. {ability_hint}", "某些饰品（例如这件）戴上后会提供可发动的能力（按{ability_key}进入能力菜单）。{ability_hint}", "ability_key:key_markup;ability_hint:text"},
++    {"item.hints.jewellery.resistance", "This {jewellery_type} offers its wearer protection from certain sources. For an overview of your resistances (among other things) press {resists_key}{tile_control}.", "这枚{jewellery_type}能保护佩戴者免受某些伤害来源影响。按{resists_key}{tile_control}可查看抗性等信息。", "jewellery_type:name;resists_key:key_markup;tile_control:text"},
++    {"item.hints.jewellery.type.amulet", "amulet", "护身符", ""},
++    {"item.hints.jewellery.type.ring", "ring", "戒指", ""},
++    {"item.hints.jewellery.wear_remove", "Jewellery can be {wear_key}ut on or {remove_key}emoved again{tile_alternative}.", "按{wear_key}可戴上饰品，按{remove_key}可取下{tile_alternative}。", "wear_key:key_markup;remove_key:key_markup;tile_alternative:text"},
++    {"item.hints.misc.evocation", "Miscellaneous items sometimes harbour magical powers that can be harnessed by e{evoke_key}oking the item.", "杂项物品有时蕴藏魔力，可按{evoke_key}发动。", "evoke_key:key_markup"},
++    {"item.hints.missile.throwable", "{item_name} can be {fire_key}ired without the use of a launcher. {throw_hint}", "{item_name}无需发射器即可按{fire_key}发射。{throw_hint}", "item_name:name;fire_key:key_markup;throw_hint:text"},
++    {"item.hints.potion.use", "Press {quaff_key} to quaff this potion{tile_click}.", "按{quaff_key}饮用这瓶药水{tile_click}。", "quaff_key:key_markup;tile_click:text"},
++    {"item.hints.scroll.use", "Press {read_key} to read this scroll{tile_click}.", "按{read_key}阅读这张卷轴{tile_click}。", "read_key:key_markup;tile_click:text"},
++    {"item.hints.staff.resistance", "It also offers its wielder protection from certain sources. For an overview of your resistances (among other things) press {resists_key}{tile_control}.", "它还能保护持有者免受某些伤害来源影响。按{resists_key}{tile_control}可查看抗性等信息。", "resists_key:key_markup;tile_control:text"},
++    {"item.hints.staff.school", "This staff can enhance your spellcasting, making spells of its related spell school more powerful.", "这根法杖可以强化你的施法能力，使相关法术学派的法术更强。", ""},
++    {"item.hints.staff.trog", "Seeing how {god} frowns upon the use of magic, this staff will be of little use to you and you might just as well {drop_key}rop it now.", "既然{god}不喜欢使用魔法，这根法杖对你用处不大，不如现在就按{drop_key}丢掉。", "god:name;drop_key:key_markup"},
++    {"item.hints.target_mode.fire", "then be taken to target mode with the nearest monster or previous target already targeted. You can also cycle through all hostile monsters in sight with <w>+</w> or <w>-</w>. Once you're aiming at the correct monster, simply hit <w>f</w>, <w>Enter</w> or <w>.</w> to shoot at it. If you miss, {repeat_key} fires at the same target again.", "随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。你也可以按<w>+</w>或<w>-</w>循环切换视野内的敌对怪物。瞄准正确的怪物后，按<w>f</w>、<w>Enter</w>或<w>.</w>即可射击。若未命中，按{repeat_key}可再次向同一目标射击。", "repeat_key:key_markup"},
++    {"item.hints.target_mode.spell", "then be taken to target mode with the nearest monster or previous target already targeted. You can also cycle through all hostile monsters in sight with <w>+</w> or <w>-</w>. Once you're aiming at the correct monster, simply hit <w>f</w>, <w>Enter</w> or <w>.</w> to shoot at it. If you miss, {repeat_key} fires at the same target again.", "随后会进入瞄准模式，并预先瞄准最近的怪物或上一个目标。你也可以按<w>+</w>或<w>-</w>循环切换视野内的敌对怪物。瞄准正确的怪物后，按<w>f</w>、<w>Enter</w>或<w>.</w>即可施放。若未命中，按{repeat_key}可再次向同一目标施法。", "repeat_key:key_markup"},
++    {"item.hints.throw.plural.no_slot", "To do this, press {fire_key} to fire, then select these {item_name}s. You'll {target_suffix}", "要这样做，按{fire_key}射击，然后选择这些{item_name}。{target_suffix}", "fire_key:key_markup;item_name:name;target_suffix:text"},
++    {"item.hints.throw.plural.slot", "To do this, press {fire_key} to fire, then <w>{item_slot}</w> for these {item_name}s. You'll {target_suffix}", "要这样做，按{fire_key}射击，然后按<w>{item_slot}</w>选择这些{item_name}。{target_suffix}", "fire_key:key_markup;item_slot:key;item_name:name;target_suffix:text"},
++    {"item.hints.throw.singular.no_slot", "To do this, press {fire_key} to fire, then select this {item_name}. You'll {target_suffix}", "要这样做，按{fire_key}射击，然后选择该{item_name}。{target_suffix}", "fire_key:key_markup;item_name:name;target_suffix:text"},
++    {"item.hints.throw.singular.slot", "To do this, press {fire_key} to fire, then <w>{item_slot}</w> for this {item_name}. You'll {target_suffix}", "要这样做，按{fire_key}射击，然后按<w>{item_slot}</w>选择该{item_name}。{target_suffix}", "fire_key:key_markup;item_slot:key;item_name:name;target_suffix:text"},
++    {"item.hints.tiles.armour_click", ", or, alternatively, simply click on their tiles to perform either action", "，或者直接点击护甲图标执行对应操作", ""},
++    {"item.hints.tiles.avatar_right_click", " or click on your avatar with the <w>right mouse button</w>", "，或<w>用鼠标右键点击</w>角色头像", ""},
++    {"item.hints.tiles.jewellery_click", ", though in Tiles, either can be done by clicking on the item in your inventory", "，在 Tiles 中，也可以点击物品栏里的饰品完成穿脱", ""},
++    {"item.hints.tiles.potion_click", "or simply click on it with your <w>left mouse button</w>", "，或<w>用鼠标左键点击</w>药水", ""},
++    {"item.hints.tiles.scroll_click", "or simply click on it with your <w>left mouse button</w>", "，或<w>用鼠标左键点击</w>卷轴", ""},
++    {"item.hints.wand.tiles.fullscreen", "Alternatively, you can 1) <w>left mouse click</w> on the monster you wish to target (or your player character to target yourself) while pressing the <w>Alt key</w> and pick the wand from the menu, or 2) <w>left mouse click</w> on the wand tile and then <w>left mouse click</w> on your target.", "也可以：1）按住<w>Alt</w>并<w>用鼠标左键点击</w>目标怪物（若要以自己为目标，则点击角色），再从菜单中选择魔杖；或 2）先<w>用鼠标左键点击</w>魔杖图标，再<w>用鼠标左键点击</w>目标。", ""},
++    {"item.hints.wand.tiles.web", "Alternatively, you can 1) <w>left mouse click</w> on the monster you wish to target (or your player character to target yourself) while pressing the <w>Ctrl + Shift keys</w> and pick the wand from the menu, or 2) <w>left mouse click</w> on the wand tile and then <w>left mouse click</w> on your target.", "也可以：1）按住<w>Ctrl + Shift</w>并<w>用鼠标左键点击</w>目标怪物（若要以自己为目标，则点击角色），再从菜单中选择魔杖；或 2）先<w>用鼠标左键点击</w>魔杖图标，再<w>用鼠标左键点击</w>目标。", ""},
++    {"item.hints.wand.tiles.windowed", "Alternatively, you can 1) <w>left mouse click</w> on the monster you wish to target (or your player character to target yourself) while pressing the <w>Ctrl + Shift keys</w> and pick the wand from the menu, or 2) <w>left mouse click</w> on the wand tile and then <w>left mouse click</w> on your target.", "也可以：1）按住<w>Ctrl + Shift</w>并<w>用鼠标左键点击</w>目标怪物（若要以自己为目标，则点击角色），再从菜单中选择魔杖；或 2）先<w>用鼠标左键点击</w>魔杖图标，再<w>用鼠标左键点击</w>目标。", ""},
++    {"item.hints.wand.use", "The magic within can be unleashed by evoking ({evoke_key}) it.", "按{evoke_key}即可发动魔杖中的魔力。", "evoke_key:key_markup"},
++    {"item.hints.weapon.artefact.ability", "When wielded, some weapons (such as this one) offer certain abilities you can activate. {ability_hint}", "某些武器（例如这件）挥舞后会提供可发动的能力。{ability_hint}", "ability_hint:text"},
++    {"item.hints.weapon.artefact.resistance", "This weapon offers its wearer protection from certain damage sources. For an overview of your resistances (among other things) press {resists_key}{tile_control}.", "这把武器能保护持有者免受某些伤害来源影响。按{resists_key}{tile_control}可查看抗性等信息。", "resists_key:key_markup;tile_control:text"},
++    {"item.hints.weapon.melee.wielded", "To attack a monster, you can simply walk into it.", "要攻击怪物，只需走向它。", ""},
++    {"item.hints.weapon.ranged.wielded", "To attack a monster, press {attack_key}. You'll {target_suffix}", "要攻击怪物，按{attack_key}。{target_suffix}", "attack_key:key_markup;target_suffix:text"},
++    {"item.hints.weapon.ranged.wielded.tile", "To attack a monster, <w>left mouse click</w> on the monster.\n\nTo fire a ranged weapon using the keyboard, press {attack_key}. You'll {target_suffix}", "要攻击怪物，<w>用鼠标左键点击</w>怪物。\n\n要用键盘发射远程武器，按{attack_key}。{target_suffix}", "attack_key:key_markup;target_suffix:text"},
++    {"item.hints.weapon.training_gap", "However, you've been training in <w>{best_skill}</w> for a while, so maybe you should continue training that rather than <w>{weapon_skill}</w>. (Press {skills_key} to see the skill management screen for the actual numbers.)", "不过，你已经训练<w>{best_skill}</w>一段时间了；或许应继续训练它，而不是<w>{weapon_skill}</w>。（按{skills_key}可在技能管理界面查看具体数值。）", "best_skill:name;weapon_skill:name;skills_key:key_markup"},
++    {"item.hints.weapon.unwielded", "You can wield this weapon with {wield_key}, or use {swap_key} to switch between the weapons in slot a and b. (Use {adjust_key} to adjust item slots.)", "按{wield_key}可挥舞这把武器，按{swap_key}可切换 a、b 栏中的武器。（按{adjust_key}可调整物品栏位。）", "wield_key:key_markup;swap_key:key_markup;adjust_key:key_markup"},
 +    {"item.jewellery.reflection_effect", "\n\nIt affects your shielding ({amount}).", "\n\n它会影响你的格挡能力（{amount}）。", "amount:text"},
 +    {"item.jewellery.slaying_effect", "\n\nIt affects your accuracy and damage with ranged weapons and melee ({amount}).", "\n\n它会影响你使用远程武器和近战武器时的命中与伤害（{amount}）。", "amount:text"},
 +    {"item.jewellery.stat_effect", "\n\nIt affects your {stat} ({amount}).", "\n\n它会影响你的{stat}（{amount}）。", "stat:text;amount:text"},

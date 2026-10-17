@@ -647,6 +647,21 @@ formatted_string FTFontWrapper::split(const formatted_string &str,
             }
         }
 
+        // A translated line need not contain ASCII spaces. Split at the
+        // measured glyph boundary without deleting that glyph or its style.
+        if (space_idx == -1 && line_end > 0 && num_lines + 1 < max_lines)
+        {
+            const size_t offset = line - &base[0];
+            const size_t cut = offset + line_end;
+            const formatted_string remainder = ret.substr_bytes(cut, base.size() - cut);
+            ret = ret.substr_bytes(0, cut);
+            ret += formatted_string::parse_string_raw("\n");
+            ret += remainder;
+            base.insert(cut, 1, '\n');
+            line = &base[offset];
+            space_idx = line_end;
+        }
+
         if (++num_lines >= max_lines || space_idx == -1)
         {
             line_end = min(line_end, nl);
@@ -664,7 +679,7 @@ formatted_string FTFontWrapper::split(const formatted_string &str,
             }
 
             ret = ret.chop_bytes(&line[ellipses] - &base[0]);
-            ret += "..";
+            ret += formatted_string::parse_string_raw("..");
             return ret;
         }
         else if (space_idx != nl)
