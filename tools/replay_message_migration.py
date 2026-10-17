@@ -39,6 +39,10 @@ try:
   for folder in ('dat','docs'):(tmp/folder).symlink_to(home/'Games/dcss-zh/game'/folder,target_is_directory=True)
   shutil.copytree(save_source,tmp/'saves')
   rc=(source/'init.txt').read_text().replace(str(source/'saves'),str(tmp/'saves')).replace(str(source/'morgue'),str(tmp/'morgue'))
+  # Test a rebuilt font without replacing the user's installed Steam assets.
+  if os.environ.get('DCSS_QA_FONT'):
+   rc += '\n' + '\n'.join('tile_font_'+kind+'_file='+os.environ['DCSS_QA_FONT']
+                           for kind in ('crt','msg','stat','tip','lbl')) + '\n'
   rc+='\nshow_more=false\n{\nlocal checked=false\nfunction ready()\nif not checked then checked=true; crawl.sendkeys('+json.dumps(keys).replace('\\u001b','\\027').replace('\\u0004','\\004')+'); end\nend\n}\n'
   (tmp/'init.txt').write_text(rc)
   env={**os.environ,'DISPLAY':':96','LC_ALL':'C','DCSS_LANG':'zh','DCSS_ZH_FORBID_LEGACY':'1','DCSS_ZH_STRICT_SOURCE':'1','DCSS_ZH_TRACE':str(tmp/'legacy.jsonl'),'DCSS_ZH_BOUNDARY_TRACE':str(tmp/'boundaries.tsv'),'DCSS_ZH_MESSAGE_VALUES':str(tmp/'values.tsv'),'DCSS_ZH_ID_TRACE':str(tmp/'ids.tsv'),'DCSS_ZH_ID_MISSING':str(tmp/'missing.tsv'),'DCSS_ZH_NAME_MISSING':str(tmp/'names.tsv'),'LD_LIBRARY_PATH':str(home/'Games/dcss-zh/game/lib')}
@@ -86,6 +90,15 @@ try:
      # Advance only this disposable display, never a player's running process.
      subprocess.run(['xdotool','key','space'],env=env,check=True)
      trap_followup+=1
+    if (name.startswith(('shout-','speech-')) and trap_followup < 2
+            and ids and time.monotonic()-started >= 12+12*trap_followup and not ready):
+     # A forced first-encounter more screen discards the queued look command.
+     # Stage real keyboard input on this disposable display after that screen.
+     subprocess.run(['xdotool','key','--delay','500','space','space','space'],env=env,check=True)
+     time.sleep(.5)
+     action = ['x','plus','s','t','3','Return'] if name.endswith('dialogue') else ['x','plus','s','s','3','Return']
+     subprocess.run(['xdotool','key','--delay','200']+action,env=env,check=True)
+     trap_followup+=1
     if ready:
      reached=True
      subprocess.run(['xdotool','mousemove','3839','2159'],env=env,check=True)
@@ -102,6 +115,12 @@ try:
       time.sleep(.5)
       keys=['r','period'] if name=='external-passwall' else ['r','h','period']
       subprocess.run(['xdotool','key']+keys,env=env,check=True)
+     if name == 'speech-orc-dialogue':
+      # The normal dialogue selector may legitimately choose no visible line.
+      # Use the same 20 real attempts as the terminal fixture; do not count an
+      # earlier speculative ID or the debug question as visible evidence.
+      subprocess.run(['xdotool','key','--delay','500','space','space','space'],env=env,check=True)
+      subprocess.run(['xdotool','key','--delay','200','Escape','x','plus','s','t','2','0','Return'],env=env,check=True)
      time.sleep(3)
      break
     time.sleep(.5)

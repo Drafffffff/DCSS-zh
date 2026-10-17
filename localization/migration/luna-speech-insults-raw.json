@@ -1,0 +1,4696 @@
+{
+  "model": "Luna",
+  "rows": [
+    {
+      "id": "speech.insult.42740a39d4931800",
+      "file": "insult.txt",
+      "key": "imp_taunt",
+      "row": 0,
+      "raw": "@run_or_give_up@, thou @generic_insult@!",
+      "zh": "@run_or_give_up@，你这@generic_insult@！"
+    },
+    {
+      "id": "speech.insult.19a6db8ce76bd572",
+      "file": "insult.txt",
+      "key": "run_or_give_up",
+      "row": 0,
+      "raw": "@run_away@",
+      "zh": "@run_away@"
+    },
+    {
+      "id": "speech.insult.3aea0e7c6f09f91b",
+      "file": "insult.txt",
+      "key": "run_or_give_up",
+      "row": 1,
+      "raw": "@give_up@",
+      "zh": "@give_up@"
+    },
+    {
+      "id": "speech.insult.3393669753e222ec",
+      "file": "insult.txt",
+      "key": "demon_taunt",
+      "row": 0,
+      "raw": "@run_away@, thou @generic_insult@!",
+      "zh": "@run_away@，你这@generic_insult@！"
+    },
+    {
+      "id": "speech.insult.3d6eb25338bf9e82",
+      "file": "insult.txt",
+      "key": "demon_taunt",
+      "row": 1,
+      "raw": "@give_up@, thou @generic_insult@!",
+      "zh": "@give_up@，你这@generic_insult@！"
+    },
+    {
+      "id": "speech.insult.8f9ee843a0c648d0",
+      "file": "insult.txt",
+      "key": "demon_taunt",
+      "row": 2,
+      "raw": "@demon_taunt_special@",
+      "zh": "@demon_taunt_special@"
+    },
+    {
+      "id": "speech.insult.2c90f83a08dee09e",
+      "file": "insult.txt",
+      "key": "demon_taunt_special",
+      "row": 0,
+      "raw": "Thy @body_or_spiritual_part@ shall be my @meal@!",
+      "zh": "你的@body_or_spiritual_part@必将成为我的@meal@！"
+    },
+    {
+      "id": "speech.insult.f3ca3d51fa7edb9c",
+      "file": "insult.txt",
+      "key": "demon_taunt_special",
+      "row": 1,
+      "raw": "@give_up@, thou tasty @meal@!",
+      "zh": "@give_up@，你这美味的@meal@！"
+    },
+    {
+      "id": "speech.insult.851cc20e915857f6",
+      "file": "insult.txt",
+      "key": "demon_taunt_special",
+      "row": 2,
+      "raw": "@run_away@ @whilst_thou_can@!",
+      "zh": "@run_away@，@whilst_thou_can@！"
+    },
+    {
+      "id": "speech.insult.f02de6fc01488101",
+      "file": "insult.txt",
+      "key": "demon_taunt_special",
+      "row": 3,
+      "raw": "I @will_or_shall@ @feast_or_devour@ thy @body_or_spiritual_part@!",
+      "zh": "我@will_or_shall@@feast_or_devour@你的@body_or_spiritual_part@！"
+    },
+    {
+      "id": "speech.insult.363b01a88d669918",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 0,
+      "raw": "Away with thee",
+      "zh": "滚开吧"
+    },
+    {
+      "id": "speech.insult.4df3ebad07d02e27",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 1,
+      "raw": "Back with thee",
+      "zh": "退回去"
+    },
+    {
+      "id": "speech.insult.310e86e917287c8b",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 2,
+      "raw": "Begone",
+      "zh": "滚远点"
+    },
+    {
+      "id": "speech.insult.72a9e61385190e27",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 3,
+      "raw": "Bolt",
+      "zh": "快溜"
+    },
+    {
+      "id": "speech.insult.cdc37b5335c76666",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 4,
+      "raw": "Crawl home",
+      "zh": "爬回家去"
+    },
+    {
+      "id": "speech.insult.c1ed7a4cb72981c8",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 5,
+      "raw": "Decamp",
+      "zh": "拔营跑路"
+    },
+    {
+      "id": "speech.insult.58c1c0b65c8eb3c7",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 6,
+      "raw": "Escape",
+      "zh": "逃命去吧"
+    },
+    {
+      "id": "speech.insult.eb02f9fe4bb96b06",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 7,
+      "raw": "Flee",
+      "zh": "逃吧"
+    },
+    {
+      "id": "speech.insult.ff138f7adaf63268",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 8,
+      "raw": "Fly",
+      "zh": "飞走吧"
+    },
+    {
+      "id": "speech.insult.95c6ee33432bd23d",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 9,
+      "raw": "Get thee gone",
+      "zh": "给我滚"
+    },
+    {
+      "id": "speech.insult.5bd100e9a3d80796",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 10,
+      "raw": "Get thee hence",
+      "zh": "给我滚开"
+    },
+    {
+      "id": "speech.insult.ca28c2e9f0c90e70",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 11,
+      "raw": "Give up",
+      "zh": "认输吧"
+    },
+    {
+      "id": "speech.insult.7c00c6f872f878ac",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 12,
+      "raw": "Go and return not",
+      "zh": "去了就别回来"
+    },
+    {
+      "id": "speech.insult.98a28e78e537f89d",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 13,
+      "raw": "Leave",
+      "zh": "离开"
+    },
+    {
+      "id": "speech.insult.518e30d97d51302a",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 14,
+      "raw": "Out, out",
+      "zh": "滚出去，滚出去"
+    },
+    {
+      "id": "speech.insult.fcd7200f14c77105",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 15,
+      "raw": "Quit",
+      "zh": "滚蛋"
+    },
+    {
+      "id": "speech.insult.330a00dbb7459da9",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 16,
+      "raw": "Remove thy stench",
+      "zh": "带走你那身臭气"
+    },
+    {
+      "id": "speech.insult.4b1eff5fc3955267",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 17,
+      "raw": "Return whence thou came",
+      "zh": "从哪儿来，回哪儿去"
+    },
+    {
+      "id": "speech.insult.b60a9b5391cb89f8",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 18,
+      "raw": "Run away",
+      "zh": "逃跑吧"
+    },
+    {
+      "id": "speech.insult.26b7d8e3d62f9972",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 19,
+      "raw": "Scamper away",
+      "zh": "连窜带跑地逃"
+    },
+    {
+      "id": "speech.insult.b87630c4374d10ed",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 20,
+      "raw": "Scamper hence",
+      "zh": "窜开"
+    },
+    {
+      "id": "speech.insult.1db4c70f15f5bfb9",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 21,
+      "raw": "Scamper home",
+      "zh": "窜回家去"
+    },
+    {
+      "id": "speech.insult.c61fdb41c4c201dd",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 22,
+      "raw": "Slither away",
+      "zh": "溜走"
+    },
+    {
+      "id": "speech.insult.8079173faf625c27",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 23,
+      "raw": "Slither hence",
+      "zh": "溜开"
+    },
+    {
+      "id": "speech.insult.fad41ef1441f5a82",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 24,
+      "raw": "Slither home",
+      "zh": "溜回家去"
+    },
+    {
+      "id": "speech.insult.5df0e318ce04a3e6",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 25,
+      "raw": "Take thy face hence",
+      "zh": "带着你那张脸滚"
+    },
+    {
+      "id": "speech.insult.17702c8e94353198",
+      "file": "insult.txt",
+      "key": "run_away",
+      "row": 26,
+      "raw": "Turn tail",
+      "zh": "掉头就跑"
+    },
+    {
+      "id": "speech.insult.a0f58496e629f88f",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 0,
+      "raw": "Abandon hope",
+      "zh": "放弃希望"
+    },
+    {
+      "id": "speech.insult.bb61ff07292435ba",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 1,
+      "raw": "Accept thy failure",
+      "zh": "接受你的失败"
+    },
+    {
+      "id": "speech.insult.aeddb1f1607fd75d",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 2,
+      "raw": "Accept thy fall",
+      "zh": "接受你的堕落"
+    },
+    {
+      "id": "speech.insult.d64155df63560faa",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 3,
+      "raw": "Accept thy doom",
+      "zh": "接受你的厄运"
+    },
+    {
+      "id": "speech.insult.6b53378bd2db0941",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 4,
+      "raw": "Admit defeat",
+      "zh": "承认失败"
+    },
+    {
+      "id": "speech.insult.53bc92da693d7165",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 5,
+      "raw": "Beg for mercy",
+      "zh": "乞求怜悯"
+    },
+    {
+      "id": "speech.insult.086347fe3f8d4db7",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 6,
+      "raw": "Capitulate",
+      "zh": "投降退让"
+    },
+    {
+      "id": "speech.insult.7f8ad36b43173cce",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 7,
+      "raw": "Despair",
+      "zh": "绝望吧"
+    },
+    {
+      "id": "speech.insult.03980a2f386280fc",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 8,
+      "raw": "Despond",
+      "zh": "沮丧吧"
+    },
+    {
+      "id": "speech.insult.29d92a530fa3bf12",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 9,
+      "raw": "Disclaim thyself",
+      "zh": "否认你自己"
+    },
+    {
+      "id": "speech.insult.892b50e47b51d67f",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 10,
+      "raw": "Embrace submission",
+      "zh": "拥抱臣服"
+    },
+    {
+      "id": "speech.insult.bf9e55c7d2870e65",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 11,
+      "raw": "Embrace thy dedition",
+      "zh": "拥抱你的投诚"
+    },
+    {
+      "id": "speech.insult.2aabff73255e61bf",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 12,
+      "raw": "Embrace thy doom",
+      "zh": "拥抱你的厄运"
+    },
+    {
+      "id": "speech.insult.0d73cd572cd7efbe",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 13,
+      "raw": "Embrace thy failure",
+      "zh": "拥抱你的失败"
+    },
+    {
+      "id": "speech.insult.bdacc4e1c846b202",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 14,
+      "raw": "Embrace thy fall",
+      "zh": "拥抱你的堕落"
+    },
+    {
+      "id": "speech.insult.d62d0a4db3ff2dfd",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 15,
+      "raw": "Face thy fugue",
+      "zh": "面对你的逃亡"
+    },
+    {
+      "id": "speech.insult.834fb0c4572120bf",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 16,
+      "raw": "Face thy requiem",
+      "zh": "面对你的安魂曲"
+    },
+    {
+      "id": "speech.insult.cd12e2dabb6f32eb",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 17,
+      "raw": "Flounder",
+      "zh": "挣扎吧"
+    },
+    {
+      "id": "speech.insult.c06a58fd9080c953",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 18,
+      "raw": "Give in",
+      "zh": "让步吧"
+    },
+    {
+      "id": "speech.insult.0cc5c379df816351",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 19,
+      "raw": "Give up",
+      "zh": "认输吧"
+    },
+    {
+      "id": "speech.insult.a916842054e1b031",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 20,
+      "raw": "Kneel",
+      "zh": "跪下"
+    },
+    {
+      "id": "speech.insult.ac639023ca8144d7",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 21,
+      "raw": "Quail",
+      "zh": "畏缩吧"
+    },
+    {
+      "id": "speech.insult.6104bd3c47e99f19",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 22,
+      "raw": "Quit",
+      "zh": "退场"
+    },
+    {
+      "id": "speech.insult.615717cc1f9128aa",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 23,
+      "raw": "Surrender",
+      "zh": "举手投降"
+    },
+    {
+      "id": "speech.insult.e12109d42e6efa34",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 24,
+      "raw": "Succumb",
+      "zh": "屈服吧"
+    },
+    {
+      "id": "speech.insult.c8ec532be8825bc4",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 25,
+      "raw": "Submit",
+      "zh": "顺从吧"
+    },
+    {
+      "id": "speech.insult.7e5315ab66b8ab93",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 26,
+      "raw": "Tremble",
+      "zh": "发抖吧"
+    },
+    {
+      "id": "speech.insult.3dd4cb71b70dc882",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 27,
+      "raw": "Relinquish hope",
+      "zh": "放下希望"
+    },
+    {
+      "id": "speech.insult.9610fed15460e76a",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 28,
+      "raw": "Repent",
+      "zh": "忏悔吧"
+    },
+    {
+      "id": "speech.insult.71339fd85a445d45",
+      "file": "insult.txt",
+      "key": "give_up",
+      "row": 29,
+      "raw": "Taste defeat",
+      "zh": "尝尝失败的滋味"
+    },
+    {
+      "id": "speech.insult.7609d8c78c9571b7",
+      "file": "insult.txt",
+      "key": "whilst_thou_can",
+      "row": 0,
+      "raw": "whilst thou can",
+      "zh": "趁你还跑得动"
+    },
+    {
+      "id": "speech.insult.3a0fbb6f98b9bb10",
+      "file": "insult.txt",
+      "key": "whilst_thou_can",
+      "row": 1,
+      "raw": "whilst thou may",
+      "zh": "趁你还能跑"
+    },
+    {
+      "id": "speech.insult.17991a8a6d3abfc6",
+      "file": "insult.txt",
+      "key": "whilst_thou_can",
+      "row": 2,
+      "raw": "whilst thou are able",
+      "zh": "趁你还办得到"
+    },
+    {
+      "id": "speech.insult.32e73b4e42f1da98",
+      "file": "insult.txt",
+      "key": "whilst_thou_can",
+      "row": 3,
+      "raw": "if wit thou hast",
+      "zh": "如果你还有点脑子"
+    },
+    {
+      "id": "speech.insult.9ea4bf29e58a35a2",
+      "file": "insult.txt",
+      "key": "whilst_thou_can",
+      "row": 4,
+      "raw": "whilst thy luck holds",
+      "zh": "趁你的好运还在"
+    },
+    {
+      "id": "speech.insult.e3242193a59c8408",
+      "file": "insult.txt",
+      "key": "whilst_thou_can",
+      "row": 5,
+      "raw": "before doom catcheth thee",
+      "zh": "趁厄运还没逮住你"
+    },
+    {
+      "id": "speech.insult.1337d966b1e0909e",
+      "file": "insult.txt",
+      "key": "whilst_thou_can",
+      "row": 6,
+      "raw": "lest death find thee",
+      "zh": "免得死神找上你"
+    },
+    {
+      "id": "speech.insult.3d617d79d4c1c83f",
+      "file": "insult.txt",
+      "key": "whilst_thou_can",
+      "row": 7,
+      "raw": "whilst thou art whole",
+      "zh": "趁你还完整无缺"
+    },
+    {
+      "id": "speech.insult.85084cf6036b7fab",
+      "file": "insult.txt",
+      "key": "whilst_thou_can",
+      "row": 8,
+      "raw": "whilst life thou hast",
+      "zh": "趁你还有一条命"
+    },
+    {
+      "id": "speech.insult.777a5bed98968db3",
+      "file": "insult.txt",
+      "key": "body_or_spiritual_part",
+      "row": 0,
+      "raw": "@important_body_part@",
+      "zh": "@important_body_part@"
+    },
+    {
+      "id": "speech.insult.910bc52944b2272b",
+      "file": "insult.txt",
+      "key": "body_or_spiritual_part",
+      "row": 1,
+      "raw": "@important_spiritual_part@",
+      "zh": "@important_spiritual_part@"
+    },
+    {
+      "id": "speech.insult.6636239819c61d9c",
+      "file": "insult.txt",
+      "key": "will_or_shall",
+      "row": 0,
+      "raw": "will",
+      "zh": "将"
+    },
+    {
+      "id": "speech.insult.61fa3570cbe44ac4",
+      "file": "insult.txt",
+      "key": "will_or_shall",
+      "row": 1,
+      "raw": "shall",
+      "zh": "必"
+    },
+    {
+      "id": "speech.insult.a39972afa346a6c3",
+      "file": "insult.txt",
+      "key": "feast_or_devour",
+      "row": 0,
+      "raw": "feast on",
+      "zh": "享用"
+    },
+    {
+      "id": "speech.insult.5767675196fc171b",
+      "file": "insult.txt",
+      "key": "feast_or_devour",
+      "row": 1,
+      "raw": "devour",
+      "zh": "吞噬"
+    },
+    {
+      "id": "speech.insult.f3c097ee3d83cf21",
+      "file": "insult.txt",
+      "key": "important_body_part",
+      "row": 0,
+      "raw": "head",
+      "zh": "脑袋"
+    },
+    {
+      "id": "speech.insult.7a08a9ed6038b74b",
+      "file": "insult.txt",
+      "key": "important_body_part",
+      "row": 1,
+      "raw": "brain",
+      "zh": "大脑"
+    },
+    {
+      "id": "speech.insult.f3507c2d22fdb15a",
+      "file": "insult.txt",
+      "key": "important_body_part",
+      "row": 2,
+      "raw": "heart",
+      "zh": "心脏"
+    },
+    {
+      "id": "speech.insult.4dc676db2bf32ba2",
+      "file": "insult.txt",
+      "key": "important_body_part",
+      "row": 3,
+      "raw": "viscera",
+      "zh": "内脏"
+    },
+    {
+      "id": "speech.insult.5d12683f7fa6c3bd",
+      "file": "insult.txt",
+      "key": "important_body_part",
+      "row": 4,
+      "raw": "eyes",
+      "zh": "眼睛"
+    },
+    {
+      "id": "speech.insult.0fdeada34bed6bb7",
+      "file": "insult.txt",
+      "key": "important_body_part",
+      "row": 5,
+      "raw": "lungs",
+      "zh": "肺"
+    },
+    {
+      "id": "speech.insult.3d50332658b4e258",
+      "file": "insult.txt",
+      "key": "important_body_part",
+      "row": 6,
+      "raw": "liver",
+      "zh": "肝脏"
+    },
+    {
+      "id": "speech.insult.871c8f9f07854a3f",
+      "file": "insult.txt",
+      "key": "important_body_part",
+      "row": 7,
+      "raw": "throat",
+      "zh": "喉咙"
+    },
+    {
+      "id": "speech.insult.ece642d576efc978",
+      "file": "insult.txt",
+      "key": "important_body_part",
+      "row": 8,
+      "raw": "neck",
+      "zh": "脖子"
+    },
+    {
+      "id": "speech.insult.ac12f14ad4f4850c",
+      "file": "insult.txt",
+      "key": "important_body_part",
+      "row": 9,
+      "raw": "gizzard",
+      "zh": "胗"
+    },
+    {
+      "id": "speech.insult.dd7b55873b26867f",
+      "file": "insult.txt",
+      "key": "important_body_part",
+      "row": 10,
+      "raw": "skull",
+      "zh": "头骨"
+    },
+    {
+      "id": "speech.insult.ca6d5cf02858aa01",
+      "file": "insult.txt",
+      "key": "important_body_part",
+      "row": 11,
+      "raw": "spine",
+      "zh": "脊椎"
+    },
+    {
+      "id": "speech.insult.f6a6f7839f79c123",
+      "file": "insult.txt",
+      "key": "important_spiritual_part",
+      "row": 0,
+      "raw": "soul",
+      "zh": "灵魂"
+    },
+    {
+      "id": "speech.insult.4ccf96f88a4416b0",
+      "file": "insult.txt",
+      "key": "important_spiritual_part",
+      "row": 1,
+      "raw": "spirit",
+      "zh": "精神"
+    },
+    {
+      "id": "speech.insult.69a6d5767c6196ae",
+      "file": "insult.txt",
+      "key": "important_spiritual_part",
+      "row": 2,
+      "raw": "inner light",
+      "zh": "内心之光"
+    },
+    {
+      "id": "speech.insult.feae085686f35fab",
+      "file": "insult.txt",
+      "key": "important_spiritual_part",
+      "row": 3,
+      "raw": "hope",
+      "zh": "希望"
+    },
+    {
+      "id": "speech.insult.a2156d11dedef16c",
+      "file": "insult.txt",
+      "key": "important_spiritual_part",
+      "row": 4,
+      "raw": "faith",
+      "zh": "信仰"
+    },
+    {
+      "id": "speech.insult.29907ab457b9325c",
+      "file": "insult.txt",
+      "key": "important_spiritual_part",
+      "row": 5,
+      "raw": "will",
+      "zh": "意志"
+    },
+    {
+      "id": "speech.insult.ea13d4109d84439f",
+      "file": "insult.txt",
+      "key": "important_spiritual_part",
+      "row": 6,
+      "raw": "heart",
+      "zh": "心灵"
+    },
+    {
+      "id": "speech.insult.57cbd01d7be12e78",
+      "file": "insult.txt",
+      "key": "important_spiritual_part",
+      "row": 7,
+      "raw": "mind",
+      "zh": "心智"
+    },
+    {
+      "id": "speech.insult.ef944bc36bc9f5f4",
+      "file": "insult.txt",
+      "key": "important_spiritual_part",
+      "row": 8,
+      "raw": "sanity",
+      "zh": "理智"
+    },
+    {
+      "id": "speech.insult.9ee3b41eb8887bfd",
+      "file": "insult.txt",
+      "key": "important_spiritual_part",
+      "row": 9,
+      "raw": "fortitude",
+      "zh": "坚毅"
+    },
+    {
+      "id": "speech.insult.243e1369ab9c7695",
+      "file": "insult.txt",
+      "key": "important_spiritual_part",
+      "row": 10,
+      "raw": "life force",
+      "zh": "生命力"
+    },
+    {
+      "id": "speech.insult.9b779bd5ac5417b7",
+      "file": "insult.txt",
+      "key": "important_spiritual_part",
+      "row": 11,
+      "raw": "vitality",
+      "zh": "活力"
+    },
+    {
+      "id": "speech.insult.bdd0779d0915fcba",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 0,
+      "raw": "meal",
+      "zh": "一餐"
+    },
+    {
+      "id": "speech.insult.4ef51eb42d9d48a6",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 1,
+      "raw": "breakfast",
+      "zh": "早餐"
+    },
+    {
+      "id": "speech.insult.c73ec5aeeee90552",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 2,
+      "raw": "lunch",
+      "zh": "午餐"
+    },
+    {
+      "id": "speech.insult.b4cebbd574abb5ae",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 3,
+      "raw": "dinner",
+      "zh": "晚餐"
+    },
+    {
+      "id": "speech.insult.137a8b4bad6dd93d",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 4,
+      "raw": "supper",
+      "zh": "夜宵"
+    },
+    {
+      "id": "speech.insult.5d8b1bfca9e79e67",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 5,
+      "raw": "repast",
+      "zh": "美餐"
+    },
+    {
+      "id": "speech.insult.f25ef24e7659be89",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 6,
+      "raw": "snack",
+      "zh": "点心"
+    },
+    {
+      "id": "speech.insult.6cf8d2e230b84002",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 7,
+      "raw": "victuals",
+      "zh": "口粮"
+    },
+    {
+      "id": "speech.insult.fc1b0b192dd61ff4",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 8,
+      "raw": "refection",
+      "zh": "小食"
+    },
+    {
+      "id": "speech.insult.28092020ce20b592",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 9,
+      "raw": "junket",
+      "zh": "甜点"
+    },
+    {
+      "id": "speech.insult.277cebfe55e3ea0c",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 10,
+      "raw": "luncheon",
+      "zh": "便餐"
+    },
+    {
+      "id": "speech.insult.9e67ab1961a768b9",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 11,
+      "raw": "snackling",
+      "zh": "零嘴"
+    },
+    {
+      "id": "speech.insult.e334ef8883128bfb",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 12,
+      "raw": "curdle",
+      "zh": "奶渣"
+    },
+    {
+      "id": "speech.insult.2c32ab08882fb5bd",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 13,
+      "raw": "snacklet",
+      "zh": "小块"
+    },
+    {
+      "id": "speech.insult.828b24e2c0fa44b5",
+      "file": "insult.txt",
+      "key": "meal",
+      "row": 14,
+      "raw": "mouthful",
+      "zh": "一口"
+    },
+    {
+      "id": "speech.insult.ba9a252aaeb732e8",
+      "file": "insult.txt",
+      "key": "generic_insult",
+      "row": 0,
+      "raw": "@insult_adjective1@ @insult_adjective2@ @insult_noun@",
+      "zh": "@insult_adjective1@、@insult_adjective2@的@insult_noun@"
+    },
+    {
+      "id": "speech.insult.ab64d92cde8dc330",
+      "file": "insult.txt",
+      "key": "insult_adjective1",
+      "row": 0,
+      "raw": "@species_insult_adj1@",
+      "zh": "@species_insult_adj1@"
+    },
+    {
+      "id": "speech.insult.87eeb0bd434b9734",
+      "file": "insult.txt",
+      "key": "insult_adjective1",
+      "row": 1,
+      "raw": "@insult general adj1@",
+      "zh": "@insult general adj1@"
+    },
+    {
+      "id": "speech.insult.2b06de228296a1ae",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 0,
+      "raw": "artless",
+      "zh": "呆笨"
+    },
+    {
+      "id": "speech.insult.425789a9542c1b88",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 1,
+      "raw": "baffled",
+      "zh": "晕头转向"
+    },
+    {
+      "id": "speech.insult.ab5d2f42b803500b",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 2,
+      "raw": "bawdy",
+      "zh": "淫猥"
+    },
+    {
+      "id": "speech.insult.240f8b65f2bca593",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 3,
+      "raw": "beslubbering",
+      "zh": "涎沫满脸"
+    },
+    {
+      "id": "speech.insult.af1834c71dfc78cf",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 4,
+      "raw": "bootless",
+      "zh": "无用"
+    },
+    {
+      "id": "speech.insult.3638ccb798c1b19f",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 5,
+      "raw": "bumbling",
+      "zh": "笨手笨脚"
+    },
+    {
+      "id": "speech.insult.f56430352cbef1ff",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 6,
+      "raw": "canting",
+      "zh": "假仁假义"
+    },
+    {
+      "id": "speech.insult.40248e7201ac2cfe",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 7,
+      "raw": "churlish",
+      "zh": "粗野"
+    },
+    {
+      "id": "speech.insult.4d5dc2a9fc508d29",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 8,
+      "raw": "cockered",
+      "zh": "娇纵"
+    },
+    {
+      "id": "speech.insult.c6b8f49a7f3fd18f",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 9,
+      "raw": "clouted",
+      "zh": "破破烂烂"
+    },
+    {
+      "id": "speech.insult.b35d65334348433c",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 10,
+      "raw": "craven",
+      "zh": "懦弱"
+    },
+    {
+      "id": "speech.insult.f6522701756d95a1",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 11,
+      "raw": "currish",
+      "zh": "卑劣"
+    },
+    {
+      "id": "speech.insult.5e07f365b0191385",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 12,
+      "raw": "defiled",
+      "zh": "污秽"
+    },
+    {
+      "id": "speech.insult.878974c3e76d6d39",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 13,
+      "raw": "dankish",
+      "zh": "潮气熏天"
+    },
+    {
+      "id": "speech.insult.b3c6cf3a8b7b2bf1",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 14,
+      "raw": "dissembling",
+      "zh": "虚情假意"
+    },
+    {
+      "id": "speech.insult.a20dc7998dc5a546",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 15,
+      "raw": "droning",
+      "zh": "絮絮叨叨"
+    },
+    {
+      "id": "speech.insult.119daa57bef32b28",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 16,
+      "raw": "ducking",
+      "zh": "缩头缩脑"
+    },
+    {
+      "id": "speech.insult.010e25487dd4df7d",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 17,
+      "raw": "erky",
+      "zh": "傻气"
+    },
+    {
+      "id": "speech.insult.aec16a7c791d0a49",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 18,
+      "raw": "errant",
+      "zh": "迷途"
+    },
+    {
+      "id": "speech.insult.9462a058b35d6722",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 19,
+      "raw": "euchred",
+      "zh": "倒霉"
+    },
+    {
+      "id": "speech.insult.0e39ae835bbc95ee",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 20,
+      "raw": "fawning",
+      "zh": "谄媚"
+    },
+    {
+      "id": "speech.insult.88b557fb954857a3",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 21,
+      "raw": "feckless",
+      "zh": "无能"
+    },
+    {
+      "id": "speech.insult.8c3bd6d1069989c6",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 22,
+      "raw": "feeble",
+      "zh": "孱弱"
+    },
+    {
+      "id": "speech.insult.9c4fe789e36563c9",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 23,
+      "raw": "fobbing",
+      "zh": "耍滑"
+    },
+    {
+      "id": "speech.insult.ddcc98351707486e",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 24,
+      "raw": "foisting",
+      "zh": "骗人伎俩"
+    },
+    {
+      "id": "speech.insult.71b6d9ecc5103e09",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 25,
+      "raw": "foppish",
+      "zh": "纨绔"
+    },
+    {
+      "id": "speech.insult.b4aa0d7c310d6023",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 26,
+      "raw": "froward",
+      "zh": "倔强"
+    },
+    {
+      "id": "speech.insult.0522227ef0caa2c0",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 27,
+      "raw": "frothy",
+      "zh": "空洞"
+    },
+    {
+      "id": "speech.insult.9e6e0a860d72d4ca",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 28,
+      "raw": "fulsome",
+      "zh": "油腻"
+    },
+    {
+      "id": "speech.insult.62fb7f28cb9b69dc",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 29,
+      "raw": "gleeking",
+      "zh": "流涎"
+    },
+    {
+      "id": "speech.insult.9261f4bc764c9354",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 30,
+      "raw": "goatish",
+      "zh": "好色"
+    },
+    {
+      "id": "speech.insult.f63fca8e29d348ae",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 31,
+      "raw": "gorbellied",
+      "zh": "大肚"
+    },
+    {
+      "id": "speech.insult.c1ff8140aa44511e",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 32,
+      "raw": "grime-gilt",
+      "zh": "污垢镀金"
+    },
+    {
+      "id": "speech.insult.63e896991428846d",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 33,
+      "raw": "horrid",
+      "zh": "可怖"
+    },
+    {
+      "id": "speech.insult.5f8d2568a2c19fe8",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 34,
+      "raw": "hateful",
+      "zh": "可恨"
+    },
+    {
+      "id": "speech.insult.0ec1e7b59f1db5b2",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 35,
+      "raw": "impertinent",
+      "zh": "无礼"
+    },
+    {
+      "id": "speech.insult.c5de7933d0bfa3dc",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 36,
+      "raw": "infectious",
+      "zh": "染病"
+    },
+    {
+      "id": "speech.insult.cda358eda121576c",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 37,
+      "raw": "jarring",
+      "zh": "刺耳"
+    },
+    {
+      "id": "speech.insult.384383d8b5a19294",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 38,
+      "raw": "loggerheaded",
+      "zh": "木头脑"
+    },
+    {
+      "id": "speech.insult.da4e46d6180b5641",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 39,
+      "raw": "lumpish",
+      "zh": "蠢笨"
+    },
+    {
+      "id": "speech.insult.9f9fc1bc6971dd81",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 40,
+      "raw": "mammering",
+      "zh": "含糊其辞"
+    },
+    {
+      "id": "speech.insult.c0a06a6e5a6ccc00",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 41,
+      "raw": "mangled",
+      "zh": "残缺"
+    },
+    {
+      "id": "speech.insult.6c4dc6e65bc4da19",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 42,
+      "raw": "mewling",
+      "zh": "哭哭啼啼"
+    },
+    {
+      "id": "speech.insult.73d5f625b76f831d",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 43,
+      "raw": "obnoxious",
+      "zh": "讨厌"
+    },
+    {
+      "id": "speech.insult.3cabde97d62eb66f",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 44,
+      "raw": "odious",
+      "zh": "可憎"
+    },
+    {
+      "id": "speech.insult.fe9c06718be0712a",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 45,
+      "raw": "paunchy",
+      "zh": "大腹便便"
+    },
+    {
+      "id": "speech.insult.77e93fc8c5c5656b",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 46,
+      "raw": "peaked",
+      "zh": "面黄肌瘦"
+    },
+    {
+      "id": "speech.insult.c537b07819f0517e",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 47,
+      "raw": "peeagling",
+      "zh": "小气"
+    },
+    {
+      "id": "speech.insult.1386115ed1da796e",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 48,
+      "raw": "pribbling",
+      "zh": "胡言乱语"
+    },
+    {
+      "id": "speech.insult.59c4a9acb25e8575",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 49,
+      "raw": "puking",
+      "zh": "作呕"
+    },
+    {
+      "id": "speech.insult.84e09edde83e9c29",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 50,
+      "raw": "puny",
+      "zh": "瘦小"
+    },
+    {
+      "id": "speech.insult.dd183f329fe01dd0",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 51,
+      "raw": "pandering",
+      "zh": "拉皮条"
+    },
+    {
+      "id": "speech.insult.7c6d6f7e6fc50e8e",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 52,
+      "raw": "pecksniffian",
+      "zh": "伪善"
+    },
+    {
+      "id": "speech.insult.06e353de436c5a00",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 53,
+      "raw": "plume-plucked",
+      "zh": "拔了毛"
+    },
+    {
+      "id": "speech.insult.7770b6a825cd72c2",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 54,
+      "raw": "pottle-deep",
+      "zh": "酒醉如泥"
+    },
+    {
+      "id": "speech.insult.c0e91c2cdcd1143c",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 55,
+      "raw": "pox-marked",
+      "zh": "麻子脸"
+    },
+    {
+      "id": "speech.insult.94fe5318e6500237",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 56,
+      "raw": "qualling",
+      "zh": "胆寒"
+    },
+    {
+      "id": "speech.insult.0186d18aaad232f0",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 57,
+      "raw": "quaking",
+      "zh": "发抖"
+    },
+    {
+      "id": "speech.insult.af9964060687a3e2",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 58,
+      "raw": "rank",
+      "zh": "臭气熏天"
+    },
+    {
+      "id": "speech.insult.1658a7b927cd74b8",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 59,
+      "raw": "reeling-ripe",
+      "zh": "醉得踉跄"
+    },
+    {
+      "id": "speech.insult.169637e8a1741b0b",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 60,
+      "raw": "rough-hewn",
+      "zh": "粗制滥造"
+    },
+    {
+      "id": "speech.insult.3f54c4acef5943f8",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 61,
+      "raw": "simpering",
+      "zh": "假笑"
+    },
+    {
+      "id": "speech.insult.127dc4a1856eb79c",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 62,
+      "raw": "skyhacking",
+      "zh": "胡乱挥砍"
+    },
+    {
+      "id": "speech.insult.427c05da0f2d812b",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 63,
+      "raw": "spongy",
+      "zh": "软绵绵"
+    },
+    {
+      "id": "speech.insult.08c3e9370c01a0f8",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 64,
+      "raw": "surly",
+      "zh": "乖戾"
+    },
+    {
+      "id": "speech.insult.d5b4dfc86c10cd51",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 65,
+      "raw": "tottering",
+      "zh": "摇摇欲坠"
+    },
+    {
+      "id": "speech.insult.d16d0ba1f8ee2e39",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 66,
+      "raw": "twisted",
+      "zh": "扭曲"
+    },
+    {
+      "id": "speech.insult.eaf5e3b2819c05ae",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 67,
+      "raw": "unctious",
+      "zh": "油滑"
+    },
+    {
+      "id": "speech.insult.074f97461a367cb5",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 68,
+      "raw": "unhinged",
+      "zh": "精神失常"
+    },
+    {
+      "id": "speech.insult.6ee21ad523be3f77",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 69,
+      "raw": "unmuzzled",
+      "zh": "脱缰"
+    },
+    {
+      "id": "speech.insult.d74d5e0bfa27a2da",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 70,
+      "raw": "vain",
+      "zh": "虚荣"
+    },
+    {
+      "id": "speech.insult.164f3263e1ea50b4",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 71,
+      "raw": "venomed",
+      "zh": "恶毒"
+    },
+    {
+      "id": "speech.insult.fb5dd1e440377198",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 72,
+      "raw": "villainous",
+      "zh": "恶棍气派"
+    },
+    {
+      "id": "speech.insult.9d53aeaac0c4f5d2",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 73,
+      "raw": "warped",
+      "zh": "变态"
+    },
+    {
+      "id": "speech.insult.952d077d3edbeede",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 74,
+      "raw": "wayward",
+      "zh": "任性"
+    },
+    {
+      "id": "speech.insult.78802fac2e004cb7",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 75,
+      "raw": "weedy",
+      "zh": "瘦弱"
+    },
+    {
+      "id": "speech.insult.b57114a3adb3c6c2",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 76,
+      "raw": "worthless",
+      "zh": "一文不值"
+    },
+    {
+      "id": "speech.insult.1568e5d0c221d788",
+      "file": "insult.txt",
+      "key": "insult general adj1",
+      "row": 77,
+      "raw": "yeasty",
+      "zh": "浮肿发胀"
+    },
+    {
+      "id": "speech.insult.20d4663b44254eff",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 0,
+      "raw": "weakly",
+      "zh": "虚弱"
+    },
+    {
+      "id": "speech.insult.e1f94262ac54de52",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 1,
+      "raw": "sickly",
+      "zh": "病恹恹"
+    },
+    {
+      "id": "speech.insult.a7d9ab9aa8d168c9",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 2,
+      "raw": "frail",
+      "zh": "娇弱"
+    },
+    {
+      "id": "speech.insult.7a16922c356ead97",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 3,
+      "raw": "delicate",
+      "zh": "娇气"
+    },
+    {
+      "id": "speech.insult.f8d2a9b660c318c2",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 4,
+      "raw": "fragile",
+      "zh": "易碎"
+    },
+    {
+      "id": "speech.insult.8cfd81cc32b83a60",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 5,
+      "raw": "frumpy",
+      "zh": "土头土脑"
+    },
+    {
+      "id": "speech.insult.2e44732daf2a4464",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 6,
+      "raw": "brittle",
+      "zh": "脆生生"
+    },
+    {
+      "id": "speech.insult.2616bec748e52dd9",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 7,
+      "raw": "tender",
+      "zh": "娇嫩"
+    },
+    {
+      "id": "speech.insult.42ff6e629b14d81f",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 8,
+      "raw": "mooning",
+      "zh": "痴痴相思"
+    },
+    {
+      "id": "speech.insult.8caa9fa63e9e40d2",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 9,
+      "raw": "painted",
+      "zh": "脂粉涂面"
+    },
+    {
+      "id": "speech.insult.0265f15a72c43ace",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 10,
+      "raw": "lily-hearted",
+      "zh": "胆小怯懦"
+    },
+    {
+      "id": "speech.insult.c013fdb3a3e206b6",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 11,
+      "raw": "dandy",
+      "zh": "纨绔派头"
+    },
+    {
+      "id": "speech.insult.930d74dd37580afb",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 12,
+      "raw": "featherweight",
+      "zh": "轻如鸿毛"
+    },
+    {
+      "id": "speech.insult.68a719a341e74a1c",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 13,
+      "raw": "flimsy",
+      "zh": "薄如蝉翼"
+    },
+    {
+      "id": "speech.insult.39822fbad9f0bb55",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 14,
+      "raw": "rootless",
+      "zh": "无根无底"
+    },
+    {
+      "id": "speech.insult.327f3755a03a8278",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 15,
+      "raw": "spindly",
+      "zh": "细手细脚"
+    },
+    {
+      "id": "speech.insult.49c3a195077c99d5",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 16,
+      "raw": "puny",
+      "zh": "瘦小"
+    },
+    {
+      "id": "speech.insult.fb3d21c8c836569d",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 17,
+      "raw": "shaky",
+      "zh": "哆嗦"
+    },
+    {
+      "id": "speech.insult.3a0c9ebced297ae1",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 18,
+      "raw": "prissy",
+      "zh": "娘娘腔"
+    },
+    {
+      "id": "speech.insult.83c48f6c6e9987bf",
+      "file": "insult.txt",
+      "key": "insult elf adj1",
+      "row": 19,
+      "raw": "underdone",
+      "zh": "半生不熟"
+    },
+    {
+      "id": "speech.insult.f77948348f525ca2",
+      "file": "insult.txt",
+      "key": "insult felid adj1",
+      "row": 0,
+      "raw": "matted",
+      "zh": "毛发打结"
+    },
+    {
+      "id": "speech.insult.1af455d7a639ec97",
+      "file": "insult.txt",
+      "key": "insult felid adj1",
+      "row": 1,
+      "raw": "grungy",
+      "zh": "邋里邋遢"
+    },
+    {
+      "id": "speech.insult.99d096ed2c425f1b",
+      "file": "insult.txt",
+      "key": "insult felid adj1",
+      "row": 2,
+      "raw": "rabid",
+      "zh": "癫狂"
+    },
+    {
+      "id": "speech.insult.afd05c77bcc1abcd",
+      "file": "insult.txt",
+      "key": "insult felid adj1",
+      "row": 3,
+      "raw": "picayune",
+      "zh": "小家子气"
+    },
+    {
+      "id": "speech.insult.19736f35182adea5",
+      "file": "insult.txt",
+      "key": "insult felid adj1",
+      "row": 4,
+      "raw": "weenchy",
+      "zh": "微不足道"
+    },
+    {
+      "id": "speech.insult.296f94bac6bf8af7",
+      "file": "insult.txt",
+      "key": "insult felid adj1",
+      "row": 5,
+      "raw": "crummy",
+      "zh": "寒酸"
+    },
+    {
+      "id": "speech.insult.f56de5dceb358a0d",
+      "file": "insult.txt",
+      "key": "insult felid adj1",
+      "row": 6,
+      "raw": "daggy",
+      "zh": "毛球难梳"
+    },
+    {
+      "id": "speech.insult.b24b30e947b3bc3f",
+      "file": "insult.txt",
+      "key": "insult felid adj1",
+      "row": 7,
+      "raw": "feral",
+      "zh": "野性难驯"
+    },
+    {
+      "id": "speech.insult.cca803ec86314fe7",
+      "file": "insult.txt",
+      "key": "insult felid adj1",
+      "row": 8,
+      "raw": "stray",
+      "zh": "流浪"
+    },
+    {
+      "id": "speech.insult.b8585c9b71585982",
+      "file": "insult.txt",
+      "key": "insult felid adj1",
+      "row": 9,
+      "raw": "sticky",
+      "zh": "黏糊糊"
+    },
+    {
+      "id": "speech.insult.50c1aad7e36d1040",
+      "file": "insult.txt",
+      "key": "insult felid adj1",
+      "row": 10,
+      "raw": "musky",
+      "zh": "麝臭"
+    },
+    {
+      "id": "speech.insult.202f9001d20c53ed",
+      "file": "insult.txt",
+      "key": "insult felid adj1",
+      "row": 11,
+      "raw": "slinking",
+      "zh": "鬼鬼祟祟"
+    },
+    {
+      "id": "speech.insult.465993adf1081fa4",
+      "file": "insult.txt",
+      "key": "insult_adjective2",
+      "row": 0,
+      "raw": "@species_insult_adj2@",
+      "zh": "@species_insult_adj2@"
+    },
+    {
+      "id": "speech.insult.3e38daad9dadda05",
+      "file": "insult.txt",
+      "key": "insult_adjective2",
+      "row": 1,
+      "raw": "@insult general adj2@",
+      "zh": "@insult general adj2@"
+    },
+    {
+      "id": "speech.insult.70a81a4fe8919e56",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 0,
+      "raw": "base-court",
+      "zh": "下等卑贱"
+    },
+    {
+      "id": "speech.insult.2eb86522742a4471",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 1,
+      "raw": "bat-fowling",
+      "zh": "捕蝠为业"
+    },
+    {
+      "id": "speech.insult.66031f5ef5c1c66d",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 2,
+      "raw": "beef-witted",
+      "zh": "牛脑"
+    },
+    {
+      "id": "speech.insult.40e2e2eb1f9ad836",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 3,
+      "raw": "beetle-headed",
+      "zh": "甲虫脑"
+    },
+    {
+      "id": "speech.insult.96d8f8cfe808fbcf",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 4,
+      "raw": "boil-brained",
+      "zh": "疖子脑"
+    },
+    {
+      "id": "speech.insult.e8a13bb9bfbbe0c7",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 5,
+      "raw": "clapper-clawed",
+      "zh": "爪子笨拙"
+    },
+    {
+      "id": "speech.insult.fc0491ea9eb7aa73",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 6,
+      "raw": "clay-brained",
+      "zh": "泥巴脑"
+    },
+    {
+      "id": "speech.insult.6561743fc25e2de1",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 7,
+      "raw": "common-kissing",
+      "zh": "见谁亲谁"
+    },
+    {
+      "id": "speech.insult.696b383a91770219",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 8,
+      "raw": "crook-pated",
+      "zh": "歪头"
+    },
+    {
+      "id": "speech.insult.1a133f55102f52a2",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 9,
+      "raw": "dismal-dreaming",
+      "zh": "噩梦连篇"
+    },
+    {
+      "id": "speech.insult.5304197a5e438800",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 10,
+      "raw": "ditch-delivered",
+      "zh": "阴沟所生"
+    },
+    {
+      "id": "speech.insult.d6fcee4cbb1c1b60",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 11,
+      "raw": "dizzy-eyed",
+      "zh": "眼冒金星"
+    },
+    {
+      "id": "speech.insult.d71618bc44a07df6",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 12,
+      "raw": "doghearted",
+      "zh": "狗心肠"
+    },
+    {
+      "id": "speech.insult.6f6352e487ff7f7c",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 13,
+      "raw": "dread-bolted",
+      "zh": "惊魂不定"
+    },
+    {
+      "id": "speech.insult.390c0bf2c0c08537",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 14,
+      "raw": "earth-vexing",
+      "zh": "搅扰大地"
+    },
+    {
+      "id": "speech.insult.977fea330fcd4351",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 15,
+      "raw": "elf-skinned",
+      "zh": "精灵皮"
+    },
+    {
+      "id": "speech.insult.442684829459f409",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 16,
+      "raw": "fat-kidneyed",
+      "zh": "肥腰子"
+    },
+    {
+      "id": "speech.insult.6fdb443320ed8174",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 17,
+      "raw": "fen-sucked",
+      "zh": "泥沼泡大"
+    },
+    {
+      "id": "speech.insult.a5da579f4f504aac",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 18,
+      "raw": "flap-mouthed",
+      "zh": "大嘴巴"
+    },
+    {
+      "id": "speech.insult.0405c7ec52ecf148",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 19,
+      "raw": "flat-headed",
+      "zh": "扁头"
+    },
+    {
+      "id": "speech.insult.5db41f01345a98d5",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 20,
+      "raw": "fly-bitten",
+      "zh": "遭苍蝇叮咬"
+    },
+    {
+      "id": "speech.insult.9159551b4f4f657d",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 21,
+      "raw": "fob-snatching",
+      "zh": "顺手牵羊"
+    },
+    {
+      "id": "speech.insult.8957468dee74d880",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 22,
+      "raw": "folly-fallen",
+      "zh": "蠢到跌倒"
+    },
+    {
+      "id": "speech.insult.1b1fadb12edfe4b1",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 23,
+      "raw": "fool-born",
+      "zh": "傻子所生"
+    },
+    {
+      "id": "speech.insult.bcfb9df48022c743",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 24,
+      "raw": "fool-headed",
+      "zh": "傻瓜脑"
+    },
+    {
+      "id": "speech.insult.686bf229bafac4ad",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 25,
+      "raw": "full-gorged",
+      "zh": "撑得发胀"
+    },
+    {
+      "id": "speech.insult.6f840ee6b13366fc",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 26,
+      "raw": "guts-griping",
+      "zh": "肚子绞痛"
+    },
+    {
+      "id": "speech.insult.5fd431b4f7335132",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 27,
+      "raw": "half-faced",
+      "zh": "缺了半边脸"
+    },
+    {
+      "id": "speech.insult.aec6b903ed93d020",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 28,
+      "raw": "hasty-witted",
+      "zh": "性急"
+    },
+    {
+      "id": "speech.insult.dc4463bde2f25950",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 29,
+      "raw": "hedge-born",
+      "zh": "篱笆边所生"
+    },
+    {
+      "id": "speech.insult.d8c22f7cb3b03c50",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 30,
+      "raw": "hell-hated",
+      "zh": "地狱厌憎"
+    },
+    {
+      "id": "speech.insult.71577febef003704",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 31,
+      "raw": "idle-headed",
+      "zh": "空脑袋"
+    },
+    {
+      "id": "speech.insult.19c89700f1442348",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 32,
+      "raw": "ill-breeding",
+      "zh": "缺教养"
+    },
+    {
+      "id": "speech.insult.e9bbe358ba106e37",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 33,
+      "raw": "ill-nurtured",
+      "zh": "缺乏教养"
+    },
+    {
+      "id": "speech.insult.fa7b58c1ee5db988",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 34,
+      "raw": "kobold-kissing",
+      "zh": "亲狗头人"
+    },
+    {
+      "id": "speech.insult.deccfd977e7484bf",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 35,
+      "raw": "knotty-pated",
+      "zh": "疙瘩脑"
+    },
+    {
+      "id": "speech.insult.f015cb4992fdf202",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 36,
+      "raw": "limp-willed",
+      "zh": "意志薄弱"
+    },
+    {
+      "id": "speech.insult.99daf21bc0ab1fe1",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 37,
+      "raw": "milk-livered",
+      "zh": "胆小如鼠"
+    },
+    {
+      "id": "speech.insult.12aa46682edd7748",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 38,
+      "raw": "miscreant",
+      "zh": "邪恶"
+    },
+    {
+      "id": "speech.insult.ba81c25483367271",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 39,
+      "raw": "moon-mazed",
+      "zh": "被月迷心"
+    },
+    {
+      "id": "speech.insult.2972e050e51df159",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 40,
+      "raw": "motley-minded",
+      "zh": "花哨脑筋"
+    },
+    {
+      "id": "speech.insult.507bb3aca43c4485",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 41,
+      "raw": "moldwarp",
+      "zh": "鼹鼠相"
+    },
+    {
+      "id": "speech.insult.fdfe037672dba160",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 42,
+      "raw": "mumble-news",
+      "zh": "嚼舌根"
+    },
+    {
+      "id": "speech.insult.33a09db9dd6b3bdc",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 43,
+      "raw": "nose-picking",
+      "zh": "抠鼻子"
+    },
+    {
+      "id": "speech.insult.08862267d759df2a",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 44,
+      "raw": "nut-hook",
+      "zh": "拾果钩"
+    },
+    {
+      "id": "speech.insult.0bb81c9016ac8d48",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 45,
+      "raw": "onion-eyed",
+      "zh": "泪眼洋葱"
+    },
+    {
+      "id": "speech.insult.a4f010049f2cdef5",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 46,
+      "raw": "pigeon-egg",
+      "zh": "鸽蛋般大小"
+    },
+    {
+      "id": "speech.insult.e125e2deea261335",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 47,
+      "raw": "roguish",
+      "zh": "无赖"
+    },
+    {
+      "id": "speech.insult.fd18e11916505118",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 48,
+      "raw": "rude-growing",
+      "zh": "疯长"
+    },
+    {
+      "id": "speech.insult.08f6218fdba8a2a3",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 49,
+      "raw": "rump-fed",
+      "zh": "靠臀肉养大"
+    },
+    {
+      "id": "speech.insult.997ea68dea728854",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 50,
+      "raw": "ruttish",
+      "zh": "春情骚动"
+    },
+    {
+      "id": "speech.insult.9a23a1d8a16b410e",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 51,
+      "raw": "saucy",
+      "zh": "放肆"
+    },
+    {
+      "id": "speech.insult.2262b043c742eddd",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 52,
+      "raw": "shard-borne",
+      "zh": "碎片所生"
+    },
+    {
+      "id": "speech.insult.e63b75ad1dfb642c",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 53,
+      "raw": "sheep-biting",
+      "zh": "咬羊"
+    },
+    {
+      "id": "speech.insult.eac124d1640ff779",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 54,
+      "raw": "sow-suckled",
+      "zh": "母猪奶喂大"
+    },
+    {
+      "id": "speech.insult.7c72d0cfc54650ee",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 55,
+      "raw": "spleeny",
+      "zh": "坏脾气"
+    },
+    {
+      "id": "speech.insult.3a7f383796957b89",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 56,
+      "raw": "spur-galled",
+      "zh": "马刺磨伤"
+    },
+    {
+      "id": "speech.insult.cfbfdae2c7194e8c",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 57,
+      "raw": "swag-bellied",
+      "zh": "大肚晃荡"
+    },
+    {
+      "id": "speech.insult.8438d23877dd9c44",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 58,
+      "raw": "tardy-gaited",
+      "zh": "步履迟钝"
+    },
+    {
+      "id": "speech.insult.ee4c09c2cf24d25b",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 59,
+      "raw": "tickle-brained",
+      "zh": "脑瓜发痒"
+    },
+    {
+      "id": "speech.insult.7f96b5c2cc48fea0",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 60,
+      "raw": "tip-merry",
+      "zh": "半醉"
+    },
+    {
+      "id": "speech.insult.1fcd08571e147a33",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 61,
+      "raw": "toad-spotted",
+      "zh": "蟾蜍斑"
+    },
+    {
+      "id": "speech.insult.770b72ef889290e0",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 62,
+      "raw": "toenail-biting",
+      "zh": "咬脚趾甲"
+    },
+    {
+      "id": "speech.insult.f9126372bce64550",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 63,
+      "raw": "toot-wallowing",
+      "zh": "吹号自嗨"
+    },
+    {
+      "id": "speech.insult.7f8ab1ec9089b910",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 64,
+      "raw": "two-tin-hat",
+      "zh": "戴着廉价小帽"
+    },
+    {
+      "id": "speech.insult.87b1d3337680a063",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 65,
+      "raw": "unchin-snouted",
+      "zh": "猪鼻子"
+    },
+    {
+      "id": "speech.insult.1db0a5e95a985a58",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 66,
+      "raw": "weather-bitten",
+      "zh": "风吹雨打"
+    },
+    {
+      "id": "speech.insult.ac25251765d49590",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 67,
+      "raw": "weeb-spouting",
+      "zh": "鼻涕乱喷"
+    },
+    {
+      "id": "speech.insult.a68b3fd28ef6802d",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 68,
+      "raw": "weevil-witted",
+      "zh": "象鼻虫脑"
+    },
+    {
+      "id": "speech.insult.08b4864b851cdde4",
+      "file": "insult.txt",
+      "key": "insult general adj2",
+      "row": 69,
+      "raw": "wibble-sucking",
+      "zh": "吸食黏浆"
+    },
+    {
+      "id": "speech.insult.2d94f3a334dd8642",
+      "file": "insult.txt",
+      "key": "insult dwarf adj2",
+      "row": 0,
+      "raw": "dirt-grubbing",
+      "zh": "刨土"
+    },
+    {
+      "id": "speech.insult.e312132447e18aa1",
+      "file": "insult.txt",
+      "key": "insult dwarf adj2",
+      "row": 1,
+      "raw": "grit-sucking",
+      "zh": "吸砂"
+    },
+    {
+      "id": "speech.insult.1d0b079ab441f007",
+      "file": "insult.txt",
+      "key": "insult dwarf adj2",
+      "row": 2,
+      "raw": "muck-plodding",
+      "zh": "趟泥"
+    },
+    {
+      "id": "speech.insult.de9b0df928bcc1fb",
+      "file": "insult.txt",
+      "key": "insult dwarf adj2",
+      "row": 3,
+      "raw": "stone-broke",
+      "zh": "一贫如洗"
+    },
+    {
+      "id": "speech.insult.0b7b0399ba7ba341",
+      "file": "insult.txt",
+      "key": "insult dwarf adj2",
+      "row": 4,
+      "raw": "pelf-dandling",
+      "zh": "摆弄钱财"
+    },
+    {
+      "id": "speech.insult.e9d334b2d4ad4854",
+      "file": "insult.txt",
+      "key": "insult dwarf adj2",
+      "row": 5,
+      "raw": "fault-botching",
+      "zh": "修补出错"
+    },
+    {
+      "id": "speech.insult.a45104c129f97a00",
+      "file": "insult.txt",
+      "key": "insult dwarf adj2",
+      "row": 6,
+      "raw": "gravel-grovelling",
+      "zh": "砾石打滚"
+    },
+    {
+      "id": "speech.insult.9ebebf9ae799061b",
+      "file": "insult.txt",
+      "key": "insult dwarf adj2",
+      "row": 7,
+      "raw": "boodle-bothering",
+      "zh": "为财操心"
+    },
+    {
+      "id": "speech.insult.56a69c830a9f67e4",
+      "file": "insult.txt",
+      "key": "insult dwarf adj2",
+      "row": 8,
+      "raw": "cabbage-coddling",
+      "zh": "溺爱白菜"
+    },
+    {
+      "id": "speech.insult.52ef16adfdcca30f",
+      "file": "insult.txt",
+      "key": "insult dwarf adj2",
+      "row": 9,
+      "raw": "rhino-ravelling",
+      "zh": "犀牛缠身"
+    },
+    {
+      "id": "speech.insult.bcd967731147513a",
+      "file": "insult.txt",
+      "key": "insult dwarf adj2",
+      "row": 10,
+      "raw": "thigh-biting",
+      "zh": "咬大腿"
+    },
+    {
+      "id": "speech.insult.c23684ced889dc44",
+      "file": "insult.txt",
+      "key": "insult dwarf adj2",
+      "row": 11,
+      "raw": "dirt-delving",
+      "zh": "挖土"
+    },
+    {
+      "id": "speech.insult.62985c15d928d21c",
+      "file": "insult.txt",
+      "key": "insult felid adj2",
+      "row": 0,
+      "raw": "worm-riddled",
+      "zh": "虫子钻身"
+    },
+    {
+      "id": "speech.insult.a0590d4bdd48eac5",
+      "file": "insult.txt",
+      "key": "insult felid adj2",
+      "row": 1,
+      "raw": "mange-covered",
+      "zh": "长满疥癣"
+    },
+    {
+      "id": "speech.insult.8c4ef781cdccdf00",
+      "file": "insult.txt",
+      "key": "insult felid adj2",
+      "row": 2,
+      "raw": "gunky-eyed",
+      "zh": "眼屎糊眼"
+    },
+    {
+      "id": "speech.insult.f180b7793baf8e1b",
+      "file": "insult.txt",
+      "key": "insult felid adj2",
+      "row": 3,
+      "raw": "death-cheating",
+      "zh": "骗过死亡"
+    },
+    {
+      "id": "speech.insult.5510719b51cdbc82",
+      "file": "insult.txt",
+      "key": "insult felid adj2",
+      "row": 4,
+      "raw": "cutty-eyed",
+      "zh": "小眼睛"
+    },
+    {
+      "id": "speech.insult.6c9c0702c21266ea",
+      "file": "insult.txt",
+      "key": "insult felid adj2",
+      "row": 5,
+      "raw": "gristle-gnawing",
+      "zh": "啃软骨"
+    },
+    {
+      "id": "speech.insult.0cba86c2226f60da",
+      "file": "insult.txt",
+      "key": "insult felid adj2",
+      "row": 6,
+      "raw": "spot-chasing",
+      "zh": "追斑点"
+    },
+    {
+      "id": "speech.insult.7869b3f9a1f11528",
+      "file": "insult.txt",
+      "key": "insult felid adj2",
+      "row": 7,
+      "raw": "chapped-arsed",
+      "zh": "屁股开裂"
+    },
+    {
+      "id": "speech.insult.3e66c32b65b7bad0",
+      "file": "insult.txt",
+      "key": "insult felid adj2",
+      "row": 8,
+      "raw": "key-stepping",
+      "zh": "踩琴键"
+    },
+    {
+      "id": "speech.insult.13d0d25ae8399d33",
+      "file": "insult.txt",
+      "key": "insult felid adj2",
+      "row": 9,
+      "raw": "rot-lapping",
+      "zh": "舔腐肉"
+    },
+    {
+      "id": "speech.insult.e60ff9e4a695958f",
+      "file": "insult.txt",
+      "key": "insult tengu adj2",
+      "row": 0,
+      "raw": "hollow-boned",
+      "zh": "空心骨"
+    },
+    {
+      "id": "speech.insult.823f6d1f2b6a59ad",
+      "file": "insult.txt",
+      "key": "insult tengu adj2",
+      "row": 1,
+      "raw": "feather-brained",
+      "zh": "羽毛脑"
+    },
+    {
+      "id": "speech.insult.aeb17ee03640d225",
+      "file": "insult.txt",
+      "key": "insult tengu adj2",
+      "row": 2,
+      "raw": "beak-witted",
+      "zh": "鸟喙脑"
+    },
+    {
+      "id": "speech.insult.aa1a042e123f2aed",
+      "file": "insult.txt",
+      "key": "insult tengu adj2",
+      "row": 3,
+      "raw": "hen-pecked",
+      "zh": "怕老婆"
+    },
+    {
+      "id": "speech.insult.1aa696c465fcdbf1",
+      "file": "insult.txt",
+      "key": "insult tengu adj2",
+      "row": 4,
+      "raw": "lightweight",
+      "zh": "轻量级"
+    },
+    {
+      "id": "speech.insult.0f16c4d309c64769",
+      "file": "insult.txt",
+      "key": "insult tengu adj2",
+      "row": 5,
+      "raw": "frail-limbed",
+      "zh": "四肢孱弱"
+    },
+    {
+      "id": "speech.insult.16f21d4926a40d32",
+      "file": "insult.txt",
+      "key": "insult tengu adj2",
+      "row": 6,
+      "raw": "bird-brained",
+      "zh": "鸟脑"
+    },
+    {
+      "id": "speech.insult.c87f2dc665cc8740",
+      "file": "insult.txt",
+      "key": "insult tengu adj2",
+      "row": 7,
+      "raw": "featherweight",
+      "zh": "羽量级"
+    },
+    {
+      "id": "speech.insult.c6d06b9eb11ead3a",
+      "file": "insult.txt",
+      "key": "insult tengu adj2",
+      "row": 8,
+      "raw": "pigeon-toed",
+      "zh": "内八字"
+    },
+    {
+      "id": "speech.insult.d717b2cc00faff3e",
+      "file": "insult.txt",
+      "key": "insult tengu adj2",
+      "row": 9,
+      "raw": "crow-beaked",
+      "zh": "鸦喙"
+    },
+    {
+      "id": "speech.insult.bba2fb287f98f4be",
+      "file": "insult.txt",
+      "key": "insult tengu adj2",
+      "row": 10,
+      "raw": "magpie-eyed",
+      "zh": "喜鹊眼"
+    },
+    {
+      "id": "speech.insult.7b2edf6eae41c6f8",
+      "file": "insult.txt",
+      "key": "insult tengu adj2",
+      "row": 11,
+      "raw": "mallardish",
+      "zh": "野鸭相"
+    },
+    {
+      "id": "speech.insult.ff005544efe783ab",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 0,
+      "raw": "desiccated",
+      "zh": "干枯"
+    },
+    {
+      "id": "speech.insult.b55d22ea9db305dd",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 1,
+      "raw": "dried",
+      "zh": "干透"
+    },
+    {
+      "id": "speech.insult.3a436e1d1ef555de",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 2,
+      "raw": "musty",
+      "zh": "霉味"
+    },
+    {
+      "id": "speech.insult.e0d917072a11dd49",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 3,
+      "raw": "flammable",
+      "zh": "易燃"
+    },
+    {
+      "id": "speech.insult.152ee5617ab652eb",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 4,
+      "raw": "inflammable",
+      "zh": "极易燃"
+    },
+    {
+      "id": "speech.insult.5f05b34e86ea173c",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 5,
+      "raw": "ignitable",
+      "zh": "一点就着"
+    },
+    {
+      "id": "speech.insult.20560add1175d4e1",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 6,
+      "raw": "combustible",
+      "zh": "可燃"
+    },
+    {
+      "id": "speech.insult.57ff7c2a29e1df44",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 7,
+      "raw": "smouldering",
+      "zh": "阴燃"
+    },
+    {
+      "id": "speech.insult.ea4196134d21f752",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 8,
+      "raw": "shrink-wrapped",
+      "zh": "保鲜膜裹身"
+    },
+    {
+      "id": "speech.insult.0363d3613f261037",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 9,
+      "raw": "crepe-taped",
+      "zh": "绉布贴满"
+    },
+    {
+      "id": "speech.insult.3edb5112b00e3036",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 10,
+      "raw": "duct-taped",
+      "zh": "胶带缠身"
+    },
+    {
+      "id": "speech.insult.bb335d313b6e5aaa",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 11,
+      "raw": "fraying",
+      "zh": "磨散开线"
+    },
+    {
+      "id": "speech.insult.66813b7caaf2b52a",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 12,
+      "raw": "hand-wound",
+      "zh": "手工缠绕"
+    },
+    {
+      "id": "speech.insult.b956e1232c57500c",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 13,
+      "raw": "tightly wound",
+      "zh": "缠得死紧"
+    },
+    {
+      "id": "speech.insult.9505929100103227",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 14,
+      "raw": "high-strung",
+      "zh": "神经紧绷"
+    },
+    {
+      "id": "speech.insult.81fa2047cd4612e7",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 15,
+      "raw": "straight-laced",
+      "zh": "古板守旧"
+    },
+    {
+      "id": "speech.insult.bf7307b27617fd61",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 16,
+      "raw": "grave-robbed",
+      "zh": "盗墓所得"
+    },
+    {
+      "id": "speech.insult.70e85dbbabc0b44c",
+      "file": "insult.txt",
+      "key": "insult mummy adj2",
+      "row": 17,
+      "raw": "@insult undead adj2@",
+      "zh": "@insult undead adj2@"
+    },
+    {
+      "id": "speech.insult.478bb85c4741223e",
+      "file": "insult.txt",
+      "key": "insult vampire adj2",
+      "row": 0,
+      "raw": "bat-flapping",
+      "zh": "扑打蝠翼"
+    },
+    {
+      "id": "speech.insult.2e544a771637a8ab",
+      "file": "insult.txt",
+      "key": "insult vampire adj2",
+      "row": 1,
+      "raw": "blood-sucking",
+      "zh": "吸血"
+    },
+    {
+      "id": "speech.insult.c5fef170af1c67e0",
+      "file": "insult.txt",
+      "key": "insult vampire adj2",
+      "row": 2,
+      "raw": "light-shying",
+      "zh": "惧光"
+    },
+    {
+      "id": "speech.insult.70a2571894ac0408",
+      "file": "insult.txt",
+      "key": "insult vampire adj2",
+      "row": 3,
+      "raw": "pallid",
+      "zh": "苍白"
+    },
+    {
+      "id": "speech.insult.bbfbff5fd12fff7a",
+      "file": "insult.txt",
+      "key": "insult vampire adj2",
+      "row": 4,
+      "raw": "sallow",
+      "zh": "蜡黄"
+    },
+    {
+      "id": "speech.insult.03d7750017f31a0f",
+      "file": "insult.txt",
+      "key": "insult vampire adj2",
+      "row": 5,
+      "raw": "cream-faced",
+      "zh": "奶油脸"
+    },
+    {
+      "id": "speech.insult.3b7c96c4c3db7323",
+      "file": "insult.txt",
+      "key": "insult vampire adj2",
+      "row": 6,
+      "raw": "whey-faced",
+      "zh": "乳清脸"
+    },
+    {
+      "id": "speech.insult.87426c7a04fcaa0f",
+      "file": "insult.txt",
+      "key": "insult vampire adj2",
+      "row": 7,
+      "raw": "anaemic",
+      "zh": "贫血"
+    },
+    {
+      "id": "speech.insult.4e607e5dd1091189",
+      "file": "insult.txt",
+      "key": "insult vampire adj2",
+      "row": 8,
+      "raw": "bloodless",
+      "zh": "无血"
+    },
+    {
+      "id": "speech.insult.25aecdeba2da7601",
+      "file": "insult.txt",
+      "key": "insult vampire adj2",
+      "row": 9,
+      "raw": "exsanguinous",
+      "zh": "失血"
+    },
+    {
+      "id": "speech.insult.75c9e33529f10331",
+      "file": "insult.txt",
+      "key": "insult vampire adj2",
+      "row": 10,
+      "raw": "@insult undead adj2@",
+      "zh": "@insult undead adj2@"
+    },
+    {
+      "id": "speech.insult.741663b29011583c",
+      "file": "insult.txt",
+      "key": "insult undead adj2",
+      "row": 0,
+      "raw": "deathlike",
+      "zh": "死气沉沉"
+    },
+    {
+      "id": "speech.insult.c9fa1fa1168d3b8a",
+      "file": "insult.txt",
+      "key": "insult undead adj2",
+      "row": 1,
+      "raw": "lifeless",
+      "zh": "毫无生气"
+    },
+    {
+      "id": "speech.insult.ba42f8d72b0b9e41",
+      "file": "insult.txt",
+      "key": "insult undead adj2",
+      "row": 2,
+      "raw": "undead",
+      "zh": "不死"
+    },
+    {
+      "id": "speech.insult.b5329ddca171e104",
+      "file": "insult.txt",
+      "key": "insult undead adj2",
+      "row": 3,
+      "raw": "corpse-like",
+      "zh": "尸样"
+    },
+    {
+      "id": "speech.insult.17b12617b0208075",
+      "file": "insult.txt",
+      "key": "insult undead adj2",
+      "row": 4,
+      "raw": "deado",
+      "zh": "死透"
+    },
+    {
+      "id": "speech.insult.24c9185bf722e525",
+      "file": "insult.txt",
+      "key": "insult_noun",
+      "row": 0,
+      "raw": "@species_insult_noun@",
+      "zh": "@species_insult_noun@"
+    },
+    {
+      "id": "speech.insult.ded5fe3a15a27727",
+      "file": "insult.txt",
+      "key": "insult_noun",
+      "row": 1,
+      "raw": "@insult general noun@",
+      "zh": "@insult general noun@"
+    },
+    {
+      "id": "speech.insult.22c7e2b239fcdc4d",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 0,
+      "raw": "apple-john",
+      "zh": "干瘪苹果"
+    },
+    {
+      "id": "speech.insult.9bbf7af16d1e49d0",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 1,
+      "raw": "baggage",
+      "zh": "破烂行李"
+    },
+    {
+      "id": "speech.insult.1bfeea27ba50b0a5",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 2,
+      "raw": "bandersnitch",
+      "zh": "怪兽"
+    },
+    {
+      "id": "speech.insult.5a4b318543b39e55",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 3,
+      "raw": "barnacle",
+      "zh": "藤壶"
+    },
+    {
+      "id": "speech.insult.2d880044126e1086",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 4,
+      "raw": "beggar",
+      "zh": "乞丐"
+    },
+    {
+      "id": "speech.insult.3ad8d8895873d806",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 5,
+      "raw": "blabberskite",
+      "zh": "长舌鸟"
+    },
+    {
+      "id": "speech.insult.b3fd54ceca7eb061",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 6,
+      "raw": "bladder",
+      "zh": "尿泡"
+    },
+    {
+      "id": "speech.insult.5c7b44237ddb8fb5",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 7,
+      "raw": "bloater",
+      "zh": "腌鲱鱼"
+    },
+    {
+      "id": "speech.insult.4b468e8ed9ca49b6",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 8,
+      "raw": "boar-pig",
+      "zh": "野猪猡"
+    },
+    {
+      "id": "speech.insult.85b5f2ed10dc7806",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 9,
+      "raw": "bootlicker",
+      "zh": "舔靴货"
+    },
+    {
+      "id": "speech.insult.058b9ca485e96ca4",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 10,
+      "raw": "bounder",
+      "zh": "莽夫"
+    },
+    {
+      "id": "speech.insult.70b319157571f3fe",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 11,
+      "raw": "brigand",
+      "zh": "强盗"
+    },
+    {
+      "id": "speech.insult.adaf83bd15f87e0b",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 12,
+      "raw": "bugbear",
+      "zh": "鬼怪"
+    },
+    {
+      "id": "speech.insult.075ebe695798e3a0",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 13,
+      "raw": "bum-bailey",
+      "zh": "无能的小吏"
+    },
+    {
+      "id": "speech.insult.47adb440cf139c45",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 14,
+      "raw": "buzzard-bait",
+      "zh": "秃鹫饵"
+    },
+    {
+      "id": "speech.insult.f76201455155e483",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 15,
+      "raw": "canker-blossom",
+      "zh": "讨厌鬼"
+    },
+    {
+      "id": "speech.insult.26a01821bd460bc8",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 16,
+      "raw": "clack-dish",
+      "zh": "讨饭的"
+    },
+    {
+      "id": "speech.insult.859c2937b9bbbc20",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 17,
+      "raw": "clam",
+      "zh": "蛤蜊"
+    },
+    {
+      "id": "speech.insult.995ea47b0e8cd586",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 18,
+      "raw": "clotpole",
+      "zh": "木头脑"
+    },
+    {
+      "id": "speech.insult.82a4f2b312ce2883",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 19,
+      "raw": "Cock-Lorel",
+      "zh": "鸡冠鸟"
+    },
+    {
+      "id": "speech.insult.b478d591195f4280",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 20,
+      "raw": "coxcomb",
+      "zh": "花公鸡"
+    },
+    {
+      "id": "speech.insult.828452c0ca698902",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 21,
+      "raw": "codpiece",
+      "zh": "裤裆布"
+    },
+    {
+      "id": "speech.insult.bebcd74e00d89266",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 22,
+      "raw": "crab-lanthorn",
+      "zh": "螃蟹灯"
+    },
+    {
+      "id": "speech.insult.65373466c4fdd633",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 23,
+      "raw": "cross-patch",
+      "zh": "恶脾气"
+    },
+    {
+      "id": "speech.insult.ed848da2f0b0895f",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 24,
+      "raw": "dandiprat",
+      "zh": "小矮子"
+    },
+    {
+      "id": "speech.insult.8c76b54eac7c224b",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 25,
+      "raw": "deadneck",
+      "zh": "死脖子"
+    },
+    {
+      "id": "speech.insult.55844c3b85c34d52",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 26,
+      "raw": "death-token",
+      "zh": "死亡牌"
+    },
+    {
+      "id": "speech.insult.3211f11b7183e083",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 27,
+      "raw": "dewberry",
+      "zh": "露莓"
+    },
+    {
+      "id": "speech.insult.b317572f5b7cb9a2",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 28,
+      "raw": "dingleberry",
+      "zh": "粪渣"
+    },
+    {
+      "id": "speech.insult.91d4ed0e6b961c89",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 29,
+      "raw": "efter",
+      "zh": "蝾螈"
+    },
+    {
+      "id": "speech.insult.c6caa8c7ad83eb27",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 30,
+      "raw": "erk",
+      "zh": "傻蛋"
+    },
+    {
+      "id": "speech.insult.ef13191e37384c28",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 31,
+      "raw": "flap-bat",
+      "zh": "蝙蝠"
+    },
+    {
+      "id": "speech.insult.5f4ce3aeaf976d71",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 32,
+      "raw": "flax-wench",
+      "zh": "麻线丫头"
+    },
+    {
+      "id": "speech.insult.7456b6f5498256ab",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 33,
+      "raw": "fleecer",
+      "zh": "扒皮匠"
+    },
+    {
+      "id": "speech.insult.67c49ff20d67c669",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 34,
+      "raw": "flim-flammer",
+      "zh": "骗子"
+    },
+    {
+      "id": "speech.insult.2a165db6abb0b9c5",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 35,
+      "raw": "flirt-gill",
+      "zh": "轻浮女"
+    },
+    {
+      "id": "speech.insult.8b1996d2113ce4b8",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 36,
+      "raw": "foot-licker",
+      "zh": "舔脚货"
+    },
+    {
+      "id": "speech.insult.3bc444a11bd170b6",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 37,
+      "raw": "frater",
+      "zh": "游方修士"
+    },
+    {
+      "id": "speech.insult.b961289f84212842",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 38,
+      "raw": "fustilarian",
+      "zh": "邋遢鬼"
+    },
+    {
+      "id": "speech.insult.9fefefcb79429465",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 39,
+      "raw": "giglet",
+      "zh": "轻挑妞"
+    },
+    {
+      "id": "speech.insult.04547bf88dd94a0e",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 40,
+      "raw": "gnoll-tail",
+      "zh": "豺狼尾"
+    },
+    {
+      "id": "speech.insult.c6ee77cf3fb222fd",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 41,
+      "raw": "gonus",
+      "zh": "蠢材"
+    },
+    {
+      "id": "speech.insult.cece1e035fd87b3d",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 42,
+      "raw": "gudgeon",
+      "zh": "容易上当的蠢货"
+    },
+    {
+      "id": "speech.insult.11dcbac49a0a2430",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 43,
+      "raw": "guttersnipe",
+      "zh": "街头顽童"
+    },
+    {
+      "id": "speech.insult.ad74024c8b2e0029",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 44,
+      "raw": "haggard",
+      "zh": "憔悴鬼"
+    },
+    {
+      "id": "speech.insult.4bbd46bef723b39a",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 45,
+      "raw": "harpy",
+      "zh": "鹰身女妖"
+    },
+    {
+      "id": "speech.insult.fd9b07751c7ed50a",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 46,
+      "raw": "hedge-pig",
+      "zh": "刺猬"
+    },
+    {
+      "id": "speech.insult.f8f01fe897a3b835",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 47,
+      "raw": "hugger-mugger",
+      "zh": "含糊鬼"
+    },
+    {
+      "id": "speech.insult.d7873f9a86861bb2",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 48,
+      "raw": "jarkman",
+      "zh": "假证贩"
+    },
+    {
+      "id": "speech.insult.c8d059fd26efd4b5",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 49,
+      "raw": "joithead",
+      "zh": "榆木脑"
+    },
+    {
+      "id": "speech.insult.aec5e7049aa235d7",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 50,
+      "raw": "lewdster",
+      "zh": "淫棍"
+    },
+    {
+      "id": "speech.insult.e7a2d78d0c5c3e93",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 51,
+      "raw": "lout",
+      "zh": "粗汉"
+    },
+    {
+      "id": "speech.insult.00ce2b7547a3180f",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 52,
+      "raw": "maggot-pie",
+      "zh": "蛆饼"
+    },
+    {
+      "id": "speech.insult.e69c57c6de7b9b70",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 53,
+      "raw": "malt-worm",
+      "zh": "酒虫"
+    },
+    {
+      "id": "speech.insult.d24da14c9d0a4894",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 54,
+      "raw": "mammet",
+      "zh": "木偶"
+    },
+    {
+      "id": "speech.insult.090c2dc84b51d447",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 55,
+      "raw": "measle",
+      "zh": "麻疹包"
+    },
+    {
+      "id": "speech.insult.df92cb82bd70e906",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 56,
+      "raw": "mendicant",
+      "zh": "托钵僧"
+    },
+    {
+      "id": "speech.insult.085273aefeb080f0",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 57,
+      "raw": "minnow reeky",
+      "zh": "臭小鱼"
+    },
+    {
+      "id": "speech.insult.4e89e1ee8e09490f",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 58,
+      "raw": "mish-mash",
+      "zh": "大杂烩"
+    },
+    {
+      "id": "speech.insult.88a728edbe534ac1",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 59,
+      "raw": "mule",
+      "zh": "骡子"
+    },
+    {
+      "id": "speech.insult.ce81a34d614fc716",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 60,
+      "raw": "nert",
+      "zh": "呆瓜"
+    },
+    {
+      "id": "speech.insult.94087ba5af162ff4",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 61,
+      "raw": "nightsoil",
+      "zh": "粪桶"
+    },
+    {
+      "id": "speech.insult.c2852065865148b1",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 62,
+      "raw": "nobody",
+      "zh": "无名小卒"
+    },
+    {
+      "id": "speech.insult.8822daaa320f5103",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 63,
+      "raw": "nothing",
+      "zh": "废物点心"
+    },
+    {
+      "id": "speech.insult.536f32d0c0279a86",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 64,
+      "raw": "pigeon-egg",
+      "zh": "鸽子蛋"
+    },
+    {
+      "id": "speech.insult.b1f4bb12006f8eb4",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 65,
+      "raw": "pignut",
+      "zh": "山毛榉果"
+    },
+    {
+      "id": "speech.insult.badfeb86724efad7",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 66,
+      "raw": "pimple",
+      "zh": "脓包"
+    },
+    {
+      "id": "speech.insult.890c8b0ab3978aaa",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 67,
+      "raw": "pissant",
+      "zh": "小人物"
+    },
+    {
+      "id": "speech.insult.bf47c2e645eaaffb",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 68,
+      "raw": "pot-faker",
+      "zh": "补锅匠"
+    },
+    {
+      "id": "speech.insult.72c5889f782779ad",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 69,
+      "raw": "prigger-of-prances",
+      "zh": "偷马贼"
+    },
+    {
+      "id": "speech.insult.454fa1daacce4dcd",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 70,
+      "raw": "pustule",
+      "zh": "脓疮"
+    },
+    {
+      "id": "speech.insult.83883966a1cc188b",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 71,
+      "raw": "puttock",
+      "zh": "鹞鹰"
+    },
+    {
+      "id": "speech.insult.deb3ba22436ed195",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 72,
+      "raw": "pumpion",
+      "zh": "南瓜"
+    },
+    {
+      "id": "speech.insult.274c1df9fd9e9643",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 73,
+      "raw": "ratsbane",
+      "zh": "鼠药"
+    },
+    {
+      "id": "speech.insult.a01ad4501f81f28e",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 74,
+      "raw": "reprobate",
+      "zh": "堕落货"
+    },
+    {
+      "id": "speech.insult.9ebe5dddd7c59707",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 75,
+      "raw": "scavenger",
+      "zh": "食腐者"
+    },
+    {
+      "id": "speech.insult.a90842d38e2f55eb",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 76,
+      "raw": "scut",
+      "zh": "兔尾巴"
+    },
+    {
+      "id": "speech.insult.df091db35a733662",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 77,
+      "raw": "serf",
+      "zh": "农奴"
+    },
+    {
+      "id": "speech.insult.f91c392c7dbec838",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 78,
+      "raw": "simpleton",
+      "zh": "傻瓜"
+    },
+    {
+      "id": "speech.insult.8c983cecbcce3ac9",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 79,
+      "raw": "skainsmate",
+      "zh": "泼皮"
+    },
+    {
+      "id": "speech.insult.2dd130ef2cba41ae",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 80,
+      "raw": "slabber",
+      "zh": "口水货"
+    },
+    {
+      "id": "speech.insult.c35a54356a850459",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 81,
+      "raw": "slime mould",
+      "zh": "黏菌"
+    },
+    {
+      "id": "speech.insult.39963ecda426ae17",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 82,
+      "raw": "snaffler",
+      "zh": "顺贼"
+    },
+    {
+      "id": "speech.insult.f2a2e185e07c39e1",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 83,
+      "raw": "snake-molt",
+      "zh": "蛇蜕"
+    },
+    {
+      "id": "speech.insult.5fd1e85a626d6414",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 84,
+      "raw": "socdollager",
+      "zh": "懒骨头"
+    },
+    {
+      "id": "speech.insult.06d2c3175112b770",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 85,
+      "raw": "strumpet",
+      "zh": "娼妇"
+    },
+    {
+      "id": "speech.insult.3af4a1b6b247b023",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 86,
+      "raw": "surfacer",
+      "zh": "表面货"
+    },
+    {
+      "id": "speech.insult.524bfd818309b12d",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 87,
+      "raw": "swadder",
+      "zh": "胡搅鬼"
+    },
+    {
+      "id": "speech.insult.4d6b02e4f5300e21",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 88,
+      "raw": "tinkerer",
+      "zh": "乱修匠"
+    },
+    {
+      "id": "speech.insult.d58fa3d5a78e6e71",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 89,
+      "raw": "tiddler",
+      "zh": "小鱼苗"
+    },
+    {
+      "id": "speech.insult.4842e32911f59072",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 90,
+      "raw": "tiler",
+      "zh": "瓦匠"
+    },
+    {
+      "id": "speech.insult.f9dae09871cc78f4",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 91,
+      "raw": "toady",
+      "zh": "谄媚小人"
+    },
+    {
+      "id": "speech.insult.7c7c65d139a0d748",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 92,
+      "raw": "urchin",
+      "zh": "小顽童"
+    },
+    {
+      "id": "speech.insult.4b29f27968442224",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 93,
+      "raw": "varlet",
+      "zh": "无赖汉"
+    },
+    {
+      "id": "speech.insult.e574e36cfcb3ad04",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 94,
+      "raw": "vassal",
+      "zh": "奴仆"
+    },
+    {
+      "id": "speech.insult.d397acaeeb55bbae",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 95,
+      "raw": "vulture",
+      "zh": "秃鹫"
+    },
+    {
+      "id": "speech.insult.cd0b7a2474992960",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 96,
+      "raw": "wastrel",
+      "zh": "废物"
+    },
+    {
+      "id": "speech.insult.34d83b20313c878f",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 97,
+      "raw": "wagtail",
+      "zh": "鹡鸰"
+    },
+    {
+      "id": "speech.insult.abe118a9d81dcefb",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 98,
+      "raw": "whey-face",
+      "zh": "乳清脸"
+    },
+    {
+      "id": "speech.insult.fa234c76ea1e469a",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 99,
+      "raw": "whip-jack",
+      "zh": "皮鞭佬"
+    },
+    {
+      "id": "speech.insult.ef1e90cd5fa7facb",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 100,
+      "raw": "wormtrail",
+      "zh": "虫迹"
+    },
+    {
+      "id": "speech.insult.624e1aeb8308d9f3",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 101,
+      "raw": "yak-dropping",
+      "zh": "牦牛粪"
+    },
+    {
+      "id": "speech.insult.7b4901f54246ad22",
+      "file": "insult.txt",
+      "key": "insult general noun",
+      "row": 102,
+      "raw": "zombie-fodder",
+      "zh": "僵尸饲料"
+    },
+    {
+      "id": "speech.insult.f4bb37c1a6cca671",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 0,
+      "raw": "snackling",
+      "zh": "小零嘴"
+    },
+    {
+      "id": "speech.insult.aed6e38b0a404a50",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 1,
+      "raw": "crunchlet",
+      "zh": "脆脆粒"
+    },
+    {
+      "id": "speech.insult.be38b28a9d093e80",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 2,
+      "raw": "half-meal",
+      "zh": "半顿饭"
+    },
+    {
+      "id": "speech.insult.903f0d43e20015cf",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 3,
+      "raw": "supper-setting",
+      "zh": "一顿晚餐"
+    },
+    {
+      "id": "speech.insult.d7d62bb7f7cc1314",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 4,
+      "raw": "snacklet",
+      "zh": "小点心"
+    },
+    {
+      "id": "speech.insult.54d372f0f2ddcc04",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 5,
+      "raw": "noshlet",
+      "zh": "小口食"
+    },
+    {
+      "id": "speech.insult.aef225f2b0bab879",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 6,
+      "raw": "morsel",
+      "zh": "一口肉"
+    },
+    {
+      "id": "speech.insult.501368481caa551d",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 7,
+      "raw": "mug-up",
+      "zh": "小加餐"
+    },
+    {
+      "id": "speech.insult.46b0f1633c559d8c",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 8,
+      "raw": "bite-bait",
+      "zh": "咬饵食"
+    },
+    {
+      "id": "speech.insult.3366023f991e624a",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 9,
+      "raw": "crunch-chow",
+      "zh": "嘎吱料"
+    },
+    {
+      "id": "speech.insult.31cc714c015f2f5b",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 10,
+      "raw": "snack-pap",
+      "zh": "糊糊零食"
+    },
+    {
+      "id": "speech.insult.21699107fda3291f",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 11,
+      "raw": "grub",
+      "zh": "虫食"
+    },
+    {
+      "id": "speech.insult.d8b8521f4b0d69aa",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 12,
+      "raw": "mouthful",
+      "zh": "一口"
+    },
+    {
+      "id": "speech.insult.9869823a83975691",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 13,
+      "raw": "half-pint",
+      "zh": "半品脱"
+    },
+    {
+      "id": "speech.insult.0f85a28e96952a73",
+      "file": "insult.txt",
+      "key": "small_food",
+      "row": 14,
+      "raw": "weenchy-treat",
+      "zh": "迷你甜头"
+    },
+    {
+      "id": "speech.insult.2e36419b4ff6de6f",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 0,
+      "raw": "kitten",
+      "zh": "小猫"
+    },
+    {
+      "id": "speech.insult.8bcebce63bcbf515",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 1,
+      "raw": "fleabag",
+      "zh": "跳蚤袋"
+    },
+    {
+      "id": "speech.insult.59f6f22530a61ccd",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 2,
+      "raw": "vermin",
+      "zh": "害兽"
+    },
+    {
+      "id": "speech.insult.fdb34eda5f81486e",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 3,
+      "raw": "loo-gargler",
+      "zh": "马桶舔舌"
+    },
+    {
+      "id": "speech.insult.1b0e1f7b5615df55",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 4,
+      "raw": "pate-warmer",
+      "zh": "暖头垫"
+    },
+    {
+      "id": "speech.insult.2895e4c701799a52",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 5,
+      "raw": "pander-nanny",
+      "zh": "拉皮条"
+    },
+    {
+      "id": "speech.insult.e93d2fe7abfb3a82",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 6,
+      "raw": "hissie",
+      "zh": "呲牙货"
+    },
+    {
+      "id": "speech.insult.c6a27580676df4c5",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 7,
+      "raw": "cooking-fat",
+      "zh": "熬油渣"
+    },
+    {
+      "id": "speech.insult.f4c2a9d8f0431461",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 8,
+      "raw": "sand-tongue",
+      "zh": "舔沙舌"
+    },
+    {
+      "id": "speech.insult.05c77010596457d0",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 9,
+      "raw": "scamp",
+      "zh": "小淘气"
+    },
+    {
+      "id": "speech.insult.58eaa1ae3a422f88",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 10,
+      "raw": "fur-fop",
+      "zh": "毛皮阔少"
+    },
+    {
+      "id": "speech.insult.fb184f9a5e83d25c",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 11,
+      "raw": "toe-scratcher",
+      "zh": "抓脚趾货"
+    },
+    {
+      "id": "speech.insult.92dde5792576f835",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 12,
+      "raw": "filth-coat",
+      "zh": "脏毛外套"
+    },
+    {
+      "id": "speech.insult.2ee603e628749b5a",
+      "file": "insult.txt",
+      "key": "insult felid noun",
+      "row": 13,
+      "raw": "gob-dollager",
+      "zh": "唾沫搅家"
+    },
+    {
+      "id": "speech.insult.63361d45a2c4f367",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 0,
+      "raw": "@small_food@",
+      "zh": "@small_food@"
+    },
+    {
+      "id": "speech.insult.d95a8349dd030136",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 1,
+      "raw": "rat-rider",
+      "zh": "骑鼠者"
+    },
+    {
+      "id": "speech.insult.844b3cda39e98735",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 2,
+      "raw": "quarter-pint",
+      "zh": "四分之一品脱"
+    },
+    {
+      "id": "speech.insult.674d2dc2560c56ee",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 3,
+      "raw": "nissette",
+      "zh": "小家伙"
+    },
+    {
+      "id": "speech.insult.2727cda593f176cf",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 4,
+      "raw": "fizzle-flop",
+      "zh": "噗嗤软蛋"
+    },
+    {
+      "id": "speech.insult.7622bde43668bdd0",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 5,
+      "raw": "spell-botch",
+      "zh": "施法失败货"
+    },
+    {
+      "id": "speech.insult.fca362fed38eb88b",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 6,
+      "raw": "feeblet",
+      "zh": "软脚虾"
+    },
+    {
+      "id": "speech.insult.ba8ad9ca4ea1dbca",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 7,
+      "raw": "weakling",
+      "zh": "弱鸡"
+    },
+    {
+      "id": "speech.insult.d95b481934d92a03",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 8,
+      "raw": "pinchbeck-pixie",
+      "zh": "假金小妖精"
+    },
+    {
+      "id": "speech.insult.0fdb8f5eb2c897ba",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 9,
+      "raw": "ankle-biter",
+      "zh": "咬脚踝货"
+    },
+    {
+      "id": "speech.insult.ceef237d463ce0f1",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 10,
+      "raw": "bootstain",
+      "zh": "靴子印"
+    },
+    {
+      "id": "speech.insult.6e96b6663c5535d1",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 11,
+      "raw": "nano-nebbish",
+      "zh": "纳诺小可怜"
+    },
+    {
+      "id": "speech.insult.f81048fe00bc6ce9",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 12,
+      "raw": "sopling",
+      "zh": "软弱的小东西"
+    },
+    {
+      "id": "speech.insult.015e8e0467177d1c",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 13,
+      "raw": "shrunken violet",
+      "zh": "畏缩的小花"
+    },
+    {
+      "id": "speech.insult.6ce403ecccc47137",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 14,
+      "raw": "sissy-prig",
+      "zh": "娘娘腔"
+    },
+    {
+      "id": "speech.insult.88a76be53b7d607c",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 15,
+      "raw": "pussyfoot",
+      "zh": "畏首畏尾"
+    },
+    {
+      "id": "speech.insult.a9b7435bfb539b71",
+      "file": "insult.txt",
+      "key": "insult spriggan noun",
+      "row": 16,
+      "raw": "creepsneak",
+      "zh": "鬼祟货"
+    },
+    {
+      "id": "speech.insult.0e738b0c491309bf",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 0,
+      "raw": "bovine",
+      "zh": "牛样货"
+    },
+    {
+      "id": "speech.insult.e3e8323187e367e8",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 1,
+      "raw": "brisket",
+      "zh": "牛胸肉"
+    },
+    {
+      "id": "speech.insult.d4d6fb6592fececc",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 2,
+      "raw": "bull-brain",
+      "zh": "公牛脑"
+    },
+    {
+      "id": "speech.insult.025c14f0d7dca5f6",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 3,
+      "raw": "cud-chewer",
+      "zh": "反刍货"
+    },
+    {
+      "id": "speech.insult.373bc6b25b8ba675",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 4,
+      "raw": "calf-wit",
+      "zh": "牛犊脑"
+    },
+    {
+      "id": "speech.insult.a6dbb9d546b53691",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 5,
+      "raw": "cloven-toed",
+      "zh": "偶蹄货"
+    },
+    {
+      "id": "speech.insult.f56deaa2ef375930",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 6,
+      "raw": "cretin",
+      "zh": "白痴"
+    },
+    {
+      "id": "speech.insult.e9abf9f530c029b0",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 7,
+      "raw": "cow",
+      "zh": "母牛"
+    },
+    {
+      "id": "speech.insult.54c5ed8756063be6",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 8,
+      "raw": "cattle",
+      "zh": "牲口"
+    },
+    {
+      "id": "speech.insult.9dba73b639529492",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 9,
+      "raw": "horn-beast",
+      "zh": "长角畜生"
+    },
+    {
+      "id": "speech.insult.b8cd094972d232fd",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 10,
+      "raw": "meatloaf",
+      "zh": "肉糕"
+    },
+    {
+      "id": "speech.insult.9d7fdbe24eb9b652",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 11,
+      "raw": "meatball",
+      "zh": "肉丸"
+    },
+    {
+      "id": "speech.insult.a08764e4aa98992c",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 12,
+      "raw": "mooer",
+      "zh": "哞哞叫货"
+    },
+    {
+      "id": "speech.insult.617da1b0fdb086eb",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 13,
+      "raw": "rump-roast",
+      "zh": "臀肉烤肉"
+    },
+    {
+      "id": "speech.insult.bf83cf7b49f317ff",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 14,
+      "raw": "ruminant",
+      "zh": "反刍动物"
+    },
+    {
+      "id": "speech.insult.8023ac99095f43b9",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 15,
+      "raw": "veal",
+      "zh": "小牛肉"
+    },
+    {
+      "id": "speech.insult.638d04dca5ec683a",
+      "file": "insult.txt",
+      "key": "insult minotaur noun",
+      "row": 16,
+      "raw": "walking sirloin",
+      "zh": "会走的牛里脊"
+    },
+    {
+      "id": "speech.insult.bd24722ef0af2587",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 0,
+      "raw": "dustbag",
+      "zh": "灰袋"
+    },
+    {
+      "id": "speech.insult.06b17370a8579c76",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 1,
+      "raw": "deado",
+      "zh": "死透货"
+    },
+    {
+      "id": "speech.insult.c922498d998970a5",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 2,
+      "raw": "fogey",
+      "zh": "老古董"
+    },
+    {
+      "id": "speech.insult.c585253e0d529004",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 3,
+      "raw": "linensack",
+      "zh": "亚麻袋"
+    },
+    {
+      "id": "speech.insult.254203107930e48f",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 4,
+      "raw": "clothbag",
+      "zh": "布口袋"
+    },
+    {
+      "id": "speech.insult.5bb9b27d4ec4c927",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 5,
+      "raw": "tombling",
+      "zh": "墓里货"
+    },
+    {
+      "id": "speech.insult.e8a8aa2e7ef8b5b8",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 6,
+      "raw": "mummylet",
+      "zh": "小木乃伊"
+    },
+    {
+      "id": "speech.insult.6bd50bf6d7d76389",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 7,
+      "raw": "shroud",
+      "zh": "裹尸布"
+    },
+    {
+      "id": "speech.insult.1d39b9db45c8e0d3",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 8,
+      "raw": "paper wrap",
+      "zh": "纸包"
+    },
+    {
+      "id": "speech.insult.f45908a0350fe64e",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 9,
+      "raw": "roll of bandages",
+      "zh": "一卷绷带"
+    },
+    {
+      "id": "speech.insult.979481500d3c37ef",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 10,
+      "raw": "bundle of gauze",
+      "zh": "一捆纱布"
+    },
+    {
+      "id": "speech.insult.65958d84b542e221",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 11,
+      "raw": "cotton waste",
+      "zh": "棉絮废料"
+    },
+    {
+      "id": "speech.insult.59a9bf1c28ef9943",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 12,
+      "raw": "wrapping tissue",
+      "zh": "包扎纸"
+    },
+    {
+      "id": "speech.insult.8ad3650007d94b59",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 13,
+      "raw": "pyre",
+      "zh": "火葬堆"
+    },
+    {
+      "id": "speech.insult.4ea268046fcd76db",
+      "file": "insult.txt",
+      "key": "insult mummy noun",
+      "row": 14,
+      "raw": "tinder",
+      "zh": "火绒"
+    },
+    {
+      "id": "speech.shout.demon_taunt",
+      "file": "shout.txt",
+      "key": "__demon_taunt",
+      "row": 0,
+      "raw": "@The_monster@ @says@, \"@demon_taunt@\"",
+      "zh": "@The_monster@@says@：“@demon_taunt@”"
+    },
+    {
+      "id": "speech.shout.imp_taunt",
+      "file": "shout.txt",
+      "key": "imp",
+      "row": 0,
+      "raw": "@The_monster@ @says@, \"@imp_taunt@\"",
+      "zh": "@The_monster@@says@：“@imp_taunt@”"
+    }
+  ],
+  "atoms": [
+    {
+      "en": "says",
+      "zh": "说"
+    },
+    {
+      "en": "shouts",
+      "zh": "喊叫"
+    },
+    {
+      "en": "barks",
+      "zh": "吠叫"
+    },
+    {
+      "en": "howls",
+      "zh": "嚎叫"
+    },
+    {
+      "en": "roars",
+      "zh": "咆哮"
+    },
+    {
+      "en": "screams",
+      "zh": "尖叫"
+    },
+    {
+      "en": "bellows",
+      "zh": "吼叫"
+    },
+    {
+      "en": "bleats",
+      "zh": "咩叫"
+    },
+    {
+      "en": "trumpets",
+      "zh": "鸣叫"
+    },
+    {
+      "en": "screeches",
+      "zh": "尖啸"
+    },
+    {
+      "en": "buzzes",
+      "zh": "嗡嗡叫"
+    },
+    {
+      "en": "moans",
+      "zh": "呻吟"
+    },
+    {
+      "en": "gurgles",
+      "zh": "咕噜"
+    },
+    {
+      "en": "croaks",
+      "zh": "呱呱叫"
+    },
+    {
+      "en": "growls",
+      "zh": "低吼"
+    },
+    {
+      "en": "hisses",
+      "zh": "嘶嘶叫"
+    },
+    {
+      "en": "skitters",
+      "zh": "沙沙爬行"
+    },
+    {
+      "en": "skitters faintly",
+      "zh": "轻微沙沙爬行"
+    },
+    {
+      "en": "sneers",
+      "zh": "冷笑"
+    },
+    {
+      "en": "squeals",
+      "zh": "尖声叫"
+    },
+    {
+      "en": "rustles",
+      "zh": "沙沙作响"
+    },
+    {
+      "en": "squeaks",
+      "zh": "吱吱叫"
+    },
+    {
+      "en": "buggily says",
+      "zh": "虫鸣般地说"
+    },
+    {
+      "en": "breathes",
+      "zh": "低声说"
+    },
+    {
+      "en": "whispers",
+      "zh": "低语"
+    },
+    {
+      "en": "caws",
+      "zh": "鸦叫"
+    },
+    {
+      "en": "laughs",
+      "zh": "大笑"
+    },
+    {
+      "en": "your",
+      "zh": "你的"
+    },
+    {
+      "en": "you",
+      "zh": "你"
+    },
+    {
+      "en": "NO GOD",
+      "zh": "无神"
+    },
+    {
+      "en": "a god",
+      "zh": "一位神"
+    },
+    {
+      "en": "my God",
+      "zh": "我的神"
+    },
+    {
+      "en": "its god",
+      "zh": "它的神"
+    },
+    {
+      "en": "buggy surface",
+      "zh": "有问题的地表"
+    },
+    {
+      "en": "buggy unseen surface",
+      "zh": "有问题的不可见地表"
+    },
+    {
+      "en": "buggy unseen feature",
+      "zh": "有问题的不可见地形"
+    },
+    {
+      "en": "ground",
+      "zh": "地面"
+    },
+    {
+      "en": "water",
+      "zh": "水"
+    },
+    {
+      "en": "lava",
+      "zh": "岩浆"
+    },
+    {
+      "en": "altar",
+      "zh": "祭坛"
+    },
+    {
+      "en": "you are",
+      "zh": "你是"
+    },
+    {
+      "en": "his god",
+      "zh": "他的神"
+    },
+    {
+      "en": "her god",
+      "zh": "她的神"
+    },
+    {
+      "en": "their god",
+      "zh": "它们的神"
+    }
+  ],
+  "messages": [
+    {
+      "id": "speech.actor.to_foe",
+      "context": "怪物语句：指向受话者的说话对象短语。",
+      "en": "to {foe}",
+      "zh": "对{foe}",
+      "params": {
+        "foe": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/mon-util.cc",
+        "anchor": "do_mon_str_replacements; @to_foe@ expansion to to @foe@"
+      }
+    },
+    {
+      "id": "speech.actor.at_foe",
+      "context": "怪物语句：指向受话者的动作对象短语。",
+      "en": "at {foe}",
+      "zh": "朝{foe}",
+      "params": {
+        "foe": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/mon-util.cc",
+        "anchor": "do_mon_str_replacements; @at_foe@ expansion to at @foe@"
+      }
+    },
+    {
+      "id": "speech.actor.name_possessive",
+      "context": "怪物语句：受话者名称的所有格片段。",
+      "en": "{name}'s",
+      "zh": "{name}的",
+      "params": {
+        "name": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/mon-util.cc",
+        "anchor": "do_mon_str_replacements; @foe_possessive@ expansion to @foe@'s"
+      }
+    }
+  ]
+}

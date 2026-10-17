@@ -106,7 +106,7 @@ for scene in ([] if a.verify_only else a.scenes.split(',')):
             os.execve(str(a.binary),[str(a.binary),'-dir',str(state),'-rc',str(rc),'-name',a.name],env)
         fcntl.ioctl(fd,termios.TIOCSWINSZ,struct.pack('HHHH',52,140,0,0))
         reached_at=None; wall_followup_sent=False; wall_followup_due=None
-        transcript=bytearray();end=time.monotonic()+(a.startup_timeout if scene.startswith('hints-') or scene in RESTRICTION_EXPECTED else 5)
+        transcript=bytearray();end=time.monotonic()+(a.startup_timeout if scene.startswith(('hints-','speech-')) or scene in RESTRICTION_EXPECTED else 5)
         while time.monotonic()<end:
             if select.select([fd],[],[],.1)[0]:
                 try:chunk=os.read(fd,65536)
@@ -209,7 +209,7 @@ for result in results:
             assert sentence in terminal,(result['scene'],'intended complete message not visible',ident,sentence)
             visible.append(ident)
         result['visible_message_ids']=visible
-    if result['scene'].startswith(('prompt-', 'terrain-', 'monster-', 'encounter-', 'shout-')):
+    if result['scene'].startswith(('prompt-', 'terrain-', 'monster-', 'encounter-', 'shout-', 'speech-')):
         # A traced speculative probe is not proof of a displayed message.
         # Compare bound complete templates with the real terminal, ignoring
         # terminal cursor-based padding and style escapes only.
@@ -237,7 +237,7 @@ for result in results:
         normalize=lambda text:re.sub(r'\s+','',re.sub(r'<[^>]+>','',text))
         visible=normalize(terminal)
         checked=[]
-        visible_expected=set(RESTRICTION_EXPECTED[result['scene']])
+        visible_expected=set(expected[result['scene']])
         if result['scene']=='encounter-first-console':
             parents={line.split('\t')[0] for line in result['ids']} & {'hint.encounter.first.console','hint.encounter.first.console_list'}
             assert len(parents)==1, 'First encounter parent was not generated'
@@ -250,6 +250,7 @@ for result in results:
             # than pretending those renderer prefixes are part of the message.
             def complete_visible(text):
                 paragraphs=re.split(r'\\n|\n',text)
+                paragraphs=[re.sub(r'^(?:SOUND|TALK|VISUAL|PLAIN|SPELL|ENCHANT|WARN):','',p) for p in paragraphs]
                 return all(normalize(re.sub(r'\\([rt])',' ',paragraph)) in visible
                            for paragraph in paragraphs if normalize(paragraph))
             assert any(complete_visible(expand_references(t)) for t in rendered),(result['scene'],'bound message not visible',identity)

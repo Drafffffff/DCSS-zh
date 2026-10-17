@@ -136,8 +136,8 @@ RESTRICTION_EXPECTED.update({
 # creation followed by normal observation. The first popup's source template is
 # platform-specific, so choose -console for PTY and -tiles for local/4K SDL.
 RESTRICTION_SCENES.update({
- 'encounter-first-console': 'l&wiz\rmorc\r.',
- 'encounter-first-tiles': 'l&wiz\rmorc\r.',
+ 'encounter-first-console': 'l&wiz\rmorc generate_awake\rx+st20\r',
+ 'encounter-first-tiles': 'l&wiz\rmorc generate_awake\rx+st20\r',
  'encounter-zero-exp': 'l&wiz\rmplant\r....&mplant\r.',
  # In targeting mode, s invokes the existing wizard (S)hout/(T)alk dialog.
  # Its second s + count asks this copied-save actor to shout exactly once.
@@ -157,3 +157,18 @@ RESTRICTION_EXPECTED.update({
 # Unique-monster alert discards queued keys at --more--; wait for the real
 # terminal prompt before opening its detail view.
 RESTRICTION_FOLLOWUPS["monster-special-royal-jelly"]={"trigger":"--more--", "keys":"x+v"}
+
+# Random speech uses the real wizard talk/shout commands on copied saves.
+RESTRICTION_SCENES.update({
+ 'speech-imp-taunt': 'l&wiz\rmiron imp generate_awake\rx+ss20\r',
+ 'speech-orc-dialogue': 'l&wiz\rmorc generate_awake\rx+st20\r',
+ 'speech-sigmund-dialogue': 'l&wiz\rmSigmund\rx+st20\r',
+})
+
+for scene, action in [('speech-imp-taunt','x+ss20\r'),('speech-orc-dialogue','x+st20\r'),('speech-sigmund-dialogue','x+st20\r')]:
+ RESTRICTION_FOLLOWUPS[scene]={'trigger':'要用手持武器攻击它','keys':' '+action}
+
+RESTRICTION_EXPECTED.update({
+ 'speech-imp-taunt': {'speech.shout.imp_taunt'},
+ 'speech-orc-dialogue': {'speech.monspeak.68bf6884b74c8861'},
+})

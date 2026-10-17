@@ -1,0 +1,273 @@
+Crash caused by signal #15: Terminated
+
+Version: Dungeon Crawl Stone Soup 0.34.1
+Platform: unix
+Bits: 64
+Game mode: hints
+Tiles: no
+
+Seed: 1234, deterministic pregen: 1
+Command line: /var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console -dir /tmp/dcss-copy-speech-orc-dialogue-3gx8ukkm -rc /tmp/dcss-copy-speech-orc-dialogue-3gx8ukkm/init.txt -name ZhSmoke
+
+RC options:
+restart_after_game = maybe
+
+
+Crash caused by signal #15: Terminated
+
+Obtained 23 stack frames.
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z17write_stack_traceP8_IO_FILE+0x25) [0x6596b5]: write_stack_trace(_IO_FILE*)
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z13do_crash_dumpv+0x3c9) [0x6692e9]: do_crash_dump()
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z20crash_signal_handleri+0x1bd) [0x659cbd]: crash_signal_handler(int)
+/usr/lib64/libc.so.6(+0x19fb0) [0x7ff25b00cfb0]: 
+/usr/lib64/libc.so.6(+0x6f56c) [0x7ff25b06256c]: 
+/usr/lib64/libc.so.6(+0x6f594) [0x7ff25b062594]: 
+/usr/lib64/libc.so.6(read+0x1e) [0x7ff25b0dc49e]: 
+/usr/lib64/libncursesw.so.6(_nc_wgetch+0x32c) [0x7ff25b61fd0c]: 
+/usr/lib64/libncursesw.so.6(wget_wch+0xda) [0x7ff25b63afea]: 
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console() [0xe46c51]
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z8getch_ckv+0x20) [0xe48470]: getch_ck()
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_ZN2ui11pump_eventsEi+0x9e) [0xdcc70e]: ui::pump_events(int)
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_ZN17direction_chooser16choose_directionEv+0x2b6) [0x739d26]: direction_chooser::choose_direction()
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z9directionR4distRK22direction_chooser_args+0x5d) [0x73a05d]: direction(dist&, direction_chooser_args const&)
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console() [0x73a5c5]
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z14do_look_aroundRK9coord_def+0x29) [0x73ab79]: do_look_around(coord_def const&)
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z15process_command12command_typeS_+0x488) [0xe576a8]: process_command(command_type, command_type)
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console() [0xe55a3a]
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console() [0xe56215]
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(main+0x15f) [0x55b46f]: 
+/usr/lib64/libc.so.6(+0x3681) [0x7ff25aff6681]: 
+/usr/lib64/libc.so.6(__libc_start_main+0x88) [0x7ff25aff6798]: 
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_start+0x25) [0x55bd35]: 
+
+Trying to run gdb.
+GNU gdb (Fedora Linux) 17.2-4.fc44
+Copyright (C) 2025 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word".
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <ima:enforcing>
+  <https://debuginfod.fedoraproject.org/>
+  <ima:ignore>
+Enable debuginfod for this session? (y or [n]) [answered N; input not from terminal]
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib64/libthread_db.so.1".
+0x00007ff25b06256e in __internal_syscall_cancel () from /usr/lib64/libc.so.6
+#0  0x00007ff25b06256e in __internal_syscall_cancel () from /usr/lib64/libc.so.6
+No symbol table info available.
+#1  0x00007ff25b062594 in __syscall_cancel () from /usr/lib64/libc.so.6
+No symbol table info available.
+#2  0x00007ff25b0d210f in wait4 () from /usr/lib64/libc.so.6
+No symbol table info available.
+#3  0x000000000065999b in call_gdb(_IO_FILE*) ()
+No symbol table info available.
+#4  0x00000000006692fe in do_crash_dump() ()
+No symbol table info available.
+#5  0x0000000000659cbd in crash_signal_handler(int) ()
+No symbol table info available.
+#6  <signal handler called>
+No symbol table info available.
+#7  0x00007ff25b06256c in __internal_syscall_cancel () from /usr/lib64/libc.so.6
+No symbol table info available.
+#8  0x00007ff25b062594 in __syscall_cancel () from /usr/lib64/libc.so.6
+No symbol table info available.
+#9  0x00007ff25b0dc49e in read () from /usr/lib64/libc.so.6
+No symbol table info available.
+#10 0x00007ff25b61fd0c in _nc_wgetch () from /usr/lib64/libncursesw.so.6
+No symbol table info available.
+#11 0x00007ff25b63afea in wget_wch () from /usr/lib64/libncursesw.so.6
+No symbol table info available.
+#12 0x0000000000e46c51 in _curses_fetch_pending_key(bool) ()
+No symbol table info available.
+#13 0x0000000000e48470 in getch_ck() ()
+No symbol table info available.
+#14 0x0000000000dcc70e in ui::pump_events(int) ()
+No symbol table info available.
+#15 0x0000000000739d26 in direction_chooser::choose_direction() ()
+No symbol table info available.
+#16 0x000000000073a05d in direction(dist&, direction_chooser_args const&) ()
+No symbol table info available.
+#17 0x000000000073a5c5 in _look_around_target(coord_def const&) ()
+No symbol table info available.
+#18 0x000000000073ab79 in do_look_around(coord_def const&) ()
+No symbol table info available.
+#19 0x0000000000e576a8 in process_command(command_type, command_type) ()
+No symbol table info available.
+#20 0x0000000000e55a3a in _input() ()
+No symbol table info available.
+#21 0x0000000000e56215 in _launch_game() ()
+No symbol table info available.
+#22 0x000000000055b46f in main ()
+No symbol table info available.
+[Inferior 1 (process 780608) detached]
+
+Compilation info:
+<<<<<<<<<<<
+Compiled with GCC 15.3.1 20260722 (Red Hat 15.3.1-1)
+Build platform: x86_64-redhat-linux
+Platform: x86_64-redhat-linux
+CFLAGS: -O2 -pipe -Wall -Wformat-security -Wundef -Wextra -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-type-limits -Wno-uninitialized -Wno-array-bounds -Wmissing-declarations -Wredundant-decls -Wno-parentheses -Wwrite-strings -Wshadow -pedantic -Wuninitialized -Iutil -I. -isystem contrib/install/x86_64-redhat-linux/include -DWIZARD -DASSERTS -DCLUA_BINDINGS -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600
+LDFLAGS: -rdynamic -O2
+>>>>>>>>>>>
+
+Place info:
+branch = 0, depth = 1
+
+Level id: D:1
+Level build method = random_map_for_place, level layout type  = rooms, absdepth0 = 0
+Level vaults:
+    minmay_arrival_solitary_statue
+    layout_basic
+    hangedman_decor_slide_cut
+
+Markers:
+<<<<<<<<<<<<<<<<<<<<<<
+Marker #0, type 0 at (55, 33): feature (stone_stairs_up_i)
+>>>>>>>>>>>>>>>>>>>>>>
+
+Messages:
+<<<<<<<<<<<<<<<<<<<<<<
+Welcome, ZhSmoke the Mountain Dwarf Berserker.
+特洛戈说：杀光他们！
+Press ? for a list of commands and other information.
+Found a staircase leading out of the dungeon.
+You feel better.
+ZH_CANONICAL_HISTORY_OK
+Unknown command. (For a list of commands type ??.)
+Save game and exit? 
+Welcome back, ZhSmoke the Mountain Dwarf Berserker.
+特洛戈说：杀光他们！
+Press ? for a list of commands and other information.
+WARNING: ABOUT TO ENTER WIZARD MODE!
+If you continue, your game will not be scored!
+Do you really want to enter wizard mode? (Confirm with "wiz".) 
+Enter Wizard Command (? - help): 
+Enter monster name (or MONS spec) (? for help): 
+You encounter an orc. It is wielding a +0 short sword.
+That o is a monster, usually depicted by a letter. Some typical early monsters
+look like r, l, K or g. Your console settings allowing, you'll always see a
+list of monsters somewhere on the screen.
+You can gain information about it by pressing x and moving the cursor over the
+monster, and read the monster description by then pressing v. 
+To attack this monster with your wielded weapon, just move into it. 
+Press: ? - help, v - describe, . - travel
+Here: an orc, wielding a +0 short sword (wandering, hasn't noticed you)
+The floor.
+Press: ? - help, v - describe, . - travel
+Here: an orc, wielding a +0 short sword (wandering, hasn't noticed you)
+The floor.
+
+>>>>>>>>>>>>>>>>>>>>>>
+
+Version history:
+Game started: 0.34.1
+
+Game state:
+
+mouse_enabled: 0, waiting_for_command: 0, terminal_resized: 0
+io_inited: 1, need_save: 1, saving_game: 0, updating_scores: 0:
+seen_hups: 0, map_stat_gen: 0, type: 5, arena_suspended: 0
+
+prev_cmd = CMD_LOOK_AROUND
+repeat_cmd = CMD_NO_CMD
+
+Player:
+{{{{{{{{{{{
+Name:    [ZhSmoke]
+Species: Mountain Dwarf
+Job:     Berserker
+
+HP: 19/19; mods: 0/0
+MP: 1/1; mod: 0
+Stats: 19 7 9
+Position: (55, 33), god: Trog (10), turn_is_over: 0, banished: 0
+Standing on/in/over feature: staircase leading out of the dungeon
+
+Skills (mode: auto)
+Name            | can_currently_train | train | training | level | points | progress
+Fighting        |          X          |   1   |    39    |    3  |    301 | 49/168
+Short Blades    |          X          |   1   |     0    |    0  |      0 | 0/70
+Long Blades     |          X          |   1   |     0    |    0  |      0 | 0/59
+Axes            |          X          |   1   |    39    |    3  |    301 | 89/141
+Maces & Flails  |          X          |   1   |     0    |    0  |      0 | 0/35
+Polearms        |          X          |   1   |     0    |    0  |      0 | 0/50
+Staves          |          X          |   1   |     0    |    0  |      0 | 0/42
+Ranged Weapons  |          X          |   1   |     0    |    0  |      0 | 0/70
+Throwing        |          X          |   1   |     0    |    0  |      0 | 0/70
+Armour          |          X          |   1   |    11    |    2  |    151 | 25/126
+Dodging         |          X          |   1   |    11    |    1  |    151 | 67/168
+Stealth         |          X          |   1   |     0    |    0  |      0 | 0/70
+Shields         |          X          |   1   |     0    |    0  |      0 | 0/42
+Unarmed Combat  |          X          |   1   |     0    |    0  |      0 | 0/50
+Spellcasting    |          X          |   0   |     0    |    0  |      0 | 0/70
+Conjurations    |          X          |   0   |     0    |    0  |      0 | 0/59
+Hexes           |          X          |   0   |     0    |    0  |      0 | 0/50
+Summonings      |          X          |   0   |     0    |    0  |      0 | 0/70
+Necromancy      |          X          |   0   |     0    |    0  |      0 | 0/42
+Translocations  |          X          |   0   |     0    |    0  |      0 | 0/70
+Forgecraft      |          X          |   0   |     0    |    0  |      0 | 0/35
+Fire Magic      |          X          |   0   |     0    |    0  |      0 | 0/35
+Ice Magic       |          X          |   0   |     0    |    0  |      0 | 0/59
+Air Magic       |          X          |   0   |     0    |    0  |      0 | 0/84
+Earth Magic     |          X          |   0   |     0    |    0  |      0 | 0/42
+Alchemy         |          X          |   0   |     0    |    0  |      0 | 0/70
+Invocations     |          X          |   1   |     0    |    0  |      0 | 0/29
+Evocations      |          X          |   1   |     0    |    0  |      0 | 0/42
+Shapeshifting   |          X          |   1   |     0    |    0  |      0 | 0/70
+
+Spell bugs:
+
+Durations:
+
+Attributes:
+    #49: 29
+
+Mutations:
+    runic magic: 1 (innate)
+    artefact enchanting: 1 (innate)
+
+Inventory bugs:
+
+Equipment:
+    eq slot #1, inv slot #0: +0 hand axe
+    eq slot #3, inv slot #1: +0 animal skin
+
+}}}}}}}}}}}
+
+
+Screenshot:
+#######
+#....o#
++.....#
+#..ß.@#
++.....#
+#.....#
+##+#+##
+
+dlua errors:
+
+clua stack:
+
+dlua stack:
+
+Lua persistent data:
+<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>
+
+Lua marker contents:
+<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>

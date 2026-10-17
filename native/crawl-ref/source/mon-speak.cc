@@ -6,6 +6,8 @@
 #include "AppHdr.h"
 
 #include "mon-speak.h"
+#include "zh-speech.h"
+#include "zh-localization.h"
 
 #include <algorithm>
 #include <cstdio>
@@ -31,7 +33,7 @@
 // If that fails, start ignoring hostile/religion/branch/silence, in that order,
 // first skipping hostile, then hostile *and* religion, then hostile, religion
 // *and* branch, then finally all five.
-static string __try_exact_string(const vector<string> &prefixes,
+static ZhSpeech __try_exact_string(const vector<string> &prefixes,
                                  const string &key,
                                  bool ignore_hostile  = false,
                                  bool ignore_related  = false,
@@ -46,7 +48,7 @@ static string __try_exact_string(const vector<string> &prefixes,
     bool silenced = false;
 
     string prefix = "";
-    string msg = "";
+    ZhSpeech msg;
     const int size = prefixes.size();
     for (int i = 0; i < size; i++)
     {
@@ -86,9 +88,9 @@ static string __try_exact_string(const vector<string> &prefixes,
         prefix += prefixes[i];
         prefix += " ";
     }
-    msg = getSpeakString(prefix + key);
+    msg = getSpeakSpeech(prefix + key);
 
-    if (msg.empty())
+    if (msg.canonical.empty())
     {
         if (hostile) // skip hostile
             msg = __try_exact_string(prefixes, key, true);
@@ -162,7 +164,7 @@ static bool _invalid_msg(const string &msg, bool no_player, bool no_foe,
     return false;
 }
 
-static string _try_exact_string(const vector<string> &prefixes,
+static ZhSpeech _try_exact_string(const vector<string> &prefixes,
                                 const string &key,
                                 bool no_player, bool no_foe,
                                 bool no_foe_name, bool no_god,
@@ -173,7 +175,7 @@ static string _try_exact_string(const vector<string> &prefixes,
                                 bool ignore_branch   = false,
                                 bool ignore_silenced = false)
 {
-    string msg;
+    ZhSpeech msg;
     for (int tries = 0; tries < 10; tries++)
     {
         msg =
@@ -183,7 +185,7 @@ static string _try_exact_string(const vector<string> &prefixes,
         // If the first message was non-empty and discarded then discard
         // all subsequent empty messages, so as to not replace an
         // invalid non-empty message with an empty one.
-        if (msg.empty())
+        if (msg.canonical.empty())
         {
             if (tries == 0)
                 return msg;
@@ -194,9 +196,9 @@ static string _try_exact_string(const vector<string> &prefixes,
             }
         }
 
-        if (_invalid_msg(msg, no_player, no_foe, no_foe_name, no_god, unseen))
+        if (_invalid_msg(msg.canonical, no_player, no_foe, no_foe_name, no_god, unseen))
         {
-            msg = "";
+            msg = ZhSpeech{};
             continue;
         }
         break;
@@ -205,16 +207,16 @@ static string _try_exact_string(const vector<string> &prefixes,
     return msg;
 }
 
-static string __get_speak_string(const vector<string> &prefixes,
+static ZhSpeech __get_speak_string(const vector<string> &prefixes,
                                  const string &key,
                                  bool no_player, bool no_foe,
                                  bool no_foe_name, bool no_god,
                                  bool unseen)
 {
-    string msg = _try_exact_string(prefixes, key, no_player, no_foe,
+    ZhSpeech msg = _try_exact_string(prefixes, key, no_player, no_foe,
                                    no_foe_name, no_god, unseen);
 
-    if (!msg.empty())
+    if (!msg.canonical.empty())
         return msg;
 
     // Combinations of prefixes by threes
@@ -230,9 +232,9 @@ static string __get_speak_string(const vector<string> &prefixes,
                     prefix += prefixes[j] + " ";
                     prefix += prefixes[k] + " ";
 
-                    msg = getSpeakString("default " + prefix + key);
+                    msg = getSpeakSpeech("default " + prefix + key);
 
-                    if (!msg.empty())
+                    if (!msg.canonical.empty())
                         return msg;
                 }
     }
@@ -246,9 +248,9 @@ static string __get_speak_string(const vector<string> &prefixes,
                 prefix  = prefixes[i] + " ";
                 prefix += prefixes[j] + " ";
 
-                msg = getSpeakString("default " + prefix + key);
+                msg = getSpeakSpeech("default " + prefix + key);
 
-                if (!msg.empty())
+                if (!msg.canonical.empty())
                     return msg;
             }
     }
@@ -260,20 +262,20 @@ static string __get_speak_string(const vector<string> &prefixes,
         {
             prefix  = prefixes[i] + " ";
 
-            msg = getSpeakString("default " + prefix + key);
+            msg = getSpeakSpeech("default " + prefix + key);
 
-            if (!msg.empty())
+            if (!msg.canonical.empty())
                 return msg;
         }
     }
 
     // No prefixes
-    msg = getSpeakString("default " + key);
+    msg = getSpeakSpeech("default " + key);
 
     return msg;
 }
 
-static string _get_speak_string(const vector<string> &prefixes,
+static ZhSpeech _get_speak_string(const vector<string> &prefixes,
                                 string key,
                                 const monster* mons,
                                 bool no_player, bool no_foe,
@@ -299,7 +301,7 @@ static string _get_speak_string(const vector<string> &prefixes,
     else if (mons->is_summoned() && mons->get_ench(ENCH_SUMMON).duration <= 0)
         key += " timeout";
 
-    string msg;
+    ZhSpeech msg;
     for (int tries = 0; tries < 10; tries++)
     {
         msg =
@@ -309,7 +311,7 @@ static string _get_speak_string(const vector<string> &prefixes,
         // If the first message was non-empty and discarded then discard
         // all subsequent empty messages, so as to not replace an
         // invalid non-empty message with an empty one.
-        if (msg.empty())
+        if (msg.canonical.empty())
         {
             if (tries == 0)
                 return msg;
@@ -320,9 +322,9 @@ static string _get_speak_string(const vector<string> &prefixes,
             }
         }
 
-        if (_invalid_msg(msg, no_player, no_foe, no_foe_name, no_god, unseen))
+        if (_invalid_msg(msg.canonical, no_player, no_foe, no_foe_name, no_god, unseen))
         {
-            msg = "";
+            msg = ZhSpeech{};
             continue;
         }
 
@@ -597,7 +599,7 @@ bool mons_speaks(monster* mons)
     const bool no_foe_name = !named_foe
                              || (mon_foe && (m_foe->flags & MF_NAME_MASK));
 
-    string msg;
+    ZhSpeech msg;
 
     // First, try its exact name.
     if (mons->type == MONS_PLAYER_GHOST)
@@ -612,7 +614,7 @@ bool mons_speaks(monster* mons)
                                     no_player, no_foe, no_foe_name, no_god,
                                     unseen);
         }
-        if (msg.empty())
+        if (msg.canonical.empty())
         {
             msg = _get_speak_string(prefixes, "player ghost", mons,
                                     no_player, no_foe, no_foe_name, no_god,
@@ -629,14 +631,14 @@ bool mons_speaks(monster* mons)
     }
     else
     {
-        if (msg.empty() && mons->props.exists(DBNAME_KEY))
+        if (msg.canonical.empty() && mons->props.exists(DBNAME_KEY))
         {
             msg = _get_speak_string(prefixes,
                                      mons->props[DBNAME_KEY].get_string(),
                                      mons, no_player, no_foe, no_foe_name,
                                      no_god, unseen);
 
-            if (msg.empty())
+            if (msg.canonical.empty())
             {
                 // Try again without the prefixes if the key is empty. Vaults
                 // *really* want monsters to use the key specified, rather than
@@ -652,14 +654,14 @@ bool mons_speaks(monster* mons)
         // If the monster was originally a unique which has been polymorphed
         // into a non-unique, is its current monster type capable of using its
         // old speech?
-        if (!mons->mname.empty() && mons->can_speak() && msg.empty())
+        if (!mons->mname.empty() && mons->can_speak() && msg.canonical.empty())
         {
             msg = _get_speak_string(prefixes, mons->name(DESC_PLAIN),
                                     mons, no_player, no_foe, no_foe_name,
                                     no_god, unseen);
         }
 
-        if (msg.empty())
+        if (msg.canonical.empty())
         {
             msg = _get_speak_string(prefixes, mons->base_name(DESC_PLAIN),
                                     mons, no_player, no_foe, no_foe_name,
@@ -668,7 +670,7 @@ bool mons_speaks(monster* mons)
     }
 
     // The exact name brought no results, try monster genus.
-    if ((msg.empty() || msg == "__NEXT")
+    if ((msg.canonical.empty() || msg.canonical == "__NEXT")
         && mons_genus(mons->type) != mons->type)
     {
         msg = _get_speak_string(prefixes,
@@ -681,7 +683,7 @@ bool mons_speaks(monster* mons)
     // less exact method of describing the monster to find a speech
     // string.
 
-    if (msg == "__NONE")
+    if (msg.canonical == "__NONE")
     {
 #ifdef DEBUG_MONSPEAK
         dprf(DIAG_SPEECH, "result: \"__NONE\"!");
@@ -696,7 +698,7 @@ bool mons_speaks(monster* mons)
 
     // Names for the exact monster name and its genus have failed,
     // so try the monster's glyph/symbol.
-    if (msg.empty() || msg == "__NEXT")
+    if (msg.canonical.empty() || msg.canonical == "__NEXT")
     {
         string key = "'";
 
@@ -710,7 +712,7 @@ bool mons_speaks(monster* mons)
                                 no_foe_name, no_god, unseen);
     }
 
-    if (msg == "__NONE")
+    if (msg.canonical == "__NONE")
     {
 #ifdef DEBUG_MONSPEAK
         dprf(DIAG_SPEECH, "result: \"__NONE\"!");
@@ -722,14 +724,14 @@ bool mons_speaks(monster* mons)
         prefixes.insert(prefixes.begin(), "stupid");
 
     const mon_body_shape shape = get_mon_shape(*mons);
-    if (msg.empty() || msg == "__NEXT")
+    if (msg.canonical.empty() || msg.canonical == "__NEXT")
     {
         msg = _get_speak_string(prefixes, get_mon_shape_str(shape), mons,
                                 no_player, no_foe, no_foe_name, no_god,
                                 unseen);
     }
 
-    if (msg == "__NONE")
+    if (msg.canonical == "__NONE")
     {
 #ifdef DEBUG_MONSPEAK
         dprf(DIAG_SPEECH, "result: \"__NONE\"!");
@@ -739,7 +741,7 @@ bool mons_speaks(monster* mons)
 
     // If we failed to get a message with a partial/hybrid humanoid, try moving
     // closer to plain humanoid.
-    if ((msg.empty() || msg == "__NEXT") && mon_shape_is_humanoid(shape)
+    if ((msg.canonical.empty() || msg.canonical == "__NEXT") && mon_shape_is_humanoid(shape)
         && shape != MON_SHAPE_HUMANOID)
     {
         // If a humanoid monster has both wings and a tail, try removing
@@ -752,15 +754,15 @@ bool mons_speaks(monster* mons)
                                     no_god, unseen);
 
             // Only be silent if both tailed and winged return __NONE.
-            if (msg.empty() || msg == "__NONE" || msg == "__NEXT")
+            if (msg.canonical.empty() || msg.canonical == "__NONE" || msg.canonical == "__NEXT")
             {
-                string msg2;
+                ZhSpeech msg2;
                 msg2 = _get_speak_string(prefixes,
                                          get_mon_shape_str(MON_SHAPE_HUMANOID_WINGED),
                                          mons, no_player, no_foe,
                                          no_foe_name, no_god, unseen);
 
-                if (msg == "__NONE" && msg2 == "__NONE")
+                if (msg.canonical == "__NONE" && msg2.canonical == "__NONE")
                 {
 #ifdef DEBUG_MONSPEAK
                     dprf(DIAG_SPEECH, "result: \"__NONE\"!");
@@ -768,14 +770,14 @@ bool mons_speaks(monster* mons)
                     return false;
                 }
 
-                if (msg2 == "__NONE")
-                    msg2 = "";
+                if (msg2.canonical == "__NONE")
+                    msg2 = ZhSpeech{};
 
                 msg = msg2;
             }
         }
 
-        if (msg.empty() || msg == "__NONE" || msg == "__NEXT")
+        if (msg.canonical.empty() || msg.canonical == "__NONE" || msg.canonical == "__NEXT")
         {
             msg = _get_speak_string(prefixes,
                                     get_mon_shape_str(MON_SHAPE_HUMANOID),
@@ -783,16 +785,16 @@ bool mons_speaks(monster* mons)
                                     no_god, unseen);
         }
     }
-    if (msg.empty() || msg == "__NONE")
+    if (msg.canonical.empty() || msg.canonical == "__NONE")
     {
 #ifdef DEBUG_MONSPEAK
         dprf(DIAG_SPEECH, "final result: %s!",
-             (msg.empty() ? "empty" : "\"__NONE\""));
+             (msg.canonical.empty() ? "empty" : "\"__NONE\""));
 #endif
         return false;
     }
 
-    if (msg == "__NEXT")
+    if (msg.canonical == "__NEXT")
     {
         msg::streams(MSGCH_DIAGNOSTICS)
             << "__NEXT used by shape-based speech string for monster '"
@@ -823,17 +825,17 @@ bool invalid_msg(const monster &mon, string msg)
 
 }
 
-bool mons_speaks_msg(monster* mons, const string &msg,
+static bool _mons_speaks_message(monster* mons, const ZhMessage &message,
                      const msg_channel_type def_chan, bool silence)
 {
     if (!you.see_cell(mons->pos()))
         return false;
 
-    mon_acting mact(mons);
-
     // We have a speech string, now parse and act on it.
-    const string _msg = do_mon_str_replacements(msg, *mons);
-    const vector<string> lines = split_string("\n", _msg);
+    const vector<string> lines = split_string("\n", message.canonical);
+    const vector<string> translated = split_string("\n", message.localized);
+    size_t line_index = 0;
+    const bool aligned = lines.size() == translated.size();
 
     bool noticed = false;       // Any messages actually printed?
 
@@ -842,6 +844,10 @@ bool mons_speaks_msg(monster* mons, const string &msg,
 
     for (string line : lines)
     {
+        string display = aligned ? translated[line_index] : line;
+        ++line_index;
+        msg_channel_type display_channel = def_chan;
+        strip_channel_prefix(display, display_channel, silence);
         // This function is a little bit of a problem for the message
         // channels since some of the messages it generates are "fake"
         // warnings to scare the player. In order to accommodate this
@@ -871,7 +877,28 @@ bool mons_speaks_msg(monster* mons, const string &msg,
         if (msg_type == MSGCH_TALK_VISUAL && !you.can_see(*mons))
             noticed = old_noticed;
         else
-            mprf(msg_type, "%s", line.c_str());
+        {
+            if (message.id.empty()) mprf(msg_type, "%s", line.c_str());
+            else mpr(ZhMessage{message.id, line, display}, msg_type);
+        }
     }
     return noticed;
+}
+
+
+bool mons_speaks_msg(monster *mon, const ZhSpeech &speech,
+                     msg_channel_type channel, bool silence)
+{
+    if (!you.see_cell(mon->pos())) return false;
+    mon_acting mact(mon);
+    return _mons_speaks_message(mon, zh_mon_speech_message(speech, *mon), channel, silence);
+}
+
+bool mons_speaks_msg(monster *mon, const string &source,
+                     msg_channel_type channel, bool silence)
+{
+    if (!you.see_cell(mon->pos())) return false;
+    mon_acting mact(mon);
+    const string canonical = do_mon_str_replacements(source, *mon);
+    return _mons_speaks_message(mon, ZhMessage{"", canonical, ""}, channel, silence);
 }

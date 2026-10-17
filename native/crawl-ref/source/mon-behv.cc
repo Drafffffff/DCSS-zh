@@ -1023,7 +1023,7 @@ void behaviour_event(monster* mon, mon_event_type event, const actor *src,
     bool setTarget        = false;
     bool breakCharm       = false;
     bool was_unaware      = mon->asleep() || mon->foe == MHITNOT;
-    string msg;
+    ZhSpeech msg;
     int src_idx           = src ? src->mindex() : MHITNOT; // AXE ME
 
     // Monsters know to blame you for reflecting things at them.
@@ -1283,7 +1283,7 @@ void behaviour_event(monster* mon, mon_event_type event, const actor *src,
             break;
         }
 
-        msg = getSpeakString(mon->name(DESC_PLAIN) + " flee");
+        msg = getSpeakSpeech(mon->name(DESC_PLAIN) + " flee");
 
         // Assume monsters know where to run from, even if player is
         // invisible.
@@ -1314,13 +1314,15 @@ void behaviour_event(monster* mon, mon_event_type event, const actor *src,
             if (mon->friendly() && !crawl_state.game_is_arena())
             {
                 mon->foe = MHITYOU;
-                msg = "PLAIN:@The_monster@ returns to your side!";
+                msg = zh_speech_source("__source_return_to_side",
+                    "PLAIN:@The_monster@ returns to your side!");
             }
             else if (!mon->is_child_tentacle())
             {
-                msg = getSpeakString(mon->name(DESC_PLAIN) + " cornered");
-                if (msg.empty())
-                    msg = "PLAIN:Cornered, @the_monster@ turns to fight!";
+                msg = getSpeakSpeech(mon->name(DESC_PLAIN) + " cornered");
+                if (msg.canonical.empty())
+                    msg = zh_speech_source("__source_cornered",
+                        "PLAIN:Cornered, @the_monster@ turns to fight!");
             }
             mon->del_ench(ENCH_FEAR, true);
             mon->behaviour = BEH_SEEK;
@@ -1396,11 +1398,11 @@ void behaviour_event(monster* mon, mon_event_type event, const actor *src,
     }
 
     // mons_speaks_msg already handles the LOS check.
-    if (!msg.empty() && mon->visible_to(&you))
+    if (!msg.canonical.empty() && mon->visible_to(&you))
         mons_speaks_msg(mon, msg, MSGCH_TALK, silenced(mon->pos()));
 
     if (one_chance_in(10) && mons_offers_beogh_conversion_now(*mon))
-        mons_speaks_msg(mon, getSpeakString("orc_priest_preaching"), MSGCH_TALK);
+        mons_speaks_msg(mon, getSpeakSpeech("orc_priest_preaching"), MSGCH_TALK);
 
     ASSERT(!crawl_state.game_is_arena()
            || mon->foe != MHITYOU && (mon->target.origin() || mon->target != you.pos()));

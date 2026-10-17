@@ -8,6 +8,8 @@
 #include "mon-util.h"
 #include "zh-message.h"
 #include "zh-display-name.h"
+#include "zh-speech.h"
+#include "zh-localization.h"
 
 #include <algorithm>
 #include <cmath>
@@ -58,6 +60,8 @@
 #include "mon-util.h"
 #include "zh-message.h"
 #include "zh-display-name.h"
+#include "zh-speech.h"
+#include "zh-localization.h"
 #include "mutant-beast.h"
 #include "notes.h"
 #include "options.h"
@@ -4175,9 +4179,16 @@ string random_body_part_name(bool plural, int part_class)
     return body_parts[which_part];
 }
 
-static string _get_species_insult(const string &species, const string &type)
+static string _get_species_insult(const string &species, const string &type,
+                                   ZhSpeechFacts *facts = nullptr)
 {
     string insult;
+    ZhSpeech selected;
+    const auto lookup_speech = [&](const string &key) {
+        if (!facts) return getSpeakString(key);
+        selected = getSpeakSpeech(key);
+        return selected.canonical;
+    };
     string lookup;
 
     // Get species genus.
@@ -4188,7 +4199,7 @@ static string _get_species_insult(const string &species, const string &type)
         lookup += " ";
         lookup += type;
 
-        insult  = getSpeakString(lowercase(lookup));
+        insult  = lookup_speech(lowercase(lookup));
     }
 
     if (insult.empty()) // Species too specific?
@@ -4196,9 +4207,10 @@ static string _get_species_insult(const string &species, const string &type)
         lookup  = "insult general ";
         lookup += type;
 
-        insult  = getSpeakString(lookup);
+        insult  = lookup_speech(lookup);
     }
 
+    if (facts) facts->nested["@species_insult_" + type + "@"] = selected;
     return insult;
 }
 
@@ -4248,10 +4260,15 @@ static string _replace_speech_tag(string msg, string from, const string &to)
 
 // Replaces the "@foo@" strings in monster shout and monster speak
 // definitions.
-string do_mon_str_replacements(const string& in_msg, const monster& mons,
-                               int s_type)
+static string _mon_speech_replacements(const string& in_msg, const monster& mons,
+                                       int s_type, ZhSpeechFacts *facts)
 {
     string msg = in_msg;
+    const auto bind = [facts](string text, const string &tag, const string &value) {
+        if (facts && text.find(tag) != string::npos)
+            facts->values[tag] = value;
+        return replace_all(text, tag, value);
+    };
 
     const actor* foe = (mons.wont_attack()
                           && invalid_monster_index(mons.foe)) ?
@@ -4260,14 +4277,28 @@ string do_mon_str_replacements(const string& in_msg, const monster& mons,
     if (s_type < 0 || s_type >= NUM_LOUDNESS || s_type == NUM_SHOUTS)
         s_type = mons_shouts(mons.type);
 
-    msg = maybe_pick_random_substring(msg);
+    if (!facts)
+        msg = maybe_pick_random_substring(msg);
+    else
+    {
+        size_t at = 0;
+        while ((at = msg.find('[')) != string::npos)
+        {
+            const size_t end = msg.find(']', at);
+            if (end == string::npos) break;
+            const auto choices = split_string("|", msg.substr(at+1,end-at-1), false, true);
+            const int selected = random2(choices.size());
+            facts->choices.push_back(selected);
+            msg.replace(at, end+1-at, choices[selected]);
+        }
+    }
 
     // FIXME: Handle player_genus in case it was not generalised to foe_genus.
-    msg = replace_all(msg, "@a_player_genus@",
+    msg = bind(msg, "@a_player_genus@",
                 article_a(species::name(you.species, species::SPNAME_GENUS)));
-    msg = replace_all(msg, "@player_genus@",
+    msg = bind(msg, "@player_genus@",
                 species::name(you.species, species::SPNAME_GENUS));
-    msg = replace_all(msg, "@player_genus_plural@",
+    msg = bind(msg, "@player_genus_plural@",
                 pluralise(species::name(you.species, species::SPNAME_GENUS)));
 
     string foe_genus;
@@ -4284,21 +4315,21 @@ string do_mon_str_replacements(const string& in_msg, const monster& mons,
         msg = _replace_speech_tag(msg, " @to_foe@", "");
         msg = _replace_speech_tag(msg, " @at_foe@", "");
 
-        msg = replace_all(msg, "@player_only@", "");
-        msg = replace_all(msg, " @foe,@", ",");
+        msg = bind(msg, "@player_only@", "");
+        msg = bind(msg, " @foe,@", ",");
 
-        msg = replace_all(msg, "@player", "@foe");
-        msg = replace_all(msg, "@Player", "@Foe");
+        msg = bind(msg, "@player", "@foe");
+        msg = bind(msg, "@Player", "@Foe");
 
-        msg = replace_all(msg, "@foe_possessive@", "your");
-        msg = replace_all(msg, "@foe@", "you");
-        msg = replace_all(msg, "@Foe@", "You");
+        msg = bind(msg, "@foe_possessive@", "your");
+        msg = bind(msg, "@foe@", "you");
+        msg = bind(msg, "@Foe@", "You");
 
-        msg = replace_all(msg, "@foe_name@", you.your_name);
-        msg = replace_all(msg, "@foe_species@", species::name(you.species));
-        msg = replace_all(msg, "@foe_genus@", foe_genus);
-        msg = replace_all(msg, "@Foe_genus@", uppercase_first(foe_genus));
-        msg = replace_all(msg, "@foe_genus_plural@",
+        msg = bind(msg, "@foe_name@", you.your_name);
+        msg = bind(msg, "@foe_species@", species::name(you.species));
+        msg = bind(msg, "@foe_genus@", foe_genus);
+        msg = bind(msg, "@Foe_genus@", uppercase_first(foe_genus));
+        msg = bind(msg, "@foe_genus_plural@",
                           pluralise(foe_genus));
     }
     else
@@ -4320,28 +4351,28 @@ string do_mon_str_replacements(const string& in_msg, const monster& mons,
         string prep = "at";
         if (s_type == S_SILENT || s_type == S_SHOUT || s_type == S_NORMAL_VOLUME)
             prep = "to";
-        msg = replace_all(msg, "@says@ @to_foe@", "@says@ " + prep + " @foe@");
+        msg = bind(msg, "@says@ @to_foe@", "@says@ " + prep + " @foe@");
 
         msg = _replace_speech_tag(msg, " @to_foe@", " to @foe@");
         msg = _replace_speech_tag(msg, " @at_foe@", " at @foe@");
 
-        msg = replace_all(msg, "@foe,@", "@foe@,");
-        msg = replace_all(msg, "@foe_possessive@", "@foe@'s");
-        msg = replace_all(msg, "@foe@", foe_name);
-        msg = replace_all(msg, "@Foe@", uppercase_first(foe_name));
+        msg = bind(msg, "@foe,@", "@foe@,");
+        msg = bind(msg, "@foe_possessive@", "@foe@'s");
+        msg = bind(msg, "@foe@", foe_name);
+        msg = bind(msg, "@Foe@", uppercase_first(foe_name));
 
         if (m_foe->is_named())
-            msg = replace_all(msg, "@foe_name@", foe->name(DESC_PLAIN, true));
+            msg = bind(msg, "@foe_name@", foe->name(DESC_PLAIN, true));
 
         string species = mons_type_name(mons_species(m_foe->type), DESC_PLAIN);
 
-        msg = replace_all(msg, "@foe_species@", species);
+        msg = bind(msg, "@foe_species@", species);
 
         foe_genus = mons_type_name(mons_genus(m_foe->type), DESC_PLAIN);
 
-        msg = replace_all(msg, "@foe_genus@", foe_genus);
-        msg = replace_all(msg, "@Foe_genus@", uppercase_first(foe_genus));
-        msg = replace_all(msg, "@foe_genus_plural@", pluralise(foe_genus));
+        msg = bind(msg, "@foe_genus@", foe_genus);
+        msg = bind(msg, "@Foe_genus@", uppercase_first(foe_genus));
+        msg = bind(msg, "@foe_genus_plural@", pluralise(foe_genus));
     }
 
     description_level_type nocap = DESC_THE, cap = DESC_THE;
@@ -4350,18 +4381,18 @@ string do_mon_str_replacements(const string& in_msg, const monster& mons,
     {
         const string name = mons.name(DESC_THE);
 
-        msg = replace_all(msg, "@the_something@", name);
-        msg = replace_all(msg, "@The_something@", name);
-        msg = replace_all(msg, "@the_monster@",   name);
-        msg = replace_all(msg, "@The_monster@",   name);
+        msg = bind(msg, "@the_something@", name);
+        msg = bind(msg, "@The_something@", name);
+        msg = bind(msg, "@the_monster@",   name);
+        msg = bind(msg, "@The_monster@",   name);
 
-        msg = replace_all(msg, "@the_something_possessive@",
+        msg = bind(msg, "@the_something_possessive@",
                           apostrophise(name));
-        msg = replace_all(msg, "@The_something_possessive@",
+        msg = bind(msg, "@The_something_possessive@",
                           apostrophise(name));
-        msg = replace_all(msg, "@the_monster_possessive@",
+        msg = bind(msg, "@the_monster_possessive@",
                           apostrophise(name));
-        msg = replace_all(msg, "@The_monster_possessive@",
+        msg = bind(msg, "@The_monster_possessive@",
                           apostrophise(name));
     }
     else if (mons.attitude == ATT_FRIENDLY
@@ -4372,18 +4403,18 @@ string do_mon_str_replacements(const string& in_msg, const monster& mons,
         nocap = DESC_PLAIN;
         cap   = DESC_PLAIN;
 
-        msg = replace_all(msg, "@the_something@", "your @the_something@");
-        msg = replace_all(msg, "@The_something@", "Your @the_something@");
-        msg = replace_all(msg, "@the_monster@",   "your @the_monster@");
-        msg = replace_all(msg, "@The_monster@",   "Your @the_monster@");
+        msg = bind(msg, "@the_something@", "your @the_something@");
+        msg = bind(msg, "@The_something@", "Your @the_something@");
+        msg = bind(msg, "@the_monster@",   "your @the_monster@");
+        msg = bind(msg, "@The_monster@",   "Your @the_monster@");
 
-        msg = replace_all(msg, "@the_something_possessive@",
+        msg = bind(msg, "@the_something_possessive@",
                           "your @the_something_possessive@");
-        msg = replace_all(msg, "@The_something_possessive@",
+        msg = bind(msg, "@The_something_possessive@",
                           "Your @the_something_possessive@");
-        msg = replace_all(msg, "@the_monster_possessive@",
+        msg = bind(msg, "@the_monster_possessive@",
                           "your @the_monster_possessive@");
-        msg = replace_all(msg, "@The_monster_possessive@",
+        msg = bind(msg, "@The_monster_possessive@",
                           "Your @the_monster_possessive@");
     }
 
@@ -4392,130 +4423,130 @@ string do_mon_str_replacements(const string& in_msg, const monster& mons,
     {
         dungeon_feature_type feat = env.grid(mons.pos());
         if (feat_is_solid(feat) || feat >= NUM_FEATURES)
-            msg = replace_all(msg, "@surface@", "buggy surface");
+            msg = bind(msg, "@surface@", "buggy surface");
         else if (feat == DNGN_LAVA)
-            msg = replace_all(msg, "@surface@", "lava");
+            msg = bind(msg, "@surface@", "lava");
         else if (feat_is_water(feat))
-            msg = replace_all(msg, "@surface@", "water");
+            msg = bind(msg, "@surface@", "water");
         else if (feat_is_altar(feat))
-            msg = replace_all(msg, "@surface@", "altar");
+            msg = bind(msg, "@surface@", "altar");
         else
-            msg = replace_all(msg, "@surface@", "ground");
+            msg = bind(msg, "@surface@", "ground");
 
-        msg = replace_all(msg, "@feature@", raw_feature_description(mons.pos()));
+        msg = bind(msg, "@feature@", raw_feature_description(mons.pos()));
     }
     else
     {
-        msg = replace_all(msg, "@surface@", "buggy unseen surface");
-        msg = replace_all(msg, "@feature@", "buggy unseen feature");
+        msg = bind(msg, "@surface@", "buggy unseen surface");
+        msg = bind(msg, "@feature@", "buggy unseen feature");
     }
 
     string something = mons.name(DESC_PLAIN);
-    msg = replace_all(msg, "@something@",   something);
-    msg = replace_all(msg, "@a_something@", mons.name(DESC_A));
-    msg = replace_all(msg, "@the_something@", mons.name(nocap));
-    msg = replace_all(msg, "@the_something_possessive@",
+    msg = bind(msg, "@something@",   something);
+    msg = bind(msg, "@a_something@", mons.name(DESC_A));
+    msg = bind(msg, "@the_something@", mons.name(nocap));
+    msg = bind(msg, "@the_something_possessive@",
                       apostrophise(mons.name(nocap)));
 
     something[0] = toupper_safe(something[0]);
-    msg = replace_all(msg, "@Something@",   something);
-    msg = replace_all(msg, "@A_something@", mons.name(DESC_A));
-    msg = replace_all(msg, "@The_something@", mons.name(cap));
-    msg = replace_all(msg, "@The_something_possessive@",
+    msg = bind(msg, "@Something@",   something);
+    msg = bind(msg, "@A_something@", mons.name(DESC_A));
+    msg = bind(msg, "@The_something@", mons.name(cap));
+    msg = bind(msg, "@The_something_possessive@",
                       apostrophise(mons.name(cap)));
 
     // Player name.
-    msg = replace_all(msg, "@player_name@", you.your_name);
-    msg = replace_all(msg, "@player_name_possessive@",
+    msg = bind(msg, "@player_name@", you.your_name);
+    msg = bind(msg, "@player_name_possessive@",
                       apostrophise(you.your_name));
 
     string plain = mons.name(DESC_PLAIN);
-    msg = replace_all(msg, "@monster@",     plain);
-    msg = replace_all(msg, "@a_monster@",   mons.name(DESC_A));
-    msg = replace_all(msg, "@the_monster@", mons.name(nocap));
-    msg = replace_all(msg, "@the_monster_possessive@",
+    msg = bind(msg, "@monster@",     plain);
+    msg = bind(msg, "@a_monster@",   mons.name(DESC_A));
+    msg = bind(msg, "@the_monster@", mons.name(nocap));
+    msg = bind(msg, "@the_monster_possessive@",
                       apostrophise(mons.name(nocap)));
 
     plain[0] = toupper_safe(plain[0]);
-    msg = replace_all(msg, "@Monster@",     plain);
-    msg = replace_all(msg, "@A_monster@",   mons.name(DESC_A));
-    msg = replace_all(msg, "@The_monster@", mons.name(cap));
-    msg = replace_all(msg, "@The_monster_possessive@",
+    msg = bind(msg, "@Monster@",     plain);
+    msg = bind(msg, "@A_monster@",   mons.name(DESC_A));
+    msg = bind(msg, "@The_monster@", mons.name(cap));
+    msg = bind(msg, "@The_monster_possessive@",
                       apostrophise(mons.name(cap)));
 
     string subj_or_poss;
 
     subj_or_poss = mons.pronoun(PRONOUN_SUBJECTIVE);
-    msg = replace_all(msg, "@subjective@", subj_or_poss);
+    msg = bind(msg, "@subjective@", subj_or_poss);
     subj_or_poss[0] = toupper_safe(subj_or_poss[0]);
-    msg = replace_all(msg, "@Subjective@", subj_or_poss);
+    msg = bind(msg, "@Subjective@", subj_or_poss);
 
     subj_or_poss = mons.pronoun(PRONOUN_POSSESSIVE);
-    msg = replace_all(msg, "@possessive@", subj_or_poss);
+    msg = bind(msg, "@possessive@", subj_or_poss);
     subj_or_poss[0] = toupper_safe(subj_or_poss[0]);
-    msg = replace_all(msg, "@Possessive@", subj_or_poss);
+    msg = bind(msg, "@Possessive@", subj_or_poss);
 
-    msg = replace_all(msg, "@reflexive@",
+    msg = bind(msg, "@reflexive@",
                       mons.pronoun(PRONOUN_REFLEXIVE));
-    msg = replace_all(msg, "@objective@",
+    msg = bind(msg, "@objective@",
                       mons.pronoun(PRONOUN_OBJECTIVE));
 
     // Body parts.
     bool   can_plural = false;
     string part_str   = mons.hand_name(false, &can_plural);
 
-    msg = replace_all(msg, "@hand@", part_str);
-    msg = replace_all(msg, "@Hand@", uppercase_first(part_str));
+    msg = bind(msg, "@hand@", part_str);
+    msg = bind(msg, "@Hand@", uppercase_first(part_str));
 
     if (!can_plural)
         part_str = "NO PLURAL HANDS";
     else
         part_str = mons.hand_name(true);
 
-    msg = replace_all(msg, "@hands@", part_str);
-    msg = replace_all(msg, "@Hands@", uppercase_first(part_str));
+    msg = bind(msg, "@hands@", part_str);
+    msg = bind(msg, "@Hands@", uppercase_first(part_str));
 
     can_plural = false;
     part_str   = mons.arm_name(false, &can_plural);
 
-    msg = replace_all(msg, "@arm@", part_str);
-    msg = replace_all(msg, "@Arm@", uppercase_first(part_str));
+    msg = bind(msg, "@arm@", part_str);
+    msg = bind(msg, "@Arm@", uppercase_first(part_str));
 
     if (!can_plural)
         part_str = "NO PLURAL ARMS";
     else
         part_str = mons.arm_name(true);
 
-    msg = replace_all(msg, "@arms@", part_str);
-    msg = replace_all(msg, "@Arms@", uppercase_first(part_str));
+    msg = bind(msg, "@arms@", part_str);
+    msg = bind(msg, "@Arms@", uppercase_first(part_str));
 
     can_plural = false;
     part_str   = mons.foot_name(false, &can_plural);
 
-    msg = replace_all(msg, "@foot@", part_str);
-    msg = replace_all(msg, "@Foot@", uppercase_first(part_str));
+    msg = bind(msg, "@foot@", part_str);
+    msg = bind(msg, "@Foot@", uppercase_first(part_str));
 
     if (!can_plural)
         part_str = "NO PLURAL FEET";
     else
         part_str = mons.foot_name(true);
 
-    msg = replace_all(msg, "@feet@", part_str);
-    msg = replace_all(msg, "@Feet@", uppercase_first(part_str));
+    msg = bind(msg, "@feet@", part_str);
+    msg = bind(msg, "@Feet@", uppercase_first(part_str));
 
     if (foe != nullptr)
     {
         const god_type god = foe->deity();
 
         // Replace with "you are" for atheists.
-        msg = replace_all(msg, "@god_is@",
+        msg = bind(msg, "@god_is@",
                           _replace_god_name(god, true, false));
-        msg = replace_all(msg, "@God_is@", _replace_god_name(god, true, true));
+        msg = bind(msg, "@God_is@", _replace_god_name(god, true, true));
 
         // No verb needed.
-        msg = replace_all(msg, "@foe_god@",
+        msg = bind(msg, "@foe_god@",
                           _replace_god_name(god, false, false));
-        msg = replace_all(msg, "@Foe_god@",
+        msg = bind(msg, "@Foe_god@",
                           _replace_god_name(god, false, true));
     }
 
@@ -4527,88 +4558,99 @@ string do_mon_str_replacements(const string& in_msg, const monster& mons,
     // if it gets one, it should be used for the last two entries.
     if (mons.god == GOD_NO_GOD)
     {
-        msg = replace_all(msg, "@a_God@", "NO GOD");
-        msg = replace_all(msg, "@A_God@", "NO GOD");
-        msg = replace_all(msg, "@possessive_God@", "NO GOD");
-        msg = replace_all(msg, "@Possessive_God@", "NO GOD");
+        msg = bind(msg, "@a_God@", "NO GOD");
+        msg = bind(msg, "@A_God@", "NO GOD");
+        msg = bind(msg, "@possessive_God@", "NO GOD");
+        msg = bind(msg, "@Possessive_God@", "NO GOD");
 
-        msg = replace_all(msg, "@my_God@", "NO GOD");
-        msg = replace_all(msg, "@My_God@", "NO GOD");
+        msg = bind(msg, "@my_God@", "NO GOD");
+        msg = bind(msg, "@My_God@", "NO GOD");
     }
     else if (mons.god == GOD_NAMELESS)
     {
-        msg = replace_all(msg, "@a_God@", "a god");
-        msg = replace_all(msg, "@A_God@", "A god");
+        msg = bind(msg, "@a_God@", "a god");
+        msg = bind(msg, "@A_God@", "A god");
         const string possessive = mons.pronoun(PRONOUN_POSSESSIVE) + " god";
-        msg = replace_all(msg, "@possessive_God@", possessive);
-        msg = replace_all(msg, "@Possessive_God@", uppercase_first(possessive));
+        msg = bind(msg, "@possessive_God@", possessive);
+        msg = bind(msg, "@Possessive_God@", uppercase_first(possessive));
 
-        msg = replace_all(msg, "@my_God@", "my God");
-        msg = replace_all(msg, "@My_God@", "My God");
+        msg = bind(msg, "@my_God@", "my God");
+        msg = bind(msg, "@My_God@", "My God");
     }
     else
     {
         const string godname = god_name(mons.god);
         const string godcap = uppercase_first(godname);
-        msg = replace_all(msg, "@a_God@", godname);
-        msg = replace_all(msg, "@A_God@", godcap);
-        msg = replace_all(msg, "@possessive_God@", godname);
-        msg = replace_all(msg, "@Possessive_God@", godcap);
+        msg = bind(msg, "@a_God@", godname);
+        msg = bind(msg, "@A_God@", godcap);
+        msg = bind(msg, "@possessive_God@", godname);
+        msg = bind(msg, "@Possessive_God@", godcap);
 
-        msg = replace_all(msg, "@my_God@", godname);
-        msg = replace_all(msg, "@My_God@", godcap);
+        msg = bind(msg, "@my_God@", godname);
+        msg = bind(msg, "@My_God@", godcap);
     }
 
     // For randomly generated names.
-    msg = replace_all_func(msg, "@RANDGEN@", make_name_randgen);
+    if (!facts)
+        msg = replace_all_func(msg, "@RANDGEN@", make_name_randgen);
+    else
+    {
+        size_t at = 0;
+        while ((at = msg.find("@RANDGEN@", at)) != string::npos)
+        {
+            const string name = make_name_randgen();
+            facts->generated_names.push_back(name);
+            msg.replace(at, 9, name); at += name.size();
+        }
+    }
 
     if (msg.find("@random_god") != string::npos)
     {
-        msg = replace_all(msg, "@random_god@",
+        msg = bind(msg, "@random_god@",
                           _random_class_of_god_name(_is_any_god));
-        msg = replace_all(msg, "@random_god_chaotic@",
+        msg = bind(msg, "@random_god_chaotic@",
                           _random_class_of_god_name(is_chaotic_god));
-        msg = replace_all(msg, "@random_god_evil@",
+        msg = bind(msg, "@random_god_evil@",
                           _random_class_of_god_name(is_evil_god));
-        msg = replace_all(msg, "@random_god_good@",
+        msg = bind(msg, "@random_god_good@",
                           _random_class_of_god_name(is_good_god));
     }
 
     if (msg.find("@random_skill") != string::npos)
     {
-        msg = replace_all(msg, "@random_skill@",
+        msg = bind(msg, "@random_skill@",
                           _random_class_of_skill_name(_is_any_skill));
-        msg = replace_all(msg, "@random_skill_magic@",
+        msg = bind(msg, "@random_skill_magic@",
                           _random_class_of_skill_name(is_magic_skill));
-        msg = replace_all(msg, "@random_skill_mundane@",
+        msg = bind(msg, "@random_skill_mundane@",
                           _random_class_of_skill_name(is_mundane_skill));
     }
 
     if (msg.find("@random_body_part") != string::npos)
     {
-        msg = replace_all(msg, "@random_body_part_any_singular@",
+        msg = bind(msg, "@random_body_part_any_singular@",
                           random_body_part_name(false, BPART_ANY));
-        msg = replace_all(msg, "@random_body_part_internal_singular@",
+        msg = bind(msg, "@random_body_part_internal_singular@",
                           random_body_part_name(false, BPART_INTERNAL));
-        msg = replace_all(msg, "@random_body_part_external_singular@",
+        msg = bind(msg, "@random_body_part_external_singular@",
                           random_body_part_name(false, BPART_EXTERNAL));
-        msg = replace_all(msg, "@random_body_part_any_plural@",
+        msg = bind(msg, "@random_body_part_any_plural@",
                           random_body_part_name(true, BPART_ANY));
-        msg = replace_all(msg, "@random_body_part_internal_plural@",
+        msg = bind(msg, "@random_body_part_internal_plural@",
                           random_body_part_name(true, BPART_INTERNAL));
-        msg = replace_all(msg, "@random_body_part_external_plural@",
+        msg = bind(msg, "@random_body_part_external_plural@",
                           random_body_part_name(true, BPART_EXTERNAL));
     }
 
     // Replace with species specific insults.
     if (msg.find("@species_insult_") != string::npos)
     {
-        msg = replace_all(msg, "@species_insult_adj1@",
-                               _get_species_insult(foe_genus, "adj1"));
-        msg = replace_all(msg, "@species_insult_adj2@",
-                               _get_species_insult(foe_genus, "adj2"));
-        msg = replace_all(msg, "@species_insult_noun@",
-                               _get_species_insult(foe_genus, "noun"));
+        msg = bind(msg, "@species_insult_adj1@",
+                               _get_species_insult(foe_genus, "adj1", facts));
+        msg = bind(msg, "@species_insult_adj2@",
+                               _get_species_insult(foe_genus, "adj2", facts));
+        msg = bind(msg, "@species_insult_noun@",
+                               _get_species_insult(foe_genus, "noun", facts));
     }
 
     static const char * sound_list[] =
@@ -4652,15 +4694,29 @@ string do_mon_str_replacements(const string& in_msg, const monster& mons,
     if (s_type < 0 || s_type >= NUM_LOUDNESS || s_type == NUM_SHOUTS)
     {
         mprf(MSGCH_DIAGNOSTICS, "Invalid @says@ type.");
-        msg = replace_all(msg, "@says@", "buggily says");
+        msg = bind(msg, "@says@", "buggily says");
     }
     else
-        msg = replace_all(msg, "@says@", sound_list[s_type]);
+        msg = bind(msg, "@says@", sound_list[s_type]);
 
     msg = maybe_capitalise_substring(msg);
 
     return msg;
 }
+
+string do_mon_str_replacements(const string &source, const monster &mon, int shout)
+{
+    return _mon_speech_replacements(source, mon, shout, nullptr);
+}
+
+ZhMessage zh_mon_speech_message(const ZhSpeech &speech, const monster &mon, int shout)
+{
+    ZhTranslationPause canonical_scope;
+    ZhSpeechFacts facts;
+    const string canonical = _mon_speech_replacements(speech.canonical, mon, shout, &facts);
+    return zh_render_speech(speech, mon, facts, canonical);
+}
+
 
 // This should take a small subset of what do_mon_str_replacements() does.
 string do_mon_name_replacements(const string& in_name)
@@ -5878,4 +5934,112 @@ int mons_leash_range(monster_type mc)
         case MONS_HAUNTED_ARMOUR:   return 2;
         default:                    return 0; // No leashing
     }
+}
+
+ZhArg zh_speech_actor_arg(const string &key, const string &raw_tag,
+                         const monster &mon, const ZhSpeechFacts &facts)
+{
+    string tag = raw_tag;
+    lowercase(tag);
+    const string marker = "@"+raw_tag+"@";
+    auto captured = facts.values.find(marker);
+    const string canonical = captured == facts.values.end() ? marker : captured->second;
+    const auto prose = [&](const ZhMessage &message) {
+        return ZhArg(key, ZhArgType::Text, canonical, message.localized);
+    };
+    const auto possessive = [&](ZhArg name) {
+        name.key = "name"; name.type = ZhArgType::Name;
+        auto result = prose(zh_message("speech.actor.name_possessive", {name}));
+        result.supported = name.supported;
+        return result;
+    };
+    const actor *foe = (mon.wont_attack() && invalid_monster_index(mon.foe))
+        ? &you : mon.get_foe();
+    if (tag == "caps" || tag == "nocaps" || tag == "player_only")
+        return {key, ZhArgType::Text, "", ""};
+    if (tag.find("to_foe") == 0 || tag.find("at_foe") == 0)
+    {
+        if (!foe) return {key, ZhArgType::Text, canonical, canonical, false};
+        if (foe->is_player())
+        {
+            const auto slash = raw_tag.find('/');
+            if (slash == string::npos) return {key, ZhArgType::Text, "", ""};
+            // Alternative prose needs its own reviewed template, never a word
+            // substitution of the English text carried by this protocol tag.
+            return {key, ZhArgType::Text, canonical, canonical, false};
+        }
+        const auto name = zh_actor_arg("foe", foe, DESC_THE);
+        auto result = prose(zh_message(tag.find("to_foe")==0
+            ? "speech.actor.to_foe" : "speech.actor.at_foe", {name}));
+        result.supported = name.supported;
+        return result;
+    }
+    if (tag.find("monster") != string::npos || tag.find("something") != string::npos)
+    {
+        const bool friendly = mon.attitude == ATT_FRIENDLY
+            && !mons_is_unique(mon.type) && !crawl_state.game_is_arena();
+        auto name = zh_monster_arg(key, mon, friendly ? DESC_YOUR : DESC_THE);
+        if (tag.find("possessive") != string::npos) return possessive(name);
+        return name;
+    }
+    if (tag == "player_name" || tag == "player_name_possessive")
+    {
+        ZhArg name(key, ZhArgType::Name, you.your_name, you.your_name);
+        return tag == "player_name" ? name : possessive(name);
+    }
+    if (tag == "foe" || tag == "foe," || tag == "foe_name" || tag == "foe_possessive")
+    {
+        if (!foe) return {key, ZhArgType::Text, canonical, canonical, false};
+        if (foe->is_player())
+        {
+            if (tag == "foe_name") return {key, ZhArgType::Name, you.your_name, you.your_name};
+            return zh_word_arg(key, "speech.atom.", tag == "foe_possessive" ? "your" : "you");
+        }
+        auto name = zh_actor_arg(key, foe, tag == "foe_name" ? DESC_PLAIN : DESC_THE);
+        return tag == "foe_possessive" ? possessive(name) : name;
+    }
+    if (tag == "god_is" || tag == "foe_god")
+    {
+        if (!foe) return {key, ZhArgType::Name, canonical, canonical, false};
+        // These tags carry a predicate in English. Until a dedicated copula
+        // template is bound, retain the whole source message for non-atheists.
+        if (foe->deity() == GOD_NO_GOD)
+            return zh_word_arg(key, "speech.atom.", tag == "god_is" ? "you are" : "you");
+        if (tag == "foe_god") return zh_glossary_name(key, "speech.god", god_name(foe->deity()));
+        return {key, ZhArgType::Name, canonical, canonical, false};
+    }
+    if (tag == "a_player_genus" || tag == "player_genus" || tag == "player_genus_plural")
+        return zh_glossary_name(key, "speech.genus", species::name(you.species, species::SPNAME_GENUS));
+    if (tag == "foe_genus" || tag == "foe_genus_plural" || tag == "foe_species")
+    {
+        if (!foe) return {key, ZhArgType::Name, canonical, canonical, false};
+        if (foe->is_player())
+            return zh_glossary_name(key, "speech.genus", species::name(you.species,
+                tag == "foe_species" ? species::SPNAME_PLAIN : species::SPNAME_GENUS));
+        const auto type = foe->as_monster()->type;
+        return zh_glossary_name(key, "speech.genus", mons_type_name(
+            tag == "foe_species" ? mons_species(type) : mons_genus(type), DESC_PLAIN));
+    }
+    if (tag.find("random_god") == 0 && captured != facts.values.end())
+        return zh_glossary_name(key, "speech.god", canonical);
+    if (captured == facts.values.end())
+        return {key, ZhArgType::Text, canonical, canonical, false};
+    string value = canonical;
+    // A finite semantic value (sound enum, pronoun, body part, skill, god,
+    // genus or feature), captured before formatting; never a final sentence.
+    if (tag == "says" || tag == "surface" || tag.find("god") != string::npos)
+    {
+        if (tag != "says" && tag != "surface" && mon.god != GOD_NAMELESS && mon.god != GOD_NO_GOD)
+            return zh_glossary_name(key, "speech.god", value);
+        lowercase(value);
+        if (value == "no god") value = "NO GOD";
+        if (value == "my god") value = "my God";
+        return zh_word_arg(key, "speech.atom.", value);
+    }
+    if (tag == "subjective" || tag == "possessive" || tag == "reflexive" || tag == "objective")
+    {
+        lowercase(value);
+        return zh_word_arg(key, "target.monster.pronoun.", value);
+    }
+    return zh_glossary_name(key, "speech.semantic", value);
 }

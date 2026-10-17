@@ -55,3 +55,7 @@ string getEgoString(const string &key);
 vector<string> getAllFAQKeys();
 string getFAQ_Question(const string &key);
 string getFAQ_Answer(const string &question);
+
+#include "zh-speech.h"
+ZhSpeech getSpeakSpeech(const string &key);
+ZhSpeech getShoutSpeech(const string &key, const string &suffix = "");

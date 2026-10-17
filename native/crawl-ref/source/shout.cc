@@ -8,6 +8,7 @@
 #include "shout.h"
 #include "zh-message.h"
 #include "zh-display-name.h"
+#include "zh-speech.h"
 
 #include <sstream>
 
@@ -283,10 +284,11 @@ void monster_shout(monster &mons, int shout)
     // and if no such entry exists then looks simply for "name".
     const bool seen = you.can_see(mons);
     const string suffix = seen ? " seen" : " unseen";
-    string message = getShoutStringCanonical(key, suffix);
+    auto speech = getShoutSpeech(key, suffix);
+    string message = speech.canonical;
 
     if (message == "__DEFAULT" || message == "__NEXT")
-        message = getShoutStringCanonical(default_msg_key, suffix);
+        { speech = getShoutSpeech(default_msg_key, suffix); message = speech.canonical; }
     else if (message.empty())
     {
         char mchar = mons_base_char(mons.type);
@@ -301,10 +303,10 @@ void monster_shout(monster &mons, int shout)
 
         glyph_key += mchar;
         glyph_key += "'";
-        message = getShoutStringCanonical(glyph_key, suffix);
+        speech = getShoutSpeech(glyph_key, suffix); message = speech.canonical;
 
         if (message.empty() || message == "__DEFAULT")
-            message = getShoutStringCanonical(default_msg_key, suffix);
+            { speech = getShoutSpeech(default_msg_key, suffix); message = speech.canonical; }
     }
 
     if (default_msg_key == "__BUGGY")
@@ -341,8 +343,24 @@ void monster_shout(monster &mons, int shout)
             const string source = message;
             // Keep the engine's canonical replacements and RNG calls exactly
             // once; the display is built from source identity and actor data.
-            message = do_mon_str_replacements(message, mons, s_type);
-            mpr(_monster_shout_message(source, message, mons), channel);
+            // Fixed leaves retain the previously verified adapter. The random
+            // grammar path carries selected child identities, not final text.
+            const bool taunt = zh_speech_has_tag(speech, "@demon_taunt@")
+                || zh_speech_has_tag(speech, "@imp_taunt@");
+            if (taunt)
+            {
+                auto output = zh_mon_speech_message(speech, mons, s_type);
+                string ignored = output.canonical;
+                strip_channel_prefix(ignored, channel);
+                output.canonical = ignored;
+                strip_channel_prefix(output.localized, channel);
+                mpr(output, channel);
+            }
+            else
+            {
+                message = do_mon_str_replacements(message, mons, s_type);
+                mpr(_monster_shout_message(source, message, mons), channel);
+            }
         }
     }
 

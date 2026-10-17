@@ -37,6 +37,28 @@ for cp in missing:
     for table in base['cmap'].tables:
         if table.isUnicode() and (cp<65536 or table.format in (12,13)):
             table.cmap[cp] = name
+# DCSS treats East Asian Ambiguous punctuation as one terminal cell. Fusion's
+# zh-Hans curly quotes occupy two cells; their right-hand ink overlaps the next
+# glyph in TextRegion. Keep the original integer-grid outlines, translate only,
+# and give these four characters the same advance as ASCII.
+quote_adjustments = {0x2018: -700, 0x2019: 0, 0x201C: -500, 0x201D: 0}
+quote_metrics = {}
+for cp, dx in quote_adjustments.items():
+    original = base.getBestCmap()[cp]
+    name = f'dcssNarrowQuote{cp:04X}'
+    pen = TTGlyphPen(base.getGlyphSet())
+    base.getGlyphSet()[original].draw(TransformPen(pen, (1, 0, 0, 1, dx, 0)))
+    glyph = pen.glyph()
+    base['glyf'][name] = glyph
+    glyph.recalcBounds(base['glyf'])
+    base['hmtx'][name] = (600, glyph.xMin)
+    if 'vmtx' in base:
+        base['vmtx'][name] = base['vmtx'][original]
+    order.append(name)
+    for table in base['cmap'].tables:
+        if table.isUnicode():
+            table.cmap[cp] = name
+    quote_metrics[chr(cp)] = {'advance': 600, 'bounds': [glyph.xMin, glyph.xMax]}
 base.setGlyphOrder(order)
 # Both upstream font licenses reserve names; this modified font has its own name.
 values={1:'DCSS Pixel SC',2:'Regular',3:'DCSS Pixel SC 1.0',4:'DCSS Pixel SC',6:'DCSSPixelSC-Regular',16:'DCSS Pixel SC',17:'Regular'}
@@ -44,6 +66,6 @@ for record in base['name'].names:
     if record.nameID in values:
         record.string=values[record.nameID].encode(record.getEncoding(),errors='replace')
 base.save(ROOT/'fonts/DCSSPixelSC-Regular.ttf')
-report={'font':'DCSSPixelSC-Regular.ttf','base':'Fusion Pixel 12px monospaced zh-Hans 2026.09.25','fallback':'Noto Sans SC Regular','fallback_characters':[chr(cp) for cp in missing],'missing_visible_characters':[], 'base_pixel_size':12,'recommended_pixel_sizes':[24,36,48]}
+report={'font':'DCSSPixelSC-Regular.ttf','base':'Fusion Pixel 12px monospaced zh-Hans 2026.09.25','fallback':'Noto Sans SC Regular','fallback_characters':[chr(cp) for cp in missing],'missing_visible_characters':[], 'single_cell_quote_metrics':quote_metrics,'base_pixel_size':12,'recommended_pixel_sizes':[24,36,48]}
 (ROOT/'verification/native/pixel-font-composite.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print(json.dumps(report,ensure_ascii=False))

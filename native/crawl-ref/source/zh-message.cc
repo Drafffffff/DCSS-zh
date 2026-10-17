@@ -99,6 +99,9 @@ ZhArg zh_colour(const std::string &key,const std::string &value) {
     return {key,ZhArgType::Colour,value,value};
 }
 ZhMessage zh_message(const std::string &id,std::initializer_list<ZhArg> values,const std::string &canonical) {
+    return zh_message_values(id, std::vector<ZhArg>(values), canonical);
+}
+ZhMessage zh_message_values(const std::string &id,const std::vector<ZhArg> &values,const std::string &canonical) {
     const auto &entry=definition(id);const auto expected=schema(entry.schema);
     std::map<std::string,ZhArg> args;
     for (const auto &value:values) {

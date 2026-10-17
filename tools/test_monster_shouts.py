@@ -67,6 +67,7 @@ def main():
     fixture=json.loads((Path(__file__).parent/'fixtures/monster-shout-english.json').read_text())
     code=r'''
 #include "zh-message.h"
+#include "zh-speech.h"
 #include "zh-localization.h"
 #include <cassert>
 #include <cctype>
@@ -118,6 +119,8 @@ string do_mon_str_replacements(string text,const monster&m,int){++replacements;i
     code+=block(source,'static ZhMessage _monster_shout_message(')+'\n'
     code+='string getShoutString(const string&key,const string&suffix){return getShoutStringCanonical(key,suffix);}'+'\n'
     code+=fixture['function'].replace('void monster_shout(', 'void old_monster_shout(',1)+'\n'
+    code+='ZhSpeech getShoutSpeech(const string&key,const string&suffix){ZhSpeech s;s.source=s.canonical=getShoutStringCanonical(key,suffix);return s;}\n'
+    code+='ZhMessage zh_mon_speech_message(const ZhSpeech&s,const monster&m,int t){auto text=do_mon_str_replacements(s.canonical,m,t);return {"test.taunt",text,text};}\n'
     code+=block(source,'void monster_shout(')+'\n'
     code+='const vector<string> fixed_sources={'+','.join(json.dumps(v['raw']) for v in fixture['fixed_sources'])+'};\n'
     code+=r'''

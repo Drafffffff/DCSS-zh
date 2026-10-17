@@ -1,0 +1,19 @@
+{
+  "model": "Luna",
+  "rows": [
+    {
+      "id": "speech.behaviour.return_to_side",
+      "file": "mon-behv.cc",
+      "key": "__source_return_to_side",
+      "raw": "PLAIN:@The_monster@ returns to your side!",
+      "zh": "PLAIN:@The_monster@回到你身边了！"
+    },
+    {
+      "id": "speech.behaviour.cornered",
+      "file": "mon-behv.cc",
+      "key": "__source_cornered",
+      "raw": "PLAIN:Cornered, @the_monster@ turns to fight!",
+      "zh": "PLAIN:被逼入绝境时，@the_monster@转身迎战！"
+    }
+  ]
+}

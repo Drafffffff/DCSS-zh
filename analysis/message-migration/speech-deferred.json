@@ -1,0 +1,428 @@
+[
+  {
+    "file": "monspeak",
+    "key": "_friendly_imp_greeting",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "_suck_up_adj2_",
+    "source": "{{\nif you.race() == \"Mummy\" then\n    return \"velvet-covered\"\nelseif you.mutation('beak') > 0 then\n    return \"pearl-beaked\"\nelseif you.transform() == \"death\" then\n    return \"well-preserved\"\nelseif you.transform() == \"statue\" then\n    return \"marble-toed\"\nelseif you.transform() == \"dragon\" then\n    return \"opal-scaled\"\nelseif you.race() == \"Felid\" then\n    return \"pillow-pawed\"\nelseif you.race() == \"Octopode\" then\n    return \"soft-tentacled\"\nelseif you.race() == \"Formicid\" then\n    return \"massive-mandibled\"\nelseif you.race() == \"Poltergeist\" then\n    return \"high-spirited\"\nelseif you.race() == \"Revenant\" then\n    return \"ivory-boned\"\nelse\n    return \"rosy-lipped\"\nend\n}}",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "_suck_up_noun_",
+    "source": "gentle{{ return you.genus() }}",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default stupid friendly humanoid",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default stupid fleeing humanoid",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default stupid silenced humanoid",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default stupid confused humanoid",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default friendly humanoid",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "friendly hound",
+    "source": "VISUAL:@The_monster@ looks {{\n  if you.race() == \"Felid\" then\n      return \"down\"\n  else\n     return \"up\"\n  end\n}} at you expectantly.",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "friendly shoals hound",
+    "source": "{{\nif you.can_smell() then\n    return \"VISUAL:A distinct wet dog smell emanates from @the_monster@.\"\nelse\n    return \"VISUAL:@The_monster@ motions as if to dry @reflexive@ off on you.\"\nend\n}}",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default '8'",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default '&'",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default '1'",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default '2'",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default '3'",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default '4'",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default '5'",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "friendly '5'",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default player ghost",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "_asterion_rare_",
+    "source": "@The_monster@ says, \"{{\n    if you.skill(\"Spellcasting\") >= 5 then\n      return \"Ah, a wizard! I'll enjoy hearing you beg for your life.\"\n    else\n      return \"You're no warrior. You fight like a peasant!\"\n    end }}\" @player_only@",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "_asterion_rare_",
+    "source": "@The_monster@ says, \"{{\n    if you.god() == \"Makhleb\" then\n      return \"In the name of our god, lay down your life!\"\n    else\n      return \"Kneel before Makhleb, unbeliever!\"\n    end }}\" @player_only@",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "_player_arms_",
+    "source": "{{\nif you.race() == \"Felid\" then\n    return \"paws\"\nelseif you.race() == \"Octopode\" then\n    return \"tentacles\"\nelseif you.race() == \"Formicid\" then\n    return \"limbs\"\nelse\n    return \"arms\"\nend\n}}",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "friendly yredelemnul donald",
+    "source": "__NEXT",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "donald killed",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "donald banished",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "erolcha banished",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "fleeing harold",
+    "source": "__NEXT",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "harold killed",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "_ijyb_common_",
+    "source": "@The_monster@ screams @at_foe@, \"{{\n    if you.skill(\"Evocations\") >= 2 then\n      return \"Me learn from your wands next!\"\n    else\n      return \"You look like good test subject!\"\n    end }}\" @player_only@",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "louise banished",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "maurice confused nonstealing",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "nobody",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "polyphemus killed",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "_roxanne_common_",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "roxanne blink_other_closer",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "_saint roka rival_",
+    "source": "@The_monster@ shouts, \"Orcs, take notice: this deceiver is a mere {{ return you.race() }}!\"",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "sprozz",
+    "source": "{{\n  if spells.memorised(\"launch clockwork bee\") then\n    return '@_Sprozz_thief_@'\n  else\n    return '@_Sprozz_common_@'\n  end\n}} @player_only@",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "sprozz triumphant",
+    "source": "{{\n  if spells.memorised(\"launch clockwork bee\") then\n    return '@The_monster@ shouts, \"I *knew* mine was better!\"'\n  else\n    return '@The_monster@ says, \"Progress like this can\\'t be stopped by anyone!\"'\n  end\n}}",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "_terence_rare_",
+    "source": "@The_monster@ screams @at_foe@, \"Your {{\nif you.race() == \"Armataur\" then\n    return \"tough hide\"\nelse\n    return \"supposed skill\"\nend\n}} won't protect you!\" @player_only@",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "_terence_rare_",
+    "source": "@The_monster@ screams @at_foe@, \"Where's your {{\nif you.race() == \"Armataur\" then\n    return \"elephant\"\nelse\n    return \"power\"\nend\n}} now?!\" @player_only@",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "xak'krixis",
+    "source": "@The_monster@ says, \"{{\n    if you.skill(\"Alchemy\") >= 10 then\n      return \"Ah, a fellow alchemist! Surely you'll appreciate what I've learned here.\"\n    else\n      return \"Allow me to demonstrate my discoveries.\"\n    end }}\" @player_only@",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "alderking",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "confused cognitogaunt",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "death cob",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "kobold blastminer",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "laughing skull",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "friendly laughing skull",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "obsidian bat",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "nekomata",
+    "source": "{{\n  if you.race() == \"Felid\" then\n    return '@The_monster@ grumbles @to_foe@, \"Young upstarts should know their place.\"'\n  else\n    return 'VISUAL:@The_monster@ examines your form and snarls in deep contempt.'\n  end\n}} @player_only@",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "nekomata",
+    "source": "{{\n  if you.race() == \"Felid\" then\n    return [[@The_monster@ sighs and remarks, \"You haven't even grown your second tail yet.\"]]\n  elseif you.skill(\"Spellcasting\") >= 5 then\n    return 'VISUAL:@The_monster@ scoffs at your paltry magic.'\n  else\n    return 'VISUAL:@The_monster@ regards your strength with dismissive scorn.'\n  end\n}} @player_only@",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "nekomata",
+    "source": "{{\n  if you.race() == \"Felid\" then\n    return '@The_monster@ advises @to_foe@, \"Grace and deceit. The only things anyone needs.\"'\n  else\n    return 'VISUAL:@The_monster@ briefly ignores you to bat at some conjured hitodama.'\n  end\n}} @player_only@",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default profane servitor",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "protean progenitor",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "friendly protean progenitor",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "raven",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "weeping skull",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "arcanist",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "occultist",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "neutral good god 'cap-a'",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "friendly good god 'cap-a'",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "default 'cap-a'",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "orc",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "related unbeliever orc",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "related beogh orc",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "_hostile_orc_beogh_believer_speech_common_",
+    "source": "@The_monster@ @_orc_says_to_foe_@, \"The messiah will not be a {{ return you.race() }}!\"",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "friendly related beogh orc",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "related beogh orc high priest",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "orc high priest",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "related beogh orc sorcerer",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "orc sorcerer",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  },
+  {
+    "file": "monspeak",
+    "key": "spectator",
+    "source": "__NONE",
+    "reason": "control or embedded Lua"
+  }
+]

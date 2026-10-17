@@ -34,7 +34,7 @@
     },
     {
       "name": "战斗日志",
-      "state": "战斗命中/失手及共用限制、反噬组合、变形进出已分批接入；本批施法增强/魔杖增强/误施法、四类引导提醒与终止及魔力不足日志接入；剩余战斗/法术/怪物日志待逐包验收；本批完成怪物首遇/追击/深渊出现/装备及伤势日志，其他怪物业务日志仍待迁移",
+      "state": "战斗命中/失手及共用限制、反噬组合、变形进出已分批接入；本批施法增强/魔杖增强/误施法、四类引导提醒与终止及魔力不足日志接入；剩余战斗/法术/怪物日志待逐包验收；本批完成怪物首遇/追击/深渊出现/装备及伤势日志，其他怪物业务日志仍待迁移；随机嘲讽/普通怪物对白与行为对白由 monster-random-speech 接续，嵌入Lua及外部业务消费者仍未完成",
       "acceptance": "玩家/怪物/武器/状态/数值组合，全部成功失败分支保留英文控制数据"
     },
     {
@@ -357,6 +357,51 @@
       ],
       "report": "verification/native/monster-events/REPORT.md",
       "canonical_compatibility": "数据库原始固定模板在参数填入之前绑定稳定ID；规范英文、事件标记、频道、噪声与随机调用保持不变"
+    },
+    {
+      "id": "monster-random-speech",
+      "module": "怪物对白、喊叫与行为日志",
+      "state": "verified",
+      "sources": [
+        "database.cc",
+        "database.h",
+        "zh-speech.cc",
+        "zh-speech.h",
+        "mon-util.cc",
+        "mon-speak.cc",
+        "mon-speak.h",
+        "shout.cc",
+        "mon-behv.cc",
+        "mon-cast.cc"
+      ],
+      "producers": [
+        "getSpeakSpeech",
+        "getShoutSpeech",
+        "zh_render_speech",
+        "zh_mon_speech_message",
+        "zh_speech_actor_arg"
+      ],
+      "consumers": [
+        "mons_speaks_msg",
+        "monster_shout",
+        "mons_speaks",
+        "maybe_mons_speaks"
+      ],
+      "tests": [
+        "tools/test_speech_protocol.py",
+        "tools/test_speech_actor_args.py",
+        "tools/test_speech_display.py",
+        "tools/test_monster_shouts.py",
+        "tools/test_pixel_font_quotes.py"
+      ],
+      "canonical_compatibility": "数据库选择保留原始叶模板/递归树；规范英文与随机调用只执行一次；控制值/频道/可见性/副作用顺序保持原义；不按最终英文反向匹配",
+      "remaining": [
+        "18条内嵌Lua语法保留原协议，整父规范英文回退并报告；53条纯控制值不属于待翻译文案",
+        "god_is非无神分支、部分方位别体及未知自定义语义名称仍整父回退",
+        "mon-cast其余施法组合、mon-death、mon-abil、god-companions等getSpeakString消费者尚未迁移",
+        "武器噪声、神祇对白与玩家谜语独立包；其他教程与动态日志仍在模块账本排队"
+      ],
+      "report": "verification/native/random-speech/REPORT.md"
     }
   ]
 }

@@ -8,6 +8,10 @@ TYPES={'text':'Text','name':'Name','integer':'Integer','number':'Number','key':'
 PLACE=re.compile(r'\{([a-z][a-z0-9_]*)\}')
 # Literal bracket glyphs in styled examples must not consume later key tokens.
 SHORTCUT=re.compile(r'\[[^\]\n<>]*\]|\((?:[A-Za-z=]|[A-Za-z]/[A-Za-z])\)')
+def write_changed(path, text):
+    if not path.exists() or path.read_text() != text:
+        path.write_text(text)
+
 def compile_catalog():
     messages={}
     for path in sorted(LOC.glob('luna-*-messages.json')):
@@ -69,10 +73,10 @@ def compile_catalog():
     for (context,source),key in sorted(source_keys.items()):
         out.append('    {'+', '.join(q(x) for x in (context,source,key))+'},')
     out += ['    {nullptr, nullptr, nullptr}', '};', '']
-    (SRC/'zh-message-catalog.inc').write_text('\n'.join(out))
+    write_changed(SRC/'zh-message-catalog.inc', '\n'.join(out))
     lexicon=json.loads((LOC/'luna-display-grammar.json').read_text())['lexicon']
     if isinstance(lexicon,dict): lexicon=lexicon['approved_bases']
-    (SRC/'zh-display-lexicon.inc').write_text('// Reviewed semantic name atoms.\n'+ '\n'.join('    {'+q(e['en'])+', '+q(e['zh'])+'},' for e in lexicon)+'\n')
+    write_changed(SRC/'zh-display-lexicon.inc', '// Reviewed semantic name atoms.\n'+ '\n'.join('    {'+q(e['en'])+', '+q(e['zh'])+'},' for e in lexicon)+'\n')
     print(f'Validated {len(messages)} stable message IDs')
     return messages
 if __name__=='__main__': compile_catalog()

@@ -1,0 +1,841 @@
+Crash caused by signal #15: Terminated
+
+Version: Dungeon Crawl Stone Soup 0.34.1
+Platform: unix
+Bits: 64
+Game mode: tutorial
+Tiles: no
+
+Seed: 7401430034197081262, deterministic pregen: 1
+Command line: /var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console -dir /tmp/dcss-copy-shop-selected-yrj3bdzy -rc /tmp/dcss-copy-shop-selected-yrj3bdzy/init.txt -name Awigithro
+
+RC options:
+restart_after_game = maybe
+
+
+Crash caused by signal #15: Terminated
+
+Obtained 21 stack frames.
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z17write_stack_traceP8_IO_FILE+0x25) [0x6596b5]: write_stack_trace(_IO_FILE*)
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z13do_crash_dumpv+0x3c9) [0x6692e9]: do_crash_dump()
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z20crash_signal_handleri+0x1bd) [0x659cbd]: crash_signal_handler(int)
+/usr/lib64/libc.so.6(+0x19fb0) [0x7fed431b0fb0]: 
+/usr/lib64/libc.so.6(+0x6f56c) [0x7fed4320656c]: 
+/usr/lib64/libc.so.6(+0x6f594) [0x7fed43206594]: 
+/usr/lib64/libc.so.6(read+0x1e) [0x7fed4328049e]: 
+/usr/lib64/libncursesw.so.6(_nc_wgetch+0x32c) [0x7fed437c3d0c]: 
+/usr/lib64/libncursesw.so.6(wget_wch+0xda) [0x7fed437defea]: 
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console() [0xe46c51]
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z8getch_ckv+0x20) [0xe48470]: getch_ck()
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_ZN2ui11pump_eventsEi+0x9e) [0xdcc70e]: ui::pump_events(int)
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_ZN4Menu7do_menuEv+0x2e4) [0x9dff44]: Menu::do_menu()
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_ZN4Menu4showEb+0xf8) [0x9e3348]: Menu::show(bool)
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_Z4shopv+0x103) [0xc27e93]: shop()
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console() [0xe55a3a]
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console() [0xe56215]
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(main+0x15f) [0x55b46f]: 
+/usr/lib64/libc.so.6(+0x3681) [0x7fed4319a681]: 
+/usr/lib64/libc.so.6(__libc_start_main+0x88) [0x7fed4319a798]: 
+/var/home/bazzite/Games/dcss-zh/qa-speech/bin/crawl-console(_start+0x25) [0x55bd35]: 
+
+Trying to run gdb.
+GNU gdb (Fedora Linux) 17.2-4.fc44
+Copyright (C) 2025 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word".
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <ima:enforcing>
+  <https://debuginfod.fedoraproject.org/>
+  <ima:ignore>
+Enable debuginfod for this session? (y or [n]) [answered N; input not from terminal]
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/usr/lib64/libthread_db.so.1".
+0x00007fed4320656e in __internal_syscall_cancel () from /usr/lib64/libc.so.6
+#0  0x00007fed4320656e in __internal_syscall_cancel () from /usr/lib64/libc.so.6
+No symbol table info available.
+#1  0x00007fed43206594 in __syscall_cancel () from /usr/lib64/libc.so.6
+No symbol table info available.
+#2  0x00007fed4327610f in wait4 () from /usr/lib64/libc.so.6
+No symbol table info available.
+#3  0x000000000065999b in call_gdb(_IO_FILE*) ()
+No symbol table info available.
+#4  0x00000000006692fe in do_crash_dump() ()
+No symbol table info available.
+#5  0x0000000000659cbd in crash_signal_handler(int) ()
+No symbol table info available.
+#6  <signal handler called>
+No symbol table info available.
+#7  0x00007fed4320656c in __internal_syscall_cancel () from /usr/lib64/libc.so.6
+No symbol table info available.
+#8  0x00007fed43206594 in __syscall_cancel () from /usr/lib64/libc.so.6
+No symbol table info available.
+#9  0x00007fed4328049e in read () from /usr/lib64/libc.so.6
+No symbol table info available.
+#10 0x00007fed437c3d0c in _nc_wgetch () from /usr/lib64/libncursesw.so.6
+No symbol table info available.
+#11 0x00007fed437defea in wget_wch () from /usr/lib64/libncursesw.so.6
+No symbol table info available.
+#12 0x0000000000e46c51 in _curses_fetch_pending_key(bool) ()
+No symbol table info available.
+#13 0x0000000000e48470 in getch_ck() ()
+No symbol table info available.
+#14 0x0000000000dcc70e in ui::pump_events(int) ()
+No symbol table info available.
+#15 0x00000000009dff44 in Menu::do_menu() ()
+No symbol table info available.
+#16 0x00000000009e3348 in Menu::show(bool) ()
+No symbol table info available.
+#17 0x0000000000c27e93 in shop() ()
+No symbol table info available.
+#18 0x0000000000e55a3a in _input() ()
+No symbol table info available.
+#19 0x0000000000e56215 in _launch_game() ()
+No symbol table info available.
+#20 0x000000000055b46f in main ()
+No symbol table info available.
+[Inferior 1 (process 780878) detached]
+
+Compilation info:
+<<<<<<<<<<<
+Compiled with GCC 15.3.1 20260722 (Red Hat 15.3.1-1)
+Build platform: x86_64-redhat-linux
+Platform: x86_64-redhat-linux
+CFLAGS: -O2 -pipe -Wall -Wformat-security -Wundef -Wextra -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-type-limits -Wno-uninitialized -Wno-array-bounds -Wmissing-declarations -Wredundant-decls -Wno-parentheses -Wwrite-strings -Wshadow -pedantic -Wuninitialized -Iutil -I. -isystem contrib/install/x86_64-redhat-linux/include -DWIZARD -DASSERTS -DCLUA_BINDINGS -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600
+LDFLAGS: -rdynamic -O2
+>>>>>>>>>>>
+
+Place info:
+branch = 0, depth = 2
+
+Level id: D:2
+Level build method = random_map_for_place, level layout type  = encompass, absdepth0 = 1
+Level vaults:
+    tutorial_lesson2_level2
+
+Markers:
+<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>
+
+Messages:
+<<<<<<<<<<<<<<<<<<<<<<
+这一课将会教你有关怪物和格斗的内容。 首先，我们需要一把武器！过去捡起地上那把。
+你可以按下[Ctrl-P]随时查看所有消息。另外， 按下[空格]或鼠标[左击]
+可以清除--更多-- 信息。
+Found a quarterstaff.
+Found a staircase leading out of the dungeon.
+要捡起这把武器的话，可以在物品栏中点击它，然后再次点击它进行装备。
+捡起它也可以用[,] 或[g]，装备它则用[e]。
+You see here a +0 quarterstaff.
+b - a +0 quarterstaff
+b - a +0 quarterstaff (weapon)
+You open the door.
+You encounter a training dummy. It is wielding a +0 whip.
+要用空手或者已经装备的武器攻击敌人，只要向它移动就行了。
+There is an open door here.
+The training dummy closely misses you.
+You sock the training dummy!
+You destroy the training dummy!
+You have reached level 2!
+干得好！达到新的经验等级总是件好事。你会获得更多生命值和魔力值，
+偶尔还会提升你的属性：力量、智力和敏捷。
+You see here a +0 whip.
+You see here a +0 whip.
+c - a +0 whip
+非常好！你可以通过按[5]，或点击小地图下方的命令栏中的“休息”按钮来休息以恢复损失
+的生命值。 在身体痊愈前会一直休息，但如果发生重要事件，会被打断。
+You don't know any spells.
+You start waiting.
+Done waiting.
+As you open the door, it creaks loudly!
+You encounter a rat.
+The rat发出响亮的吱吱声。
+There is an open door here.
+You sock the rat!
+You kill the rat!
+You see here a rat corpse.
+You open the door.
+You encounter 3 rats.
+The rat发出响亮的吱吱声。 x2
+与其冲进房间然后被一群怪物围攻，不如退后几步，等待它们自己走过来。 （按[.]
+或[点击]你的角色），他们就会走向你。
+There is an open door here.
+You closely miss the rat. The rat closely misses you. x2
+You sock the rat!
+You kill the rat!
+The rat barely misses you.
+与其冲进房间然后被一群怪物围攻，不如退后几步，等待它们自己走过来。 （按[.]
+或[点击]你的角色），他们就会走向你。
+There is an open door here.
+You closely miss the rat.
+The rat发出响亮的吱吱声。
+The rat bites you. The rat bites you but does no damage.
+You hit the rat.
+You kill the rat!
+You sock the rat!
+You kill the rat!
+与其冲进房间然后被一群怪物围攻，不如退后几步，等待它们自己走过来。 （按[.]
+或[点击]你的角色），他们就会走向你。
+There is an open door here.
+You start resting.
+HP restored.
+You see here a rat corpse.
+查看这些怪物（通过 [鼠标悬停]） 接着比较他们的描述（用
+[鼠标右击]）看看从哪个笼子通过才是最安全的。
+You encounter a wyvern and a jackal.
+Press: ? - help, v - describe, . - travel
+The floor.
+The jackal在吠叫！
+Found a stone staircase leading down.
+The wyvern愤怒地发出嘶嘶声。
+You open the door.
+You closely miss the jackal. The jackal bites you. x2
+You closely miss the jackal.
+The jackal bites you but does no damage.
+The jackal barely misses you.
+You hit the jackal but do no damage. The jackal barely misses you. The jackal
+bites you.
+You miss the jackal. The jackal bites you. The jackal closely misses you.
+You closely miss the jackal. The jackal closely misses you.
+You barely miss the jackal.
+The jackal bites you but does no damage.
+The jackal closely misses you.
+You closely miss the jackal. The jackal bites you. The jackal completely misses
+you.
+You barely miss the jackal. The jackal closely misses you. The jackal bites
+you.
+You barely miss the jackal.
+The jackal bites you but does no damage.
+The jackal bites you.
+You closely miss the jackal. The jackal misses you. The jackal closely misses
+you.
+You sock the jackal!
+You kill the jackal!
+There is an open door here.
+As you open the door, it creaks loudly!
+There is an open door here.
+记住，你可以按[5]进行休息。
+A wyvern is nearby!
+You start resting.
+HP restored.
+干得好！休息恢复满生命值之后按 [>] 或[点击]你的角色进入下一层。
+There is a stone staircase leading down here.
+You climb downwards.
+WARNING: ABOUT TO ENTER WIZARD MODE!
+If you continue, your game will not be scored!
+Do you really want to enter wizard mode? (Confirm with "wiz".) 
+Enter Wizard Command (? - help): 
+Enter new gold value (current = 0, Enter for 1000): 
+You now have 1000 gold pieces.
+Enter Wizard Command (? - help): 
+(a) antique armour  (b) antique weapon  (c) antiques        (d) armour         
+(e) book            
+(f) distillery      (g) general         (h) jewellery       (i) scroll         
+(j) weapon          
+(*) any             
+Make which kind of shop?
+Done.
+
+>>>>>>>>>>>>>>>>>>>>>>
+
+Version history:
+Game started: 0.34.1
+
+Game state:
+
+mouse_enabled: 0, waiting_for_command: 0, terminal_resized: 0
+io_inited: 1, need_save: 1, saving_game: 0, updating_scores: 0:
+seen_hups: 0, map_stat_gen: 0, type: 2, arena_suspended: 0
+
+prev_cmd = CMD_GO_DOWNSTAIRS
+repeat_cmd = CMD_NO_CMD
+
+Player:
+{{{{{{{{{{{
+Name:    [Awigithro]
+Species: Human
+Job:     Fighter
+
+HP: 24/24; mods: 0/0
+MP: 4/4; mod: 2
+Stats: 16 8 12
+Position: (43, 32), god: No God (0), turn_is_over: 0, banished: 0
+Standing on/in/over feature: shop
+
+Skills (mode: auto)
+Name            | can_currently_train | train | training | level | points | progress
+Fighting        |          X          |   1   |    32    |    3  |    354 | 54/200
+Short Blades    |          X          |   1   |     0    |    0  |      0 | 0/50
+Long Blades     |          X          |   1   |     0    |    0  |      0 | 0/50
+Axes            |          X          |   1   |     0    |    0  |      0 | 0/50
+Maces & Flails  |          X          |   1   |     0    |    0  |      0 | 0/50
+Polearms        |          X          |   1   |     0    |    0  |      0 | 0/50
+Staves          |          X          |   1   |    12    |    0  |      8 | 8/50
+Ranged Weapons  |          X          |   1   |     0    |    0  |      0 | 0/50
+Throwing        |          X          |   1   |     0    |    0  |      0 | 0/50
+Armour          |          X          |   1   |    26    |    3  |    368 | 68/200
+Dodging         |          X          |   1   |     3    |    0  |      0 | 0/50
+Stealth         |          X          |   1   |    18    |    0  |      2 | 2/42
+Shields         |          X          |   1   |     0    |    0  |      0 | 0/50
+Unarmed Combat  |          X          |   1   |     9    |    2  |    164 | 14/150
+Spellcasting    |          X          |   1   |     0    |    0  |      0 | 0/59
+Conjurations    |          X          |   1   |     0    |    0  |      0 | 0/50
+Hexes           |          X          |   1   |     0    |    0  |      0 | 0/50
+Summonings      |          X          |   1   |     0    |    0  |      0 | 0/50
+Necromancy      |          X          |   1   |     0    |    0  |      0 | 0/50
+Translocations  |          X          |   1   |     0    |    0  |      0 | 0/50
+Forgecraft      |          X          |   1   |     0    |    0  |      0 | 0/50
+Fire Magic      |          X          |   1   |     0    |    0  |      0 | 0/50
+Ice Magic       |          X          |   1   |     0    |    0  |      0 | 0/50
+Air Magic       |          X          |   1   |     0    |    0  |      0 | 0/50
+Earth Magic     |          X          |   1   |     0    |    0  |      0 | 0/50
+Alchemy         |          X          |   1   |     0    |    0  |      0 | 0/50
+Invocations     |          X          |   1   |     0    |    0  |      0 | 0/42
+Evocations      |          X          |   1   |     0    |    0  |      0 | 0/50
+Shapeshifting   |          X          |   1   |     0    |    0  |      0 | 0/59
+
+Spell bugs:
+
+Durations:
+    #114: 6
+
+Attributes:
+
+Mutations:
+    explore regen: 1 (innate)
+
+Inventory bugs:
+
+Equipment:
+    eq slot #3, inv slot #0: +0 robe
+    eq slot #1, inv slot #1: +0 quarterstaff
+    eq slot #2, inv slot #1: +0 quarterstaff(overflow)
+
+}}}}}}}}}}}
+
+
+Screenshot:
+#########
+#.......####
+#..<@(......
+#.......###.
+#########
+
+dlua errors:
+
+clua stack:
+
+dlua stack:
+
+Lua persistent data:
+<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>
+
+Lua marker contents:
+<<<<<<<<<<<<<<<<<<<<<<
+Lua marker 0 at (21, 25):
+{{{{
+CLASS: FogMachine
+size_buildup_amnt: 0
+pow_max: 10
+size_buildup_time: 1
+triggerers: 
+    1: 
+        CLASS: DgnTriggerer
+        sub_type: countdown
+        method: dgn_event
+        countdown: 5
+        buildup_turns: 0
+        delay_max: 10
+        delay_min: 10
+        type: turn
+        listener_only: false
+
+    2: 
+        CLASS: DgnTriggerer
+        method: dgn_event
+        type: entered_level
+        listener_only: false
+
+
+spread_buildup_time: 1
+props: 
+
+cloud_type: thin mist
+pow_min: 10
+pow_rolls: 3
+dgn_trigs_by_type: 
+    1: 
+        1: 1
+
+    32: 
+        1: 2
+
+
+start_clouds: 1
+buildup_turns: 1
+spread_rate: -1
+activated: true
+kill_cat: other
+activating: false
+excl_rad: 1
+spread_buildup_amnt: 0
+size_min: 2
+walk_dist: 0
+size_max: 3
+listeners: 
+}}}}
+Lua marker 1 at (22, 33):
+{{{{
+CLASS: TriggerableFunction
+dgn_trigs_by_type: 
+    4: 
+        1: 1
+
+
+listeners: 
+
+repeated: true
+activating: false
+triggerers: 
+    1: 
+        CLASS: DgnTriggerer
+        type: player_move
+        method: dgn_event
+
+
+props: 
+
+func: 
+    CLASS: FunctionWrapper
+    fn: [type function]
+    name: tutorial_messenger_db
+
+data: 
+    exit: false
+    onetime: false
+    text: tutorial2 explore
+
+activated: true}}}}
+Lua marker 2 at (27, 35):
+{{{{
+CLASS: TriggerableFunction
+dgn_trigs_by_type: 
+    4: 
+        1: 1
+
+
+listeners: 
+
+repeated: true
+activating: false
+triggerers: 
+    1: 
+        CLASS: DgnTriggerer
+        type: player_move
+        method: dgn_event
+
+
+props: 
+
+func: 
+    CLASS: FunctionWrapper
+    fn: [type function]
+    name: tutorial_messenger_db
+
+data: 
+    exit: false
+    onetime: false
+    text: tutorial2 resting_reminder
+
+activated: true}}}}
+Lua marker 3 at (30, 29):
+{{{{
+CLASS: FogMachine
+size_buildup_amnt: 0
+pow_max: 10
+size_buildup_time: 1
+triggerers: 
+    1: 
+        CLASS: DgnTriggerer
+        sub_type: countdown
+        method: dgn_event
+        countdown: 5
+        buildup_turns: 0
+        delay_max: 10
+        delay_min: 10
+        type: turn
+        listener_only: false
+
+    2: 
+        CLASS: DgnTriggerer
+        method: dgn_event
+        type: entered_level
+        listener_only: false
+
+
+spread_buildup_time: 1
+props: 
+
+cloud_type: thin mist
+pow_min: 10
+pow_rolls: 3
+dgn_trigs_by_type: 
+    1: 
+        1: 1
+
+    32: 
+        1: 2
+
+
+start_clouds: 1
+buildup_turns: 1
+spread_rate: -1
+activated: true
+kill_cat: other
+activating: false
+excl_rad: 1
+spread_buildup_amnt: 0
+size_min: 2
+walk_dist: 0
+size_max: 3
+listeners: 
+}}}}
+Lua marker 4 at (31, 42):
+{{{{
+CLASS: TriggerableFunction
+dgn_trigs_by_type: 
+    4: 
+        1: 1
+
+
+listeners: 
+
+repeated: true
+activating: false
+triggerers: 
+    1: 
+        CLASS: DgnTriggerer
+        type: player_move
+        method: dgn_event
+
+
+props: 
+
+func: 
+    CLASS: FunctionWrapper
+    fn: [type function]
+    name: tutorial_messenger_db
+
+data: 
+    exit: false
+    onetime: false
+    text: tutorial2 firing
+
+activated: true}}}}
+Lua marker 5 at (37, 20):
+{{{{
+CLASS: TriggerableFunction
+dgn_trigs_by_type: 
+    4: 
+        1: 1
+
+
+listeners: 
+
+repeated: true
+activating: false
+triggerers: 
+    1: 
+        CLASS: DgnTriggerer
+        type: player_move
+        method: dgn_event
+
+
+props: 
+
+func: 
+    CLASS: FunctionWrapper
+    fn: [type function]
+    name: tutorial_messenger_db
+
+data: 
+    exit: false
+    onetime: false
+    text: tutorial2 tutorial_end
+
+activated: true}}}}
+Lua marker 6 at (37, 20):
+{{{{
+CLASS: OneWayStair
+props: 
+    desc: exit from the tutorial
+    dst: tutorial_lesson2
+    onclimb: 
+        CLASS: FunctionWrapper
+        fn: [type function]
+        name: tutorial2.win
+
+}}}}
+Lua marker 7 at (39, 21):
+{{{{
+CLASS: TriggerableFunction
+dgn_trigs_by_type: 
+    4: 
+        1: 1
+
+
+listeners: 
+
+repeated: true
+activating: false
+triggerers: 
+    1: 
+        CLASS: DgnTriggerer
+        type: player_move
+        method: dgn_event
+
+
+props: 
+
+func: 
+    CLASS: FunctionWrapper
+    fn: [type function]
+    name: tutorial_messenger_db
+
+data: 
+    exit: false
+    onetime: false
+    text: tutorial2 tutorial_end
+
+activated: true}}}}
+Lua marker 8 at (39, 21):
+{{{{
+CLASS: OneWayStair
+props: 
+    desc: exit from the tutorial
+    dst: tutorial_lesson2
+    onclimb: 
+        CLASS: FunctionWrapper
+        fn: [type function]
+        name: tutorial2.win
+
+}}}}
+Lua marker 9 at (40, 48):
+{{{{
+CLASS: TriggerableFunction
+dgn_trigs_by_type: 
+    4: 
+        1: 1
+
+
+listeners: 
+
+repeated: true
+activating: false
+triggerers: 
+    1: 
+        CLASS: DgnTriggerer
+        type: player_move
+        method: dgn_event
+
+
+props: 
+
+func: 
+    CLASS: FunctionWrapper
+    fn: [type function]
+    name: tutorial_messenger_db
+
+data: 
+    exit: false
+    onetime: false
+    text: tutorial2 wield_bow
+
+activated: true}}}}
+Lua marker 10 at (41, 22):
+{{{{
+CLASS: TriggerableFunction
+dgn_trigs_by_type: 
+    4: 
+        1: 1
+
+
+listeners: 
+
+repeated: true
+activating: false
+triggerers: 
+    1: 
+        CLASS: DgnTriggerer
+        type: player_move
+        method: dgn_event
+
+
+props: 
+
+func: 
+    CLASS: FunctionWrapper
+    fn: [type function]
+    name: tutorial_messenger_db
+
+data: 
+    exit: false
+    onetime: false
+    text: tutorial2 tutorial_end
+
+activated: true}}}}
+Lua marker 11 at (41, 22):
+{{{{
+CLASS: OneWayStair
+props: 
+    desc: exit from the tutorial
+    dst: tutorial_lesson2
+    onclimb: 
+        CLASS: FunctionWrapper
+        fn: [type function]
+        name: tutorial2.win
+
+}}}}
+Lua marker 12 at (44, 32):
+{{{{
+CLASS: TriggerableFunction
+dgn_trigs_by_type: 
+    4: 
+        1: 1
+
+
+listeners: 
+
+repeated: true
+activating: false
+triggerers: 
+    1: 
+        CLASS: DgnTriggerer
+        type: player_move
+        method: dgn_event
+
+
+props: 
+
+func: 
+    CLASS: FunctionWrapper
+    fn: [type function]
+    name: tutorial_messenger_db
+
+data: 
+    exit: false
+    onetime: false
+    text: tutorial2 boomerangs
+
+activated: true}}}}
+Lua marker 13 at (49, 32):
+{{{{
+CLASS: TriggerableFunction
+dgn_trigs_by_type: 
+    4: 
+        1: 1
+
+
+listeners: 
+
+repeated: true
+activating: false
+triggerers: 
+    1: 
+        CLASS: DgnTriggerer
+        type: player_move
+        method: dgn_event
+
+
+props: 
+
+func: 
+    CLASS: FunctionWrapper
+    fn: [type function]
+    name: tutorial_messenger_db
+
+data: 
+    exit: false
+    onetime: false
+    text: tutorial2 throwing
+
+activated: true}}}}
+Lua marker 14 at (50, 43):
+{{{{
+CLASS: TriggerableFunction
+dgn_trigs_by_type: 
+    4: 
+        1: 1
+
+
+listeners: 
+
+repeated: true
+activating: false
+triggerers: 
+    1: 
+        CLASS: DgnTriggerer
+        type: player_move
+        method: dgn_event
+
+
+props: 
+
+func: 
+    CLASS: FunctionWrapper
+    fn: [type function]
+    name: tutorial_messenger_db
+
+data: 
+    exit: false
+    onetime: false
+    text: tutorial2 resting_reminder
+
+activated: true}}}}
+Lua marker 15 at (50, 46):
+{{{{
+CLASS: TriggerableFunction
+dgn_trigs_by_type: 
+    4: 
+        1: 1
+
+
+listeners: 
+
+repeated: true
+activating: false
+triggerers: 
+    1: 
+        CLASS: DgnTriggerer
+        type: player_move
+        method: dgn_event
+
+
+props: 
+
+func: 
+    CLASS: FunctionWrapper
+    fn: [type function]
+    name: tutorial_messenger_db
+
+data: 
+    exit: false
+    onetime: false
+    text: tutorial2 travel_reminder
+
+activated: true}}}}
+>>>>>>>>>>>>>>>>>>>>>>

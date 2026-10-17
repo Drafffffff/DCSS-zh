@@ -8162,8 +8162,8 @@ void mons_cast(monster* mons, bolt pbolt, spell_type spell_cast,
     case SPELL_BLINK_OTHER:
     {
         // Allow the caster to comment on moving the foe.
-        string msg = getSpeakString(mons->name(DESC_PLAIN) + " blink_other");
-        if (!msg.empty() && msg != "__NONE")
+        auto msg = getSpeakSpeech(mons->name(DESC_PLAIN) + " blink_other");
+        if (!msg.canonical.empty() && msg.canonical != "__NONE")
         {
             mons_speaks_msg(mons, msg, MSGCH_TALK,
                             silenced(you.pos()) || silenced(mons->pos()));
@@ -8174,9 +8174,9 @@ void mons_cast(monster* mons, bolt pbolt, spell_type spell_cast,
     case SPELL_BLINK_OTHER_CLOSE:
     {
         // Allow the caster to comment on moving the foe.
-        string msg = getSpeakString(mons->name(DESC_PLAIN)
+        auto msg = getSpeakSpeech(mons->name(DESC_PLAIN)
                                     + " blink_other_close");
-        if (!msg.empty() && msg != "__NONE")
+        if (!msg.canonical.empty() && msg.canonical != "__NONE")
         {
             mons_speaks_msg(mons, msg, MSGCH_TALK,
                             silenced(you.pos()) || silenced(mons->pos()));

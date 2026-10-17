@@ -52,3 +52,6 @@ ZhArg zh_glossary_name(const std::string &key, const std::string &domain, const 
 // context+literal binds to a stable catalog ID; assembled sentences and printf
 // results must instead use zh_message with typed, named parameters.
 std::string zh_source(const char *context, const char *source_literal);
+
+ZhMessage zh_message_values(const std::string &id, const std::vector<ZhArg> &args,
+                            const std::string &canonical = "");

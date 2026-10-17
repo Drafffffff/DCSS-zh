@@ -38,6 +38,12 @@ static string trimmed_string(string s) {
  auto begin=s.find_first_not_of(" \r\n\t");
  return begin==string::npos?"":s.substr(begin,s.find_last_not_of(" \r\n\t")-begin+1);
 }
+// Database-tree expansion is covered by test_monster_status_database.py;
+// this seam supplies one canonical fixed DB leaf to the actual display caller.
+static string zh_database_description(const string& key,const char* context) {
+ string source;{ZhTranslationPause canonical;source=getLongDescription(key);}
+ return zh_source(context,source.c_str());
+}
 using skill_type=int;
 static string current_skill;
 static skill_type str_to_skill_safe(const string&) {return 1;}

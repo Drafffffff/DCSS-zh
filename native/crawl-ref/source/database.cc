@@ -927,6 +927,94 @@ string getRandMonNameString(const string &montype)
     return _getRandomisedStr(SpeakDB, montype, " name", num_replacements);
 }
 
+
+static ZhSpeech _getWeightedSpeech(TextDB &db, string key, const string &suffix)
+{
+    ZhSpeech result;
+    string resolved = key + suffix;
+    lowercase(resolved);
+    datum row = _database_fetch(db.get(), resolved);
+    if (row.dsize <= 0)
+    {
+        resolved = key;
+        lowercase(resolved);
+        row = _database_fetch(db.get(), resolved);
+    }
+    if (row.dsize <= 0)
+        return result;
+    result.key = resolved;
+    result.source = _chooseStrByWeight(string((const char *)row.dptr, row.dsize));
+    result.canonical = result.source;
+    result.supported = result.source.find("{{") == string::npos;
+    return result;
+}
+
+static ZhSpeech _getRandomisedSpeech(TextDB &db, const string &key,
+                                     const string &suffix, int &replacements,
+                                     int depth = 0)
+{
+    if (++depth > MAX_RECURSION_DEPTH)
+    {
+        mprf(MSGCH_DIAGNOSTICS, "Too many nested replacements, bailing.");
+        ZhSpeech failed; failed.canonical = "TOO MUCH RECURSION";
+        failed.supported = false; return failed;
+    }
+    auto speech = _getWeightedSpeech(db, key, suffix);
+    string &text = speech.canonical;
+    vector<size_t> origins(text.size());
+    for (size_t n=0; n<origins.size(); ++n) origins[n]=n;
+    size_t pos = text.find('@');
+    while (pos != string::npos)
+    {
+        if (++replacements > MAX_REPLACEMENTS)
+        {
+            mprf(MSGCH_DIAGNOSTICS, "Too many string replacements, bailing.");
+            speech.supported = false; break;
+        }
+        const size_t end = text.find('@', pos + 1);
+        if (end == string::npos)
+        {
+            mprf(MSGCH_DIAGNOSTICS, "Unbalanced @, bailing.");
+            speech.supported = false; break;
+        }
+        const string marker = text.substr(pos, end + 1 - pos);
+        auto child = _getRandomisedSpeech(db, marker.substr(1, marker.size()-2),
+                                          suffix, replacements, depth);
+        if (child.canonical.empty())
+            pos = text.find('@', end + 1);
+        else
+        {
+            speech.child_positions.push_back(origins[pos]);
+            origins.erase(origins.begin()+pos, origins.begin()+end+1);
+            origins.insert(origins.begin()+pos, child.canonical.size(), string::npos);
+            text.replace(pos, marker.size(), child.canonical);
+            speech.child_markers.push_back(marker);
+            speech.children.push_back(child);
+            speech.supported = speech.supported && child.supported;
+            pos = text.find('@', pos);
+        }
+    }
+    return speech;
+}
+
+ZhSpeech getSpeakSpeech(const string &key)
+{
+    ZhTranslationPause canonical;
+    int replacements = 0;
+    auto speech = _getRandomisedSpeech(SpeakDB, key, "", replacements);
+    // Lua remains an engine protocol, executed only on canonical text. Such
+    // leaves are reported as unsupported whole parents until explicitly typed.
+    _execute_embedded_lua(speech.canonical);
+    return speech;
+}
+
+ZhSpeech getShoutSpeech(const string &key, const string &suffix)
+{
+    ZhTranslationPause canonical;
+    int replacements = 0;
+    return _getRandomisedSpeech(ShoutDB, key, suffix, replacements);
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // Randname DB specific functions.
 string getRandNameString(const string &itemtype, const string &suffix)

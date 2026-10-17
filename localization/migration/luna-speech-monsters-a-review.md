@@ -1,0 +1,104 @@
+# Luna speech monsters migration review
+
+- Source: `analysis/message-migration/speech-copy-spec-1.json` (1,692 rows).
+- Output: `luna-speech-monsters-a-raw.json` (`model: Luna`, 1,692 rows; source `id/file/key/row/raw` retained in order).
+- Re-translated all 73 visible templates whose prior Chinese candidates changed or dropped runtime interpolation tokens, using only each English `raw` template. Every visible row has Chinese text.
+- The 17 rows without a candidate are standalone runtime macro references; they remain as exact tokens. Existing standalone macro/control references likewise remain intact.
+- Repaired two `_form_` templates as Chinese sentences with literal `@_form_@` interpolation; their old candidates expanded the macro into invented alternatives.
+- Validation passed: all identity fields and row order match; exact `@...@` token multisets, line-level `SOUND:`/`VISUAL:` channels, newlines, and bracket alternative group counts/order are preserved.
+
+## Re-translated templates (73)
+
+- `speech.monspeak.7c0fd1a6f425ce28`
+- `speech.monspeak.a879f9e44dc932e1`
+- `speech.monspeak.31c75922a98f1e47`
+- `speech.monspeak.09d936f9afceb4c1`
+- `speech.monspeak.b48d40d5f5cc3e2d`
+- `speech.monspeak.73c1bb811be316f1`
+- `speech.monspeak.10fcbdedf39a359b`
+- `speech.monspeak.e1db1ecd50dfa63c`
+- `speech.monspeak.a9e8feeda6ace551`
+- `speech.monspeak.ef5a6f6f3bdc0ffd`
+- `speech.monspeak.533e41b2a3fe86fc`
+- `speech.monspeak.e6b786db0679f6f0`
+- `speech.monspeak.ddbda2643e54e64e`
+- `speech.monspeak.04e6e852721360b3`
+- `speech.monspeak.bd8c693a1bfeb24f`
+- `speech.monspeak.fd13615d9de22493`
+- `speech.monspeak.1b6d15e3d844cd04`
+- `speech.monspeak.10491d102f2575b7`
+- `speech.monspeak.ca6e6a59f4b9814b`
+- `speech.monspeak.79fc458b6bb9c415`
+- `speech.monspeak.d673b83d0df1e4a4`
+- `speech.monspeak.2bbc68034c8d1f48`
+- `speech.monspeak.48fd83a0849f4fe7`
+- `speech.monspeak.9f3a86843fe1b7d0`
+- `speech.monspeak.1d442af364771894`
+- `speech.monspeak.ebf718ec66ac195a`
+- `speech.monspeak.362dc147ef461173`
+- `speech.monspeak.a13d4809f43dd296`
+- `speech.monspeak.b7c4c8c207320610`
+- `speech.monspeak.e52501c12a60b88e`
+- `speech.monspeak.2a0de4369bda10e3`
+- `speech.monspeak.9c4d67d7c171cff3`
+- `speech.monspeak.ef52470878aa18d0`
+- `speech.monspeak.4d98bb5e0840bf4a`
+- `speech.monspeak.f4bdaab2cd8c705d`
+- `speech.monspeak.561c07bbab6ecd3a`
+- `speech.monspeak.1c8fea93043db401`
+- `speech.monspeak.a1d4114a8a1a30b2`
+- `speech.monspeak.4bb51209056dbc01`
+- `speech.monspeak.d8d3d4c41a6a79fb`
+- `speech.monspeak.73b94367654b5ff2`
+- `speech.monspeak.af3ec309da34acb7`
+- `speech.monspeak.c20e2b1fb4b6097d`
+- `speech.monspeak.bebb0fb194a34ad9`
+- `speech.monspeak.aa58355f8ce014ee`
+- `speech.monspeak.2b26b58dac01cbf0`
+- `speech.monspeak.9f15d4f8f5aee0e0`
+- `speech.monspeak.9f5d18a84e9776bb`
+- `speech.monspeak.6a29917f22872a08`
+- `speech.monspeak.de7d38bda7277c2f`
+- `speech.monspeak.968f1fcd52775b7c`
+- `speech.monspeak.2c70e0d8f06fae99`
+- `speech.monspeak.64742439617d3941`
+- `speech.monspeak.a23a3e285e139035`
+- `speech.monspeak.d9542fbfc35d5c56`
+- `speech.monspeak.890ca9e301f03840`
+- `speech.monspeak.4f38df0e9b58eb48`
+- `speech.monspeak.0e3ce1a253a914e5`
+- `speech.monspeak.750714440e41e7f2`
+- `speech.monspeak.2679b6937c1919f0`
+- `speech.monspeak.d8969b331fd24038`
+- `speech.monspeak.c3bc97be4991c2dd`
+- `speech.monspeak.e5a40f77115e37e9`
+- `speech.monspeak.e08081064743be3c`
+- `speech.monspeak.459069293e393965`
+- `speech.monspeak.fa5f153b8cdafd08`
+- `speech.monspeak.f566f9869f8caf13`
+- `speech.monspeak.54f91fa0a6119ddf`
+- `speech.monspeak.d7797168846f228c`
+- `speech.monspeak.6c3fa64e15149f93`
+- `speech.monspeak.5480233dd5be1858`
+- `speech.monspeak.7088dfefe5850c95`
+- `speech.monspeak.eeebe675e8644442`
+
+## Candidate-free macro references retained (17)
+
+- `speech.monspeak.3e672f480f79773d`
+- `speech.monspeak.96d38c554aab429c`
+- `speech.monspeak.0ef574ad2282cc15`
+- `speech.monspeak.7c0a212ce56f634d`
+- `speech.monspeak.28590af16d94c66a`
+- `speech.monspeak.191b65b49911f28a`
+- `speech.monspeak.748d608bd81f5476`
+- `speech.monspeak.0b880a5caec83fab`
+- `speech.monspeak.651017af113b7845`
+- `speech.monspeak.dcdd555084c01e20`
+- `speech.monspeak.8ad305a57dd2b014`
+- `speech.monspeak.e414178645f8686c`
+- `speech.monspeak.974e0ac99501784d`
+- `speech.monspeak.8ff43d3035ce67c4`
+- `speech.monspeak.7032770bd0104f3d`
+- `speech.monspeak.cec06b32d3d19edc`
+- `speech.monspeak.8f78acb08c343dfd`

@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "method": "lexical callsite inventory; not a translation coverage metric",
-  "native_head": "82239b42b058e6a3e670d8f68ad99bee34c8630b",
+  "native_head": "798db5ea62e769e8e7343038fbaef3f8eb84bf3f",
   "files": {
     "ability.cc": "93feb0c77623b821ab406715be84d22984a5190eda534f4612a94a2d6f3d8336",
     "abyss.cc": "84b56154fb4cfb65c0b25ae8dd465938a2a11bab44cb6b347ff05e24840ce554",
@@ -25,7 +25,7 @@
     "crash.cc": "2233d491fd3813a80a2d21988b8dfaa9655856877edbf0a1432de125c75e9388",
     "ctest.cc": "669d782c1ed3cdc8c219e7756a5a6d96a4e1466f21b0db7af207f2e8b1b54f1b",
     "dactions.cc": "b25dc348ec85e2688dfc14bd7accee4f960d1cd9635b2c7c4c31457dae714bae",
-    "database.cc": "eaec56ce82521b4d2963b113467fd79ae5194e03c5db58799544742bdb810ded",
+    "database.cc": "7f42a3a9d08ad697c29c669656dd6837119cddfb1f7d4875439ac2d0925b7598",
     "dbg-asrt.cc": "fb54e6056608fe209917eb79749cf5ff903e352a0e001338c53eb121d48bd6ef",
     "dbg-maps.cc": "4633f23ef464edc2795ea484de7db46a0b4977ada85b1056a1804f896b2697c7",
     "dbg-objstat.cc": "62f2fa2c9e67cfaa3004b72a1692da7416cc892e305ee902c370696b823fa781",
@@ -106,8 +106,8 @@
     "mon-abil.cc": "0f7d540d2f123187c04c68eadedeb4dd52a4b20776520f6483101baa2286d740",
     "mon-act.cc": "fef25cf96969aa969297b5dea06fb75ffcad230b10e027d646c485391460dd68",
     "mon-aura.cc": "637a06033bf10e1271beb2a94044413395aa5ab48053586fb5738a48d9e7787f",
-    "mon-behv.cc": "9678600079d611d980b99aec774559331bc33a79980b99a5278671fadb65ef0c",
-    "mon-cast.cc": "05b2036deb230a32d4bf81a21eb039e95052d010bbd7e94b265ea8d47d97389b",
+    "mon-behv.cc": "8ea20b60b5496c24923e22a08625f35b00d12160762ad42dc59b35657106ad88",
+    "mon-cast.cc": "1a8136a00e42c1892a9b9fec4ff9f50c481fb37e9574dee59256cb3aa0aaa3b9",
     "mon-clone.cc": "da2521aa8fbbcea4f3386c434efb2ec7dafeade5e05d330b6bb85ff74db6c1f7",
     "mon-death.cc": "8d907b4e6c2f7c5e454a1b404cabbb89e46c46fa611956c3fada83e832297c39",
     "mon-ench.cc": "5b77bf830fe282116f930fbaf579b87571ff2472a169c8c182e74659d5c833e5",
@@ -120,10 +120,10 @@
     "mon-place.cc": "358e61e704894a8c2e98af43f83bff225fb155e31a10265c7a69774d52e41c08",
     "mon-poly.cc": "db467d2e60075896280f129484fa6ebe4de7a939ab7ba5c845f0fbb6877168b9",
     "mon-project.cc": "6dc52ffe9316efc6d00021b38fe778f84f51dc218a9d8b4b406db6c52a4127fc",
-    "mon-speak.cc": "530915a39deded42ce1b4f147cd77ec88b2749d16e1285060912caed5a6ab8e4",
+    "mon-speak.cc": "1c137c85a31055e2f99f0543bd8ee46c3dd8136de465bd77368d055f95168c86",
     "mon-tentacle.cc": "0bd0a52198fbaea01941dc463bc145a7a14ba630930615c037c9f679bc1b6e19",
     "mon-transit.cc": "4366669974f96a90fdae0518891c3ec3f332e77053792bcc9ffe98c26601e9c3",
-    "mon-util.cc": "ecd030f36155037e0d56a037a97d4cfc9035c862fb796b30deedea20f007c826",
+    "mon-util.cc": "4ab75b0853e5cc93951ae9a161dfaa4c6fa3dfadc9c9a35cab1dfcf637b5c284",
     "monster.cc": "b940910d464d53597b42cf271735bd8017da46419d7c74f3b4f52093323bc3c2",
     "movement.cc": "346a3d5537e4f04498de6ef3e87865cbc7803acb8037d832c5d6aa23d1af7550",
     "mutation.cc": "a11c3ccc0d3c8057ad3acb6fa2e31bec77c8723a2fece2ae0bb661c5b53dca8a",
@@ -152,7 +152,7 @@
     "religion.cc": "c34eb17758daad258d590f3ee33e15099583c3db26d1c1e17a0b67d099f5c764",
     "scroller.cc": "1c1fa4de6d5d601fe6f89533b4a08941df19a01ecdb2c33d936e3f298d02fe18",
     "shopping.cc": "9f48e30972e2fda40bf3f89af767a56b2243077353c283e968e74e399a61f4f6",
-    "shout.cc": "3990a31905b4e3b010ba13db51bc1ad76ac3f830e1c6fd00fa9674114d515783",
+    "shout.cc": "e4307ee9702d80c5be8a7d3d8234599264bf993621279d591fd3fed3bb9645ce",
     "show.cc": "e64cc9cb09c4d9427d40d22ae96c783ee87f68c0cf1ec4da9238d10d2c82d41c",
     "showsymb.cc": "fa471b37adf93df8eff8e6cc4d57ff5b25b6f27b3fb24493db872fd111a48dd7",
     "skill-menu.cc": "eb0ac2f4e88f51255650b6c8c81e5a98d8db648c1c0cf53fbb23d92e3a507ef2",
@@ -220,7 +220,8 @@
     "xom.cc": "f8569a5334a3b11f0668c482db3fc922289d570d0f1c19cedec3a1bcf8a917e6",
     "zh-display-name.cc": "767c84b4b4793f8032be1e51713180eae1a20241a3557b29b583a6c73fa97cc6",
     "zh-localization.cc": "e1b98b33dbf1fa491dfb6341a102e68365158c63df848856ddf1dd3731efee82",
-    "zh-message.cc": "30f98e83841baa002a119ce66c7f59748b4f44ffe56cf692d4b2472125fd730c",
+    "zh-message.cc": "2b9114d8b77ed246a63ffa35762f598152c44e67be039be8f60fa0199bd8b3f3",
+    "zh-speech.cc": "b39bf2a2cf710985c416db14dedd2e31063f7496276b53b5f5eabebcae8354fb",
     "zot.cc": "5ac5d946b32ba5168e2a63813f8bc2662340e7f3016717c696838fca4b9fdea0"
   },
   "modules": [
@@ -256,7 +257,7 @@
     },
     {
       "name": "战斗日志",
-      "state": "战斗命中/失手及共用限制、反噬组合、变形进出已分批接入；本批施法增强/魔杖增强/误施法、四类引导提醒与终止及魔力不足日志接入；剩余战斗/法术/怪物日志待逐包验收；本批完成怪物首遇/追击/深渊出现/装备及伤势日志，其他怪物业务日志仍待迁移",
+      "state": "战斗命中/失手及共用限制、反噬组合、变形进出已分批接入；本批施法增强/魔杖增强/误施法、四类引导提醒与终止及魔力不足日志接入；剩余战斗/法术/怪物日志待逐包验收；本批完成怪物首遇/追击/深渊出现/装备及伤势日志，其他怪物业务日志仍待迁移；随机嘲讽/普通怪物对白与行为对白由 monster-random-speech 接续，嵌入Lua及外部业务消费者仍未完成",
       "acceptance": "玩家/怪物/武器/状态/数值组合，全部成功失败分支保留英文控制数据"
     },
     {
@@ -4112,6 +4113,30 @@
       "line": 846,
       "api": "getLongDescription",
       "anchor": "return getLongDescription(key);",
+      "module": "protocol",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "database.cc",
+      "line": 958,
+      "api": "mprf",
+      "anchor": "mprf(MSGCH_DIAGNOSTICS, \"Too many nested replacements, bailing.\");",
+      "module": "protocol",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "database.cc",
+      "line": 971,
+      "api": "mprf",
+      "anchor": "mprf(MSGCH_DIAGNOSTICS, \"Too many string replacements, bailing.\");",
+      "module": "protocol",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "database.cc",
+      "line": 977,
+      "api": "mprf",
+      "anchor": "mprf(MSGCH_DIAGNOSTICS, \"Unbalanced @, bailing.\");",
       "module": "protocol",
       "classification": "callsite-review-required"
     },
@@ -23509,7 +23534,7 @@
     },
     {
       "file": "mon-behv.cc",
-      "line": 1467,
+      "line": 1469,
       "api": "make_stringf",
       "anchor": "make_stringf(\" %s the %s.\",",
       "module": "monsters",
@@ -23517,7 +23542,7 @@
     },
     {
       "file": "mon-behv.cc",
-      "line": 1477,
+      "line": 1479,
       "api": "make_stringf",
       "anchor": "make_stringf(\" %s the shaft.\",",
       "module": "monsters",
@@ -23525,7 +23550,7 @@
     },
     {
       "file": "mon-behv.cc",
-      "line": 1482,
+      "line": 1484,
       "api": "mpr",
       "anchor": "mpr(\"The shaft crumbles and collapses.\");",
       "module": "monsters",
@@ -23533,7 +23558,7 @@
     },
     {
       "file": "mon-behv.cc",
-      "line": 1500,
+      "line": 1502,
       "api": "make_stringf",
       "anchor": "make_stringf(\" donates %s equipment to the cause.\",",
       "module": "monsters",
@@ -25557,9 +25582,17 @@
     },
     {
       "file": "mon-speak.cc",
-      "line": 874,
+      "line": 881,
       "api": "mprf",
-      "anchor": "mprf(msg_type, \"%s\", line.c_str());",
+      "anchor": "if (message.id.empty()) mprf(msg_type, \"%s\", line.c_str());",
+      "module": "monsters",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "mon-speak.cc",
+      "line": 882,
+      "api": "mpr",
+      "anchor": "else mpr(ZhMessage{message.id, line, display}, msg_type);",
       "module": "monsters",
       "classification": "callsite-review-required"
     },
@@ -25661,7 +25694,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 979,
+      "line": 983,
       "api": "mprf",
       "anchor": "mprf(\"The %s mimic %svanishes%s!\",",
       "module": "names",
@@ -25669,7 +25702,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 1030,
+      "line": 1034,
       "api": "mprf",
       "anchor": "mprf(\"%s %s a mimic!\", name.c_str(), plural ? \"are\" : \"is\");",
       "module": "names",
@@ -25677,7 +25710,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 3074,
+      "line": 3078,
       "api": "make_stringf",
       "anchor": "result += make_stringf(\"invalid monster_type %d\", mc);",
       "module": "names",
@@ -25685,7 +25718,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 3477,
+      "line": 3481,
       "api": "make_stringf",
       "anchor": "make_stringf(\" discards %s horn.\",",
       "module": "names",
@@ -25693,7 +25726,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 4654,
+      "line": 4696,
       "api": "mprf",
       "anchor": "mprf(MSGCH_DIAGNOSTICS, \"Invalid @says@ type.\");",
       "module": "names",
@@ -25701,7 +25734,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 4976,
+      "line": 5032,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"Monster %d has no name\\n\", mc);",
       "module": "names",
@@ -25709,7 +25742,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 4986,
+      "line": 5042,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has WL %d > 200\\n\", name, WL);",
       "module": "names",
@@ -25717,7 +25750,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 4988,
+      "line": 5044,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has rPois++\\n\", name);",
       "module": "names",
@@ -25725,7 +25758,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 4990,
+      "line": 5046,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has rElec++\\n\", name);",
       "module": "names",
@@ -25733,7 +25766,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 4997,
+      "line": 5053,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has 0 HD: %d\\n\", name, md->HD);",
       "module": "names",
@@ -25741,7 +25774,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 4999,
+      "line": 5055,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has <= 0 HP: %d\", name, md->avg_hp_10x);",
       "module": "names",
@@ -25749,7 +25782,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5002,
+      "line": 5058,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has an empty glyph\\n\", name);",
       "module": "names",
@@ -25757,7 +25790,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5005,
+      "line": 5061,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has negative AC\\n\", name);",
       "module": "names",
@@ -25765,7 +25798,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5007,
+      "line": 5063,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has negative EV\\n\", name);",
       "module": "names",
@@ -25773,7 +25806,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5009,
+      "line": 5065,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has negative xp\\n\", name);",
       "module": "names",
@@ -25781,7 +25814,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5012,
+      "line": 5068,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has 0 speed\\n\", name);",
       "module": "names",
@@ -25789,7 +25822,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5014,
+      "line": 5070,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has 0 speed\\n\", name);",
       "module": "names",
@@ -25797,7 +25830,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5020,
+      "line": 5076,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has too many genders\\n\", name);",
       "module": "names",
@@ -25805,7 +25838,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5023,
+      "line": 5079,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has no defined shape\\n\", name);",
       "module": "names",
@@ -25813,7 +25846,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5032,
+      "line": 5088,
       "api": "make_stringf",
       "anchor": "make_stringf(\"%s isn't a species but has a corpse tile\\n\",",
       "module": "names",
@@ -25821,7 +25854,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5040,
+      "line": 5096,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has a corpse tile & no corpse\\n\",",
       "module": "names",
@@ -25829,7 +25862,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5045,
+      "line": 5101,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"%s has a corpse but no corpse tile\\n\", name);",
       "module": "names",
@@ -25837,7 +25870,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5087,
+      "line": 5143,
       "api": "make_stringf",
       "anchor": "spells += make_stringf(\",%s\", spell_title(spslot.spell));",
       "module": "names",
@@ -25845,7 +25878,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5089,
+      "line": 5145,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"Book #%d is unused (%s)\\n\", spbook.type,",
       "module": "names",
@@ -25853,7 +25886,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5091,
+      "line": 5147,
       "api": "make_stringf",
       "anchor": "book_name = make_stringf(\"#%d\", spbook.type);",
       "module": "names",
@@ -25861,7 +25894,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5102,
+      "line": 5158,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"Empty book %s\\n\", bknm);",
       "module": "names",
@@ -25869,7 +25902,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5109,
+      "line": 5165,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"Book %s contains invalid spell %d\\n\",",
       "module": "names",
@@ -25877,7 +25910,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5120,
+      "line": 5176,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"Spellbook %s has spell %s at freq %d \"",
       "module": "names",
@@ -25885,7 +25918,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5139,
+      "line": 5195,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"Spellbook %s has spell %s in \"",
       "module": "names",
@@ -25893,7 +25926,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5150,
+      "line": 5206,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"Spellbook %s has spell %s marked \"",
       "module": "names",
@@ -25901,7 +25934,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5158,
+      "line": 5214,
       "api": "make_stringf",
       "anchor": "fails += make_stringf(\"Spellbook %s has spell %s with no \"",
       "module": "names",
@@ -25909,7 +25942,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5394,
+      "line": 5450,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"target.monster.log.wound\", {",
       "module": "names",
@@ -25917,7 +25950,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5394,
+      "line": 5450,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"target.monster.log.wound\", {",
       "module": "names",
@@ -25925,7 +25958,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5395,
+      "line": 5451,
       "api": "zh_monster_arg",
       "anchor": "zh_monster_arg(\"monster\", mons, DESC_THE), info.wounds_description_message()}),",
       "module": "names",
@@ -25933,7 +25966,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5583,
+      "line": 5639,
       "api": "mprf",
       "anchor": "mprf(\"%s is hit by a flying piece of %s!\",",
       "module": "names",
@@ -25941,7 +25974,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5653,
+      "line": 5709,
       "api": "mprf",
       "anchor": "mprf(\"%s regains %s memory of %s.\",",
       "module": "names",
@@ -25949,7 +25982,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5744,
+      "line": 5800,
       "api": "make_stringf",
       "anchor": "make_stringf(\" protects %s plant from harm.\",",
       "module": "names",
@@ -25957,7 +25990,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5756,
+      "line": 5812,
       "api": "mprf",
       "anchor": "mprf(\"%s avoids your attack.\", target->name(DESC_THE).c_str());",
       "module": "names",
@@ -25965,7 +25998,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5770,
+      "line": 5826,
       "api": "mpr",
       "anchor": "mpr(\"Your demonic guardian avoids your attack.\");",
       "module": "names",
@@ -25973,7 +26006,7 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5822,
+      "line": 5878,
       "api": "make_stringf",
       "anchor": "string msg = make_stringf(\"The Sanctuary denies your attempt to harm %s.\",",
       "module": "names",
@@ -25981,11 +26014,123 @@
     },
     {
       "file": "mon-util.cc",
-      "line": 5834,
+      "line": 5890,
       "api": "make_stringf",
       "anchor": "string msg = make_stringf(\"The Sanctuary protects %s from harm.\",",
       "module": "names",
       "classification": "callsite-review-required"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 5952,
+      "api": "zh_message",
+      "anchor": "auto result = prose(zh_message(\"speech.actor.name_possessive\", {name}));",
+      "module": "names",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 5972,
+      "api": "zh_message",
+      "anchor": "auto result = prose(zh_message(tag.find(\"to_foe\")==0",
+      "module": "names",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 5981,
+      "api": "zh_monster_arg",
+      "anchor": "auto name = zh_monster_arg(key, mon, friendly ? DESC_YOUR : DESC_THE);",
+      "module": "names",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 5996,
+      "api": "zh_word_arg",
+      "anchor": "return zh_word_arg(key, \"speech.atom.\", tag == \"foe_possessive\" ? \"your\" : \"you\");",
+      "module": "names",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 6007,
+      "api": "zh_word_arg",
+      "anchor": "return zh_word_arg(key, \"speech.atom.\", tag == \"god_is\" ? \"you are\" : \"you\");",
+      "module": "names",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 6008,
+      "api": "zh_glossary_name",
+      "anchor": "if (tag == \"foe_god\") return zh_glossary_name(key, \"speech.god\", god_name(foe->deity()));",
+      "module": "names",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 6012,
+      "api": "zh_glossary_name",
+      "anchor": "return zh_glossary_name(key, \"speech.genus\", species::name(you.species, species::SPNAME_GENUS));",
+      "module": "names",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 6017,
+      "api": "zh_glossary_name",
+      "anchor": "return zh_glossary_name(key, \"speech.genus\", species::name(you.species,",
+      "module": "names",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 6020,
+      "api": "zh_glossary_name",
+      "anchor": "return zh_glossary_name(key, \"speech.genus\", mons_type_name(",
+      "module": "names",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 6024,
+      "api": "zh_glossary_name",
+      "anchor": "return zh_glossary_name(key, \"speech.god\", canonical);",
+      "module": "names",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 6033,
+      "api": "zh_glossary_name",
+      "anchor": "return zh_glossary_name(key, \"speech.god\", value);",
+      "module": "names",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 6037,
+      "api": "zh_word_arg",
+      "anchor": "return zh_word_arg(key, \"speech.atom.\", value);",
+      "module": "names",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 6042,
+      "api": "zh_word_arg",
+      "anchor": "return zh_word_arg(key, \"target.monster.pronoun.\", value);",
+      "module": "names",
+      "classification": "semantic-name"
+    },
+    {
+      "file": "mon-util.cc",
+      "line": 6044,
+      "api": "zh_glossary_name",
+      "anchor": "return zh_glossary_name(key, \"speech.semantic\", value);",
+      "module": "names",
+      "classification": "semantic-name"
     },
     {
       "file": "monster.cc",
@@ -36717,7 +36862,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 237,
+      "line": 238,
       "api": "zh_message",
       "anchor": "return zh_message(entry.id, {}, canonical);",
       "module": "other-review-required",
@@ -36725,7 +36870,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 244,
+      "line": 245,
       "api": "zh_message",
       "anchor": "return zh_message(entry.id, {zh_monster_arg(\"monster\", mons, desc)}, canonical);",
       "module": "other-review-required",
@@ -36733,7 +36878,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 244,
+      "line": 245,
       "api": "zh_monster_arg",
       "anchor": "return zh_message(entry.id, {zh_monster_arg(\"monster\", mons, desc)}, canonical);",
       "module": "other-review-required",
@@ -36741,7 +36886,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 247,
+      "line": 248,
       "api": "zh_monster_arg",
       "anchor": "auto name = zh_monster_arg(\"monster_possessive\", mons, desc);",
       "module": "other-review-required",
@@ -36749,7 +36894,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 249,
+      "line": 250,
       "api": "zh_message",
       "anchor": "return zh_message(entry.id, {name}, canonical);",
       "module": "other-review-required",
@@ -36757,7 +36902,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 252,
+      "line": 253,
       "api": "zh_message",
       "anchor": "return zh_message(entry.id, {",
       "module": "other-review-required",
@@ -36765,7 +36910,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 253,
+      "line": 254,
       "api": "zh_monster_arg",
       "anchor": "zh_monster_arg(\"monster\", mons, desc),",
       "module": "other-review-required",
@@ -36773,7 +36918,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 254,
+      "line": 255,
       "api": "zh_word_arg",
       "anchor": "zh_word_arg(\"possessive\", \"target.monster.pronoun.\",",
       "module": "other-review-required",
@@ -36781,7 +36926,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 261,
+      "line": 262,
       "api": "zh_message",
       "anchor": "return zh_message(\"shout.monster.unsupported\", {",
       "module": "other-review-required",
@@ -36789,7 +36934,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 312,
+      "line": 314,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"shout.monster.buggy\"), MSGCH_SOUND);",
       "module": "other-review-required",
@@ -36797,7 +36942,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 312,
+      "line": 314,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"shout.monster.buggy\"), MSGCH_SOUND);",
       "module": "other-review-required",
@@ -36805,7 +36950,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 322,
+      "line": 324,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"shout.monster.buggy\"), MSGCH_SOUND);",
       "module": "other-review-required",
@@ -36813,7 +36958,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 322,
+      "line": 324,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"shout.monster.buggy\"), MSGCH_SOUND);",
       "module": "other-review-required",
@@ -36821,7 +36966,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 329,
+      "line": 331,
       "api": "mpr",
       "anchor": "mpr(zh_message(\"shout.monster.buggy\"), MSGCH_SOUND);",
       "module": "other-review-required",
@@ -36829,7 +36974,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 329,
+      "line": 331,
       "api": "zh_message",
       "anchor": "mpr(zh_message(\"shout.monster.buggy\"), MSGCH_SOUND);",
       "module": "other-review-required",
@@ -36837,7 +36982,15 @@
     },
     {
       "file": "shout.cc",
-      "line": 345,
+      "line": 357,
+      "api": "mpr",
+      "anchor": "mpr(output, channel);",
+      "module": "other-review-required",
+      "classification": "callsite-review-required"
+    },
+    {
+      "file": "shout.cc",
+      "line": 362,
       "api": "mpr",
       "anchor": "mpr(_monster_shout_message(source, message, mons), channel);",
       "module": "other-review-required",
@@ -36845,7 +36998,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 489,
+      "line": 507,
       "api": "mprf",
       "anchor": "mprf(channel, \"%s\", msg.c_str());",
       "module": "other-review-required",
@@ -36853,7 +37006,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 585,
+      "line": 603,
       "api": "mprf",
       "anchor": "mprf(MSGCH_PROMPT, \"What are your orders?\");",
       "module": "other-review-required",
@@ -36861,7 +37014,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 590,
+      "line": 608,
       "api": "mprf",
       "anchor": "mprf(\" t - %s!\", cap_shout.c_str());",
       "module": "other-review-required",
@@ -36869,7 +37022,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 595,
+      "line": 613,
       "api": "mpr",
       "anchor": "mpr(\"Orders for allies: a - Attack new target.\");",
       "module": "other-review-required",
@@ -36877,7 +37030,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 596,
+      "line": 614,
       "api": "mpr",
       "anchor": "mpr(\"                   r - Retreat!             s - Stop attacking.\");",
       "module": "other-review-required",
@@ -36885,7 +37038,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 597,
+      "line": 615,
       "api": "mpr",
       "anchor": "mpr(\"                   g - Guard the area.      f - Follow me.\");",
       "module": "other-review-required",
@@ -36893,7 +37046,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 599,
+      "line": 617,
       "api": "mpr",
       "anchor": "mpr(\" Anything else - Cancel.\");",
       "module": "other-review-required",
@@ -36901,7 +37054,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 645,
+      "line": 663,
       "api": "mpr",
       "anchor": "mpr(\"Follow me!\");",
       "module": "other-review-required",
@@ -36909,7 +37062,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 648,
+      "line": 666,
       "api": "mpr",
       "anchor": "mpr(\"Stop fighting!\");",
       "module": "other-review-required",
@@ -36917,7 +37070,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 652,
+      "line": 670,
       "api": "mpr",
       "anchor": "mpr(\"Guard this area!\");",
       "module": "other-review-required",
@@ -36925,7 +37078,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 688,
+      "line": 706,
       "api": "mprf",
       "anchor": "mprf(\"%s is invisible, and you have no allies that can see %s.\",",
       "module": "other-review-required",
@@ -36933,7 +37086,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 716,
+      "line": 734,
       "api": "mpr",
       "anchor": "mpr(\"Fall back!\");",
       "module": "other-review-required",
@@ -36941,7 +37094,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 760,
+      "line": 778,
       "api": "mprf",
       "anchor": "mprf(\"%s is invisible, and %s can't see %s.\",",
       "module": "other-review-required",
@@ -36949,7 +37102,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 778,
+      "line": 796,
       "api": "mpr",
       "anchor": "mpr(\"You're too berserk to give orders, and you can't shout!\");",
       "module": "other-review-required",
@@ -36957,7 +37110,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 801,
+      "line": 819,
       "api": "mpr",
       "anchor": "mpr(\"Attack!\");",
       "module": "other-review-required",
@@ -36965,7 +37118,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 824,
+      "line": 842,
       "api": "mprf",
       "anchor": "mprf(\"You feel %s rip itself from your throat, \"",
       "module": "other-review-required",
@@ -36973,7 +37126,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 830,
+      "line": 848,
       "api": "mprf",
       "anchor": "mprf(\"You feel a strong urge to %s, but \"",
       "module": "other-review-required",
@@ -36981,7 +37134,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 836,
+      "line": 854,
       "api": "mpr",
       "anchor": "mpr(\"You are unable to make a sound!\");",
       "module": "other-review-required",
@@ -36989,7 +37142,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 843,
+      "line": 861,
       "api": "mprf",
       "anchor": "mprf(\"You %s%s at %s!\",",
       "module": "other-review-required",
@@ -36997,7 +37150,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 853,
+      "line": 871,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, \"You %s%s%s!\",",
       "module": "other-review-required",
@@ -37005,7 +37158,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 941,
+      "line": 959,
       "api": "mprf",
       "anchor": "mprf(MSGCH_SOUND, \"%s\", msg);",
       "module": "other-review-required",
@@ -37013,7 +37166,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 1119,
+      "line": 1137,
       "api": "mprf",
       "anchor": "mprf(MSGCH_WARN, \"Writing noise grid with %d noise sources\",",
       "module": "other-review-required",
@@ -37021,7 +37174,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 1298,
+      "line": 1316,
       "api": "make_stringf",
       "anchor": "return make_stringf(\"%02x%02x%02x\", red, green, blue);",
       "module": "other-review-required",
@@ -37029,7 +37182,7 @@
     },
     {
       "file": "shout.cc",
-      "line": 1313,
+      "line": 1331,
       "api": "make_stringf",
       "anchor": "styles += make_stringf(\".i%d { background: #%s }\\n\",",
       "module": "other-review-required",
@@ -50365,7 +50518,7 @@
     },
     {
       "file": "zh-message.cc",
-      "line": 167,
+      "line": 170,
       "api": "zh_word_arg",
       "anchor": "ZhArg zh_word_arg(const std::string &key,const std::string &domain,const std::string &english,ZhArgType kind) {",
       "module": "protocol",
@@ -50373,7 +50526,7 @@
     },
     {
       "file": "zh-message.cc",
-      "line": 178,
+      "line": 181,
       "api": "zh_word",
       "anchor": "std::string zh_word(const std::string &domain,const std::string &english) {",
       "module": "protocol",
@@ -50381,7 +50534,7 @@
     },
     {
       "file": "zh-message.cc",
-      "line": 179,
+      "line": 182,
       "api": "zh_word_arg",
       "anchor": "const auto arg=zh_word_arg(\"value\",domain,english);",
       "module": "protocol",
@@ -50389,7 +50542,7 @@
     },
     {
       "file": "zh-message.cc",
-      "line": 183,
+      "line": 186,
       "api": "zh_glossary_name",
       "anchor": "ZhArg zh_glossary_name(const std::string &key,const std::string &domain,const std::string &english) {",
       "module": "protocol",
@@ -50397,7 +50550,7 @@
     },
     {
       "file": "zh-message.cc",
-      "line": 197,
+      "line": 200,
       "api": "zh_source",
       "anchor": "std::string zh_source(const char *context, const char *source_literal)",
       "module": "protocol",
@@ -50405,7 +50558,7 @@
     },
     {
       "file": "zh-message.cc",
-      "line": 211,
+      "line": 214,
       "api": "zh_message",
       "anchor": "return zh_message(entry.id).display();",
       "module": "protocol",
@@ -50413,7 +50566,7 @@
     },
     {
       "file": "zh-message.cc",
-      "line": 234,
+      "line": 237,
       "api": "zh_source",
       "anchor": "zh_source(context, source.c_str());",
       "module": "protocol",
@@ -50421,10 +50574,18 @@
     },
     {
       "file": "zh-message.cc",
-      "line": 240,
+      "line": 243,
       "api": "zh_message",
       "anchor": "const ZhMessage value = zh_message(id, args);",
       "module": "protocol",
+      "classification": "typed-producer"
+    },
+    {
+      "file": "zh-speech.cc",
+      "line": 147,
+      "api": "zh_message",
+      "anchor": "return zh_message(\"shout.monster.unsupported\", {",
+      "module": "other-review-required",
       "classification": "typed-producer"
     },
     {

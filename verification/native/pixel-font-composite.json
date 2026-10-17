@@ -1,0 +1,59 @@
+{
+  "font": "DCSSPixelSC-Regular.ttf",
+  "base": "Fusion Pixel 12px monospaced zh-Hans 2026.09.25",
+  "fallback": "Noto Sans SC Regular",
+  "fallback_characters": [
+    "∞",
+    "橼",
+    "牦",
+    "瘙",
+    "纨",
+    "衮",
+    "赝",
+    "辘",
+    "骜",
+    "鸨",
+    "鹞",
+    "鹡",
+    "鹩",
+    "鹭",
+    "鹱"
+  ],
+  "missing_visible_characters": [],
+  "single_cell_quote_metrics": {
+    "‘": {
+      "advance": 600,
+      "bounds": [
+        100,
+        300
+      ]
+    },
+    "’": {
+      "advance": 600,
+      "bounds": [
+        100,
+        300
+      ]
+    },
+    "“": {
+      "advance": 600,
+      "bounds": [
+        0,
+        500
+      ]
+    },
+    "”": {
+      "advance": 600,
+      "bounds": [
+        100,
+        600
+      ]
+    }
+  },
+  "base_pixel_size": 12,
+  "recommended_pixel_sizes": [
+    24,
+    36,
+    48
+  ]
+}

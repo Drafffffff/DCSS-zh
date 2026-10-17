@@ -147,5 +147,5 @@ std::cout<<"PASS: "<<checks<<" named-message oracle and validation checks\\n";
 '''
 with tempfile.TemporaryDirectory() as folder:
  p=Path(folder);(p/'test.cc').write_text(code)
- subprocess.run(['c++','-std=c++11','-O1','-DZH_STANDALONE','-I'+str(SRC),str(SRC/'zh-localization.cc'),str(SRC/'zh-message.cc'),str(p/'test.cc'),'-o',str(p/'test')],check=True)
+ subprocess.run(['c++','-std=c++11','-O0','-DZH_STANDALONE','-I'+str(SRC),str(SRC/'zh-localization.cc'),str(SRC/'zh-message.cc'),str(p/'test.cc'),'-o',str(p/'test')],check=True)
  subprocess.run([str(p/'test')],check=True,timeout=20)
