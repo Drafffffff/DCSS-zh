@@ -37,6 +37,8 @@ bool learn_spell(spell_type spell, bool wizard = false, bool interactive = true)
 
 bool library_add_spells(vector<spell_type> spells, bool quiet = false);
 
+struct ZhArg;
+ZhArg desc_cannot_memorise_display_reason(spell_type spell);
 string desc_cannot_memorise_reason(spell_type spell);
 
 spell_type spell_in_wand(wand_type wand);

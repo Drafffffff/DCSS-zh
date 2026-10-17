@@ -1003,10 +1003,10 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
     }
 
     // MP, confusion, Ru sacs
-    const auto reason = casting_uselessness_reason(spell, true);
-    if (!reason.empty())
+    const ZhArg reason = casting_uselessness_display_reason(spell, true);
+    if (!reason.canonical.empty())
     {
-        mpr(reason);
+        mpr(ZhMessage{"", reason.canonical, reason.localized});
         crawl_state.zero_turns_taken();
         return spret::abort;
     }
@@ -1216,14 +1216,12 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
  */
 static bool _spellcasting_aborted(spell_type spell, bool fake_spell)
 {
-    string msg;
+    // Casting-general checks (MP etc) are not carried out here.
+    const ZhArg msg = spell_uselessness_display_reason(spell, true, true, true);
 
-    // casting-general checks (MP etc) are not carried out here
-    msg = spell_uselessness_reason(spell, true, true, true);
-
-    if (!msg.empty())
+    if (!msg.canonical.empty())
     {
-        mpr(msg);
+        mpr(ZhMessage{"", msg.canonical, msg.localized});
         return true;
     }
 
@@ -1976,7 +1974,7 @@ class spell_targeting_behaviour : public targeting_behaviour
 public:
     spell_targeting_behaviour(spell_type _spell)
         : targeting_behaviour(false), spell(_spell),
-          err(spell_uselessness_reason(spell, true, false, true))
+          err(spell_uselessness_display_reason(spell, true, false, true))
     {
     }
 
@@ -1987,14 +1985,20 @@ public:
 
     string get_error() override
     {
-        return err;
+        return err.canonical;
+    }
+
+    bool get_message_error(ZhMessage &message) override
+    {
+        message = {"", err.canonical, err.localized};
+        return true;
     }
 
     // TODO: provide useful errors for specific targets via get_monster_desc?
 
 private:
     spell_type spell;
-    string err;
+    ZhArg err;
 };
 
 // TODO: is there a way for this to be part of targeter objects, or

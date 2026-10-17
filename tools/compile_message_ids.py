@@ -44,7 +44,8 @@ def compile_catalog():
                 if value['type'] in ('key','key_markup','colour','integer','number'):
                     assert value['canonical']==value['localized'],(identity,key,'translated structural parameter')
     out=['// Generated from Luna-reviewed message IDs. Do not edit.','static const ZhDefinition zh_definitions[] = {']
-    q=lambda s:json.dumps(s,ensure_ascii=False)
+    # Escape question marks so C++11 trigraphs (e.g. ??!) never alter canonical text.
+    q=lambda s:json.dumps(s,ensure_ascii=False).replace('?', r'\?')
     for key,e in sorted(messages.items()):
         schema=';'.join(name+':'+kind for name,kind in e['params'].items())
         out.append('    {'+', '.join(q(x) for x in (key,e['en'],e['zh'],schema))+'},')

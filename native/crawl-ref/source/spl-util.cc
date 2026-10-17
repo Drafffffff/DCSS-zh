@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "spl-util.h"
 
@@ -1189,49 +1190,49 @@ bool casting_is_useless(spell_type spell, bool temp)
  *                   (status effects, mana)
  # @return           A reason why casting is useless, or "" if it isn't.
  */
-string casting_uselessness_reason(spell_type spell, bool temp)
+ZhArg casting_uselessness_display_reason(spell_type spell, bool temp)
 {
     if (temp)
     {
         if (you.duration[DUR_CONF] > 0)
-            return "you're too confused to cast spells.";
+            return zh_message_arg("reason", "spell.reason.too_confused");
 
         if (spell_difficulty(spell) > you.experience_level)
-            return "you aren't experienced enough to cast this spell.";
+            return zh_message_arg("reason", "spell.reason.low_experience");
 
         if (you.has_mutation(MUT_HP_CASTING))
         {
             // TODO: deduplicate with enough_hp()
             if (you.duration[DUR_DEATHS_DOOR])
-                return "you cannot pay life while functionally dead.";
+                return zh_message_arg("reason", "spell.reason.dead_hp_payment");
             if (!enough_hp(spell_mana(spell), true, false))
-                return "you don't have enough health to cast this spell.";
+                return zh_message_arg("reason", "spell.reason.insufficient_health");
         }
         else if (!enough_mp(spell_mana(spell), true, false))
-            return "you don't have enough magic to cast this spell.";
+            return zh_message_arg("reason", "spell.reason.insufficient_magic");
 
         if (spell == SPELL_SUBLIMATION_OF_BLOOD
             && you.magic_points == you.max_magic_points)
         {
             if (you.has_mutation(MUT_HP_CASTING))
-                return "your magic and health are inextricable.";
-            return "your reserves of magic are already full.";
+                return zh_message_arg("reason", "spell.reason.magic_health_inextricable");
+            return zh_message_arg("reason", "spell.reason.magic_reserves_full");
         }
 
         if (you.form == transformation::walking_scroll && spell_difficulty(spell) > 4)
-            return "you cannot cast such powerful magic in your current form.";
+            return zh_message_arg("reason", "spell.reason.powerful_in_form");
     }
 
     // Check for banned schools (Currently just Ru sacrifices)
     if (cannot_use_schools(get_spell_disciplines(spell)))
-        return "you cannot use spells of this school.";
+        return zh_message_arg("reason", "spell.reason.school_forbidden");
 
     // TODO: these checks were in separate places, but is this already covered
     // by cannot_use_schools?
     if (get_spell_disciplines(spell) & spschool::summoning
         && you.allies_forbidden())
     {
-        return "you cannot coerce anything to answer your summons.";
+        return zh_message_arg("reason", "spell.reason.summons_no_answer");
     }
 
     // other ally spells not affected by the school checks
@@ -1254,13 +1255,18 @@ string casting_uselessness_reason(spell_type spell, bool temp)
     case SPELL_FORGE_LIGHTNING_SPIRE:
     case SPELL_AWAKEN_ARMOUR:
         if (you.allies_forbidden())
-            return "you cannot coerce anything to obey you.";
+            return zh_message_arg("reason", "spell.reason.summons_no_obedience");
         break;
     default:
         break;
     }
 
-    return "";
+    return {"reason", ZhArgType::Text, "", "", true};
+}
+
+string casting_uselessness_reason(spell_type spell, bool temp)
+{
+    return casting_uselessness_display_reason(spell, temp).canonical;
 }
 
 /**
@@ -1302,23 +1308,23 @@ bool spell_is_useless(spell_type spell, bool temp, bool prevent,
  *                   begin with a lowercase letter so callers can put it in
  *                   the middle of a sentence.
  */
-string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
+ZhArg spell_uselessness_display_reason(spell_type spell, bool temp, bool prevent,
                                 bool skip_casting_checks)
 {
     // prevent all of this logic during excursions / levelgen. This function
     // does get called during character creation, so allow it to run for !temp.
     if (temp && (!in_bounds(you.pos()) || !you.on_current_level))
-        return "you can't cast spells right now.";
+        return zh_message_arg("reason", "spell.reason.off_level");
 
     if (!skip_casting_checks)
     {
-        string c_check = casting_uselessness_reason(spell, temp);
-        if (!c_check.empty())
+        ZhArg c_check = casting_uselessness_display_reason(spell, temp);
+        if (!c_check.canonical.empty())
             return c_check;
     }
 
     if (!prevent && temp && spell_no_hostile_in_range(spell))
-        return "you can't see any hostile targets that would be affected.";
+        return zh_message_arg("reason", "spell.reason.no_hostiles");
 
     switch (spell)
     {
@@ -1326,95 +1332,100 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
         // XXX: this is a little redundant with you_no_tele_reason()
         // but trying to sort out temp and so on is a mess
         if (you.stasis())
-            return "your stasis prevents you from teleporting.";
+            return zh_message_arg("reason", "spell.reason.stasis_teleport");
 
         // Distinct from no_tele - can still be forcibly blinked.
         if (temp && you.duration[DUR_BLINK_COOLDOWN])
-            return "you are still too unstable to blink.";
+            return zh_message_arg("reason", "spell.reason.blink_unstable");
 
         if (temp && you.no_tele(true))
-            return lowercase_first(you.no_tele_reason(true));
+        {
+            ZhArg reason = you.no_tele_display_reason(true);
+            reason.canonical = lowercase_first(reason.canonical);
+            if (!reason.supported)
+                reason.localized = reason.canonical;
+            return reason;
+        }
         break;
 
     case SPELL_SWIFTNESS:
         if (you.stasis())
-            return "your stasis precludes magical swiftness.";
+            return zh_message_arg("reason", "spell.reason.stasis_swiftness");
 
         if (temp)
         {
             if (you.duration[DUR_SWIFTNESS])
-                return "this spell is already in effect.";
+                return zh_message_arg("reason", "spell.reason.already_effect");
             if (player_movement_speed(false) <= FASTEST_PLAYER_MOVE_SPEED)
-                return "you're already travelling as fast as you can.";
+                return zh_message_arg("reason", "spell.reason.already_fast");
             if (you.cannot_move())
-                return "you can't move.";
+                return zh_message_arg("reason", "spell.reason.cannot_move");
         }
         break;
 
     case SPELL_DIMENSIONAL_BULLSEYE:
         if (you.has_mutation(MUT_NO_GRASPING))
-            return "this spell is useless without hands.";
+            return zh_message_arg("reason", "spell.reason.without_hands");
         break;
     case SPELL_LEDAS_LIQUEFACTION:
         if (temp && you.duration[DUR_LIQUEFYING])
-            return "you need to wait for the ground to become solid again.";
+            return zh_message_arg("reason", "spell.reason.ground_solid");
         break;
 
     case SPELL_BORGNJORS_REVIVIFICATION:
         if (temp && you.hp == you.hp_max)
-            return "you cannot be healed further.";
+            return zh_message_arg("reason", "spell.reason.healed_further");
         if (temp && you.hp_max < 21)
-            return "you lack the resilience to cast this spell.";
+            return zh_message_arg("reason", "spell.reason.lack_resilience");
         // Prohibited to all undead.
         if (you.undead_state(temp))
-            return "you're too dead.";
+            return zh_message_arg("reason", "spell.reason.too_dead");
         break;
     case SPELL_DEATHS_DOOR:
         if (temp && you.duration[DUR_DEATHS_DOOR])
-            return "you are already standing in death's doorway.";
+            return zh_message_arg("reason", "spell.reason.death_door_active");
         if (temp && you.duration[DUR_DEATHS_DOOR_COOLDOWN])
-            return "you are still too close to death's doorway.";
+            return zh_message_arg("reason", "spell.reason.death_door_cooldown");
         // Prohibited to all undead.
         if (you.undead_state(temp))
-            return "you're too dead.";
+            return zh_message_arg("reason", "spell.reason.too_dead");
         break;
 
     case SPELL_OZOCUBUS_ARMOUR:
         if (temp && you.unrand_equipped(UNRAND_SALAMANDER))
-            return "your ring of flames would instantly melt the ice.";
+            return zh_message_arg("reason", "spell.reason.ring_flames_melts_ice");
         break;
 
     case SPELL_SUBLIMATION_OF_BLOOD:
         if (!you.has_blood(temp))
-            return "you have no blood to sublime.";
+            return zh_message_arg("reason", "spell.reason.no_blood");
         break;
 
     case SPELL_POLAR_VORTEX:
         if (temp && (you.duration[DUR_VORTEX]
                      || you.duration[DUR_VORTEX_COOLDOWN]))
         {
-            return "you need to wait for the winds to calm down.";
+            return zh_message_arg("reason", "spell.reason.winds_calm");
         }
         break;
 
     case SPELL_MALIGN_GATEWAY:
         if (temp && !can_cast_malign_gateway())
         {
-            return "the dungeon can only cope with one malign gateway"
-                    " at a time.";
+            return zh_message_arg("reason", "spell.reason.one_malign_gateway");
         }
         if (temp && cast_malign_gateway(&you, 0, false, true)
                     == spret::abort)
         {
-            return "you need more open space to create a gateway.";
+            return zh_message_arg("reason", "spell.reason.open_space_gateway");
         }
         break;
 
     case SPELL_SUMMON_FOREST:
         if (temp && you.duration[DUR_FORESTED])
-            return "you can only summon one forest at a time.";
+            return zh_message_arg("reason", "spell.reason.one_forest");
         if (temp && cast_summon_forest(&you, 0, false, true) == spret::abort)
-            return "you need more open space to fit a forest.";
+            return zh_message_arg("reason", "spell.reason.open_space_forest");
         break;
 
     case SPELL_PASSWALL:
@@ -1423,25 +1434,25 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
         if (!temp)
             break;
         if (you.cannot_move())
-            return "you can't move.";
+            return zh_message_arg("reason", "spell.reason.cannot_move");
         if (!passwall_simplified_check(you))
-            return "you aren't next to any passable walls.";
+            return zh_message_arg("reason", "spell.reason.no_passable_walls");
         if (you.is_constricted())
-            return "you're being held away from the wall.";
+            return zh_message_arg("reason", "spell.reason.held_from_wall");
         break;
 
     case SPELL_ANIMATE_DEAD:
         if (have_passive(passive_t::goldify_corpses))
-            return "necromancy does not work on golden corpses.";
+            return zh_message_arg("reason", "spell.reason.gold_corpses");
         if (have_passive(passive_t::reaping))
-            return "you are already reaping souls!";
+            return zh_message_arg("reason", "spell.reason.reaping");
         break;
 
     case SPELL_DEATH_CHANNEL:
         if (temp && you.duration[DUR_DEATH_CHANNEL])
-            return "you are already channelling the dead.";
+            return zh_message_arg("reason", "spell.reason.already_channeling");
         if (have_passive(passive_t::reaping))
-            return "you are already reaping souls!";
+            return zh_message_arg("reason", "spell.reason.reaping");
         break;
 
     case SPELL_PUTREFACTION:
@@ -1450,14 +1461,13 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
     case SPELL_FREEZING_CLOUD:
     case SPELL_MEPHITIC_CLOUD:
         if (temp && env.level_state & LSTATE_STILL_WINDS)
-            return "the air is too still for clouds to form.";
+            return zh_message_arg("reason", "spell.reason.still_air");
         break;
 
     case SPELL_GOLUBRIAS_PASSAGE:
         if (temp && player_in_branch(BRANCH_GAUNTLET))
         {
-            return "a magic seal in the Gauntlet prevents this spell "
-                   "from working.";
+            return zh_message_arg("reason", "spell.reason.gauntlet_seal");
         }
         break;
 
@@ -1465,43 +1475,49 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
         if (temp && (you.duration[DUR_DRAGON_CALL]
                      || you.duration[DUR_DRAGON_CALL_COOLDOWN]))
         {
-            return "you cannot issue another dragon's call so soon.";
+            return zh_message_arg("reason", "spell.reason.dragon_call_cooldown");
         }
         break;
 
     case SPELL_FROZEN_RAMPARTS:
         if (temp && you.duration[DUR_FROZEN_RAMPARTS])
-            return "you cannot sustain more frozen ramparts right now.";
+            return zh_message_arg("reason", "spell.reason.more_ramparts");
         break;
 
     case SPELL_NOXIOUS_BOG:
         if (temp && you.duration[DUR_NOXIOUS_BOG])
-            return "you cannot sustain more bogs right now.";
+            return zh_message_arg("reason", "spell.reason.more_bogs");
         break;
 
     case SPELL_AWAKEN_ARMOUR:
         if (!you_can_wear(SLOT_BODY_ARMOUR, temp))
-            return "you cannot wear body armour.";
+            return zh_message_arg("reason", "spell.reason.no_body_armour");
         if (temp && !you.body_armour())
-            return "you have no body armour to summon the spirit of.";
+            return zh_message_arg("reason", "spell.reason.no_armour_soul");
         break;
 
     case SPELL_MOMENTUM_STRIKE:
         if (temp && you.cannot_move())
-            return "you cannot redirect your momentum while unable to move.";
+            return zh_message_arg("reason", "spell.reason.momentum_move");
         break;
 
     case SPELL_PILEDRIVER:
         if (you.stasis())
-            return "your stasis prevents you from launching yourself.";
+            return zh_message_arg("reason", "spell.reason.launch_stasis");
         if (temp)
         {
             if (you.cannot_move())
-                return "you cannot launch yourself while unable to move.";
+                return zh_message_arg("reason", "spell.reason.launch_move");
             if (you.no_tele(true))
-                return lowercase_first(you.no_tele_reason(true));
+            {
+                ZhArg reason = you.no_tele_display_reason(true);
+                reason.canonical = lowercase_first(reason.canonical);
+                if (!reason.supported)
+                    reason.localized = reason.canonical;
+                return reason;
+            }
             if (!piledriver_target_exists())
-                return "you cannot see anything nearby that you can launch.";
+                return zh_message_arg("reason", "spell.reason.no_launch_target");
         }
         break;
 
@@ -1509,50 +1525,56 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
         // XXX: this is a little redundant with you_no_tele_reason()
         // but trying to sort out temp and so on is a mess
         if (you.stasis())
-            return "your stasis prevents you from teleporting.";
+            return zh_message_arg("reason", "spell.reason.stasis_teleport");
         if (temp)
         {
             if (you.no_tele(true))
-                return lowercase_first(you.no_tele_reason(true));
-            const string no_charge_reason = electric_charge_impossible_reason(true);
-            if (!no_charge_reason.empty())
+            {
+                ZhArg reason = you.no_tele_display_reason(true);
+                reason.canonical = lowercase_first(reason.canonical);
+                if (!reason.supported)
+                    reason.localized = reason.canonical;
+                return reason;
+            }
+            const ZhArg no_charge_reason = electric_charge_impossible_display_reason(true);
+            if (!no_charge_reason.canonical.empty())
                 return no_charge_reason;
         }
         break;
 
     case SPELL_SIGIL_OF_BINDING:
         if (temp && cast_sigil_of_binding(0, false, true) == spret::abort)
-            return "there is no room nearby to place a sigil.";
+            return zh_message_arg("reason", "spell.reason.no_sigil_space");
         break;
 
     case SPELL_CALL_CANINE_FAMILIAR:
         if (temp && you.duration[DUR_CANINE_FAMILIAR_DEAD])
-            return "your canine familiar is too injured to answer your call.";
+            return zh_message_arg("reason", "spell.reason.familiar_injured");
         break;
 
     case SPELL_GELLS_GAVOTTE:
         if (temp && you.duration[DUR_GAVOTTE_COOLDOWN])
-            return "local gravity is still too unstable to reorient.";
+            return zh_message_arg("reason", "spell.reason.gravity_unstable");
         break;
 
     case SPELL_FULSOME_FUSILLADE:
         if (temp && you.duration[DUR_FUSILLADE])
-            return "you are already unleashing a barrage of alchemical concoctions!";
+            return zh_message_arg("reason", "spell.reason.barrage_active");
         break;
 
     case SPELL_HELLFIRE_MORTAR:
         if (temp && you.duration[DUR_HELLFIRE_MORTAR_COOLDOWN])
-            return "you must wait for your last cast of this to end!";
+            return zh_message_arg("reason", "spell.reason.wait_mortar");
         break;
 
     case SPELL_STARBURST:
         if (temp && you.current_vision == 0)
-            return "you cannot see far enough to hit anything with this spell.";
+            return zh_message_arg("reason", "spell.reason.vision_short");
         break;
 
     case SPELL_GRAVE_CLAW:
         if (temp && you.props[GRAVE_CLAW_CHARGES_KEY].get_int() == 0)
-            return "you must harvest more living souls to recharge this spell.";
+            return zh_message_arg("reason", "spell.reason.harvest_souls");
         break;
 
     case SPELL_SPIKE_LAUNCHER:
@@ -1562,25 +1584,25 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
 
         for (adjacent_iterator ai(you.pos()); ai; ++ai)
             if (feat_is_wall(env.grid(*ai)))
-                return "";
+                return {"reason", ZhArgType::Text, "", "", true};
 
-        return "there are no nearby walls to construct a spike launcher in.";
+        return zh_message_arg("reason", "spell.reason.no_spike_walls");
     }
 
     case SPELL_DIAMOND_SAWBLADES:
         if (temp && diamond_sawblade_spots(false).empty())
-            return "there is no room to construct a sawblade.";
+            return zh_message_arg("reason", "spell.reason.no_sawblade_room");
         break;
 
     case SPELL_SURPRISING_CROCODILE:
         if (temp)
         {
             if (you.is_stationary())
-                return "you cannot be moved right now.";
+                return zh_message_arg("reason", "spell.reason.cannot_move_now");
             else if (!monster_habitable_grid(MONS_CROCODILE, you.pos()))
-                return "a crocodile could not survive beneath you.";
+                return zh_message_arg("reason", "spell.reason.crocodile_survival");
             else if (count_summons(&you, SPELL_SURPRISING_CROCODILE))
-                return "your pet crocodile is still here.";
+                return zh_message_arg("reason", "spell.reason.pet_crocodile_here");
         }
         break;
 
@@ -1589,26 +1611,30 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
         {
             if (!you.props.exists(PARAGON_WEAPON_KEY))
             {
-                return "you must imprint a weapon on your paragon first! "
-                       "(Use the Imprint Weapon ability)";
+                return zh_message_arg("reason", "spell.reason.imprint_weapon");
             }
 
             monster* paragon = find_player_paragon();
             if (paragon && paragon_charge_level(*paragon) == 0)
-                return "your paragon is already deployed, but not yet charged.";
+                return zh_message_arg("reason", "spell.reason.paragon_deployed");
         }
         break;
 
     case SPELL_FORTRESS_BLAST:
         if (temp && you.duration[DUR_FORTRESS_BLAST_TIMER])
-            return "you are already charging a Fortress Blast.";
+            return zh_message_arg("reason", "spell.reason.fortress_charging");
         break;
 
     default:
         break;
     }
 
-    return "";
+    return {"reason", ZhArgType::Text, "", "", true};
+}
+
+string spell_uselessness_reason(spell_type spell, bool temp, bool prevent, bool skip_casting_checks)
+{
+    return spell_uselessness_display_reason(spell, temp, prevent, skip_casting_checks).canonical;
 }
 
 /**

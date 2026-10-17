@@ -1,0 +1,5 @@
+# Luna translocation remaining messages review
+
+Audited `electric_charge_impossible_reason`, `valid_electric_charge_target`, and `get_electric_charge_landing_spot` in `native/crawl-ref/source/spl-transloc.cc`. The migration records each complete failure reason, including the single-hostile parent with typed `{monster:name}` and `{reason:text}`, the zero/multiple-hostile reasons, and typed terrain or monster cases. This uses new stable message IDs and does not rely on matching the old concatenated sentence.
+
+The remaining templates cover controlled blink and frog hop target prompts and rejection messages with complete parents per action verb, apport's singular/plural lines, the existing chaos confirmation, blinkbolt's away/closer restrictions, all eight gravity directions plus the source's `???` fallback, and the bestial pounce line. Source punctuation, capitalization, and distinct action wording were checked against the current call sites. All new IDs have oracle cases with typed sample values.

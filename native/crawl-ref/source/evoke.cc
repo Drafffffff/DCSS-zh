@@ -1026,6 +1026,8 @@ ZhArg cannot_evoke_item_display_reason(const item_def *item, bool temp, bool ide
         if (!form_unreason.canonical.empty())
         {
             form_unreason.canonical = lowercase_first(form_unreason.canonical);
+            if (!form_unreason.supported)
+                form_unreason.localized = form_unreason.canonical;
             return form_unreason;
         }
         return {"reason", ZhArgType::Text, "", "", true};

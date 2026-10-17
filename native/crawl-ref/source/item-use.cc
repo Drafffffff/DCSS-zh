@@ -5,6 +5,7 @@
 
 #include "AppHdr.h"
 #include "zh-message.h"
+#include "zh-display-name.h"
 
 #include "item-use.h"
 
@@ -3355,7 +3356,7 @@ bool invisibility_target_check(const char* prompt)
     return target.isValid && !target.isCancel;
 }
 
-string cannot_put_on_talisman_reason(const item_def& talisman, bool temp)
+ZhArg cannot_put_on_talisman_display_reason(const item_def& talisman, bool temp)
 {
     ASSERT(talisman.base_type == OBJ_TALISMANS);
 
@@ -3363,46 +3364,55 @@ string cannot_put_on_talisman_reason(const item_def& talisman, bool temp)
     {
         if (temp && you.skill(SK_SHAPESHIFTING) < 6)
         {
-            return "you lack the shapeshifting skill to coax this "
-                    "talisman into a stable form.";
+            return zh_message_arg("reason", "talisman.reason.unstable");
         }
         else if (species_apt(SK_SHAPESHIFTING) == UNUSABLE_SKILL)
-            return "you can never gain the skill to use this talisman.";
+            return zh_message_arg("reason", "talisman.reason.unusable_skill");
         else
-            return "";
+            return {"reason", ZhArgType::Text, "", "", true};
     }
 
     const transformation trans = form_for_talisman(talisman);
-    const string form_unreason = cant_transform_reason(trans, false, temp);
-    if (!form_unreason.empty())
-        return lowercase_first(form_unreason);
+    ZhArg form_unreason = cant_transform_display_reason(trans, false, temp);
+    if (!form_unreason.canonical.empty())
+    {
+        form_unreason.canonical = lowercase_first(form_unreason.canonical);
+        if (!form_unreason.supported)
+            form_unreason.localized = form_unreason.canonical;
+        return form_unreason;
+    }
 
     if (you.form != you.default_form && temp)
-        return "you need to leave your temporary form first.";
+        return zh_message_arg("reason", "talisman.reason.leave_form");
 
     if (trans == transformation::hive)
     {
         if (you_worship(GOD_OKAWARU))
-            return "you have forsworn all allies in Okawaru's name.";
+            return zh_message_arg("reason", "talisman.reason.okawaru_allies");
         if (you.get_mutation_level(MUT_NO_LOVE))
-            return "you are loveless.";
+            return zh_message_arg("reason", "talisman.reason.loveless");
     }
 
-    return "";
+    return {"reason", ZhArgType::Text, "", "", true};
+}
+
+string cannot_put_on_talisman_reason(const item_def& talisman, bool temp)
+{
+    return cannot_put_on_talisman_display_reason(talisman, temp).canonical;
 }
 
 bool use_talisman(item_def& talisman)
 {
-    string reason = cannot_put_on_talisman_reason(talisman);
-    if (!reason.empty())
+    const ZhArg reason = cannot_put_on_talisman_display_reason(talisman);
+    if (!reason.canonical.empty())
     {
-        mpr(reason);
+        mpr(ZhMessage{"", reason.canonical, reason.localized});
         return false;
     }
 
     if (talisman.pos != ITEM_IN_INVENTORY && !room_in_inventory(talisman))
     {
-        mpr("You can't carry that many items.");
+        mpr(zh_message("talisman.reason.cannot_carry"));
         return false;
     }
 
@@ -3415,8 +3425,11 @@ bool use_talisman(item_def& talisman)
                                                      TALISMAN_MEDUSA,
                                                      TALISMAN_SPORE);
 
-        mprf("%s responds to your shapeshifting skill and transforms into a %s!",
-             real_item.name(DESC_YOUR).c_str(), talisman_type_name(new_type).c_str());
+        item_def transformed = real_item;
+        transformed.sub_type = new_type;
+        mpr(zh_message("talisman.protean.transforms",
+            {zh_item_arg("item", real_item, DESC_YOUR),
+             zh_item_base_arg("form", transformed)}));
 
         real_item.sub_type = new_type;
         seen_item(real_item);
@@ -3430,7 +3443,7 @@ bool use_talisman(item_def& talisman)
         return false;
     if (transforming_is_unsafe(trans))
         return false;
-    if (!i_feel_safe(true) && !yesno("Still begin transforming?", true, 'n'))
+    if (!i_feel_safe(true) && !yesno(zh_message("talisman.confirm.begin_transform"), true, 'n'))
     {
         canned_msg(MSG_OK);
         return false;

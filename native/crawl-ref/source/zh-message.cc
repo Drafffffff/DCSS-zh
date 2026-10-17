@@ -227,7 +227,9 @@ ZhArg zh_message_arg(const std::string &key, const std::string &id,
     const ZhMessage value = zh_message(id, args);
     const bool supported = std::all_of(args.begin(), args.end(),
         [](const ZhArg &arg) { return arg.supported; });
-    return {key, ZhArgType::Text, value.canonical, value.localized, supported};
+    ZhArg result{key, ZhArgType::Text, value.canonical, value.localized, supported};
+    result.message_id = id;
+    return result;
 }
 
 ZhArg zh_message_list(const std::string &key, const std::vector<ZhArg> &items) {

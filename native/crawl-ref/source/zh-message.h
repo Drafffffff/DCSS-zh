@@ -9,6 +9,8 @@ struct ZhArg {
     ZhArgType type;
     std::string canonical, localized;
     bool supported;
+    // Stable identity for semantic decisions by parent views, never English matching.
+    std::string message_id;
     ZhArg() : type(ZhArgType::Text), supported(false) {}
     ZhArg(const std::string &k, ZhArgType t, const std::string &en,
           const std::string &zh, bool ok = true)

@@ -1,0 +1,57 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "spell.player.cannot_cast_reason",
+      "context": "法术详情：因理由无法施放法术",
+      "en": "\nYou cannot cast this spell because {reason}\n",
+      "zh": "\n你无法施放此法术，因为{reason}\n",
+      "params": {
+        "reason": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_player_spell_desc; cannot cast parent, fixed cast action"
+      }
+    },
+    {
+      "id": "spell.player.cannot_memorise_reason",
+      "context": "法术详情：因理由无法记忆法术",
+      "en": "\nYou cannot memorise this spell because {reason}\n",
+      "zh": "\n你无法记忆此法术，因为{reason}\n",
+      "params": {
+        "reason": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_player_spell_desc; cannot memorise parent, fixed memorise action"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "spell.player.cannot_cast_reason",
+      "args": {
+        "reason": {
+          "type": "text",
+          "canonical": "the path is blocked",
+          "localized": "道路受阻"
+        }
+      },
+      "canonical": "\nYou cannot cast this spell because the path is blocked\n",
+      "zh": "\n你无法施放此法术，因为道路受阻\n"
+    },
+    {
+      "id": "spell.player.cannot_memorise_reason",
+      "args": {
+        "reason": {
+          "type": "text",
+          "canonical": "the path is blocked",
+          "localized": "道路受阻"
+        }
+      },
+      "canonical": "\nYou cannot memorise this spell because the path is blocked\n",
+      "zh": "\n你无法记忆此法术，因为道路受阻\n"
+    }
+  ]
+}

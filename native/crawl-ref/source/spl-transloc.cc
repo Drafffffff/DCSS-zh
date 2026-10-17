@@ -266,31 +266,37 @@ spret spider_jump()
  * @param hitfunc       A hitfunc passed to the direction_chooser.
  * @return              True if a target was found; false if the player aborted.
  */
+enum class transloc_target_action { blink, hop };
+
 static bool _find_cblink_target(dist &target, bool safe_cancel,
-                                string verb, targeter *hitfunc = nullptr, bool physical = false)
+                                transloc_target_action action, targeter *hitfunc = nullptr, bool physical = false)
 {
+    const bool hopping = action == transloc_target_action::hop;
+    const string verb = hopping ? "hop" : "blink";
     while (true)
     {
         // query for location {dlb}:
         direction_chooser_args args;
         args.restricts = DIR_TARGET;
         args.needs_path = false;
-        args.top_prompt = uppercase_first(verb) + " to where?";
+        args.top_prompt = zh_message(hopping ? "transloc.target.hop.where"
+                                            : "transloc.target.blink.where").display();
         args.hitfunc = hitfunc;
         args.mode = TARG_NON_ACTOR;
         direction(target, args);
 
         if (crawl_state.seen_hups)
         {
-            mprf("Cancelling %s due to HUP.", verb.c_str());
+            mpr(zh_message(hopping ? "transloc.target.hop.hup"
+                                    : "transloc.target.blink.hup"));
             return false;
         }
 
         if (!target.isValid || target.target == you.pos())
         {
-            const string prompt =
-                "Are you sure you want to cancel this " + verb + "?";
-            if (!safe_cancel && !yesno(prompt.c_str(), false, 'n'))
+            const ZhMessage prompt = zh_message(hopping ? "transloc.target.hop.cancel"
+                                                        : "transloc.target.blink.cancel");
+            if (!safe_cancel && !yesno(prompt, false, 'n'))
             {
                 clear_messages();
                 continue;
@@ -303,33 +309,37 @@ static bool _find_cblink_target(dist &target, bool safe_cancel,
         const monster* beholder = you.get_beholder(target.target);
         if (beholder)
         {
-            mprf("You cannot %s away from %s!",
-                 verb.c_str(),
-                 beholder->name(DESC_THE, true).c_str());
+            ZhArg name = zh_monster_arg("monster", *beholder);
+            name.canonical = beholder->name(DESC_THE, true);
+            mpr(zh_message(hopping ? "transloc.target.hop.away"
+                                   : "transloc.target.blink.away", {name}));
             continue;
         }
 
         const monster* fearmonger = you.get_fearmonger(target.target);
         if (fearmonger)
         {
-            mprf("You cannot %s closer to %s!",
-                 verb.c_str(),
-                 fearmonger->name(DESC_THE, true).c_str());
+            ZhArg name = zh_monster_arg("monster", *fearmonger);
+            name.canonical = fearmonger->name(DESC_THE, true);
+            mpr(zh_message(hopping ? "transloc.target.hop.closer"
+                                   : "transloc.target.blink.closer", {name}));
             continue;
         }
 
         if (cell_is_solid(target.target))
         {
             clear_messages();
-            mprf("You can't %s into that!", verb.c_str());
+            mpr(zh_message(hopping ? "transloc.target.hop.solid"
+                                    : "transloc.target.blink.solid"));
             continue;
         }
 
         monster* target_mons = monster_at(target.target);
         if (target_mons && you.can_see(*target_mons))
         {
-            mprf("You can't %s onto %s!", verb.c_str(),
-                 target_mons->name(DESC_THE).c_str());
+            mpr(zh_message(hopping ? "transloc.target.hop.occupied"
+                                    : "transloc.target.blink.occupied",
+                           {zh_monster_arg("monster", *target_mons)}));
             continue;
         }
 
@@ -369,7 +379,7 @@ void wizard_blink()
     tgt.obeys_mesmerise = false;
     args.hitfunc = &tgt;
 
-    args.top_prompt = "Blink to where?";
+    args.top_prompt = zh_message("transloc.target.blink.where").display();
     dist beam;
     direction(beam, args);
 
@@ -501,7 +511,7 @@ spret frog_hop(bool fail, dist *target)
 
     while (true)
     {
-        if (!_find_cblink_target(*target, true, "hop", &tgt, true))
+        if (!_find_cblink_target(*target, true, transloc_target_action::hop, &tgt, true))
             return spret::abort;
 
         if (grid_distance(you.pos(), target->target) > hop_range)
@@ -535,33 +545,46 @@ spret frog_hop(bool fail, dist *target)
     return spret::success; // TODO
 }
 
-string electric_charge_impossible_reason(bool allow_safe_monsters)
+ZhArg electric_charge_impossible_display_reason(bool allow_safe_monsters)
 {
-    // General movement checks are handled elsewhere.
+    // Every child comes from the same target/landing decision as the engine.
     int nearby_mons = 0;
-    string example_reason = "";
-    string fail_reason;
+    ZhArg example_reason{"reason", ZhArgType::Text, "", "", true};
     for (monster_near_iterator mi(&you); mi; ++mi)
     {
         ++nearby_mons;
-        if (get_electric_charge_landing_spot(you, mi->pos(), &fail_reason).origin())
+        ZhArg fail_reason{"reason", ZhArgType::Text, "", "", true};
+        if (get_electric_charge_landing_spot(you, mi->pos(), nullptr, &fail_reason).origin())
         {
-            example_reason = make_stringf("you can't charge at %s because %s",
-                                          mi->name(DESC_THE).c_str(),
-                                          fail_reason.c_str());
+            example_reason = zh_message_arg("reason", "transloc.charge.reason.target",
+                {zh_monster_arg("monster", **mi), fail_reason});
+            // The old engine API lowercases the complete single-target reason.
+            example_reason.canonical = lowercase_string(example_reason.canonical);
+            if (!example_reason.supported)
+                example_reason.localized = example_reason.canonical;
         }
-        else if (allow_safe_monsters
-                 || !mons_is_safe(*mi, false)
+        else if (allow_safe_monsters || !mons_is_safe(*mi, false)
                  || mons_class_is_test(mi->type))
-        {
-            return "";
-        }
+            return {"reason", ZhArgType::Text, "", "", true};
     }
     if (!nearby_mons)
-        return "you can't see anything to charge at.";
+        return zh_message_arg("reason", "transloc.charge.reason.none");
     if (nearby_mons == 1)
-        return lowercase_string(example_reason);
-    return "there's one issue or another keeping you from charging at any nearby foe.";
+        return example_reason;
+    return zh_message_arg("reason", "transloc.charge.reason.many");
+}
+
+string electric_charge_impossible_reason(bool allow_safe_monsters)
+{
+    return electric_charge_impossible_display_reason(allow_safe_monsters).canonical;
+}
+
+static void _charge_failure(const ZhArg &reason, string *canonical, ZhArg *display)
+{
+    if (canonical)
+        *canonical = reason.canonical;
+    if (display)
+        *display = reason;
 }
 
 string movement_impossible_reason()
@@ -573,32 +596,31 @@ string movement_impossible_reason()
     return "";
 }
 
-bool valid_electric_charge_target(const actor& agent, coord_def target, string* fail_reason)
+bool valid_electric_charge_target(const actor& agent, coord_def target, string* fail_reason,
+                                  ZhArg* display_reason)
 {
-    string msg;
-
     const actor* act = actor_at(target);
 
     // Target must be in range and non-adjacent
     if (agent.pos() == target)
     {
-        if (fail_reason)
-            *fail_reason = "You can't charge at yourself.";
+        _charge_failure(zh_message_arg("reason", "transloc.charge.reason.self"),
+                        fail_reason, display_reason);
 
         return false;
     }
     else if (adjacent(agent.pos(), target))
     {
-        if (fail_reason)
-            *fail_reason = "You're already next to there.";
+        _charge_failure(zh_message_arg("reason", "transloc.charge.reason.adjacent"),
+                        fail_reason, display_reason);
 
         return false;
     }
     else if (grid_distance(agent.pos(), target)
              > spell_range(SPELL_ELECTRIC_CHARGE, &agent))
     {
-        if (fail_reason)
-            *fail_reason = "That's out of range!";
+        _charge_failure(zh_message_arg("reason", "transloc.charge.reason.out_of_range"),
+                        fail_reason, display_reason);
 
         return false;
     }
@@ -608,8 +630,8 @@ bool valid_electric_charge_target(const actor& agent, coord_def target, string* 
         || agent.is_player() && act->is_monster()
            && fedhas_passthrough(act->as_monster()))
     {
-        if (fail_reason)
-            *fail_reason = "You can't see anything there to charge at.";
+        _charge_failure(zh_message_arg("reason", "transloc.charge.reason.unseen"),
+                        fail_reason, display_reason);
 
         return false;
     }
@@ -617,8 +639,8 @@ bool valid_electric_charge_target(const actor& agent, coord_def target, string* 
     // No charging at friends or firewood.
     if (mons_aligned(act, &agent) || act->is_firewood())
     {
-        if (fail_reason)
-            *fail_reason = "Why would you want to do that?";
+        _charge_failure(zh_message_arg("reason", "transloc.charge.reason.ally"),
+                        fail_reason, display_reason);
 
         return false;
     }
@@ -630,17 +652,17 @@ bool valid_electric_charge_target(const actor& agent, coord_def target, string* 
 // Returns (0, 0) if this charge is invalid for any reason.
 // (fail_reason will get set to an appropriate error message)
 coord_def get_electric_charge_landing_spot(const actor& agent, coord_def target,
-                                           string* fail_reason)
+                                           string* fail_reason, ZhArg* display_reason)
 {
     // Double-check that this is a valid thing to try to charge at at all
-    if (!valid_electric_charge_target(agent, target, fail_reason))
+    if (!valid_electric_charge_target(agent, target, fail_reason, display_reason))
         return coord_def(0, 0);
 
     ray_def ray;
     if (!find_ray(agent.pos(), target, ray, opc_solid))
     {
-        if (fail_reason)
-            *fail_reason = "There's something in the way.";
+        _charge_failure(zh_message_arg("reason", "transloc.charge.reason.blocked"),
+                        fail_reason, display_reason);
 
         return coord_def(0, 0);
     }
@@ -655,12 +677,16 @@ coord_def get_electric_charge_landing_spot(const actor& agent, coord_def target,
             if (agent.is_player() ? is_feat_dangerous(env.grid(ray.pos()))
                                   : !monster_habitable_grid(agent.as_monster(), ray.pos()))
             {
-                if (fail_reason)
+                string english, plain;
                 {
-                    *fail_reason = "There's "
-                                   + feature_description_at(ray.pos())
-                                   + " in the way.";
+                    ZhTranslationPause canonical;
+                    english = feature_description_at(ray.pos());
+                    plain = feature_description(env.grid(ray.pos()), NUM_TRAPS, "", DESC_PLAIN);
                 }
+                ZhArg terrain = zh_glossary_name("terrain", "terrain", plain);
+                terrain.canonical = english;
+                _charge_failure(zh_message_arg("reason", "transloc.charge.reason.terrain_blocked",
+                                               {terrain}), fail_reason, display_reason);
 
                 return coord_def(0, 0);
             }
@@ -668,11 +694,9 @@ coord_def get_electric_charge_landing_spot(const actor& agent, coord_def target,
             const monster* mon = monster_at(ray.pos());
             if (mon && agent.can_see(*mon) && mons_class_is_stationary(mon->type))
             {
-                if (fail_reason)
-                {
-                    *fail_reason = mon->name(DESC_THE)
-                                   + " is immovably fixed in your path.";
-                }
+                _charge_failure(zh_message_arg("reason", "transloc.charge.reason.stationary",
+                                               {zh_monster_arg("monster", *mon)}),
+                                fail_reason, display_reason);
 
                 return coord_def(0, 0);
             }
@@ -683,11 +707,10 @@ coord_def get_electric_charge_landing_spot(const actor& agent, coord_def target,
                 const monster* beholder = you.get_beholder(ray.pos());
                 if (beholder)
                 {
-                    if (fail_reason)
-                    {
-                        *fail_reason = make_stringf("You cannot charge away from %s!",
-                                                    beholder->name(DESC_THE, true).c_str());
-                    }
+                    ZhArg monster_name = zh_monster_arg("monster", *beholder);
+                    monster_name.canonical = beholder->name(DESC_THE, true);
+                    _charge_failure(zh_message_arg("reason", "transloc.charge.reason.beholder",
+                                                   {monster_name}), fail_reason, display_reason);
 
                     return coord_def(0, 0);
                 }
@@ -695,11 +718,10 @@ coord_def get_electric_charge_landing_spot(const actor& agent, coord_def target,
                 const monster* fearmonger = you.get_fearmonger(ray.pos());
                 if (fearmonger)
                 {
-                    if (fail_reason)
-                    {
-                        *fail_reason = make_stringf("You cannot charge closer to %s!",
-                                                    fearmonger->name(DESC_THE, true).c_str());
-                    }
+                    ZhArg monster_name = zh_monster_arg("monster", *fearmonger);
+                    monster_name.canonical = fearmonger->name(DESC_THE, true);
+                    _charge_failure(zh_message_arg("reason", "transloc.charge.reason.fearmonger",
+                                                   {monster_name}), fail_reason, display_reason);
 
                     return coord_def(0, 0);
                 }
@@ -913,7 +935,7 @@ spret controlled_blink(bool safe_cancel, dist *target)
     if (orb_limits_translocation())
     {
         targeter_hop tgt(max(1, you.current_vision - 2), false);
-        if (!_find_cblink_target(*target, safe_cancel, "blink", &tgt))
+        if (!_find_cblink_target(*target, safe_cancel, transloc_target_action::blink, &tgt))
             return spret::abort;
         target->target = _fuzz_blink_destination(target->target);
         mpr(zh_message("shared.log.blink.orb_interference"), MSGCH_ORB);
@@ -922,7 +944,7 @@ spret controlled_blink(bool safe_cancel, dist *target)
     {
         targeter_smite tgt(&you, LOS_RADIUS);
         tgt.obeys_mesmerise = true;
-        if (!_find_cblink_target(*target, safe_cancel, "blink", &tgt))
+        if (!_find_cblink_target(*target, safe_cancel, transloc_target_action::blink, &tgt))
             return spret::abort;
     }
 
@@ -1662,8 +1684,8 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
     dprf("Apport: new spot is %d/%d", new_spot.x, new_spot.y);
 
     // Actually move the item.
-    mprf("Yoink! You pull the item%s towards yourself.",
-         (item.quantity > 1) ? "s" : "");
+    mpr(zh_message(item.quantity > 1 ? "transloc.apport.many"
+                                    : "transloc.apport.one"));
 
     move_top_item(where, new_spot);
 
@@ -2035,8 +2057,7 @@ spret word_of_chaos(int pow, bool fail)
     vector<monster *> targets = find_chaos_targets();
     if (visible_targets.empty())
     {
-        if (!yesno("You cannot see any enemies that you can affect. Speak a "
-                   "word of chaos anyway?", true, 'n'))
+        if (!yesno(zh_message("transloc.chaos.confirm"), true, 'n'))
         {
             canned_msg(MSG_OK);
             return spret::abort;
@@ -2093,16 +2114,18 @@ spret blinkbolt(int power, bolt &beam, bool fail)
     const monster* beholder = you.get_beholder(beam.target);
     if (beholder)
     {
-        mprf("You cannot blinkbolt away from %s!",
-            beholder->name(DESC_THE, true).c_str());
+        ZhArg name = zh_monster_arg("monster", *beholder);
+        name.canonical = beholder->name(DESC_THE, true);
+        mpr(zh_message("transloc.blinkbolt.away", {name}));
         return spret::abort;
     }
 
     const monster* fearmonger = you.get_fearmonger(beam.target);
     if (fearmonger)
     {
-        mprf("You cannot blinkbolt closer to %s!",
-            fearmonger->name(DESC_THE, true).c_str());
+        ZhArg name = zh_monster_arg("monster", *fearmonger);
+        name.canonical = fearmonger->name(DESC_THE, true);
+        mpr(zh_message("transloc.blinkbolt.closer", {name}));
         return spret::abort;
     }
 
@@ -2386,26 +2409,25 @@ spret cast_gavotte(int pow, const coord_def dir, bool fail)
 
     fail_check();
 
-    // XXX: Surely there's a better way to do this
-    string dir_msg = "???";
+    // Select a complete message from the direction, never from rendered text.
+    const char *direction_message = "transloc.gavotte.unknown";
     if (dir.x == 0 && dir.y == -1)
-        dir_msg = "north";
+        direction_message = "transloc.gavotte.north";
     else if (dir.x == 0 && dir.y == 1)
-        dir_msg = "south";
+        direction_message = "transloc.gavotte.south";
     else if (dir.x == -1 && dir.y == 0)
-        dir_msg = "west";
+        direction_message = "transloc.gavotte.west";
     else if (dir.x == 1 && dir.y == 0)
-        dir_msg = "east";
+        direction_message = "transloc.gavotte.east";
     else if (dir.x == -1 && dir.y == -1)
-        dir_msg = "northwest";
+        direction_message = "transloc.gavotte.northwest";
     else if (dir.x == 1 && dir.y == -1)
-        dir_msg = "northeast";
+        direction_message = "transloc.gavotte.northeast";
     else if (dir.x == -1 && dir.y == 1)
-        dir_msg = "southwest";
+        direction_message = "transloc.gavotte.southwest";
     else if (dir.x == 1 && dir.y == 1)
-        dir_msg = "southeast";
-
-    mprf("Gravity reorients to the %s!", dir_msg.c_str());
+        direction_message = "transloc.gavotte.southeast";
+    mpr(zh_message(direction_message));
 
     if (you.stasis())
         canned_msg(MSG_STRANGE_STASIS);
@@ -2584,7 +2606,7 @@ spret do_bestial_takedown(coord_def target)
     if (monster_at(landing))
         _displace_charge_blocker(you, landing);
 
-    mprf("You pounce on %s with bestial fury!", targ->name(DESC_THE).c_str());
+    mpr(zh_message("transloc.bestial.pounce", {zh_monster_arg("monster", *targ)}));
 
     you.move_to(landing, MV_DELIBERATE, true);
 

@@ -3,7 +3,7 @@
 import json,subprocess,tempfile
 from pathlib import Path
 from compile_message_ids import ROOT,SRC,LOC,compile_catalog
-messages=compile_catalog();q=lambda s:json.dumps(s,ensure_ascii=False)
+messages=compile_catalog();q=lambda s:json.dumps(s,ensure_ascii=False).replace('?', r'\?')
 types={'text':'Text','name':'Name','integer':'Integer','number':'Number','key':'Key','colour':'Colour','key_markup':'KeyMarkup'}
 code='''#include "zh-message.h"
 #include "zh-localization.h"

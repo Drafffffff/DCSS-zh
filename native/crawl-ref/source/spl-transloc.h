@@ -3,6 +3,7 @@
 #include "externs.h"
 #include "spl-cast.h"
 
+struct ZhArg;
 class actor;
 class dist;
 struct dice_def;
@@ -22,6 +23,7 @@ spret spider_jump();
 int frog_hop_range();
 spret frog_hop(bool fail, dist *target = nullptr);
 
+ZhArg electric_charge_impossible_display_reason(bool allow_safe_monsters);
 string electric_charge_impossible_reason(bool allow_safe_monsters);
 spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target);
 bool find_charge_target(vector<coord_def> &target_path, int max_range,
@@ -30,10 +32,12 @@ string movement_impossible_reason();
 
 coord_def get_electric_charge_landing_spot(const actor& agent,
                                            coord_def target,
-                                           string* fail_reason = nullptr);
+                                           string* fail_reason = nullptr,
+                                           ZhArg* display_reason = nullptr);
 
 bool valid_electric_charge_target(const actor& agent, coord_def target,
-                                  string* fail_reason = nullptr);
+                                  string* fail_reason = nullptr,
+                                  ZhArg* display_reason = nullptr);
 
 bool hostile_teleport_is_possible();
 bool hostile_teleport_player(monster* mon_source = nullptr);

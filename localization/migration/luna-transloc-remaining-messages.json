@@ -1,0 +1,839 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "transloc.charge.reason.target",
+      "context": "电流冲锋失败理由：目标及具体阻碍",
+      "en": "you can't charge at {monster} because {reason}",
+      "zh": "你无法冲向{monster}，因为{reason}",
+      "params": {
+        "monster": "name",
+        "reason": "text"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "electric_charge_impossible_reason; one nearby monster and example_reason"
+      }
+    },
+    {
+      "id": "transloc.charge.reason.none",
+      "context": "电流冲锋失败理由",
+      "en": "you can't see anything to charge at.",
+      "zh": "你看不到任何可以冲锋的目标。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "electric_charge_impossible_reason; nearby_mons == 0"
+      }
+    },
+    {
+      "id": "transloc.charge.reason.many",
+      "context": "电流冲锋失败理由",
+      "en": "there's one issue or another keeping you from charging at any nearby foe.",
+      "zh": "种种问题使你无法冲向附近任何敌人。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "electric_charge_impossible_reason; nearby_mons > 1"
+      }
+    },
+    {
+      "id": "transloc.charge.reason.self",
+      "context": "电流冲锋失败理由",
+      "en": "You can't charge at yourself.",
+      "zh": "你不能冲向自己。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "valid_electric_charge_target; agent.pos() == target"
+      }
+    },
+    {
+      "id": "transloc.charge.reason.adjacent",
+      "context": "电流冲锋失败理由",
+      "en": "You're already next to there.",
+      "zh": "你已经在目标旁边了。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "valid_electric_charge_target; adjacent(agent.pos(), target)"
+      }
+    },
+    {
+      "id": "transloc.charge.reason.out_of_range",
+      "context": "电流冲锋失败理由",
+      "en": "That's out of range!",
+      "zh": "目标超出范围！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "valid_electric_charge_target; grid_distance exceeds spell range"
+      }
+    },
+    {
+      "id": "transloc.charge.reason.unseen",
+      "context": "电流冲锋失败理由",
+      "en": "You can't see anything there to charge at.",
+      "zh": "你看不到那里有可以冲锋的目标。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "valid_electric_charge_target; no visible target"
+      }
+    },
+    {
+      "id": "transloc.charge.reason.ally",
+      "context": "电流冲锋失败理由",
+      "en": "Why would you want to do that?",
+      "zh": "你为什么要这么做？",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "valid_electric_charge_target; aligned actor or firewood"
+      }
+    },
+    {
+      "id": "transloc.charge.reason.blocked",
+      "context": "电流冲锋失败理由",
+      "en": "There's something in the way.",
+      "zh": "有东西挡住了去路。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "get_electric_charge_landing_spot; find_ray fails"
+      }
+    },
+    {
+      "id": "transloc.charge.reason.terrain_blocked",
+      "context": "电流冲锋失败理由",
+      "en": "There's {terrain} in the way.",
+      "zh": "有{terrain}挡住了去路。",
+      "params": {
+        "terrain": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "get_electric_charge_landing_spot; dangerous landing feature_description_at"
+      }
+    },
+    {
+      "id": "transloc.charge.reason.stationary",
+      "context": "电流冲锋失败理由",
+      "en": "{monster} is immovably fixed in your path.",
+      "zh": "{monster}被牢牢固定在你的路线上。",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "get_electric_charge_landing_spot; stationary monster at landing square"
+      }
+    },
+    {
+      "id": "transloc.charge.reason.beholder",
+      "context": "电流冲锋失败理由",
+      "en": "You cannot charge away from {monster}!",
+      "zh": "你无法冲锋远离{monster}！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "get_electric_charge_landing_spot; beholder"
+      }
+    },
+    {
+      "id": "transloc.charge.reason.fearmonger",
+      "context": "电流冲锋失败理由",
+      "en": "You cannot charge closer to {monster}!",
+      "zh": "你无法冲锋接近{monster}！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "get_electric_charge_landing_spot; fearmonger"
+      }
+    },
+    {
+      "id": "transloc.target.blink.where",
+      "context": "Blink目标选择提示",
+      "en": "Blink to where?",
+      "zh": "Blink到哪里？",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; verb=blink"
+      }
+    },
+    {
+      "id": "transloc.target.blink.cancel",
+      "context": "Blink目标选择取消确认",
+      "en": "Are you sure you want to cancel this blink?",
+      "zh": "确定要取消这次Blink吗？",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; invalid/cancel target and verb=blink"
+      }
+    },
+    {
+      "id": "transloc.target.blink.hup",
+      "context": "Blink目标选择中断提示",
+      "en": "Cancelling blink due to HUP.",
+      "zh": "因收到挂断信号，取消Blink。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; seen_hups and verb=blink"
+      }
+    },
+    {
+      "id": "transloc.target.blink.away",
+      "context": "Blink目标受注视限制",
+      "en": "You cannot blink away from {monster}!",
+      "zh": "你无法Blink远离{monster}！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; beholder and verb=blink"
+      }
+    },
+    {
+      "id": "transloc.target.blink.closer",
+      "context": "Blink目标受恐惧限制",
+      "en": "You cannot blink closer to {monster}!",
+      "zh": "你无法Blink接近{monster}！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; fearmonger and verb=blink"
+      }
+    },
+    {
+      "id": "transloc.target.blink.solid",
+      "context": "Blink目标为实心地形",
+      "en": "You can't blink into that!",
+      "zh": "你无法Blink进那个东西里！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; cell_is_solid and verb=blink"
+      }
+    },
+    {
+      "id": "transloc.target.blink.occupied",
+      "context": "Blink目标被可见怪物占据",
+      "en": "You can't blink onto {monster}!",
+      "zh": "你无法Blink到{monster}所在的位置！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; visible target monster and verb=blink"
+      }
+    },
+    {
+      "id": "transloc.target.hop.where",
+      "context": "Hop目标选择提示",
+      "en": "Hop to where?",
+      "zh": "Hop到哪里？",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; verb=hop"
+      }
+    },
+    {
+      "id": "transloc.target.hop.cancel",
+      "context": "Hop目标选择取消确认",
+      "en": "Are you sure you want to cancel this hop?",
+      "zh": "确定要取消这次Hop吗？",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; invalid/cancel target and verb=hop"
+      }
+    },
+    {
+      "id": "transloc.target.hop.hup",
+      "context": "Hop目标选择中断提示",
+      "en": "Cancelling hop due to HUP.",
+      "zh": "因收到挂断信号，取消Hop。",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; seen_hups and verb=hop"
+      }
+    },
+    {
+      "id": "transloc.target.hop.away",
+      "context": "Hop目标受注视限制",
+      "en": "You cannot hop away from {monster}!",
+      "zh": "你无法Hop远离{monster}！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; beholder and verb=hop"
+      }
+    },
+    {
+      "id": "transloc.target.hop.closer",
+      "context": "Hop目标受恐惧限制",
+      "en": "You cannot hop closer to {monster}!",
+      "zh": "你无法Hop接近{monster}！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; fearmonger and verb=hop"
+      }
+    },
+    {
+      "id": "transloc.target.hop.solid",
+      "context": "Hop目标为实心地形",
+      "en": "You can't hop into that!",
+      "zh": "你无法Hop进那个东西里！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; cell_is_solid and verb=hop"
+      }
+    },
+    {
+      "id": "transloc.target.hop.occupied",
+      "context": "Hop目标被可见怪物占据",
+      "en": "You can't hop onto {monster}!",
+      "zh": "你无法Hop到{monster}所在的位置！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "_find_cblink_target; visible target monster and verb=hop"
+      }
+    },
+    {
+      "id": "transloc.apport.one",
+      "context": "牵引物品日志：单件",
+      "en": "Yoink! You pull the item towards yourself.",
+      "zh": "嗖！你将物品拉向自己！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_apportation; item.quantity == 1"
+      }
+    },
+    {
+      "id": "transloc.apport.many",
+      "context": "牵引物品日志：多件",
+      "en": "Yoink! You pull the items towards yourself.",
+      "zh": "嗖！你将这些物品拉向自己！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_apportation; item.quantity > 1"
+      }
+    },
+    {
+      "id": "transloc.chaos.confirm",
+      "context": "混沌之词施放确认",
+      "en": "You cannot see any enemies that you can affect. Speak a word of chaos anyway?",
+      "zh": "你看不到任何能影响到的敌人。仍要说出混沌之词吗？",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "word_of_chaos; visible_targets.empty confirmation"
+      }
+    },
+    {
+      "id": "transloc.blinkbolt.away",
+      "context": "闪电冲锋方向限制",
+      "en": "You cannot blinkbolt away from {monster}!",
+      "zh": "你无法用闪电冲锋远离{monster}！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "blinkbolt; cannot blinkbolt away from target"
+      }
+    },
+    {
+      "id": "transloc.blinkbolt.closer",
+      "context": "闪电冲锋方向限制",
+      "en": "You cannot blinkbolt closer to {monster}!",
+      "zh": "你无法用闪电冲锋接近{monster}！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "blinkbolt; cannot blinkbolt closer to target"
+      }
+    },
+    {
+      "id": "transloc.gavotte.north",
+      "context": "盖尔斯舞步重定向重力方向",
+      "en": "Gravity reorients to the north!",
+      "zh": "重力重新朝向北！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_gells_gavotte; direction vector maps to north, fallback ???"
+      }
+    },
+    {
+      "id": "transloc.gavotte.south",
+      "context": "盖尔斯舞步重定向重力方向",
+      "en": "Gravity reorients to the south!",
+      "zh": "重力重新朝向南！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_gells_gavotte; direction vector maps to south, fallback ???"
+      }
+    },
+    {
+      "id": "transloc.gavotte.east",
+      "context": "盖尔斯舞步重定向重力方向",
+      "en": "Gravity reorients to the east!",
+      "zh": "重力重新朝向东！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_gells_gavotte; direction vector maps to east, fallback ???"
+      }
+    },
+    {
+      "id": "transloc.gavotte.west",
+      "context": "盖尔斯舞步重定向重力方向",
+      "en": "Gravity reorients to the west!",
+      "zh": "重力重新朝向西！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_gells_gavotte; direction vector maps to west, fallback ???"
+      }
+    },
+    {
+      "id": "transloc.gavotte.northeast",
+      "context": "盖尔斯舞步重定向重力方向",
+      "en": "Gravity reorients to the northeast!",
+      "zh": "重力重新朝向东北！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_gells_gavotte; direction vector maps to northeast, fallback ???"
+      }
+    },
+    {
+      "id": "transloc.gavotte.northwest",
+      "context": "盖尔斯舞步重定向重力方向",
+      "en": "Gravity reorients to the northwest!",
+      "zh": "重力重新朝向西北！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_gells_gavotte; direction vector maps to northwest, fallback ???"
+      }
+    },
+    {
+      "id": "transloc.gavotte.southeast",
+      "context": "盖尔斯舞步重定向重力方向",
+      "en": "Gravity reorients to the southeast!",
+      "zh": "重力重新朝向东南！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_gells_gavotte; direction vector maps to southeast, fallback ???"
+      }
+    },
+    {
+      "id": "transloc.gavotte.southwest",
+      "context": "盖尔斯舞步重定向重力方向",
+      "en": "Gravity reorients to the southwest!",
+      "zh": "重力重新朝向西南！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_gells_gavotte; direction vector maps to southwest, fallback ???"
+      }
+    },
+    {
+      "id": "transloc.gavotte.unknown",
+      "context": "盖尔斯舞步重定向重力方向",
+      "en": "Gravity reorients to the ???!",
+      "zh": "重力重新朝向未知方位！",
+      "params": {},
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "cast_gells_gavotte; direction vector fallback ???"
+      }
+    },
+    {
+      "id": "transloc.bestial.pounce",
+      "context": "兽性扑击日志",
+      "en": "You pounce on {monster} with bestial fury!",
+      "zh": "你带着野性的狂怒扑向{monster}！",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "spl-transloc.cc",
+        "anchor": "do_bestial_takedown; targ->name(DESC_THE)"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "transloc.charge.reason.target",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        },
+        "reason": {
+          "type": "text",
+          "canonical": "the path is blocked",
+          "localized": "道路受阻"
+        }
+      },
+      "canonical": "you can't charge at the orc because the path is blocked",
+      "zh": "你无法冲向兽人，因为道路受阻"
+    },
+    {
+      "id": "transloc.charge.reason.none",
+      "args": {},
+      "canonical": "you can't see anything to charge at.",
+      "zh": "你看不到任何可以冲锋的目标。"
+    },
+    {
+      "id": "transloc.charge.reason.many",
+      "args": {},
+      "canonical": "there's one issue or another keeping you from charging at any nearby foe.",
+      "zh": "种种问题使你无法冲向附近任何敌人。"
+    },
+    {
+      "id": "transloc.charge.reason.self",
+      "args": {},
+      "canonical": "You can't charge at yourself.",
+      "zh": "你不能冲向自己。"
+    },
+    {
+      "id": "transloc.charge.reason.adjacent",
+      "args": {},
+      "canonical": "You're already next to there.",
+      "zh": "你已经在目标旁边了。"
+    },
+    {
+      "id": "transloc.charge.reason.out_of_range",
+      "args": {},
+      "canonical": "That's out of range!",
+      "zh": "目标超出范围！"
+    },
+    {
+      "id": "transloc.charge.reason.unseen",
+      "args": {},
+      "canonical": "You can't see anything there to charge at.",
+      "zh": "你看不到那里有可以冲锋的目标。"
+    },
+    {
+      "id": "transloc.charge.reason.ally",
+      "args": {},
+      "canonical": "Why would you want to do that?",
+      "zh": "你为什么要这么做？"
+    },
+    {
+      "id": "transloc.charge.reason.blocked",
+      "args": {},
+      "canonical": "There's something in the way.",
+      "zh": "有东西挡住了去路。"
+    },
+    {
+      "id": "transloc.charge.reason.terrain_blocked",
+      "args": {
+        "terrain": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "There's the orc in the way.",
+      "zh": "有兽人挡住了去路。"
+    },
+    {
+      "id": "transloc.charge.reason.stationary",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "the orc is immovably fixed in your path.",
+      "zh": "兽人被牢牢固定在你的路线上。"
+    },
+    {
+      "id": "transloc.charge.reason.beholder",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You cannot charge away from the orc!",
+      "zh": "你无法冲锋远离兽人！"
+    },
+    {
+      "id": "transloc.charge.reason.fearmonger",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You cannot charge closer to the orc!",
+      "zh": "你无法冲锋接近兽人！"
+    },
+    {
+      "id": "transloc.target.blink.where",
+      "args": {},
+      "canonical": "Blink to where?",
+      "zh": "Blink到哪里？"
+    },
+    {
+      "id": "transloc.target.blink.cancel",
+      "args": {},
+      "canonical": "Are you sure you want to cancel this blink?",
+      "zh": "确定要取消这次Blink吗？"
+    },
+    {
+      "id": "transloc.target.blink.hup",
+      "args": {},
+      "canonical": "Cancelling blink due to HUP.",
+      "zh": "因收到挂断信号，取消Blink。"
+    },
+    {
+      "id": "transloc.target.blink.away",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You cannot blink away from the orc!",
+      "zh": "你无法Blink远离兽人！"
+    },
+    {
+      "id": "transloc.target.blink.closer",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You cannot blink closer to the orc!",
+      "zh": "你无法Blink接近兽人！"
+    },
+    {
+      "id": "transloc.target.blink.solid",
+      "args": {},
+      "canonical": "You can't blink into that!",
+      "zh": "你无法Blink进那个东西里！"
+    },
+    {
+      "id": "transloc.target.blink.occupied",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You can't blink onto the orc!",
+      "zh": "你无法Blink到兽人所在的位置！"
+    },
+    {
+      "id": "transloc.target.hop.where",
+      "args": {},
+      "canonical": "Hop to where?",
+      "zh": "Hop到哪里？"
+    },
+    {
+      "id": "transloc.target.hop.cancel",
+      "args": {},
+      "canonical": "Are you sure you want to cancel this hop?",
+      "zh": "确定要取消这次Hop吗？"
+    },
+    {
+      "id": "transloc.target.hop.hup",
+      "args": {},
+      "canonical": "Cancelling hop due to HUP.",
+      "zh": "因收到挂断信号，取消Hop。"
+    },
+    {
+      "id": "transloc.target.hop.away",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You cannot hop away from the orc!",
+      "zh": "你无法Hop远离兽人！"
+    },
+    {
+      "id": "transloc.target.hop.closer",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You cannot hop closer to the orc!",
+      "zh": "你无法Hop接近兽人！"
+    },
+    {
+      "id": "transloc.target.hop.solid",
+      "args": {},
+      "canonical": "You can't hop into that!",
+      "zh": "你无法Hop进那个东西里！"
+    },
+    {
+      "id": "transloc.target.hop.occupied",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You can't hop onto the orc!",
+      "zh": "你无法Hop到兽人所在的位置！"
+    },
+    {
+      "id": "transloc.apport.one",
+      "args": {},
+      "canonical": "Yoink! You pull the item towards yourself.",
+      "zh": "嗖！你将物品拉向自己！"
+    },
+    {
+      "id": "transloc.apport.many",
+      "args": {},
+      "canonical": "Yoink! You pull the items towards yourself.",
+      "zh": "嗖！你将这些物品拉向自己！"
+    },
+    {
+      "id": "transloc.chaos.confirm",
+      "args": {},
+      "canonical": "You cannot see any enemies that you can affect. Speak a word of chaos anyway?",
+      "zh": "你看不到任何能影响到的敌人。仍要说出混沌之词吗？"
+    },
+    {
+      "id": "transloc.blinkbolt.away",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You cannot blinkbolt away from the orc!",
+      "zh": "你无法用闪电冲锋远离兽人！"
+    },
+    {
+      "id": "transloc.blinkbolt.closer",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You cannot blinkbolt closer to the orc!",
+      "zh": "你无法用闪电冲锋接近兽人！"
+    },
+    {
+      "id": "transloc.gavotte.north",
+      "args": {},
+      "canonical": "Gravity reorients to the north!",
+      "zh": "重力重新朝向北！"
+    },
+    {
+      "id": "transloc.gavotte.south",
+      "args": {},
+      "canonical": "Gravity reorients to the south!",
+      "zh": "重力重新朝向南！"
+    },
+    {
+      "id": "transloc.gavotte.east",
+      "args": {},
+      "canonical": "Gravity reorients to the east!",
+      "zh": "重力重新朝向东！"
+    },
+    {
+      "id": "transloc.gavotte.west",
+      "args": {},
+      "canonical": "Gravity reorients to the west!",
+      "zh": "重力重新朝向西！"
+    },
+    {
+      "id": "transloc.gavotte.northeast",
+      "args": {},
+      "canonical": "Gravity reorients to the northeast!",
+      "zh": "重力重新朝向东北！"
+    },
+    {
+      "id": "transloc.gavotte.northwest",
+      "args": {},
+      "canonical": "Gravity reorients to the northwest!",
+      "zh": "重力重新朝向西北！"
+    },
+    {
+      "id": "transloc.gavotte.southeast",
+      "args": {},
+      "canonical": "Gravity reorients to the southeast!",
+      "zh": "重力重新朝向东南！"
+    },
+    {
+      "id": "transloc.gavotte.southwest",
+      "args": {},
+      "canonical": "Gravity reorients to the southwest!",
+      "zh": "重力重新朝向西南！"
+    },
+    {
+      "id": "transloc.gavotte.unknown",
+      "args": {},
+      "canonical": "Gravity reorients to the ???!",
+      "zh": "重力重新朝向未知方位！"
+    },
+    {
+      "id": "transloc.bestial.pounce",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "You pounce on the orc with bestial fury!",
+      "zh": "你带着野性的狂怒扑向兽人！"
+    }
+  ]
+}

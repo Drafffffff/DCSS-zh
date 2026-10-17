@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "options.h"
 #include "spl-book.h"
@@ -998,9 +999,14 @@ bool learn_spell()
  * @return          A string describing (one of) the reason(s) the player
  *                  can't memorise this spell.
  */
+ZhArg desc_cannot_memorise_display_reason(spell_type spell)
+{
+    return spell_uselessness_display_reason(spell, false, true);
+}
+
 string desc_cannot_memorise_reason(spell_type spell)
 {
-    return spell_uselessness_reason(spell, false, true);
+    return desc_cannot_memorise_display_reason(spell).canonical;
 }
 
 /**
@@ -1027,7 +1033,8 @@ static bool _learn_spell_checks(spell_type specspell, bool wizard = false)
 
     if (!you_can_memorise(specspell))
     {
-        mpr(desc_cannot_memorise_reason(specspell));
+        const ZhArg reason = desc_cannot_memorise_display_reason(specspell);
+        mpr(ZhMessage{"", reason.canonical, reason.localized});
         return false;
     }
 

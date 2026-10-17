@@ -5,6 +5,7 @@
 
 #include "AppHdr.h"
 #include "zh-message.h"
+#include "zh-display-name.h"
 
 #include "transform.h"
 
@@ -1773,9 +1774,12 @@ bool transforming_is_unsafe(transformation which_trans)
 {
     if (feat_dangerous_for_form(which_trans, env.grid(you.pos())))
     {
-        mprf(MSGCH_PROMPT, "%s right now would cause you to %s!",
-                which_trans == transformation::none ? "Untransforming" : "Transforming",
-                env.grid(you.pos()) == DNGN_LAVA ? "burn" : "drown");
+        const bool ending = which_trans == transformation::none;
+        const bool lava = env.grid(you.pos()) == DNGN_LAVA;
+        const char *id = ending
+            ? (lava ? "talisman.unsafe.untransform.burn" : "talisman.unsafe.untransform.drown")
+            : (lava ? "talisman.unsafe.transform.burn" : "talisman.unsafe.transform.drown");
+        mpr(zh_message(id), MSGCH_PROMPT);
         return true;
     }
 
@@ -1799,9 +1803,9 @@ bool transforming_is_unsafe(transformation which_trans)
         if (item->cursed()
             || (is_artefact(*item) && artefact_property(*item, ARTP_FRAGILE)))
         {
-            mprf(MSGCH_PROMPT, "%s right now would shatter %s!",
-                 which_trans == transformation::none ? "Untransforming" : "Transforming",
-                 item->name(DESC_YOUR).c_str());
+            mpr(zh_message(which_trans == transformation::none
+                    ? "talisman.unsafe.untransform.shatter" : "talisman.unsafe.transform.shatter",
+                    {zh_item_arg("item", *item, DESC_YOUR)}), MSGCH_PROMPT);
             return true;
         }
     }

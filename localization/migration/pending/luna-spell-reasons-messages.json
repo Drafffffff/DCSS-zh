@@ -1,0 +1,403 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "spell.memorise.already_know_all",
+      "context": "法术记忆限制：你已经学会所有可用法术",
+      "en": "You already know all available spells.",
+      "zh": "你已经学会所有可用法术。",
+      "params": {},
+      "source": {
+        "file": "spl-book.cc",
+        "anchor": "_get_spell_list; num_known == total"
+      }
+    },
+    {
+      "id": "spell.memorise.school_limited",
+      "context": "法术记忆限制：你目前无法记忆任何可用法术，因为你不能使用这些法术所属的学派",
+      "en": "You cannot currently memorise any of the available spells because you cannot use those schools of magic.",
+      "zh": "你目前无法记忆任何可用法术，因为你不能使用这些法术所属的学派。",
+      "params": {},
+      "source": {
+        "file": "spl-book.cc",
+        "anchor": "_get_spell_list; all remaining are restricted schools"
+      }
+    },
+    {
+      "id": "spell.memorise.none_memorisable",
+      "context": "法术记忆限制：你无法记忆任何可用法术",
+      "en": "You cannot memorise any of the available spells.",
+      "zh": "你无法记忆任何可用法术。",
+      "params": {},
+      "source": {
+        "file": "spl-book.cc",
+        "anchor": "_get_spell_list; no remaining spell is currently memorizable"
+      }
+    },
+    {
+      "id": "spell.memorise.unknown_memorise_reason",
+      "context": "法术记忆限制：由于未知原因，你无法记忆新的法术；请提交错误报告",
+      "en": "You can't memorise any new spells for an unknown reason; please file a bug report.",
+      "zh": "由于未知原因，你无法记忆新的法术；请提交错误报告。",
+      "params": {},
+      "source": {
+        "file": "spl-book.cc",
+        "anchor": "_get_spell_list; final fallback"
+      }
+    },
+    {
+      "id": "spell.memorise.too_many_levels",
+      "context": "法术记忆限制：你目前还无法记忆这么多法术等级",
+      "en": "You can't memorise that many levels of magic yet!",
+      "zh": "你目前还无法记忆这么多法术等级！",
+      "params": {},
+      "source": {
+        "file": "spl-book.cc",
+        "anchor": "_learn_spell_checks; player_spell_levels < spell_levels_required"
+      }
+    },
+    {
+      "id": "spell.memorise.mind_full",
+      "context": "法术记忆限制：你的心智中已经容纳不下更多法术了",
+      "en": "Your mind is already too full of spells!",
+      "zh": "你的心智中已经容纳不下更多法术了！",
+      "params": {},
+      "source": {
+        "file": "spl-book.cc",
+        "anchor": "_learn_spell_checks; MAX_KNOWN_SPELLS reached"
+      }
+    },
+    {
+      "id": "spell.memorise.too_inexperienced",
+      "context": "法术记忆限制：你的经验不足，无法学习此法术",
+      "en": "You're too inexperienced to learn that spell!",
+      "zh": "你的经验不足，无法学习此法术！",
+      "params": {},
+      "source": {
+        "file": "spl-book.cc",
+        "anchor": "_learn_spell_checks; XL below spell difficulty"
+      }
+    },
+    {
+      "id": "spell.memorise.not_found",
+      "context": "法术记忆限制：你还没有发现这个法术",
+      "en": "You haven't found that spell!",
+      "zh": "你还没有发现这个法术！",
+      "params": {},
+      "source": {
+        "file": "spl-book.cc",
+        "anchor": "_learn_spell_checks; not in available spell list"
+      }
+    },
+    {
+      "id": "spell.memorise.already_know_spell",
+      "context": "法术记忆限制：你已经学会这个法术了",
+      "en": "You already know that spell!",
+      "zh": "你已经学会这个法术了！",
+      "params": {},
+      "source": {
+        "file": "spl-book.cc",
+        "anchor": "_learn_spell_checks; has_spell"
+      }
+    },
+    {
+      "id": "spell.miscast.flavor.irresistible",
+      "context": "法术详情：施法失败效果成分",
+      "en": "irresistible",
+      "zh": "无视抗性的",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.flavor.draining",
+      "context": "法术详情：施法失败效果成分",
+      "en": "draining",
+      "zh": "汲取生命的",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.flavor.fire",
+      "context": "法术详情：施法失败效果成分",
+      "en": "fire",
+      "zh": "火焰",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.flavor.cold",
+      "context": "法术详情：施法失败效果成分",
+      "en": "cold",
+      "zh": "寒冷",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.flavor.electric",
+      "context": "法术详情：施法失败效果成分",
+      "en": "electric",
+      "zh": "电击",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.flavor.fragmentation",
+      "context": "法术详情：施法失败效果成分",
+      "en": "fragmentation",
+      "zh": "碎裂",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.effect.horror",
+      "context": "法术详情：施法失败效果成分",
+      "en": "summons a nameless horror",
+      "zh": "召唤无名恐怖",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.effect.anchors",
+      "context": "法术详情：施法失败效果成分",
+      "en": "anchors you in place",
+      "zh": "将你锚定在原地",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.effect.slows",
+      "context": "法术详情：施法失败效果成分",
+      "en": "slows you",
+      "zh": "使你迟缓",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.effect.poisons",
+      "context": "法术详情：施法失败效果成分",
+      "en": "poisons you",
+      "zh": "使你中毒",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.effect.corrodes",
+      "context": "法术详情：施法失败效果成分",
+      "en": "corrodes you",
+      "zh": "使你腐蚀",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; special_flavor/damage_flavor exact map value"
+      }
+    },
+    {
+      "id": "spell.miscast.damage_clause",
+      "context": "法术详情：施法失败伤害描述",
+      "en": "deals up to {damage} {flavours} damage",
+      "zh": "最多造成{damage}点{flavours}伤害",
+      "params": {
+        "damage": "integer",
+        "flavours": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; formatted clause; flavours must be assembled from supported flavor atoms with Chinese grammar"
+      }
+    },
+    {
+      "id": "spell.miscast.joined_clause",
+      "context": "法术详情：多个施法失败效果",
+      "en": "{effects}",
+      "zh": "{effects}",
+      "params": {
+        "effects": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_miscast_damage_string; complete effect list must be composed from localized atoms and Chinese punctuation, not translated as a whole after English joining"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "spell.memorise.too_many_levels",
+      "args": {},
+      "canonical": "You can't memorise that many levels of magic yet!",
+      "zh": "你目前还无法记忆这么多法术等级！"
+    },
+    {
+      "id": "spell.miscast.damage_clause",
+      "args": {
+        "damage": {
+          "type": "integer",
+          "canonical": "12",
+          "localized": "12"
+        },
+        "flavours": {
+          "type": "text",
+          "canonical": "fire or cold",
+          "localized": "火焰或寒冷"
+        }
+      },
+      "canonical": "deals up to 12 fire or cold damage",
+      "zh": "最多造成12点火焰或寒冷伤害"
+    },
+    {
+      "id": "spell.miscast.effect.horror",
+      "args": {},
+      "canonical": "summons a nameless horror",
+      "zh": "召唤无名恐怖"
+    },
+    {
+      "id": "spell.memorise.already_know_all",
+      "args": {},
+      "canonical": "You already know all available spells.",
+      "zh": "你已经学会所有可用法术。"
+    },
+    {
+      "id": "spell.memorise.school_limited",
+      "args": {},
+      "canonical": "You cannot currently memorise any of the available spells because you cannot use those schools of magic.",
+      "zh": "你目前无法记忆任何可用法术，因为你不能使用这些法术所属的学派。"
+    },
+    {
+      "id": "spell.memorise.none_memorisable",
+      "args": {},
+      "canonical": "You cannot memorise any of the available spells.",
+      "zh": "你无法记忆任何可用法术。"
+    },
+    {
+      "id": "spell.memorise.unknown_memorise_reason",
+      "args": {},
+      "canonical": "You can't memorise any new spells for an unknown reason; please file a bug report.",
+      "zh": "由于未知原因，你无法记忆新的法术；请提交错误报告。"
+    },
+    {
+      "id": "spell.memorise.mind_full",
+      "args": {},
+      "canonical": "Your mind is already too full of spells!",
+      "zh": "你的心智中已经容纳不下更多法术了！"
+    },
+    {
+      "id": "spell.memorise.too_inexperienced",
+      "args": {},
+      "canonical": "You're too inexperienced to learn that spell!",
+      "zh": "你的经验不足，无法学习此法术！"
+    },
+    {
+      "id": "spell.memorise.not_found",
+      "args": {},
+      "canonical": "You haven't found that spell!",
+      "zh": "你还没有发现这个法术！"
+    },
+    {
+      "id": "spell.memorise.already_know_spell",
+      "args": {},
+      "canonical": "You already know that spell!",
+      "zh": "你已经学会这个法术了！"
+    },
+    {
+      "id": "spell.miscast.flavor.irresistible",
+      "args": {},
+      "canonical": "irresistible",
+      "zh": "无视抗性的"
+    },
+    {
+      "id": "spell.miscast.flavor.draining",
+      "args": {},
+      "canonical": "draining",
+      "zh": "汲取生命的"
+    },
+    {
+      "id": "spell.miscast.flavor.fire",
+      "args": {},
+      "canonical": "fire",
+      "zh": "火焰"
+    },
+    {
+      "id": "spell.miscast.flavor.cold",
+      "args": {},
+      "canonical": "cold",
+      "zh": "寒冷"
+    },
+    {
+      "id": "spell.miscast.flavor.electric",
+      "args": {},
+      "canonical": "electric",
+      "zh": "电击"
+    },
+    {
+      "id": "spell.miscast.flavor.fragmentation",
+      "args": {},
+      "canonical": "fragmentation",
+      "zh": "碎裂"
+    },
+    {
+      "id": "spell.miscast.effect.anchors",
+      "args": {},
+      "canonical": "anchors you in place",
+      "zh": "将你锚定在原地"
+    },
+    {
+      "id": "spell.miscast.effect.slows",
+      "args": {},
+      "canonical": "slows you",
+      "zh": "使你迟缓"
+    },
+    {
+      "id": "spell.miscast.effect.poisons",
+      "args": {},
+      "canonical": "poisons you",
+      "zh": "使你中毒"
+    },
+    {
+      "id": "spell.miscast.effect.corrodes",
+      "args": {},
+      "canonical": "corrodes you",
+      "zh": "使你腐蚀"
+    },
+    {
+      "id": "spell.miscast.joined_clause",
+      "args": {
+        "effects": {
+          "type": "text",
+          "canonical": "slows you and poisons you",
+          "localized": "使你迟缓并中毒"
+        }
+      },
+      "canonical": "slows you and poisons you",
+      "zh": "使你迟缓并中毒"
+    }
+  ]
+}

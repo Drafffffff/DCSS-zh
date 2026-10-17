@@ -300,7 +300,7 @@ bool TransformDelay::try_interrupt(bool force)
         // yesno might call this function again, don't double prompt
         was_prompted = true;
         if (!crawl_state.disables[DIS_CONFIRMATIONS]
-            && !yesno("Keep transforming yourself?", false, 0, false))
+            && !yesno(zh_message("talisman.delay.keep_transforming"), false, 0, false))
         {
             interrupt = true;
         }

@@ -4961,29 +4961,26 @@ static string _player_spell_desc(spell_type spell)
 
     if (!you_can_memorise(spell))
     {
-        const string action = you.has_spell(spell) ? "cast" : "memorise";
-        const string localized_action = you.has_spell(spell) ? "施放" : "记忆";
-        const string reason = desc_cannot_memorise_reason(spell);
-        description << zh_message("spell.player.cannot_memorise", {
-            zh_text("action", action, localized_action),
-            ZhArg{"reason", ZhArgType::Text, reason, reason, false}}).display();
+        const ZhArg reason = desc_cannot_memorise_display_reason(spell);
+        description << (you.has_spell(spell)
+            ? zh_message("spell.player.cannot_cast_reason", {reason})
+            : zh_message("spell.player.cannot_memorise_reason", {reason})).display();
     }
     else if (casting_is_useless(spell, true))
     {
-        // this preempts the more general uselessness call below, for the sake
-        // of applying slightly different formatting.
-        const string reason = uppercase_first(casting_uselessness_reason(spell, true));
-        description << zh_message("spell.player.casting_useless", {
-            ZhArg{"reason", ZhArgType::Text, reason, reason, false}}).display();
+        ZhArg reason = casting_uselessness_display_reason(spell, true);
+        reason.canonical = uppercase_first(reason.canonical);
+        if (!reason.supported)
+            reason.localized = reason.canonical;
+        description << zh_message("spell.player.casting_useless", {reason}).display();
     }
     else if (spell_is_useless(spell, true, false))
     {
-        const string reason = spell_uselessness_reason(spell, true, false);
-        if (reason == "you can't see any hostile targets that would be affected.")
+        const ZhArg reason = spell_uselessness_display_reason(spell, true, false);
+        if (reason.message_id == "spell.reason.no_hostiles")
             description << zh_message("spell.player.no_visible_hostiles").display();
         else
-            description << zh_message("spell.player.useless_reason", {
-                ZhArg{"reason", ZhArgType::Text, reason, reason, false}}).display();
+            description << zh_message("spell.player.useless_reason", {reason}).display();
     }
 
     if (spell == SPELL_GRAVE_CLAW && you.has_spell(SPELL_GRAVE_CLAW))

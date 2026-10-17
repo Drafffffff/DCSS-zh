@@ -1,0 +1,57 @@
+{
+  "native_base": "aa75645d4ec4357e329085e0c27c94c66b2e9c53",
+  "review_model": "gpt-6-luna",
+  "active_ids": 2547,
+  "new_bound_ids": 123,
+  "direct_literal_bound_ids": 886,
+  "general_word_fallback_removed": true,
+  "tests": {
+    "spell_talisman_reasons": 42493,
+    "transloc_remaining_production_branches": 160,
+    "shared_restrictions_regression": 18670,
+    "transloc_entity_regression": 244,
+    "fixed_log_bindings": 46,
+    "named_message_checks": 1069,
+    "consumable_regression": 6417,
+    "raw_rendering": 30,
+    "skill_layout": 106
+  },
+  "macos": {
+    "architecture": "arm64",
+    "console_scenes": 6,
+    "shop_scenes": 1,
+    "gui_resolution": [
+      1746,
+      1112
+    ],
+    "physical_4k": false
+  },
+  "linux": {
+    "architecture": "x86_64",
+    "console_scenes": 6,
+    "shop_scenes": 1,
+    "xvfb_resolution": [
+      3840,
+      2160
+    ],
+    "accepted_core_4k_scenes": 4,
+    "accepted_shop_4k_scenes": 1
+  },
+  "builds": {
+    "macos_tiles": true,
+    "macos_console": true,
+    "linux_tiles": true,
+    "linux_console": true
+  },
+  "fixture_hashes": {
+    "ZhSmoke.cs": "c44a0f848bd8376a887bc0a57dac446f6dd336d6a8d05e1950c0035987ed62ee",
+    "Awigithro.cs": "450615f56583ce4260f3d5ba0850dee42621d42535fc998120362e329da3b7f0"
+  },
+  "native_commit": "50abcdcf8b8398ba2cd96291f0abf0195b70c071",
+  "binary_sha256": {
+    "output/macos/crawl-tiles": "3deea9b12c665e08273fbe7df379bdabbb4eaff241401d57818da43103528e1c",
+    "output/macos/crawl-console": "4582bf2769d03054205bf18190373df7db4c2b6368d66adf5d9e64787427f3f6",
+    "output/linux/crawl-tiles": "5b1df9e1e304ffe65833e82990d72a6168cb32e197ba1f48a5a82013af045203",
+    "output/linux/crawl-console": "f9dc95acb3ac6116453e2c209909ba14a71b91d408b31216b89c2e28a341db78"
+  }
+}

@@ -132,10 +132,12 @@ for scene in a.scenes.split(','):
                     os.kill(pid,signal.SIGKILL);os.waitpid(pid,0);break
                 time.sleep(.05)
         os.close(fd)
+        for crash in (state/'morgue').glob('crash-*'):
+            shutil.copy2(crash,dst/crash.name)
         text=transcript.decode('utf-8','replace')
         (dst/'transcript.txt').write_text(text)
         read=lambda file:(dst/file).read_text().splitlines() if (dst/file).exists() else []
-        result={'scene':scene,'running_at_capture':running,'ids':read('ids.tsv'),
+        result={'scene':scene,'running_at_capture':running,'early_exit_status':None if running else status[1],'ids':read('ids.tsv'),
                 'boundaries':read('boundaries.tsv'),'missing':read('missing.tsv'),'names':read('names.tsv'),'values':read('values.tsv'),
                 'runtime_error':any(s in text for s in ('Legacy translation reached migrated boundary',
                     'Missing localization source:', 'ASSERT(', 'Lua error', 'terminate called', 'terminating due to', 'Invalid localization parameter', 'Invalid localization key', 'Lua 错误'))}

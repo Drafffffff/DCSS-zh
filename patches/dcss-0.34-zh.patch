@@ -46231,7 +46231,7 @@ index ee400e5..0dd4003 100644
      {
          // We have to canonicalise the key (in case the user typed it
 diff --git a/crawl-ref/source/delay.cc b/crawl-ref/source/delay.cc
-index 98a25e0..d9faeeb 100644
+index 98a25e0..1b3a2ae 100644
 --- a/crawl-ref/source/delay.cc
 +++ b/crawl-ref/source/delay.cc
 @@ -4,6 +4,8 @@
@@ -46320,6 +46320,15 @@ index 98a25e0..d9faeeb 100644
      return true;
  }
  
+@@ -292,7 +300,7 @@ bool TransformDelay::try_interrupt(bool force)
+         // yesno might call this function again, don't double prompt
+         was_prompted = true;
+         if (!crawl_state.disables[DIS_CONFIRMATIONS]
+-            && !yesno("Keep transforming yourself?", false, 0, false))
++            && !yesno(zh_message("talisman.delay.keep_transforming"), false, 0, false))
+         {
+             interrupt = true;
+         }
 @@ -300,7 +308,7 @@ bool TransformDelay::try_interrupt(bool force)
  
      if (!interrupt)
@@ -46939,7 +46948,7 @@ index a4a1a95..20747cf 100644
 +              localized, supported}}).display();
  }
 diff --git a/crawl-ref/source/describe.cc b/crawl-ref/source/describe.cc
-index 0a381e1..942fa90 100644
+index 0a381e1..0ebdbfd 100644
 --- a/crawl-ref/source/describe.cc
 +++ b/crawl-ref/source/describe.cc
 @@ -4,6 +4,9 @@
@@ -49032,7 +49041,7 @@ index 0a381e1..942fa90 100644
      }
  
      return result;
-@@ -4468,116 +4860,139 @@ static string _player_spell_desc(spell_type spell)
+@@ -4468,116 +4860,136 @@ static string _player_spell_desc(spell_type spell)
  
      ostringstream description;
  
@@ -49178,35 +49187,34 @@ index 0a381e1..942fa90 100644
 -                    << " this spell because "
 -                    << desc_cannot_memorise_reason(spell)
 -                    << "\n";
-+        const string action = you.has_spell(spell) ? "cast" : "memorise";
-+        const string localized_action = you.has_spell(spell) ? "施放" : "记忆";
-+        const string reason = desc_cannot_memorise_reason(spell);
-+        description << zh_message("spell.player.cannot_memorise", {
-+            zh_text("action", action, localized_action),
-+            ZhArg{"reason", ZhArgType::Text, reason, reason, false}}).display();
++        const ZhArg reason = desc_cannot_memorise_display_reason(spell);
++        description << (you.has_spell(spell)
++            ? zh_message("spell.player.cannot_cast_reason", {reason})
++            : zh_message("spell.player.cannot_memorise_reason", {reason})).display();
      }
      else if (casting_is_useless(spell, true))
      {
-         // this preempts the more general uselessness call below, for the sake
-         // of applying slightly different formatting.
+-        // this preempts the more general uselessness call below, for the sake
+-        // of applying slightly different formatting.
 -        description << "\n<red>"
 -                    << uppercase_first(casting_uselessness_reason(spell, true))
 -                    << "</red>\n";
-+        const string reason = uppercase_first(casting_uselessness_reason(spell, true));
-+        description << zh_message("spell.player.casting_useless", {
-+            ZhArg{"reason", ZhArgType::Text, reason, reason, false}}).display();
++        ZhArg reason = casting_uselessness_display_reason(spell, true);
++        reason.canonical = uppercase_first(reason.canonical);
++        if (!reason.supported)
++            reason.localized = reason.canonical;
++        description << zh_message("spell.player.casting_useless", {reason}).display();
      }
      else if (spell_is_useless(spell, true, false))
      {
 -        description << "\nThis spell would have no effect right now because "
 -                    << spell_uselessness_reason(spell, true, false)
 -                    << "\n";
-+        const string reason = spell_uselessness_reason(spell, true, false);
-+        if (reason == "you can't see any hostile targets that would be affected.")
++        const ZhArg reason = spell_uselessness_display_reason(spell, true, false);
++        if (reason.message_id == "spell.reason.no_hostiles")
 +            description << zh_message("spell.player.no_visible_hostiles").display();
 +        else
-+            description << zh_message("spell.player.useless_reason", {
-+                ZhArg{"reason", ZhArgType::Text, reason, reason, false}}).display();
++            description << zh_message("spell.player.useless_reason", {reason}).display();
      }
  
      if (spell == SPELL_GRAVE_CLAW && you.has_spell(SPELL_GRAVE_CLAW))
@@ -49223,7 +49231,7 @@ index 0a381e1..942fa90 100644
      }
  
      return description.str();
-@@ -4612,19 +5027,19 @@ static void _get_spell_description(const spell_type spell,
+@@ -4612,19 +5024,19 @@ static void _get_spell_description(const spell_type spell,
  {
      description.reserve(500);
  
@@ -49249,7 +49257,7 @@ index 0a381e1..942fa90 100644
  #endif
      }
  
-@@ -4633,21 +5048,25 @@ static void _get_spell_description(const spell_type spell,
+@@ -4633,21 +5045,25 @@ static void _get_spell_description(const spell_type spell,
          if (spell == SPELL_CONJURE_LIVING_SPELLS)
          {
              const spell_type living_spell = living_spell_type_for(mon_owner->type);
@@ -49283,7 +49291,7 @@ index 0a381e1..942fa90 100644
  
          }
  
-@@ -4657,20 +5076,21 @@ static void _get_spell_description(const spell_type spell,
+@@ -4657,20 +5073,21 @@ static void _get_spell_description(const spell_type spell,
                                  || spell == SPELL_FLASHING_BALESTRA
                                  || spell == SPELL_BECKONING_GALE ? 3 : 0);
  
@@ -49311,7 +49319,7 @@ index 0a381e1..942fa90 100644
              }
          }
  
-@@ -4680,11 +5100,18 @@ static void _get_spell_description(const spell_type spell,
+@@ -4680,11 +5097,18 @@ static void _get_spell_description(const spell_type spell,
          const int limit = summons_limit(spell, false);
          if (limit)
          {
@@ -49335,7 +49343,7 @@ index 0a381e1..942fa90 100644
          }
  
          // only display this if the player exists (not in the main menu)
-@@ -4704,20 +5131,21 @@ static void _get_spell_description(const spell_type spell,
+@@ -4704,20 +5128,21 @@ static void _get_spell_description(const spell_type spell,
              if (you.wizard)
                  wiz_info += make_stringf(" (pow %d)", _mon_hex_pow(spell, mon_owner, is_wand));
  #endif
@@ -49365,7 +49373,7 @@ index 0a381e1..942fa90 100644
      if (!quote.empty())
          description += "_________________\n\n<darkgrey>" + quote + "</darkgrey>";
  }
-@@ -4750,6 +5178,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
+@@ -4750,6 +5175,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
                      const item_def* item)
  {
      UNUSED(item);
@@ -49373,7 +49381,7 @@ index 0a381e1..942fa90 100644
  
      string desc;
      _get_spell_description(spell, mon_owner, desc);
-@@ -4766,11 +5195,11 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
+@@ -4766,11 +5192,11 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
      title_hbox->add_child(std::move(spell_icon));
  #endif
  
@@ -49387,7 +49395,7 @@ index 0a381e1..942fa90 100644
      title->set_margin_for_sdl(0, 0, 0, 10);
      title_hbox->add_child(std::move(title));
  
-@@ -4781,7 +5210,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
+@@ -4781,7 +5207,7 @@ void describe_spell(spell_type spell, const monster_info *mon_owner,
  
      auto scroller = make_shared<Scroller>();
      auto text = make_shared<Text>();
@@ -49396,7 +49404,7 @@ index 0a381e1..942fa90 100644
      text->set_wrap_text(true);
      scroller->set_child(std::move(text));
      vbox->add_child(scroller);
-@@ -4948,50 +5377,46 @@ static string _describe_draconian(const monster_info& mi)
+@@ -4948,50 +5374,46 @@ static string _describe_draconian(const monster_info& mi)
  
      if (subsp != mi.type)
      {
@@ -49463,7 +49471,7 @@ index 0a381e1..942fa90 100644
          break;
      default:
          break;
-@@ -5029,16 +5454,16 @@ static const char* _get_resist_name(mon_resist_flags res_type)
+@@ -5029,16 +5451,16 @@ static const char* _get_resist_name(mon_resist_flags res_type)
      }
  }
  
@@ -49486,7 +49494,7 @@ index 0a381e1..942fa90 100644
      }
  }
  
-@@ -5105,7 +5530,15 @@ static string _flavour_base_desc(attack_flavour flavour)
+@@ -5105,7 +5527,15 @@ static string _flavour_base_desc(attack_flavour flavour)
  
      const string* desc = map_find(base_descs, flavour);
      ASSERT(desc);
@@ -49503,7 +49511,7 @@ index 0a381e1..942fa90 100644
  }
  
  struct mon_attack_info
-@@ -5161,7 +5594,8 @@ static mon_attack_info _atk_info(const monster_info& mi, int i)
+@@ -5161,7 +5591,8 @@ static mon_attack_info _atk_info(const monster_info& mi, int i)
  static string _brand_damage_string(const monster_info &mi, brand_type brand,
                                     int dam, int wpn_base_dmg = 0)
  {
@@ -49513,7 +49521,7 @@ index 0a381e1..942fa90 100644
      int brand_dam;
      // Only include damaging brands
      // Heavy is included in base damage calculations instead
-@@ -5199,16 +5633,18 @@ static string _brand_damage_string(const monster_info &mi, brand_type brand,
+@@ -5199,16 +5630,18 @@ static string _brand_damage_string(const monster_info &mi, brand_type brand,
              brand_dam = 4;
              break;
          case SPWPN_SUNDERING:
@@ -49535,7 +49543,7 @@ index 0a381e1..942fa90 100644
  }
  
  // Max damage from a magical staff with a given amount of staff & evo skill
-@@ -5240,9 +5676,9 @@ static string _monster_staff_damage_string(const monster_info &mi,
+@@ -5240,9 +5673,9 @@ static string _monster_staff_damage_string(const monster_info &mi,
                             : staff == STAFF_ALCHEMY       ? "poison"
                             /*staff == STAFF_CONJURATION*/ : "conj";
  
@@ -49548,7 +49556,7 @@ index 0a381e1..942fa90 100644
  }
  
  struct mon_attack_desc_info
-@@ -5323,21 +5759,24 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
+@@ -5323,21 +5756,24 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
                                       int attk_mult)
  {
      if (!desc.empty())
@@ -49580,7 +49588,7 @@ index 0a381e1..942fa90 100644
      }
  
      if (di.flavour_without_dam
-@@ -5346,16 +5785,17 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
+@@ -5346,16 +5782,17 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
          && !flavour_has_mobility(attack.flavour)
          && !(attack.flavour == AF_REACH_CLEAVE_UGLY))
      {
@@ -49604,7 +49612,7 @@ index 0a381e1..942fa90 100644
      }
  }
  
-@@ -5374,23 +5814,42 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5374,23 +5811,42 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
  
      if (weapon_multihits(wpn))
          attk_mult *= weapon_hits_per_swing(*wpn);
@@ -49654,7 +49662,7 @@ index 0a381e1..942fa90 100644
  
      // Part 2: The "Max Damage" column
      // Display the max damage from the attack (including any weapon)
-@@ -5440,12 +5899,13 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5440,12 +5896,13 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
  
      string dam_str;
      if (dam != real_dam)
@@ -49670,7 +49678,7 @@ index 0a381e1..942fa90 100644
  
      string brand_str;
      if (wpn)
-@@ -5464,11 +5924,11 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5464,11 +5921,11 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
      else if (di.special_flavour != SPWPN_NORMAL)
          brand_str = _brand_damage_string(mi, di.special_flavour, real_dam);
  
@@ -49686,7 +49694,7 @@ index 0a381e1..942fa90 100644
  
      // Part 3: The "Bonus" column
      // Describe any additional effects from a monster's attack flavour
-@@ -5495,10 +5955,10 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5495,10 +5952,10 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
      }
      // ...except Nessos' ranged attacks apply venom as a special effect
      else if (mi.type == MONS_NESSOS)
@@ -49699,7 +49707,7 @@ index 0a381e1..942fa90 100644
  }
  
  // Get all the info required to form an attacks table row for the monster's
-@@ -5510,41 +5970,47 @@ static void _attacks_table_row_throwing(const monster_info &mi,
+@@ -5510,41 +5967,47 @@ static void _attacks_table_row_throwing(const monster_info &mi,
      if (!quiv || quiv->base_type != OBJ_MISSILES)
          return;
  
@@ -49762,7 +49770,7 @@ index 0a381e1..942fa90 100644
          default:
              break;
          }
-@@ -5565,21 +6031,39 @@ static void _attacks_table_row_throwing(const monster_info &mi,
+@@ -5565,21 +6028,39 @@ static void _attacks_table_row_throwing(const monster_info &mi,
              string dmg_msg;
              int silver_dam = max(dam / 3,
                                   silver_damages_victim(&you, dam, dmg_msg));
@@ -49805,7 +49813,7 @@ index 0a381e1..942fa90 100644
      // Hopefully enough width for every possibility
      di.damage_width    = min(di.damage_width, (size_t) 31);
      di.bonus_width     = min(di.bonus_width, 69 - di.damage_width);
-@@ -5594,14 +6078,12 @@ static void _build_table_of_attacks(mon_attack_desc_info &di,
+@@ -5594,14 +6075,12 @@ static void _build_table_of_attacks(mon_attack_desc_info &di,
      // Note: columns are separated by (a minimum of) 2 spaces
  
      // First, the table header
@@ -49823,7 +49831,7 @@ index 0a381e1..942fa90 100644
      }
      result << "\n";
  
-@@ -5707,36 +6189,32 @@ static string _monster_spells_description(const monster_info& mi, bool mark_spel
+@@ -5707,36 +6186,32 @@ static string _monster_spells_description(const monster_info& mi, bool mark_spel
      if (mark_spells)
          description += SPELL_LIST_END;
  
@@ -49874,7 +49882,7 @@ index 0a381e1..942fa90 100644
  }
  
  static void _describe_aux_hit_chance(ostringstream &result, vector<string>& auxes, int chance)
-@@ -5826,23 +6304,36 @@ void describe_hit_chance(int hit_chance, ostringstream &result, const item_def *
+@@ -5826,23 +6301,36 @@ void describe_hit_chance(int hit_chance, ostringstream &result, const item_def *
      if (verbose)
          result << "about ";
  
@@ -49925,7 +49933,7 @@ index 0a381e1..942fa90 100644
      }
  }
  
-@@ -5905,9 +6396,13 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
+@@ -5905,9 +6393,13 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
      const int beat_sh_chance = mon_beat_sh_pct(shield_bypass, scaled_sh);
  
      const int hit_chance = beat_ev_chance * beat_sh_chance / 100;
@@ -49942,7 +49950,7 @@ index 0a381e1..942fa90 100644
  }
  
  /**
-@@ -6060,6 +6555,10 @@ static string _monster_current_target_description(const monster_info &mi)
+@@ -6060,6 +6552,10 @@ static string _monster_current_target_description(const monster_info &mi)
  
      const char* pronoun = mi.pronoun(PRONOUN_SUBJECTIVE);
      const bool plural = mi.pronoun_plurality();
@@ -49953,7 +49961,7 @@ index 0a381e1..942fa90 100644
  
      ostringstream result;
      if (mi.is(MB_ALLY_TARGET))
-@@ -6067,28 +6566,41 @@ static string _monster_current_target_description(const monster_info &mi)
+@@ -6067,28 +6563,41 @@ static string _monster_current_target_description(const monster_info &mi)
          auto allies = find_allies_targeting(*m);
          if (allies.size() == 1)
          {
@@ -50007,7 +50015,7 @@ index 0a381e1..942fa90 100644
      }
  
      return result.str();
-@@ -6101,6 +6613,38 @@ struct TableCell
+@@ -6101,6 +6610,38 @@ struct TableCell
      colour_t colour;
  };
  
@@ -50046,7 +50054,7 @@ index 0a381e1..942fa90 100644
  // TODO: This is similar to column_composer. Deduplicate?
  class TablePrinter
  {
-@@ -6127,7 +6671,7 @@ public:
+@@ -6127,7 +6668,7 @@ public:
      {
          if (fixed_column_num > 0 && (int)rows[rows.size() - 1].size() >= fixed_column_num)
              AddRow();
@@ -50055,7 +50063,7 @@ index 0a381e1..942fa90 100644
      }
  
      int NumCells() const
-@@ -6146,7 +6690,7 @@ public:
+@@ -6146,7 +6687,7 @@ public:
          {
              for (size_t col = 0; col < rows[row].size(); ++col)
              {
@@ -50064,7 +50072,7 @@ index 0a381e1..942fa90 100644
                  if (col == labels_lengths_by_col.size())
                      labels_lengths_by_col.push_back(label_len);
                  else
-@@ -6158,23 +6702,37 @@ public:
+@@ -6158,23 +6699,37 @@ public:
  
          for (const auto &row : rows)
          {
@@ -50113,7 +50121,7 @@ index 0a381e1..942fa90 100644
          }
      }
  };
-@@ -6294,10 +6852,12 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+@@ -6294,10 +6849,12 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
  
      // Less important common properties. Arguably should be lower down.
      const size_type sz = mi.body_size();
@@ -50129,7 +50137,7 @@ index 0a381e1..942fa90 100644
      pr.AddRow();
      if (mi.threat != MTHRT_UNDEF && !mons_class_is_peripheral(mi.type))
          pr.AddCell("Threat", _get_threat_desc(mi.threat));
-@@ -6305,9 +6865,10 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+@@ -6305,9 +6862,10 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
          pr.AddCell(); // ensure alignment
      pr.AddCell("Class", uppercase_first(holi).c_str());
      pr.AddCell("Size", size_desc.c_str());
@@ -50142,7 +50150,7 @@ index 0a381e1..942fa90 100644
      else if (mons_class_fast_regen(mi.type) || mi.is(MB_REGENERATION))
          pr.AddCell("Regen", make_stringf("%d/turn", mi.regen_rate(1)));
                                          // (Wait, what's a 'turn'?)
-@@ -6621,6 +7182,29 @@ static string _desc_shooting_star_dam(const monster_info &mi)
+@@ -6621,6 +7179,29 @@ static string _desc_shooting_star_dam(const monster_info &mi)
      return make_stringf("%dd%d", beam.damage.num, beam.damage.size);
  }
  
@@ -50172,7 +50180,7 @@ index 0a381e1..942fa90 100644
  // Fetches the monster's database description and reads it into inf.
  void get_monster_db_desc(const monster_info& mi, describe_info &inf,
                           bool &has_stat_desc, bool mark_spells)
-@@ -6646,10 +7230,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6646,10 +7227,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      // Don't get description for player ghosts.
      if (mi.type != MONS_PLAYER_GHOST && mi.type != MONS_PLAYER_ILLUSION)
@@ -50188,7 +50196,7 @@ index 0a381e1..942fa90 100644
  
      string symbol;
      symbol += get_monster_data(mi.type)->basechar;
-@@ -6660,10 +7247,10 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6660,10 +7244,10 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      if (!mons_is_unique(mi.type))
      {
          string symbol_prefix = "__" + symbol + "_prefix";
@@ -50201,7 +50209,7 @@ index 0a381e1..942fa90 100644
      }
  
      if (!inf.quote.empty() && !quote2.empty())
-@@ -6697,18 +7284,31 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6697,18 +7281,31 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      }
  
      case MONS_PLAYER_GHOST:
@@ -50237,7 +50245,7 @@ index 0a381e1..942fa90 100644
  
      case MONS_MUTANT_BEAST:
          // vault renames get their own descriptions
-@@ -6718,30 +7318,45 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6718,30 +7315,45 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      case MONS_BLOCK_OF_ICE:
          if (mi.is(MB_SLOWLY_DYING))
@@ -50289,7 +50297,7 @@ index 0a381e1..942fa90 100644
  
      default:
          break;
-@@ -6750,13 +7365,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6750,13 +7362,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      if (mons_class_is_fragile(mi.type))
      {
          if (mi.is(MB_CRUMBLING))
@@ -50307,7 +50315,7 @@ index 0a381e1..942fa90 100644
      }
  
      if (!mons_is_unique(mi.type))
-@@ -6765,21 +7380,26 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6765,21 +7377,26 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
          symbol_suffix += symbol;
          symbol_suffix += "_suffix";
  
@@ -50341,7 +50349,7 @@ index 0a381e1..942fa90 100644
      }
  
      // Get information on resistances, speed, etc.
-@@ -6793,7 +7413,8 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6793,7 +7410,8 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      bool did_stair_use = false;
      if (!mons_class_can_use_stairs(mi.type))
      {
@@ -50351,7 +50359,7 @@ index 0a381e1..942fa90 100644
          did_stair_use = true;
      }
  
-@@ -6803,42 +7424,70 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6803,42 +7421,70 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      if (mi.is(MB_SUMMONED))
      {
@@ -50439,7 +50447,7 @@ index 0a381e1..942fa90 100644
      }
  
      if (!inf.quote.empty())
-@@ -6958,11 +7607,19 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
+@@ -6958,11 +7604,19 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
      for (string& tag : descriptors)
      {
          const string key = make_stringf("%s monstatus", tag.c_str());
@@ -50461,7 +50469,7 @@ index 0a381e1..942fa90 100644
  
          // Wordwrap and indent slightly.
          linebreak_string(lookup, 77);
-@@ -6971,11 +7628,12 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
+@@ -6971,11 +7625,12 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
          out << "   " << lookup << "\n\n";
      }
  
@@ -50475,7 +50483,7 @@ index 0a381e1..942fa90 100644
      bool has_stat_desc = false;
      describe_info inf;
      formatted_string desc;
-@@ -7000,7 +7658,7 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7000,7 +7655,7 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  #endif
  
      auto title = make_shared<Text>();
@@ -50484,7 +50492,7 @@ index 0a381e1..942fa90 100644
      title->set_margin_for_sdl(0, 0, 0, 10);
      title_hbox->add_child(std::move(title));
  
-@@ -7009,24 +7667,34 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7009,24 +7664,34 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
      title_hbox->set_margin_for_sdl(0, 0, 20, 0);
      vbox->add_child(std::move(title_hbox));
  
@@ -50525,7 +50533,7 @@ index 0a381e1..942fa90 100644
      const formatted_string status_desc = _get_monster_status_descriptions(mi);
  
  
-@@ -7037,9 +7705,9 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7037,9 +7702,9 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  
      const string mores[3] =
      {
@@ -50538,7 +50546,7 @@ index 0a381e1..942fa90 100644
      };
  
      const formatted_string *content[3] = { &desc, &status_desc, &quote };
-@@ -7061,14 +7729,14 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7061,14 +7726,14 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  
          string more = make_stringf("%s%s%s", mores[i].c_str(),
              !status_desc.empty()
@@ -50556,7 +50564,7 @@ index 0a381e1..942fa90 100644
      }
  
      more_sw->set_margin_for_sdl(20, 0, 0, 0);
-@@ -7279,11 +7947,14 @@ string get_ghost_description(const monster_info &mi, bool concise)
+@@ -7279,11 +7944,14 @@ string get_ghost_description(const monster_info &mi, bool concise)
  
  void describe_skill(skill_type skill)
  {
@@ -50573,7 +50581,7 @@ index 0a381e1..942fa90 100644
  }
  
  #ifdef USE_TILE_LOCAL // only used in tiles
-@@ -7472,7 +8143,85 @@ static void _desc_form_val(TablePrinter& pr, string label, int val)
+@@ -7472,7 +8140,85 @@ static void _desc_form_val(TablePrinter& pr, string label, int val)
      pr.AddCell(label, make_stringf("%+d", val).c_str(), val < 0 ? RED : LIGHTGREY);
  }
  
@@ -50660,7 +50668,7 @@ index 0a381e1..942fa90 100644
  {
      const Form* form = get_form(form_type);
  
-@@ -7540,53 +8289,31 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7540,53 +8286,31 @@ static string _describe_talisman_form(transformation form_type)
          _maybe_populate_form_table(items, bind(&Form::get_effect_chance, form, placeholders::_1), "Daze Power", skill, 0, false, false);
      }
  
@@ -50729,7 +50737,7 @@ index 0a381e1..942fa90 100644
  
      _desc_form_val(pr, "Str", form->str_mod);
      _desc_form_val(pr, "Dex", form->dex_mod);
-@@ -7628,7 +8355,7 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7628,7 +8352,7 @@ static string _describe_talisman_form(transformation form_type)
      else if (form_type == transformation::sphinx)
      {
          if (!you.has_mutation(MUT_NO_ARMOUR))
@@ -50738,7 +50746,7 @@ index 0a381e1..942fa90 100644
          pr.AddCell("Will", "+");
      }
      else if (form_type == transformation::werewolf)
-@@ -7652,10 +8379,22 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7652,10 +8376,22 @@ static string _describe_talisman_form(transformation form_type)
          pr.Print(description);
      }
  
@@ -50765,7 +50773,7 @@ index 0a381e1..942fa90 100644
  
      // Mutation suppression info
      vector<string> changes;
-@@ -7672,16 +8411,41 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7672,16 +8408,41 @@ static string _describe_talisman_form(transformation form_type)
  
      if (!changes.empty())
      {
@@ -50827,7 +50835,7 @@ index f2aea63..87aef9d 100644
  
  const char* get_size_adj(const size_type size, bool ignore_medium = false);
 diff --git a/crawl-ref/source/directn.cc b/crawl-ref/source/directn.cc
-index 05963d8..3edcc20 100644
+index 05963d8..5200f2f 100644
 --- a/crawl-ref/source/directn.cc
 +++ b/crawl-ref/source/directn.cc
 @@ -4,8 +4,10 @@
@@ -50916,7 +50924,29 @@ index 05963d8..3edcc20 100644
          return true;
      }
      return false;
-@@ -2012,7 +2014,7 @@ void direction_chooser::toggle_beam()
+@@ -1719,9 +1721,18 @@ void direction_chooser::show_initial_prompt()
+         return;
+     behaviour->update_top_prompt(&top_prompt);
+     describe_cell();
+-    const string err = behaviour ? behaviour->get_error() : "";
+-    if (!err.empty())
+-        mprf(MSGCH_PROMPT, "%s", err.c_str()); // can this push the prompt one line too tall?
++    ZhMessage message;
++    if (behaviour && behaviour->get_message_error(message))
++    {
++        if (!message.canonical.empty())
++            mpr(message, MSGCH_PROMPT);
++    }
++    else
++    {
++        const string err = behaviour ? behaviour->get_error() : "";
++        if (!err.empty())
++            mprf(MSGCH_PROMPT, "%s", err.c_str());
++    }
+ }
+ 
+ void direction_chooser::print_target_description(bool &did_cloud) const
+@@ -2012,7 +2023,7 @@ void direction_chooser::toggle_beam()
  {
      if (!needs_path)
      {
@@ -50925,7 +50955,7 @@ index 05963d8..3edcc20 100644
          return;
      }
  
-@@ -2042,7 +2044,7 @@ void direction_chooser::handle_movement_key(command_type key_command,
+@@ -2042,7 +2053,7 @@ void direction_chooser::handle_movement_key(command_type key_command,
          if (unshifted)
              set_target(target() + delta);
          else if (!allow_shift_dir)
@@ -50934,7 +50964,7 @@ index 05963d8..3edcc20 100644
          else
              *loop_done = select_compass_direction(delta);
      }
-@@ -2151,7 +2153,7 @@ void direction_chooser::handle_wizard_command(command_type key_command,
+@@ -2151,7 +2162,7 @@ void direction_chooser::handle_wizard_command(command_type key_command,
  
      case CMD_TARGET_WIZARD_HURT_MONSTER:
          m->hit_points = 1;
@@ -50943,7 +50973,7 @@ index 05963d8..3edcc20 100644
          flush_prev_message();
          break;
  
-@@ -2287,7 +2289,7 @@ void direction_chooser::full_describe()
+@@ -2287,7 +2298,7 @@ void direction_chooser::full_describe()
  
      if (list_mons.empty() && list_items.empty() && list_features.empty())
      {
@@ -50952,7 +50982,7 @@ index 05963d8..3edcc20 100644
          flush_prev_message();
          return;
      }
-@@ -2338,7 +2340,7 @@ bool direction_chooser::process_command(command_type command)
+@@ -2338,7 +2349,7 @@ bool direction_chooser::process_command(command_type command)
              break;
  
          if (!is_map_persistent())
@@ -50961,7 +50991,7 @@ index 05963d8..3edcc20 100644
          else
          {
              const bool was_excluded = is_exclude_root(target());
-@@ -2346,11 +2348,11 @@ bool direction_chooser::process_command(command_type command)
+@@ -2346,11 +2357,11 @@ bool direction_chooser::process_command(command_type command)
              need_viewport_redraw   = true;
              const bool is_excluded = is_exclude_root(target());
              if (!was_excluded && is_excluded)
@@ -50976,7 +51006,7 @@ index 05963d8..3edcc20 100644
          }
  
          need_cursor_redraw = true;
-@@ -2450,6 +2452,10 @@ public:
+@@ -2450,6 +2461,10 @@ public:
  
      void _render() override
      {
@@ -50987,7 +51017,7 @@ index 05963d8..3edcc20 100644
          if (crawl_state.invisible_targeting)
              return;
  
-@@ -2875,7 +2881,7 @@ static void _extend_move_to_edge(dist &moves)
+@@ -2875,7 +2890,7 @@ static void _extend_move_to_edge(dist &moves)
  // cache and noted in the Dungeon (O)verview, names the stair.
  static void _describe_oos_square(const coord_def& where)
  {
@@ -50996,7 +51026,7 @@ index 05963d8..3edcc20 100644
  
      if (!in_bounds(where) || !env.map_knowledge(where).seen())
      {
-@@ -2995,7 +3001,7 @@ void describe_floor()
+@@ -2995,7 +3010,7 @@ void describe_floor()
  
      mprf(channel, "%s%s here.", prefix, feat.c_str());
      if (grid == DNGN_ENTER_GAUNTLET)
@@ -51005,7 +51035,7 @@ index 05963d8..3edcc20 100644
      else if (feat_is_fountain(grid) || feat_is_food(grid))
          _walk_on_decor(grid);
  }
-@@ -3581,6 +3587,11 @@ string get_monster_equipment_desc(const monster_info& mi,
+@@ -3581,6 +3596,11 @@ string get_monster_equipment_desc(const monster_info& mi,
          item_descriptions.push_back(carried_desc);
      }
  
@@ -51017,8 +51047,21 @@ index 05963d8..3edcc20 100644
      const string item_description = comma_separated_line(
                                                  item_descriptions.begin(),
                                                  item_descriptions.end());
+diff --git a/crawl-ref/source/directn.h b/crawl-ref/source/directn.h
+index 403cf3b..f536e31 100644
+--- a/crawl-ref/source/directn.h
++++ b/crawl-ref/source/directn.h
+@@ -53,6 +53,8 @@ public:
+     virtual bool targeted() { return true; }
+ 
+     virtual string get_error() { return ""; }
++    // Migrated behaviours carry canonical and presentation together.
++    virtual bool get_message_error(struct ZhMessage &) { return false; }
+ 
+     // Add relevant descriptions to the target status.
+     virtual vector<string> get_monster_desc(const monster_info& mi);
 diff --git a/crawl-ref/source/evoke.cc b/crawl-ref/source/evoke.cc
-index f64efe4..916dd0a 100644
+index f64efe4..c797d49 100644
 --- a/crawl-ref/source/evoke.cc
 +++ b/crawl-ref/source/evoke.cc
 @@ -6,6 +6,7 @@
@@ -51052,7 +51095,7 @@ index f64efe4..916dd0a 100644
  
      // historically allowed under confusion/berserk, but why?
      if (item->is_type(OBJ_MISCELLANY, MISC_ZIGGURAT))
-@@ -1013,43 +1014,46 @@ string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
+@@ -1013,43 +1014,48 @@ string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
          // override sac artifice for zigfigs, including a general check
          // TODO: zigfig has some terrain/level constraints that aren't handled
          // here
@@ -51074,6 +51117,8 @@ index f64efe4..916dd0a 100644
 +        if (!form_unreason.canonical.empty())
 +        {
 +            form_unreason.canonical = lowercase_first(form_unreason.canonical);
++            if (!form_unreason.supported)
++                form_unreason.localized = form_unreason.canonical;
 +            return form_unreason;
 +        }
 +        return {"reason", ZhArgType::Text, "", "", true};
@@ -51111,7 +51156,7 @@ index f64efe4..916dd0a 100644
      }
  
      if (temp
-@@ -1057,17 +1061,23 @@ string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
+@@ -1057,17 +1063,23 @@ string cannot_evoke_item_reason(const item_def *item, bool temp, bool ident)
          && item->sub_type == MISC_HORN_OF_GERYON
          && you.is_silenced())
      {
@@ -51139,7 +51184,7 @@ index f64efe4..916dd0a 100644
  }
  
  bool item_currently_evokable(const item_def *item)
-@@ -1351,28 +1361,37 @@ string evoke_damage_string(const item_def& item)
+@@ -1351,28 +1363,37 @@ string evoke_damage_string(const item_def& item)
          return "";
  }
  
@@ -52649,18 +52694,19 @@ index a3befdb..41e60dc 100644
 +ZhArg cannot_read_item_display_reason(const item_def *item=nullptr, bool temp=true, bool ident=false);
 +ZhArg cannot_drink_item_display_reason(const item_def *item=nullptr, bool temp=true, bool use_check=false, bool ident=false);
 diff --git a/crawl-ref/source/item-use.cc b/crawl-ref/source/item-use.cc
-index 91be1fe..cf366ac 100644
+index 91be1fe..3d2adbd 100644
 --- a/crawl-ref/source/item-use.cc
 +++ b/crawl-ref/source/item-use.cc
-@@ -4,6 +4,7 @@
+@@ -4,6 +4,8 @@
  **/
  
  #include "AppHdr.h"
 +#include "zh-message.h"
++#include "zh-display-name.h"
  
  #include "item-use.h"
  
-@@ -2979,11 +2980,11 @@ bool read(item_def* scroll, dist *target)
+@@ -2979,11 +2981,11 @@ bool read(item_def* scroll, dist *target)
      {
      case SCR_BLINKING:
      {
@@ -52675,7 +52721,7 @@ index 91be1fe..cf366ac 100644
              break;
          }
  
-@@ -3008,11 +3009,11 @@ bool read(item_def* scroll, dist *target)
+@@ -3008,11 +3010,11 @@ bool read(item_def* scroll, dist *target)
      {
          // you_teleport already handles much of this, but this allows a more
          // robust message for unidentified tele scrolls read with -tele
@@ -52689,6 +52735,122 @@ index 91be1fe..cf366ac 100644
 +            mpr(ZhMessage{"", reason.canonical, reason.localized});
              break;
          }
+ 
+@@ -3354,7 +3356,7 @@ bool invisibility_target_check(const char* prompt)
+     return target.isValid && !target.isCancel;
+ }
+ 
+-string cannot_put_on_talisman_reason(const item_def& talisman, bool temp)
++ZhArg cannot_put_on_talisman_display_reason(const item_def& talisman, bool temp)
+ {
+     ASSERT(talisman.base_type == OBJ_TALISMANS);
+ 
+@@ -3362,46 +3364,55 @@ string cannot_put_on_talisman_reason(const item_def& talisman, bool temp)
+     {
+         if (temp && you.skill(SK_SHAPESHIFTING) < 6)
+         {
+-            return "you lack the shapeshifting skill to coax this "
+-                    "talisman into a stable form.";
++            return zh_message_arg("reason", "talisman.reason.unstable");
+         }
+         else if (species_apt(SK_SHAPESHIFTING) == UNUSABLE_SKILL)
+-            return "you can never gain the skill to use this talisman.";
++            return zh_message_arg("reason", "talisman.reason.unusable_skill");
+         else
+-            return "";
++            return {"reason", ZhArgType::Text, "", "", true};
+     }
+ 
+     const transformation trans = form_for_talisman(talisman);
+-    const string form_unreason = cant_transform_reason(trans, false, temp);
+-    if (!form_unreason.empty())
+-        return lowercase_first(form_unreason);
++    ZhArg form_unreason = cant_transform_display_reason(trans, false, temp);
++    if (!form_unreason.canonical.empty())
++    {
++        form_unreason.canonical = lowercase_first(form_unreason.canonical);
++        if (!form_unreason.supported)
++            form_unreason.localized = form_unreason.canonical;
++        return form_unreason;
++    }
+ 
+     if (you.form != you.default_form && temp)
+-        return "you need to leave your temporary form first.";
++        return zh_message_arg("reason", "talisman.reason.leave_form");
+ 
+     if (trans == transformation::hive)
+     {
+         if (you_worship(GOD_OKAWARU))
+-            return "you have forsworn all allies in Okawaru's name.";
++            return zh_message_arg("reason", "talisman.reason.okawaru_allies");
+         if (you.get_mutation_level(MUT_NO_LOVE))
+-            return "you are loveless.";
++            return zh_message_arg("reason", "talisman.reason.loveless");
+     }
+ 
+-    return "";
++    return {"reason", ZhArgType::Text, "", "", true};
++}
++
++string cannot_put_on_talisman_reason(const item_def& talisman, bool temp)
++{
++    return cannot_put_on_talisman_display_reason(talisman, temp).canonical;
+ }
+ 
+ bool use_talisman(item_def& talisman)
+ {
+-    string reason = cannot_put_on_talisman_reason(talisman);
+-    if (!reason.empty())
++    const ZhArg reason = cannot_put_on_talisman_display_reason(talisman);
++    if (!reason.canonical.empty())
+     {
+-        mpr(reason);
++        mpr(ZhMessage{"", reason.canonical, reason.localized});
+         return false;
+     }
+ 
+     if (talisman.pos != ITEM_IN_INVENTORY && !room_in_inventory(talisman))
+     {
+-        mpr("You can't carry that many items.");
++        mpr(zh_message("talisman.reason.cannot_carry"));
+         return false;
+     }
+ 
+@@ -3414,8 +3425,11 @@ bool use_talisman(item_def& talisman)
+                                                      TALISMAN_MEDUSA,
+                                                      TALISMAN_SPORE);
+ 
+-        mprf("%s responds to your shapeshifting skill and transforms into a %s!",
+-             real_item.name(DESC_YOUR).c_str(), talisman_type_name(new_type).c_str());
++        item_def transformed = real_item;
++        transformed.sub_type = new_type;
++        mpr(zh_message("talisman.protean.transforms",
++            {zh_item_arg("item", real_item, DESC_YOUR),
++             zh_item_base_arg("form", transformed)}));
+ 
+         real_item.sub_type = new_type;
+         seen_item(real_item);
+@@ -3429,7 +3443,7 @@ bool use_talisman(item_def& talisman)
+         return false;
+     if (transforming_is_unsafe(trans))
+         return false;
+-    if (!i_feel_safe(true) && !yesno("Still begin transforming?", true, 'n'))
++    if (!i_feel_safe(true) && !yesno(zh_message("talisman.confirm.begin_transform"), true, 'n'))
+     {
+         canned_msg(MSG_OK);
+         return false;
+diff --git a/crawl-ref/source/item-use.h b/crawl-ref/source/item-use.h
+index 1e2b13e..18ab30b 100644
+--- a/crawl-ref/source/item-use.h
++++ b/crawl-ref/source/item-use.h
+@@ -62,6 +62,8 @@ bool warn_about_changing_gear(const vector<item_def*>& to_remove,
+ void do_equipment_change(item_def* to_equip, equipment_slot equip_slot,
+                          vector<item_def*> to_remove);
+ 
++struct ZhArg;
++ZhArg cannot_put_on_talisman_display_reason(const item_def& talisman, bool temp = true);
+ string cannot_put_on_talisman_reason(const item_def& talisman, bool temp = true);
+ bool use_talisman(item_def& talisman);
  
 diff --git a/crawl-ref/source/items.cc b/crawl-ref/source/items.cc
 index 5d6b98f..d2820f0 100644
@@ -58169,8 +58331,59 @@ index dc90d37..d1d4b32 100644
          else if (ranged_target == 0)
              mprf("Clearing the skill training target for %s.", skill_name(sk));
          else
+diff --git a/crawl-ref/source/spl-book.cc b/crawl-ref/source/spl-book.cc
+index ab30361..e0c9338 100644
+--- a/crawl-ref/source/spl-book.cc
++++ b/crawl-ref/source/spl-book.cc
+@@ -4,6 +4,7 @@
+ **/
+ 
+ #include "AppHdr.h"
++#include "zh-message.h"
+ 
+ #include "options.h"
+ #include "spl-book.h"
+@@ -998,9 +999,14 @@ bool learn_spell()
+  * @return          A string describing (one of) the reason(s) the player
+  *                  can't memorise this spell.
+  */
++ZhArg desc_cannot_memorise_display_reason(spell_type spell)
++{
++    return spell_uselessness_display_reason(spell, false, true);
++}
++
+ string desc_cannot_memorise_reason(spell_type spell)
+ {
+-    return spell_uselessness_reason(spell, false, true);
++    return desc_cannot_memorise_display_reason(spell).canonical;
+ }
+ 
+ /**
+@@ -1027,7 +1033,8 @@ static bool _learn_spell_checks(spell_type specspell, bool wizard = false)
+ 
+     if (!you_can_memorise(specspell))
+     {
+-        mpr(desc_cannot_memorise_reason(specspell));
++        const ZhArg reason = desc_cannot_memorise_display_reason(specspell);
++        mpr(ZhMessage{"", reason.canonical, reason.localized});
+         return false;
+     }
+ 
+diff --git a/crawl-ref/source/spl-book.h b/crawl-ref/source/spl-book.h
+index 2ab4ec2..5a3a2e3 100644
+--- a/crawl-ref/source/spl-book.h
++++ b/crawl-ref/source/spl-book.h
+@@ -37,6 +37,8 @@ bool learn_spell(spell_type spell, bool wizard = false, bool interactive = true)
+ 
+ bool library_add_spells(vector<spell_type> spells, bool quiet = false);
+ 
++struct ZhArg;
++ZhArg desc_cannot_memorise_display_reason(spell_type spell);
+ string desc_cannot_memorise_reason(spell_type spell);
+ 
+ spell_type spell_in_wand(wand_type wand);
 diff --git a/crawl-ref/source/spl-cast.cc b/crawl-ref/source/spl-cast.cc
-index e840154..7b3ef83 100644
+index e840154..00c081c 100644
 --- a/crawl-ref/source/spl-cast.cc
 +++ b/crawl-ref/source/spl-cast.cc
 @@ -6,6 +6,7 @@
@@ -58181,7 +58394,72 @@ index e840154..7b3ef83 100644
  
  #include <iomanip>
  #include <sstream>
-@@ -3045,7 +3046,7 @@ static string _spell_failure_rate_description(spell_type spell)
+@@ -1002,10 +1003,10 @@ spret cast_a_spell(bool check_range, spell_type spell, dist *_target,
+     }
+ 
+     // MP, confusion, Ru sacs
+-    const auto reason = casting_uselessness_reason(spell, true);
+-    if (!reason.empty())
++    const ZhArg reason = casting_uselessness_display_reason(spell, true);
++    if (!reason.canonical.empty())
+     {
+-        mpr(reason);
++        mpr(ZhMessage{"", reason.canonical, reason.localized});
+         crawl_state.zero_turns_taken();
+         return spret::abort;
+     }
+@@ -1215,14 +1216,12 @@ static spret _do_cast(spell_type spell, int powc, const dist& spd,
+  */
+ static bool _spellcasting_aborted(spell_type spell, bool fake_spell)
+ {
+-    string msg;
++    // Casting-general checks (MP etc) are not carried out here.
++    const ZhArg msg = spell_uselessness_display_reason(spell, true, true, true);
+ 
+-    // casting-general checks (MP etc) are not carried out here
+-    msg = spell_uselessness_reason(spell, true, true, true);
+-
+-    if (!msg.empty())
++    if (!msg.canonical.empty())
+     {
+-        mpr(msg);
++        mpr(ZhMessage{"", msg.canonical, msg.localized});
+         return true;
+     }
+ 
+@@ -1975,7 +1974,7 @@ class spell_targeting_behaviour : public targeting_behaviour
+ public:
+     spell_targeting_behaviour(spell_type _spell)
+         : targeting_behaviour(false), spell(_spell),
+-          err(spell_uselessness_reason(spell, true, false, true))
++          err(spell_uselessness_display_reason(spell, true, false, true))
+     {
+     }
+ 
+@@ -1986,14 +1985,20 @@ public:
+ 
+     string get_error() override
+     {
+-        return err;
++        return err.canonical;
++    }
++
++    bool get_message_error(ZhMessage &message) override
++    {
++        message = {"", err.canonical, err.localized};
++        return true;
+     }
+ 
+     // TODO: provide useful errors for specific targets via get_monster_desc?
+ 
+ private:
+     spell_type spell;
+-    string err;
++    ZhArg err;
+ };
+ 
+ // TODO: is there a way for this to be part of targeter objects, or
+@@ -3045,7 +3050,7 @@ static string _spell_failure_rate_description(spell_type spell)
              col, severity_adj, col, col, failure.c_str(), col);
  }
  
@@ -58190,7 +58468,7 @@ index e840154..7b3ef83 100644
  {
      const int casting_noise = spell_noise(spell);
      int effect_noise = spell_effect_noise(spell);
-@@ -3054,8 +3055,11 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+@@ -3054,8 +3059,11 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
      if (spell == SPELL_POLAR_VORTEX)
          effect_noise = 15;
  
@@ -58203,7 +58481,7 @@ index e840154..7b3ef83 100644
      const char* noise_descriptions[] =
      {
          "Silent", "Almost silent", "Quiet", "A bit loud", "Loud", "Very loud",
-@@ -3065,8 +3069,14 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+@@ -3065,8 +3073,14 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
      const int breakpoints[] = { 1, 2, 4, 8, 15, 20, 30 };
      COMPILE_CHECK(ARRAYSZ(noise_descriptions) == 1 + ARRAYSZ(breakpoints));
  
@@ -58219,7 +58497,7 @@ index e840154..7b3ef83 100644
  
  #ifdef WIZARD
      if (you.wizard)
-@@ -3086,6 +3096,23 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
+@@ -3086,6 +3100,23 @@ string spell_noise_string(spell_type spell, int chop_wiz_display_width)
          return desc;
  }
  
@@ -58264,7 +58542,7 @@ index 3b1756b..9048e53 100644
  
  void spell_skills(spell_type spell, set<skill_type> &skills);
 diff --git a/crawl-ref/source/spl-transloc.cc b/crawl-ref/source/spl-transloc.cc
-index b3694e5..9d6c601 100644
+index b3694e5..1358414 100644
 --- a/crawl-ref/source/spl-transloc.cc
 +++ b/crawl-ref/source/spl-transloc.cc
 @@ -4,6 +4,9 @@
@@ -58353,7 +58631,107 @@ index b3694e5..9d6c601 100644
      place_cloud(CLOUD_DUST, you.pos(), 2 + random2(3), &you);
      you.move_to(target, MV_DELIBERATE);
      you.increase_duration(DUR_BLINK_COOLDOWN, random_range(2, 5));
-@@ -337,14 +382,14 @@ void wizard_blink()
+@@ -221,31 +266,37 @@ spret spider_jump()
+  * @param hitfunc       A hitfunc passed to the direction_chooser.
+  * @return              True if a target was found; false if the player aborted.
+  */
++enum class transloc_target_action { blink, hop };
++
+ static bool _find_cblink_target(dist &target, bool safe_cancel,
+-                                string verb, targeter *hitfunc = nullptr, bool physical = false)
++                                transloc_target_action action, targeter *hitfunc = nullptr, bool physical = false)
+ {
++    const bool hopping = action == transloc_target_action::hop;
++    const string verb = hopping ? "hop" : "blink";
+     while (true)
+     {
+         // query for location {dlb}:
+         direction_chooser_args args;
+         args.restricts = DIR_TARGET;
+         args.needs_path = false;
+-        args.top_prompt = uppercase_first(verb) + " to where?";
++        args.top_prompt = zh_message(hopping ? "transloc.target.hop.where"
++                                            : "transloc.target.blink.where").display();
+         args.hitfunc = hitfunc;
+         args.mode = TARG_NON_ACTOR;
+         direction(target, args);
+ 
+         if (crawl_state.seen_hups)
+         {
+-            mprf("Cancelling %s due to HUP.", verb.c_str());
++            mpr(zh_message(hopping ? "transloc.target.hop.hup"
++                                    : "transloc.target.blink.hup"));
+             return false;
+         }
+ 
+         if (!target.isValid || target.target == you.pos())
+         {
+-            const string prompt =
+-                "Are you sure you want to cancel this " + verb + "?";
+-            if (!safe_cancel && !yesno(prompt.c_str(), false, 'n'))
++            const ZhMessage prompt = zh_message(hopping ? "transloc.target.hop.cancel"
++                                                        : "transloc.target.blink.cancel");
++            if (!safe_cancel && !yesno(prompt, false, 'n'))
+             {
+                 clear_messages();
+                 continue;
+@@ -258,33 +309,37 @@ static bool _find_cblink_target(dist &target, bool safe_cancel,
+         const monster* beholder = you.get_beholder(target.target);
+         if (beholder)
+         {
+-            mprf("You cannot %s away from %s!",
+-                 verb.c_str(),
+-                 beholder->name(DESC_THE, true).c_str());
++            ZhArg name = zh_monster_arg("monster", *beholder);
++            name.canonical = beholder->name(DESC_THE, true);
++            mpr(zh_message(hopping ? "transloc.target.hop.away"
++                                   : "transloc.target.blink.away", {name}));
+             continue;
+         }
+ 
+         const monster* fearmonger = you.get_fearmonger(target.target);
+         if (fearmonger)
+         {
+-            mprf("You cannot %s closer to %s!",
+-                 verb.c_str(),
+-                 fearmonger->name(DESC_THE, true).c_str());
++            ZhArg name = zh_monster_arg("monster", *fearmonger);
++            name.canonical = fearmonger->name(DESC_THE, true);
++            mpr(zh_message(hopping ? "transloc.target.hop.closer"
++                                   : "transloc.target.blink.closer", {name}));
+             continue;
+         }
+ 
+         if (cell_is_solid(target.target))
+         {
+             clear_messages();
+-            mprf("You can't %s into that!", verb.c_str());
++            mpr(zh_message(hopping ? "transloc.target.hop.solid"
++                                    : "transloc.target.blink.solid"));
+             continue;
+         }
+ 
+         monster* target_mons = monster_at(target.target);
+         if (target_mons && you.can_see(*target_mons))
+         {
+-            mprf("You can't %s onto %s!", verb.c_str(),
+-                 target_mons->name(DESC_THE).c_str());
++            mpr(zh_message(hopping ? "transloc.target.hop.occupied"
++                                    : "transloc.target.blink.occupied",
++                           {zh_monster_arg("monster", *target_mons)}));
+             continue;
+         }
+ 
+@@ -324,7 +379,7 @@ void wizard_blink()
+     tgt.obeys_mesmerise = false;
+     args.hitfunc = &tgt;
+ 
+-    args.top_prompt = "Blink to where?";
++    args.top_prompt = zh_message("transloc.target.blink.where").display();
+     dist beam;
+     direction(beam, args);
+ 
+@@ -337,14 +392,14 @@ void wizard_blink()
      if (!in_bounds(beam.target))
      {
          clear_messages();
@@ -58370,7 +58748,13 @@ index b3694e5..9d6c601 100644
          return wizard_blink();
      }
  
-@@ -461,7 +506,7 @@ spret frog_hop(bool fail, dist *target)
+@@ -456,12 +511,12 @@ spret frog_hop(bool fail, dist *target)
+ 
+     while (true)
+     {
+-        if (!_find_cblink_target(*target, true, "hop", &tgt, true))
++        if (!_find_cblink_target(*target, true, transloc_target_action::hop, &tgt, true))
+             return spret::abort;
  
          if (grid_distance(you.pos(), target->target) > hop_range)
          {
@@ -58379,7 +58763,7 @@ index b3694e5..9d6c601 100644
              continue;
          }
          break;
-@@ -475,7 +520,7 @@ spret frog_hop(bool fail, dist *target)
+@@ -475,7 +530,7 @@ spret frog_hop(bool fail, dist *target)
      // invisible monster that the targeter didn't know to avoid, or similar
      if (target->target.origin())
      {
@@ -58388,7 +58772,7 @@ index b3694e5..9d6c601 100644
          // TODO: what to do here?
          return spret::success; // of a sort
      }
-@@ -484,7 +529,7 @@ spret frog_hop(bool fail, dist *target)
+@@ -484,39 +539,52 @@ spret frog_hop(bool fail, dist *target)
      you.move_to(target->target, MV_DELIBERATE);
      crawl_state.cancel_cmd_again();
      crawl_state.cancel_cmd_repeat();
@@ -58397,7 +58781,221 @@ index b3694e5..9d6c601 100644
      you.increase_duration(DUR_NO_HOP, 12 + random2(13));
  
      return spret::success; // TODO
-@@ -691,7 +736,7 @@ static bool _displace_charge_blocker(actor& agent, coord_def pos)
+ }
+ 
+-string electric_charge_impossible_reason(bool allow_safe_monsters)
++ZhArg electric_charge_impossible_display_reason(bool allow_safe_monsters)
+ {
+-    // General movement checks are handled elsewhere.
++    // Every child comes from the same target/landing decision as the engine.
+     int nearby_mons = 0;
+-    string example_reason = "";
+-    string fail_reason;
++    ZhArg example_reason{"reason", ZhArgType::Text, "", "", true};
+     for (monster_near_iterator mi(&you); mi; ++mi)
+     {
+         ++nearby_mons;
+-        if (get_electric_charge_landing_spot(you, mi->pos(), &fail_reason).origin())
++        ZhArg fail_reason{"reason", ZhArgType::Text, "", "", true};
++        if (get_electric_charge_landing_spot(you, mi->pos(), nullptr, &fail_reason).origin())
+         {
+-            example_reason = make_stringf("you can't charge at %s because %s",
+-                                          mi->name(DESC_THE).c_str(),
+-                                          fail_reason.c_str());
++            example_reason = zh_message_arg("reason", "transloc.charge.reason.target",
++                {zh_monster_arg("monster", **mi), fail_reason});
++            // The old engine API lowercases the complete single-target reason.
++            example_reason.canonical = lowercase_string(example_reason.canonical);
++            if (!example_reason.supported)
++                example_reason.localized = example_reason.canonical;
+         }
+-        else if (allow_safe_monsters
+-                 || !mons_is_safe(*mi, false)
++        else if (allow_safe_monsters || !mons_is_safe(*mi, false)
+                  || mons_class_is_test(mi->type))
+-        {
+-            return "";
+-        }
++            return {"reason", ZhArgType::Text, "", "", true};
+     }
+     if (!nearby_mons)
+-        return "you can't see anything to charge at.";
++        return zh_message_arg("reason", "transloc.charge.reason.none");
+     if (nearby_mons == 1)
+-        return lowercase_string(example_reason);
+-    return "there's one issue or another keeping you from charging at any nearby foe.";
++        return example_reason;
++    return zh_message_arg("reason", "transloc.charge.reason.many");
++}
++
++string electric_charge_impossible_reason(bool allow_safe_monsters)
++{
++    return electric_charge_impossible_display_reason(allow_safe_monsters).canonical;
++}
++
++static void _charge_failure(const ZhArg &reason, string *canonical, ZhArg *display)
++{
++    if (canonical)
++        *canonical = reason.canonical;
++    if (display)
++        *display = reason;
+ }
+ 
+ string movement_impossible_reason()
+@@ -528,32 +596,31 @@ string movement_impossible_reason()
+     return "";
+ }
+ 
+-bool valid_electric_charge_target(const actor& agent, coord_def target, string* fail_reason)
++bool valid_electric_charge_target(const actor& agent, coord_def target, string* fail_reason,
++                                  ZhArg* display_reason)
+ {
+-    string msg;
+-
+     const actor* act = actor_at(target);
+ 
+     // Target must be in range and non-adjacent
+     if (agent.pos() == target)
+     {
+-        if (fail_reason)
+-            *fail_reason = "You can't charge at yourself.";
++        _charge_failure(zh_message_arg("reason", "transloc.charge.reason.self"),
++                        fail_reason, display_reason);
+ 
+         return false;
+     }
+     else if (adjacent(agent.pos(), target))
+     {
+-        if (fail_reason)
+-            *fail_reason = "You're already next to there.";
++        _charge_failure(zh_message_arg("reason", "transloc.charge.reason.adjacent"),
++                        fail_reason, display_reason);
+ 
+         return false;
+     }
+     else if (grid_distance(agent.pos(), target)
+              > spell_range(SPELL_ELECTRIC_CHARGE, &agent))
+     {
+-        if (fail_reason)
+-            *fail_reason = "That's out of range!";
++        _charge_failure(zh_message_arg("reason", "transloc.charge.reason.out_of_range"),
++                        fail_reason, display_reason);
+ 
+         return false;
+     }
+@@ -563,8 +630,8 @@ bool valid_electric_charge_target(const actor& agent, coord_def target, string*
+         || agent.is_player() && act->is_monster()
+            && fedhas_passthrough(act->as_monster()))
+     {
+-        if (fail_reason)
+-            *fail_reason = "You can't see anything there to charge at.";
++        _charge_failure(zh_message_arg("reason", "transloc.charge.reason.unseen"),
++                        fail_reason, display_reason);
+ 
+         return false;
+     }
+@@ -572,8 +639,8 @@ bool valid_electric_charge_target(const actor& agent, coord_def target, string*
+     // No charging at friends or firewood.
+     if (mons_aligned(act, &agent) || act->is_firewood())
+     {
+-        if (fail_reason)
+-            *fail_reason = "Why would you want to do that?";
++        _charge_failure(zh_message_arg("reason", "transloc.charge.reason.ally"),
++                        fail_reason, display_reason);
+ 
+         return false;
+     }
+@@ -585,17 +652,17 @@ bool valid_electric_charge_target(const actor& agent, coord_def target, string*
+ // Returns (0, 0) if this charge is invalid for any reason.
+ // (fail_reason will get set to an appropriate error message)
+ coord_def get_electric_charge_landing_spot(const actor& agent, coord_def target,
+-                                           string* fail_reason)
++                                           string* fail_reason, ZhArg* display_reason)
+ {
+     // Double-check that this is a valid thing to try to charge at at all
+-    if (!valid_electric_charge_target(agent, target, fail_reason))
++    if (!valid_electric_charge_target(agent, target, fail_reason, display_reason))
+         return coord_def(0, 0);
+ 
+     ray_def ray;
+     if (!find_ray(agent.pos(), target, ray, opc_solid))
+     {
+-        if (fail_reason)
+-            *fail_reason = "There's something in the way.";
++        _charge_failure(zh_message_arg("reason", "transloc.charge.reason.blocked"),
++                        fail_reason, display_reason);
+ 
+         return coord_def(0, 0);
+     }
+@@ -610,12 +677,16 @@ coord_def get_electric_charge_landing_spot(const actor& agent, coord_def target,
+             if (agent.is_player() ? is_feat_dangerous(env.grid(ray.pos()))
+                                   : !monster_habitable_grid(agent.as_monster(), ray.pos()))
+             {
+-                if (fail_reason)
++                string english, plain;
+                 {
+-                    *fail_reason = "There's "
+-                                   + feature_description_at(ray.pos())
+-                                   + " in the way.";
++                    ZhTranslationPause canonical;
++                    english = feature_description_at(ray.pos());
++                    plain = feature_description(env.grid(ray.pos()), NUM_TRAPS, "", DESC_PLAIN);
+                 }
++                ZhArg terrain = zh_glossary_name("terrain", "terrain", plain);
++                terrain.canonical = english;
++                _charge_failure(zh_message_arg("reason", "transloc.charge.reason.terrain_blocked",
++                                               {terrain}), fail_reason, display_reason);
+ 
+                 return coord_def(0, 0);
+             }
+@@ -623,11 +694,9 @@ coord_def get_electric_charge_landing_spot(const actor& agent, coord_def target,
+             const monster* mon = monster_at(ray.pos());
+             if (mon && agent.can_see(*mon) && mons_class_is_stationary(mon->type))
+             {
+-                if (fail_reason)
+-                {
+-                    *fail_reason = mon->name(DESC_THE)
+-                                   + " is immovably fixed in your path.";
+-                }
++                _charge_failure(zh_message_arg("reason", "transloc.charge.reason.stationary",
++                                               {zh_monster_arg("monster", *mon)}),
++                                fail_reason, display_reason);
+ 
+                 return coord_def(0, 0);
+             }
+@@ -638,11 +707,10 @@ coord_def get_electric_charge_landing_spot(const actor& agent, coord_def target,
+                 const monster* beholder = you.get_beholder(ray.pos());
+                 if (beholder)
+                 {
+-                    if (fail_reason)
+-                    {
+-                        *fail_reason = make_stringf("You cannot charge away from %s!",
+-                                                    beholder->name(DESC_THE, true).c_str());
+-                    }
++                    ZhArg monster_name = zh_monster_arg("monster", *beholder);
++                    monster_name.canonical = beholder->name(DESC_THE, true);
++                    _charge_failure(zh_message_arg("reason", "transloc.charge.reason.beholder",
++                                                   {monster_name}), fail_reason, display_reason);
+ 
+                     return coord_def(0, 0);
+                 }
+@@ -650,11 +718,10 @@ coord_def get_electric_charge_landing_spot(const actor& agent, coord_def target,
+                 const monster* fearmonger = you.get_fearmonger(ray.pos());
+                 if (fearmonger)
+                 {
+-                    if (fail_reason)
+-                    {
+-                        *fail_reason = make_stringf("You cannot charge closer to %s!",
+-                                                    fearmonger->name(DESC_THE, true).c_str());
+-                    }
++                    ZhArg monster_name = zh_monster_arg("monster", *fearmonger);
++                    monster_name.canonical = fearmonger->name(DESC_THE, true);
++                    _charge_failure(zh_message_arg("reason", "transloc.charge.reason.fearmonger",
++                                                   {monster_name}), fail_reason, display_reason);
+ 
+                     return coord_def(0, 0);
+                 }
+@@ -691,7 +758,7 @@ static bool _displace_charge_blocker(actor& agent, coord_def pos)
              && blocker->blink_to(targ, true))
          {
              if (blocker->is_player())
@@ -58406,7 +59004,7 @@ index b3694e5..9d6c601 100644
  
              continue;
          }
-@@ -757,7 +802,7 @@ spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target
+@@ -757,7 +824,7 @@ spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target
      if (invalid_dest)
      {
          if (agent.is_player())
@@ -58415,7 +59013,7 @@ index b3694e5..9d6c601 100644
          return spret::success;
      }
  
-@@ -774,9 +819,9 @@ spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target
+@@ -774,9 +841,9 @@ spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target
  
          // Monster cast messages are handled through monspell.txt
          if (silenced(dest_pos))
@@ -58427,7 +59025,7 @@ index b3694e5..9d6c601 100644
      }
  
      // Trying to clear space at our destination by moving actors away from it.
-@@ -785,8 +830,8 @@ spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target
+@@ -785,8 +852,8 @@ spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target
      {
          if (agent.is_player() || (agent.is_monster() && you.can_see(agent)))
          {
@@ -58438,8 +59036,12 @@ index b3694e5..9d6c601 100644
          }
  
          return spret::success;
-@@ -871,7 +916,7 @@ spret controlled_blink(bool safe_cancel, dist *target)
-         if (!_find_cblink_target(*target, safe_cancel, "blink", &tgt))
+@@ -868,23 +935,23 @@ spret controlled_blink(bool safe_cancel, dist *target)
+     if (orb_limits_translocation())
+     {
+         targeter_hop tgt(max(1, you.current_vision - 2), false);
+-        if (!_find_cblink_target(*target, safe_cancel, "blink", &tgt))
++        if (!_find_cblink_target(*target, safe_cancel, transloc_target_action::blink, &tgt))
              return spret::abort;
          target->target = _fuzz_blink_destination(target->target);
 -        mprf(MSGCH_ORB, "You feel the Orb interfering with your translocation!");
@@ -58447,7 +59049,13 @@ index b3694e5..9d6c601 100644
      }
      else
      {
-@@ -884,7 +929,7 @@ spret controlled_blink(bool safe_cancel, dist *target)
+         targeter_smite tgt(&you, LOS_RADIUS);
+         tgt.obeys_mesmerise = true;
+-        if (!_find_cblink_target(*target, safe_cancel, "blink", &tgt))
++        if (!_find_cblink_target(*target, safe_cancel, transloc_target_action::blink, &tgt))
+             return spret::abort;
+     }
+ 
      // invisible monster that the targeter didn't know to avoid
      if (monster_at(target->target))
      {
@@ -58456,7 +59064,7 @@ index b3694e5..9d6c601 100644
          uncontrolled_blink();
          return spret::success; // of a sort
      }
-@@ -933,29 +978,29 @@ void you_teleport(bool is_hostile, mid_t teleportitis_source)
+@@ -933,29 +1000,29 @@ void you_teleport(bool is_hostile, mid_t teleportitis_source)
          canned_msg(MSG_STRANGE_STASIS);
      else if (you.duration[DUR_TELEPORT])
      {
@@ -58492,7 +59100,7 @@ index b3694e5..9d6c601 100644
              teleport_delay += 5 + random2(5);
          }
  
-@@ -1013,17 +1058,17 @@ static bool _real_teleport_cleanup(coord_def oldpos, coord_def newpos, bool quie
+@@ -1013,17 +1080,17 @@ static bool _real_teleport_cleanup(coord_def oldpos, coord_def newpos, bool quie
      if (newpos == oldpos)
      {
          if (!quiet)
@@ -58513,7 +59121,7 @@ index b3694e5..9d6c601 100644
          large_change = true;
      }
  
-@@ -1080,8 +1125,7 @@ static bool _teleport_player(bool wizard_tele, string reason="")
+@@ -1080,8 +1147,7 @@ static bool _teleport_player(bool wizard_tele, string reason="")
              // location, so cancel the teleport.
              if (crawl_state.seen_hups)
              {
@@ -58523,7 +59131,7 @@ index b3694e5..9d6c601 100644
                  return false;
              }
  
-@@ -1098,7 +1142,7 @@ static bool _teleport_player(bool wizard_tele, string reason="")
+@@ -1098,7 +1164,7 @@ static bool _teleport_player(bool wizard_tele, string reason="")
  
          if (cell_vetoes_teleport(pos, true, wizard_tele))
          {
@@ -58532,7 +59140,7 @@ index b3694e5..9d6c601 100644
              return false;
          }
          else
-@@ -1227,9 +1271,7 @@ bool hostile_teleport_player(monster* source)
+@@ -1227,9 +1293,7 @@ bool hostile_teleport_player(monster* source)
                  break;
          }
  
@@ -58543,7 +59151,7 @@ index b3694e5..9d6c601 100644
  
          large_change = _real_teleport_cleanup(oldpos, newpos, true);
          crawl_state.potential_pursuers.clear();
-@@ -1248,8 +1290,8 @@ bool hostile_teleport_player(monster* source)
+@@ -1248,8 +1312,8 @@ bool hostile_teleport_player(monster* source)
              _place_tloc_cloud(source->pos());
              source->move_to(source_newpos, MV_DELIBERATE | MV_TRANSLOCATION, true);
              source->target = you.pos();
@@ -58554,7 +59162,7 @@ index b3694e5..9d6c601 100644
              source->finalise_movement();
          }
      }
-@@ -1373,8 +1415,7 @@ spret cast_dimensional_bullseye(int pow, monster *target, bool fail)
+@@ -1373,8 +1437,7 @@ spret cast_dimensional_bullseye(int pow, monster *target, bool fail)
              old_targ->del_ench(ENCH_BULLSEYE_TARGET);
      }
  
@@ -58564,7 +59172,7 @@ index b3694e5..9d6c601 100644
  
      // So we can automatically end the status if the target dies or becomes
      // friendly
-@@ -1442,9 +1483,9 @@ spret cast_manifold_assault(actor& agent, int pow, bool fail, bool real,
+@@ -1442,9 +1505,9 @@ spret cast_manifold_assault(actor& agent, int pow, bool fail, bool real,
          if (agent.is_player() && !katana_defender)
          {
              if (real && !found_unsafe_target)
@@ -58576,7 +59184,7 @@ index b3694e5..9d6c601 100644
          }
          return spret::abort;
      }
-@@ -1466,9 +1507,9 @@ spret cast_manifold_assault(actor& agent, int pow, bool fail, bool real,
+@@ -1466,9 +1529,9 @@ spret cast_manifold_assault(actor& agent, int pow, bool fail, bool real,
      if ((agent.is_player() || you.can_see(agent)) && !katana_defender)
      {
          if (weapon && is_unrandom_artefact(*weapon, UNRAND_AUTUMN_KATANA))
@@ -58588,7 +59196,7 @@ index b3694e5..9d6c601 100644
      }
  
      shuffle_array(targets);
-@@ -1538,7 +1579,7 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
+@@ -1538,7 +1601,7 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
      const int item_idx = you.visible_igrd(where);
      if (item_idx == NON_ITEM || !in_bounds(where))
      {
@@ -58597,7 +59205,7 @@ index b3694e5..9d6c601 100644
          return spret::abort;
      }
  
-@@ -1546,7 +1587,7 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
+@@ -1546,7 +1609,7 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
  
      if (item_is_stationary(item))
      {
@@ -58606,7 +59214,7 @@ index b3694e5..9d6c601 100644
          return spret::abort;
      }
  
-@@ -1613,7 +1654,7 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
+@@ -1613,7 +1676,7 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
          if (location_on_path == dist)
          {
              // we've checked every position in beam.path_taken within max_dist
@@ -58615,7 +59223,18 @@ index b3694e5..9d6c601 100644
              return spret::success; // of a sort
          }
          new_spot = beam.path_taken[location_on_path];
-@@ -1644,21 +1685,20 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
+@@ -1621,8 +1684,8 @@ spret cast_apportation(int pow, bolt& beam, bool fail)
+     dprf("Apport: new spot is %d/%d", new_spot.x, new_spot.y);
+ 
+     // Actually move the item.
+-    mprf("Yoink! You pull the item%s towards yourself.",
+-         (item.quantity > 1) ? "s" : "");
++    mpr(zh_message(item.quantity > 1 ? "transloc.apport.many"
++                                    : "transloc.apport.one"));
+ 
+     move_top_item(where, new_spot);
+ 
+@@ -1644,21 +1707,20 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
  {
      if (player_in_branch(BRANCH_GAUNTLET))
      {
@@ -58640,7 +59259,7 @@ index b3694e5..9d6c601 100644
          return spret::abort;
      }
  
-@@ -1693,14 +1733,12 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
+@@ -1693,14 +1755,12 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
      {
          if (you.trans_wall_blocking(randomized_where))
          {
@@ -58657,7 +59276,7 @@ index b3694e5..9d6c601 100644
          }
  
          return spret::abort;
-@@ -1715,7 +1753,7 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
+@@ -1715,7 +1775,7 @@ spret cast_golubrias_passage(int pow, const coord_def& where, bool fail)
      trap_def *trap2 = trap_at(randomized_here);
      if (!trap || !trap2)
      {
@@ -58666,7 +59285,7 @@ index b3694e5..9d6c601 100644
          return spret::abort;
      }
  
-@@ -1750,7 +1788,7 @@ spret cast_dispersal(int pow, bool fail)
+@@ -1750,7 +1810,7 @@ spret cast_dispersal(int pow, bool fail)
              return _disperse_monster(mon, pow);
          }, you.pos(), radius))
      {
@@ -58675,7 +59294,7 @@ index b3694e5..9d6c601 100644
      }
      return spret::success;
  }
-@@ -1822,15 +1860,9 @@ spret cast_gravitas(int pow, const coord_def& where, bool fail)
+@@ -1822,15 +1882,9 @@ spret cast_gravitas(int pow, const coord_def& where, bool fail)
      const int radius = gravitas_radius(pow);
  
      // XXX: If this is ever usable from elsewhere than the item, change this.
@@ -58693,7 +59312,7 @@ index b3694e5..9d6c601 100644
  
      draw_ring_animation(where, radius, LIGHTMAGENTA);
      pull_monsters_inward(where, radius);
-@@ -1852,7 +1884,7 @@ spret cast_gravitas(int pow, const coord_def& where, bool fail)
+@@ -1852,7 +1906,7 @@ spret cast_gravitas(int pow, const coord_def& where, bool fail)
              dmg = mon->apply_ac(dmg);
  
              if (you.can_see(*mon))
@@ -58702,7 +59321,7 @@ index b3694e5..9d6c601 100644
              mon->hurt(&you, dmg);
              mon->add_ench(mon_enchant(ENCH_BOUND, &you, dur));
              behaviour_event(mon, ME_WHACK, &you, you.pos());
-@@ -1917,9 +1949,7 @@ bool beckon(actor &beckoned, const bolt &path)
+@@ -1917,9 +1971,7 @@ bool beckon(actor &beckoned, const bolt &path)
      if (!beckoned.move_to(dest, MV_TRANSLOCATION, true))
          return false;
  
@@ -58713,7 +59332,7 @@ index b3694e5..9d6c601 100644
  
      beckoned.finalise_movement();
  
-@@ -1957,7 +1987,7 @@ void attract_monster(monster &mon, int max_move)
+@@ -1957,7 +2009,7 @@ void attract_monster(monster &mon, int max_move)
      if (!mon.move_to(ray.pos(), MV_TRANSLOCATION, true))
          return;
  
@@ -58722,7 +59341,17 @@ index b3694e5..9d6c601 100644
  
      _place_tloc_cloud(old_pos);
      _place_tloc_cloud(ray.pos());
-@@ -2016,7 +2046,7 @@ spret word_of_chaos(int pow, bool fail)
+@@ -2005,8 +2057,7 @@ spret word_of_chaos(int pow, bool fail)
+     vector<monster *> targets = find_chaos_targets();
+     if (visible_targets.empty())
+     {
+-        if (!yesno("You cannot see any enemies that you can affect. Speak a "
+-                   "word of chaos anyway?", true, 'n'))
++        if (!yesno(zh_message("transloc.chaos.confirm"), true, 'n'))
+         {
+             canned_msg(MSG_OK);
+             return spret::abort;
+@@ -2016,7 +2067,7 @@ spret word_of_chaos(int pow, bool fail)
      fail_check();
      shuffle_array(targets);
  
@@ -58731,7 +59360,7 @@ index b3694e5..9d6c601 100644
      for (auto mons : targets)
      {
          if (mons->no_tele())
-@@ -2050,7 +2080,7 @@ spret blinkbolt(int power, bolt &beam, bool fail)
+@@ -2050,7 +2101,7 @@ spret blinkbolt(int power, bolt &beam, bool fail)
      monster* mons = monster_at(beam.target);
      if (!mons || !you.can_see(*mons))
      {
@@ -58740,7 +59369,30 @@ index b3694e5..9d6c601 100644
          return spret::abort;
      }
  
-@@ -2242,15 +2272,12 @@ spret cast_piledriver(const coord_def& target, int pow, bool fail)
+@@ -2063,16 +2114,18 @@ spret blinkbolt(int power, bolt &beam, bool fail)
+     const monster* beholder = you.get_beholder(beam.target);
+     if (beholder)
+     {
+-        mprf("You cannot blinkbolt away from %s!",
+-            beholder->name(DESC_THE, true).c_str());
++        ZhArg name = zh_monster_arg("monster", *beholder);
++        name.canonical = beholder->name(DESC_THE, true);
++        mpr(zh_message("transloc.blinkbolt.away", {name}));
+         return spret::abort;
+     }
+ 
+     const monster* fearmonger = you.get_fearmonger(beam.target);
+     if (fearmonger)
+     {
+-        mprf("You cannot blinkbolt closer to %s!",
+-            fearmonger->name(DESC_THE, true).c_str());
++        ZhArg name = zh_monster_arg("monster", *fearmonger);
++        name.canonical = fearmonger->name(DESC_THE, true);
++        mpr(zh_message("transloc.blinkbolt.closer", {name}));
+         return spret::abort;
+     }
+ 
+@@ -2242,15 +2295,12 @@ spret cast_piledriver(const coord_def& target, int pow, bool fail)
      // There must be something invisible blocking all possible paths, so 'fail'.
      if (length == 0)
      {
@@ -58758,6 +59410,596 @@ index b3694e5..9d6c601 100644
  
      // Animate the player and their victim flying forward together
      bolt anim;
+@@ -2359,26 +2409,25 @@ spret cast_gavotte(int pow, const coord_def dir, bool fail)
+ 
+     fail_check();
+ 
+-    // XXX: Surely there's a better way to do this
+-    string dir_msg = "???";
++    // Select a complete message from the direction, never from rendered text.
++    const char *direction_message = "transloc.gavotte.unknown";
+     if (dir.x == 0 && dir.y == -1)
+-        dir_msg = "north";
++        direction_message = "transloc.gavotte.north";
+     else if (dir.x == 0 && dir.y == 1)
+-        dir_msg = "south";
++        direction_message = "transloc.gavotte.south";
+     else if (dir.x == -1 && dir.y == 0)
+-        dir_msg = "west";
++        direction_message = "transloc.gavotte.west";
+     else if (dir.x == 1 && dir.y == 0)
+-        dir_msg = "east";
++        direction_message = "transloc.gavotte.east";
+     else if (dir.x == -1 && dir.y == -1)
+-        dir_msg = "northwest";
++        direction_message = "transloc.gavotte.northwest";
+     else if (dir.x == 1 && dir.y == -1)
+-        dir_msg = "northeast";
++        direction_message = "transloc.gavotte.northeast";
+     else if (dir.x == -1 && dir.y == 1)
+-        dir_msg = "southwest";
++        direction_message = "transloc.gavotte.southwest";
+     else if (dir.x == 1 && dir.y == 1)
+-        dir_msg = "southeast";
+-
+-    mprf("Gravity reorients to the %s!", dir_msg.c_str());
++        direction_message = "transloc.gavotte.southeast";
++    mpr(zh_message(direction_message));
+ 
+     if (you.stasis())
+         canned_msg(MSG_STRANGE_STASIS);
+@@ -2557,7 +2606,7 @@ spret do_bestial_takedown(coord_def target)
+     if (monster_at(landing))
+         _displace_charge_blocker(you, landing);
+ 
+-    mprf("You pounce on %s with bestial fury!", targ->name(DESC_THE).c_str());
++    mpr(zh_message("transloc.bestial.pounce", {zh_monster_arg("monster", *targ)}));
+ 
+     you.move_to(landing, MV_DELIBERATE, true);
+ 
+diff --git a/crawl-ref/source/spl-transloc.h b/crawl-ref/source/spl-transloc.h
+index be69bac..0ba6ac8 100644
+--- a/crawl-ref/source/spl-transloc.h
++++ b/crawl-ref/source/spl-transloc.h
+@@ -3,6 +3,7 @@
+ #include "externs.h"
+ #include "spl-cast.h"
+ 
++struct ZhArg;
+ class actor;
+ class dist;
+ struct dice_def;
+@@ -22,6 +23,7 @@ spret spider_jump();
+ int frog_hop_range();
+ spret frog_hop(bool fail, dist *target = nullptr);
+ 
++ZhArg electric_charge_impossible_display_reason(bool allow_safe_monsters);
+ string electric_charge_impossible_reason(bool allow_safe_monsters);
+ spret electric_charge(actor& agent, int powc, bool fail, const coord_def &target);
+ bool find_charge_target(vector<coord_def> &target_path, int max_range,
+@@ -30,10 +32,12 @@ string movement_impossible_reason();
+ 
+ coord_def get_electric_charge_landing_spot(const actor& agent,
+                                            coord_def target,
+-                                           string* fail_reason = nullptr);
++                                           string* fail_reason = nullptr,
++                                           ZhArg* display_reason = nullptr);
+ 
+ bool valid_electric_charge_target(const actor& agent, coord_def target,
+-                                  string* fail_reason = nullptr);
++                                  string* fail_reason = nullptr,
++                                  ZhArg* display_reason = nullptr);
+ 
+ bool hostile_teleport_is_possible();
+ bool hostile_teleport_player(monster* mon_source = nullptr);
+diff --git a/crawl-ref/source/spl-util.cc b/crawl-ref/source/spl-util.cc
+index daf3130..a87efe3 100644
+--- a/crawl-ref/source/spl-util.cc
++++ b/crawl-ref/source/spl-util.cc
+@@ -4,6 +4,7 @@
+ **/
+ 
+ #include "AppHdr.h"
++#include "zh-message.h"
+ 
+ #include "spl-util.h"
+ 
+@@ -1189,49 +1190,49 @@ bool casting_is_useless(spell_type spell, bool temp)
+  *                   (status effects, mana)
+  # @return           A reason why casting is useless, or "" if it isn't.
+  */
+-string casting_uselessness_reason(spell_type spell, bool temp)
++ZhArg casting_uselessness_display_reason(spell_type spell, bool temp)
+ {
+     if (temp)
+     {
+         if (you.duration[DUR_CONF] > 0)
+-            return "you're too confused to cast spells.";
++            return zh_message_arg("reason", "spell.reason.too_confused");
+ 
+         if (spell_difficulty(spell) > you.experience_level)
+-            return "you aren't experienced enough to cast this spell.";
++            return zh_message_arg("reason", "spell.reason.low_experience");
+ 
+         if (you.has_mutation(MUT_HP_CASTING))
+         {
+             // TODO: deduplicate with enough_hp()
+             if (you.duration[DUR_DEATHS_DOOR])
+-                return "you cannot pay life while functionally dead.";
++                return zh_message_arg("reason", "spell.reason.dead_hp_payment");
+             if (!enough_hp(spell_mana(spell), true, false))
+-                return "you don't have enough health to cast this spell.";
++                return zh_message_arg("reason", "spell.reason.insufficient_health");
+         }
+         else if (!enough_mp(spell_mana(spell), true, false))
+-            return "you don't have enough magic to cast this spell.";
++            return zh_message_arg("reason", "spell.reason.insufficient_magic");
+ 
+         if (spell == SPELL_SUBLIMATION_OF_BLOOD
+             && you.magic_points == you.max_magic_points)
+         {
+             if (you.has_mutation(MUT_HP_CASTING))
+-                return "your magic and health are inextricable.";
+-            return "your reserves of magic are already full.";
++                return zh_message_arg("reason", "spell.reason.magic_health_inextricable");
++            return zh_message_arg("reason", "spell.reason.magic_reserves_full");
+         }
+ 
+         if (you.form == transformation::walking_scroll && spell_difficulty(spell) > 4)
+-            return "you cannot cast such powerful magic in your current form.";
++            return zh_message_arg("reason", "spell.reason.powerful_in_form");
+     }
+ 
+     // Check for banned schools (Currently just Ru sacrifices)
+     if (cannot_use_schools(get_spell_disciplines(spell)))
+-        return "you cannot use spells of this school.";
++        return zh_message_arg("reason", "spell.reason.school_forbidden");
+ 
+     // TODO: these checks were in separate places, but is this already covered
+     // by cannot_use_schools?
+     if (get_spell_disciplines(spell) & spschool::summoning
+         && you.allies_forbidden())
+     {
+-        return "you cannot coerce anything to answer your summons.";
++        return zh_message_arg("reason", "spell.reason.summons_no_answer");
+     }
+ 
+     // other ally spells not affected by the school checks
+@@ -1254,13 +1255,18 @@ string casting_uselessness_reason(spell_type spell, bool temp)
+     case SPELL_FORGE_LIGHTNING_SPIRE:
+     case SPELL_AWAKEN_ARMOUR:
+         if (you.allies_forbidden())
+-            return "you cannot coerce anything to obey you.";
++            return zh_message_arg("reason", "spell.reason.summons_no_obedience");
+         break;
+     default:
+         break;
+     }
+ 
+-    return "";
++    return {"reason", ZhArgType::Text, "", "", true};
++}
++
++string casting_uselessness_reason(spell_type spell, bool temp)
++{
++    return casting_uselessness_display_reason(spell, temp).canonical;
+ }
+ 
+ /**
+@@ -1302,23 +1308,23 @@ bool spell_is_useless(spell_type spell, bool temp, bool prevent,
+  *                   begin with a lowercase letter so callers can put it in
+  *                   the middle of a sentence.
+  */
+-string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
++ZhArg spell_uselessness_display_reason(spell_type spell, bool temp, bool prevent,
+                                 bool skip_casting_checks)
+ {
+     // prevent all of this logic during excursions / levelgen. This function
+     // does get called during character creation, so allow it to run for !temp.
+     if (temp && (!in_bounds(you.pos()) || !you.on_current_level))
+-        return "you can't cast spells right now.";
++        return zh_message_arg("reason", "spell.reason.off_level");
+ 
+     if (!skip_casting_checks)
+     {
+-        string c_check = casting_uselessness_reason(spell, temp);
+-        if (!c_check.empty())
++        ZhArg c_check = casting_uselessness_display_reason(spell, temp);
++        if (!c_check.canonical.empty())
+             return c_check;
+     }
+ 
+     if (!prevent && temp && spell_no_hostile_in_range(spell))
+-        return "you can't see any hostile targets that would be affected.";
++        return zh_message_arg("reason", "spell.reason.no_hostiles");
+ 
+     switch (spell)
+     {
+@@ -1326,95 +1332,100 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
+         // XXX: this is a little redundant with you_no_tele_reason()
+         // but trying to sort out temp and so on is a mess
+         if (you.stasis())
+-            return "your stasis prevents you from teleporting.";
++            return zh_message_arg("reason", "spell.reason.stasis_teleport");
+ 
+         // Distinct from no_tele - can still be forcibly blinked.
+         if (temp && you.duration[DUR_BLINK_COOLDOWN])
+-            return "you are still too unstable to blink.";
++            return zh_message_arg("reason", "spell.reason.blink_unstable");
+ 
+         if (temp && you.no_tele(true))
+-            return lowercase_first(you.no_tele_reason(true));
++        {
++            ZhArg reason = you.no_tele_display_reason(true);
++            reason.canonical = lowercase_first(reason.canonical);
++            if (!reason.supported)
++                reason.localized = reason.canonical;
++            return reason;
++        }
+         break;
+ 
+     case SPELL_SWIFTNESS:
+         if (you.stasis())
+-            return "your stasis precludes magical swiftness.";
++            return zh_message_arg("reason", "spell.reason.stasis_swiftness");
+ 
+         if (temp)
+         {
+             if (you.duration[DUR_SWIFTNESS])
+-                return "this spell is already in effect.";
++                return zh_message_arg("reason", "spell.reason.already_effect");
+             if (player_movement_speed(false) <= FASTEST_PLAYER_MOVE_SPEED)
+-                return "you're already travelling as fast as you can.";
++                return zh_message_arg("reason", "spell.reason.already_fast");
+             if (you.cannot_move())
+-                return "you can't move.";
++                return zh_message_arg("reason", "spell.reason.cannot_move");
+         }
+         break;
+ 
+     case SPELL_DIMENSIONAL_BULLSEYE:
+         if (you.has_mutation(MUT_NO_GRASPING))
+-            return "this spell is useless without hands.";
++            return zh_message_arg("reason", "spell.reason.without_hands");
+         break;
+     case SPELL_LEDAS_LIQUEFACTION:
+         if (temp && you.duration[DUR_LIQUEFYING])
+-            return "you need to wait for the ground to become solid again.";
++            return zh_message_arg("reason", "spell.reason.ground_solid");
+         break;
+ 
+     case SPELL_BORGNJORS_REVIVIFICATION:
+         if (temp && you.hp == you.hp_max)
+-            return "you cannot be healed further.";
++            return zh_message_arg("reason", "spell.reason.healed_further");
+         if (temp && you.hp_max < 21)
+-            return "you lack the resilience to cast this spell.";
++            return zh_message_arg("reason", "spell.reason.lack_resilience");
+         // Prohibited to all undead.
+         if (you.undead_state(temp))
+-            return "you're too dead.";
++            return zh_message_arg("reason", "spell.reason.too_dead");
+         break;
+     case SPELL_DEATHS_DOOR:
+         if (temp && you.duration[DUR_DEATHS_DOOR])
+-            return "you are already standing in death's doorway.";
++            return zh_message_arg("reason", "spell.reason.death_door_active");
+         if (temp && you.duration[DUR_DEATHS_DOOR_COOLDOWN])
+-            return "you are still too close to death's doorway.";
++            return zh_message_arg("reason", "spell.reason.death_door_cooldown");
+         // Prohibited to all undead.
+         if (you.undead_state(temp))
+-            return "you're too dead.";
++            return zh_message_arg("reason", "spell.reason.too_dead");
+         break;
+ 
+     case SPELL_OZOCUBUS_ARMOUR:
+         if (temp && you.unrand_equipped(UNRAND_SALAMANDER))
+-            return "your ring of flames would instantly melt the ice.";
++            return zh_message_arg("reason", "spell.reason.ring_flames_melts_ice");
+         break;
+ 
+     case SPELL_SUBLIMATION_OF_BLOOD:
+         if (!you.has_blood(temp))
+-            return "you have no blood to sublime.";
++            return zh_message_arg("reason", "spell.reason.no_blood");
+         break;
+ 
+     case SPELL_POLAR_VORTEX:
+         if (temp && (you.duration[DUR_VORTEX]
+                      || you.duration[DUR_VORTEX_COOLDOWN]))
+         {
+-            return "you need to wait for the winds to calm down.";
++            return zh_message_arg("reason", "spell.reason.winds_calm");
+         }
+         break;
+ 
+     case SPELL_MALIGN_GATEWAY:
+         if (temp && !can_cast_malign_gateway())
+         {
+-            return "the dungeon can only cope with one malign gateway"
+-                    " at a time.";
++            return zh_message_arg("reason", "spell.reason.one_malign_gateway");
+         }
+         if (temp && cast_malign_gateway(&you, 0, false, true)
+                     == spret::abort)
+         {
+-            return "you need more open space to create a gateway.";
++            return zh_message_arg("reason", "spell.reason.open_space_gateway");
+         }
+         break;
+ 
+     case SPELL_SUMMON_FOREST:
+         if (temp && you.duration[DUR_FORESTED])
+-            return "you can only summon one forest at a time.";
++            return zh_message_arg("reason", "spell.reason.one_forest");
+         if (temp && cast_summon_forest(&you, 0, false, true) == spret::abort)
+-            return "you need more open space to fit a forest.";
++            return zh_message_arg("reason", "spell.reason.open_space_forest");
+         break;
+ 
+     case SPELL_PASSWALL:
+@@ -1423,25 +1434,25 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
+         if (!temp)
+             break;
+         if (you.cannot_move())
+-            return "you can't move.";
++            return zh_message_arg("reason", "spell.reason.cannot_move");
+         if (!passwall_simplified_check(you))
+-            return "you aren't next to any passable walls.";
++            return zh_message_arg("reason", "spell.reason.no_passable_walls");
+         if (you.is_constricted())
+-            return "you're being held away from the wall.";
++            return zh_message_arg("reason", "spell.reason.held_from_wall");
+         break;
+ 
+     case SPELL_ANIMATE_DEAD:
+         if (have_passive(passive_t::goldify_corpses))
+-            return "necromancy does not work on golden corpses.";
++            return zh_message_arg("reason", "spell.reason.gold_corpses");
+         if (have_passive(passive_t::reaping))
+-            return "you are already reaping souls!";
++            return zh_message_arg("reason", "spell.reason.reaping");
+         break;
+ 
+     case SPELL_DEATH_CHANNEL:
+         if (temp && you.duration[DUR_DEATH_CHANNEL])
+-            return "you are already channelling the dead.";
++            return zh_message_arg("reason", "spell.reason.already_channeling");
+         if (have_passive(passive_t::reaping))
+-            return "you are already reaping souls!";
++            return zh_message_arg("reason", "spell.reason.reaping");
+         break;
+ 
+     case SPELL_PUTREFACTION:
+@@ -1450,14 +1461,13 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
+     case SPELL_FREEZING_CLOUD:
+     case SPELL_MEPHITIC_CLOUD:
+         if (temp && env.level_state & LSTATE_STILL_WINDS)
+-            return "the air is too still for clouds to form.";
++            return zh_message_arg("reason", "spell.reason.still_air");
+         break;
+ 
+     case SPELL_GOLUBRIAS_PASSAGE:
+         if (temp && player_in_branch(BRANCH_GAUNTLET))
+         {
+-            return "a magic seal in the Gauntlet prevents this spell "
+-                   "from working.";
++            return zh_message_arg("reason", "spell.reason.gauntlet_seal");
+         }
+         break;
+ 
+@@ -1465,43 +1475,49 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
+         if (temp && (you.duration[DUR_DRAGON_CALL]
+                      || you.duration[DUR_DRAGON_CALL_COOLDOWN]))
+         {
+-            return "you cannot issue another dragon's call so soon.";
++            return zh_message_arg("reason", "spell.reason.dragon_call_cooldown");
+         }
+         break;
+ 
+     case SPELL_FROZEN_RAMPARTS:
+         if (temp && you.duration[DUR_FROZEN_RAMPARTS])
+-            return "you cannot sustain more frozen ramparts right now.";
++            return zh_message_arg("reason", "spell.reason.more_ramparts");
+         break;
+ 
+     case SPELL_NOXIOUS_BOG:
+         if (temp && you.duration[DUR_NOXIOUS_BOG])
+-            return "you cannot sustain more bogs right now.";
++            return zh_message_arg("reason", "spell.reason.more_bogs");
+         break;
+ 
+     case SPELL_AWAKEN_ARMOUR:
+         if (!you_can_wear(SLOT_BODY_ARMOUR, temp))
+-            return "you cannot wear body armour.";
++            return zh_message_arg("reason", "spell.reason.no_body_armour");
+         if (temp && !you.body_armour())
+-            return "you have no body armour to summon the spirit of.";
++            return zh_message_arg("reason", "spell.reason.no_armour_soul");
+         break;
+ 
+     case SPELL_MOMENTUM_STRIKE:
+         if (temp && you.cannot_move())
+-            return "you cannot redirect your momentum while unable to move.";
++            return zh_message_arg("reason", "spell.reason.momentum_move");
+         break;
+ 
+     case SPELL_PILEDRIVER:
+         if (you.stasis())
+-            return "your stasis prevents you from launching yourself.";
++            return zh_message_arg("reason", "spell.reason.launch_stasis");
+         if (temp)
+         {
+             if (you.cannot_move())
+-                return "you cannot launch yourself while unable to move.";
++                return zh_message_arg("reason", "spell.reason.launch_move");
+             if (you.no_tele(true))
+-                return lowercase_first(you.no_tele_reason(true));
++            {
++                ZhArg reason = you.no_tele_display_reason(true);
++                reason.canonical = lowercase_first(reason.canonical);
++                if (!reason.supported)
++                    reason.localized = reason.canonical;
++                return reason;
++            }
+             if (!piledriver_target_exists())
+-                return "you cannot see anything nearby that you can launch.";
++                return zh_message_arg("reason", "spell.reason.no_launch_target");
+         }
+         break;
+ 
+@@ -1509,50 +1525,56 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
+         // XXX: this is a little redundant with you_no_tele_reason()
+         // but trying to sort out temp and so on is a mess
+         if (you.stasis())
+-            return "your stasis prevents you from teleporting.";
++            return zh_message_arg("reason", "spell.reason.stasis_teleport");
+         if (temp)
+         {
+             if (you.no_tele(true))
+-                return lowercase_first(you.no_tele_reason(true));
+-            const string no_charge_reason = electric_charge_impossible_reason(true);
+-            if (!no_charge_reason.empty())
++            {
++                ZhArg reason = you.no_tele_display_reason(true);
++                reason.canonical = lowercase_first(reason.canonical);
++                if (!reason.supported)
++                    reason.localized = reason.canonical;
++                return reason;
++            }
++            const ZhArg no_charge_reason = electric_charge_impossible_display_reason(true);
++            if (!no_charge_reason.canonical.empty())
+                 return no_charge_reason;
+         }
+         break;
+ 
+     case SPELL_SIGIL_OF_BINDING:
+         if (temp && cast_sigil_of_binding(0, false, true) == spret::abort)
+-            return "there is no room nearby to place a sigil.";
++            return zh_message_arg("reason", "spell.reason.no_sigil_space");
+         break;
+ 
+     case SPELL_CALL_CANINE_FAMILIAR:
+         if (temp && you.duration[DUR_CANINE_FAMILIAR_DEAD])
+-            return "your canine familiar is too injured to answer your call.";
++            return zh_message_arg("reason", "spell.reason.familiar_injured");
+         break;
+ 
+     case SPELL_GELLS_GAVOTTE:
+         if (temp && you.duration[DUR_GAVOTTE_COOLDOWN])
+-            return "local gravity is still too unstable to reorient.";
++            return zh_message_arg("reason", "spell.reason.gravity_unstable");
+         break;
+ 
+     case SPELL_FULSOME_FUSILLADE:
+         if (temp && you.duration[DUR_FUSILLADE])
+-            return "you are already unleashing a barrage of alchemical concoctions!";
++            return zh_message_arg("reason", "spell.reason.barrage_active");
+         break;
+ 
+     case SPELL_HELLFIRE_MORTAR:
+         if (temp && you.duration[DUR_HELLFIRE_MORTAR_COOLDOWN])
+-            return "you must wait for your last cast of this to end!";
++            return zh_message_arg("reason", "spell.reason.wait_mortar");
+         break;
+ 
+     case SPELL_STARBURST:
+         if (temp && you.current_vision == 0)
+-            return "you cannot see far enough to hit anything with this spell.";
++            return zh_message_arg("reason", "spell.reason.vision_short");
+         break;
+ 
+     case SPELL_GRAVE_CLAW:
+         if (temp && you.props[GRAVE_CLAW_CHARGES_KEY].get_int() == 0)
+-            return "you must harvest more living souls to recharge this spell.";
++            return zh_message_arg("reason", "spell.reason.harvest_souls");
+         break;
+ 
+     case SPELL_SPIKE_LAUNCHER:
+@@ -1562,25 +1584,25 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
+ 
+         for (adjacent_iterator ai(you.pos()); ai; ++ai)
+             if (feat_is_wall(env.grid(*ai)))
+-                return "";
++                return {"reason", ZhArgType::Text, "", "", true};
+ 
+-        return "there are no nearby walls to construct a spike launcher in.";
++        return zh_message_arg("reason", "spell.reason.no_spike_walls");
+     }
+ 
+     case SPELL_DIAMOND_SAWBLADES:
+         if (temp && diamond_sawblade_spots(false).empty())
+-            return "there is no room to construct a sawblade.";
++            return zh_message_arg("reason", "spell.reason.no_sawblade_room");
+         break;
+ 
+     case SPELL_SURPRISING_CROCODILE:
+         if (temp)
+         {
+             if (you.is_stationary())
+-                return "you cannot be moved right now.";
++                return zh_message_arg("reason", "spell.reason.cannot_move_now");
+             else if (!monster_habitable_grid(MONS_CROCODILE, you.pos()))
+-                return "a crocodile could not survive beneath you.";
++                return zh_message_arg("reason", "spell.reason.crocodile_survival");
+             else if (count_summons(&you, SPELL_SURPRISING_CROCODILE))
+-                return "your pet crocodile is still here.";
++                return zh_message_arg("reason", "spell.reason.pet_crocodile_here");
+         }
+         break;
+ 
+@@ -1589,26 +1611,30 @@ string spell_uselessness_reason(spell_type spell, bool temp, bool prevent,
+         {
+             if (!you.props.exists(PARAGON_WEAPON_KEY))
+             {
+-                return "you must imprint a weapon on your paragon first! "
+-                       "(Use the Imprint Weapon ability)";
++                return zh_message_arg("reason", "spell.reason.imprint_weapon");
+             }
+ 
+             monster* paragon = find_player_paragon();
+             if (paragon && paragon_charge_level(*paragon) == 0)
+-                return "your paragon is already deployed, but not yet charged.";
++                return zh_message_arg("reason", "spell.reason.paragon_deployed");
+         }
+         break;
+ 
+     case SPELL_FORTRESS_BLAST:
+         if (temp && you.duration[DUR_FORTRESS_BLAST_TIMER])
+-            return "you are already charging a Fortress Blast.";
++            return zh_message_arg("reason", "spell.reason.fortress_charging");
+         break;
+ 
+     default:
+         break;
+     }
+ 
+-    return "";
++    return {"reason", ZhArgType::Text, "", "", true};
++}
++
++string spell_uselessness_reason(spell_type spell, bool temp, bool prevent, bool skip_casting_checks)
++{
++    return spell_uselessness_display_reason(spell, temp, prevent, skip_casting_checks).canonical;
+ }
+ 
+ /**
+diff --git a/crawl-ref/source/spl-util.h b/crawl-ref/source/spl-util.h
+index bc0bf09..b3a3046 100644
+--- a/crawl-ref/source/spl-util.h
++++ b/crawl-ref/source/spl-util.h
+@@ -128,6 +128,10 @@ skill_type arcane_mutation_to_skill(mutation_type mutation);
+ bool cannot_use_schools(spschools_type schools);
+ 
+ bool casting_is_useless(spell_type spell, bool temp);
++struct ZhArg;
++ZhArg casting_uselessness_display_reason(spell_type spell, bool temp);
++ZhArg spell_uselessness_display_reason(spell_type spell, bool temp = true,
++                                      bool prevent = false, bool skip_casting_checks = false);
+ string casting_uselessness_reason(spell_type spell, bool temp);
+ bool spell_is_useless(spell_type spell, bool temp = true,
+                       bool prevent = false, bool fake_spell = false) PURE;
 diff --git a/crawl-ref/source/stringutil.cc b/crawl-ref/source/stringutil.cc
 index 137085a..6154a1d 100644
 --- a/crawl-ref/source/stringutil.cc
@@ -59562,18 +60804,19 @@ index f2bead5..58742ab 100644
      unsigned int m_tooltip_timer_id = 0;
  
 diff --git a/crawl-ref/source/transform.cc b/crawl-ref/source/transform.cc
-index 6088e7d..aec1cd6 100644
+index 6088e7d..f66afca 100644
 --- a/crawl-ref/source/transform.cc
 +++ b/crawl-ref/source/transform.cc
-@@ -4,6 +4,7 @@
+@@ -4,6 +4,8 @@
  **/
  
  #include "AppHdr.h"
 +#include "zh-message.h"
++#include "zh-display-name.h"
  
  #include "transform.h"
  
-@@ -128,6 +129,13 @@ string Form::melding_description(bool itemized) const
+@@ -128,6 +130,13 @@ string Form::melding_description(bool itemized) const
          return "";
      }
  
@@ -59587,7 +60830,7 @@ index 6088e7d..aec1cd6 100644
      if (blocked_slots == EQF_ALL)
          tags.emplace_back("All Equipment");
      else if (blocked_slots == EQF_PHYSICAL)
-@@ -142,7 +150,7 @@ string Form::melding_description(bool itemized) const
+@@ -142,7 +151,7 @@ string Form::melding_description(bool itemized) const
          }
      }
  
@@ -59596,7 +60839,36 @@ index 6088e7d..aec1cd6 100644
  }
  
  static const FormAttackVerbs DEFAULT_VERBS = FormAttackVerbs(nullptr, nullptr,
-@@ -1829,29 +1837,34 @@ bool lifeless_prevents_form(transformation which_trans)
+@@ -1765,9 +1774,12 @@ bool transforming_is_unsafe(transformation which_trans)
+ {
+     if (feat_dangerous_for_form(which_trans, env.grid(you.pos())))
+     {
+-        mprf(MSGCH_PROMPT, "%s right now would cause you to %s!",
+-                which_trans == transformation::none ? "Untransforming" : "Transforming",
+-                env.grid(you.pos()) == DNGN_LAVA ? "burn" : "drown");
++        const bool ending = which_trans == transformation::none;
++        const bool lava = env.grid(you.pos()) == DNGN_LAVA;
++        const char *id = ending
++            ? (lava ? "talisman.unsafe.untransform.burn" : "talisman.unsafe.untransform.drown")
++            : (lava ? "talisman.unsafe.transform.burn" : "talisman.unsafe.transform.drown");
++        mpr(zh_message(id), MSGCH_PROMPT);
+         return true;
+     }
+ 
+@@ -1791,9 +1803,9 @@ bool transforming_is_unsafe(transformation which_trans)
+         if (item->cursed()
+             || (is_artefact(*item) && artefact_property(*item, ARTP_FRAGILE)))
+         {
+-            mprf(MSGCH_PROMPT, "%s right now would shatter %s!",
+-                 which_trans == transformation::none ? "Untransforming" : "Transforming",
+-                 item->name(DESC_YOUR).c_str());
++            mpr(zh_message(which_trans == transformation::none
++                    ? "talisman.unsafe.untransform.shatter" : "talisman.unsafe.transform.shatter",
++                    {zh_item_arg("item", *item, DESC_YOUR)}), MSGCH_PROMPT);
+             return true;
+         }
+     }
+@@ -1829,29 +1841,34 @@ bool lifeless_prevents_form(transformation which_trans)
  /**
   * Is the player unable to enter the given form? If so, why?
   */
@@ -59639,7 +60911,7 @@ index 6088e7d..aec1cd6 100644
  }
  
  bool check_transform_into(transformation which_trans, bool involuntary,
-@@ -1871,11 +1884,11 @@ bool check_transform_into(transformation which_trans, bool involuntary,
+@@ -1871,11 +1888,11 @@ bool check_transform_into(transformation which_trans, bool involuntary,
          return false;
      }
  
@@ -59654,7 +60926,7 @@ index 6088e7d..aec1cd6 100644
          return false;
      }
  
-@@ -1885,15 +1898,15 @@ bool check_transform_into(transformation which_trans, bool involuntary,
+@@ -1885,15 +1902,15 @@ bool check_transform_into(transformation which_trans, bool involuntary,
      const auto feat = env.grid(you.pos());
      if (!involuntary && feat_dangerous_for_form(which_trans, feat, talisman))
      {
@@ -114796,10 +116068,10 @@ index 0000000..fca52fb
 +};
 diff --git a/crawl-ref/source/zh-message-catalog.inc b/crawl-ref/source/zh-message-catalog.inc
 new file mode 100644
-index 0000000..307c181
+index 0000000..54f6b33
 --- /dev/null
 +++ b/crawl-ref/source/zh-message-catalog.inc
-@@ -0,0 +1,3065 @@
+@@ -0,0 +1,3188 @@
 +// Generated from Luna-reviewed message IDs. Do not edit.
 +static const ZhDefinition zh_definitions[] = {
 +    {"artifact.jewel.01", "It sustains your strength, intelligence and dexterity.", "它能维持你的力量、智力和敏捷。", ""},
@@ -114960,7 +116232,7 @@ index 0000000..307c181
 +    {"detail.skill.defence.shields", "With your current stats and equipment, {action} this skill would increase your SH by {sh}.", "根据你当前的属性与装备，{action}会使格挡提高{sh}。", "action:text;sh:number"},
 +    {"detail.skill.god.dislikes_training", "{god} strongly dislikes when you train this skill.", "{god}很厌恶你训练这项技能。", "god:name"},
 +    {"detail.skill.invocations.based_on", "{god} powers are based on {skill} instead of Invocations skill.", "{god}的神力基于{skill}，而非祈祷技能。", "god:name;skill:name"},
-+    {"detail.skill.invocations.forlorn", "How on earth did you manage to pick this up?", "你到底是怎么学会这个技能的？", ""},
++    {"detail.skill.invocations.forlorn", "How on earth did you manage to pick this up\?", "你到底是怎么学会这个技能的？", ""},
 +    {"detail.skill.invocations.unaffected", "{god} powers are not affected by the Invocations skill.", "{god}的神力不受祈祷技能影响。", "god:name"},
 +    {"detail.tabs.description", "[<w>!</w>]: <w>Description</w>|Quote", "[<w>!</w>]: <w>说明</w>|引言", ""},
 +    {"detail.tabs.quote", "[<w>!</w>]: Description|<w>Quote</w>", "[<w>!</w>]: 说明|<w>引言</w>", ""},
@@ -116000,7 +117272,7 @@ index 0000000..307c181
 +    {"monster.lore.dormant_clockwork_bee", "A mechanical insect powered by an intricate array of gears and springs. It has\nrun out of power and can only be rewound by its creator moving into it.", "一只由精巧的齿轮与发条阵列驱动的机械昆虫。它已经耗尽了动力，\n只有其创造者移动靠近它才能为其再次上弦。", ""},
 +    {"monster.lore.draugr", "A territorial gnarl of driftwood and shattered bones. Its resentment of the\nliving has slowly twisted its remains into a monstrous form, capable of\nbrandishing weapons and spreading terrible curses.", "一团由浮木和碎骨缠结而成、极具领地意识的东西。\n它对生者的怨恨渐渐把它的遗骸扭曲成了怪物的形态，\n使它能够挥舞武器并散播可怕的诅咒。", ""},
 +    {"monster.lore.drude", "A conniving demon born from the nightmares of sleeping mages. It delights in\ncoaxing the imagined fears of mortals into reality.", "一个由沉睡法师的梦魇中诞生的狡诈恶魔。\n它喜欢诱使凡人想象中的恐惧化为现实。", ""},
-+    {"monster.lore.erythrospite", "A churning mass of flowing blood that throbs to the beat of an absent heart.\n\nDoes it wish to bury itself in your arteries because it recognises, on some\nprimordial level, that this is where it belongs? Alas, all it is capable of in\nthis fleeing moment of sentience is violence.", "一团翻腾涌动的鲜血，随着一颗并不存在的心脏的搏动而悸动。\n\n它想要钻进你的动脉之中，是因为它在某种原始层面上认出\n那才是它的归宿吗？唉，在它这转瞬即逝的意识中，\n它所能做的唯有暴力。", ""},
++    {"monster.lore.erythrospite", "A churning mass of flowing blood that throbs to the beat of an absent heart.\n\nDoes it wish to bury itself in your arteries because it recognises, on some\nprimordial level, that this is where it belongs\? Alas, all it is capable of in\nthis fleeing moment of sentience is violence.", "一团翻腾涌动的鲜血，随着一颗并不存在的心脏的搏动而悸动。\n\n它想要钻进你的动脉之中，是因为它在某种原始层面上认出\n那才是它的归宿吗？唉，在它这转瞬即逝的意识中，\n它所能做的唯有暴力。", ""},
 +    {"monster.lore.eye_of_draining", "A hovering horror, rare and unnatural even amongst servitor eyes, radiating\nbaleful energies. They monitor the flow of chaotic life and ever-present death\nfor the divine Jiyva.", "一个悬浮着的恐怖之物，即使在侍从之眼中也属罕见而反常，\n散发着邪恶的能量。它们为神圣的吉瓦监视着混沌生命\n与无处不在的死亡的流转。", ""},
 +    {"monster.lore.fravashi", "A beneficent remnant of the countless mortal knights who serve the Shining One.\nTheir hosts' role in the divine hierarchy is to guide and direct their legions\nin righteous moral warfare, though they may also call upon those mortals to\ndefend themselves.", "无数侍奉光明神的凡人骑士所留下的仁慈残响。\n在神圣的等级体系中，其依附者的职责是在正义的道德之战中引导并指挥麾下军团，\n不过它们也可以呼唤那些凡人来保护自身。", ""},
 +    {"monster.lore.globe_of_annihilation", "A roiling sphere of intense destructive energies, drawn from the fabric of the\nHells themselves. It pursues a designated target inexorably, growing in size as\nit travels. If it collides with either a creature or wall, it will explode\nviolently - though its creator is protected from the wild destruction unleashed\nas it does so.", "一团由取自地狱本身构造的强烈毁灭能量翻腾而成的球体。它会毫不留情地追猎指定目标，\n并在行进途中不断增大。如果它与生物或墙壁相撞，就会猛烈爆炸——\n不过它的创造者会受到保护，免受随之释放的狂野破坏。", ""},
@@ -116157,7 +117429,7 @@ index 0000000..307c181
 +    {"monster.status_text.missing_a_shadow", "This creature's shadow has been torn away from it and cannot be affected\nby Aphotic Marionette ever again.", "该生物的暗影被扯离了身体，再也无法受到无光傀儡的影响。", ""},
 +    {"monster.status_text.more_vulnerable_to_fire", "This creature's fire resistance is reduced by one level.", "该生物的火抗降低1级。", ""},
 +    {"monster.status_text.more_vulnerable_to_poison", "This creature's poison resistance is reduced by one level.", "该生物的毒抗降低1级。", ""},
-+    {"monster.status_text.mute", "This creature has been stricken permanently mute by the power of Zin. This\nprevents all noise the creature could make, including the vocalisations\nrequired for most creatures to cast spells.\n# Are demons silenced?", "该生物被辛的力量永久地变成了哑巴。这能阻止该生物发出的一切声响，包括大多数生物施法所需发出的声音。\n# 恶魔会被沉默吗？", ""},
++    {"monster.status_text.mute", "This creature has been stricken permanently mute by the power of Zin. This\nprevents all noise the creature could make, including the vocalisations\nrequired for most creatures to cast spells.\n# Are demons silenced\?", "该生物被辛的力量永久地变成了哑巴。这能阻止该生物发出的一切声响，包括大多数生物施法所需发出的声音。\n# 恶魔会被沉默吗？", ""},
 +    {"monster.status_text.paralysed_with_fear", "[[paralysed monstatus]]", "[[paralysed monstatus]]", ""},
 +    {"monster.status_text.partially_charged", "This creature has built up part of the charge it needs to cast a spell or\nactivate an ability.", "该生物已积累了一部分施放法术或激活能力所需的能量。", ""},
 +    {"monster.status_text.peaceful", "This creature will never attack you and may attack other creatures hostile to\nyou, but will neither follow you nor obey any direct instructions.", "该生物永远不会攻击你，它可能会攻击与你敌对的生物，但既不会跟随你，也不会听从任何直接指令。", ""},
@@ -116293,7 +117565,7 @@ index 0000000..307c181
 +    {"place.branch.zot", "the Realm of Zot", "佐特", ""},
 +    {"place.display.level", "Level {depth} of {branch}", "{branch}第{depth}层", "depth:integer;branch:name"},
 +    {"place.display.named", "{branch}", "{branch}", "branch:name"},
-+    {"player.invisibility.backlit.confirm", "You are backlit; invisibility will do you no good right now; use anyway?", "你正被背光照亮，隐形目前对你无用；仍要使用吗？", ""},
++    {"player.invisibility.backlit.confirm", "You are backlit; invisibility will do you no good right now; use anyway\?", "你正被背光照亮，隐形目前对你无用；仍要使用吗？", ""},
 +    {"player.invisibility.source.armour", "armour", "护甲", ""},
 +    {"player.invisibility.source.crown", "crown", "王冠", ""},
 +    {"player.invisibility.source.divine_halo", "divine halo", "神圣光环", ""},
@@ -116327,7 +117599,7 @@ index 0000000..307c181
 +    {"quiver.log.depleted_resource", "You are too depleted to draw on your {resource} recklessly!", "你的{resource}所剩无几，无法肆意消耗！", "resource:name"},
 +    {"quiver.log.fail_reach_past", "You fail to reach past {target}.", "你没能越过{target}攻击。", "target:name"},
 +    {"quiver.log.in_the_way", "{target} is in the way.", "{target}挡住了去路。", "target:name"},
-+    {"quiver.prompt.confirm_quiver", "Really quiver {action}?", "确定将{action}设为箭袋动作吗？", "action:name"},
++    {"quiver.prompt.confirm_quiver", "Really quiver {action}\?", "确定将{action}设为箭袋动作吗？", "action:name"},
 +    {"quiver.ui.empty_long", "Nothing quivered", "没有设定箭袋动作", ""},
 +    {"quiver.ui.empty_short", "Empty", "空", ""},
 +    {"shared.log.berserk.anger_overcomes_fear", "Your anger overwhelms your terror!", "你的怒火压过了恐惧！", ""},
@@ -116377,13 +117649,13 @@ index 0000000..307c181
 +    {"shared.log.transloc.tambourine", "You rattle the tambourine.", "你摇响了铃鼓。", ""},
 +    {"shared.log.transloc.terrain_blocked", "Not with that terrain in the way!", "地形挡住了去路，无法这么做！", ""},
 +    {"shared.log.transloc.warp", "Space momentarily warps into an impossible shape!", "空间瞬间扭曲成不可能的形状！", ""},
-+    {"shared.prompt.transform.lower_max_hp", "This transformation would significantly lower your maximum hit points. Transform anyway?", "这种变形会大幅降低你的最大生命值。仍要变形吗？", ""},
++    {"shared.prompt.transform.lower_max_hp", "This transformation would significantly lower your maximum hit points. Transform anyway\?", "这种变形会大幅降低你的最大生命值。仍要变形吗？", ""},
 +    {"shop.balance", "You have {gold} gold pieces.", "你有{gold}枚金币。", "gold:integer"},
 +    {"shop.balance.voucher", "You have {gold} gold pieces and a voucher.", "你有{gold}枚金币和一张商店券。", "gold:integer"},
 +    {"shop.complete.delete_error", "ERROR: Unable to delete thing from shopping list!", "错误：无法从购物清单中删除该条目！", ""},
 +    {"shop.complete.portal_fee", "{thing} with an entry fee of {cost} gold pieces.", "{thing}，入场费为{cost}枚金币。", "thing:text;cost:integer"},
 +    {"shop.complete.purchase_voucher", "This will use your shop voucher.", "这次购买将使用商店券。", ""},
-+    {"shop.complete.travel_prompt", "Travel to: {thing}\nYou cannot afford this item; travel there anyway? (y/N)", "前往：{thing}\n你买不起此物品；仍要前往那里吗？(y/N)", "thing:text"},
++    {"shop.complete.travel_prompt", "Travel to: {thing}\nYou cannot afford this item; travel there anyway\? (y/N)", "前往：{thing}\n你买不起此物品；仍要前往那里吗？(y/N)", "thing:text"},
 +    {"shop.display.name", "{keeper}'s {shop_type} {suffix}", "{keeper}的{shop_type}{suffix}", "keeper:name;shop_type:name;suffix:name"},
 +    {"shop.entry.gold", "gold", "金币", ""},
 +    {"shop.entry.unknown", " (unknown)", "（未鉴定）", ""},
@@ -116405,7 +117677,7 @@ index 0000000..307c181
 +    {"shop.outside.items.it", "it", "它", ""},
 +    {"shop.outside.items.some", "some of them", "其中一部分", ""},
 +    {"shop.outside.items.them", "them", "它们", ""},
-+    {"shop.purchase.confirm", "Purchase items{list_suffix} for {cost} gold? {voucher_notice} ({confirm}/N)", "要花{cost}枚金币购买{list_suffix}吗？{voucher_notice}（{confirm}/N）", "list_suffix:text;cost:integer;voucher_notice:text;confirm:key"},
++    {"shop.purchase.confirm", "Purchase items{list_suffix} for {cost} gold\? {voucher_notice} ({confirm}/N)", "要花{cost}枚金币购买{list_suffix}吗？{voucher_notice}（{confirm}/N）", "list_suffix:text;cost:integer;voucher_notice:text;confirm:key"},
 +    {"shop.purchase.insufficient", "You don't have enough money.", "你的钱不够。", ""},
 +    {"shop.suffix.boutique", "Boutique", "精品店", ""},
 +    {"shop.suffix.emporium", "Emporium", "大商场", ""},
@@ -116423,7 +117695,7 @@ index 0000000..307c181
 +    {"shop.type.magic_scroll", "Magic Scroll", "魔法卷轴", ""},
 +    {"shop.type.removed_food", "Removed Food", "已移除食物", ""},
 +    {"shop.type.weapon", "Weapon", "武器", ""},
-+    {"shop.welcome", "Welcome to {shop}! What would you like to do?", "欢迎光临{shop}！需要买些什么？", "shop:name"},
++    {"shop.welcome", "Welcome to {shop}! What would you like to do\?", "欢迎光临{shop}！需要买些什么？", "shop:name"},
 +    {"shop_closed", "{shop} appears to be closed.", "{shop}似乎已经打烊。", "shop:name"},
 +    {"shop_gold_after_purchase", "After the purchase, you will have {remaining} gold pieces.", "购买后你还剩{remaining}枚金币。", "remaining:integer"},
 +    {"shop_gold_balance", "<yellow>You have {gold} gold pieces. After the purchase, you will have {remaining} gold pieces.</yellow>", "<yellow>你有{gold}枚金币，购买后还剩{remaining}枚金币。</yellow>", "gold:integer;remaining:integer"},
@@ -116445,8 +117717,8 @@ index 0000000..307c181
 +    {"shopping_list.mode.examine", "travel|<w>examine</w>|delete", "前往|<w>查看</w>|删除", ""},
 +    {"shopping_list.mode.travel", "<w>travel</w>|examine|delete", "<w>前往</w>|查看|删除", ""},
 +    {"shopping_list.remove.log", "Shopping list: removing {item}", "购物清单：正在移除{item}", "item:name"},
-+    {"shopping_list.remove.prompt", "Shopping list: remove {item}? (Y/n)", "购物清单：移除{item}吗？(Y/n)", "item:name"},
-+    {"shopping_list.replace.prompt", "Shopping list: replace {cost}gp {item} with cheaper one? (Y/n)", "购物清单：要用更便宜的条目替换{cost}金币的{item}吗？(Y/n)", "cost:integer;item:name"},
++    {"shopping_list.remove.prompt", "Shopping list: remove {item}\? (Y/n)", "购物清单：移除{item}吗？(Y/n)", "item:name"},
++    {"shopping_list.replace.prompt", "Shopping list: replace {cost}gp {item} with cheaper one\? (Y/n)", "购物清单：要用更便宜的条目替换{cost}金币的{item}吗？(Y/n)", "cost:integer;item:name"},
 +    {"shopping_list.title", "Shopping list: {count} {item}{plural}, total cost {cost} gold pieces", "购物清单：{count}{item}{plural}，总价{cost}枚金币", "count:integer;item:text;plural:text;cost:integer"},
 +    {"shopping_list.title.item", "item", "项物品", ""},
 +    {"skill.cause.ashenzari_anger", "Ashenzari's anger", "阿什恩扎里的怒火", ""},
@@ -116463,14 +117735,14 @@ index 0000000..307c181
 +    {"skill.lookup.keyhelp", "<lightgrey>{select_keys} select  {page_down} page down  {page_up} page up  {exit_key} exit</lightgrey>", "<lightgrey>{select_keys} 选择  {page_down} 下一页  {page_up} 上一页  {exit_key} 退出</lightgrey>", "select_keys:key_markup;page_down:key_markup;page_up:key_markup;exit_key:key_markup"},
 +    {"skill.lookup.keyhelp.position", "<lightgrey>[<w>{position}</w>]</lightgrey>", "<lightgrey>[<w>{position}</w>]</lightgrey>", "position:text"},
 +    {"skill.lookup.no_matches", "No matching skills for search string '{query}'.", "没有与搜索词“{query}”匹配的技能。", "query:text"},
-+    {"skill.lookup.prompt", "Describe which? ", "要查阅哪项？ ", ""},
++    {"skill.lookup.prompt", "Describe which\? ", "要查阅哪项？ ", ""},
 +    {"skill.menu.button.az", "[<yellow>a</yellow>-<yellow>z</yellow>] skill descriptions", "[<yellow>a</yellow>-<yellow>z</yellow>] 技能说明", ""},
-+    {"skill.menu.button.back", "[<yellow>?</yellow>] Back to skill selection", "[<yellow>?</yellow>] 返回技能选择", ""},
++    {"skill.menu.button.back", "[<yellow>\?</yellow>] Back to skill selection", "[<yellow>\?</yellow>] 返回技能选择", ""},
 +    {"skill.menu.button.clear_all", "[<yellow>-</yellow>] clear all targets", "[<yellow>-</yellow>] 清除所有目标", ""},
 +    {"skill.menu.button.clear_selected", "[<yellow>-</yellow>] clear selected target", "[<yellow>-</yellow>] 清除所选目标", ""},
-+    {"skill.menu.button.help", "[<yellow>?</yellow>] Help", "[<yellow>?</yellow>] 帮助", ""},
-+    {"skill.menu.button.help_highlighted", "[<yellow>?</yellow>] <w>Help</w>", "[<yellow>?</yellow>] <w>帮助</w>", ""},
-+    {"skill.menu.button.help_simple", "[<yellow>?</yellow>] Skill descriptions", "[<yellow>?</yellow>] 技能说明", ""},
++    {"skill.menu.button.help", "[<yellow>\?</yellow>] Help", "[<yellow>\?</yellow>] 帮助", ""},
++    {"skill.menu.button.help_highlighted", "[<yellow>\?</yellow>] <w>Help</w>", "[<yellow>\?</yellow>] <w>帮助</w>", ""},
++    {"skill.menu.button.help_simple", "[<yellow>\?</yellow>] Skill descriptions", "[<yellow>\?</yellow>] 技能说明", ""},
 +    {"skill.menu.button.set_target", "[<yellow>=</yellow>] set a skill target", "[<yellow>=</yellow>] 设定技能目标", ""},
 +    {"skill.menu.button.set_target_az", "[<yellow>a</yellow>-<yellow>z</yellow>] set skill target", "[<yellow>a</yellow>-<yellow>z</yellow>] 设定技能目标", ""},
 +    {"skill.menu.default.aptitude", "The species aptitude is in <white>white</white>. ", "种族适性以<white>白色</white>显示。", ""},
@@ -116482,10 +117754,10 @@ index 0000000..307c181
 +    {"skill.menu.error.no_training", "<lightred>You need to enable at least one skill.</lightred>", "<lightred>你至少需要启用一项技能。</lightred>", ""},
 +    {"skill.menu.error.target_limit", "<lightred>Your training target must be 27 or below!</lightred>", "<lightred>训练目标必须不高于27！</lightred>", ""},
 +    {"skill.menu.help.experience", "You have gained great experience. Select the skills to train.", "你获得了大量经验。请选择要训练的技能。", ""},
-+    {"skill.menu.help.general", "Press the letter of a skill to read its description.\nPress <w>? for a general explanation of skilling and the various toggles.", "按下技能对应的字母可阅读其说明。\\n按<w>?查看技能训练及各项切换选项的总体说明。", ""},
++    {"skill.menu.help.general", "Press the letter of a skill to read its description.\nPress <w>\? for a general explanation of skilling and the various toggles.", "按下技能对应的字母可阅读其说明。\\n按<w>\?查看技能训练及各项切换选项的总体说明。", ""},
 +    {"skill.menu.help.overview", "This screen shows the skill set of your character. The number next to the skill is your current level, the higher the better. <w>Training</w> displays training percentages. <w>Costs</w> displays relative training costs. <w>Targets</w> displays skill training targets. You can toggle which skills to train by pressing their slot letters. A <darkgrey>grey</darkgrey> skill will not be trained and ease the training of others.", "此界面显示角色的技能。技能旁的数字是当前等级，数值越高越好。<w>训练比例</w>显示训练百分比，<w>消耗</w>显示相对训练消耗，<w>目标</w>显示技能训练目标。按下技能对应的栏位字母即可切换是否训练。<darkgrey>灰色</darkgrey>技能不会受训，并会让其他技能更容易提升。", ""},
 +    {"skill.menu.help.simple_cost", "The training cost (in <cyan>cyan</cyan>) shows the experience cost to raise the given skill one level, relative to the cost of raising an aptitude zero skill from level zero to level one.", "训练消耗（以<cyan>青色</cyan>显示）表示该技能提升一级所需的经验，相对于将适性为零的技能从0级提升到1级的消耗。", ""},
-+    {"skill.menu.help.simple_descriptions", "This screen shows the skill set of your character. Press the letter of a skill to read its description, or press <w>?</w> again to return to the skill selection.", "此界面显示角色的技能。按下技能对应的字母可阅读其说明；再次按<w>?</w>返回技能选择。", ""},
++    {"skill.menu.help.simple_descriptions", "This screen shows the skill set of your character. Press the letter of a skill to read its description, or press <w>\?</w> again to return to the skill selection.", "此界面显示角色的技能。按下技能对应的字母可阅读其说明；再次按<w>\?</w>返回技能选择。", ""},
 +    {"skill.menu.help.simple_targets", "Press the letter of a skill to set a training target. When the target is reached a message will appear and the training of the skill will be disabled.", "按下技能对应的字母可设定训练目标。达到目标时会出现提示，并停用该技能的训练。", ""},
 +    {"skill.menu.help.simple_training", "The training percentage (in <brown>brown</brown>) shows the relative amount of the experience gained which will be used to train each skill. It is automatically set depending on which skills you have used recently. Disabling a skill sets the training rate to 0.", "训练百分比（以<brown>棕色</brown>显示）表示获得的经验中用于训练各技能的相对比例。系统会根据你最近使用的技能自动分配比例。停用某项技能会将其训练比例设为0。", ""},
 +    {"skill.menu.progress_percent", " {progress_percent}%", " {progress_percent}%", "progress_percent:integer"},
@@ -117123,7 +118395,9 @@ index 0000000..307c181
 +    {"spell.noise.very_loud", "Very loud", "非常响亮", ""},
 +    {"spell.player.battlesphere_fires", "Your battlesphere fires when you cast {spells}.\n", "施放{spells}时，你的战斗法球会发动攻击。\n", "spells:text"},
 +    {"spell.player.battlesphere_inactive", "Your battlesphere is not activated by any of your spells.\n", "你的战斗法球不会被你当前的任何法术触发。\n", ""},
++    {"spell.player.cannot_cast_reason", "\nYou cannot cast this spell because {reason}\n", "\n你无法施放此法术，因为{reason}\n", "reason:text"},
 +    {"spell.player.cannot_memorise", "\nYou cannot {action} this spell because {reason}\n", "\n你无法{action}此法术，因为{reason}\n", "action:text;reason:text"},
++    {"spell.player.cannot_memorise_reason", "\nYou cannot memorise this spell because {reason}\n", "\n你无法记忆此法术，因为{reason}\n", "reason:text"},
 +    {"spell.player.casting_useless", "\n<red>{reason}</red>\n", "\n<red>{reason}</red>\n", "reason:text"},
 +    {"spell.player.enkindled.fixed", "This spell is empowered while you are enkindled.\n", "你处于燃魂状态时，此法术会得到强化。\n", ""},
 +    {"spell.player.god_opinion", "{god} {opinion} the use of this spell.\n", "{god}{opinion}此法术。\n", "god:name;opinion:text"},
@@ -117138,6 +118412,70 @@ index 0000000..307c181
 +    {"spell.player.summon_cap", "You can sustain at most {count} {creature}{plural} summoned by this spell.\n", "此法术最多可维持{count}个{creature}召唤物{plural}。\n", "count:text;creature:text;plural:text"},
 +    {"spell.player.useless_reason", "\nThis spell would have no effect right now because {reason}\n", "\n此法术目前不会产生效果，因为{reason}\n", "reason:text"},
 +    {"spell.range", "Range: {range}", "施法距离：{range}", "range:text"},
++    {"spell.reason.already_channeling", "you are already channelling the dead.", "你已经在引导亡者了。", ""},
++    {"spell.reason.already_effect", "this spell is already in effect.", "此法术的效果仍在持续。", ""},
++    {"spell.reason.already_fast", "you're already travelling as fast as you can.", "你的移动速度已经达到极限。", ""},
++    {"spell.reason.barrage_active", "you are already unleashing a barrage of alchemical concoctions!", "你已经在倾泻炼金混合物弹幕！", ""},
++    {"spell.reason.blink_unstable", "you are still too unstable to blink.", "你的状态仍不稳定，暂时无法闪现。", ""},
++    {"spell.reason.cannot_move", "you can't move.", "你无法移动。", ""},
++    {"spell.reason.cannot_move_now", "you cannot be moved right now.", "你现在无法被移动。", ""},
++    {"spell.reason.crocodile_survival", "a crocodile could not survive beneath you.", "鳄鱼无法在你身下存活。", ""},
++    {"spell.reason.dead_hp_payment", "you cannot pay life while functionally dead.", "你已处于近乎死亡的状态，无法支付生命代价。", ""},
++    {"spell.reason.death_door_active", "you are already standing in death's doorway.", "你已经站在死亡之门前。", ""},
++    {"spell.reason.death_door_cooldown", "you are still too close to death's doorway.", "你离死亡之门仍然太近。", ""},
++    {"spell.reason.dragon_call_cooldown", "you cannot issue another dragon's call so soon.", "短时间内你无法再次召唤巨龙。", ""},
++    {"spell.reason.familiar_injured", "your canine familiar is too injured to answer your call.", "你的犬类伙伴伤势过重，无法响应召唤。", ""},
++    {"spell.reason.fortress_charging", "you are already charging a Fortress Blast.", "你已经在蓄力堡垒爆裂。", ""},
++    {"spell.reason.gauntlet_seal", "a magic seal in the Gauntlet prevents this spell from working.", "回廊中的魔法封印阻止此法术生效。", ""},
++    {"spell.reason.gold_corpses", "necromancy does not work on golden corpses.", "死灵术对黄金尸体不起作用。", ""},
++    {"spell.reason.gravity_unstable", "local gravity is still too unstable to reorient.", "此处重力仍不稳定，无法重新定向。", ""},
++    {"spell.reason.ground_solid", "you need to wait for the ground to become solid again.", "你需要等地面重新变得坚实。", ""},
++    {"spell.reason.harvest_souls", "you must harvest more living souls to recharge this spell.", "你必须收割更多活体灵魂，才能为此法术充能。", ""},
++    {"spell.reason.healed_further", "you cannot be healed further.", "你的生命值已无法继续恢复。", ""},
++    {"spell.reason.held_from_wall", "you're being held away from the wall.", "你被牵制着，无法靠近墙壁。", ""},
++    {"spell.reason.imprint_weapon", "you must imprint a weapon on your paragon first! (Use the Imprint Weapon ability)", "你必须先为你的典范刻印一把武器！（使用“刻印武器”能力）", ""},
++    {"spell.reason.insufficient_health", "you don't have enough health to cast this spell.", "你的生命值不足以施放此法术。", ""},
++    {"spell.reason.insufficient_magic", "you don't have enough magic to cast this spell.", "你的魔力不足以施放此法术。", ""},
++    {"spell.reason.lack_resilience", "you lack the resilience to cast this spell.", "你的体质不足以承受此法术。", ""},
++    {"spell.reason.launch_move", "you cannot launch yourself while unable to move.", "你无法移动，因而不能发射自身。", ""},
++    {"spell.reason.launch_stasis", "your stasis prevents you from launching yourself.", "你的静滞状态阻止你发射自身。", ""},
++    {"spell.reason.low_experience", "you aren't experienced enough to cast this spell.", "你的经验不足，无法施放此法术。", ""},
++    {"spell.reason.magic_health_inextricable", "your magic and health are inextricable.", "你的魔力与生命已无法分离。", ""},
++    {"spell.reason.magic_reserves_full", "your reserves of magic are already full.", "你的魔力储备已经充满。", ""},
++    {"spell.reason.momentum_move", "you cannot redirect your momentum while unable to move.", "你无法移动，因而不能改变动量方向。", ""},
++    {"spell.reason.more_bogs", "you cannot sustain more bogs right now.", "你现在无法维持更多沼泽。", ""},
++    {"spell.reason.more_ramparts", "you cannot sustain more frozen ramparts right now.", "你现在无法维持更多冰冻壁垒。", ""},
++    {"spell.reason.no_armour_soul", "you have no body armour to summon the spirit of.", "你没有躯干护甲可供召唤其灵体。", ""},
++    {"spell.reason.no_blood", "you have no blood to sublime.", "你没有血液可供升华。", ""},
++    {"spell.reason.no_body_armour", "you cannot wear body armour.", "你无法穿戴躯干护甲。", ""},
++    {"spell.reason.no_hostiles", "you can't see any hostile targets that would be affected.", "你看不到会受影响的敌对目标。", ""},
++    {"spell.reason.no_launch_target", "you cannot see anything nearby that you can launch.", "你看不到附近有任何可供发射的目标。", ""},
++    {"spell.reason.no_passable_walls", "you aren't next to any passable walls.", "你附近没有可穿越的墙壁。", ""},
++    {"spell.reason.no_sawblade_room", "there is no room to construct a sawblade.", "没有空间建造锯刃。", ""},
++    {"spell.reason.no_sigil_space", "there is no room nearby to place a sigil.", "附近没有放置印记的空间。", ""},
++    {"spell.reason.no_spike_walls", "there are no nearby walls to construct a spike launcher in.", "附近没有可供建造尖刺发射器的墙壁。", ""},
++    {"spell.reason.off_level", "you can't cast spells right now.", "你现在无法施法。", ""},
++    {"spell.reason.one_forest", "you can only summon one forest at a time.", "你一次只能召唤一片森林。", ""},
++    {"spell.reason.one_malign_gateway", "the dungeon can only cope with one malign gateway at a time.", "地牢一次只能容纳一道邪恶之门。", ""},
++    {"spell.reason.open_space_forest", "you need more open space to fit a forest.", "你需要更开阔的空间才能容纳一片森林。", ""},
++    {"spell.reason.open_space_gateway", "you need more open space to create a gateway.", "你需要更开阔的空间才能创造传送门。", ""},
++    {"spell.reason.paragon_deployed", "your paragon is already deployed, but not yet charged.", "你的典范已经部署，但尚未充能。", ""},
++    {"spell.reason.pet_crocodile_here", "your pet crocodile is still here.", "你的宠物鳄鱼还在这里。", ""},
++    {"spell.reason.powerful_in_form", "you cannot cast such powerful magic in your current form.", "你当前的形态无法施放如此强大的魔法。", ""},
++    {"spell.reason.reaping", "you are already reaping souls!", "你已经在收割灵魂了！", ""},
++    {"spell.reason.ring_flames_melts_ice", "your ring of flames would instantly melt the ice.", "你的烈焰之戒会立刻融化冰霜。", ""},
++    {"spell.reason.school_forbidden", "you cannot use spells of this school.", "你无法使用该学派的法术。", ""},
++    {"spell.reason.stasis_swiftness", "your stasis precludes magical swiftness.", "你的静滞状态阻止你获得魔法迅捷。", ""},
++    {"spell.reason.stasis_teleport", "your stasis prevents you from teleporting.", "你的静滞状态阻止你传送。", ""},
++    {"spell.reason.still_air", "the air is too still for clouds to form.", "空气过于平静，无法形成云雾。", ""},
++    {"spell.reason.summons_no_answer", "you cannot coerce anything to answer your summons.", "你无法强迫任何存在回应你的召唤。", ""},
++    {"spell.reason.summons_no_obedience", "you cannot coerce anything to obey you.", "你无法强迫任何存在服从你。", ""},
++    {"spell.reason.too_confused", "you're too confused to cast spells.", "你困惑得无法施法。", ""},
++    {"spell.reason.too_dead", "you're too dead.", "你已经死得太彻底了。", ""},
++    {"spell.reason.vision_short", "you cannot see far enough to hit anything with this spell.", "你的视野不够远，无法用此法术击中目标。", ""},
++    {"spell.reason.wait_mortar", "you must wait for your last cast of this to end!", "你必须等待上一次施放结束！", ""},
++    {"spell.reason.winds_calm", "you need to wait for the winds to calm down.", "你需要等待风势平息。", ""},
++    {"spell.reason.without_hands", "this spell is useless without hands.", "没有双手时，此法术毫无用处。", ""},
 +    {"spell.school.air", "Air", "气系", ""},
 +    {"spell.school.alchemy", "Alchemy", "炼金", ""},
 +    {"spell.school.bug", "Bug", "未知", ""},
@@ -117171,8 +118509,23 @@ index 0000000..307c181
 +    {"spellset.spell.row", "{letter} - {marker}{name}{effect}{spacing}{range}", "{letter} - {marker}{name}{effect}{spacing}{range}", "letter:key;marker:text;name:name;effect:text;spacing:text;range:text"},
 +    {"spellset.table.header", "\n Spells                              Type                    Level{known}", "\n 法术                                类型                    等级{known}", "known:text"},
 +    {"spellset.table.row", "{schools}{level}{known}\n", "{schools}{level}{known}\n", "schools:text;level:integer;known:text"},
-+    {"target.action_key_prompt", "Press: ? - help, <w>{action_key}</w> - select action", "按键：? - 帮助，<w>{action_key}</w> - 选择动作", "action_key:key"},
-+    {"target.cycle_key_prompt", "Press: ? - help, <w>{action_key}</w> - select action, <w>{previous_key}</w> or <w>{next_key}</w> - cycle", "按键：? - 帮助，<w>{action_key}</w> - 选择动作，<w>{previous_key}</w>或<w>{next_key}</w> - 切换", "action_key:key;previous_key:key;next_key:key"},
++    {"talisman.confirm.begin_transform", "Still begin transforming\?", "仍要开始变形吗？", ""},
++    {"talisman.delay.keep_transforming", "Keep transforming yourself\?", "要继续变形吗？", ""},
++    {"talisman.protean.transforms", "{item} responds to your shapeshifting skill and transforms into a {form}!", "{item}响应你的塑形技能，变形成了{form}！", "item:name;form:name"},
++    {"talisman.reason.cannot_carry", "You can't carry that many items.", "你带不下那么多物品。", ""},
++    {"talisman.reason.leave_form", "you need to leave your temporary form first.", "你需要先离开当前的临时形态。", ""},
++    {"talisman.reason.loveless", "you are loveless.", "你没有爱。", ""},
++    {"talisman.reason.okawaru_allies", "you have forsworn all allies in Okawaru's name.", "你已以欧卡沃鲁之名发誓不与任何盟友结伴。", ""},
++    {"talisman.reason.unstable", "you lack the shapeshifting skill to coax this talisman into a stable form.", "你的塑形技能不足以将此护符塑成稳定形态。", ""},
++    {"talisman.reason.unusable_skill", "you can never gain the skill to use this talisman.", "你永远无法习得使用此护符所需的技能。", ""},
++    {"talisman.unsafe.transform.burn", "Transforming right now would cause you to burn!", "现在变形会让你烧伤！", ""},
++    {"talisman.unsafe.transform.drown", "Transforming right now would cause you to drown!", "现在变形会让你溺亡！", ""},
++    {"talisman.unsafe.transform.shatter", "Transforming right now would shatter {item}!", "现在变形会震碎{item}！", "item:name"},
++    {"talisman.unsafe.untransform.burn", "Untransforming right now would cause you to burn!", "现在解除变形会让你烧伤！", ""},
++    {"talisman.unsafe.untransform.drown", "Untransforming right now would cause you to drown!", "现在解除变形会让你溺亡！", ""},
++    {"talisman.unsafe.untransform.shatter", "Untransforming right now would shatter {item}!", "现在解除变形会震碎{item}！", "item:name"},
++    {"target.action_key_prompt", "Press: \? - help, <w>{action_key}</w> - select action", "按键：\? - 帮助，<w>{action_key}</w> - 选择动作", "action_key:key"},
++    {"target.cycle_key_prompt", "Press: \? - help, <w>{action_key}</w> - select action, <w>{previous_key}</w> or <w>{next_key}</w> - cycle", "按键：\? - 帮助，<w>{action_key}</w> - 选择动作，<w>{previous_key}</w>或<w>{next_key}</w> - 切换", "action_key:key;previous_key:key;next_key:key"},
 +    {"target.fail.already_augmented", "You cannot target a construct which is already augmented.", "你不能以已经强化的构装体为目标。", ""},
 +    {"target.fail.blocked", "There's something in the way.", "有东西挡住了去路。", ""},
 +    {"target.fail.cannot_see_place", "You cannot see that place.", "你看不见那个位置。", ""},
@@ -117190,12 +118543,12 @@ index 0000000..307c181
 +    {"target.fail.out_of_range", "Out of range.", "超出射程。", ""},
 +    {"target.fail.own_constructs", "You can only target your own Forgecraft constructs.", "你只能以自己的锻造术构装体为目标。", ""},
 +    {"target.fail.weapon_reach", "Your weapon can't reach that far!", "你的武器够不到那么远！", ""},
-+    {"target.help_key", "Press: ? - help", "按键：? - 帮助", ""},
++    {"target.help_key", "Press: \? - help", "按键：\? - 帮助", ""},
 +    {"target.hit_chance", "{hit_percent}% to hit", "命中率{hit_percent}%", "hit_percent:integer"},
 +    {"target.hit_chance.distance", "{hit_percent}% to hit at this distance", "当前距离命中率{hit_percent}%", "hit_percent:integer"},
 +    {"target.hit_chance.verbose", "about {hit_percent}% to hit with {weapon}", "命中率约为{hit_percent}%（使用{weapon}）", "hit_percent:integer;weapon:name"},
 +    {"target.hit_chance.verbose_blind", "about {hit_percent}% to hit with {weapon} (while you are blinded and from distance {range})", "命中率约为{hit_percent}%（使用{weapon}；失明时距离为{range}格）", "hit_percent:integer;weapon:name;range:integer"},
-+    {"target_action_key", "Press: ? - help, <w>{key}</w> - select action", "按键：? - 帮助，<w>{key}</w> - 选择动作", "key:key"},
++    {"target_action_key", "Press: \? - help, <w>{key}</w> - select action", "按键：\? - 帮助，<w>{key}</w> - 选择动作", "key:key"},
 +    {"target_aim_description", "Aim: <lightgrey>{target}</lightgrey>", "瞄准：<lightgrey>{target}</lightgrey>", "target:text"},
 +    {"target_aim_prefix", "Aim", "瞄准", ""},
 +    {"target_exclusion_level", "You cannot set exclusions on this level.", "你不能在当前楼层设置排除区域。", ""},
@@ -117207,11 +118560,39 @@ index 0000000..307c181
 +    {"target_wielding_hit_chance", "{target}, wielding {weapon} ({chance}% to hit)", "{target}，手持{weapon}（命中率{chance}%）", "target:name;weapon:text;chance:integer"},
 +    {"training_target_reached", "Training target {level}.{fraction} for {skill} reached!", "{skill}的训练目标{level}.{fraction}级已达成！", "level:integer;fraction:integer;skill:name"},
 +    {"transform_continue", "You continue transforming.", "你继续变形。", ""},
++    {"transloc.apport.many", "Yoink! You pull the items towards yourself.", "嗖！你将这些物品拉向自己！", ""},
++    {"transloc.apport.one", "Yoink! You pull the item towards yourself.", "嗖！你将物品拉向自己！", ""},
 +    {"transloc.beckon.plural", "{monster} hurl suddenly forward!", "{monster}突然被猛地拽向前方！", "monster:name"},
 +    {"transloc.beckon.singular", "{monster} hurls suddenly forward!", "{monster}突然被猛地拽向前方！", "monster:name"},
++    {"transloc.bestial.pounce", "You pounce on {monster} with bestial fury!", "你带着野性的狂怒扑向{monster}！", "monster:name"},
++    {"transloc.blinkbolt.away", "You cannot blinkbolt away from {monster}!", "你无法用闪电冲锋远离{monster}！", "monster:name"},
++    {"transloc.blinkbolt.closer", "You cannot blinkbolt closer to {monster}!", "你无法用闪电冲锋接近{monster}！", "monster:name"},
++    {"transloc.chaos.confirm", "You cannot see any enemies that you can affect. Speak a word of chaos anyway\?", "你看不到任何能影响到的敌人。仍要说出混沌之词吗？", ""},
 +    {"transloc.charge.immovably_fixed", "{monster} is immovably fixed there.", "{monster}被牢牢固定在原地。", "monster:name"},
++    {"transloc.charge.reason.adjacent", "You're already next to there.", "你已经在目标旁边了。", ""},
++    {"transloc.charge.reason.ally", "Why would you want to do that\?", "你为什么要这么做？", ""},
++    {"transloc.charge.reason.beholder", "You cannot charge away from {monster}!", "你无法冲锋远离{monster}！", "monster:name"},
++    {"transloc.charge.reason.blocked", "There's something in the way.", "有东西挡住了去路。", ""},
++    {"transloc.charge.reason.fearmonger", "You cannot charge closer to {monster}!", "你无法冲锋接近{monster}！", "monster:name"},
++    {"transloc.charge.reason.many", "there's one issue or another keeping you from charging at any nearby foe.", "种种问题使你无法冲向附近任何敌人。", ""},
++    {"transloc.charge.reason.none", "you can't see anything to charge at.", "你看不到任何可以冲锋的目标。", ""},
++    {"transloc.charge.reason.out_of_range", "That's out of range!", "目标超出范围！", ""},
++    {"transloc.charge.reason.self", "You can't charge at yourself.", "你不能冲向自己。", ""},
++    {"transloc.charge.reason.stationary", "{monster} is immovably fixed in your path.", "{monster}被牢牢固定在你的路线上。", "monster:name"},
++    {"transloc.charge.reason.target", "you can't charge at {monster} because {reason}", "你无法冲向{monster}，因为{reason}", "monster:name;reason:text"},
++    {"transloc.charge.reason.terrain_blocked", "There's {terrain} in the way.", "有{terrain}挡住了去路。", "terrain:name"},
++    {"transloc.charge.reason.unseen", "You can't see anything there to charge at.", "你看不到那里有可以冲锋的目标。", ""},
 +    {"transloc.charge.remain", "...but somehow remain in the same place.", "……但不知为何仍停留在原地。", ""},
 +    {"transloc.charge.remains", "...but somehow remains in the same place.", "……但不知为何仍停留在原地。", ""},
++    {"transloc.gavotte.east", "Gravity reorients to the east!", "重力重新朝向东！", ""},
++    {"transloc.gavotte.north", "Gravity reorients to the north!", "重力重新朝向北！", ""},
++    {"transloc.gavotte.northeast", "Gravity reorients to the northeast!", "重力重新朝向东北！", ""},
++    {"transloc.gavotte.northwest", "Gravity reorients to the northwest!", "重力重新朝向西北！", ""},
++    {"transloc.gavotte.south", "Gravity reorients to the south!", "重力重新朝向南！", ""},
++    {"transloc.gavotte.southeast", "Gravity reorients to the southeast!", "重力重新朝向东南！", ""},
++    {"transloc.gavotte.southwest", "Gravity reorients to the southwest!", "重力重新朝向西南！", ""},
++    {"transloc.gavotte.unknown", "Gravity reorients to the \?\?\?!", "重力重新朝向未知方位！", ""},
++    {"transloc.gavotte.west", "Gravity reorients to the west!", "重力重新朝向西！", ""},
 +    {"transloc.gravitas.around_monster", "Waves of gravity draw inward around {monster}.", "重力波在{monster}周围向内涌动。", "monster:name"},
 +    {"transloc.gravitas.around_terrain", "Waves of gravity draw inward around {terrain}.", "重力波在{terrain}周围向内涌动。", "terrain:name"},
 +    {"transloc.gravitas.inward", "Waves of gravity draw inward.", "重力波向内涌动。", ""},
@@ -117221,6 +118602,20 @@ index 0000000..307c181
 +    {"transloc.piledriver.many", "Space contracts around you and {count_word} other creatures and then re-expands violently!", "空间在你和{count_word}只其他生物周围收缩，随后猛烈地重新扩张！", "count_word:text"},
 +    {"transloc.piledriver.one", "Space contracts around you and {monster} and then re-expands violently!", "空间在你和{monster}周围收缩，随后猛烈地重新扩张！", "monster:name"},
 +    {"transloc.ranged_link.created", "You create a dimensional link between your ranged weaponry and {monster}.", "你在自己的远程武器与{monster}之间建立了维度链接。", "monster:name"},
++    {"transloc.target.blink.away", "You cannot blink away from {monster}!", "你无法Blink远离{monster}！", "monster:name"},
++    {"transloc.target.blink.cancel", "Are you sure you want to cancel this blink\?", "确定要取消这次Blink吗？", ""},
++    {"transloc.target.blink.closer", "You cannot blink closer to {monster}!", "你无法Blink接近{monster}！", "monster:name"},
++    {"transloc.target.blink.hup", "Cancelling blink due to HUP.", "因收到挂断信号，取消Blink。", ""},
++    {"transloc.target.blink.occupied", "You can't blink onto {monster}!", "你无法Blink到{monster}所在的位置！", "monster:name"},
++    {"transloc.target.blink.solid", "You can't blink into that!", "你无法Blink进那个东西里！", ""},
++    {"transloc.target.blink.where", "Blink to where\?", "Blink到哪里？", ""},
++    {"transloc.target.hop.away", "You cannot hop away from {monster}!", "你无法Hop远离{monster}！", "monster:name"},
++    {"transloc.target.hop.cancel", "Are you sure you want to cancel this hop\?", "确定要取消这次Hop吗？", ""},
++    {"transloc.target.hop.closer", "You cannot hop closer to {monster}!", "你无法Hop接近{monster}！", "monster:name"},
++    {"transloc.target.hop.hup", "Cancelling hop due to HUP.", "因收到挂断信号，取消Hop。", ""},
++    {"transloc.target.hop.occupied", "You can't hop onto {monster}!", "你无法Hop到{monster}所在的位置！", "monster:name"},
++    {"transloc.target.hop.solid", "You can't hop into that!", "你无法Hop进那个东西里！", ""},
++    {"transloc.target.hop.where", "Hop to where\?", "Hop到哪里？", ""},
 +    {"transloc.teleport.follow.monster", "You are hurled through space towards a monster!", "你被抛过空间，朝一只怪物飞去。", ""},
 +    {"transloc.teleport.follow.monsters", "You are hurled through space towards some monsters!", "你被抛过空间，朝一些怪物飞去。", ""},
 +    {"transloc.teleport.source_arrives", "{monster} tunnels through space-time and arrives with you!", "{monster}穿越时空隧道，与你一同抵达！", "monster:name"},
@@ -117564,7 +118959,7 @@ index 0000000..307c181
 +    {"detail.monster.lore", "A balloon-like sac of slime mold spores, suspended in a nutrient slurry to\nsustain them on their search for a new home. To the great misfortune of any\nadventurers in the vicinity, this slurry is also a highly potent acid.", "monster.lore.caustic_sporangium"},
 +    {"detail.monster.lore", "A beneficent remnant of the countless mortal knights who serve the Shining One.\nTheir hosts' role in the divine hierarchy is to guide and direct their legions\nin righteous moral warfare, though they may also call upon those mortals to\ndefend themselves.", "monster.lore.fravashi"},
 +    {"detail.monster.lore", "A cantankerous dwarf wearing a stupid-looking hat. He eyes you sourly, as if\ndeciding exactly how much offence he should take to the way you're staring at\nit.", "monster.lore.wiglaf"},
-+    {"detail.monster.lore", "A churning mass of flowing blood that throbs to the beat of an absent heart.\n\nDoes it wish to bury itself in your arteries because it recognises, on some\nprimordial level, that this is where it belongs? Alas, all it is capable of in\nthis fleeing moment of sentience is violence.", "monster.lore.erythrospite"},
++    {"detail.monster.lore", "A churning mass of flowing blood that throbs to the beat of an absent heart.\n\nDoes it wish to bury itself in your arteries because it recognises, on some\nprimordial level, that this is where it belongs\? Alas, all it is capable of in\nthis fleeing moment of sentience is violence.", "monster.lore.erythrospite"},
 +    {"detail.monster.lore", "A clashing tempest of boundless energy, channelling into capacitor jewels. Its\nwhirls of fire and ice occasionally escape and ricochet wildly off of walls.", "monster.lore.thermic_dynamo"},
 +    {"detail.monster.lore", "A common dungeon pest that combines the worst features of a scavenging insect\nand a looming deadline.\n\nTime flows strangely around it, rewinding any injuries inflicted upon it unless\nthe source of them is near enough to be caught up in its timestream.", "monster.lore.clockroach"},
 +    {"detail.monster.lore", "A conniving demon born from the nightmares of sleeping mages. It delights in\ncoaxing the imagined fears of mortals into reality.", "monster.lore.drude"},
@@ -117686,7 +119081,7 @@ index 0000000..307c181
 +    {"detail.monster.status_text", "This creature has been ordered to flee in a given direction, and will not attack\nor return to your side until they are given new instructions or have travelled a\nsufficient distance", "monster.status_text.retreating"},
 +    {"detail.monster.status_text", "This creature has been outlined with a halo of light and is easier to hit and\nrevealed, if invisible.", "monster.status_text.softly_glowing"},
 +    {"detail.monster.status_text", "This creature has been roused into great speed by the wrath of Gozag Ym Sagoz.\nTheir haste or berserk state is permanent and will not wear off with time\nor through deliberate magical intervention.", "monster.status_text.incited_by_gozag"},
-+    {"detail.monster.status_text", "This creature has been stricken permanently mute by the power of Zin. This\nprevents all noise the creature could make, including the vocalisations\nrequired for most creatures to cast spells.\n# Are demons silenced?", "monster.status_text.mute"},
++    {"detail.monster.status_text", "This creature has been stricken permanently mute by the power of Zin. This\nprevents all noise the creature could make, including the vocalisations\nrequired for most creatures to cast spells.\n# Are demons silenced\?", "monster.status_text.mute"},
 +    {"detail.monster.status_text", "This creature has been struck with a kinetic grapnel. The next melee attack\nfrom the grapnel's source will always hit and deal slightly increased damage.", "monster.status_text.grapneled"},
 +    {"detail.monster.status_text", "This creature has built up part of the charge it needs to cast a spell or\nactivate an ability.", "monster.status_text.partially_charged"},
 +    {"detail.monster.status_text", "This creature has contributed to the death of one of your apostles. Defeating all\ntargets of orcish vengeance will significantly speed up the time it takes for\nBeogh to resurrect your apostles.", "monster.status_text.target_of_orcish_vengeance"},
@@ -117830,7 +119225,7 @@ index 0000000..307c181
 +    {"shared.restriction.logs", "Space momentarily warps into an impossible shape!", "shared.log.transloc.warp"},
 +    {"shared.restriction.logs", "That's out of range!", "shared.log.transloc.out_of_range"},
 +    {"shared.restriction.logs", "The air shimmers briefly around you.", "shared.log.transloc.air_shimmers"},
-+    {"shared.restriction.logs", "This transformation would significantly lower your maximum hit points. Transform anyway?", "shared.prompt.transform.lower_max_hp"},
++    {"shared.restriction.logs", "This transformation would significantly lower your maximum hit points. Transform anyway\?", "shared.prompt.transform.lower_max_hp"},
 +    {"shared.restriction.logs", "Transforming right now would cause you to burn!", "shared.log.transform.burn"},
 +    {"shared.restriction.logs", "Transforming right now would cause you to drown!", "shared.log.transform.drown"},
 +    {"shared.restriction.logs", "You are hurled out of the way!", "shared.log.transloc.hurled_away"},
@@ -117867,10 +119262,10 @@ index 0000000..307c181
 +};
 diff --git a/crawl-ref/source/zh-message.cc b/crawl-ref/source/zh-message.cc
 new file mode 100644
-index 0000000..3a64219
+index 0000000..91a2960
 --- /dev/null
 +++ b/crawl-ref/source/zh-message.cc
-@@ -0,0 +1,247 @@
+@@ -0,0 +1,249 @@
 +#ifndef ZH_STANDALONE
 +#include "AppHdr.h"
 +#endif
@@ -118100,7 +119495,9 @@ index 0000000..3a64219
 +    const ZhMessage value = zh_message(id, args);
 +    const bool supported = std::all_of(args.begin(), args.end(),
 +        [](const ZhArg &arg) { return arg.supported; });
-+    return {key, ZhArgType::Text, value.canonical, value.localized, supported};
++    ZhArg result{key, ZhArgType::Text, value.canonical, value.localized, supported};
++    result.message_id = id;
++    return result;
 +}
 +
 +ZhArg zh_message_list(const std::string &key, const std::vector<ZhArg> &items) {
@@ -118120,10 +119517,10 @@ index 0000000..3a64219
 +}
 diff --git a/crawl-ref/source/zh-message.h b/crawl-ref/source/zh-message.h
 new file mode 100644
-index 0000000..6c0e0ea
+index 0000000..797067d
 --- /dev/null
 +++ b/crawl-ref/source/zh-message.h
-@@ -0,0 +1,52 @@
+@@ -0,0 +1,54 @@
 +#pragma once
 +#include <initializer_list>
 +#include <string>
@@ -118135,6 +119532,8 @@ index 0000000..6c0e0ea
 +    ZhArgType type;
 +    std::string canonical, localized;
 +    bool supported;
++    // Stable identity for semantic decisions by parent views, never English matching.
++    std::string message_id;
 +    ZhArg() : type(ZhArgType::Text), supported(false) {}
 +    ZhArg(const std::string &k, ZhArgType t, const std::string &en,
 +          const std::string &zh, bool ok = true)

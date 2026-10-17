@@ -1,0 +1,1095 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "spell.reason.too_confused",
+      "context": "法术理由：你困惑得无法施法",
+      "en": "you're too confused to cast spells.",
+      "zh": "你困惑得无法施法。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "casting_uselessness_reason; temp && DUR_CONF > 0"
+      }
+    },
+    {
+      "id": "spell.reason.low_experience",
+      "context": "法术理由：你的经验不足，无法施放此法术",
+      "en": "you aren't experienced enough to cast this spell.",
+      "zh": "你的经验不足，无法施放此法术。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "casting_uselessness_reason; spell difficulty > experience_level"
+      }
+    },
+    {
+      "id": "spell.reason.dead_hp_payment",
+      "context": "法术理由：你已处于近乎死亡的状态，无法支付生命代价",
+      "en": "you cannot pay life while functionally dead.",
+      "zh": "你已处于近乎死亡的状态，无法支付生命代价。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "casting_uselessness_reason; HP casting mutation and Death’s Door"
+      }
+    },
+    {
+      "id": "spell.reason.insufficient_health",
+      "context": "法术理由：你的生命值不足以施放此法术",
+      "en": "you don't have enough health to cast this spell.",
+      "zh": "你的生命值不足以施放此法术。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "casting_uselessness_reason; HP-casting mutation; enough_hp fails"
+      }
+    },
+    {
+      "id": "spell.reason.insufficient_magic",
+      "context": "法术理由：你的魔力不足以施放此法术",
+      "en": "you don't have enough magic to cast this spell.",
+      "zh": "你的魔力不足以施放此法术。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "casting_uselessness_reason; normal casting; enough_mp fails"
+      }
+    },
+    {
+      "id": "spell.reason.magic_health_inextricable",
+      "context": "法术理由：你的魔力与生命已无法分离",
+      "en": "your magic and health are inextricable.",
+      "zh": "你的魔力与生命已无法分离。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "casting_uselessness_reason; Sublimation of Blood; HP casting; MP full"
+      }
+    },
+    {
+      "id": "spell.reason.magic_reserves_full",
+      "context": "法术理由：你的魔力储备已经充满",
+      "en": "your reserves of magic are already full.",
+      "zh": "你的魔力储备已经充满。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "casting_uselessness_reason; Sublimation of Blood; MP full"
+      }
+    },
+    {
+      "id": "spell.reason.powerful_in_form",
+      "context": "法术理由：你当前的形态无法施放如此强大的魔法",
+      "en": "you cannot cast such powerful magic in your current form.",
+      "zh": "你当前的形态无法施放如此强大的魔法。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "casting_uselessness_reason; walking-scroll form and spell difficulty > 4"
+      }
+    },
+    {
+      "id": "spell.reason.school_forbidden",
+      "context": "法术理由：你无法使用该学派的法术",
+      "en": "you cannot use spells of this school.",
+      "zh": "你无法使用该学派的法术。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "casting_uselessness_reason; cannot_use_schools"
+      }
+    },
+    {
+      "id": "spell.reason.summons_no_answer",
+      "context": "法术理由：你无法强迫任何存在回应你的召唤",
+      "en": "you cannot coerce anything to answer your summons.",
+      "zh": "你无法强迫任何存在回应你的召唤。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "casting_uselessness_reason; summoning school and allies_forbidden"
+      }
+    },
+    {
+      "id": "spell.reason.summons_no_obedience",
+      "context": "法术理由：你无法强迫任何存在服从你",
+      "en": "you cannot coerce anything to obey you.",
+      "zh": "你无法强迫任何存在服从你。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "casting_uselessness_reason; listed ally spells and allies_forbidden"
+      }
+    },
+    {
+      "id": "spell.reason.off_level",
+      "context": "法术理由：你现在无法施法",
+      "en": "you can't cast spells right now.",
+      "zh": "你现在无法施法。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; not on a valid active level"
+      }
+    },
+    {
+      "id": "spell.reason.stasis_teleport",
+      "context": "法术理由：你的静滞状态阻止你传送",
+      "en": "your stasis prevents you from teleporting.",
+      "zh": "你的静滞状态阻止你传送。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Blink/Electric Charge with stasis"
+      }
+    },
+    {
+      "id": "spell.reason.blink_unstable",
+      "context": "法术理由：你的状态仍不稳定，暂时无法闪现",
+      "en": "you are still too unstable to blink.",
+      "zh": "你的状态仍不稳定，暂时无法闪现。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Blink cooldown"
+      }
+    },
+    {
+      "id": "spell.reason.stasis_swiftness",
+      "context": "法术理由：你的静滞状态阻止你获得魔法迅捷",
+      "en": "your stasis precludes magical swiftness.",
+      "zh": "你的静滞状态阻止你获得魔法迅捷。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Swiftness with stasis"
+      }
+    },
+    {
+      "id": "spell.reason.already_effect",
+      "context": "法术理由：此法术的效果仍在持续",
+      "en": "this spell is already in effect.",
+      "zh": "此法术的效果仍在持续。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Swiftness already active"
+      }
+    },
+    {
+      "id": "spell.reason.already_fast",
+      "context": "法术理由：你的移动速度已经达到极限",
+      "en": "you're already travelling as fast as you can.",
+      "zh": "你的移动速度已经达到极限。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Swiftness; speed at or above fastest"
+      }
+    },
+    {
+      "id": "spell.reason.cannot_move",
+      "context": "法术理由：你无法移动",
+      "en": "you can't move.",
+      "zh": "你无法移动。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Swift/Passwall; cannot_move"
+      }
+    },
+    {
+      "id": "spell.reason.without_hands",
+      "context": "法术理由：没有双手时，此法术毫无用处",
+      "en": "this spell is useless without hands.",
+      "zh": "没有双手时，此法术毫无用处。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Dimensional Bullseye; no grasping mutation"
+      }
+    },
+    {
+      "id": "spell.reason.ground_solid",
+      "context": "法术理由：你需要等地面重新变得坚实",
+      "en": "you need to wait for the ground to become solid again.",
+      "zh": "你需要等地面重新变得坚实。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Leda’s Liquefaction active"
+      }
+    },
+    {
+      "id": "spell.reason.healed_further",
+      "context": "法术理由：你的生命值已无法继续恢复",
+      "en": "you cannot be healed further.",
+      "zh": "你的生命值已无法继续恢复。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Borgnjor’s Revivification; HP full"
+      }
+    },
+    {
+      "id": "spell.reason.lack_resilience",
+      "context": "法术理由：你的体质不足以承受此法术",
+      "en": "you lack the resilience to cast this spell.",
+      "zh": "你的体质不足以承受此法术。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Borgnjor’s Revivification; max HP < 21"
+      }
+    },
+    {
+      "id": "spell.reason.too_dead",
+      "context": "法术理由：你已经死得太彻底了",
+      "en": "you're too dead.",
+      "zh": "你已经死得太彻底了。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Revivification/Death’s Door; undead state"
+      }
+    },
+    {
+      "id": "spell.reason.death_door_active",
+      "context": "法术理由：你已经站在死亡之门前",
+      "en": "you are already standing in death's doorway.",
+      "zh": "你已经站在死亡之门前。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Death’s Door already active"
+      }
+    },
+    {
+      "id": "spell.reason.death_door_cooldown",
+      "context": "法术理由：你离死亡之门仍然太近",
+      "en": "you are still too close to death's doorway.",
+      "zh": "你离死亡之门仍然太近。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Death’s Door cooldown"
+      }
+    },
+    {
+      "id": "spell.reason.ring_flames_melts_ice",
+      "context": "法术理由：你的烈焰之戒会立刻融化冰霜",
+      "en": "your ring of flames would instantly melt the ice.",
+      "zh": "你的烈焰之戒会立刻融化冰霜。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Ozocubu’s Armour with Salamander ring"
+      }
+    },
+    {
+      "id": "spell.reason.no_blood",
+      "context": "法术理由：你没有血液可供升华",
+      "en": "you have no blood to sublime.",
+      "zh": "你没有血液可供升华。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Sublimation of Blood; no blood"
+      }
+    },
+    {
+      "id": "spell.reason.winds_calm",
+      "context": "法术理由：你需要等待风势平息",
+      "en": "you need to wait for the winds to calm down.",
+      "zh": "你需要等待风势平息。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Polar Vortex cooldown"
+      }
+    },
+    {
+      "id": "spell.reason.one_malign_gateway",
+      "context": "法术理由：地牢一次只能容纳一道邪恶之门",
+      "en": "the dungeon can only cope with one malign gateway at a time.",
+      "zh": "地牢一次只能容纳一道邪恶之门。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Malign Gateway already present"
+      }
+    },
+    {
+      "id": "spell.reason.open_space_gateway",
+      "context": "法术理由：你需要更开阔的空间才能创造传送门",
+      "en": "you need more open space to create a gateway.",
+      "zh": "你需要更开阔的空间才能创造传送门。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Malign Gateway placement abort"
+      }
+    },
+    {
+      "id": "spell.reason.one_forest",
+      "context": "法术理由：你一次只能召唤一片森林",
+      "en": "you can only summon one forest at a time.",
+      "zh": "你一次只能召唤一片森林。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Summon Forest active"
+      }
+    },
+    {
+      "id": "spell.reason.open_space_forest",
+      "context": "法术理由：你需要更开阔的空间才能容纳一片森林",
+      "en": "you need more open space to fit a forest.",
+      "zh": "你需要更开阔的空间才能容纳一片森林。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Summon Forest placement abort"
+      }
+    },
+    {
+      "id": "spell.reason.no_passable_walls",
+      "context": "法术理由：你附近没有可穿越的墙壁",
+      "en": "you aren't next to any passable walls.",
+      "zh": "你附近没有可穿越的墙壁。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Passwall simplified check"
+      }
+    },
+    {
+      "id": "spell.reason.held_from_wall",
+      "context": "法术理由：你被牵制着，无法靠近墙壁",
+      "en": "you're being held away from the wall.",
+      "zh": "你被牵制着，无法靠近墙壁。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Passwall while constricted"
+      }
+    },
+    {
+      "id": "spell.reason.gold_corpses",
+      "context": "法术理由：死灵术对黄金尸体不起作用",
+      "en": "necromancy does not work on golden corpses.",
+      "zh": "死灵术对黄金尸体不起作用。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Animate Dead; goldify corpses passive"
+      }
+    },
+    {
+      "id": "spell.reason.reaping",
+      "context": "法术理由：你已经在收割灵魂了",
+      "en": "you are already reaping souls!",
+      "zh": "你已经在收割灵魂了！",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Animate Dead/Death Channel; reaping passive"
+      }
+    },
+    {
+      "id": "spell.reason.already_channeling",
+      "context": "法术理由：你已经在引导亡者了",
+      "en": "you are already channelling the dead.",
+      "zh": "你已经在引导亡者了。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Death Channel duration active"
+      }
+    },
+    {
+      "id": "spell.reason.still_air",
+      "context": "法术理由：空气过于平静，无法形成云雾",
+      "en": "the air is too still for clouds to form.",
+      "zh": "空气过于平静，无法形成云雾。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; cloud spell and still winds"
+      }
+    },
+    {
+      "id": "spell.reason.gauntlet_seal",
+      "context": "法术理由：回廊中的魔法封印阻止此法术生效",
+      "en": "a magic seal in the Gauntlet prevents this spell from working.",
+      "zh": "回廊中的魔法封印阻止此法术生效。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Golubria’s Passage in Gauntlet"
+      }
+    },
+    {
+      "id": "spell.reason.dragon_call_cooldown",
+      "context": "法术理由：短时间内你无法再次召唤巨龙",
+      "en": "you cannot issue another dragon's call so soon.",
+      "zh": "短时间内你无法再次召唤巨龙。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Dragon Call cooldown"
+      }
+    },
+    {
+      "id": "spell.reason.more_ramparts",
+      "context": "法术理由：你现在无法维持更多冰冻壁垒",
+      "en": "you cannot sustain more frozen ramparts right now.",
+      "zh": "你现在无法维持更多冰冻壁垒。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Frozen Ramparts active"
+      }
+    },
+    {
+      "id": "spell.reason.more_bogs",
+      "context": "法术理由：你现在无法维持更多沼泽",
+      "en": "you cannot sustain more bogs right now.",
+      "zh": "你现在无法维持更多沼泽。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Noxious Bog active"
+      }
+    },
+    {
+      "id": "spell.reason.no_body_armour",
+      "context": "法术理由：你无法穿戴躯干护甲",
+      "en": "you cannot wear body armour.",
+      "zh": "你无法穿戴躯干护甲。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Awaken Armour; body armour prohibited"
+      }
+    },
+    {
+      "id": "spell.reason.no_armour_soul",
+      "context": "法术理由：你没有躯干护甲可供召唤其灵体",
+      "en": "you have no body armour to summon the spirit of.",
+      "zh": "你没有躯干护甲可供召唤其灵体。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Awaken Armour; no body armour worn"
+      }
+    },
+    {
+      "id": "spell.reason.momentum_move",
+      "context": "法术理由：你无法移动，因而不能改变动量方向",
+      "en": "you cannot redirect your momentum while unable to move.",
+      "zh": "你无法移动，因而不能改变动量方向。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Momentum Strike; cannot_move"
+      }
+    },
+    {
+      "id": "spell.reason.launch_stasis",
+      "context": "法术理由：你的静滞状态阻止你发射自身",
+      "en": "your stasis prevents you from launching yourself.",
+      "zh": "你的静滞状态阻止你发射自身。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Pile Driver with stasis"
+      }
+    },
+    {
+      "id": "spell.reason.launch_move",
+      "context": "法术理由：你无法移动，因而不能发射自身",
+      "en": "you cannot launch yourself while unable to move.",
+      "zh": "你无法移动，因而不能发射自身。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Pile Driver; cannot_move"
+      }
+    },
+    {
+      "id": "spell.reason.no_launch_target",
+      "context": "法术理由：你看不到附近有任何可供发射的目标",
+      "en": "you cannot see anything nearby that you can launch.",
+      "zh": "你看不到附近有任何可供发射的目标。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Pile Driver; no valid target"
+      }
+    },
+    {
+      "id": "spell.reason.no_sigil_space",
+      "context": "法术理由：附近没有放置印记的空间",
+      "en": "there is no room nearby to place a sigil.",
+      "zh": "附近没有放置印记的空间。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Sigil of Binding placement abort"
+      }
+    },
+    {
+      "id": "spell.reason.familiar_injured",
+      "context": "法术理由：你的犬类伙伴伤势过重，无法响应召唤",
+      "en": "your canine familiar is too injured to answer your call.",
+      "zh": "你的犬类伙伴伤势过重，无法响应召唤。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Call Canine Familiar death duration"
+      }
+    },
+    {
+      "id": "spell.reason.gravity_unstable",
+      "context": "法术理由：此处重力仍不稳定，无法重新定向",
+      "en": "local gravity is still too unstable to reorient.",
+      "zh": "此处重力仍不稳定，无法重新定向。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Gell’s Gavotte cooldown"
+      }
+    },
+    {
+      "id": "spell.reason.barrage_active",
+      "context": "法术理由：你已经在倾泻炼金混合物弹幕",
+      "en": "you are already unleashing a barrage of alchemical concoctions!",
+      "zh": "你已经在倾泻炼金混合物弹幕！",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Fulsome Fusillade active"
+      }
+    },
+    {
+      "id": "spell.reason.wait_mortar",
+      "context": "法术理由：你必须等待上一次施放结束",
+      "en": "you must wait for your last cast of this to end!",
+      "zh": "你必须等待上一次施放结束！",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Hellfire Mortar cooldown"
+      }
+    },
+    {
+      "id": "spell.reason.vision_short",
+      "context": "法术理由：你的视野不够远，无法用此法术击中目标",
+      "en": "you cannot see far enough to hit anything with this spell.",
+      "zh": "你的视野不够远，无法用此法术击中目标。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Starburst; vision == 0"
+      }
+    },
+    {
+      "id": "spell.reason.harvest_souls",
+      "context": "法术理由：你必须收割更多活体灵魂，才能为此法术充能",
+      "en": "you must harvest more living souls to recharge this spell.",
+      "zh": "你必须收割更多活体灵魂，才能为此法术充能。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Grave Claw; charges == 0"
+      }
+    },
+    {
+      "id": "spell.reason.no_spike_walls",
+      "context": "法术理由：附近没有可供建造尖刺发射器的墙壁",
+      "en": "there are no nearby walls to construct a spike launcher in.",
+      "zh": "附近没有可供建造尖刺发射器的墙壁。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Spike Launcher; no adjacent wall"
+      }
+    },
+    {
+      "id": "spell.reason.no_sawblade_room",
+      "context": "法术理由：没有空间建造锯刃",
+      "en": "there is no room to construct a sawblade.",
+      "zh": "没有空间建造锯刃。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Diamond Sawblades placement abort"
+      }
+    },
+    {
+      "id": "spell.reason.cannot_move_now",
+      "context": "法术理由：你现在无法被移动",
+      "en": "you cannot be moved right now.",
+      "zh": "你现在无法被移动。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Surprising Crocodile; stationary"
+      }
+    },
+    {
+      "id": "spell.reason.crocodile_survival",
+      "context": "法术理由：鳄鱼无法在你身下存活",
+      "en": "a crocodile could not survive beneath you.",
+      "zh": "鳄鱼无法在你身下存活。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Surprising Crocodile; uninhabitable grid"
+      }
+    },
+    {
+      "id": "spell.reason.pet_crocodile_here",
+      "context": "法术理由：你的宠物鳄鱼还在这里",
+      "en": "your pet crocodile is still here.",
+      "zh": "你的宠物鳄鱼还在这里。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Surprising Crocodile summon exists"
+      }
+    },
+    {
+      "id": "spell.reason.imprint_weapon",
+      "context": "法术理由：你必须先为你的典范刻印一把武器！（使用“刻印武器”能力）",
+      "en": "you must imprint a weapon on your paragon first! (Use the Imprint Weapon ability)",
+      "zh": "你必须先为你的典范刻印一把武器！（使用“刻印武器”能力）",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Platinum Paragon; missing weapon; exact compound literal"
+      }
+    },
+    {
+      "id": "spell.reason.paragon_deployed",
+      "context": "法术理由：你的典范已经部署，但尚未充能",
+      "en": "your paragon is already deployed, but not yet charged.",
+      "zh": "你的典范已经部署，但尚未充能。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Platinum Paragon; charge level 0"
+      }
+    },
+    {
+      "id": "spell.reason.fortress_charging",
+      "context": "法术理由：你已经在蓄力堡垒爆裂",
+      "en": "you are already charging a Fortress Blast.",
+      "zh": "你已经在蓄力堡垒爆裂。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; Fortress Blast timer"
+      }
+    },
+    {
+      "id": "spell.reason.no_hostiles",
+      "context": "法术理由：看不到会受影响的敌对目标",
+      "en": "you can't see any hostile targets that would be affected.",
+      "zh": "你看不到会受影响的敌对目标。",
+      "params": {},
+      "source": {
+        "file": "spl-util.cc",
+        "anchor": "spell_uselessness_reason; !prevent && temp && spell_no_hostile_in_range(spell)"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "spell.reason.too_confused",
+      "args": {},
+      "canonical": "you're too confused to cast spells.",
+      "zh": "你困惑得无法施法。"
+    },
+    {
+      "id": "spell.reason.low_experience",
+      "args": {},
+      "canonical": "you aren't experienced enough to cast this spell.",
+      "zh": "你的经验不足，无法施放此法术。"
+    },
+    {
+      "id": "spell.reason.off_level",
+      "args": {},
+      "canonical": "you can't cast spells right now.",
+      "zh": "你现在无法施法。"
+    },
+    {
+      "id": "spell.reason.no_blood",
+      "args": {},
+      "canonical": "you have no blood to sublime.",
+      "zh": "你没有血液可供升华。"
+    },
+    {
+      "id": "spell.reason.no_hostiles",
+      "args": {},
+      "canonical": "you can't see any hostile targets that would be affected.",
+      "zh": "你看不到会受影响的敌对目标。"
+    },
+    {
+      "id": "spell.reason.dead_hp_payment",
+      "args": {},
+      "canonical": "you cannot pay life while functionally dead.",
+      "zh": "你已处于近乎死亡的状态，无法支付生命代价。"
+    },
+    {
+      "id": "spell.reason.insufficient_health",
+      "args": {},
+      "canonical": "you don't have enough health to cast this spell.",
+      "zh": "你的生命值不足以施放此法术。"
+    },
+    {
+      "id": "spell.reason.insufficient_magic",
+      "args": {},
+      "canonical": "you don't have enough magic to cast this spell.",
+      "zh": "你的魔力不足以施放此法术。"
+    },
+    {
+      "id": "spell.reason.magic_health_inextricable",
+      "args": {},
+      "canonical": "your magic and health are inextricable.",
+      "zh": "你的魔力与生命已无法分离。"
+    },
+    {
+      "id": "spell.reason.magic_reserves_full",
+      "args": {},
+      "canonical": "your reserves of magic are already full.",
+      "zh": "你的魔力储备已经充满。"
+    },
+    {
+      "id": "spell.reason.powerful_in_form",
+      "args": {},
+      "canonical": "you cannot cast such powerful magic in your current form.",
+      "zh": "你当前的形态无法施放如此强大的魔法。"
+    },
+    {
+      "id": "spell.reason.school_forbidden",
+      "args": {},
+      "canonical": "you cannot use spells of this school.",
+      "zh": "你无法使用该学派的法术。"
+    },
+    {
+      "id": "spell.reason.summons_no_answer",
+      "args": {},
+      "canonical": "you cannot coerce anything to answer your summons.",
+      "zh": "你无法强迫任何存在回应你的召唤。"
+    },
+    {
+      "id": "spell.reason.summons_no_obedience",
+      "args": {},
+      "canonical": "you cannot coerce anything to obey you.",
+      "zh": "你无法强迫任何存在服从你。"
+    },
+    {
+      "id": "spell.reason.stasis_teleport",
+      "args": {},
+      "canonical": "your stasis prevents you from teleporting.",
+      "zh": "你的静滞状态阻止你传送。"
+    },
+    {
+      "id": "spell.reason.blink_unstable",
+      "args": {},
+      "canonical": "you are still too unstable to blink.",
+      "zh": "你的状态仍不稳定，暂时无法闪现。"
+    },
+    {
+      "id": "spell.reason.stasis_swiftness",
+      "args": {},
+      "canonical": "your stasis precludes magical swiftness.",
+      "zh": "你的静滞状态阻止你获得魔法迅捷。"
+    },
+    {
+      "id": "spell.reason.already_effect",
+      "args": {},
+      "canonical": "this spell is already in effect.",
+      "zh": "此法术的效果仍在持续。"
+    },
+    {
+      "id": "spell.reason.already_fast",
+      "args": {},
+      "canonical": "you're already travelling as fast as you can.",
+      "zh": "你的移动速度已经达到极限。"
+    },
+    {
+      "id": "spell.reason.cannot_move",
+      "args": {},
+      "canonical": "you can't move.",
+      "zh": "你无法移动。"
+    },
+    {
+      "id": "spell.reason.without_hands",
+      "args": {},
+      "canonical": "this spell is useless without hands.",
+      "zh": "没有双手时，此法术毫无用处。"
+    },
+    {
+      "id": "spell.reason.ground_solid",
+      "args": {},
+      "canonical": "you need to wait for the ground to become solid again.",
+      "zh": "你需要等地面重新变得坚实。"
+    },
+    {
+      "id": "spell.reason.healed_further",
+      "args": {},
+      "canonical": "you cannot be healed further.",
+      "zh": "你的生命值已无法继续恢复。"
+    },
+    {
+      "id": "spell.reason.lack_resilience",
+      "args": {},
+      "canonical": "you lack the resilience to cast this spell.",
+      "zh": "你的体质不足以承受此法术。"
+    },
+    {
+      "id": "spell.reason.too_dead",
+      "args": {},
+      "canonical": "you're too dead.",
+      "zh": "你已经死得太彻底了。"
+    },
+    {
+      "id": "spell.reason.death_door_active",
+      "args": {},
+      "canonical": "you are already standing in death's doorway.",
+      "zh": "你已经站在死亡之门前。"
+    },
+    {
+      "id": "spell.reason.death_door_cooldown",
+      "args": {},
+      "canonical": "you are still too close to death's doorway.",
+      "zh": "你离死亡之门仍然太近。"
+    },
+    {
+      "id": "spell.reason.ring_flames_melts_ice",
+      "args": {},
+      "canonical": "your ring of flames would instantly melt the ice.",
+      "zh": "你的烈焰之戒会立刻融化冰霜。"
+    },
+    {
+      "id": "spell.reason.winds_calm",
+      "args": {},
+      "canonical": "you need to wait for the winds to calm down.",
+      "zh": "你需要等待风势平息。"
+    },
+    {
+      "id": "spell.reason.one_malign_gateway",
+      "args": {},
+      "canonical": "the dungeon can only cope with one malign gateway at a time.",
+      "zh": "地牢一次只能容纳一道邪恶之门。"
+    },
+    {
+      "id": "spell.reason.open_space_gateway",
+      "args": {},
+      "canonical": "you need more open space to create a gateway.",
+      "zh": "你需要更开阔的空间才能创造传送门。"
+    },
+    {
+      "id": "spell.reason.one_forest",
+      "args": {},
+      "canonical": "you can only summon one forest at a time.",
+      "zh": "你一次只能召唤一片森林。"
+    },
+    {
+      "id": "spell.reason.open_space_forest",
+      "args": {},
+      "canonical": "you need more open space to fit a forest.",
+      "zh": "你需要更开阔的空间才能容纳一片森林。"
+    },
+    {
+      "id": "spell.reason.no_passable_walls",
+      "args": {},
+      "canonical": "you aren't next to any passable walls.",
+      "zh": "你附近没有可穿越的墙壁。"
+    },
+    {
+      "id": "spell.reason.held_from_wall",
+      "args": {},
+      "canonical": "you're being held away from the wall.",
+      "zh": "你被牵制着，无法靠近墙壁。"
+    },
+    {
+      "id": "spell.reason.gold_corpses",
+      "args": {},
+      "canonical": "necromancy does not work on golden corpses.",
+      "zh": "死灵术对黄金尸体不起作用。"
+    },
+    {
+      "id": "spell.reason.reaping",
+      "args": {},
+      "canonical": "you are already reaping souls!",
+      "zh": "你已经在收割灵魂了！"
+    },
+    {
+      "id": "spell.reason.already_channeling",
+      "args": {},
+      "canonical": "you are already channelling the dead.",
+      "zh": "你已经在引导亡者了。"
+    },
+    {
+      "id": "spell.reason.still_air",
+      "args": {},
+      "canonical": "the air is too still for clouds to form.",
+      "zh": "空气过于平静，无法形成云雾。"
+    },
+    {
+      "id": "spell.reason.gauntlet_seal",
+      "args": {},
+      "canonical": "a magic seal in the Gauntlet prevents this spell from working.",
+      "zh": "回廊中的魔法封印阻止此法术生效。"
+    },
+    {
+      "id": "spell.reason.dragon_call_cooldown",
+      "args": {},
+      "canonical": "you cannot issue another dragon's call so soon.",
+      "zh": "短时间内你无法再次召唤巨龙。"
+    },
+    {
+      "id": "spell.reason.more_ramparts",
+      "args": {},
+      "canonical": "you cannot sustain more frozen ramparts right now.",
+      "zh": "你现在无法维持更多冰冻壁垒。"
+    },
+    {
+      "id": "spell.reason.more_bogs",
+      "args": {},
+      "canonical": "you cannot sustain more bogs right now.",
+      "zh": "你现在无法维持更多沼泽。"
+    },
+    {
+      "id": "spell.reason.no_body_armour",
+      "args": {},
+      "canonical": "you cannot wear body armour.",
+      "zh": "你无法穿戴躯干护甲。"
+    },
+    {
+      "id": "spell.reason.no_armour_soul",
+      "args": {},
+      "canonical": "you have no body armour to summon the spirit of.",
+      "zh": "你没有躯干护甲可供召唤其灵体。"
+    },
+    {
+      "id": "spell.reason.momentum_move",
+      "args": {},
+      "canonical": "you cannot redirect your momentum while unable to move.",
+      "zh": "你无法移动，因而不能改变动量方向。"
+    },
+    {
+      "id": "spell.reason.launch_stasis",
+      "args": {},
+      "canonical": "your stasis prevents you from launching yourself.",
+      "zh": "你的静滞状态阻止你发射自身。"
+    },
+    {
+      "id": "spell.reason.launch_move",
+      "args": {},
+      "canonical": "you cannot launch yourself while unable to move.",
+      "zh": "你无法移动，因而不能发射自身。"
+    },
+    {
+      "id": "spell.reason.no_launch_target",
+      "args": {},
+      "canonical": "you cannot see anything nearby that you can launch.",
+      "zh": "你看不到附近有任何可供发射的目标。"
+    },
+    {
+      "id": "spell.reason.no_sigil_space",
+      "args": {},
+      "canonical": "there is no room nearby to place a sigil.",
+      "zh": "附近没有放置印记的空间。"
+    },
+    {
+      "id": "spell.reason.familiar_injured",
+      "args": {},
+      "canonical": "your canine familiar is too injured to answer your call.",
+      "zh": "你的犬类伙伴伤势过重，无法响应召唤。"
+    },
+    {
+      "id": "spell.reason.gravity_unstable",
+      "args": {},
+      "canonical": "local gravity is still too unstable to reorient.",
+      "zh": "此处重力仍不稳定，无法重新定向。"
+    },
+    {
+      "id": "spell.reason.barrage_active",
+      "args": {},
+      "canonical": "you are already unleashing a barrage of alchemical concoctions!",
+      "zh": "你已经在倾泻炼金混合物弹幕！"
+    },
+    {
+      "id": "spell.reason.wait_mortar",
+      "args": {},
+      "canonical": "you must wait for your last cast of this to end!",
+      "zh": "你必须等待上一次施放结束！"
+    },
+    {
+      "id": "spell.reason.vision_short",
+      "args": {},
+      "canonical": "you cannot see far enough to hit anything with this spell.",
+      "zh": "你的视野不够远，无法用此法术击中目标。"
+    },
+    {
+      "id": "spell.reason.harvest_souls",
+      "args": {},
+      "canonical": "you must harvest more living souls to recharge this spell.",
+      "zh": "你必须收割更多活体灵魂，才能为此法术充能。"
+    },
+    {
+      "id": "spell.reason.no_spike_walls",
+      "args": {},
+      "canonical": "there are no nearby walls to construct a spike launcher in.",
+      "zh": "附近没有可供建造尖刺发射器的墙壁。"
+    },
+    {
+      "id": "spell.reason.no_sawblade_room",
+      "args": {},
+      "canonical": "there is no room to construct a sawblade.",
+      "zh": "没有空间建造锯刃。"
+    },
+    {
+      "id": "spell.reason.cannot_move_now",
+      "args": {},
+      "canonical": "you cannot be moved right now.",
+      "zh": "你现在无法被移动。"
+    },
+    {
+      "id": "spell.reason.crocodile_survival",
+      "args": {},
+      "canonical": "a crocodile could not survive beneath you.",
+      "zh": "鳄鱼无法在你身下存活。"
+    },
+    {
+      "id": "spell.reason.pet_crocodile_here",
+      "args": {},
+      "canonical": "your pet crocodile is still here.",
+      "zh": "你的宠物鳄鱼还在这里。"
+    },
+    {
+      "id": "spell.reason.imprint_weapon",
+      "args": {},
+      "canonical": "you must imprint a weapon on your paragon first! (Use the Imprint Weapon ability)",
+      "zh": "你必须先为你的典范刻印一把武器！（使用“刻印武器”能力）"
+    },
+    {
+      "id": "spell.reason.paragon_deployed",
+      "args": {},
+      "canonical": "your paragon is already deployed, but not yet charged.",
+      "zh": "你的典范已经部署，但尚未充能。"
+    },
+    {
+      "id": "spell.reason.fortress_charging",
+      "args": {},
+      "canonical": "you are already charging a Fortress Blast.",
+      "zh": "你已经在蓄力堡垒爆裂。"
+    }
+  ]
+}

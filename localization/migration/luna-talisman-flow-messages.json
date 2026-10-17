@@ -1,0 +1,292 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "talisman.reason.unstable",
+      "context": "护符理由：塑形技能不足以稳定塑形",
+      "en": "you lack the shapeshifting skill to coax this talisman into a stable form.",
+      "zh": "你的塑形技能不足以将此护符塑成稳定形态。",
+      "params": {},
+      "source": {
+        "file": "item-use.cc",
+        "anchor": "cannot_put_on_talisman_reason; TALISMAN_PROTEAN and shapeshifting skill < 6"
+      }
+    },
+    {
+      "id": "talisman.reason.unusable_skill",
+      "context": "护符理由：永远无法习得塑形技能",
+      "en": "you can never gain the skill to use this talisman.",
+      "zh": "你永远无法习得使用此护符所需的技能。",
+      "params": {},
+      "source": {
+        "file": "item-use.cc",
+        "anchor": "cannot_put_on_talisman_reason; species_apt(SK_SHAPESHIFTING) == UNUSABLE_SKILL"
+      }
+    },
+    {
+      "id": "talisman.reason.leave_form",
+      "context": "护符理由：须先离开临时形态",
+      "en": "you need to leave your temporary form first.",
+      "zh": "你需要先离开当前的临时形态。",
+      "params": {},
+      "source": {
+        "file": "item-use.cc",
+        "anchor": "cannot_put_on_talisman_reason; player not in default form and temp"
+      }
+    },
+    {
+      "id": "talisman.reason.okawaru_allies",
+      "context": "护符理由：在欧卡沃鲁名义下已发誓不结盟",
+      "en": "you have forsworn all allies in Okawaru's name.",
+      "zh": "你已以欧卡沃鲁之名发誓不与任何盟友结伴。",
+      "params": {},
+      "source": {
+        "file": "item-use.cc",
+        "anchor": "cannot_put_on_talisman_reason; hive form and worship Okawaru"
+      }
+    },
+    {
+      "id": "talisman.reason.loveless",
+      "context": "护符理由：无爱",
+      "en": "you are loveless.",
+      "zh": "你没有爱。",
+      "params": {},
+      "source": {
+        "file": "item-use.cc",
+        "anchor": "cannot_put_on_talisman_reason; hive form and MUT_NO_LOVE"
+      }
+    },
+    {
+      "id": "talisman.reason.cannot_carry",
+      "context": "护符理由：背包无法再容纳物品",
+      "en": "You can't carry that many items.",
+      "zh": "你带不下那么多物品。",
+      "params": {},
+      "source": {
+        "file": "item-use.cc",
+        "anchor": "use_talisman; talisman outside inventory and no inventory room"
+      }
+    },
+    {
+      "id": "talisman.protean.transforms",
+      "context": "变形护符触发后转化成指定护符类型",
+      "en": "{item} responds to your shapeshifting skill and transforms into a {form}!",
+      "zh": "{item}响应你的塑形技能，变形成了{form}！",
+      "params": {
+        "item": "name",
+        "form": "name"
+      },
+      "source": {
+        "file": "item-use.cc",
+        "anchor": "use_talisman; TALISMAN_PROTEAN branch; item.name(DESC_YOUR), talisman_type_name(new_type)"
+      }
+    },
+    {
+      "id": "talisman.confirm.begin_transform",
+      "context": "开始变形前的危险区域确认",
+      "en": "Still begin transforming?",
+      "zh": "仍要开始变形吗？",
+      "params": {},
+      "source": {
+        "file": "item-use.cc",
+        "anchor": "use_talisman; !i_feel_safe(true); yesno(..., true, 'n')"
+      }
+    },
+    {
+      "id": "talisman.delay.keep_transforming",
+      "context": "中断变形延迟时的继续确认",
+      "en": "Keep transforming yourself?",
+      "zh": "要继续变形吗？",
+      "params": {},
+      "source": {
+        "file": "delay.cc",
+        "anchor": "TransformDelay::try_interrupt; yesno(..., false, 0, false)"
+      }
+    },
+    {
+      "id": "talisman.unsafe.transform.burn",
+      "context": "危险变形提示：变形会导致烧伤",
+      "en": "Transforming right now would cause you to burn!",
+      "zh": "现在变形会让你烧伤！",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "transforming_is_unsafe; dangerous terrain, transform, burn"
+      }
+    },
+    {
+      "id": "talisman.unsafe.transform.drown",
+      "context": "危险变形提示：变形会导致溺亡",
+      "en": "Transforming right now would cause you to drown!",
+      "zh": "现在变形会让你溺亡！",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "transforming_is_unsafe; dangerous terrain, transform, drown"
+      }
+    },
+    {
+      "id": "talisman.unsafe.transform.shatter",
+      "context": "危险变形提示：变形会震碎诅咒或脆弱物品",
+      "en": "Transforming right now would shatter {item}!",
+      "zh": "现在变形会震碎{item}！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "transforming_is_unsafe; forced removal of cursed or fragile artefact, transform"
+      }
+    },
+    {
+      "id": "talisman.unsafe.untransform.burn",
+      "context": "危险变形提示：解除变形会导致烧伤",
+      "en": "Untransforming right now would cause you to burn!",
+      "zh": "现在解除变形会让你烧伤！",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "transforming_is_unsafe; dangerous terrain, untransform, burn"
+      }
+    },
+    {
+      "id": "talisman.unsafe.untransform.drown",
+      "context": "危险变形提示：解除变形会导致溺亡",
+      "en": "Untransforming right now would cause you to drown!",
+      "zh": "现在解除变形会让你溺亡！",
+      "params": {},
+      "source": {
+        "file": "transform.cc",
+        "anchor": "transforming_is_unsafe; dangerous terrain, untransform, drown"
+      }
+    },
+    {
+      "id": "talisman.unsafe.untransform.shatter",
+      "context": "危险变形提示：解除变形会震碎诅咒或脆弱物品",
+      "en": "Untransforming right now would shatter {item}!",
+      "zh": "现在解除变形会震碎{item}！",
+      "params": {
+        "item": "name"
+      },
+      "source": {
+        "file": "transform.cc",
+        "anchor": "transforming_is_unsafe; forced removal of cursed or fragile artefact, untransform"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "talisman.reason.unstable",
+      "args": {},
+      "canonical": "you lack the shapeshifting skill to coax this talisman into a stable form.",
+      "zh": "你的塑形技能不足以将此护符塑成稳定形态。"
+    },
+    {
+      "id": "talisman.reason.unusable_skill",
+      "args": {},
+      "canonical": "you can never gain the skill to use this talisman.",
+      "zh": "你永远无法习得使用此护符所需的技能。"
+    },
+    {
+      "id": "talisman.reason.leave_form",
+      "args": {},
+      "canonical": "you need to leave your temporary form first.",
+      "zh": "你需要先离开当前的临时形态。"
+    },
+    {
+      "id": "talisman.reason.okawaru_allies",
+      "args": {},
+      "canonical": "you have forsworn all allies in Okawaru's name.",
+      "zh": "你已以欧卡沃鲁之名发誓不与任何盟友结伴。"
+    },
+    {
+      "id": "talisman.reason.loveless",
+      "args": {},
+      "canonical": "you are loveless.",
+      "zh": "你没有爱。"
+    },
+    {
+      "id": "talisman.reason.cannot_carry",
+      "args": {},
+      "canonical": "You can't carry that many items.",
+      "zh": "你带不下那么多物品。"
+    },
+    {
+      "id": "talisman.protean.transforms",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "your protean talisman",
+          "localized": "你的变形护符"
+        },
+        "form": {
+          "type": "name",
+          "canonical": "Rimehorn",
+          "localized": "霜角兽"
+        }
+      },
+      "canonical": "your protean talisman responds to your shapeshifting skill and transforms into a Rimehorn!",
+      "zh": "你的变形护符响应你的塑形技能，变形成了霜角兽！"
+    },
+    {
+      "id": "talisman.confirm.begin_transform",
+      "args": {},
+      "canonical": "Still begin transforming?",
+      "zh": "仍要开始变形吗？"
+    },
+    {
+      "id": "talisman.delay.keep_transforming",
+      "args": {},
+      "canonical": "Keep transforming yourself?",
+      "zh": "要继续变形吗？"
+    },
+    {
+      "id": "talisman.unsafe.transform.burn",
+      "args": {},
+      "canonical": "Transforming right now would cause you to burn!",
+      "zh": "现在变形会让你烧伤！"
+    },
+    {
+      "id": "talisman.unsafe.transform.drown",
+      "args": {},
+      "canonical": "Transforming right now would cause you to drown!",
+      "zh": "现在变形会让你溺亡！"
+    },
+    {
+      "id": "talisman.unsafe.transform.shatter",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "your cursed ring",
+          "localized": "你的诅咒戒指"
+        }
+      },
+      "canonical": "Transforming right now would shatter your cursed ring!",
+      "zh": "现在变形会震碎你的诅咒戒指！"
+    },
+    {
+      "id": "talisman.unsafe.untransform.burn",
+      "args": {},
+      "canonical": "Untransforming right now would cause you to burn!",
+      "zh": "现在解除变形会让你烧伤！"
+    },
+    {
+      "id": "talisman.unsafe.untransform.drown",
+      "args": {},
+      "canonical": "Untransforming right now would cause you to drown!",
+      "zh": "现在解除变形会让你溺亡！"
+    },
+    {
+      "id": "talisman.unsafe.untransform.shatter",
+      "args": {
+        "item": {
+          "type": "name",
+          "canonical": "your cursed ring",
+          "localized": "你的诅咒戒指"
+        }
+      },
+      "canonical": "Untransforming right now would shatter your cursed ring!",
+      "zh": "现在解除变形会震碎你的诅咒戒指！"
+    }
+  ]
+}
