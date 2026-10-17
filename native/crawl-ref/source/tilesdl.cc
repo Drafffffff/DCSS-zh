@@ -1460,11 +1460,11 @@ void TilesFramework::clear_text_tags(text_tag_type type)
 }
 
 void TilesFramework::add_text_tag(text_tag_type type, const string &tag,
-                                  const coord_def &gc)
+                                  const coord_def &gc, bool pretranslated)
 {
     if (in_headless_mode())
         return;
-    m_region_tile->add_text_tag(type, tag, gc);
+    m_region_tile->add_text_tag(type, tag, gc, pretranslated);
 }
 
 void TilesFramework::add_text_tag(text_tag_type /*type*/, const monster_info& mon)

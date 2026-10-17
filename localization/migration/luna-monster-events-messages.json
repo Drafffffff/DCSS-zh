@@ -1,0 +1,3887 @@
+{
+  "model": "Luna",
+  "purpose": "完整的怪物首遇提示、怪物叫声、特殊怪物说明与相邻怪物事件消息。",
+  "messages": [
+    {
+      "id": "hint.encounter.first.tiles",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "That monster is {monster}. You can learn about any monster by hovering your mouse over it, and read its description by <w>right-clicking</w> on it.\nTo attack this monster with your wielded weapon, just move into it. Note that as long as there's a non-friendly monster in view you won't be able to automatically move to distant squares, to avoid death by misclicking.",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_first_monster_hint_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "zh": "那只怪物是{monster}。将鼠标悬停在怪物上可以了解它，<w>右键点击</w>则可阅读它的描述。\n要用手持武器攻击它，只需朝它移动。只要视野中有非友善怪物，为避免误操作导致死亡，你就无法自动移动到较远的格子。"
+    },
+    {
+      "id": "hint.encounter.first.console",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "That {glyph} is a monster, usually depicted by a letter. Some typical early monsters look like <brown>r</brown>, <green>l</green>, <brown>K</brown> or <lightgrey>g</lightgrey>. You can gain information about it by pressing <w>x</w> and moving the cursor over the monster, and read the monster description by then pressing <w>v</w>. \nTo attack this monster with your wielded weapon, just move into it. ",
+      "params": {
+        "glyph": "text"
+      },
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_first_monster_hint_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "zh": "{glyph}是一个怪物，通常以字母表示。常见的初级怪物包括<brown>r</brown>、<green>l</green>、<brown>K</brown>或<lightgrey>g</lightgrey>。按<w>x</w>并将光标移到怪物上可以查看信息，再按<w>v</w>可阅读怪物描述。 \n要用手持武器攻击它，只需朝它移动。 "
+    },
+    {
+      "id": "hint.encounter.first.console_list",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "That {glyph} is a monster, usually depicted by a letter. Some typical early monsters look like <brown>r</brown>, <green>l</green>, <brown>K</brown> or <lightgrey>g</lightgrey>. Your console settings allowing, you'll always see a list of monsters somewhere on the screen.\nYou can gain information about it by pressing <w>x</w> and moving the cursor over the monster, and read the monster description by then pressing <w>v</w>. \nTo attack this monster with your wielded weapon, just move into it. ",
+      "params": {
+        "glyph": "text"
+      },
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_first_monster_hint_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "zh": "{glyph}是一个怪物，通常以字母表示。常见的初级怪物包括<brown>r</brown>、<green>l</green>、<brown>K</brown>或<lightgrey>g</lightgrey>。只要控制台设置允许，屏幕上总会显示一份怪物列表。\n按<w>x</w>并将光标移到怪物上可以查看信息，再按<w>v</w>可阅读怪物描述。 \n要用手持武器攻击它，只需朝它移动。 "
+    },
+    {
+      "id": "hint.encounter.hunter.wield",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "However, as a hunter you will want to deal with it using your bow. If you have a look at your shortbow from your <w>i</w>nventory, you'll find an explanation of how to do this. First <w>w</w>ield it, then follow the instructions.<tiles>\nAs a short-cut you can also <w>right-click</w> on your shortbow to read its description, and <w>left-click</w> to wield it.</tiles>",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_first_monster_followup_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "zh": "不过，作为猎人，你会想用弓来对付它。查看物品<w>i</w>栏中的短弓，就能看到如何使用弓的说明。先<w>w</w>装备它，再按说明操作。<tiles>你也可以<w>右键点击</w>短弓阅读其描述，并<w>左键点击</w>来装备它。</tiles>"
+    },
+    {
+      "id": "hint.encounter.hunter.ready",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "However, as a hunter you will want to deal with it using your bow. If you have a look at your shortbow from your <w>i</w>nventory, you'll find an explanation of how to do this. <tiles>Clicking with your <w>right mouse button</w> on your shortbow will also let you read its description.</tiles>",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_first_monster_followup_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "zh": "不过，作为猎人，你会想用弓来对付它。查看物品<w>i</w>栏中的短弓，就能看到如何使用弓的说明。<tiles>用鼠标<w>右键</w>点击短弓也能阅读其描述。</tiles>"
+    },
+    {
+      "id": "hint.encounter.magic",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "However, as a conjurer you will want to deal with it using magic. If you look at the help entry for the <w>M</w>emorisation screen you'll find an explanation of how to do this.",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_first_monster_followup_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "zh": "不过，作为咒法师，你会想用魔法来对付它。查看<w>M</w>记忆界面的帮助条目，就能看到如何使用魔法的说明。"
+    },
+    {
+      "id": "hint.encounter.glyph",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "<{colour}>{glyph}</{colour}>",
+      "params": {
+        "colour": "colour",
+        "glyph": "key_markup"
+      },
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_encounter_monster_glyph"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "zh": "<{colour}>{glyph}</{colour}>"
+    },
+    {
+      "id": "hint.encounter.db.hint_monster_unusual",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "That monster looks a bit unusual. You might wish to examine it a bit more closely by <localtiles>hovering your mouse over its tile.</localtiles> <nomouse>pressing {look_key} and moving the cursor onto its square.</nomouse>",
+      "params": {
+        "look_key": "key_markup"
+      },
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_encounter_database_hint_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "database_key": "HINT_MONSTER_UNUSUAL",
+      "zh": "那只怪物看起来有些特别。你或许可以仔细看看：<localtiles>将鼠标悬停在它所在的格子上。</localtiles> <nomouse>按下{look_key}并将光标移到它所在的格子。</nomouse>"
+    },
+    {
+      "id": "hint.encounter.db.hint_monster_friendly",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "That monster is friendly to you and will attack your enemies. You can command your allies by pressing {shout_key}.",
+      "params": {
+        "shout_key": "key_markup"
+      },
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_encounter_database_hint_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "database_key": "HINT_MONSTER_FRIENDLY",
+      "zh": "那只怪物对你友善，会攻击你的敌人。按下{shout_key}可以指挥盟友。"
+    },
+    {
+      "id": "hint.encounter.db.hint_temporarily_friendly",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "However, it is only <w>temporarily</w> friendly, and will become dangerous again when this friendliness wears off.",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_encounter_database_hint_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "database_key": "HINT_TEMPORARILY_FRIENDLY",
+      "zh": "不过它只是<w>暂时</w>友善，友善状态消退后又会变得危险。"
+    },
+    {
+      "id": "hint.encounter.db.hint_monster_shouted_unseen",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "Uh-oh, some monster noticed you, either one that's around a corner or one that's invisible. Plus, the noise it made will alert other monsters in the vicinity, who will come to check out what the commotion was about.",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_encounter_database_hint_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "database_key": "HINT_MONSTER_SHOUTED_UNSEEN",
+      "zh": "糟了，有只怪物注意到了你——它可能躲在拐角后，也可能隐形了。它发出的声响还会惊动附近的其他怪物，它们会赶来查看发生了什么。"
+    },
+    {
+      "id": "hint.encounter.db.hint_monster_shouted_seen",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "Uh-oh, that monster noticed you! Plus, the noise it made will alert other monsters in the vicinity, who will come to check out what the commotion was about.",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_encounter_database_hint_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "database_key": "HINT_MONSTER_SHOUTED_SEEN",
+      "zh": "糟了，那只怪物注意到你了！它发出的声响还会惊动附近的其他怪物，它们会赶来查看发生了什么。"
+    },
+    {
+      "id": "hint.encounter.db.hint_monster_no_shout",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "Uh-oh, that monster noticed you! Fortunately, it didn't make any noise, but many monsters do make noise when they notice you. That will alert other monsters in the area, who will come to check out what the commotion was about.",
+      "params": {},
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_encounter_database_hint_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "database_key": "HINT_MONSTER_NO_SHOUT",
+      "zh": "糟了，那只怪物注意到你了！幸好它没有发出声响，但许多怪物注意到你时都会叫喊。这会惊动附近的其他怪物，它们会赶来查看发生了什么。"
+    },
+    {
+      "id": "hint.encounter.db.hint_monster_left_los",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} didn't vanish, but merely moved onto a square which you can't currently see. It's still nearby, unless something happens to it in the short amount of time it's out of sight.",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_encounter_database_hint_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "database_key": "HINT_MONSTER_LEFT_LOS",
+      "zh": "{monster}并未消失，只是移动到了你目前看不见的格子。它仍在附近，除非趁你看不见的这段时间发生了什么。"
+    },
+    {
+      "id": "hint.encounter.db.hint_seen_zero_exp_mon",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "That<console> {glyph}</console> is {monster}. While <w>technically</w> a monster, it's more like dungeon furniture, since it's harmless and doesn't move. If it's in your way you can attack and kill it like other monsters, but you won't get any experience for doing so.",
+      "params": {
+        "glyph": "text",
+        "monster": "name"
+      },
+      "source": {
+        "file": "hints.cc",
+        "anchor": "_encounter_database_hint_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "database_key": "HINT_SEEN_ZERO_EXP_MON",
+      "zh": "那<console> {glyph}</console>是{monster}。虽然<w>从技术上说</w>它是怪物，但更像地牢里的摆设，因为它无害且不会移动。若它挡路，你可以像攻击其他怪物那样杀死它，但不会获得经验。"
+    },
+    {
+      "id": "shout.monster.buggy.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear doubly buggy behaviour!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear doubly buggy behaviour!",
+      "database_key": "__BUGGY",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一阵异常的故障声！"
+    },
+    {
+      "id": "shout.monster.shout.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a shout!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a shout!",
+      "database_key": "__SHOUT",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声喊叫！"
+    },
+    {
+      "id": "shout.monster.shout_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} shouts!",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ shouts!",
+      "database_key": "__SHOUT seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}喊叫起来！"
+    },
+    {
+      "id": "shout.monster.bark_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a bark!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a bark!",
+      "database_key": "__BARK unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声吠叫！"
+    },
+    {
+      "id": "shout.monster.bark_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} barks!",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ barks!",
+      "database_key": "__BARK seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}吠叫起来！"
+    },
+    {
+      "id": "shout.monster.howl_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a howl!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a howl!",
+      "database_key": "__HOWL unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声嚎叫！"
+    },
+    {
+      "id": "shout.monster.howl_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} howls!",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ howls!",
+      "database_key": "__HOWL seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}嚎叫起来！"
+    },
+    {
+      "id": "shout.monster.two_shouts_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear two shouts!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear two shouts!",
+      "database_key": "__TWO_SHOUTS unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到两声喊叫！"
+    },
+    {
+      "id": "shout.monster.two_shouts_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} shouts in stereo!",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ shouts in stereo!",
+      "database_key": "__TWO_SHOUTS seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}发出立体声般的喊叫！"
+    },
+    {
+      "id": "shout.monster.roar_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a roar!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a roar!",
+      "database_key": "__ROAR unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声咆哮！"
+    },
+    {
+      "id": "shout.monster.roar_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} roars!",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ roars!",
+      "database_key": "__ROAR seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}咆哮起来！"
+    },
+    {
+      "id": "shout.monster.scream_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a hideous shriek!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a hideous shriek!",
+      "database_key": "__SCREAM unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声凄厉的尖叫！"
+    },
+    {
+      "id": "shout.monster.scream_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} gives a hideous shriek!",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ gives a hideous shriek!",
+      "database_key": "__SCREAM seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}发出一声凄厉的尖叫！"
+    },
+    {
+      "id": "shout.monster.bellow_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a bellow!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a bellow!",
+      "database_key": "__BELLOW unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声怒吼！"
+    },
+    {
+      "id": "shout.monster.bellow_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} bellows!",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ bellows!",
+      "database_key": "__BELLOW seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}怒吼起来！"
+    },
+    {
+      "id": "shout.monster.bleat_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a bleat!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a bleat!",
+      "database_key": "__BLEAT unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声咩叫！"
+    },
+    {
+      "id": "shout.monster.bleat_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} bleats!",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ bleats!",
+      "database_key": "__BLEAT seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}咩叫起来！"
+    },
+    {
+      "id": "shout.monster.trumpet_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a trumpeting!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a trumpeting!",
+      "database_key": "__TRUMPET unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声号角般的鸣叫！"
+    },
+    {
+      "id": "shout.monster.trumpet_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} trumpets!",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ trumpets!",
+      "database_key": "__TRUMPET seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}发出号角般的鸣叫！"
+    },
+    {
+      "id": "shout.monster.screech_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a screech!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a screech!",
+      "database_key": "__SCREECH unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声尖锐的嘶叫！"
+    },
+    {
+      "id": "shout.monster.screech_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} screeches!",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ screeches!",
+      "database_key": "__SCREECH seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}尖声嘶叫！"
+    },
+    {
+      "id": "shout.monster.buzz_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear an angry buzzing noise.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear an angry buzzing noise.",
+      "database_key": "__BUZZ unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一阵愤怒的嗡嗡声。"
+    },
+    {
+      "id": "shout.monster.buzz_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} buzzes angrily.",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ buzzes angrily.",
+      "database_key": "__BUZZ seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}愤怒地嗡嗡作响。"
+    },
+    {
+      "id": "shout.monster.moan_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a chilling moan.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a chilling moan.",
+      "database_key": "__MOAN unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声令人毛骨悚然的呻吟。"
+    },
+    {
+      "id": "shout.monster.moan_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} gives a chilling moan.",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ gives a chilling moan.",
+      "database_key": "__MOAN seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}发出一声令人毛骨悚然的呻吟。"
+    },
+    {
+      "id": "shout.monster.gurgle_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a horrible gurgling sound!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a horrible gurgling sound!",
+      "database_key": "__GURGLE unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一阵可怕的咕噜声！"
+    },
+    {
+      "id": "shout.monster.gurgle_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} gurgles horribly!",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ gurgles horribly!",
+      "database_key": "__GURGLE seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}可怕地咕噜作响！"
+    },
+    {
+      "id": "shout.monster.croak_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a loud, deep croak!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a loud, deep croak!",
+      "database_key": "__CROAK unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声响亮而低沉的呱叫！"
+    },
+    {
+      "id": "shout.monster.croak_unseen.2",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a croak.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a croak.",
+      "database_key": "__CROAK unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声呱叫。"
+    },
+    {
+      "id": "shout.monster.croak_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} gives a loud, deep croak!",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ gives a loud, deep croak!",
+      "database_key": "__CROAK seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}发出一声响亮而低沉的呱叫！"
+    },
+    {
+      "id": "shout.monster.croak_seen.2",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} croaks.",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ croaks.",
+      "database_key": "__CROAK seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}呱叫一声。"
+    },
+    {
+      "id": "shout.monster.growl_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear an angry growl.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear an angry growl.",
+      "database_key": "__GROWL unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声愤怒的低吼。"
+    },
+    {
+      "id": "shout.monster.growl_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} growls angrily.",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ growls angrily.",
+      "database_key": "__GROWL seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}愤怒地低吼。"
+    },
+    {
+      "id": "shout.monster.hiss_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear an angry hiss.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear an angry hiss.",
+      "database_key": "__HISS unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声愤怒的嘶嘶声。"
+    },
+    {
+      "id": "shout.monster.hiss_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} hisses angrily.",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ hisses angrily.",
+      "database_key": "__HISS seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}愤怒地嘶叫。"
+    },
+    {
+      "id": "shout.monster.skitter_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a skittering sound.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a skittering sound.",
+      "database_key": "__SKITTER unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一阵窸窣爬行声。"
+    },
+    {
+      "id": "shout.monster.skitter_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster_possessive} many legs skitter.",
+      "params": {
+        "monster_possessive": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster_possessive@ many legs skitter.",
+      "database_key": "__SKITTER seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster_possessive}的许多条腿窸窣作响。"
+    },
+    {
+      "id": "shout.monster.faint_skitter_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a faint skittering sound.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a faint skittering sound.",
+      "database_key": "__FAINT_SKITTER unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一阵微弱的窸窣爬行声。"
+    },
+    {
+      "id": "shout.monster.faint_skitter_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster_possessive} many legs skitter faintly.",
+      "params": {
+        "monster_possessive": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster_possessive@ many legs skitter faintly.",
+      "database_key": "__FAINT_SKITTER seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster_possessive}的许多条腿发出微弱的窸窣声。"
+    },
+    {
+      "id": "shout.monster.squeal_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear an angry squeal.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear an angry squeal.",
+      "database_key": "__SQUEAL unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声愤怒的尖叫。"
+    },
+    {
+      "id": "shout.monster.squeal_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} squeals angrily.",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ squeals angrily.",
+      "database_key": "__SQUEAL seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}愤怒地尖叫。"
+    },
+    {
+      "id": "shout.monster.cherub_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster_possessive} eagle head screeches!",
+      "params": {
+        "monster_possessive": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster_possessive@ eagle head screeches!",
+      "database_key": "__CHERUB seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster_possessive}的鹰首发出尖啸！"
+    },
+    {
+      "id": "shout.monster.cherub_seen.2",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster_possessive} lion head roars!",
+      "params": {
+        "monster_possessive": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster_possessive@ lion head roars!",
+      "database_key": "__CHERUB seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster_possessive}的狮首发出咆哮！"
+    },
+    {
+      "id": "shout.monster.cherub_seen.3",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster_possessive} ox head lows!",
+      "params": {
+        "monster_possessive": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster_possessive@ ox head lows!",
+      "database_key": "__CHERUB seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster_possessive}的牛首发出低哞！"
+    },
+    {
+      "id": "shout.monster.cherub_seen.4",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster_possessive} human head shouts!",
+      "params": {
+        "monster_possessive": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster_possessive@ human head shouts!",
+      "database_key": "__CHERUB seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster_possessive}的人首大喊！"
+    },
+    {
+      "id": "shout.monster.cherub_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a shout.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a shout.",
+      "database_key": "__CHERUB unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声喊叫。"
+    },
+    {
+      "id": "shout.monster.cherub_unseen.2",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a screech.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a screech.",
+      "database_key": "__CHERUB unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声尖啸。"
+    },
+    {
+      "id": "shout.monster.cherub_unseen.3",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a roar.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a roar.",
+      "database_key": "__CHERUB unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声咆哮。"
+    },
+    {
+      "id": "shout.monster.cherub_unseen.4",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a low.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a low.",
+      "database_key": "__CHERUB unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声低哞。"
+    },
+    {
+      "id": "shout.monster.loud_roar_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a deafening roar!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a deafening roar!",
+      "database_key": "__LOUD_ROAR unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声震耳欲聋的咆哮！"
+    },
+    {
+      "id": "shout.monster.loud_roar_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} roars deafeningly!",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ roars deafeningly!",
+      "database_key": "__LOUD_ROAR seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}发出震耳欲聋的咆哮！"
+    },
+    {
+      "id": "shout.monster.rustle_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a loud rustle.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a loud rustle.",
+      "database_key": "__RUSTLE unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一阵响亮的沙沙声。"
+    },
+    {
+      "id": "shout.monster.rustle_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster_possessive} pages rustle loudly.",
+      "params": {
+        "monster_possessive": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster_possessive@ pages rustle loudly.",
+      "database_key": "__RUSTLE seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster_possessive}的书页哗啦作响。"
+    },
+    {
+      "id": "shout.monster.squeak_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a loud squeak.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a loud squeak.",
+      "database_key": "__SQUEAK unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声响亮的吱叫。"
+    },
+    {
+      "id": "shout.monster.squeak_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} squeaks loudly.",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ squeaks loudly.",
+      "database_key": "__SQUEAK seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}大声吱叫。"
+    },
+    {
+      "id": "shout.monster.caw_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} caws.",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ caws.",
+      "database_key": "__CAW seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}呱呱叫。"
+    },
+    {
+      "id": "shout.monster.caw_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear a loud caw.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear a loud caw.",
+      "database_key": "__CAW unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一声响亮的乌鸦叫。"
+    },
+    {
+      "id": "shout.monster.laugh_seen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} laughs maniacally.",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ laughs maniacally.",
+      "database_key": "__LAUGH seen",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}发出一阵疯狂的大笑。"
+    },
+    {
+      "id": "shout.monster.laugh_unseen.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear maniacal laughter.",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "You hear maniacal laughter.",
+      "database_key": "__LAUGH unseen",
+      "protocol_channel": "SOUND",
+      "zh": "你听到一阵疯狂的大笑。"
+    },
+    {
+      "id": "shout.monster.player_ghost.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} turns {possessive} malevolent gaze towards you.",
+      "params": {
+        "monster": "name",
+        "possessive": "text"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ turns @possessive@ malevolent gaze towards you.",
+      "database_key": "player ghost",
+      "protocol_channel": "VISUAL",
+      "zh": "{monster}将{possessive}恶意目光转向你。"
+    },
+    {
+      "id": "shout.monster.cap_g.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} turns {possessive} gaze towards you.",
+      "params": {
+        "monster": "name",
+        "possessive": "text"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ turns @possessive@ gaze towards you.",
+      "database_key": "'cap-G'",
+      "protocol_channel": "VISUAL",
+      "zh": "{monster}将{possessive}目光转向你。"
+    },
+    {
+      "id": "shout.monster.cap_j.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} quivers.",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ quivers.",
+      "database_key": "'cap-J'",
+      "protocol_channel": "VISUAL",
+      "zh": "{monster}颤抖起来。"
+    },
+    {
+      "id": "shout.monster.giant_slug.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} swivels {possessive} eye-stalks towards you.",
+      "params": {
+        "monster": "name",
+        "possessive": "text"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ swivels @possessive@ eye-stalks towards you.",
+      "database_key": "giant slug",
+      "protocol_channel": "VISUAL",
+      "zh": "{monster}将{possessive}眼柄转向你。"
+    },
+    {
+      "id": "shout.monster.ballistomycete_spore.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} waves {possessive} rhizomes.",
+      "params": {
+        "monster": "name",
+        "possessive": "text"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ waves @possessive@ rhizomes.",
+      "database_key": "ballistomycete spore",
+      "protocol_channel": "VISUAL",
+      "zh": "{monster}挥舞{possessive}根状菌丝。"
+    },
+    {
+      "id": "shout.monster.glowing_orange_brain.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} turns {possessive} attention towards you.",
+      "params": {
+        "monster": "name",
+        "possessive": "text"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ turns @possessive@ attention towards you.",
+      "database_key": "glowing orange brain",
+      "protocol_channel": "VISUAL",
+      "zh": "{monster}将{possessive}注意力转向你。"
+    },
+    {
+      "id": "shout.monster.moth_of_wrath.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster_possessive} fur bristles in rage as it notices you.",
+      "params": {
+        "monster_possessive": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster_possessive@ fur bristles in rage as it notices you.",
+      "database_key": "moth of wrath",
+      "protocol_channel": "VISUAL",
+      "zh": "{monster_possessive}的皮毛因察觉到你而愤怒地竖起。"
+    },
+    {
+      "id": "shout.monster.polyphemus.1",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{monster} shouts, \"Attack, my pets! Attack!\"",
+      "params": {
+        "monster": "name"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "raw_source": "@The_monster@ shouts, \"Attack, my pets! Attack!\"",
+      "database_key": "Polyphemus",
+      "protocol_channel": "SOUND",
+      "zh": "{monster}大喊：“攻击，我的宠物们！攻击！”"
+    },
+    {
+      "id": "shout.monster.unsupported",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "{message}",
+      "params": {
+        "message": "text"
+      },
+      "source": {
+        "file": "shout.cc",
+        "anchor": "_monster_shout_message"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "note": "Explicit entire canonical fallback, unsupported body=false; no mixed translated fragments",
+      "zh": "{message}"
+    },
+    {
+      "id": "shout.monster.buggy",
+      "context": "First monster encounter / monster-shout complete source template; control prefixes remain outside translation",
+      "en": "You hear something buggy!",
+      "params": {},
+      "source": {
+        "file": "shout.cc",
+        "anchor": "monster_shout"
+      },
+      "referent": "monster is actual first-seen / shouting actor, never target or player; glyph and key markup immutable",
+      "zh": "你听到一阵奇怪的故障声！"
+    },
+    {
+      "id": "monster.special.resist.atom.steam",
+      "en": "steam",
+      "params": {},
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "蒸汽"
+    },
+    {
+      "id": "monster.special.resist.atom.corrosion",
+      "en": "acid and corrosion",
+      "params": {},
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "酸蚀"
+    },
+    {
+      "id": "monster.special.resist.atom.damnation",
+      "en": "damnation",
+      "params": {},
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "诅咒"
+    },
+    {
+      "id": "monster.special.resist.atom.miasma",
+      "en": "miasma",
+      "params": {},
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "瘴气"
+    },
+    {
+      "id": "monster.special.resist.atom.torment",
+      "en": "torment",
+      "params": {},
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "折磨"
+    },
+    {
+      "id": "monster.special.resist.atom.blinding",
+      "en": "blinding",
+      "params": {},
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "致盲"
+    },
+    {
+      "id": "monster.special.resist.atom.drowning",
+      "en": "drowning",
+      "params": {},
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "溺水"
+    },
+    {
+      "id": "monster.special.resist.atom.clouds",
+      "en": "clouds of all kinds",
+      "params": {},
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "各种云雾"
+    },
+    {
+      "id": "monster.special.resist.clause.immune",
+      "en": "immune to {attacks}",
+      "params": {
+        "attacks": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "免疫{attacks}"
+    },
+    {
+      "id": "monster.special.resist.clause.high",
+      "en": "very resistant to {attacks}",
+      "params": {
+        "attacks": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "对{attacks}有极强抗性"
+    },
+    {
+      "id": "monster.special.resist.clause.base",
+      "en": "resistant to {attacks}",
+      "params": {
+        "attacks": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "对{attacks}有抗性"
+    },
+    {
+      "id": "monster.special.list.semicolon",
+      "en": "{first}; {second}",
+      "params": {
+        "first": "text",
+        "second": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{first}；{second}"
+    },
+    {
+      "id": "monster.special.list.semicolon_and",
+      "en": "{first}; and {second}",
+      "params": {
+        "first": "text",
+        "second": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{first}；以及{second}"
+    },
+    {
+      "id": "monster.special.items.singular",
+      "en": "{subject} has an unusual item: {items}.\n",
+      "params": {
+        "subject": "name",
+        "items": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}持有一件奇特物品：{items}。\n"
+    },
+    {
+      "id": "monster.special.items.plural",
+      "en": "{subject} have an unusual item: {items}.\n",
+      "params": {
+        "subject": "name",
+        "items": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}持有一些奇特物品：{items}。\n"
+    },
+    {
+      "id": "monster.special.animated_item.singular",
+      "en": "{subject} is an unusual item.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}是一件奇特物品。\n"
+    },
+    {
+      "id": "monster.special.animated_item.plural",
+      "en": "{subject} are an unusual item.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}是奇特物品。\n"
+    },
+    {
+      "id": "monster.special.resists.singular",
+      "en": "{subject} is {resists}.\n",
+      "params": {
+        "subject": "name",
+        "resists": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}{resists}。\n"
+    },
+    {
+      "id": "monster.special.resists.plural",
+      "en": "{subject} are {resists}.\n",
+      "params": {
+        "subject": "name",
+        "resists": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}{resists}。\n"
+    },
+    {
+      "id": "monster.special.susceptible.singular",
+      "en": "{subject} is susceptible to {attacks}.\n",
+      "params": {
+        "subject": "name",
+        "attacks": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}容易受到{attacks}影响。\n"
+    },
+    {
+      "id": "monster.special.susceptible.plural",
+      "en": "{subject} are susceptible to {attacks}.\n",
+      "params": {
+        "subject": "name",
+        "attacks": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}容易受到{attacks}影响。\n"
+    },
+    {
+      "id": "monster.special.chaotic.singular",
+      "en": "{subject} is vulnerable to silver and hated by Zin.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}容易受到银器伤害，也为津恩所厌恶。\n"
+    },
+    {
+      "id": "monster.special.chaotic.plural",
+      "en": "{subject} are vulnerable to silver and hated by Zin.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}容易受到银器伤害，也为津恩所厌恶。\n"
+    },
+    {
+      "id": "monster.special.cold_blooded.singular",
+      "en": "{subject} is cold-blooded and may be slowed by cold attacks.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}是冷血生物，可能会被寒冷攻击减速。\n"
+    },
+    {
+      "id": "monster.special.cold_blooded.plural",
+      "en": "{subject} are cold-blooded and may be slowed by cold attacks.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}是冷血生物，可能会被寒冷攻击减速。\n"
+    },
+    {
+      "id": "monster.special.acid_splash.singular",
+      "en": "{subject} inflicts 1d5 acid damage when struck in melee.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}在近战中被击中时会造成1d5点酸蚀伤害。\n"
+    },
+    {
+      "id": "monster.special.acid_splash.plural",
+      "en": "{subject} inflict 1d5 acid damage when struck in melee.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}在近战中被击中时会造成1d5点酸蚀伤害。\n"
+    },
+    {
+      "id": "monster.special.insubstantial.singular",
+      "en": "{subject} is insubstantial and immune to ensnarement.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}没有实体，且免疫缠绕。\n"
+    },
+    {
+      "id": "monster.special.insubstantial.plural",
+      "en": "{subject} are insubstantial and immune to ensnarement.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}没有实体，且免疫缠绕。\n"
+    },
+    {
+      "id": "monster.special.amorphous.singular",
+      "en": "{subject} is amorphous and immune to ensnarement.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}形态不定，且免疫缠绕。\n"
+    },
+    {
+      "id": "monster.special.amorphous.plural",
+      "en": "{subject} are amorphous and immune to ensnarement.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}形态不定，且免疫缠绕。\n"
+    },
+    {
+      "id": "monster.special.shadowghast.singular",
+      "en": "{subject} covers ground more quickly when invisible.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}隐形时移动得更快。\n"
+    },
+    {
+      "id": "monster.special.shadowghast.plural",
+      "en": "{subject} cover ground more quickly when invisible.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}隐形时移动得更快。\n"
+    },
+    {
+      "id": "monster.special.zin_strong.singular",
+      "en": "{subject} is too strong to be affected by reciting Zin's laws.",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}过于强大，不受吟诵津恩戒律影响。"
+    },
+    {
+      "id": "monster.special.zin_strong.plural",
+      "en": "{subject} are too strong to be affected by reciting Zin's laws.",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}过于强大，不受吟诵津恩戒律影响。"
+    },
+    {
+      "id": "monster.special.stationary",
+      "en": "{subject} cannot move.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}无法移动。\n"
+    },
+    {
+      "id": "monster.special.see_invisible",
+      "en": "{subject} can see invisible.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}能看见隐形生物。\n"
+    },
+    {
+      "id": "monster.special.burrow",
+      "en": "{subject} can burrow through diggable terrain.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}能在可挖掘地形中掘行。\n"
+    },
+    {
+      "id": "monster.special.fly",
+      "en": "{subject} can fly.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}能飞行。\n"
+    },
+    {
+      "id": "monster.special.zin_ineligible",
+      "en": "{subject} cannot be affected by reciting Zin's laws.",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}不受吟诵津恩戒律影响。"
+    },
+    {
+      "id": "monster.special.zin_eligible",
+      "en": "{subject} can be affected by reciting Zin's laws.",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}会受到吟诵津恩戒律影响。"
+    },
+    {
+      "id": "monster.special.habitat.water",
+      "en": "{subject} can travel through water.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}能在水中穿行。\n"
+    },
+    {
+      "id": "monster.special.habitat.walk_water",
+      "en": "{subject} can walk on water.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}能在水面行走。\n"
+    },
+    {
+      "id": "monster.special.habitat.lava",
+      "en": "{subject} can travel through lava.\n",
+      "params": {
+        "subject": "name"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "{subject}能在熔岩中穿行。\n"
+    },
+    {
+      "id": "monster.special.zin_debug",
+      "en": " (Recite power:{power}, Hit dice:{hd})",
+      "params": {
+        "power": "integer",
+        "hd": "integer"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": " （吟诵威力：{power}，生命骰：{hd}）"
+    },
+    {
+      "id": "monster.special.royal_jelly.damage",
+      "en": "It will release varied jellies when damaged or killed, with the number of jellies proportional to the amount of damage.\n",
+      "params": {},
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "它受伤或死亡时会释放各种果冻怪，释放的数量与所受伤害成正比。\n"
+    },
+    {
+      "id": "monster.special.royal_jelly.polymorph",
+      "en": "It will release all of its jellies when polymorphed.\n",
+      "params": {},
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "它被变形时会释放所有果冻怪。\n"
+    },
+    {
+      "id": "monster.special.star_damage",
+      "en": "Shooting star damage: {dice}d{sides} (x3)\n",
+      "params": {
+        "dice": "integer",
+        "sides": "integer"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "流星伤害：{dice}d{sides}（×3）\n"
+    },
+    {
+      "id": "monster.special.projectile_damage",
+      "en": "Projectile damage: {dice}d{sides}\n",
+      "params": {
+        "dice": "integer",
+        "sides": "integer"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "投射物伤害：{dice}d{sides}\n"
+    },
+    {
+      "id": "monster.special.explosion_damage",
+      "en": "Explosion damage: {dice}d{sides}\n",
+      "params": {
+        "dice": "integer",
+        "sides": "integer"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "爆炸伤害：{dice}d{sides}\n"
+    },
+    {
+      "id": "monster.special.regen",
+      "en": "{rate}/turn",
+      "params": {
+        "rate": "integer"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_stat_description"
+      },
+      "zh": "每回合恢复{rate}点\n"
+    },
+    {
+      "id": "monster.special.speed.base",
+      "en": "Speed: {speed}%",
+      "params": {
+        "speed": "integer"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_speed_message"
+      },
+      "zh": "速度：{speed}%"
+    },
+    {
+      "id": "monster.special.speed.attack",
+      "en": "attack: {speed}%",
+      "params": {
+        "speed": "integer"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_speed_message"
+      },
+      "zh": "攻击：{speed}%"
+    },
+    {
+      "id": "monster.special.speed.shoot",
+      "en": "shoot: {speed}%",
+      "params": {
+        "speed": "integer"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_speed_message"
+      },
+      "zh": "射击：{speed}%"
+    },
+    {
+      "id": "monster.special.speed.travel",
+      "en": "travel: {speed}%",
+      "params": {
+        "speed": "integer"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_speed_message"
+      },
+      "zh": "移动：{speed}%"
+    },
+    {
+      "id": "monster.special.speed.swim",
+      "en": "swim: {speed}%",
+      "params": {
+        "speed": "integer"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_speed_message"
+      },
+      "zh": "游泳：{speed}%"
+    },
+    {
+      "id": "monster.special.speed.pray",
+      "en": "pray: {speed}%",
+      "params": {
+        "speed": "integer"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_speed_message"
+      },
+      "zh": "祈祷：{speed}%"
+    },
+    {
+      "id": "monster.special.speed.magic",
+      "en": "magic: {speed}%",
+      "params": {
+        "speed": "integer"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_speed_message"
+      },
+      "zh": "施法：{speed}%"
+    },
+    {
+      "id": "monster.special.speed.energy",
+      "en": "{speed} ({actions})",
+      "params": {
+        "speed": "text",
+        "actions": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_speed_message"
+      },
+      "zh": "{speed}（{actions}）"
+    },
+    {
+      "id": "monster.special.speed.pauses",
+      "en": "{speed} (but often pauses)",
+      "params": {
+        "speed": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_speed_message"
+      },
+      "zh": "{speed}（但经常停顿）"
+    },
+    {
+      "id": "monster.special.speed.slower",
+      "en": "{speed} (normally travels slower than you)",
+      "params": {
+        "speed": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_speed_message"
+      },
+      "zh": "{speed}（通常比你移动得慢）"
+    },
+    {
+      "id": "monster.special.speed.faster",
+      "en": "{speed} (normally travels faster than you)",
+      "params": {
+        "speed": "text"
+      },
+      "context": "Monster intrinsic detail generated from enum/facts; subject is the monster, not the player.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_speed_message"
+      },
+      "zh": "{speed}（通常比你移动得快）"
+    },
+    {
+      "id": "monster.special.program_bug",
+      "en": "If this monster is a \"program bug\", then it's recommended that you save your game and reload. Please report monsters who masquerade as program bugs or run around the dungeon without a proper description to the authorities.",
+      "params": {},
+      "context": "Fixed diagnostic monster description: preserve quoted internal English term program bug as appropriate, no dynamic false argument.",
+      "source": {
+        "file": "describe.cc",
+        "anchor": "get_monster_db_desc"
+      },
+      "zh": "如果这只怪物是“程序错误”，建议先保存游戏并重新载入。若遇到伪装成程序错误，或在地牢中游荡却没有正确描述的怪物，请向相关人员报告。"
+    },
+    {
+      "id": "monster.event.summoned_alert",
+      "en": "{monster} comes into view.",
+      "params": {
+        "monster": "name"
+      },
+      "context": "The visible summoned monster is entering the player line of sight.",
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "_summoned_alert_message"
+      },
+      "zh": "{monster}进入视野。"
+    },
+    {
+      "id": "monster.event.wyrmbane",
+      "en": "<green>Wyrmbane glows as a worthy foe approaches.</green>",
+      "params": {},
+      "context": "Wyrmbane is the fixed unique weapon proper name. Player sees a dragon worthy for enchantment gain; no player name argument.",
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "_wyrmbane_alert_message"
+      },
+      "zh": "<green>值得一战的强敌逼近，Wyrmbane发出光芒。</green>"
+    },
+    {
+      "id": "monster.event.gozag_incite",
+      "en": "Gozag incites {monster} against you.",
+      "params": {
+        "monster": "name"
+      },
+      "context": "Gozag (deity) incites the visible target monster against the player. Monster includes definite English article in canonical, Chinese semantic display name.",
+      "source": {
+        "file": "player-notices.cc",
+        "anchor": "_gozag_incite_message"
+      },
+      "zh": "戈扎格煽动{monster}来攻击你。"
+    },
+    {
+      "id": "monster.detail.lore.hydra_current",
+      "context": "完整的怪物图鉴 lore；主语为当前怪物。",
+      "source": {
+        "file": "dat/descript/monsters.txt",
+        "anchor": "hydra"
+      },
+      "params": {},
+      "en": "A great and nightmarish lacertilian beast. It has many heads, and the potential to grow many more!\n\nHitting it with any bladed weapon bigger than a short blade risks lopping a head off and causing two more to grow in its place. Very large claws, such as trolls', are long enough to do the same. Only a weapon branded with flame will cauterise the wound and prevent more heads from growing.",
+      "zh": "一头噩梦般的巨型蜥蜴类怪兽。它有很多个头，而且可能还会长出更多！\n\n用任何比短刃更大的有刃武器击打它，都有可能砍掉一个头，并在原处长出另外两个。像巨魔那样的大爪子也足够长，同样会造成这种结果。只有带有火焰印记的武器才能灼烧伤口，阻止它长出更多头。",
+      "source_context": "detail.monster.lore"
+    },
+    {
+      "id": "monster.detail.lore.acid_blob_current",
+      "context": "完整的怪物图鉴 lore；主语为当前怪物。",
+      "source": {
+        "file": "dat/descript/monsters.txt",
+        "anchor": "acid_blob"
+      },
+      "params": {},
+      "en": "A lump of sickly pustulent flesh, dripping with lethal acid.",
+      "zh": "一坨长满肉瘤的恶心肉块，不断滴落着致命的强酸。",
+      "source_context": "detail.monster.lore"
+    },
+    {
+      "id": "monster.detail.lore.jiangshi_current",
+      "context": "完整的怪物图鉴 lore；主语为当前怪物。",
+      "source": {
+        "file": "dat/descript/monsters.txt",
+        "anchor": "jiangshi"
+      },
+      "params": {},
+      "en": "A vampiric thrall bound into servitude by esoteric rituals. Though its rigid limbs give it an awkward gait, it moves with surprising speed, leaping upon its victims and leeching away their life essence with its vicious claws.",
+      "zh": "被神秘仪式束缚、沦为吸血奴仆的怪物。尽管僵硬的四肢使它步态笨拙，它的行动却出奇迅速，会扑向受害者，用凶狠的爪子吸取其生命精华。",
+      "source_context": "detail.monster.lore"
+    },
+    {
+      "id": "monster.name.headed",
+      "en": "{heads}-headed {species}",
+      "zh": "有{heads}个头的{species}",
+      "params": {
+        "heads": "integer",
+        "species": "name"
+      },
+      "context": "怪物名称中的可见头数与物种名组合；中文按实际头数表达，不固定为九头。",
+      "source": {
+        "file": "zh-display-name.cc",
+        "anchor": "_monster_visible_species_arg"
+      }
+    },
+    {
+      "id": "monster.quote.cap_d_suffix",
+      "context": "共享龙族引用，完整引用和出处来自 quote 数据库。",
+      "source": "dat/descript/quotes.txt#__cap-D_suffix / dat/descript/zh/quotes.txt#__cap-D_suffix",
+      "params": {},
+      "en": "“On the other hand, Confucius is made to say to his disciples, ‘I know how\n birds can fly, how fishes can swim, and how animals can run. But the runner\n may be snared, the swimmer may be hooked, and the flyer may be shot by the\n arrow. But there is the dragon. I cannot tell how he mounts on the wind\n through the clouds, and rises to heaven. Today I have seen Lao-tsze, and can\n only compare him to the dragon.’”\n    -Life of Confucius\n\n“This Dragon had Two furious Wings\n   Each one upon each Shoulder;\n With a Sting in his Tail as long as a Flail,\n   Which made him bolder and bolder.\n He had long Claws, and in his Jaws\n   Four and forty Teeth of Iron;\n With a Hide as tough, as any Buff,\n   Which did him round environ.”\n\n    -“An Excellent Ballad of a most dreadful Combat, fought between Moore of Moore-Hall, and the Dragon of Wantley”, retold by Ambrose Philips, _A Collection of Old Ballads. Corrected from the Best and Most Ancient Copies Extant. With Introductions Historical, Critical, Or Humorous_. 1723.",
+      "zh": "“另一方面，据说孔子曾对弟子说：\n ‘我知道鸟能飞，鱼能游，兽能跑。但跑者\n 可以被网住，游者可以被钓起，飞者可以被箭射落。\n 唯有龙，我不知道它如何乘风云而上天。\n 今日我见到了老子，\n 只能将他比作龙。’”\n    -《孔子传》\n\n“这条龙生有两只狂暴的翅膀\n   一边肩膀各一只；\n 尾上有一根如连枷般长的毒刺，\n   令他愈发胆大。\n 他生有长爪，他的嘴里\n   长着四十四颗铁牙；\n 他的皮坚韧如牛皮，\n   将他周身包裹。”\n\n    -《关于摩尔厅的摩尔与旺特利的龙之间一场最可怕战斗的 绝妙歌谣》，安布罗斯·菲利普斯重述，《古歌谣集。 从现存最佳最古抄本校订。附历史、批评或诙谐的导言》。 1723年。",
+      "source_context": "detail.monster.quote"
+    },
+    {
+      "id": "monster.lore.royal_jelly",
+      "context": "Royal Jelly 当前完整图鉴 lore；怪物详情。",
+      "source": "native/crawl-ref/source/dat/descript/monsters.txt#Royal Jelly / native/crawl-ref/source/dat/descript/zh/monsters.txt#Royal Jelly",
+      "params": {},
+      "en": "A particularly rich and golden gelatinous thing. Smaller jellies swim and pulse just below its surface, ready to burst forth at the slightest touch.",
+      "zh": "一团格外浓稠、金灿灿的胶质物。更小的胶冻在它表面下游动、搏动，稍有触碰便会破体而出。",
+      "source_context": "detail.monster.lore"
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "hint.encounter.first.tiles",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "That monster is an orc. You can learn about any monster by hovering your mouse over it, and read its description by <w>right-clicking</w> on it.\nTo attack this monster with your wielded weapon, just move into it. Note that as long as there's a non-friendly monster in view you won't be able to automatically move to distant squares, to avoid death by misclicking.",
+      "zh": "那只怪物是兽人。将鼠标悬停在怪物上可以了解它，<w>右键点击</w>则可阅读它的描述。\n要用手持武器攻击它，只需朝它移动。只要视野中有非友善怪物，为避免误操作导致死亡，你就无法自动移动到较远的格子。"
+    },
+    {
+      "id": "hint.encounter.first.console",
+      "args": {
+        "glyph": {
+          "type": "text",
+          "canonical": "r",
+          "localized": "r"
+        }
+      },
+      "canonical": "That r is a monster, usually depicted by a letter. Some typical early monsters look like <brown>r</brown>, <green>l</green>, <brown>K</brown> or <lightgrey>g</lightgrey>. You can gain information about it by pressing <w>x</w> and moving the cursor over the monster, and read the monster description by then pressing <w>v</w>. \nTo attack this monster with your wielded weapon, just move into it. ",
+      "zh": "r是一个怪物，通常以字母表示。常见的初级怪物包括<brown>r</brown>、<green>l</green>、<brown>K</brown>或<lightgrey>g</lightgrey>。按<w>x</w>并将光标移到怪物上可以查看信息，再按<w>v</w>可阅读怪物描述。 \n要用手持武器攻击它，只需朝它移动。 "
+    },
+    {
+      "id": "hint.encounter.first.console_list",
+      "args": {
+        "glyph": {
+          "type": "text",
+          "canonical": "r",
+          "localized": "r"
+        }
+      },
+      "canonical": "That r is a monster, usually depicted by a letter. Some typical early monsters look like <brown>r</brown>, <green>l</green>, <brown>K</brown> or <lightgrey>g</lightgrey>. Your console settings allowing, you'll always see a list of monsters somewhere on the screen.\nYou can gain information about it by pressing <w>x</w> and moving the cursor over the monster, and read the monster description by then pressing <w>v</w>. \nTo attack this monster with your wielded weapon, just move into it. ",
+      "zh": "r是一个怪物，通常以字母表示。常见的初级怪物包括<brown>r</brown>、<green>l</green>、<brown>K</brown>或<lightgrey>g</lightgrey>。只要控制台设置允许，屏幕上总会显示一份怪物列表。\n按<w>x</w>并将光标移到怪物上可以查看信息，再按<w>v</w>可阅读怪物描述。 \n要用手持武器攻击它，只需朝它移动。 "
+    },
+    {
+      "id": "hint.encounter.hunter.wield",
+      "args": {},
+      "canonical": "However, as a hunter you will want to deal with it using your bow. If you have a look at your shortbow from your <w>i</w>nventory, you'll find an explanation of how to do this. First <w>w</w>ield it, then follow the instructions.<tiles>\nAs a short-cut you can also <w>right-click</w> on your shortbow to read its description, and <w>left-click</w> to wield it.</tiles>",
+      "zh": "不过，作为猎人，你会想用弓来对付它。查看物品<w>i</w>栏中的短弓，就能看到如何使用弓的说明。先<w>w</w>装备它，再按说明操作。<tiles>你也可以<w>右键点击</w>短弓阅读其描述，并<w>左键点击</w>来装备它。</tiles>"
+    },
+    {
+      "id": "hint.encounter.hunter.ready",
+      "args": {},
+      "canonical": "However, as a hunter you will want to deal with it using your bow. If you have a look at your shortbow from your <w>i</w>nventory, you'll find an explanation of how to do this. <tiles>Clicking with your <w>right mouse button</w> on your shortbow will also let you read its description.</tiles>",
+      "zh": "不过，作为猎人，你会想用弓来对付它。查看物品<w>i</w>栏中的短弓，就能看到如何使用弓的说明。<tiles>用鼠标<w>右键</w>点击短弓也能阅读其描述。</tiles>"
+    },
+    {
+      "id": "hint.encounter.magic",
+      "args": {},
+      "canonical": "However, as a conjurer you will want to deal with it using magic. If you look at the help entry for the <w>M</w>emorisation screen you'll find an explanation of how to do this.",
+      "zh": "不过，作为咒法师，你会想用魔法来对付它。查看<w>M</w>记忆界面的帮助条目，就能看到如何使用魔法的说明。"
+    },
+    {
+      "id": "hint.encounter.glyph",
+      "args": {
+        "colour": {
+          "type": "colour",
+          "canonical": "brown",
+          "localized": "brown"
+        },
+        "glyph": {
+          "type": "key_markup",
+          "canonical": "x",
+          "localized": "x"
+        }
+      },
+      "canonical": "<brown>x</brown>",
+      "zh": "<brown>x</brown>"
+    },
+    {
+      "id": "hint.encounter.db.hint_monster_unusual",
+      "args": {
+        "look_key": {
+          "type": "key_markup",
+          "canonical": "x",
+          "localized": "x"
+        }
+      },
+      "canonical": "That monster looks a bit unusual. You might wish to examine it a bit more closely by <localtiles>hovering your mouse over its tile.</localtiles> <nomouse>pressing x and moving the cursor onto its square.</nomouse>",
+      "zh": "那只怪物看起来有些特别。你或许可以仔细看看：<localtiles>将鼠标悬停在它所在的格子上。</localtiles> <nomouse>按下x并将光标移到它所在的格子。</nomouse>"
+    },
+    {
+      "id": "hint.encounter.db.hint_monster_friendly",
+      "args": {
+        "shout_key": {
+          "type": "key_markup",
+          "canonical": "x",
+          "localized": "x"
+        }
+      },
+      "canonical": "That monster is friendly to you and will attack your enemies. You can command your allies by pressing x.",
+      "zh": "那只怪物对你友善，会攻击你的敌人。按下x可以指挥盟友。"
+    },
+    {
+      "id": "hint.encounter.db.hint_temporarily_friendly",
+      "args": {},
+      "canonical": "However, it is only <w>temporarily</w> friendly, and will become dangerous again when this friendliness wears off.",
+      "zh": "不过它只是<w>暂时</w>友善，友善状态消退后又会变得危险。"
+    },
+    {
+      "id": "hint.encounter.db.hint_monster_shouted_unseen",
+      "args": {},
+      "canonical": "Uh-oh, some monster noticed you, either one that's around a corner or one that's invisible. Plus, the noise it made will alert other monsters in the vicinity, who will come to check out what the commotion was about.",
+      "zh": "糟了，有只怪物注意到了你——它可能躲在拐角后，也可能隐形了。它发出的声响还会惊动附近的其他怪物，它们会赶来查看发生了什么。"
+    },
+    {
+      "id": "hint.encounter.db.hint_monster_shouted_seen",
+      "args": {},
+      "canonical": "Uh-oh, that monster noticed you! Plus, the noise it made will alert other monsters in the vicinity, who will come to check out what the commotion was about.",
+      "zh": "糟了，那只怪物注意到你了！它发出的声响还会惊动附近的其他怪物，它们会赶来查看发生了什么。"
+    },
+    {
+      "id": "hint.encounter.db.hint_monster_no_shout",
+      "args": {},
+      "canonical": "Uh-oh, that monster noticed you! Fortunately, it didn't make any noise, but many monsters do make noise when they notice you. That will alert other monsters in the area, who will come to check out what the commotion was about.",
+      "zh": "糟了，那只怪物注意到你了！幸好它没有发出声响，但许多怪物注意到你时都会叫喊。这会惊动附近的其他怪物，它们会赶来查看发生了什么。"
+    },
+    {
+      "id": "hint.encounter.db.hint_monster_left_los",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc didn't vanish, but merely moved onto a square which you can't currently see. It's still nearby, unless something happens to it in the short amount of time it's out of sight.",
+      "zh": "兽人并未消失，只是移动到了你目前看不见的格子。它仍在附近，除非趁你看不见的这段时间发生了什么。"
+    },
+    {
+      "id": "hint.encounter.db.hint_seen_zero_exp_mon",
+      "args": {
+        "glyph": {
+          "type": "text",
+          "canonical": "r",
+          "localized": "r"
+        },
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "That<console> r</console> is an orc. While <w>technically</w> a monster, it's more like dungeon furniture, since it's harmless and doesn't move. If it's in your way you can attack and kill it like other monsters, but you won't get any experience for doing so.",
+      "zh": "那<console> r</console>是兽人。虽然<w>从技术上说</w>它是怪物，但更像地牢里的摆设，因为它无害且不会移动。若它挡路，你可以像攻击其他怪物那样杀死它，但不会获得经验。"
+    },
+    {
+      "id": "shout.monster.buggy.1",
+      "args": {},
+      "canonical": "You hear doubly buggy behaviour!",
+      "zh": "你听到一阵异常的故障声！"
+    },
+    {
+      "id": "shout.monster.shout.1",
+      "args": {},
+      "canonical": "You hear a shout!",
+      "zh": "你听到一声喊叫！"
+    },
+    {
+      "id": "shout.monster.shout_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc shouts!",
+      "zh": "兽人喊叫起来！"
+    },
+    {
+      "id": "shout.monster.bark_unseen.1",
+      "args": {},
+      "canonical": "You hear a bark!",
+      "zh": "你听到一声吠叫！"
+    },
+    {
+      "id": "shout.monster.bark_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc barks!",
+      "zh": "兽人吠叫起来！"
+    },
+    {
+      "id": "shout.monster.howl_unseen.1",
+      "args": {},
+      "canonical": "You hear a howl!",
+      "zh": "你听到一声嚎叫！"
+    },
+    {
+      "id": "shout.monster.howl_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc howls!",
+      "zh": "兽人嚎叫起来！"
+    },
+    {
+      "id": "shout.monster.two_shouts_unseen.1",
+      "args": {},
+      "canonical": "You hear two shouts!",
+      "zh": "你听到两声喊叫！"
+    },
+    {
+      "id": "shout.monster.two_shouts_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc shouts in stereo!",
+      "zh": "兽人发出立体声般的喊叫！"
+    },
+    {
+      "id": "shout.monster.roar_unseen.1",
+      "args": {},
+      "canonical": "You hear a roar!",
+      "zh": "你听到一声咆哮！"
+    },
+    {
+      "id": "shout.monster.roar_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc roars!",
+      "zh": "兽人咆哮起来！"
+    },
+    {
+      "id": "shout.monster.scream_unseen.1",
+      "args": {},
+      "canonical": "You hear a hideous shriek!",
+      "zh": "你听到一声凄厉的尖叫！"
+    },
+    {
+      "id": "shout.monster.scream_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc gives a hideous shriek!",
+      "zh": "兽人发出一声凄厉的尖叫！"
+    },
+    {
+      "id": "shout.monster.bellow_unseen.1",
+      "args": {},
+      "canonical": "You hear a bellow!",
+      "zh": "你听到一声怒吼！"
+    },
+    {
+      "id": "shout.monster.bellow_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc bellows!",
+      "zh": "兽人怒吼起来！"
+    },
+    {
+      "id": "shout.monster.bleat_unseen.1",
+      "args": {},
+      "canonical": "You hear a bleat!",
+      "zh": "你听到一声咩叫！"
+    },
+    {
+      "id": "shout.monster.bleat_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc bleats!",
+      "zh": "兽人咩叫起来！"
+    },
+    {
+      "id": "shout.monster.trumpet_unseen.1",
+      "args": {},
+      "canonical": "You hear a trumpeting!",
+      "zh": "你听到一声号角般的鸣叫！"
+    },
+    {
+      "id": "shout.monster.trumpet_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc trumpets!",
+      "zh": "兽人发出号角般的鸣叫！"
+    },
+    {
+      "id": "shout.monster.screech_unseen.1",
+      "args": {},
+      "canonical": "You hear a screech!",
+      "zh": "你听到一声尖锐的嘶叫！"
+    },
+    {
+      "id": "shout.monster.screech_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc screeches!",
+      "zh": "兽人尖声嘶叫！"
+    },
+    {
+      "id": "shout.monster.buzz_unseen.1",
+      "args": {},
+      "canonical": "You hear an angry buzzing noise.",
+      "zh": "你听到一阵愤怒的嗡嗡声。"
+    },
+    {
+      "id": "shout.monster.buzz_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc buzzes angrily.",
+      "zh": "兽人愤怒地嗡嗡作响。"
+    },
+    {
+      "id": "shout.monster.moan_unseen.1",
+      "args": {},
+      "canonical": "You hear a chilling moan.",
+      "zh": "你听到一声令人毛骨悚然的呻吟。"
+    },
+    {
+      "id": "shout.monster.moan_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc gives a chilling moan.",
+      "zh": "兽人发出一声令人毛骨悚然的呻吟。"
+    },
+    {
+      "id": "shout.monster.gurgle_unseen.1",
+      "args": {},
+      "canonical": "You hear a horrible gurgling sound!",
+      "zh": "你听到一阵可怕的咕噜声！"
+    },
+    {
+      "id": "shout.monster.gurgle_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc gurgles horribly!",
+      "zh": "兽人可怕地咕噜作响！"
+    },
+    {
+      "id": "shout.monster.croak_unseen.1",
+      "args": {},
+      "canonical": "You hear a loud, deep croak!",
+      "zh": "你听到一声响亮而低沉的呱叫！"
+    },
+    {
+      "id": "shout.monster.croak_unseen.2",
+      "args": {},
+      "canonical": "You hear a croak.",
+      "zh": "你听到一声呱叫。"
+    },
+    {
+      "id": "shout.monster.croak_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc gives a loud, deep croak!",
+      "zh": "兽人发出一声响亮而低沉的呱叫！"
+    },
+    {
+      "id": "shout.monster.croak_seen.2",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc croaks.",
+      "zh": "兽人呱叫一声。"
+    },
+    {
+      "id": "shout.monster.growl_unseen.1",
+      "args": {},
+      "canonical": "You hear an angry growl.",
+      "zh": "你听到一声愤怒的低吼。"
+    },
+    {
+      "id": "shout.monster.growl_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc growls angrily.",
+      "zh": "兽人愤怒地低吼。"
+    },
+    {
+      "id": "shout.monster.hiss_unseen.1",
+      "args": {},
+      "canonical": "You hear an angry hiss.",
+      "zh": "你听到一声愤怒的嘶嘶声。"
+    },
+    {
+      "id": "shout.monster.hiss_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc hisses angrily.",
+      "zh": "兽人愤怒地嘶叫。"
+    },
+    {
+      "id": "shout.monster.skitter_unseen.1",
+      "args": {},
+      "canonical": "You hear a skittering sound.",
+      "zh": "你听到一阵窸窣爬行声。"
+    },
+    {
+      "id": "shout.monster.skitter_seen.1",
+      "args": {
+        "monster_possessive": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc many legs skitter.",
+      "zh": "兽人的许多条腿窸窣作响。"
+    },
+    {
+      "id": "shout.monster.faint_skitter_unseen.1",
+      "args": {},
+      "canonical": "You hear a faint skittering sound.",
+      "zh": "你听到一阵微弱的窸窣爬行声。"
+    },
+    {
+      "id": "shout.monster.faint_skitter_seen.1",
+      "args": {
+        "monster_possessive": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc many legs skitter faintly.",
+      "zh": "兽人的许多条腿发出微弱的窸窣声。"
+    },
+    {
+      "id": "shout.monster.squeal_unseen.1",
+      "args": {},
+      "canonical": "You hear an angry squeal.",
+      "zh": "你听到一声愤怒的尖叫。"
+    },
+    {
+      "id": "shout.monster.squeal_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc squeals angrily.",
+      "zh": "兽人愤怒地尖叫。"
+    },
+    {
+      "id": "shout.monster.cherub_seen.1",
+      "args": {
+        "monster_possessive": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc eagle head screeches!",
+      "zh": "兽人的鹰首发出尖啸！"
+    },
+    {
+      "id": "shout.monster.cherub_seen.2",
+      "args": {
+        "monster_possessive": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc lion head roars!",
+      "zh": "兽人的狮首发出咆哮！"
+    },
+    {
+      "id": "shout.monster.cherub_seen.3",
+      "args": {
+        "monster_possessive": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc ox head lows!",
+      "zh": "兽人的牛首发出低哞！"
+    },
+    {
+      "id": "shout.monster.cherub_seen.4",
+      "args": {
+        "monster_possessive": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc human head shouts!",
+      "zh": "兽人的人首大喊！"
+    },
+    {
+      "id": "shout.monster.cherub_unseen.1",
+      "args": {},
+      "canonical": "You hear a shout.",
+      "zh": "你听到一声喊叫。"
+    },
+    {
+      "id": "shout.monster.cherub_unseen.2",
+      "args": {},
+      "canonical": "You hear a screech.",
+      "zh": "你听到一声尖啸。"
+    },
+    {
+      "id": "shout.monster.cherub_unseen.3",
+      "args": {},
+      "canonical": "You hear a roar.",
+      "zh": "你听到一声咆哮。"
+    },
+    {
+      "id": "shout.monster.cherub_unseen.4",
+      "args": {},
+      "canonical": "You hear a low.",
+      "zh": "你听到一声低哞。"
+    },
+    {
+      "id": "shout.monster.loud_roar_unseen.1",
+      "args": {},
+      "canonical": "You hear a deafening roar!",
+      "zh": "你听到一声震耳欲聋的咆哮！"
+    },
+    {
+      "id": "shout.monster.loud_roar_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc roars deafeningly!",
+      "zh": "兽人发出震耳欲聋的咆哮！"
+    },
+    {
+      "id": "shout.monster.rustle_unseen.1",
+      "args": {},
+      "canonical": "You hear a loud rustle.",
+      "zh": "你听到一阵响亮的沙沙声。"
+    },
+    {
+      "id": "shout.monster.rustle_seen.1",
+      "args": {
+        "monster_possessive": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc pages rustle loudly.",
+      "zh": "兽人的书页哗啦作响。"
+    },
+    {
+      "id": "shout.monster.squeak_unseen.1",
+      "args": {},
+      "canonical": "You hear a loud squeak.",
+      "zh": "你听到一声响亮的吱叫。"
+    },
+    {
+      "id": "shout.monster.squeak_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc squeaks loudly.",
+      "zh": "兽人大声吱叫。"
+    },
+    {
+      "id": "shout.monster.caw_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc caws.",
+      "zh": "兽人呱呱叫。"
+    },
+    {
+      "id": "shout.monster.caw_unseen.1",
+      "args": {},
+      "canonical": "You hear a loud caw.",
+      "zh": "你听到一声响亮的乌鸦叫。"
+    },
+    {
+      "id": "shout.monster.laugh_seen.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc laughs maniacally.",
+      "zh": "兽人发出一阵疯狂的大笑。"
+    },
+    {
+      "id": "shout.monster.laugh_unseen.1",
+      "args": {},
+      "canonical": "You hear maniacal laughter.",
+      "zh": "你听到一阵疯狂的大笑。"
+    },
+    {
+      "id": "shout.monster.player_ghost.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        },
+        "possessive": {
+          "type": "text",
+          "canonical": "its",
+          "localized": "它的"
+        }
+      },
+      "canonical": "an orc turns its malevolent gaze towards you.",
+      "zh": "兽人将它的恶意目光转向你。"
+    },
+    {
+      "id": "shout.monster.cap_g.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        },
+        "possessive": {
+          "type": "text",
+          "canonical": "its",
+          "localized": "它的"
+        }
+      },
+      "canonical": "an orc turns its gaze towards you.",
+      "zh": "兽人将它的目光转向你。"
+    },
+    {
+      "id": "shout.monster.cap_j.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc quivers.",
+      "zh": "兽人颤抖起来。"
+    },
+    {
+      "id": "shout.monster.giant_slug.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        },
+        "possessive": {
+          "type": "text",
+          "canonical": "its",
+          "localized": "它的"
+        }
+      },
+      "canonical": "an orc swivels its eye-stalks towards you.",
+      "zh": "兽人将它的眼柄转向你。"
+    },
+    {
+      "id": "shout.monster.ballistomycete_spore.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        },
+        "possessive": {
+          "type": "text",
+          "canonical": "its",
+          "localized": "它的"
+        }
+      },
+      "canonical": "an orc waves its rhizomes.",
+      "zh": "兽人挥舞它的根状菌丝。"
+    },
+    {
+      "id": "shout.monster.glowing_orange_brain.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        },
+        "possessive": {
+          "type": "text",
+          "canonical": "its",
+          "localized": "它的"
+        }
+      },
+      "canonical": "an orc turns its attention towards you.",
+      "zh": "兽人将它的注意力转向你。"
+    },
+    {
+      "id": "shout.monster.moth_of_wrath.1",
+      "args": {
+        "monster_possessive": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc fur bristles in rage as it notices you.",
+      "zh": "兽人的皮毛因察觉到你而愤怒地竖起。"
+    },
+    {
+      "id": "shout.monster.polyphemus.1",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc shouts, \"Attack, my pets! Attack!\"",
+      "zh": "兽人大喊：“攻击，我的宠物们！攻击！”"
+    },
+    {
+      "id": "shout.monster.unsupported",
+      "args": {
+        "message": {
+          "type": "text",
+          "canonical": "a strange sound",
+          "localized": "一阵奇怪的声音"
+        }
+      },
+      "canonical": "a strange sound",
+      "zh": "一阵奇怪的声音"
+    },
+    {
+      "id": "shout.monster.buggy",
+      "args": {},
+      "canonical": "You hear something buggy!",
+      "zh": "你听到一阵奇怪的故障声！"
+    },
+    {
+      "id": "monster.special.resist.atom.steam",
+      "args": {},
+      "canonical": "steam",
+      "zh": "蒸汽"
+    },
+    {
+      "id": "monster.special.resist.atom.corrosion",
+      "args": {},
+      "canonical": "acid and corrosion",
+      "zh": "酸蚀"
+    },
+    {
+      "id": "monster.special.resist.atom.damnation",
+      "args": {},
+      "canonical": "damnation",
+      "zh": "诅咒"
+    },
+    {
+      "id": "monster.special.resist.atom.miasma",
+      "args": {},
+      "canonical": "miasma",
+      "zh": "瘴气"
+    },
+    {
+      "id": "monster.special.resist.atom.torment",
+      "args": {},
+      "canonical": "torment",
+      "zh": "折磨"
+    },
+    {
+      "id": "monster.special.resist.atom.blinding",
+      "args": {},
+      "canonical": "blinding",
+      "zh": "致盲"
+    },
+    {
+      "id": "monster.special.resist.atom.drowning",
+      "args": {},
+      "canonical": "drowning",
+      "zh": "溺水"
+    },
+    {
+      "id": "monster.special.resist.atom.clouds",
+      "args": {},
+      "canonical": "clouds of all kinds",
+      "zh": "各种云雾"
+    },
+    {
+      "id": "monster.special.resist.clause.immune",
+      "args": {
+        "attacks": {
+          "type": "text",
+          "canonical": "acid and corrosion",
+          "localized": "酸与腐蚀"
+        }
+      },
+      "canonical": "immune to acid and corrosion",
+      "zh": "免疫酸与腐蚀"
+    },
+    {
+      "id": "monster.special.resist.clause.high",
+      "args": {
+        "attacks": {
+          "type": "text",
+          "canonical": "acid and corrosion",
+          "localized": "酸与腐蚀"
+        }
+      },
+      "canonical": "very resistant to acid and corrosion",
+      "zh": "对酸与腐蚀有极强抗性"
+    },
+    {
+      "id": "monster.special.resist.clause.base",
+      "args": {
+        "attacks": {
+          "type": "text",
+          "canonical": "acid and corrosion",
+          "localized": "酸与腐蚀"
+        }
+      },
+      "canonical": "resistant to acid and corrosion",
+      "zh": "对酸与腐蚀有抗性"
+    },
+    {
+      "id": "monster.special.list.semicolon",
+      "args": {
+        "first": {
+          "type": "text",
+          "canonical": "immune to fire",
+          "localized": "免疫火焰"
+        },
+        "second": {
+          "type": "text",
+          "canonical": "resistant to cold",
+          "localized": "抗寒"
+        }
+      },
+      "canonical": "immune to fire; resistant to cold",
+      "zh": "免疫火焰；抗寒"
+    },
+    {
+      "id": "monster.special.list.semicolon_and",
+      "args": {
+        "first": {
+          "type": "text",
+          "canonical": "immune to fire",
+          "localized": "免疫火焰"
+        },
+        "second": {
+          "type": "text",
+          "canonical": "resistant to cold",
+          "localized": "抗寒"
+        }
+      },
+      "canonical": "immune to fire; and resistant to cold",
+      "zh": "免疫火焰；以及抗寒"
+    },
+    {
+      "id": "monster.special.items.singular",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        },
+        "items": {
+          "type": "text",
+          "canonical": "a +2 long sword",
+          "localized": "+2长剑"
+        }
+      },
+      "canonical": "an orc has an unusual item: a +2 long sword.\n",
+      "zh": "兽人持有一件奇特物品：+2长剑。\n"
+    },
+    {
+      "id": "monster.special.items.plural",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        },
+        "items": {
+          "type": "text",
+          "canonical": "a +2 long sword",
+          "localized": "+2长剑"
+        }
+      },
+      "canonical": "an orc have an unusual item: a +2 long sword.\n",
+      "zh": "兽人持有一些奇特物品：+2长剑。\n"
+    },
+    {
+      "id": "monster.special.animated_item.singular",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc is an unusual item.\n",
+      "zh": "兽人是一件奇特物品。\n"
+    },
+    {
+      "id": "monster.special.animated_item.plural",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc are an unusual item.\n",
+      "zh": "兽人是奇特物品。\n"
+    },
+    {
+      "id": "monster.special.resists.singular",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        },
+        "resists": {
+          "type": "text",
+          "canonical": "resistant to fire",
+          "localized": "对火焰有抗性"
+        }
+      },
+      "canonical": "an orc is resistant to fire.\n",
+      "zh": "兽人对火焰有抗性。\n"
+    },
+    {
+      "id": "monster.special.resists.plural",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        },
+        "resists": {
+          "type": "text",
+          "canonical": "resistant to fire",
+          "localized": "对火焰有抗性"
+        }
+      },
+      "canonical": "an orc are resistant to fire.\n",
+      "zh": "兽人对火焰有抗性。\n"
+    },
+    {
+      "id": "monster.special.susceptible.singular",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        },
+        "attacks": {
+          "type": "text",
+          "canonical": "acid and corrosion",
+          "localized": "酸与腐蚀"
+        }
+      },
+      "canonical": "an orc is susceptible to acid and corrosion.\n",
+      "zh": "兽人容易受到酸与腐蚀影响。\n"
+    },
+    {
+      "id": "monster.special.susceptible.plural",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        },
+        "attacks": {
+          "type": "text",
+          "canonical": "acid and corrosion",
+          "localized": "酸与腐蚀"
+        }
+      },
+      "canonical": "an orc are susceptible to acid and corrosion.\n",
+      "zh": "兽人容易受到酸与腐蚀影响。\n"
+    },
+    {
+      "id": "monster.special.chaotic.singular",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc is vulnerable to silver and hated by Zin.\n",
+      "zh": "兽人容易受到银器伤害，也为津恩所厌恶。\n"
+    },
+    {
+      "id": "monster.special.chaotic.plural",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc are vulnerable to silver and hated by Zin.\n",
+      "zh": "兽人容易受到银器伤害，也为津恩所厌恶。\n"
+    },
+    {
+      "id": "monster.special.cold_blooded.singular",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc is cold-blooded and may be slowed by cold attacks.\n",
+      "zh": "兽人是冷血生物，可能会被寒冷攻击减速。\n"
+    },
+    {
+      "id": "monster.special.cold_blooded.plural",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc are cold-blooded and may be slowed by cold attacks.\n",
+      "zh": "兽人是冷血生物，可能会被寒冷攻击减速。\n"
+    },
+    {
+      "id": "monster.special.acid_splash.singular",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc inflicts 1d5 acid damage when struck in melee.\n",
+      "zh": "兽人在近战中被击中时会造成1d5点酸蚀伤害。\n"
+    },
+    {
+      "id": "monster.special.acid_splash.plural",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc inflict 1d5 acid damage when struck in melee.\n",
+      "zh": "兽人在近战中被击中时会造成1d5点酸蚀伤害。\n"
+    },
+    {
+      "id": "monster.special.insubstantial.singular",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc is insubstantial and immune to ensnarement.\n",
+      "zh": "兽人没有实体，且免疫缠绕。\n"
+    },
+    {
+      "id": "monster.special.insubstantial.plural",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc are insubstantial and immune to ensnarement.\n",
+      "zh": "兽人没有实体，且免疫缠绕。\n"
+    },
+    {
+      "id": "monster.special.amorphous.singular",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc is amorphous and immune to ensnarement.\n",
+      "zh": "兽人形态不定，且免疫缠绕。\n"
+    },
+    {
+      "id": "monster.special.amorphous.plural",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc are amorphous and immune to ensnarement.\n",
+      "zh": "兽人形态不定，且免疫缠绕。\n"
+    },
+    {
+      "id": "monster.special.shadowghast.singular",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc covers ground more quickly when invisible.\n",
+      "zh": "兽人隐形时移动得更快。\n"
+    },
+    {
+      "id": "monster.special.shadowghast.plural",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc cover ground more quickly when invisible.\n",
+      "zh": "兽人隐形时移动得更快。\n"
+    },
+    {
+      "id": "monster.special.zin_strong.singular",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc is too strong to be affected by reciting Zin's laws.",
+      "zh": "兽人过于强大，不受吟诵津恩戒律影响。"
+    },
+    {
+      "id": "monster.special.zin_strong.plural",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc are too strong to be affected by reciting Zin's laws.",
+      "zh": "兽人过于强大，不受吟诵津恩戒律影响。"
+    },
+    {
+      "id": "monster.special.stationary",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc cannot move.\n",
+      "zh": "兽人无法移动。\n"
+    },
+    {
+      "id": "monster.special.see_invisible",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc can see invisible.\n",
+      "zh": "兽人能看见隐形生物。\n"
+    },
+    {
+      "id": "monster.special.burrow",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc can burrow through diggable terrain.\n",
+      "zh": "兽人能在可挖掘地形中掘行。\n"
+    },
+    {
+      "id": "monster.special.fly",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc can fly.\n",
+      "zh": "兽人能飞行。\n"
+    },
+    {
+      "id": "monster.special.zin_ineligible",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc cannot be affected by reciting Zin's laws.",
+      "zh": "兽人不受吟诵津恩戒律影响。"
+    },
+    {
+      "id": "monster.special.zin_eligible",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc can be affected by reciting Zin's laws.",
+      "zh": "兽人会受到吟诵津恩戒律影响。"
+    },
+    {
+      "id": "monster.special.habitat.water",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc can travel through water.\n",
+      "zh": "兽人能在水中穿行。\n"
+    },
+    {
+      "id": "monster.special.habitat.walk_water",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc can walk on water.\n",
+      "zh": "兽人能在水面行走。\n"
+    },
+    {
+      "id": "monster.special.habitat.lava",
+      "args": {
+        "subject": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc can travel through lava.\n",
+      "zh": "兽人能在熔岩中穿行。\n"
+    },
+    {
+      "id": "monster.special.zin_debug",
+      "args": {
+        "power": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        },
+        "hd": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": " (Recite power:5, Hit dice:5)",
+      "zh": " （吟诵威力：5，生命骰：5）"
+    },
+    {
+      "id": "monster.special.royal_jelly.damage",
+      "args": {},
+      "canonical": "It will release varied jellies when damaged or killed, with the number of jellies proportional to the amount of damage.\n",
+      "zh": "它受伤或死亡时会释放各种果冻怪，释放的数量与所受伤害成正比。\n"
+    },
+    {
+      "id": "monster.special.royal_jelly.polymorph",
+      "args": {},
+      "canonical": "It will release all of its jellies when polymorphed.\n",
+      "zh": "它被变形时会释放所有果冻怪。\n"
+    },
+    {
+      "id": "monster.special.star_damage",
+      "args": {
+        "dice": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        },
+        "sides": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "Shooting star damage: 5d5 (x3)\n",
+      "zh": "流星伤害：5d5（×3）\n"
+    },
+    {
+      "id": "monster.special.projectile_damage",
+      "args": {
+        "dice": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        },
+        "sides": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "Projectile damage: 5d5\n",
+      "zh": "投射物伤害：5d5\n"
+    },
+    {
+      "id": "monster.special.explosion_damage",
+      "args": {
+        "dice": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        },
+        "sides": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "Explosion damage: 5d5\n",
+      "zh": "爆炸伤害：5d5\n"
+    },
+    {
+      "id": "monster.special.regen",
+      "args": {
+        "rate": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "5/turn",
+      "zh": "每回合恢复5点\n"
+    },
+    {
+      "id": "monster.special.speed.base",
+      "args": {
+        "speed": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "Speed: 5%",
+      "zh": "速度：5%"
+    },
+    {
+      "id": "monster.special.speed.attack",
+      "args": {
+        "speed": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "attack: 5%",
+      "zh": "攻击：5%"
+    },
+    {
+      "id": "monster.special.speed.shoot",
+      "args": {
+        "speed": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "shoot: 5%",
+      "zh": "射击：5%"
+    },
+    {
+      "id": "monster.special.speed.travel",
+      "args": {
+        "speed": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "travel: 5%",
+      "zh": "移动：5%"
+    },
+    {
+      "id": "monster.special.speed.swim",
+      "args": {
+        "speed": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "swim: 5%",
+      "zh": "游泳：5%"
+    },
+    {
+      "id": "monster.special.speed.pray",
+      "args": {
+        "speed": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "pray: 5%",
+      "zh": "祈祷：5%"
+    },
+    {
+      "id": "monster.special.speed.magic",
+      "args": {
+        "speed": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "magic: 5%",
+      "zh": "施法：5%"
+    },
+    {
+      "id": "monster.special.speed.energy",
+      "args": {
+        "speed": {
+          "type": "text",
+          "canonical": "10 aut",
+          "localized": "10自主时间单位"
+        },
+        "actions": {
+          "type": "text",
+          "canonical": "move 10",
+          "localized": "移动10格"
+        }
+      },
+      "canonical": "10 aut (move 10)",
+      "zh": "10自主时间单位（移动10格）"
+    },
+    {
+      "id": "monster.special.speed.pauses",
+      "args": {
+        "speed": {
+          "type": "text",
+          "canonical": "10 aut",
+          "localized": "10自主时间单位"
+        }
+      },
+      "canonical": "10 aut (but often pauses)",
+      "zh": "10自主时间单位（但经常停顿）"
+    },
+    {
+      "id": "monster.special.speed.slower",
+      "args": {
+        "speed": {
+          "type": "text",
+          "canonical": "10 aut",
+          "localized": "10自主时间单位"
+        }
+      },
+      "canonical": "10 aut (normally travels slower than you)",
+      "zh": "10自主时间单位（通常比你移动得慢）"
+    },
+    {
+      "id": "monster.special.speed.faster",
+      "args": {
+        "speed": {
+          "type": "text",
+          "canonical": "10 aut",
+          "localized": "10自主时间单位"
+        }
+      },
+      "canonical": "10 aut (normally travels faster than you)",
+      "zh": "10自主时间单位（通常比你移动得快）"
+    },
+    {
+      "id": "monster.special.program_bug",
+      "args": {},
+      "canonical": "If this monster is a \"program bug\", then it's recommended that you save your game and reload. Please report monsters who masquerade as program bugs or run around the dungeon without a proper description to the authorities.",
+      "zh": "如果这只怪物是“程序错误”，建议先保存游戏并重新载入。若遇到伪装成程序错误，或在地牢中游荡却没有正确描述的怪物，请向相关人员报告。"
+    },
+    {
+      "id": "monster.event.summoned_alert",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "an orc comes into view.",
+      "zh": "兽人进入视野。"
+    },
+    {
+      "id": "monster.event.wyrmbane",
+      "args": {},
+      "canonical": "<green>Wyrmbane glows as a worthy foe approaches.</green>",
+      "zh": "<green>值得一战的强敌逼近，Wyrmbane发出光芒。</green>"
+    },
+    {
+      "id": "monster.event.gozag_incite",
+      "args": {
+        "monster": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        }
+      },
+      "canonical": "Gozag incites an orc against you.",
+      "zh": "戈扎格煽动兽人来攻击你。"
+    },
+    {
+      "id": "monster.detail.lore.hydra_current",
+      "args": {},
+      "canonical": "A great and nightmarish lacertilian beast. It has many heads, and the potential to grow many more!\n\nHitting it with any bladed weapon bigger than a short blade risks lopping a head off and causing two more to grow in its place. Very large claws, such as trolls', are long enough to do the same. Only a weapon branded with flame will cauterise the wound and prevent more heads from growing.",
+      "zh": "一头噩梦般的巨型蜥蜴类怪兽。它有很多个头，而且可能还会长出更多！\n\n用任何比短刃更大的有刃武器击打它，都有可能砍掉一个头，并在原处长出另外两个。像巨魔那样的大爪子也足够长，同样会造成这种结果。只有带有火焰印记的武器才能灼烧伤口，阻止它长出更多头。"
+    },
+    {
+      "id": "monster.detail.lore.acid_blob_current",
+      "args": {},
+      "canonical": "A lump of sickly pustulent flesh, dripping with lethal acid.",
+      "zh": "一坨长满肉瘤的恶心肉块，不断滴落着致命的强酸。"
+    },
+    {
+      "id": "monster.detail.lore.jiangshi_current",
+      "args": {},
+      "canonical": "A vampiric thrall bound into servitude by esoteric rituals. Though its rigid limbs give it an awkward gait, it moves with surprising speed, leaping upon its victims and leeching away their life essence with its vicious claws.",
+      "zh": "被神秘仪式束缚、沦为吸血奴仆的怪物。尽管僵硬的四肢使它步态笨拙，它的行动却出奇迅速，会扑向受害者，用凶狠的爪子吸取其生命精华。"
+    },
+    {
+      "id": "monster.name.headed",
+      "args": {
+        "heads": {
+          "type": "integer",
+          "canonical": "8",
+          "localized": "8"
+        },
+        "species": {
+          "type": "name",
+          "canonical": "hydra",
+          "localized": "九头蛇"
+        }
+      },
+      "canonical": "8-headed hydra",
+      "zh": "有8个头的九头蛇"
+    },
+    {
+      "id": "monster.quote.cap_d_suffix",
+      "args": {},
+      "canonical": "“On the other hand, Confucius is made to say to his disciples, ‘I know how\n birds can fly, how fishes can swim, and how animals can run. But the runner\n may be snared, the swimmer may be hooked, and the flyer may be shot by the\n arrow. But there is the dragon. I cannot tell how he mounts on the wind\n through the clouds, and rises to heaven. Today I have seen Lao-tsze, and can\n only compare him to the dragon.’”\n    -Life of Confucius\n\n“This Dragon had Two furious Wings\n   Each one upon each Shoulder;\n With a Sting in his Tail as long as a Flail,\n   Which made him bolder and bolder.\n He had long Claws, and in his Jaws\n   Four and forty Teeth of Iron;\n With a Hide as tough, as any Buff,\n   Which did him round environ.”\n\n    -“An Excellent Ballad of a most dreadful Combat, fought between Moore of Moore-Hall, and the Dragon of Wantley”, retold by Ambrose Philips, _A Collection of Old Ballads. Corrected from the Best and Most Ancient Copies Extant. With Introductions Historical, Critical, Or Humorous_. 1723.",
+      "zh": "“另一方面，据说孔子曾对弟子说：\n ‘我知道鸟能飞，鱼能游，兽能跑。但跑者\n 可以被网住，游者可以被钓起，飞者可以被箭射落。\n 唯有龙，我不知道它如何乘风云而上天。\n 今日我见到了老子，\n 只能将他比作龙。’”\n    -《孔子传》\n\n“这条龙生有两只狂暴的翅膀\n   一边肩膀各一只；\n 尾上有一根如连枷般长的毒刺，\n   令他愈发胆大。\n 他生有长爪，他的嘴里\n   长着四十四颗铁牙；\n 他的皮坚韧如牛皮，\n   将他周身包裹。”\n\n    -《关于摩尔厅的摩尔与旺特利的龙之间一场最可怕战斗的 绝妙歌谣》，安布罗斯·菲利普斯重述，《古歌谣集。 从现存最佳最古抄本校订。附历史、批评或诙谐的导言》。 1723年。"
+    },
+    {
+      "id": "monster.lore.royal_jelly",
+      "args": {},
+      "canonical": "A particularly rich and golden gelatinous thing. Smaller jellies swim and pulse just below its surface, ready to burst forth at the slightest touch.",
+      "zh": "一团格外浓稠、金灿灿的胶质物。更小的胶冻在它表面下游动、搏动，稍有触碰便会破体而出。"
+    }
+  ]
+}

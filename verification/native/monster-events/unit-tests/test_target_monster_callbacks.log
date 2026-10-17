@@ -1,0 +1,13 @@
+/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/dcss-target-callback-oudaz9ot/test.cc:26:93: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+   26 | template<class...A>string make_stringf(const char*f,A...a){char b[4096];snprintf(b,sizeof b,f,a...);return b;}
+      |                                                                                             ^
+/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/dcss-target-callback-oudaz9ot/test.cc:110:31: note: in instantiation of function template specialization 'make_stringf<>' requested here
+  110 |         return vector<string>{make_stringf("not susceptible")};
+      |                               ^
+/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/dcss-target-callback-oudaz9ot/test.cc:26:93: note: treat the string as an argument to avoid this
+   26 | template<class...A>string make_stringf(const char*f,A...a){char b[4096];snprintf(b,sizeof b,f,a...);return b;}
+      |                                                                                             ^
+      |                                                                                             "%s",
+1 warning generated.
+2666 actual custom target callback canonical/localized comparisons passed
+Validated 3537 stable message IDs

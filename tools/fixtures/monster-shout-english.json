@@ -1,0 +1,419 @@
+{
+  "function": "void monster_shout(monster &mons, int shout)\n{\n    shout_type s_type = static_cast<shout_type>(shout);\n    mon_acting mact(&mons);\n\n    // less specific, more specific.\n    const string default_msg_key\n        = mons.type == MONS_PLAYER_GHOST ?\n                 \"player ghost\" :\n                 lookup(default_msg_keys, s_type, \"__BUGGY\");\n    const string key = _shout_key(mons);\n\n    // Now that we have the message key, get a random verb and noise level\n    // for pandemonium lords.\n    if (s_type == S_DEMON_TAUNT)\n        s_type = mons_shouts(mons.type, true);\n\n    // Tries to find an entry for \"name seen\" or \"name unseen\",\n    // and if no such entry exists then looks simply for \"name\".\n    const bool seen = you.can_see(mons);\n    const string suffix = seen ? \" seen\" : \" unseen\";\n    string message = getShoutString(key, suffix);\n\n    if (message == \"__DEFAULT\" || message == \"__NEXT\")\n        message = getShoutString(default_msg_key, suffix);\n    else if (message.empty())\n    {\n        char mchar = mons_base_char(mons.type);\n\n        // See if there's a shout for all monsters using the\n        // same glyph/symbol\n        string glyph_key = \"'\";\n\n        // Database keys are case-insensitive.\n        if (isaupper(mchar))\n            glyph_key += \"cap-\";\n\n        glyph_key += mchar;\n        glyph_key += \"'\";\n        message = getShoutString(glyph_key, suffix);\n\n        if (message.empty() || message == \"__DEFAULT\")\n            message = getShoutString(default_msg_key, suffix);\n    }\n\n    if (default_msg_key == \"__BUGGY\")\n    {\n        msg::streams(MSGCH_SOUND) << \"You hear something buggy!\"\n                                  << endl;\n    }\n    else if (s_type == S_SILENT && (message.empty() || message == \"__NONE\"))\n        ; // No \"visual shout\" defined for silent monster, do nothing.\n    else if (message.empty()) // Still nothing found?\n    {\n        msg::streams(MSGCH_DIAGNOSTICS)\n            << \"No shout entry for default shout type '\"\n            << default_msg_key << \"'\" << endl;\n\n        msg::streams(MSGCH_SOUND) << \"You hear something buggy!\"\n                                  << endl;\n    }\n    else if (message == \"__NONE\")\n    {\n        msg::streams(MSGCH_DIAGNOSTICS)\n            << \"__NONE returned as shout for non-silent monster '\"\n            << default_msg_key << \"'\" << endl;\n        msg::streams(MSGCH_SOUND) << \"You hear something buggy!\"\n                                  << endl;\n    }\n    else if (s_type == S_SILENT || !silenced(you.pos()))\n    {\n        msg_channel_type channel = MSGCH_TALK;\n        if (s_type == S_SILENT)\n            channel = MSGCH_TALK_VISUAL;\n\n        strip_channel_prefix(message, channel);\n\n        if (channel != MSGCH_TALK_VISUAL || seen)\n        {\n            message = do_mon_str_replacements(message, mons, s_type);\n            msg::streams(channel) << message << endl;\n        }\n    }\n\n    const int  noise_level = get_shout_noise_level(s_type);\n    const bool heard       = noisy(noise_level, mons.pos(), mons.mid);\n\n    if (crawl_state.game_is_hints() && (heard || you.can_see(mons)))\n        learned_something_new(HINT_MONSTER_SHOUT, mons.pos());\n}",
+  "fixed_sources": [
+    {
+      "raw": "You hear doubly buggy behaviour!",
+      "id": "shout.monster.buggy.1",
+      "params": {}
+    },
+    {
+      "raw": "You hear a shout!",
+      "id": "shout.monster.shout.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ shouts!",
+      "id": "shout.monster.shout_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a bark!",
+      "id": "shout.monster.bark_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ barks!",
+      "id": "shout.monster.bark_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a howl!",
+      "id": "shout.monster.howl_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ howls!",
+      "id": "shout.monster.howl_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear two shouts!",
+      "id": "shout.monster.two_shouts_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ shouts in stereo!",
+      "id": "shout.monster.two_shouts_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a roar!",
+      "id": "shout.monster.roar_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ roars!",
+      "id": "shout.monster.roar_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a hideous shriek!",
+      "id": "shout.monster.scream_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ gives a hideous shriek!",
+      "id": "shout.monster.scream_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a bellow!",
+      "id": "shout.monster.bellow_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ bellows!",
+      "id": "shout.monster.bellow_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a bleat!",
+      "id": "shout.monster.bleat_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ bleats!",
+      "id": "shout.monster.bleat_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a trumpeting!",
+      "id": "shout.monster.trumpet_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ trumpets!",
+      "id": "shout.monster.trumpet_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a screech!",
+      "id": "shout.monster.screech_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ screeches!",
+      "id": "shout.monster.screech_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear an angry buzzing noise.",
+      "id": "shout.monster.buzz_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ buzzes angrily.",
+      "id": "shout.monster.buzz_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a chilling moan.",
+      "id": "shout.monster.moan_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ gives a chilling moan.",
+      "id": "shout.monster.moan_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a horrible gurgling sound!",
+      "id": "shout.monster.gurgle_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ gurgles horribly!",
+      "id": "shout.monster.gurgle_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a loud, deep croak!",
+      "id": "shout.monster.croak_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "You hear a croak.",
+      "id": "shout.monster.croak_unseen.2",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ gives a loud, deep croak!",
+      "id": "shout.monster.croak_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "@The_monster@ croaks.",
+      "id": "shout.monster.croak_seen.2",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear an angry growl.",
+      "id": "shout.monster.growl_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ growls angrily.",
+      "id": "shout.monster.growl_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear an angry hiss.",
+      "id": "shout.monster.hiss_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ hisses angrily.",
+      "id": "shout.monster.hiss_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a skittering sound.",
+      "id": "shout.monster.skitter_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster_possessive@ many legs skitter.",
+      "id": "shout.monster.skitter_seen.1",
+      "params": {
+        "monster_possessive": "name"
+      }
+    },
+    {
+      "raw": "You hear a faint skittering sound.",
+      "id": "shout.monster.faint_skitter_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster_possessive@ many legs skitter faintly.",
+      "id": "shout.monster.faint_skitter_seen.1",
+      "params": {
+        "monster_possessive": "name"
+      }
+    },
+    {
+      "raw": "You hear an angry squeal.",
+      "id": "shout.monster.squeal_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ squeals angrily.",
+      "id": "shout.monster.squeal_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "@The_monster_possessive@ eagle head screeches!",
+      "id": "shout.monster.cherub_seen.1",
+      "params": {
+        "monster_possessive": "name"
+      }
+    },
+    {
+      "raw": "@The_monster_possessive@ lion head roars!",
+      "id": "shout.monster.cherub_seen.2",
+      "params": {
+        "monster_possessive": "name"
+      }
+    },
+    {
+      "raw": "@The_monster_possessive@ ox head lows!",
+      "id": "shout.monster.cherub_seen.3",
+      "params": {
+        "monster_possessive": "name"
+      }
+    },
+    {
+      "raw": "@The_monster_possessive@ human head shouts!",
+      "id": "shout.monster.cherub_seen.4",
+      "params": {
+        "monster_possessive": "name"
+      }
+    },
+    {
+      "raw": "You hear a shout.",
+      "id": "shout.monster.cherub_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "You hear a screech.",
+      "id": "shout.monster.cherub_unseen.2",
+      "params": {}
+    },
+    {
+      "raw": "You hear a roar.",
+      "id": "shout.monster.cherub_unseen.3",
+      "params": {}
+    },
+    {
+      "raw": "You hear a low.",
+      "id": "shout.monster.cherub_unseen.4",
+      "params": {}
+    },
+    {
+      "raw": "You hear a deafening roar!",
+      "id": "shout.monster.loud_roar_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ roars deafeningly!",
+      "id": "shout.monster.loud_roar_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a loud rustle.",
+      "id": "shout.monster.rustle_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster_possessive@ pages rustle loudly.",
+      "id": "shout.monster.rustle_seen.1",
+      "params": {
+        "monster_possessive": "name"
+      }
+    },
+    {
+      "raw": "You hear a loud squeak.",
+      "id": "shout.monster.squeak_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ squeaks loudly.",
+      "id": "shout.monster.squeak_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "@The_monster@ caws.",
+      "id": "shout.monster.caw_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear a loud caw.",
+      "id": "shout.monster.caw_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ laughs maniacally.",
+      "id": "shout.monster.laugh_seen.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "You hear maniacal laughter.",
+      "id": "shout.monster.laugh_unseen.1",
+      "params": {}
+    },
+    {
+      "raw": "@The_monster@ turns @possessive@ malevolent gaze towards you.",
+      "id": "shout.monster.player_ghost.1",
+      "params": {
+        "monster": "name",
+        "possessive": "text"
+      }
+    },
+    {
+      "raw": "@The_monster@ turns @possessive@ gaze towards you.",
+      "id": "shout.monster.cap_g.1",
+      "params": {
+        "monster": "name",
+        "possessive": "text"
+      }
+    },
+    {
+      "raw": "@The_monster@ quivers.",
+      "id": "shout.monster.cap_j.1",
+      "params": {
+        "monster": "name"
+      }
+    },
+    {
+      "raw": "@The_monster@ swivels @possessive@ eye-stalks towards you.",
+      "id": "shout.monster.giant_slug.1",
+      "params": {
+        "monster": "name",
+        "possessive": "text"
+      }
+    },
+    {
+      "raw": "@The_monster@ waves @possessive@ rhizomes.",
+      "id": "shout.monster.ballistomycete_spore.1",
+      "params": {
+        "monster": "name",
+        "possessive": "text"
+      }
+    },
+    {
+      "raw": "@The_monster@ turns @possessive@ attention towards you.",
+      "id": "shout.monster.glowing_orange_brain.1",
+      "params": {
+        "monster": "name",
+        "possessive": "text"
+      }
+    },
+    {
+      "raw": "@The_monster_possessive@ fur bristles in rage as it notices you.",
+      "id": "shout.monster.moth_of_wrath.1",
+      "params": {
+        "monster_possessive": "name"
+      }
+    },
+    {
+      "raw": "@The_monster@ shouts, \"Attack, my pets! Attack!\"",
+      "id": "shout.monster.polyphemus.1",
+      "params": {
+        "monster": "name"
+      }
+    }
+  ]
+}

@@ -524,21 +524,92 @@ static string _get_hint(string key, const string& arg1 = "", const string& arg2 
  * @param arg1 A string that can be inserted into the hint message.
  * @param arg2 Another string that can be inserted into the hint message.
  */
+void print_hint(const ZhMessage& message)
+{
+    const vector<string> canonical = split_string("\n", message.canonical);
+    const vector<string> localized = split_string("\n", message.localized);
+    if (canonical.size() != localized.size())
+        mpr(message, MSGCH_TUTORIAL);
+    else
+        for (size_t i = 0; i < canonical.size(); ++i)
+            mpr(ZhMessage{message.id, canonical[i], localized[i]}, MSGCH_TUTORIAL);
+    stop_running();
+}
+
+static ZhMessage _prepare_encounter_hint(ZhMessage message)
+{
+    // UI authoring tags and key commands are structure, never prose. Fixed
+    // templates are selected before this platform-specific presentation pass.
+    message.canonical = untag_tiles_console(message.canonical);
+    message.localized = untag_tiles_console(message.localized);
+    message.canonical = replace_all(message.canonical, "\n\n", "\n");
+    message.localized = replace_all(message.localized, "\n\n", "\n");
+    return message;
+}
+
+static ZhArg _encounter_hint_key(const char *key, command_type command)
+{
+    string mapped = command_to_string(command);
+    if (mapped == "<")
+        mapped += "<";
+    return zh_key_markup(key, "<w>" + mapped + "</w>");
+}
+
+static ZhArg _encounter_monster_glyph(const monster_info& info)
+{
+    const auto glyph = get_mons_glyph(info);
+    string symbol = stringize_glyph(glyph.ch);
+    if (glyph.ch == '<')
+        symbol += "<";
+    return zh_message_arg("glyph", "hint.encounter.glyph", {
+        zh_colour("colour", colour_to_str(glyph.col)), zh_key_markup("glyph", symbol)});
+}
+
+static ZhMessage _encounter_database_hint_message(const string& key,
+                                                   ZhArg monster = ZhArg(), ZhArg glyph = ZhArg())
+{
+    if (key == "HINT_MONSTER_UNUSUAL")
+        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_monster_unusual", {
+            _encounter_hint_key("look_key", CMD_LOOK_AROUND)}));
+    if (key == "HINT_MONSTER_FRIENDLY")
+        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_monster_friendly", {
+            _encounter_hint_key("shout_key", CMD_SHOUT)}));
+    if (key == "HINT_MONSTER_LEFT_LOS")
+    {
+        monster.key = "monster";
+        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_monster_left_los", {monster}));
+    }
+    if (key == "HINT_SEEN_ZERO_EXP_MON")
+    {
+        monster.key = "monster";
+        glyph.key = "glyph";
+        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_seen_zero_exp_mon", {glyph, monster}));
+    }
+    if (key == "HINT_TEMPORARILY_FRIENDLY")
+        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_temporarily_friendly"));
+    if (key == "HINT_MONSTER_SHOUTED_UNSEEN")
+        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_monster_shouted_unseen"));
+    if (key == "HINT_MONSTER_SHOUTED_SEEN")
+        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_monster_shouted_seen"));
+    if (key == "HINT_MONSTER_NO_SHOUT")
+        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_monster_no_shout"));
+    die("Invalid semantic encounter hint key");
+}
+
 void print_hint(string key, const string& arg1, const string& arg2)
 {
     if (key == "HINT_SEEN_FIRST_OBJECT")
     {
-        const ZhMessage message = _pickup_hint_message(arg1);
-        // Keep canonical English in message history as well as selected Chinese.
-        // If reviewed paragraph counts differ, output the whole envelope.
-        const vector<string> canonical = split_string("\n", message.canonical);
-        const vector<string> localized = split_string("\n", message.localized);
-        if (canonical.size() != localized.size())
-            mpr(message, MSGCH_TUTORIAL);
-        else
-            for (size_t i = 0; i < canonical.size(); ++i)
-                mpr(ZhMessage{message.id, canonical[i], localized[i]}, MSGCH_TUTORIAL);
-        stop_running();
+        print_hint(_pickup_hint_message(arg1));
+        return;
+    }
+    // Only context-free fixed hints can use the canonical string overload.
+    // Name/glyph-bearing producers below pass real semantic arguments instead.
+    if (key == "HINT_MONSTER_UNUSUAL" || key == "HINT_MONSTER_FRIENDLY"
+        || key == "HINT_TEMPORARILY_FRIENDLY" || key == "HINT_MONSTER_SHOUTED_UNSEEN"
+        || key == "HINT_MONSTER_SHOUTED_SEEN" || key == "HINT_MONSTER_NO_SHOUT")
+    {
+        print_hint(_encounter_database_hint_message(key));
         return;
     }
     string text = _get_hint(key, arg1, arg2);
@@ -841,6 +912,31 @@ static bool _advise_use_wand()
     return false;
 }
 
+static ZhMessage _first_monster_hint_message(const monster& mon,
+                                                const monster_info& info)
+{
+    if (is_tiles())
+        return zh_message("hint.encounter.first.tiles", {
+            zh_monster_arg("monster", mon, DESC_A)});
+    return zh_message(crawl_view.mlistsz.y > 0
+        ? "hint.encounter.first.console_list" : "hint.encounter.first.console",
+        {_encounter_monster_glyph(info)});
+}
+
+static ZhMessage _first_monster_followup_message()
+{
+    if (Hints.hints_type == HINT_RANGER_CHAR)
+    {
+        const bool ready = you.weapon() && you.weapon()->base_type == OBJ_WEAPONS
+            && you.weapon()->sub_type == WPN_SHORTBOW;
+        return _prepare_encounter_hint(zh_message(ready
+            ? "hint.encounter.hunter.ready" : "hint.encounter.hunter.wield"));
+    }
+    if (Hints.hints_type == HINT_MAGIC_CHAR)
+        return _prepare_encounter_hint(zh_message("hint.encounter.magic"));
+    return {};
+}
+
 void hints_monster_seen(const monster& mon)
 {
     if (mon.is_firewood())
@@ -892,81 +988,13 @@ void hints_monster_seen(const monster& mon)
     // need to highlight monster
     const coord_def gc = mon.pos();
     tiles.place_cursor(CURSOR_TUTORIAL, gc);
-    tiles.add_text_tag(TAG_TUTORIAL, mi);
+    tiles.add_text_tag(TAG_TUTORIAL, zh_monster_display(mon, DESC_A), gc, true);
 #endif
 
-    string text = "That ";
-
-    if (is_tiles())
-    {
-        text +=
-            "monster is " + mon.name(DESC_A) +
-            ". You can learn about any monster by hovering your mouse over it,"
-            " and read its description by <w>right-clicking</w> on it.";
-    }
-    else
-    {
-        text +=
-            glyph_to_tagstr(get_mons_glyph(mi)) +
-            " is a monster, usually depicted by a letter. Some typical "
-            "early monsters look like <brown>r</brown>, <green>l</green>, "
-            "<brown>K</brown> or <lightgrey>g</lightgrey>. ";
-        if (crawl_view.mlistsz.y > 0)
-        {
-            text += "Your console settings allowing, you'll always see a "
-                    "list of monsters somewhere on the screen.\n";
-        }
-        text += "You can gain information about it by pressing <w>x</w> and "
-                "moving the cursor over the monster, and read the monster "
-                "description by then pressing <w>v</w>. ";
-    }
-
-    text += "\nTo attack this monster with your wielded weapon, just move "
-            "into it. ";
-    if (is_tiles())
-    {
-        text +=
-            "Note that as long as there's a non-friendly monster in view you "
-            "won't be able to automatically move to distant squares, to avoid "
-            "death by misclicking.";
-    }
-
-    mprf(MSGCH_TUTORIAL, "%s", text.c_str());
-
-    if (Hints.hints_type == HINT_RANGER_CHAR)
-    {
-        text =  "However, as a hunter you will want to deal with it using your "
-                "bow. If you have a look at your shortbow from your "
-                "<w>i</w>nventory, you'll find an explanation of how to do "
-                "this. ";
-
-        if (!you.weapon()
-            || you.weapon()->base_type != OBJ_WEAPONS
-            || you.weapon()->sub_type != WPN_SHORTBOW)
-        {
-            text += "First <w>w</w>ield it, then follow the instructions."
-                "<tiles>\nAs a short-cut you can also <w>right-click</w> on your "
-                "shortbow to read its description, and <w>left-click</w> to wield "
-                "it.</tiles>";
-        }
-        else
-        {
-            text += "<tiles>Clicking with your <w>right mouse button</w> on your "
-                    "shortbow will also let you read its description.</tiles>";
-        }
-
-        mprf(MSGCH_TUTORIAL, "%s", untag_tiles_console(text).c_str());
-
-    }
-    else if (Hints.hints_type == HINT_MAGIC_CHAR)
-    {
-        text =  "However, as a conjurer you will want to deal with it using "
-                "magic. If you look at the help entry for the "
-                "<w>M</w>emorisation screen you'll find an explanation of how "
-                "to do this.";
-        mprf(MSGCH_TUTORIAL, "%s", untag_tiles_console(text).c_str());
-
-    }
+    mpr(_first_monster_hint_message(mon, mi), MSGCH_TUTORIAL);
+    const auto followup = _first_monster_followup_message();
+    if (!followup.id.empty())
+        mpr(followup, MSGCH_TUTORIAL);
 }
 
 void hints_first_item(const item_def &item)
@@ -1635,7 +1663,7 @@ void learned_something_new(hints_event_type seen_what, coord_def gc)
 #ifdef USE_TILE
         tiles.place_cursor(CURSOR_TUTORIAL, gc);
         if (const monster* m = monster_at(gc))
-            tiles.add_text_tag(TAG_TUTORIAL, m->name(DESC_A), gc);
+            tiles.add_text_tag(TAG_TUTORIAL, zh_monster_display(*m, DESC_A), gc, true);
 #endif
         print_hint("HINT_MONSTER_UNUSUAL");
         break;
@@ -1649,7 +1677,7 @@ void learned_something_new(hints_event_type seen_what, coord_def gc)
 
 #ifdef USE_TILE
         tiles.place_cursor(CURSOR_TUTORIAL, gc);
-        tiles.add_text_tag(TAG_TUTORIAL, m->name(DESC_A), gc);
+        tiles.add_text_tag(TAG_TUTORIAL, zh_monster_display(*m, DESC_A), gc, true);
 #endif
         print_hint("HINT_MONSTER_FRIENDLY");
 
@@ -1680,7 +1708,7 @@ void learned_something_new(hints_event_type seen_what, coord_def gc)
         if (vis)
         {
             tiles.place_cursor(CURSOR_TUTORIAL, gc);
-            tiles.add_text_tag(TAG_TUTORIAL, m->name(DESC_A), gc);
+            tiles.add_text_tag(TAG_TUTORIAL, zh_monster_display(*m, DESC_A), gc, true);
         }
 #endif
         if (!vis)
@@ -1699,8 +1727,11 @@ void learned_something_new(hints_event_type seen_what, coord_def gc)
         if (!m || !you.can_see(*m))
             DELAY_EVENT;
 
-        string mon_name = m->name(DESC_THE, true);
-        print_hint("HINT_MONSTER_LEFT_LOS", mon_name);
+        auto name = zh_monster_arg("monster", *m, DESC_THE);
+        name.canonical = m->name(DESC_THE, true);
+        if (!name.supported)
+            name.localized = name.canonical;
+        print_hint(_encounter_database_hint_message("HINT_MONSTER_LEFT_LOS", name));
         break;
     }
 
@@ -1716,9 +1747,12 @@ void learned_something_new(hints_event_type seen_what, coord_def gc)
         if (!mi)
             DELAY_EVENT;
 
-        print_hint("HINT_SEEN_ZERO_EXP_MON",
-                   glyph_to_tagstr(get_mons_glyph(*mi)),
-                   mi->proper_name(DESC_A));
+        auto name = zh_monster_info_arg("monster", *mi, DESC_A);
+        name.canonical = mi->proper_name(DESC_A);
+        if (!name.supported)
+            name.localized = name.canonical;
+        print_hint(_encounter_database_hint_message("HINT_SEEN_ZERO_EXP_MON", name,
+                                                  _encounter_monster_glyph(*mi)));
         break;
     }
 

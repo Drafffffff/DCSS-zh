@@ -57,6 +57,23 @@ static bool _try_seen_interrupt(monster& mons, seen_context_type sc)
     return interrupt_activity(activity_interrupt::see_monster, aid);
 }
 
+static ZhMessage _summoned_alert_message(const monster &mon)
+{
+    return zh_message("monster.event.summoned_alert", {
+        zh_monster_arg("monster", mon, DESC_A)});
+}
+
+static ZhMessage _wyrmbane_alert_message()
+{
+    return zh_message("monster.event.wyrmbane");
+}
+
+static ZhMessage _gozag_incite_message(const monster &mon)
+{
+    return zh_message("monster.event.gozag_incite", {
+        zh_monster_arg("monster", mon, DESC_THE)});
+}
+
 static bool _check_monster_alert(const monster& mon)
 {
     // Beogh-converted orcs may have left the floor on the turn they were encountered.
@@ -78,7 +95,7 @@ static bool _check_monster_alert(const monster& mon)
         // And if it wasn't a monster that would get an encounter warning due to
         // being a summon, make sure to say something.
         if (mon.is_summoned())
-            mprf(MSGCH_MONSTER_WARNING, "%s comes into view.", mon.name(DESC_A).c_str());
+            mpr(_summoned_alert_message(mon), MSGCH_MONSTER_WARNING);
 
         more(true);
         return true;
@@ -683,7 +700,7 @@ void seen_monster(monster* mons, bool do_encounter_message)
             wyrmbane = offhand_wpn;
 
         if (wyrmbane && mons->dragon_level() > wyrmbane->plus)
-            mpr("<green>Wyrmbane glows as a worthy foe approaches.</green>");
+            mpr(_wyrmbane_alert_message());
     }
 
     // attempt any god conversions on first sight
@@ -725,8 +742,7 @@ void seen_monster(monster* mons, bool do_encounter_message)
         && coinflip()
         && mons->get_experience_level() >= random2(you.experience_level))
     {
-        mprf(MSGCH_GOD, GOD_GOZAG, "Gozag incites %s against you.",
-                mons->name(DESC_THE).c_str());
+        mpr(_gozag_incite_message(*mons), MSGCH_GOD, GOD_GOZAG);
         gozag_incite(mons);
     }
 

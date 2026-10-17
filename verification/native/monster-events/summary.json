@@ -1,0 +1,50 @@
+{
+  "native_baseline": "303fc53dd98aaedcf9f816eeb42acf55cd4a5880",
+  "native_commit": "82239b42b058e6a3e670d8f68ad99bee34c8630b",
+  "work_package": "monster-tutorial-shout-special",
+  "new_ids": 156,
+  "catalog_ids": 3543,
+  "oracle_validation_checks": 2160,
+  "copy_review": "Luna",
+  "builds": {
+    "macos-arm64-tiles": 0,
+    "macos-arm64-console": 0,
+    "linux-x86_64-tiles": 0,
+    "linux-x86_64-console": 0
+  },
+  "unit_tests": {
+    "macos": {
+      "suites": 24,
+      "all_passed": true
+    },
+    "linux": {
+      "suites": 16,
+      "all_passed": true
+    }
+  },
+  "actual_producer_combinations_per_platform": 39525,
+  "copied_save_scenes": {
+    "macos-console": 9,
+    "macos-regression": 4,
+    "macos-shop-regression": 2,
+    "linux-console": 9,
+    "linux-regression": 4,
+    "linux-shop-regression": 2
+  },
+  "macos_gui_screenshots": 4,
+  "linux_4k_verified_screenshots": 5,
+  "original_fixture_hashes_unchanged": true,
+  "coverage_claim": false,
+  "release_created": false,
+  "steam_installation_replaced": false,
+  "remaining": [
+    "随机嘲讽、玩家谜语及其他对白",
+    "其他教程、变形者神祇警告和剩余动态业务日志",
+    "幽灵/幻象生平、恶魔领主形体、变异兽旧拼接",
+    "地形/云雾/物品外层悬停与部分固定详情表格值",
+    "无ID的旧存档历史消息兼容旧层"
+  ],
+  "unverified_graphical_scenarios": [
+    "Bazzite 4K喊叫：自动截图未可靠显示目标新日志，不按ID trace冒充可见验收"
+  ]
+}

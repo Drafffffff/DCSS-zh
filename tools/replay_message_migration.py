@@ -51,6 +51,7 @@ try:
    deadline=started+90
    trap_followup=0
    reached=False
+   fixture_focused=False
    while p.poll() is None and time.monotonic()<deadline:
     wanted = ('detail.item.hints' if name.startswith('hints-') else
               'hud.' if name.startswith('hud') else
@@ -61,6 +62,11 @@ try:
               'shop.' if name.startswith('shop-') else '')
     trace=(tmp/'boundaries.tsv').read_text() if (tmp/'boundaries.tsv').exists() else ''
     ids=(tmp/'ids.tsv').read_text() if (tmp/'ids.tsv').exists() else ''
+    if ids and not fixture_focused:
+     windows=subprocess.run(['xdotool','search','--onlyvisible','--pid',str(p.pid)],env=env,text=True,capture_output=True)
+     if windows.returncode==0 and windows.stdout.splitlines():
+      subprocess.run(['xdotool','windowfocus',windows.stdout.splitlines()[-1]],env=env,check=True)
+      fixture_focused=True
     ready=(all(identity+'\t' in ids for identity in RESTRICTION_EXPECTED[name])
            if name in RESTRICTION_EXPECTED else
            bool(wanted and wanted in trace or not wanted and ids))
@@ -82,6 +88,11 @@ try:
      trap_followup+=1
     if ready:
      reached=True
+     subprocess.run(['xdotool','mousemove','3839','2159'],env=env,check=True)
+     if name=='encounter-first-tiles':
+      # ID binding precedes the forced encounter --more-- screen. Show the
+      # actual tutorial text before capturing its line wrapping.
+      subprocess.run(['xdotool','key','space'],env=env,check=True)
      if name in ('monster-target-equipped','monster-target-undead'):
       subprocess.run(['xdotool','key','space','Escape','x','plus'],env=env,check=True)
      # SDL may centre the pointer after window creation. Reapply keyboard aim

@@ -4,6 +4,7 @@
 
 #include "artefact.h"
 #include "branch.h"
+#include "english.h"
 #include "item-name.h"
 #include "item-prop.h"
 #include "item-status-flag-type.h"
@@ -77,6 +78,52 @@ std::string description_prefix(description_level_type desc, bool friendly)
 std::string possessive_suffix()
 {
     return "的";
+}
+
+// A definite article is presentation grammar even for unique species. The
+// enum's data name is the semantic noun; do not strip words from a rendered
+// name, or relax the equality guard for custom/status-qualified names.
+std::string _monster_type_component(monster_type type)
+{
+    const monsterentry* data = get_monster_data(type);
+    return data && mons_is_the(type) ? data->name
+                                    : mons_type_name(type, DESC_PLAIN);
+}
+
+ZhArg _monster_visible_species_arg(const monster_info& info)
+{
+    const std::string species = _monster_type_component(info.type);
+    const bool headed = info.has_hydra_multi_attack()
+        && info.type != MONS_SENSED && !mons_class_is_remnant(info.type);
+    std::string expected = species;
+    if (headed)
+    {
+        if (info.num_heads <= 0)
+            return {"species", ZhArgType::Name, info.common_name(DESC_PLAIN),
+                    info.common_name(DESC_PLAIN), false};
+        expected = (info.num_heads < 11 ? number_in_words(info.num_heads)
+                                       : std::to_string(info.num_heads))
+                   + "-headed " + species;
+    }
+    // Retain the existing qualifier guard. A head count does not authorize
+    // dropping ghostly/bound/custom, zombie, remnant or shapeshifter wording.
+    if (info.common_name(DESC_PLAIN) != expected)
+        return {"species", ZhArgType::Name, info.common_name(DESC_PLAIN),
+                info.common_name(DESC_PLAIN), false};
+    const std::string translated = exact_component(species);
+    ZhArg name("species", ZhArgType::Name, species,
+               translated.empty() ? species : translated, !translated.empty());
+    if (headed)
+    {
+        name = zh_message_arg("species", "monster.name.headed",
+                              {zh_integer("heads", info.num_heads), name});
+        name.type = ZhArgType::Name;
+        // English spells head counts below eleven out. Only the canonical
+        // channel keeps that engine convention; Chinese uses the integer.
+        name.canonical = expected;
+        if (!name.supported) name.localized = name.canonical;
+    }
+    return name;
 }
 
 std::string item_classifier(const item_def &item)
@@ -427,7 +474,10 @@ ZhArg zh_item_base_arg(const std::string &key, const item_def &item)
 
 ZhArg zh_monster_type_arg(const std::string &key, monster_type type)
 {
-    return zh_glossary_name(key, "monster.name", mons_type_name(type, DESC_PLAIN));
+    auto name = zh_glossary_name(key, "monster.name", _monster_type_component(type));
+    name.canonical = mons_type_name(type, DESC_PLAIN);
+    if (!name.supported) name.localized = name.canonical;
+    return name;
 }
 
 ZhArg zh_monster_arg(const std::string &key, const monster &mon,
@@ -457,14 +507,10 @@ ZhArg zh_monster_arg(const std::string &key, const monster &mon,
         }
         else
         {
-            const std::string species = mons_type_name(mon.type, DESC_PLAIN);
-            const std::string species_zh = exact_component(species);
-            // This equality is a semantic guard: no special form, status,
-            // custom qualifier or generated name may be silently discarded.
-            if (!species_zh.empty()
-                && info.common_name(DESC_PLAIN) == species)
+            const auto species = _monster_visible_species_arg(info);
+            if (species.supported)
             {
-                localized = description_prefix(desc, mon.friendly()) + species_zh;
+                localized = description_prefix(desc, mon.friendly()) + species.localized;
                 if (desc == DESC_ITS)
                     localized += possessive_suffix();
             }
@@ -508,11 +554,10 @@ ZhArg zh_monster_info_arg(const std::string &key, const monster_info &info,
         return {key, ZhArgType::Name, canonical,
                 translated + (desc == DESC_ITS ? possessive_suffix() : ""), true};
     }
-    const std::string species = mons_type_name(info.type, DESC_PLAIN);
-    const std::string translated = exact_component(species);
-    if (!translated.empty() && info.common_name(DESC_PLAIN) == species)
+    const auto species = _monster_visible_species_arg(info);
+    if (species.supported)
     {
-        std::string localized = description_prefix(desc, info.attitude == ATT_FRIENDLY) + translated;
+        std::string localized = description_prefix(desc, info.attitude == ATT_FRIENDLY) + species.localized;
         // Reuse the reviewed possessive suffix from the live-monster renderer.
         if (desc == DESC_ITS)
             localized += possessive_suffix();

@@ -1,0 +1,47 @@
+{
+  "source_fixture_unchanged": true,
+  "scenes": [
+    {
+      "scene": "skills-help",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false
+    },
+    {
+      "scene": "prompt-throw-aim",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "quiver.prompt.throw"
+      ]
+    },
+    {
+      "scene": "monster-wound-living",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "target.monster.log.wound"
+      ]
+    },
+    {
+      "scene": "monster-status-detail",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "monster.status_text.asleep",
+        "monster.status_text.high_tier_stab"
+      ]
+    }
+  ]
+}

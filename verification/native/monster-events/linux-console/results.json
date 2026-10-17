@@ -1,0 +1,111 @@
+{
+  "source_fixture_unchanged": true,
+  "scenes": [
+    {
+      "scene": "encounter-first-console",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "hint.encounter.first.console_list",
+        "hint.encounter.glyph"
+      ]
+    },
+    {
+      "scene": "encounter-zero-exp",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "hint.encounter.db.hint_seen_zero_exp_mon"
+      ]
+    },
+    {
+      "scene": "shout-monster-seen",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "shout.monster.shout_seen.1"
+      ]
+    },
+    {
+      "scene": "shout-monster-animal",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "shout.monster.howl_seen.1"
+      ]
+    },
+    {
+      "scene": "shout-monster-visual",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "shout.monster.cap_j.1"
+      ]
+    },
+    {
+      "scene": "monster-special-hydra",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "monster.special.cold_blooded.singular",
+        "monster.special.habitat.water",
+        "monster.special.regen",
+        "monster.special.speed.energy"
+      ]
+    },
+    {
+      "scene": "monster-special-acid-blob",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "monster.special.acid_splash.singular",
+        "monster.special.amorphous.singular",
+        "monster.special.resists.singular"
+      ]
+    },
+    {
+      "scene": "monster-special-jiangshi",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "monster.special.speed.pauses"
+      ]
+    },
+    {
+      "scene": "monster-special-royal-jelly",
+      "running_at_capture": true,
+      "early_exit_status": null,
+      "missing": [],
+      "names": [],
+      "runtime_error": false,
+      "visible_message_ids": [
+        "monster.special.royal_jelly.damage",
+        "monster.special.royal_jelly.polymorph"
+      ]
+    }
+  ]
+}

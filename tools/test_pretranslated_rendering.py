@@ -113,3 +113,8 @@ with tempfile.TemporaryDirectory() as folder:
     (p/'test.cc').write_text(code)
     subprocess.run(['c++','-std=c++11',str(p/'test.cc'),'-o',str(p/'test')],check=True)
     subprocess.run([str(p/'test')],check=True)
+
+# Source-selected tutorial tags must survive background redraw under strict details.
+assert "bool pretranslated = false" in (SRC/"tilereg-dgn.h").read_text()
+assert "formatted_string::parse_string_raw(tag.tag, WHITE)" in (SRC/"tilereg-dgn.cc").read_text()
+assert "m_region_tile->add_text_tag(type, tag, gc, pretranslated)" in (SRC/"tilesdl.cc").read_text()

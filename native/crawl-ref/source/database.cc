@@ -636,7 +636,7 @@ static string _getWeightedString(TextDB &db, const string &key,
     // Query the DB.
     datum result;
 
-    if (db.translation)
+    if (db.translation && !zh_translation_paused())
         result = _database_fetch(db.translation->get(), canonical_key);
     if (result.dsize <= 0)
         result = _database_fetch(db.get(), canonical_key);
@@ -648,7 +648,7 @@ static string _getWeightedString(TextDB &db, const string &key,
         lowercase(canonical_key);
 
         // Query the DB.
-        if (db.translation)
+        if (db.translation && !zh_translation_paused())
             result = _database_fetch(db.translation->get(), canonical_key);
         if (result.dsize <= 0)
             result = _database_fetch(db.get(), canonical_key);
@@ -894,6 +894,15 @@ string getShoutString(const string &monst, const string &suffix)
     int num_replacements = 0;
 
     return _getRandomisedStr(ShoutDB, monst, suffix, num_replacements);
+}
+
+// Migrated monster logs select canonical source templates before formatting.
+// Keep the pause through recursive DB references, and leave legacy callers
+// (including player riddles) on getShoutString unchanged.
+string getShoutStringCanonical(const string &monst, const string &suffix)
+{
+    ZhTranslationPause canonical;
+    return getShoutString(monst, suffix);
 }
 
 /////////////////////////////////////////////////////////////////////////////

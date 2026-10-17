@@ -15,6 +15,7 @@ struct TextTag
 {
     string tag;
     coord_def gc;
+    bool pretranslated = false;
 };
 
 bool tile_dungeon_tip(const coord_def &gc, string &tip);
@@ -41,7 +42,7 @@ public:
 
     void clear_text_tags(text_tag_type type);
     void add_text_tag(text_tag_type type, const string &tag,
-                      const coord_def &gc);
+                      const coord_def &gc, bool pretranslated = false);
 
     const coord_def &get_cursor() const { return m_cursor[CURSOR_MOUSE]; }
     void to_screen_coords(const coord_def &gc, coord_def *pc) const;

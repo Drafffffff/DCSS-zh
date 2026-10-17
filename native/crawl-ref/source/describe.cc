@@ -5450,34 +5450,6 @@ static string _describe_draconian(const monster_info& mi)
     return description;
 }
 
-static const char* _get_resist_name(mon_resist_flags res_type)
-{
-    switch (res_type)
-    {
-    case MR_RES_ELEC:
-        return "electricity";
-    case MR_RES_POISON:
-        return "poison";
-    case MR_RES_FIRE:
-        return "fire";
-    case MR_RES_STEAM:
-        return "steam";
-    case MR_RES_COLD:
-        return "cold";
-    case MR_RES_CORR:
-        return "acid and corrosion";
-    case MR_RES_MIASMA:
-        return "miasma";
-    case MR_RES_NEG:
-        return "negative energy";
-    case MR_RES_DAMNATION:
-        return "damnation";
-    case MR_RES_TORMENT:
-        return "torment";
-    default:
-        return "buggy resistance";
-    }
-}
 
 static string _get_threat_desc(mon_threat_level_type threat)
 {
@@ -6869,7 +6841,8 @@ static void _desc_mon_death_explosion(ostringstream &result,
     if (mi.type == MONS_LURKING_HORROR)
         return; // no damage number
     const dice_def dam = mon_explode_dam(mi.type, mi.hd);
-    result << "Explosion damage: " << dam.num << "d" << dam.size << "\n";
+    result << zh_message("monster.special.explosion_damage",
+        {zh_integer("dice", dam.num), zh_integer("sides", dam.size)}).display();
 }
 
 static ZhArg _monster_player_hit_message(const monster_info& mi)
@@ -6936,6 +6909,296 @@ static ZhArg _monster_detail_title_message(const monster_info& mi, const string&
 
 // Describe a monster's (intrinsic) resistances, speed and a few other
 // attributes.
+static string _special_detail_display(const ZhArg& value)
+{
+    return ZhMessage{value.message_id, value.canonical,
+                     value.supported ? value.localized : value.canonical}.display();
+}
+
+static ZhArg _special_monster_subject(const monster_info& mi)
+{
+    auto subject = zh_word_arg("subject", "target.monster.pronoun.",
+                              mi.pronoun(PRONOUN_SUBJECTIVE), ZhArgType::Name);
+    subject.canonical = uppercase_first(subject.canonical);
+    if (!subject.supported) subject.localized = subject.canonical;
+    return subject;
+}
+
+static ZhArg _special_resist_atom(mon_resist_flags resist)
+{
+    const char* id = nullptr;
+    switch (resist)
+    {
+    case MR_RES_STEAM: id = "monster.special.resist.atom.steam"; break;
+    case MR_RES_CORR: id = "monster.special.resist.atom.corrosion"; break;
+    case MR_RES_DAMNATION: id = "monster.special.resist.atom.damnation"; break;
+    case MR_RES_MIASMA: id = "monster.special.resist.atom.miasma"; break;
+    case MR_RES_TORMENT: id = "monster.special.resist.atom.torment"; break;
+    default: die("Invalid special monster resistance");
+    }
+    return zh_message_arg("attack", id);
+}
+
+static ZhArg _special_resist_list(const vector<ZhArg>& items)
+{
+    ZhArg result("resists", ZhArgType::Text, "", "");
+    for (size_t i = 0; i < items.size(); ++i)
+    {
+        if (i == 0)
+            result = items[i];
+        else
+        {
+            result.key = "first";
+            auto next = items[i]; next.key = "second";
+            result = zh_message_arg("resists", i + 1 == items.size()
+                ? "monster.special.list.semicolon_and" : "monster.special.list.semicolon",
+                {result, next});
+        }
+    }
+    result.key = "resists";
+    return result;
+}
+
+static ZhArg _monster_habitat_message(const monster_info& mi)
+{
+    const monster_type type = mons_is_draconian_job(mi.type)
+                              ? mi.draconian_subspecies() : mi.type;
+    if (mons_class_is_stationary(type))
+        return {"habitat", ZhArgType::Text, "", ""};
+    const auto subject = _special_monster_subject(mi);
+    switch (mons_habitat_type(type, mi.base_type))
+    {
+    case HT_AMPHIBIOUS:
+        return zh_message_arg("habitat", mi.type == MONS_ORC_APOSTLE
+            ? "monster.special.habitat.walk_water" : "monster.special.habitat.water", {subject});
+    case HT_AMPHIBIOUS_LAVA:
+        return zh_message_arg("habitat", "monster.special.habitat.lava", {subject});
+    default:
+        return {"habitat", ZhArgType::Text, "", ""};
+    }
+}
+
+static ZhArg _monster_speed_message(const monster_info& mi)
+{
+    const int speed = mi.base_speed();
+    if (!speed)
+        return {"speed", ZhArgType::Text, "", ""};
+    const mon_energy_usage default_energy = DEFAULT_ENERGY;
+    const int travel_delay = mi.menergy.move * 10 / speed;
+    const int travel_delay_diff = mons_class_flag(mi.type, M_STATIONARY) ? 0
+        : travel_delay - player_movement_speed(false, false);
+    if (speed == 10 && mi.menergy == default_energy && !travel_delay_diff)
+        return {"speed", ZhArgType::Text, "", ""};
+    auto result = zh_message_arg("speed", "monster.special.speed.base",
+                                 {zh_integer("speed", speed * 10)});
+    vector<ZhArg> unusuals;
+    auto add_energy = [&](int energy, const char* id) {
+        if (energy != 10)
+        {
+            ASSERT(energy);
+            unusuals.push_back(zh_message_arg("action", id,
+                {zh_integer("speed", speed * 100 / energy)}));
+        }
+    };
+    add_energy(mi.menergy.attack, "monster.special.speed.attack");
+    add_energy(mi.menergy.missile, "monster.special.speed.shoot");
+    add_energy(mi.menergy.move, "monster.special.speed.travel");
+    if (mi.menergy.swim != mi.menergy.move)
+        add_energy(mi.menergy.swim, "monster.special.speed.swim");
+    add_energy(mi.menergy.spell, mi.is_priest() ? "monster.special.speed.pray"
+                                             : "monster.special.speed.magic");
+    if (!unusuals.empty())
+    {
+        // The engine uses comma separators for every energy entry, including
+        // the last; keep this immutable structure separate from prose lists.
+        ZhArg actions("actions", ZhArgType::Text, "", "");
+        for (const auto& action : unusuals)
+        {
+            if (actions.canonical.empty())
+                actions = action;
+            else
+            {
+                actions.key = "first";
+                auto next = action; next.key = "second";
+                actions = zh_message_arg("actions", "target.monster.join.comma", {actions, next});
+            }
+        }
+        actions.key = "actions";
+        result = zh_message_arg("speed", "monster.special.speed.energy", {result, actions});
+    }
+    if (mi.type == MONS_SIXFIRHY || mi.type == MONS_JIANGSHI)
+        result = zh_message_arg("speed", "monster.special.speed.pauses", {result});
+    else if (travel_delay_diff)
+        result = zh_message_arg("speed", travel_delay_diff > 0
+            ? "monster.special.speed.slower" : "monster.special.speed.faster", {result});
+    return result;
+}
+
+static string _monster_intrinsic_prose(const monster_info& mi, resists_t resist)
+{
+    ostringstream result;
+    const mon_resist_flags special_resists[] =
+    {
+        MR_RES_STEAM,     MR_RES_CORR,
+        MR_RES_DAMNATION, MR_RES_MIASMA,  MR_RES_TORMENT,
+    };
+
+    vector<ZhArg> extreme_resists;
+    vector<ZhArg> high_resists;
+    vector<ZhArg> base_resists;
+    vector<ZhArg> suscept;
+
+    for (mon_resist_flags rflags : special_resists)
+    {
+        int level = get_resist(resist, rflags);
+
+        if (level != 0)
+        {
+            const auto attackname = _special_resist_atom(rflags);
+            if (rflags == MR_RES_DAMNATION || rflags == MR_RES_TORMENT)
+                level = 3; // one level is immunity
+            level = max(level, -1);
+            level = min(level,  3);
+            switch (level)
+            {
+                case -1:
+                    suscept.emplace_back(attackname);
+                    break;
+                case 1:
+                    base_resists.emplace_back(attackname);
+                    break;
+                case 2:
+                    high_resists.emplace_back(attackname);
+                    break;
+                case 3:
+                    extreme_resists.emplace_back(attackname);
+                    break;
+            }
+        }
+    }
+
+    if (mi.is(MB_UNBLINDABLE))
+        extreme_resists.push_back(zh_message_arg("attack", "monster.special.resist.atom.blinding"));
+    // Resists flooding but still dies on falling into deep water.
+    if (mi.is(MB_RES_DROWN))
+        base_resists.push_back(zh_message_arg("attack", "monster.special.resist.atom.drowning"));
+
+    if (mi.props.exists(CLOUD_IMMUNE_MB_KEY) && mi.props[CLOUD_IMMUNE_MB_KEY])
+        extreme_resists.push_back(zh_message_arg("attack", "monster.special.resist.atom.clouds"));
+
+    vector<ZhArg> resist_descriptions;
+    if (!extreme_resists.empty())
+        resist_descriptions.push_back(zh_message_arg("resist", "monster.special.resist.clause.immune",
+            {zh_message_list("attacks", extreme_resists)}));
+    if (!high_resists.empty())
+        resist_descriptions.push_back(zh_message_arg("resist", "monster.special.resist.clause.high",
+            {zh_message_list("attacks", high_resists)}));
+    if (!base_resists.empty())
+        resist_descriptions.push_back(zh_message_arg("resist", "monster.special.resist.clause.base",
+            {zh_message_list("attacks", base_resists)}));
+
+    const auto subject = _special_monster_subject(mi);
+    const bool plural = mi.pronoun_plurality();
+
+    if (mi.has_unusual_items())
+    {
+        vector<ZhArg> items;
+        for (unsigned int i = 0; i <= MSLOT_LAST_VISIBLE_SLOT; ++i)
+        {
+            if (!mi.inv[i] || !item_is_unusual(*mi.inv[i])) continue;
+            auto item = zh_item_arg("item", *mi.inv[i], DESC_A);
+            item.canonical = mi.inv[i]->name(DESC_A, false, false, true, false);
+            if (!item.supported) item.localized = item.canonical;
+            items.push_back(item);
+        }
+        result << (!mons_class_is_animated_weapon(mi.type)
+            ? zh_message(plural ? "monster.special.items.plural" : "monster.special.items.singular",
+                         {subject, zh_message_list("items", items)})
+            : zh_message(plural ? "monster.special.animated_item.plural" : "monster.special.animated_item.singular",
+                         {subject})).display();
+    }
+
+    if (!resist_descriptions.empty())
+        result << zh_message(plural ? "monster.special.resists.plural" : "monster.special.resists.singular",
+                             {subject, _special_resist_list(resist_descriptions)}).display();
+
+    // Is monster susceptible to anything? (On a new line.)
+    if (!suscept.empty())
+        result << zh_message(plural ? "monster.special.susceptible.plural" : "monster.special.susceptible.singular",
+                             {subject, zh_message_list("attacks", suscept)}).display();
+    if (mi.is(MB_CHAOTIC))
+        result << zh_message(plural ? "monster.special.chaotic.plural" : "monster.special.chaotic.singular", {subject}).display();
+    if (mons_class_flag(mi.type, M_STATIONARY) && !mons_is_tentacle_or_tentacle_segment(mi.type))
+        result << zh_message("monster.special.stationary", {subject}).display();
+    if (mons_class_flag(mi.type, M_COLD_BLOOD) && get_resist(resist, MR_RES_COLD) <= 0)
+        result << zh_message(plural ? "monster.special.cold_blooded.plural" : "monster.special.cold_blooded.singular", {subject}).display();
+    if (mi.can_see_invisible())
+        result << zh_message("monster.special.see_invisible", {subject}).display();
+    if (mons_class_flag(mi.type, M_BURROWS))
+        result << zh_message("monster.special.burrow", {subject}).display();
+    if (mons_class_flag(mi.type, M_ACID_SPLASH))
+        result << zh_message(plural ? "monster.special.acid_splash.plural" : "monster.special.acid_splash.singular", {subject}).display();
+    if (mons_class_flag(mi.type, M_INSUBSTANTIAL))
+        result << zh_message(plural ? "monster.special.insubstantial.plural" : "monster.special.insubstantial.singular", {subject}).display();
+    else if (mons_class_flag(mi.type, M_AMORPHOUS))
+        result << zh_message(plural ? "monster.special.amorphous.plural" : "monster.special.amorphous.singular", {subject}).display();
+
+    // XXX: could mention "immune to dazzling" here, but that's spammy, since
+    // it's true of such a huge number of monsters. (undead, statues, plants).
+    // Might be better to have some place where players can see holiness &
+    // information about holiness.......?
+
+    if (mi.type == MONS_SHADOWGHAST)
+        result << zh_message(plural ? "monster.special.shadowghast.plural" : "monster.special.shadowghast.singular", {subject}).display();
+    if (mi.type == MONS_ROYAL_JELLY)
+    {
+        result << zh_message("monster.special.royal_jelly.damage").display();
+        result << zh_message("monster.special.royal_jelly.polymorph").display();
+    }
+    if (mi.type == MONS_STAR_JELLY)
+    {
+        const dice_def dmg = zap_damage(ZAP_SHOOTING_STAR, 150, true, false);
+        result << zh_message("monster.special.star_damage",
+            {zh_integer("dice", dmg.num), zh_integer("sides", dmg.size)}).display();
+    }
+    if (mi.airborne())
+        result << zh_message("monster.special.fly", {subject}).display();
+
+    if (in_good_standing(GOD_ZIN, 0) && !mi.pos.origin() && monster_at(mi.pos))
+    {
+        recite_counts retval;
+        monster *m = monster_at(mi.pos);
+        auto eligibility = zin_check_recite_to_single_monster(m, retval);
+        if (eligibility == RE_INELIGIBLE)
+            result << zh_message("monster.special.zin_ineligible", {subject}).display();
+        else if (eligibility == RE_TOO_STRONG)
+            result << zh_message(plural ? "monster.special.zin_strong.plural" : "monster.special.zin_strong.singular", {subject}).display();
+        else
+            result << zh_message("monster.special.zin_eligible", {subject}).display();
+        if (you.wizard)
+            result << zh_message("monster.special.zin_debug",
+                {zh_integer("power", zin_recite_power()), zh_integer("hd", mi.hd)}).display();
+        result << "\n";
+    }
+
+    if (mon_explodes_on_death(mi.type))
+        _desc_mon_death_explosion(result, mi);
+
+    if (mi.type == MONS_BATTLESPHERE)
+    {
+        const dice_def dam = battlesphere_damage_from_hd(mi.hd);
+        result << zh_message("monster.special.projectile_damage",
+            {zh_integer("dice", dam.num), zh_integer("sides", dam.size)}).display();
+    }
+
+    // Flying monsters can't be forced to fall into liquids these days.
+    if (!(mi.airborne()))
+        result << _special_detail_display(_monster_habitat_message(mi));
+
+
+    return result.str();
+}
+
 static string _monster_stat_description(const monster_info& mi, bool mark_spells)
 {
     if (mons_is_sensed(mi.type) || mons_is_projectile(mi.type))
@@ -6979,12 +7242,12 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
     if (mi.is(MB_SICK) || mi.is(MB_NO_REGEN))
         pr.AddCell("Regen", zh_source("detail.monster.table_value", "None"));
     else if (mons_class_fast_regen(mi.type) || mi.is(MB_REGENERATION))
-        pr.AddCell("Regen", make_stringf("%d/turn", mi.regen_rate(1)));
+        pr.AddCell("Regen", zh_message("monster.special.regen", {zh_integer("rate", mi.regen_rate(1))}).display());
                                         // (Wait, what's a 'turn'?)
 
     pr.Print(result);
 
-    result << mi.speed_description() << "\n\n";
+    result << _special_detail_display(_monster_speed_message(mi)) << "\n\n";
 
     if (crawl_state.game_started)
     {
@@ -7001,232 +7264,7 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
         }
     }
 
-    const mon_resist_flags special_resists[] =
-    {
-        MR_RES_STEAM,     MR_RES_CORR,
-        MR_RES_DAMNATION, MR_RES_MIASMA,  MR_RES_TORMENT,
-    };
-
-    vector<string> extreme_resists;
-    vector<string> high_resists;
-    vector<string> base_resists;
-    vector<string> suscept;
-
-    for (mon_resist_flags rflags : special_resists)
-    {
-        int level = get_resist(resist, rflags);
-
-        if (level != 0)
-        {
-            const char* attackname = _get_resist_name(rflags);
-            if (rflags == MR_RES_DAMNATION || rflags == MR_RES_TORMENT)
-                level = 3; // one level is immunity
-            level = max(level, -1);
-            level = min(level,  3);
-            switch (level)
-            {
-                case -1:
-                    suscept.emplace_back(attackname);
-                    break;
-                case 1:
-                    base_resists.emplace_back(attackname);
-                    break;
-                case 2:
-                    high_resists.emplace_back(attackname);
-                    break;
-                case 3:
-                    extreme_resists.emplace_back(attackname);
-                    break;
-            }
-        }
-    }
-
-    if (mi.is(MB_UNBLINDABLE))
-        extreme_resists.emplace_back("blinding");
-    // Resists flooding but still dies on falling into deep water.
-    if (mi.is(MB_RES_DROWN))
-        base_resists.emplace_back("drowning");
-
-    if (mi.props.exists(CLOUD_IMMUNE_MB_KEY) && mi.props[CLOUD_IMMUNE_MB_KEY])
-        extreme_resists.emplace_back("clouds of all kinds");
-
-    vector<string> resist_descriptions;
-    if (!extreme_resists.empty())
-    {
-        const string tmp = "immune to "
-            + comma_separated_line(extreme_resists.begin(),
-                                   extreme_resists.end());
-        resist_descriptions.push_back(tmp);
-    }
-    if (!high_resists.empty())
-    {
-        const string tmp = "very resistant to "
-            + comma_separated_line(high_resists.begin(), high_resists.end());
-        resist_descriptions.push_back(tmp);
-    }
-    if (!base_resists.empty())
-    {
-        const string tmp = "resistant to "
-            + comma_separated_line(base_resists.begin(), base_resists.end());
-        resist_descriptions.push_back(tmp);
-    }
-
-    const char* pronoun = mi.pronoun(PRONOUN_SUBJECTIVE);
-    const bool plural = mi.pronoun_plurality();
-
-    if (mi.has_unusual_items())
-    {
-        const vector<string> unusual_items = mi.get_unusual_items();
-
-        result << uppercase_first(pronoun) << " ";
-        (!mons_class_is_animated_weapon(mi.type) ?
-            result << conjugate_verb("have", plural)
-                   << " an unusual item: "
-                   << comma_separated_line(unusual_items.begin(),
-                                           unusual_items.end()) :
-            result << conjugate_verb("are", plural)
-                   << " an unusual item")
-               << ".\n";
-    }
-
-    if (!resist_descriptions.empty())
-    {
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("are", plural) << " "
-               << comma_separated_line(resist_descriptions.begin(),
-                                       resist_descriptions.end(),
-                                       "; and ", "; ")
-               << ".\n";
-    }
-
-    // Is monster susceptible to anything? (On a new line.)
-    if (!suscept.empty())
-    {
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("are", plural) << " susceptible to "
-               << comma_separated_line(suscept.begin(), suscept.end())
-               << ".\n";
-    }
-
-    if (mi.is(MB_CHAOTIC))
-    {
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("are", plural)
-               << " vulnerable to silver and hated by Zin.\n";
-    }
-
-    if (mons_class_flag(mi.type, M_STATIONARY)
-        && !mons_is_tentacle_or_tentacle_segment(mi.type))
-    {
-        result << uppercase_first(pronoun) << " cannot move.\n";
-    }
-
-    if (mons_class_flag(mi.type, M_COLD_BLOOD)
-        && get_resist(resist, MR_RES_COLD) <= 0)
-    {
-        result << uppercase_first(pronoun)
-               << " " << conjugate_verb("are", plural)
-               << " cold-blooded and may be slowed by cold attacks.\n";
-    }
-
-    if (mi.can_see_invisible())
-        result << uppercase_first(pronoun) << " can see invisible.\n";
-
-    if (mons_class_flag(mi.type, M_BURROWS))
-        result << uppercase_first(pronoun) << " can burrow through diggable terrain.\n";
-
-    if (mons_class_flag(mi.type, M_ACID_SPLASH))
-    {
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("inflict", plural)
-               << " 1d5 acid damage when struck in melee.\n";
-    }
-
-    // Insubstantialness should take priority.
-    if (mons_class_flag(mi.type, M_INSUBSTANTIAL))
-    {
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("are", plural)
-               << " insubstantial and immune to ensnarement.\n";
-    }
-    else if (mons_class_flag(mi.type, M_AMORPHOUS))
-    {
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("are", plural)
-               << " amorphous and immune to ensnarement.\n";
-    }
-
-    // XXX: could mention "immune to dazzling" here, but that's spammy, since
-    // it's true of such a huge number of monsters. (undead, statues, plants).
-    // Might be better to have some place where players can see holiness &
-    // information about holiness.......?
-
-    if (mi.type == MONS_SHADOWGHAST)
-    {
-        // Cf. monster::action_energy() in monster.cc.
-        result << uppercase_first(pronoun) << " "
-               << conjugate_verb("cover", plural)
-               << " ground more quickly when invisible.\n";
-    }
-
-    if (mi.type == MONS_ROYAL_JELLY)
-    {
-        result << "It will release varied jellies when damaged or killed, with"
-            " the number of jellies proportional to the amount of damage.\n";
-        result << "It will release all of its jellies when polymorphed.\n";
-    }
-
-    if (mi.type == MONS_STAR_JELLY)
-    {
-        dice_def dmg = zap_damage(ZAP_SHOOTING_STAR, 150, true, false);
-        result << "Shooting star damage: " << dmg.num << "d" << dmg.size << " (x3)\n";
-    }
-
-    if (mi.airborne())
-        result << uppercase_first(pronoun) << " can fly.\n";
-
-    if (in_good_standing(GOD_ZIN, 0) && !mi.pos.origin() && monster_at(mi.pos))
-    {
-        recite_counts retval;
-        monster *m = monster_at(mi.pos);
-        auto eligibility = zin_check_recite_to_single_monster(m, retval);
-        if (eligibility == RE_INELIGIBLE)
-        {
-            result << uppercase_first(pronoun) <<
-                    " cannot be affected by reciting Zin's laws.";
-        }
-        else if (eligibility == RE_TOO_STRONG)
-        {
-            result << uppercase_first(pronoun) << " "
-                   << conjugate_verb("are", plural)
-                   << " too strong to be affected by reciting Zin's laws.";
-        }
-        else // RE_ELIGIBLE || RE_RECITE_TIMER
-        {
-            result << uppercase_first(pronoun) <<
-                            " can be affected by reciting Zin's laws.";
-        }
-
-        if (you.wizard)
-        {
-            result << " (Recite power:" << zin_recite_power()
-                   << ", Hit dice:" << mi.hd << ")";
-        }
-        result << "\n";
-    }
-
-    if (mon_explodes_on_death(mi.type))
-        _desc_mon_death_explosion(result, mi);
-
-    if (mi.type == MONS_BATTLESPHERE)
-    {
-        const dice_def dam = battlesphere_damage_from_hd(mi.hd);
-        result << "Projectile damage: " << dam.num << "d" << dam.size << "\n";
-    }
-
-    // Flying monsters can't be forced to fall into liquids these days.
-    if (!(mi.airborne()))
-        result << _monster_habitat_description(mi);
+    result << _monster_intrinsic_prose(mi, resist);
 
     const auto doors = _monster_door_message(mi);
     result << ZhMessage{doors.message_id, doors.canonical, doors.localized}.display();
@@ -7444,13 +7482,7 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
 
     case MONS_PROGRAM_BUG:
     {
-        const string description = "If this monster is a \"program bug\", then it's "
-                "recommended that you save your game and reload. Please report "
-                "monsters who masquerade as program bugs or run around the "
-                "dungeon without a proper description to the authorities.";
-        inf.body << zh_message("monster.detail.program_bug", {
-            ZhArg("description", ZhArgType::Text, description, description, false)},
-            description).display() << "\n";
+        inf.body << zh_message("monster.special.program_bug").display() << "\n";
         break;
     }
 

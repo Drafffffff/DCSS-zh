@@ -46286,7 +46286,7 @@ index a5b2cbe..becbf27 100644
 +它赋予穿戴者不逊于天界任何存在的君王气度，以及大量名不副实的自信。
 +%%%%
 diff --git a/crawl-ref/source/database.cc b/crawl-ref/source/database.cc
-index ee400e5..5164fcc 100644
+index ee400e5..f2bfce1 100644
 --- a/crawl-ref/source/database.cc
 +++ b/crawl-ref/source/database.cc
 @@ -6,6 +6,8 @@
@@ -46298,6 +46298,24 @@ index ee400e5..5164fcc 100644
  
  #include <cstdlib>
  #include <fcntl.h>
+@@ -634,7 +636,7 @@ static string _getWeightedString(TextDB &db, const string &key,
+     // Query the DB.
+     datum result;
+ 
+-    if (db.translation)
++    if (db.translation && !zh_translation_paused())
+         result = _database_fetch(db.translation->get(), canonical_key);
+     if (result.dsize <= 0)
+         result = _database_fetch(db.get(), canonical_key);
+@@ -646,7 +648,7 @@ static string _getWeightedString(TextDB &db, const string &key,
+         lowercase(canonical_key);
+ 
+         // Query the DB.
+-        if (db.translation)
++        if (db.translation && !zh_translation_paused())
+             result = _database_fetch(db.translation->get(), canonical_key);
+         if (result.dsize <= 0)
+             result = _database_fetch(db.get(), canonical_key);
 @@ -738,6 +740,7 @@ static void _call_recursive_replacement(string &str, TextDB &db,
  static string _query_database(TextDB &db, string key, bool canonicalise_key,
                                bool run_lua, bool untranslated)
@@ -46367,6 +46385,34 @@ index ee400e5..5164fcc 100644
  vector<string> getLongDescKeysByRegex(const string &regex,
                                        db_find_filter filter)
  {
+@@ -839,6 +896,15 @@ string getShoutString(const string &monst, const string &suffix)
+     return _getRandomisedStr(ShoutDB, monst, suffix, num_replacements);
+ }
+ 
++// Migrated monster logs select canonical source templates before formatting.
++// Keep the pause through recursive DB references, and leave legacy callers
++// (including player riddles) on getShoutString unchanged.
++string getShoutStringCanonical(const string &monst, const string &suffix)
++{
++    ZhTranslationPause canonical;
++    return getShoutString(monst, suffix);
++}
++
+ /////////////////////////////////////////////////////////////////////////////
+ // Speak DB specific functions.
+ string getSpeakString(const string &key)
+diff --git a/crawl-ref/source/database.h b/crawl-ref/source/database.h
+index ef209bb..66b77c3 100644
+--- a/crawl-ref/source/database.h
++++ b/crawl-ref/source/database.h
+@@ -43,6 +43,7 @@ vector<string> getLongDescBodiesByRegex(const string &regex,
+ string getGameStartDescription(const string &key);
+ 
+ string getShoutString(const string &monst, const string &suffix = "");
++string getShoutStringCanonical(const string &monst, const string &suffix = "");
+ string getSpeakString(const string &key);
+ string getRandMonNameString(const string &montype);
+ string getRandNameString(const string &itemtype, const string &suffix = "");
 diff --git a/crawl-ref/source/delay.cc b/crawl-ref/source/delay.cc
 index 98a25e0..1b3a2ae 100644
 --- a/crawl-ref/source/delay.cc
@@ -47085,7 +47131,7 @@ index a4a1a95..20747cf 100644
 +              localized, supported}}).display();
  }
 diff --git a/crawl-ref/source/describe.cc b/crawl-ref/source/describe.cc
-index 0a381e1..3fe944b 100644
+index 0a381e1..37db4d5 100644
 --- a/crawl-ref/source/describe.cc
 +++ b/crawl-ref/source/describe.cc
 @@ -4,6 +4,10 @@
@@ -47850,7 +47896,9 @@ index 0a381e1..3fe944b 100644
  }
  
 -static string _describe_point_change(float points)
--{
++static ZhArg _describe_point_diff_arg(const string &key, int original,
++                                     int changed, int scale = 100)
+ {
 -    string point_diff_description;
 -
 -    point_diff_description += make_stringf("%s by %.1f",
@@ -47862,9 +47910,7 @@ index 0a381e1..3fe944b 100644
 -
 -static string _describe_point_diff(int original,
 -                                   int changed, int scale = 100)
-+static ZhArg _describe_point_diff_arg(const string &key, int original,
-+                                     int changed, int scale = 100)
- {
+-{
 -    string description;
 -
      if (original == changed)
@@ -48331,12 +48377,12 @@ index 0a381e1..3fe944b 100644
 -        return "\nIt has a curse placed upon it.";
 -
 -    ostringstream desc;
-+        return "\n" + zh_source("detail.item.fixed", "It has a curse placed upon it.");
- 
+-
 -    desc << "\nIt has a curse which improves the following skills:\n";
 -    desc << comma_separated_fn(curses.begin(), curses.end(), desc_curse_skills,
 -                               ".\n", ".\n") << ".";
--
++        return "\n" + zh_source("detail.item.fixed", "It has a curse placed upon it.");
+ 
 -    return desc.str();
 +    string skills;
 +    string localized;
@@ -49728,9 +49774,38 @@ index 0a381e1..3fe944b 100644
          break;
      default:
          break;
-@@ -5029,16 +5479,16 @@ static const char* _get_resist_name(mon_resist_flags res_type)
-     }
+@@ -5000,45 +5450,17 @@ static string _describe_draconian(const monster_info& mi)
+     return description;
  }
+ 
+-static const char* _get_resist_name(mon_resist_flags res_type)
+-{
+-    switch (res_type)
+-    {
+-    case MR_RES_ELEC:
+-        return "electricity";
+-    case MR_RES_POISON:
+-        return "poison";
+-    case MR_RES_FIRE:
+-        return "fire";
+-    case MR_RES_STEAM:
+-        return "steam";
+-    case MR_RES_COLD:
+-        return "cold";
+-    case MR_RES_CORR:
+-        return "acid and corrosion";
+-    case MR_RES_MIASMA:
+-        return "miasma";
+-    case MR_RES_NEG:
+-        return "negative energy";
+-    case MR_RES_DAMNATION:
+-        return "damnation";
+-    case MR_RES_TORMENT:
+-        return "torment";
+-    default:
+-        return "buggy resistance";
+-    }
+-}
  
 -static const char* _get_threat_desc(mon_threat_level_type threat)
 +static string _get_threat_desc(mon_threat_level_type threat)
@@ -49751,7 +49826,7 @@ index 0a381e1..3fe944b 100644
      }
  }
  
-@@ -5105,7 +5555,15 @@ static string _flavour_base_desc(attack_flavour flavour)
+@@ -5105,7 +5527,15 @@ static string _flavour_base_desc(attack_flavour flavour)
  
      const string* desc = map_find(base_descs, flavour);
      ASSERT(desc);
@@ -49768,7 +49843,7 @@ index 0a381e1..3fe944b 100644
  }
  
  struct mon_attack_info
-@@ -5161,7 +5619,8 @@ static mon_attack_info _atk_info(const monster_info& mi, int i)
+@@ -5161,7 +5591,8 @@ static mon_attack_info _atk_info(const monster_info& mi, int i)
  static string _brand_damage_string(const monster_info &mi, brand_type brand,
                                     int dam, int wpn_base_dmg = 0)
  {
@@ -49778,7 +49853,7 @@ index 0a381e1..3fe944b 100644
      int brand_dam;
      // Only include damaging brands
      // Heavy is included in base damage calculations instead
-@@ -5199,16 +5658,18 @@ static string _brand_damage_string(const monster_info &mi, brand_type brand,
+@@ -5199,16 +5630,18 @@ static string _brand_damage_string(const monster_info &mi, brand_type brand,
              brand_dam = 4;
              break;
          case SPWPN_SUNDERING:
@@ -49800,7 +49875,7 @@ index 0a381e1..3fe944b 100644
  }
  
  // Max damage from a magical staff with a given amount of staff & evo skill
-@@ -5240,9 +5701,9 @@ static string _monster_staff_damage_string(const monster_info &mi,
+@@ -5240,9 +5673,9 @@ static string _monster_staff_damage_string(const monster_info &mi,
                             : staff == STAFF_ALCHEMY       ? "poison"
                             /*staff == STAFF_CONJURATION*/ : "conj";
  
@@ -49813,7 +49888,7 @@ index 0a381e1..3fe944b 100644
  }
  
  struct mon_attack_desc_info
-@@ -5323,21 +5784,24 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
+@@ -5323,21 +5756,24 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
                                       int attk_mult)
  {
      if (!desc.empty())
@@ -49845,7 +49920,7 @@ index 0a381e1..3fe944b 100644
      }
  
      if (di.flavour_without_dam
-@@ -5346,16 +5810,17 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
+@@ -5346,16 +5782,17 @@ static void _add_attack_flavour_desc(string& desc, attack_flavour flavour,
          && !flavour_has_mobility(attack.flavour)
          && !(attack.flavour == AF_REACH_CLEAVE_UGLY))
      {
@@ -49869,7 +49944,7 @@ index 0a381e1..3fe944b 100644
      }
  }
  
-@@ -5374,23 +5839,42 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5374,23 +5811,42 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
  
      if (weapon_multihits(wpn))
          attk_mult *= weapon_hits_per_swing(*wpn);
@@ -49919,7 +49994,7 @@ index 0a381e1..3fe944b 100644
  
      // Part 2: The "Max Damage" column
      // Display the max damage from the attack (including any weapon)
-@@ -5440,12 +5924,13 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5440,12 +5896,13 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
  
      string dam_str;
      if (dam != real_dam)
@@ -49935,7 +50010,7 @@ index 0a381e1..3fe944b 100644
  
      string brand_str;
      if (wpn)
-@@ -5464,11 +5949,11 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5464,11 +5921,11 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
      else if (di.special_flavour != SPWPN_NORMAL)
          brand_str = _brand_damage_string(mi, di.special_flavour, real_dam);
  
@@ -49951,7 +50026,7 @@ index 0a381e1..3fe944b 100644
  
      // Part 3: The "Bonus" column
      // Describe any additional effects from a monster's attack flavour
-@@ -5495,10 +5980,10 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
+@@ -5495,10 +5952,10 @@ static void _attacks_table_row(const monster_info &mi, mon_attack_desc_info &di,
      }
      // ...except Nessos' ranged attacks apply venom as a special effect
      else if (mi.type == MONS_NESSOS)
@@ -49964,7 +50039,7 @@ index 0a381e1..3fe944b 100644
  }
  
  // Get all the info required to form an attacks table row for the monster's
-@@ -5510,41 +5995,47 @@ static void _attacks_table_row_throwing(const monster_info &mi,
+@@ -5510,41 +5967,47 @@ static void _attacks_table_row_throwing(const monster_info &mi,
      if (!quiv || quiv->base_type != OBJ_MISSILES)
          return;
  
@@ -50027,7 +50102,7 @@ index 0a381e1..3fe944b 100644
          default:
              break;
          }
-@@ -5565,21 +6056,39 @@ static void _attacks_table_row_throwing(const monster_info &mi,
+@@ -5565,21 +6028,39 @@ static void _attacks_table_row_throwing(const monster_info &mi,
              string dmg_msg;
              int silver_dam = max(dam / 3,
                                   silver_damages_victim(&you, dam, dmg_msg));
@@ -50070,7 +50145,7 @@ index 0a381e1..3fe944b 100644
      // Hopefully enough width for every possibility
      di.damage_width    = min(di.damage_width, (size_t) 31);
      di.bonus_width     = min(di.bonus_width, 69 - di.damage_width);
-@@ -5594,14 +6103,12 @@ static void _build_table_of_attacks(mon_attack_desc_info &di,
+@@ -5594,14 +6075,12 @@ static void _build_table_of_attacks(mon_attack_desc_info &di,
      // Note: columns are separated by (a minimum of) 2 spaces
  
      // First, the table header
@@ -50088,7 +50163,7 @@ index 0a381e1..3fe944b 100644
      }
      result << "\n";
  
-@@ -5707,36 +6214,32 @@ static string _monster_spells_description(const monster_info& mi, bool mark_spel
+@@ -5707,36 +6186,32 @@ static string _monster_spells_description(const monster_info& mi, bool mark_spel
      if (mark_spells)
          description += SPELL_LIST_END;
  
@@ -50124,10 +50199,10 @@ index 0a381e1..3fe944b 100644
 +        perception = 100;
      else
 -        result << perception * 100 / stealth;
--
--    result << "% chance to notice you each turn.\n";
 +        perception = perception * 100 / stealth;
  
+-    result << "% chance to notice you each turn.\n";
+-
 -    return result.str();
 +    const bool plural = mi.pronoun_plurality();
 +    const string canonical = uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE)) + " "
@@ -50139,7 +50214,7 @@ index 0a381e1..3fe944b 100644
  }
  
  static void _describe_aux_hit_chance(ostringstream &result, vector<string>& auxes, int chance)
-@@ -5770,14 +6273,14 @@ static void _describe_aux_hit_chance(ostringstream &result, vector<string>& auxe
+@@ -5770,14 +6245,14 @@ static void _describe_aux_hit_chance(ostringstream &result, vector<string>& auxe
   * @param distance          Distance from which the attack is being made. If not
   *                          provided, assume distance between player and the target.
   */
@@ -50156,7 +50231,7 @@ index 0a381e1..3fe944b 100644
      }
  
      const bool melee = weapon == nullptr || !(is_range_weapon(*weapon)
-@@ -5796,16 +6299,27 @@ void describe_to_hit(const monster_info &mi, ostringstream &result,
+@@ -5796,16 +6271,27 @@ void describe_to_hit(const monster_info &mi, ostringstream &result,
          acc_pct = to_hit_pct(mi, source ? *source : attk, true, false,
                               distance_from);
  
@@ -50187,7 +50262,7 @@ index 0a381e1..3fe944b 100644
      }
      else
      {
-@@ -5814,36 +6328,59 @@ void describe_to_hit(const monster_info &mi, ostringstream &result,
+@@ -5814,36 +6300,59 @@ void describe_to_hit(const monster_info &mi, ostringstream &result,
          acc_pct = to_hit_pct(mi, attk, false, penetrating, distance_from);
      }
  
@@ -50266,7 +50341,7 @@ index 0a381e1..3fe944b 100644
  }
  
  static bool _visible_to(const monster_info& mi)
-@@ -5905,9 +6442,13 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
+@@ -5905,9 +6414,13 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
      const int beat_sh_chance = mon_beat_sh_pct(shield_bypass, scaled_sh);
  
      const int hit_chance = beat_ev_chance * beat_sh_chance / 100;
@@ -50283,7 +50358,7 @@ index 0a381e1..3fe944b 100644
  }
  
  /**
-@@ -6060,6 +6601,10 @@ static string _monster_current_target_description(const monster_info &mi)
+@@ -6060,6 +6573,10 @@ static string _monster_current_target_description(const monster_info &mi)
  
      const char* pronoun = mi.pronoun(PRONOUN_SUBJECTIVE);
      const bool plural = mi.pronoun_plurality();
@@ -50294,7 +50369,7 @@ index 0a381e1..3fe944b 100644
  
      ostringstream result;
      if (mi.is(MB_ALLY_TARGET))
-@@ -6067,28 +6612,41 @@ static string _monster_current_target_description(const monster_info &mi)
+@@ -6067,28 +6584,41 @@ static string _monster_current_target_description(const monster_info &mi)
          auto allies = find_allies_targeting(*m);
          if (allies.size() == 1)
          {
@@ -50348,7 +50423,7 @@ index 0a381e1..3fe944b 100644
      }
  
      return result.str();
-@@ -6101,6 +6659,38 @@ struct TableCell
+@@ -6101,6 +6631,38 @@ struct TableCell
      colour_t colour;
  };
  
@@ -50387,7 +50462,7 @@ index 0a381e1..3fe944b 100644
  // TODO: This is similar to column_composer. Deduplicate?
  class TablePrinter
  {
-@@ -6127,7 +6717,7 @@ public:
+@@ -6127,7 +6689,7 @@ public:
      {
          if (fixed_column_num > 0 && (int)rows[rows.size() - 1].size() >= fixed_column_num)
              AddRow();
@@ -50396,7 +50471,7 @@ index 0a381e1..3fe944b 100644
      }
  
      int NumCells() const
-@@ -6146,7 +6736,7 @@ public:
+@@ -6146,7 +6708,7 @@ public:
          {
              for (size_t col = 0; col < rows[row].size(); ++col)
              {
@@ -50405,7 +50480,7 @@ index 0a381e1..3fe944b 100644
                  if (col == labels_lengths_by_col.size())
                      labels_lengths_by_col.push_back(label_len);
                  else
-@@ -6158,23 +6748,37 @@ public:
+@@ -6158,23 +6720,37 @@ public:
  
          for (const auto &row : rows)
          {
@@ -50454,12 +50529,26 @@ index 0a381e1..3fe944b 100644
          }
      }
  };
-@@ -6268,6 +6872,68 @@ static void _desc_mon_death_explosion(ostringstream &result,
-     result << "Explosion damage: " << dam.num << "d" << dam.size << "\n";
+@@ -6265,87 +6841,212 @@ static void _desc_mon_death_explosion(ostringstream &result,
+     if (mi.type == MONS_LURKING_HORROR)
+         return; // no damage number
+     const dice_def dam = mon_explode_dam(mi.type, mi.hd);
+-    result << "Explosion damage: " << dam.num << "d" << dam.size << "\n";
++    result << zh_message("monster.special.explosion_damage",
++        {zh_integer("dice", dam.num), zh_integer("sides", dam.size)}).display();
  }
  
+-// Describe a monster's (intrinsic) resistances, speed and a few other
+-// attributes.
+-static string _monster_stat_description(const monster_info& mi, bool mark_spells)
 +static ZhArg _monster_player_hit_message(const monster_info& mi)
-+{
+ {
+-    if (mons_is_sensed(mi.type) || mons_is_projectile(mi.type))
+-        return "";
+-
+-    ostringstream result;
+-
+-    TablePrinter pr;
 +    auto chance = describe_to_hit_message(mi, you.weapon(), true);
 +    chance.key = "chance";
 +    return zh_message_arg("hit", mi.incapacitated()
@@ -50467,7 +50556,16 @@ index 0a381e1..3fe944b 100644
 +        : mi.base_ev != mi.ev ? "target.monster.detail.player_hit.current"
 +                              : "target.monster.detail.player_hit.plain", {chance});
 +}
-+
+ 
+-    pr.AddRow();
+-    pr.AddCell("Max HP", mi.get_max_hp_desc());
+-    pr.AddCell("Will", _describe_monster_wl(mi));
+-    pr.AddCell("AC", _build_bar(mi.ac, 5));
+-    pr.AddCell("EV", _build_bar(mi.base_ev, 5));
+-    if (mi.sh / 2 > 0)  // rescale to match player SH
+-        pr.AddCell("SH", _build_bar(mi.sh / 2, 5));
+-    else
+-        pr.AddCell(); // ensure alignment
 +static ZhArg _monster_detail_size_message(size_type size)
 +{
 +    switch (size)
@@ -50481,7 +50579,9 @@ index 0a381e1..3fe944b 100644
 +    default: die("Invalid monster body size");
 +    }
 +}
-+
+ 
+-    const resists_t resist = mi.resists();
+-    _add_resist_desc(pr, resist);
 +static ZhArg _monster_door_message(const monster_info& mi)
 +{
 +    auto subject = zh_word_arg("subject", "target.monster.pronoun.",
@@ -50507,7 +50607,26 @@ index 0a381e1..3fe944b 100644
 +        return zh_message_arg("doors", id, {subject});
 +    return {"doors", ZhArgType::Text, "", ""};
 +}
-+
+ 
+-    // Less important common properties. Arguably should be lower down.
+-    const size_type sz = mi.body_size();
+-    const string size_desc = sz == SIZE_LITTLE ? "V. Small" : uppercase_first(get_size_adj(sz));
+-    const auto holiness = mons_class_holiness(mi.type);
+-    const string holi = holiness == MH_NONLIVING ? "Nonliv."
+-                                                 : single_holiness_description(holiness);
+-    pr.AddRow();
+-    if (mi.threat != MTHRT_UNDEF && !mons_class_is_peripheral(mi.type))
+-        pr.AddCell("Threat", _get_threat_desc(mi.threat));
+-    else // ?/m
+-        pr.AddCell(); // ensure alignment
+-    pr.AddCell("Class", uppercase_first(holi).c_str());
+-    pr.AddCell("Size", size_desc.c_str());
+-    pr.AddCell("Int", intelligence_description(mi.intel()));
+-    if (mi.is(MB_SICK) || mi.is(MB_NO_REGEN))
+-        pr.AddCell("Regen", "None");
+-    else if (mons_class_fast_regen(mi.type) || mi.is(MB_REGENERATION))
+-        pr.AddCell("Regen", make_stringf("%d/turn", mi.regen_rate(1)));
+-                                        // (Wait, what's a 'turn'?)
 +static ZhArg _monster_detail_title_message(const monster_info& mi, const string& title)
 +{
 +    if (!title.empty())
@@ -50519,43 +50638,31 @@ index 0a381e1..3fe944b 100644
 +        name.localized = name.canonical;
 +    return zh_message_arg("title", "target.monster.detail.title.name", {name});
 +}
-+
- // Describe a monster's (intrinsic) resistances, speed and a few other
- // attributes.
- static string _monster_stat_description(const monster_info& mi, bool mark_spells)
-@@ -6294,10 +6960,13 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
  
-     // Less important common properties. Arguably should be lower down.
-     const size_type sz = mi.body_size();
--    const string size_desc = sz == SIZE_LITTLE ? "V. Small" : uppercase_first(get_size_adj(sz));
-+    const auto size_message = _monster_detail_size_message(sz);
-+    const string size_desc = ZhMessage{size_message.message_id, size_message.canonical,
-+                                       size_message.localized}.display();
-     const auto holiness = mons_class_holiness(mi.type);
--    const string holi = holiness == MH_NONLIVING ? "Nonliv."
--                                                 : single_holiness_description(holiness);
-+    const string holiness_name = holiness == MH_NONLIVING ? "Nonliv."
-+                                             : uppercase_first(single_holiness_description(holiness));
-+    const string holi = zh_source("detail.monster.table_value", holiness_name.c_str());
-     pr.AddRow();
-     if (mi.threat != MTHRT_UNDEF && !mons_class_is_peripheral(mi.type))
-         pr.AddCell("Threat", _get_threat_desc(mi.threat));
-@@ -6305,9 +6974,10 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
-         pr.AddCell(); // ensure alignment
-     pr.AddCell("Class", uppercase_first(holi).c_str());
-     pr.AddCell("Size", size_desc.c_str());
--    pr.AddCell("Int", intelligence_description(mi.intel()));
-+    pr.AddCell("Int", zh_source("detail.monster.table_value",
-+                                     intelligence_description(mi.intel())));
-     if (mi.is(MB_SICK) || mi.is(MB_NO_REGEN))
--        pr.AddCell("Regen", "None");
-+        pr.AddCell("Regen", zh_source("detail.monster.table_value", "None"));
-     else if (mons_class_fast_regen(mi.type) || mi.is(MB_REGENERATION))
-         pr.AddCell("Regen", make_stringf("%d/turn", mi.regen_rate(1)));
-                                         // (Wait, what's a 'turn'?)
-@@ -6318,13 +6988,8 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+-    pr.Print(result);
++// Describe a monster's (intrinsic) resistances, speed and a few other
++// attributes.
++static string _special_detail_display(const ZhArg& value)
++{
++    return ZhMessage{value.message_id, value.canonical,
++                     value.supported ? value.localized : value.canonical}.display();
++}
  
-     if (crawl_state.game_started)
+-    result << mi.speed_description() << "\n\n";
++static ZhArg _special_monster_subject(const monster_info& mi)
++{
++    auto subject = zh_word_arg("subject", "target.monster.pronoun.",
++                              mi.pronoun(PRONOUN_SUBJECTIVE), ZhArgType::Name);
++    subject.canonical = uppercase_first(subject.canonical);
++    if (!subject.supported) subject.localized = subject.canonical;
++    return subject;
++}
+ 
+-    if (crawl_state.game_started)
++static ZhArg _special_resist_atom(mon_resist_flags resist)
++{
++    const char* id = nullptr;
++    switch (resist)
      {
 -        result << "You have ";
 -        describe_to_hit(mi, result, you.weapon(), true);
@@ -50564,38 +50671,477 @@ index 0a381e1..3fe944b 100644
 -        else if (mi.base_ev != mi.ev)
 -            result << " (at present)";
 -        result << ".\n";
-+        const auto hit = _monster_player_hit_message(mi);
-+        result << ZhMessage{hit.message_id, hit.canonical, hit.localized}.display();
++    case MR_RES_STEAM: id = "monster.special.resist.atom.steam"; break;
++    case MR_RES_CORR: id = "monster.special.resist.atom.corrosion"; break;
++    case MR_RES_DAMNATION: id = "monster.special.resist.atom.damnation"; break;
++    case MR_RES_MIASMA: id = "monster.special.resist.atom.miasma"; break;
++    case MR_RES_TORMENT: id = "monster.special.resist.atom.torment"; break;
++    default: die("Invalid special monster resistance");
      }
-     result << _monster_attacks_description(mi);
-     if (crawl_state.game_started)
-@@ -6563,23 +7228,8 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+-    result << _monster_attacks_description(mi);
+-    if (crawl_state.game_started)
++    return zh_message_arg("attack", id);
++}
++
++static ZhArg _special_resist_list(const vector<ZhArg>& items)
++{
++    ZhArg result("resists", ZhArgType::Text, "", "");
++    for (size_t i = 0; i < items.size(); ++i)
+     {
+-        if (mi.attitude == ATT_HOSTILE && (mi.is(MB_SLEEPING) || mi.is(MB_DORMANT)
+-        || mi.is(MB_UNAWARE) || mi.is(MB_WANDERING)))
++        if (i == 0)
++            result = items[i];
++        else
+         {
+-            result << _monster_notice_chance(mi);
++            result.key = "first";
++            auto next = items[i]; next.key = "second";
++            result = zh_message_arg("resists", i + 1 == items.size()
++                ? "monster.special.list.semicolon_and" : "monster.special.list.semicolon",
++                {result, next});
+         }
+     }
++    result.key = "resists";
++    return result;
++}
++
++static ZhArg _monster_habitat_message(const monster_info& mi)
++{
++    const monster_type type = mons_is_draconian_job(mi.type)
++                              ? mi.draconian_subspecies() : mi.type;
++    if (mons_class_is_stationary(type))
++        return {"habitat", ZhArgType::Text, "", ""};
++    const auto subject = _special_monster_subject(mi);
++    switch (mons_habitat_type(type, mi.base_type))
++    {
++    case HT_AMPHIBIOUS:
++        return zh_message_arg("habitat", mi.type == MONS_ORC_APOSTLE
++            ? "monster.special.habitat.walk_water" : "monster.special.habitat.water", {subject});
++    case HT_AMPHIBIOUS_LAVA:
++        return zh_message_arg("habitat", "monster.special.habitat.lava", {subject});
++    default:
++        return {"habitat", ZhArgType::Text, "", ""};
++    }
++}
++
++static ZhArg _monster_speed_message(const monster_info& mi)
++{
++    const int speed = mi.base_speed();
++    if (!speed)
++        return {"speed", ZhArgType::Text, "", ""};
++    const mon_energy_usage default_energy = DEFAULT_ENERGY;
++    const int travel_delay = mi.menergy.move * 10 / speed;
++    const int travel_delay_diff = mons_class_flag(mi.type, M_STATIONARY) ? 0
++        : travel_delay - player_movement_speed(false, false);
++    if (speed == 10 && mi.menergy == default_energy && !travel_delay_diff)
++        return {"speed", ZhArgType::Text, "", ""};
++    auto result = zh_message_arg("speed", "monster.special.speed.base",
++                                 {zh_integer("speed", speed * 10)});
++    vector<ZhArg> unusuals;
++    auto add_energy = [&](int energy, const char* id) {
++        if (energy != 10)
++        {
++            ASSERT(energy);
++            unusuals.push_back(zh_message_arg("action", id,
++                {zh_integer("speed", speed * 100 / energy)}));
++        }
++    };
++    add_energy(mi.menergy.attack, "monster.special.speed.attack");
++    add_energy(mi.menergy.missile, "monster.special.speed.shoot");
++    add_energy(mi.menergy.move, "monster.special.speed.travel");
++    if (mi.menergy.swim != mi.menergy.move)
++        add_energy(mi.menergy.swim, "monster.special.speed.swim");
++    add_energy(mi.menergy.spell, mi.is_priest() ? "monster.special.speed.pray"
++                                             : "monster.special.speed.magic");
++    if (!unusuals.empty())
++    {
++        // The engine uses comma separators for every energy entry, including
++        // the last; keep this immutable structure separate from prose lists.
++        ZhArg actions("actions", ZhArgType::Text, "", "");
++        for (const auto& action : unusuals)
++        {
++            if (actions.canonical.empty())
++                actions = action;
++            else
++            {
++                actions.key = "first";
++                auto next = action; next.key = "second";
++                actions = zh_message_arg("actions", "target.monster.join.comma", {actions, next});
++            }
++        }
++        actions.key = "actions";
++        result = zh_message_arg("speed", "monster.special.speed.energy", {result, actions});
++    }
++    if (mi.type == MONS_SIXFIRHY || mi.type == MONS_JIANGSHI)
++        result = zh_message_arg("speed", "monster.special.speed.pauses", {result});
++    else if (travel_delay_diff)
++        result = zh_message_arg("speed", travel_delay_diff > 0
++            ? "monster.special.speed.slower" : "monster.special.speed.faster", {result});
++    return result;
++}
+ 
++static string _monster_intrinsic_prose(const monster_info& mi, resists_t resist)
++{
++    ostringstream result;
+     const mon_resist_flags special_resists[] =
+     {
+         MR_RES_STEAM,     MR_RES_CORR,
+         MR_RES_DAMNATION, MR_RES_MIASMA,  MR_RES_TORMENT,
+     };
+ 
+-    vector<string> extreme_resists;
+-    vector<string> high_resists;
+-    vector<string> base_resists;
+-    vector<string> suscept;
++    vector<ZhArg> extreme_resists;
++    vector<ZhArg> high_resists;
++    vector<ZhArg> base_resists;
++    vector<ZhArg> suscept;
+ 
+     for (mon_resist_flags rflags : special_resists)
+     {
+@@ -6353,7 +7054,7 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+ 
+         if (level != 0)
+         {
+-            const char* attackname = _get_resist_name(rflags);
++            const auto attackname = _special_resist_atom(rflags);
+             if (rflags == MR_RES_DAMNATION || rflags == MR_RES_TORMENT)
+                 level = 3; // one level is immunity
+             level = max(level, -1);
+@@ -6377,119 +7078,70 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+     }
+ 
+     if (mi.is(MB_UNBLINDABLE))
+-        extreme_resists.emplace_back("blinding");
++        extreme_resists.push_back(zh_message_arg("attack", "monster.special.resist.atom.blinding"));
+     // Resists flooding but still dies on falling into deep water.
+     if (mi.is(MB_RES_DROWN))
+-        base_resists.emplace_back("drowning");
++        base_resists.push_back(zh_message_arg("attack", "monster.special.resist.atom.drowning"));
+ 
+     if (mi.props.exists(CLOUD_IMMUNE_MB_KEY) && mi.props[CLOUD_IMMUNE_MB_KEY])
+-        extreme_resists.emplace_back("clouds of all kinds");
++        extreme_resists.push_back(zh_message_arg("attack", "monster.special.resist.atom.clouds"));
+ 
+-    vector<string> resist_descriptions;
++    vector<ZhArg> resist_descriptions;
+     if (!extreme_resists.empty())
+-    {
+-        const string tmp = "immune to "
+-            + comma_separated_line(extreme_resists.begin(),
+-                                   extreme_resists.end());
+-        resist_descriptions.push_back(tmp);
+-    }
++        resist_descriptions.push_back(zh_message_arg("resist", "monster.special.resist.clause.immune",
++            {zh_message_list("attacks", extreme_resists)}));
+     if (!high_resists.empty())
+-    {
+-        const string tmp = "very resistant to "
+-            + comma_separated_line(high_resists.begin(), high_resists.end());
+-        resist_descriptions.push_back(tmp);
+-    }
++        resist_descriptions.push_back(zh_message_arg("resist", "monster.special.resist.clause.high",
++            {zh_message_list("attacks", high_resists)}));
+     if (!base_resists.empty())
+-    {
+-        const string tmp = "resistant to "
+-            + comma_separated_line(base_resists.begin(), base_resists.end());
+-        resist_descriptions.push_back(tmp);
+-    }
++        resist_descriptions.push_back(zh_message_arg("resist", "monster.special.resist.clause.base",
++            {zh_message_list("attacks", base_resists)}));
+ 
+-    const char* pronoun = mi.pronoun(PRONOUN_SUBJECTIVE);
++    const auto subject = _special_monster_subject(mi);
+     const bool plural = mi.pronoun_plurality();
+ 
+     if (mi.has_unusual_items())
+     {
+-        const vector<string> unusual_items = mi.get_unusual_items();
+-
+-        result << uppercase_first(pronoun) << " ";
+-        (!mons_class_is_animated_weapon(mi.type) ?
+-            result << conjugate_verb("have", plural)
+-                   << " an unusual item: "
+-                   << comma_separated_line(unusual_items.begin(),
+-                                           unusual_items.end()) :
+-            result << conjugate_verb("are", plural)
+-                   << " an unusual item")
+-               << ".\n";
++        vector<ZhArg> items;
++        for (unsigned int i = 0; i <= MSLOT_LAST_VISIBLE_SLOT; ++i)
++        {
++            if (!mi.inv[i] || !item_is_unusual(*mi.inv[i])) continue;
++            auto item = zh_item_arg("item", *mi.inv[i], DESC_A);
++            item.canonical = mi.inv[i]->name(DESC_A, false, false, true, false);
++            if (!item.supported) item.localized = item.canonical;
++            items.push_back(item);
++        }
++        result << (!mons_class_is_animated_weapon(mi.type)
++            ? zh_message(plural ? "monster.special.items.plural" : "monster.special.items.singular",
++                         {subject, zh_message_list("items", items)})
++            : zh_message(plural ? "monster.special.animated_item.plural" : "monster.special.animated_item.singular",
++                         {subject})).display();
+     }
+ 
+     if (!resist_descriptions.empty())
+-    {
+-        result << uppercase_first(pronoun) << " "
+-               << conjugate_verb("are", plural) << " "
+-               << comma_separated_line(resist_descriptions.begin(),
+-                                       resist_descriptions.end(),
+-                                       "; and ", "; ")
+-               << ".\n";
+-    }
++        result << zh_message(plural ? "monster.special.resists.plural" : "monster.special.resists.singular",
++                             {subject, _special_resist_list(resist_descriptions)}).display();
+ 
+     // Is monster susceptible to anything? (On a new line.)
+     if (!suscept.empty())
+-    {
+-        result << uppercase_first(pronoun) << " "
+-               << conjugate_verb("are", plural) << " susceptible to "
+-               << comma_separated_line(suscept.begin(), suscept.end())
+-               << ".\n";
+-    }
+-
++        result << zh_message(plural ? "monster.special.susceptible.plural" : "monster.special.susceptible.singular",
++                             {subject, zh_message_list("attacks", suscept)}).display();
+     if (mi.is(MB_CHAOTIC))
+-    {
+-        result << uppercase_first(pronoun) << " "
+-               << conjugate_verb("are", plural)
+-               << " vulnerable to silver and hated by Zin.\n";
+-    }
+-
+-    if (mons_class_flag(mi.type, M_STATIONARY)
+-        && !mons_is_tentacle_or_tentacle_segment(mi.type))
+-    {
+-        result << uppercase_first(pronoun) << " cannot move.\n";
+-    }
+-
+-    if (mons_class_flag(mi.type, M_COLD_BLOOD)
+-        && get_resist(resist, MR_RES_COLD) <= 0)
+-    {
+-        result << uppercase_first(pronoun)
+-               << " " << conjugate_verb("are", plural)
+-               << " cold-blooded and may be slowed by cold attacks.\n";
+-    }
+-
++        result << zh_message(plural ? "monster.special.chaotic.plural" : "monster.special.chaotic.singular", {subject}).display();
++    if (mons_class_flag(mi.type, M_STATIONARY) && !mons_is_tentacle_or_tentacle_segment(mi.type))
++        result << zh_message("monster.special.stationary", {subject}).display();
++    if (mons_class_flag(mi.type, M_COLD_BLOOD) && get_resist(resist, MR_RES_COLD) <= 0)
++        result << zh_message(plural ? "monster.special.cold_blooded.plural" : "monster.special.cold_blooded.singular", {subject}).display();
+     if (mi.can_see_invisible())
+-        result << uppercase_first(pronoun) << " can see invisible.\n";
+-
++        result << zh_message("monster.special.see_invisible", {subject}).display();
+     if (mons_class_flag(mi.type, M_BURROWS))
+-        result << uppercase_first(pronoun) << " can burrow through diggable terrain.\n";
+-
++        result << zh_message("monster.special.burrow", {subject}).display();
+     if (mons_class_flag(mi.type, M_ACID_SPLASH))
+-    {
+-        result << uppercase_first(pronoun) << " "
+-               << conjugate_verb("inflict", plural)
+-               << " 1d5 acid damage when struck in melee.\n";
+-    }
+-
+-    // Insubstantialness should take priority.
++        result << zh_message(plural ? "monster.special.acid_splash.plural" : "monster.special.acid_splash.singular", {subject}).display();
+     if (mons_class_flag(mi.type, M_INSUBSTANTIAL))
+-    {
+-        result << uppercase_first(pronoun) << " "
+-               << conjugate_verb("are", plural)
+-               << " insubstantial and immune to ensnarement.\n";
+-    }
++        result << zh_message(plural ? "monster.special.insubstantial.plural" : "monster.special.insubstantial.singular", {subject}).display();
+     else if (mons_class_flag(mi.type, M_AMORPHOUS))
+-    {
+-        result << uppercase_first(pronoun) << " "
+-               << conjugate_verb("are", plural)
+-               << " amorphous and immune to ensnarement.\n";
+-    }
++        result << zh_message(plural ? "monster.special.amorphous.plural" : "monster.special.amorphous.singular", {subject}).display();
+ 
+     // XXX: could mention "immune to dazzling" here, but that's spammy, since
+     // it's true of such a huge number of monsters. (undead, statues, plants).
+@@ -6497,28 +7149,20 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+     // information about holiness.......?
+ 
+     if (mi.type == MONS_SHADOWGHAST)
+-    {
+-        // Cf. monster::action_energy() in monster.cc.
+-        result << uppercase_first(pronoun) << " "
+-               << conjugate_verb("cover", plural)
+-               << " ground more quickly when invisible.\n";
+-    }
+-
++        result << zh_message(plural ? "monster.special.shadowghast.plural" : "monster.special.shadowghast.singular", {subject}).display();
+     if (mi.type == MONS_ROYAL_JELLY)
+     {
+-        result << "It will release varied jellies when damaged or killed, with"
+-            " the number of jellies proportional to the amount of damage.\n";
+-        result << "It will release all of its jellies when polymorphed.\n";
++        result << zh_message("monster.special.royal_jelly.damage").display();
++        result << zh_message("monster.special.royal_jelly.polymorph").display();
+     }
+-
+     if (mi.type == MONS_STAR_JELLY)
+     {
+-        dice_def dmg = zap_damage(ZAP_SHOOTING_STAR, 150, true, false);
+-        result << "Shooting star damage: " << dmg.num << "d" << dmg.size << " (x3)\n";
++        const dice_def dmg = zap_damage(ZAP_SHOOTING_STAR, 150, true, false);
++        result << zh_message("monster.special.star_damage",
++            {zh_integer("dice", dmg.num), zh_integer("sides", dmg.size)}).display();
+     }
+-
+     if (mi.airborne())
+-        result << uppercase_first(pronoun) << " can fly.\n";
++        result << zh_message("monster.special.fly", {subject}).display();
+ 
+     if (in_good_standing(GOD_ZIN, 0) && !mi.pos.origin() && monster_at(mi.pos))
+     {
+@@ -6526,27 +7170,14 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+         monster *m = monster_at(mi.pos);
+         auto eligibility = zin_check_recite_to_single_monster(m, retval);
+         if (eligibility == RE_INELIGIBLE)
+-        {
+-            result << uppercase_first(pronoun) <<
+-                    " cannot be affected by reciting Zin's laws.";
+-        }
++            result << zh_message("monster.special.zin_ineligible", {subject}).display();
+         else if (eligibility == RE_TOO_STRONG)
+-        {
+-            result << uppercase_first(pronoun) << " "
+-                   << conjugate_verb("are", plural)
+-                   << " too strong to be affected by reciting Zin's laws.";
+-        }
+-        else // RE_ELIGIBLE || RE_RECITE_TIMER
+-        {
+-            result << uppercase_first(pronoun) <<
+-                            " can be affected by reciting Zin's laws.";
+-        }
+-
++            result << zh_message(plural ? "monster.special.zin_strong.plural" : "monster.special.zin_strong.singular", {subject}).display();
++        else
++            result << zh_message("monster.special.zin_eligible", {subject}).display();
+         if (you.wizard)
+-        {
+-            result << " (Recite power:" << zin_recite_power()
+-                   << ", Hit dice:" << mi.hd << ")";
+-        }
++            result << zh_message("monster.special.zin_debug",
++                {zh_integer("power", zin_recite_power()), zh_integer("hd", mi.hd)}).display();
+         result << "\n";
+     }
+ 
+@@ -6556,30 +7187,87 @@ static string _monster_stat_description(const monster_info& mi, bool mark_spells
+     if (mi.type == MONS_BATTLESPHERE)
+     {
+         const dice_def dam = battlesphere_damage_from_hd(mi.hd);
+-        result << "Projectile damage: " << dam.num << "d" << dam.size << "\n";
++        result << zh_message("monster.special.projectile_damage",
++            {zh_integer("dice", dam.num), zh_integer("sides", dam.size)}).display();
+     }
+ 
+     // Flying monsters can't be forced to fall into liquids these days.
      if (!(mi.airborne()))
-         result << _monster_habitat_description(mi);
+-        result << _monster_habitat_description(mi);
++        result << _special_detail_display(_monster_habitat_message(mi));
++
++
++    return result.str();
++}
++
++static string _monster_stat_description(const monster_info& mi, bool mark_spells)
++{
++    if (mons_is_sensed(mi.type) || mons_is_projectile(mi.type))
++        return "";
++
++    ostringstream result;
++
++    TablePrinter pr;
++
++    pr.AddRow();
++    pr.AddCell("Max HP", mi.get_max_hp_desc());
++    pr.AddCell("Will", _describe_monster_wl(mi));
++    pr.AddCell("AC", _build_bar(mi.ac, 5));
++    pr.AddCell("EV", _build_bar(mi.base_ev, 5));
++    if (mi.sh / 2 > 0)  // rescale to match player SH
++        pr.AddCell("SH", _build_bar(mi.sh / 2, 5));
++    else
++        pr.AddCell(); // ensure alignment
++
++    const resists_t resist = mi.resists();
++    _add_resist_desc(pr, resist);
++
++    // Less important common properties. Arguably should be lower down.
++    const size_type sz = mi.body_size();
++    const auto size_message = _monster_detail_size_message(sz);
++    const string size_desc = ZhMessage{size_message.message_id, size_message.canonical,
++                                       size_message.localized}.display();
++    const auto holiness = mons_class_holiness(mi.type);
++    const string holiness_name = holiness == MH_NONLIVING ? "Nonliv."
++                                             : uppercase_first(single_holiness_description(holiness));
++    const string holi = zh_source("detail.monster.table_value", holiness_name.c_str());
++    pr.AddRow();
++    if (mi.threat != MTHRT_UNDEF && !mons_class_is_peripheral(mi.type))
++        pr.AddCell("Threat", _get_threat_desc(mi.threat));
++    else // ?/m
++        pr.AddCell(); // ensure alignment
++    pr.AddCell("Class", uppercase_first(holi).c_str());
++    pr.AddCell("Size", size_desc.c_str());
++    pr.AddCell("Int", zh_source("detail.monster.table_value",
++                                     intelligence_description(mi.intel())));
++    if (mi.is(MB_SICK) || mi.is(MB_NO_REGEN))
++        pr.AddCell("Regen", zh_source("detail.monster.table_value", "None"));
++    else if (mons_class_fast_regen(mi.type) || mi.is(MB_REGENERATION))
++        pr.AddCell("Regen", zh_message("monster.special.regen", {zh_integer("rate", mi.regen_rate(1))}).display());
++                                        // (Wait, what's a 'turn'?)
++
++    pr.Print(result);
++
++    result << _special_detail_display(_monster_speed_message(mi)) << "\n\n";
  
 -    // Hightlight means of interacting with doors.
 -    if (mi.itemuse() > MONUSE_NOTHING && mi.itemuse() != NUM_MONUSE &&
 -        !mons_class_is_stationary(mi.type))
--    {
++    if (crawl_state.game_started)
+     {
 -        if (mon_shape_is_humanoid(get_mon_shape(mi.type)))
 -            result << uppercase_first(pronoun) << " can open doors.\n";
 -        else
--        {
++        const auto hit = _monster_player_hit_message(mi);
++        result << ZhMessage{hit.message_id, hit.canonical, hit.localized}.display();
++    }
++    result << _monster_attacks_description(mi);
++    if (crawl_state.game_started)
++    {
++        if (mi.attitude == ATT_HOSTILE && (mi.is(MB_SLEEPING) || mi.is(MB_DORMANT)
++        || mi.is(MB_UNAWARE) || mi.is(MB_WANDERING)))
+         {
 -            result << "Despite " << mi.pronoun(PRONOUN_POSSESSIVE)
 -                   << " appearance, " << pronoun << " can open doors.\n";
--        }
--    }
++            result << _monster_notice_chance(mi);
+         }
+     }
 -    else if (mons_class_flag(mi.type, M_CRASH_DOORS))
 -        result << uppercase_first(pronoun) << " can crash through doors.\n";
 -    else if (mons_class_flag(mi.type, M_EAT_DOORS))
 -        result << uppercase_first(pronoun) << " can eat doors.\n";
--
+ 
++    result << _monster_intrinsic_prose(mi, resist);
++
 +    const auto doors = _monster_door_message(mi);
 +    result << ZhMessage{doors.message_id, doors.canonical, doors.localized}.display();
      result << _monster_spells_description(mi, mark_spells);
  
      return result.str();
-@@ -6621,14 +7271,44 @@ static string _desc_shooting_star_dam(const monster_info &mi)
+@@ -6621,14 +7309,44 @@ static string _desc_shooting_star_dam(const monster_info &mi)
      return make_stringf("%dd%d", beam.damage.num, beam.damage.size);
  }
  
@@ -50644,7 +51190,7 @@ index 0a381e1..3fe944b 100644
  
      string db_name;
  
-@@ -6646,10 +7326,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6646,10 +7364,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      // Don't get description for player ghosts.
      if (mi.type != MONS_PLAYER_GHOST && mi.type != MONS_PLAYER_ILLUSION)
@@ -50660,7 +51206,7 @@ index 0a381e1..3fe944b 100644
  
      string symbol;
      symbol += get_monster_data(mi.type)->basechar;
-@@ -6660,10 +7343,10 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6660,10 +7381,10 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      if (!mons_is_unique(mi.type))
      {
          string symbol_prefix = "__" + symbol + "_prefix";
@@ -50673,7 +51219,7 @@ index 0a381e1..3fe944b 100644
      }
  
      if (!inf.quote.empty() && !quote2.empty())
-@@ -6697,18 +7380,31 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6697,18 +7418,31 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      }
  
      case MONS_PLAYER_GHOST:
@@ -50709,7 +51255,7 @@ index 0a381e1..3fe944b 100644
  
      case MONS_MUTANT_BEAST:
          // vault renames get their own descriptions
-@@ -6718,30 +7414,45 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6718,30 +7452,39 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      case MONS_BLOCK_OF_ICE:
          if (mi.is(MB_SLOWLY_DYING))
@@ -50747,21 +51293,17 @@ index 0a381e1..3fe944b 100644
  
      case MONS_PROGRAM_BUG:
 -        inf.body << "If this monster is a \"program bug\", then it's "
-+    {
-+        const string description = "If this monster is a \"program bug\", then it's "
-                 "recommended that you save your game and reload. Please report "
-                 "monsters who masquerade as program bugs or run around the "
+-                "recommended that you save your game and reload. Please report "
+-                "monsters who masquerade as program bugs or run around the "
 -                "dungeon without a proper description to the authorities.\n";
-+                "dungeon without a proper description to the authorities.";
-+        inf.body << zh_message("monster.detail.program_bug", {
-+            ZhArg("description", ZhArgType::Text, description, description, false)},
-+            description).display() << "\n";
++    {
++        inf.body << zh_message("monster.special.program_bug").display() << "\n";
          break;
 +    }
  
      default:
          break;
-@@ -6750,13 +7461,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6750,13 +7493,13 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      if (mons_class_is_fragile(mi.type))
      {
          if (mi.is(MB_CRUMBLING))
@@ -50779,7 +51321,7 @@ index 0a381e1..3fe944b 100644
      }
  
      if (!mons_is_unique(mi.type))
-@@ -6765,21 +7476,26 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6765,21 +7508,26 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
          symbol_suffix += symbol;
          symbol_suffix += "_suffix";
  
@@ -50813,7 +51355,7 @@ index 0a381e1..3fe944b 100644
      }
  
      // Get information on resistances, speed, etc.
-@@ -6793,7 +7509,8 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6793,7 +7541,8 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
      bool did_stair_use = false;
      if (!mons_class_can_use_stairs(mi.type))
      {
@@ -50823,7 +51365,7 @@ index 0a381e1..3fe944b 100644
          did_stair_use = true;
      }
  
-@@ -6803,42 +7520,70 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6803,42 +7552,70 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
      if (mi.is(MB_SUMMONED))
      {
@@ -50911,7 +51453,7 @@ index 0a381e1..3fe944b 100644
      }
  
      if (!inf.quote.empty())
-@@ -6950,19 +7695,27 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
+@@ -6950,19 +7727,27 @@ void get_monster_db_desc(const monster_info& mi, describe_info &inf,
  
  static formatted_string _get_monster_status_descriptions(const monster_info& mi)
  {
@@ -50944,7 +51486,7 @@ index 0a381e1..3fe944b 100644
  
          // Wordwrap and indent slightly.
          linebreak_string(lookup, 77);
-@@ -6971,11 +7724,12 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
+@@ -6971,11 +7756,12 @@ static formatted_string _get_monster_status_descriptions(const monster_info& mi)
          out << "   " << lookup << "\n\n";
      }
  
@@ -50958,7 +51500,7 @@ index 0a381e1..3fe944b 100644
      bool has_stat_desc = false;
      describe_info inf;
      formatted_string desc;
-@@ -7000,7 +7754,7 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7000,7 +7786,7 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  #endif
  
      auto title = make_shared<Text>();
@@ -50967,7 +51509,7 @@ index 0a381e1..3fe944b 100644
      title->set_margin_for_sdl(0, 0, 0, 10);
      title_hbox->add_child(std::move(title));
  
-@@ -7009,24 +7763,32 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7009,24 +7795,32 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
      title_hbox->set_margin_for_sdl(0, 0, 20, 0);
      vbox->add_child(std::move(title_hbox));
  
@@ -51006,7 +51548,7 @@ index 0a381e1..3fe944b 100644
      const formatted_string status_desc = _get_monster_status_descriptions(mi);
  
  
-@@ -7037,9 +7799,9 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7037,9 +7831,9 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  
      const string mores[3] =
      {
@@ -51019,7 +51561,7 @@ index 0a381e1..3fe944b 100644
      };
  
      const formatted_string *content[3] = { &desc, &status_desc, &quote };
-@@ -7061,14 +7823,14 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
+@@ -7061,14 +7855,14 @@ int describe_monster(const monster_info &mi, const string& /*footer*/)
  
          string more = make_stringf("%s%s%s", mores[i].c_str(),
              !status_desc.empty()
@@ -51037,7 +51579,7 @@ index 0a381e1..3fe944b 100644
      }
  
      more_sw->set_margin_for_sdl(20, 0, 0, 0);
-@@ -7279,11 +8041,14 @@ string get_ghost_description(const monster_info &mi, bool concise)
+@@ -7279,11 +8073,14 @@ string get_ghost_description(const monster_info &mi, bool concise)
  
  void describe_skill(skill_type skill)
  {
@@ -51054,7 +51596,7 @@ index 0a381e1..3fe944b 100644
  }
  
  #ifdef USE_TILE_LOCAL // only used in tiles
-@@ -7472,7 +8237,85 @@ static void _desc_form_val(TablePrinter& pr, string label, int val)
+@@ -7472,7 +8269,85 @@ static void _desc_form_val(TablePrinter& pr, string label, int val)
      pr.AddCell(label, make_stringf("%+d", val).c_str(), val < 0 ? RED : LIGHTGREY);
  }
  
@@ -51141,7 +51683,7 @@ index 0a381e1..3fe944b 100644
  {
      const Form* form = get_form(form_type);
  
-@@ -7540,53 +8383,31 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7540,53 +8415,31 @@ static string _describe_talisman_form(transformation form_type)
          _maybe_populate_form_table(items, bind(&Form::get_effect_chance, form, placeholders::_1), "Daze Power", skill, 0, false, false);
      }
  
@@ -51210,7 +51752,7 @@ index 0a381e1..3fe944b 100644
  
      _desc_form_val(pr, "Str", form->str_mod);
      _desc_form_val(pr, "Dex", form->dex_mod);
-@@ -7628,7 +8449,7 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7628,7 +8481,7 @@ static string _describe_talisman_form(transformation form_type)
      else if (form_type == transformation::sphinx)
      {
          if (!you.has_mutation(MUT_NO_ARMOUR))
@@ -51219,7 +51761,7 @@ index 0a381e1..3fe944b 100644
          pr.AddCell("Will", "+");
      }
      else if (form_type == transformation::werewolf)
-@@ -7652,10 +8473,22 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7652,10 +8505,22 @@ static string _describe_talisman_form(transformation form_type)
          pr.Print(description);
      }
  
@@ -51246,7 +51788,7 @@ index 0a381e1..3fe944b 100644
  
      // Mutation suppression info
      vector<string> changes;
-@@ -7672,16 +8505,41 @@ static string _describe_talisman_form(transformation form_type)
+@@ -7672,16 +8537,41 @@ static string _describe_talisman_form(transformation form_type)
  
      if (!changes.empty())
      {
@@ -53051,7 +53593,7 @@ index c9704ed..f438214 100644
  spret wu_jian_wall_jump_ability();
  void wu_jian_heavenly_storm();
 diff --git a/crawl-ref/source/hints.cc b/crawl-ref/source/hints.cc
-index 9f18733..c8e9eda 100644
+index 9f18733..9fae2b6 100644
 --- a/crawl-ref/source/hints.cc
 +++ b/crawl-ref/source/hints.cc
 @@ -6,6 +6,9 @@
@@ -53099,29 +53641,221 @@ index 9f18733..c8e9eda 100644
      string text = getHintString(key);
      if (text.empty())
          mprf(MSGCH_ERROR, "Error, no hint for '%s'.", key.c_str());
-@@ -502,6 +526,21 @@ static string _get_hint(string key, const string& arg1 = "", const string& arg2
+@@ -500,8 +524,94 @@ static string _get_hint(string key, const string& arg1 = "", const string& arg2
+  * @param arg1 A string that can be inserted into the hint message.
+  * @param arg2 Another string that can be inserted into the hint message.
   */
++void print_hint(const ZhMessage& message)
++{
++    const vector<string> canonical = split_string("\n", message.canonical);
++    const vector<string> localized = split_string("\n", message.localized);
++    if (canonical.size() != localized.size())
++        mpr(message, MSGCH_TUTORIAL);
++    else
++        for (size_t i = 0; i < canonical.size(); ++i)
++            mpr(ZhMessage{message.id, canonical[i], localized[i]}, MSGCH_TUTORIAL);
++    stop_running();
++}
++
++static ZhMessage _prepare_encounter_hint(ZhMessage message)
++{
++    // UI authoring tags and key commands are structure, never prose. Fixed
++    // templates are selected before this platform-specific presentation pass.
++    message.canonical = untag_tiles_console(message.canonical);
++    message.localized = untag_tiles_console(message.localized);
++    message.canonical = replace_all(message.canonical, "\n\n", "\n");
++    message.localized = replace_all(message.localized, "\n\n", "\n");
++    return message;
++}
++
++static ZhArg _encounter_hint_key(const char *key, command_type command)
++{
++    string mapped = command_to_string(command);
++    if (mapped == "<")
++        mapped += "<";
++    return zh_key_markup(key, "<w>" + mapped + "</w>");
++}
++
++static ZhArg _encounter_monster_glyph(const monster_info& info)
++{
++    const auto glyph = get_mons_glyph(info);
++    string symbol = stringize_glyph(glyph.ch);
++    if (glyph.ch == '<')
++        symbol += "<";
++    return zh_message_arg("glyph", "hint.encounter.glyph", {
++        zh_colour("colour", colour_to_str(glyph.col)), zh_key_markup("glyph", symbol)});
++}
++
++static ZhMessage _encounter_database_hint_message(const string& key,
++                                                   ZhArg monster = ZhArg(), ZhArg glyph = ZhArg())
++{
++    if (key == "HINT_MONSTER_UNUSUAL")
++        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_monster_unusual", {
++            _encounter_hint_key("look_key", CMD_LOOK_AROUND)}));
++    if (key == "HINT_MONSTER_FRIENDLY")
++        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_monster_friendly", {
++            _encounter_hint_key("shout_key", CMD_SHOUT)}));
++    if (key == "HINT_MONSTER_LEFT_LOS")
++    {
++        monster.key = "monster";
++        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_monster_left_los", {monster}));
++    }
++    if (key == "HINT_SEEN_ZERO_EXP_MON")
++    {
++        monster.key = "monster";
++        glyph.key = "glyph";
++        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_seen_zero_exp_mon", {glyph, monster}));
++    }
++    if (key == "HINT_TEMPORARILY_FRIENDLY")
++        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_temporarily_friendly"));
++    if (key == "HINT_MONSTER_SHOUTED_UNSEEN")
++        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_monster_shouted_unseen"));
++    if (key == "HINT_MONSTER_SHOUTED_SEEN")
++        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_monster_shouted_seen"));
++    if (key == "HINT_MONSTER_NO_SHOUT")
++        return _prepare_encounter_hint(zh_message("hint.encounter.db.hint_monster_no_shout"));
++    die("Invalid semantic encounter hint key");
++}
++
  void print_hint(string key, const string& arg1, const string& arg2)
  {
 +    if (key == "HINT_SEEN_FIRST_OBJECT")
 +    {
-+        const ZhMessage message = _pickup_hint_message(arg1);
-+        // Keep canonical English in message history as well as selected Chinese.
-+        // If reviewed paragraph counts differ, output the whole envelope.
-+        const vector<string> canonical = split_string("\n", message.canonical);
-+        const vector<string> localized = split_string("\n", message.localized);
-+        if (canonical.size() != localized.size())
-+            mpr(message, MSGCH_TUTORIAL);
-+        else
-+            for (size_t i = 0; i < canonical.size(); ++i)
-+                mpr(ZhMessage{message.id, canonical[i], localized[i]}, MSGCH_TUTORIAL);
-+        stop_running();
++        print_hint(_pickup_hint_message(arg1));
++        return;
++    }
++    // Only context-free fixed hints can use the canonical string overload.
++    // Name/glyph-bearing producers below pass real semantic arguments instead.
++    if (key == "HINT_MONSTER_UNUSUAL" || key == "HINT_MONSTER_FRIENDLY"
++        || key == "HINT_TEMPORARILY_FRIENDLY" || key == "HINT_MONSTER_SHOUTED_UNSEEN"
++        || key == "HINT_MONSTER_SHOUTED_SEEN" || key == "HINT_MONSTER_NO_SHOUT")
++    {
++        print_hint(_encounter_database_hint_message(key));
 +        return;
 +    }
      string text = _get_hint(key, arg1, arg2);
  
      // "\n" preserves indented parts and paragraphs
-@@ -955,7 +994,9 @@ void hints_first_item(const item_def &item)
+@@ -802,6 +912,31 @@ static bool _advise_use_wand()
+     return false;
+ }
+ 
++static ZhMessage _first_monster_hint_message(const monster& mon,
++                                                const monster_info& info)
++{
++    if (is_tiles())
++        return zh_message("hint.encounter.first.tiles", {
++            zh_monster_arg("monster", mon, DESC_A)});
++    return zh_message(crawl_view.mlistsz.y > 0
++        ? "hint.encounter.first.console_list" : "hint.encounter.first.console",
++        {_encounter_monster_glyph(info)});
++}
++
++static ZhMessage _first_monster_followup_message()
++{
++    if (Hints.hints_type == HINT_RANGER_CHAR)
++    {
++        const bool ready = you.weapon() && you.weapon()->base_type == OBJ_WEAPONS
++            && you.weapon()->sub_type == WPN_SHORTBOW;
++        return _prepare_encounter_hint(zh_message(ready
++            ? "hint.encounter.hunter.ready" : "hint.encounter.hunter.wield"));
++    }
++    if (Hints.hints_type == HINT_MAGIC_CHAR)
++        return _prepare_encounter_hint(zh_message("hint.encounter.magic"));
++    return {};
++}
++
+ void hints_monster_seen(const monster& mon)
+ {
+     if (mon.is_firewood())
+@@ -853,81 +988,13 @@ void hints_monster_seen(const monster& mon)
+     // need to highlight monster
+     const coord_def gc = mon.pos();
+     tiles.place_cursor(CURSOR_TUTORIAL, gc);
+-    tiles.add_text_tag(TAG_TUTORIAL, mi);
++    tiles.add_text_tag(TAG_TUTORIAL, zh_monster_display(mon, DESC_A), gc, true);
+ #endif
+ 
+-    string text = "That ";
+-
+-    if (is_tiles())
+-    {
+-        text +=
+-            "monster is " + mon.name(DESC_A) +
+-            ". You can learn about any monster by hovering your mouse over it,"
+-            " and read its description by <w>right-clicking</w> on it.";
+-    }
+-    else
+-    {
+-        text +=
+-            glyph_to_tagstr(get_mons_glyph(mi)) +
+-            " is a monster, usually depicted by a letter. Some typical "
+-            "early monsters look like <brown>r</brown>, <green>l</green>, "
+-            "<brown>K</brown> or <lightgrey>g</lightgrey>. ";
+-        if (crawl_view.mlistsz.y > 0)
+-        {
+-            text += "Your console settings allowing, you'll always see a "
+-                    "list of monsters somewhere on the screen.\n";
+-        }
+-        text += "You can gain information about it by pressing <w>x</w> and "
+-                "moving the cursor over the monster, and read the monster "
+-                "description by then pressing <w>v</w>. ";
+-    }
+-
+-    text += "\nTo attack this monster with your wielded weapon, just move "
+-            "into it. ";
+-    if (is_tiles())
+-    {
+-        text +=
+-            "Note that as long as there's a non-friendly monster in view you "
+-            "won't be able to automatically move to distant squares, to avoid "
+-            "death by misclicking.";
+-    }
+-
+-    mprf(MSGCH_TUTORIAL, "%s", text.c_str());
+-
+-    if (Hints.hints_type == HINT_RANGER_CHAR)
+-    {
+-        text =  "However, as a hunter you will want to deal with it using your "
+-                "bow. If you have a look at your shortbow from your "
+-                "<w>i</w>nventory, you'll find an explanation of how to do "
+-                "this. ";
+-
+-        if (!you.weapon()
+-            || you.weapon()->base_type != OBJ_WEAPONS
+-            || you.weapon()->sub_type != WPN_SHORTBOW)
+-        {
+-            text += "First <w>w</w>ield it, then follow the instructions."
+-                "<tiles>\nAs a short-cut you can also <w>right-click</w> on your "
+-                "shortbow to read its description, and <w>left-click</w> to wield "
+-                "it.</tiles>";
+-        }
+-        else
+-        {
+-            text += "<tiles>Clicking with your <w>right mouse button</w> on your "
+-                    "shortbow will also let you read its description.</tiles>";
+-        }
+-
+-        mprf(MSGCH_TUTORIAL, "%s", untag_tiles_console(text).c_str());
+-
+-    }
+-    else if (Hints.hints_type == HINT_MAGIC_CHAR)
+-    {
+-        text =  "However, as a conjurer you will want to deal with it using "
+-                "magic. If you look at the help entry for the "
+-                "<w>M</w>emorisation screen you'll find an explanation of how "
+-                "to do this.";
+-        mprf(MSGCH_TUTORIAL, "%s", untag_tiles_console(text).c_str());
+-
+-    }
++    mpr(_first_monster_hint_message(mon, mi), MSGCH_TUTORIAL);
++    const auto followup = _first_monster_followup_message();
++    if (!followup.id.empty())
++        mpr(followup, MSGCH_TUTORIAL);
+ }
+ 
+ void hints_first_item(const item_def &item)
+@@ -955,7 +1022,9 @@ void hints_first_item(const item_def &item)
  #ifdef USE_TILE
      const coord_def gc = item.pos;
      tiles.place_cursor(CURSOR_TUTORIAL, gc);
@@ -53132,7 +53866,64 @@ index 9f18733..c8e9eda 100644
  #endif
  
      print_hint("HINT_SEEN_FIRST_OBJECT",
-@@ -1973,67 +2014,80 @@ string hints_memorise_info()
+@@ -1594,7 +1663,7 @@ void learned_something_new(hints_event_type seen_what, coord_def gc)
+ #ifdef USE_TILE
+         tiles.place_cursor(CURSOR_TUTORIAL, gc);
+         if (const monster* m = monster_at(gc))
+-            tiles.add_text_tag(TAG_TUTORIAL, m->name(DESC_A), gc);
++            tiles.add_text_tag(TAG_TUTORIAL, zh_monster_display(*m, DESC_A), gc, true);
+ #endif
+         print_hint("HINT_MONSTER_UNUSUAL");
+         break;
+@@ -1608,7 +1677,7 @@ void learned_something_new(hints_event_type seen_what, coord_def gc)
+ 
+ #ifdef USE_TILE
+         tiles.place_cursor(CURSOR_TUTORIAL, gc);
+-        tiles.add_text_tag(TAG_TUTORIAL, m->name(DESC_A), gc);
++        tiles.add_text_tag(TAG_TUTORIAL, zh_monster_display(*m, DESC_A), gc, true);
+ #endif
+         print_hint("HINT_MONSTER_FRIENDLY");
+ 
+@@ -1639,7 +1708,7 @@ void learned_something_new(hints_event_type seen_what, coord_def gc)
+         if (vis)
+         {
+             tiles.place_cursor(CURSOR_TUTORIAL, gc);
+-            tiles.add_text_tag(TAG_TUTORIAL, m->name(DESC_A), gc);
++            tiles.add_text_tag(TAG_TUTORIAL, zh_monster_display(*m, DESC_A), gc, true);
+         }
+ #endif
+         if (!vis)
+@@ -1658,8 +1727,11 @@ void learned_something_new(hints_event_type seen_what, coord_def gc)
+         if (!m || !you.can_see(*m))
+             DELAY_EVENT;
+ 
+-        string mon_name = m->name(DESC_THE, true);
+-        print_hint("HINT_MONSTER_LEFT_LOS", mon_name);
++        auto name = zh_monster_arg("monster", *m, DESC_THE);
++        name.canonical = m->name(DESC_THE, true);
++        if (!name.supported)
++            name.localized = name.canonical;
++        print_hint(_encounter_database_hint_message("HINT_MONSTER_LEFT_LOS", name));
+         break;
+     }
+ 
+@@ -1675,9 +1747,12 @@ void learned_something_new(hints_event_type seen_what, coord_def gc)
+         if (!mi)
+             DELAY_EVENT;
+ 
+-        print_hint("HINT_SEEN_ZERO_EXP_MON",
+-                   glyph_to_tagstr(get_mons_glyph(*mi)),
+-                   mi->proper_name(DESC_A));
++        auto name = zh_monster_info_arg("monster", *mi, DESC_A);
++        name.canonical = mi->proper_name(DESC_A);
++        if (!name.supported)
++            name.localized = name.canonical;
++        print_hint(_encounter_database_hint_message("HINT_SEEN_ZERO_EXP_MON", name,
++                                                  _encounter_monster_glyph(*mi)));
+         break;
+     }
+ 
+@@ -1973,67 +2048,80 @@ string hints_memorise_info()
      return text.str();
  }
  
@@ -53264,7 +54055,7 @@ index 9f18733..c8e9eda 100644
  }
  
  // num_old_talents describes the number of activatable abilities you had
-@@ -2056,350 +2110,216 @@ void check_item_hint(const item_def &item, unsigned int num_old_talents)
+@@ -2056,350 +2144,216 @@ void check_item_hint(const item_def &item, unsigned int num_old_talents)
  // special effects, etc.
  string hints_describe_item(const item_def &item)
  {
@@ -53317,7 +54108,10 @@ index 9f18733..c8e9eda 100644
 -            }
 -
 -            if (!item_is_equipped(item))
--            {
++            if (gives_ability(item))
++                emit("item.hints.weapon.artefact.ability", {_item_hint_abilities(item)});
++            else if (gives_resistance(item))
+             {
 -                ostr << "You can wield this weapon with <w>%</w>, or use "
 -                        "<w>%</w> to switch between the weapons in slot "
 -                        "a and b. (Use <w>%i</w> to adjust item slots.)";
@@ -53351,12 +54145,11 @@ index 9f18733..c8e9eda 100644
 -
 -                    cmd.push_back(CMD_DISPLAY_SKILLS);
 -                }
--            }
++                ostr << "\n";
++                resistance("item.hints.weapon.artefact.resistance");
+             }
 -            else // wielded weapon
-+            if (gives_ability(item))
-+                emit("item.hints.weapon.artefact.ability", {_item_hint_abilities(item)});
-+            else if (gives_resistance(item))
-             {
+-            {
 -                if (is_range_weapon(item))
 -                {
 -                    ostr << "To attack a monster, ";
@@ -53370,9 +54163,7 @@ index 9f18733..c8e9eda 100644
 -                }
 -                else
 -                    ostr << "To attack a monster, you can simply walk into it.";
-+                ostr << "\n";
-+                resistance("item.hints.weapon.artefact.resistance");
-             }
+-            }
 -
 -            Hints.hints_events[HINT_SEEN_WEAPON] = false;
 +            else
@@ -53396,6 +54187,14 @@ index 9f18733..c8e9eda 100644
 -            bool wearable = true;
 -            if (you.get_innate_mutation_level(MUT_HORNS) > 0
 -                && is_hard_helmet(item))
+-            {
+-                ostr << "Because of your horns you cannot wear helmets. "
+-                        "(Press <w>%</w> to see a list of your mutations and "
+-                        "innate abilities.)";
+-                cmd.push_back(CMD_DISPLAY_MUTATIONS);
+-                wearable = false;
+-            }
+-            else if (item.sub_type == ARM_BARDING)
 +            emit("item.hints.weapon.unwielded", {
 +                _item_hint_key("wield_key", CMD_WIELD_WEAPON),
 +                _item_hint_key("swap_key", CMD_WEAPON_SWAP),
@@ -53407,10 +54206,7 @@ index 9f18733..c8e9eda 100644
 +                best = SK_UNARMED_COMBAT;
 +            if (you.skills[current] + 2 < you.skills[best])
              {
--                ostr << "Because of your horns you cannot wear helmets. "
--                        "(Press <w>%</w> to see a list of your mutations and "
--                        "innate abilities.)";
--                cmd.push_back(CMD_DISPLAY_MUTATIONS);
+-                ostr << "Only nagas and armataurs can wear barding.";
 -                wearable = false;
 +                ostr << "\n";
 +                emit("item.hints.weapon.training_gap", {
@@ -53418,11 +54214,6 @@ index 9f18733..c8e9eda 100644
 +                    zh_glossary_name("weapon_skill", "skill.name", skill_name(current)),
 +                    _item_hint_key("skills_key", CMD_DISPLAY_SKILLS)});
              }
--            else if (item.sub_type == ARM_BARDING)
--            {
--                ostr << "Only nagas and armataurs can wear barding.";
--                wearable = false;
--            }
 -            else
 -            {
 -                ostr << "You can wear pieces of armour with <w>%</w> and take "
@@ -53583,16 +54374,16 @@ index 9f18733..c8e9eda 100644
 -            if (!tiles.is_fullscreen())
 -              ostr << "Ctrl + Shift keys";
 -            else
--#endif
--              ostr << "Alt key";
 +        if (!tiles.is_fullscreen())
 +            emit("item.hints.wand.tiles.windowed");
 +        else
  #endif
+-              ostr << "Alt key";
++            emit("item.hints.wand.tiles.fullscreen");
+ #endif
 -            ostr << "</w> and pick the wand from the menu, or 2) "
 -                    "<w>left mouse click</w> on the wand tile and then "
 -                    "<w>left mouse click</w> on your target.";
-+            emit("item.hints.wand.tiles.fullscreen");
  #endif
 -            Hints.hints_events[HINT_SEEN_WAND] = false;
 -            break;
@@ -53601,7 +54392,7 @@ index 9f18733..c8e9eda 100644
 -            ostr << "Press <w>%</w> to read this scroll"
 -#ifdef USE_TILE
 -                    "or simply click on it with your <w>left mouse button</w>"
- #endif
+-#endif
 -                    ".";
 -            cmd.push_back(CMD_READ);
 -
@@ -53796,7 +54587,7 @@ index 9f18733..c8e9eda 100644
  }
  
  // FIXME: With the new targeting system, the hints for interesting monsters
-@@ -2698,22 +2618,18 @@ bool hints_monster_interesting(const monster* mons)
+@@ -2698,22 +2652,18 @@ bool hints_monster_interesting(const monster* mons)
      return mons_threat_level(*mons) >= MTHRT_TOUGH;
  }
  
@@ -53823,7 +54614,7 @@ index 9f18733..c8e9eda 100644
          dangerous = true;
      }
      // Don't call friendly monsters dangerous.
-@@ -2721,86 +2637,84 @@ string hints_describe_monster(const monster_info& mi, bool has_stat_desc)
+@@ -2721,86 +2671,84 @@ string hints_describe_monster(const monster_info& mi, bool has_stat_desc)
      {
          if (mi.threat == MTHRT_NASTY)
          {
@@ -53947,10 +54738,19 @@ index 9f18733..c8e9eda 100644
  
  void hints_observe_cell(const coord_def& gc)
 diff --git a/crawl-ref/source/hints.h b/crawl-ref/source/hints.h
-index 6f9fe8f..9c318b2 100644
+index 6f9fe8f..7894575 100644
 --- a/crawl-ref/source/hints.h
 +++ b/crawl-ref/source/hints.h
-@@ -179,6 +179,7 @@ bool hints_pos_interesting(int x, int y);
+@@ -150,6 +150,8 @@ void hints_load_game();
+ 
+ void hints_starting_screen();
+ void hints_new_turn();
++struct ZhMessage;
++void print_hint(const ZhMessage& message);
+ void print_hint(string key, const string& arg1 = "", const string& arg2 = "");
+ void hints_death_screen();
+ void hints_finished();
+@@ -179,6 +181,7 @@ bool hints_pos_interesting(int x, int y);
  string hints_describe_pos(int x, int y);
  bool hints_monster_interesting(const monster* mons);
  string hints_describe_monster(const monster_info& mi, bool has_stat_desc);
@@ -56676,7 +57476,7 @@ index d0fd758..2924cec 100644
      return success;
  }
 diff --git a/crawl-ref/source/player-notices.cc b/crawl-ref/source/player-notices.cc
-index 42ee9e3..1746139 100644
+index 42ee9e3..06f554b 100644
 --- a/crawl-ref/source/player-notices.cc
 +++ b/crawl-ref/source/player-notices.cc
 @@ -5,6 +5,9 @@
@@ -56689,7 +57489,40 @@ index 42ee9e3..1746139 100644
  
  #include "act-iter.h"
  #include "areas.h"
-@@ -214,55 +217,72 @@ static bool _does_core_name_include_inventory(const monster *mon)
+@@ -54,6 +57,23 @@ static bool _try_seen_interrupt(monster& mons, seen_context_type sc)
+     return interrupt_activity(activity_interrupt::see_monster, aid);
+ }
+ 
++static ZhMessage _summoned_alert_message(const monster &mon)
++{
++    return zh_message("monster.event.summoned_alert", {
++        zh_monster_arg("monster", mon, DESC_A)});
++}
++
++static ZhMessage _wyrmbane_alert_message()
++{
++    return zh_message("monster.event.wyrmbane");
++}
++
++static ZhMessage _gozag_incite_message(const monster &mon)
++{
++    return zh_message("monster.event.gozag_incite", {
++        zh_monster_arg("monster", mon, DESC_THE)});
++}
++
+ static bool _check_monster_alert(const monster& mon)
+ {
+     // Beogh-converted orcs may have left the floor on the turn they were encountered.
+@@ -75,7 +95,7 @@ static bool _check_monster_alert(const monster& mon)
+         // And if it wasn't a monster that would get an encounter warning due to
+         // being a summon, make sure to say something.
+         if (mon.is_summoned())
+-            mprf(MSGCH_MONSTER_WARNING, "%s comes into view.", mon.name(DESC_A).c_str());
++            mpr(_summoned_alert_message(mon), MSGCH_MONSTER_WARNING);
+ 
+         more(true);
+         return true;
+@@ -214,55 +234,72 @@ static bool _does_core_name_include_inventory(const monster *mon)
  }
  
  /// Output an equipment warning for newly-seen monsters to 'out'.
@@ -56704,15 +57537,15 @@ index 42ee9e3..1746139 100644
      {
 -        monster_info mi(mon);
 -        if (!_is_mon_equipment_worth_listing(mi, monsters.size() == 1))
-+        const monster_info mi(mon);
-+        if (!_is_mon_equipment_worth_listing(mi, monsters.size() == 1)
-+            || (_does_core_name_include_inventory(mon) && single.count(mon)))
-             continue;
+-            continue;
 -
 -        // Don't repeat inventory. Non-single monsters may be merged, in which
 -        // case the name is just the name of the monster type.
 -        if (_does_core_name_include_inventory(mon) && single.count(mon))
--            continue;
++        const monster_info mi(mon);
++        if (!_is_mon_equipment_worth_listing(mi, monsters.size() == 1)
++            || (_does_core_name_include_inventory(mon) && single.count(mon)))
+             continue;
 -
 -        // Put equipment messages on a new line if there's more than one monster.
 -        // (But skip the leading space if nothing else is in this message.)
@@ -56800,7 +57633,7 @@ index 42ee9e3..1746139 100644
  }
  
  /**
-@@ -345,6 +365,47 @@ static string _describe_monsters_from_species(const vector<details> &species)
+@@ -345,6 +382,47 @@ static string _describe_monsters_from_species(const vector<details> &species)
          });
  }
  
@@ -56848,7 +57681,7 @@ index 42ee9e3..1746139 100644
  /**
   * Return a string listing monsters in a human readable form.
   * E.g. "a hydra and 2 liches".
-@@ -360,38 +421,30 @@ string describe_monsters_condensed(const vector<monster*>& monsters)
+@@ -360,38 +438,30 @@ string describe_monsters_condensed(const vector<monster*>& monsters)
      return _describe_monsters_from_species(species);
  }
  
@@ -56907,7 +57740,7 @@ index 42ee9e3..1746139 100644
  }
  
  /**
-@@ -414,39 +467,32 @@ static void _handle_encounter_messages(const vector<monster*> monsters,
+@@ -414,39 +484,32 @@ static void _handle_encounter_messages(const vector<monster*> monsters,
  
      _count_monster_types(monsters, single, species);
  
@@ -56965,6 +57798,25 @@ index 42ee9e3..1746139 100644
  }
  
  static bool _monster_needs_warning(const monster& mon)
+@@ -637,7 +700,7 @@ void seen_monster(monster* mons, bool do_encounter_message)
+             wyrmbane = offhand_wpn;
+ 
+         if (wyrmbane && mons->dragon_level() > wyrmbane->plus)
+-            mpr("<green>Wyrmbane glows as a worthy foe approaches.</green>");
++            mpr(_wyrmbane_alert_message());
+     }
+ 
+     // attempt any god conversions on first sight
+@@ -679,8 +742,7 @@ void seen_monster(monster* mons, bool do_encounter_message)
+         && coinflip()
+         && mons->get_experience_level() >= random2(you.experience_level))
+     {
+-        mprf(MSGCH_GOD, GOD_GOZAG, "Gozag incites %s against you.",
+-                mons->name(DESC_THE).c_str());
++        mpr(_gozag_incite_message(*mons), MSGCH_GOD, GOD_GOZAG);
+         gozag_incite(mons);
+     }
+ 
 diff --git a/crawl-ref/source/player.cc b/crawl-ref/source/player.cc
 index 982b651..f880d1c 100644
 --- a/crawl-ref/source/player.cc
@@ -60545,6 +61397,201 @@ index b06d658..914319f 100644
 +                mpr(zh_message("log.shopping.fixed.3334ec72908c"));
                  return false;
              }
+ 
+diff --git a/crawl-ref/source/shout.cc b/crawl-ref/source/shout.cc
+index d7e790e..8da4dea 100644
+--- a/crawl-ref/source/shout.cc
++++ b/crawl-ref/source/shout.cc
+@@ -6,6 +6,8 @@
+ #include "AppHdr.h"
+ 
+ #include "shout.h"
++#include "zh-message.h"
++#include "zh-display-name.h"
+ 
+ #include <sstream>
+ 
+@@ -150,6 +152,116 @@ bool monster_attempt_shout(monster &mon)
+  * @param mons      The monster in question.
+  * @param shout    The shout_type to use.
+  */
++// Bind complete, unformatted DB source templates after the original speech
++// protocol selected a leaf, before substituting actor names. Never inspect a
++// rendered English sentence to guess its translation or its arguments.
++static ZhMessage _monster_shout_message(const string &source,
++                                        const string &canonical,
++                                        const monster &mons)
++{
++    struct binding { const char *source, *id; unsigned arguments; };
++    static const binding bindings[] = {
++        {"You hear doubly buggy behaviour!", "shout.monster.buggy.1", 0},
++        {"You hear a shout!", "shout.monster.shout.1", 0},
++        {"@The_monster@ shouts!", "shout.monster.shout_seen.1", 1},
++        {"You hear a bark!", "shout.monster.bark_unseen.1", 0},
++        {"@The_monster@ barks!", "shout.monster.bark_seen.1", 1},
++        {"You hear a howl!", "shout.monster.howl_unseen.1", 0},
++        {"@The_monster@ howls!", "shout.monster.howl_seen.1", 1},
++        {"You hear two shouts!", "shout.monster.two_shouts_unseen.1", 0},
++        {"@The_monster@ shouts in stereo!", "shout.monster.two_shouts_seen.1", 1},
++        {"You hear a roar!", "shout.monster.roar_unseen.1", 0},
++        {"@The_monster@ roars!", "shout.monster.roar_seen.1", 1},
++        {"You hear a hideous shriek!", "shout.monster.scream_unseen.1", 0},
++        {"@The_monster@ gives a hideous shriek!", "shout.monster.scream_seen.1", 1},
++        {"You hear a bellow!", "shout.monster.bellow_unseen.1", 0},
++        {"@The_monster@ bellows!", "shout.monster.bellow_seen.1", 1},
++        {"You hear a bleat!", "shout.monster.bleat_unseen.1", 0},
++        {"@The_monster@ bleats!", "shout.monster.bleat_seen.1", 1},
++        {"You hear a trumpeting!", "shout.monster.trumpet_unseen.1", 0},
++        {"@The_monster@ trumpets!", "shout.monster.trumpet_seen.1", 1},
++        {"You hear a screech!", "shout.monster.screech_unseen.1", 0},
++        {"@The_monster@ screeches!", "shout.monster.screech_seen.1", 1},
++        {"You hear an angry buzzing noise.", "shout.monster.buzz_unseen.1", 0},
++        {"@The_monster@ buzzes angrily.", "shout.monster.buzz_seen.1", 1},
++        {"You hear a chilling moan.", "shout.monster.moan_unseen.1", 0},
++        {"@The_monster@ gives a chilling moan.", "shout.monster.moan_seen.1", 1},
++        {"You hear a horrible gurgling sound!", "shout.monster.gurgle_unseen.1", 0},
++        {"@The_monster@ gurgles horribly!", "shout.monster.gurgle_seen.1", 1},
++        {"You hear a loud, deep croak!", "shout.monster.croak_unseen.1", 0},
++        {"You hear a croak.", "shout.monster.croak_unseen.2", 0},
++        {"@The_monster@ gives a loud, deep croak!", "shout.monster.croak_seen.1", 1},
++        {"@The_monster@ croaks.", "shout.monster.croak_seen.2", 1},
++        {"You hear an angry growl.", "shout.monster.growl_unseen.1", 0},
++        {"@The_monster@ growls angrily.", "shout.monster.growl_seen.1", 1},
++        {"You hear an angry hiss.", "shout.monster.hiss_unseen.1", 0},
++        {"@The_monster@ hisses angrily.", "shout.monster.hiss_seen.1", 1},
++        {"You hear a skittering sound.", "shout.monster.skitter_unseen.1", 0},
++        {"@The_monster_possessive@ many legs skitter.", "shout.monster.skitter_seen.1", 2},
++        {"You hear a faint skittering sound.", "shout.monster.faint_skitter_unseen.1", 0},
++        {"@The_monster_possessive@ many legs skitter faintly.", "shout.monster.faint_skitter_seen.1", 2},
++        {"You hear an angry squeal.", "shout.monster.squeal_unseen.1", 0},
++        {"@The_monster@ squeals angrily.", "shout.monster.squeal_seen.1", 1},
++        {"@The_monster_possessive@ eagle head screeches!", "shout.monster.cherub_seen.1", 2},
++        {"@The_monster_possessive@ lion head roars!", "shout.monster.cherub_seen.2", 2},
++        {"@The_monster_possessive@ ox head lows!", "shout.monster.cherub_seen.3", 2},
++        {"@The_monster_possessive@ human head shouts!", "shout.monster.cherub_seen.4", 2},
++        {"You hear a shout.", "shout.monster.cherub_unseen.1", 0},
++        {"You hear a screech.", "shout.monster.cherub_unseen.2", 0},
++        {"You hear a roar.", "shout.monster.cherub_unseen.3", 0},
++        {"You hear a low.", "shout.monster.cherub_unseen.4", 0},
++        {"You hear a deafening roar!", "shout.monster.loud_roar_unseen.1", 0},
++        {"@The_monster@ roars deafeningly!", "shout.monster.loud_roar_seen.1", 1},
++        {"You hear a loud rustle.", "shout.monster.rustle_unseen.1", 0},
++        {"@The_monster_possessive@ pages rustle loudly.", "shout.monster.rustle_seen.1", 2},
++        {"You hear a loud squeak.", "shout.monster.squeak_unseen.1", 0},
++        {"@The_monster@ squeaks loudly.", "shout.monster.squeak_seen.1", 1},
++        {"@The_monster@ caws.", "shout.monster.caw_seen.1", 1},
++        {"You hear a loud caw.", "shout.monster.caw_unseen.1", 0},
++        {"@The_monster@ laughs maniacally.", "shout.monster.laugh_seen.1", 1},
++        {"You hear maniacal laughter.", "shout.monster.laugh_unseen.1", 0},
++        {"@The_monster@ turns @possessive@ malevolent gaze towards you.", "shout.monster.player_ghost.1", 5},
++        {"@The_monster@ turns @possessive@ gaze towards you.", "shout.monster.cap_g.1", 5},
++        {"@The_monster@ quivers.", "shout.monster.cap_j.1", 1},
++        {"@The_monster@ swivels @possessive@ eye-stalks towards you.", "shout.monster.giant_slug.1", 5},
++        {"@The_monster@ waves @possessive@ rhizomes.", "shout.monster.ballistomycete_spore.1", 5},
++        {"@The_monster@ turns @possessive@ attention towards you.", "shout.monster.glowing_orange_brain.1", 5},
++        {"@The_monster_possessive@ fur bristles in rage as it notices you.", "shout.monster.moth_of_wrath.1", 2},
++        {"@The_monster@ shouts, \"Attack, my pets! Attack!\"", "shout.monster.polyphemus.1", 1},
++    };
++    for (const auto &entry : bindings)
++    {
++        if (source != entry.source)
++            continue;
++        if (!entry.arguments)
++            return zh_message(entry.id, {}, canonical);
++        // Match speech's friendly ownership convention semantically. The
++        // complete original renderer still supplies canonical English below.
++        const auto desc = mons.attitude == ATT_FRIENDLY
++            && !mons_is_unique(mons.type) && !crawl_state.game_is_arena()
++            && you.can_see(mons) ? DESC_YOUR : DESC_THE;
++        if (entry.arguments == 1)
++            return zh_message(entry.id, {zh_monster_arg("monster", mons, desc)}, canonical);
++        if (entry.arguments == 2)
++        {
++            auto name = zh_monster_arg("monster_possessive", mons, desc);
++            name.canonical = apostrophise(name.canonical);
++            return zh_message(entry.id, {name}, canonical);
++        }
++        if (entry.arguments == 5)
++            return zh_message(entry.id, {
++                zh_monster_arg("monster", mons, desc),
++                zh_word_arg("possessive", "target.monster.pronoun.",
++                            mons.pronoun(PRONOUN_POSSESSIVE))}, canonical);
++        die("Invalid fixed monster shout binding");
++    }
++    // Random demon/imp taunts and extension speech remain complete canonical
++    // messages until their own grammar is migrated. Report the missing parent,
++    // never translate fragments of the rendered sentence.
++    return zh_message("shout.monster.unsupported", {
++        ZhArg("message", ZhArgType::Text, canonical, canonical, false)}, canonical);
++}
++
+ void monster_shout(monster &mons, int shout)
+ {
+     shout_type s_type = static_cast<shout_type>(shout);
+@@ -171,10 +283,10 @@ void monster_shout(monster &mons, int shout)
+     // and if no such entry exists then looks simply for "name".
+     const bool seen = you.can_see(mons);
+     const string suffix = seen ? " seen" : " unseen";
+-    string message = getShoutString(key, suffix);
++    string message = getShoutStringCanonical(key, suffix);
+ 
+     if (message == "__DEFAULT" || message == "__NEXT")
+-        message = getShoutString(default_msg_key, suffix);
++        message = getShoutStringCanonical(default_msg_key, suffix);
+     else if (message.empty())
+     {
+         char mchar = mons_base_char(mons.type);
+@@ -189,16 +301,15 @@ void monster_shout(monster &mons, int shout)
+ 
+         glyph_key += mchar;
+         glyph_key += "'";
+-        message = getShoutString(glyph_key, suffix);
++        message = getShoutStringCanonical(glyph_key, suffix);
+ 
+         if (message.empty() || message == "__DEFAULT")
+-            message = getShoutString(default_msg_key, suffix);
++            message = getShoutStringCanonical(default_msg_key, suffix);
+     }
+ 
+     if (default_msg_key == "__BUGGY")
+     {
+-        msg::streams(MSGCH_SOUND) << "You hear something buggy!"
+-                                  << endl;
++        mpr(zh_message("shout.monster.buggy"), MSGCH_SOUND);
+     }
+     else if (s_type == S_SILENT && (message.empty() || message == "__NONE"))
+         ; // No "visual shout" defined for silent monster, do nothing.
+@@ -208,16 +319,14 @@ void monster_shout(monster &mons, int shout)
+             << "No shout entry for default shout type '"
+             << default_msg_key << "'" << endl;
+ 
+-        msg::streams(MSGCH_SOUND) << "You hear something buggy!"
+-                                  << endl;
++        mpr(zh_message("shout.monster.buggy"), MSGCH_SOUND);
+     }
+     else if (message == "__NONE")
+     {
+         msg::streams(MSGCH_DIAGNOSTICS)
+             << "__NONE returned as shout for non-silent monster '"
+             << default_msg_key << "'" << endl;
+-        msg::streams(MSGCH_SOUND) << "You hear something buggy!"
+-                                  << endl;
++        mpr(zh_message("shout.monster.buggy"), MSGCH_SOUND);
+     }
+     else if (s_type == S_SILENT || !silenced(you.pos()))
+     {
+@@ -229,8 +338,11 @@ void monster_shout(monster &mons, int shout)
+ 
+         if (channel != MSGCH_TALK_VISUAL || seen)
+         {
++            const string source = message;
++            // Keep the engine's canonical replacements and RNG calls exactly
++            // once; the display is built from source identity and actor data.
+             message = do_mon_str_replacements(message, mons, s_type);
+-            msg::streams(channel) << message << endl;
++            mpr(_monster_shout_message(source, message, mons), channel);
+         }
+     }
  
 diff --git a/crawl-ref/source/skill-menu.cc b/crawl-ref/source/skill-menu.cc
 index 2d2afd8..420efa0 100644
@@ -65367,6 +66414,56 @@ index 030106a..3a61d01 100644
  /**
   *  Chance for a dart fired by the player to affect a monster of a particular
   *  hit dice, given the player's throwing skill.
+diff --git a/crawl-ref/source/tilereg-dgn.cc b/crawl-ref/source/tilereg-dgn.cc
+index f98ec9a..de32182 100644
+--- a/crawl-ref/source/tilereg-dgn.cc
++++ b/crawl-ref/source/tilereg-dgn.cc
+@@ -282,7 +282,9 @@ void DungeonRegion::render()
+             // center this coord, which is at the top left of gc's cell
+             pc.x += dx / 2;
+ 
+-            const auto text = formatted_string(tag.tag.c_str(), WHITE);
++            const auto text = tag.pretranslated
++                ? formatted_string::parse_string_raw(tag.tag, WHITE)
++                : formatted_string(tag.tag.c_str(), WHITE);
+             m_tag_font->render_hover_string(pc.x, pc.y, text);
+         }
+ 
+@@ -1094,11 +1096,12 @@ void DungeonRegion::clear_text_tags(text_tag_type type)
+ }
+ 
+ void DungeonRegion::add_text_tag(text_tag_type type, const string &tag,
+-                                 const coord_def &gc)
++                                 const coord_def &gc, bool pretranslated)
+ {
+     TextTag t;
+     t.tag = tag;
+     t.gc  = gc;
++    t.pretranslated = pretranslated;
+ 
+     m_tags[type].push_back(t);
+ }
+diff --git a/crawl-ref/source/tilereg-dgn.h b/crawl-ref/source/tilereg-dgn.h
+index 0335ed8..e90e4d5 100644
+--- a/crawl-ref/source/tilereg-dgn.h
++++ b/crawl-ref/source/tilereg-dgn.h
+@@ -15,6 +15,7 @@ struct TextTag
+ {
+     string tag;
+     coord_def gc;
++    bool pretranslated = false;
+ };
+ 
+ bool tile_dungeon_tip(const coord_def &gc, string &tip);
+@@ -41,7 +42,7 @@ public:
+ 
+     void clear_text_tags(text_tag_type type);
+     void add_text_tag(text_tag_type type, const string &tag,
+-                      const coord_def &gc);
++                      const coord_def &gc, bool pretranslated = false);
+ 
+     const coord_def &get_cursor() const { return m_cursor[CURSOR_MOUSE]; }
+     void to_screen_coords(const coord_def &gc, coord_def *pc) const;
 diff --git a/crawl-ref/source/tilereg-doll.cc b/crawl-ref/source/tilereg-doll.cc
 index 3b412f1..dd09eb1 100644
 --- a/crawl-ref/source/tilereg-doll.cc
@@ -66106,7 +67203,7 @@ index 43a30b3..73edbd3 100644
  
      virtual void render() = 0;
 diff --git a/crawl-ref/source/tilesdl.cc b/crawl-ref/source/tilesdl.cc
-index 73390a4..107c36f 100644
+index 73390a4..b1790c1 100644
 --- a/crawl-ref/source/tilesdl.cc
 +++ b/crawl-ref/source/tilesdl.cc
 @@ -701,6 +701,8 @@ int TilesFramework::getch_ck()
@@ -66137,10 +67234,33 @@ index 73390a4..107c36f 100644
      }
      wm->swap_buffers();
  
+@@ -1455,11 +1460,11 @@ void TilesFramework::clear_text_tags(text_tag_type type)
+ }
+ 
+ void TilesFramework::add_text_tag(text_tag_type type, const string &tag,
+-                                  const coord_def &gc)
++                                  const coord_def &gc, bool pretranslated)
+ {
+     if (in_headless_mode())
+         return;
+-    m_region_tile->add_text_tag(type, tag, gc);
++    m_region_tile->add_text_tag(type, tag, gc, pretranslated);
+ }
+ 
+ void TilesFramework::add_text_tag(text_tag_type /*type*/, const monster_info& mon)
 diff --git a/crawl-ref/source/tilesdl.h b/crawl-ref/source/tilesdl.h
-index f2bead5..58742ab 100644
+index f2bead5..0c73a2b 100644
 --- a/crawl-ref/source/tilesdl.h
 +++ b/crawl-ref/source/tilesdl.h
+@@ -190,7 +190,7 @@ public:
+     void place_cursor(cursor_type type, const coord_def &gc);
+     void clear_text_tags(text_tag_type type);
+     void add_text_tag(text_tag_type type, const string &tag,
+-                      const coord_def &gc);
++                      const coord_def &gc, bool pretranslated = false);
+     void add_text_tag(text_tag_type type, const monster_info& mon);
+ 
+     bool initialise_items();
 @@ -204,6 +204,7 @@ public:
      void do_map_display();
  
@@ -66157,6 +67277,32 @@ index f2bead5..58742ab 100644
      bool m_show_tooltip = false;
      unsigned int m_tooltip_timer_id = 0;
  
+diff --git a/crawl-ref/source/tileweb.cc b/crawl-ref/source/tileweb.cc
+index 2c8f7dc..3c5bb16 100644
+--- a/crawl-ref/source/tileweb.cc
++++ b/crawl-ref/source/tileweb.cc
+@@ -2397,7 +2397,7 @@ void TilesFramework::clear_text_tags(text_tag_type /*type*/)
+ }
+ 
+ void TilesFramework::add_text_tag(text_tag_type /*type*/, const string &/*tag*/,
+-                                  const coord_def &/*gc*/)
++                                  const coord_def &/*gc*/, bool /*pretranslated*/)
+ {
+ }
+ 
+diff --git a/crawl-ref/source/tileweb.h b/crawl-ref/source/tileweb.h
+index 02b112c..cff9102 100644
+--- a/crawl-ref/source/tileweb.h
++++ b/crawl-ref/source/tileweb.h
+@@ -132,7 +132,7 @@ public:
+     void place_cursor(cursor_type type, const coord_def &gc);
+     void clear_text_tags(text_tag_type type);
+     void add_text_tag(text_tag_type type, const string &tag,
+-                      const coord_def &gc);
++                      const coord_def &gc, bool pretranslated = false);
+     void add_text_tag(text_tag_type type, const monster_info& mon);
+ 
+     const coord_def &get_cursor() const;
 diff --git a/crawl-ref/source/transform.cc b/crawl-ref/source/transform.cc
 index 6088e7d..fb34333 100644
 --- a/crawl-ref/source/transform.cc
@@ -120859,16 +122005,17 @@ index 0000000..6f29754
 +    {"attunement", "调谐"},
 diff --git a/crawl-ref/source/zh-display-name.cc b/crawl-ref/source/zh-display-name.cc
 new file mode 100644
-index 0000000..251ef0a
+index 0000000..0277ce5
 --- /dev/null
 +++ b/crawl-ref/source/zh-display-name.cc
-@@ -0,0 +1,569 @@
+@@ -0,0 +1,614 @@
 +#include "AppHdr.h"
 +
 +#include "zh-display-name.h"
 +
 +#include "artefact.h"
 +#include "branch.h"
++#include "english.h"
 +#include "item-name.h"
 +#include "item-prop.h"
 +#include "item-status-flag-type.h"
@@ -120942,6 +122089,52 @@ index 0000000..251ef0a
 +std::string possessive_suffix()
 +{
 +    return "的";
++}
++
++// A definite article is presentation grammar even for unique species. The
++// enum's data name is the semantic noun; do not strip words from a rendered
++// name, or relax the equality guard for custom/status-qualified names.
++std::string _monster_type_component(monster_type type)
++{
++    const monsterentry* data = get_monster_data(type);
++    return data && mons_is_the(type) ? data->name
++                                    : mons_type_name(type, DESC_PLAIN);
++}
++
++ZhArg _monster_visible_species_arg(const monster_info& info)
++{
++    const std::string species = _monster_type_component(info.type);
++    const bool headed = info.has_hydra_multi_attack()
++        && info.type != MONS_SENSED && !mons_class_is_remnant(info.type);
++    std::string expected = species;
++    if (headed)
++    {
++        if (info.num_heads <= 0)
++            return {"species", ZhArgType::Name, info.common_name(DESC_PLAIN),
++                    info.common_name(DESC_PLAIN), false};
++        expected = (info.num_heads < 11 ? number_in_words(info.num_heads)
++                                       : std::to_string(info.num_heads))
++                   + "-headed " + species;
++    }
++    // Retain the existing qualifier guard. A head count does not authorize
++    // dropping ghostly/bound/custom, zombie, remnant or shapeshifter wording.
++    if (info.common_name(DESC_PLAIN) != expected)
++        return {"species", ZhArgType::Name, info.common_name(DESC_PLAIN),
++                info.common_name(DESC_PLAIN), false};
++    const std::string translated = exact_component(species);
++    ZhArg name("species", ZhArgType::Name, species,
++               translated.empty() ? species : translated, !translated.empty());
++    if (headed)
++    {
++        name = zh_message_arg("species", "monster.name.headed",
++                              {zh_integer("heads", info.num_heads), name});
++        name.type = ZhArgType::Name;
++        // English spells head counts below eleven out. Only the canonical
++        // channel keeps that engine convention; Chinese uses the integer.
++        name.canonical = expected;
++        if (!name.supported) name.localized = name.canonical;
++    }
++    return name;
 +}
 +
 +std::string item_classifier(const item_def &item)
@@ -121292,7 +122485,10 @@ index 0000000..251ef0a
 +
 +ZhArg zh_monster_type_arg(const std::string &key, monster_type type)
 +{
-+    return zh_glossary_name(key, "monster.name", mons_type_name(type, DESC_PLAIN));
++    auto name = zh_glossary_name(key, "monster.name", _monster_type_component(type));
++    name.canonical = mons_type_name(type, DESC_PLAIN);
++    if (!name.supported) name.localized = name.canonical;
++    return name;
 +}
 +
 +ZhArg zh_monster_arg(const std::string &key, const monster &mon,
@@ -121322,14 +122518,10 @@ index 0000000..251ef0a
 +        }
 +        else
 +        {
-+            const std::string species = mons_type_name(mon.type, DESC_PLAIN);
-+            const std::string species_zh = exact_component(species);
-+            // This equality is a semantic guard: no special form, status,
-+            // custom qualifier or generated name may be silently discarded.
-+            if (!species_zh.empty()
-+                && info.common_name(DESC_PLAIN) == species)
++            const auto species = _monster_visible_species_arg(info);
++            if (species.supported)
 +            {
-+                localized = description_prefix(desc, mon.friendly()) + species_zh;
++                localized = description_prefix(desc, mon.friendly()) + species.localized;
 +                if (desc == DESC_ITS)
 +                    localized += possessive_suffix();
 +            }
@@ -121373,11 +122565,10 @@ index 0000000..251ef0a
 +        return {key, ZhArgType::Name, canonical,
 +                translated + (desc == DESC_ITS ? possessive_suffix() : ""), true};
 +    }
-+    const std::string species = mons_type_name(info.type, DESC_PLAIN);
-+    const std::string translated = exact_component(species);
-+    if (!translated.empty() && info.common_name(DESC_PLAIN) == species)
++    const auto species = _monster_visible_species_arg(info);
++    if (species.supported)
 +    {
-+        std::string localized = description_prefix(desc, info.attitude == ATT_FRIENDLY) + translated;
++        std::string localized = description_prefix(desc, info.attitude == ATT_FRIENDLY) + species.localized;
 +        // Reuse the reviewed possessive suffix from the live-monster renderer.
 +        if (desc == DESC_ITS)
 +            localized += possessive_suffix();
@@ -122053,10 +123244,10 @@ index 0000000..fca52fb
 +};
 diff --git a/crawl-ref/source/zh-message-catalog.inc b/crawl-ref/source/zh-message-catalog.inc
 new file mode 100644
-index 0000000..a572034
+index 0000000..a355b13
 --- /dev/null
 +++ b/crawl-ref/source/zh-message-catalog.inc
-@@ -0,0 +1,4115 @@
+@@ -0,0 +1,4276 @@
 +// Generated from Luna-reviewed message IDs. Do not edit.
 +static const ZhDefinition zh_definitions[] = {
 +    {"artifact.jewel.01", "It sustains your strength, intelligence and dexterity.", "它能维持你的力量、智力和敏捷。", ""},
@@ -122317,6 +123508,21 @@ index 0000000..a572034
 +    {"form.table.uc_base_dmg", "UC Base Dmg", "拳脚基础伤害", ""},
 +    {"form.table.watery_grave_dmg", "Watery Grave Dmg", "水墓伤害", ""},
 +    {"form.value.yes", "Yes", "是", ""},
++    {"hint.encounter.db.hint_monster_friendly", "That monster is friendly to you and will attack your enemies. You can command your allies by pressing {shout_key}.", "那只怪物对你友善，会攻击你的敌人。按下{shout_key}可以指挥盟友。", "shout_key:key_markup"},
++    {"hint.encounter.db.hint_monster_left_los", "{monster} didn't vanish, but merely moved onto a square which you can't currently see. It's still nearby, unless something happens to it in the short amount of time it's out of sight.", "{monster}并未消失，只是移动到了你目前看不见的格子。它仍在附近，除非趁你看不见的这段时间发生了什么。", "monster:name"},
++    {"hint.encounter.db.hint_monster_no_shout", "Uh-oh, that monster noticed you! Fortunately, it didn't make any noise, but many monsters do make noise when they notice you. That will alert other monsters in the area, who will come to check out what the commotion was about.", "糟了，那只怪物注意到你了！幸好它没有发出声响，但许多怪物注意到你时都会叫喊。这会惊动附近的其他怪物，它们会赶来查看发生了什么。", ""},
++    {"hint.encounter.db.hint_monster_shouted_seen", "Uh-oh, that monster noticed you! Plus, the noise it made will alert other monsters in the vicinity, who will come to check out what the commotion was about.", "糟了，那只怪物注意到你了！它发出的声响还会惊动附近的其他怪物，它们会赶来查看发生了什么。", ""},
++    {"hint.encounter.db.hint_monster_shouted_unseen", "Uh-oh, some monster noticed you, either one that's around a corner or one that's invisible. Plus, the noise it made will alert other monsters in the vicinity, who will come to check out what the commotion was about.", "糟了，有只怪物注意到了你——它可能躲在拐角后，也可能隐形了。它发出的声响还会惊动附近的其他怪物，它们会赶来查看发生了什么。", ""},
++    {"hint.encounter.db.hint_monster_unusual", "That monster looks a bit unusual. You might wish to examine it a bit more closely by <localtiles>hovering your mouse over its tile.</localtiles> <nomouse>pressing {look_key} and moving the cursor onto its square.</nomouse>", "那只怪物看起来有些特别。你或许可以仔细看看：<localtiles>将鼠标悬停在它所在的格子上。</localtiles> <nomouse>按下{look_key}并将光标移到它所在的格子。</nomouse>", "look_key:key_markup"},
++    {"hint.encounter.db.hint_seen_zero_exp_mon", "That<console> {glyph}</console> is {monster}. While <w>technically</w> a monster, it's more like dungeon furniture, since it's harmless and doesn't move. If it's in your way you can attack and kill it like other monsters, but you won't get any experience for doing so.", "那<console> {glyph}</console>是{monster}。虽然<w>从技术上说</w>它是怪物，但更像地牢里的摆设，因为它无害且不会移动。若它挡路，你可以像攻击其他怪物那样杀死它，但不会获得经验。", "glyph:text;monster:name"},
++    {"hint.encounter.db.hint_temporarily_friendly", "However, it is only <w>temporarily</w> friendly, and will become dangerous again when this friendliness wears off.", "不过它只是<w>暂时</w>友善，友善状态消退后又会变得危险。", ""},
++    {"hint.encounter.first.console", "That {glyph} is a monster, usually depicted by a letter. Some typical early monsters look like <brown>r</brown>, <green>l</green>, <brown>K</brown> or <lightgrey>g</lightgrey>. You can gain information about it by pressing <w>x</w> and moving the cursor over the monster, and read the monster description by then pressing <w>v</w>. \nTo attack this monster with your wielded weapon, just move into it. ", "{glyph}是一个怪物，通常以字母表示。常见的初级怪物包括<brown>r</brown>、<green>l</green>、<brown>K</brown>或<lightgrey>g</lightgrey>。按<w>x</w>并将光标移到怪物上可以查看信息，再按<w>v</w>可阅读怪物描述。 \n要用手持武器攻击它，只需朝它移动。 ", "glyph:text"},
++    {"hint.encounter.first.console_list", "That {glyph} is a monster, usually depicted by a letter. Some typical early monsters look like <brown>r</brown>, <green>l</green>, <brown>K</brown> or <lightgrey>g</lightgrey>. Your console settings allowing, you'll always see a list of monsters somewhere on the screen.\nYou can gain information about it by pressing <w>x</w> and moving the cursor over the monster, and read the monster description by then pressing <w>v</w>. \nTo attack this monster with your wielded weapon, just move into it. ", "{glyph}是一个怪物，通常以字母表示。常见的初级怪物包括<brown>r</brown>、<green>l</green>、<brown>K</brown>或<lightgrey>g</lightgrey>。只要控制台设置允许，屏幕上总会显示一份怪物列表。\n按<w>x</w>并将光标移到怪物上可以查看信息，再按<w>v</w>可阅读怪物描述。 \n要用手持武器攻击它，只需朝它移动。 ", "glyph:text"},
++    {"hint.encounter.first.tiles", "That monster is {monster}. You can learn about any monster by hovering your mouse over it, and read its description by <w>right-clicking</w> on it.\nTo attack this monster with your wielded weapon, just move into it. Note that as long as there's a non-friendly monster in view you won't be able to automatically move to distant squares, to avoid death by misclicking.", "那只怪物是{monster}。将鼠标悬停在怪物上可以了解它，<w>右键点击</w>则可阅读它的描述。\n要用手持武器攻击它，只需朝它移动。只要视野中有非友善怪物，为避免误操作导致死亡，你就无法自动移动到较远的格子。", "monster:name"},
++    {"hint.encounter.glyph", "<{colour}>{glyph}</{colour}>", "<{colour}>{glyph}</{colour}>", "colour:colour;glyph:key_markup"},
++    {"hint.encounter.hunter.ready", "However, as a hunter you will want to deal with it using your bow. If you have a look at your shortbow from your <w>i</w>nventory, you'll find an explanation of how to do this. <tiles>Clicking with your <w>right mouse button</w> on your shortbow will also let you read its description.</tiles>", "不过，作为猎人，你会想用弓来对付它。查看物品<w>i</w>栏中的短弓，就能看到如何使用弓的说明。<tiles>用鼠标<w>右键</w>点击短弓也能阅读其描述。</tiles>", ""},
++    {"hint.encounter.hunter.wield", "However, as a hunter you will want to deal with it using your bow. If you have a look at your shortbow from your <w>i</w>nventory, you'll find an explanation of how to do this. First <w>w</w>ield it, then follow the instructions.<tiles>\nAs a short-cut you can also <w>right-click</w> on your shortbow to read its description, and <w>left-click</w> to wield it.</tiles>", "不过，作为猎人，你会想用弓来对付它。查看物品<w>i</w>栏中的短弓，就能看到如何使用弓的说明。先<w>w</w>装备它，再按说明操作。<tiles>你也可以<w>右键点击</w>短弓阅读其描述，并<w>左键点击</w>来装备它。</tiles>", ""},
++    {"hint.encounter.magic", "However, as a conjurer you will want to deal with it using magic. If you look at the help entry for the <w>M</w>emorisation screen you'll find an explanation of how to do this.", "不过，作为咒法师，你会想用魔法来对付它。查看<w>M</w>记忆界面的帮助条目，就能看到如何使用魔法的说明。", ""},
 +    {"hints.pickup.first_object", "That <console>$1 </console>is an item. If you move there and press <input>$cmd[CMD_PICKUP]</input><localtiles>, or <input>left-click</input> on it in your inventory</localtiles>, you will pick it up.<console> Generally, items are shown by non-letter symbols like <w>%\?!\"=()[</w>.</console> Some objects<tiles>, marked with a green frame,</tiles> will be picked up automatically.\n\nOnce it is in your inventory, you can drop it again with <localtiles>a <input>Shift-left-click</input>. Whenever you <input>right-click</input> on an item</localtiles><console><input>$cmd[CMD_DROP]</input>. Any time you look at an item in your inventory (<input>$cmd[CMD_DISPLAY_INVENTORY]</input>)</console>, you can read about its properties and its description.\n", "那边<console>$1 </console>是一个物品。移动到它旁边并按下 <input>$cmd[CMD_PICKUP]</input><localtiles>，或者在背包中对它<input>单击鼠标左键</input></localtiles>，即可拾取。<console>通常，物品会以非字母符号显示，例如 <w>%\?!\"=()[</w>。</console>有些物品<tiles>会以绿色边框标出，</tiles>并自动拾取。\n\n物品进入背包后，你可以用<localtiles><input>Shift-鼠标左键</input>再次将它丢下。每当你<input>对物品单击鼠标右键</input></localtiles><console><input>$cmd[CMD_DROP]</input>。查看背包中的物品时（<input>$cmd[CMD_DISPLAY_INVENTORY]</input>）</console>，你可以阅读它的属性和说明。\n", ""},
 +    {"hud.branch.abyss", "Abyss", "深渊", ""},
 +    {"hud.branch.arena", "Arena", "竞技场", ""},
@@ -123205,6 +124411,9 @@ index 0000000..a572034
 +    {"monster.detail.hide", "If slain, it may be possible to recover its hide, which can be used as armour.", "杀死它后可能会留下可用作护甲的毛皮。", ""},
 +    {"monster.detail.hints_fallback", "{body}", "{body}", "body:text"},
 +    {"monster.detail.illusion", "An illusion of {ghost}.", "{ghost}的幻象。", "ghost:name"},
++    {"monster.detail.lore.acid_blob_current", "A lump of sickly pustulent flesh, dripping with lethal acid.", "一坨长满肉瘤的恶心肉块，不断滴落着致命的强酸。", ""},
++    {"monster.detail.lore.hydra_current", "A great and nightmarish lacertilian beast. It has many heads, and the potential to grow many more!\n\nHitting it with any bladed weapon bigger than a short blade risks lopping a head off and causing two more to grow in its place. Very large claws, such as trolls', are long enough to do the same. Only a weapon branded with flame will cauterise the wound and prevent more heads from growing.", "一头噩梦般的巨型蜥蜴类怪兽。它有很多个头，而且可能还会长出更多！\n\n用任何比短刃更大的有刃武器击打它，都有可能砍掉一个头，并在原处长出另外两个。像巨魔那样的大爪子也足够长，同样会造成这种结果。只有带有火焰印记的武器才能灼烧伤口，阻止它长出更多头。", ""},
++    {"monster.detail.lore.jiangshi_current", "A vampiric thrall bound into servitude by esoteric rituals. Though its rigid limbs give it an awkward gait, it moves with surprising speed, leaping upon its victims and leeching away their life essence with its vicious claws.", "被神秘仪式束缚、沦为吸血奴仆的怪物。尽管僵硬的四肢使它步态笨拙，它的行动却出奇迅速，会扑向受害者，用凶狠的爪子吸取其生命精华。", ""},
 +    {"monster.detail.lore.orc_warrior_current", "An experienced, armoured and well-armed orc soldier, able to command a small mob of its fellows.", "这是一名经验丰富、披甲且装备精良的兽人士兵，能指挥一小群同类。", ""},
 +    {"monster.detail.melting", "It is quickly melting away.", "正在迅速融化。", ""},
 +    {"monster.detail.no_reward", "Killing this monster yields no experience or items.", "杀死该怪物不会获得经验或物品。", ""},
@@ -123234,6 +124443,9 @@ index 0000000..a572034
 +    {"monster.draconian.scales.red", "It has red scales.", "它长着红色鳞片。", ""},
 +    {"monster.draconian.scales.white", "It has white scales.", "它长着白色鳞片。", ""},
 +    {"monster.draconian.scales.yellow", "It has yellow scales.", "它长着黄色鳞片。", ""},
++    {"monster.event.gozag_incite", "Gozag incites {monster} against you.", "戈扎格煽动{monster}来攻击你。", "monster:name"},
++    {"monster.event.summoned_alert", "{monster} comes into view.", "{monster}进入视野。", "monster:name"},
++    {"monster.event.wyrmbane", "<green>Wyrmbane glows as a worthy foe approaches.</green>", "<green>值得一战的强敌逼近，Wyrmbane发出光芒。</green>", ""},
 +    {"monster.habitat.lava_travel", "It can travel through lava.", "可在熔岩中穿行。", ""},
 +    {"monster.habitat.water_surface", "It can walk on water.", "可在水面上行走。", ""},
 +    {"monster.habitat.water_travel", "It can travel through water.", "可在水中穿行。", ""},
@@ -123299,6 +124511,7 @@ index 0000000..a572034
 +    {"monster.lore.rending_blade", "A crackling weapon formed of condensed magical energy. It can cut through entire\nrows of adversaries whenever its creator lands a melee attack.", "一件由凝聚的魔法能量形成、噼啪作响的武器。每当它的创造者近战命中时，\n它就能斩穿整整一排敌人。", ""},
 +    {"monster.lore.revenant_soulmonger", "A timeworn revenant whose flames dance with the silhouettes of long-forgotten\natrocities. Cursed with a hunger they can never satisfy, they unleash these\nlong-dead echoes to reenact violence upon any soul they deem worthy of adding to\ntheir eternal collection.", "一个饱经岁月的亡魂，它的火焰中舞动着早已被遗忘的暴行的剪影。\n它被永远无法满足的饥饿所诅咒，\n于是释放这些死去已久的回响，对任何被它认为值得收入永恒收藏的灵魂重演暴行。", ""},
 +    {"monster.lore.rock_fish", "A strange stone-scaled fish that swims through solid rock with the same ease\nthat most fish do through water.", "一条奇特的石鳞鱼，它在坚硬的岩石中游动，\n就像大多数鱼在水中一样轻松自如。", ""},
++    {"monster.lore.royal_jelly", "A particularly rich and golden gelatinous thing. Smaller jellies swim and pulse just below its surface, ready to burst forth at the slightest touch.", "一团格外浓稠、金灿灿的胶质物。更小的胶冻在它表面下游动、搏动，稍有触碰便会破体而出。", ""},
 +    {"monster.lore.sacred_lotus", "A large and vivid bloom drifting placidly upon the surface of the water. The\ncradle of the lotus's petals shine with eternity and elegance - while it is\nentirely harmless, it would take immense effort to destroy it.", "一朵硕大而鲜艳的花，静静地漂在水面上。\n莲花花瓣的摇篮闪耀着永恒与优雅——\n它完全无害，但要摧毁它却需要付出极大的努力。", ""},
 +    {"monster.lore.screaming_refraction", "A deeply unfortunate soul mostly processed into crystal by some malevolent tear\nin reality. Ethereal reflections of its past and future suffering are cast upon\nnearby surfaces and foes.", "一个极为不幸的灵魂，大部分已被现实中某道恶意的裂口转化为水晶。\n它过去与未来所受苦难的空灵倒影，\n会投射在附近的表面和敌人身上。", ""},
 +    {"monster.lore.scrub_nettle", "An irritable, bristling shrub. It fends off anything that might graze upon it by\nlaunching some of its innumerable toxic stinging hairs.", "一株暴躁而毛刺丛生的灌木。它会发射自己无数有毒的蜇毛，\n以此击退任何可能啃食它的东西。", ""},
@@ -123340,9 +124553,74 @@ index 0000000..a572034
 +    {"monster.mutant.tier.3", "It is mature, stronger than a juvenile but weaker than its elders.", "它已成年，比幼年个体更强，但不及年长者。", ""},
 +    {"monster.mutant.tier.4", "It is an elder, stronger than mature beasts.", "它已步入老年，比成年个体更强。", ""},
 +    {"monster.mutant.tier.5", "It is a primal beast, the most powerful of its kind.", "它已成为原始巨兽，是同类中最强大的个体。", ""},
++    {"monster.name.headed", "{heads}-headed {species}", "有{heads}个头的{species}", "heads:integer;species:name"},
 +    {"monster.notice_chance", "It has a {chance}% chance to notice you each turn.\n", "它每回合有{chance}%的几率察觉到你。\n", "chance:integer"},
 +    {"monster.notice_chance_plural", "They have a {chance}% chance to notice you each turn.\n", "它们每回合有{chance}%的几率察觉到你。\n", "chance:integer"},
++    {"monster.quote.cap_d_suffix", "“On the other hand, Confucius is made to say to his disciples, ‘I know how\n birds can fly, how fishes can swim, and how animals can run. But the runner\n may be snared, the swimmer may be hooked, and the flyer may be shot by the\n arrow. But there is the dragon. I cannot tell how he mounts on the wind\n through the clouds, and rises to heaven. Today I have seen Lao-tsze, and can\n only compare him to the dragon.’”\n    -Life of Confucius\n\n“This Dragon had Two furious Wings\n   Each one upon each Shoulder;\n With a Sting in his Tail as long as a Flail,\n   Which made him bolder and bolder.\n He had long Claws, and in his Jaws\n   Four and forty Teeth of Iron;\n With a Hide as tough, as any Buff,\n   Which did him round environ.”\n\n    -“An Excellent Ballad of a most dreadful Combat, fought between Moore of Moore-Hall, and the Dragon of Wantley”, retold by Ambrose Philips, _A Collection of Old Ballads. Corrected from the Best and Most Ancient Copies Extant. With Introductions Historical, Critical, Or Humorous_. 1723.", "“另一方面，据说孔子曾对弟子说：\n ‘我知道鸟能飞，鱼能游，兽能跑。但跑者\n 可以被网住，游者可以被钓起，飞者可以被箭射落。\n 唯有龙，我不知道它如何乘风云而上天。\n 今日我见到了老子，\n 只能将他比作龙。’”\n    -《孔子传》\n\n“这条龙生有两只狂暴的翅膀\n   一边肩膀各一只；\n 尾上有一根如连枷般长的毒刺，\n   令他愈发胆大。\n 他生有长爪，他的嘴里\n   长着四十四颗铁牙；\n 他的皮坚韧如牛皮，\n   将他周身包裹。”\n\n    -《关于摩尔厅的摩尔与旺特利的龙之间一场最可怕战斗的 绝妙歌谣》，安布罗斯·菲利普斯重述，《古歌谣集。 从现存最佳最古抄本校订。附历史、批评或诙谐的导言》。 1723年。", ""},
 +    {"monster.quote.training_dummy", "“Things are only mannequins and even the great world-historical events are only\n costumes beneath which they exchange glances with nothingness, with the base\n and the banal.”\n    -Walter Benjamin, _Protocols to the Experiments on Hashish, Opium and\n     Mescaline 1927-1934_, “Protocol II: Highlights of the Second Hashish\n     Impression”. 15 January 1928.\n     trans. Scott J. Thompson, 1997.", "“事物不过是人体模型，甚至那些伟大的世界历史事件也不过是\n 戏服，其下它们与虚无、与卑下\n 和平庸交换着眼色。”\n    -瓦尔特·本雅明，《1927-1934年哈希什、鸦片与\n     麦司卡林实验记录》，“第二号记录：第二次哈希什\n     印象要点”。1928年1月15日。\n     译：Scott J. Thompson，1997年。", ""},
++    {"monster.special.acid_splash.plural", "{subject} inflict 1d5 acid damage when struck in melee.\n", "{subject}在近战中被击中时会造成1d5点酸蚀伤害。\n", "subject:name"},
++    {"monster.special.acid_splash.singular", "{subject} inflicts 1d5 acid damage when struck in melee.\n", "{subject}在近战中被击中时会造成1d5点酸蚀伤害。\n", "subject:name"},
++    {"monster.special.amorphous.plural", "{subject} are amorphous and immune to ensnarement.\n", "{subject}形态不定，且免疫缠绕。\n", "subject:name"},
++    {"monster.special.amorphous.singular", "{subject} is amorphous and immune to ensnarement.\n", "{subject}形态不定，且免疫缠绕。\n", "subject:name"},
++    {"monster.special.animated_item.plural", "{subject} are an unusual item.\n", "{subject}是奇特物品。\n", "subject:name"},
++    {"monster.special.animated_item.singular", "{subject} is an unusual item.\n", "{subject}是一件奇特物品。\n", "subject:name"},
++    {"monster.special.burrow", "{subject} can burrow through diggable terrain.\n", "{subject}能在可挖掘地形中掘行。\n", "subject:name"},
++    {"monster.special.chaotic.plural", "{subject} are vulnerable to silver and hated by Zin.\n", "{subject}容易受到银器伤害，也为津恩所厌恶。\n", "subject:name"},
++    {"monster.special.chaotic.singular", "{subject} is vulnerable to silver and hated by Zin.\n", "{subject}容易受到银器伤害，也为津恩所厌恶。\n", "subject:name"},
++    {"monster.special.cold_blooded.plural", "{subject} are cold-blooded and may be slowed by cold attacks.\n", "{subject}是冷血生物，可能会被寒冷攻击减速。\n", "subject:name"},
++    {"monster.special.cold_blooded.singular", "{subject} is cold-blooded and may be slowed by cold attacks.\n", "{subject}是冷血生物，可能会被寒冷攻击减速。\n", "subject:name"},
++    {"monster.special.explosion_damage", "Explosion damage: {dice}d{sides}\n", "爆炸伤害：{dice}d{sides}\n", "dice:integer;sides:integer"},
++    {"monster.special.fly", "{subject} can fly.\n", "{subject}能飞行。\n", "subject:name"},
++    {"monster.special.habitat.lava", "{subject} can travel through lava.\n", "{subject}能在熔岩中穿行。\n", "subject:name"},
++    {"monster.special.habitat.walk_water", "{subject} can walk on water.\n", "{subject}能在水面行走。\n", "subject:name"},
++    {"monster.special.habitat.water", "{subject} can travel through water.\n", "{subject}能在水中穿行。\n", "subject:name"},
++    {"monster.special.insubstantial.plural", "{subject} are insubstantial and immune to ensnarement.\n", "{subject}没有实体，且免疫缠绕。\n", "subject:name"},
++    {"monster.special.insubstantial.singular", "{subject} is insubstantial and immune to ensnarement.\n", "{subject}没有实体，且免疫缠绕。\n", "subject:name"},
++    {"monster.special.items.plural", "{subject} have an unusual item: {items}.\n", "{subject}持有一些奇特物品：{items}。\n", "subject:name;items:text"},
++    {"monster.special.items.singular", "{subject} has an unusual item: {items}.\n", "{subject}持有一件奇特物品：{items}。\n", "subject:name;items:text"},
++    {"monster.special.list.semicolon", "{first}; {second}", "{first}；{second}", "first:text;second:text"},
++    {"monster.special.list.semicolon_and", "{first}; and {second}", "{first}；以及{second}", "first:text;second:text"},
++    {"monster.special.program_bug", "If this monster is a \"program bug\", then it's recommended that you save your game and reload. Please report monsters who masquerade as program bugs or run around the dungeon without a proper description to the authorities.", "如果这只怪物是“程序错误”，建议先保存游戏并重新载入。若遇到伪装成程序错误，或在地牢中游荡却没有正确描述的怪物，请向相关人员报告。", ""},
++    {"monster.special.projectile_damage", "Projectile damage: {dice}d{sides}\n", "投射物伤害：{dice}d{sides}\n", "dice:integer;sides:integer"},
++    {"monster.special.regen", "{rate}/turn", "每回合恢复{rate}点\n", "rate:integer"},
++    {"monster.special.resist.atom.blinding", "blinding", "致盲", ""},
++    {"monster.special.resist.atom.clouds", "clouds of all kinds", "各种云雾", ""},
++    {"monster.special.resist.atom.corrosion", "acid and corrosion", "酸蚀", ""},
++    {"monster.special.resist.atom.damnation", "damnation", "诅咒", ""},
++    {"monster.special.resist.atom.drowning", "drowning", "溺水", ""},
++    {"monster.special.resist.atom.miasma", "miasma", "瘴气", ""},
++    {"monster.special.resist.atom.steam", "steam", "蒸汽", ""},
++    {"monster.special.resist.atom.torment", "torment", "折磨", ""},
++    {"monster.special.resist.clause.base", "resistant to {attacks}", "对{attacks}有抗性", "attacks:text"},
++    {"monster.special.resist.clause.high", "very resistant to {attacks}", "对{attacks}有极强抗性", "attacks:text"},
++    {"monster.special.resist.clause.immune", "immune to {attacks}", "免疫{attacks}", "attacks:text"},
++    {"monster.special.resists.plural", "{subject} are {resists}.\n", "{subject}{resists}。\n", "subject:name;resists:text"},
++    {"monster.special.resists.singular", "{subject} is {resists}.\n", "{subject}{resists}。\n", "subject:name;resists:text"},
++    {"monster.special.royal_jelly.damage", "It will release varied jellies when damaged or killed, with the number of jellies proportional to the amount of damage.\n", "它受伤或死亡时会释放各种果冻怪，释放的数量与所受伤害成正比。\n", ""},
++    {"monster.special.royal_jelly.polymorph", "It will release all of its jellies when polymorphed.\n", "它被变形时会释放所有果冻怪。\n", ""},
++    {"monster.special.see_invisible", "{subject} can see invisible.\n", "{subject}能看见隐形生物。\n", "subject:name"},
++    {"monster.special.shadowghast.plural", "{subject} cover ground more quickly when invisible.\n", "{subject}隐形时移动得更快。\n", "subject:name"},
++    {"monster.special.shadowghast.singular", "{subject} covers ground more quickly when invisible.\n", "{subject}隐形时移动得更快。\n", "subject:name"},
++    {"monster.special.speed.attack", "attack: {speed}%", "攻击：{speed}%", "speed:integer"},
++    {"monster.special.speed.base", "Speed: {speed}%", "速度：{speed}%", "speed:integer"},
++    {"monster.special.speed.energy", "{speed} ({actions})", "{speed}（{actions}）", "speed:text;actions:text"},
++    {"monster.special.speed.faster", "{speed} (normally travels faster than you)", "{speed}（通常比你移动得快）", "speed:text"},
++    {"monster.special.speed.magic", "magic: {speed}%", "施法：{speed}%", "speed:integer"},
++    {"monster.special.speed.pauses", "{speed} (but often pauses)", "{speed}（但经常停顿）", "speed:text"},
++    {"monster.special.speed.pray", "pray: {speed}%", "祈祷：{speed}%", "speed:integer"},
++    {"monster.special.speed.shoot", "shoot: {speed}%", "射击：{speed}%", "speed:integer"},
++    {"monster.special.speed.slower", "{speed} (normally travels slower than you)", "{speed}（通常比你移动得慢）", "speed:text"},
++    {"monster.special.speed.swim", "swim: {speed}%", "游泳：{speed}%", "speed:integer"},
++    {"monster.special.speed.travel", "travel: {speed}%", "移动：{speed}%", "speed:integer"},
++    {"monster.special.star_damage", "Shooting star damage: {dice}d{sides} (x3)\n", "流星伤害：{dice}d{sides}（×3）\n", "dice:integer;sides:integer"},
++    {"monster.special.stationary", "{subject} cannot move.\n", "{subject}无法移动。\n", "subject:name"},
++    {"monster.special.susceptible.plural", "{subject} are susceptible to {attacks}.\n", "{subject}容易受到{attacks}影响。\n", "subject:name;attacks:text"},
++    {"monster.special.susceptible.singular", "{subject} is susceptible to {attacks}.\n", "{subject}容易受到{attacks}影响。\n", "subject:name;attacks:text"},
++    {"monster.special.zin_debug", " (Recite power:{power}, Hit dice:{hd})", " （吟诵威力：{power}，生命骰：{hd}）", "power:integer;hd:integer"},
++    {"monster.special.zin_eligible", "{subject} can be affected by reciting Zin's laws.", "{subject}会受到吟诵津恩戒律影响。", "subject:name"},
++    {"monster.special.zin_ineligible", "{subject} cannot be affected by reciting Zin's laws.", "{subject}不受吟诵津恩戒律影响。", "subject:name"},
++    {"monster.special.zin_strong.plural", "{subject} are too strong to be affected by reciting Zin's laws.", "{subject}过于强大，不受吟诵津恩戒律影响。", "subject:name"},
++    {"monster.special.zin_strong.singular", "{subject} is too strong to be affected by reciting Zin's laws.", "{subject}过于强大，不受吟诵津恩戒律影响。", "subject:name"},
 +    {"monster.spell.help", "To read a description, press the key listed above. (AdB) indicates damage (the sum of A B-sided dice), (x%) indicates the chance to defeat your Will, and (y) indicates the spell range", "查看法术说明请按上方列出的按键。(AdB)表示伤害（A颗B面骰子的总和），(x%)表示克服你意志力的概率，(y)表示法术射程", ""},
 +    {"monster.spell.range_period", ".", "。", ""},
 +    {"monster.spell.range_warning", "; shown in red if you are in range.", "；若你处于施法范围内，该法术会以红色显示。", ""},
@@ -123893,6 +125171,75 @@ index 0000000..a572034
 +    {"shopping_list.replace.prompt", "Shopping list: replace {cost}gp {item} with cheaper one\? (Y/n)", "购物清单：要用更便宜的条目替换{cost}金币的{item}吗？(Y/n)", "cost:integer;item:name"},
 +    {"shopping_list.title", "Shopping list: {count} {item}{plural}, total cost {cost} gold pieces", "购物清单：{count}{item}{plural}，总价{cost}枚金币", "count:integer;item:text;plural:text;cost:integer"},
 +    {"shopping_list.title.item", "item", "项物品", ""},
++    {"shout.monster.ballistomycete_spore.1", "{monster} waves {possessive} rhizomes.", "{monster}挥舞{possessive}根状菌丝。", "monster:name;possessive:text"},
++    {"shout.monster.bark_seen.1", "{monster} barks!", "{monster}吠叫起来！", "monster:name"},
++    {"shout.monster.bark_unseen.1", "You hear a bark!", "你听到一声吠叫！", ""},
++    {"shout.monster.bellow_seen.1", "{monster} bellows!", "{monster}怒吼起来！", "monster:name"},
++    {"shout.monster.bellow_unseen.1", "You hear a bellow!", "你听到一声怒吼！", ""},
++    {"shout.monster.bleat_seen.1", "{monster} bleats!", "{monster}咩叫起来！", "monster:name"},
++    {"shout.monster.bleat_unseen.1", "You hear a bleat!", "你听到一声咩叫！", ""},
++    {"shout.monster.buggy", "You hear something buggy!", "你听到一阵奇怪的故障声！", ""},
++    {"shout.monster.buggy.1", "You hear doubly buggy behaviour!", "你听到一阵异常的故障声！", ""},
++    {"shout.monster.buzz_seen.1", "{monster} buzzes angrily.", "{monster}愤怒地嗡嗡作响。", "monster:name"},
++    {"shout.monster.buzz_unseen.1", "You hear an angry buzzing noise.", "你听到一阵愤怒的嗡嗡声。", ""},
++    {"shout.monster.cap_g.1", "{monster} turns {possessive} gaze towards you.", "{monster}将{possessive}目光转向你。", "monster:name;possessive:text"},
++    {"shout.monster.cap_j.1", "{monster} quivers.", "{monster}颤抖起来。", "monster:name"},
++    {"shout.monster.caw_seen.1", "{monster} caws.", "{monster}呱呱叫。", "monster:name"},
++    {"shout.monster.caw_unseen.1", "You hear a loud caw.", "你听到一声响亮的乌鸦叫。", ""},
++    {"shout.monster.cherub_seen.1", "{monster_possessive} eagle head screeches!", "{monster_possessive}的鹰首发出尖啸！", "monster_possessive:name"},
++    {"shout.monster.cherub_seen.2", "{monster_possessive} lion head roars!", "{monster_possessive}的狮首发出咆哮！", "monster_possessive:name"},
++    {"shout.monster.cherub_seen.3", "{monster_possessive} ox head lows!", "{monster_possessive}的牛首发出低哞！", "monster_possessive:name"},
++    {"shout.monster.cherub_seen.4", "{monster_possessive} human head shouts!", "{monster_possessive}的人首大喊！", "monster_possessive:name"},
++    {"shout.monster.cherub_unseen.1", "You hear a shout.", "你听到一声喊叫。", ""},
++    {"shout.monster.cherub_unseen.2", "You hear a screech.", "你听到一声尖啸。", ""},
++    {"shout.monster.cherub_unseen.3", "You hear a roar.", "你听到一声咆哮。", ""},
++    {"shout.monster.cherub_unseen.4", "You hear a low.", "你听到一声低哞。", ""},
++    {"shout.monster.croak_seen.1", "{monster} gives a loud, deep croak!", "{monster}发出一声响亮而低沉的呱叫！", "monster:name"},
++    {"shout.monster.croak_seen.2", "{monster} croaks.", "{monster}呱叫一声。", "monster:name"},
++    {"shout.monster.croak_unseen.1", "You hear a loud, deep croak!", "你听到一声响亮而低沉的呱叫！", ""},
++    {"shout.monster.croak_unseen.2", "You hear a croak.", "你听到一声呱叫。", ""},
++    {"shout.monster.faint_skitter_seen.1", "{monster_possessive} many legs skitter faintly.", "{monster_possessive}的许多条腿发出微弱的窸窣声。", "monster_possessive:name"},
++    {"shout.monster.faint_skitter_unseen.1", "You hear a faint skittering sound.", "你听到一阵微弱的窸窣爬行声。", ""},
++    {"shout.monster.giant_slug.1", "{monster} swivels {possessive} eye-stalks towards you.", "{monster}将{possessive}眼柄转向你。", "monster:name;possessive:text"},
++    {"shout.monster.glowing_orange_brain.1", "{monster} turns {possessive} attention towards you.", "{monster}将{possessive}注意力转向你。", "monster:name;possessive:text"},
++    {"shout.monster.growl_seen.1", "{monster} growls angrily.", "{monster}愤怒地低吼。", "monster:name"},
++    {"shout.monster.growl_unseen.1", "You hear an angry growl.", "你听到一声愤怒的低吼。", ""},
++    {"shout.monster.gurgle_seen.1", "{monster} gurgles horribly!", "{monster}可怕地咕噜作响！", "monster:name"},
++    {"shout.monster.gurgle_unseen.1", "You hear a horrible gurgling sound!", "你听到一阵可怕的咕噜声！", ""},
++    {"shout.monster.hiss_seen.1", "{monster} hisses angrily.", "{monster}愤怒地嘶叫。", "monster:name"},
++    {"shout.monster.hiss_unseen.1", "You hear an angry hiss.", "你听到一声愤怒的嘶嘶声。", ""},
++    {"shout.monster.howl_seen.1", "{monster} howls!", "{monster}嚎叫起来！", "monster:name"},
++    {"shout.monster.howl_unseen.1", "You hear a howl!", "你听到一声嚎叫！", ""},
++    {"shout.monster.laugh_seen.1", "{monster} laughs maniacally.", "{monster}发出一阵疯狂的大笑。", "monster:name"},
++    {"shout.monster.laugh_unseen.1", "You hear maniacal laughter.", "你听到一阵疯狂的大笑。", ""},
++    {"shout.monster.loud_roar_seen.1", "{monster} roars deafeningly!", "{monster}发出震耳欲聋的咆哮！", "monster:name"},
++    {"shout.monster.loud_roar_unseen.1", "You hear a deafening roar!", "你听到一声震耳欲聋的咆哮！", ""},
++    {"shout.monster.moan_seen.1", "{monster} gives a chilling moan.", "{monster}发出一声令人毛骨悚然的呻吟。", "monster:name"},
++    {"shout.monster.moan_unseen.1", "You hear a chilling moan.", "你听到一声令人毛骨悚然的呻吟。", ""},
++    {"shout.monster.moth_of_wrath.1", "{monster_possessive} fur bristles in rage as it notices you.", "{monster_possessive}的皮毛因察觉到你而愤怒地竖起。", "monster_possessive:name"},
++    {"shout.monster.player_ghost.1", "{monster} turns {possessive} malevolent gaze towards you.", "{monster}将{possessive}恶意目光转向你。", "monster:name;possessive:text"},
++    {"shout.monster.polyphemus.1", "{monster} shouts, \"Attack, my pets! Attack!\"", "{monster}大喊：“攻击，我的宠物们！攻击！”", "monster:name"},
++    {"shout.monster.roar_seen.1", "{monster} roars!", "{monster}咆哮起来！", "monster:name"},
++    {"shout.monster.roar_unseen.1", "You hear a roar!", "你听到一声咆哮！", ""},
++    {"shout.monster.rustle_seen.1", "{monster_possessive} pages rustle loudly.", "{monster_possessive}的书页哗啦作响。", "monster_possessive:name"},
++    {"shout.monster.rustle_unseen.1", "You hear a loud rustle.", "你听到一阵响亮的沙沙声。", ""},
++    {"shout.monster.scream_seen.1", "{monster} gives a hideous shriek!", "{monster}发出一声凄厉的尖叫！", "monster:name"},
++    {"shout.monster.scream_unseen.1", "You hear a hideous shriek!", "你听到一声凄厉的尖叫！", ""},
++    {"shout.monster.screech_seen.1", "{monster} screeches!", "{monster}尖声嘶叫！", "monster:name"},
++    {"shout.monster.screech_unseen.1", "You hear a screech!", "你听到一声尖锐的嘶叫！", ""},
++    {"shout.monster.shout.1", "You hear a shout!", "你听到一声喊叫！", ""},
++    {"shout.monster.shout_seen.1", "{monster} shouts!", "{monster}喊叫起来！", "monster:name"},
++    {"shout.monster.skitter_seen.1", "{monster_possessive} many legs skitter.", "{monster_possessive}的许多条腿窸窣作响。", "monster_possessive:name"},
++    {"shout.monster.skitter_unseen.1", "You hear a skittering sound.", "你听到一阵窸窣爬行声。", ""},
++    {"shout.monster.squeak_seen.1", "{monster} squeaks loudly.", "{monster}大声吱叫。", "monster:name"},
++    {"shout.monster.squeak_unseen.1", "You hear a loud squeak.", "你听到一声响亮的吱叫。", ""},
++    {"shout.monster.squeal_seen.1", "{monster} squeals angrily.", "{monster}愤怒地尖叫。", "monster:name"},
++    {"shout.monster.squeal_unseen.1", "You hear an angry squeal.", "你听到一声愤怒的尖叫。", ""},
++    {"shout.monster.trumpet_seen.1", "{monster} trumpets!", "{monster}发出号角般的鸣叫！", "monster:name"},
++    {"shout.monster.trumpet_unseen.1", "You hear a trumpeting!", "你听到一声号角般的鸣叫！", ""},
++    {"shout.monster.two_shouts_seen.1", "{monster} shouts in stereo!", "{monster}发出立体声般的喊叫！", "monster:name"},
++    {"shout.monster.two_shouts_unseen.1", "You hear two shouts!", "你听到两声喊叫！", ""},
++    {"shout.monster.unsupported", "{message}", "{message}", "message:text"},
 +    {"skill.cause.ashenzari_anger", "Ashenzari's anger", "阿什恩扎里的怒火", ""},
 +    {"skill.cause.ashenzari_power", "Ashenzari's power", "阿什恩扎里的神力", ""},
 +    {"skill.cause.charlatan_orb", "the Charlatan's Orb", "骗子的宝珠", ""},
@@ -125806,12 +127153,14 @@ index 0000000..a572034
 +    {"detail.monster.lore", "A globe of deepest cold, still lingering from a time before the stars lit the\nheavens. It can shroud the soul in a chill so intense that even the gods cannot\nreach it.", "monster.lore.orb_of_winter"},
 +    {"detail.monster.lore", "A globe of profound nothingness and the oblivion that awaits all things - flesh,\nsouls, and even time itself. When the universe ends, only these will remain.", "monster.lore.orb_of_entropy"},
 +    {"detail.monster.lore", "A goblin newly converted to Nemelex Xobeh. It's still learning about all the\ncards and, thankfully, isn't inclined to use them against you.", "monster.lore.goblin_sharper"},
++    {"detail.monster.lore", "A great and nightmarish lacertilian beast. It has many heads, and the potential to grow many more!\n\nHitting it with any bladed weapon bigger than a short blade risks lopping a head off and causing two more to grow in its place. Very large claws, such as trolls', are long enough to do the same. Only a weapon branded with flame will cauterise the wound and prevent more heads from growing.", "monster.detail.lore.hydra_current"},
 +    {"detail.monster.lore", "A heavily ruptured stonework, surrounded by rubble.", "monster.lore.pile_of_debris"},
 +    {"detail.monster.lore", "A hovering horror, rare and unnatural even amongst servitor eyes, radiating\nbaleful energies. They monitor the flow of chaotic life and ever-present death\nfor the divine Jiyva.", "monster.lore.eye_of_draining"},
 +    {"detail.monster.lore", "A jet-black corvid with a nasty beak and a reputation for heralding bad luck.\nMost ornithologists consider this a baseless stereotype; the rest are still\nrecovering from a series of staggeringly unlikely accidents.", "monster.lore.raven"},
 +    {"detail.monster.lore", "A large and vivid bloom drifting placidly upon the surface of the water. The\ncradle of the lotus's petals shine with eternity and elegance - while it is\nentirely harmless, it would take immense effort to destroy it.", "monster.lore.sacred_lotus"},
 +    {"detail.monster.lore", "A leftover mess of broken bones, inert grasping organs, and scattered skin.\nWhile some highly-specialised sorcerers might be capable of bringing it to life,\nit is otherwise harmless - the possible leftovers of some departed or\nabsent-minded magus.", "monster.lore.pile_of_flesh"},
 +    {"detail.monster.lore", "A lizard egg the size of a small boulder and nearly as hard. Perhaps as a\ndefence mechanism, they hatch rapidly in the presence of predators and even a\nnewborn can give all but the most ambitious of monsters a reason to consider an\neasier meal.", "monster.lore.seismosaurus_egg"},
++    {"detail.monster.lore", "A lump of sickly pustulent flesh, dripping with lethal acid.", "monster.detail.lore.acid_blob_current"},
 +    {"detail.monster.lore", "A mannequin used for battle practice.", "monster.lore.training_dummy"},
 +    {"detail.monster.lore", "A mechanical insect powered by an intricate array of gears and springs. It has\nrun out of power and can only be rewound by its creator moving into it.", "monster.lore.dormant_clockwork_bee"},
 +    {"detail.monster.lore", "A mechanical insect powered by an intricate array of gears and springs. It is\nvicious and resilient to damage, but its clockwork naturally winds down as it\nattacks, eventually leaving it unable to move until its creator winds it again.", "monster.lore.clockwork_bee"},
@@ -125821,6 +127170,7 @@ index 0000000..a572034
 +    {"detail.monster.lore", "A modern breakthrough in arcane experimentation, this mobile prison cell\nweaponises the living fragments of once-escaped ugly things, extending the reach\nof their tendrils to thrash multiple foes at once from a distance.", "monster.lore.crawling_flesh_cage"},
 +    {"detail.monster.lore", "A mote of intense light and heat manifested by a sun scarab. It is linked to\ntheir essence and will never leave their side, being reconstituted time and time\nagain whenever it is extinguished.\n\nSome myths even claim that the sun which shines down upon the outside world was\nonce carried around by such a scarab.", "monster.lore.solar_ember"},
 +    {"detail.monster.lore", "A multihued mire of roiling flesh and fluctuating sludge, striving and failing\nfor more coherence than any other slime. As a fresh carrier of the ruinous\ncontagion that overtook the Slime Pits, it can impart unto others the same\nhorrible fate. While it may not be a permanent transformation for you, the\nmelding of weapons and armour, as well as the severe weakening of spells, may\nmake it a lethal one regardless.", "monster.lore.morphogenic_ooze"},
++    {"detail.monster.lore", "A particularly rich and golden gelatinous thing. Smaller jellies swim and pulse just below its surface, ready to burst forth at the slightest touch.", "monster.lore.royal_jelly"},
 +    {"detail.monster.lore", "A prism-like silhouette which wavers with barely-contained destructive energy.\nAny blow which disrupts its form will result in a violent blast of shadow.", "monster.lore.shadow_prism"},
 +    {"detail.monster.lore", "A quivering amalgam of viscous slime, its many pseudopods gnashing at the air\nlike a throng of reptilian maws. It rapidly absorbs nearby slime creatures into\nitself, growing a new 'head' for each one and becoming even more resilient.\n\nWhether through convergent evolution or genetic memory, it also shares the\nhydra's most infamous trait: lopping off a head with a bladed weapon will just\nmake it grow two more unless the wound is cauterised by a flaming weapon.\n\nWhen not stalking prey, its constituent slimes may separate from it again,\nperhaps to seek new food sources on their own.", "monster.lore.slymdra"},
 +    {"detail.monster.lore", "A rapidly-growing mushroom whose life-cycle culminates in an explosive release\nof spores. These spores have a mild psychoactive effect and can sometimes daze\ncreatures who breathe them in.", "monster.lore.burstshroom"},
@@ -125844,6 +127194,7 @@ index 0000000..a572034
 +    {"detail.monster.lore", "A time-lost revenant, risen not from the death of a single individual but of\nmany - its bones fused together from the young and the elderly and different\nspecies altogether. Whether they were all the victims of a single massacre or\na thousand souls discarded over a thousand years is impossible to say now;\nhistory does not remember them.\n\nBut one thing is clear: they will fight to change that until every last memory\nthey have left burns away.", "monster.lore.nobody"},
 +    {"detail.monster.lore", "A timeworn revenant whose flames dance with the silhouettes of long-forgotten\natrocities. Cursed with a hunger they can never satisfy, they unleash these\nlong-dead echoes to reenact violence upon any soul they deem worthy of adding to\ntheir eternal collection.", "monster.lore.revenant_soulmonger"},
 +    {"detail.monster.lore", "A tiny fragment of a living soul, splintered from the body in which it belongs.\nToo mindless to be fully controlled, it seeks nothing but to reunite with its\ngreater self once more - unfortunately, this process tends to be more violent\nthan the magic which created it.", "monster.lore.soul_wisp"},
++    {"detail.monster.lore", "A vampiric thrall bound into servitude by esoteric rituals. Though its rigid limbs give it an awkward gait, it moves with surprising speed, leaping upon its victims and leeching away their life essence with its vicious claws.", "monster.detail.lore.jiangshi_current"},
 +    {"detail.monster.lore", "A well-armoured coglin whose talents with machinery have been harnessed by the\nIronbound order to repair and augment the many constructs that help guard the\nVaults.", "monster.lore.ironbound_mechanist"},
 +    {"detail.monster.lore", "A white gelatinous mound that pulses with a strange iridescence. Its body\nabsorbs magical energy like a sponge, and when sufficiently injured, will\nunleash this energy as a flurry of shooting stars.", "monster.lore.star_jelly"},
 +    {"detail.monster.lore", "A wicked youthful hybrid with a woman's head, a lion's body, and the wings of\nan eagle. It gleefully wreaks havoc with both the violent turbulence of\nhigh winds and the frustration of bewildering magics.", "monster.lore.sphinx_marauder"},
@@ -125869,6 +127220,7 @@ index 0000000..a572034
 +    {"detail.monster.lore", "Some sorcerers care little for unholy realms or undead forms, seeking power\ninstead in the whims of cruel chaos. This ominous owl-winged head is all that\nremains of a former archmage: it delights in spreading misfortune and drinking\nblood in its new airborne form.", "monster.lore.chonchon"},
 +    {"detail.monster.lore", "The Dungeon's vast repositories of the dead and the unholy realms thereafter\nboth require regular restocking and reorganisation, far beyond the coordination\nof the restless dead. These corpse-collecting constructs burrow through the\nearth and command divisions of zombified hands to assist them in stealing away\ncarrion, and may also violently create new corpses for such purposes.", "monster.lore.undertaker"},
 +    {"detail.monster.lore", "The flame-wreathed skeleton of a carnivorous fish, darting through air as easily\nas it once parted water. It burns with a hunger it could not satisfy in life and\nis singularly driven by in death.\n\nWhile a single one may be only a nuisance, the swarm is never far behind, and\nevery bite it lands will summon more and more of them until every scrap of flesh\non its prey has been devoured.", "monster.lore.marrowcuda"},
++    {"detail.monster.quote", "“On the other hand, Confucius is made to say to his disciples, ‘I know how\n birds can fly, how fishes can swim, and how animals can run. But the runner\n may be snared, the swimmer may be hooked, and the flyer may be shot by the\n arrow. But there is the dragon. I cannot tell how he mounts on the wind\n through the clouds, and rises to heaven. Today I have seen Lao-tsze, and can\n only compare him to the dragon.’”\n    -Life of Confucius\n\n“This Dragon had Two furious Wings\n   Each one upon each Shoulder;\n With a Sting in his Tail as long as a Flail,\n   Which made him bolder and bolder.\n He had long Claws, and in his Jaws\n   Four and forty Teeth of Iron;\n With a Hide as tough, as any Buff,\n   Which did him round environ.”\n\n    -“An Excellent Ballad of a most dreadful Combat, fought between Moore of Moore-Hall, and the Dragon of Wantley”, retold by Ambrose Philips, _A Collection of Old Ballads. Corrected from the Best and Most Ancient Copies Extant. With Introductions Historical, Critical, Or Humorous_. 1723.", "monster.quote.cap_d_suffix"},
 +    {"detail.monster.quote", "“Things are only mannequins and even the great world-historical events are only\n costumes beneath which they exchange glances with nothingness, with the base\n and the banal.”\n    -Walter Benjamin, _Protocols to the Experiments on Hashish, Opium and\n     Mescaline 1927-1934_, “Protocol II: Highlights of the Second Hashish\n     Impression”. 15 January 1928.\n     trans. Scott J. Thompson, 1997.", "monster.quote.training_dummy"},
 +    {"detail.monster.status_reference", "[[asleep monstatus]]", "monster.status_reference.1"},
 +    {"detail.monster.status_reference", "[[catching its breath monstatus]]", "monster.status_reference.2"},

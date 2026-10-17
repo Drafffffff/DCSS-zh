@@ -1,0 +1,31 @@
+{
+  "scenes": [
+    {
+      "scene": "first-encounter",
+      "screenshot": "first-encounter.png",
+      "review": "首遇中文和两行攻击/自动移动提示在日志区内，未进入物品栏。"
+    },
+    {
+      "scene": "special-acid-blob",
+      "screenshot": "special-acid-blob.png",
+      "review": "酸液反击、无定形、特殊属性与长详情可见，背景标签重绘未进入旧层。"
+    },
+    {
+      "scene": "encounter-and-visual-shout",
+      "screenshot": "encounter-and-visual-shout.png",
+      "review": "首遇、可见无声喊叫及教程中文完整，日志未进入物品栏。"
+    },
+    {
+      "scene": "special-hydra",
+      "screenshot": "special-hydra.png",
+      "review": "实际图形副本中九头蛇头数、图鉴完整段落、再生与速度均可见；引用原文未切换显示，不列为目视验收。"
+    }
+  ],
+  "missing": [],
+  "window_pixels": [
+    1747,
+    1112
+  ],
+  "save_copy_only": true,
+  "native_4k": false
+}

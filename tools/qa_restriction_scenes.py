@@ -99,7 +99,7 @@ RESTRICTION_EXPECTED.update({
 })
 
 RESTRICTION_SCENES.update({
- 'monster-wound-living': 'l&wiz\rmorc hp:1000\r&zMagic Dart\rf',
+ 'monster-wound-living': 'l&wiz\rmrat hp:1000\r' + '&zMagic Dart\rf'*4 + 'x+',
  'monster-wound-undead': 'l&wiz\rmwight hp:1000\r&zMagic Dart\rf',
 })
 RESTRICTION_EXPECTED.update({
@@ -112,3 +112,48 @@ RESTRICTION_EXPECTED['monster-long-detail']={'monster.detail.lore.orc_warrior_cu
 
 RESTRICTION_SCENES["monster-status-detail"]=RESTRICTION_SCENES["monster-long-detail"]+"!"
 RESTRICTION_EXPECTED["monster-status-detail"]={"monster.status_text.asleep","monster.status_text.high_tier_stab"}
+
+# Intrinsic special-monster detail workpackage: all wizard input runs in the
+# replay harness's fresh save copy. Hydra covers regeneration, differing action
+# energy and amphibious movement; acid blob combines long resistance/body prose.
+RESTRICTION_SCENES.update({
+ 'monster-special-hydra': 'l&wiz\rmhydra\rx+v',
+ 'monster-special-acid-blob': 'l&wiz\rmacid blob\rx+v',
+ 'monster-special-jiangshi': 'l&wiz\rmjiangshi\rx+v',
+ 'monster-special-royal-jelly': 'l&wiz\rmRoyal Jelly\rx+v',
+})
+RESTRICTION_EXPECTED.update({
+ 'monster-special-hydra': {'monster.special.regen', 'monster.special.speed.energy',
+                         'monster.special.cold_blooded.singular', 'monster.special.habitat.water'},
+ 'monster-special-acid-blob': {'monster.special.resists.singular',
+                             'monster.special.acid_splash.singular', 'monster.special.amorphous.singular'},
+ 'monster-special-jiangshi': {'monster.special.speed.pauses'},
+ 'monster-special-royal-jelly': {'monster.special.royal_jelly.damage',
+                               'monster.special.royal_jelly.polymorph'},
+})
+
+# First encounter + monster shouts: same copied ZhSmoke state, real wizard
+# creation followed by normal observation. The first popup's source template is
+# platform-specific, so choose -console for PTY and -tiles for local/4K SDL.
+RESTRICTION_SCENES.update({
+ 'encounter-first-console': 'l&wiz\rmorc\r.',
+ 'encounter-first-tiles': 'l&wiz\rmorc\r.',
+ 'encounter-zero-exp': 'l&wiz\rmplant\r....&mplant\r.',
+ # In targeting mode, s invokes the existing wizard (S)hout/(T)alk dialog.
+ # Its second s + count asks this copied-save actor to shout exactly once.
+ 'shout-monster-seen': 'l&wiz\rmorc\rx+ss1\r',
+ 'shout-monster-animal': 'l&wiz\rmwolf\rx+ss1\r',
+ 'shout-monster-visual': 'l&wiz\rmjelly\rx+ss1\r',
+})
+RESTRICTION_EXPECTED.update({
+ 'encounter-first-console': {'hint.encounter.glyph'},
+ 'encounter-first-tiles': {'hint.encounter.first.tiles'},
+ 'encounter-zero-exp': {'hint.encounter.db.hint_seen_zero_exp_mon'},
+ 'shout-monster-seen': {'shout.monster.shout_seen.1'},
+ 'shout-monster-animal': {'shout.monster.howl_seen.1'},
+ 'shout-monster-visual': {'shout.monster.cap_j.1'},
+})
+
+# Unique-monster alert discards queued keys at --more--; wait for the real
+# terminal prompt before opening its detail view.
+RESTRICTION_FOLLOWUPS["monster-special-royal-jelly"]={"trigger":"--more--", "keys":"x+v"}

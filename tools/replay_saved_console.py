@@ -28,6 +28,7 @@ p.add_argument('--out',required=True,type=Path)
 p.add_argument('--scenes',default='weapon-detail,skills,skills-help,monster-detail,shop-selected')
 p.add_argument('--startup-timeout',type=float,default=30,help='Wait for real hints producer completion instead of a fixed loading delay')
 p.add_argument('--require-complete',action='store_true',help='Fail on any missing ID or semantic name in the selected fixtures')
+p.add_argument('--verify-only',action='store_true',help='Recheck saved capture evidence without opening a game or modifying a save copy')
 a=p.parse_args()
 a.binary=a.binary.resolve();a.data=a.data.resolve();a.saves=a.saves.resolve();a.out=a.out.resolve()
 a.out.mkdir(parents=True,exist_ok=True)
@@ -69,8 +70,9 @@ for kind,name in talisman_names.items():
     cases['talisman-'+kind.lower()]='l&wiz\r%level:1 pre_id '+name+'\rgid'
 from qa_restriction_scenes import RESTRICTION_SCENES, RESTRICTION_EXPECTED, RESTRICTION_FOLLOWUPS
 cases.update(RESTRICTION_SCENES)
-results=[]
-for scene in a.scenes.split(','):
+saved_report=json.loads((a.out/'results.json').read_text()) if a.verify_only else None
+results=saved_report['scenes'] if a.verify_only else []
+for scene in ([] if a.verify_only else a.scenes.split(',')):
     with tempfile.TemporaryDirectory(prefix='dcss-copy-'+scene+'-') as folder:
         import shutil
         state=Path(folder)
@@ -113,7 +115,7 @@ for scene in a.scenes.split(','):
                 transcript.extend(chunk)
                 # Forced tutorial/religion more prompts require real child-PTY input.
                 if b"--more--" in chunk: os.write(fd,b" ")
-                if (scene=='external-wall-jump' and not wall_followup_sent
+                if (scene in RESTRICTION_FOLLOWUPS and not wall_followup_sent
                         and RESTRICTION_FOLLOWUPS[scene]['trigger'].encode() in transcript):
                     wall_followup_sent=True
                     wall_followup_due=time.monotonic()+.5
@@ -152,7 +154,7 @@ for scene in a.scenes.split(','):
                 'runtime_error':any(s in text for s in ('Legacy translation reached migrated boundary',
                     'Missing localization source:', 'ASSERT(', 'Lua error', 'terminate called', 'terminating due to', 'Invalid localization parameter', 'Invalid localization key', 'Lua 错误', 'unterminated <input>', '未终止的 <input>'))}
         results.append(result)
-unchanged=before==hashes()
+unchanged=saved_report['source_fixture_unchanged'] if a.verify_only else before==hashes()
 report={'source_fixture_unchanged':unchanged,'scenes':results}
 (a.out/'results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 assert unchanged, 'Source fixture changed'
@@ -207,7 +209,7 @@ for result in results:
             assert sentence in terminal,(result['scene'],'intended complete message not visible',ident,sentence)
             visible.append(ident)
         result['visible_message_ids']=visible
-    if result['scene'].startswith(('prompt-', 'terrain-', 'monster-')):
+    if result['scene'].startswith(('prompt-', 'terrain-', 'monster-', 'encounter-', 'shout-')):
         # A traced speculative probe is not proof of a displayed message.
         # Compare bound complete templates with the real terminal, ignoring
         # terminal cursor-based padding and style escapes only.
@@ -235,11 +237,22 @@ for result in results:
         normalize=lambda text:re.sub(r'\s+','',re.sub(r'<[^>]+>','',text))
         visible=normalize(terminal)
         checked=[]
-        for identity in sorted(RESTRICTION_EXPECTED[result['scene']]):
+        visible_expected=set(RESTRICTION_EXPECTED[result['scene']])
+        if result['scene']=='encounter-first-console':
+            parents={line.split('\t')[0] for line in result['ids']} & {'hint.encounter.first.console','hint.encounter.first.console_list'}
+            assert len(parents)==1, 'First encounter parent was not generated'
+            visible_expected.update(parents)
+        for identity in sorted(visible_expected):
             rendered=[line.split('\t',2)[2] for line in result['values']
                       if line.startswith(identity+'\t')]
-            assert any(normalize(re.sub(r'\\([nrt])',' ',text)) in visible
-                       for text in [expand_references(t) for t in rendered]),(result['scene'],'bound message not visible',identity)
+            # Tutorial channel inserts a structural '_' prefix between source
+            # paragraphs. Check every complete authored line/paragraph rather
+            # than pretending those renderer prefixes are part of the message.
+            def complete_visible(text):
+                paragraphs=re.split(r'\\n|\n',text)
+                return all(normalize(re.sub(r'\\([rt])',' ',paragraph)) in visible
+                           for paragraph in paragraphs if normalize(paragraph))
+            assert any(complete_visible(expand_references(t)) for t in rendered),(result['scene'],'bound message not visible',identity)
             checked.append(identity)
         result['visible_message_ids']=checked
     if result['scene'].startswith('hints-'):

@@ -2397,7 +2397,7 @@ void TilesFramework::clear_text_tags(text_tag_type /*type*/)
 }
 
 void TilesFramework::add_text_tag(text_tag_type /*type*/, const string &/*tag*/,
-                                  const coord_def &/*gc*/)
+                                  const coord_def &/*gc*/, bool /*pretranslated*/)
 {
 }
 

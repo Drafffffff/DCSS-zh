@@ -6,6 +6,8 @@
 #include "AppHdr.h"
 
 #include "shout.h"
+#include "zh-message.h"
+#include "zh-display-name.h"
 
 #include <sstream>
 
@@ -150,6 +152,116 @@ bool monster_attempt_shout(monster &mon)
  * @param mons      The monster in question.
  * @param shout    The shout_type to use.
  */
+// Bind complete, unformatted DB source templates after the original speech
+// protocol selected a leaf, before substituting actor names. Never inspect a
+// rendered English sentence to guess its translation or its arguments.
+static ZhMessage _monster_shout_message(const string &source,
+                                        const string &canonical,
+                                        const monster &mons)
+{
+    struct binding { const char *source, *id; unsigned arguments; };
+    static const binding bindings[] = {
+        {"You hear doubly buggy behaviour!", "shout.monster.buggy.1", 0},
+        {"You hear a shout!", "shout.monster.shout.1", 0},
+        {"@The_monster@ shouts!", "shout.monster.shout_seen.1", 1},
+        {"You hear a bark!", "shout.monster.bark_unseen.1", 0},
+        {"@The_monster@ barks!", "shout.monster.bark_seen.1", 1},
+        {"You hear a howl!", "shout.monster.howl_unseen.1", 0},
+        {"@The_monster@ howls!", "shout.monster.howl_seen.1", 1},
+        {"You hear two shouts!", "shout.monster.two_shouts_unseen.1", 0},
+        {"@The_monster@ shouts in stereo!", "shout.monster.two_shouts_seen.1", 1},
+        {"You hear a roar!", "shout.monster.roar_unseen.1", 0},
+        {"@The_monster@ roars!", "shout.monster.roar_seen.1", 1},
+        {"You hear a hideous shriek!", "shout.monster.scream_unseen.1", 0},
+        {"@The_monster@ gives a hideous shriek!", "shout.monster.scream_seen.1", 1},
+        {"You hear a bellow!", "shout.monster.bellow_unseen.1", 0},
+        {"@The_monster@ bellows!", "shout.monster.bellow_seen.1", 1},
+        {"You hear a bleat!", "shout.monster.bleat_unseen.1", 0},
+        {"@The_monster@ bleats!", "shout.monster.bleat_seen.1", 1},
+        {"You hear a trumpeting!", "shout.monster.trumpet_unseen.1", 0},
+        {"@The_monster@ trumpets!", "shout.monster.trumpet_seen.1", 1},
+        {"You hear a screech!", "shout.monster.screech_unseen.1", 0},
+        {"@The_monster@ screeches!", "shout.monster.screech_seen.1", 1},
+        {"You hear an angry buzzing noise.", "shout.monster.buzz_unseen.1", 0},
+        {"@The_monster@ buzzes angrily.", "shout.monster.buzz_seen.1", 1},
+        {"You hear a chilling moan.", "shout.monster.moan_unseen.1", 0},
+        {"@The_monster@ gives a chilling moan.", "shout.monster.moan_seen.1", 1},
+        {"You hear a horrible gurgling sound!", "shout.monster.gurgle_unseen.1", 0},
+        {"@The_monster@ gurgles horribly!", "shout.monster.gurgle_seen.1", 1},
+        {"You hear a loud, deep croak!", "shout.monster.croak_unseen.1", 0},
+        {"You hear a croak.", "shout.monster.croak_unseen.2", 0},
+        {"@The_monster@ gives a loud, deep croak!", "shout.monster.croak_seen.1", 1},
+        {"@The_monster@ croaks.", "shout.monster.croak_seen.2", 1},
+        {"You hear an angry growl.", "shout.monster.growl_unseen.1", 0},
+        {"@The_monster@ growls angrily.", "shout.monster.growl_seen.1", 1},
+        {"You hear an angry hiss.", "shout.monster.hiss_unseen.1", 0},
+        {"@The_monster@ hisses angrily.", "shout.monster.hiss_seen.1", 1},
+        {"You hear a skittering sound.", "shout.monster.skitter_unseen.1", 0},
+        {"@The_monster_possessive@ many legs skitter.", "shout.monster.skitter_seen.1", 2},
+        {"You hear a faint skittering sound.", "shout.monster.faint_skitter_unseen.1", 0},
+        {"@The_monster_possessive@ many legs skitter faintly.", "shout.monster.faint_skitter_seen.1", 2},
+        {"You hear an angry squeal.", "shout.monster.squeal_unseen.1", 0},
+        {"@The_monster@ squeals angrily.", "shout.monster.squeal_seen.1", 1},
+        {"@The_monster_possessive@ eagle head screeches!", "shout.monster.cherub_seen.1", 2},
+        {"@The_monster_possessive@ lion head roars!", "shout.monster.cherub_seen.2", 2},
+        {"@The_monster_possessive@ ox head lows!", "shout.monster.cherub_seen.3", 2},
+        {"@The_monster_possessive@ human head shouts!", "shout.monster.cherub_seen.4", 2},
+        {"You hear a shout.", "shout.monster.cherub_unseen.1", 0},
+        {"You hear a screech.", "shout.monster.cherub_unseen.2", 0},
+        {"You hear a roar.", "shout.monster.cherub_unseen.3", 0},
+        {"You hear a low.", "shout.monster.cherub_unseen.4", 0},
+        {"You hear a deafening roar!", "shout.monster.loud_roar_unseen.1", 0},
+        {"@The_monster@ roars deafeningly!", "shout.monster.loud_roar_seen.1", 1},
+        {"You hear a loud rustle.", "shout.monster.rustle_unseen.1", 0},
+        {"@The_monster_possessive@ pages rustle loudly.", "shout.monster.rustle_seen.1", 2},
+        {"You hear a loud squeak.", "shout.monster.squeak_unseen.1", 0},
+        {"@The_monster@ squeaks loudly.", "shout.monster.squeak_seen.1", 1},
+        {"@The_monster@ caws.", "shout.monster.caw_seen.1", 1},
+        {"You hear a loud caw.", "shout.monster.caw_unseen.1", 0},
+        {"@The_monster@ laughs maniacally.", "shout.monster.laugh_seen.1", 1},
+        {"You hear maniacal laughter.", "shout.monster.laugh_unseen.1", 0},
+        {"@The_monster@ turns @possessive@ malevolent gaze towards you.", "shout.monster.player_ghost.1", 5},
+        {"@The_monster@ turns @possessive@ gaze towards you.", "shout.monster.cap_g.1", 5},
+        {"@The_monster@ quivers.", "shout.monster.cap_j.1", 1},
+        {"@The_monster@ swivels @possessive@ eye-stalks towards you.", "shout.monster.giant_slug.1", 5},
+        {"@The_monster@ waves @possessive@ rhizomes.", "shout.monster.ballistomycete_spore.1", 5},
+        {"@The_monster@ turns @possessive@ attention towards you.", "shout.monster.glowing_orange_brain.1", 5},
+        {"@The_monster_possessive@ fur bristles in rage as it notices you.", "shout.monster.moth_of_wrath.1", 2},
+        {"@The_monster@ shouts, \"Attack, my pets! Attack!\"", "shout.monster.polyphemus.1", 1},
+    };
+    for (const auto &entry : bindings)
+    {
+        if (source != entry.source)
+            continue;
+        if (!entry.arguments)
+            return zh_message(entry.id, {}, canonical);
+        // Match speech's friendly ownership convention semantically. The
+        // complete original renderer still supplies canonical English below.
+        const auto desc = mons.attitude == ATT_FRIENDLY
+            && !mons_is_unique(mons.type) && !crawl_state.game_is_arena()
+            && you.can_see(mons) ? DESC_YOUR : DESC_THE;
+        if (entry.arguments == 1)
+            return zh_message(entry.id, {zh_monster_arg("monster", mons, desc)}, canonical);
+        if (entry.arguments == 2)
+        {
+            auto name = zh_monster_arg("monster_possessive", mons, desc);
+            name.canonical = apostrophise(name.canonical);
+            return zh_message(entry.id, {name}, canonical);
+        }
+        if (entry.arguments == 5)
+            return zh_message(entry.id, {
+                zh_monster_arg("monster", mons, desc),
+                zh_word_arg("possessive", "target.monster.pronoun.",
+                            mons.pronoun(PRONOUN_POSSESSIVE))}, canonical);
+        die("Invalid fixed monster shout binding");
+    }
+    // Random demon/imp taunts and extension speech remain complete canonical
+    // messages until their own grammar is migrated. Report the missing parent,
+    // never translate fragments of the rendered sentence.
+    return zh_message("shout.monster.unsupported", {
+        ZhArg("message", ZhArgType::Text, canonical, canonical, false)}, canonical);
+}
+
 void monster_shout(monster &mons, int shout)
 {
     shout_type s_type = static_cast<shout_type>(shout);
@@ -171,10 +283,10 @@ void monster_shout(monster &mons, int shout)
     // and if no such entry exists then looks simply for "name".
     const bool seen = you.can_see(mons);
     const string suffix = seen ? " seen" : " unseen";
-    string message = getShoutString(key, suffix);
+    string message = getShoutStringCanonical(key, suffix);
 
     if (message == "__DEFAULT" || message == "__NEXT")
-        message = getShoutString(default_msg_key, suffix);
+        message = getShoutStringCanonical(default_msg_key, suffix);
     else if (message.empty())
     {
         char mchar = mons_base_char(mons.type);
@@ -189,16 +301,15 @@ void monster_shout(monster &mons, int shout)
 
         glyph_key += mchar;
         glyph_key += "'";
-        message = getShoutString(glyph_key, suffix);
+        message = getShoutStringCanonical(glyph_key, suffix);
 
         if (message.empty() || message == "__DEFAULT")
-            message = getShoutString(default_msg_key, suffix);
+            message = getShoutStringCanonical(default_msg_key, suffix);
     }
 
     if (default_msg_key == "__BUGGY")
     {
-        msg::streams(MSGCH_SOUND) << "You hear something buggy!"
-                                  << endl;
+        mpr(zh_message("shout.monster.buggy"), MSGCH_SOUND);
     }
     else if (s_type == S_SILENT && (message.empty() || message == "__NONE"))
         ; // No "visual shout" defined for silent monster, do nothing.
@@ -208,16 +319,14 @@ void monster_shout(monster &mons, int shout)
             << "No shout entry for default shout type '"
             << default_msg_key << "'" << endl;
 
-        msg::streams(MSGCH_SOUND) << "You hear something buggy!"
-                                  << endl;
+        mpr(zh_message("shout.monster.buggy"), MSGCH_SOUND);
     }
     else if (message == "__NONE")
     {
         msg::streams(MSGCH_DIAGNOSTICS)
             << "__NONE returned as shout for non-silent monster '"
             << default_msg_key << "'" << endl;
-        msg::streams(MSGCH_SOUND) << "You hear something buggy!"
-                                  << endl;
+        mpr(zh_message("shout.monster.buggy"), MSGCH_SOUND);
     }
     else if (s_type == S_SILENT || !silenced(you.pos()))
     {
@@ -229,8 +338,11 @@ void monster_shout(monster &mons, int shout)
 
         if (channel != MSGCH_TALK_VISUAL || seen)
         {
+            const string source = message;
+            // Keep the engine's canonical replacements and RNG calls exactly
+            // once; the display is built from source identity and actor data.
             message = do_mon_str_replacements(message, mons, s_type);
-            msg::streams(channel) << message << endl;
+            mpr(_monster_shout_message(source, message, mons), channel);
         }
     }
 

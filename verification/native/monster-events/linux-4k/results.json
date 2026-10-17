@@ -1,0 +1,57 @@
+{
+  "original_saves_unchanged": true,
+  "scenes": [
+    {
+      "scene": "skills-help",
+      "keys": "m?",
+      "running_at_capture": true,
+      "scene_reached": true,
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "monster-special-hydra",
+      "keys": "l&wiz\rmhydra\rx+v",
+      "running_at_capture": true,
+      "scene_reached": true,
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "monster-special-acid-blob",
+      "keys": "l&wiz\rmacid blob\rx+v",
+      "running_at_capture": true,
+      "scene_reached": true,
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "encounter-first-tiles",
+      "keys": "l&wiz\rmorc\r.",
+      "running_at_capture": true,
+      "scene_reached": true,
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "encounter-zero-exp",
+      "keys": "l&wiz\rmplant\r....&mplant\r.",
+      "running_at_capture": true,
+      "scene_reached": true,
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    }
+  ],
+  "visual_review": {
+    "skills-help": "帮助正文与底部操作提示均在面板内",
+    "monster-special-hydra": "图鉴多段正文、再生换行与速度列完整；护甲none仍待固定值后续迁移",
+    "monster-special-acid-blob": "长说明、酸液反击、无定形与抗性均在面板内",
+    "encounter-first-tiles": "已通过强制more后截取实际两段教程，无物品栏重叠",
+    "encounter-zero-exp": "完整教程可见，鼠标已移出地图以避免向导调试悬停框"
+  }
+}

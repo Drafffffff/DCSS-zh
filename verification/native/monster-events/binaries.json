@@ -1,0 +1,22 @@
+{
+  "macos-tiles": {
+    "sha256": "d65ce748b007a00feba1485ece8e15fc038a872bba02fa00c8a0124067eb520f",
+    "file": "DCSS/output/macos/crawl-tiles: Mach-O 64-bit executable arm64",
+    "build_exit": 0
+  },
+  "macos-console": {
+    "sha256": "e9714309619fb208d774388aeda5146844a75f0877070cdd6680f3e23bca3a6f",
+    "file": "DCSS/output/macos/crawl-console: Mach-O 64-bit executable arm64",
+    "build_exit": 0
+  },
+  "linux-tiles": {
+    "sha256": "939e9523e846eca7f1e59ad37c9567dce6591884c62874e5acc3450dc976ce04",
+    "file": "DCSS/output/linux/crawl-tiles: ELF 64-bit LSB executable, x86-64, version 1 (GNU/Linux), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=be1d3046031b1136f60f026bed0a0b1240dd7adf, for GNU/Linux 3.2.0, not stripped",
+    "build_exit": 0
+  },
+  "linux-console": {
+    "sha256": "c5677bbcac34409754b37c91bbb87f67fb978e7ecc7ed8f181ee25a560255fc3",
+    "file": "DCSS/output/linux/crawl-console: ELF 64-bit LSB executable, x86-64, version 1 (GNU/Linux), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=0d5b35c614bb11e9f7a7aee12d9d3a5e2d937876, for GNU/Linux 3.2.0, not stripped",
+    "build_exit": 0
+  }
+}

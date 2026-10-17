@@ -282,7 +282,9 @@ void DungeonRegion::render()
             // center this coord, which is at the top left of gc's cell
             pc.x += dx / 2;
 
-            const auto text = formatted_string(tag.tag.c_str(), WHITE);
+            const auto text = tag.pretranslated
+                ? formatted_string::parse_string_raw(tag.tag, WHITE)
+                : formatted_string(tag.tag.c_str(), WHITE);
             m_tag_font->render_hover_string(pc.x, pc.y, text);
         }
 
@@ -1094,11 +1096,12 @@ void DungeonRegion::clear_text_tags(text_tag_type type)
 }
 
 void DungeonRegion::add_text_tag(text_tag_type type, const string &tag,
-                                 const coord_def &gc)
+                                 const coord_def &gc, bool pretranslated)
 {
     TextTag t;
     t.tag = tag;
     t.gc  = gc;
+    t.pretranslated = pretranslated;
 
     m_tags[type].push_back(t);
 }

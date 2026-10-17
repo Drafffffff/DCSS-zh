@@ -1,0 +1,9 @@
+/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/tmp8oy3twvm/test.cc:97:48: warning: '&&' within '||' [-Wlogical-op-parentheses]
+   97 |         && (you.running > 0 || you.running < 0 && Options.travel_delay == -1))
+      |                             ~~ ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/var/folders/xh/y926vt6x1r5_blk98s6bn7_r0000gn/T/tmp8oy3twvm/test.cc:97:48: note: place parentheses around the '&&' expression to silence this warning
+   97 |         && (you.running > 0 || you.running < 0 && Options.travel_delay == -1))
+      |                                                ^
+      |                                (                                            )
+1 warning generated.
+PASS: HUD experience/noise extracted producers and display-cell bounds

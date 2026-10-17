@@ -43,6 +43,7 @@ vector<string> getLongDescBodiesByRegex(const string &regex,
 string getGameStartDescription(const string &key);
 
 string getShoutString(const string &monst, const string &suffix = "");
+string getShoutStringCanonical(const string &monst, const string &suffix = "");
 string getSpeakString(const string &key);
 string getRandMonNameString(const string &montype);
 string getRandNameString(const string &itemtype, const string &suffix = "");

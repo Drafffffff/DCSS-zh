@@ -6,7 +6,7 @@
 |---|---|---|
 | 接口与渲染 | 规范英文读取与旧匹配暂停已拆分；Mac自动测试及真实回放通过 | raw绘制不改变语言；Lua/存档仍规范英文；参数/标签/缺失校验通过 |
 | 语义名称 | 物品/怪物/地点已有接口；已鉴定魔杖、普通书籍/手册/羊皮纸、杂项及充能状态按语义字段生成；自定义/神器/未鉴定复杂名仍整名回退 | 枚举/鉴定/数量/装备/专名组合测试；不解析最终英文名称 |
-| 详情 | 物品/怪物/法术详情已分批接入；本批完成怪物伤势/装备/132枚举状态、状态DB引用展开、教学建议和命中父句/标题/体型/门交互；其他特殊统计说明仍待逐包迁移 | 数据库正文语言选择、长文本、动作、不同来源/状态逐项核对；禁止旧matcher |
+| 详情 | 物品/怪物/法术详情已分批接入；本批完成怪物伤势/装备/132枚举状态、状态DB引用展开、教学建议和命中父句/标题/体型/门交互；特殊统计与怪物首遇/固定喊叫由 monster-tutorial-shout-special 接续；幽灵生平/变异兽等仍待后续包 | 数据库正文语言选择、长文本、动作、不同来源/状态逐项核对；禁止旧matcher |
 | 技能 | 主面板/查阅菜单/详情/帮助/tile提示已接入；增强/削弱特殊状态仍待真实分支补验 | 主面板、?/k、条目、详情、帮助、训练/增强/削弱、tile提示全部走新链路 |
 | 商店 | 菜单/确认/余额/购物清单主路径已接入，Mac严格回放通过；罕见命名回退仍登记 | 不同余额/数量/排序/颜色/键位/购买/空清单及名称回退 |
 | HUD | 等级/地点/噪声/武器部分接入；其他字段未迁移 | 统一按字段语义接入；列宽/刷新/长短名/最大值；不能整体跳过旧层审计 |
@@ -88,7 +88,18 @@
 验证：`tools/test_target_monster_details.py`、`tools/test_monster_info_messages.py`、`tools/test_monster_detail_logs.py`、`tools/test_spell_target_effects.py`、`tools/test_target_monster_callbacks.py`、`tools/test_monster_hints.py`、`tools/test_monster_status_database.py`、`tools/test_monster_detail_parents.py`。
 兼容规则：保留英文字符串API与Lua数据；typed回调贯通父句；状态枚举、名称快照、英文冻结生成函数与伤势日志逐项对照。
 验收记录：[verification/native/target-monster/REPORT.md](../../verification/native/target-monster/REPORT.md)。
-剩余：玩家幽灵完整生平、未审校复杂名称整父回退并报告；悬停格子外层物品/地形/云雾段落仍旧显示链路；详情统计中的其他特殊怪物说明、首遇教程弹窗、喊叫等动态日志仍需分包迁移；其他怪物业务日志、物品操作日志按模块账本后续验收。
+剩余：玩家幽灵完整生平、未审校复杂名称整父回退并报告；悬停格子外层物品/地形/云雾段落仍旧显示链路；特殊统计、首遇教程及固定喊叫由 monster-tutorial-shout-special 接续；随机对白仍待独立包；其他怪物业务日志、物品操作日志按模块账本后续验收。
+
+### monster-tutorial-shout-special — verified
+
+所属模块：教程、怪物与详情。
+文件：`hints.cc`、`hints.h`、`shout.cc`、`describe.cc`、`player-notices.cc`、`database.cc`、`database.h`、`zh-display-name.cc`、`tilesdl.cc`、`tilesdl.h`、`tileweb.cc`、`tileweb.h`、`tilereg-dgn.cc`、`tilereg-dgn.h`。
+生产函数：`hints_monster_seen`、`monster_shout`、`_monster_intrinsic_prose`、`_summoned_alert_message`、`_wyrmbane_alert_message`、`_gozag_incite_message`、`getShoutStringCanonical`、`_monster_visible_species_arg`。
+显示/业务消费者：`learned_something_new`、`describe_monster`、`seen_monster`、`_check_monster_alert`。
+验证：`tools/test_monster_notice_events.py`、`tools/test_special_monster_details.py`、`tools/test_first_encounter_hints.py`、`tools/test_monster_shouts.py`、`tools/test_monster_semantic_names.py`、`tools/test_pretranslated_rendering.py`、`tools/test_hydra_lore_unwrap.py`。
+兼容规则：数据库原始固定模板在参数填入之前绑定稳定ID；规范英文、事件标记、频道、噪声与随机调用保持不变。
+验收记录：[verification/native/monster-events/REPORT.md](../../verification/native/monster-events/REPORT.md)。
+剩余：随机嘲讽、谜语与其他玩家喊叫流程需要独立类型协议迁移；变形者神祇警告及其他怪物业务日志仍在账本排队；幽灵生平与变异兽详细数据库描述不是本包验收范围。
 
 
 ## 公共旧入口

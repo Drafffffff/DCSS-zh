@@ -79,8 +79,8 @@ macOS 打包脚本会收集第三方运行库的许可证与版本清单；相�
 
 ## 消息模板迁移（进行中）
 
-最新一批按账本迁移目标怪物伤势、装备、132 枚举状态、目标效果回调，以及首遇/追击/深渊出现和伤势日志。状态详情改为先翻译固定模板再展开内部引用，补齐详情教学、命中父句、标题、体型及门交互；文案由 Luna 审校。Mac/Bazzite 四种构建、Mac 18 项与 Linux 9 项测试套件、两端各 12 个存档副本场景及 Bazzite 七个原生 4K 场景通过。Mac 图形副本另行复核。详见[本批验收报告](verification/native/target-monster/REPORT.md)。
+最新一批按账本迁移首遇怪物教程、固定怪物喊叫、特殊体质/抗性/速度/再生/生境说明，以及召唤出现、Wyrmbane 和 Gozag 日志。喊叫从原始数据库模板进入完整中文模板，隔离旧中文数据库；补齐九头蛇头数、定冠词独特怪物名称及四段实际可达图鉴原文。新增文案均由 Luna 翻译审校。Mac/Bazzite 四种构建与存档副本验证通过，详见[本批验收报告](verification/native/monster-events/REPORT.md)。
 
-迁移沿[项目模块账本](analysis/message-migration/LEDGER.md)记录生产函数、消费者、测试和剩余入口。悬停外层物品/地形/云雾、特殊怪物统计说明、首遇教学弹窗、喊叫及其他动态业务日志仍待后续工作包；本批不代表完整详情或全部日志迁移。此前的[瞄准/法术/箭袋与危险地形验收](verification/native/prompt-terrain/REPORT.md)继续保留。
+迁移沿[项目模块账本](analysis/message-migration/LEDGER.md)记录生产函数、消费者、测试和剩余入口。随机恶魔嘲讽、玩家谜语、其他教程、幽灵生平/变异兽说明、外层物品/地形/云雾悬停与其他动态业务日志仍待后续包，不能称为全面迁移。此前的[目标怪物详情验收](verification/native/target-monster/REPORT.md)与[瞄准和危险地形验收](verification/native/prompt-terrain/REPORT.md)继续保留。
 
 第一批已建立生成处完整模板、命名类型参数和独立显示名接口，移除通用逐词兜底；Mac 与 Bazzite 构建及存档副本场景已验证。仍有旧渲染入口与未迁移文案，详情见[迁移范围、验证和限制](verification/native/message-migration/REPORT.md)及[架构记录](analysis/message-migration/architecture.md)。
