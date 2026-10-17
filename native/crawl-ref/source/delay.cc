@@ -4,6 +4,8 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
+#include "zh-display-name.h"
 
 #include "delay.h"
 
@@ -130,7 +132,7 @@ bool MemoriseDelay::try_interrupt(bool /*force*/)
 {
     // Losing work here is okay... having to start from
     // scratch is a reasonable behaviour. -- bwr
-    mpr("Your memorisation is interrupted.");
+    mpr(zh_message("log.delay.fixed.47c93cdb1e21"));
     return true;
 }
 
@@ -138,7 +140,7 @@ bool MultidropDelay::try_interrupt(bool /*force*/)
 {
     // No work lost
     if (!items.empty())
-        mpr("You stop dropping stuff.");
+        mpr(zh_message("log.delay.fixed.3a760cca1145"));
     return true;
 }
 
@@ -197,7 +199,10 @@ bool EquipOnDelay::try_interrupt(bool force)
 
     if (interrupt)
     {
-        mprf("You stop %s your %s.", get_verb(), _eq_category(equip).c_str());
+        mpr(zh_message("equip.stop", {
+            zh_word_arg("action", "equip.action.", get_verb()),
+            zh_word_arg("slot", "equip.slot.", _eq_category(equip), ZhArgType::Name)},
+            make_stringf("You stop %s your %s.", get_verb(), _eq_category(equip).c_str())));
         return true;
     }
     return false;
@@ -244,7 +249,10 @@ bool EquipOffDelay::try_interrupt(bool force)
 
     if (interrupt)
     {
-        mprf("You stop %s your %s.", get_verb(), _eq_category(equip).c_str());
+        mpr(zh_message("equip.stop", {
+            zh_word_arg("action", "equip.action.", get_verb()),
+            zh_word_arg("slot", "equip.slot.", _eq_category(equip), ZhArgType::Name)},
+            make_stringf("You stop %s your %s.", get_verb(), _eq_category(equip).c_str())));
         return true;
     }
     return false;
@@ -252,14 +260,14 @@ bool EquipOffDelay::try_interrupt(bool force)
 
 bool AscendingStairsDelay::try_interrupt(bool /*force*/)
 {
-    mpr("You stop ascending the stairs.");
+    mpr(zh_message("log.delay.fixed.81a36fb8685a"));
     untag_followers();
     return true;  // short... and probably what people want
 }
 
 bool DescendingStairsDelay::try_interrupt(bool /*force*/)
 {
-    mpr("You stop descending the stairs.");
+    mpr(zh_message("log.delay.fixed.f03c61cf90cb"));
     untag_followers();
     return true;  // short... and probably what people want
 }
@@ -269,7 +277,7 @@ bool PasswallDelay::try_interrupt(bool /*force*/)
     // finish() can trigger interrupts, avoid a double message
     if (interrupt_block::blocked())
         return false;
-    mpr("Your meditation is interrupted.");
+    mpr(zh_message("log.delay.fixed.66bc840b0831"));
     you.props.erase(PASSWALL_ARMOUR_KEY);
     you.redraw_armour_class = true;
     return true;
@@ -277,7 +285,7 @@ bool PasswallDelay::try_interrupt(bool /*force*/)
 
 bool ShaftSelfDelay::try_interrupt(bool /*force*/)
 {
-    mpr("You stop digging.");
+    mpr(zh_message("log.delay.fixed.c0b24353fab2"));
     return true;
 }
 
@@ -300,7 +308,7 @@ bool TransformDelay::try_interrupt(bool force)
 
     if (!interrupt)
         return false;
-    mpr("You stop transforming.");
+    mpr(zh_message("log.delay.fixed.6bbc231ddad8"));
     return true;
 }
 
@@ -323,7 +331,7 @@ bool ImbueDelay::try_interrupt(bool force)
 
     if (interrupt)
     {
-        mpr("You stop imbuing your servitor.");
+        mpr(zh_message("log.delay.fixed.8376fc32ce30"));
         return true;
     }
     return false;
@@ -331,7 +339,7 @@ bool ImbueDelay::try_interrupt(bool force)
 
 bool ImprintDelay::try_interrupt(bool /*force*/)
 {
-    mpr("Your concentration is interrupted.");
+    mpr(zh_message("log.delay.fixed.cda37b09bd6c"));
     return true;
 }
 
@@ -426,7 +434,7 @@ static command_type _get_running_command()
         if (!is_resting() && you.running.hp == you.hp
             && you.running.mp == you.magic_points)
         {
-            mpr("Done waiting.");
+            mpr(zh_message("log.delay.fixed.2ffc5a0df028"));
         }
 
         if (Options.rest_delay > 0)
@@ -457,16 +465,34 @@ void clear_macro_process_key_delay()
 
 void EquipOnDelay::start()
 {
-    mprf(MSGCH_MULTITURN_ACTION, "You start %s your %s.",
-         get_verb(),
-         _eq_category(equip).c_str());
+    mpr(zh_message("equip_start", {
+        zh_word_arg("action", "equip.action.", get_verb()),
+        zh_word_arg("slot", "equip.slot.", _eq_category(equip), ZhArgType::Name)},
+        make_stringf("You start %s your %s.", get_verb(), _eq_category(equip).c_str())), MSGCH_MULTITURN_ACTION);
 }
 
 void EquipOffDelay::start()
 {
-    mprf(MSGCH_MULTITURN_ACTION, "You start %s your %s.",
-         get_verb(),
-         _eq_category(equip).c_str());
+    mpr(zh_message("equip_start", {
+        zh_word_arg("action", "equip.action.", get_verb()),
+        zh_word_arg("slot", "equip.slot.", _eq_category(equip), ZhArgType::Name)},
+        make_stringf("You start %s your %s.", get_verb(), _eq_category(equip).c_str())), MSGCH_MULTITURN_ACTION);
+}
+
+void EquipOnDelay::tick()
+{
+    mpr(zh_message("equip_continue", {
+        zh_word_arg("action", "equip.action.", get_verb()),
+        zh_item_arg("item", equip, DESC_YOUR)},
+        make_stringf("You continue %s %s.", get_verb(), equip.name(DESC_YOUR).c_str())), MSGCH_MULTITURN_ACTION);
+}
+
+void EquipOffDelay::tick()
+{
+    mpr(zh_message("equip_continue", {
+        zh_word_arg("action", "equip.action.", get_verb()),
+        zh_item_arg("item", equip, DESC_YOUR)},
+        make_stringf("You continue %s %s.", get_verb(), equip.name(DESC_YOUR).c_str())), MSGCH_MULTITURN_ACTION);
 }
 
 void MemoriseDelay::start()
@@ -477,17 +503,17 @@ void MemoriseDelay::start()
             spell_title(spell));
         simple_god_message(message.c_str());
     }
-    mprf(MSGCH_MULTITURN_ACTION, "You start memorising the spell.");
+    mpr(zh_message("log.delay.fixed.fe318d92d093"), MSGCH_MULTITURN_ACTION);
 }
 
 void PasswallDelay::start()
 {
-    mprf(MSGCH_MULTITURN_ACTION, "You begin to meditate on the wall.");
+    mpr(zh_message("log.delay.fixed.2719740e7076"), MSGCH_MULTITURN_ACTION);
 }
 
 void ShaftSelfDelay::start()
 {
-    mprf(MSGCH_MULTITURN_ACTION, "You begin to dig a shaft.");
+    mpr(zh_message("log.delay.fixed.94d14d14b2db"), MSGCH_MULTITURN_ACTION);
 }
 
 void ImbueDelay::start()
@@ -506,9 +532,9 @@ void ImprintDelay::start()
 void TransformDelay::start()
 {
     if (form == transformation::none)
-        mprf(MSGCH_MULTITURN_ACTION, "You begin untransforming.");
+        mpr(zh_message("log.delay.fixed.6ff9f87b44ae"), MSGCH_MULTITURN_ACTION);
     else
-        mprf(MSGCH_MULTITURN_ACTION, "You begin transforming.");
+        mpr(zh_message("log.delay.fixed.c8feee978c02"), MSGCH_MULTITURN_ACTION);
 }
 
 command_type RunDelay::move_cmd() const
@@ -670,9 +696,9 @@ void DropItemDelay::tick()
 void TransformDelay::tick()
 {
     if (form == transformation::none)
-        mprf(MSGCH_MULTITURN_ACTION, "You continue untransforming.");
+        mpr(zh_message("log.delay.fixed.d9fcc097f296"), MSGCH_MULTITURN_ACTION);
     else
-        mprf(MSGCH_MULTITURN_ACTION, "You continue transforming.");
+        mpr(zh_message("log.delay.fixed.3eb4e1c5dca1"), MSGCH_MULTITURN_ACTION);
 }
 
 void Delay::handle()
@@ -729,7 +755,10 @@ bool EquipOnDelay::invalidated()
 
 void EquipOnDelay::finish()
 {
-    mprf("You finish %s %s.", get_verb(), equip.name(DESC_YOUR).c_str());
+    mpr(zh_message("equip_finish", {
+        zh_word_arg("action", "equip.action.", get_verb()),
+        zh_item_arg("item", equip, DESC_YOUR)},
+        make_stringf("You finish %s %s.", get_verb(), equip.name(DESC_YOUR).c_str())));
 
     if (is_weapon(equip) && you.has_mutation(MUT_SLOW_WIELD))
         maybe_name_weapon(equip);
@@ -744,7 +773,10 @@ bool EquipOffDelay::invalidated()
 
 void EquipOffDelay::finish()
 {
-    mprf("You finish %s %s.", get_verb(), equip.name(DESC_YOUR).c_str());
+    mpr(zh_message("equip_finish", {
+        zh_word_arg("action", "equip.action.", get_verb()),
+        zh_item_arg("item", equip, DESC_YOUR)},
+        make_stringf("You finish %s %s.", get_verb(), equip.name(DESC_YOUR).c_str())));
     unequip_item(equip);
 
     // Banishment via coglin distortion unwield might not happen until the turn
@@ -757,7 +789,7 @@ void MemoriseDelay::finish()
 #ifdef USE_SOUND
     parse_sound(MEMORISE_SPELL_SOUND);
 #endif
-    mpr("You finish memorising.");
+    mpr(zh_message("log.delay.fixed.ae0b3d8e0830"));
     add_spell_to_memory(spell);
     vehumet_accept_gift(spell);
     quiver::on_actions_changed();
@@ -768,7 +800,7 @@ void PasswallDelay::finish()
     // No interrupt message if our destination causes this delay to be
     // interrupted
     const interrupt_block block_double_message;
-    mpr("You finish merging with the rock.");
+    mpr(zh_message("log.delay.fixed.282c5871d332"));
     // included in default force_more_message
 
     // Immediately cancel bonus AC (since there are so many paths through this code)
@@ -783,8 +815,7 @@ void PasswallDelay::finish()
     default:
         if (!you.is_habitable(dest))
         {
-            mpr("...yet there is something new on the other side. "
-                "You quickly turn back.");
+            mpr(zh_message("log.delay.fixed.1958b88bd811"));
             redraw_screen();
             update_screen();
             return;
@@ -818,7 +849,7 @@ void PasswallDelay::finish()
         // If we failed to move them, cancel.
         if (m->pos() == dest)
         {
-            mpr("...and sense your way blocked. You quickly turn back.");
+            mpr(zh_message("log.delay.fixed.d8a80c867b15"));
             redraw_screen();
             update_screen();
             return;
@@ -879,7 +910,7 @@ void DescendingStairsDelay::finish()
 
 void ImbueDelay::finish()
 {
-    mpr("You finish imbuing your servitor.");
+    mpr(zh_message("log.delay.fixed.2028adf4bd74"));
     you.props[SERVITOR_SPELL_KEY] = spell;
 }
 
@@ -914,7 +945,7 @@ void run_macro(const char *macroname)
 #ifdef CLUA_BINDINGS
     if (!clua)
     {
-        mprf(MSGCH_DIAGNOSTICS, "Lua not initialised");
+        mpr(zh_message("log.delay.fixed.8c8b2c5c3fe0"), MSGCH_DIAGNOSTICS);
         stop_delay();
         return;
     }
@@ -942,7 +973,7 @@ void run_macro(const char *macroname)
             --delay->duration;
     }
 #else
-    mprf(MSGCH_ERROR, "CLua bindings not available on this build!");
+    mpr(zh_message("log.delay.fixed.1a7d90a94a28"), MSGCH_ERROR);
     UNUSED(macroname);
     stop_delay();
 #endif
@@ -1051,7 +1082,7 @@ void autotoggle_autopickup(bool off)
     else if (Options.autopickup_on < 0) // was turned off automatically
     {
         Options.autopickup_on = 1;
-        mprf(MSGCH_WARN, "Reactivating autopickup.");
+        mpr(zh_message("log.delay.fixed.beb409c29e7c"), MSGCH_WARN);
     }
 }
 
@@ -1068,7 +1099,7 @@ void monster_interrupt_message(activity_interrupt ai, const activity_interrupt_d
 
     if (ai == activity_interrupt::sense_monster)
     {
-        mprf(MSGCH_WARN, "You sense a monster nearby.");
+        mpr(zh_message("log.delay.fixed.4986a1322940"), MSGCH_WARN);
         return;
     }
 
@@ -1110,12 +1141,12 @@ bool interrupt_activity(activity_interrupt ai, const activity_interrupt_data &at
     if (ai == activity_interrupt::full_hp && !you.running.notified_hp_full)
     {
         you.running.notified_hp_full = true;
-        mpr("HP restored.");
+        mpr(zh_message("log.delay.fixed.61eda2682482"));
     }
     else if (ai == activity_interrupt::full_mp && !you.running.notified_mp_full)
     {
         you.running.notified_mp_full = true;
-        mpr("Magic restored.");
+        mpr(zh_message("log.delay.fixed.0302433d8eb5"));
     }
     else if (ai == activity_interrupt::ancestor_hp
              && !you.running.notified_ancestor_hp_full)
@@ -1123,7 +1154,7 @@ bool interrupt_activity(activity_interrupt ai, const activity_interrupt_data &at
         // This interrupt only triggers when the ancestor is in LOS,
         // so this message does not leak information.
         you.running.notified_ancestor_hp_full = true;
-        mpr("Ancestor HP restored.");
+        mpr(zh_message("log.delay.fixed.06d463587db4"));
     }
 
     if (_should_stop_activity(delay.get(), ai, at))

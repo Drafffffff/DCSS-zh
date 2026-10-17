@@ -1,0 +1,418 @@
+{
+  "model": "luna-display-name-grammar-v1",
+  "purpose": "以结构化语义字段生成中文展示名；调用方必须提供类型、数量、加值、品牌、属性、状态与归属等字段。禁止解析整句 English 或通过反推英文词序生成名称。",
+  "contract": {
+    "parameters": {
+      "base": "经审校词库返回的名词核心；未知普通名词可用原文，未知专名保留原文。",
+      "count": "数量整数；仅在 count > 1 时加数量及对应量词；不在中文单体名前加‘一只/一个’。",
+      "classifier": "由 item_class 决定的量词：weapon=把、armour=件、potion=瓶、scroll=张、ring=枚、amulet=枚；未列类型回退‘件’或省略，不能猜测。",
+      "plus": "可选整数加值，格式 +N/-N；只由已识别物品且代码确实显示加值时传入。",
+      "brand": "已审校的品牌/词缀文本，作为结构字段；由具体物品类型决定位序。",
+      "property": "已审校属性名，如抗火、抗寒、抗毒；未知值原样保留。",
+      "owner": "所有者名字/代词，由调用方按语义提供。",
+      "status": "怪物状态或物品状态的已审校短语数组，按规则排序，不承载原始英文描述。",
+      "name_kind": "monster_common | monster_proper | monster_full | item_base | item_qualified | item_named",
+      "attitude": "friendly | neutral | hostile；只有 friendly 使用‘你的’归属式展示。",
+      "article": "忽略英语冠词；中文模板不输出‘一只’、‘一把’等英语不定冠词映射。",
+      "item_class": "weapon | armour | potion | scroll | ring | amulet | missile | food | wand | book | corpse | other"
+    },
+    "rendering_rules": [
+      "怪物定冠词 the 一律不保留；名称本体只按 monster_type / species / proper-name 字段取值。",
+      "中文单数怪物名称通常直接输出基础名；数量大于一才使用‘数量 + 只 + 名称’。人形或其他量词须由审核过的怪物分类提供，默认只。",
+      "友方描述可使用‘你的{base}’；普通中立或敌对名称不加所有格。",
+      "专名原文保留原拼写，不添加音译；未知专名不得臆造译名。全名模板使用‘{proper}（{base}）’，避免生硬拼接‘{proper}的……’。",
+      "物品数量词置于类别量词之后：‘{count}{classifier}{item}’；加值紧贴物品核心名之前，例如‘一把+0长矛’中的‘一把’只用于句子文案，列表展示采用‘+0长矛’。",
+      "武器把、护甲件、药水瓶、卷轴张、戒指枚、护符枚。模板的 count 字段格式为‘{count}{classifier}’，单数列表名不自动补一/一个。",
+      "brand/property/status 先取代码语义和枚举，再调用各自中文词条；不得将原始 English 完整名称喂给翻译器重组。",
+      "存档、Lua、数据库键和内部逻辑继续使用 C++ 原有 name()/db_name() 数据；此处的接口只用于 UI 展示层，不回写或替换内部字符串。"
+    ]
+  },
+  "patterns": [
+    {
+      "id": "monster.common.single",
+      "context": "普通单只怪物名（通用列表/目标）",
+      "en": "a rat",
+      "zh": "{base}",
+      "params": [
+        "base",
+        "name_kind"
+      ]
+    },
+    {
+      "id": "monster.common.multiple",
+      "context": "同类怪物数量",
+      "en": "3 rats",
+      "zh": "{count}{classifier}{base}",
+      "params": [
+        "count",
+        "classifier",
+        "base"
+      ]
+    },
+    {
+      "id": "monster.proper",
+      "context": "怪物专名（proper_name）",
+      "en": "Sigmund",
+      "zh": "{proper}",
+      "params": [
+        "proper",
+        "name_kind"
+      ]
+    },
+    {
+      "id": "monster.full",
+      "context": "专名与种类均需显示（full_name）",
+      "en": "Sigmund the human",
+      "zh": "{proper}（{base}）",
+      "params": [
+        "proper",
+        "base",
+        "name_kind"
+      ]
+    },
+    {
+      "id": "monster.friendly",
+      "context": "友方怪物单数",
+      "en": "your rat",
+      "zh": "你的{base}",
+      "params": [
+        "base",
+        "attitude"
+      ]
+    },
+    {
+      "id": "monster.counted.friendly",
+      "context": "友方怪物复数",
+      "en": "your 3 rats",
+      "zh": "你的{count}{classifier}{base}",
+      "params": [
+        "count",
+        "classifier",
+        "base",
+        "attitude"
+      ]
+    },
+    {
+      "id": "monster.status.prefix",
+      "context": "状态作为名前缀",
+      "en": "a spectral rat",
+      "zh": "{status}{base}",
+      "params": [
+        "status",
+        "base"
+      ]
+    },
+    {
+      "id": "monster.status.list",
+      "context": "怪物多个并列状态",
+      "en": "a slowed, poisoned rat",
+      "zh": "{status_joined}{base}",
+      "params": [
+        "status_joined",
+        "base"
+      ]
+    },
+    {
+      "id": "monster.owned",
+      "context": "怪物所有格（来源于语义 owner，不从 apostrophe 推导）",
+      "en": "the rat's fire resistance",
+      "zh": "{owner}的{property}",
+      "params": [
+        "owner",
+        "property"
+      ]
+    },
+    {
+      "id": "monster.held-item",
+      "context": "目标描述中的持有武器",
+      "en": "a gnoll, wielding a +0 spear",
+      "zh": "{base}，手持{item_name}",
+      "params": [
+        "base",
+        "item_name"
+      ]
+    },
+    {
+      "id": "item.weapon.single",
+      "context": "武器单数名称",
+      "en": "a +0 spear",
+      "zh": "{plus}{brand}{base}",
+      "params": [
+        "plus",
+        "brand",
+        "base"
+      ]
+    },
+    {
+      "id": "item.weapon.count",
+      "context": "多把武器",
+      "en": "3 +0 spears",
+      "zh": "{count}把{plus}{brand}{base}",
+      "params": [
+        "count",
+        "plus",
+        "brand",
+        "base"
+      ]
+    },
+    {
+      "id": "item.armour.count",
+      "context": "多件护甲",
+      "en": "2 +2 leather armours",
+      "zh": "{count}件{plus}{brand}{base}",
+      "params": [
+        "count",
+        "plus",
+        "brand",
+        "base"
+      ]
+    },
+    {
+      "id": "item.potion.count",
+      "context": "多瓶药水",
+      "en": "4 potions of curing",
+      "zh": "{count}瓶{base}",
+      "params": [
+        "count",
+        "base"
+      ]
+    },
+    {
+      "id": "item.scroll.count",
+      "context": "多张卷轴",
+      "en": "2 scrolls of identify",
+      "zh": "{count}张{base}",
+      "params": [
+        "count",
+        "base"
+      ]
+    },
+    {
+      "id": "item.ring.count",
+      "context": "多枚戒指",
+      "en": "2 rings of protection",
+      "zh": "{count}枚{base}",
+      "params": [
+        "count",
+        "base"
+      ]
+    },
+    {
+      "id": "item.amulet.count",
+      "context": "多枚护符",
+      "en": "2 amulets of reflection",
+      "zh": "{count}枚{base}",
+      "params": [
+        "count",
+        "base"
+      ]
+    },
+    {
+      "id": "item.qualified",
+      "context": "物品属性/品牌作为修饰语",
+      "en": "a flaming long sword",
+      "zh": "{brand}{base}",
+      "params": [
+        "brand",
+        "base"
+      ]
+    },
+    {
+      "id": "item.property",
+      "context": "物品以属性命名",
+      "en": "a ring of fire resistance",
+      "zh": "{base}{property}",
+      "params": [
+        "base",
+        "property"
+      ]
+    },
+    {
+      "id": "item.plus.brand.property",
+      "context": "加值、品牌、属性组合",
+      "en": "a +3 flaming ring of fire resistance",
+      "zh": "{plus}{brand}{base}（{property}）",
+      "params": [
+        "plus",
+        "brand",
+        "base",
+        "property"
+      ]
+    },
+    {
+      "id": "item.owner",
+      "context": "属于角色/怪物的物品（owner 单独传入）",
+      "en": "the rat's ring",
+      "zh": "{owner}的{item_name}",
+      "params": [
+        "owner",
+        "item_name"
+      ]
+    },
+    {
+      "id": "item.status",
+      "context": "物品状态组合",
+      "en": "a cursed, identified ring",
+      "zh": "{status_joined}{base}",
+      "params": [
+        "status_joined",
+        "base"
+      ]
+    },
+    {
+      "id": "item.missile.count",
+      "context": "投射物数量",
+      "en": "5 poisoned darts",
+      "zh": "{count}枚{brand}{base}",
+      "params": [
+        "count",
+        "brand",
+        "base"
+      ]
+    },
+    {
+      "id": "item.corpse",
+      "context": "怪物尸体物品名",
+      "en": "a rat corpse",
+      "zh": "{base}尸体",
+      "params": [
+        "base"
+      ]
+    },
+    {
+      "id": "item.named",
+      "context": "神器、书名等专名；保留原专名原文",
+      "en": "the Staff of Wucad Mu",
+      "zh": "{proper}",
+      "params": [
+        "proper",
+        "name_kind"
+      ]
+    },
+    {
+      "id": "item.named.owner",
+      "context": "带归属信息的专名物品",
+      "en": "Sigmund's +0 spear",
+      "zh": "{owner}的{plus}{base}",
+      "params": [
+        "owner",
+        "plus",
+        "base"
+      ]
+    },
+    {
+      "id": "item.count.plus.brand.owner",
+      "context": "数量、加值、品牌、所有者复合形式",
+      "en": "3 of the rat's +0 flaming spears",
+      "zh": "{owner}的{count}把{plus}{brand}{base}",
+      "params": [
+        "owner",
+        "count",
+        "plus",
+        "brand",
+        "base"
+      ]
+    }
+  ],
+  "lexicon": {
+    "source_policy": "只引用 luna*review*.json 中已有、可追溯的审校中文名；base_key 对应游戏类型/物品枚举或独立词条 ID，而不是从运行时英文名称切词。没有已审校记录的值回退英文原文。",
+    "approved_bases": [
+      {
+        "base_key": "monster.rat",
+        "en": "rat",
+        "zh": "老鼠",
+        "source": "localization/luna-combat-review-20261017.json; localization/luna-review-20261017.json"
+      },
+      {
+        "base_key": "monster.gnoll",
+        "en": "gnoll",
+        "zh": "豺狼人",
+        "source": "localization/luna-targeting-review-20261017.json"
+      },
+      {
+        "base_key": "item.spear",
+        "en": "spear",
+        "zh": "长矛",
+        "source": "localization/luna-review-20261017.json: ‘+0 spear’；targeting review 的相同例句曾写‘矛’，统一采纳已审校完整名‘长矛’"
+      },
+      {
+        "base_key": "item.flail",
+        "en": "flail",
+        "zh": "连枷",
+        "source": "localization/luna-targeting-review-20261017.json"
+      },
+      {
+        "base_key": "item.stone",
+        "en": "stone",
+        "zh": "石头",
+        "source": "localization/luna-combat-review-20261017.json"
+      },
+      {
+        "base_key": "item.arrow",
+        "en": "arrow",
+        "zh": "箭",
+        "source": "localization/luna-combat-review-20261017.json"
+      },
+      {
+        "base_key": "item.shield.invisible",
+        "en": "invisible shield",
+        "zh": "无形护盾",
+        "source": "localization/luna-combat-review-20261017.json"
+      },
+      {
+        "base_key": "item.amulet.reflection",
+        "en": "amulet of reflection",
+        "zh": "反射护符",
+        "source": "localization/luna-menu-review-20261017.json test_cases"
+      },
+      {
+        "base_key": "shop.armour",
+        "en": "armour",
+        "zh": "护甲",
+        "source": "localization/luna-menu-review-20261017.json"
+      },
+      {
+        "base_key": "shop.scroll",
+        "en": "scroll",
+        "zh": "卷轴",
+        "source": "localization/luna-menu-review-20261017.json"
+      }
+    ],
+    "enum_mapping_notes": {
+      "monster": "以 monster_type/MONS_*、base_type、MF_NAME_* 与 monster_info flags 为输入；proper-name、replace/adjective/suffix/unqualified、zombified、spectral、bound、sensed、shapeshifter、helpless、friendly 需作为语义标记独立传递。",
+      "monster_status_flags": "mon-info.cc::trivial_ench_mb_mappings 将 enchant_type 映射 monster_info_flags（如 ENCH_SLOW→MB_SLOWED、ENCH_POISON→MB_POISONED、ENCH_HASTE→MB_HASTED、ENCH_INVIS→MB_INVISIBLE）；状态词必须按 MB_* 的已审校词条翻译，不读 name() 字符串。",
+      "item": "item_def::base_type 对应 OBJ_*；sub_type 对应武器/护甲/药水/卷轴/戒指/护符等各类别子枚举；plus、brand、special、quantity、props 及识别状态由 item_def 字段给出。",
+      "item_brands": "item-name.cc 的 brand_type_name、brand_type_adj、weapon_brand_name、missile_brand_name、special_armour_type_name 提供品牌/词缀语义枚举的英文键；应映射到单独的 zh brand/property 词条，不解析 item_def::name() 的拼接结果。"
+    },
+    "fallbacks": {
+      "unknown_common_base": "原文",
+      "unknown_proper_name": "原文原样",
+      "unknown_brand_or_property": "原文原样并保留独立字段边界",
+      "unknown_classifier": "件或省略"
+    }
+  },
+  "implementation_notes": {
+    "player_actor_names": {
+      "DESC_THE": "你",
+      "DESC_A": "你",
+      "DESC_PLAIN": "你",
+      "DESC_YOUR": "你的",
+      "DESC_ITS": "你的",
+      "self_or_yourself_key": "你自己",
+      "source": "player::name(description_level_type) in player-act.cc; DESC_THE/DESC_A/default returns you, DESC_YOUR/DESC_ITS returns your."
+    },
+    "missing_name_audit": {
+      "environment": "DCSS_ZH_NAME_MISSING",
+      "format": "domain\\tcanonical full name, one record per distinct pair per process",
+      "domains": [
+        "item",
+        "monster",
+        "actor",
+        "visibility-preserved",
+        "proper-preserved"
+      ],
+      "proper_preserved": "Unknown proper names keep their original spelling and are marked proper-preserved; this is expected preservation, not a missing translation defect.",
+      "unsupported": "Untranslated ordinary item/monster/actor values set ZhArg.supported=false so the renderer can fall back to the full canonical message and report its message id. No localized message may embed an unsupported ordinary English name."
+    }
+  }
+}

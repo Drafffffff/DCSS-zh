@@ -1,0 +1,125 @@
+{
+  "original_saves_unchanged": true,
+  "scenes": [
+    {
+      "scene": "shop-selected",
+      "keys": "l&wiz\r$1000\r&\\a>a",
+      "running_at_capture": true,
+      "id_trace": [
+        "shop.display.name\tlocalized",
+        "shop.balance\tlocalized",
+        "shop.help.sort\tlocalized",
+        "shop.display.name\tlocalized",
+        "shop.welcome\tlocalized",
+        "shop.balance\tlocalized",
+        "shop_gold_after_purchase\tlocalized",
+        "shop.help.sort\tlocalized"
+      ],
+      "missing": [],
+      "names": [
+        "item\ta chain mail",
+        "item\ta shiny chain mail",
+        "item\ta dyed leather armour",
+        "item\ta leather armour",
+        "item\ta ring mail",
+        "item\ta robe",
+        "item\ta scale mail"
+      ],
+      "lua_error": false
+    },
+    {
+      "scene": "level-five",
+      "keys": "l&wiz\rl5\r",
+      "running_at_capture": true,
+      "id_trace": [
+        "level_reached\tlocalized",
+        "level_reached\tlocalized",
+        "level_reached\tlocalized"
+      ],
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "combat",
+      "keys": "l&wiz\rmrat\r\t\t\t\t\t\t\t\t\t\t\t\t",
+      "running_at_capture": true,
+      "id_trace": [
+        "log.combat.player_miss\tlocalized",
+        "log.combat.monster_hit\tlocalized",
+        "log.combat.player_hit\tlocalized"
+      ],
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "equipment",
+      "keys": "l&wiz\riTaWa.....",
+      "running_at_capture": true,
+      "id_trace": [
+        "equip_start\tlocalized",
+        "equip_continue\tlocalized",
+        "equip_continue\tlocalized",
+        "equip_continue\tlocalized",
+        "equip_continue\tlocalized",
+        "equip_continue\tlocalized",
+        "equip_finish\tlocalized",
+        "equip_start\tlocalized",
+        "equip_continue\tlocalized",
+        "equip_continue\tlocalized",
+        "equip_continue\tlocalized",
+        "equip_continue\tlocalized",
+        "equip_continue\tlocalized",
+        "equip_finish\tlocalized"
+      ],
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "weapon-detail",
+      "keys": "ib",
+      "running_at_capture": true,
+      "id_trace": [
+        "item.weapon.base_stats\tlocalized",
+        "item.weapon.attack_delay_and_minimum\tlocalized",
+        "skill.target.training_max\tlocalized",
+        "skill.target.training_current\tlocalized"
+      ],
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "skills",
+      "keys": "m",
+      "running_at_capture": true,
+      "id_trace": [],
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "monster-detail",
+      "keys": "llgllllllx+v",
+      "running_at_capture": true,
+      "id_trace": [
+        "target.hit_chance.verbose\tlocalized",
+        "monster.hit_chance\tlocalized"
+      ],
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    },
+    {
+      "scene": "manual-long",
+      "keys": "?k",
+      "running_at_capture": true,
+      "id_trace": [],
+      "missing": [],
+      "names": [],
+      "lua_error": false
+    }
+  ]
+}

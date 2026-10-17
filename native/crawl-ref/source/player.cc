@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "player.h"
 
@@ -107,7 +108,7 @@ static void _pruneify()
     if (!you.may_pruneify())
         return;
 
-    mpr("The curse of the Prune overcomes you.");
+    mpr(zh_message("log.player.fixed.e901e61d6069"));
     did_god_conduct(DID_CHAOS, 10);
 }
 
@@ -248,7 +249,7 @@ static bool _check_moveto_dangerous(const coord_def& p, const string& msg)
     else if (species::likes_water(you.species) && feat_is_water(env.grid(p)))
     {
         // player normally likes water, but is in a form that doesn't
-        mpr("You cannot enter water in your current form.");
+        mpr(zh_message("log.player.fixed.f6b38629d93a"));
     }
     else
         canned_msg(MSG_UNTHINKING_ACT);
@@ -442,7 +443,7 @@ bool swap_check(monster* mons, coord_def &loc, bool quiet)
         || mons->type == MONS_BLAZEHEART_CORE)
     {
         if (!quiet)
-            mpr("It's unwise to walk into this.");
+            mpr(zh_message("log.player.fixed.317958edac42"));
         return false;
     }
 
@@ -561,11 +562,11 @@ static void _enter_water(dungeon_feature_type old_feat,
 
     if (you.slow_in_water())
     {
-        mpr("Moving in this stuff is going to be slow.");
+        mpr(zh_message("log.player.fixed.9f1b9c45a39d"));
         if (you.invisible())
-            mpr("...and don't expect to remain undetected.");
+            mpr(zh_message("log.player.fixed.b07fe3081ab6"));
     } else if (you.invisible())
-        mpr("Don't expect to remain undetected while in the water.");
+        mpr(zh_message("log.player.fixed.f97fa7815eba"));
 }
 
 static bool _valid_entanglement_target(const monster& mon, bool check_no_tele)
@@ -761,7 +762,7 @@ void player::finalise_movement(const actor* /*to_blame*/)
            redraw_armour_class = true;
            wield_change = true;
            if (!was_slimy)
-               mpr("Acid dripping from the walls corrodes you.");
+               mpr(zh_message("log.player.fixed.c8c5405f3ce9"));
        }
     }
 
@@ -2529,7 +2530,7 @@ static void _handle_hp_drain(int exp)
     calc_hp();
 
     if (drain_removed)
-        mprf(MSGCH_RECOVERY, "Your life force feels restored.");
+        mpr(zh_message("log.player.fixed.b211f2b56e24"), MSGCH_RECOVERY);
 }
 
 static void _handle_breath_recharge(int exp)
@@ -2553,7 +2554,7 @@ static void _handle_breath_recharge(int exp)
     {
         you.props.erase(DRACONIAN_BREATH_RECHARGE_KEY);
         gain_draconian_breath_uses(1);
-        mprf(MSGCH_DURATION, "You feel power welling in your lungs.");
+        mpr(zh_message("log.player.fixed.15990630ec92"), MSGCH_DURATION);
     }
 }
 
@@ -2568,7 +2569,7 @@ static void _handle_cacophony_recharge(int exp)
     if (you.props[CACOPHONY_XP_KEY].get_int() <= 0)
     {
         you.props.erase(CACOPHONY_XP_KEY);
-        mprf(MSGCH_DURATION, "You feel ready to make another cacophony.");
+        mpr(zh_message("log.player.fixed.1be18fb61d1a"), MSGCH_DURATION);
     }
 }
 
@@ -2586,7 +2587,7 @@ static void _handle_batform_recharge(int exp)
     if (you.props[BATFORM_XP_KEY].get_int() <= 0)
     {
         you.props.erase(BATFORM_XP_KEY);
-        mprf(MSGCH_DURATION, "You feel ready to scatter into bats once more.");
+        mpr(zh_message("log.player.fixed.a685b7f79723"), MSGCH_DURATION);
     }
 }
 
@@ -2604,7 +2605,7 @@ static void _handle_watery_grave_recharge(int exp)
     if (you.props[WATERY_GRAVE_XP_KEY].get_int() <= 0)
     {
         you.props.erase(WATERY_GRAVE_XP_KEY);
-        mprf(MSGCH_DURATION, "You feel ready to drown your foes once more.");
+        mpr(zh_message("log.player.fixed.54de1620950f"), MSGCH_DURATION);
     }
 }
 
@@ -2620,7 +2621,7 @@ static void _handle_banes(int exp)
         you.attribute[ATTR_DOOM] -= div_rand_round(loss, 60);
         if (you.attribute[ATTR_DOOM] <= 0)
         {
-            mprf(MSGCH_DURATION, "You feel the doom around you dissipate.");
+            mpr(zh_message("log.player.fixed.922f812c9a91"), MSGCH_DURATION);
             you.attribute[ATTR_DOOM] = 0;
         }
 
@@ -2751,7 +2752,7 @@ static bool _felid_extra_life()
         && you.lives < 2)
     {
         you.lives++;
-        mprf(MSGCH_INTRINSIC_GAIN, "Extra life!");
+        mpr(zh_message("log.player.fixed.ad735ad09cb1"), MSGCH_INTRINSIC_GAIN);
         you.attribute[ATTR_LIFE_GAINED] = you.max_level;
         // Should play the 1UP sound from SMB...
         return true;
@@ -2893,8 +2894,7 @@ static void _gain_innate_spells()
                                      oldspell);
                 if (oldindex != end(you.spells))
                 {
-                    mpr("Your capacity for spells is full, and you lose "
-                        "access to an earlier spell.");
+                    mpr(zh_message("log.player.fixed.0b7e31772b95"));
                     del_spell_from_memory(oldspell);
                     spell_vec[j].get_int() = SPELL_NO_SPELL;
                     break;
@@ -2944,7 +2944,7 @@ static void _revenant_spell_gift()
     // spells. Hey, it's probably not literally impossible.
     if (gift_possibilities.empty())
     {
-        mpr("You remember only oblivion.");
+        mpr(zh_message("log.player.fixed.6e96344ef2c2"));
         return;
     }
 
@@ -3007,8 +3007,7 @@ void level_change(bool skip_attribute_increase)
 
         if (new_exp <= you.max_level)
         {
-            mprf(MSGCH_INTRINSIC_GAIN,
-                 "Welcome back to level %d!", new_exp);
+            mpr(zh_message("level_welcome_back", {zh_integer("level", new_exp)}), MSGCH_INTRINSIC_GAIN);
 
             // No more prompts for this XL past this point.
 
@@ -3021,14 +3020,12 @@ void level_change(bool skip_attribute_increase)
             update_screen();
 
             if (new_exp == 27)
-                mprf(MSGCH_INTRINSIC_GAIN, "You have reached level 27, the final one!");
+                mpr(zh_message("level_final"), MSGCH_INTRINSIC_GAIN);
             else if (new_exp == you.get_max_xl())
-                mprf(MSGCH_INTRINSIC_GAIN, "You have reached level %d, the highest you will ever reach!",
-                        you.get_max_xl());
+                mpr(zh_message("level_highest", {zh_integer("level", you.get_max_xl())}), MSGCH_INTRINSIC_GAIN);
             else
             {
-                mprf(MSGCH_INTRINSIC_GAIN, "You have reached level %d!",
-                     new_exp);
+                mpr(zh_message("level_reached", {zh_integer("level", new_exp)}), MSGCH_INTRINSIC_GAIN);
             }
 
             const bool manual_stat_level = you.has_mutation(MUT_DIVINE_ATTRS)
@@ -3062,7 +3059,7 @@ void level_change(bool skip_attribute_increase)
             case SP_NAGA:
                 if (!(you.experience_level % 3))
                 {
-                    mprf(MSGCH_INTRINSIC_GAIN, "Your skin feels tougher.");
+                    mpr(zh_message("log.player.fixed.afbf4620fc0b"), MSGCH_INTRINSIC_GAIN);
                     you.redraw_armour_class = true;
                 }
                 break;
@@ -3156,8 +3153,7 @@ void level_change(bool skip_attribute_increase)
                         {
                             if (you.experience_level == level)
                             {
-                                mprf(MSGCH_MUTATION, "You feel monstrous as "
-                                     "your demonic heritage exerts itself.");
+                                mpr(zh_message("log.player.fixed.57ff2a662ac7"), MSGCH_MUTATION);
                                 mark_milestone("monstrous", "discovered their "
                                                "monstrous ancestry!");
                                 take_note(Note(NOTE_MESSAGE, 0, 0,
@@ -3180,8 +3176,7 @@ void level_change(bool skip_attribute_increase)
                     {
                         if (!gave_message)
                         {
-                            mprf(MSGCH_INTRINSIC_GAIN,
-                                 "Your demonic ancestry asserts itself...");
+                            mpr(zh_message("log.player.fixed.e9afebcbc29f"), MSGCH_INTRINSIC_GAIN);
 
                             gave_message = true;
                         }
@@ -3204,8 +3199,7 @@ void level_change(bool skip_attribute_increase)
 
                     case COGLIN_GIZMO_XL:
                     {
-                        mpr("You feel a burst of inspiration! You are finally "
-                            "ready to make a one-of-a-kind gizmo!");
+                        mpr(zh_message("log.player.fixed.7d49fd6b4439"));
                         mprf("(press <w>%c</w> on the <w>%s</w>bility menu to create your gizmo)",
                                 get_talent(ABIL_INVENT_GIZMO).hotkey,
                                 command_to_string(CMD_USE_ABILITY).c_str());
@@ -3233,7 +3227,7 @@ void level_change(bool skip_attribute_increase)
 
         if (species::is_draconian(you.species) && !(you.experience_level % 3))
         {
-            mprf(MSGCH_INTRINSIC_GAIN, "Your scales feel tougher.");
+            mpr(zh_message("log.player.fixed.c44abc792b3b"), MSGCH_INTRINSIC_GAIN);
             you.redraw_armour_class = true;
         }
         if (!updated_maxhp)
@@ -3565,14 +3559,14 @@ void display_char_status()
     if (halo_size >= 0)
     {
         if (halo_size > 5)
-            mpr("You are illuminated by a large divine halo.");
+            mpr(zh_message("log.player.fixed.c059a1601a4f"));
         else if (halo_size > 3)
-            mpr("You are illuminated by a divine halo.");
+            mpr(zh_message("log.player.fixed.df40fe94f2bb"));
         else
-            mpr("You are illuminated by a small divine halo.");
+            mpr(zh_message("log.player.fixed.07caac949a5d"));
     }
     else if (you.haloed())
-        mpr("An external divine halo illuminates you.");
+        mpr(zh_message("log.player.fixed.064bc0f60dfa"));
 
     status_info inf;
     for (unsigned i = 0; i <= STATUS_LAST_STATUS; ++i)
@@ -3895,7 +3889,7 @@ void flush_mp()
         && you.magic_points < you.max_magic_points
                               * Options.magic_point_warning / 100)
     {
-        mprf(MSGCH_DANGER, "* * * LOW MAGIC WARNING * * *");
+        mpr(zh_message("log.player.fixed.eeb1764e5e81"), MSGCH_DANGER);
     }
 
     take_note(Note(NOTE_MP_CHANGE, you.magic_points, you.max_magic_points));
@@ -3908,7 +3902,7 @@ void flush_hp()
         && you.hp <= (you.hp_max * Options.hp_warning) / 100)
     {
         flash_view_delay(UA_HP, RED, 50);
-        mprf(MSGCH_DANGER, "* * * LOW HITPOINT WARNING * * *");
+        mpr(zh_message("log.player.fixed.ea953d9458f9"), MSGCH_DANGER);
         dungeon_events.fire_event(DET_HP_WARNING);
     }
     you.redraw_hit_points = true;
@@ -3984,7 +3978,7 @@ bool enough_hp(int minimum, bool suppress_msg, bool abort_macros)
     if (you.duration[DUR_DEATHS_DOOR])
     {
         if (!suppress_msg)
-            mpr("You cannot pay life while functionally dead.");
+            mpr(zh_message("log.player.fixed.5d19ee3ad29e"));
 
         if (abort_macros)
         {
@@ -3998,7 +3992,7 @@ bool enough_hp(int minimum, bool suppress_msg, bool abort_macros)
     if (you.hp < minimum + 1)
     {
         if (!suppress_msg)
-            mpr("You don't have enough health at the moment.");
+            mpr(zh_message("log.player.fixed.02013454d0bf"));
 
         if (abort_macros)
         {
@@ -4023,9 +4017,9 @@ bool enough_mp(int minimum, bool suppress_msg, bool abort_macros)
         if (!suppress_msg)
         {
             if (get_real_mp(true) < minimum)
-                mpr("You don't have enough magic capacity.");
+                mpr(zh_message("log.player.fixed.3401e9a52695"));
             else
-                mpr("You don't have enough magic at the moment.");
+                mpr(zh_message("log.player.fixed.ed5e93024041"));
         }
         if (abort_macros)
         {
@@ -4399,19 +4393,17 @@ void contaminate_player(int change, bool controlled, bool msg)
     {
         if (!player_harmful_contamination() && was_glowing)
         {
-            mprf(MSGCH_RECOVERY,
-                 "Your magical contamination has faded to a safe level.");
+            mpr(zh_message("log.player.fixed.b66971b3da07"), MSGCH_RECOVERY);
         }
 
         if (!player_harmful_contamination() && was_glowing && you.invisible())
         {
-            mpr("You fade completely from view now that you are no longer "
-                "glowing from magical contamination.");
+            mpr(zh_message("log.player.fixed.553d2b23a231"));
         }
     }
 
     if (msg && old_amount > 0 && you.magic_contamination == 0)
-        mpr("Your magical contamination has completely faded away.");
+        mpr(zh_message("log.player.fixed.bbd446d809fb"));
 
     if (you.magic_contamination > 0)
         learned_something_new(HINT_GLOWING);
@@ -4453,14 +4445,14 @@ bool confuse_player(int amount, bool quiet, bool force)
     if (!force && you.clarity())
     {
         if (!quiet)
-            mpr("You feel momentarily confused.");
+            mpr(zh_message("log.player.fixed.5d95aa318143"));
         return false;
     }
 
     if (!force && you.duration[DUR_DIVINE_STAMINA] > 0)
     {
         if (!quiet)
-            mpr("Your divine stamina protects you from confusion!");
+            mpr(zh_message("log.player.fixed.96d8f0cf3116"));
         return false;
     }
 
@@ -4495,7 +4487,7 @@ bool poison_player(int amount, string source, string source_aux, bool force)
 
     if (you.duration[DUR_DIVINE_STAMINA] > 0)
     {
-        mpr("Your divine stamina protects you from poison!");
+        mpr(zh_message("log.player.fixed.b6b736605d87"));
         return false;
     }
 
@@ -4522,7 +4514,7 @@ bool poison_player(int amount, string source, string source_aux, bool force)
     if (you.duration[DUR_POISONING] > old_value)
     {
         if (poison_is_lethal() && !was_fatal)
-            mprf(MSGCH_DANGER, "You are lethally poisoned!");
+            mpr(zh_message("log.player.fixed.f48806eab7eb"), MSGCH_DANGER);
         else
         {
             mprf(MSGCH_WARN, "You are %spoisoned.",
@@ -4686,7 +4678,7 @@ void reduce_player_poison(int amount)
         you.duration[DUR_POISONING] = 0;
         you.props.erase(POISONER_KEY);
         you.props.erase(POISON_AUX_KEY);
-        mprf(MSGCH_RECOVERY, "You are no longer poisoned.");
+        mpr(zh_message("log.player.fixed.9ff260957d19"), MSGCH_RECOVERY);
     }
 
     you.redraw_hit_points = true;
@@ -4789,7 +4781,7 @@ bool miasma_player(actor *who, string source_aux)
 
     if (you.duration[DUR_DIVINE_STAMINA] > 0)
     {
-        mpr("Your divine stamina protects you from the miasma!");
+        mpr(zh_message("log.player.fixed.a9dc5ba96673"));
         return false;
     }
 
@@ -4855,7 +4847,7 @@ void dec_sticky_flame_player(int delay)
 
     if (feat_is_water(env.grid(you.pos())))
     {
-        mprf(MSGCH_RECOVERY, "You dip into the water, and the flames go out!");
+        mpr(zh_message("log.player.fixed.ad3746104ea7"), MSGCH_RECOVERY);
         end_sticky_flame_player();
         return;
     }
@@ -4878,7 +4870,7 @@ void dec_sticky_flame_player(int delay)
 
     if (you.duration[DUR_STICKY_FLAME == 0])
     {
-        mprf(MSGCH_RECOVERY, "The liquid fire finally exhausts itself.");
+        mpr(zh_message("log.player.fixed.f2e9693d0527"), MSGCH_RECOVERY);
         end_sticky_flame_player();
     }
 }
@@ -4900,11 +4892,11 @@ void shake_off_sticky_flame()
     // (20 aut is picked fairly arbitrarily to include even most slowed actions)
     if (dur <= 20)
     {
-        mprf(MSGCH_RECOVERY, "You shake off the liquid fire.");
+        mpr(zh_message("log.player.fixed.5163b219aa32"), MSGCH_RECOVERY);
         end_sticky_flame_player();
     }
     else
-        mpr("You shake off some of the fire as you move.");
+        mpr(zh_message("log.player.fixed.5b96bc17f132"));
 }
 
 // End the sticky flame status entirely
@@ -4921,9 +4913,9 @@ void silence_player(int turns)
     ASSERT(!crawl_state.game_is_arena());
 
     if (you.duration[DUR_SILENCE])
-        mpr("You feel your silence will last longer.");
+        mpr(zh_message("log.player.fixed.93544939e336"));
     else
-        mpr("An unnatural silence engulfs you.");
+        mpr(zh_message("log.player.fixed.b2c8685edc86"));
 
     you.increase_duration(DUR_SILENCE, turns, 30);
 
@@ -4942,7 +4934,7 @@ bool slow_player(int turns)
 
     if (you.stasis())
     {
-        mpr("Your stasis prevents you from being slowed.");
+        mpr(zh_message("log.player.fixed.f31b4003079f"));
         return false;
     }
 
@@ -4952,13 +4944,13 @@ bool slow_player(int turns)
     int threshold = haste_mul(100);
 
     if (you.duration[DUR_SLOW] >= threshold * BASELINE_DELAY)
-        mpr("You already are as slow as you could be.");
+        mpr(zh_message("log.player.fixed.b6473254722c"));
     else
     {
         if (you.duration[DUR_SLOW] == 0)
-            mprf(MSGCH_WARN, "You feel yourself slow down.");
+            mpr(zh_message("log.player.fixed.a138df415c24"), MSGCH_WARN);
         else
-            mprf(MSGCH_WARN, "You feel as though you will be slow longer.");
+            mpr(zh_message("log.player.fixed.43a8620b49ce"), MSGCH_WARN);
 
         you.increase_duration(DUR_SLOW, turns, threshold);
         learned_something_new(HINT_YOU_ENCHANTED);
@@ -4991,7 +4983,7 @@ void dec_slow_player(int delay)
     {
         you.duration[DUR_SLOW] = 0;
         if (!have_stat_zero())
-            mprf(MSGCH_DURATION, "You feel yourself speed up.");
+            mpr(zh_message("log.player.fixed.6e285643cc04"), MSGCH_DURATION);
     }
 }
 
@@ -5007,13 +4999,13 @@ void barb_player(int turns, int pow)
 
     if (!you.duration[DUR_BARBS])
     {
-        mpr("Barbed spikes become lodged in your body.");
+        mpr(zh_message("log.player.fixed.a0b504e77b01"));
         you.set_duration(DUR_BARBS, min(max_turns, turns));
         you.attribute[ATTR_BARBS_POW] = min(max_pow, pow);
     }
     else
     {
-        mpr("More barbed spikes become lodged in your body.");
+        mpr(zh_message("log.player.fixed.e72c34c856ac"));
         you.increase_duration(DUR_BARBS, turns, max_turns);
         you.attribute[ATTR_BARBS_POW] =
             min(max_pow, you.attribute[ATTR_BARBS_POW]++);
@@ -5039,9 +5031,9 @@ void blind_player(int amount, colour_t flavour_colour)
     {
         you.props[BLIND_COLOUR_KEY] = flavour_colour;
         if (current > 0)
-            mpr("You are blinded for an even longer time.");
+            mpr(zh_message("log.player.fixed.09f0da825ecd"));
         else
-            mpr("You are blinded!");
+            mpr(zh_message("log.player.fixed.80f6250477fa"));
         learned_something_new(HINT_YOU_ENCHANTED);
         xom_is_stimulated((you.duration[DUR_BLIND] - current) / BASELINE_DELAY);
     }
@@ -5070,7 +5062,7 @@ void dec_berserk_recovery_player(int delay)
 
     if (you.duration[DUR_BERSERK_COOLDOWN] <= BASELINE_DELAY)
     {
-        mprf(MSGCH_DURATION, "You recover from your berserk rage.");
+        mpr(zh_message("log.player.fixed.42f15c1f1050"), MSGCH_DURATION);
         you.duration[DUR_BERSERK_COOLDOWN] = 0;
     }
 }
@@ -5084,7 +5076,7 @@ bool haste_player(int turns, bool rageext)
 
     if (you.stasis())
     {
-        mpr("Your stasis prevents you from being hasted.");
+        mpr(zh_message("log.player.fixed.78c808411fdb"));
         return false;
     }
     else if (have_passive(passive_t::no_haste))
@@ -5099,11 +5091,11 @@ bool haste_player(int turns, bool rageext)
     const int threshold = 80;
 
     if (!you.duration[DUR_HASTE])
-        mpr("You feel yourself speed up.");
+        mpr(zh_message("log.player.fixed.6e285643cc04"));
     else if (you.duration[DUR_HASTE] > threshold * BASELINE_DELAY)
-        mpr("You already have as much speed as you can handle.");
+        mpr(zh_message("log.player.fixed.7411d8dc9ec5"));
     else if (!rageext)
-        mpr("You feel as though your hastened speed will last longer.");
+        mpr(zh_message("log.player.fixed.0cd12539e354"));
 
     you.increase_duration(DUR_HASTE, turns, threshold);
 
@@ -5125,7 +5117,7 @@ void dec_haste_player(int delay)
         // message if we cross the threshold
         if (old_dur > threshold && you.duration[DUR_HASTE] <= threshold)
         {
-            mprf(MSGCH_DURATION, "Your extra speed is starting to run out.");
+            mpr(zh_message("log.player.fixed.e3434c787b90"), MSGCH_DURATION);
             if (coinflip())
                 you.duration[DUR_HASTE] -= BASELINE_DELAY;
         }
@@ -5133,7 +5125,7 @@ void dec_haste_player(int delay)
     else if (you.duration[DUR_HASTE] <= BASELINE_DELAY)
     {
         if (!you.duration[DUR_BERSERK])
-            mprf(MSGCH_DURATION, "You feel yourself slow down.");
+            mpr(zh_message("log.player.fixed.a138df415c24"), MSGCH_DURATION);
         you.duration[DUR_HASTE] = 0;
     }
 }
@@ -5179,7 +5171,7 @@ void dec_ambrosia_player(int delay)
     inc_mp(you.scale_potion_mp_healing(mp_restoration));
 
     if (!you.duration[DUR_AMBROSIA])
-        mpr("You feel less invigorated.");
+        mpr(zh_message("log.player.fixed.b70c560b0221"));
 }
 
 void dec_channel_player(int delay)
@@ -5196,7 +5188,7 @@ void dec_channel_player(int delay)
     inc_mp(mp_restoration);
 
     if (!you.duration[DUR_CHANNEL_ENERGY])
-        mpr("You feel less invigorated.");
+        mpr(zh_message("log.player.fixed.b70c560b0221"));
 }
 
 void dec_frozen_ramparts(int delay)
@@ -5210,7 +5202,7 @@ void dec_frozen_ramparts(int delay)
     if (!you.duration[DUR_FROZEN_RAMPARTS])
     {
         end_frozen_ramparts();
-        mpr("The frozen ramparts melt away.");
+        mpr(zh_message("log.player.fixed.c4921e335753"));
     }
 }
 
@@ -5321,13 +5313,13 @@ void float_player()
 {
     if (you.fishtail)
     {
-        mpr("Your tail turns into legs as you fly out of the water.");
+        mpr(zh_message("log.player.fixed.4df385894366"));
         merfolk_stop_swimming();
     }
     else if (you.has_mutation(MUT_TENGU_FLIGHT))
-        mpr("You swoop lightly up into the air.");
+        mpr(zh_message("log.player.fixed.7d5c9b530085"));
     else
-        mpr("You fly up into the air.");
+        mpr(zh_message("log.player.fixed.fa1ced711fcf"));
 }
 
 void fly_player(int pow, bool already_flying)
@@ -5384,7 +5376,7 @@ bool land_player(bool quiet)
     }
 
     if (!quiet)
-        mpr("You float gracefully downwards.");
+        mpr(zh_message("log.player.fixed.b7f20a7bcd10"));
 
     // Re-enter the terrain.
     // Interrupt travel, but not other delays.
@@ -5961,14 +5953,14 @@ void player::banish(const actor* /*agent*/, const string &who, bool force)
 
     if (elapsed_time <= attribute[ATTR_BANISHMENT_IMMUNITY])
     {
-        mpr("You resist the pull of the Abyss.");
+        mpr(zh_message("log.player.fixed.829884916256"));
         return;
     }
 
     if (!force && player_in_branch(BRANCH_ABYSS)
         && x_chance_in_y(you.depth, brdepth[BRANCH_ABYSS]))
     {
-        mpr("You wobble for a moment.");
+        mpr(zh_message("log.player.fixed.52a856e4e5eb"));
         return;
     }
 
@@ -7451,7 +7443,7 @@ void player::paralyse(const actor *who, int str, string source)
 
     if (stasis())
     {
-        mpr("Your stasis prevents you from being paralysed.");
+        mpr(zh_message("log.player.fixed.85a5ea676a5d"));
         return;
     }
 
@@ -7459,13 +7451,13 @@ void player::paralyse(const actor *who, int str, string source)
     if (who && who != &you
         && (duration[DUR_PARALYSIS] || duration[DUR_STUN_IMMUNITY]))
     {
-        mpr("You shrug off the repeated attempt to disable you.");
+        mpr(zh_message("log.player.fixed.72d50f6145da"));
         return;
     }
 
     you.wake_up();
 
-    mpr("You suddenly lose the ability to move!");
+    mpr(zh_message("log.player.fixed.80a76d3b0472"));
     _pruneify();
 
     you.duration[DUR_PARALYSIS] = str * BASELINE_DELAY + 5;
@@ -7503,7 +7495,7 @@ void player::petrify(const actor *who, bool force)
 
     if (duration[DUR_DIVINE_STAMINA] > 0)
     {
-        mpr("Your divine stamina protects you from petrification!");
+        mpr(zh_message("log.player.fixed.f0a0a5118b22"));
         return;
     }
 
@@ -7520,7 +7512,7 @@ void player::petrify(const actor *who, bool force)
         props.erase(DISABLED_BY_KEY);
 
     redraw_evasion = true;
-    mprf(MSGCH_WARN, "You are slowing down.");
+    mpr(zh_message("log.player.fixed.618daf161a37"), MSGCH_WARN);
 }
 
 bool player::fully_petrify(bool /*quiet*/)
@@ -7529,7 +7521,7 @@ bool player::fully_petrify(bool /*quiet*/)
                         + random2(4 * BASELINE_DELAY);
     redraw_armour_class = true;
     redraw_evasion = true;
-    mpr("You have turned to stone.");
+    mpr(zh_message("log.player.fixed.d27ae14a3f17"));
     _pruneify();
 
     stop_delay(true, true);
@@ -7542,12 +7534,12 @@ bool player::vex(const actor* who, int dur, string source, string special_msg)
 {
     if (you.clarity())
     {
-        mprf("Your clarity of mind shields you.");
+        mpr(zh_message("log.player.fixed.d2bdfb3f43a3"));
         return false;
     }
     else if (duration[DUR_STUN_IMMUNITY])
     {
-        mpr("You shrug off the repeated attempt to disable you.");
+        mpr(zh_message("log.player.fixed.72d50f6145da"));
         return false;
     }
     else if (you.duration[DUR_VEXED])
@@ -7556,7 +7548,7 @@ bool player::vex(const actor* who, int dur, string source, string special_msg)
     if (!special_msg.empty())
         mprf(MSGCH_WARN, "You %s", special_msg.c_str());
     else
-        mprf(MSGCH_WARN, "You feel overwhelmed by frustration!");
+        mpr(zh_message("log.player.fixed.846b34a08211"), MSGCH_WARN);
     you.duration[DUR_VEXED] = dur * BASELINE_DELAY;
 
     const bool use_actor_name = source.empty() && who != nullptr;
@@ -7766,11 +7758,11 @@ bool player::sicken(int amount)
 
     if (duration[DUR_DIVINE_STAMINA] > 0)
     {
-        mpr("Your divine stamina protects you from disease!");
+        mpr(zh_message("log.player.fixed.ac1dadc8b841"));
         return false;
     }
 
-    mpr("You feel ill.");
+    mpr(zh_message("log.player.fixed.e17e096be55f"));
     increase_duration(DUR_SICKNESS, amount, 210);
 
     return true;
@@ -7872,12 +7864,12 @@ void player::backlight()
     if (!duration[DUR_INVIS])
     {
         if (duration[DUR_CORONA])
-            mpr("You glow brighter.");
+            mpr(zh_message("log.player.fixed.65ebd6ac4614"));
         else
-            mpr("You are outlined in light.");
+            mpr(zh_message("log.player.fixed.c071f78462fb"));
     }
     else
-        mpr("You feel strangely conspicuous.");
+        mpr(zh_message("log.player.fixed.bde17ebff2fb"));
 
     increase_duration(DUR_CORONA, random_range(15, 35), 250);
 }
@@ -8037,7 +8029,7 @@ bool player::doom(int amount)
     if (you.attribute[ATTR_DOOM] >= 100)
     {
         you.attribute[ATTR_DOOM] = 0;
-        mprf(MSGCH_WARN, "Doom befalls you....");
+        mpr(zh_message("log.player.fixed.f054beca32fb"), MSGCH_WARN);
         add_bane();
         return true;
     }
@@ -8115,7 +8107,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
 
     if (duration[DUR_STUN_IMMUNITY])
     {
-        mpr("You shrug off repeated attempt to disable you.");
+        mpr(zh_message("log.player.fixed.803b80d78507"));
         return;
     }
 
@@ -8123,7 +8115,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
         || duration[DUR_PETRIFIED]
         || duration[DUR_PETRIFYING])
     {
-        mpr("You can't fall asleep in your current state!");
+        mpr(zh_message("log.player.fixed.2d2edc83a41a"));
         return;
     }
 
@@ -8132,7 +8124,7 @@ void player::put_to_sleep(actor* source, int dur, bool hibernate)
     else
         props.erase(DISABLED_BY_KEY);
 
-    mpr("You fall asleep.");
+    mpr(zh_message("log.player.fixed.3008880f42d6"));
     _pruneify();
 
     stop_directly_constricting_all();
@@ -8152,7 +8144,7 @@ void player::wake_up(bool break_sleep, bool break_daze)
     {
         duration[DUR_SLEEP] = 0;
         give_stun_immunity(random_range(3, 5));
-        mprf(MSGCH_RECOVERY, "You wake up.");
+        mpr(zh_message("log.player.fixed.6f60f7135c65"), MSGCH_RECOVERY);
         flash_view(UA_MONSTER, BLACK);
         redraw_armour_class = true;
         redraw_evasion = true;
@@ -8162,7 +8154,7 @@ void player::wake_up(bool break_sleep, bool break_daze)
     {
         duration[DUR_DAZED] = 0;
         give_stun_immunity(1);
-        mprf(MSGCH_RECOVERY, "You snap out of your daze.");
+        mpr(zh_message("log.player.fixed.7529b9550152"), MSGCH_RECOVERY);
     }
 }
 
@@ -8199,13 +8191,12 @@ bool player::do_shaft()
     }
     if (you.species == SP_FORMICID)
     {
-        mpr("Your tunneler's instincts keep you from falling into a shaft!");
+        mpr(zh_message("log.player.fixed.14ef56476046"));
         return false;
     }
     if (you_worship(GOD_YREDELEMNUL) && yred_torch_is_raised())
     {
-        mpr("Yredelemnul refuses to let your conquest be stopped by a trick of"
-            " the earth!");
+        mpr(zh_message("log.player.fixed.ecde9946f021"));
         return false;
     }
 
@@ -8219,7 +8210,7 @@ bool player::can_do_shaft_ability(bool quiet) const
     if (form_changes_anatomy())
     {
         if (!quiet)
-            mpr("You can't shaft yourself in your current form.");
+            mpr(zh_message("log.player.fixed.c94de1b52d24"));
         return false;
     }
 
@@ -8233,7 +8224,7 @@ bool player::can_do_shaft_ability(bool quiet) const
     if (you.cannot_move())
     {
         if (!quiet)
-            mpr("You can't shaft yourself while unable to move.");
+            mpr(zh_message("log.player.fixed.a931f64997c0"));
         return false;
     }
 
@@ -8242,14 +8233,14 @@ bool player::can_do_shaft_ability(bool quiet) const
         if (!is_valid_shaft_level(false))
         {
             if (!quiet)
-                mpr("You can't shaft yourself on this level.");
+                mpr(zh_message("log.player.fixed.fe2c5b3915e7"));
             return false;
         }
     }
     else
     {
         if (!quiet)
-            mpr("You can't shaft yourself on this terrain.");
+            mpr(zh_message("log.player.fixed.d14285701180"));
         return false;
     }
 
@@ -8262,7 +8253,7 @@ bool player::do_shaft_ability()
 {
     if (can_do_shaft_ability(true))
     {
-        mpr("A shaft appears beneath you!");
+        mpr(zh_message("log.player.fixed.4c0163e9fee0"));
         down_stairs(DNGN_TRAP_SHAFT, true);
         return true;
     }
@@ -8406,12 +8397,12 @@ void player::sentinel_mark(bool trap)
     flash_tile(you.pos(), YELLOW, 120, TILE_BOLT_SENTINEL_MARK);
     if (duration[DUR_SENTINEL_MARK])
     {
-        mpr("The mark upon you grows brighter.");
+        mpr(zh_message("log.player.fixed.84e4013d58c6"));
         increase_duration(DUR_SENTINEL_MARK, random_range(20, 40), 180);
     }
     else
     {
-        mprf(MSGCH_WARN, "A sentinel's mark forms upon you.");
+        mpr(zh_message("log.player.fixed.636523da6016"), MSGCH_WARN);
         increase_duration(DUR_SENTINEL_MARK, trap ? random_range(25, 40)
                                                   : random_range(35, 60),
                           250);
@@ -8463,9 +8454,9 @@ bool player::made_nervous_by(const monster *mons)
 void player::weaken(const actor */*attacker*/, int pow)
 {
     if (!duration[DUR_WEAK])
-        mprf(MSGCH_WARN, "You feel your attacks grow feeble.");
+        mpr(zh_message("log.player.fixed.4227ac222fe6"), MSGCH_WARN);
     else
-        mprf(MSGCH_WARN, "You feel as though you will be weak longer.");
+        mpr(zh_message("log.player.fixed.0b2082fc5426"), MSGCH_WARN);
 
     increase_duration(DUR_WEAK, pow + random2(pow + 3), 50);
 }
@@ -8473,9 +8464,9 @@ void player::weaken(const actor */*attacker*/, int pow)
 void player::diminish(const actor */*attacker*/, int pow)
 {
     if (!duration[DUR_DIMINISHED_SPELLS])
-        mprf(MSGCH_WARN, "You feel your spells grow feeble.");
+        mpr(zh_message("log.player.fixed.790cca5ed0b1"), MSGCH_WARN);
     else
-        mprf(MSGCH_WARN, "You feel as though your spells will be weakened for longer.");
+        mpr(zh_message("log.player.fixed.8d8a97fee7bb"), MSGCH_WARN);
 
     increase_duration(DUR_DIMINISHED_SPELLS, pow + random2(pow + 3), 50);
 }
@@ -8485,7 +8476,7 @@ bool player::strip_willpower(actor */*attacker*/, int dur, bool quiet)
     // Only prints a message when you gain this status for the first time,
     // replicating old behavior. Should this change?
     if (!quiet && !you.duration[DUR_LOWERED_WL])
-        mpr("Your willpower is stripped away!");
+        mpr(zh_message("log.player.fixed.4d13b70c64f6"));
 
     you.increase_duration(DUR_LOWERED_WL, dur, 40);
 
@@ -8498,7 +8489,7 @@ bool player::drain_magic(actor */*attacker*/, int pow)
     if (!amount)
         return false;
 
-    mprf(MSGCH_WARN, "You feel your power leaking away.");
+    mpr(zh_message("log.player.fixed.1b5d3ef4f9c8"), MSGCH_WARN);
     drain_mp(amount);
     return true;
 }
@@ -8517,9 +8508,9 @@ void player::vitrify(const actor* /*attacker*/, int dur, bool quiet)
     if (!quiet)
     {
         if (!you.duration[DUR_VITRIFIED])
-            mprf(MSGCH_WARN, "Your body becomes as fragile as glass!");
+            mpr(zh_message("log.player.fixed.c77d1f3354da"), MSGCH_WARN);
         else
-            mpr("You feel your fragility will last longer.");
+            mpr(zh_message("log.player.fixed.a7466ffde2b9"));
     }
 
     you.increase_duration(DUR_VITRIFIED, dur, 50);
@@ -8723,15 +8714,15 @@ void print_potion_heal_message()
                  you.body_armour()->name(DESC_THE, false, false, false).c_str());
         }
         else if (you.has_mutation(MUT_DOUBLE_POTION_HEAL))
-            mpr("You savour every drop.");
+            mpr(zh_message("log.player.fixed.427c94948754"));
         else
-            mpr("The healing is enhanced."); // bad message, but this should
+            mpr(zh_message("log.player.fixed.66eff7d065ce")); // bad message, but this should
                                              // never be possible anyway
     }
     else if (_get_potion_heal_factor() == 0)
-        mpr("Your system rejects the healing.");
+        mpr(zh_message("log.player.fixed.5754027073ba"));
     else if (_get_potion_heal_factor() < 2)
-        mpr("Your system partially rejects the healing.");
+        mpr(zh_message("log.player.fixed.ef49406b77e0"));
 }
 
 bool player::can_potion_heal(bool temp)
@@ -9201,7 +9192,7 @@ int player::inaccuracy() const
 void player_end_berserk()
 {
     if (!you.duration[DUR_PARALYSIS] && !you.petrified())
-        mprf(MSGCH_WARN, "You are exhausted.");
+        mpr(zh_message("log.player.fixed.8aa532b40db2"), MSGCH_WARN);
 
     you.berserk_penalty = 0;
 
@@ -9244,7 +9235,7 @@ void activate_sanguine_armour()
     you.duration[DUR_SANGUINE_ARMOUR] = random_range(60, 100);
     if (!was_active)
     {
-        mpr("Your blood congeals into armour.");
+        mpr(zh_message("log.player.fixed.2da6e3eca155"));
         you.redraw_armour_class = true;
     }
 }
@@ -9256,7 +9247,7 @@ void activate_sanguine_armour()
 void refresh_weapon_protection()
 {
     if (!you.duration[DUR_SPWPN_PROTECTION])
-        mpr("Your weapon exudes an aura of protection.");
+        mpr(zh_message("log.player.fixed.fbbe6b7544e6"));
 
     you.increase_duration(DUR_SPWPN_PROTECTION, 3 + random2(2), 5);
     you.redraw_armour_class = true;
@@ -9364,7 +9355,7 @@ void trickster_trigger(const monster& victim, enchant_type ench)
     if (!you.props.exists(TRICKSTER_POW_KEY))
     {
         you.props[TRICKSTER_POW_KEY].get_int() = 0;
-        mprf(MSGCH_DURATION, "You feel bolstered by spreading misfortune.");
+        mpr(zh_message("log.player.fixed.6dd7dec7fc6a"), MSGCH_DURATION);
     }
 
     // Start the bonus off at meaningful level, but give less for each effect

@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "skills.h"
 
@@ -329,22 +330,25 @@ static void _change_skill_level(skill_type exsk, int n)
     // are you drained/crosstrained/ash'd in the relevant skill?
     const bool specify_base = you.skill(exsk, 1) != you.skill(exsk, 1, true);
     if (you.skills[exsk] == MAX_SKILL_LEVEL)
-        mprf(MSGCH_INTRINSIC_GAIN, "You have mastered %s!", skill_name(exsk));
+        mpr(zh_message("skill_mastered", {zh_glossary_name("skill", "skill.name", skill_name(exsk))}), MSGCH_INTRINSIC_GAIN);
     else if (abs(n) == 1 && you.num_turns)
     {
-        mprf(MSGCH_INTRINSIC_GAIN, "Your %s%s skill %s to level %d!",
-             specify_base ? "base " : "",
-             skill_name(exsk), (n > 0) ? "increases" : "decreases",
-             you.skills[exsk]);
+        mpr(zh_message(n > 0 ? "skill_level_increase" : "skill_level_decrease", {
+            zh_word_arg("base", "skill.prefix.", specify_base ? "base " : ""),
+            zh_glossary_name("skill", "skill.name", skill_name(exsk)),
+            zh_integer("level", you.skills[exsk])},
+            make_stringf("Your %s%s skill %s to level %d!", specify_base ? "base " : "",
+                skill_name(exsk), n > 0 ? "increases" : "decreases", you.skills[exsk])), MSGCH_INTRINSIC_GAIN);
     }
     else if (you.num_turns)
     {
-        mprf(MSGCH_INTRINSIC_GAIN, "Your %s%s skill %s %d levels and is now "
-             "at level %d!",
-             specify_base ? "base " : "",
-             skill_name(exsk),
-             (n > 0) ? "gained" : "lost",
-             abs(n), you.skills[exsk]);
+        mpr(zh_message(n > 0 ? "skill_multi_gain" : "skill_multi_loss", {
+            zh_word_arg("base", "skill.prefix.", specify_base ? "base " : ""),
+            zh_glossary_name("skill", "skill.name", skill_name(exsk)),
+            zh_integer("count", abs(n)), zh_integer("level", you.skills[exsk])},
+            make_stringf("Your %s%s skill %s %d levels and is now at level %d!",
+                specify_base ? "base " : "", skill_name(exsk), n > 0 ? "gained" : "lost",
+                abs(n), you.skills[exsk])), MSGCH_INTRINSIC_GAIN);
     }
 
     if (you.skills[exsk] == n && n > 0)
@@ -798,7 +802,7 @@ bool check_selected_skills()
         if (!you.received_noskill_warning)
         {
             you.received_noskill_warning = true;
-            mpr("You cannot train any new skills!");
+            mpr(zh_message("log.skills.fixed.3b3a59b8e0c3"));
         }
         // It's possible to have no selectable skills, if they are all
         // untrainable or level 27, so we don't assert.
@@ -821,7 +825,7 @@ bool check_selected_skills()
         return false;
     }
 
-    mpr("You need to enable at least one skill for training.");
+    mpr(zh_message("log.skills.fixed.3a0893d8aa08"));
     // Training will be fixed up on load if this ASSERT triggers.
     ASSERT(!you.has_mutation(MUT_DISTRIBUTED_TRAINING));
     more();
@@ -1392,8 +1396,10 @@ bool check_training_target(skill_type sk)
             set_magic_training(TRAINING_DISABLED);
         else
             you.train_alt[sk] = you.train[sk] = TRAINING_DISABLED;
-        mprf("%sraining target %d.%d for %s reached!",
-            base ? "Base t" : "T", targ / 10, targ % 10, skill_name(sk));
+        mpr(zh_message(base ? "base_training_target_reached" : "training_target_reached", {
+            zh_integer("level", targ / 10), zh_integer("fraction", targ % 10),
+            zh_glossary_name("skill", "skill.name", skill_name(sk))},
+            make_stringf("%sraining target %d.%d for %s reached!", base ? "Base t" : "T", targ/10, targ%10, skill_name(sk))));
         return true;
     }
     return false;
@@ -1836,14 +1842,14 @@ bool player::set_training_target(const skill_type sk, const int target, bool ann
 {
     if (target > 270) // if target is above 270, reject with an error
     {
-        mpr("Your training target must be 27 or below!");
+        mpr(zh_message("log.skills.fixed.c6143895635f"));
         return false;
     }
     const int ranged_target = min(max((int) target, 0), 270);
     if (announce && ranged_target != (int) training_targets[sk])
     {
         if (you.has_mutation(MUT_DISTRIBUTED_TRAINING))
-            mpr("You can't set training targets!");
+            mpr(zh_message("log.skills.fixed.68e32636a160"));
         else if (ranged_target == 0)
             mprf("Clearing the skill training target for %s.", skill_name(sk));
         else

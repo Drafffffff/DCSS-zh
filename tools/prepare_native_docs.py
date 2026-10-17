@@ -28,9 +28,20 @@ def wrap(text):
         width = len(indent)
         for token in re.findall(r'[A-Za-z0-9_./:+%<>~-]+|.', line[len(indent):]):
             columns = sum(2 if unicodedata.east_asian_width(c) in ('W', 'F') else 1 for c in token)
-            if width + columns > 76 and pending.strip():
+            if width + columns > 74 and pending.strip():
+                # Reserve a few columns so closing punctuation stays with the
+                # preceding word, rather than beginning the next Chinese line.
+                if token in '，。！？；：、）】》」』”’!?;:)]}':
+                    pending += token
+                    width += columns
+                    continue
+                carry = ''
+                while pending and pending[-1] in '（【《「『“‘':
+                    carry = pending[-1] + carry
+                    pending = pending[:-1]
                 result.append(pending.rstrip())
-                pending, width = indent, len(indent)
+                pending = indent + carry
+                width = len(indent) + sum(2 if unicodedata.east_asian_width(c) in ('W', 'F') else 1 for c in carry)
             pending += token
             width += columns
         result.append(pending.rstrip())

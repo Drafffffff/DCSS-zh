@@ -64,12 +64,9 @@ for entry in review_entries:
     if '<white>' in src:
         tests.append((re.sub(r'</?white>', '', src), dst))
 
-# Luna supplies full runtime sentences as independent oracles. They are not
-# inserted into the catalog: the engine must assemble/translate each case.
-for review_file in review_files():
-    for case in json.loads(review_file.read_text()).get('test_cases', []):
-        tests.append((case['en'], case['zh']))
-
+# Runtime sentence/name oracles now exercise their real named-message producers
+# via test_message_ids.py and isolated game scenarios. The legacy layer no
+# longer promises word-by-word reconstruction of names or arbitrary sentences.
 assert len(tests)>=100
 enc=lambda s:json.dumps(s,ensure_ascii=False)
 code='#include "zh-localization.h"\n#include <cassert>\n#include <cstdlib>\n#include <iostream>\nint main() { int failures=0; setenv("DCSS_LANG","zh",1);\n'
@@ -85,9 +82,8 @@ for s,t in pairs:
         normalized='<lightgrey>'+s.replace('<w>','<white>').replace('</w>','</white>')
         code+='assert(zh_translate('+enc(normalized)+') == '+enc('<lightgrey>'+t)+');\n'
         break
-term=dict(pairs).get('short sword')
-if term:
-    code+='assert(zh_translate("a) +0 short sword") == '+enc('a) +0 '+term)+');\n'
+# An unmigrated item list must not regain the removed generic word fallback.
+code+='assert(zh_translate("a) +0 short sword") == "a) +0 short sword");\n'
 
 # A real printf phrase may be concatenated with other text before rendering.
 fragment_cases=0
@@ -141,10 +137,6 @@ for colour in ('white','black','yellow','lightgrey'):
     code+='assert(zh_translate('+enc(text)+') == '+enc(text)+');\n'
 # Regression cases use Pi's wording as the oracle, not hand-authored translations.
 translated=dict(pairs)
-for noun in ('goblin','staff','larva','hippogriff'):
-    if noun in translated:
-        from english_inflections import pluralise
-        code+='assert(zh_translate('+enc('3 '+pluralise(noun))+') == '+enc('3 '+translated.get(pluralise(noun),translated[noun]))+');\n'
 if '(%+d apt)' in translated:
     code+='assert(zh_translate("(+2 apt)") == '+enc(translated['(%+d apt)'].replace('%+d','+2'))+');\n'
 if 'Fugue of the Fallen' in translated:
@@ -167,11 +159,6 @@ for en in translated:
     if en.startswith('The relative cost of raising each skill') and en.endswith('.\n'):
         code+='assert(zh_translate('+enc(en)+') == '+enc(translated[en])+');\n'
         code+='assert(zh_translate('+enc(en+'ZYBQ')+') == '+enc(translated[en]+'ZYBQ')+');\n'
-for en in ('Welcome back, %s the %s.', 'Welcome, %s the %s.'):
-    assert en in translated
-    src=en.replace('%s','ZYBQ',1).replace('%s','Gnoll Fighter',1)
-    zh=translated[en].replace('%s','ZYBQ',1).replace('%s','豺狼人 战士',1)
-    code+='assert(zh_translate('+enc(src)+') == '+enc(zh)+');\n'
 code+='assert(zh_translate("/source/items.txt") == "/source/items.txt");\n'
 code+='assert(zh_translate("https://example.com/items/scrolls") == "https://example.com/items/scrolls");\n'
 code+='assert(zh_translate("a - XQZ_VJKT") == "a - XQZ_VJKT");\n'
@@ -181,7 +168,7 @@ setenv("DCSS_LANG","en",1);
 '''
 code+='assert(zh_translate('+enc(tests[0][0])+') == '+enc(tests[0][0])+');\n'
 code+='setenv("DCSS_LANG","zh",1); for (int i=0;i<100;i++) zh_translate(std::string(2048,\'x\'));\n'
-code+='if (failures) return 1; std::cout << "PASS: '+str(len(tests))+' catalog/template cases, '+str(fragment_cases)+' composed template cases, canonical colour tags, compound item names, fallback, pause, English mode, long input\\n"; }\n'
+code+='if (failures) return 1; std::cout << "PASS: '+str(len(tests))+' catalog/template cases, '+str(fragment_cases)+' composed template cases, canonical colour tags, no word fallback, pause, English mode, long input\\n"; }\n'
 with tempfile.TemporaryDirectory() as td:
     p=Path(td);(p/'test.cc').write_text(code)
     subprocess.run(['c++','-std=c++11','-O2','-DZH_STANDALONE','-I'+str(SRC),str(SRC/'zh-localization.cc'),str(p/'test.cc'),'-o',str(p/'test')],check=True)

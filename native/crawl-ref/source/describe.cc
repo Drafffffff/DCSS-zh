@@ -5,6 +5,8 @@
 
 #include "AppHdr.h"
 #include "zh-localization.h"
+#include "zh-display-name.h"
+#include "zh-message.h"
 
 #include "describe.h"
 
@@ -1355,23 +1357,36 @@ static string _skill_target_desc(skill_type skill, int scaled_target,
                                 (double) scaled_target / 10, training, false);
     const int level_diff = xp_to_level_diff(diffs.experience / 10, 10);
 
-    if (max_training)
-        description += "At 100% training ";
-    else if (!hypothetical)
-    {
-        description += make_stringf("At current training (%d%%) ",
-                                        you.training[skill]);
-    }
-    else
-        description += make_stringf("At a training level of %d%% ", training);
+    const string verb = hypothetical ? "would " : "";
+    const string xp_comparison =
+        (you.experience_level + (level_diff + 9) / 10) > 27
+            ? "the equivalent of" : "about";
+    ZhArg xp_comparison_arg = zh_word_arg(
+        "xp_comparison", "skill.xp_comparison.", xp_comparison);
+    const auto target_level = zh_number("skill_level", scaled_target / 10.0, 1);
+    const auto experience_level = zh_number("experience_level",
+                                             level_diff / 10.0, 1);
 
-    description += make_stringf(
-        "you %sreach %d.%d in %s %d.%d XLs.",
-            hypothetical ? "would " : "",
-            scaled_target / 10, scaled_target % 10,
-            (you.experience_level + (level_diff + 9) / 10) > 27
-                                ? "the equivalent of" : "about",
-            level_diff / 10, level_diff % 10);
+    if (max_training)
+        description += zh_message("skill.target.training_max", {
+            zh_text("verb", verb, hypothetical ? "将" : ""),
+            target_level,
+            xp_comparison_arg,
+            experience_level}).display();
+    else if (!hypothetical)
+        description += zh_message("skill.target.training_current", {
+            zh_integer("training_percent", you.training[skill]),
+            zh_text("verb", verb, hypothetical ? "将" : ""),
+            target_level,
+            xp_comparison_arg,
+            experience_level}).display();
+    else
+        description += zh_message("skill.target.training_complete", {
+            zh_integer("training_percent", training),
+            zh_text("verb", verb, hypothetical ? "将" : ""),
+            target_level,
+            xp_comparison_arg,
+            experience_level}).display();
     if (you.wizard)
     {
         description += make_stringf("\n    (%d xp, %d skp)",
@@ -1566,28 +1581,20 @@ static void _append_weapon_stats(string &description, const item_def &item)
             skill_name(staff_skill(static_cast<stave_type>(item.sub_type))));
     }
 
-    if (is_unrandom_artefact(item, UNRAND_WOE))
-    {
-        const char *inf = Options.char_set == CSET_ASCII ? "inf" : "\u221e"; //"∞"
-        description += make_stringf(
-            "Base accuracy: %s  Base damage: %s  ",
-            inf,
-            inf);
-    }
-    else
-    {
-        description += make_stringf(
-            "Base accuracy: %+d  Base damage: %d  ",
-            property(item, PWPN_HIT),
-            base_dam);
-    }
+    const string hit_bonus = is_unrandom_artefact(item, UNRAND_WOE)
+        ? (Options.char_set == CSET_ASCII ? "inf" : "\u221e")
+        : make_stringf("%+d", property(item, PWPN_HIT));
+    const string damage = is_unrandom_artefact(item, UNRAND_WOE)
+        ? hit_bonus : to_string(base_dam);
+    description += zh_message("item.weapon.base_stats", {
+        ZhArg{"hit_bonus", ZhArgType::Number, hit_bonus, hit_bonus},
+        ZhArg{"damage", ZhArgType::Number, damage, damage}}).display();
 
-    description += make_stringf(
-        "Base attack delay: %.1f\n"
-        "This weapon's minimum attack delay (%.1f) is reached at skill level %d.",
-            (float) property(item, PWPN_SPEED) / 10,
-            (float) weapon_min_delay(item, item.is_identified()) / 10,
-            mindelay_skill / 10);
+    description += zh_message("item.weapon.attack_delay_and_minimum", {
+        zh_number("base_delay", (float) property(item, PWPN_SPEED) / 10, 1),
+        zh_number("minimum_delay",
+                  (float) weapon_min_delay(item, item.is_identified()) / 10, 1),
+        zh_integer("skill_level", mindelay_skill / 10)}).display();
 
     _append_skill_needed(description, item);
 
@@ -2165,15 +2172,12 @@ static string _describe_ammo(const item_def &item)
         const int throw_delay = (10 + dam / 2);
         const int target_skill = _item_training_target(item);
 
-        description += make_stringf(
-            "\n\nBase damage: %d  Base attack delay: %.1f"
-            "\nThis projectile's minimum attack delay (%.1f) "
-                "is reached at skill level %d.",
-            dam,
-            (float) throw_delay / 10,
-            (float) FASTEST_PLAYER_THROWING_SPEED / 10,
-            target_skill / 10
-        );
+        description += zh_message("item.projectile.stats_and_minimum_delay", {
+            zh_integer("damage", dam),
+            zh_number("base_delay", (float) throw_delay / 10, 1),
+            zh_number("minimum_delay",
+                      (float) FASTEST_PLAYER_THROWING_SPEED / 10, 1),
+            zh_integer("skill_level", target_skill / 10)}).display();
 
         _append_skill_needed(description, item);
 
@@ -2189,10 +2193,8 @@ static string _describe_ammo(const item_def &item)
         description += "\n\nIt is always destroyed on impact.";
     else if (!ammo_never_destroyed(item))
     {
-        description += make_stringf(
-            "\n\nIt has a 1/%d chance to be destroyed on impact.",
-            ammo_destroy_chance(item)
-        );
+        description += zh_message("item.projectile.destroy_chance", {
+            zh_integer("chance", ammo_destroy_chance(item))}).display();
     }
 
     return description;
@@ -4214,7 +4216,8 @@ void inscribe_item(item_def &item)
 static string _player_spell_stats(const spell_type spell)
 {
     string description;
-    description += make_stringf("\nLevel: %d", spell_difficulty(spell));
+    description += zh_message("spell.level", {
+        zh_integer("spell_level", spell_difficulty(spell))}).display();
 
     const string schools = spell_schools_string(spell);
     description +=
@@ -5737,23 +5740,21 @@ static string _monster_spells_description(const monster_info& mi, bool mark_spel
 
 static string _monster_notice_chance(const monster_info& mi)
 {
-    ostringstream result;
-
-    result << uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE)) << " "
-           << conjugate_verb("have", mi.pronoun_plurality())
-           << " a ";
-
     int perception = mi.perception() * 100;
     int stealth = player_stealth() * 100;
 
     if (stealth < perception)
-        result << 100;
+        perception = 100;
     else
-        result << perception * 100 / stealth;
+        perception = perception * 100 / stealth;
 
-    result << "% chance to notice you each turn.\n";
-
-    return result.str();
+    const bool plural = mi.pronoun_plurality();
+    const string canonical = uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE)) + " "
+        + conjugate_verb("have", plural) + " a " + to_string(perception)
+        + "% chance to notice you each turn.\n";
+    return zh_message(plural ? "monster.notice_chance_plural"
+                             : "monster.notice_chance",
+                      {zh_integer("chance", perception)}, canonical).display();
 }
 
 static void _describe_aux_hit_chance(ostringstream &result, vector<string>& auxes, int chance)
@@ -5843,23 +5844,36 @@ void describe_hit_chance(int hit_chance, ostringstream &result, const item_def *
     if (verbose)
         result << "about ";
 
-    result << hit_chance << "% to hit";
-
-    if (verbose)
+    const bool blinded = you.duration[DUR_BLIND];
+    const auto hit_arg = zh_integer("hit_percent", hit_chance);
+    if (!verbose && blinded)
+        result << zh_message("target.hit_chance.distance", {hit_arg}).display();
+    else if (!verbose)
+        result << zh_message("target.hit_chance", {hit_arg}).display();
+    else
     {
-        result << " with ";
-        if (weapon == nullptr)
-            result << "your " << you.hand_name(true);
+        ZhArg weapon_arg;
+        string canonical_weapon;
+        if (weapon)
+        {
+            canonical_weapon = weapon->name(DESC_YOUR, false, false, false);
+            weapon_arg = zh_item_arg("weapon", *weapon, DESC_YOUR);
+            // describe_hit_chance intentionally omits inscriptions.
+            weapon_arg.canonical = canonical_weapon;
+        }
         else
-            result << weapon->name(DESC_YOUR, false, false, false);
-    }
-
-    if (you.duration[DUR_BLIND])
-    {
-        if (verbose)
-            result << " (while you are blinded and from distance " << distance_from << ")";
+        {
+            canonical_weapon = "your " + you.hand_name(true);
+            const string localized = zh_lookup_exact(canonical_weapon);
+            weapon_arg = {"weapon", ZhArgType::Name, canonical_weapon,
+                          localized, localized != canonical_weapon};
+        }
+        if (blinded)
+            result << zh_message("target.hit_chance.verbose_blind", {
+                hit_arg, weapon_arg, zh_integer("range", distance_from)}).display();
         else
-            result << " at this distance";
+            result << zh_message("target.hit_chance.verbose", {
+                hit_arg, weapon_arg}).display();
     }
 }
 
@@ -5922,9 +5936,13 @@ static void _describe_mons_to_hit(const monster_info& mi, ostringstream &result)
     const int beat_sh_chance = mon_beat_sh_pct(shield_bypass, scaled_sh);
 
     const int hit_chance = beat_ev_chance * beat_sh_chance / 100;
-    result << uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE)) << " "
-           << conjugate_verb("have", mi.pronoun_plurality())
-           << " about " << hit_chance << "% to hit you.\n";
+    const bool plural = mi.pronoun_plurality();
+    const string canonical = uppercase_first(mi.pronoun(PRONOUN_SUBJECTIVE)) + " "
+        + conjugate_verb("have", plural) + " about " + to_string(hit_chance)
+        + "% to hit you.\n";
+    result << zh_message(plural ? "monster.hit_chance_plural"
+                                : "monster.hit_chance",
+                         {zh_integer("hit_percent", hit_chance)}, canonical).display();
 }
 
 /**

@@ -53,3 +53,6 @@ if grouped:
 
 from prepare_native_docs import prepare_docs
 prepare_docs()
+
+from compile_message_ids import compile_catalog
+compile_catalog()

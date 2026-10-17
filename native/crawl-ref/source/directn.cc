@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 
 #include "directn.h"
 #include "zh-localization.h"
@@ -890,7 +891,7 @@ void full_describe_view()
 
     if (list_mons.empty() && list_items.empty() && list_features.empty())
     {
-        mpr("No monsters, items or features are visible.");
+        mpr(zh_message("log.directn.fixed.97d957ab6ef7"));
         return;
     }
 
@@ -979,7 +980,7 @@ bool direction_chooser::move_is_ok() const
             if (hitfunc && hitfunc->can_affect_unseen())
                 return true; // is this too broad?
             if (you.see_cell(target()))
-                mprf(MSGCH_EXAMINE_FILTER, "There's something in the way.");
+                mpr(zh_message("log.directn.fixed.d78f2801d65a"), MSGCH_EXAMINE_FILTER);
             // XXX: Hack to let bump attack with a ranged weapon still work
             //      when Primordial Nightfall is active. Hopefully doesn't
             //      affect anything else?
@@ -989,7 +990,7 @@ bool direction_chooser::move_is_ok() const
                 return true;
             }
             else
-                mprf(MSGCH_EXAMINE_FILTER, "You can't see that place.");
+                mpr(zh_message("log.directn.fixed.e2e06dfdfa15"), MSGCH_EXAMINE_FILTER);
             return false;
         }
 
@@ -1005,9 +1006,9 @@ bool direction_chooser::move_is_ok() const
                     if (moves.interactive)
                     {
                         if (harmful_to_player)
-                            mprf(MSGCH_EXAMINE_FILTER, "That would be overly suicidal.");
+                            mpr(zh_message("log.directn.fixed.0f9f90374e10"), MSGCH_EXAMINE_FILTER);
                         else
-                            mprf(MSGCH_EXAMINE_FILTER, "That would be pointless.");
+                            mpr(zh_message("log.directn.fixed.3dc8b040abab"), MSGCH_EXAMINE_FILTER);
                     }
                     return false;
                 }
@@ -1029,7 +1030,7 @@ bool direction_chooser::move_is_ok() const
                 // avoid printing this message when autotargeting -- it doesn't
                 // make much sense
                 if (moves.interactive)
-                    mprf(MSGCH_EXAMINE_FILTER, "Sorry, you can't target yourself.");
+                    mpr(zh_message("log.directn.fixed.ebdf36ec18e9"), MSGCH_EXAMINE_FILTER);
                 return false;
             }
         }
@@ -1656,7 +1657,7 @@ bool direction_chooser::pickup_item()
         ii = env.map_knowledge(target()).item();
     if (!ii || !ii->is_valid(true))
     {
-        mprf(MSGCH_EXAMINE_FILTER, "You can't see any item there.");
+        mpr(zh_message("log.directn.fixed.d981b534da0c"), MSGCH_EXAMINE_FILTER);
         return false;
     }
     ii->flags |= ISFLAG_THROWN; // make autoexplore greedy
@@ -1685,7 +1686,7 @@ bool direction_chooser::pickup_item()
 
     if (!just_looking) // firing/casting prompt
     {
-        mprf(MSGCH_EXAMINE_FILTER, "Marked for pickup.");
+        mpr(zh_message("log.directn.fixed.0636deeaa119"), MSGCH_EXAMINE_FILTER);
         return false;
     }
 
@@ -1705,7 +1706,7 @@ bool direction_chooser::handle_signals()
         moves.isCancel = true;
         moves.cmd_result = CMD_NO_CMD;
 
-        mprf(MSGCH_ERROR, "Targeting interrupted by HUP signal.");
+        mpr(zh_message("log.directn.fixed.354f9b635564"), MSGCH_ERROR);
         return true;
     }
     return false;
@@ -2013,7 +2014,7 @@ void direction_chooser::toggle_beam()
 {
     if (!needs_path)
     {
-        mprf(MSGCH_EXAMINE_FILTER, "This spell doesn't need a beam path.");
+        mpr(zh_message("log.directn.fixed.7b2b961607d8"), MSGCH_EXAMINE_FILTER);
         return;
     }
 
@@ -2043,7 +2044,7 @@ void direction_chooser::handle_movement_key(command_type key_command,
         if (unshifted)
             set_target(target() + delta);
         else if (!allow_shift_dir)
-            mpr("You can't do that.");
+            mpr(zh_message("log.directn.fixed.d0eb01836559"));
         else
             *loop_done = select_compass_direction(delta);
     }
@@ -2152,7 +2153,7 @@ void direction_chooser::handle_wizard_command(command_type key_command,
 
     case CMD_TARGET_WIZARD_HURT_MONSTER:
         m->hit_points = 1;
-        mpr("Brought monster down to 1 HP.");
+        mpr(zh_message("log.directn.fixed.dee8959d944c"));
         flush_prev_message();
         break;
 
@@ -2288,7 +2289,7 @@ void direction_chooser::full_describe()
 
     if (list_mons.empty() && list_items.empty() && list_features.empty())
     {
-        mprf(MSGCH_EXAMINE_FILTER, "There are no valid targets to list.");
+        mpr(zh_message("log.directn.fixed.a4b8dca9fa69"), MSGCH_EXAMINE_FILTER);
         flush_prev_message();
         return;
     }
@@ -2339,7 +2340,7 @@ bool direction_chooser::process_command(command_type command)
             break;
 
         if (!is_map_persistent())
-            mpr("You cannot set exclusions on this level.");
+            mpr(zh_message("log.directn.fixed.89c4beed12e3"));
         else
         {
             const bool was_excluded = is_exclude_root(target());
@@ -2347,11 +2348,11 @@ bool direction_chooser::process_command(command_type command)
             need_viewport_redraw   = true;
             const bool is_excluded = is_exclude_root(target());
             if (!was_excluded && is_excluded)
-                mpr("Placed new exclusion.");
+                mpr(zh_message("log.directn.fixed.259d47e25ef1"));
             else if (was_excluded && !is_excluded)
-                mpr("Removed exclusion.");
+                mpr(zh_message("log.directn.fixed.03844ec9825b"));
             else
-                mpr("Reduced exclusion size to a single square.");
+                mpr(zh_message("log.directn.fixed.1648eda141e7"));
         }
 
         need_cursor_redraw = true;
@@ -2876,7 +2877,7 @@ static void _extend_move_to_edge(dist &moves)
 // cache and noted in the Dungeon (O)verview, names the stair.
 static void _describe_oos_square(const coord_def& where)
 {
-    mprf(MSGCH_EXAMINE_FILTER, "You can't see that place.");
+    mpr(zh_message("log.directn.fixed.e2e06dfdfa15"), MSGCH_EXAMINE_FILTER);
 
     if (!in_bounds(where) || !env.map_knowledge(where).seen())
     {
@@ -2996,7 +2997,7 @@ void describe_floor()
 
     mprf(channel, "%s%s here.", prefix, feat.c_str());
     if (grid == DNGN_ENTER_GAUNTLET)
-        mprf(MSGCH_EXAMINE, "Beware, the minotaur awaits!");
+        mpr(zh_message("log.directn.fixed.c75e332c4eb6"), MSGCH_EXAMINE);
     else if (feat_is_fountain(grid) || feat_is_food(grid))
         _walk_on_decor(grid);
 }

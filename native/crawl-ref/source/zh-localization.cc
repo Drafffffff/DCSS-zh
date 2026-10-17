@@ -3,6 +3,7 @@
 #include "options.h"
 #endif
 #include "zh-localization.h"
+#include "zh-message.h"
 #include <algorithm>
 #include <cstdlib>
 #include <cctype>
@@ -74,10 +75,8 @@ struct Catalog {
     std::unordered_map<char, std::vector<const Pattern*>> fragments;
     std::unordered_map<std::string, std::string> cache;
     std::unordered_set<std::string> missing;
-    std::unordered_map<char, std::vector<std::pair<std::string, std::string>>> terms;
     std::vector<std::pair<std::string, std::string>> technical_prefixes;
     Catalog() {
-        for (const auto &e : zh_terms) terms[e.en[0]].emplace_back(e.en, e.zh);
         for (const auto &e : zh_entries) {
             exact.emplace(e.en, e.zh);
             // Menus concatenate complete descriptions, then wrap them by line.
@@ -198,45 +197,6 @@ struct Catalog {
             fragments[p.source.front()[0]].push_back(&p);
         }
     }
-    std::string translate_terms(const std::string &s) {
-        auto word = [](unsigned char c) { return c < 128 && (std::isalnum(c) || c == '_'); };
-        std::string out;
-        for (size_t at = 0; at < s.size();) {
-            if (s[at] == '<' && at+1 < s.size()
-                && (s[at+1] == '/' || s[at+1] == '<'
-                    || std::isalpha(static_cast<unsigned char>(s[at+1])))) {
-                const size_t end = s.find('>', at+1);
-                if (end != std::string::npos) {
-                    out += s.substr(at, end-at+1); at = end+1; continue;
-                }
-            }
-            // Filenames, URLs and absolute paths are data, even when they
-            // contain words also used by the game (e.g. /source/items.txt).
-            if ((s[at] == '/' && (at == 0 || !word(s[at-1])))
-                || s.compare(at, 7, "http://") == 0 || s.compare(at, 8, "https://") == 0) {
-                size_t end = s.find_first_of("\n<>\"' \t", at);
-                if (end == std::string::npos) end = s.size();
-                const auto candidate = s.substr(at, end-at);
-                if (candidate.find('/', 1) != std::string::npos || candidate.find('.') != std::string::npos) {
-                    out += candidate; at = end; continue;
-                }
-            }
-            bool replaced = false;
-            const auto bucket = terms.find(s[at]);
-            if (bucket != terms.end()) {
-                for (const auto &term : bucket->second) {
-                    const size_t end = at + term.first.size();
-                    if (end <= s.size() && (at == 0 || !word(term.first.front()) || !word(s[at-1]))
-                        && (end == s.size() || !word(term.first.back()) || !word(s[end]))
-                        && s.compare(at, term.first.size(), term.first) == 0) {
-                        out += term.second; at = end; replaced = true; break;
-                    }
-                }
-            }
-            if (!replaced) out += s[at++];
-        }
-        return out;
-    }
     std::string lookup_capture(const std::string &s, char kind, int depth) {
         auto localized = lookup(s, depth);
         // A greedy noun capture can include the sentence's final punctuation.
@@ -276,7 +236,7 @@ struct Catalog {
         }
         // Deep captures must still resolve exact names. Cache only root calls:
         // a recursion-limited partial result must never poison later rendering.
-        if (depth > 12) return translate_terms(s);
+        if (depth > 12) return s;
         if (depth == 0) {
             auto c = cache.find(s);
             if (c != cache.end()) return c->second;
@@ -457,7 +417,6 @@ struct Catalog {
                     result = s.substr(0, first) + lookup(s.substr(first, last-first+1), depth+1) + s.substr(last+1);
             }
         }
-        if (result == s) result = translate_terms(s);
         if (depth == 0) {
             if (cache.size() >= 8192) cache.clear();
             cache.emplace(s, result);
@@ -499,7 +458,19 @@ bool enabled() {
 #endif
 }
 }
+std::string zh_lookup_exact(const std::string &text) {
+    static const ZhEntry names[] = {
+#include "zh-display-lexicon.inc"
+    };
+    for (const auto &entry : names)
+        if (text == entry.en) return entry.zh;
+    static Catalog catalog;
+    const auto it = catalog.exact.find(text);
+    return it == catalog.exact.end() ? text : it->second;
+}
+
 bool zh_language_enabled() { return enabled(); }
+bool zh_translation_paused() { return pause_depth != 0; }
 std::string zh_translate(const std::string &text) {
     if (!enabled() || text.empty()) return text;
     static Catalog catalog;

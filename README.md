@@ -76,3 +76,7 @@ python3 tools/test_native_text_grid.py
 
 游戏遵循上游 `LICENSE`（GPL-2.0-or-later），原作者与素材声明保留在 `native/` 中。字体使用 SIL OFL 1.1；衍生字体已更名，完整声明在 `fonts/OFL.txt` 与 `fonts/fusion-pixel-licenses/`。
 macOS 打包脚本会收集第三方运行库的许可证与版本清单；相关源码地址位于 `verification/macos-library-sources.json`。Release 中的 third-party-sources 附件提供适用的 GPL/LGPL 源码、构建配方和补丁。SteamGridDB 封面素材不包含在仓库中。
+
+## 消息模板迁移（进行中）
+
+第一批已建立生成处完整模板、命名类型参数和独立显示名接口，移除通用逐词兜底；Mac 与 Bazzite 构建及存档副本场景已验证。仍有旧渲染入口与未迁移文案，详情见[迁移范围、验证和限制](verification/native/message-migration/REPORT.md)及[架构记录](analysis/message-migration/architecture.md)。

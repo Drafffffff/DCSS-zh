@@ -1,0 +1,11 @@
+// Reviewed semantic name atoms.
+    {"rat", "老鼠"},
+    {"gnoll", "豺狼人"},
+    {"spear", "长矛"},
+    {"flail", "连枷"},
+    {"stone", "石头"},
+    {"arrow", "箭"},
+    {"invisible shield", "无形护盾"},
+    {"amulet of reflection", "反射护符"},
+    {"armour", "护甲"},
+    {"scroll", "卷轴"},

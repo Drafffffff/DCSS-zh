@@ -6,6 +6,7 @@
 #include "AppHdr.h"
 
 #include "database.h"
+#include "zh-localization.h"
 
 #include <cstdlib>
 #include <fcntl.h>
@@ -738,6 +739,7 @@ static void _call_recursive_replacement(string &str, TextDB &db,
 static string _query_database(TextDB &db, string key, bool canonicalise_key,
                               bool run_lua, bool untranslated)
 {
+    untranslated = untranslated || zh_translation_paused();
     if (canonicalise_key)
     {
         // We have to canonicalise the key (in case the user typed it

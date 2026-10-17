@@ -1,0 +1,1032 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "item.weapon.base_stats",
+      "context": "武器详情：基础命中与伤害",
+      "en": "Base accuracy: {hit_bonus}  Base damage: {damage}  ",
+      "zh": "基础命中：{hit_bonus}  基础伤害：{damage}  ",
+      "params": {
+        "hit_bonus": "number",
+        "damage": "number"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_append_weapon_stats; exact make_stringf template \"Base accuracy: %+d  Base damage: %d  \"; arguments property(item, PWPN_HIT), base_dam"
+      }
+    },
+    {
+      "id": "item.weapon.attack_delay_and_minimum",
+      "context": "武器详情：基础与最低攻击延迟",
+      "en": "Base attack delay: {base_delay}\nThis weapon's minimum attack delay ({minimum_delay}) is reached at skill level {skill_level}.",
+      "zh": "基础攻击延迟：{base_delay}\n该武器的最低攻击延迟为{minimum_delay}，在技能{skill_level}级时达到。",
+      "params": {
+        "base_delay": "number",
+        "minimum_delay": "number",
+        "skill_level": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_append_weapon_stats make_stringf exact format: \"Base attack delay: %.1f\\nThis weapon's minimum attack delay (%.1f) is reached at skill level %d.\"; arguments property(item, PWPN_SPEED)/10, weapon_min_delay(item, item.is_identified())/10, _item_training_target(item)/10, in this order"
+      }
+    },
+    {
+      "id": "item.weapon.armour_slow",
+      "context": "武器详情：护甲造成的攻击减速",
+      "en": "{actor} slows your attacks with this weapon by {delay}.",
+      "zh": "{actor}使你使用该武器攻击时减慢{delay}。",
+      "params": {
+        "actor": "text",
+        "delay": "number"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_append_weapon_stats; assembled description is body_armour->name(DESC_YOUR) or \"Your heavy armour\", followed by the conditional literal; numeric branch format \" slows your attacks with this weapon by %.1f\" with armour_penalty / 1000.0"
+      }
+    },
+    {
+      "id": "item.projectile.stats_and_minimum_delay",
+      "context": "投掷物详情：基础属性与最低攻击延迟",
+      "en": "\n\nBase damage: {damage}  Base attack delay: {base_delay}\nThis projectile's minimum attack delay ({minimum_delay}) is reached at skill level {skill_level}.",
+      "zh": "\n\n基础伤害：{damage}  基础攻击延迟：{base_delay}\n该投掷物的最低攻击延迟为{minimum_delay}，在投掷技能{skill_level}级时达到。",
+      "params": {
+        "damage": "integer",
+        "base_delay": "number",
+        "minimum_delay": "number",
+        "skill_level": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_append_missile_stats make_stringf exact format: \"\\n\\nBase damage: %d  Base attack delay: %.1f\\nThis projectile's minimum attack delay (%.1f) is reached at skill level %d.\"; arguments dam, throw_delay/10, FASTEST_PLAYER_THROWING_SPEED/10, target_skill/10, in this order"
+      }
+    },
+    {
+      "id": "item.projectile.destroy_chance",
+      "context": "投掷物详情：命中后损毁概率",
+      "en": "\n\nIt has a 1/{chance} chance to be destroyed on impact.",
+      "zh": "\n\n它命中后有1/{chance}的几率损毁。",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_append_missile_stats; exact make_stringf template \"\\n\\nIt has a 1/%d chance to be destroyed on impact.\"; argument ammo_destroy_chance(item)"
+      }
+    },
+    {
+      "id": "item.potion.ac",
+      "context": "药水详情：预览护甲值",
+      "en": "If you quaff this potion your AC would be {armour_class}.",
+      "zh": "喝下这瓶药水后，你的护甲等级将为{armour_class}。",
+      "params": {
+        "armour_class": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_lignify_ac; exact make_stringf template \"If you quaff this potion your AC would be %d.\"; argument you.armour_class_scaled(1)"
+      }
+    },
+    {
+      "id": "item.potion.shielding",
+      "context": "药水详情：预览格挡值",
+      "en": "\n\nIt affects your shielding ({amount}).",
+      "zh": "\n\n它会影响你的格挡值（{amount}）。",
+      "params": {
+        "amount": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_jewellery; exact template \"\\n\\nIt affects your shielding (%+d).\"; argument AMU_REFLECT_SH / 2"
+      }
+    },
+    {
+      "id": "item.potion.evasion",
+      "context": "药水详情：预览闪避值",
+      "en": "\n\nIt affects your evasion ({amount}).",
+      "zh": "\n\n它会影响你的闪避值（{amount}）。",
+      "params": {
+        "amount": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_jewellery; exact template \"\\n\\nIt affects your evasion (%+d).\"; argument item.plus"
+      }
+    },
+    {
+      "id": "item.potion.strength",
+      "context": "药水详情：预览力量",
+      "en": "\n\nIt affects your strength ({amount}).",
+      "zh": "\n\n它会影响你的力量（{amount}）。",
+      "params": {
+        "amount": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_jewellery; exact template \"\\n\\nIt affects your strength (%+d).\"; argument item.plus"
+      }
+    },
+    {
+      "id": "item.potion.intelligence",
+      "context": "药水详情：预览智力",
+      "en": "\n\nIt affects your intelligence ({amount}).",
+      "zh": "\n\n它会影响你的智力（{amount}）。",
+      "params": {
+        "amount": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_jewellery; exact template \"\\n\\nIt affects your intelligence (%+d).\"; argument item.plus"
+      }
+    },
+    {
+      "id": "item.potion.dexterity",
+      "context": "药水详情：预览敏捷",
+      "en": "\n\nIt affects your dexterity ({amount}).",
+      "zh": "\n\n它会影响你的敏捷（{amount}）。",
+      "params": {
+        "amount": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_jewellery; exact template \"\\n\\nIt affects your dexterity (%+d).\"; argument item.plus"
+      }
+    },
+    {
+      "id": "monster.notice_chance",
+      "context": "怪物详情：察觉玩家的几率",
+      "en": "It has a {chance}% chance to notice you each turn.\n",
+      "zh": "它每回合有{chance}%的几率察觉到你。\n",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_notice_chance; full sentence is assembled from subject pronoun + conjugated have + calculated percentage + exact suffix \"% chance to notice you each turn.\\n\"; percentage is stream output"
+      }
+    },
+    {
+      "id": "monster.notice_chance_plural",
+      "context": "怪物详情：复数怪物察觉玩家的几率",
+      "en": "They have a {chance}% chance to notice you each turn.\n",
+      "zh": "它们每回合有{chance}%的几率察觉到你。\n",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_monster_notice_chance; plural expansion of the same full assembled sentence, verified in luna-review-20261017.json; source chooses pronoun and agreement from monster_info"
+      }
+    },
+    {
+      "id": "monster.hit_chance",
+      "context": "怪物详情：怪物命中玩家的几率",
+      "en": "It has about {hit_percent}% to hit you.\n",
+      "zh": "它命中你的几率约为{hit_percent}%。\n",
+      "params": {
+        "hit_percent": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_mons_to_hit; full singular form assembled with pronoun/agreement plus calculated hit percentage and suffix; source reports this wording in luna-review-20261017.json"
+      }
+    },
+    {
+      "id": "monster.hit_chance_plural",
+      "context": "怪物详情：复数怪物命中玩家的几率",
+      "en": "They have about {hit_percent}% to hit you.\n",
+      "zh": "它们命中你的几率约为{hit_percent}%。\n",
+      "params": {
+        "hit_percent": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_describe_mons_to_hit; full plural form assembled with pronoun/agreement plus calculated hit percentage and suffix; source reports this wording in luna-review-20261017.json"
+      }
+    },
+    {
+      "id": "monster.will_chance",
+      "context": "怪物详情：意志豁免成功率",
+      "en": "Chance to defeat your Will: {chance}%{suffix}\n",
+      "zh": "击败你的意志抗性几率：{chance}%{suffix}\n",
+      "params": {
+        "chance": "integer",
+        "suffix": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe spell monster info; exact make_stringf template \"Chance to defeat your Will: %d%%%s\\n\"; arguments hex_chance(spell, mon_owner, is_wand), wiz_info"
+      }
+    },
+    {
+      "id": "item.stash.location",
+      "context": "物品详情：异地储藏位置",
+      "en": "It can be found on {depth}.\n\n",
+      "zh": "它位于{depth}。\n\n",
+      "params": {
+        "depth": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_item_popup; exact make_stringf template \"It can be found on %s.\\n\\n\"; argument loc.describe(true, true)"
+      }
+    },
+    {
+      "id": "skill.gain.single",
+      "context": "技能升级消息：单级",
+      "en": "Your {skill_prefix}{skill} skill {verb} to level {skill_level}!",
+      "zh": "你的{skill_prefix}{skill}技能{verb}至{skill_level}级！",
+      "params": {
+        "skill_prefix": "text",
+        "skill": "name",
+        "verb": "text",
+        "skill_level": "number"
+      },
+      "source": {
+        "file": "skills.cc",
+        "anchor": "_change_skill_level; exact mprf template \"Your %s%s skill %s to level %d!\"; arguments optional \"base \", skill_name(exsk), increases/decreases, you.skills[exsk]"
+      }
+    },
+    {
+      "id": "skill.gain.multiple",
+      "context": "技能升级消息：多级",
+      "en": "Your {skill_prefix}{skill} skill {verb} {levels} levels and is now at level {skill_level}!",
+      "zh": "你的{skill_prefix}{skill}技能{verb}{levels}级，现在为{skill_level}级！",
+      "params": {
+        "skill_prefix": "text",
+        "skill": "name",
+        "verb": "text",
+        "levels": "integer",
+        "skill_level": "number"
+      },
+      "source": {
+        "file": "skills.cc",
+        "anchor": "_change_skill_level; exact mprf concatenated template \"Your %s%s skill %s %d levels and is now at level %d!\"; arguments optional \"base \", skill_name(exsk), gained/lost, abs(n), you.skills[exsk]"
+      }
+    },
+    {
+      "id": "skill.target.training_complete",
+      "context": "技能详情：按训练比例预测达到目标等级的经验量",
+      "en": "At a training level of {training_percent}% you {verb}reach {skill_level} in {xp_comparison} {experience_level} XLs.",
+      "zh": "按{training_percent}%训练比例，你{verb}达到{skill_level}级（{xp_comparison}{experience_level}级角色经验）。",
+      "params": {
+        "training_percent": "integer",
+        "verb": "text",
+        "skill_level": "number",
+        "xp_comparison": "text",
+        "experience_level": "number"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_skill_target_desc; exact assembled branch template across two make_stringf calls: prefix \"At a training level of %d%% \" then \"you %sreach %d.%d in %s %d.%d XLs.\"; second call arguments hypothetical ? \"would \" : \"\", scaled_target/10, scaled_target%10, XP comparison (\"about\" or \"the equivalent of\"), level_diff/10, level_diff%10"
+      }
+    },
+    {
+      "id": "skill.menu.enhanced",
+      "context": "技能界面：增强技能颜色提示",
+      "en": "Skills enhanced by {cause} are in <green>green</green>.",
+      "zh": "受{cause}增强的技能以<green>绿色</green>显示。",
+      "params": {
+        "cause": "text"
+      },
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenu hint in SKM_LEVEL_ENHANCED; exact make_stringf template \"Skills enhanced by %s are in <green>green</green>.\"; argument comma_separated_line(causes)"
+      }
+    },
+    {
+      "id": "skill.menu.reduced",
+      "context": "技能界面：削弱技能颜色提示",
+      "en": "Skills reduced by {cause} are in <magenta>magenta</magenta>.",
+      "zh": "受{cause}削弱的技能以<magenta>洋红色</magenta>显示。",
+      "params": {
+        "cause": "text"
+      },
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenu hint in SKM_LEVEL_ENHANCED; exact make_stringf template \"Skills reduced by %s are in <magenta>magenta</magenta>.\"; argument comma_separated_line(causes)"
+      }
+    },
+    {
+      "id": "skill.menu.target_prompt",
+      "context": "技能界面：输入训练目标提示",
+      "en": "Enter a skill target for {skill}: ",
+      "zh": "请输入{skill}的技能目标： ",
+      "params": {
+        "skill": "name"
+      },
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenu::read_skill_target; exact make_stringf template \"Enter a skill target for %s: \"; argument skill_name(sk)"
+      }
+    },
+    {
+      "id": "skill.menu.training_level",
+      "context": "技能界面：训练进度百分比",
+      "en": "{training_percent}%",
+      "zh": "{training_percent}%",
+      "params": {
+        "training_percent": "integer"
+      },
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenuEntry::set_training; make_stringf(\"%2d%%\", you.training[m_sk]); display field numeric-only"
+      }
+    },
+    {
+      "id": "skill.menu.progress_percent",
+      "context": "技能界面：技能进度百分比",
+      "en": " {progress_percent}%",
+      "zh": " {progress_percent}%",
+      "params": {
+        "progress_percent": "integer"
+      },
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenuEntry::set_progress; make_stringf(\" %2d%%\", get_skill_percentage(m_sk))"
+      }
+    },
+    {
+      "id": "target.hit_chance",
+      "context": "瞄准提示：命中率",
+      "en": "{hit_percent}% to hit",
+      "zh": "命中率{hit_percent}%",
+      "params": {
+        "hit_percent": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::describe_hit_chance; literal stream template \"{hit_percent}% to hit\"; a complete surrounding form depends on verbose mode and optional weapon, so use target.actor_weapon_hit for full target display"
+      }
+    },
+    {
+      "id": "target.hit_chance.distance",
+      "context": "瞄准提示：当前距离命中率",
+      "en": "{hit_percent}% to hit at this distance",
+      "zh": "当前距离命中率{hit_percent}%",
+      "params": {
+        "hit_percent": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe.cc::describe_hit_chance; exact suffix \" at this distance\" is appended only when blinded and non-verbose; included prefix is {hit_percent}% to hit"
+      }
+    },
+    {
+      "id": "target.hit_chance.verbose",
+      "context": "瞄准详情：装备武器时的命中率",
+      "en": "about {hit_percent}% to hit with {weapon}",
+      "zh": "命中率约为{hit_percent}%（使用{weapon}）",
+      "params": {
+        "hit_percent": "integer",
+        "weapon": "name"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_hit_chance(verbose=true); exact stream order is literal \"about \", hit_chance, \"% to hit with \", then weapon->name(DESC_YOUR, false, false, false) or your hand name"
+      }
+    },
+    {
+      "id": "target.hit_chance.verbose_blind",
+      "context": "瞄准详情：失明时的距离命中率",
+      "en": "about {hit_percent}% to hit with {weapon} (while you are blinded and from distance {range})",
+      "zh": "命中率约为{hit_percent}%（使用{weapon}；失明时距离为{range}格）",
+      "params": {
+        "hit_percent": "integer",
+        "weapon": "name",
+        "range": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_hit_chance(verbose=true); appends exact literal \" (while you are blinded and from distance \" + distance_from + \")\" after the verbose hit/weapon string when DUR_BLIND is set"
+      }
+    },
+    {
+      "id": "target.help_key",
+      "context": "瞄准提示：帮助快捷键",
+      "en": "Press: ? - help",
+      "zh": "按键：? - 帮助",
+      "params": {},
+      "source": {
+        "file": "directn.cc",
+        "anchor": "directn.cc::direction_chooser::print_key_hints; literal base string \"Press: ? - help\""
+      }
+    },
+    {
+      "id": "target.action_key_prompt",
+      "context": "瞄准提示：完整动作键提示",
+      "en": "Press: ? - help, <w>{action_key}</w> - select action",
+      "zh": "按键：? - 帮助，<w>{action_key}</w> - 选择动作",
+      "params": {
+        "action_key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "directn.cc::direction_chooser::print_key_hints concatenates quiver.cc::action_cycler::fire_key_hints; source form when no other item: \", <w>%</w> - select action\"; command insertion supplies the configured key"
+      }
+    },
+    {
+      "id": "target.cycle_key_prompt",
+      "context": "瞄准提示：完整动作与循环键提示",
+      "en": "Press: ? - help, <w>{action_key}</w> - select action, <w>{previous_key}</w> or <w>{next_key}</w> - cycle",
+      "zh": "按键：? - 帮助，<w>{action_key}</w> - 选择动作，<w>{previous_key}</w>或<w>{next_key}</w> - 切换",
+      "params": {
+        "action_key": "key",
+        "previous_key": "key",
+        "next_key": "key"
+      },
+      "source": {
+        "file": "directn.cc",
+        "anchor": "directn.cc::direction_chooser::print_key_hints concatenates quiver.cc::action_cycler::fire_key_hints; source form when cycling is available: \", <w>%</w> - select action, <w>%</w> or <w>%</w> - cycle\"; command insertion order: select, backward, forward"
+      }
+    },
+    {
+      "id": "feature.abyss_depth",
+      "context": "地形详情：深渊层数",
+      "en": "(If you entered the Abyss now, you could be pulled as deep as Abyss:{depth}.)",
+      "zh": "（若现在进入深渊，你最深可能被卷至深渊：{depth}层。）",
+      "params": {
+        "depth": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_feature_long; exact make_stringf template \"\\n(If you entered the Abyss now, you could be pulled as deep as Abyss:%d.)\"; argument abyss_default_depth(true)"
+      }
+    },
+    {
+      "id": "feature.enter_key",
+      "context": "地形详情：入口与按键",
+      "en": "While standing here, you can enter <w>{destination}</w> with the <w>{key}</w> key.",
+      "zh": "站在这里时，按<w>{key}</w>键即可进入<w>{destination}</w>。",
+      "params": {
+        "destination": "text",
+        "key": "key"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe_feature_long DNGN_ENTER_SHOP branch; exact make_stringf template \"\\nWhile standing here, you can enter <w>%s</w> with the <w>%s</w> key.\"; arguments desc.c_str(), command_to_string(CMD_GO_DOWNSTAIRS).c_str()"
+      }
+    },
+    {
+      "id": "mutation.rank",
+      "context": "变异详情：当前与最高等级",
+      "en": " (level {skill_level}/{max_level})",
+      "zh": "（等级{skill_level}/{max_level}）",
+      "params": {
+        "skill_level": "integer",
+        "max_level": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "describe mutation title; exact make_stringf template \" (level %d/%d)\"; arguments current mutation rank, maximum mutation rank"
+      }
+    },
+    {
+      "id": "spell.level",
+      "context": "法术详情：法术等级",
+      "en": "\nLevel: {spell_level}",
+      "zh": "\n法术等级：{spell_level}",
+      "params": {
+        "spell_level": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "spell description; exact make_stringf template \"\\nLevel: %d\"; argument spell_difficulty(spell)"
+      }
+    },
+    {
+      "id": "spell.fail_rate",
+      "context": "法术详情：失败率与括号参考值",
+      "en": "        Fail: {fail_percent}% <darkgrey>({reference_percent}%)</darkgrey>",
+      "zh": "        失败率：{fail_percent}% <darkgrey>（{reference_percent}%）</darkgrey>",
+      "params": {
+        "fail_percent": "integer",
+        "reference_percent": "integer"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_player_spell_stats; exact complete output is formed by make_stringf(\"        Fail: %s\", failure.c_str()) around nested failure format \"%d%% <darkgrey>(%d%%)</darkgrey> with failure percentage then reference percentage"
+      }
+    },
+    {
+      "id": "spell.range",
+      "context": "法术详情：施法距离",
+      "en": "Range: {range}",
+      "zh": "施法距离：{range}",
+      "params": {
+        "range": "text"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "spell description block; the heading is emitted by the padded label builder and followed by spell_range_description output; this catalog entry represents the label/value row, not a standalone make_stringf template"
+      }
+    },
+    {
+      "id": "skill.target.training_max",
+      "context": "技能详情：100%训练比例下达到目标的经验估算",
+      "en": "At 100% training you {verb}reach {skill_level} in {xp_comparison} {experience_level} XLs.",
+      "zh": "按100%训练，你{verb}达到{skill_level}级（{xp_comparison}{experience_level}级角色经验）。",
+      "params": {
+        "verb": "text",
+        "skill_level": "number",
+        "xp_comparison": "text",
+        "experience_level": "number"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_skill_target_desc exact branch prefix \"At 100% training \"; followed by the format \"you %sreach %d.%d in %s %d.%d XLs.\""
+      }
+    },
+    {
+      "id": "skill.target.training_current",
+      "context": "技能详情：当前训练比例下达到目标的经验估算",
+      "en": "At current training ({training_percent}%) you {verb}reach {skill_level} in {xp_comparison} {experience_level} XLs.",
+      "zh": "当前训练比例为{training_percent}%时，你{verb}达到{skill_level}级（{xp_comparison}{experience_level}级角色经验）。",
+      "params": {
+        "training_percent": "integer",
+        "verb": "text",
+        "skill_level": "number",
+        "xp_comparison": "text",
+        "experience_level": "number"
+      },
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_skill_target_desc exact branch prefix make_stringf(\"At current training (%d%%) \", you.training[skill]); followed by the shared skill-target format"
+      }
+    },
+    {
+      "id": "skill.prefix.base",
+      "context": "技能系统的固定语义词项",
+      "en": "base ",
+      "zh": "基础",
+      "params": {},
+      "source": {
+        "file": "skills.cc",
+        "anchor": "_change_skill_level optional skill prefix literal \"base \""
+      }
+    },
+    {
+      "id": "skill.xp_comparison.about",
+      "context": "技能系统的固定语义词项",
+      "en": "about",
+      "zh": "约",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_skill_target_desc exact comparison branch literal \"about\""
+      }
+    },
+    {
+      "id": "skill.xp_comparison.equivalent",
+      "context": "技能系统的固定语义词项",
+      "en": "the equivalent of",
+      "zh": "相当于",
+      "params": {},
+      "source": {
+        "file": "describe.cc",
+        "anchor": "_skill_target_desc exact comparison branch literal \"the equivalent of\""
+      }
+    },
+    {
+      "id": "skill.cause.heroism",
+      "context": "技能系统的固定语义词项",
+      "en": "Heroism",
+      "zh": "英勇",
+      "params": {},
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenu::get_hint causes.push_back(\"Heroism\")"
+      }
+    },
+    {
+      "id": "skill.cause.ashenzari_power",
+      "context": "技能系统的固定语义词项",
+      "en": "Ashenzari's power",
+      "zh": "阿什恩扎里的神力",
+      "params": {},
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenu::get_hint causes.push_back(apostrophise(god_name(you.religion)) + \" power\"); runtime religion is Ashenzari for bondage_skill_boost"
+      }
+    },
+    {
+      "id": "skill.cause.cross_training",
+      "context": "技能系统的固定语义词项",
+      "en": "cross-training",
+      "zh": "交叉训练",
+      "params": {},
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenu::get_hint causes.push_back(\"cross-training\")"
+      }
+    },
+    {
+      "id": "skill.cause.hermit_pendant",
+      "context": "技能系统的固定语义词项",
+      "en": "the Hermit's pendant",
+      "zh": "隐士的吊坠",
+      "params": {},
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenu::get_hint causes.push_back(\"the Hermit's pendant\")"
+      }
+    },
+    {
+      "id": "skill.cause.wildshape",
+      "context": "技能系统的固定语义词项",
+      "en": "wildshape",
+      "zh": "变形",
+      "params": {},
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenu::get_hint causes.push_back(\"wildshape\")"
+      }
+    },
+    {
+      "id": "skill.cause.charlatan_orb",
+      "context": "技能系统的固定语义词项",
+      "en": "the Charlatan's Orb",
+      "zh": "骗子的宝珠",
+      "params": {},
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenu::get_hint causes.push_back(\"the Charlatan's Orb\")"
+      }
+    },
+    {
+      "id": "skill.cause.scribal_knowledge",
+      "context": "技能系统的固定语义词项",
+      "en": "scribal knowledge",
+      "zh": "抄写知识",
+      "params": {},
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenu::get_hint causes.push_back(\"scribal knowledge\")"
+      }
+    },
+    {
+      "id": "skill.cause.ashenzari_anger",
+      "context": "技能系统的固定语义词项",
+      "en": "Ashenzari's anger",
+      "zh": "阿什恩扎里的怒火",
+      "params": {},
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenu::get_hint causes.push_back(\"Ashenzari's anger\")"
+      }
+    },
+    {
+      "id": "skill.cause.dilettante_bane",
+      "context": "技能系统的固定语义词项",
+      "en": "the Bane of the Dilettante",
+      "zh": "业余者之灾",
+      "params": {},
+      "source": {
+        "file": "skill-menu.cc",
+        "anchor": "SkillMenu::get_hint causes.push_back(\"the Bane of the Dilettante\")"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "item.weapon.base_stats",
+      "args": {
+        "hit_bonus": {
+          "type": "number",
+          "canonical": "+3",
+          "localized": "+3"
+        },
+        "damage": {
+          "type": "number",
+          "canonical": "8",
+          "localized": "8"
+        }
+      },
+      "canonical": "Base accuracy: +3  Base damage: 8  ",
+      "zh": "基础命中：+3  基础伤害：8  "
+    },
+    {
+      "id": "item.weapon.attack_delay_and_minimum",
+      "args": {
+        "base_delay": {
+          "type": "number",
+          "canonical": "1.2",
+          "localized": "1.2"
+        },
+        "minimum_delay": {
+          "type": "number",
+          "canonical": "0.7",
+          "localized": "0.7"
+        },
+        "skill_level": {
+          "type": "integer",
+          "canonical": "14",
+          "localized": "14"
+        }
+      },
+      "canonical": "Base attack delay: 1.2\nThis weapon's minimum attack delay (0.7) is reached at skill level 14.",
+      "zh": "基础攻击延迟：1.2\n该武器的最低攻击延迟为0.7，在技能14级时达到。"
+    },
+    {
+      "id": "item.projectile.stats_and_minimum_delay",
+      "args": {
+        "damage": {
+          "type": "integer",
+          "canonical": "9",
+          "localized": "9"
+        },
+        "base_delay": {
+          "type": "number",
+          "canonical": "1.4",
+          "localized": "1.4"
+        },
+        "minimum_delay": {
+          "type": "number",
+          "canonical": "1.0",
+          "localized": "1.0"
+        },
+        "skill_level": {
+          "type": "integer",
+          "canonical": "10",
+          "localized": "10"
+        }
+      },
+      "canonical": "\n\nBase damage: 9  Base attack delay: 1.4\nThis projectile's minimum attack delay (1.0) is reached at skill level 10.",
+      "zh": "\n\n基础伤害：9  基础攻击延迟：1.4\n该投掷物的最低攻击延迟为1.0，在投掷技能10级时达到。"
+    },
+    {
+      "id": "spell.level",
+      "args": {
+        "spell_level": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "\nLevel: 5",
+      "zh": "\n法术等级：5"
+    },
+    {
+      "id": "skill.target.training_complete",
+      "args": {
+        "training_percent": {
+          "type": "integer",
+          "canonical": "60",
+          "localized": "60"
+        },
+        "verb": {
+          "type": "text",
+          "canonical": "would ",
+          "localized": "将"
+        },
+        "skill_level": {
+          "type": "number",
+          "canonical": "5.0",
+          "localized": "5.0"
+        },
+        "xp_comparison": {
+          "type": "text",
+          "canonical": "about",
+          "localized": "约"
+        },
+        "experience_level": {
+          "type": "number",
+          "canonical": "3.2",
+          "localized": "3.2"
+        }
+      },
+      "canonical": "At a training level of 60% you would reach 5.0 in about 3.2 XLs.",
+      "zh": "按60%训练比例，你将达到5.0级（约3.2级角色经验）。"
+    },
+    {
+      "id": "skill.target.training_max",
+      "args": {
+        "verb": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "skill_level": {
+          "type": "number",
+          "canonical": "27.0",
+          "localized": "27.0"
+        },
+        "xp_comparison": {
+          "type": "text",
+          "canonical": "the equivalent of",
+          "localized": "相当于"
+        },
+        "experience_level": {
+          "type": "number",
+          "canonical": "2.5",
+          "localized": "2.5"
+        }
+      },
+      "canonical": "At 100% training you reach 27.0 in the equivalent of 2.5 XLs.",
+      "zh": "按100%训练，你达到27.0级（相当于2.5级角色经验）。"
+    },
+    {
+      "id": "monster.notice_chance",
+      "args": {
+        "chance": {
+          "type": "integer",
+          "canonical": "58",
+          "localized": "58"
+        }
+      },
+      "canonical": "It has a 58% chance to notice you each turn.\n",
+      "zh": "它每回合有58%的几率察觉到你。\n"
+    },
+    {
+      "id": "monster.hit_chance",
+      "args": {
+        "hit_percent": {
+          "type": "integer",
+          "canonical": "0",
+          "localized": "0"
+        }
+      },
+      "canonical": "It has about 0% to hit you.\n",
+      "zh": "它命中你的几率约为0%。\n"
+    },
+    {
+      "id": "monster.hit_chance_plural",
+      "args": {
+        "hit_percent": {
+          "type": "integer",
+          "canonical": "100",
+          "localized": "100"
+        }
+      },
+      "canonical": "They have about 100% to hit you.\n",
+      "zh": "它们命中你的几率约为100%。\n"
+    },
+    {
+      "id": "target.hit_chance.verbose",
+      "args": {
+        "hit_percent": {
+          "type": "integer",
+          "canonical": "58",
+          "localized": "58"
+        },
+        "weapon": {
+          "type": "name",
+          "canonical": "your +0 spear",
+          "localized": "你的+0长矛"
+        }
+      },
+      "canonical": "about 58% to hit with your +0 spear",
+      "zh": "命中率约为58%（使用你的+0长矛）"
+    },
+    {
+      "id": "target.hit_chance.verbose_blind",
+      "args": {
+        "hit_percent": {
+          "type": "integer",
+          "canonical": "100",
+          "localized": "100"
+        },
+        "weapon": {
+          "type": "name",
+          "canonical": "your hands",
+          "localized": "你的双手"
+        },
+        "range": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "about 100% to hit with your hands (while you are blinded and from distance 5)",
+      "zh": "命中率约为100%（使用你的双手；失明时距离为5格）"
+    },
+    {
+      "id": "skill.menu.enhanced",
+      "args": {
+        "cause": {
+          "type": "text",
+          "canonical": "Heroism",
+          "localized": "英勇"
+        }
+      },
+      "canonical": "Skills enhanced by Heroism are in <green>green</green>.",
+      "zh": "受英勇增强的技能以<green>绿色</green>显示。"
+    },
+    {
+      "id": "spell.level",
+      "args": {
+        "spell_level": {
+          "type": "integer",
+          "canonical": "27",
+          "localized": "27"
+        }
+      },
+      "canonical": "\nLevel: 27",
+      "zh": "\n法术等级：27"
+    },
+    {
+      "id": "skill.target.training_current",
+      "args": {
+        "training_percent": {
+          "type": "integer",
+          "canonical": "100",
+          "localized": "100"
+        },
+        "verb": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "skill_level": {
+          "type": "number",
+          "canonical": "5.0",
+          "localized": "5.0"
+        },
+        "xp_comparison": {
+          "type": "text",
+          "canonical": "about",
+          "localized": "约"
+        },
+        "experience_level": {
+          "type": "number",
+          "canonical": "3.2",
+          "localized": "3.2"
+        }
+      },
+      "canonical": "At current training (100%) you reach 5.0 in about 3.2 XLs.",
+      "zh": "当前训练比例为100%时，你达到5.0级（约3.2级角色经验）。"
+    },
+    {
+      "id": "target.hit_chance.verbose_blind",
+      "args": {
+        "hit_percent": {
+          "type": "integer",
+          "canonical": "58",
+          "localized": "58"
+        },
+        "weapon": {
+          "type": "name",
+          "canonical": "your +0 spear",
+          "localized": "你的+0长矛"
+        },
+        "range": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "about 58% to hit with your +0 spear (while you are blinded and from distance 5)",
+      "zh": "命中率约为58%（使用你的+0长矛；失明时距离为5格）"
+    },
+    {
+      "id": "item.weapon.base_stats",
+      "args": {
+        "hit_bonus": {
+          "type": "number",
+          "canonical": "+4",
+          "localized": "+4"
+        },
+        "damage": {
+          "type": "number",
+          "canonical": "8",
+          "localized": "8"
+        }
+      },
+      "canonical": "Base accuracy: +4  Base damage: 8  ",
+      "zh": "基础命中：+4  基础伤害：8  "
+    },
+    {
+      "id": "item.weapon.base_stats",
+      "args": {
+        "hit_bonus": {
+          "type": "number",
+          "canonical": "inf",
+          "localized": "inf"
+        },
+        "damage": {
+          "type": "number",
+          "canonical": "inf",
+          "localized": "inf"
+        }
+      },
+      "canonical": "Base accuracy: inf  Base damage: inf  ",
+      "zh": "基础命中：inf  基础伤害：inf  "
+    },
+    {
+      "id": "item.weapon.base_stats",
+      "args": {
+        "hit_bonus": {
+          "type": "number",
+          "canonical": "∞",
+          "localized": "∞"
+        },
+        "damage": {
+          "type": "number",
+          "canonical": "∞",
+          "localized": "∞"
+        }
+      },
+      "canonical": "Base accuracy: ∞  Base damage: ∞  ",
+      "zh": "基础命中：∞  基础伤害：∞  "
+    }
+  ]
+}

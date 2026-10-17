@@ -5,6 +5,8 @@ cd "$ROOT"
 python3 tools/prepare_native_data.py
 python3 tools/native_catalog.py compile
 python3 tools/test_native_catalog.py
+python3 tools/test_message_ids.py
+python3 tools/audit_message_migration.py
 python3 tools/test_native_text_grid.py
 mkdir -p output/macos verification/native
 cd native/crawl-ref/source

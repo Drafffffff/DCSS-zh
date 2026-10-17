@@ -49,6 +49,8 @@
 #include "tag-version.h"
 #include "transform.h"
 #include "xom.h"
+#include "zh-display-name.h"
+#include "zh-message.h"
 
 /*
  **************************************************
@@ -668,10 +670,15 @@ void attack::drain_defender_speed()
 {
     if (needs_message)
     {
-        mprf("%s %s %s vigour!",
-             atk_name(DESC_THE).c_str(),
-             attacker->conj_verb("drain").c_str(),
-             def_name(DESC_ITS).c_str());
+        const std::string actor_name = atk_name(DESC_THE);
+        const std::string verb = attacker->conj_verb("drain");
+        const std::string target = def_name(DESC_ITS);
+        const std::string canonical = actor_name + " " + verb + " "
+                                    + target + " vigour!";
+        mpr(zh_message("log.combat.drain_vigour",
+            {zh_actor_arg("attacker", attacker, DESC_THE),
+             zh_word_arg("verb", "log.combat.atom.", verb),
+             zh_actor_arg("target", defender, DESC_ITS)}, canonical));
     }
     defender->slow_down(attacker, 5 + random2(7));
 }
@@ -1468,7 +1475,7 @@ int attack::player_stab(int damage)
         {
             if (!you.duration[DUR_DEVIOUS])
             {
-                mprf(MSGCH_DURATION, "You feel devious.");
+                mpr(zh_message("log.attack.fixed.41e7310eb263"), MSGCH_DURATION);
                 you.props.erase(DEVIOUS_KEY);
             }
 
@@ -1615,7 +1622,7 @@ void attack::maybe_trigger_autodazzler()
         proj.fire(tracer);
         if (tracer.friend_info.count == 0)
         {
-            mpr("Your autodazzler retaliates!");
+            mpr(zh_message("log.attack.fixed.2c6590a994e1"));
 
             proj.fire();
         }

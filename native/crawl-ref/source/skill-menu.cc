@@ -34,6 +34,7 @@
 #endif
 #include "ui.h"
 #include "unwind.h"
+#include "zh-message.h"
 
 using namespace ui;
 
@@ -41,6 +42,22 @@ menu_letter2 SkillMenuEntry::m_letter;
 SkillMenu skm;
 
 static string _format_skill_target(int target);
+
+static ZhArg _skill_cause_arg(const vector<string> &causes)
+{
+    const string canonical = comma_separated_line(causes.begin(), causes.end());
+    string localized;
+    bool supported = true;
+    for (const string &cause : causes)
+    {
+        const ZhArg word = zh_word_arg("cause", "skill.cause.", cause);
+        if (!localized.empty())
+            localized += "、";
+        localized += word.localized;
+        supported = supported && word.supported;
+    }
+    return {"cause", ZhArgType::Text, canonical, localized, supported};
+}
 
 #ifdef USE_TILE_LOCAL
 bool SkillTextTileItem::handle_mouse(const wm_mouse_event& me)
@@ -594,8 +611,8 @@ string SkillMenuSwitch::get_help()
                 causes.push_back("the Charlatan's Orb");
             if (you.form == transformation::walking_scroll)
                 causes.push_back("scribal knowledge");
-            result = make_stringf("Skills enhanced by %s are in <green>green</green>.",
-                     comma_separated_line(causes.begin(), causes.end()).c_str());
+            result = zh_message("skill.menu.enhanced", {
+                _skill_cause_arg(causes)}).display();
         }
 
         if (skm.is_set(SKMF_REDUCED))
@@ -609,8 +626,8 @@ string SkillMenuSwitch::get_help()
                 causes.push_back("the Bane of the Dilettante");
             if (!result.empty())
                 result += " ";
-            result += make_stringf("Skills reduced by %s are in <magenta>magenta</magenta>.",
-                      comma_separated_line(causes.begin(), causes.end()).c_str());
+            result += zh_message("skill.menu.reduced", {
+                _skill_cause_arg(vector<string>(causes.begin(), causes.end()))}).display();
         }
 
         if (!result.empty())
@@ -927,8 +944,11 @@ int SkillMenu::read_skill_target(skill_type sk)
     progress->set_highlight_colour(RED);
 
     // for webtiles dialog input
-    progress->set_prompt(make_stringf("Enter a skill target for %s: ",
-                                            skill_name(sk)));
+    const string skill = skill_name(sk);
+    const string localized_skill = zh_lookup_exact(skill);
+    progress->set_prompt(zh_message("skill.menu.target_prompt", {
+        ZhArg{"skill", ZhArgType::Name, skill, localized_skill,
+              localized_skill != skill}}).display());
     progress->set_tag("skill_target");
 
     edit_result r = progress->edit(&prefill, _keyfun_target_input);
@@ -1812,7 +1832,7 @@ void skill_menu(int flag, int exp)
     // case where we abort is if all in-principle trainable skills are maxed.
     if (flag & SKMF_EXPERIENCE && !trainable_skills(true))
     {
-        mpr("You feel omnipotent.");
+        mpr(zh_message("log.skill_menu.fixed.029f1275a89a"));
         return;
     }
 

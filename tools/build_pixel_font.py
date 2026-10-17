@@ -12,6 +12,11 @@ text = (ROOT/'native/crawl-ref/source/zh-catalog.inc').read_text()
 for kind in ('database', 'descript'):
     for path in (ROOT/f'native/crawl-ref/source/dat/{kind}/zh').glob('*.txt'):
         text += path.read_text()
+for path in (ROOT/'native/crawl-ref/docs/zh').glob('*.txt'):
+    text += path.read_text()
+for name in ('zh-message-catalog.inc', 'zh-display-lexicon.inc'):
+    path = ROOT/'native/crawl-ref/source'/name
+    if path.exists(): text += path.read_text()
 cmap = base.getBestCmap()
 missing = sorted({ord(c) for c in text if not c.isspace() and ord(c)>127 and ord(c) not in cmap})
 source = fallback.getGlyphSet()

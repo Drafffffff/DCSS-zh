@@ -2,6 +2,7 @@
  * @module items
  */
 #include "AppHdr.h"
+#include "zh-localization.h"
 
 #include "l-libs.h"
 
@@ -1016,6 +1017,7 @@ IDEF(inscription)
  */
 IDEF(description)
 {
+    ZhTranslationPause canonical_lua;
     if (!item || !item->defined())
         return 0;
 

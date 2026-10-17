@@ -1,0 +1,1608 @@
+{
+  "model": "gpt-6-luna",
+  "messages": [
+    {
+      "id": "shop_gold_balance",
+      "context": "商店购买菜单余额；保留 yellow 标记。",
+      "en": "<yellow>You have {gold} gold pieces. After the purchase, you will have {remaining} gold pieces.</yellow>",
+      "zh": "<yellow>你有{gold}枚金币，购买后还剩{remaining}枚金币。</yellow>",
+      "params": {
+        "gold": "integer",
+        "remaining": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::show; 1126–1158"
+      }
+    },
+    {
+      "id": "shop_gold_shortfall",
+      "context": "商店购买金额超出余额；source plural suffixes have been expanded.",
+      "en": "You are short {cost} gold pieces for the purchase.",
+      "zh": "这笔购买还差{cost}枚金币。",
+      "params": {
+        "cost": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::show; 1147"
+      }
+    },
+    {
+      "id": "shop_gold_after_purchase",
+      "context": "商店购买后的剩余金币；plural suffix expanded.",
+      "en": "After the purchase, you will have {remaining} gold pieces.",
+      "zh": "购买后你还剩{remaining}枚金币。",
+      "params": {
+        "remaining": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::show; 1156"
+      }
+    },
+    {
+      "id": "shop_gold_voucher",
+      "context": "商店券抵扣后仍需支付的金币；plural suffix expanded.",
+      "en": "Purchasing will use your shop voucher and {cost} gold pieces.",
+      "zh": "购买将使用商店券，并额外花费{cost}枚金币。",
+      "params": {
+        "cost": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::show; 1135-1141"
+      }
+    },
+    {
+      "id": "shop_closed",
+      "context": "进入空库存商店时显示。",
+      "en": "{shop} appears to be closed.",
+      "zh": "{shop}似乎已经打烊。",
+      "params": {
+        "shop": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop(); 1545"
+      }
+    },
+    {
+      "id": "shop_thanks",
+      "context": "成功购买后显示；shopname 完整名称。",
+      "en": "Thank you for shopping at {shop}!",
+      "zh": "感谢你光顾{shop}！",
+      "params": {
+        "shop": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop(); 1577"
+      }
+    },
+    {
+      "id": "shop_list_key",
+      "context": "购物清单快捷键提示；美元符号保留。",
+      "en": "You can access your shopping list by pressing '$'.",
+      "zh": "按“$”键可查看购物清单。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop(); 1579, 2324"
+      }
+    },
+    {
+      "id": "shop_list_empty",
+      "context": "移除最后一项后提示。",
+      "en": "Your shopping list is now empty.",
+      "zh": "你的购物清单现在为空。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shopping_list removal; 2549"
+      }
+    },
+    {
+      "id": "equip_start",
+      "context": "开始多回合装备动作；参数依次为动作短语、装备部位。",
+      "en": "You start {action} your {slot}.",
+      "zh": "你开始{action}你的{slot}。",
+      "params": {
+        "action": "text",
+        "slot": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay::start / EquipOffDelay::start; 460, 467"
+      }
+    },
+    {
+      "id": "equip_continue",
+      "context": "装备动作每回合重复显示；参数依次为动作短语、完整装备名。",
+      "en": "You continue {action} {item}.",
+      "zh": "你继续{action}{item}。",
+      "params": {
+        "action": "text",
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay/EquipOffDelay message; 238-240, 274-276 (prior review); native equivalent"
+      }
+    },
+    {
+      "id": "equip_finish",
+      "context": "完成多回合装备动作；参数依次为动作短语、装备完整名称。",
+      "en": "You finish {action} {item}.",
+      "zh": "你完成了{action}{item}。",
+      "params": {
+        "action": "text",
+        "item": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay/EquipOffDelay completion; 732, 747"
+      }
+    },
+    {
+      "id": "memorise_start",
+      "context": "开始记忆法术。",
+      "en": "You start memorising the spell.",
+      "zh": "你开始记忆法术。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "MemoriseDelay::start; 480"
+      }
+    },
+    {
+      "id": "memorise_finish",
+      "context": "完成记忆法术。",
+      "en": "You finish memorising.",
+      "zh": "你完成了法术记忆。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "MemoriseDelay completion; 760"
+      }
+    },
+    {
+      "id": "transform_continue",
+      "context": "继续变形时的多回合提示。",
+      "en": "You continue transforming.",
+      "zh": "你继续变形。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "TransformDelay continuation; 675"
+      }
+    },
+    {
+      "id": "untransform_continue",
+      "context": "继续解除变形时的多回合提示。",
+      "en": "You continue untransforming.",
+      "zh": "你继续解除变形。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "TransformDelay continuation; 673"
+      }
+    },
+    {
+      "id": "skill_mastered",
+      "context": "技能达到最高等级时；skill_name 返回技能名称。",
+      "en": "You have mastered {skill}!",
+      "zh": "你精通了{skill}！",
+      "params": {
+        "skill": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/skills.cc",
+        "anchor": "_change_skill_level; 332"
+      }
+    },
+    {
+      "id": "skill_level_increase",
+      "context": "单级技能提升；参数依次为基础技能前缀（可能为空）、技能名、increase/decrease、等级。",
+      "en": "Your {base}{skill} skill increases to level {level}!",
+      "zh": "你的{base}{skill}技能提升至{level}级！",
+      "params": {
+        "base": "text",
+        "skill": "name",
+        "level": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/skills.cc",
+        "anchor": "_change_skill_level; 335 (increase branch)"
+      }
+    },
+    {
+      "id": "skill_level_decrease",
+      "context": "单级技能降低；参数依次同上。",
+      "en": "Your {base}{skill} skill decreases to level {level}!",
+      "zh": "你的{base}{skill}技能降至{level}级。",
+      "params": {
+        "base": "text",
+        "skill": "name",
+        "level": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/skills.cc",
+        "anchor": "_change_skill_level; 335 (decrease branch)"
+      }
+    },
+    {
+      "id": "skill_multi_gain",
+      "context": "一次提升多个技能等级；顺序为基础前缀、技能名、数量、最终等级。",
+      "en": "Your {base}{skill} skill gained {count} levels and is now at level {level}!",
+      "zh": "你的{base}{skill}技能提升了{count}级，现在为{level}级！",
+      "params": {
+        "base": "text",
+        "skill": "name",
+        "count": "integer",
+        "level": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/skills.cc",
+        "anchor": "_change_skill_level; 342-345 (gained branch)"
+      }
+    },
+    {
+      "id": "skill_multi_loss",
+      "context": "一次失去多个技能等级；顺序为基础前缀、技能名、数量、最终等级。",
+      "en": "Your {base}{skill} skill lost {count} levels and is now at level {level}!",
+      "zh": "你的{base}{skill}技能降低了{count}级，现在为{level}级。",
+      "params": {
+        "base": "text",
+        "skill": "name",
+        "count": "integer",
+        "level": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/skills.cc",
+        "anchor": "_change_skill_level; 342-345 (lost branch)"
+      }
+    },
+    {
+      "id": "level_welcome_back",
+      "context": "恢复至已达到过的角色等级。",
+      "en": "Welcome back to level {level}!",
+      "zh": "欢迎回到{level}级！",
+      "params": {
+        "level": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "player experience level gain; 3011"
+      }
+    },
+    {
+      "id": "level_reached",
+      "context": "普通角色升级提示。",
+      "en": "You have reached level {level}!",
+      "zh": "你升到了{level}级！",
+      "params": {
+        "level": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "player experience level gain; 3030"
+      }
+    },
+    {
+      "id": "level_highest",
+      "context": "达到种族/角色可达最高等级的提示。",
+      "en": "You have reached level {level}, the highest you will ever reach!",
+      "zh": "你已达到{level}级，这是你能达到的最高等级！",
+      "params": {
+        "level": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "player experience level gain; 3026"
+      }
+    },
+    {
+      "id": "level_final",
+      "context": "达到第27级时的固定消息。",
+      "en": "You have reached level 27, the final one!",
+      "zh": "你已达到最终的27级！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/player.cc",
+        "anchor": "player experience level gain; 3024"
+      }
+    },
+    {
+      "id": "no_skill_training",
+      "context": "没有任何可训练的新技能。",
+      "en": "You cannot train any new skills!",
+      "zh": "你无法训练任何新技能！",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/skills.cc",
+        "anchor": "skill training setup; 801"
+      }
+    },
+    {
+      "id": "training_target_reached",
+      "context": "普通技能训练目标达到提示；源码模板以 T 开头，参数为等级整数部分、十分位、技能名。",
+      "en": "Training target {level}.{fraction} for {skill} reached!",
+      "zh": "{skill}的训练目标{level}.{fraction}级已达成！",
+      "params": {
+        "level": "integer",
+        "fraction": "integer",
+        "skill": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/skills.cc",
+        "anchor": "training target reached; 1395"
+      }
+    },
+    {
+      "id": "target_aim_prefix",
+      "context": "指向怪物/物品的默认瞄准前缀。",
+      "en": "Aim",
+      "zh": "瞄准",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/directn.cc",
+        "anchor": "print_target_monster_description / print_target_object_description; target prefix"
+      }
+    },
+    {
+      "id": "target_aim_description",
+      "context": "瞄准目标描述；完整描述字符串可包含装备、状态和命中估算。",
+      "en": "Aim: <lightgrey>{target}</lightgrey>",
+      "zh": "瞄准：<lightgrey>{target}</lightgrey>",
+      "params": {
+        "target": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/directn.cc",
+        "anchor": "direction_chooser::print_target_monster_description; 1798"
+      }
+    },
+    {
+      "id": "target_object_description",
+      "context": "瞄准物品描述；完整物品描述字符串。",
+      "en": "Aim: {target}",
+      "zh": "瞄准：{target}",
+      "params": {
+        "target": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/directn.cc",
+        "anchor": "direction_chooser::print_target_object_description; 1892"
+      }
+    },
+    {
+      "id": "target_action_key",
+      "context": "射击目标提示中的选择动作键；快捷键样式标签原样保留。",
+      "en": "Press: ? - help, <w>{key}</w> - select action",
+      "zh": "按键：? - 帮助，<w>{key}</w> - 选择动作",
+      "params": {
+        "key": "key"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/directn.cc",
+        "anchor": "print_key_hints assembled prompt (prior review); native directn prompt path"
+      }
+    },
+    {
+      "id": "target_straight_line",
+      "context": "射击目标提示的直线瞄准快捷键说明。",
+      "en": "Shift-Dir - straight line",
+      "zh": "Shift+方向键 - 沿直线瞄准",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/directn.cc",
+        "anchor": "direction_chooser::print_key_hints; DIR_NONE branch"
+      }
+    },
+    {
+      "id": "target_move",
+      "context": "移动目标时显示的方向键提示。",
+      "en": "Dir - move target",
+      "zh": "方向键 - 移动目标",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/directn.cc",
+        "anchor": "direction_chooser::print_key_hints; DIR_TARGET / DIR_ENFORCE_RANGE branches"
+      }
+    },
+    {
+      "id": "target_no_valid_targets",
+      "context": "目标列表为空。",
+      "en": "There are no valid targets to list.",
+      "zh": "没有可列出的有效目标。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/directn.cc",
+        "anchor": "target listing; 2291"
+      }
+    },
+    {
+      "id": "target_exclusion_level",
+      "context": "不能在当前地牢层设置排除区域。",
+      "en": "You cannot set exclusions on this level.",
+      "zh": "你不能在当前楼层设置排除区域。",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/directn.cc",
+        "anchor": "exclusion command; 2342"
+      }
+    },
+    {
+      "id": "melee_miss",
+      "context": "近战攻击闪避消息；参数依次为攻击者名称、可为空的闪避程度副词、防御者名称。",
+      "en": "{actor}{adverb} misses {target}.",
+      "zh": "{actor}{adverb}未命中{target}。",
+      "params": {
+        "actor": "name",
+        "adverb": "text",
+        "target": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/melee-attack.cc",
+        "anchor": "melee_attack::handle_phase_dodged; 374"
+      }
+    },
+    {
+      "id": "melee_no_damage",
+      "context": "攻击者为玩家时，攻击命中但造成零伤害；展开源码条件分支，保留实际语序。",
+      "en": "You {verb} {target} but do no damage.",
+      "zh": "你{verb}{target}，但没有造成伤害。",
+      "params": {
+        "verb": "text",
+        "target": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/melee-attack.cc",
+        "anchor": "melee attack resolution; 916"
+      }
+    },
+    {
+      "id": "melee_no_damage_monster",
+      "context": "攻击者为怪物时，攻击命中但造成零伤害；展开源码条件分支，参数依次为攻击者名称、攻击动词、目标称呼。",
+      "en": "{actor} {verb} {target} but does no damage.",
+      "zh": "{actor}{verb}{target}，但没有造成伤害。",
+      "params": {
+        "actor": "name",
+        "verb": "text",
+        "target": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/melee-attack.cc",
+        "anchor": "melee attack resolution; 916"
+      }
+    },
+    {
+      "id": "melee_turn_aside",
+      "context": "非玩家防御者挡开攻击；展开源码单数主谓分支。",
+      "en": "{defender} turns aside {actor} attack!",
+      "zh": "{defender}挡开了{actor}的攻击！",
+      "params": {
+        "defender": "name",
+        "actor": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/melee-attack.cc",
+        "anchor": "melee_attack block ally branch; 315"
+      }
+    },
+    {
+      "id": "melee_turn_aside_player",
+      "context": "玩家防御者挡开攻击；展开源码无 s 的主谓分支。",
+      "en": "You turn aside {actor} attack!",
+      "zh": "你挡开了{actor}的攻击！",
+      "params": {
+        "actor": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/melee-attack.cc",
+        "anchor": "melee_attack block ally branch; 315"
+      }
+    },
+    {
+      "id": "melee_block",
+      "context": "挡下攻击；参数依次为目标称呼、block 的主谓变化、攻击者所有格称呼。",
+      "en": "{defender} {verb} {actor} attack.",
+      "zh": "{defender}{verb}{actor}的攻击。",
+      "params": {
+        "defender": "name",
+        "verb": "text",
+        "actor": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/melee-attack.cc",
+        "anchor": "melee_attack::handle_phase_blocked; 334"
+      }
+    },
+    {
+      "id": "melee_vicious_flash",
+      "context": "Sunder 武器猛烈闪光；参数依次为持有者所有格称呼、武器名。",
+      "en": "{actor} {weapon} flashes viciously!",
+      "zh": "{actor}的{weapon}凶猛地闪耀！",
+      "params": {
+        "actor": "name",
+        "weapon": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/melee-attack.cc",
+        "anchor": "sundering weapon effect; 1887"
+      }
+    },
+    {
+      "id": "melee_vampiric_bite",
+      "context": "吸血咬击描述；目标为完整名称、代词、名词。",
+      "en": "You sink your fangs into {target} and drink {possessive} {blood}.",
+      "zh": "你将獠牙刺入{target}，吸取{possessive}{blood}。",
+      "params": {
+        "target": "name",
+        "possessive": "text",
+        "blood": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/melee-attack.cc",
+        "anchor": "vampiric bite; 622"
+      }
+    },
+    {
+      "id": "melee_knock_weapon",
+      "context": "击落目标手中武器；参数是武器名称及所有格称呼。",
+      "en": "You knock {weapon} out of {possessive} grip!",
+      "zh": "你将{weapon}从{possessive}手中击落！",
+      "params": {
+        "weapon": "name",
+        "possessive": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/melee-attack.cc",
+        "anchor": "weapon disarm; 594"
+      }
+    },
+    {
+      "id": "attack_drains_vigour",
+      "context": "攻击者汲取目标活力；参数依次为攻击者名称、drain 动词、目标所有格称呼。",
+      "en": "{actor} {verb} {target} vigour!",
+      "zh": "{actor}{verb}{target}的活力！",
+      "params": {
+        "actor": "name",
+        "verb": "text",
+        "target": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/attack.cc",
+        "anchor": "attack::drain_defender_speed; 671"
+      }
+    },
+    {
+      "id": "attack_immune_confusing_touch",
+      "context": "目标免疫玩家的迷惑之触。",
+      "en": "{target} is completely immune to your confusing touch!",
+      "zh": "{target}完全免疫你的迷惑之触！",
+      "params": {
+        "target": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/attack.cc",
+        "anchor": "confusing touch; 1320"
+      }
+    },
+    {
+      "id": "attack_deflects",
+      "context": "Paragon 替玩家偏转攻击；参数是 attack 的名称/修饰描述。",
+      "en": "Your paragon deflects {attack} attack away from you.",
+      "zh": "你的典范替你拨开了{attack}攻击。",
+      "params": {
+        "attack": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/attack.cc",
+        "anchor": "paragon deflection; 1630"
+      }
+    },
+    {
+      "id": "target_hit_chance",
+      "context": "瞄准描述中的距离命中率；值为已取整百分比，百分号固定。",
+      "en": "{chance}% to hit at this distance",
+      "zh": "当前距离命中率{chance}%",
+      "params": {
+        "chance": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/directn.cc",
+        "anchor": "hit chance description composed in cell_monster_description"
+      }
+    },
+    {
+      "id": "target_wielding_hit_chance",
+      "context": "目标怪物名、装备描述、命中百分比按此顺序拼装。",
+      "en": "{target}, wielding {weapon} ({chance}% to hit)",
+      "zh": "{target}，手持{weapon}（命中率{chance}%）",
+      "params": {
+        "target": "name",
+        "weapon": "text",
+        "chance": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/directn.cc",
+        "anchor": "cell_monster_description / fire_target_behaviour::get_monster_desc"
+      }
+    },
+    {
+      "id": "spell_servitor_imbue_start",
+      "context": "开始向 servitor 灌输法术知识；参数为法术标题。",
+      "en": "You begin to imbue your servitor with knowledge of {spell}.",
+      "zh": "你开始将{spell}的知识灌输给你的仆从。",
+      "params": {
+        "spell": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "ImbueDelay::start; 495"
+      }
+    },
+    {
+      "id": "weapon_imprint_start",
+      "context": "开始将武器结构印刻给 paragon；参数为带定冠词的武器名。",
+      "en": "You begin to imprint {weapon} upon your paragon.",
+      "zh": "你开始将{weapon}印刻于你的典范之上。",
+      "params": {
+        "weapon": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "ImprintDelay::start; 502"
+      }
+    },
+    {
+      "id": "imprint_finish",
+      "context": "印刻完成；参数为武器/结构名称。",
+      "en": "You finish imprinting the physical structure of {weapon} upon your paragon.",
+      "zh": "你完成了将{weapon}的实体结构印刻于典范之上的过程。",
+      "params": {
+        "weapon": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "ImprintDelay completion; 888"
+      }
+    },
+    {
+      "id": "base_training_target_reached",
+      "context": "基础技能训练目标达到提示；源码模板以 Base t 开头，参数为等级整数部分、十分位、技能名。",
+      "en": "Base training target {level}.{fraction} for {skill} reached!",
+      "zh": "{skill}的基础训练目标{level}.{fraction}级已达成！",
+      "params": {
+        "level": "integer",
+        "fraction": "integer",
+        "skill": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/skills.cc",
+        "anchor": "skill training target reached; 1395"
+      }
+    },
+    {
+      "id": "shop.balance",
+      "context": "ShopMenu.update_help 的无商店券余额完整句；源码复数后缀已展开。",
+      "en": "You have {gold} gold pieces.",
+      "zh": "你有{gold}枚金币。",
+      "params": {
+        "gold": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1126"
+      }
+    },
+    {
+      "id": "shop.balance.voucher",
+      "context": "ShopMenu.update_help 有商店券时的余额完整句；源码复数后缀已展开。",
+      "en": "You have {gold} gold pieces and a voucher.",
+      "zh": "你有{gold}枚金币和一张商店券。",
+      "params": {
+        "gold": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1126"
+      }
+    },
+    {
+      "id": "shop.welcome",
+      "context": "ShopMenu 标题完整句；shop 参数是 shop_name(shop) 返回的完整名称。",
+      "en": "Welcome to {shop}! What would you like to do?",
+      "zh": "欢迎光临{shop}！需要买些什么？",
+      "params": {
+        "shop": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu constructor; 1067"
+      }
+    },
+    {
+      "id": "shop.display.name",
+      "context": "组合商店名的模板。keeper 是未加英文所有格的专名；shop_type 与 suffix 应先由各自固定 ID 查到中文单项。若任一必需词条缺失，应整名回退英文，避免中英混拼。",
+      "en": "{keeper}'s {shop_type} {suffix}",
+      "zh": "{keeper}的{shop_type}{suffix}",
+      "params": {
+        "keeper": "name",
+        "shop_type": "name",
+        "suffix": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop_name; 1662-1700"
+      }
+    },
+    {
+      "id": "shop.type.antique_weapon",
+      "context": "shop_type_name() 返回的完整固定类型词项。",
+      "en": "Antique Weapon",
+      "zh": "古董武器",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop_type_name; 1623-1660"
+      }
+    },
+    {
+      "id": "shop.type.antique_armour",
+      "context": "shop_type_name() 返回的完整固定类型词项。",
+      "en": "Antique Armour",
+      "zh": "古董护甲",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop_type_name; 1623-1660"
+      }
+    },
+    {
+      "id": "shop.type.weapon",
+      "context": "shop_type_name() 返回的完整固定类型词项。",
+      "en": "Weapon",
+      "zh": "武器",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop_type_name; 1623-1660"
+      }
+    },
+    {
+      "id": "shop.type.armour",
+      "context": "shop_type_name() 返回的完整固定类型词项。",
+      "en": "Armour",
+      "zh": "护甲",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop_type_name; 1623-1660"
+      }
+    },
+    {
+      "id": "shop.type.jewellery",
+      "context": "shop_type_name() 返回的完整固定类型词项。",
+      "en": "Jewellery",
+      "zh": "首饰",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop_type_name; 1623-1660"
+      }
+    },
+    {
+      "id": "shop.type.book",
+      "context": "shop_type_name() 返回的完整固定类型词项。",
+      "en": "Book",
+      "zh": "书籍",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop_type_name; 1623-1660"
+      }
+    },
+    {
+      "id": "shop.type.gadget",
+      "context": "shop_type_name() 返回的完整固定类型词项。",
+      "en": "Gadget",
+      "zh": "装置",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop_type_name; 1623-1660"
+      }
+    },
+    {
+      "id": "shop.type.removed_food",
+      "context": "shop_type_name() 返回的完整固定类型词项。",
+      "en": "Removed Food",
+      "zh": "已移除食物",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop_type_name; 1623-1660"
+      }
+    },
+    {
+      "id": "shop.type.magic_scroll",
+      "context": "shop_type_name() 返回的完整固定类型词项。",
+      "en": "Magic Scroll",
+      "zh": "魔法卷轴",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop_type_name; 1623-1660"
+      }
+    },
+    {
+      "id": "shop.type.assorted_antiques",
+      "context": "shop_type_name() 返回的完整固定类型词项。",
+      "en": "Assorted Antiques",
+      "zh": "各类古董",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop_type_name; 1623-1660"
+      }
+    },
+    {
+      "id": "shop.type.distillery",
+      "context": "shop_type_name() 返回的完整固定类型词项。",
+      "en": "Distillery",
+      "zh": "蒸馏室",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop_type_name; 1623-1660"
+      }
+    },
+    {
+      "id": "shop.type.general_store",
+      "context": "shop_type_name() 返回的完整固定类型词项。",
+      "en": "General Store",
+      "zh": "杂货店",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shop_type_name; 1623-1660"
+      }
+    },
+    {
+      "id": "shop.suffix.shoppe",
+      "context": "_shop_type_suffix() 返回的固定后缀词项。",
+      "en": "Shoppe",
+      "zh": "小店",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "_shop_type_suffix; 1649-1654"
+      }
+    },
+    {
+      "id": "shop.suffix.boutique",
+      "context": "_shop_type_suffix() 返回的固定后缀词项。",
+      "en": "Boutique",
+      "zh": "精品店",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "_shop_type_suffix; 1649-1654"
+      }
+    },
+    {
+      "id": "shop.suffix.emporium",
+      "context": "_shop_type_suffix() 返回的固定后缀词项。",
+      "en": "Emporium",
+      "zh": "大商场",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "_shop_type_suffix; 1649-1654"
+      }
+    },
+    {
+      "id": "shop.suffix.shop",
+      "context": "_shop_type_suffix() 返回的固定后缀词项。",
+      "en": "Shop",
+      "zh": "商店",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "_shop_type_suffix; 1649-1654"
+      }
+    },
+    {
+      "id": "equip.stop",
+      "context": "中断穿戴/脱下动作时显示。get_verb() 返回动作短语，_eq_category() 返回 weapon、amulet 或 armour。",
+      "en": "You stop {action} your {slot}.",
+      "zh": "你停止{action}你的{slot}。",
+      "params": {
+        "action": "text",
+        "slot": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay::try_interrupt / EquipOffDelay::try_interrupt; 200, 247"
+      }
+    },
+    {
+      "id": "equip.action.equip_on.attuning_to",
+      "context": "EquipOnDelay/EquipOffDelay::get_verb() 在对应形态与装备条件下返回的固定短语。",
+      "en": "attuning to",
+      "zh": "调谐",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay::get_verb / EquipOffDelay::get_verb; 164, 206"
+      }
+    },
+    {
+      "id": "equip.action.equip_on.wielding",
+      "context": "EquipOnDelay/EquipOffDelay::get_verb() 在对应形态与装备条件下返回的固定短语。",
+      "en": "wielding",
+      "zh": "持用",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay::get_verb / EquipOffDelay::get_verb; 164, 206"
+      }
+    },
+    {
+      "id": "equip.action.equip_on.haunting",
+      "context": "EquipOnDelay/EquipOffDelay::get_verb() 在对应形态与装备条件下返回的固定短语。",
+      "en": "haunting",
+      "zh": "附身",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay::get_verb / EquipOffDelay::get_verb; 164, 206"
+      }
+    },
+    {
+      "id": "equip.action.equip_on.fusing_with",
+      "context": "EquipOnDelay/EquipOffDelay::get_verb() 在对应形态与装备条件下返回的固定短语。",
+      "en": "fusing with",
+      "zh": "融合",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay::get_verb / EquipOffDelay::get_verb; 164, 206"
+      }
+    },
+    {
+      "id": "equip.action.equip_on.putting_on",
+      "context": "EquipOnDelay/EquipOffDelay::get_verb() 在对应形态与装备条件下返回的固定短语。",
+      "en": "putting on",
+      "zh": "穿戴",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay::get_verb / EquipOffDelay::get_verb; 164, 206"
+      }
+    },
+    {
+      "id": "equip.action.equip_off.parting_from",
+      "context": "EquipOnDelay/EquipOffDelay::get_verb() 在对应形态与装备条件下返回的固定短语。",
+      "en": "parting from",
+      "zh": "分离",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay::get_verb / EquipOffDelay::get_verb; 164, 206"
+      }
+    },
+    {
+      "id": "equip.action.equip_off.unwielding",
+      "context": "EquipOnDelay/EquipOffDelay::get_verb() 在对应形态与装备条件下返回的固定短语。",
+      "en": "unwielding",
+      "zh": "卸下武器",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay::get_verb / EquipOffDelay::get_verb; 164, 206"
+      }
+    },
+    {
+      "id": "equip.action.equip_off.removing_self_from",
+      "context": "EquipOnDelay/EquipOffDelay::get_verb() 在对应形态与装备条件下返回的固定短语。",
+      "en": "removing yourself from",
+      "zh": "脱离",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay::get_verb / EquipOffDelay::get_verb; 164, 206"
+      }
+    },
+    {
+      "id": "equip.action.equip_off.unfusing",
+      "context": "EquipOnDelay/EquipOffDelay::get_verb() 在对应形态与装备条件下返回的固定短语。",
+      "en": "unfusing",
+      "zh": "解除融合",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay::get_verb / EquipOffDelay::get_verb; 164, 206"
+      }
+    },
+    {
+      "id": "equip.action.equip_off.removing",
+      "context": "EquipOnDelay/EquipOffDelay::get_verb() 在对应形态与装备条件下返回的固定短语。",
+      "en": "removing",
+      "zh": "脱下",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "EquipOnDelay::get_verb / EquipOffDelay::get_verb; 164, 206"
+      }
+    },
+    {
+      "id": "equip.slot.weapon",
+      "context": "_eq_category() 返回的固定类别词项。",
+      "en": "weapon",
+      "zh": "武器",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "_eq_category; 82-87"
+      }
+    },
+    {
+      "id": "equip.slot.amulet",
+      "context": "_eq_category() 返回的固定类别词项。",
+      "en": "amulet",
+      "zh": "护身符",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "_eq_category; 82-87"
+      }
+    },
+    {
+      "id": "equip.slot.armour",
+      "context": "_eq_category() 返回的固定类别词项。",
+      "en": "armour",
+      "zh": "护甲",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/delay.cc",
+        "anchor": "_eq_category; 82-87"
+      }
+    },
+    {
+      "id": "shop.help.exit",
+      "context": "ShopMenu::update_help() 中的固定帮助文字；快捷键本身由菜单运行时插入。",
+      "en": "exit",
+      "zh": "退出",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1160-1204"
+      }
+    },
+    {
+      "id": "shop.help.mode.buy",
+      "context": "ShopMenu::update_help() 中的固定帮助文字；快捷键本身由菜单运行时插入。",
+      "en": "<w>buy</w>|examine items",
+      "zh": "<w>购买</w>|查看物品",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1160-1204"
+      }
+    },
+    {
+      "id": "shop.help.mode.examine",
+      "context": "ShopMenu::update_help() 中的固定帮助文字；快捷键本身由菜单运行时插入。",
+      "en": "buy|<w>examine</w> items",
+      "zh": "购买|<w>查看</w>物品",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1160-1204"
+      }
+    },
+    {
+      "id": "shop.help.mark.buy",
+      "context": "ShopMenu::update_help() 中的固定帮助文字；快捷键本身由菜单运行时插入。",
+      "en": "mark item for purchase",
+      "zh": "标记待购物品",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1160-1204"
+      }
+    },
+    {
+      "id": "shop.help.mark.examine",
+      "context": "ShopMenu::update_help() 中的固定帮助文字；快捷键本身由菜单运行时插入。",
+      "en": "examine item",
+      "zh": "查看物品",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1160-1204"
+      }
+    },
+    {
+      "id": "shop.help.action.describe",
+      "context": "ShopMenu::update_help() 中的固定帮助文字；快捷键本身由菜单运行时插入。",
+      "en": "describe",
+      "zh": "描述",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1160-1204"
+      }
+    },
+    {
+      "id": "shop.help.action.buy_list",
+      "context": "ShopMenu::update_help() 中的固定帮助文字；快捷键本身由菜单运行时插入。",
+      "en": "buy shopping list",
+      "zh": "购买清单内物品",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1160-1204"
+      }
+    },
+    {
+      "id": "shop.help.action.buy_marked",
+      "context": "ShopMenu::update_help() 中的固定帮助文字；快捷键本身由菜单运行时插入。",
+      "en": "buy marked items",
+      "zh": "购买已标记物品",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1160-1204"
+      }
+    },
+    {
+      "id": "shop.help.put_on_list",
+      "context": "ShopMenu::update_help() 中的固定帮助文字；快捷键本身由菜单运行时插入。",
+      "en": "put item on shopping list",
+      "zh": "将物品加入购物清单",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1160-1204"
+      }
+    },
+    {
+      "id": "shop.help.sort",
+      "context": "ShopMenu::update_help() 中排序行的固定前缀；保留源码中的斜杠快捷键高亮标签，order 由固定排序词项填入。",
+      "en": "[<w>/</w>] sort ({order})",
+      "zh": "[<w>/</w>] 按{order}排序",
+      "params": {
+        "order": "name"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1160-1204"
+      }
+    },
+    {
+      "id": "shop.order.type",
+      "context": "shopping_order_names[] 对应的固定排序名。",
+      "en": "type",
+      "zh": "类型",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shopping_order_names; 943-946"
+      }
+    },
+    {
+      "id": "shop.order.price",
+      "context": "shopping_order_names[] 对应的固定排序名。",
+      "en": "price",
+      "zh": "价格",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shopping_order_names; 943-946"
+      }
+    },
+    {
+      "id": "shop.order.name",
+      "context": "shopping_order_names[] 对应的固定排序名。",
+      "en": "name",
+      "zh": "名称",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "shopping_order_names; 943-946"
+      }
+    },
+    {
+      "id": "shop.help.voucher_purchase",
+      "context": "足够通过商店券抵扣时显示；cost 是券抵扣后仍需支付的金币。",
+      "en": "Purchasing will use your shop voucher and {cost} gold pieces.",
+      "zh": "购买将使用商店券，并额外花费{cost}枚金币。",
+      "params": {
+        "cost": "integer"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1135-1141"
+      }
+    },
+    {
+      "id": "shop.help.outside",
+      "context": "购买的物品被放在商店外时显示；items 为 it/them/some of them 的展开语义。",
+      "en": "I'll put {items} outside for you.",
+      "zh": "我会把{items}放在外面给你。",
+      "params": {
+        "items": "text"
+      },
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1202-1210"
+      }
+    },
+    {
+      "id": "shop.outside.items.it",
+      "context": "ShopMenu::update_help 中仅有一个物品放在外面时的代词。",
+      "en": "it",
+      "zh": "它",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1202-1210"
+      }
+    },
+    {
+      "id": "shop.outside.items.them",
+      "context": "ShopMenu::update_help 中所有所购物品都放在外面时的代词。",
+      "en": "them",
+      "zh": "它们",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1202-1210"
+      }
+    },
+    {
+      "id": "shop.outside.items.some",
+      "context": "ShopMenu::update_help 中部分所购物品放在外面时的代词。",
+      "en": "some of them",
+      "zh": "其中一部分",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopMenu::update_help; 1202-1210"
+      }
+    },
+    {
+      "id": "shop.entry.unknown",
+      "context": "商店菜单中未鉴定物品名称后的状态标记。",
+      "en": " (unknown)",
+      "zh": "（未鉴定）",
+      "params": {},
+      "source": {
+        "file": "native/crawl-ref/source/shopping.cc",
+        "anchor": "ShopEntry::get_text; unknown item suffix"
+      }
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "shop.balance",
+      "args": {
+        "gold": {
+          "type": "integer",
+          "canonical": "1",
+          "localized": "1"
+        }
+      },
+      "canonical": "You have 1 gold piece.",
+      "zh": "你有1枚金币。"
+    },
+    {
+      "id": "shop.balance",
+      "args": {
+        "gold": {
+          "type": "integer",
+          "canonical": "260",
+          "localized": "260"
+        }
+      },
+      "canonical": "You have 260 gold pieces.",
+      "zh": "你有260枚金币。"
+    },
+    {
+      "id": "shop.balance.voucher",
+      "args": {
+        "gold": {
+          "type": "integer",
+          "canonical": "1000",
+          "localized": "1000"
+        }
+      },
+      "canonical": "You have 1000 gold pieces and a voucher.",
+      "zh": "你有1000枚金币和一张商店券。"
+    },
+    {
+      "id": "shop_gold_shortfall",
+      "args": {
+        "cost": {
+          "type": "integer",
+          "canonical": "1",
+          "localized": "1"
+        }
+      },
+      "canonical": "You are short 1 gold piece for the purchase.",
+      "zh": "这笔购买还差1枚金币。"
+    },
+    {
+      "id": "shop_gold_after_purchase",
+      "args": {
+        "remaining": {
+          "type": "integer",
+          "canonical": "1",
+          "localized": "1"
+        }
+      },
+      "canonical": "After the purchase, you will have 1 gold piece.",
+      "zh": "购买后你还剩1枚金币。"
+    },
+    {
+      "id": "shop_gold_after_purchase",
+      "args": {
+        "remaining": {
+          "type": "integer",
+          "canonical": "260",
+          "localized": "260"
+        }
+      },
+      "canonical": "After the purchase, you will have 260 gold pieces.",
+      "zh": "购买后你还剩260枚金币。"
+    },
+    {
+      "id": "shop.display.name",
+      "args": {
+        "keeper": {
+          "type": "name",
+          "canonical": "O'Rin",
+          "localized": "O'Rin"
+        },
+        "shop_type": {
+          "type": "name",
+          "canonical": "Weapon",
+          "localized": "武器"
+        },
+        "suffix": {
+          "type": "name",
+          "canonical": "Shop",
+          "localized": "商店"
+        }
+      },
+      "canonical": "O'Rin's Weapon Shop",
+      "zh": "O'Rin的武器商店"
+    },
+    {
+      "id": "shop.display.name",
+      "args": {
+        "keeper": {
+          "type": "name",
+          "canonical": "D'Arcy",
+          "localized": "D'Arcy"
+        },
+        "shop_type": {
+          "type": "name",
+          "canonical": "Jewellery",
+          "localized": "首饰"
+        },
+        "suffix": {
+          "type": "name",
+          "canonical": "Boutique",
+          "localized": "精品店"
+        }
+      },
+      "canonical": "D'Arcy's Jewellery Boutique",
+      "zh": "D'Arcy的首饰精品店"
+    },
+    {
+      "id": "shop.help.outside",
+      "args": {
+        "items": {
+          "type": "text",
+          "canonical": "it",
+          "localized": "它"
+        }
+      },
+      "canonical": "I'll put it outside for you.",
+      "zh": "我会把它放在外面给你。",
+      "wrapper_colour": "white"
+    },
+    {
+      "id": "shop.help.outside",
+      "args": {
+        "items": {
+          "type": "text",
+          "canonical": "some of them",
+          "localized": "其中一部分"
+        }
+      },
+      "canonical": "I'll put some of them outside for you.",
+      "zh": "我会把其中一部分放在外面给你。",
+      "wrapper_colour": "red"
+    },
+    {
+      "id": "shop.order.price",
+      "args": {},
+      "canonical": "price",
+      "zh": "价格"
+    },
+    {
+      "id": "shop.order.name",
+      "args": {},
+      "canonical": "name",
+      "zh": "名称"
+    },
+    {
+      "id": "level_reached",
+      "args": {
+        "level": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "You have reached level 5!",
+      "zh": "你升到了5级！"
+    },
+    {
+      "id": "skill_level_increase",
+      "args": {
+        "base": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "skill": {
+          "type": "name",
+          "canonical": "Dodging",
+          "localized": "闪避"
+        },
+        "level": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "Your Dodging skill increases to level 5!",
+      "zh": "你的闪避技能提升至5级！"
+    },
+    {
+      "id": "skill_level_decrease",
+      "args": {
+        "base": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "skill": {
+          "type": "name",
+          "canonical": "Armour",
+          "localized": "护甲"
+        },
+        "level": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "Your Armour skill decreases to level 5!",
+      "zh": "你的护甲技能降至5级。"
+    },
+    {
+      "id": "skill_multi_gain",
+      "args": {
+        "base": {
+          "type": "text",
+          "canonical": "base ",
+          "localized": "基础"
+        },
+        "skill": {
+          "type": "name",
+          "canonical": "Spellcasting",
+          "localized": "施法"
+        },
+        "count": {
+          "type": "integer",
+          "canonical": "3",
+          "localized": "3"
+        },
+        "level": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "Your base Spellcasting skill gained 3 levels and is now at level 5!",
+      "zh": "你的基础施法技能提升了3级，现在为5级！"
+    },
+    {
+      "id": "skill_multi_loss",
+      "args": {
+        "base": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "skill": {
+          "type": "name",
+          "canonical": "Spellcasting",
+          "localized": "施法"
+        },
+        "count": {
+          "type": "integer",
+          "canonical": "2",
+          "localized": "2"
+        },
+        "level": {
+          "type": "integer",
+          "canonical": "5",
+          "localized": "5"
+        }
+      },
+      "canonical": "Your Spellcasting skill lost 2 levels and is now at level 5!",
+      "zh": "你的施法技能降低了2级，现在为5级。"
+    },
+    {
+      "id": "equip_start",
+      "args": {
+        "action": {
+          "type": "text",
+          "canonical": "putting on",
+          "localized": "穿戴"
+        },
+        "slot": {
+          "type": "name",
+          "canonical": "armour",
+          "localized": "护甲"
+        }
+      },
+      "canonical": "You start putting on your armour.",
+      "zh": "你开始穿戴你的护甲。"
+    },
+    {
+      "id": "equip_continue",
+      "args": {
+        "action": {
+          "type": "text",
+          "canonical": "putting on",
+          "localized": "佩戴"
+        },
+        "item": {
+          "type": "name",
+          "canonical": "your amulet of faith",
+          "localized": "信仰护符"
+        }
+      },
+      "canonical": "You continue putting on your amulet of faith.",
+      "zh": "你继续佩戴信仰护符。"
+    },
+    {
+      "id": "equip_finish",
+      "args": {
+        "action": {
+          "type": "text",
+          "canonical": "putting on",
+          "localized": "穿戴"
+        },
+        "item": {
+          "type": "name",
+          "canonical": "your +2 cloak",
+          "localized": "+2斗篷"
+        }
+      },
+      "canonical": "You finish putting on your +2 cloak.",
+      "zh": "你完成了穿戴+2斗篷。"
+    }
+  ]
+}

@@ -47,8 +47,21 @@
 #include "travel.h"
 #include "unicode.h"
 #include "unwind.h"
+#include "zh-display-name.h"
+#include "zh-message.h"
+#include "zh-localization.h"
 
 ShoppingList shopping_list;
+
+struct zh_shop_arg
+{
+    ZhArg keeper;
+    ZhArg type;
+    ZhArg suffix;
+    string canonical;
+};
+
+static ZhArg _zh_shop_display_arg(const shop_struct& shop);
 
 // Hack to make the cost of certain items (consumables) scale more severely with
 // depth. Currently applies to all potions, scrolls, and wands. I have set this
@@ -1013,6 +1026,7 @@ class ShopEntry : public InvEntry
             cost > you.gold                     ? RED :
                                                   YELLOW;
         const string keystr = colour_to_str(keycol);
+        const string item_display = zh_item_display(*item, DESC_A);
         const string itemstr =
             colour_to_str(menu_colour(text, item_prefix(*item, false), tag, false));
         return make_stringf(" <%s>%c %c </%s><%s>%4d gold   %s%s</%s>",
@@ -1022,8 +1036,10 @@ class ShopEntry : public InvEntry
                             keystr.c_str(),
                             itemstr.c_str(),
                             cost,
-                            text.c_str(),
-                            shop_item_unknown(*item) ? " (unknown)" : "",
+                            item_display.c_str(),
+                            shop_item_unknown(*item)
+                                ? zh_word("shop.entry.", " (unknown)").c_str()
+                                : "",
                             itemstr.c_str());
     }
 
@@ -1064,8 +1080,7 @@ ShopMenu::ShopMenu(shop_struct& _shop, const level_pos& _pos, bool _can_purchase
     bought_indices = {};
     update_help();
 
-    set_title("Welcome to " + shop_name(shop) + "! What would you "
-              "like to do?");
+    set_title(zh_message("shop.welcome", {_zh_shop_display_arg(shop)}).display());
 }
 
 void ShopMenu::init_entries()
@@ -1117,51 +1132,62 @@ int ShopMenu::max_cost(bool use_shopping_list) const
 
 void ShopMenu::update_help()
 {
+    const auto parse_rendered = [](const string &text) {
+        ZhTranslationPause rendered_templates;
+        return formatted_string::parse_string(text);
+    };
     // TODO: convert to a regular keyhelp, make less painful
 
     //You have 2000 gold pieces. After the purchase, you will have 1802 gold pieces.
     //[Esc] exit          [Tab] buy|examine items     [a-j] mark item for purchase
     //[/] sort (type)     [Enter] buy marked items    [A-J] put item on shopping list
     const bool voucher = have_voucher();
-    string top_line = make_stringf("<yellow>You have %d gold piece%s%s.",
-                                   you.gold,
-                                   you.gold != 1 ? "s" : "",
-                                   voucher ? " and a voucher" : "");
+    const string balance_id = voucher ? "shop.balance.voucher" : "shop.balance";
+    const string balance_en = make_stringf("You have %d gold piece%s%s.",
+        you.gold, you.gold != 1 ? "s" : "",
+        voucher ? " and a voucher" : "");
+    string top_line = "<yellow>" + zh_message(balance_id,
+        {zh_integer("gold", you.gold)}, balance_en).display();
     const int total_cost = !can_purchase ? 0 : selected_cost(true);
     if (total_cost > you.gold)
     {
         int max = max_cost(true);
         if (voucher && total_cost - max <= you.gold)
         {
-            top_line += "<lightred>";
-            top_line +=
-                make_stringf(" Purchasing will use your shop voucher and %d gold piece%s.",
-                             total_cost - max,
-                             (total_cost - max != 1) ? "s" : "");
-            top_line += "</lightred>";
+            const int voucher_cost = total_cost - max;
+            const string voucher_en = make_stringf(
+                "Purchasing will use your shop voucher and %d gold piece%s.",
+                voucher_cost, voucher_cost != 1 ? "s" : "");
+            top_line += "<lightred> " + zh_message(
+                "shop.help.voucher_purchase",
+                {zh_integer("cost", voucher_cost)}, voucher_en).display()
+                + "</lightred>";
         }
         else
         {
-            top_line += "<lightred>";
-            top_line +=
-                make_stringf(" You are short %d gold piece%s for the purchase.",
-                             total_cost - you.gold,
-                             (total_cost - you.gold != 1) ? "s" : "");
-            top_line += "</lightred>";
+            const int shortfall = total_cost - you.gold;
+            const string shortfall_en = make_stringf(
+                "You are short %d gold piece%s for the purchase.",
+                shortfall, shortfall != 1 ? "s" : "");
+            top_line += "<lightred> " + zh_message("shop_gold_shortfall",
+                {zh_integer("cost", shortfall)}, shortfall_en).display()
+                + "</lightred>";
         }
     }
     else if (total_cost)
     {
-        top_line +=
-            make_stringf(" After the purchase, you will have %d gold piece%s.",
-                         you.gold - total_cost,
-                         (you.gold - total_cost != 1) ? "s" : "");
+        const int remaining = you.gold - total_cost;
+        const string remaining_en = make_stringf(
+            "After the purchase, you will have %d gold piece%s.",
+            remaining, remaining != 1 ? "s" : "");
+        top_line += " " + zh_message("shop_gold_after_purchase",
+            {zh_integer("remaining", remaining)}, remaining_en).display();
     }
     top_line += "</yellow>";
 
     // Ensure length >= 80ch, which prevents the local tiles menu from resizing
     // as the player selects/deselects entries. Blegh..
-    int top_line_width = strwidth(formatted_string::parse_string(top_line).tostring());
+    int top_line_width = strwidth(parse_rendered(top_line).tostring());
     top_line += string(max(0, 80 - top_line_width), ' ') + '\n';
 
     const bool no_selection = selected_entries().empty();
@@ -1172,65 +1198,57 @@ void ShopMenu::update_help()
                 || menu_action == ACT_EXAMINE && !is_set(MF_ARROWS_SELECT);
     const string action_key = no_action ? "       " // max: "[Enter]"
         : menu_keyhelp_cmd(CMD_MENU_ACCEPT_SELECTION);
+    const string action_label_en = no_action ? ""
+        : menu_action == ACT_EXAMINE ? "describe"
+        : from_shopping_list ? "buy shopping list" : "buy marked items";
     const string action_desc = action_key +
             (no_action                   ? "                  "
-            : menu_action == ACT_EXAMINE ? " describe         "
-            : from_shopping_list         ? " buy shopping list"
-                                         : " buy marked items ");
+            : " " + zh_word("shop.help.action.", action_label_en));
 
     // XX swap shopping list / select by letter?
+    const string mode_label_en = menu_action == ACT_EXECUTE
+        ? "<w>buy</w>|examine items" : "buy|<w>examine</w> items";
     const string mode_desc = !can_purchase ? ""
         : menu_keyhelp_cmd(CMD_MENU_CYCLE_MODE)
-            + (menu_action == ACT_EXECUTE ? " <w>buy</w>|examine items"
-                                          : " buy|<w>examine</w> items");
-    string m = menu_keyhelp_cmd(CMD_MENU_EXIT)+ " exit          ";
+            + " " + zh_word("shop.help.mode.", mode_label_en);
+    string m = menu_keyhelp_cmd(CMD_MENU_EXIT) + " "
+        + zh_word("shop.help.", "exit") + "          ";
     m += mode_desc;
     m = pad_more_with(m, make_stringf("%s %s",
         hyphenated_hotkey_letters(item_count(), 'a').c_str(),
-        menu_action == ACT_EXECUTE ? "mark item for purchase   "
-                                   : "examine item             "));
-    m += make_stringf("\n[<w>/</w>] sort (%s)%s  %s",
-        shopping_order_names[order],
-        string(7 - strwidth(shopping_order_names[order]), ' ').c_str(),
-        action_desc.c_str());
+        zh_word("shop.help.mark.", menu_action == ACT_EXECUTE
+            ? "mark item for purchase" : "examine item").c_str()));
+    const string order_en = shopping_order_names[order];
+    const string order_display = zh_word("shop.order.", order_en);
+    const string sort_prefix = zh_message("shop.help.sort",
+        {zh_word_arg("order", "shop.order.", order_en, ZhArgType::Name)},
+        "[<w>/</w>] sort (" + order_en + ")").display();
+    const string order_padding(max(0, 7 - strwidth(order_display)), ' ');
+    m += make_stringf("\n%s%s  %s", sort_prefix.c_str(),
+                      order_padding.c_str(), action_desc.c_str());
 
     m = pad_more_with(m, hyphenated_hotkey_letters(item_count(), 'A')
-                                  + " put item on shopping list");
+        + " " + zh_word("shop.help.", "put item on shopping list"));
 
 
     const string col = colour_to_str(channel_to_colour(MSGCH_PROMPT));
     if (outside_items)
     {
-        const formatted_string outside = formatted_string::parse_string(make_stringf(
-            "<%s>I'll put %s outside for you.</%s>\n",
-            col.c_str(),
-            bought_indices.size() == 1             ? "it" :
-      (int) bought_indices.size() == outside_items ? "them"
-                                                   : "some of them",
+        const string outside_item_en = bought_indices.size() == 1 ? "it" :
+            (int) bought_indices.size() == outside_items ? "them" : "some of them";
+        const ZhArg outside_item = zh_word_arg("items", "shop.outside.items.",
+            outside_item_en, ZhArgType::Text);
+        const string outside_message = zh_message("shop.help.outside",
+            {outside_item}).display();
+        const formatted_string outside = parse_rendered(make_stringf(
+            "<%s>%s</%s>\n", col.c_str(), outside_message.c_str(),
             col.c_str()));
-        set_more(outside + formatted_string::parse_string(top_line + m));
+        set_more(outside + parse_rendered(top_line + m));
     }
     else
-        set_more(formatted_string::parse_string(top_line + m));
-
-    // set_more(formatted_string::parse_string(top_line
-    //     + make_stringf(
+        set_more(parse_rendered(top_line + m));
 
 
-    //     "%s exit  "
-    //     "%s      %s %s\n"
-    //     "[<w>/</w>] sort (%s)%s  %s  %s put item on shopping list",
-    //     menu_keyhelp_cmd(CMD_MENU_EXIT).c_str(),
-    //     !can_purchase ?              " " " "  "  " "       "  "          " :
-    //     menu_action == ACT_EXECUTE ? "[<w>!</w>] <w>buy</w>|examine items" :
-    //                                  "[<w>!</w>] buy|<w>examine</w> items",
-    //     hyphenated_hotkey_letters(item_count(), 'a').c_str(),
-    //     menu_action == ACT_EXECUTE ? "mark item for purchase" : "examine item",
-    //     shopping_order_names[order],
-    //     // strwidth("default")
-    //     string(7 - strwidth(shopping_order_names[order]), ' ').c_str(),
-    //     action_desc.c_str(),
-    //     hyphenated_hotkey_letters(item_count(), 'A').c_str())));
 }
 
 void ShopMenu::purchase_selected()
@@ -1532,17 +1550,18 @@ void shop()
 {
     if (!shop_at(you.pos()))
     {
-        mprf(MSGCH_ERROR, "Help! Non-existent shop.");
+        mpr(zh_message("log.shopping.fixed.886bc8ea4e66"), MSGCH_ERROR);
         return;
     }
 
     shop_struct& shop = *shop_at(you.pos());
-    const string shopname = shop_name(shop);
+    const ZhArg shop_display = _zh_shop_display_arg(shop);
 
     // Quick out, if no inventory
     if (shop.stock.empty())
     {
-        mprf("%s appears to be closed.", shopname.c_str());
+        mpr(zh_message("shop_closed",
+                       {shop_display}));
         destroy_shop_at(you.pos());
         return;
     }
@@ -1574,9 +1593,10 @@ void shop()
     redraw_screen();
     update_screen();
     if (menu.bought_something)
-        mprf("Thank you for shopping at %s!", shopname.c_str());
+        mpr(zh_message("shop_thanks",
+                       {shop_display}));
     if (any_on_list)
-        mpr("You can access your shopping list by pressing '$'.");
+        mpr(zh_message("log.shopping.fixed.077bcc3ff753"));
 }
 
 void shop(shop_struct& shop, const level_pos& pos)
@@ -1696,6 +1716,63 @@ string shop_name(const shop_struct& shop)
     }
 
     return sh_name;
+}
+
+static zh_shop_arg _make_zh_shop_arg(const shop_struct& shop)
+{
+    zh_shop_arg result;
+    result.canonical = shop_name(shop);
+
+#if TAG_MAJOR_VERSION == 34
+    // Old saves may carry a preassembled shop type in shop_name.
+    if (shop.shop_name == " ")
+    {
+        result.keeper = {"keeper", ZhArgType::Name, "", "", true};
+        result.type = zh_word_arg("shop_type", "shop.type.",
+                                  shop.shop_type_name, ZhArgType::Name);
+        result.suffix = {"suffix", ZhArgType::Name, "", "", true};
+        return result;
+    }
+#endif
+
+    string keeper;
+    if (!shop.shop_name.empty())
+        keeper = shop.shop_name;
+    else
+    {
+        const uint32_t seed = static_cast<uint32_t>(shop.keeper_name[0])
+            | (static_cast<uint32_t>(shop.keeper_name[1]) << 8)
+            | (static_cast<uint32_t>(shop.keeper_name[1]) << 16);
+        keeper = make_name(seed);
+    }
+    result.keeper = {"keeper", ZhArgType::Name, keeper, keeper, true};
+
+    const string type = shop.shop_type_name.empty()
+        ? shop_type_name(shop.type) : shop.shop_type_name;
+    result.type = zh_word_arg("shop_type", "shop.type.", type,
+                              ZhArgType::Name);
+
+    string suffix = shop.shop_suffix_name;
+    if (suffix.empty())
+        suffix = _shop_type_suffix(shop.type, shop.pos);
+    result.suffix = zh_word_arg("suffix", "shop.suffix.", suffix,
+                                ZhArgType::Name);
+    return result;
+}
+
+static ZhArg _zh_shop_display_arg(const shop_struct& shop)
+{
+    const zh_shop_arg parts = _make_zh_shop_arg(shop);
+#if TAG_MAJOR_VERSION == 34
+    if (shop.shop_name == " ")
+        return {"shop", ZhArgType::Name, parts.canonical,
+                parts.type.localized, parts.type.supported};
+#endif
+    const ZhMessage display = zh_message("shop.display.name",
+        {parts.keeper, parts.type, parts.suffix}, parts.canonical);
+    return {"shop", ZhArgType::Name, parts.canonical, display.localized,
+            parts.keeper.supported && parts.type.supported
+                && parts.suffix.supported};
 }
 
 bool is_shop_item(const item_def &item)
@@ -2321,7 +2398,7 @@ void ShoppingList::gold_changed(int old_amount, int new_amount)
 
         mpr_comma_separated_list("You now have enough gold to ", descs,
                                  ", or ");
-        mpr("You can access your shopping list by pressing '$'.");
+        mpr(zh_message("log.shopping.fixed.077bcc3ff753"));
 
         // Our gold has changed, maybe we can buy different things now.
         refresh();
@@ -2546,7 +2623,7 @@ void ShoppingList::display(bool view_only)
 
             if (this->list->empty())
             {
-                mpr("Your shopping list is now empty.");
+                mpr(zh_message("log.shopping.fixed.3334ec72908c"));
                 return false;
             }
 

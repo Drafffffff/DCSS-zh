@@ -125,3 +125,7 @@ void dprf(diag_type param, PRINTF(1, ));
 #else
 # define dprf(...) ((void)0)
 #endif
+
+// Canonical English and localized presentation travel together.
+struct ZhMessage;
+void mpr(const ZhMessage &message, msg_channel_type channel = MSGCH_PLAIN, int param = 0);

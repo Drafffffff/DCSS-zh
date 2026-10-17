@@ -237,11 +237,7 @@ class EquipOnDelay : public Delay
 
     void start() override;
 
-    void tick() override
-    {
-        mprf(MSGCH_MULTITURN_ACTION, "You continue %s %s.",
-             get_verb(), equip.name(DESC_YOUR).c_str());
-    }
+    void tick() override;
 
     bool invalidated() override;
 
@@ -273,11 +269,7 @@ class EquipOffDelay : public Delay
 
     void start() override;
 
-    void tick() override
-    {
-        mprf(MSGCH_MULTITURN_ACTION, "You continue %s %s.",
-             get_verb(), equip.name(DESC_YOUR).c_str());
-    }
+    void tick() override;
 
     bool invalidated() override;
 

@@ -4,6 +4,7 @@
 **/
 
 #include "AppHdr.h"
+#include "zh-message.h"
 #include "zh-localization.h"
 
 #include "quiver.h"
@@ -125,11 +126,11 @@ namespace quiver
             return true;
         }
         if (af_hp_check)
-            mpr("You are too injured to fight recklessly!");
+            mpr(zh_message("log.quiver.fixed.1074683161dc"));
         else if (af_mp_check && !you.has_mutation(MUT_HP_CASTING)
             && you.magic_points == 0)
         {
-            mpr("You are out of magic!");
+            mpr(zh_message("log.quiver.fixed.9407bd01a4e0"));
         }
         else if (af_mp_check)
         {
@@ -543,7 +544,7 @@ namespace quiver
                         coord_def move(random2(3) - 1, random2(3) - 1);
                         if (move.origin())
                         {
-                            mpr("You nearly hit yourself!");
+                            mpr(zh_message("log.quiver.fixed.205abeaf1832"));
                             you.turn_is_over = true;
                             return;
                         }
@@ -555,9 +556,9 @@ namespace quiver
                 else
                 {
                     if (target.needs_targeting())
-                        mpr("You're too confused to aim your attacks!");
+                        mpr(zh_message("log.quiver.fixed.ca609a6e55e1"));
                     else
-                        mpr("You're too confused to attack without stumbling around!");
+                        mpr(zh_message("log.quiver.fixed.4b1e92859bf3"));
                     return;
                 }
             }
@@ -630,7 +631,7 @@ namespace quiver
 
             if (x_distance > reach_range || y_distance > reach_range)
             {
-                mpr("Your weapon can't reach that far!");
+                mpr(zh_message("log.quiver.fixed.df9264af4818"));
                 return;
             }
 
@@ -714,7 +715,7 @@ namespace quiver
                 }
 
                 if (success)
-                    mpr("You reach to attack!");
+                    mpr(zh_message("log.quiver.fixed.f41b93943185"));
                 else
                 {
                     mprf("%s is in the way.",
@@ -731,9 +732,9 @@ namespace quiver
                 if (!force_player_cleave(target.target) && !you.fumbles_attack())
                 {
                     if (x_distance <= 1 && y_distance <= 1)
-                        mpr("You swing at nothing.");
+                        mpr(zh_message("log.quiver.fixed.6ee7d04d31b5"));
                     else
-                        mpr("You attack empty space.");
+                        mpr(zh_message("log.quiver.fixed.f0c8efe09afe"));
                 }
                 you.time_taken = attack_delay;
                 you.turn_is_over = true;
@@ -1296,7 +1297,7 @@ namespace quiver
 
         {
             if (!quiet)
-                mpr("You can't see any hostile targets in range.");
+                mpr(zh_message("log.quiver.fixed.1a5179633fbd"));
             return false;
         }
         return true;
@@ -1454,7 +1455,7 @@ namespace quiver
 
             // TODO: does non-targeted case come up?
             if (target.isCancel && !target.interactive && is_targeted())
-                mpr("No targets found!");
+                mpr(zh_message("log.quiver.fixed.89927b47a2e7"));
 
             t = target; // copy back, in case they are different
         }
@@ -2749,7 +2750,7 @@ namespace quiver
             {
                 set_to_quiver(make_shared<quiver::action>());
                 // TODO maybe drop this messaging?
-                mpr("Clearing quiver.");
+                mpr(zh_message("log.quiver.fixed.ffae51a08912"));
                 return false;
             }
             else if (isadigit(key))
@@ -2925,7 +2926,7 @@ namespace quiver
 
         if (menu.pointless())
         {
-            mpr("You have nothing to quiver.");
+            mpr(zh_message("log.quiver.fixed.7df9d7641b32"));
             return;
         }
 

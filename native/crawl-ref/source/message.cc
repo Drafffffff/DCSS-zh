@@ -5,6 +5,7 @@
 
 #include "AppHdr.h"
 #include "zh-localization.h"
+#include "zh-message.h"
 
 #include "message.h"
 
@@ -35,11 +36,16 @@
 #include "view.h"
 
 static void _mpr(string text, msg_channel_type channel=MSGCH_PLAIN, int param=0,
-                 bool nojoin=false, bool cap=true);
+                 bool nojoin=false, bool cap=true, const string &localized="");
 
 void mpr(const string &text)
 {
     _mpr(text);
+}
+
+void mpr(const ZhMessage &message, msg_channel_type channel, int param)
+{
+    _mpr(message.canonical, channel, param, false, true, message.localized);
 }
 
 void mpr_nojoin(msg_channel_type channel, string text)
@@ -69,6 +75,7 @@ struct message_particle
 {
     string text;        /// text of message (tagged string...)
     int repeats;        /// Number of times the message is in succession (x2)
+    string localized;  // Transient display only; never serialized or sent to Lua.
 
     string pure_text() const
     {
@@ -76,13 +83,14 @@ struct message_particle
         return formatted_string::parse_string(text).tostring();
     }
 
-    string with_repeats() const
+    string with_repeats(bool display = false) const
     {
         // TODO: colour the repeats indicator?
         string rep = "";
         if (repeats > 1)
             rep = make_stringf(" x%d", repeats);
-        return text + rep;
+        return (display && zh_language_enabled()
+            ? (localized.empty() ? zh_translate(text) : localized) : text) + rep;
     }
 
     string pure_text_with_repeats() const
@@ -116,17 +124,18 @@ struct message_line
     {
     }
 
-    message_line(string msg, msg_channel_type chan, int par, bool jn)
+    message_line(string msg, msg_channel_type chan, int par, bool jn,
+                 const string &localized = "")
      : channel(chan), param(par), turn(you.num_turns)
     {
-        messages = { { msg, 1 } };
+        messages = { { msg, 1, localized } };
         // Don't join long messages.
         join = jn && strwidth(last_msg().pure_text()) < 40;
     }
 
     // Constructor for restored messages.
     message_line(string text, msg_channel_type chan, int par, int trn)
-     : channel(chan), param(par), messages({{ text, 1 }}), turn(trn),
+     : channel(chan), param(par), messages({{ text, 1, "" }}), turn(trn),
        join(false)
     {
     }
@@ -168,7 +177,8 @@ struct message_line
         }
 
         if (Options.msg_condense_repeats
-            && other.last_msg().text == last_msg().text)
+            && other.last_msg().text == last_msg().text
+            && other.last_msg().localized == last_msg().localized)
         {
             messages.back().repeats += other.last_msg().repeats;
             return true;
@@ -212,7 +222,7 @@ struct message_line
     }
 
     /// The full string, with elements joined as appropriate.
-    string full_text() const
+    string full_text(bool display = false) const
     {
         string text = "";
         bool needs_semicolon = false;
@@ -223,7 +233,7 @@ struct message_line
                 text += make_stringf("<lightgrey>%s </lightgrey>",
                                      needs_semicolon ? ";" : "");
             }
-            text += msg.with_repeats();
+            text += msg.with_repeats(display);
             needs_semicolon = msg.needs_semicolon();
         }
         return text;
@@ -622,12 +632,13 @@ public:
     // temporary: to be overwritten with next item, e.g. new turn
     //            leading dash or prompt without response
     void add_item(string text, prefix_type first_col = prefix_type::none,
-                  bool temporary = false)
+                  bool temporary = false, bool presentation = false)
     {
         prompt = prefix_type::none; // reset prompt
 
         vector<formatted_string> newlines;
-        text = zh_translate(text);
+        if (!presentation) text = zh_translate(text);
+        ZhTranslationPause already_rendered;
         linebreak_string(text, out_width());
         formatted_string::parse_string_to_multiple(text, newlines);
 
@@ -826,7 +837,7 @@ public:
         unwind_bool dontsend(send_ignore_one, true);
 #endif
         if (crawl_state.io_inited && crawl_state.game_started)
-            msgwin.add_item(msg.full_text(), p, _temporary);
+            msgwin.add_item(msg.full_text(true), p, _temporary, true);
     }
 
     void roll_back()
@@ -886,7 +897,7 @@ public:
         unwind_bool dontsend(send_ignore_one, true);
 #endif
         for (int i = 0; i < msgs_to_print; i++)
-            msgwin.add_item(msgs[i - msgs_to_print].full_text(), prefix_type::none, false);
+            msgwin.add_item(msgs[i - msgs_to_print].full_text(true), prefix_type::none, false, true);
     }
 
     void clear()
@@ -916,7 +927,7 @@ public:
         {
             message_line& msg = msgs[i];
             tiles.json_open_object();
-            tiles.json_write_string("text", msg.full_text());
+            tiles.json_write_string("text", msg.full_text(true));
             tiles.json_write_int("turn", msg.turn);
             tiles.json_write_int("channel", msg.channel);
             tiles.json_close_object();
@@ -1512,7 +1523,7 @@ void msgwin_clear_temporary()
 static int _last_msg_turn = -1; // Turn of last message.
 
 static void _mpr(string text, msg_channel_type channel, int param, bool nojoin,
-                 bool cap)
+                 bool cap, const string &localized)
 {
     static bool _doing_c_message_hook = false;
 
@@ -1593,7 +1604,8 @@ static void _mpr(string text, msg_channel_type channel, int param, bool nojoin,
     text = fs.to_colour_string();
     }
 
-    message_line msg = message_line(text, channel, param, join);
+    message_line msg = message_line(text, channel, param, join,
+        localized.empty() ? "" : "<" + col + ">" + localized);
     buffer.add(msg);
 
     if (!crawl_state.io_inited)
@@ -2273,7 +2285,8 @@ static void _replay_messages_core(formatted_scroller &hist)
     for (int i = 0; i < msgs.size(); ++i)
         if (channel_message_history(msgs[i].channel))
         {
-            string text = msgs[i].full_text();
+            string text = msgs[i].full_text(true);
+            ZhTranslationPause already_rendered;
             if (!text.size())
                 continue;
             linebreak_string(text, cgetsize(GOTO_CRT).x - 1);

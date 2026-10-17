@@ -1,0 +1,846 @@
+{
+  "model": "Luna",
+  "messages": [
+    {
+      "id": "log.combat.monster_hit",
+      "context": "Visible monster melee attack announcement; fields are semantic actor, verb, target, stealth, charge, debug suffix, weapon/range phrase, and strength punctuation.",
+      "source": "melee_attack::announce_hit monster branch",
+      "params": {
+        "attacker": "name",
+        "stealth": "text",
+        "verb": "text",
+        "target": "name",
+        "charge": "text",
+        "debug": "text",
+        "attack_desc": "text",
+        "punct": "text"
+      },
+      "en": "{attacker} {stealth}{verb} {target}{charge}{debug}{attack_desc}{punct}",
+      "zh": "{attacker}{stealth}{verb}{target}{charge}{debug}{attack_desc}{punct}"
+    },
+    {
+      "id": "log.combat.player_hit",
+      "context": "Player melee attack announcement; retains attack degree, offhand weapon and electrical charge details.",
+      "source": "melee_attack::announce_hit player branch",
+      "params": {
+        "verb": "text",
+        "target": "name",
+        "degree": "text",
+        "weapon_phrase": "text",
+        "charge": "text",
+        "debug": "text",
+        "punct": "text"
+      },
+      "en": "You {verb} {target}{degree}{weapon_phrase}{charge}{debug}{punct}",
+      "zh": "你{verb}{target}{degree}{weapon_phrase}{charge}{debug}{punct}"
+    },
+    {
+      "id": "log.combat.monster_miss",
+      "context": "Monster melee attack misses after defender evasion.",
+      "source": "melee_attack::handle_phase_dodged monster branch",
+      "params": {
+        "attacker": "name",
+        "verb": "text",
+        "target": "name"
+      },
+      "en": "{attacker}{verb} {target}.",
+      "zh": "{attacker}{verb}{target}。"
+    },
+    {
+      "id": "log.combat.player_miss",
+      "context": "Player melee attack misses after defender evasion, possibly with the offhand weapon suffix.",
+      "source": "melee_attack::player_warn_miss",
+      "params": {
+        "verb": "text",
+        "target": "name",
+        "weapon_phrase": "text"
+      },
+      "en": "You{verb} {target}{weapon_phrase}.",
+      "zh": "你{verb}{target}{weapon_phrase}。"
+    },
+    {
+      "id": "log.combat.block",
+      "context": "Defender successfully blocks a melee attack.",
+      "source": "melee_attack::handle_phase_blocked",
+      "params": {
+        "defender": "name",
+        "verb": "text",
+        "owner": "name"
+      },
+      "en": "{defender} {verb} {owner} attack.",
+      "zh": "{defender}{verb}{owner}攻击。"
+    },
+    {
+      "id": "log.combat.no_damage",
+      "context": "The attack connects but causes no damage.",
+      "source": "melee_attack::attack no-damage branch",
+      "params": {
+        "attacker": "name",
+        "verb": "text",
+        "target": "name",
+        "aux": "text"
+      },
+      "en": "{attacker} {verb} {target} but {aux} no damage.",
+      "zh": "{attacker}{verb}{target}，但{aux}没有造成伤害。"
+    },
+    {
+      "id": "log.combat.poison",
+      "context": "A monster's melee attack poisons its target.",
+      "source": "melee_attack::mons_do_poison",
+      "params": {
+        "attacker": "name",
+        "target": "name"
+      },
+      "en": "{attacker} poisons {target}!",
+      "zh": "{attacker}使{target}中毒！"
+    },
+    {
+      "id": "log.combat.drain_vigour",
+      "context": "An attack drains the defender's vigour.",
+      "source": "attack::drain_defender_speed",
+      "params": {
+        "attacker": "name",
+        "verb": "text",
+        "target": "name"
+      },
+      "en": "{attacker} {verb} {target} vigour!",
+      "zh": "{attacker}{verb}{target}活力！"
+    },
+    {
+      "id": "log.combat.wound",
+      "context": "Visible monster damage status after melee damage.",
+      "source": "melee_attack::combat_print_wounds",
+      "params": {
+        "target": "name",
+        "status": "text"
+      },
+      "en": "{target} is {status}.",
+      "zh": "{target}{status}。"
+    },
+    {
+      "id": "log.combat.atom.hits",
+      "context": "Approved combat verb atom.",
+      "source": "melee attack conjugated verb",
+      "params": {},
+      "en": "hits",
+      "zh": "击中"
+    },
+    {
+      "id": "log.combat.atom.hit",
+      "context": "Approved combat verb atom.",
+      "source": "player melee attack verb",
+      "params": {},
+      "en": "hit",
+      "zh": "击中"
+    },
+    {
+      "id": "log.combat.atom.bites",
+      "context": "Approved combat verb atom.",
+      "source": "melee attack conjugated verb",
+      "params": {},
+      "en": "bites",
+      "zh": "咬中"
+    },
+    {
+      "id": "log.combat.atom.claws",
+      "context": "Approved combat verb atom.",
+      "source": "melee attack conjugated verb",
+      "params": {},
+      "en": "claws",
+      "zh": "抓中"
+    },
+    {
+      "id": "log.combat.atom.punches",
+      "context": "Approved combat verb atom.",
+      "source": "melee attack conjugated verb",
+      "params": {},
+      "en": "punches",
+      "zh": "拳击"
+    },
+    {
+      "id": "log.combat.atom.drain",
+      "context": "Approved combat verb atom.",
+      "source": "attack drain verb",
+      "params": {},
+      "en": "drain",
+      "zh": "汲取"
+    },
+    {
+      "id": "log.combat.atom.drains",
+      "context": "Approved combat verb atom.",
+      "source": "attack conjugated drain verb",
+      "params": {},
+      "en": "drains",
+      "zh": "汲取"
+    },
+    {
+      "id": "log.combat.atom.block",
+      "context": "Approved combat verb atom.",
+      "source": "defender conjugated block verb",
+      "params": {},
+      "en": "blocks",
+      "zh": "挡住"
+    },
+    {
+      "id": "log.combat.atom.do",
+      "context": "English auxiliary verb atom in no-damage output.",
+      "source": "player no-damage message",
+      "params": {},
+      "en": "do",
+      "zh": "确实"
+    },
+    {
+      "id": "log.combat.atom.does",
+      "context": "English auxiliary verb atom in no-damage output.",
+      "source": "monster no-damage message",
+      "params": {},
+      "en": "does",
+      "zh": "确实"
+    },
+    {
+      "id": "log.combat.atom.stealth",
+      "context": "Stealth adverb including source trailing space.",
+      "source": "stealthy monster melee attack",
+      "params": {},
+      "en": "stealthily ",
+      "zh": "悄然"
+    },
+    {
+      "id": "log.combat.atom.miss",
+      "context": "Player miss phrase atom.",
+      "source": "unmodified evasion result",
+      "params": {},
+      "en": " miss",
+      "zh": "未命中"
+    },
+    {
+      "id": "log.combat.atom.completely_miss",
+      "context": "Player miss phrase atom.",
+      "source": "high evasion margin",
+      "params": {},
+      "en": " completely miss",
+      "zh": "完全未命中"
+    },
+    {
+      "id": "log.combat.atom.closely_miss",
+      "context": "Player miss phrase atom.",
+      "source": "low evasion margin",
+      "params": {},
+      "en": " closely miss",
+      "zh": "险些未命中"
+    },
+    {
+      "id": "log.combat.atom.barely_miss",
+      "context": "Player miss phrase atom.",
+      "source": "narrow evasion margin",
+      "params": {},
+      "en": " barely miss",
+      "zh": "勉强未命中"
+    },
+    {
+      "id": "log.combat.atom.misses",
+      "context": "Monster miss phrase atom.",
+      "source": "unmodified monster evasion result",
+      "params": {},
+      "en": " misses",
+      "zh": "未命中"
+    },
+    {
+      "id": "log.combat.atom.completely_misses",
+      "context": "Monster miss phrase atom.",
+      "source": "high evasion margin",
+      "params": {},
+      "en": " completely misses",
+      "zh": "完全未命中"
+    },
+    {
+      "id": "log.combat.atom.closely_misses",
+      "context": "Monster miss phrase atom.",
+      "source": "low evasion margin",
+      "params": {},
+      "en": " closely misses",
+      "zh": "险些未命中"
+    },
+    {
+      "id": "log.combat.atom.barely_misses",
+      "context": "Monster miss phrase atom.",
+      "source": "narrow evasion margin",
+      "params": {},
+      "en": " barely misses",
+      "zh": "勉强未命中"
+    },
+    {
+      "id": "log.combat.atom.its_own",
+      "context": "Reflexive possessive phrase in self-blocking message.",
+      "source": "attacker and defender are same actor",
+      "params": {},
+      "en": "its own",
+      "zh": "自己的"
+    },
+    {
+      "id": "log.combat.atom.bludgeons",
+      "context": "Approved combat verb atom.",
+      "source": "melee attack conjugated verb",
+      "params": {},
+      "en": "bludgeons",
+      "zh": "痛击"
+    },
+    {
+      "id": "log.combat.atom.bludgeon",
+      "context": "Approved combat verb atom.",
+      "source": "player melee attack verb",
+      "params": {},
+      "en": "bludgeon",
+      "zh": "痛击"
+    },
+    {
+      "id": "log.combat.atom.lightly_wounded",
+      "context": "Monster wound state label.",
+      "source": "damage status display",
+      "params": {},
+      "en": "lightly wounded",
+      "zh": "轻伤"
+    },
+    {
+      "id": "log.combat.atom.moderately_wounded",
+      "context": "Monster wound state label.",
+      "source": "damage status display",
+      "params": {},
+      "en": "moderately wounded",
+      "zh": "中度受伤"
+    },
+    {
+      "id": "log.combat.atom.heavily_wounded",
+      "context": "Monster wound state label.",
+      "source": "damage status display",
+      "params": {},
+      "en": "heavily wounded",
+      "zh": "重伤"
+    },
+    {
+      "id": "log.combat.atom.severely_wounded",
+      "context": "Monster wound state label.",
+      "source": "damage status display",
+      "params": {},
+      "en": "severely wounded",
+      "zh": "伤势严重"
+    },
+    {
+      "id": "log.combat.atom.almost_dead",
+      "context": "Monster wound state label.",
+      "source": "damage status display",
+      "params": {},
+      "en": "almost dead",
+      "zh": "奄奄一息"
+    },
+    {
+      "id": "log.combat.atom.block_base",
+      "context": "Reviewed semantic combat atom: block verb base form.",
+      "source": "melee combat output",
+      "params": {},
+      "en": "block",
+      "zh": "挡住"
+    },
+    {
+      "id": "log.combat.atom.something",
+      "context": "Reviewed semantic combat atom: unseen actor or target.",
+      "source": "melee combat output",
+      "params": {},
+      "en": "something",
+      "zh": "某个东西"
+    },
+    {
+      "id": "log.combat.atom.something_possessive",
+      "context": "Reviewed semantic combat atom: unseen possessive target.",
+      "source": "melee combat output",
+      "params": {},
+      "en": "something's",
+      "zh": "某个东西的"
+    },
+    {
+      "id": "log.combat.atom.the",
+      "context": "Reviewed semantic combat atom: definite semantic article when a raw atom is required.",
+      "source": "melee combat output",
+      "params": {},
+      "en": "the",
+      "zh": "该"
+    },
+    {
+      "id": "log.combat.atom.almost_destroyed",
+      "context": "Monster wound-status atom returned by get_damage_level_string.",
+      "source": "mon-util.cc damage level display",
+      "params": {},
+      "en": "almost destroyed",
+      "zh": "濒临毁灭"
+    },
+    {
+      "id": "log.combat.atom.severely_damaged",
+      "context": "Monster wound-status atom returned by get_damage_level_string.",
+      "source": "mon-util.cc damage level display",
+      "params": {},
+      "en": "severely damaged",
+      "zh": "严重受损"
+    },
+    {
+      "id": "log.combat.atom.heavily_damaged",
+      "context": "Monster wound-status atom returned by get_damage_level_string.",
+      "source": "mon-util.cc damage level display",
+      "params": {},
+      "en": "heavily damaged",
+      "zh": "严重受损"
+    },
+    {
+      "id": "log.combat.atom.moderately_damaged",
+      "context": "Monster wound-status atom returned by get_damage_level_string.",
+      "source": "mon-util.cc damage level display",
+      "params": {},
+      "en": "moderately damaged",
+      "zh": "中度受损"
+    },
+    {
+      "id": "log.combat.atom.lightly_damaged",
+      "context": "Monster wound-status atom returned by get_damage_level_string.",
+      "source": "mon-util.cc damage level display",
+      "params": {},
+      "en": "lightly damaged",
+      "zh": "轻微受损"
+    },
+    {
+      "id": "log.combat.atom.not_damaged",
+      "context": "Monster wound-status atom returned by get_damage_level_string.",
+      "source": "mon-util.cc damage level display",
+      "params": {},
+      "en": "not damaged",
+      "zh": "未受损"
+    },
+    {
+      "id": "log.combat.atom.not_wounded",
+      "context": "Monster wound-status atom returned by get_damage_level_string.",
+      "source": "mon-util.cc damage level display",
+      "params": {},
+      "en": "not wounded",
+      "zh": "未受伤"
+    },
+    {
+      "id": "log.combat.rebuke_block",
+      "context": "A defender wearing a rebuking weapon turns an attacker aside.",
+      "source": "melee_attack::handle_phase_blocked rebuke message",
+      "params": {
+        "defender": "name",
+        "verb": "text",
+        "owner": "name"
+      },
+      "en": "{defender} {verb} {owner} attack!",
+      "zh": "{defender}{verb}{owner}攻击！"
+    },
+    {
+      "id": "log.combat.atom.turn_aside",
+      "context": "Reviewed rebuke-block verb atom.",
+      "source": "turn aside attacker message",
+      "params": {},
+      "en": "turn aside",
+      "zh": "拨开"
+    },
+    {
+      "id": "log.combat.atom.turns_aside",
+      "context": "Reviewed rebuke-block verb atom.",
+      "source": "turns aside attacker message",
+      "params": {},
+      "en": "turns aside",
+      "zh": "拨开"
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "log.combat.monster_hit",
+      "args": {
+        "attacker": {
+          "type": "name",
+          "canonical": "an orc",
+          "localized": "兽人"
+        },
+        "stealth": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "verb": {
+          "type": "text",
+          "canonical": "hits",
+          "localized": "击中"
+        },
+        "target": {
+          "type": "name",
+          "canonical": "you",
+          "localized": "你"
+        },
+        "charge": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "debug": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "attack_desc": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "punct": {
+          "type": "text",
+          "canonical": "!",
+          "localized": "！"
+        }
+      },
+      "canonical": "an orc hits you!",
+      "zh": "兽人击中你！"
+    },
+    {
+      "id": "log.combat.monster_hit",
+      "args": {
+        "attacker": {
+          "type": "name",
+          "canonical": "a wolf",
+          "localized": "狼"
+        },
+        "stealth": {
+          "type": "text",
+          "canonical": "stealthily ",
+          "localized": "悄然"
+        },
+        "verb": {
+          "type": "text",
+          "canonical": "bites",
+          "localized": "咬中"
+        },
+        "target": {
+          "type": "name",
+          "canonical": "the goblin",
+          "localized": "地精"
+        },
+        "charge": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "debug": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "attack_desc": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "punct": {
+          "type": "text",
+          "canonical": "!!!",
+          "localized": "！！！"
+        }
+      },
+      "canonical": "a wolf stealthily bites the goblin!!!",
+      "zh": "狼悄然咬中地精！！！"
+    },
+    {
+      "id": "log.combat.player_hit",
+      "args": {
+        "verb": {
+          "type": "text",
+          "canonical": "hit",
+          "localized": "击中"
+        },
+        "target": {
+          "type": "name",
+          "canonical": "the ogre",
+          "localized": "食人魔"
+        },
+        "degree": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "weapon_phrase": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "charge": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "debug": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "punct": {
+          "type": "text",
+          "canonical": ".",
+          "localized": "。"
+        }
+      },
+      "canonical": "You hit the ogre.",
+      "zh": "你击中食人魔。"
+    },
+    {
+      "id": "log.combat.player_hit",
+      "args": {
+        "verb": {
+          "type": "text",
+          "canonical": "bludgeon",
+          "localized": "痛击"
+        },
+        "target": {
+          "type": "name",
+          "canonical": "the troll",
+          "localized": "巨魔"
+        },
+        "degree": {
+          "type": "text",
+          "canonical": " badly",
+          "localized": "，造成重创"
+        },
+        "weapon_phrase": {
+          "type": "text",
+          "canonical": " with your +4 mace",
+          "localized": "，使用你的+4钉头锤"
+        },
+        "charge": {
+          "type": "text",
+          "canonical": " and electrocute it",
+          "localized": "，并使目标触电"
+        },
+        "debug": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "punct": {
+          "type": "text",
+          "canonical": "!!",
+          "localized": "！！"
+        }
+      },
+      "canonical": "You bludgeon the troll badly with your +4 mace and electrocute it!!",
+      "zh": "你痛击巨魔，造成重创，使用你的+4钉头锤，并使目标触电！！"
+    },
+    {
+      "id": "log.combat.player_miss",
+      "args": {
+        "verb": {
+          "type": "text",
+          "canonical": " completely miss",
+          "localized": "完全未命中"
+        },
+        "target": {
+          "type": "name",
+          "canonical": "the hydra",
+          "localized": "多头蛇"
+        },
+        "weapon_phrase": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        }
+      },
+      "canonical": "You completely miss the hydra.",
+      "zh": "你完全未命中多头蛇。"
+    },
+    {
+      "id": "log.combat.monster_miss",
+      "args": {
+        "attacker": {
+          "type": "name",
+          "canonical": "a yak",
+          "localized": "牦牛"
+        },
+        "verb": {
+          "type": "text",
+          "canonical": " barely misses",
+          "localized": "勉强未命中"
+        },
+        "target": {
+          "type": "name",
+          "canonical": "you",
+          "localized": "你"
+        }
+      },
+      "canonical": "a yak barely misses you.",
+      "zh": "牦牛勉强未命中你。"
+    },
+    {
+      "id": "log.combat.block",
+      "args": {
+        "defender": {
+          "type": "name",
+          "canonical": "you",
+          "localized": "你"
+        },
+        "verb": {
+          "type": "text",
+          "canonical": "block",
+          "localized": "挡住"
+        },
+        "owner": {
+          "type": "name",
+          "canonical": "its own",
+          "localized": "自己的"
+        }
+      },
+      "canonical": "you block its own attack.",
+      "zh": "你挡住自己的攻击。"
+    },
+    {
+      "id": "log.combat.no_damage",
+      "args": {
+        "attacker": {
+          "type": "name",
+          "canonical": "a jelly",
+          "localized": "果冻怪"
+        },
+        "verb": {
+          "type": "text",
+          "canonical": "hits",
+          "localized": "击中"
+        },
+        "target": {
+          "type": "name",
+          "canonical": "you",
+          "localized": "你"
+        },
+        "aux": {
+          "type": "text",
+          "canonical": "does",
+          "localized": ""
+        }
+      },
+      "canonical": "a jelly hits you but does no damage.",
+      "zh": "果冻怪击中你，但没有造成伤害。"
+    },
+    {
+      "id": "log.combat.poison",
+      "args": {
+        "attacker": {
+          "type": "name",
+          "canonical": "a snake",
+          "localized": "蛇"
+        },
+        "target": {
+          "type": "name",
+          "canonical": "you",
+          "localized": "你"
+        }
+      },
+      "canonical": "a snake poisons you!",
+      "zh": "蛇使你中毒！"
+    },
+    {
+      "id": "log.combat.drain_vigour",
+      "args": {
+        "attacker": {
+          "type": "name",
+          "canonical": "a vampire",
+          "localized": "吸血鬼"
+        },
+        "verb": {
+          "type": "text",
+          "canonical": "drains",
+          "localized": "汲取"
+        },
+        "target": {
+          "type": "name",
+          "canonical": "your",
+          "localized": "你的"
+        }
+      },
+      "canonical": "a vampire drains your vigour!",
+      "zh": "吸血鬼汲取你的活力！"
+    },
+    {
+      "id": "log.combat.wound",
+      "args": {
+        "target": {
+          "type": "name",
+          "canonical": "the orc",
+          "localized": "兽人"
+        },
+        "status": {
+          "type": "text",
+          "canonical": "heavily wounded",
+          "localized": "重伤"
+        }
+      },
+      "canonical": "the orc is heavily wounded.",
+      "zh": "兽人重伤。"
+    },
+    {
+      "id": "log.combat.player_hit",
+      "args": {
+        "verb": {
+          "type": "text",
+          "canonical": "hit",
+          "localized": "击中"
+        },
+        "target": {
+          "type": "name",
+          "canonical": "the orc warrior",
+          "localized": "兽人战士"
+        },
+        "degree": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "weapon_phrase": {
+          "type": "text",
+          "canonical": " with your -2 hand axe",
+          "localized": "，使用你的-2手斧"
+        },
+        "charge": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "debug": {
+          "type": "text",
+          "canonical": "",
+          "localized": ""
+        },
+        "punct": {
+          "type": "text",
+          "canonical": "!!!",
+          "localized": "！！！"
+        }
+      },
+      "canonical": "You hit the orc warrior with your -2 hand axe!!!",
+      "zh": "你击中兽人战士，使用你的-2手斧！！！"
+    },
+    {
+      "id": "log.combat.rebuke_block",
+      "args": {
+        "defender": {
+          "type": "name",
+          "canonical": "the paladin",
+          "localized": "圣武士"
+        },
+        "verb": {
+          "type": "text",
+          "canonical": "turns aside",
+          "localized": "拨开"
+        },
+        "owner": {
+          "type": "name",
+          "canonical": "the orc's",
+          "localized": "兽人的"
+        }
+      },
+      "canonical": "the paladin turns aside the orc's attack!",
+      "zh": "圣武士拨开兽人的攻击！"
+    }
+  ]
+}

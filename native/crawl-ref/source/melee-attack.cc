@@ -36,9 +36,11 @@
 #include "losparam.h"
 #include "mapdef.h"
 #include "message.h"
+#include "mon-dam-level-type.h"
 #include "mon-abil.h"
 #include "mon-behv.h"
 #include "mon-death.h" // maybe_drop_monster_organ
+#include "mon-util.h"
 #include "mon-place.h"
 #include "mon-poly.h"
 #include "mon-tentacle.h"
@@ -59,6 +61,8 @@
 #include "unwind.h"
 #include "view.h"
 #include "xom.h"
+#include "zh-display-name.h"
+#include "zh-message.h"
 
 #ifdef NOTE_DEBUG_CHAOS_BRAND
     #define NOTE_DEBUG_CHAOS_EFFECTS
@@ -67,6 +71,62 @@
 #ifdef NOTE_DEBUG_CHAOS_EFFECTS
     #include "notes.h"
 #endif
+
+namespace
+{
+const std::string combat_atom_domain = "log.combat.atom.";
+
+ZhArg combat_actor_arg(const std::string &key, const actor *who,
+                       description_level_type desc, bool visible,
+                       bool reflexive = false)
+{
+    if (reflexive)
+        return zh_word_arg(key, combat_atom_domain,
+                           who ? who->pronoun(PRONOUN_REFLEXIVE) : "",
+                           ZhArgType::Name);
+    if (!visible)
+    {
+        const std::string anon = desc == DESC_YOUR || desc == DESC_ITS
+                               ? "something's" : "something";
+        return zh_word_arg(key, combat_atom_domain, anon, ZhArgType::Name);
+    }
+    return zh_actor_arg(key, who, desc);
+}
+
+ZhArg combat_punctuation_arg(const std::string &key, const std::string &value)
+{
+    std::string localized;
+    if (value.find('!') != std::string::npos)
+        for (size_t i = 0; i < value.size(); ++i) localized += "！";
+    else if (value == ".") localized = "。";
+    else localized = value;
+    return zh_text(key, value, localized);
+}
+
+ZhArg combat_debug_arg(const std::string &key, const std::string &canonical,
+                       int damage)
+{
+    if (canonical.empty())
+        return zh_text(key, canonical, canonical);
+    return zh_text(key, canonical,
+                   "（伤害：" + std::to_string(damage) + "）");
+}
+
+void combat_print_wounds(const monster &mon)
+{
+    if (!mon.alive() || mon.hit_points == mon.max_hit_points
+        || !you.see_cell(mon.pos()) || !mon.visible_to(&you))
+        return;
+
+    const mon_dam_level_type level = mons_get_damage_level(mon);
+    const std::string status = get_damage_level_string(mon.holiness(), level);
+    const std::string canonical = mon.name(DESC_THE) + " is " + status + ".";
+    mpr(zh_message("log.combat.wound",
+                   {zh_actor_arg("target", &mon, DESC_THE),
+                    zh_word_arg("status", combat_atom_domain, status)},
+                   canonical), MSGCH_MONSTER_DAMAGE, level);
+}
+}
 
 /*
  **************************************************
@@ -271,7 +331,7 @@ bool melee_attack::handle_phase_attempted()
             flat_dmg_bonus = random_range(0, 3);
             defender->as_monster()->del_ench(ENCH_KINETIC_GRAPNEL, true);
             if (attacker->is_player())
-                mpr("The grapnel guides your strike.");
+                mpr(zh_message("log.melee_attack.fixed.47b79a4ff692"));
         }
     }
 
@@ -312,10 +372,14 @@ void melee_attack::handle_phase_blocked()
         {
             if (you.see_cell(defender->pos()))
             {
-                mprf("%s turn%s aside %s attack!",
-                        defender->name(DESC_THE).c_str(),
-                        defender->is_monster() ? "s" : "",
-                        attacker->name(DESC_ITS).c_str());
+                const std::string ending = defender->is_monster() ? "s" : "";
+                const std::string verb = "turn" + ending + " aside";
+                const std::string canonical = defender->name(DESC_THE) + " "
+                    + verb + " " + attacker->name(DESC_ITS) + " attack!";
+                mpr(zh_message("log.combat.rebuke_block",
+                    {zh_actor_arg("defender", defender, DESC_THE),
+                     zh_word_arg("verb", combat_atom_domain, verb),
+                     zh_actor_arg("owner", attacker, DESC_ITS)}, canonical));
                 needs_block_message = false;
             }
 
@@ -331,11 +395,18 @@ void melee_attack::handle_phase_blocked()
 
     if (needs_block_message)
     {
-        mprf("%s %s %s attack.",
-                 defender_name(false).c_str(),
-                 defender->conj_verb("block").c_str(),
-                 attacker == defender ? "its own"
-                                      : atk_name(DESC_ITS).c_str());
+        const std::string verb = defender->conj_verb("block");
+        const std::string owner = attacker == defender
+                                ? "its own" : atk_name(DESC_ITS);
+        const std::string canonical = defender_name(false) + " " + verb
+                                    + " " + owner + " attack.";
+        mpr(zh_message("log.combat.block",
+            {combat_actor_arg("defender", defender, DESC_PLAIN,
+                              defender->visible_to(&you)),
+             zh_word_arg("verb", combat_atom_domain, verb),
+             owner == "its own"
+                ? zh_word_arg("owner", combat_atom_domain, owner, ZhArgType::Name)
+                : zh_actor_arg("owner", attacker, DESC_ITS)}, canonical));
     }
 
     if (defender->is_player() && you.duration[DUR_DIVINE_SHIELD]
@@ -371,10 +442,15 @@ void melee_attack::handle_phase_dodged()
             player_warn_miss();
         else
         {
-            mprf("%s%s misses %s.",
-                 atk_name(DESC_THE).c_str(),
-                 evasion_margin_adverb().c_str(),
-                 defender_name(true).c_str());
+            const std::string adverb = evasion_margin_adverb();
+            const std::string canonical = atk_name(DESC_THE) + adverb
+                                        + " misses " + defender_name(true) + ".";
+            mpr(zh_message("log.combat.monster_miss",
+                {combat_actor_arg("attacker", attacker, DESC_THE,
+                                  attacker_visible),
+                 zh_word_arg("verb", combat_atom_domain, adverb + " misses"),
+                 combat_actor_arg("target", defender, DESC_THE,
+                                  defender_visible)}, canonical));
         }
     }
 
@@ -409,7 +485,7 @@ void melee_attack::handle_phase_dodged()
                 {
                     you.track_reprisal(REPRISAL_HEADBUTT, attacker->mid);
 
-                    mpr("You furiously retaliate!");
+                    mpr(zh_message("log.melee_attack.fixed.bbb9888a3cf8"));
                     melee_attack headbutt(&you, attacker);
                     headbutt.player_aux_setup(UNAT_HEADBUTT);
                     headbutt.player_aux_apply(UNAT_HEADBUTT);
@@ -724,12 +800,11 @@ static void _apply_flux_contam(monster &m)
 
     if (energy <= 0)
     {
-        mprf(MSGCH_DURATION, "The last of your unstable energy dissipates and "
-                             "you return to your previous form.");
+        mpr(zh_message("log.melee_attack.fixed.b448f24dc9da"), MSGCH_DURATION);
         return_to_default_form();
     }
     else if (above_warning && energy < FLUX_ENERGY_WARNING)
-        mprf(MSGCH_DURATION, "You feel the transmutational energy in your body is nearly expended.");
+        mpr(zh_message("log.melee_attack.fixed.60d4748ad6be"), MSGCH_DURATION);
 }
 
 void melee_attack::maybe_do_mesmerism()
@@ -913,11 +988,17 @@ bool melee_attack::handle_phase_hit()
                                     : attacker->conj_verb(mons_attack_verb());
 
             // TODO: Clean this up if possible, checking atype for do / does is ugly
-            mprf("%s %s %s but %s no damage.",
-                attacker->name(DESC_THE).c_str(),
-                attack_verb.c_str(),
-                defender_name(true).c_str(),
-                attacker->is_player() ? "do" : "does");
+            const std::string target = defender_name(true);
+            const std::string auxiliary = attacker->is_player() ? "do" : "does";
+            const std::string canonical = attacker->name(DESC_THE) + " "
+                + attack_verb + " " + target + " but " + auxiliary + " no damage.";
+            mpr(zh_message("log.combat.no_damage",
+                {combat_actor_arg("attacker", attacker, DESC_THE,
+                                  attacker_visible),
+                 zh_word_arg("verb", combat_atom_domain, attack_verb),
+                 combat_actor_arg("target", defender, DESC_THE,
+                                  defender_visible),
+                 zh_text("aux", auxiliary, "")}, canonical));
         }
     }
 
@@ -1129,7 +1210,7 @@ bool melee_attack::handle_phase_aux()
 
         // Don't print wounds after the first attack with quick blades.
         if (!weapon_multihits(weapon))
-            print_wounds(*defender->as_monster());
+            combat_print_wounds(*defender->as_monster());
     }
 
     return true;
@@ -1160,7 +1241,7 @@ static void _devour(monster &victim)
         // 'flavourful' this way??
     }
     if (victim.has_ench(ENCH_STICKY_FLAME))
-        mpr("Spicy!");
+        mpr(zh_message("log.melee_attack.fixed.cd6a7fb22c99"));
 
     // Devour the corpse.
     victim.props[NEVER_CORPSE_KEY] = true;
@@ -1230,7 +1311,7 @@ static void _handle_werewolf_kill_bonus(const monster& victim, bool takedown)
     int& power = you.props[WEREFURY_KEY].get_int();
     if (!you.duration[DUR_WEREFURY])
     {
-        mpr("You revel in your kill!");
+        mpr(zh_message("log.melee_attack.fixed.28c52e8f3317"));
         power = div_rand_round(get_form()->get_werefury_kill_bonus() * 3 / 2, 10);
     }
     else
@@ -1246,12 +1327,12 @@ static void _handle_werewolf_kill_bonus(const monster& victim, bool takedown)
     {
         if (you.is_silenced())
         {
-            mpr("You raise your head to howl, but no sound comes out.");
+            mpr(zh_message("log.melee_attack.fixed.001c6164d000"));
             return;
         }
 
         const int howl_power = get_form()->get_howl_power();
-        mpr("You let out a blood-chilling howl!");
+        mpr(zh_message("log.melee_attack.fixed.25e22731dbab"));
         draw_ring_animation(you.pos(), you.current_vision, DARKGRAY, 0, true, 10);
         for (monster_near_iterator mi(you.pos()); mi; ++mi)
         {
@@ -1369,7 +1450,7 @@ bool melee_attack::handle_phase_multihit()
         // does a cleaving multi-hit attack. God help us.
         const bool success = do_followup_attacks(extra_hits, false);
         if (success && attacker->is_player())
-            print_wounds(*defender->as_monster());
+            combat_print_wounds(*defender->as_monster());
         return success;
     }
 
@@ -2701,7 +2782,7 @@ bool melee_attack::player_aux_apply(unarmed_attack_type atk)
                                   * drain);
                     if (drain)
                     {
-                        mpr("You feel invigorated.");
+                        mpr(zh_message("log.melee_attack.fixed.03be19f616a1"));
                         inc_mp(drain);
                     }
                 }
@@ -2741,10 +2822,17 @@ void melee_attack::player_warn_miss()
 {
     did_hit = false;
 
-    mprf("You%s miss %s%s.",
-         evasion_margin_adverb().c_str(),
-         defender->name(DESC_THE).c_str(),
-         weapon_desc().c_str());
+    const std::string adverb = evasion_margin_adverb();
+    const std::string target = defender->name(DESC_THE);
+    const std::string wdesc = weapon_desc();
+    const std::string canonical = "You" + adverb + " miss " + target + wdesc + ".";
+    ZhArg weapon_phrase_arg = zh_text("weapon_phrase", wdesc, "");
+    if (!wdesc.empty())
+        weapon_phrase_arg.supported = false;
+    mpr(zh_message("log.combat.player_miss",
+        {zh_word_arg("verb", combat_atom_domain, adverb + " miss"),
+         combat_actor_arg("target", defender, DESC_THE, defender_visible),
+         weapon_phrase_arg}, canonical));
 }
 
 // A couple additive modifiers that should be applied to both unarmed and
@@ -3169,7 +3257,7 @@ bool melee_attack::consider_decapitation(int dam)
     if (damage_brand == SPWPN_FLAMING)
     {
         if (defender_visible)
-            mpr("The flame cauterises the wound!");
+            mpr(zh_message("log.melee_attack.fixed.195a9aaaaf3a"));
         return false;
     }
 
@@ -3476,7 +3564,7 @@ bool melee_attack::apply_staff_damage()
     if (you.wearing_ego(OBJ_ARMOUR, SPARM_ATTUNEMENT)
         && you.magic_points < you.max_magic_points)
     {
-        mpr("You draw in some of the released energy.");
+        mpr(zh_message("log.melee_attack.fixed.0e54236b8a39"));
         inc_mp(1 + one_chance_in(3) + one_chance_in(3));
     }
 
@@ -3626,34 +3714,70 @@ void melee_attack::announce_hit()
     if (!needs_message || attk_flavour == AF_CRUSH)
         return;
 
+    const std::string punct = attack_strength_punctuation(damage_done);
+    const std::string charge = charge_desc();
+    const std::string debug = debug_damage_number();
+    const bool charged = !charge.empty();
     if (attacker->is_monster())
     {
-        mprf("%s %s%s %s%s%s%s%s",
-             atk_name(DESC_THE).c_str(),
-             is_special_mon_stab
-                && attacker->as_monster()->has_ench(ENCH_VAMPIRE_THRALL)
-                    ? "stealthily " : "",
-             attacker->conj_verb(mons_attack_verb()).c_str(),
-             defender_name(true).c_str(),
-             charge_desc().c_str(),
-             debug_damage_number().c_str(),
-             mons_attack_desc().c_str(),
-             attack_strength_punctuation(damage_done).c_str());
+        const std::string actor_name = atk_name(DESC_THE);
+        const std::string stealth = is_special_mon_stab
+            && attacker->as_monster()->has_ench(ENCH_VAMPIRE_THRALL)
+                ? "stealthily " : "";
+        const std::string verb = attacker->conj_verb(mons_attack_verb());
+        const std::string target = defender_name(true);
+        const std::string desc = mons_attack_desc();
+        const std::string canonical = actor_name + " " + stealth + verb + " "
+            + target + charge + debug + desc + punct;
+        std::string attack_desc_zh;
+        bool attack_desc_supported = true;
+        if ((attack_position - defender->pos()).rdist() > 1)
+            attack_desc_zh = "（远距离）";
+        if (weapon && !mons_class_is_animated_weapon(attacker->type))
+        {
+            const ZhArg weapon_arg = zh_item_arg("weapon", *weapon, DESC_A);
+            attack_desc_zh += "，使用" + weapon_arg.localized;
+            attack_desc_supported = weapon_arg.supported;
+        }
+        ZhArg attack_desc_arg = zh_text("attack_desc", desc, attack_desc_zh);
+        attack_desc_arg.supported = attack_desc_supported;
+        mpr(zh_message("log.combat.monster_hit",
+            {combat_actor_arg("attacker", attacker, DESC_THE, attacker_visible),
+             zh_word_arg("stealth", combat_atom_domain, stealth),
+             zh_word_arg("verb", combat_atom_domain, verb),
+             combat_actor_arg("target", defender, DESC_THE, defender_visible),
+             zh_text("charge", charge,
+                     charged ? "，并使目标触电" : ""),
+             combat_debug_arg("debug", debug, damage_done),
+             attack_desc_arg,
+             combat_punctuation_arg("punct", punct)}, canonical));
     }
     else
     {
         if (!verb_degree.empty() && verb_degree[0] != ' '
             && verb_degree[0] != ',' && verb_degree[0] != '\'')
-        {
             verb_degree = " " + verb_degree;
-        }
 
-        mprf("You %s %s%s%s%s%s%s",
-             attack_verb.c_str(),
-             defender->name(DESC_THE).c_str(), verb_degree.c_str(),
-             weapon_desc().c_str(),
-             charge_desc().c_str(), debug_damage_number().c_str(),
-             attack_strength_punctuation(damage_done).c_str());
+        const std::string target = defender->name(DESC_THE);
+        const std::string wdesc = weapon_desc();
+        const std::string canonical = "You " + attack_verb + " " + target
+            + verb_degree + wdesc + charge + debug + punct;
+        ZhArg weapon_phrase_arg = zh_text("weapon_phrase", wdesc, "");
+        if (!wdesc.empty() && weapon)
+        {
+            const ZhArg weapon_arg = zh_item_arg("weapon", *weapon, DESC_YOUR);
+            weapon_phrase_arg.localized = "，使用" + weapon_arg.localized;
+            weapon_phrase_arg.supported = weapon_arg.supported;
+        }
+        mpr(zh_message("log.combat.player_hit",
+            {zh_word_arg("verb", combat_atom_domain, attack_verb),
+             combat_actor_arg("target", defender, DESC_THE, defender_visible),
+             zh_word_arg("degree", combat_atom_domain, verb_degree),
+             weapon_phrase_arg,
+             zh_text("charge", charge,
+                     charged ? "，并使目标触电" : ""),
+             combat_debug_arg("debug", debug, damage_done),
+             combat_punctuation_arg("punct", punct)}, canonical));
     }
 }
 
@@ -3682,9 +3806,12 @@ bool melee_attack::mons_do_poison()
 
     if (needs_message)
     {
-        mprf("%s poisons %s!",
-                atk_name(DESC_THE).c_str(),
-                defender_name(true).c_str());
+        const std::string canonical = atk_name(DESC_THE) + " poisons "
+                                    + defender_name(true) + "!";
+        mpr(zh_message("log.combat.poison",
+            {combat_actor_arg("attacker", attacker, DESC_THE, attacker_visible),
+             combat_actor_arg("target", defender, DESC_THE, defender_visible)},
+            canonical));
     }
 
     return true;
@@ -4021,7 +4148,7 @@ void melee_attack::mons_apply_attack_flavour(attack_flavour flavour)
         // Doesn't affect the poison-immune.
         if (defender->is_player() && you.duration[DUR_DIVINE_STAMINA] > 0)
         {
-            mpr("Your divine stamina protects you from poison!");
+            mpr(zh_message("log.melee_attack.fixed.b6b736605d87"));
             break;
         }
         if (defender->res_poison() >= 3)
@@ -4038,7 +4165,7 @@ void melee_attack::mons_apply_attack_flavour(attack_flavour flavour)
         // Doesn't affect the poison-immune.
         if (defender->is_player() && you.duration[DUR_DIVINE_STAMINA] > 0)
         {
-            mpr("Your divine stamina protects you from poison!");
+            mpr(zh_message("log.melee_attack.fixed.b6b736605d87"));
             break;
         }
         else if (defender->res_poison() >= 3)
@@ -4294,7 +4421,7 @@ void melee_attack::mons_apply_attack_flavour(attack_flavour flavour)
                           attacker->get_hit_dice() * 12))
         {
             if (needs_message)
-                mpr("A spider bursts forth from the wound!");
+                mpr(zh_message("log.melee_attack.fixed.be120892087e"));
         }
         break;
     }
@@ -4491,7 +4618,7 @@ void melee_attack::mons_apply_attack_flavour(attack_flavour flavour)
                                         8 + attacker->get_hit_dice());
         const bool caused_bane = defender->doom(amount);
         if (!caused_bane && defender->is_player())
-            mpr("Your doom draws closer.");
+            mpr(zh_message("log.melee_attack.fixed.b2fd20d703be"));
         break;
     }
 
@@ -4542,7 +4669,7 @@ void melee_attack::do_fiery_armour_burn()
     if (mon->alive())
     {
         mon->expose_to_element(BEAM_FIRE, post_ac);
-        print_wounds(*mon);
+        combat_print_wounds(*mon);
     }
 }
 
@@ -4575,7 +4702,7 @@ void melee_attack::do_passive_freeze()
         if (mon->alive())
         {
             mon->expose_to_element(BEAM_COLD, orig_hurted, &you);
-            print_wounds(*mon);
+            combat_print_wounds(*mon);
         }
     }
 }
@@ -4729,7 +4856,7 @@ void melee_attack::do_foul_flame()
             mon->hurt(&you, dmg);
 
             if (mon->alive())
-                print_wounds(*mon);
+                combat_print_wounds(*mon);
         }
     }
 }
@@ -4746,7 +4873,7 @@ void melee_attack::emit_foul_stench()
 
         if (damage_done > 0 && x_chance_in_y(mut * 3 - 1, 20))
         {
-            mpr("You emit a cloud of foul miasma!");
+            mpr(zh_message("log.melee_attack.fixed.dc6556bd9b9c"));
             place_cloud(CLOUD_MIASMA, mon->pos(), 5 + random2(6), &you);
         }
     }
@@ -5283,7 +5410,7 @@ bool coglin_spellmotor_attack()
         return false;
 
     melee_attack attk(&you, targs[random2(targs.size())]);
-    mpr("Your spellmotor activates!");
+    mpr(zh_message("log.melee_attack.fixed.09bea8318f6f"));
     attk.launch_attack_set();
 
     count_action(CACT_ATTACK, ATTACK_SPELLMOTOR);

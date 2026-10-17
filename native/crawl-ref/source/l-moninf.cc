@@ -2,6 +2,7 @@
  * @module monster
  */
 #include "AppHdr.h"
+#include "zh-localization.h"
 
 #include "l-libs.h"
 
@@ -330,6 +331,7 @@ static int moninf_get_ev(lua_State *ls)
  */
 static int moninf_get_target_desc(lua_State *ls)
 {
+    ZhTranslationPause canonical_lua;
     MONINF(ls, 1, mi);
     coord_def mp(mi->pos.x, mi->pos.y);
     dist moves;
@@ -348,6 +350,7 @@ static int moninf_get_target_desc(lua_State *ls)
  */
 static int moninf_get_target_weapon(lua_State *ls)
 {
+    ZhTranslationPause canonical_lua;
     MONINF(ls, 1, mi);
     ostringstream result;
     describe_to_hit(*mi, result, you.weapon(), true);
@@ -362,6 +365,7 @@ static int moninf_get_target_weapon(lua_State *ls)
  */
 static int moninf_get_target_spell(lua_State *ls)
 {
+    ZhTranslationPause canonical_lua;
     MONINF(ls, 1, mi);
     spell_type spell = spell_by_name(luaL_checkstring(ls, 2), false);
     string desc = target_spell_desc(*mi, spell);
@@ -797,6 +801,7 @@ LUAFN(moninf_get_damage_desc)
  */
 LUAFN(moninf_get_desc)
 {
+    ZhTranslationPause canonical_lua;
     MONINF(ls, 1, mi);
     if (lua_isboolean(ls, 2) && lua_toboolean(ls, 2))
     {

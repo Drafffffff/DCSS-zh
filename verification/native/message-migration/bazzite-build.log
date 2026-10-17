@@ -1,0 +1,794 @@
+Merged data entries: 0
+Applied reviewed prose: 95
+Prepared Luna help documents: 3
+Validated 406 stable message IDs
+{"candidates": 34233, "received": 34233, "translated_valid": 24003, "rejected": 0, "whitespace_restored": 164, "missing": 0, "default_model": "cc-switch-deep-seek/deepseek-flash", "translation_models": {"cc-switch-teamo-router/deepseek-flash": 21218, "cc-switch-deep-seek/deepseek-flash": 11967, "gpt-6-luna": 1048}}
+PASS: 1203 catalog/template cases, 30 composed template cases, canonical colour tags, no word fallback, pause, English mode, long input
+PASS: 69 named-message oracle and validation checks
+Validated 406 stable message IDs
+Validated 406 stable message IDs
+{"defined_ids": 406, "direct_literal_bound_ids": 241, "general_word_fallback_removed": true}
+PASS: 344 grid/chunk cases, HUD columns, wide overwrite, clearing, clipping, UTF-8 chunks, scrolling and bounded detail tables
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+    * rebuilding crawl: new build flags or prefix
+TRACK_CFLAGS = x86_64-redhat-linux-gcc x86_64-redhat-linux-g++ -O2 -pipe -Wall -Wformat-security -Wundef -Wextra -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-type-limits -Wno-uninitialized -Wno-array-bounds -Wmissing-declarations -Wredundant-decls -Wno-parentheses -Wwrite-strings -Wshadow -pedantic -Wuninitialized -Iutil -I. -isystem contrib/install/x86_64-redhat-linux/include -DWIZARD -DASSERTS -DCLUA_BINDINGS -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600 #EOL
+    PYTHON rltilesstatus-icon-sizes.h
+OLD_CFLAGS   = x86_64-redhat-linux-gcc x86_64-redhat-linux-g++ -O2 -pipe -DUSE_TILE -DUSE_TILE_LOCAL -DUSE_SDL -DUSE_GL -DUSE_FT -DWITH_GZFILEOP -pthread -D_GNU_SOURCE=1 -D_REENTRANT -DUSE_SOUND -Wall -Wformat-security -Wundef -Wextra -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-type-limits -Wno-uninitialized -Wno-array-bounds -Wmissing-declarations -Wredundant-decls -Wno-parentheses -Wwrite-strings -Wshadow -pedantic -Wuninitialized -Iutil -I. -isystem /usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/sysprof-6 -isystem /usr/include/SDL2 -isystem contrib/install/x86_64-redhat-linux/include -DWIZARD -DASSERTS -DPROPORTIONAL_FONT=\"contrib/fonts/DejaVuSans.ttf\" -DMONOSPACED_FONT=\"contrib/fonts/DejaVuSansMono.ttf\" -D_GNU_SOURCE=1 -D_REENTRANT -DCLUA_BINDINGS #EOL
+    * Need to build contribs: lua/src
+    PYTHON config.h
+make[1]: Entering directory '/work/source/source/contrib'
+make[2]: Entering directory '/work/source/source/contrib/lua/src'
+make[2]: Leaving directory '/work/source/source/contrib/lua/src'
+make[2]: Entering directory '/work/source/source/contrib/lua/src'
+make[2]: Leaving directory '/work/source/source/contrib/lua/src'
+make[1]: Leaving directory '/work/source/source/contrib'
+make -C rltiles all ARCH=x86_64-redhat-linux NO_PKGCONFIG= TILES=
+make[1]: Entering directory '/work/source/source/rltiles'
+    * rebuilding tilegen: new build flags or prefix
+    HOSTCXX tool/tile_colour.o
+    HOSTCXX tool/tile.o
+    HOSTCXX tool/tile_page.o
+    HOSTCXX tool/tile_list_processor.o
+    HOSTCXX tool/main.o
+    HOSTLINK tool/tilegen.elf
+    GEN tiledef-main.h
+    GEN tiledef-dngn.h
+    GEN tiledef-floor.h
+    GEN tiledef-wall.h
+    GEN tiledef-feat.h
+    GEN tiledef-player.h
+    GEN tiledef-gui.h
+    GEN tiledef-icons.h
+make[1]: Leaving directory '/work/source/source/rltiles'
+    CXX zh-localization.o
+    CXX zh-message.o
+    CXX zh-display-name.o
+    CXX ability.o
+    CXX abyss.o
+    CXX acquire.o
+    CXX act-iter.o
+    CXX actor-los.o
+    CXX actor.o
+    CXX adjust.o
+    CXX areas.o
+    CXX arena.o
+    CXX artefact.o
+    CXX attack.o
+    CXX attitude-change.o
+    CXX beam.o
+    CXX behold.o
+    CXX bitary.o
+    CXX branch.o
+    CXX branch-data-json.o
+    CXX bloodspatter.o
+    CXX chardump.o
+    CXX cio.o
+    CXX cloud.o
+    CXX clua.o
+    CXX cluautil.o
+    CXX colour.o
+    CXX command.o
+    CXX coord.o
+    CXX coord-circle.o
+    CXX coordit.o
+    CXX corpse.o
+    CXX crash.o
+    CXX ctest.o
+    CXX dactions.o
+    CXX database.o
+    CXX dbg-asrt.o
+    CXX dbg-maps.o
+    CXX dbg-objstat.o
+    CXX dbg-scan.o
+    CXX dbg-util.o
+    CXX death-curse.o
+    CXX decks.o
+    CXX delay.o
+    CXX describe.o
+    CXX describe-god.o
+    CXX describe-spells.o
+    CXX dgl-message.o
+    CXX dgn-delve.o
+    CXX dgn-height.o
+    CXX dgn-irregular-box.o
+    CXX dgn-layouts.o
+    CXX dgn-overview.o
+    CXX dgn-proclayouts.o
+    CXX dgn-shoals.o
+    CXX dgn-swamp.o
+    CXX dgn-event.o
+    CXX directn.o
+    CXX dlua.o
+    CXX domino.o
+    CXX dungeon.o
+    CXX end.o
+    CXX english.o
+    CXX errors.o
+    CXX evoke.o
+    CXX exclude.o
+    CXX exercise.o
+    CXX fearmonger.o
+    CXX feature.o
+    CXX fight.o
+    CXX files.o
+    CXX fineff.o
+    CXX format.o
+fineff.cc: In member function 'virtual bool delayed_action_fineff::mergeable(const final_effect&) const':
+fineff.cc:288:40: warning: unused parameter 'a' [-Wunused-parameter]
+  288 |     bool mergeable(const final_effect& a) const override { return false; };
+      |                    ~~~~~~~~~~~~~~~~~~~~^
+    CXX fprop.o
+    CXX game-options.o
+    CXX geom2d.o
+    CXX ghost.o
+    CXX god-abil.o
+    CXX god-blessing.o
+    CXX god-companions.o
+    CXX god-conduct.o
+    CXX god-item.o
+    CXX god-menu.o
+    CXX god-passive.o
+    CXX god-prayer.o
+    CXX god-wrath.o
+    CXX hash.o
+    CXX hints.o
+    CXX hiscores.o
+    CXX initfile.o
+    CXX invent.o
+    CXX item-use.o
+    CXX item-name.o
+    CXX item-prop.o
+    CXX items.o
+    CXX jobs.o
+    CXX json.o
+In file included from AppHdr.h:305,
+                 from json.cc:24:
+In function 'char* sb_finish(SB*)',
+    inlined from 'bool parse_string(const char**, char**)' at json.cc:966:25:
+debug.h:58:9: warning: 'sb.SB::cur' may be used uninitialized [-Wmaybe-uninitialized]
+   58 |         if (!(p)) AssertFailed(#p, __FILE__, __LINE__); \
+      |         ^~
+json.cc:112:5: note: in expansion of macro 'ASSERT'
+  112 |     ASSERT(sb->start <= sb->cur);
+      |     ^~~~~~
+json.cc: In function 'bool parse_string(const char**, char**)':
+json.cc:852:8: note: 'sb.SB::cur' was declared here
+  852 |     SB sb;
+      |        ^~
+json.cc:71:45: warning: 'sb.SB::end' may be used uninitialized [-Wmaybe-uninitialized]
+   71 |                               if ((sb)->end - (sb)->cur < (need)) \
+      |                                   ~~~~~~~~~~^~~~~~~~~~~
+json.cc:957:13: note: in expansion of macro 'sb_need'
+  957 |             sb_need(&sb, 4);
+      |             ^~~~~~~
+json.cc:852:8: note: 'sb.SB::end' was declared here
+  852 |     SB sb;
+      |        ^~
+    CXX kills.o
+    CXX known-items.o
+    CXX l-colour.o
+    CXX l-crawl.o
+    CXX l-debug.o
+    CXX l-dgn.o
+    CXX l-dgnbld.o
+    CXX l-dgnevt.o
+    CXX l-dgngrd.o
+    CXX l-dgnit.o
+    CXX l-dgnlvl.o
+    CXX l-dgnmon.o
+    CXX l-dgntil.o
+    CXX l-feat.o
+    CXX l-file.o
+    CXX l-global.o
+    CXX l-item.o
+    CXX l-los.o
+    CXX l-mapgrd.o
+    CXX l-mapmrk.o
+    CXX l-moninf.o
+    CXX l-mons.o
+    CXX l-option.o
+    CXX l-spells.o
+    CXX l-subvault.o
+    CXX l-travel.o
+    CXX l-view.o
+    CXX l-wiz.o
+    CXX l-you.o
+    CXX lang-fake.o
+    CXX lev-pand.o
+    CXX libutil.o
+    CXX loading-screen.o
+    CXX lookup-help.o
+    CXX los.o
+    CXX los-def.o
+    CXX losglobal.o
+    CXX losparam.o
+    CXX luaterp.o
+    CXX macro.o
+    CXX makeitem.o
+    CXX map-knowledge.o
+    CXX mapdef.o
+    CXX mapmark.o
+    CXX maps.o
+    CXX maybe-bool.o
+    CXX melee-attack.o
+    CXX menu.o
+    CXX message-stream.o
+    CXX message.o
+    CXX misc.o
+    CXX mon-abil.o
+    CXX mon-act.o
+    CXX mon-aura.o
+    CXX mon-behv.o
+    CXX mon-cast.o
+    CXX mon-clone.o
+    CXX mon-death.o
+    CXX mon-ench.o
+    CXX mon-explode.o
+    CXX mon-gear.o
+    CXX mon-info.o
+    CXX mon-movetarget.o
+    CXX mon-pathfind.o
+    CXX mon-pick.o
+    CXX mon-place.o
+    CXX mon-poly.o
+    CXX mon-project.o
+    CXX mon-speak.o
+    CXX mon-tentacle.o
+    CXX mon-transit.o
+    CXX mon-util.o
+    CXX monster.o
+    CXX movement.o
+    CXX mutation.o
+    CXX nearby-danger.o
+    CXX newgame.o
+    CXX ng-init.o
+    CXX ng-init-branches.o
+    CXX ng-input.o
+    CXX ng-restr.o
+    CXX ng-setup.o
+    CXX ng-wanderer.o
+    CXX notes.o
+    CXX orb.o
+    CXX ouch.o
+    CXX outer-menu.o
+    CXX output.o
+    CXX package.o
+    CXX pattern.o
+    CXX pcg.o
+    CXX perlin.o
+    CXX piety-info.o
+    CXX place-info.o
+    CXX place.o
+    CXX playable.o
+    CXX player-act.o
+    CXX player-equip.o
+    CXX player-notices.o
+    CXX player-reacts.o
+    CXX player-stats.o
+    CXX player.o
+player-reacts.cc: In function 'void _regenerate_hp_and_mp(int)':
+player-reacts.cc:1209:15: warning: unused variable 'old_hp' [-Wunused-variable]
+ 1209 |     const int old_hp = you.hp;
+      |               ^~~~~~
+player-reacts.cc:1210:15: warning: unused variable 'old_mp' [-Wunused-variable]
+ 1210 |     const int old_mp = you.magic_points;
+      |               ^~~~~~
+    CXX potion.o
+    CXX precision-menu.o
+    CXX prompt.o
+    CXX quiver.o
+    CXX randbook.o
+    CXX random.o
+    CXX random-var.o
+    CXX ranged-attack.o
+    CXX ray.o
+    CXX religion.o
+    CXX scroller.o
+    CXX shopping.o
+    CXX shout.o
+    CXX show.o
+    CXX showsymb.o
+    CXX skill-menu.o
+    CXX skills.o
+    CXX sound.o
+    CXX species.o
+    CXX spl-book.o
+    CXX spl-cast.o
+    CXX spl-clouds.o
+    CXX spl-damage.o
+    CXX spl-goditem.o
+    CXX spl-miscast.o
+    CXX spl-monench.o
+    CXX spl-other.o
+    CXX spl-selfench.o
+    CXX spl-summoning.o
+    CXX spl-transloc.o
+    CXX spl-util.o
+    CXX spl-vortex.o
+    CXX spl-zap.o
+    CXX sprint.o
+    CXX sqldbm.o
+    CXX stairs.o
+    CXX startup.o
+    CXX stash.o
+    CXX state.o
+    CXX status.o
+    CXX stepdown.o
+    CXX store.o
+    CXX stringutil.o
+    CXX syscalls.o
+    CXX tags.o
+    CXX target.o
+    CXX target-compass.o
+    CXX teleport.o
+    CXX terrain.o
+    CXX throw.o
+    CXX timed-effects.o
+    CXX transform.o
+    CXX traps.o
+    CXX travel.o
+    CXX tutorial.o
+    CXX ui.o
+    CXX uncancel.o
+    CXX unicode.o
+    CXX view.o
+    CXX viewchar.o
+    CXX viewgeom.o
+    CXX viewmap.o
+    CXX wcwidth.o
+    CXX wiz-dgn.o
+    CXX wiz-dump.o
+    CXX wiz-fsim.o
+    CXX wiz-item.o
+    CXX wiz-mon.o
+    CXX wiz-you.o
+    CXX wizard.o
+    CXX worley.o
+    CXX xom.o
+    CXX tilepick.o
+    CXX tileview.o
+    CXX zot.o
+    CXX libunix.o
+    CXX rltiles/tiledef-floor.o
+    CXX rltiles/tiledef-wall.o
+    CXX rltiles/tiledef-feat.o
+    CXX rltiles/tiledef-main.o
+    CXX rltiles/tiledef-player.o
+    CXX rltiles/tiledef-gui.o
+    CXX rltiles/tiledef-icons.o
+    CXX rltiles/tiledef-dngn.o
+    CXX rltiles/tiledef-unrand.o
+    CXX main.o
+    CXX util/levcomp.tab.o
+    CXX util/levcomp.lex.o
+    GEN build.h
+    GEN compflag.h
+    CXX version.o
+levcomp.tab.cc: In function 'int yyparse()':
+levcomp.tab.cc:2482:37: warning: argument 1 value '18446744073709551615' exceeds maximum object size 9223372036854775807 [-Walloc-size-larger-than=]
+In file included from /usr/include/c++/15/cstdlib:83,
+                 from ./externs.h:11,
+                 from ./AppHdr.h:306,
+                 from levcomp.ypp:4:
+/usr/include/stdlib.h:672:14: note: in a call to allocation function 'void* malloc(size_t)' declared here
+  672 | extern void *malloc (size_t __size) __THROW __attribute_malloc__
+      |              ^~~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option '-Wno-null-conversion' may have been intended to silence earlier diagnostics
+    LINK crawl
+which: no advpng in (/usr/local/bin:/usr/bin)
+which: no pngcrush in (/usr/local/bin:/usr/bin)
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+    * rebuilding crawl: new build flags or prefix
+TRACK_CFLAGS = x86_64-redhat-linux-gcc x86_64-redhat-linux-g++ -O2 -pipe -DUSE_TILE -DUSE_TILE_LOCAL -DUSE_SDL -DUSE_GL -DUSE_FT -DWITH_GZFILEOP -pthread -D_GNU_SOURCE=1 -D_REENTRANT -DUSE_SOUND -Wall -Wformat-security -Wundef -Wextra -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-type-limits -Wno-uninitialized -Wno-array-bounds -Wmissing-declarations -Wredundant-decls -Wno-parentheses -Wwrite-strings -Wshadow -pedantic -Wuninitialized -Iutil -I. -isystem /usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/sysprof-6 -isystem /usr/include/SDL2 -isystem contrib/install/x86_64-redhat-linux/include -DWIZARD -DASSERTS -DPROPORTIONAL_FONT=\"contrib/fonts/DejaVuSans.ttf\" -DMONOSPACED_FONT=\"contrib/fonts/DejaVuSansMono.ttf\" -D_GNU_SOURCE=1 -D_REENTRANT -DCLUA_BINDINGS #EOL
+    PYTHON rltilesstatus-icon-sizes.h
+OLD_CFLAGS   = x86_64-redhat-linux-gcc x86_64-redhat-linux-g++ -O2 -pipe -Wall -Wformat-security -Wundef -Wextra -Wno-missing-field-initializers -Wno-implicit-fallthrough -Wno-type-limits -Wno-uninitialized -Wno-array-bounds -Wmissing-declarations -Wredundant-decls -Wno-parentheses -Wwrite-strings -Wshadow -pedantic -Wuninitialized -Iutil -I. -isystem contrib/install/x86_64-redhat-linux/include -DWIZARD -DASSERTS -DCLUA_BINDINGS -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600 #EOL
+    * Need to build contribs: lua/src
+    PYTHON config.h
+make[1]: Entering directory '/work/source/source/contrib'
+make[2]: Entering directory '/work/source/source/contrib/lua/src'
+make[2]: Leaving directory '/work/source/source/contrib/lua/src'
+make[2]: Entering directory '/work/source/source/contrib/lua/src'
+make[2]: Leaving directory '/work/source/source/contrib/lua/src'
+make[1]: Leaving directory '/work/source/source/contrib'
+make -C rltiles all ARCH=x86_64-redhat-linux NO_PKGCONFIG= TILES=y
+make[1]: Entering directory '/work/source/source/rltiles'
+    * rebuilding tilegen: new build flags or prefix
+    HOSTCXX tool/tile_colour.o
+    HOSTCXX tool/tile.o
+    HOSTCXX tool/tile_page.o
+    HOSTCXX tool/tile_list_processor.o
+    HOSTCXX tool/main.o
+    HOSTLINK tool/tilegen.elf
+    GEN dngn.png
+    GEN main.png
+    GEN floor.png
+    GEN wall.png
+    GEN feat.png
+    GEN player.png
+    GEN gui.png
+    GEN icons.png
+    GEN tiledef-dngn.cc
+    GEN tiledef-feat.cc
+    GEN tiledef-icons.cc
+    GEN tileinfo-gui.js
+    GEN tiledef-floor.h
+    GEN tiledef-main.h
+    GEN tiledef-wall.h
+    GEN tiledef-player.h
+make[1]: Leaving directory '/work/source/source/rltiles'
+    CXX zh-localization.o
+    CXX zh-message.o
+    CXX zh-display-name.o
+    CXX ability.o
+    CXX abyss.o
+    CXX acquire.o
+    CXX act-iter.o
+    CXX actor-los.o
+    CXX actor.o
+    CXX adjust.o
+    CXX areas.o
+    CXX arena.o
+    CXX artefact.o
+    CXX attack.o
+    CXX attitude-change.o
+    CXX beam.o
+    CXX behold.o
+    CXX bitary.o
+    CXX branch.o
+    CXX branch-data-json.o
+    CXX bloodspatter.o
+    CXX chardump.o
+    CXX cio.o
+    CXX cloud.o
+    CXX clua.o
+    CXX cluautil.o
+    CXX colour.o
+    CXX command.o
+    CXX coord.o
+    CXX coord-circle.o
+    CXX coordit.o
+    CXX corpse.o
+    CXX crash.o
+    CXX ctest.o
+    CXX dactions.o
+    CXX database.o
+    CXX dbg-asrt.o
+    CXX dbg-maps.o
+    CXX dbg-objstat.o
+    CXX dbg-scan.o
+    CXX dbg-util.o
+    CXX death-curse.o
+    CXX decks.o
+    CXX delay.o
+    CXX describe.o
+    CXX describe-god.o
+    CXX describe-spells.o
+    CXX dgl-message.o
+    CXX dgn-delve.o
+    CXX dgn-height.o
+    CXX dgn-irregular-box.o
+    CXX dgn-layouts.o
+    CXX dgn-overview.o
+    CXX dgn-proclayouts.o
+    CXX dgn-shoals.o
+    CXX dgn-swamp.o
+    CXX dgn-event.o
+    CXX directn.o
+    CXX dlua.o
+    CXX domino.o
+    CXX dungeon.o
+    CXX end.o
+    CXX english.o
+    CXX errors.o
+    CXX evoke.o
+    CXX exclude.o
+    CXX exercise.o
+    CXX fearmonger.o
+    CXX feature.o
+    CXX fight.o
+    CXX files.o
+    CXX fineff.o
+    CXX format.o
+fineff.cc: In member function 'virtual bool delayed_action_fineff::mergeable(const final_effect&) const':
+fineff.cc:288:40: warning: unused parameter 'a' [-Wunused-parameter]
+  288 |     bool mergeable(const final_effect& a) const override { return false; };
+      |                    ~~~~~~~~~~~~~~~~~~~~^
+    CXX fprop.o
+    CXX game-options.o
+    CXX geom2d.o
+    CXX ghost.o
+    CXX god-abil.o
+    CXX god-blessing.o
+    CXX god-companions.o
+    CXX god-conduct.o
+    CXX god-item.o
+    CXX god-menu.o
+    CXX god-passive.o
+    CXX god-prayer.o
+    CXX god-wrath.o
+    CXX hash.o
+    CXX hints.o
+    CXX hiscores.o
+    CXX initfile.o
+    CXX invent.o
+    CXX item-use.o
+    CXX item-name.o
+    CXX item-prop.o
+    CXX items.o
+    CXX jobs.o
+    CXX json.o
+    CXX kills.o
+In file included from AppHdr.h:305,
+                 from json.cc:24:
+In function 'char* sb_finish(SB*)',
+    inlined from 'bool parse_string(const char**, char**)' at json.cc:966:25:
+debug.h:58:9: warning: 'sb.SB::cur' may be used uninitialized [-Wmaybe-uninitialized]
+   58 |         if (!(p)) AssertFailed(#p, __FILE__, __LINE__); \
+      |         ^~
+json.cc:112:5: note: in expansion of macro 'ASSERT'
+  112 |     ASSERT(sb->start <= sb->cur);
+      |     ^~~~~~
+json.cc: In function 'bool parse_string(const char**, char**)':
+json.cc:852:8: note: 'sb.SB::cur' was declared here
+  852 |     SB sb;
+      |        ^~
+json.cc:71:45: warning: 'sb.SB::end' may be used uninitialized [-Wmaybe-uninitialized]
+   71 |                               if ((sb)->end - (sb)->cur < (need)) \
+      |                                   ~~~~~~~~~~^~~~~~~~~~~
+json.cc:957:13: note: in expansion of macro 'sb_need'
+  957 |             sb_need(&sb, 4);
+      |             ^~~~~~~
+json.cc:852:8: note: 'sb.SB::end' was declared here
+  852 |     SB sb;
+      |        ^~
+    CXX known-items.o
+    CXX l-colour.o
+    CXX l-crawl.o
+    CXX l-debug.o
+    CXX l-dgn.o
+    CXX l-dgnbld.o
+    CXX l-dgnevt.o
+    CXX l-dgngrd.o
+    CXX l-dgnit.o
+    CXX l-dgnlvl.o
+    CXX l-dgnmon.o
+    CXX l-dgntil.o
+    CXX l-feat.o
+    CXX l-file.o
+    CXX l-global.o
+    CXX l-item.o
+    CXX l-los.o
+    CXX l-mapgrd.o
+    CXX l-mapmrk.o
+    CXX l-moninf.o
+    CXX l-mons.o
+    CXX l-option.o
+    CXX l-spells.o
+    CXX l-subvault.o
+    CXX l-travel.o
+    CXX l-view.o
+    CXX l-wiz.o
+    CXX l-you.o
+    CXX lang-fake.o
+    CXX lev-pand.o
+    CXX libutil.o
+    CXX loading-screen.o
+    CXX lookup-help.o
+    CXX los.o
+    CXX los-def.o
+    CXX losglobal.o
+    CXX losparam.o
+    CXX luaterp.o
+    CXX macro.o
+    CXX makeitem.o
+    CXX map-knowledge.o
+    CXX mapdef.o
+    CXX mapmark.o
+    CXX maps.o
+    CXX maybe-bool.o
+    CXX melee-attack.o
+    CXX menu.o
+    CXX message-stream.o
+    CXX message.o
+    CXX misc.o
+    CXX mon-abil.o
+    CXX mon-act.o
+    CXX mon-aura.o
+    CXX mon-behv.o
+    CXX mon-cast.o
+    CXX mon-clone.o
+    CXX mon-death.o
+    CXX mon-ench.o
+    CXX mon-explode.o
+    CXX mon-gear.o
+    CXX mon-info.o
+    CXX mon-movetarget.o
+    CXX mon-pathfind.o
+    CXX mon-pick.o
+    CXX mon-place.o
+    CXX mon-poly.o
+    CXX mon-project.o
+    CXX mon-speak.o
+    CXX mon-tentacle.o
+    CXX mon-transit.o
+    CXX mon-util.o
+    CXX monster.o
+    CXX movement.o
+    CXX mutation.o
+    CXX nearby-danger.o
+    CXX newgame.o
+    CXX ng-init.o
+    CXX ng-init-branches.o
+    CXX ng-input.o
+    CXX ng-restr.o
+    CXX ng-setup.o
+    CXX ng-wanderer.o
+    CXX notes.o
+    CXX orb.o
+    CXX ouch.o
+    CXX outer-menu.o
+    CXX output.o
+    CXX package.o
+    CXX pattern.o
+    CXX pcg.o
+    CXX perlin.o
+    CXX piety-info.o
+    CXX place-info.o
+    CXX place.o
+    CXX playable.o
+    CXX player-act.o
+    CXX player-equip.o
+    CXX player-notices.o
+    CXX player-reacts.o
+    CXX player-stats.o
+    CXX player.o
+player-reacts.cc: In function 'void _regenerate_hp_and_mp(int)':
+player-reacts.cc:1209:15: warning: unused variable 'old_hp' [-Wunused-variable]
+ 1209 |     const int old_hp = you.hp;
+      |               ^~~~~~
+player-reacts.cc:1210:15: warning: unused variable 'old_mp' [-Wunused-variable]
+ 1210 |     const int old_mp = you.magic_points;
+      |               ^~~~~~
+    CXX potion.o
+    CXX precision-menu.o
+    CXX prompt.o
+    CXX quiver.o
+    CXX randbook.o
+    CXX random.o
+    CXX random-var.o
+    CXX ranged-attack.o
+    CXX ray.o
+    CXX religion.o
+    CXX scroller.o
+    CXX shopping.o
+    CXX shout.o
+    CXX show.o
+    CXX showsymb.o
+    CXX skill-menu.o
+    CXX skills.o
+    CXX sound.o
+    CXX species.o
+    CXX spl-book.o
+    CXX spl-cast.o
+    CXX spl-clouds.o
+    CXX spl-damage.o
+    CXX spl-goditem.o
+    CXX spl-miscast.o
+    CXX spl-monench.o
+    CXX spl-other.o
+    CXX spl-selfench.o
+    CXX spl-summoning.o
+    CXX spl-transloc.o
+    CXX spl-util.o
+    CXX spl-vortex.o
+    CXX spl-zap.o
+    CXX sprint.o
+    CXX sqldbm.o
+    CXX stairs.o
+    CXX startup.o
+    CXX stash.o
+    CXX state.o
+    CXX status.o
+    CXX stepdown.o
+    CXX store.o
+    CXX stringutil.o
+    CXX syscalls.o
+    CXX tags.o
+    CXX target.o
+    CXX target-compass.o
+    CXX teleport.o
+    CXX terrain.o
+    CXX throw.o
+    CXX timed-effects.o
+    CXX transform.o
+    CXX traps.o
+    CXX travel.o
+    CXX tutorial.o
+    CXX ui.o
+    CXX uncancel.o
+    CXX unicode.o
+    CXX view.o
+    CXX viewchar.o
+    CXX viewgeom.o
+    CXX viewmap.o
+    CXX wcwidth.o
+    CXX wiz-dgn.o
+    CXX wiz-dump.o
+    CXX wiz-fsim.o
+    CXX wiz-item.o
+    CXX wiz-mon.o
+    CXX wiz-you.o
+    CXX wizard.o
+    CXX worley.o
+    CXX xom.o
+    CXX tilepick.o
+    CXX tileview.o
+    CXX zot.o
+    CXX tiledoll.o
+    CXX tilemcache.o
+    CXX tilepick-p.o
+    CXX tilecell.o
+    CXX glwrapper.o
+    CXX libgui.o
+    CXX tilebuf.o
+    CXX tiledgnbuf.o
+    CXX tilefont.o
+    CXX tilereg.o
+    CXX tilereg-abl.o
+    CXX tilereg-cmd.o
+    CXX tilereg-crt.o
+    CXX tilereg-dgn.o
+    CXX tilereg-doll.o
+    CXX tilereg-grid.o
+    CXX tilereg-inv.o
+    CXX tilereg-map.o
+    CXX tilereg-mem.o
+    CXX tilereg-mon.o
+    CXX tilereg-msg.o
+    CXX tilereg-skl.o
+    CXX tilereg-spl.o
+    CXX tilereg-stat.o
+    CXX tilereg-tab.o
+    CXX tilereg-text.o
+    CXX tilesdl.o
+    CXX tiletex.o
+    CXX windowmanager-sdl.o
+    CXX glwrapper-ogl.o
+    CXX fontwrapper-ft.o
+    CXX rltiles/tiledef-floor.o
+    CXX rltiles/tiledef-wall.o
+    CXX rltiles/tiledef-feat.o
+    CXX rltiles/tiledef-main.o
+    CXX rltiles/tiledef-player.o
+    CXX rltiles/tiledef-gui.o
+    CXX rltiles/tiledef-icons.o
+    CXX rltiles/tiledef-dngn.o
+    CXX rltiles/tiledef-unrand.o
+    CXX main.o
+    CXX util/levcomp.tab.o
+    CXX util/levcomp.lex.o
+    GEN compflag.h
+    COPY dat/tiles/floor.png
+    COPY dat/tiles/wall.png
+    COPY dat/tiles/feat.png
+    COPY dat/tiles/main.png
+    COPY dat/tiles/player.png
+    COPY dat/tiles/gui.png
+    COPY dat/tiles/icons.png
+    CXX version.o
+levcomp.tab.cc: In function 'int yyparse()':
+levcomp.tab.cc:2482:37: warning: argument 1 value '18446744073709551615' exceeds maximum object size 9223372036854775807 [-Walloc-size-larger-than=]
+In file included from /usr/include/c++/15/cstdlib:83,
+                 from ./externs.h:11,
+                 from ./AppHdr.h:306,
+                 from levcomp.ypp:4:
+/usr/include/stdlib.h:672:14: note: in a call to allocation function 'void* malloc(size_t)' declared here
+  672 | extern void *malloc (size_t __size) __THROW __attribute_malloc__
+      |              ^~~~~~
+At global scope:
+cc1plus: note: unrecognized command-line option '-Wno-null-conversion' may have been intended to silence earlier diagnostics
+    LINK crawl
+/Users/drafff/Documents/ChatGPT/汉化/DCSS/output/linux/dcss-zh

@@ -1,5 +1,5 @@
 OBJECTS = \
-zh-localization.o \
+zh-localization.o zh-message.o zh-display-name.o \
 ability.o \
 abyss.o \
 acquire.o \

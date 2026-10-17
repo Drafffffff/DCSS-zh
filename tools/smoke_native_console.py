@@ -29,6 +29,10 @@ function ready()
   crawl.mpr("You feel better.")
   assert(zh_raw_seen, "canonical c_message hook failed")
   assert(string.find(crawl.messages(20), "You feel better.", 1, true), "canonical Lua history failed")
+  for _, item in ipairs(items.inventory()) do
+    local description = item.description
+    assert(not string.find(description, "基础", 1, true), "canonical Lua item description failed")
+  end
   crawl.mpr("ZH_CANONICAL_HISTORY_OK")
 end
 }}
@@ -37,7 +41,11 @@ end
     if pid==0:
         os.chdir(a.data)
         env=dict(os.environ,TERM='xterm-256color',LANG=a.locale,LC_ALL=a.locale,DCSS_LANG='zh')
-        if a.extended: env['DCSS_ZH_TRACE']=str(trace)
+        if a.extended:
+            env['DCSS_ZH_TRACE']=str(trace)
+            env['DCSS_ZH_ID_TRACE']=str(out.resolve()/'ids.tsv')
+            env['DCSS_ZH_ID_MISSING']=str(out.resolve()/'missing.tsv')
+            env['DCSS_ZH_NAME_MISSING']=str(out.resolve()/'names.tsv')
         os.execve(a.binary,[a.binary,'-dir',str(state),'-rc',str(rc),'-name','ZhSmoke','-species',a.species,'-background',a.background,'-seed','1234'],env)
     fcntl.ioctl(fd,termios.TIOCSWINSZ,struct.pack('HHHH',42,120,0,0))
     buf=bytearray()
@@ -54,7 +62,7 @@ end
     frames=[{'keys':'startup','offset':len(buf)}]
     keys_to_send=[b'a',b'\r',b'\r']
     if a.extended:
-        for key in (b'i', b'ia', b'm', b'm?', b'%', b'A', b'^', b'a', b'I', b'M', b'\\', b'X', b'?', b'??'):
+        for key in (b'Tb', b'Wb', b'i', b'ia', b'm', b'm?', b'%', b'A', b'^', b'a', b'I', b'M', b'\\', b'X', b'?', b'??'):
             keys_to_send += [key,b'\x1b\x1b']
     keys_to_send += [b'?',b'\x1b',b'S',b'y']
     for keys in keys_to_send:
